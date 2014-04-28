@@ -8,15 +8,15 @@ public class UnclePOCreator extends PatternObjectCreator
    {
       return new UnclePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((UnclePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((UnclePO) target).set(attrName, value);
    }
 }
-

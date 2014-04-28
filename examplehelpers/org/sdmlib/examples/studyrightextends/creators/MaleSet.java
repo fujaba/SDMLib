@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.Collection;
@@ -27,81 +27,72 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyrightextends.Male;
 import org.sdmlib.models.modelsets.StringList;
 
-public class MaleSet extends LinkedHashSet<Male> implements org.sdmlib.models.modelsets.ModelSet
+public class MaleSet extends LinkedHashSet<Male> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Male elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightextends.Male";
    }
 
-
-
    public MalePO startModelPattern()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       MalePO patternObject = pattern.hasElementMalePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public MaleSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Male>)value);
+         this.addAll((Collection<Male>) value);
       }
       else if (value != null)
       {
          this.add((Male) value);
       }
-      
+
       return this;
    }
-   
+
    public MaleSet without(Male value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public MalePO hasMalePO()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       MalePO patternObject = pattern.hasElementMalePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

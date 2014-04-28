@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.codegen;
 
 import java.beans.PropertyChangeSupport;
@@ -32,27 +32,29 @@ public class LocalVarTableEntry implements PropertyChangeInterface
 {
    public String toString()
    {
-   	//   	StringBuilder _ = new StringBuilder();
-   	//   	_.append(" ").append(this.getName());
-   	//      _.append(" ").append(this.getType());
-   	//      _.append(" ").append(this.getStartPos());
-   	//      _.append(" ").append(this.getEndPos());
+      // StringBuilder _ = new StringBuilder();
+      // _.append(" ").append(this.getName());
+      // _.append(" ").append(this.getType());
+      // _.append(" ").append(this.getStartPos());
+      // _.append(" ").append(this.getEndPos());
       return "" + name + " : " + type;
    }
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public Object get(String attrName)
    {
-	  int pos = attrName.indexOf('.');
-	  String attribute;
-	  if (pos > 0)
+      int pos = attrName.indexOf('.');
+      String attribute;
+      if (pos > 0)
       {
-		  attribute = attrName.substring(0, pos);
-      }else{
-    	  attribute = attrName;
+         attribute = attrName.substring(0, pos);
       }
-	  
+      else
+      {
+         attribute = attrName;
+      }
+
       if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attribute))
       {
          return getInitSequence();
@@ -106,13 +108,12 @@ public class LocalVarTableEntry implements PropertyChangeInterface
       {
          return getEndPos();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
@@ -184,148 +185,145 @@ public class LocalVarTableEntry implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
-   
+
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public LocalVarTableEntry withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TYPE = "type";
-   
+
    private String type;
-   
+
    public String getType()
    {
       return this.type;
    }
-   
+
    public void setType(String value)
    {
-      if ( ! StrUtil.stringEquals(this.type, value))
+      if (!StrUtil.stringEquals(this.type, value))
       {
          String oldValue = this.type;
          this.type = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue,
+            value);
       }
    }
-   
+
    public LocalVarTableEntry withType(String value)
    {
       setType(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_INITSEQUENCE = "initSequence";
-   
+
    private ArrayList<ArrayList<String>> initSequence;
-   
+
    public ArrayList<ArrayList<String>> getInitSequence()
    {
       return this.initSequence;
    }
-   
-   
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public static final String PROPERTY_STARTPOS = "startPos";
-   
+
    private int startPos;
 
    public int getStartPos()
    {
       return this.startPos;
    }
-   
+
    public void setStartPos(int value)
    {
       if (this.startPos != value)
       {
          int oldValue = this.startPos;
          this.startPos = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTPOS, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTPOS,
+            oldValue, value);
       }
    }
-   
+
    public LocalVarTableEntry withStartPos(int value)
    {
       setStartPos(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_ENDPOS = "endPos";
-   
+
    private int endPos;
 
    public int getEndPos()
    {
       return this.endPos;
    }
-   
+
    public void setEndPos(int value)
    {
       if (this.endPos != value)
       {
          int oldValue = this.endPos;
          this.endPos = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENDPOS, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENDPOS,
+            oldValue, value);
       }
    }
-   
+
    public LocalVarTableEntry withEndPos(int value)
    {
       setEndPos(value);
       return this;
-   } 
+   }
 
    public void setInitSequence(ArrayList<ArrayList<String>> value)
    {
@@ -333,10 +331,11 @@ public class LocalVarTableEntry implements PropertyChangeInterface
       {
          ArrayList<ArrayList<String>> oldValue = this.initSequence;
          this.initSequence = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_INITSEQUENCE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INITSEQUENCE,
+            oldValue, value);
       }
    }
-   
+
    public LocalVarTableEntry withInitSequence(ArrayList<ArrayList<String>> value)
    {
       setInitSequence(value);
@@ -344,4 +343,3 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    }
 
 }
-

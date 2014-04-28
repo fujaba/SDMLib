@@ -8,15 +8,14 @@ public class SymTabEntryPOCreator extends PatternObjectCreator
    {
       return new SymTabEntryPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((SymTabEntryPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((SymTabEntryPO) target).set(attrName, value);
    }
 }
-

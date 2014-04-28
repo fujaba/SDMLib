@@ -8,15 +8,15 @@ public class StoryboardStepPOCreator extends PatternObjectCreator
    {
       return new StoryboardStepPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((StoryboardStepPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((StoryboardStepPO) target).set(attrName, value);
    }
 }
-

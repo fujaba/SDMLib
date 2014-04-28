@@ -8,15 +8,15 @@ public class PointPOCreator extends PatternObjectCreator
    {
       return new PointPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((PointPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((PointPO) target).set(attrName, value);
    }
 }
-

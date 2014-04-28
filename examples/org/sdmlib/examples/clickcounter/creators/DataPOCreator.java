@@ -8,15 +8,15 @@ public class DataPOCreator extends PatternObjectCreator
    {
       return new DataPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((DataPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((DataPO) target).set(attrName, value);
    }
 }
-

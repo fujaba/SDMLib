@@ -16,7 +16,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -28,97 +28,95 @@ public class ModelPattern extends Pattern
       RiverPO value = new RiverPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public RiverPO hasElementRiverPO(River hostGraphObject)
    {
       RiverPO value = new RiverPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public BoatPO hasElementBoatPO()
    {
       BoatPO value = new BoatPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public BoatPO hasElementBoatPO(Boat hostGraphObject)
    {
       BoatPO value = new BoatPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public BankPO hasElementBankPO()
    {
       BankPO value = new BankPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public BankPO hasElementBankPO(Bank hostGraphObject)
    {
       BankPO value = new BankPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public CargoPO hasElementCargoPO()
    {
       CargoPO value = new CargoPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public CargoPO hasElementCargoPO(Cargo hostGraphObject)
    {
       CargoPO value = new CargoPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-

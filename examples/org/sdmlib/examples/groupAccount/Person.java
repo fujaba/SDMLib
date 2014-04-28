@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.groupAccount;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -33,9 +33,8 @@ import org.sdmlib.serialization.json.JsonIdMap;
 public class Person implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -61,9 +60,8 @@ public class Person implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -89,7 +87,7 @@ public class Person implements PropertyChangeInterface
          addToItems((Item) value);
          return true;
       }
-      
+
       if ((PROPERTY_ITEMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromItems((Item) value);
@@ -99,24 +97,22 @@ public class Person implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setParent(null);
@@ -124,76 +120,73 @@ public class Person implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public Person withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getBalance());
       return _.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_BALANCE = "balance";
-   
+
    private double balance;
 
    public double getBalance()
    {
       return this.balance;
    }
-   
+
    public void setBalance(double value)
    {
       if (this.balance != value)
       {
          double oldValue = this.balance;
          this.balance = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_BALANCE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_BALANCE,
+            oldValue, value);
       }
    }
-   
+
    public Person withBalance(double value)
    {
       setBalance(value);
       return this;
-   } 
+   }
 
-   
    public static final PersonSet EMPTY_SET = new PersonSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -201,58 +194,58 @@ public class Person implements PropertyChangeInterface
     *              persons                   parent
     * </pre>
     */
-   
+
    public static final String PROPERTY_PARENT = "parent";
-   
+
    private GroupAccount parent = null;
-   
+
    public GroupAccount getParent()
    {
       return this.parent;
    }
-   
+
    public boolean setParent(GroupAccount value)
    {
       boolean changed = false;
-      
+
       if (this.parent != value)
       {
          GroupAccount oldValue = this.parent;
-         
+
          if (this.parent != null)
          {
             this.parent = null;
             oldValue.withoutPersons(this);
          }
-         
+
          this.parent = value;
-         
+
          if (value != null)
          {
             value.withPersons(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Person withParent(GroupAccount value)
    {
       setParent(value);
       return this;
-   } 
-   
+   }
+
    public GroupAccount createParent()
    {
       GroupAccount value = new GroupAccount();
       withParent(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -260,90 +253,92 @@ public class Person implements PropertyChangeInterface
     *              buyer                   items
     * </pre>
     */
-   
+
    public static final String PROPERTY_ITEMS = "items";
-   
+
    private ItemSet items = null;
-   
+
    public ItemSet getItems()
    {
       if (this.items == null)
       {
          return Item.EMPTY_SET;
       }
-   
+
       return this.items;
    }
-   
+
    public boolean addToItems(Item value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.items == null)
          {
             this.items = new ItemSet();
          }
-         
-         changed = this.items.add (value);
-         
+
+         changed = this.items.add(value);
+
          if (changed)
          {
             value.withBuyer(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromItems(Item value)
    {
       boolean changed = false;
-      
+
       if ((this.items != null) && (value != null))
       {
-         changed = this.items.remove (value);
-         
+         changed = this.items.remove(value);
+
          if (changed)
          {
             value.setBuyer(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Person withItems(Item value)
    {
       addToItems(value);
       return this;
-   } 
-   
+   }
+
    public Person withoutItems(Item value)
    {
       removeFromItems(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromItems()
    {
       LinkedHashSet<Item> tmpSet = new LinkedHashSet<Item>(this.getItems());
-   
+
       for (Item value : tmpSet)
       {
          this.removeFromItems(value);
       }
    }
-   
+
    public Item createItems()
    {
       Item value = new Item();
       withItems(value);
       return value;
-   } 
+   }
 
    public Person withItems(Item... value)
    {
@@ -352,7 +347,7 @@ public class Person implements PropertyChangeInterface
          addToItems(item);
       }
       return this;
-   } 
+   }
 
    public Person withoutItems(Item... value)
    {
@@ -363,4 +358,3 @@ public class Person implements PropertyChangeInterface
       return this;
    }
 }
-

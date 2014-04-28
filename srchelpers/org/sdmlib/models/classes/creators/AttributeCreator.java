@@ -7,49 +7,40 @@ import org.sdmlib.serialization.json.JsonIdMap;
 public class AttributeCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-   {
-      Attribute.PROPERTY_INITIALIZATION,
-      Attribute.PROPERTY_CLAZZ,
-      Attribute.PROPERTY_TYPE,
-      Attribute.PROPERTY_NAME,
-   };
-   
+   { Attribute.PROPERTY_INITIALIZATION, Attribute.PROPERTY_CLAZZ,
+         Attribute.PROPERTY_TYPE, Attribute.PROPERTY_NAME, };
+
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    public Object getSendableInstance(boolean reference)
    {
       return new Attribute();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((Attribute) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((Attribute) target).set(attrName, value);
    }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {
       ((Attribute) entity).removeYou();
    }
 }
-
-
-
-
-

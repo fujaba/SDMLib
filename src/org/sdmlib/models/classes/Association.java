@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeSupport;
@@ -29,7 +29,6 @@ import org.sdmlib.models.classes.creators.AssociationSet;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
-
 public class Association implements PropertyChangeInterface
 {
    public String toString()
@@ -37,42 +36,40 @@ public class Association implements PropertyChangeInterface
       String text = "role is missing";
       try
       {
-         text = CGUtil.shortClassName(source.getClazz().getName()) + "|" + source.getName() + " -- " + target.getName() + "|" + CGUtil.shortClassName(target.getClazz().getName());
+         text = CGUtil.shortClassName(source.getClazz().getName()) + "|"
+            + source.getName() + " -- " + target.getName() + "|"
+            + CGUtil.shortClassName(target.getClazz().getName());
       }
       catch (Exception e)
       {
          // intentionally empty
       }
-      return  text;
+      return text;
    }
-   
+
    public Association()
    {
       ClassModel.classModel.addToAssociations(this);
    }
-   
+
    public Association withSource(Clazz sourceClass, String roleName, R card)
    {
       withSource(roleName, sourceClass, card, Role.VANILLA);
       return this;
    }
-   
+
    public Association withSource(String roleName, Clazz sourceClass, R card)
    {
       withSource(roleName, sourceClass, card, Role.VANILLA);
       return this;
    }
 
-
    public Association withSource(String roleName, Clazz sourceClass, R card,
-      String kind)
+         String kind)
    {
-      setSource(new Role()
-      .withName(roleName)
-      .withClazz(sourceClass)
-      .withCard(card.toString())
-      .withKind(kind));
-      
+      setSource(new Role().withName(roleName).withClazz(sourceClass)
+         .withCard(card.toString()).withKind(kind));
+
       return this;
    }
 
@@ -81,112 +78,109 @@ public class Association implements PropertyChangeInterface
       withTarget(roleName, targetClass, card, Role.VANILLA);
       return this;
    }
-   
+
    public Association withTarget(String roleName, Clazz targetClass, R card)
    {
       withTarget(roleName, targetClass, card, Role.VANILLA);
       return this;
    }
 
-
    public Association withTarget(String roleName, Clazz targetClass, R card,
-      String kind)
+         String kind)
    {
-      setTarget(new Role()
-      .withName(roleName)
-      .withClazz(targetClass)
-      .withCard(card.toString())
-      .withKind(kind));
-      
+      setTarget(new Role().withName(roleName).withClazz(targetClass)
+         .withCard(card.toString()).withKind(kind));
+
       return this;
    }
 
- 
    public Association generate(String rootDir, String helperDir)
    {
       generate(rootDir, helperDir, true);
-      
+
       return this;
    }
-   
-   public Association generate(String rootDir, String helperDir, boolean doGenerate)
+
+   public Association generate(String rootDir, String helperDir,
+         boolean doGenerate)
    {
       // open source class and get or insert role implementation
       getSource().generate(rootDir, helperDir, getTarget(), doGenerate);
-      
+
       // also for subclasses
       for (Clazz kidClass : getSource().getClazz().getKidClassesClosure())
       {
-         boolean needsImplementation = kidClass.getInterfaces().contains(getSource().getClazz());
-         getSource().generate(kidClass, rootDir, helperDir, getTarget(), doGenerate, ! needsImplementation);
+         boolean needsImplementation = kidClass.getInterfaces().contains(
+            getSource().getClazz());
+         getSource().generate(kidClass, rootDir, helperDir, getTarget(),
+            doGenerate, !needsImplementation);
       }
 
       // open target class and get or insert role implementation
       getTarget().generate(rootDir, helperDir, getSource(), doGenerate);
 
       // also for subclasses
-      for (Clazz kidClass : getTarget().getClazz()
-            .getKidClassesClosure())
+      for (Clazz kidClass : getTarget().getClazz().getKidClassesClosure())
       {
-         boolean needsImplementation = kidClass.getInterfaces().contains(getTarget().getClazz());
-         getTarget().generate(kidClass, rootDir, helperDir, getSource(), doGenerate, ! needsImplementation);
+         boolean needsImplementation = kidClass.getInterfaces().contains(
+            getTarget().getClazz());
+         getTarget().generate(kidClass, rootDir, helperDir, getSource(),
+            doGenerate, !needsImplementation);
       }
-      
-      return this;
-   } 
 
-   
-   //==========================================================================
-   
+      return this;
+   }
+
+   // ==========================================================================
+
    public static final String PROPERTY_TARGET = "target";
-   
+
    private Role target;
-   
+
    public Role getTarget()
    {
       return this.target;
    }
-   
+
    public boolean setTarget(Role value)
    {
-      
+
       boolean changed = false;
-      
+
       if (this.target != value)
       {
          Role oldValue = this.target;
-         
+
          if (this.target != null)
          {
             this.target = null;
             oldValue.setAssoc(null);
          }
-         
+
          this.target = value;
-         
+
          if (value != null)
          {
             value.setAssoc(this);
          }
-         
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null, value);
+
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null,
+         // value);
          changed = true;
       }
-      
+
       return changed;
-      
+
    }
-   
+
    public Association withTarget(Role value)
    {
       setTarget(value);
       return this;
-   } 
+   }
 
-   
    public static final AssociationSet EMPTY_SET = new AssociationSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -194,51 +188,51 @@ public class Association implements PropertyChangeInterface
     *              associations                   model
     * </pre>
     */
-   
+
    public static final String PROPERTY_MODEL = "model";
-   
+
    private ClassModel model = null;
-   
+
    public ClassModel getModel()
    {
       return this.model;
    }
-   
+
    public boolean setModel(ClassModel value)
    {
       boolean changed = false;
-      
+
       if (this.model != value)
       {
          ClassModel oldValue = this.model;
-         
+
          if (this.model != null)
          {
             this.model = null;
             oldValue.withoutAssociations(this);
          }
-         
+
          this.model = value;
-         
+
          if (value != null)
          {
             value.withAssociations(this);
          }
-         
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_MODEL, null, value);
+
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_MODEL, null,
+         // value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Association withModel(ClassModel value)
    {
       setModel(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -246,58 +240,58 @@ public class Association implements PropertyChangeInterface
     *              assoc                   source
     * </pre>
     */
-   
+
    public static final String PROPERTY_SOURCE = "source";
-   
+
    private Role source = null;
-   
+
    public Role getSource()
    {
       return this.source;
    }
-   
+
    public boolean setSource(Role value)
    {
       boolean changed = false;
-      
+
       if (this.source != value)
       {
          Role oldValue = this.source;
-         
+
          if (this.source != null)
          {
             this.source = null;
             oldValue.setAssoc(null);
          }
-         
+
          this.source = value;
-         
+
          if (value != null)
          {
             value.setAssoc(this);
          }
-         
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null, value);
+
+         // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null,
+         // value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Association withSource(Role value)
    {
       setSource(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -317,13 +311,12 @@ public class Association implements PropertyChangeInterface
       {
          return getTarget();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_MODEL.equalsIgnoreCase(attrName))
@@ -347,19 +340,18 @@ public class Association implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setModel(null);
@@ -373,13 +365,12 @@ public class Association implements PropertyChangeInterface
       ClassModel value = new ClassModel();
       withModel(value);
       return value;
-   } 
+   }
 
    public Role createSource()
    {
       Role value = new Role();
       withSource(value);
       return value;
-   } 
+   }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.clickcounter;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -31,9 +31,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Data implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NUM.equalsIgnoreCase(attrName))
@@ -49,9 +48,8 @@ public class Data implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NUM.equalsIgnoreCase(attrName))
@@ -69,92 +67,88 @@ public class Data implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NUM = "num";
-   
+
    private int num;
 
    public int getNum()
    {
       return this.num;
    }
-   
+
    public void setNum(int value)
    {
       if (this.num != value)
       {
          int oldValue = this.num;
          this.num = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NUM, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NUM, oldValue,
+            value);
       }
    }
-   
+
    public Data withNum(int value)
    {
       setNum(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getNum());
       return _.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_FXNUM = "fxnum";
-   
+
    private javafx.beans.property.IntegerProperty fxnum = new SimpleIntegerProperty();
 
    public javafx.beans.property.IntegerProperty getFxnum()
    {
       return this.fxnum;
    }
-   
+
    public void setFxnum(javafx.beans.property.IntegerProperty value)
    {
       if (this.fxnum != value)
       {
          javafx.beans.property.IntegerProperty oldValue = this.fxnum;
          this.fxnum = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_FXNUM, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_FXNUM,
+            oldValue, value);
       }
    }
-   
+
    public Data withFxnum(javafx.beans.property.IntegerProperty value)
    {
       setFxnum(value);
       return this;
-   } 
+   }
 }
-

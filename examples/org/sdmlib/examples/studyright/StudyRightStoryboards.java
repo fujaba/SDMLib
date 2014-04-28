@@ -21,43 +21,32 @@ public class StudyRightStoryboards
       Storyboard storyboard = new Storyboard("examples");
 
       storyboard.setSprint("Sprint.001.Booting");
-      
-      //=============================================================
-      storyboard.add("Start situation: use University class to build object structure",
+
+      // =============================================================
+      storyboard.add(
+         "Start situation: use University class to build object structure",
          DONE, "zuendorf", "06.10.2013 21:37:46", 0, 0);
 
-      University uni = new University()
-      .withName("StudyRight");
+      University uni = new University().withName("StudyRight");
 
-      Student albert = uni.createStudents()
-            .withMatrNo(4242)
-            .withName("Albert");
+      Student albert = uni.createStudents().withMatrNo(4242).withName("Albert");
 
-      Student nina = uni.createStudents()
-            .withMatrNo(2323)
-            .withName("Nina"); 
+      Student nina = uni.createStudents().withMatrNo(2323).withName("Nina");
 
-      Room mathRoom = uni.createRooms()
-            .withRoomNo("math")
-            .withCredits(42)  
-            .withStudents(albert); 
+      Room mathRoom = uni.createRooms().withRoomNo("math").withCredits(42)
+         .withStudents(albert);
 
-      Room artsRoom = uni.createRooms()
-            .withRoomNo("arts")
-            .withCredits(23)
-            .withNeighbors(mathRoom); 
+      Room artsRoom = uni.createRooms().withRoomNo("arts").withCredits(23)
+         .withNeighbors(mathRoom);
 
-      Room sportsRoom = uni.createRooms()
-            .withRoomNo("sports")
-            .withCredits(23)
-            .withNeighbors(mathRoom, artsRoom); 
+      Room sportsRoom = uni.createRooms().withRoomNo("sports").withCredits(23)
+         .withNeighbors(mathRoom, artsRoom);
 
-      Room examRoom = uni.createRooms()
-            .withRoomNo("exam")
-            .withCredits(0)
-            .withNeighbors(sportsRoom, artsRoom);
+      Room examRoom = uni.createRooms().withRoomNo("exam").withCredits(0)
+         .withNeighbors(sportsRoom, artsRoom);
 
-      Room progMeth = uni.createRooms().withRoomNo("ProgMeth").withCredits(42).withNeighbors(artsRoom);
+      Room progMeth = uni.createRooms().withRoomNo("ProgMeth").withCredits(42)
+         .withNeighbors(artsRoom);
 
       progMeth.withNeighbors(examRoom);
 
@@ -65,9 +54,9 @@ public class StudyRightStoryboards
 
       storyboard.addObjectDiagram(uni);
 
-
-      //===============================================================================================
-      storyboard.assertEquals("Number of students: " , 2, uni.getStudents().size()); 
+      // ===============================================================================================
+      storyboard.assertEquals("Number of students: ", 2, uni.getStudents()
+         .size());
 
       storyboard.add("step 2: add support for path navigation\n      call ");
 
@@ -75,21 +64,24 @@ public class StudyRightStoryboards
       int sum = albert.getUni().getRooms().getCredits().sum();
       storyboard.addCode("examples");
 
-      storyboard.add(
-         "shall compute to 88.", 
-         DONE, "zuendorf joern alex", "19.05.2012 20:40:42", 1, 0);
+      storyboard.add("shall compute to 88.", DONE, "zuendorf joern alex",
+         "19.05.2012 20:40:42", 1, 0);
 
       // Assert.assertEquals("credits sum error", 88, sum);
 
-      storyboard.add( "Feature Request: model sets need to provide a navigation to any neighbors\n" +
-            "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
-            BACKLOG, "zuendorf", "17.01.2014 16:42:42", 2, 0);
+      storyboard.add(
+         "Feature Request: model sets need to provide a navigation to any neighbors\n"
+            + "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ",
+         BACKLOG, "zuendorf", "17.01.2014 16:42:42", 2, 0);
 
-      storyboard.add( "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
-            "e.g.: room.getNeighbors().findPath(path, motivation); ", 
+      storyboard
+         .add(
+            "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n"
+               + "e.g.: room.getNeighbors().findPath(path, motivation); ",
             DONE, "zuendorf", "19.08.2012 23:04:42", 4, 0);
 
-      // storyboard.assertEquals("Number of neighbors for Albert is now ", 2, any.size());
+      // storyboard.assertEquals("Number of neighbors for Albert is now ", 2,
+      // any.size());
 
       storyboard.add("step 3: call ");
 
@@ -109,50 +101,38 @@ public class StudyRightStoryboards
    {
       Storyboard storyboard = new Storyboard("examples");
 
-
-      //=============================================================
+      // =============================================================
       storyboard.add("adding flipbook to protocol changes.");
-      SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) UniversityCreator.createIdMap("ajz");
+      SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) UniversityCreator
+         .createIdMap("ajz");
       FlipBook flipBook = idMap.createFlipBook();
 
-
-      //=============================================================
-      storyboard.add("Start situation: use University class to build object structure",
+      // =============================================================
+      storyboard.add(
+         "Start situation: use University class to build object structure",
          DONE, "zuendorf", "06.10.2013 21:37:46", 0, 0);
 
-      University uni = new University()
-      .withName("StudyRight");
+      University uni = new University().withName("StudyRight");
       idMap.getId(uni);
 
-      Student albert = uni.createStudents()
-            .withMatrNo(4242)
-            .withName("Albert");
+      Student albert = uni.createStudents().withMatrNo(4242).withName("Albert");
 
-      Student nina = uni.createStudents()
-            .withMatrNo(2323)
-            .withName("Nina");
+      Student nina = uni.createStudents().withMatrNo(2323).withName("Nina");
 
-      Room mathRoom = uni.createRooms()
-            .withRoomNo("math")
-            .withCredits(42)  
-            .withStudents(albert); 
+      Room mathRoom = uni.createRooms().withRoomNo("math").withCredits(42)
+         .withStudents(albert);
 
-      Room artsRoom = uni.createRooms()
-            .withRoomNo("arts")
-            .withCredits(23)
-            .withNeighbors(mathRoom); 
+      Room artsRoom = uni.createRooms().withRoomNo("arts").withCredits(23)
+         .withNeighbors(mathRoom);
 
-      Room sportsRoom = uni.createRooms()
-            .withRoomNo("sports")
-            .withCredits(23)
-            .withNeighbors(mathRoom, artsRoom); 
+      Room sportsRoom = uni.createRooms().withRoomNo("sports").withCredits(23)
+         .withNeighbors(mathRoom, artsRoom);
 
-      Room examRoom = uni.createRooms()
-            .withRoomNo("exam")
-            .withCredits(0)
-            .withNeighbors(sportsRoom, artsRoom);
+      Room examRoom = uni.createRooms().withRoomNo("exam").withCredits(0)
+         .withNeighbors(sportsRoom, artsRoom);
 
-      Room progMeth = uni.createRooms().withRoomNo("ProgMeth").withCredits(42).withNeighbors(artsRoom);
+      Room progMeth = uni.createRooms().withRoomNo("ProgMeth").withCredits(42)
+         .withNeighbors(artsRoom);
 
       progMeth.withNeighbors(examRoom);
 
@@ -160,8 +140,7 @@ public class StudyRightStoryboards
 
       storyboard.addObjectDiagram(idMap, uni);
 
-
-      //===============================================================================================
+      // ===============================================================================================
       storyboard.add("Test flipbook, undo last step: ");
 
       flipBook.back(42);
@@ -169,15 +148,13 @@ public class StudyRightStoryboards
 
       flipBook.back(sportsRoom, Room.PROPERTY_CREDITS);
 
-      flipBook.back()
-      .back()
-      .back()
-      .forward();
+      flipBook.back().back().back().forward();
 
       storyboard.addObjectDiagram(idMap, uni);
 
-      //===============================================================================================
-      storyboard.assertEquals("Number of students: " , 2, uni.getStudents().size()); 
+      // ===============================================================================================
+      storyboard.assertEquals("Number of students: ", 2, uni.getStudents()
+         .size());
 
       storyboard.add("step 2: add support for path navigation\n      call ");
 
@@ -185,22 +162,25 @@ public class StudyRightStoryboards
       int sum = albert.getUni().getRooms().getCredits().sum();
       storyboard.addCode("examples");
 
-      storyboard.add(
-         "      shall compute to 88\n" +
-               "      Path classes are generated.", 
-               DONE, "zuendorf joern alex", "19.05.2012 20:40:42", 1, 0);
+      storyboard.add("      shall compute to 88\n"
+         + "      Path classes are generated.", DONE, "zuendorf joern alex",
+         "19.05.2012 20:40:42", 1, 0);
 
       // Assert.assertEquals("credits sum error", 88, sum);
 
-      storyboard.add( "Feature Request: model sets need to provide a navigation to any neighbors\n" +
-            "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
-            BACKLOG, "zuendorf", "19.05.2012 20:42:42", 0, 2);
+      storyboard.add(
+         "Feature Request: model sets need to provide a navigation to any neighbors\n"
+            + "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ",
+         BACKLOG, "zuendorf", "19.05.2012 20:42:42", 0, 2);
 
-      storyboard.add( "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
-            "e.g.: room.getNeighbors().findPath(path, motivation); ", 
+      storyboard
+         .add(
+            "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n"
+               + "e.g.: room.getNeighbors().findPath(path, motivation); ",
             DONE, "zuendorf", "19.08.2012 23:04:42", 4, 0);
 
-      // storyboard.assertEquals("Number of neighbors for Albert is now ", 2, any.size());
+      // storyboard.assertEquals("Number of neighbors for Albert is now ", 2,
+      // any.size());
 
       storyboard.add("step 3: call ");
 
@@ -215,91 +195,72 @@ public class StudyRightStoryboards
       storyboard.dumpHTML();
    }
 
-
    @Test
    public void testBidirectionalModelToTextTransformation()
    {
       Storyboard storyboard = new Storyboard("examples");
 
-
-      //=============================================================
+      // =============================================================
       storyboard.addStep("We start with the usual StudyRight object model.");
 
-      University uni = new University()
-      .withName("StudyRight");
+      University uni = new University().withName("StudyRight");
 
-      Student albert = uni.createStudents()
-            .withMatrNo(4242)
-            .withName("Tom");
+      Student albert = uni.createStudents().withMatrNo(4242).withName("Tom");
 
-      Student nina = uni.createStudents()
-            .withMatrNo(2323)
-            .withName("Nina");
+      Student nina = uni.createStudents().withMatrNo(2323).withName("Nina");
 
-      Room mathRoom = uni.createRooms()
-            .withRoomNo("math")
-            .withCredits(42)  
-            .withStudents(albert); 
+      Room mathRoom = uni.createRooms().withRoomNo("math").withCredits(42)
+         .withStudents(albert);
 
-      Room artsRoom = uni.createRooms()
-            .withRoomNo("arts")
-            .withCredits(23)
-            .withNeighbors(mathRoom); 
+      Room artsRoom = uni.createRooms().withRoomNo("arts").withCredits(23)
+         .withNeighbors(mathRoom);
 
-      Room sportsRoom = uni.createRooms()
-            .withRoomNo("sports")
-            .withCredits(23)
-            .withNeighbors(mathRoom, artsRoom); 
+      Room sportsRoom = uni.createRooms().withRoomNo("sports").withCredits(23)
+         .withNeighbors(mathRoom, artsRoom);
 
-      Room examRoom = uni.createRooms()
-            .withRoomNo("exam")
-            .withCredits(0)
-            .withNeighbors(sportsRoom, artsRoom);
+      Room examRoom = uni.createRooms().withRoomNo("exam").withCredits(0)
+         .withNeighbors(sportsRoom, artsRoom);
 
-      Room progMeth = uni.createRooms()
-            .withRoomNo("ProgMeth")
-            .withCredits(42)
-            .withNeighbors(artsRoom, examRoom);
+      Room progMeth = uni.createRooms().withRoomNo("ProgMeth").withCredits(42)
+         .withNeighbors(artsRoom, examRoom);
 
       storyboard.addObjectDiagram(uni);
 
-
-      //=============================================================
-      storyboard.addStep("Use text templates to generate a natural language description of the object model.");
+      // =============================================================
+      storyboard
+         .addStep("Use text templates to generate a natural language description of the object model.");
 
       storyboard.markCodeStart();
 
       Template rootTemplate = new Template()
-      .withModelObject(uni)
-      .with("The example University has 99 rooms and 88 students: \nroomList The students are: \nstudentList ",
-         "example", University.PROPERTY_NAME, 
-         "99", University.PROPERTY_ROOMS +  ".size", 
-         "88", University.PROPERTY_STUDENTS + ".size");
+         .withModelObject(uni)
+         .with(
+            "The example University has 99 rooms and 88 students: \nroomList The students are: \nstudentList ",
+            "example", University.PROPERTY_NAME, "99",
+            University.PROPERTY_ROOMS + ".size", "88",
+            University.PROPERTY_STUDENTS + ".size");
 
-      Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withReferenceLookup(true)
-            .withParent("roomList", University.PROPERTY_ROOMS)
-            .with(
-               " - The xy room has 42 credits. It is connected to rooms: neighbors",
-               "xy", Room.PROPERTY_ROOMNO,
-               "42", Room.PROPERTY_CREDITS)
-               .withList("", "\n", "\n");
+      Template roomTemplate = rootTemplate
+         .createPlaceHolderAndSubTemplate()
+         .withReferenceLookup(true)
+         .withParent("roomList", University.PROPERTY_ROOMS)
+         .with(
+            " - The xy room has 42 credits. It is connected to rooms: neighbors",
+            "xy", Room.PROPERTY_ROOMNO, "42", Room.PROPERTY_CREDITS)
+         .withList("", "\n", "\n");
 
-      Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
-            .withParent("neighbors", Room.PROPERTY_NEIGHBORS)
-            .withReferenceLookup(true)
-            .with(
-               "name",
-               "name", Room.PROPERTY_ROOMNO)
-               .withList("", ", ", ".");
-      
-      Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
-            .withParent("studentList", University.PROPERTY_STUDENTS)
-            .with(
-               " - Stud has student number 1234.",
-               "Stud", Student.PROPERTY_NAME,
-               "1234", Student.PROPERTY_MATRNO)
-               .withList("", "\n", "\n");
+      Template neighborsTemplate = roomTemplate
+         .createPlaceHolderAndSubTemplate()
+         .withParent("neighbors", Room.PROPERTY_NEIGHBORS)
+         .withReferenceLookup(true).with("name", "name", Room.PROPERTY_ROOMNO)
+         .withList("", ", ", ".");
+
+      Template studentTemplate = rootTemplate
+         .createPlaceHolderAndSubTemplate()
+         .withParent("studentList", University.PROPERTY_STUDENTS)
+         .with(" - Stud has student number 1234.", "Stud",
+            Student.PROPERTY_NAME, "1234", Student.PROPERTY_MATRNO)
+         .withList("", "\n", "\n");
 
       storyboard.addObjectDiagram(rootTemplate);
 
@@ -311,32 +272,32 @@ public class StudyRightStoryboards
       storyboard.add("<pre>" + rootTemplate.getExpandedText() + "</pre>");
 
       storyboard.addStep("Use templates to parse text into object model");
-      
+
       storyboard.markCodeStart();
 
-      rootTemplate.setExpandedText(
-         "The Study False University has many rooms and some students: \n" + 
-               " - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n" + 
-               " - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n" + 
-               " - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n " + 
-               "The students are: \n" + 
-               " - Bart has student number 111.\n" + 
-               " - Meggie has student number 112.\n ");
+      rootTemplate
+         .setExpandedText("The Study False University has many rooms and some students: \n"
+            + " - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n"
+            + " - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n"
+            + " - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n "
+            + "The students are: \n"
+            + " - Bart has student number 111.\n"
+            + " - Meggie has student number 112.\n ");
 
       rootTemplate.parse();
-      
+
       storyboard.addCode();
-      
+
       storyboard.addObjectDiagram(rootTemplate.getModelObject());
 
-      storyboard.addLogEntry(R.DONE, "zuendorf", "11.11.2013 18:06:42 EST", 40, 0, "Using attribute names for parsing and generation");
+      storyboard.addLogEntry(R.DONE, "zuendorf", "11.11.2013 18:06:42 EST", 40,
+         0, "Using attribute names for parsing and generation");
 
-      storyboard.addLogEntry(R.DONE, "zuendorf", "23.02.2014 18:06:42 EST", 2, 0, "Reenabled parsing with references");
-      
+      storyboard.addLogEntry(R.DONE, "zuendorf", "23.02.2014 18:06:42 EST", 2,
+         0, "Reenabled parsing with references");
+
       storyboard.dumpHTML();
    }
-
-
 
    public static final String MODELING = "modeling";
    public static final String ACTIVE = "active";

@@ -8,15 +8,14 @@ public class StatePOCreator extends PatternObjectCreator
    {
       return new StatePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((StatePO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((StatePO) target).set(attrName, value);
    }
 }
-

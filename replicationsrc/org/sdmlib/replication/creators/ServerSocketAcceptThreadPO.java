@@ -6,38 +6,38 @@ import org.sdmlib.replication.ServerSocketAcceptThread;
 import org.sdmlib.replication.creators.ServerSocketAcceptThreadSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
-public class ServerSocketAcceptThreadPO extends PatternObject<ServerSocketAcceptThreadPO, ServerSocketAcceptThread>
+public class ServerSocketAcceptThreadPO extends
+      PatternObject<ServerSocketAcceptThreadPO, ServerSocketAcceptThread>
 {
    public ServerSocketAcceptThreadSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       ServerSocketAcceptThreadSet matches = new ServerSocketAcceptThreadSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((ServerSocketAcceptThread) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public ServerSocketAcceptThreadPO hasPort(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
+         .withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getPort()
    {
       if (this.getPattern().getHasMatch())
@@ -46,7 +46,7 @@ public class ServerSocketAcceptThreadPO extends PatternObject<ServerSocketAccept
       }
       return 0;
    }
-   
+
    public ServerSocketAcceptThreadPO withPort(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -55,67 +55,63 @@ public class ServerSocketAcceptThreadPO extends PatternObject<ServerSocketAccept
       }
       return this;
    }
-   
+
    public ServerSocketAcceptThreadPO hasReplicationNode(ReplicationNode value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ServerSocketAcceptThread.PROPERTY_REPLICATIONNODE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(ServerSocketAcceptThread.PROPERTY_REPLICATIONNODE)
+         .withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public ReplicationNode getReplicationNode()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ServerSocketAcceptThread) getCurrentMatch()).getReplicationNode();
+         return ((ServerSocketAcceptThread) getCurrentMatch())
+            .getReplicationNode();
       }
       return null;
    }
-   
+
    public ServerSocketAcceptThreadPO withReplicationNode(ReplicationNode value)
    {
       if (this.getPattern().getHasMatch())
       {
-         ((ServerSocketAcceptThread) getCurrentMatch()).setReplicationNode(value);
+         ((ServerSocketAcceptThread) getCurrentMatch())
+            .setReplicationNode(value);
       }
       return this;
    }
-   
+
    public ServerSocketAcceptThreadPO hasPort(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(ServerSocketAcceptThread.PROPERTY_PORT)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public ServerSocketAcceptThreadPO createPort(int value)
    {
       this.startCreate().hasPort(value).endCreate();
       return this;
    }
-   
+
    public ServerSocketAcceptThreadPO createReplicationNode(ReplicationNode value)
    {
       this.startCreate().hasReplicationNode(value).endCreate();
       return this;
    }
-   
+
 }
-
-
-

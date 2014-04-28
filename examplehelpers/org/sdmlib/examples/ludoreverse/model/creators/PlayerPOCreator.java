@@ -8,15 +8,15 @@ public class PlayerPOCreator extends PatternObjectCreator
    {
       return new PlayerPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((PlayerPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((PlayerPO) target).set(attrName, value);
    }
 }
-

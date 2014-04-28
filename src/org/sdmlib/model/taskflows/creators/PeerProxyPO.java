@@ -12,33 +12,31 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
    public PeerProxySet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       PeerProxySet matches = new PeerProxySet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((PeerProxy) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public PeerProxyPO hasIp(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PeerProxy.PROPERTY_IP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(PeerProxy.PROPERTY_IP).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getIp()
    {
       if (this.getPattern().getHasMatch())
@@ -47,21 +45,19 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
       }
       return null;
    }
-   
+
    public PeerProxyPO hasPort(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PeerProxy.PROPERTY_PORT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(PeerProxy.PROPERTY_PORT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getPort()
    {
       if (this.getPattern().getHasMatch())
@@ -70,21 +66,19 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
       }
       return 0;
    }
-   
+
    public PeerProxyPO hasIdMap(IdMap value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PeerProxy.PROPERTY_IDMAP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(PeerProxy.PROPERTY_IDMAP).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public IdMap getIdMap()
    {
       if (this.getPattern().getHasMatch())
@@ -93,38 +87,29 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
       }
       return null;
    }
-   
+
    public PeerProxyPO hasIdMap(JsonIdMap value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PeerProxy.PROPERTY_IDMAP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(PeerProxy.PROPERTY_IDMAP).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public PeerProxyPO hasIdMap(SDMLibJsonIdMap value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(PeerProxy.PROPERTY_IDMAP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(PeerProxy.PROPERTY_IDMAP).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
 }
-
-
-
-
-

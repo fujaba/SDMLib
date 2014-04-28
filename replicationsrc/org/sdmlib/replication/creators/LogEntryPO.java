@@ -15,33 +15,31 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
    public LogEntrySet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       LogEntrySet matches = new LogEntrySet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((LogEntry) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public LogEntryPO hasStepName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LogEntry.PROPERTY_STEPNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LogEntry.PROPERTY_STEPNAME).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getStepName()
    {
       if (this.getPattern().getHasMatch())
@@ -50,7 +48,7 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       }
       return null;
    }
-   
+
    public LogEntryPO withStepName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -59,21 +57,19 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       }
       return this;
    }
-   
+
    public LogEntryPO hasExecutedBy(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LogEntry.PROPERTY_EXECUTEDBY)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LogEntry.PROPERTY_EXECUTEDBY).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getExecutedBy()
    {
       if (this.getPattern().getHasMatch())
@@ -82,7 +78,7 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       }
       return null;
    }
-   
+
    public LogEntryPO withExecutedBy(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -91,21 +87,19 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       }
       return this;
    }
-   
+
    public LogEntryPO hasTimeStamp(long value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LogEntry.PROPERTY_TIMESTAMP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LogEntry.PROPERTY_TIMESTAMP).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public long getTimeStamp()
    {
       if (this.getPattern().getHasMatch())
@@ -114,7 +108,7 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       }
       return 0;
    }
-   
+
    public LogEntryPO withTimeStamp(long value)
    {
       if (this.getPattern().getHasMatch())
@@ -123,28 +117,27 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
       }
       return this;
    }
-   
+
    public TaskPO hasTask()
    {
       TaskPO result = new TaskPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(LogEntry.PROPERTY_TASK, result);
-      
+
       return result;
    }
 
    public LogEntryPO hasTask(TaskPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(LogEntry.PROPERTY_TASK)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(LogEntry.PROPERTY_TASK).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -160,66 +153,60 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
    public LogEntryPO hasStepName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LogEntry.PROPERTY_STEPNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LogEntry.PROPERTY_STEPNAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public LogEntryPO createStepName(String value)
    {
       this.startCreate().hasStepName(value).endCreate();
       return this;
    }
-   
+
    public LogEntryPO hasExecutedBy(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LogEntry.PROPERTY_EXECUTEDBY)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LogEntry.PROPERTY_EXECUTEDBY).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public LogEntryPO createExecutedBy(String value)
    {
       this.startCreate().hasExecutedBy(value).endCreate();
       return this;
    }
-   
+
    public LogEntryPO hasTimeStamp(long lower, long upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(LogEntry.PROPERTY_TIMESTAMP)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(LogEntry.PROPERTY_TIMESTAMP).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public LogEntryPO createTimeStamp(long value)
    {
       this.startCreate().hasTimeStamp(value).endCreate();
       return this;
    }
-   
+
    public TaskPO createTask()
    {
       return this.startCreate().hasTask().endCreate();
@@ -231,5 +218,3 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
    }
 
 }
-
-

@@ -8,15 +8,15 @@ public class RelationPOCreator extends PatternObjectCreator
    {
       return new RelationPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((RelationPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((RelationPO) target).set(attrName, value);
    }
 }
-

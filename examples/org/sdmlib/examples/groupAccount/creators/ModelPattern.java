@@ -14,7 +14,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -26,73 +26,71 @@ public class ModelPattern extends Pattern
       GroupAccountPO value = new GroupAccountPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public GroupAccountPO hasElementGroupAccountPO(GroupAccount hostGraphObject)
    {
       GroupAccountPO value = new GroupAccountPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PersonPO hasElementPersonPO()
    {
       PersonPO value = new PersonPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PersonPO hasElementPersonPO(Person hostGraphObject)
    {
       PersonPO value = new PersonPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public ItemPO hasElementItemPO()
    {
       ItemPO value = new ItemPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public ItemPO hasElementItemPO(Item hostGraphObject)
    {
       ItemPO value = new ItemPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-

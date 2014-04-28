@@ -8,15 +8,15 @@ public class TaskPOCreator extends PatternObjectCreator
    {
       return new TaskPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((TaskPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((TaskPO) target).set(attrName, value);
    }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.serialization.json.creators;
 
 import java.util.Collection;
@@ -30,65 +30,54 @@ import org.sdmlib.serialization.json.JsonIdMap;
 public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
 {
 
-
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (JsonIdMap elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.serialization.json.JsonIdMap";
    }
 
-
-
    public JsonIdMapSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<JsonIdMap>)value);
+         this.addAll((Collection<JsonIdMap>) value);
       }
       else if (value != null)
       {
          this.add((JsonIdMap) value);
       }
-      
+
       return this;
    }
-   
+
    public JsonIdMapSet without(JsonIdMap value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public JsonIdMapPO hasJsonIdMapPO()
    {
       org.sdmlib.models.pattern.creators.ModelPattern pattern = new org.sdmlib.models.pattern.creators.ModelPattern();
-      
+
       JsonIdMapPO patternObject = pattern.hasElementJsonIdMapPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-

@@ -18,33 +18,31 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
    public RelationSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       RelationSet matches = new RelationSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Relation) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public RelationPO hasKind(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Relation.PROPERTY_KIND)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Relation.PROPERTY_KIND).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getKind()
    {
       if (this.getPattern().getHasMatch())
@@ -53,7 +51,7 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
       }
       return null;
    }
-   
+
    public RelationPO withKind(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -62,28 +60,27 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
       }
       return this;
    }
-   
+
    public GraphPO hasGraph()
    {
       GraphPO result = new GraphPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Relation.PROPERTY_GRAPH, result);
-      
+
       return result;
    }
 
    public RelationPO hasGraph(GraphPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Relation.PROPERTY_GRAPH)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Relation.PROPERTY_GRAPH).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -100,23 +97,22 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
    {
       PersonPO result = new PersonPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Relation.PROPERTY_SRC, result);
-      
+
       return result;
    }
 
    public RelationPO hasSrc(PersonPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Relation.PROPERTY_SRC)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Relation.PROPERTY_SRC).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -133,23 +129,22 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
    {
       PersonPO result = new PersonPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Relation.PROPERTY_TGT, result);
-      
+
       return result;
    }
 
    public RelationPO hasTgt(PersonPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Relation.PROPERTY_TGT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Relation.PROPERTY_TGT).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -165,17 +160,15 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
    public RelationPO hasText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Relation.PROPERTY_TEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Relation.PROPERTY_TEXT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getText()
    {
       if (this.getPattern().getHasMatch())
@@ -184,7 +177,7 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
       }
       return null;
    }
-   
+
    public RelationPO withText(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -193,28 +186,27 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
       }
       return this;
    }
-   
+
    public GraphPO hasParent()
    {
       GraphPO result = new GraphPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(GraphComponent.PROPERTY_PARENT, result);
-      
+
       return result;
    }
 
    public RelationPO hasParent(GraphPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GraphComponent.PROPERTY_PARENT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(GraphComponent.PROPERTY_PARENT)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -230,39 +222,35 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
    public RelationPO hasKind(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Relation.PROPERTY_KIND)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Relation.PROPERTY_KIND).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RelationPO hasText(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Relation.PROPERTY_TEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Relation.PROPERTY_TEXT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RelationPO createKind(String value)
    {
       this.startCreate().hasKind(value).endCreate();
       return this;
    }
-   
+
    public GraphPO createGraph()
    {
       return this.startCreate().hasGraph().endCreate();
@@ -298,7 +286,7 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
       this.startCreate().hasText(value).endCreate();
       return this;
    }
-   
+
    public GraphPO createParent()
    {
       return this.startCreate().hasParent().endCreate();
@@ -310,9 +298,3 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
    }
 
 }
-
-
-
-
-
-

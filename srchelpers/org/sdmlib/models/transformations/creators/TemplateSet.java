@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations.creators;
 
 import java.util.Collection;
@@ -40,21 +40,19 @@ import org.sdmlib.models.transformations.creators.MatchSet;
 public class TemplateSet extends SDMSet<Template>
 {
 
-
    public TemplatePO startModelPattern()
    {
       org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
-      
+
       TemplatePO patternObject = pattern.hasElementTemplatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -62,21 +60,20 @@ public class TemplateSet extends SDMSet<Template>
       return "org.sdmlib.models.transformations.Template";
    }
 
-
    public TemplateSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Template>)value);
+         this.addAll((Collection<Template>) value);
       }
       else if (value != null)
       {
          this.add((Template) value);
       }
-      
+
       return this;
    }
-   
+
    public TemplateSet without(Template value)
    {
       this.remove(value);
@@ -86,19 +83,19 @@ public class TemplateSet extends SDMSet<Template>
    public StringList getTemplateText()
    {
       StringList result = new StringList();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getTemplateText());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasTemplateText(String value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value.equals(obj.getTemplateText()))
@@ -106,22 +103,23 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public TemplateSet hasTemplateText(String lower, String upper)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if (lower.compareTo(obj.getTemplateText()) <= 0 && obj.getTemplateText().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getTemplateText()) <= 0
+            && obj.getTemplateText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -131,26 +129,26 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setTemplateText(value);
       }
-      
+
       return this;
    }
 
    public StringList getExpandedText()
    {
       StringList result = new StringList();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getExpandedText());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasExpandedText(String value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value.equals(obj.getExpandedText()))
@@ -158,22 +156,23 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public TemplateSet hasExpandedText(String lower, String upper)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if (lower.compareTo(obj.getExpandedText()) <= 0 && obj.getExpandedText().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getExpandedText()) <= 0
+            && obj.getExpandedText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -183,26 +182,26 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setExpandedText(value);
       }
-      
+
       return this;
    }
 
    public ObjectSet getModelObject()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getModelObject());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasModelObject(Object value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value == obj.getModelObject())
@@ -210,7 +209,7 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -220,26 +219,26 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setModelObject(value);
       }
-      
+
       return this;
    }
 
    public StringList getModelClassName()
    {
       StringList result = new StringList();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getModelClassName());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasModelClassName(String value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value.equals(obj.getModelClassName()))
@@ -247,22 +246,23 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public TemplateSet hasModelClassName(String lower, String upper)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if (lower.compareTo(obj.getModelClassName()) <= 0 && obj.getModelClassName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getModelClassName()) <= 0
+            && obj.getModelClassName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -272,26 +272,26 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setModelClassName(value);
       }
-      
+
       return this;
    }
 
    public StringList getListStart()
    {
       StringList result = new StringList();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getListStart());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasListStart(String value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value.equals(obj.getListStart()))
@@ -299,22 +299,23 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public TemplateSet hasListStart(String lower, String upper)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if (lower.compareTo(obj.getListStart()) <= 0 && obj.getListStart().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getListStart()) <= 0
+            && obj.getListStart().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -324,26 +325,26 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setListStart(value);
       }
-      
+
       return this;
    }
 
    public StringList getListSeparator()
    {
       StringList result = new StringList();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getListSeparator());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasListSeparator(String value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value.equals(obj.getListSeparator()))
@@ -351,22 +352,23 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public TemplateSet hasListSeparator(String lower, String upper)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if (lower.compareTo(obj.getListSeparator()) <= 0 && obj.getListSeparator().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getListSeparator()) <= 0
+            && obj.getListSeparator().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -376,26 +378,26 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setListSeparator(value);
       }
-      
+
       return this;
    }
 
    public StringList getListEnd()
    {
       StringList result = new StringList();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getListEnd());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasListEnd(String value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value.equals(obj.getListEnd()))
@@ -403,22 +405,23 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public TemplateSet hasListEnd(String lower, String upper)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if (lower.compareTo(obj.getListEnd()) <= 0 && obj.getListEnd().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getListEnd()) <= 0
+            && obj.getListEnd().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -428,19 +431,19 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setListEnd(value);
       }
-      
+
       return this;
    }
 
    public PlaceHolderDescriptionSet getPlaceholders()
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (Template obj : this)
       {
          result.with(obj.getPlaceholders());
       }
-      
+
       return result;
    }
 
@@ -456,17 +459,17 @@ public class TemplateSet extends SDMSet<Template>
       {
          neighbors.add(value);
       }
-      
+
       TemplateSet answer = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getPlaceholders()))
+         if (!Collections.disjoint(neighbors, obj.getPlaceholders()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -476,7 +479,7 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.withPlaceholders(value);
       }
-      
+
       return this;
    }
 
@@ -486,19 +489,19 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.withoutPlaceholders(value);
       }
-      
+
       return this;
    }
 
    public ChoiceTemplateSet getChooser()
    {
       ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
+
       for (Template obj : this)
       {
          result.with(obj.getChooser());
       }
-      
+
       return result;
    }
 
@@ -514,9 +517,9 @@ public class TemplateSet extends SDMSet<Template>
       {
          neighbors.add(value);
       }
-      
+
       TemplateSet answer = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (neighbors.contains(obj.getChooser()))
@@ -524,7 +527,7 @@ public class TemplateSet extends SDMSet<Template>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -534,19 +537,19 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.withChooser(value);
       }
-      
+
       return this;
    }
 
    public MatchSet getMatches()
    {
       MatchSet result = new MatchSet();
-      
+
       for (Template obj : this)
       {
          result.with(obj.getMatches());
       }
-      
+
       return result;
    }
 
@@ -562,17 +565,17 @@ public class TemplateSet extends SDMSet<Template>
       {
          neighbors.add(value);
       }
-      
+
       TemplateSet answer = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getMatches()))
+         if (!Collections.disjoint(neighbors, obj.getMatches()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -582,7 +585,7 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.withMatches(value);
       }
-      
+
       return this;
    }
 
@@ -592,19 +595,19 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.withoutMatches(value);
       }
-      
+
       return this;
    }
 
    public PlaceHolderDescriptionSet getParents()
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (Template obj : this)
       {
          result.with(obj.getParents());
       }
-      
+
       return result;
    }
 
@@ -620,17 +623,17 @@ public class TemplateSet extends SDMSet<Template>
       {
          neighbors.add(value);
       }
-      
+
       TemplateSet answer = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getParents()))
+         if (!Collections.disjoint(neighbors, obj.getParents()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -640,7 +643,7 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.withParents(value);
       }
-      
+
       return this;
    }
 
@@ -650,26 +653,26 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.withoutParents(value);
       }
-      
+
       return this;
    }
 
    public booleanList getReferenceLookup()
    {
       booleanList result = new booleanList();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getReferenceLookup());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasReferenceLookup(boolean value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value == obj.getReferenceLookup())
@@ -677,7 +680,7 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -687,26 +690,26 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setReferenceLookup(value);
       }
-      
+
       return this;
    }
 
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Template obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
    public TemplateSet hasName(String value)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
          if (value.equals(obj.getName()))
@@ -714,22 +717,23 @@ public class TemplateSet extends SDMSet<Template>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public TemplateSet hasName(String lower, String upper)
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (Template obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0
+            && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -739,33 +743,21 @@ public class TemplateSet extends SDMSet<Template>
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
-
-
 
    public TemplatePO hasTemplatePO()
    {
       org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
-      
+
       TemplatePO patternObject = pattern.hasElementTemplatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

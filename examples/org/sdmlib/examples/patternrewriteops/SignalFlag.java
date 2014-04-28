@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.patternrewriteops;
 
 import java.beans.PropertyChangeSupport;
@@ -32,9 +32,8 @@ import java.beans.PropertyChangeListener;
 public class SignalFlag implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_STATION.equalsIgnoreCase(attrName))
@@ -45,9 +44,8 @@ public class SignalFlag implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_STATION.equalsIgnoreCase(attrName))
@@ -55,7 +53,7 @@ public class SignalFlag implements PropertyChangeInterface
          addToStation((Station) value);
          return true;
       }
-      
+
       if ((PROPERTY_STATION + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromStation((Station) value);
@@ -65,26 +63,23 @@ public class SignalFlag implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromStation();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -92,90 +87,93 @@ public class SignalFlag implements PropertyChangeInterface
     *              flag                   station
     * </pre>
     */
-   
+
    public static final String PROPERTY_STATION = "station";
-   
+
    private StationSet station = null;
-   
+
    public StationSet getStation()
    {
       if (this.station == null)
       {
          return Station.EMPTY_SET;
       }
-   
+
       return this.station;
    }
-   
+
    public boolean addToStation(Station value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.station == null)
          {
             this.station = new StationSet();
          }
-         
-         changed = this.station.add (value);
-         
+
+         changed = this.station.add(value);
+
          if (changed)
          {
             value.withFlag(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromStation(Station value)
    {
       boolean changed = false;
-      
+
       if ((this.station != null) && (value != null))
       {
-         changed = this.station.remove (value);
-         
+         changed = this.station.remove(value);
+
          if (changed)
          {
             value.setFlag(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public SignalFlag withStation(Station value)
    {
       addToStation(value);
       return this;
-   } 
-   
+   }
+
    public SignalFlag withoutStation(Station value)
    {
       removeFromStation(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromStation()
    {
-      LinkedHashSet<Station> tmpSet = new LinkedHashSet<Station>(this.getStation());
-   
+      LinkedHashSet<Station> tmpSet = new LinkedHashSet<Station>(
+            this.getStation());
+
       for (Station value : tmpSet)
       {
          this.removeFromStation(value);
       }
    }
-   
+
    public Station createStation()
    {
       Station value = new Station();
       withStation(value);
       return value;
-   } 
+   }
 
    public SignalFlag withStation(Station... value)
    {
@@ -184,7 +182,7 @@ public class SignalFlag implements PropertyChangeInterface
          addToStation(item);
       }
       return this;
-   } 
+   }
 
    public SignalFlag withoutStation(Station... value)
    {
@@ -195,4 +193,3 @@ public class SignalFlag implements PropertyChangeInterface
       return this;
    }
 }
-

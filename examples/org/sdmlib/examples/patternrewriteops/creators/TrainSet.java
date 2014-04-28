@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.patternrewriteops.creators;
 
 import java.util.Collection;
@@ -33,49 +33,48 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.patternrewriteops.creators.PersonSet;
 
-public class TrainSet extends LinkedHashSet<Train> implements org.sdmlib.models.modelsets.ModelSet
+public class TrainSet extends LinkedHashSet<Train> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Train elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.patternrewriteops.Train";
    }
 
-
    public TrainSet with(Train value)
    {
       this.add(value);
       return this;
    }
-   
+
    public TrainSet without(Train value)
    {
       this.remove(value);
       return this;
    }
+
    public StationSet getStation()
    {
       StationSet result = new StationSet();
-      
+
       for (Train obj : this)
       {
          result.add(obj.getStation());
       }
-      
+
       return result;
    }
 
@@ -85,19 +84,19 @@ public class TrainSet extends LinkedHashSet<Train> implements org.sdmlib.models.
       {
          obj.withStation(value);
       }
-      
+
       return this;
    }
 
    public PersonSet getPassengers()
    {
       PersonSet result = new PersonSet();
-      
+
       for (Train obj : this)
       {
          result.addAll(obj.getPassengers());
       }
-      
+
       return result;
    }
 
@@ -107,7 +106,7 @@ public class TrainSet extends LinkedHashSet<Train> implements org.sdmlib.models.
       {
          obj.withPassengers(value);
       }
-      
+
       return this;
    }
 
@@ -117,62 +116,49 @@ public class TrainSet extends LinkedHashSet<Train> implements org.sdmlib.models.
       {
          obj.withoutPassengers(value);
       }
-      
+
       return this;
    }
-
-
 
    public TrainPO startModelPattern()
    {
       org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
-      
+
       TrainPO patternObject = pattern.hasElementTrainPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public TrainSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Train>)value);
+         this.addAll((Collection<Train>) value);
       }
       else if (value != null)
       {
          this.add((Train) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public TrainPO hasTrainPO()
    {
       org.sdmlib.examples.patternrewriteops.creators.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.creators.ModelPattern();
-      
+
       TrainPO patternObject = pattern.hasElementTrainPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.storyboards.creators;
 
 import java.util.Collection;
@@ -31,45 +31,44 @@ import org.sdmlib.storyboards.creators.KanbanEntrySet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.models.modelsets.ModelSet
+public class LogEntrySet extends LinkedHashSet<LogEntry> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
    public KanbanEntrySet getKanbanEntry()
    {
       KanbanEntrySet result = new KanbanEntrySet();
-      
+
       for (LogEntry obj : this)
       {
          result.add(obj.getKanbanEntry());
       }
-      
+
       return result;
    }
+
    public LogEntrySet withKanbanEntry(KanbanEntry value)
    {
       for (LogEntry obj : this)
       {
          obj.withKanbanEntry(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (LogEntry elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -79,60 +78,48 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
    public LogEntryPO startModelPattern()
    {
       org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
-      
+
       LogEntryPO patternObject = pattern.hasElementLogEntryPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public LogEntrySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<LogEntry>)value);
+         this.addAll((Collection<LogEntry>) value);
       }
       else if (value != null)
       {
          this.add((LogEntry) value);
       }
-      
+
       return this;
    }
-   
+
    public LogEntrySet without(LogEntry value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public LogEntryPO hasLogEntryPO()
    {
       org.sdmlib.storyboards.creators.ModelPattern pattern = new org.sdmlib.storyboards.creators.ModelPattern();
-      
+
       LogEntryPO patternObject = pattern.hasElementLogEntryPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-

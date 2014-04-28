@@ -17,33 +17,31 @@ public class ItemPO extends PatternObject<ItemPO, Item>
    public ItemSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       ItemSet matches = new ItemSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Item) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public ItemPO hasDescription(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Item.PROPERTY_DESCRIPTION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Item.PROPERTY_DESCRIPTION).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getDescription()
    {
       if (this.getPattern().getHasMatch())
@@ -52,7 +50,7 @@ public class ItemPO extends PatternObject<ItemPO, Item>
       }
       return null;
    }
-   
+
    public ItemPO withDescription(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -61,21 +59,19 @@ public class ItemPO extends PatternObject<ItemPO, Item>
       }
       return this;
    }
-   
+
    public ItemPO hasValue(double value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Item.PROPERTY_VALUE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Item.PROPERTY_VALUE).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public double getValue()
    {
       if (this.getPattern().getHasMatch())
@@ -84,7 +80,7 @@ public class ItemPO extends PatternObject<ItemPO, Item>
       }
       return 0;
    }
-   
+
    public ItemPO withValue(double value)
    {
       if (this.getPattern().getHasMatch())
@@ -93,28 +89,27 @@ public class ItemPO extends PatternObject<ItemPO, Item>
       }
       return this;
    }
-   
+
    public GroupAccountPO hasParent()
    {
       GroupAccountPO result = new GroupAccountPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Item.PROPERTY_PARENT, result);
-      
+
       return result;
    }
 
    public ItemPO hasParent(GroupAccountPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Item.PROPERTY_PARENT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Item.PROPERTY_PARENT).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -131,23 +126,22 @@ public class ItemPO extends PatternObject<ItemPO, Item>
    {
       PersonPO result = new PersonPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Item.PROPERTY_BUYER, result);
-      
+
       return result;
    }
 
    public ItemPO hasBuyer(PersonPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Item.PROPERTY_BUYER)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Item.PROPERTY_BUYER).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -163,45 +157,41 @@ public class ItemPO extends PatternObject<ItemPO, Item>
    public ItemPO hasDescription(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Item.PROPERTY_DESCRIPTION)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Item.PROPERTY_DESCRIPTION).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public ItemPO hasValue(double lower, double upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Item.PROPERTY_VALUE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Item.PROPERTY_VALUE).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public ItemPO createDescription(String value)
    {
       this.startCreate().hasDescription(value).endCreate();
       return this;
    }
-   
+
    public ItemPO createValue(double value)
    {
       this.startCreate().hasValue(value).endCreate();
       return this;
    }
-   
+
    public GroupAccountPO createParent()
    {
       return this.startCreate().hasParent().endCreate();
@@ -223,6 +213,3 @@ public class ItemPO extends PatternObject<ItemPO, Item>
    }
 
 }
-
-
-

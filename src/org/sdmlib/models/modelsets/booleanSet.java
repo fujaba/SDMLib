@@ -10,23 +10,25 @@ public class booleanSet extends ArrayList<Boolean>
    {
       for (Boolean value : this)
       {
-         if (!value) {
-        	 return false;
+         if (!value)
+         {
+            return false;
          }
       }
-      
+
       return true;
    }
-   
+
    public boolean or()
    {
       for (Boolean value : this)
       {
-         if (value) {
-        	 return true;
+         if (value)
+         {
+            return true;
          }
       }
-      
+
       return false;
    }
 

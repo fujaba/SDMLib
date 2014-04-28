@@ -8,15 +8,15 @@ public class TrainPOCreator extends PatternObjectCreator
    {
       return new TrainPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((TrainPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((TrainPO) target).set(attrName, value);
    }
 }
-

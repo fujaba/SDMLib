@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludoreverse.model;
 
 import java.beans.PropertyChangeSupport;
@@ -31,14 +31,13 @@ import java.beans.PropertyChangeListener;
 public class Player implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -58,13 +57,12 @@ public class Player implements PropertyChangeInterface
       {
          return getColor();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_GAME.equalsIgnoreCase(attrName))
@@ -88,29 +86,25 @@ public class Player implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setGame(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    public static final PlayerSet EMPTY_SET = new PlayerSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -118,121 +112,121 @@ public class Player implements PropertyChangeInterface
     *              players                   game
     * </pre>
     */
-   
+
    public static final String PROPERTY_GAME = "game";
-   
+
    private Ludo game = null;
-   
+
    public Ludo getGame()
    {
       return this.game;
    }
-   
+
    public boolean setGame(Ludo value)
    {
       boolean changed = false;
-      
+
       if (this.game != value)
       {
          Ludo oldValue = this.game;
-         
+
          if (this.game != null)
          {
             this.game = null;
             oldValue.withoutPlayers(this);
          }
-         
+
          this.game = value;
-         
+
          if (value != null)
          {
             value.withPlayers(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GAME, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GAME, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Player withGame(Ludo value)
    {
       setGame(value);
       return this;
-   } 
-   
+   }
+
    public Ludo createGame()
    {
       Ludo value = new Ludo();
       withGame(value);
       return value;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public Player withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_COLOR = "color";
-   
+
    private String color;
 
    public String getColor()
    {
       return this.color;
    }
-   
+
    public void setColor(String value)
    {
-      if ( ! StrUtil.stringEquals(this.color, value))
+      if (!StrUtil.stringEquals(this.color, value))
       {
          String oldValue = this.color;
          this.color = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_COLOR, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_COLOR,
+            oldValue, value);
       }
    }
-   
+
    public Player withColor(String value)
    {
       setColor(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getColor());
       return _.substring(1);
    }
 
 }
-

@@ -10,16 +10,14 @@ public class TownPO extends PatternObject<TownPO, Town>
    public TownPO hasTest(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Town.PROPERTY_TEST)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Town.PROPERTY_TEST).withTgtValue(value).withSrc(this)
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TownPO withTest(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -28,7 +26,7 @@ public class TownPO extends PatternObject<TownPO, Town>
       }
       return this;
    }
-   
+
    public String getTest()
    {
       if (this.getPattern().getHasMatch())
@@ -37,29 +35,24 @@ public class TownPO extends PatternObject<TownPO, Town>
       }
       return null;
    }
-   
+
    public TownPO hasTest(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Town.PROPERTY_TEST)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Town.PROPERTY_TEST).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TownPO createTest(String value)
    {
       this.startCreate().hasTest(value).endCreate();
       return this;
    }
-   
+
 }
-
-
-

@@ -8,15 +8,15 @@ public class JsonIdMapPOCreator extends PatternObjectCreator
    {
       return new JsonIdMapPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((JsonIdMapPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((JsonIdMapPO) target).set(attrName, value);
    }
 }
-

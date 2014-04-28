@@ -24,65 +24,60 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    public RoomSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       RoomSet matches = new RoomSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Room) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public void findPath(String p0, int p1)
    {
       if (this.getPattern().getHasMatch())
       {
-          ((Room) getCurrentMatch()).findPath( p0,  p1);
+         ((Room) getCurrentMatch()).findPath(p0, p1);
       }
    }
 
    public RoomPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Room.PROPERTY_NAME).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RoomPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Room.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RoomPO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -91,7 +86,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       return null;
    }
-   
+
    public RoomPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -100,42 +95,38 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       return this;
    }
-   
+
    public RoomPO hasTopic(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_TOPIC)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Room.PROPERTY_TOPIC).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RoomPO hasTopic(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_TOPIC)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Room.PROPERTY_TOPIC).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RoomPO createTopic(String value)
    {
       this.startCreate().hasTopic(value).endCreate();
       return this;
    }
-   
+
    public String getTopic()
    {
       if (this.getPattern().getHasMatch())
@@ -144,7 +135,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       return null;
    }
-   
+
    public RoomPO withTopic(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -153,42 +144,38 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       return this;
    }
-   
+
    public RoomPO hasCredits(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_CREDITS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Room.PROPERTY_CREDITS).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RoomPO hasCredits(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_CREDITS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Room.PROPERTY_CREDITS).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public RoomPO createCredits(int value)
    {
       this.startCreate().hasCredits(value).endCreate();
       return this;
    }
-   
+
    public int getCredits()
    {
       if (this.getPattern().getHasMatch())
@@ -197,7 +184,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       return 0;
    }
-   
+
    public RoomPO withCredits(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -206,14 +193,14 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       return this;
    }
-   
+
    public UniversityPO hasUniversity()
    {
       UniversityPO result = new UniversityPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Room.PROPERTY_UNIVERSITY, result);
-      
+
       return result;
    }
 
@@ -245,9 +232,9 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    {
       RoomPO result = new RoomPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Room.PROPERTY_DOORS, result);
-      
+
       return result;
    }
 
@@ -279,9 +266,9 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    {
       StudentPO result = new StudentPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Room.PROPERTY_STUDENTS, result);
-      
+
       return result;
    }
 
@@ -313,9 +300,9 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    {
       AssignmentPO result = new AssignmentPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Room.PROPERTY_ASSIGNMENTS, result);
-      
+
       return result;
    }
 
@@ -347,9 +334,9 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    {
       TeachingAssistantPO result = new TeachingAssistantPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Room.PROPERTY_TAS, result);
-      
+
       return result;
    }
 
@@ -378,4 +365,3 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    }
 
 }
-

@@ -8,15 +8,15 @@ public class GraphPOCreator extends PatternObjectCreator
    {
       return new GraphPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((GraphPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((GraphPO) target).set(attrName, value);
    }
 }
-

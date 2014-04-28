@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -42,21 +42,19 @@ import org.sdmlib.examples.ludo.Pawn;
 public class FieldSet extends SDMSet<Field>
 {
 
-
    public FieldPO hasFieldPO()
    {
       org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
+
       FieldPO patternObject = pattern.hasElementFieldPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -64,21 +62,20 @@ public class FieldSet extends SDMSet<Field>
       return "org.sdmlib.examples.ludo.Field";
    }
 
-
    public FieldSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Field>)value);
+         this.addAll((Collection<Field>) value);
       }
       else if (value != null)
       {
          this.add((Field) value);
       }
-      
+
       return this;
    }
-   
+
    public FieldSet without(Field value)
    {
       this.remove(value);
@@ -88,19 +85,19 @@ public class FieldSet extends SDMSet<Field>
    public StringList getColor()
    {
       StringList result = new StringList();
-      
+
       for (Field obj : this)
       {
          result.add(obj.getColor());
       }
-      
+
       return result;
    }
 
    public FieldSet hasColor(String value)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (value.equals(obj.getColor()))
@@ -108,22 +105,23 @@ public class FieldSet extends SDMSet<Field>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public FieldSet hasColor(String lower, String upper)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
-         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getColor()) <= 0
+            && obj.getColor().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -133,26 +131,26 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.setColor(value);
       }
-      
+
       return this;
    }
 
    public StringList getKind()
    {
       StringList result = new StringList();
-      
+
       for (Field obj : this)
       {
          result.add(obj.getKind());
       }
-      
+
       return result;
    }
 
    public FieldSet hasKind(String value)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (value.equals(obj.getKind()))
@@ -160,22 +158,23 @@ public class FieldSet extends SDMSet<Field>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public FieldSet hasKind(String lower, String upper)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
-         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getKind()) <= 0
+            && obj.getKind().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -185,26 +184,26 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.setKind(value);
       }
-      
+
       return this;
    }
 
    public intList getX()
    {
       intList result = new intList();
-      
+
       for (Field obj : this)
       {
          result.add(obj.getX());
       }
-      
+
       return result;
    }
 
    public FieldSet hasX(int value)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (value == obj.getX())
@@ -212,14 +211,14 @@ public class FieldSet extends SDMSet<Field>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public FieldSet hasX(int lower, int upper)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (lower <= obj.getX() && obj.getX() <= upper)
@@ -227,7 +226,7 @@ public class FieldSet extends SDMSet<Field>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -237,26 +236,26 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.setX(value);
       }
-      
+
       return this;
    }
 
    public intList getY()
    {
       intList result = new intList();
-      
+
       for (Field obj : this)
       {
          result.add(obj.getY());
       }
-      
+
       return result;
    }
 
    public FieldSet hasY(int value)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (value == obj.getY())
@@ -264,14 +263,14 @@ public class FieldSet extends SDMSet<Field>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public FieldSet hasY(int lower, int upper)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (lower <= obj.getY() && obj.getY() <= upper)
@@ -279,7 +278,7 @@ public class FieldSet extends SDMSet<Field>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -289,26 +288,26 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.setY(value);
       }
-      
+
       return this;
    }
 
    public PointSet getPoint()
    {
       PointSet result = new PointSet();
-      
+
       for (Field obj : this)
       {
          result.add(obj.getPoint());
       }
-      
+
       return result;
    }
 
    public FieldSet hasPoint(java.awt.Point value)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (value == obj.getPoint())
@@ -316,14 +315,14 @@ public class FieldSet extends SDMSet<Field>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public FieldSet hasPoint(java.awt.Point lower, java.awt.Point upper)
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (lower.x <= obj.getPoint().x && obj.getPoint().x <= upper.x)
@@ -331,7 +330,7 @@ public class FieldSet extends SDMSet<Field>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -341,19 +340,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.setPoint(value);
       }
-      
+
       return this;
    }
 
    public LudoSet getGame()
    {
       LudoSet result = new LudoSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getGame());
       }
-      
+
       return result;
    }
 
@@ -369,9 +368,9 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (neighbors.contains(obj.getGame()))
@@ -379,7 +378,7 @@ public class FieldSet extends SDMSet<Field>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -389,19 +388,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withGame(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getNext()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getNext());
       }
-      
+
       return result;
    }
 
@@ -417,9 +416,9 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (neighbors.contains(obj.getNext()))
@@ -427,10 +426,9 @@ public class FieldSet extends SDMSet<Field>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public FieldSet withNext(Field value)
    {
@@ -438,19 +436,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withNext(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getPrev()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getPrev());
       }
-      
+
       return result;
    }
 
@@ -466,9 +464,9 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (neighbors.contains(obj.getPrev()))
@@ -476,10 +474,9 @@ public class FieldSet extends SDMSet<Field>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public FieldSet withPrev(Field value)
    {
@@ -487,19 +484,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withPrev(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getLanding()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getLanding());
       }
-      
+
       return result;
    }
 
@@ -515,9 +512,9 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (neighbors.contains(obj.getLanding()))
@@ -525,10 +522,9 @@ public class FieldSet extends SDMSet<Field>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public FieldSet withLanding(Field value)
    {
@@ -536,19 +532,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withLanding(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getEntry()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getEntry());
       }
-      
+
       return result;
    }
 
@@ -564,9 +560,9 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (neighbors.contains(obj.getEntry()))
@@ -574,10 +570,9 @@ public class FieldSet extends SDMSet<Field>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public FieldSet withEntry(Field value)
    {
@@ -585,19 +580,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withEntry(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getStarter()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getStarter());
       }
-      
+
       return result;
    }
 
@@ -613,9 +608,9 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (neighbors.contains(obj.getStarter()))
@@ -623,7 +618,7 @@ public class FieldSet extends SDMSet<Field>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -633,19 +628,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withStarter(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getBaseowner()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getBaseowner());
       }
-      
+
       return result;
    }
 
@@ -661,9 +656,9 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (neighbors.contains(obj.getBaseowner()))
@@ -671,7 +666,7 @@ public class FieldSet extends SDMSet<Field>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -681,19 +676,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withBaseowner(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getLander()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getLander());
       }
-      
+
       return result;
    }
 
@@ -709,9 +704,9 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
          if (neighbors.contains(obj.getLander()))
@@ -719,7 +714,7 @@ public class FieldSet extends SDMSet<Field>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -729,19 +724,19 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withLander(value);
       }
-      
+
       return this;
    }
 
    public PawnSet getPawns()
    {
       PawnSet result = new PawnSet();
-      
+
       for (Field obj : this)
       {
          result.with(obj.getPawns());
       }
-      
+
       return result;
    }
 
@@ -757,17 +752,17 @@ public class FieldSet extends SDMSet<Field>
       {
          neighbors.add(value);
       }
-      
+
       FieldSet answer = new FieldSet();
-      
+
       for (Field obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getPawns()))
+         if (!Collections.disjoint(neighbors, obj.getPawns()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -777,7 +772,7 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withPawns(value);
       }
-      
+
       return this;
    }
 
@@ -787,118 +782,112 @@ public class FieldSet extends SDMSet<Field>
       {
          obj.withoutPawns(value);
       }
-      
+
       return this;
    }
-
 
    public FieldSet getNextTransitive()
    {
       FieldSet todo = new FieldSet().with(this);
-      
+
       FieldSet result = new FieldSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Field current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getNext()))
+
+            if (!result.contains(current.getNext()))
             {
-               todo.with(current.getNext());            }
+               todo.with(current.getNext());
+            }
          }
       }
-      
+
       return result;
    }
-
 
    public FieldSet getPrevTransitive()
    {
       FieldSet todo = new FieldSet().with(this);
-      
+
       FieldSet result = new FieldSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Field current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getPrev()))
+
+            if (!result.contains(current.getPrev()))
             {
-               todo.with(current.getPrev());            }
+               todo.with(current.getPrev());
+            }
          }
       }
-      
+
       return result;
    }
-
 
    public FieldSet getLandingTransitive()
    {
       FieldSet todo = new FieldSet().with(this);
-      
+
       FieldSet result = new FieldSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Field current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getLanding()))
+
+            if (!result.contains(current.getLanding()))
             {
-               todo.with(current.getLanding());            }
+               todo.with(current.getLanding());
+            }
          }
       }
-      
+
       return result;
    }
-
 
    public FieldSet getEntryTransitive()
    {
       FieldSet todo = new FieldSet().with(this);
-      
+
       FieldSet result = new FieldSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Field current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getEntry()))
+
+            if (!result.contains(current.getEntry()))
             {
-               todo.with(current.getEntry());            }
+               todo.with(current.getEntry());
+            }
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
-

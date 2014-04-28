@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication;
 
 import org.sdmlib.replication.Task;
@@ -36,9 +36,8 @@ import java.util.LinkedHashSet;
 public class BoardTask extends Task implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -74,9 +73,8 @@ public class BoardTask extends Task implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -90,7 +88,7 @@ public class BoardTask extends Task implements PropertyChangeInterface
          addToLogEntries((LogEntry) value);
          return true;
       }
-      
+
       if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLogEntries((LogEntry) value);
@@ -114,7 +112,7 @@ public class BoardTask extends Task implements PropertyChangeInterface
          addToNext((BoardTask) value);
          return true;
       }
-      
+
       if ((PROPERTY_NEXT + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromNext((BoardTask) value);
@@ -126,7 +124,7 @@ public class BoardTask extends Task implements PropertyChangeInterface
          addToPrev((BoardTask) value);
          return true;
       }
-      
+
       if ((PROPERTY_PREV + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPrev((BoardTask) value);
@@ -136,19 +134,17 @@ public class BoardTask extends Task implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromLogEntries();
@@ -159,48 +155,45 @@ public class BoardTask extends Task implements PropertyChangeInterface
       super.removeYou();
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public BoardTask withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getStatus());
       return _.substring(1);
    }
 
-
-   
    public static final BoardTaskSet EMPTY_SET = new BoardTaskSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -208,86 +201,86 @@ public class BoardTask extends Task implements PropertyChangeInterface
     *              tasks                   lane
     * </pre>
     */
-   
+
    public static final String PROPERTY_LANE = "lane";
-   
+
    private Lane lane = null;
-   
+
    public Lane getLane()
    {
       return this.lane;
    }
-   
+
    public boolean setLane(Lane value)
    {
       boolean changed = false;
-      
+
       if (this.lane != value)
       {
          Lane oldValue = this.lane;
-         
+
          if (this.lane != null)
          {
             this.lane = null;
             oldValue.withoutTasks(this);
          }
-         
+
          this.lane = value;
-         
+
          if (value != null)
          {
             value.withTasks(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LANE, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LANE, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public BoardTask withLane(Lane value)
    {
       setLane(value);
       return this;
-   } 
-   
+   }
+
    public Lane createLane()
    {
       Lane value = new Lane();
       withLane(value);
       return value;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_STATUS = "status";
-   
+
    private String status;
 
    public String getStatus()
    {
       return this.status;
    }
-   
+
    public void setStatus(String value)
    {
-      if ( ! StrUtil.stringEquals(this.status, value))
+      if (!StrUtil.stringEquals(this.status, value))
       {
          String oldValue = this.status;
          this.status = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STATUS, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STATUS,
+            oldValue, value);
       }
    }
-   
+
    public BoardTask withStatus(String value)
    {
       setStatus(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -295,62 +288,64 @@ public class BoardTask extends Task implements PropertyChangeInterface
     *              prev                   next
     * </pre>
     */
-   
+
    public static final String PROPERTY_NEXT = "next";
-   
+
    private BoardTaskSet next = null;
-   
+
    public BoardTaskSet getNext()
    {
       if (this.next == null)
       {
          return BoardTask.EMPTY_SET;
       }
-   
+
       return this.next;
    }
-   
+
    public boolean addToNext(BoardTask value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.next == null)
          {
             this.next = new BoardTaskSet();
          }
-         
-         changed = this.next.add (value);
-         
+
+         changed = this.next.add(value);
+
          if (changed)
          {
             value.withPrev(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromNext(BoardTask value)
    {
       boolean changed = false;
-      
+
       if ((this.next != null) && (value != null))
       {
-         changed = this.next.remove (value);
-         
+         changed = this.next.remove(value);
+
          if (changed)
          {
             value.withoutPrev(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NEXT, value,
+               null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public BoardTask withNext(BoardTask... value)
    {
       for (BoardTask item : value)
@@ -358,8 +353,8 @@ public class BoardTask extends Task implements PropertyChangeInterface
          addToNext(item);
       }
       return this;
-   } 
-   
+   }
+
    public BoardTask withoutNext(BoardTask... value)
    {
       for (BoardTask item : value)
@@ -368,25 +363,25 @@ public class BoardTask extends Task implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromNext()
    {
-      LinkedHashSet<BoardTask> tmpSet = new LinkedHashSet<BoardTask>(this.getNext());
-   
+      LinkedHashSet<BoardTask> tmpSet = new LinkedHashSet<BoardTask>(
+            this.getNext());
+
       for (BoardTask value : tmpSet)
       {
          this.removeFromNext(value);
       }
    }
-   
+
    public BoardTask createNext()
    {
       BoardTask value = new BoardTask();
       withNext(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -394,64 +389,66 @@ public class BoardTask extends Task implements PropertyChangeInterface
     *              next                   prev
     * </pre>
     */
-   
+
    public static final String PROPERTY_PREV = "prev";
-   
+
    private BoardTaskSet prev = null;
 
    public static final String START = "start";
-   
+
    public BoardTaskSet getPrev()
    {
       if (this.prev == null)
       {
          return BoardTask.EMPTY_SET;
       }
-   
+
       return this.prev;
    }
-   
+
    public boolean addToPrev(BoardTask value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.prev == null)
          {
             this.prev = new BoardTaskSet();
          }
-         
-         changed = this.prev.add (value);
-         
+
+         changed = this.prev.add(value);
+
          if (changed)
          {
             value.withNext(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromPrev(BoardTask value)
    {
       boolean changed = false;
-      
+
       if ((this.prev != null) && (value != null))
       {
-         changed = this.prev.remove (value);
-         
+         changed = this.prev.remove(value);
+
          if (changed)
          {
             value.withoutNext(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PREV, value,
+               null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public BoardTask withPrev(BoardTask... value)
    {
       for (BoardTask item : value)
@@ -459,8 +456,8 @@ public class BoardTask extends Task implements PropertyChangeInterface
          addToPrev(item);
       }
       return this;
-   } 
-   
+   }
+
    public BoardTask withoutPrev(BoardTask... value)
    {
       for (BoardTask item : value)
@@ -469,17 +466,18 @@ public class BoardTask extends Task implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromPrev()
    {
-      LinkedHashSet<BoardTask> tmpSet = new LinkedHashSet<BoardTask>(this.getPrev());
-   
+      LinkedHashSet<BoardTask> tmpSet = new LinkedHashSet<BoardTask>(
+            this.getPrev());
+
       for (BoardTask value : tmpSet)
       {
          this.removeFromPrev(value);
       }
    }
-   
+
    public BoardTask createPrev()
    {
       BoardTask value = new BoardTask();
@@ -487,11 +485,11 @@ public class BoardTask extends Task implements PropertyChangeInterface
       return value;
    }
 
-
    public void start()
    {
       this.setStatus(BoardTask.START);
-   } 
+   }
+
    public BoardTaskSet getNextTransitive()
    {
       BoardTaskSet result = new BoardTaskSet().with(this);

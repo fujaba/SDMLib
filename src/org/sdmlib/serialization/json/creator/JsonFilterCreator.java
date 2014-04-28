@@ -28,33 +28,38 @@ package org.sdmlib.serialization.json.creator;
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonFilter;
 
-public class JsonFilterCreator implements SendableEntityCreator {
-	private String[] properties = new String[] { JsonFilter.PROPERTY_DEEP,
-			JsonFilter.PROPERTY_FULLSERIALIZATION, JsonFilter.PROPERTY_ID,
-			JsonFilter.PROPERTY_ITEMS };
+public class JsonFilterCreator implements SendableEntityCreator
+{
+   private String[] properties = new String[]
+   { JsonFilter.PROPERTY_DEEP, JsonFilter.PROPERTY_FULLSERIALIZATION,
+         JsonFilter.PROPERTY_ID, JsonFilter.PROPERTY_ITEMS };
 
-	public String[] getProperties() {
-		return properties;
-	}
+   public String[] getProperties()
+   {
+      return properties;
+   }
 
-	@Override
-	public Object getSendableInstance(boolean prototyp) {
-		return new JsonFilter();
-	}
+   @Override
+   public Object getSendableInstance(boolean prototyp)
+   {
+      return new JsonFilter();
+   }
 
-	@Override
-	public Object getValue(Object entity, String attribute) {
-		return ((JsonFilter) entity).get(attribute);
-	}
+   @Override
+   public Object getValue(Object entity, String attribute)
+   {
+      return ((JsonFilter) entity).get(attribute);
+   }
 
-	@Override
-	public boolean setValue(Object entity, String attribute, Object value,
-			String type) {
-		return ((JsonFilter) entity).set(attribute, value);
-	}
+   @Override
+   public boolean setValue(Object entity, String attribute, Object value,
+         String type)
+   {
+      return ((JsonFilter) entity).set(attribute, value);
+   }
 
 }

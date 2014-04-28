@@ -11,38 +11,37 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.creators.UnifyGraphsOpPO;
 import org.sdmlib.models.pattern.Pattern;
 
-public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsOp>
+public class UnifyGraphsOpPO extends
+      PatternObject<UnifyGraphsOpPO, UnifyGraphsOp>
 {
    public UnifyGraphsOpSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       UnifyGraphsOpSet matches = new UnifyGraphsOpSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((UnifyGraphsOp) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public UnifyGraphsOpPO hasModifier(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(UnifyGraphsOp.PROPERTY_MODIFIER)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(UnifyGraphsOp.PROPERTY_MODIFIER).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getModifier()
    {
       if (this.getPattern().getHasMatch())
@@ -51,7 +50,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       }
       return null;
    }
-   
+
    public UnifyGraphsOpPO withModifier(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -60,21 +59,19 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       }
       return this;
    }
-   
+
    public UnifyGraphsOpPO hasHasMatch(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(UnifyGraphsOp.PROPERTY_HASMATCH)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(UnifyGraphsOp.PROPERTY_HASMATCH).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public boolean getHasMatch()
    {
       if (this.getPattern().getHasMatch())
@@ -83,7 +80,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       }
       return false;
    }
-   
+
    public UnifyGraphsOpPO withHasMatch(boolean value)
    {
       if (this.getPattern().getHasMatch())
@@ -92,21 +89,20 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       }
       return this;
    }
-   
+
    public UnifyGraphsOpPO hasPatternObjectName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(UnifyGraphsOp.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(UnifyGraphsOp.PROPERTY_PATTERNOBJECTNAME)
+         .withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getPatternObjectName()
    {
       if (this.getPattern().getHasMatch())
@@ -115,7 +111,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       }
       return null;
    }
-   
+
    public UnifyGraphsOpPO withPatternObjectName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -124,21 +120,19 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       }
       return this;
    }
-   
+
    public UnifyGraphsOpPO hasDoAllMatches(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(UnifyGraphsOp.PROPERTY_DOALLMATCHES)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(UnifyGraphsOp.PROPERTY_DOALLMATCHES).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
@@ -147,7 +141,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       }
       return false;
    }
-   
+
    public UnifyGraphsOpPO withDoAllMatches(boolean value)
    {
       if (this.getPattern().getHasMatch())
@@ -156,28 +150,27 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       }
       return this;
    }
-   
+
    public PatternPO hasPattern()
    {
       PatternPO result = new PatternPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
-      
+
       return result;
    }
 
    public UnifyGraphsOpPO hasPattern(PatternPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -193,87 +186,79 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    public UnifyGraphsOpPO hasModifier(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(UnifyGraphsOp.PROPERTY_MODIFIER)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(UnifyGraphsOp.PROPERTY_MODIFIER).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public UnifyGraphsOpPO hasHasMatch(boolean lower, boolean upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(UnifyGraphsOp.PROPERTY_HASMATCH)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(UnifyGraphsOp.PROPERTY_HASMATCH).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public UnifyGraphsOpPO hasPatternObjectName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(UnifyGraphsOp.PROPERTY_PATTERNOBJECTNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(UnifyGraphsOp.PROPERTY_PATTERNOBJECTNAME)
+         .withTgtValue(lower).withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public UnifyGraphsOpPO hasDoAllMatches(boolean lower, boolean upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(UnifyGraphsOp.PROPERTY_DOALLMATCHES)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(UnifyGraphsOp.PROPERTY_DOALLMATCHES).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public UnifyGraphsOpPO createModifier(String value)
    {
       this.startCreate().hasModifier(value).endCreate();
       return this;
    }
-   
+
    public UnifyGraphsOpPO createHasMatch(boolean value)
    {
       this.startCreate().hasHasMatch(value).endCreate();
       return this;
    }
-   
+
    public UnifyGraphsOpPO createPatternObjectName(String value)
    {
       this.startCreate().hasPatternObjectName(value).endCreate();
       return this;
    }
-   
+
    public UnifyGraphsOpPO createDoAllMatches(boolean value)
    {
       this.startCreate().hasDoAllMatches(value).endCreate();
       return this;
    }
-   
+
    public PatternPO createPattern()
    {
       return this.startCreate().hasPattern().endCreate();
@@ -285,6 +270,3 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    }
 
 }
-
-
-

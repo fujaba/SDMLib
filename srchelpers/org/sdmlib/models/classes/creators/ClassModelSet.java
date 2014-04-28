@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.classes.creators;
 
 import java.util.Collection;
@@ -33,26 +33,28 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.classes.creators.AssociationSet;
 
-public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
+public class ClassModelSet extends LinkedHashSet<ClassModel> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public ClazzSet getClasses()
    {
       ClazzSet result = new ClazzSet();
-      
+
       for (ClassModel obj : this)
       {
          result.addAll(obj.getClasses());
       }
-      
+
       return result;
    }
+
    public ClassModelSet withClasses(Clazz value)
    {
       for (ClassModel obj : this)
       {
          obj.withClasses(value);
       }
-      
+
       return this;
    }
 
@@ -62,28 +64,29 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       {
          obj.withoutClasses(value);
       }
-      
+
       return this;
    }
 
    public AssociationSet getAssociations()
    {
       AssociationSet result = new AssociationSet();
-      
+
       for (ClassModel obj : this)
       {
          result.addAll(obj.getAssociations());
       }
-      
+
       return result;
    }
+
    public ClassModelSet withAssociations(Association value)
    {
       for (ClassModel obj : this)
       {
          obj.withAssociations(value);
       }
-      
+
       return this;
    }
 
@@ -93,19 +96,19 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       {
          obj.withoutAssociations(value);
       }
-      
+
       return this;
    }
 
    public StringList getPackageName()
    {
       StringList result = new StringList();
-      
+
       for (ClassModel obj : this)
       {
          result.add(obj.getPackageName());
       }
-      
+
       return result;
    }
 
@@ -115,89 +118,72 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       {
          obj.withPackageName(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ClassModel elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.ClassModel";
    }
 
-
    public ClassModelPO startModelPattern()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
-      
+
       ClassModelPO patternObject = pattern.hasElementClassModelPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ClassModelSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ClassModel>)value);
+         this.addAll((Collection<ClassModel>) value);
       }
       else if (value != null)
       {
          this.add((ClassModel) value);
       }
-      
+
       return this;
    }
-   
+
    public ClassModelSet without(ClassModel value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public ClassModelPO hasClassModelPO()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
-      
+
       ClassModelPO patternObject = pattern.hasElementClassModelPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

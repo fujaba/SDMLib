@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
@@ -28,20 +28,21 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
+public class NegativeApplicationCondition extends Pattern implements
+      PropertyChangeInterface
 {
    public NegativeApplicationCondition()
    {
       super();
       setHasMatch(true);
    }
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    @Override
    public boolean findMatch()
    {
-      // start matching only if nac is complete 
+      // start matching only if nac is complete
       if (this.getPattern().getCurrentSubPattern() != null)
       {
          return true;
@@ -52,42 +53,47 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       }
    }
 
-
    @Override
    public boolean findNextMatch()
    {
-      // start matching only if nac is complete 
+      // start matching only if nac is complete
       if (this.getPattern().getCurrentSubPattern() != null)
       {
          return true;
       }
       else if (getHasMatch())
       {
-         // last time this NAC has found a match and thus it was violated and has caused backtracking
+         // last time this NAC has found a match and thus it was violated and
+         // has caused backtracking
          // thus some earlier pattern elements have been rematched.
          // check the NAC again
          resetSearch();
-         
+
          if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// start NAC " + getPatternObjectName());
          }
-         
+
          boolean nacHasMatch = findMatch();
-         
+
          if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
          {
             if (nacHasMatch)
             {
-               getTopPattern().addLogMsg("// NAC " + getPatternObjectName() + " has match, backtrack!");
+               getTopPattern()
+                  .addLogMsg(
+                     "// NAC " + getPatternObjectName()
+                        + " has match, backtrack!");
             }
             else
             {
-               getTopPattern().addLogMsg("// NAC " + getPatternObjectName() + " has NO match, that is good");
+               getTopPattern().addLogMsg(
+                  "// NAC " + getPatternObjectName()
+                     + " has NO match, that is good");
             }
          }
-         
-         return ! nacHasMatch;
+
+         return !nacHasMatch;
       }
       else
       {
@@ -97,12 +103,11 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       }
    }
 
-
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -157,13 +162,12 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       {
          return getRgraph();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
@@ -207,7 +211,7 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          addToElements((PatternElement) value);
          return true;
       }
-      
+
       if ((PROPERTY_ELEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromElements((PatternElement) value);
@@ -235,9 +239,8 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromElements();
@@ -247,11 +250,10 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       super.removeYou();
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -260,7 +262,7 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getDebugMode());
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
@@ -268,4 +270,3 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    }
 
 }
-

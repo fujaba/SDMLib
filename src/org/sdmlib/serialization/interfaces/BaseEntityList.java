@@ -4,7 +4,7 @@ package org.sdmlib.serialization.interfaces;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,17 +20,18 @@ package org.sdmlib.serialization.interfaces;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import java.util.Collection;
 
-public interface BaseEntityList extends BaseEntity {
-	public BaseEntityList initWithMap(Collection<?> value);
+public interface BaseEntityList extends BaseEntity
+{
+   public BaseEntityList initWithMap(Collection<?> value);
 
-	public BaseEntityList put(Object value);
+   public BaseEntityList put(Object value);
 
-	public int size();
+   public int size();
 
-	public boolean add(Object value);
+   public boolean add(Object value);
 
-	public Object get(int z);
+   public Object get(int z);
 }

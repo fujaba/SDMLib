@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.classes.creators;
 
 import java.util.Collection;
@@ -31,17 +31,18 @@ import org.sdmlib.models.classes.creators.ClazzSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.models.modelsets.ModelSet
+public class MethodSet extends LinkedHashSet<Method> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getSignature()
    {
       StringList result = new StringList();
-      
+
       for (Method obj : this)
       {
          result.add(obj.getSignature());
       }
-      
+
       return result;
    }
 
@@ -51,19 +52,19 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       {
          obj.withSignature(value);
       }
-      
+
       return this;
    }
 
    public StringList getReturnType()
    {
       StringList result = new StringList();
-      
+
       for (Method obj : this)
       {
          result.add(obj.getReturnType());
       }
-      
+
       return result;
    }
 
@@ -73,61 +74,58 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       {
          obj.withReturnType(value);
       }
-      
+
       return this;
    }
 
    public ClazzSet getClazz()
    {
       ClazzSet result = new ClazzSet();
-      
+
       for (Method obj : this)
       {
          result.add(obj.getClazz());
       }
-      
+
       return result;
    }
+
    public MethodSet withClazz(Clazz value)
    {
       for (Method obj : this)
       {
          obj.withClazz(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Method elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Method";
    }
 
-
    public StringList getBody()
    {
       StringList result = new StringList();
-      
+
       for (Method obj : this)
       {
          result.add(obj.getBody());
       }
-      
+
       return result;
    }
 
@@ -137,70 +135,55 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       {
          obj.setBody(value);
       }
-      
+
       return this;
    }
-
-
 
    public MethodPO startModelPattern()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
-      
+
       MethodPO patternObject = pattern.hasElementMethodPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public MethodSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Method>)value);
+         this.addAll((Collection<Method>) value);
       }
       else if (value != null)
       {
          this.add((Method) value);
       }
-      
+
       return this;
    }
-   
+
    public MethodSet without(Method value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public MethodPO hasMethodPO()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
-      
+
       MethodPO patternObject = pattern.hasElementMethodPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

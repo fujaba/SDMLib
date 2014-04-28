@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
@@ -30,28 +30,26 @@ import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class ReplicationServerSet extends LinkedHashSet<ReplicationServer> implements org.sdmlib.models.modelsets.ModelSet
+public class ReplicationServerSet extends LinkedHashSet<ReplicationServer>
+      implements org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ReplicationServer elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.replication.ReplicationServer";
    }
-
 
    public SharedSpaceSet getSharedSpaces()
    {
@@ -64,7 +62,7 @@ public class ReplicationServerSet extends LinkedHashSet<ReplicationServer> imple
       {
          obj.withSharedSpaces(value);
       }
-      
+
       return this;
    }
 
@@ -74,41 +72,39 @@ public class ReplicationServerSet extends LinkedHashSet<ReplicationServer> imple
       {
          obj.withoutSharedSpaces(value);
       }
-      
+
       return this;
    }
-
-
 
    public ReplicationServerPO hasReplicationServerPO()
    {
       org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
-      
-      ReplicationServerPO patternObject = pattern.hasElementReplicationServerPO();
-      
+
+      ReplicationServerPO patternObject = pattern
+         .hasElementReplicationServerPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ReplicationServerSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ReplicationServer>)value);
+         this.addAll((Collection<ReplicationServer>) value);
       }
       else if (value != null)
       {
          this.add((ReplicationServer) value);
       }
-      
+
       return this;
    }
-   
+
    public ReplicationServerSet without(ReplicationServer value)
    {
       this.remove(value);
@@ -116,8 +112,4 @@ public class ReplicationServerSet extends LinkedHashSet<ReplicationServer> imple
    }
 
 }
-
-
-
-
 

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example.creators;
 
 import java.util.Collection;
@@ -31,49 +31,48 @@ import org.sdmlib.models.patterns.example.creators.NodeSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class SimpleStateSet extends LinkedHashSet<SimpleState> implements org.sdmlib.models.modelsets.ModelSet
+public class SimpleStateSet extends LinkedHashSet<SimpleState> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (SimpleState elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.patterns.example.SimpleState";
    }
 
-
    public SimpleStateSet with(SimpleState value)
    {
       this.add(value);
       return this;
    }
-   
+
    public SimpleStateSet without(SimpleState value)
    {
       this.remove(value);
       return this;
    }
+
    public NodeSet getNodes()
    {
       NodeSet result = new NodeSet();
-      
+
       for (SimpleState obj : this)
       {
          result.addAll(obj.getNodes());
       }
-      
+
       return result;
    }
 
@@ -83,7 +82,7 @@ public class SimpleStateSet extends LinkedHashSet<SimpleState> implements org.sd
       {
          obj.withNodes(value);
       }
-      
+
       return this;
    }
 
@@ -93,62 +92,49 @@ public class SimpleStateSet extends LinkedHashSet<SimpleState> implements org.sd
       {
          obj.withoutNodes(value);
       }
-      
+
       return this;
    }
-
-
 
    public SimpleStatePO startModelPattern()
    {
       org.sdmlib.models.patterns.example.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.creators.ModelPattern();
-      
+
       SimpleStatePO patternObject = pattern.hasElementSimpleStatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public SimpleStateSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<SimpleState>)value);
+         this.addAll((Collection<SimpleState>) value);
       }
       else if (value != null)
       {
          this.add((SimpleState) value);
       }
-      
+
       return this;
    }
-   
-
 
    public SimpleStatePO hasSimpleStatePO()
    {
       org.sdmlib.models.patterns.example.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.creators.ModelPattern();
-      
+
       SimpleStatePO patternObject = pattern.hasElementSimpleStatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-

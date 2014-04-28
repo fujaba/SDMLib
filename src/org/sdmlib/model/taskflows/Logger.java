@@ -37,7 +37,7 @@ import org.sdmlib.utils.PropertyChangeInterface;
 
 public class Logger extends TaskFlow implements PropertyChangeInterface
 {
-   enum TaskNames 
+   enum TaskNames
    {
       Start, Collect
    }
@@ -47,9 +47,8 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       return TaskNames.values();
    }
 
-
    @Override
-   public void run() 
+   public void run()
    {
       switch (TaskNames.values()[taskNo])
       {
@@ -59,22 +58,23 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
          if (!getEntries().isEmpty())
          {
             Iterator<LogEntry> entryIt = getEntries().iterator();
-            while(entryIt.hasNext())
+            while (entryIt.hasNext())
             {
                previousEntry = entryIt.next();
             }
          }
 
-         LogEntry newEntry = createEntries()
-               .withNodeName(getSubFlow().getIdMap().getSessionId())
-               .withTaskName(getSubFlow().getTaskNames()[getSubFlow().getTaskNo()].toString());
+         LogEntry newEntry = createEntries().withNodeName(
+            getSubFlow().getIdMap().getSessionId()).withTaskName(
+            getSubFlow().getTaskNames()[getSubFlow().getTaskNo()].toString());
 
-         if(previousEntry != null)
+         if (previousEntry != null)
          {
             newEntry.withParent(previousEntry);
          }
 
-         boolean lastAction = getSubFlow().getTaskNo() + 1 >= getSubFlow().getTaskNames().length;
+         boolean lastAction = getSubFlow().getTaskNo() + 1 >= getSubFlow()
+            .getTaskNames().length;
 
          getSubFlow().run();
 
@@ -86,8 +86,9 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       case Collect:
          JsonArray jsonArray = getSubFlow().getIdMap().toJsonArray(this);
 
-         //dump json file
-         StoryboardManager.printFile(new File("doc/Logger.json"), jsonArray.toString(3));
+         // dump json file
+         StoryboardManager.printFile(new File("doc/Logger.json"),
+            jsonArray.toString(3));
 
          dumpDiagram();
          break;
@@ -96,41 +97,39 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       }
    }
 
-   private void dumpDiagram() 
+   private void dumpDiagram()
    {
-	   new JsonToGraphViz().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
+      new JsonToGraphViz().dumpSwimlanes(getSubFlow().getClass()
+         .getSimpleName(), getEntries());
    }
 
-   private StringBuilder dumpSwimlanes() {
+   private StringBuilder dumpSwimlanes()
+   {
       StringBuilder swimlanesText = new StringBuilder();
 
-      LinkedHashSet<String> nodeNames = new LinkedHashSet<String>(this.getEntries().getNodeName());
-      for(String nodeName : nodeNames)
+      LinkedHashSet<String> nodeNames = new LinkedHashSet<String>(this
+         .getEntries().getNodeName());
+      for (String nodeName : nodeNames)
       {
          // add one lane
          StringBuilder laneText = new StringBuilder(
-            "    subgraph clusterLaneName {\n" +
-                  "    	rankdir=\"LR\";\n" +
-                  "    	style=filled;\n" + 
-                  "		color=lightgrey;\n" + 
-                  "innerTasks\n" + 
-                  "    	label = \"LaneName\";\n" + 
-                  "    }\n"+
-                  "    \n"
-               );
+               "    subgraph clusterLaneName {\n" + "    	rankdir=\"LR\";\n"
+                  + "    	style=filled;\n" + "		color=lightgrey;\n"
+                  + "innerTasks\n" + "    	label = \"LaneName\";\n" + "    }\n"
+                  + "    \n");
 
          StringBuilder innerTasksText = dumpInnerTasks(nodeName);
 
-         CGUtil.replaceAll(laneText, 
-            "LaneName", nodeName, 
-            "innerTasks", innerTasksText.toString());
+         CGUtil.replaceAll(laneText, "LaneName", nodeName, "innerTasks",
+            innerTasksText.toString());
 
          swimlanesText.append(laneText.toString());
       }
       return swimlanesText;
    }
 
-   private StringBuilder dumpInnerTasks(String nodeName) {
+   private StringBuilder dumpInnerTasks(String nodeName)
+   {
       StringBuilder innerTasksText = new StringBuilder();
 
       LinkedHashSet<String> taskNames = new LinkedHashSet<String>();
@@ -144,13 +143,15 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 
       for (String taskName : taskNames)
       {
-         innerTasksText.append("        " + nodeName+ "_" + taskName + "[label=\"" + taskName + "\"];\n");
+         innerTasksText.append("        " + nodeName + "_" + taskName
+            + "[label=\"" + taskName + "\"];\n");
       }
 
       return innerTasksText;
    }
 
-   private StringBuilder dumpLinks() {
+   private StringBuilder dumpLinks()
+   {
       StringBuilder linksText = new StringBuilder();
 
       for (LogEntry entry : this.getEntries())
@@ -158,19 +159,16 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
          LogEntry previousEntry = entry.getParent();
          if (previousEntry != null)
          {
-            linksText.append("    " +
-                  previousEntry.getNodeName() + "_" + previousEntry.getTaskName() +
-                  " -> " +
-                  entry.getNodeName() + "_" + entry.getTaskName() +
-                  "; \n");
+            linksText.append("    " + previousEntry.getNodeName() + "_"
+               + previousEntry.getTaskName() + " -> " + entry.getNodeName()
+               + "_" + entry.getTaskName() + "; \n");
          }
       }
 
       return linksText;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public Object get(String attrName)
    {
@@ -210,8 +208,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       return super.get(attrName);
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -260,8 +257,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       return false;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -270,8 +266,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       return listeners;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -279,7 +274,6 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
-
 
    /********************************************************************
     * <pre>
@@ -314,16 +308,17 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
             this.entries = new LogEntrySet();
          }
 
-         changed = this.entries.add (value);
+         changed = this.entries.add(value);
 
          if (changed)
          {
             value.withLogger(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ENTRIES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ENTRIES,
+               null, value);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public boolean removeFromEntries(LogEntry value)
@@ -332,33 +327,35 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 
       if ((this.entries != null) && (value != null))
       {
-         changed = this.entries.remove (value);
+         changed = this.entries.remove(value);
 
          if (changed)
          {
             value.setLogger(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ENTRIES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ENTRIES,
+               value, null);
          }
       }
 
-      return changed;   
+      return changed;
    }
 
    public Logger withEntries(LogEntry value)
    {
       addToEntries(value);
       return this;
-   } 
+   }
 
    public Logger withoutEntries(LogEntry value)
    {
       removeFromEntries(value);
       return this;
-   } 
+   }
 
    public void removeAllFromEntries()
    {
-      LinkedHashSet<LogEntry> tmpSet = new LinkedHashSet<LogEntry>(this.getEntries());
+      LinkedHashSet<LogEntry> tmpSet = new LinkedHashSet<LogEntry>(
+            this.getEntries());
 
       for (LogEntry value : tmpSet)
       {
@@ -375,8 +372,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 
    public static final LoggerSet EMPTY_SET = new LoggerSet();
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public static final String PROPERTY_STARTPEER = "startPeer";
 
@@ -393,7 +389,8 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       {
          org.sdmlib.model.taskflows.PeerProxy oldValue = this.startPeer;
          this.startPeer = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTPEER, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STARTPEER,
+            oldValue, value);
       }
    }
 
@@ -401,6 +398,5 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
    {
       setStartPeer(value);
       return this;
-   } 
+   }
 }
-

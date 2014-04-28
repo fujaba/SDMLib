@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.codegen.CGUtil;
@@ -35,22 +35,22 @@ import org.sdmlib.utils.StrUtil;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
-public class LinkConstraint extends PatternLink implements PropertyChangeInterface
+public class LinkConstraint extends PatternLink implements
+      PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public boolean findNextMatch()
    {
       if (Pattern.CREATE.equals(getModifier()))
       {
-         if ( ! this.getPattern().getHasMatch())
+         if (!this.getPattern().getHasMatch())
          {
             return false;
          }
-         
+
          if (this.getHasMatch())
          {
             this.setHasMatch(false);
@@ -59,14 +59,18 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
          else
          {
             Object srcObj = this.getSrc().getCurrentMatch();
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
-            creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
+            SendableEntityCreator creatorClass = this.getPattern()
+               .getJsonIdMap().getCreatorClass(srcObj);
+            creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt()
+               .getCurrentMatch(), "");
             this.setHasMatch(true);
-            
+
             if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
             {
-               getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
-                  + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
+               getTopPattern().addLogMsg(
+                  this.getSrc().getPatternObjectName() + ".set"
+                     + StrUtil.upFirstChar(getTgtRoleName()) + "("
+                     + this.getTgt().getPatternObjectName() + ")");
             }
 
             return true;
@@ -74,11 +78,11 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       }
       else if (Pattern.DESTROY.equals(getModifier()))
       {
-         if ( ! this.getPattern().getHasMatch())
+         if (!this.getPattern().getHasMatch())
          {
             return false;
          }
-         
+
          if (this.getHasMatch())
          {
             this.setHasMatch(false);
@@ -87,58 +91,73 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
          else
          {
             Object srcObj = this.getSrc().getCurrentMatch();
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
+            SendableEntityCreator creatorClass = this.getPattern()
+               .getJsonIdMap().getCreatorClass(srcObj);
             Object value = creatorClass.getValue(srcObj, this.getTgtRoleName());
             if (value == null)
             {
-            	// do nothing
+               // do nothing
             }
             else if (value instanceof Collection)
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
                {
-                  getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
-                     + ".removeFrom" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
+                  getTopPattern().addLogMsg(
+                     this.getSrc().getPatternObjectName() + ".removeFrom"
+                        + StrUtil.upFirstChar(getTgtRoleName()) + "("
+                        + this.getTgt().getPatternObjectName() + ")");
                }
-               
-            	creatorClass.setValue(srcObj, this.getTgtRoleName()  + JsonIdMap.REMOVE, this.getTgt().getCurrentMatch(), "");
+
+               creatorClass.setValue(srcObj, this.getTgtRoleName()
+                  + JsonIdMap.REMOVE, this.getTgt().getCurrentMatch(), "");
             }
             else
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
                {
-                  getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
-                     + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(null); // remove" + this.getTgt().dumpHostGraphObject(this.getTgt().getCurrentMatch()));
+                  getTopPattern().addLogMsg(
+                     this.getSrc().getPatternObjectName()
+                        + ".set"
+                        + StrUtil.upFirstChar(getTgtRoleName())
+                        + "(null); // remove"
+                        + this.getTgt().dumpHostGraphObject(
+                           this.getTgt().getCurrentMatch()));
                }
-               
-            	creatorClass.setValue(srcObj, this.getTgtRoleName(), null, "");
+
+               creatorClass.setValue(srcObj, this.getTgtRoleName(), null, "");
             }
             this.setHasMatch(true);
             return true;
          }
       }
-      	
-      
+
       // real search
       if (this.getHostGraphSrcObject() == null)
       {
          // search forward
          this.setHostGraphSrcObject(this.getSrc().getCurrentMatch());
-         
+
          if (getHostGraphSrcObject() != null)
          {
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(getHostGraphSrcObject());
-            Object value = creatorClass.getValue(getHostGraphSrcObject(), getTgtRoleName());
+            SendableEntityCreator creatorClass = this.getPattern()
+               .getJsonIdMap().getCreatorClass(getHostGraphSrcObject());
+            Object value = creatorClass.getValue(getHostGraphSrcObject(),
+               getTgtRoleName());
             Object hostGraphTgtObject = this.getTgt().getCurrentMatch();
-            
-            if (hostGraphTgtObject != null && 
-                  (hostGraphTgtObject == value || (value instanceof Collection && ((Collection) value).contains(hostGraphTgtObject))))
+
+            if (hostGraphTgtObject != null
+               && (hostGraphTgtObject == value || (value instanceof Collection && ((Collection) value)
+                  .contains(hostGraphTgtObject))))
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
                {
                   String msg = "// cnet link from x to y exists";
-                  msg = msg.replaceFirst("y", getTopPattern().getJsonIdMap().getId(value) + " " + value.toString());
-                  msg = msg.replaceFirst("x", getTopPattern().getJsonIdMap().getId(getHostGraphSrcObject()) + " " + getHostGraphSrcObject().toString());
+                  msg = msg.replaceFirst("y", getTopPattern().getJsonIdMap()
+                     .getId(value) + " " + value.toString());
+                  msg = msg.replaceFirst("x", getTopPattern().getJsonIdMap()
+                     .getId(getHostGraphSrcObject())
+                     + " "
+                     + getHostGraphSrcObject().toString());
                   msg = msg.replaceFirst("cnet", getTgtRoleName());
                   getTopPattern().addLogMsg(msg);
                }
@@ -152,19 +171,23 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
                   String msg = "// cnet link from x to ? does not exists, backtrack";
                   if (value != null)
                   {
-                     msg = msg.replaceFirst("\\?", getTopPattern().getJsonIdMap().getId(value) + " " + value.toString());
+                     msg = msg.replaceFirst("\\?", getTopPattern()
+                        .getJsonIdMap().getId(value) + " " + value.toString());
                   }
-                  msg = msg.replaceFirst("x", getTopPattern().getJsonIdMap().getId(getHostGraphSrcObject()) + " " + getHostGraphSrcObject().toString());
+                  msg = msg.replaceFirst("x", getTopPattern().getJsonIdMap()
+                     .getId(getHostGraphSrcObject())
+                     + " "
+                     + getHostGraphSrcObject().toString());
                   msg = msg.replaceFirst("cnet", getTgtRoleName());
                   getTopPattern().addLogMsg(msg);
                }
-               
+
                this.setHostGraphSrcObject(null);
-               
+
                return false;
             }
          }
-         else 
+         else
          {
             return false;
          }
@@ -172,11 +195,11 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       else
       {
          this.setHostGraphSrcObject(null);
-      
+
          return false;
       }
    }
-   
+
    @Override
    public void resetSearch()
    {
@@ -184,12 +207,11 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       super.resetSearch();
    }
 
-
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -239,13 +261,12 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       {
          return getSrc();
       }
-      
+
       return super.get(attrName);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
@@ -305,19 +326,17 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       return super.set(attrName, value);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setPattern(null);
@@ -330,7 +349,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getTgtRoleName());
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
@@ -338,4 +357,3 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
    }
 
 }
-

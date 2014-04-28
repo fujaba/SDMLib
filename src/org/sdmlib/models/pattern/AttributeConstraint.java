@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
@@ -31,22 +31,22 @@ import org.sdmlib.utils.StrUtil;
 
 import java.beans.PropertyChangeListener;
 
-public class AttributeConstraint extends PatternElement implements PropertyChangeInterface
+public class AttributeConstraint extends PatternElement implements
+      PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public boolean findNextMatch()
    {
       if (Pattern.CREATE.equals(getModifier()))
       {
-         if ( ! this.getPattern().getHasMatch())
+         if (!this.getPattern().getHasMatch())
          {
             return false;
          }
-         
+
          if (this.getHasMatch())
          {
             this.setHasMatch(false);
@@ -55,68 +55,78 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
          else
          {
             Object srcObj = this.getSrc().getCurrentMatch();
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(srcObj);
-            creatorClass.setValue(srcObj, this.getAttrName(), this.getTgtValue(), "");
+            SendableEntityCreator creatorClass = this.getPattern()
+               .getJsonIdMap().getCreatorClass(srcObj);
+            creatorClass.setValue(srcObj, this.getAttrName(),
+               this.getTgtValue(), "");
             this.setHasMatch(true);
             return true;
          }
       }
-      
+
       // real search
       if (this.getHostGraphSrcObject() == null)
       {
          // search forward
          this.setHostGraphSrcObject(this.getSrc().getCurrentMatch());
-         
+
          if (hostGraphSrcObject != null)
          {
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClass(hostGraphSrcObject);
+            SendableEntityCreator creatorClass = this.getPattern()
+               .getJsonIdMap().getCreatorClass(hostGraphSrcObject);
             Object value = creatorClass.getValue(hostGraphSrcObject, attrName);
-            
-            boolean itWorks = (value == null && tgtValue == null || value != null && value.equals(tgtValue));
-            
+
+            boolean itWorks = (value == null && tgtValue == null || value != null
+               && value.equals(tgtValue));
+
             if (cmpOp != null && cmpOp.equals("!="))
             {
-               itWorks = (value == null && tgtValue != null || value != null && ! value.equals(tgtValue));
+               itWorks = (value == null && tgtValue != null || value != null
+                  && !value.equals(tgtValue));
             }
-            
+
             if (upperTgtValue != null)
             {
                Comparable comparable = (Comparable) value;
-               itWorks = comparable.compareTo(tgtValue) >= 0 && comparable.compareTo(upperTgtValue) <= 0;
+               itWorks = comparable.compareTo(tgtValue) >= 0
+                  && comparable.compareTo(upperTgtValue) <= 0;
             }
-            
+
             if (itWorks)
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
-               {  
+               {
                   String msg = "// attribute a1 of node x has required value y";
                   msg = msg.replaceFirst("y", "" + value);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("x", ""
+                     + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject)
+                     + " " + hostGraphSrcObject.toString());
                   msg = msg.replaceFirst("a1", "" + attrName);
                   getTopPattern().addLogMsg(msg);
                }
-               
+
                return true;
             }
             else
             {
                if (getTopPattern().getDebugMode() >= R.DEBUG_ON)
-               {  
+               {
                   String msg = "// attribute a1 of node x has value actual and not required value y, backtrack!";
                   msg = msg.replaceFirst("y", "" + tgtValue);
                   msg = msg.replaceFirst("actual", "" + value);
-                  msg = msg.replaceFirst("x", "" + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject) + " " + hostGraphSrcObject.toString());
+                  msg = msg.replaceFirst("x", ""
+                     + getTopPattern().getJsonIdMap().getId(hostGraphSrcObject)
+                     + " " + hostGraphSrcObject.toString());
                   msg = msg.replaceFirst("a1", "" + attrName);
                   getTopPattern().addLogMsg(msg);
                }
-               
+
                this.setHostGraphSrcObject(null);
-               
+
                return false;
             }
          }
-         else 
+         else
          {
             return false;
          }
@@ -124,11 +134,10 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       else
       {
          this.setHostGraphSrcObject(null);
-      
+
          return false;
       }
    }
-
 
    @Override
    public void resetSearch()
@@ -137,12 +146,11 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       this.setHostGraphSrcObject(null);
    }
 
-
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -202,13 +210,12 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       {
          return getUpperTgtValue();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_ATTRNAME.equalsIgnoreCase(attrName))
@@ -280,19 +287,17 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setSrc(null);
@@ -301,92 +306,91 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
       super.removeYou();
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_ATTRNAME = "attrName";
-   
+
    private String attrName;
 
    public String getAttrName()
    {
       return this.attrName;
    }
-   
+
    public void setAttrName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.attrName, value))
+      if (!StrUtil.stringEquals(this.attrName, value))
       {
          String oldValue = this.attrName;
          this.attrName = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRNAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRNAME,
+            oldValue, value);
       }
    }
-   
+
    public AttributeConstraint withAttrName(String value)
    {
       setAttrName(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TGTVALUE = "tgtValue";
-   
+
    private Object tgtValue;
 
    public Object getTgtValue()
    {
       return this.tgtValue;
    }
-   
+
    public void setTgtValue(Object value)
    {
-      if ( (tgtValue == null && value != null)
-            || (tgtValue != null && ! tgtValue.equals(value)))
+      if ((tgtValue == null && value != null)
+         || (tgtValue != null && !tgtValue.equals(value)))
       {
          Object oldValue = this.tgtValue;
          this.tgtValue = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGTVALUE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGTVALUE,
+            oldValue, value);
       }
    }
-   
+
    public AttributeConstraint withTgtValue(Object value)
    {
       setTgtValue(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_HOSTGRAPHSRCOBJECT = "hostGraphSrcObject";
-   
+
    private Object hostGraphSrcObject;
 
    public Object getHostGraphSrcObject()
    {
       return this.hostGraphSrcObject;
    }
-   
+
    public void setHostGraphSrcObject(Object value)
    {
       if (this.hostGraphSrcObject != value)
       {
          Object oldValue = this.hostGraphSrcObject;
          this.hostGraphSrcObject = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOSTGRAPHSRCOBJECT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_HOSTGRAPHSRCOBJECT, oldValue, value);
       }
    }
-   
+
    public AttributeConstraint withHostGraphSrcObject(Object value)
    {
       setHostGraphSrcObject(value);
       return this;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -394,128 +398,126 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
     *              attrConstraints                   src
     * </pre>
     */
-   
+
    public static final String PROPERTY_SRC = "src";
-   
+
    private PatternObject src = null;
-   
+
    public PatternObject getSrc()
    {
       return this.src;
    }
-   
+
    public boolean setSrc(PatternObject value)
    {
       boolean changed = false;
-      
+
       if (this.src != value)
       {
          PatternObject oldValue = this.src;
-         
+
          if (this.src != null)
          {
             this.src = null;
             oldValue.withoutAttrConstraints(this);
          }
-         
+
          this.src = value;
-         
+
          if (value != null)
          {
             value.withAttrConstraints(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SRC, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public AttributeConstraint withSrc(PatternObject value)
    {
       setSrc(value);
       return this;
-   } 
+   }
 
-   
    public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet();
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getPatternObjectName());
       _.append(" ").append(this.getAttrName());
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getCmpOp());
       _.append(" ").append(this.getTgtValue());
-      
+
       return _.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_CMPOP = "cmpOp";
-   
+
    private String cmpOp;
 
    public String getCmpOp()
    {
       return this.cmpOp;
    }
-   
+
    public void setCmpOp(String value)
    {
-      if ( ! StrUtil.stringEquals(this.cmpOp, value))
+      if (!StrUtil.stringEquals(this.cmpOp, value))
       {
          String oldValue = this.cmpOp;
          this.cmpOp = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CMPOP, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CMPOP,
+            oldValue, value);
       }
    }
-   
+
    public AttributeConstraint withCmpOp(String value)
    {
       setCmpOp(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_UPPERTGTVALUE = "upperTgtValue";
-   
+
    private Object upperTgtValue;
 
    public Object getUpperTgtValue()
    {
       return this.upperTgtValue;
    }
-   
+
    public void setUpperTgtValue(Object value)
    {
       if (this.upperTgtValue != value)
       {
          Object oldValue = this.upperTgtValue;
          this.upperTgtValue = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_UPPERTGTVALUE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_UPPERTGTVALUE,
+            oldValue, value);
       }
    }
-   
+
    public AttributeConstraint withUpperTgtValue(Object value)
    {
       setUpperTgtValue(value);
       return this;
-   } 
+   }
 
    public PatternObject createSrc()
    {
       PatternObject value = new PatternObject();
       withSrc(value);
       return value;
-   } 
+   }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -37,21 +37,19 @@ import org.sdmlib.examples.studyrightWithAssignments.Student;
 public class AssignmentSet extends SDMSet<Assignment>
 {
 
-
    public AssignmentPO hasAssignmentPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
-      
+
       AssignmentPO patternObject = pattern.hasElementAssignmentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -59,21 +57,20 @@ public class AssignmentSet extends SDMSet<Assignment>
       return "org.sdmlib.examples.studyrightWithAssignments.Assignment";
    }
 
-
    public AssignmentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Assignment>)value);
+         this.addAll((Collection<Assignment>) value);
       }
       else if (value != null)
       {
          this.add((Assignment) value);
       }
-      
+
       return this;
    }
-   
+
    public AssignmentSet without(Assignment value)
    {
       this.remove(value);
@@ -83,19 +80,19 @@ public class AssignmentSet extends SDMSet<Assignment>
    public StringList getContent()
    {
       StringList result = new StringList();
-      
+
       for (Assignment obj : this)
       {
          result.add(obj.getContent());
       }
-      
+
       return result;
    }
 
    public AssignmentSet hasContent(String value)
    {
       AssignmentSet result = new AssignmentSet();
-      
+
       for (Assignment obj : this)
       {
          if (value.equals(obj.getContent()))
@@ -103,22 +100,23 @@ public class AssignmentSet extends SDMSet<Assignment>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public AssignmentSet hasContent(String lower, String upper)
    {
       AssignmentSet result = new AssignmentSet();
-      
+
       for (Assignment obj : this)
       {
-         if (lower.compareTo(obj.getContent()) <= 0 && obj.getContent().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getContent()) <= 0
+            && obj.getContent().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -128,26 +126,26 @@ public class AssignmentSet extends SDMSet<Assignment>
       {
          obj.setContent(value);
       }
-      
+
       return this;
    }
 
    public intList getPoints()
    {
       intList result = new intList();
-      
+
       for (Assignment obj : this)
       {
          result.add(obj.getPoints());
       }
-      
+
       return result;
    }
 
    public AssignmentSet hasPoints(int value)
    {
       AssignmentSet result = new AssignmentSet();
-      
+
       for (Assignment obj : this)
       {
          if (value == obj.getPoints())
@@ -155,14 +153,14 @@ public class AssignmentSet extends SDMSet<Assignment>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public AssignmentSet hasPoints(int lower, int upper)
    {
       AssignmentSet result = new AssignmentSet();
-      
+
       for (Assignment obj : this)
       {
          if (lower <= obj.getPoints() && obj.getPoints() <= upper)
@@ -170,7 +168,7 @@ public class AssignmentSet extends SDMSet<Assignment>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -180,19 +178,19 @@ public class AssignmentSet extends SDMSet<Assignment>
       {
          obj.setPoints(value);
       }
-      
+
       return this;
    }
 
    public RoomSet getRoom()
    {
       RoomSet result = new RoomSet();
-      
+
       for (Assignment obj : this)
       {
          result.with(obj.getRoom());
       }
-      
+
       return result;
    }
 
@@ -208,9 +206,9 @@ public class AssignmentSet extends SDMSet<Assignment>
       {
          neighbors.add(value);
       }
-      
+
       AssignmentSet answer = new AssignmentSet();
-      
+
       for (Assignment obj : this)
       {
          if (neighbors.contains(obj.getRoom()))
@@ -218,7 +216,7 @@ public class AssignmentSet extends SDMSet<Assignment>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -228,19 +226,19 @@ public class AssignmentSet extends SDMSet<Assignment>
       {
          obj.withRoom(value);
       }
-      
+
       return this;
    }
 
    public StudentSet getStudents()
    {
       StudentSet result = new StudentSet();
-      
+
       for (Assignment obj : this)
       {
          result.with(obj.getStudents());
       }
-      
+
       return result;
    }
 
@@ -256,17 +254,17 @@ public class AssignmentSet extends SDMSet<Assignment>
       {
          neighbors.add(value);
       }
-      
+
       AssignmentSet answer = new AssignmentSet();
-      
+
       for (Assignment obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
+         if (!Collections.disjoint(neighbors, obj.getStudents()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -276,7 +274,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       {
          obj.withStudents(value);
       }
-      
+
       return this;
    }
 
@@ -286,9 +284,8 @@ public class AssignmentSet extends SDMSet<Assignment>
       {
          obj.withoutStudents(value);
       }
-      
+
       return this;
    }
 
 }
-

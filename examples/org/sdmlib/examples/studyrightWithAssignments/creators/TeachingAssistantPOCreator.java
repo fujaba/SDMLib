@@ -8,15 +8,15 @@ public class TeachingAssistantPOCreator extends PatternObjectCreator
    {
       return new TeachingAssistantPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((TeachingAssistantPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((TeachingAssistantPO) target).set(attrName, value);
    }
 }
-

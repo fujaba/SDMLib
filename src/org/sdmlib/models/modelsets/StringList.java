@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.modelsets;
 
 import java.util.ArrayList;
@@ -26,13 +26,11 @@ import java.util.ArrayList;
 public class StringList extends ArrayList<String>
 {
    private static final long serialVersionUID = 1L;
-   
+
    public String toString()
-   {      
+   {
       return "(" + this.concat(", ") + ")";
    }
-   
-
 
    public String concat()
    {
@@ -42,20 +40,18 @@ public class StringList extends ArrayList<String>
    public String concat(String seperator)
    {
       StringBuffer buf = new StringBuffer();
-      
+
       for (String str : this)
       {
          buf.append(str).append(seperator);
       }
-      
+
       if (this.size() > 0)
       {
          buf.replace(buf.length() - seperator.length(), buf.length(), "");
       }
-      
+
       return buf.toString();
    }
 
-
 }
-

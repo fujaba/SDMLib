@@ -8,15 +8,15 @@ public class BoardTaskPOCreator extends PatternObjectCreator
    {
       return new BoardTaskPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((BoardTaskPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((BoardTaskPO) target).set(attrName, value);
    }
 }
-

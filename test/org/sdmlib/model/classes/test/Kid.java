@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.classes.test;
 
 import java.beans.PropertyChangeSupport;
@@ -28,9 +28,8 @@ import org.sdmlib.utils.PropertyChangeInterface;
 public class Kid extends Parent implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -46,9 +45,8 @@ public class Kid extends Parent implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -66,19 +64,17 @@ public class Kid extends Parent implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setUncle(null);
@@ -89,8 +85,8 @@ public class Kid extends Parent implements PropertyChangeInterface
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       return _.substring(1);
-   }}
-
+   }
+}

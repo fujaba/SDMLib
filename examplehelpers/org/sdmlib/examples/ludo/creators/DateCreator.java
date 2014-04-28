@@ -8,25 +8,25 @@ import java.util.Date;
 public class DateCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-   {
-   };
-   
+   {};
+
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    public Object getSendableInstance(boolean reference)
    {
       return new Date();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return null;
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       if (JsonIdMap.REMOVE.equals(type))
       {
@@ -34,19 +34,17 @@ public class DateCreator extends EntityFactory
       }
       return false;
    }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {
       // wrapped object has no removeYou method
    }
 }
-

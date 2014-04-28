@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyright;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -30,9 +30,8 @@ import java.beans.PropertyChangeListener;
 public class Assignment implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -58,9 +57,8 @@ public class Assignment implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -90,19 +88,17 @@ public class Assignment implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setRoom(null);
@@ -110,76 +106,73 @@ public class Assignment implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public Assignment withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getPoints());
       return _.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_POINTS = "points";
-   
+
    private int points;
 
    public int getPoints()
    {
       return this.points;
    }
-   
+
    public void setPoints(int value)
    {
       if (this.points != value)
       {
          int oldValue = this.points;
          this.points = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_POINTS, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_POINTS,
+            oldValue, value);
       }
    }
-   
+
    public Assignment withPoints(int value)
    {
       setPoints(value);
       return this;
-   } 
+   }
 
-   
    public static final AssignmentSet EMPTY_SET = new AssignmentSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -187,58 +180,58 @@ public class Assignment implements PropertyChangeInterface
     *              assignments                   room
     * </pre>
     */
-   
+
    public static final String PROPERTY_ROOM = "room";
-   
+
    private Room room = null;
-   
+
    public Room getRoom()
    {
       return this.room;
    }
-   
+
    public boolean setRoom(Room value)
    {
       boolean changed = false;
-      
+
       if (this.room != value)
       {
          Room oldValue = this.room;
-         
+
          if (this.room != null)
          {
             this.room = null;
             oldValue.withoutAssignments(this);
          }
-         
+
          this.room = value;
-         
+
          if (value != null)
          {
             value.withAssignments(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOM, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOM, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Assignment withRoom(Room value)
    {
       setRoom(value);
       return this;
-   } 
-   
+   }
+
    public Room createRoom()
    {
       Room value = new Room();
       withRoom(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -246,55 +239,55 @@ public class Assignment implements PropertyChangeInterface
     *              done                   students
     * </pre>
     */
-   
+
    public static final String PROPERTY_STUDENTS = "students";
-   
+
    private Student students = null;
-   
+
    public Student getStudents()
    {
       return this.students;
    }
-   
+
    public boolean setStudents(Student value)
    {
       boolean changed = false;
-      
+
       if (this.students != value)
       {
          Student oldValue = this.students;
-         
+
          if (this.students != null)
          {
             this.students = null;
             oldValue.withoutDone(this);
          }
-         
+
          this.students = value;
-         
+
          if (value != null)
          {
             value.withDone(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Assignment withStudents(Student value)
    {
       setStudents(value);
       return this;
-   } 
-   
+   }
+
    public Student createStudents()
    {
       Student value = new Student();
       withStudents(value);
       return value;
-   } 
+   }
 }
-

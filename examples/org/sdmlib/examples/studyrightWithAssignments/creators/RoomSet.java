@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -42,21 +42,19 @@ import org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant;
 public class RoomSet extends SDMSet<Room>
 {
 
-
    public RoomPO hasRoomPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
-      
+
       RoomPO patternObject = pattern.hasElementRoomPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -64,35 +62,33 @@ public class RoomSet extends SDMSet<Room>
       return "org.sdmlib.examples.studyrightWithAssignments.Room";
    }
 
-
    public RoomSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Room>)value);
+         this.addAll((Collection<Room>) value);
       }
       else if (value != null)
       {
          this.add((Room) value);
       }
-      
+
       return this;
    }
-   
+
    public RoomSet without(Room value)
    {
       this.remove(value);
       return this;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public RoomSet findPath(String p0, int p1)
    {
       for (Room obj : this)
       {
-         obj.findPath( p0,  p1);
+         obj.findPath(p0, p1);
       }
       return this;
    }
@@ -100,19 +96,19 @@ public class RoomSet extends SDMSet<Room>
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Room obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
    public RoomSet hasName(String value)
    {
       RoomSet result = new RoomSet();
-      
+
       for (Room obj : this)
       {
          if (value.equals(obj.getName()))
@@ -120,22 +116,23 @@ public class RoomSet extends SDMSet<Room>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public RoomSet hasName(String lower, String upper)
    {
       RoomSet result = new RoomSet();
-      
+
       for (Room obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0
+            && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -145,26 +142,26 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public StringList getTopic()
    {
       StringList result = new StringList();
-      
+
       for (Room obj : this)
       {
          result.add(obj.getTopic());
       }
-      
+
       return result;
    }
 
    public RoomSet hasTopic(String value)
    {
       RoomSet result = new RoomSet();
-      
+
       for (Room obj : this)
       {
          if (value.equals(obj.getTopic()))
@@ -172,22 +169,23 @@ public class RoomSet extends SDMSet<Room>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public RoomSet hasTopic(String lower, String upper)
    {
       RoomSet result = new RoomSet();
-      
+
       for (Room obj : this)
       {
-         if (lower.compareTo(obj.getTopic()) <= 0 && obj.getTopic().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getTopic()) <= 0
+            && obj.getTopic().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -197,26 +195,26 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.setTopic(value);
       }
-      
+
       return this;
    }
 
    public intList getCredits()
    {
       intList result = new intList();
-      
+
       for (Room obj : this)
       {
          result.add(obj.getCredits());
       }
-      
+
       return result;
    }
 
    public RoomSet hasCredits(int value)
    {
       RoomSet result = new RoomSet();
-      
+
       for (Room obj : this)
       {
          if (value == obj.getCredits())
@@ -224,14 +222,14 @@ public class RoomSet extends SDMSet<Room>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public RoomSet hasCredits(int lower, int upper)
    {
       RoomSet result = new RoomSet();
-      
+
       for (Room obj : this)
       {
          if (lower <= obj.getCredits() && obj.getCredits() <= upper)
@@ -239,7 +237,7 @@ public class RoomSet extends SDMSet<Room>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -249,19 +247,19 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.setCredits(value);
       }
-      
+
       return this;
    }
 
    public UniversitySet getUniversity()
    {
       UniversitySet result = new UniversitySet();
-      
+
       for (Room obj : this)
       {
          result.with(obj.getUniversity());
       }
-      
+
       return result;
    }
 
@@ -277,9 +275,9 @@ public class RoomSet extends SDMSet<Room>
       {
          neighbors.add(value);
       }
-      
+
       RoomSet answer = new RoomSet();
-      
+
       for (Room obj : this)
       {
          if (neighbors.contains(obj.getUniversity()))
@@ -287,7 +285,7 @@ public class RoomSet extends SDMSet<Room>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -297,19 +295,19 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withUniversity(value);
       }
-      
+
       return this;
    }
 
    public RoomSet getDoors()
    {
       RoomSet result = new RoomSet();
-      
+
       for (Room obj : this)
       {
          result.with(obj.getDoors());
       }
-      
+
       return result;
    }
 
@@ -325,41 +323,40 @@ public class RoomSet extends SDMSet<Room>
       {
          neighbors.add(value);
       }
-      
+
       RoomSet answer = new RoomSet();
-      
+
       for (Room obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getDoors()))
+         if (!Collections.disjoint(neighbors, obj.getDoors()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
-
 
    public RoomSet getDoorsTransitive()
    {
       RoomSet todo = new RoomSet().with(this);
-      
+
       RoomSet result = new RoomSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Room current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getDoors().minus(result));
          }
       }
-      
+
       return result;
    }
 
@@ -369,7 +366,7 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withDoors(value);
       }
-      
+
       return this;
    }
 
@@ -379,19 +376,19 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withoutDoors(value);
       }
-      
+
       return this;
    }
 
    public StudentSet getStudents()
    {
       StudentSet result = new StudentSet();
-      
+
       for (Room obj : this)
       {
          result.with(obj.getStudents());
       }
-      
+
       return result;
    }
 
@@ -407,17 +404,17 @@ public class RoomSet extends SDMSet<Room>
       {
          neighbors.add(value);
       }
-      
+
       RoomSet answer = new RoomSet();
-      
+
       for (Room obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
+         if (!Collections.disjoint(neighbors, obj.getStudents()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -427,7 +424,7 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withStudents(value);
       }
-      
+
       return this;
    }
 
@@ -437,19 +434,19 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withoutStudents(value);
       }
-      
+
       return this;
    }
 
    public AssignmentSet getAssignments()
    {
       AssignmentSet result = new AssignmentSet();
-      
+
       for (Room obj : this)
       {
          result.with(obj.getAssignments());
       }
-      
+
       return result;
    }
 
@@ -465,17 +462,17 @@ public class RoomSet extends SDMSet<Room>
       {
          neighbors.add(value);
       }
-      
+
       RoomSet answer = new RoomSet();
-      
+
       for (Room obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getAssignments()))
+         if (!Collections.disjoint(neighbors, obj.getAssignments()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -485,7 +482,7 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withAssignments(value);
       }
-      
+
       return this;
    }
 
@@ -495,19 +492,19 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withoutAssignments(value);
       }
-      
+
       return this;
    }
 
    public TeachingAssistantSet getTas()
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-      
+
       for (Room obj : this)
       {
          result.with(obj.getTas());
       }
-      
+
       return result;
    }
 
@@ -523,17 +520,17 @@ public class RoomSet extends SDMSet<Room>
       {
          neighbors.add(value);
       }
-      
+
       RoomSet answer = new RoomSet();
-      
+
       for (Room obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getTas()))
+         if (!Collections.disjoint(neighbors, obj.getTas()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -543,7 +540,7 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withTas(value);
       }
-      
+
       return this;
    }
 
@@ -553,9 +550,8 @@ public class RoomSet extends SDMSet<Room>
       {
          obj.withoutTas(value);
       }
-      
+
       return this;
    }
 
 }
-

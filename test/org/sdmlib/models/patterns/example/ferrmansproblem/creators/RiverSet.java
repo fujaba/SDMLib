@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example.ferrmansproblem.creators;
 
 import java.util.Collection;
@@ -33,22 +33,21 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BankSet;
 
-public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.modelsets.ModelSet
+public class RiverSet extends LinkedHashSet<River> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (River elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -58,12 +57,12 @@ public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.
    public BankSet getBanks()
    {
       BankSet result = new BankSet();
-      
+
       for (River obj : this)
       {
          result.addAll(obj.getBanks());
       }
-      
+
       return result;
    }
 
@@ -73,7 +72,7 @@ public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.
       {
          obj.withBanks(value);
       }
-      
+
       return this;
    }
 
@@ -83,19 +82,19 @@ public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.
       {
          obj.withoutBanks(value);
       }
-      
+
       return this;
    }
 
    public BoatSet getBoat()
    {
       BoatSet result = new BoatSet();
-      
+
       for (River obj : this)
       {
          result.add(obj.getBoat());
       }
-      
+
       return result;
    }
 
@@ -105,69 +104,55 @@ public class RiverSet extends LinkedHashSet<River> implements org.sdmlib.models.
       {
          obj.withBoat(value);
       }
-      
+
       return this;
    }
-
-
 
    public RiverPO startModelPattern()
    {
       org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
-      
+
       RiverPO patternObject = pattern.hasElementRiverPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public RiverSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<River>)value);
+         this.addAll((Collection<River>) value);
       }
       else if (value != null)
       {
          this.add((River) value);
       }
-      
+
       return this;
    }
-   
+
    public RiverSet without(River value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public RiverPO hasRiverPO()
    {
       org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
-      
+
       RiverPO patternObject = pattern.hasElementRiverPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-

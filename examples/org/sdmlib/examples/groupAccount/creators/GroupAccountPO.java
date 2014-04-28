@@ -18,39 +18,37 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
    public GroupAccountSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       GroupAccountSet matches = new GroupAccountSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((GroupAccount) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public double initAccounts(double p0, String p1)
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((GroupAccount) getCurrentMatch()).initAccounts( p0,  p1);
+         return ((GroupAccount) getCurrentMatch()).initAccounts(p0, p1);
       }
       return 0;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void updateBalances()
    {
       if (this.getPattern().getHasMatch())
       {
-          ((GroupAccount) getCurrentMatch()).updateBalances();
+         ((GroupAccount) getCurrentMatch()).updateBalances();
       }
    }
 
@@ -58,23 +56,22 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
    {
       PersonPO result = new PersonPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(GroupAccount.PROPERTY_PERSONS, result);
-      
+
       return result;
    }
 
    public GroupAccountPO hasPersons(PersonPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GroupAccount.PROPERTY_PERSONS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(GroupAccount.PROPERTY_PERSONS)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -91,23 +88,22 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
    {
       ItemPO result = new ItemPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(GroupAccount.PROPERTY_ITEMS, result);
-      
+
       return result;
    }
 
    public GroupAccountPO hasItems(ItemPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GroupAccount.PROPERTY_ITEMS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(GroupAccount.PROPERTY_ITEMS)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -141,5 +137,3 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
    }
 
 }
-
-

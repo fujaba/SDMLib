@@ -8,15 +8,15 @@ public class UnifyGraphsOpPOCreator extends PatternObjectCreator
    {
       return new UnifyGraphsOpPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((UnifyGraphsOpPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((UnifyGraphsOpPO) target).set(attrName, value);
    }
 }
-

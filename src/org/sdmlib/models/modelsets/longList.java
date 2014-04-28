@@ -9,37 +9,43 @@ public class longList extends ArrayList<Long>
    public long sum()
    {
       long result = 0;
-      
+
       for (Long value : this)
       {
          result += value;
       }
-      
+
       return result;
    }
-   
-	public long max() {
-		long max = 0;
 
-		for (long x : this) {
-			if (x > max) {
-				max = x;
-			}
-		}
-		
-		return max;
-	}
-	
-	public long min() {
-		long min = Long.MAX_VALUE;
+   public long max()
+   {
+      long max = 0;
 
-		for (long x : this) {
-			if (x < min) {
-				min = x;
-			}
-		}
-		
-		return min;
-	}
+      for (long x : this)
+      {
+         if (x > max)
+         {
+            max = x;
+         }
+      }
+
+      return max;
+   }
+
+   public long min()
+   {
+      long min = Long.MAX_VALUE;
+
+      for (long x : this)
+      {
+         if (x < min)
+         {
+            min = x;
+         }
+      }
+
+      return min;
+   }
 
 }

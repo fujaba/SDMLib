@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication;
 
 import java.io.IOException;
@@ -28,15 +28,16 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.replication.ReplicationNode;
 
-
-public class ServerSocketAcceptThread extends Thread implements PropertyChangeInterface
+public class ServerSocketAcceptThread extends Thread implements
+      PropertyChangeInterface
 {
-   //==========================================================================
-   
+   // ==========================================================================
+
    public int port;
    public ReplicationNode replicationNode;
 
-   public ServerSocketAcceptThread(ReplicationNode replicationNode, int replicationServerPort)
+   public ServerSocketAcceptThread(ReplicationNode replicationNode,
+         int replicationServerPort)
    {
       this.replicationNode = replicationNode;
       this.port = replicationServerPort;
@@ -55,14 +56,15 @@ public class ServerSocketAcceptThread extends Thread implements PropertyChangeIn
       try
       {
          ServerSocket serverSocket = new ServerSocket(port);
-         
+
          int i = 1;
-         
+
          while (true)
          {
             Socket connection = serverSocket.accept();
-            
-            ReplicationChannel channel = new ReplicationChannel(replicationNode, connection);
+
+            ReplicationChannel channel = new ReplicationChannel(
+                  replicationNode, connection);
             channel.setName("ReplicationChannel" + i++);
             channel.start();
          }
@@ -72,14 +74,11 @@ public class ServerSocketAcceptThread extends Thread implements PropertyChangeIn
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-     
+
    }
-   
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public Object get(String attrName)
    {
       if (PROPERTY_PORT.equalsIgnoreCase(attrName))
@@ -95,9 +94,8 @@ public class ServerSocketAcceptThread extends Thread implements PropertyChangeIn
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_PORT.equalsIgnoreCase(attrName))
@@ -115,84 +113,80 @@ public class ServerSocketAcceptThread extends Thread implements PropertyChangeIn
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       // super.removeYou();
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_PORT = "port";
-   
+
    public int getPort()
    {
       return this.port;
    }
-   
+
    public void setPort(int value)
    {
       if (this.port != value)
       {
          int oldValue = this.port;
          this.port = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PORT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PORT, oldValue,
+            value);
       }
    }
-   
+
    public ServerSocketAcceptThread withPort(int value)
    {
       setPort(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getPort());
       return _.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_REPLICATIONNODE = "replicationNode";
-   
+
    public ReplicationNode getReplicationNode()
    {
       return this.replicationNode;
    }
-   
+
    public void setReplicationNode(ReplicationNode value)
    {
       if (this.replicationNode != value)
       {
          ReplicationNode oldValue = this.replicationNode;
          this.replicationNode = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_REPLICATIONNODE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_REPLICATIONNODE, oldValue, value);
       }
    }
-   
+
    public ServerSocketAcceptThread withReplicationNode(ReplicationNode value)
    {
       setReplicationNode(value);
       return this;
-   } 
+   }
 }
-

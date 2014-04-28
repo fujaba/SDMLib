@@ -18,19 +18,19 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 
-public class UnifyGraphsOp extends PatternElement implements PropertyChangeInterface
+public class UnifyGraphsOp extends PatternElement implements
+      PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
@@ -61,9 +61,8 @@ public class UnifyGraphsOp extends PatternElement implements PropertyChangeInter
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
@@ -99,19 +98,17 @@ public class UnifyGraphsOp extends PatternElement implements PropertyChangeInter
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setPattern(null);
@@ -122,11 +119,10 @@ public class UnifyGraphsOp extends PatternElement implements PropertyChangeInter
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
 
 }
-

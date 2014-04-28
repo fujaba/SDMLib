@@ -17,33 +17,31 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
    public BoardTaskSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       BoardTaskSet matches = new BoardTaskSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((BoardTask) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public BoardTaskPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(BoardTask.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(BoardTask.PROPERTY_NAME).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -52,7 +50,7 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       }
       return null;
    }
-   
+
    public BoardTaskPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -61,28 +59,27 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       }
       return this;
    }
-   
+
    public LogEntryPO hasLogEntries()
    {
       LogEntryPO result = new LogEntryPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Task.PROPERTY_LOGENTRIES, result);
-      
+
       return result;
    }
 
    public BoardTaskPO hasLogEntries(LogEntryPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Task.PROPERTY_LOGENTRIES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Task.PROPERTY_LOGENTRIES).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -99,23 +96,22 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
    {
       LanePO result = new LanePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(BoardTask.PROPERTY_LANE, result);
-      
+
       return result;
    }
 
    public BoardTaskPO hasLane(LanePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_LANE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_LANE).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -131,17 +127,15 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
    public BoardTaskPO hasStatus(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(BoardTask.PROPERTY_STATUS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(BoardTask.PROPERTY_STATUS).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getStatus()
    {
       if (this.getPattern().getHasMatch())
@@ -150,7 +144,7 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       }
       return null;
    }
-   
+
    public BoardTaskPO withStatus(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -159,28 +153,27 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       }
       return this;
    }
-   
+
    public BoardTaskPO hasNext()
    {
       BoardTaskPO result = new BoardTaskPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(BoardTask.PROPERTY_NEXT, result);
-      
+
       return result;
    }
 
    public BoardTaskPO hasNext(BoardTaskPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_NEXT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_NEXT).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -197,23 +190,22 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
    {
       BoardTaskPO result = new BoardTaskPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(BoardTask.PROPERTY_PREV, result);
-      
+
       return result;
    }
 
    public BoardTaskPO hasPrev(BoardTaskPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_PREV)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(BoardTask.PROPERTY_PREV).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -229,45 +221,41 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
    public BoardTaskPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(BoardTask.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(BoardTask.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public BoardTaskPO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public BoardTaskPO hasStatus(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(BoardTask.PROPERTY_STATUS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(BoardTask.PROPERTY_STATUS).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public BoardTaskPO createStatus(String value)
    {
       this.startCreate().hasStatus(value).endCreate();
       return this;
    }
-   
+
    public LogEntryPO createLogEntries()
    {
       return this.startCreate().hasLogEntries().endCreate();
@@ -309,6 +297,3 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
    }
 
 }
-
-
-

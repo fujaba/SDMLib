@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example.ferrmansproblem.creators;
 
 import java.util.Collection;
@@ -33,38 +33,36 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.patterns.example.ferrmansproblem.creators.BoatSet;
 
-public class CargoSet extends LinkedHashSet<Cargo> implements org.sdmlib.models.modelsets.ModelSet
+public class CargoSet extends LinkedHashSet<Cargo> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Cargo elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.patterns.example.ferrmansproblem.Cargo";
    }
 
-
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Cargo obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -74,19 +72,19 @@ public class CargoSet extends LinkedHashSet<Cargo> implements org.sdmlib.models.
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public BankSet getBank()
    {
       BankSet result = new BankSet();
-      
+
       for (Cargo obj : this)
       {
          result.add(obj.getBank());
       }
-      
+
       return result;
    }
 
@@ -96,19 +94,19 @@ public class CargoSet extends LinkedHashSet<Cargo> implements org.sdmlib.models.
       {
          obj.withBank(value);
       }
-      
+
       return this;
    }
 
    public BoatSet getBoat()
    {
       BoatSet result = new BoatSet();
-      
+
       for (Cargo obj : this)
       {
          result.add(obj.getBoat());
       }
-      
+
       return result;
    }
 
@@ -118,68 +116,55 @@ public class CargoSet extends LinkedHashSet<Cargo> implements org.sdmlib.models.
       {
          obj.withBoat(value);
       }
-      
+
       return this;
    }
-
-
 
    public CargoPO startModelPattern()
    {
       org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
-      
+
       CargoPO patternObject = pattern.hasElementCargoPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public CargoSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Cargo>)value);
+         this.addAll((Collection<Cargo>) value);
       }
       else if (value != null)
       {
          this.add((Cargo) value);
       }
-      
+
       return this;
    }
-   
+
    public CargoSet without(Cargo value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public CargoPO hasCargoPO()
    {
       org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
-      
+
       CargoPO patternObject = pattern.hasElementCargoPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-

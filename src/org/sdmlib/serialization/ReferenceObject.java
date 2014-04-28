@@ -4,7 +4,7 @@ package org.sdmlib.serialization;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,96 +20,110 @@ package org.sdmlib.serialization;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+
 /**
  * The Class ReferenceObject.
  */
 
-public class ReferenceObject {
-	/** The json id. */
-	private String jsonId;
+public class ReferenceObject
+{
+   /** The json id. */
+   private String jsonId;
 
-	/** The creator. */
-	private SendableEntityCreator creator;
+   /** The creator. */
+   private SendableEntityCreator creator;
 
-	/** The property. */
-	private String property;
+   /** The property. */
+   private String property;
 
-	/** The entity. */
-	private Object entity;
+   /** The entity. */
+   private Object entity;
 
-	public ReferenceObject withId(String id){
-		this.jsonId = id;
-		return this;
-	}
-	
-	public ReferenceObject withCreator(SendableEntityCreator value){
-		this.creator = value;
-		return this;
-	}
-	
-	public ReferenceObject withProperty(String value){
-		this.property = value;
-		return this;
-	}
-	
-	public ReferenceObject withEntity(Object value){
-		this.entity = value;
-		return this;
-	}
-	
-	/**
-	 * Execute.
-	 * 
-	 * @return true, if successful
-	 */
-	public boolean execute(IdMapEncoder map) {
-		Object assoc = map.getObject(this.jsonId);
-		if (assoc != null) {
-			this.creator.setValue(this.entity, this.property, assoc, IdMapEncoder.NEW);
-			return true;
-		}
-		return false;
-	}
+   public ReferenceObject withId(String id)
+   {
+      this.jsonId = id;
+      return this;
+   }
 
-	/**
-	 * Gets the creater.
-	 * 
-	 * @return the creater
-	 */
-	public SendableEntityCreator getCreater() {
-		return this.creator;
-	}
+   public ReferenceObject withCreator(SendableEntityCreator value)
+   {
+      this.creator = value;
+      return this;
+   }
 
-	/**
-	 * Gets the entity.
-	 * 
-	 * @return the entity
-	 */
-	public Object getEntity() {
-		return this.entity;
-	}
+   public ReferenceObject withProperty(String value)
+   {
+      this.property = value;
+      return this;
+   }
 
-	/**
-	 * Gets the property.
-	 * 
-	 * @return the property
-	 */
-	public String getProperty() {
-		return this.property;
-	}
+   public ReferenceObject withEntity(Object value)
+   {
+      this.entity = value;
+      return this;
+   }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		if (entity == null) {
-			return property;
-		}
-		return this.property + ":" + this.entity.getClass().getName();
-	}
+   /**
+    * Execute.
+    * 
+    * @return true, if successful
+    */
+   public boolean execute(IdMapEncoder map)
+   {
+      Object assoc = map.getObject(this.jsonId);
+      if (assoc != null)
+      {
+         this.creator.setValue(this.entity, this.property, assoc,
+            IdMapEncoder.NEW);
+         return true;
+      }
+      return false;
+   }
+
+   /**
+    * Gets the creater.
+    * 
+    * @return the creater
+    */
+   public SendableEntityCreator getCreater()
+   {
+      return this.creator;
+   }
+
+   /**
+    * Gets the entity.
+    * 
+    * @return the entity
+    */
+   public Object getEntity()
+   {
+      return this.entity;
+   }
+
+   /**
+    * Gets the property.
+    * 
+    * @return the property
+    */
+   public String getProperty()
+   {
+      return this.property;
+   }
+
+   /*
+    * (non-Javadoc)
+    * 
+    * @see java.lang.Object#toString()
+    */
+   @Override
+   public String toString()
+   {
+      if (entity == null)
+      {
+         return property;
+      }
+      return this.property + ":" + this.entity.getClass().getName();
+   }
 }

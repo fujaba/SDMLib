@@ -17,24 +17,22 @@ public class ModelPattern extends Pattern
    {
       super();
    }
-   
+
    @Override
    public JsonIdMap getJsonIdMap()
    {
       JsonIdMap jsonIdMap = super.getJsonIdMap();
-      
+
       if (jsonIdMap == null)
       {
          jsonIdMap = CreatorCreator.createIdMap("hg");
-         
+
          this.setJsonIdMap(jsonIdMap);
       }
-      
+
       return jsonIdMap;
    }
 
-
-   
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -46,98 +44,96 @@ public class ModelPattern extends Pattern
       GraphPO value = new GraphPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public GraphPO hasElementGraphPO(Graph hostGraphObject)
    {
       GraphPO value = new GraphPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PersonPO hasElementPersonPO()
    {
       PersonPO value = new PersonPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PersonPO hasElementPersonPO(Person hostGraphObject)
    {
       PersonPO value = new PersonPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public RelationPO hasElementRelationPO()
    {
       RelationPO value = new RelationPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public RelationPO hasElementRelationPO(Relation hostGraphObject)
    {
       RelationPO value = new RelationPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public GraphComponentPO hasElementGraphComponentPO()
    {
       GraphComponentPO value = new GraphComponentPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
-   public GraphComponentPO hasElementGraphComponentPO(GraphComponent hostGraphObject)
+
+   public GraphComponentPO hasElementGraphComponentPO(
+         GraphComponent hostGraphObject)
    {
       GraphComponentPO value = new GraphComponentPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-
-

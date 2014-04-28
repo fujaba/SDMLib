@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.patternrewriteops;
 
 import java.beans.PropertyChangeSupport;
@@ -33,9 +33,8 @@ import java.beans.PropertyChangeListener;
 public class Train implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_STATION.equalsIgnoreCase(attrName))
@@ -51,9 +50,8 @@ public class Train implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_STATION.equalsIgnoreCase(attrName))
@@ -67,7 +65,7 @@ public class Train implements PropertyChangeInterface
          addToPassengers((Person) value);
          return true;
       }
-      
+
       if ((PROPERTY_PASSENGERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPassengers((Person) value);
@@ -77,19 +75,17 @@ public class Train implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setStation(null);
@@ -97,7 +93,6 @@ public class Train implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -105,61 +100,60 @@ public class Train implements PropertyChangeInterface
     *              trains                   station
     * </pre>
     */
-   
+
    public static final String PROPERTY_STATION = "station";
-   
+
    private Station station = null;
-   
+
    public Station getStation()
    {
       return this.station;
    }
-   
+
    public boolean setStation(Station value)
    {
       boolean changed = false;
-      
+
       if (this.station != value)
       {
          Station oldValue = this.station;
-         
+
          if (this.station != null)
          {
             this.station = null;
             oldValue.withoutTrains(this);
          }
-         
+
          this.station = value;
-         
+
          if (value != null)
          {
             value.withTrains(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STATION,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Train withStation(Station value)
    {
       setStation(value);
       return this;
-   } 
-   
+   }
+
    public Station createStation()
    {
       Station value = new Station();
       withStation(value);
       return value;
-   } 
+   }
 
-   
    public static final TrainSet EMPTY_SET = new TrainSet();
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -167,90 +161,93 @@ public class Train implements PropertyChangeInterface
     *              train                   passengers
     * </pre>
     */
-   
+
    public static final String PROPERTY_PASSENGERS = "passengers";
-   
+
    private PersonSet passengers = null;
-   
+
    public PersonSet getPassengers()
    {
       if (this.passengers == null)
       {
          return Person.EMPTY_SET;
       }
-   
+
       return this.passengers;
    }
-   
+
    public boolean addToPassengers(Person value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.passengers == null)
          {
             this.passengers = new PersonSet();
          }
-         
-         changed = this.passengers.add (value);
-         
+
+         changed = this.passengers.add(value);
+
          if (changed)
          {
             value.withTrain(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PASSENGERS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PASSENGERS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromPassengers(Person value)
    {
       boolean changed = false;
-      
+
       if ((this.passengers != null) && (value != null))
       {
-         changed = this.passengers.remove (value);
-         
+         changed = this.passengers.remove(value);
+
          if (changed)
          {
             value.setTrain(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PASSENGERS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PASSENGERS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public Train withPassengers(Person value)
    {
       addToPassengers(value);
       return this;
-   } 
-   
+   }
+
    public Train withoutPassengers(Person value)
    {
       removeFromPassengers(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromPassengers()
    {
-      LinkedHashSet<Person> tmpSet = new LinkedHashSet<Person>(this.getPassengers());
-   
+      LinkedHashSet<Person> tmpSet = new LinkedHashSet<Person>(
+            this.getPassengers());
+
       for (Person value : tmpSet)
       {
          this.removeFromPassengers(value);
       }
    }
-   
+
    public Person createPassengers()
    {
       Person value = new Person();
       withPassengers(value);
       return value;
-   } 
+   }
 
    public Train withPassengers(Person... value)
    {
@@ -259,7 +256,7 @@ public class Train implements PropertyChangeInterface
          addToPassengers(item);
       }
       return this;
-   } 
+   }
 
    public Train withoutPassengers(Person... value)
    {
@@ -270,4 +267,3 @@ public class Train implements PropertyChangeInterface
       return this;
    }
 }
-

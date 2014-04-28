@@ -14,43 +14,42 @@ public class UnclePO extends PatternObject<UnclePO, Uncle>
    public UncleSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       UncleSet matches = new UncleSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Uncle) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public ParentPO hasBrother()
    {
       ParentPO result = new ParentPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Uncle.PROPERTY_BROTHER, result);
-      
+
       return result;
    }
-   
+
    public UnclePO hasBrother(ParentPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Uncle.PROPERTY_BROTHER)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Uncle.PROPERTY_BROTHER).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Parent getBrother()
    {
       if (this.getPattern().getHasMatch())
@@ -59,7 +58,7 @@ public class UnclePO extends PatternObject<UnclePO, Uncle>
       }
       return null;
    }
-   
+
    public ParentPO createBrother()
    {
       return this.startCreate().hasBrother().endCreate();
@@ -71,5 +70,3 @@ public class UnclePO extends PatternObject<UnclePO, Uncle>
    }
 
 }
-
-

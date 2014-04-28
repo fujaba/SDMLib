@@ -8,15 +8,15 @@ public class NoPropertiesPOCreator extends PatternObjectCreator
    {
       return new NoPropertiesPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((NoPropertiesPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((NoPropertiesPO) target).set(attrName, value);
    }
 }
-

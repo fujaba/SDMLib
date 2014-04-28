@@ -21,48 +21,44 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    public TemplateSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       TemplateSet matches = new TemplateSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Template) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public TemplatePO hasTemplateText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_TEMPLATETEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_TEMPLATETEXT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TemplatePO hasTemplateText(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_TEMPLATETEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_TEMPLATETEXT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getTemplateText()
    {
       if (this.getPattern().getHasMatch())
@@ -71,7 +67,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return null;
    }
-   
+
    public TemplatePO withTemplateText(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -80,36 +76,32 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public TemplatePO hasExpandedText(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_EXPANDEDTEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_EXPANDEDTEXT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TemplatePO hasExpandedText(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_EXPANDEDTEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_EXPANDEDTEXT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getExpandedText()
    {
       if (this.getPattern().getHasMatch())
@@ -118,7 +110,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return null;
    }
-   
+
    public TemplatePO withExpandedText(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -127,36 +119,32 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public TemplatePO hasModelObject(Object value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_MODELOBJECT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_MODELOBJECT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TemplatePO hasModelObject(Object lower, Object upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_MODELOBJECT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_MODELOBJECT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Object getModelObject()
    {
       if (this.getPattern().getHasMatch())
@@ -165,7 +153,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return null;
    }
-   
+
    public TemplatePO withModelObject(Object value)
    {
       if (this.getPattern().getHasMatch())
@@ -174,36 +162,32 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public TemplatePO hasModelClassName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_MODELCLASSNAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_MODELCLASSNAME).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TemplatePO hasModelClassName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_MODELCLASSNAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_MODELCLASSNAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getModelClassName()
    {
       if (this.getPattern().getHasMatch())
@@ -212,7 +196,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return null;
    }
-   
+
    public TemplatePO withModelClassName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -221,36 +205,32 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public TemplatePO hasListStart(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTSTART)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_LISTSTART).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TemplatePO hasListStart(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTSTART)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_LISTSTART).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getListStart()
    {
       if (this.getPattern().getHasMatch())
@@ -259,7 +239,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return null;
    }
-   
+
    public TemplatePO withListStart(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -268,36 +248,32 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public TemplatePO hasListSeparator(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTSEPARATOR)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_LISTSEPARATOR).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TemplatePO hasListSeparator(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTSEPARATOR)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_LISTSEPARATOR).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getListSeparator()
    {
       if (this.getPattern().getHasMatch())
@@ -306,7 +282,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return null;
    }
-   
+
    public TemplatePO withListSeparator(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -315,36 +291,32 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public TemplatePO hasListEnd(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTEND)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_LISTEND).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TemplatePO hasListEnd(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_LISTEND)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_LISTEND).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getListEnd()
    {
       if (this.getPattern().getHasMatch())
@@ -353,7 +325,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return null;
    }
-   
+
    public TemplatePO withListEnd(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -362,14 +334,14 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public PlaceHolderDescriptionPO hasPlaceholders()
    {
       PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Template.PROPERTY_PLACEHOLDERS, result);
-      
+
       return result;
    }
 
@@ -391,9 +363,9 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       ChoiceTemplatePO result = new ChoiceTemplatePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Template.PROPERTY_CHOOSER, result);
-      
+
       return result;
    }
 
@@ -415,9 +387,9 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       MatchPO result = new MatchPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Template.PROPERTY_MATCHES, result);
-      
+
       return result;
    }
 
@@ -439,9 +411,9 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    {
       PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Template.PROPERTY_PARENTS, result);
-      
+
       return result;
    }
 
@@ -462,17 +434,15 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    public TemplatePO hasReferenceLookup(boolean value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_REFERENCELOOKUP)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_REFERENCELOOKUP).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public boolean getReferenceLookup()
    {
       if (this.getPattern().getHasMatch())
@@ -481,7 +451,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return false;
    }
-   
+
    public TemplatePO withReferenceLookup(boolean value)
    {
       if (this.getPattern().getHasMatch())
@@ -490,36 +460,32 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public TemplatePO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_NAME).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public TemplatePO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Template.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -528,7 +494,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return null;
    }
-   
+
    public TemplatePO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -537,61 +503,61 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       }
       return this;
    }
-   
+
    public TemplatePO createTemplateText(String value)
    {
       this.startCreate().hasTemplateText(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createExpandedText(String value)
    {
       this.startCreate().hasExpandedText(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createModelObject(Object value)
    {
       this.startCreate().hasModelObject(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createModelClassName(String value)
    {
       this.startCreate().hasModelClassName(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createListStart(String value)
    {
       this.startCreate().hasListStart(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createListSeparator(String value)
    {
       this.startCreate().hasListSeparator(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createListEnd(String value)
    {
       this.startCreate().hasListEnd(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createReferenceLookup(boolean value)
    {
       this.startCreate().hasReferenceLookup(value).endCreate();
       return this;
    }
-   
+
    public TemplatePO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public PlaceHolderDescriptionPO createPlaceholders()
    {
       return this.startCreate().hasPlaceholders().endCreate();
@@ -633,7 +599,3 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    }
 
 }
-
-
-
-

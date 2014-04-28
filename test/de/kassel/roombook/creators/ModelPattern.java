@@ -14,7 +14,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -26,48 +26,48 @@ public class ModelPattern extends Pattern
       BuildingPO value = new BuildingPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public BuildingPO hasElementBuildingPO(Building hostGraphObject)
    {
       BuildingPO value = new BuildingPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public FloorPO hasElementFloorPO()
    {
       FloorPO value = new FloorPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public FloorPO hasElementFloorPO(Floor hostGraphObject)
    {
       FloorPO value = new FloorPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public RoomPO hasElementRoomPO()
    {
@@ -94,5 +94,3 @@ public class ModelPattern extends Pattern
    } 
 
 }
-
-

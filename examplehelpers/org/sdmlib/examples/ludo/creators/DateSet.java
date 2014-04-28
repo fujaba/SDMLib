@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import java.util.Collection;
@@ -27,80 +27,72 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 
-public class DateSet extends LinkedHashSet<Date> implements org.sdmlib.models.modelsets.ModelSet
+public class DateSet extends LinkedHashSet<Date> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Date elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "java.util.Date";
    }
 
-
    public DatePO startModelPattern()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       DatePO patternObject = pattern.hasElementDatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public DateSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Date>)value);
+         this.addAll((Collection<Date>) value);
       }
       else if (value != null)
       {
          this.add((Date) value);
       }
-      
+
       return this;
    }
-   
+
    public DateSet without(Date value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public DatePO hasDatePO()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       DatePO patternObject = pattern.hasElementDatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

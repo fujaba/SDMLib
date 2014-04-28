@@ -8,15 +8,14 @@ public class GenericLinkPOCreator extends PatternObjectCreator
    {
       return new GenericLinkPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((GenericLinkPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((GenericLinkPO) target).set(attrName, value);
    }
 }
-

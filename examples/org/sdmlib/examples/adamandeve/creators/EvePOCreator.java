@@ -8,15 +8,15 @@ public class EvePOCreator extends PatternObjectCreator
    {
       return new EvePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((EvePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((EvePO) target).set(attrName, value);
    }
 }
-

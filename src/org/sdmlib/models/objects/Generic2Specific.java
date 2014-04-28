@@ -8,46 +8,50 @@ import org.sdmlib.serialization.json.JsonIdMap;
 public class Generic2Specific
 {
 
-   public Object convert(JsonIdMap jsonIdMap, String packageName, GenericGraph graph)
+   public Object convert(JsonIdMap jsonIdMap, String packageName,
+         GenericGraph graph)
    {
-      Object result = null; 
-      
+      Object result = null;
+
       // now create specific objects
       LinkedHashMap<GenericObject, Object> gen2specObjTable = new LinkedHashMap<GenericObject, Object>();
-      
+
       for (GenericObject genericObject : graph.getObjects())
       {
          String type = genericObject.getType();
-         
+
          if (type != null)
          {
             if (packageName != null)
             {
                type = packageName + "." + type;
             }
-            
-            SendableEntityCreator creatorClass = jsonIdMap.getCreatorClasses(type);
-            
+
+            SendableEntityCreator creatorClass = jsonIdMap
+               .getCreatorClasses(type);
+
             if (creatorClass != null)
             {
                Object specObject = creatorClass.getSendableInstance(false);
-               
+
                gen2specObjTable.put(genericObject, specObject);
-               
+
                if (result == null)
                {
                   result = specObject;
                }
-               
+
                // transfer the attributes
-               for (GenericAttribute genericAttribute : genericObject.getAttrs())
+               for (GenericAttribute genericAttribute : genericObject
+                  .getAttrs())
                {
-                  creatorClass.setValue(specObject, genericAttribute.getName(), genericAttribute.getValue(), "");
+                  creatorClass.setValue(specObject, genericAttribute.getName(),
+                     genericAttribute.getValue(), "");
                }
             }
          }
       }
-      
+
       // now set up the links
       for (GenericLink genericLink : graph.getLinks())
       {
@@ -60,21 +64,25 @@ public class Generic2Specific
          {
             continue;
          }
-         
+
          if (genericLink.getTgtLabel() != null)
          {
             // use set at source object
-            SendableEntityCreator srcCreatorClass = jsonIdMap.getCreatorClass(specSrc);
-            srcCreatorClass.setValue(specSrc, genericLink.getTgtLabel(), specTgt, "");
+            SendableEntityCreator srcCreatorClass = jsonIdMap
+               .getCreatorClass(specSrc);
+            srcCreatorClass.setValue(specSrc, genericLink.getTgtLabel(),
+               specTgt, "");
          }
          else if (genericLink.getSrcLabel() != null)
          {
             // use set at target object
-            SendableEntityCreator tgtCreatorClass = jsonIdMap.getCreatorClass(specTgt);
-            tgtCreatorClass.setValue(specTgt, genericLink.getSrcLabel(), specSrc, "");
+            SendableEntityCreator tgtCreatorClass = jsonIdMap
+               .getCreatorClass(specTgt);
+            tgtCreatorClass.setValue(specTgt, genericLink.getSrcLabel(),
+               specSrc, "");
          }
       }
-      
+
       return result;
    }
 

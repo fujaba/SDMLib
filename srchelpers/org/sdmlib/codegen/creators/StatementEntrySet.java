@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.codegen.creators;
 
 import java.util.ArrayList;
@@ -41,12 +41,12 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
    public StringList getKind()
    {
       StringList result = new StringList();
-      
+
       for (StatementEntry obj : this)
       {
          result.add(obj.getKind());
       }
-      
+
       return result;
    }
 
@@ -56,19 +56,19 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       {
          obj.withKind(value);
       }
-      
+
       return this;
    }
 
    public ArrayList<String> getTokenList()
    {
       ArrayList<String> result = new ArrayList<String>();
-      
+
       for (StatementEntry obj : this)
       {
          result.addAll(obj.getTokenList());
       }
-      
+
       return result;
    }
 
@@ -78,19 +78,19 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       {
          obj.withTokenList(value);
       }
-      
+
       return this;
    }
 
    public StringList getAssignTargetVarName()
    {
       StringList result = new StringList();
-      
+
       for (StatementEntry obj : this)
       {
          result.add(obj.getAssignTargetVarName());
       }
-      
+
       return result;
    }
 
@@ -100,28 +100,29 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       {
          obj.withAssignTargetVarName(value);
       }
-      
+
       return this;
    }
 
    public StatementEntrySet getBodyStats()
    {
       StatementEntrySet result = new StatementEntrySet();
-      
+
       for (StatementEntry obj : this)
       {
          result.addAll(obj.getBodyStats());
       }
-      
+
       return result;
    }
+
    public StatementEntrySet withBodyStats(StatementEntry value)
    {
       for (StatementEntry obj : this)
       {
          obj.withBodyStats(value);
       }
-      
+
       return this;
    }
 
@@ -131,72 +132,70 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       {
          obj.withoutBodyStats(value);
       }
-      
+
       return this;
    }
 
    public StatementEntrySet getParent()
    {
       StatementEntrySet result = new StatementEntrySet();
-      
+
       for (StatementEntry obj : this)
       {
          result.add(obj.getParent());
       }
-      
+
       return result;
    }
+
    public StatementEntrySet withParent(StatementEntry value)
    {
       for (StatementEntry obj : this)
       {
          obj.withParent(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (StatementEntry elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.codegen.StatementEntry";
    }
 
-
    public StatementEntrySet with(StatementEntry value)
    {
       this.add(value);
       return this;
    }
-   
+
    public StatementEntrySet without(StatementEntry value)
    {
       this.remove(value);
       return this;
    }
+
    public intList getStartPos()
    {
       intList result = new intList();
-      
+
       for (StatementEntry obj : this)
       {
          result.add(obj.getStartPos());
       }
-      
+
       return result;
    }
 
@@ -206,19 +205,19 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       {
          obj.withStartPos(value);
       }
-      
+
       return this;
    }
 
    public intList getEndPos()
    {
       intList result = new intList();
-      
+
       for (StatementEntry obj : this)
       {
          result.add(obj.getEndPos());
       }
-      
+
       return result;
    }
 
@@ -228,42 +227,37 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       {
          obj.withEndPos(value);
       }
-      
+
       return this;
    }
-
-
 
    public StatementEntryPO startModelPattern()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       StatementEntryPO patternObject = pattern.hasElementStatementEntryPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public StatementEntrySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<StatementEntry>)value);
+         this.addAll((Collection<StatementEntry>) value);
       }
       else if (value != null)
       {
          this.add((StatementEntry) value);
       }
-      
+
       return this;
    }
-   
-
 
    public StatementEntryPO hasStatementEntryPO()
    {
@@ -274,59 +268,50 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
    public StatementEntrySet getBodyStatsTransitive()
    {
       StatementEntrySet todo = new StatementEntrySet().with(this);
-      
+
       StatementEntrySet result = new StatementEntrySet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          StatementEntry current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getBodyStats().minus(result));
          }
       }
-      
+
       return result;
    }
-
-
 
    public StatementEntrySet getParentTransitive()
    {
       StatementEntrySet todo = new StatementEntrySet().with(this);
-      
+
       StatementEntrySet result = new StatementEntrySet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          StatementEntry current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getParent()))
+
+            if (!result.contains(current.getParent()))
             {
                todo.with(current.getParent());
             }
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
-
-

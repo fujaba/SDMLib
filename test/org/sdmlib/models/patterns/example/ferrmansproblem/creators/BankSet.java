@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example.ferrmansproblem.creators;
 
 import java.util.Collection;
@@ -39,49 +39,48 @@ import org.sdmlib.models.patterns.example.ferrmansproblem.Cargo;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.modelsets.ModelSet
+public class BankSet extends LinkedHashSet<Bank> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Bank elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.patterns.example.ferrmansproblem.Bank";
    }
 
-
    public BankSet with(Bank value)
    {
       this.add(value);
       return this;
    }
-   
+
    public BankSet without(Bank value)
    {
       this.remove(value);
       return this;
    }
+
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Bank obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -91,19 +90,19 @@ public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.mo
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public intList getAge()
    {
       intList result = new intList();
-      
+
       for (Bank obj : this)
       {
          result.add(obj.getAge());
       }
-      
+
       return result;
    }
 
@@ -113,19 +112,19 @@ public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.mo
       {
          obj.setAge(value);
       }
-      
+
       return this;
    }
 
    public BoatSet getBoat()
    {
       BoatSet result = new BoatSet();
-      
+
       for (Bank obj : this)
       {
          result.add(obj.getBoat());
       }
-      
+
       return result;
    }
 
@@ -135,19 +134,19 @@ public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.mo
       {
          obj.withBoat(value);
       }
-      
+
       return this;
    }
 
    public RiverSet getRiver()
    {
       RiverSet result = new RiverSet();
-      
+
       for (Bank obj : this)
       {
          result.add(obj.getRiver());
       }
-      
+
       return result;
    }
 
@@ -157,19 +156,19 @@ public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.mo
       {
          obj.withRiver(value);
       }
-      
+
       return this;
    }
 
    public CargoSet getCargos()
    {
       CargoSet result = new CargoSet();
-      
+
       for (Bank obj : this)
       {
          result.addAll(obj.getCargos());
       }
-      
+
       return result;
    }
 
@@ -179,7 +178,7 @@ public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.mo
       {
          obj.withCargos(value);
       }
-      
+
       return this;
    }
 
@@ -189,63 +188,49 @@ public class BankSet extends LinkedHashSet<Bank> implements org.sdmlib.models.mo
       {
          obj.withoutCargos(value);
       }
-      
+
       return this;
    }
-
-
 
    public BankPO startModelPattern()
    {
       org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
-      
+
       BankPO patternObject = pattern.hasElementBankPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public BankSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Bank>)value);
+         this.addAll((Collection<Bank>) value);
       }
       else if (value != null)
       {
          this.add((Bank) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public BankPO hasBankPO()
    {
       org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern pattern = new org.sdmlib.models.patterns.example.ferrmansproblem.creators.ModelPattern();
-      
+
       BankPO patternObject = pattern.hasElementBankPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-

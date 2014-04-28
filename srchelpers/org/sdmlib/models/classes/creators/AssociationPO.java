@@ -17,12 +17,12 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    {
       return (AssociationPO) super.startNAC();
    }
-   
+
    public AssociationPO endNAC()
    {
       return (AssociationPO) super.endNAC();
    }
-   
+
    public AssociationSet allMatches()
    {
       AssociationSet matches = new AssociationSet();
@@ -30,37 +30,36 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
       while (this.getPattern().getHasMatch())
       {
          matches.add((Association) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public ClassModelPO hasModel()
    {
       ClassModelPO result = new ClassModelPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Association.PROPERTY_MODEL, result);
-      
+
       return result;
    }
-   
+
    public AssociationPO hasModel(ClassModelPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Association.PROPERTY_MODEL)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Association.PROPERTY_MODEL)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public ClassModel getModel()
    {
       if (this.getPattern().getHasMatch())
@@ -69,31 +68,30 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
       }
       return null;
    }
-   
+
    public RolePO hasSource()
    {
       RolePO result = new RolePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Association.PROPERTY_SOURCE, result);
-      
+
       return result;
    }
-   
+
    public AssociationPO hasSource(RolePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Association.PROPERTY_SOURCE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Association.PROPERTY_SOURCE)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Role getSource()
    {
       if (this.getPattern().getHasMatch())
@@ -102,31 +100,30 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
       }
       return null;
    }
-   
+
    public RolePO hasTarget()
    {
       RolePO result = new RolePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Association.PROPERTY_TARGET, result);
-      
+
       return result;
    }
-   
+
    public AssociationPO hasTarget(RolePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Association.PROPERTY_TARGET)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Association.PROPERTY_TARGET)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public Role getTarget()
    {
       if (this.getPattern().getHasMatch())
@@ -135,7 +132,7 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
       }
       return null;
    }
-   
+
    public ClassModelPO createModel()
    {
       return this.startCreate().hasModel().endCreate();
@@ -157,5 +154,3 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    }
 
 }
-
-

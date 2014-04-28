@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example;
 
 import org.sdmlib.models.pattern.ReachableState;
@@ -32,9 +32,8 @@ import java.beans.PropertyChangeListener;
 public class SimpleState implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NODES.equalsIgnoreCase(attrName))
@@ -45,9 +44,8 @@ public class SimpleState implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NODES.equalsIgnoreCase(attrName))
@@ -55,7 +53,7 @@ public class SimpleState implements PropertyChangeInterface
          addToNodes((Node) value);
          return true;
       }
-      
+
       if ((PROPERTY_NODES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromNodes((Node) value);
@@ -65,26 +63,23 @@ public class SimpleState implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromNodes();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -92,90 +87,92 @@ public class SimpleState implements PropertyChangeInterface
     *              graph                   nodes
     * </pre>
     */
-   
+
    public static final String PROPERTY_NODES = "nodes";
-   
+
    private NodeSet nodes = null;
-   
+
    public NodeSet getNodes()
    {
       if (this.nodes == null)
       {
          return Node.EMPTY_SET;
       }
-   
+
       return this.nodes;
    }
-   
+
    public boolean addToNodes(Node value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.nodes == null)
          {
             this.nodes = new NodeSet();
          }
-         
-         changed = this.nodes.add (value);
-         
+
+         changed = this.nodes.add(value);
+
          if (changed)
          {
             value.withGraph(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromNodes(Node value)
    {
       boolean changed = false;
-      
+
       if ((this.nodes != null) && (value != null))
       {
-         changed = this.nodes.remove (value);
-         
+         changed = this.nodes.remove(value);
+
          if (changed)
          {
             value.setGraph(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_NODES,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public SimpleState withNodes(Node value)
    {
       addToNodes(value);
       return this;
-   } 
-   
+   }
+
    public SimpleState withoutNodes(Node value)
    {
       removeFromNodes(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromNodes()
    {
       LinkedHashSet<Node> tmpSet = new LinkedHashSet<Node>(this.getNodes());
-   
+
       for (Node value : tmpSet)
       {
          this.removeFromNodes(value);
       }
    }
-   
+
    public Node createNodes()
    {
       Node value = new Node();
       withNodes(value);
       return value;
-   } 
+   }
 
    public SimpleState withNodes(Node... value)
    {
@@ -184,7 +181,7 @@ public class SimpleState implements PropertyChangeInterface
          addToNodes(item);
       }
       return this;
-   } 
+   }
 
    public SimpleState withoutNodes(Node... value)
    {
@@ -195,4 +192,3 @@ public class SimpleState implements PropertyChangeInterface
       return this;
    }
 }
-

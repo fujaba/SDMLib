@@ -4,7 +4,7 @@ package org.sdmlib.serialization.event.creator;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,55 +20,63 @@ package org.sdmlib.serialization.event.creator;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import org.sdmlib.serialization.event.BasicMessage;
 import org.sdmlib.serialization.interfaces.SendableEntityCreatorByte;
+
 /**
  * The Class BasicMessageCreator.
  */
 
-public class BasicMessageCreator implements SendableEntityCreatorByte {
-	/** The properties. */
-	protected final String[] properties = new String[] { BasicMessage.PROPERTY_VALUE };
+public class BasicMessageCreator implements SendableEntityCreatorByte
+{
+   /** The properties. */
+   protected final String[] properties = new String[]
+   { BasicMessage.PROPERTY_VALUE };
 
-	/*
-	 * return the Properties
-	 */
-	@Override
-	public String[] getProperties() {
-		return this.properties;
-	}
+   /*
+    * return the Properties
+    */
+   @Override
+   public String[] getProperties()
+   {
+      return this.properties;
+   }
 
-	/*
-	 * Create new Instance of BasicMessage
-	 */
-	@Override
-	public Object getSendableInstance(boolean reference) {
-		return new BasicMessage();
-	}
+   /*
+    * Create new Instance of BasicMessage
+    */
+   @Override
+   public Object getSendableInstance(boolean reference)
+   {
+      return new BasicMessage();
+   }
 
-	/*
-	 * Get the EventTyp of BasicMessage (0x42)
-	 */
-	@Override
-	public byte getEventTyp() {
-		return 0x42;
-	}
+   /*
+    * Get the EventTyp of BasicMessage (0x42)
+    */
+   @Override
+   public byte getEventTyp()
+   {
+      return 0x42;
+   }
 
-	/*
-	 * Getter for BasicMessage
-	 */
-	@Override
-	public Object getValue(Object entity, String attribute) {
-		return ((BasicMessage) entity).get(attribute);
-	}
+   /*
+    * Getter for BasicMessage
+    */
+   @Override
+   public Object getValue(Object entity, String attribute)
+   {
+      return ((BasicMessage) entity).get(attribute);
+   }
 
-	/*
-	 * Setter for BasicMessage
-	 */
-	@Override
-	public boolean setValue(Object entity, String attribute, Object value,
-			String typ) {
-		return ((BasicMessage) entity).set(attribute, value);
-	}
+   /*
+    * Setter for BasicMessage
+    */
+   @Override
+   public boolean setValue(Object entity, String attribute, Object value,
+         String typ)
+   {
+      return ((BasicMessage) entity).set(attribute, value);
+   }
 }

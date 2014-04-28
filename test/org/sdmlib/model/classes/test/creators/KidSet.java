@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.classes.test.creators;
 
 import java.util.Collection;
@@ -35,19 +35,17 @@ import org.sdmlib.models.modelsets.ObjectSet;
 public class KidSet extends LinkedHashSet<Kid> implements ModelSet
 {
 
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Kid elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -57,12 +55,12 @@ public class KidSet extends LinkedHashSet<Kid> implements ModelSet
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Kid obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -72,19 +70,19 @@ public class KidSet extends LinkedHashSet<Kid> implements ModelSet
       {
          obj.withName(value);
       }
-      
+
       return this;
    }
 
    public UncleSet getUncle()
    {
       UncleSet result = new UncleSet();
-      
+
       for (Kid obj : this)
       {
          result.add(obj.getUncle());
       }
-      
+
       return result;
    }
 
@@ -94,67 +92,55 @@ public class KidSet extends LinkedHashSet<Kid> implements ModelSet
       {
          obj.withUncle(value);
       }
-      
+
       return this;
    }
-
-
 
    public KidPO startModelPattern()
    {
       org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
-      
+
       KidPO patternObject = pattern.hasElementKidPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public KidSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Kid>)value);
+         this.addAll((Collection<Kid>) value);
       }
       else if (value != null)
       {
          this.add((Kid) value);
       }
-      
+
       return this;
    }
-   
+
    public KidSet without(Kid value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public KidPO hasKidPO()
    {
       org.sdmlib.model.classes.test.creators.ModelPattern pattern = new org.sdmlib.model.classes.test.creators.ModelPattern();
-      
+
       KidPO patternObject = pattern.hasElementKidPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-

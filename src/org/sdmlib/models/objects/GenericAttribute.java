@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.objects;
 
 import java.beans.PropertyChangeSupport;
@@ -31,14 +31,13 @@ import java.beans.PropertyChangeListener;
 public class GenericAttribute implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -58,13 +57,12 @@ public class GenericAttribute implements PropertyChangeInterface
       {
          return getOwner();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -88,85 +86,81 @@ public class GenericAttribute implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setOwner(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public GenericAttribute withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_VALUE = "value";
-   
+
    private String value;
 
    public String getValue()
    {
       return this.value;
    }
-   
+
    public void setValue(String value)
    {
-      if ( ! StrUtil.stringEquals(this.value, value))
+      if (!StrUtil.stringEquals(this.value, value))
       {
          String oldValue = this.value;
          this.value = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE,
+            oldValue, value);
       }
    }
-   
+
    public GenericAttribute withValue(String value)
    {
       setValue(value);
       return this;
-   } 
+   }
 
-   
    public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -174,65 +168,65 @@ public class GenericAttribute implements PropertyChangeInterface
     *              attrs                   owner
     * </pre>
     */
-   
+
    public static final String PROPERTY_OWNER = "owner";
-   
+
    private GenericObject owner = null;
-   
+
    public GenericObject getOwner()
    {
       return this.owner;
    }
-   
+
    public boolean setOwner(GenericObject value)
    {
       boolean changed = false;
-      
+
       if (this.owner != value)
       {
          GenericObject oldValue = this.owner;
-         
+
          if (this.owner != null)
          {
             this.owner = null;
             oldValue.withoutAttrs(this);
          }
-         
+
          this.owner = value;
-         
+
          if (value != null)
          {
             value.withAttrs(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNER, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNER,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public GenericAttribute withOwner(GenericObject value)
    {
       setOwner(value);
       return this;
-   } 
-   
+   }
+
    public GenericObject createOwner()
    {
       GenericObject value = new GenericObject();
       withOwner(value);
       return value;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getValue());
       return _.substring(1);
    }
 
 }
-

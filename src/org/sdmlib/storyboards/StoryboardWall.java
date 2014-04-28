@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.storyboards;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -28,9 +28,8 @@ import java.beans.PropertyChangeListener;
 public class StoryboardWall implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
@@ -41,9 +40,8 @@ public class StoryboardWall implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
@@ -55,31 +53,28 @@ public class StoryboardWall implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setStoryboard(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -87,55 +82,55 @@ public class StoryboardWall implements PropertyChangeInterface
     *              wall                   storyboard
     * </pre>
     */
-   
+
    public static final String PROPERTY_STORYBOARD = "storyboard";
-   
+
    private Storyboard storyboard = null;
-   
+
    public Storyboard getStoryboard()
    {
       return this.storyboard;
    }
-   
+
    public boolean setStoryboard(Storyboard value)
    {
       boolean changed = false;
-      
+
       if (this.storyboard != value)
       {
          Storyboard oldValue = this.storyboard;
-         
+
          if (this.storyboard != null)
          {
             this.storyboard = null;
             oldValue.setWall(null);
          }
-         
+
          this.storyboard = value;
-         
+
          if (value != null)
          {
             value.withWall(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARD, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARD,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public StoryboardWall withStoryboard(Storyboard value)
    {
       setStoryboard(value);
       return this;
-   } 
-   
+   }
+
    public Storyboard createStoryboard()
    {
       Storyboard value = new Storyboard();
       withStoryboard(value);
       return value;
-   } 
+   }
 }
-

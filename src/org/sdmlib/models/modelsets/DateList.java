@@ -7,5 +7,4 @@ public class DateList extends ArrayList<Date>
 {
    private static final long serialVersionUID = 1L;
 
-
 }

@@ -15,10 +15,9 @@ public class Specific2Generic
    private class MyUpdateListener implements MapUpdateListener
    {
       public String firstPropName = null;
-      
+
       public String secondPropName = null;
-      
-      
+
       @Override
       public boolean skipCollision(Object masterObj, String key, Object value,
             JsonObject removeJson, JsonObject updateJson)
@@ -28,72 +27,74 @@ public class Specific2Generic
       }
 
       @Override
-  	public boolean sendUpdateMsg(Object target, String property, Object oldObj,
-  			Object newObject, JsonObject jsonObject) {
+      public boolean sendUpdateMsg(Object target, String property,
+            Object oldObj, Object newObject, JsonObject jsonObject)
+      {
          Object tmp = jsonObject.get(JsonIdMap.REMOVE);
-         
+
          if (tmp != null && tmp instanceof JsonObject)
          {
             JsonObject remObj = (JsonObject) tmp;
-            
+
             String propName = (String) remObj.names().get(0);
-            
+
             firstPropName = secondPropName;
-            
+
             secondPropName = propName;
          }
          return false;
       }
 
-	@Override
-	public boolean isReadMessages(String key, Object element, JsonObject props,
-			String type) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+      @Override
+      public boolean isReadMessages(String key, Object element,
+            JsonObject props, String type)
+      {
+         // TODO Auto-generated method stub
+         return false;
+      }
 
-	@Override
-	public boolean readMessages(String key, Object element, Object value,
-			JsonObject props, String type) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+      @Override
+      public boolean readMessages(String key, Object element, Object value,
+            JsonObject props, String type)
+      {
+         // TODO Auto-generated method stub
+         return false;
+      }
    }
 
    public GenericGraph convert(JsonIdMap idMap, Object root)
    {
       GenericGraph graph = new GenericGraph();
-      
+
       LinkedHashMap<String, GenericObject> genObjMap = new LinkedHashMap<String, GenericObject>();
       LinkedHashSet<String> knownLinks = new LinkedHashSet<String>();
-      
+
       MyUpdateListener changeListener = new MyUpdateListener();
       idMap.withUpdateMsgListener(changeListener);
-      
+
       // we go via a json array
       JsonArray jsonArray = idMap.toJsonArray(root);
-      
+
       for (int i = 0; i < jsonArray.size(); i++)
       {
          JsonObject jsonObj = jsonArray.getJSONObject(i);
-         
+
          String currentJsonId = jsonObj.getString(JsonIdMap.ID);
-         GenericObject genObj = graph.createObjects()
-               .withName(currentJsonId)
-               .withType(jsonObj.getString(JsonIdMap.CLASS));
-         
+         GenericObject genObj = graph.createObjects().withName(currentJsonId)
+            .withType(jsonObj.getString(JsonIdMap.CLASS));
+
          genObjMap.put(genObj.getName(), genObj);
-         
+
          JsonObject jsonProps = (JsonObject) jsonObj.get(JsonIdMap.JSON_PROPS);
-         
+
          if (jsonProps != null)
          {
             for (Iterator<String> iter = jsonProps.keys(); iter.hasNext();)
             {
                String attrName = iter.next();
-               
+
                Object value = jsonProps.get(attrName);
-               
+
                if (value instanceof JsonObject)
                {
                   // this is a reference to another object
@@ -104,24 +105,22 @@ public class Specific2Generic
                {
                   // this is an array of links
                   JsonArray jsonRefs = (JsonArray) value;
-                  
+
                   for (int j = 0; j < jsonRefs.size(); j++)
                   {
-                     addOneGenericLink(idMap, graph, genObjMap, changeListener, currentJsonId, genObj, attrName, 
-                           jsonRefs.get(j), true);
+                     addOneGenericLink(idMap, graph, genObjMap, changeListener,
+                        currentJsonId, genObj, attrName, jsonRefs.get(j), true);
                   }
                }
-               else 
+               else
                {
                   // store as attribute
-                  genObj.createAttrs()
-                  .withName(attrName)
-                  .withValue("" + value); 
+                  genObj.createAttrs().withName(attrName).withValue("" + value);
                }
             }
          }
       }
-      
+
       return graph;
    }
 
@@ -137,8 +136,9 @@ public class Specific2Generic
       if (genTgtObj != null)
       {
          // the other object has already been build, build the edge
-         
-         // need to know the name of the reverse reference trigger change and catch propertychange messages
+
+         // need to know the name of the reverse reference trigger change and
+         // catch propertychange messages
          Object specObj = idMap.getObject(currentJsonId);
 
          SendableEntityCreator creatorClass = idMap.getCreatorClass(specObj);
@@ -147,7 +147,8 @@ public class Specific2Generic
 
          if (multi)
          {
-            creatorClass.setValue(specObj, attrName + JsonIdMap.REMOVE, specTgtObject, "");
+            creatorClass.setValue(specObj, attrName + JsonIdMap.REMOVE,
+               specTgtObject, "");
             creatorClass.setValue(specObj, attrName, specTgtObject, "");
          }
          else
@@ -155,21 +156,21 @@ public class Specific2Generic
             creatorClass.setValue(specObj, attrName, null, null);
             creatorClass.setValue(specObj, attrName, specTgtObject, null);
          }
-         
+
          if (changeListener.firstPropName.compareTo(attrName) <= 0)
          {
-            graph.createLinks()
-            .withSrc(genObj).withSrcLabel(changeListener.firstPropName)
-            .withTgt(genTgtObj).withTgtLabel(attrName);
+            graph.createLinks().withSrc(genObj)
+               .withSrcLabel(changeListener.firstPropName).withTgt(genTgtObj)
+               .withTgtLabel(attrName);
          }
          else
          {
-            graph.createLinks()
-            .withTgt(genObj).withTgtLabel(changeListener.firstPropName)
-            .withSrc(genTgtObj).withSrcLabel(attrName);
-            
+            graph.createLinks().withTgt(genObj)
+               .withTgtLabel(changeListener.firstPropName).withSrc(genTgtObj)
+               .withSrcLabel(attrName);
+
          }
-         
+
          // repair object structure
          creatorClass.setValue(specObj, attrName, specTgtObject, null);
       }

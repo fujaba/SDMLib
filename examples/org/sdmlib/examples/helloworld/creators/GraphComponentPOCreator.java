@@ -8,15 +8,14 @@ public class GraphComponentPOCreator extends PatternObjectCreator
    {
       return new GraphComponentPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((GraphComponentPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((GraphComponentPO) target).set(attrName, value);
    }
 }
-

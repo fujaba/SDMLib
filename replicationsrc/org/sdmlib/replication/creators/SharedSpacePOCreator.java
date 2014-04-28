@@ -8,15 +8,15 @@ public class SharedSpacePOCreator extends PatternObjectCreator
    {
       return new SharedSpacePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((SharedSpacePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((SharedSpacePO) target).set(attrName, value);
    }
 }
-

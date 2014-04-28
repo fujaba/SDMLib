@@ -21,36 +21,36 @@
 
 package org.sdmlib.codegen;
 
-public class Token 
+public class Token
 {
-	public char kind;
+   public char kind;
 
-	public StringBuilder text = new StringBuilder();
-	
-	public double value;
-	
-	public int startPos;
-	public int endPos;
-	
-	public String name ()
-	{
-		return this.text.toString();
-	}
+   public StringBuilder text = new StringBuilder();
 
-	public boolean is(String string) 
-	{
-		return (this.kind == 'v' && string != null
-			&& string.equals(this.text.toString()));
-	}
+   public double value;
 
-	public boolean is(char c) 
-	{
-		return this.kind == c;
-	}
-	
-	public String toString()
-	{
+   public int startPos;
+   public int endPos;
+
+   public String name()
+   {
+      return this.text.toString();
+   }
+
+   public boolean is(String string)
+   {
+      return (this.kind == 'v' && string != null && string.equals(this.text
+         .toString()));
+   }
+
+   public boolean is(char c)
+   {
+      return this.kind == c;
+   }
+
+   public String toString()
+   {
       return kind + " " + name();
-	   
-	}
+
+   }
 }

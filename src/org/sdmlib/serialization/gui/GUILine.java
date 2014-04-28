@@ -4,7 +4,7 @@ package org.sdmlib.serialization.gui;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,38 +20,45 @@ package org.sdmlib.serialization.gui;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 
-public class GUILine {
-	/** The Font-Size-Family value. */
-	private String color;
-	private boolean customLine;
-	private String width;
+public class GUILine
+{
+   /** The Font-Size-Family value. */
+   private String color;
+   private boolean customLine;
+   private String width;
 
-	public String getColor() {
-		return color;
-	}
+   public String getColor()
+   {
+      return color;
+   }
 
-	public GUILine withColor(String color) {
-		this.color = color;
-		return this;
-	}
+   public GUILine withColor(String color)
+   {
+      this.color = color;
+      return this;
+   }
 
-	public String getWidth() {
-		return width;
-	}
+   public String getWidth()
+   {
+      return width;
+   }
 
-	public GUILine withWidth(String width) {
-		this.width = width;
-		return this;
-	}
+   public GUILine withWidth(String width)
+   {
+      this.width = width;
+      return this;
+   }
 
-	public boolean isCustomLine() {
-		return customLine;
-	}
+   public boolean isCustomLine()
+   {
+      return customLine;
+   }
 
-	public GUILine withCustomLine(boolean customLine) {
-		this.customLine = customLine;
-		return this;
-	}
+   public GUILine withCustomLine(boolean customLine)
+   {
+      this.customLine = customLine;
+      return this;
+   }
 }

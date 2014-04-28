@@ -14,47 +14,44 @@ import org.sdmlib.serialization.json.creators.SDMLibJsonIdMapSet;
 public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
 {
 
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Logger elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.taskflows.Logger";
    }
 
-
    public LoggerSet with(Logger value)
    {
       this.add(value);
       return this;
    }
-   
+
    public LoggerSet without(Logger value)
    {
       this.remove(value);
       return this;
    }
-   
+
    public intList getTaskNo()
    {
       intList result = new intList();
-      
+
       for (Logger obj : this)
       {
          result.add(obj.getTaskNo());
       }
-      
+
       return result;
    }
 
@@ -64,19 +61,19 @@ public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
       {
          obj.withTaskNo(value);
       }
-      
+
       return this;
    }
 
    public SDMLibJsonIdMapSet getIdMap()
    {
       SDMLibJsonIdMapSet result = new SDMLibJsonIdMapSet();
-      
+
       for (Logger obj : this)
       {
          result.add(obj.getIdMap());
       }
-      
+
       return result;
    }
 
@@ -86,28 +83,29 @@ public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
       {
          obj.withIdMap(value);
       }
-      
+
       return this;
    }
 
    public LogEntrySet getEntries()
    {
       LogEntrySet result = new LogEntrySet();
-      
+
       for (Logger obj : this)
       {
          result.addAll(obj.getEntries());
       }
-      
+
       return result;
    }
+
    public LoggerSet withEntries(LogEntry value)
    {
       for (Logger obj : this)
       {
          obj.withEntries(value);
       }
-      
+
       return this;
    }
 
@@ -117,19 +115,19 @@ public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
       {
          obj.withoutEntries(value);
       }
-      
+
       return this;
    }
 
    public PeerProxySet getStartPeer()
    {
       PeerProxySet result = new PeerProxySet();
-      
+
       for (Logger obj : this)
       {
          result.add(obj.getStartPeer());
       }
-      
+
       return result;
    }
 
@@ -139,11 +137,8 @@ public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
       {
          obj.withStartPeer(value);
       }
-      
+
       return this;
    }
 
 }
-
-
-

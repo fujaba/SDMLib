@@ -4,7 +4,7 @@ package org.sdmlib.serialization.json;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,14 +20,16 @@ package org.sdmlib.serialization.json;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 import org.sdmlib.serialization.Filter;
 import org.sdmlib.serialization.IdMapEncoder;
 
-public class UpdateFilter extends Filter {
-	@Override
-	public boolean isConvertable(IdMapEncoder map, Object entity, String property,
-			Object value, boolean isMany, int deep) {
-		return map.getKey(value) == null;
-	}
+public class UpdateFilter extends Filter
+{
+   @Override
+   public boolean isConvertable(IdMapEncoder map, Object entity,
+         String property, Object value, boolean isMany, int deep)
+   {
+      return map.getKey(value) == null;
+   }
 }

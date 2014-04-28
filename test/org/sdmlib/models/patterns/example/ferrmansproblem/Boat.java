@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example.ferrmansproblem;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -28,9 +28,8 @@ import java.beans.PropertyChangeListener;
 public class Boat implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_BANK.equalsIgnoreCase(attrName))
@@ -51,9 +50,8 @@ public class Boat implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_BANK.equalsIgnoreCase(attrName))
@@ -77,19 +75,17 @@ public class Boat implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setBank(null);
@@ -98,7 +94,6 @@ public class Boat implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -106,58 +101,58 @@ public class Boat implements PropertyChangeInterface
     *              boat                   bank
     * </pre>
     */
-   
+
    public static final String PROPERTY_BANK = "bank";
-   
+
    private Bank bank = null;
-   
+
    public Bank getBank()
    {
       return this.bank;
    }
-   
+
    public boolean setBank(Bank value)
    {
       boolean changed = false;
-      
+
       if (this.bank != value)
       {
          Bank oldValue = this.bank;
-         
+
          if (this.bank != null)
          {
             this.bank = null;
             oldValue.setBoat(null);
          }
-         
+
          this.bank = value;
-         
+
          if (value != null)
          {
             value.withBoat(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_BANK, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_BANK, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Boat withBank(Bank value)
    {
       setBank(value);
       return this;
-   } 
-   
+   }
+
    public Bank createBank()
    {
       Bank value = new Bank();
       withBank(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -165,58 +160,58 @@ public class Boat implements PropertyChangeInterface
     *              boat                   cargo
     * </pre>
     */
-   
+
    public static final String PROPERTY_CARGO = "cargo";
-   
+
    private Cargo cargo = null;
-   
+
    public Cargo getCargo()
    {
       return this.cargo;
    }
-   
+
    public boolean setCargo(Cargo value)
    {
       boolean changed = false;
-      
+
       if (this.cargo != value)
       {
          Cargo oldValue = this.cargo;
-         
+
          if (this.cargo != null)
          {
             this.cargo = null;
             oldValue.setBoat(null);
          }
-         
+
          this.cargo = value;
-         
+
          if (value != null)
          {
             value.withBoat(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CARGO, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CARGO,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Boat withCargo(Cargo value)
    {
       setCargo(value);
       return this;
-   } 
-   
+   }
+
    public Cargo createCargo()
    {
       Cargo value = new Cargo();
       withCargo(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -224,55 +219,55 @@ public class Boat implements PropertyChangeInterface
     *              boat                   river
     * </pre>
     */
-   
+
    public static final String PROPERTY_RIVER = "river";
-   
+
    private River river = null;
-   
+
    public River getRiver()
    {
       return this.river;
    }
-   
+
    public boolean setRiver(River value)
    {
       boolean changed = false;
-      
+
       if (this.river != value)
       {
          River oldValue = this.river;
-         
+
          if (this.river != null)
          {
             this.river = null;
             oldValue.setBoat(null);
          }
-         
+
          this.river = value;
-         
+
          if (value != null)
          {
             value.withBoat(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_RIVER, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_RIVER,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Boat withRiver(River value)
    {
       setRiver(value);
       return this;
-   } 
-   
+   }
+
    public River createRiver()
    {
       River value = new River();
       withRiver(value);
       return value;
-   } 
+   }
 }
-

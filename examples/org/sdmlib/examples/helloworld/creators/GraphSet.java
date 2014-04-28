@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.helloworld.creators;
 
 import java.util.Collection;
@@ -35,26 +35,28 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
 import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
 
-public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.modelsets.ModelSet
+public class GraphSet extends LinkedHashSet<Graph> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public NodeSet getNodes()
    {
       NodeSet result = new NodeSet();
-      
+
       for (Graph obj : this)
       {
          result.addAll(obj.getNodes());
       }
-      
+
       return result;
    }
+
    public GraphSet withNodes(Node value)
    {
       for (Graph obj : this)
       {
          obj.withNodes(value);
       }
-      
+
       return this;
    }
 
@@ -64,28 +66,29 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withoutNodes(value);
       }
-      
+
       return this;
    }
 
    public EdgeSet getEdges()
    {
       EdgeSet result = new EdgeSet();
-      
+
       for (Graph obj : this)
       {
          result.addAll(obj.getEdges());
       }
-      
+
       return result;
    }
+
    public GraphSet withEdges(Edge value)
    {
       for (Graph obj : this)
       {
          obj.withEdges(value);
       }
-      
+
       return this;
    }
 
@@ -95,28 +98,29 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withoutEdges(value);
       }
-      
+
       return this;
    }
 
    public GraphComponentSet getGcs()
    {
       GraphComponentSet result = new GraphComponentSet();
-      
+
       for (Graph obj : this)
       {
          result.addAll(obj.getGcs());
       }
-      
+
       return result;
    }
+
    public GraphSet withGcs(GraphComponent value)
    {
       for (Graph obj : this)
       {
          obj.withGcs(value);
       }
-      
+
       return this;
    }
 
@@ -126,112 +130,72 @@ public class GraphSet extends LinkedHashSet<Graph> implements org.sdmlib.models.
       {
          obj.withoutGcs(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Graph elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.helloworld.Graph";
    }
 
-
    public GraphPO startModelPattern()
    {
       org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
-      
+
       GraphPO patternObject = pattern.hasElementGraphPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GraphSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Graph>)value);
+         this.addAll((Collection<Graph>) value);
       }
       else if (value != null)
       {
          this.add((Graph) value);
       }
-      
+
       return this;
    }
-   
+
    public GraphSet without(Graph value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GraphPO hasGraphPO()
    {
       org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
-      
+
       GraphPO patternObject = pattern.hasElementGraphPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

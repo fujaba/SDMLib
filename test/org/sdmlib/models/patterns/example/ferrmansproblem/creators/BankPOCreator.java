@@ -8,15 +8,15 @@ public class BankPOCreator extends PatternObjectCreator
    {
       return new BankPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((BankPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((BankPO) target).set(attrName, value);
    }
 }
-

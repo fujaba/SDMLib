@@ -8,15 +8,15 @@ public class SDMLibJsonIdMapPOCreator extends PatternObjectCreator
    {
       return new SDMLibJsonIdMapPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((SDMLibJsonIdMapPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((SDMLibJsonIdMapPO) target).set(attrName, value);
    }
 }
-

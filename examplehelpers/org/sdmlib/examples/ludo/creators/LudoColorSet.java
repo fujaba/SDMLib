@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import java.util.Collection;
@@ -27,81 +27,72 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.models.modelsets.StringList;
 
-public class LudoColorSet extends LinkedHashSet<LudoColor> implements org.sdmlib.models.modelsets.ModelSet
+public class LudoColorSet extends LinkedHashSet<LudoColor> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (LudoColor elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.ludo.LudoModel.LudoColor";
    }
 
-
-
    public LudoColorPO startModelPattern()
    {
       org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
+
       LudoColorPO patternObject = pattern.hasElementLudoColorPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public LudoColorSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<LudoColor>)value);
+         this.addAll((Collection<LudoColor>) value);
       }
       else if (value != null)
       {
          this.add((LudoColor) value);
       }
-      
+
       return this;
    }
-   
+
    public LudoColorSet without(LudoColor value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public LudoColorPO hasLudoColorPO()
    {
       org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
+
       LudoColorPO patternObject = pattern.hasElementLudoColorPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

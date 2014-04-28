@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
@@ -39,38 +39,36 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.replication.creators.LaneSet;
 import org.sdmlib.replication.creators.BoardTaskSet;
 
-public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models.modelsets.ModelSet
+public class BoardTaskSet extends SDMSet<BoardTask> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (BoardTask elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.replication.BoardTask";
    }
 
-
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (BoardTask obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -80,19 +78,19 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
 
    public LogEntrySet getLogEntries()
    {
       LogEntrySet result = new LogEntrySet();
-      
+
       for (BoardTask obj : this)
       {
          result.addAll(obj.getLogEntries());
       }
-      
+
       return result;
    }
 
@@ -102,7 +100,7 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.withLogEntries(value);
       }
-      
+
       return this;
    }
 
@@ -112,19 +110,19 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.withoutLogEntries(value);
       }
-      
+
       return this;
    }
 
    public LaneSet getLane()
    {
       LaneSet result = new LaneSet();
-      
+
       for (BoardTask obj : this)
       {
          result.add(obj.getLane());
       }
-      
+
       return result;
    }
 
@@ -134,10 +132,9 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.withLane(value);
       }
-      
+
       return this;
    }
-
 
    public BoardTask getFirst()
    {
@@ -145,10 +142,9 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          return t;
       }
-      
+
       return null;
    }
-
 
    public void removeYou()
    {
@@ -161,12 +157,12 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
    public StringList getStatus()
    {
       StringList result = new StringList();
-      
+
       for (BoardTask obj : this)
       {
          result.add(obj.getStatus());
       }
-      
+
       return result;
    }
 
@@ -176,19 +172,19 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.setStatus(value);
       }
-      
+
       return this;
    }
 
    public BoardTaskSet getNext()
    {
       BoardTaskSet result = new BoardTaskSet();
-      
+
       for (BoardTask obj : this)
       {
          result.addAll(obj.getNext());
       }
-      
+
       return result;
    }
 
@@ -198,7 +194,7 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.withNext(value);
       }
-      
+
       return this;
    }
 
@@ -208,19 +204,19 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.withoutNext(value);
       }
-      
+
       return this;
    }
 
    public BoardTaskSet getPrev()
    {
       BoardTaskSet result = new BoardTaskSet();
-      
+
       for (BoardTask obj : this)
       {
          result.addAll(obj.getPrev());
       }
-      
+
       return result;
    }
 
@@ -230,7 +226,7 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.withPrev(value);
       }
-      
+
       return this;
    }
 
@@ -240,99 +236,89 @@ public class BoardTaskSet extends SDMSet<BoardTask> implements org.sdmlib.models
       {
          obj.withoutPrev(value);
       }
-      
+
       return this;
    }
-
-
 
    public BoardTaskPO hasBoardTaskPO()
    {
       org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
-      
+
       BoardTaskPO patternObject = pattern.hasElementBoardTaskPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public BoardTaskSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<BoardTask>)value);
+         this.addAll((Collection<BoardTask>) value);
       }
       else if (value != null)
       {
          this.add((BoardTask) value);
       }
-      
+
       return this;
    }
-   
+
    public BoardTaskSet without(BoardTask value)
    {
       this.remove(value);
       return this;
    }
 
-
    public BoardTaskSet getNextTransitive()
    {
       BoardTaskSet todo = new BoardTaskSet().with(this);
-      
+
       BoardTaskSet result = new BoardTaskSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          BoardTask current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getNext().minus(result));
          }
       }
-      
+
       return result;
    }
-
 
    public BoardTaskSet getPrevTransitive()
    {
       BoardTaskSet todo = new BoardTaskSet().with(this);
-      
+
       BoardTaskSet result = new BoardTaskSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          BoardTask current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getPrev().minus(result));
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
 

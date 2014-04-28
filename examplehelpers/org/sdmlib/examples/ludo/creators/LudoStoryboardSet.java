@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import java.util.LinkedHashSet;
@@ -27,43 +27,41 @@ import org.sdmlib.examples.ludo.LudoStoryboard;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class LudoStoryboardSet extends LinkedHashSet<LudoStoryboard> implements ModelSet
+public class LudoStoryboardSet extends LinkedHashSet<LudoStoryboard> implements
+      ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (LudoStoryboard elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.ludo.LudoStoryboard";
    }
 
-
    public LudoStoryboardSet with(LudoStoryboard value)
    {
       this.add(value);
       return this;
    }
-   
+
    public LudoStoryboardSet without(LudoStoryboard value)
    {
       this.remove(value);
       return this;
    }
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    public LudoStoryboardSet testLudoStoryboard()
    {
       for (LudoStoryboard obj : this)
@@ -73,9 +71,8 @@ public class LudoStoryboardSet extends LinkedHashSet<LudoStoryboard> implements 
       return this;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public LudoStoryboardSet testLudoStoryboardManual()
    {
       for (LudoStoryboard obj : this)
@@ -86,4 +83,3 @@ public class LudoStoryboardSet extends LinkedHashSet<LudoStoryboard> implements 
    }
 
 }
-

@@ -8,15 +8,15 @@ public class DatePOCreator extends PatternObjectCreator
    {
       return new DatePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((DatePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((DatePO) target).set(attrName, value);
    }
 }
-

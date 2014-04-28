@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
@@ -30,38 +30,37 @@ import org.sdmlib.models.modelsets.intList;
 import java.util.List;
 import java.util.Collection;
 
-public class ServerSocketAcceptThreadSet extends LinkedHashSet<ServerSocketAcceptThread> implements org.sdmlib.models.modelsets.ModelSet
+public class ServerSocketAcceptThreadSet extends
+      LinkedHashSet<ServerSocketAcceptThread> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ServerSocketAcceptThread elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.replication.ServerSocketAcceptThread";
    }
 
-
    public intList getPort()
    {
       intList result = new intList();
-      
+
       for (ServerSocketAcceptThread obj : this)
       {
          result.add(obj.getPort());
       }
-      
+
       return result;
    }
 
@@ -71,19 +70,19 @@ public class ServerSocketAcceptThreadSet extends LinkedHashSet<ServerSocketAccep
       {
          obj.setPort(value);
       }
-      
+
       return this;
    }
 
    public ReplicationNodeSet getReplicationNode()
    {
       ReplicationNodeSet result = new ReplicationNodeSet();
-      
+
       for (ServerSocketAcceptThread obj : this)
       {
          result.add(obj.getReplicationNode());
       }
-      
+
       return result;
    }
 
@@ -93,41 +92,39 @@ public class ServerSocketAcceptThreadSet extends LinkedHashSet<ServerSocketAccep
       {
          obj.setReplicationNode(value);
       }
-      
+
       return this;
    }
-
-
 
    public ServerSocketAcceptThreadPO hasServerSocketAcceptThreadPO()
    {
       org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
-      
-      ServerSocketAcceptThreadPO patternObject = pattern.hasElementServerSocketAcceptThreadPO();
-      
+
+      ServerSocketAcceptThreadPO patternObject = pattern
+         .hasElementServerSocketAcceptThreadPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ServerSocketAcceptThreadSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ServerSocketAcceptThread>)value);
+         this.addAll((Collection<ServerSocketAcceptThread>) value);
       }
       else if (value != null)
       {
          this.add((ServerSocketAcceptThread) value);
       }
-      
+
       return this;
    }
-   
+
    public ServerSocketAcceptThreadSet without(ServerSocketAcceptThread value)
    {
       this.remove(value);
@@ -135,6 +132,3 @@ public class ServerSocketAcceptThreadSet extends LinkedHashSet<ServerSocketAccep
    }
 
 }
-
-
-

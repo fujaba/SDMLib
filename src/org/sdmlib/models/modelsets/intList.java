@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.modelsets;
 
 import java.beans.PropertyChangeSupport;
@@ -26,82 +26,86 @@ import java.util.ArrayList;
 
 import org.sdmlib.utils.PropertyChangeInterface;
 
-public class intList extends ArrayList<Integer> implements PropertyChangeInterface
+public class intList extends ArrayList<Integer> implements
+      PropertyChangeInterface
 {
 
-	private static final long serialVersionUID = -2345886837862490672L;
+   private static final long serialVersionUID = -2345886837862490672L;
 
-	public int sum()
+   public int sum()
    {
       int result = 0;
-      
+
       for (int x : this)
       {
          result += x;
       }
-      
+
       return result;
    }
-   
-	public int max() {
-		int max = 0;
 
-		for (int x : this) {
-			if (x > max) {
-				max = x;
-			}
-		}
-		
-		return max;
-	}
-	
-	public int min() {
-		int min = Integer.MAX_VALUE;
+   public int max()
+   {
+      int max = 0;
 
-		for (int x : this) {
-			if (x < min) {
-				min = x;
-			}
-		}
-		
-		return min;
-	}
-   
-   //==========================================================================
+      for (int x : this)
+      {
+         if (x > max)
+         {
+            max = x;
+         }
+      }
+
+      return max;
+   }
+
+   public int min()
+   {
+      int min = Integer.MAX_VALUE;
+
+      for (int x : this)
+      {
+         if (x < min)
+         {
+            min = x;
+         }
+      }
+
+      return min;
+   }
+
+   // ==========================================================================
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
+   // ==========================================================================
    public boolean set(String attrName, Object value)
    {
       return false;
    }
 
-   
-   //==========================================================================
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
+   // ==========================================================================
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-

@@ -8,15 +8,15 @@ public class LogEntryPOCreator extends PatternObjectCreator
    {
       return new LogEntryPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((LogEntryPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((LogEntryPO) target).set(attrName, value);
    }
 }
-

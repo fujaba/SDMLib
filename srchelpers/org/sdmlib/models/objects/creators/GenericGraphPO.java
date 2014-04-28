@@ -18,37 +18,36 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
       while (this.getPattern().getHasMatch())
       {
          matches.add((GenericGraph) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public GenericObjectPO hasObjects()
    {
       GenericObjectPO result = new GenericObjectPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(GenericGraph.PROPERTY_OBJECTS, result);
-      
+
       return result;
    }
-   
+
    public GenericGraphPO hasObjects(GenericObjectPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GenericGraph.PROPERTY_OBJECTS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(GenericGraph.PROPERTY_OBJECTS)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public GenericObjectSet getObjects()
    {
       if (this.getPattern().getHasMatch())
@@ -57,31 +56,30 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
       }
       return null;
    }
-      
+
    public GenericLinkPO hasLinks()
    {
       GenericLinkPO result = new GenericLinkPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(GenericGraph.PROPERTY_LINKS, result);
-      
+
       return result;
    }
-   
+
    public GenericGraphPO hasLinks(GenericLinkPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(GenericGraph.PROPERTY_LINKS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(GenericGraph.PROPERTY_LINKS)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public GenericLinkSet getLinks()
    {
       if (this.getPattern().getHasMatch())
@@ -90,7 +88,7 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
       }
       return null;
    }
-   
+
    public GenericObjectPO createObjects()
    {
       return this.startCreate().hasObjects().endCreate();
@@ -112,6 +110,3 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
    }
 
 }
-
-
-

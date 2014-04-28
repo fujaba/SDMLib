@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
@@ -30,38 +30,36 @@ import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements org.sdmlib.models.modelsets.ModelSet
+public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ChangeHistory elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.replication.ChangeHistory";
    }
 
-
    public ReplicationChangeSet getChanges()
    {
       ReplicationChangeSet result = new ReplicationChangeSet();
-      
+
       for (ChangeHistory obj : this)
       {
          result.addAll(obj.getChanges());
       }
-      
+
       return result;
    }
 
@@ -71,7 +69,7 @@ public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements or
       {
          obj.withChanges(value);
       }
-      
+
       return this;
    }
 
@@ -81,41 +79,38 @@ public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements or
       {
          obj.withoutChanges(value);
       }
-      
+
       return this;
    }
-
-
 
    public ChangeHistoryPO hasChangeHistoryPO()
    {
       org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
-      
+
       ChangeHistoryPO patternObject = pattern.hasElementChangeHistoryPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ChangeHistorySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ChangeHistory>)value);
+         this.addAll((Collection<ChangeHistory>) value);
       }
       else if (value != null)
       {
          this.add((ChangeHistory) value);
       }
-      
+
       return this;
    }
-   
+
    public ChangeHistorySet without(ChangeHistory value)
    {
       this.remove(value);
@@ -123,8 +118,4 @@ public class ChangeHistorySet extends LinkedHashSet<ChangeHistory> implements or
    }
 
 }
-
-
-
-
 

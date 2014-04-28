@@ -8,15 +8,15 @@ public class ArrayListPOCreator extends PatternObjectCreator
    {
       return new ArrayListPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ArrayListPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((ArrayListPO) target).set(attrName, value);
    }
 }
-

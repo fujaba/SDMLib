@@ -12,7 +12,7 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class TrainStoryboards
 {
-   @Test 
+   @Test
    public void trainCollectPassengers()
    {
       Storyboard storyboard = new Storyboard("examples");
@@ -37,10 +37,10 @@ public class TrainStoryboards
       stat3.createFlag();
 
       storyboard.addObjectDiagram(train);
-      
+
       int i = 1;
 
-      do 
+      do
       {
          // collect people from first station
          ModelPattern pattern = new ModelPattern();
@@ -49,8 +49,7 @@ public class TrainStoryboards
 
          StationPO stationPO = trainPO.hasStation();
 
-         SignalFlagPO flagPO = stationPO.hasFlag()
-               .destroy();
+         SignalFlagPO flagPO = stationPO.hasFlag().destroy();
 
          stationPO.startSubPattern();
 
@@ -64,13 +63,14 @@ public class TrainStoryboards
 
          storyboard.add(pattern.dumpDiagram("addPassengersPattern" + i));
          i++;
-         
+
          train.setStation(train.getStation().getNext());
       }
       while (train.getStation() != null);
-      
+
       storyboard.dumpHTML();
 
-      Assert.assertEquals("station should be vacant ",  0, stat1.getPeople().size());
+      Assert.assertEquals("station should be vacant ", 0, stat1.getPeople()
+         .size());
    }
 }

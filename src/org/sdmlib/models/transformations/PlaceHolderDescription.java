@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -34,9 +34,8 @@ import org.sdmlib.models.transformations.creators.MatchSet;
 public class PlaceHolderDescription implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_TEXTFRAGMENT.equalsIgnoreCase(attrName))
@@ -82,9 +81,8 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TEXTFRAGMENT.equalsIgnoreCase(attrName))
@@ -105,7 +103,7 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          return true;
       }
 
-     if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
+      if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
       {
          setIsKeyAttribute((Boolean) value);
          return true;
@@ -116,7 +114,7 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          addToOwners((Template) value);
          return true;
       }
-      
+
       if ((PROPERTY_OWNERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromOwners((Template) value);
@@ -134,7 +132,7 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          addToMatches((Match) value);
          return true;
       }
-      
+
       if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromMatches((Match) value);
@@ -150,24 +148,22 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromOwners();
@@ -176,38 +172,38 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TEXTFRAGMENT = "textFragment";
-   
+
    private String textFragment;
 
    public String getTextFragment()
    {
       return this.textFragment;
    }
-   
+
    public void setTextFragment(String value)
    {
-      if ( ! StrUtil.stringEquals(this.textFragment, value))
+      if (!StrUtil.stringEquals(this.textFragment, value))
       {
          String oldValue = this.textFragment;
          this.textFragment = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXTFRAGMENT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXTFRAGMENT,
+            oldValue, value);
       }
    }
-   
+
    public PlaceHolderDescription withTextFragment(String value)
    {
       setTextFragment(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getTextFragment());
       _.append(" ").append(this.getValue());
       _.append(" ").append(this.getAttrName());
@@ -215,105 +211,100 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       return _.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_VALUE = "value";
-   
+
    private String value;
 
    public String getValue()
    {
       return this.value;
    }
-   
+
    public void setValue(String value)
    {
-      if ( ! StrUtil.stringEquals(this.value, value))
+      if (!StrUtil.stringEquals(this.value, value))
       {
          String oldValue = this.value;
          this.value = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE,
+            oldValue, value);
       }
    }
-   
+
    public PlaceHolderDescription withValue(String value)
    {
       setValue(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_ATTRNAME = "attrName";
-   
+
    private String attrName;
 
    public String getAttrName()
    {
       return this.attrName;
    }
-   
+
    public void setAttrName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.attrName, value))
+      if (!StrUtil.stringEquals(this.attrName, value))
       {
          String oldValue = this.attrName;
          this.attrName = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRNAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRNAME,
+            oldValue, value);
       }
    }
-   
+
    public PlaceHolderDescription withAttrName(String value)
    {
       setAttrName(value);
       return this;
-   } 
+   }
 
-   
    public PlaceHolderDescription with(String fragmentText, String attrName)
    {
       this.setTextFragment(fragmentText);
       this.setAttrName(attrName);
-      
+
       return this;
    }
-   
+
    public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet();
 
-   
-    //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_ISKEYATTRIBUTE = "isKeyAttribute";
-   
+
    private boolean isKeyAttribute;
 
    public boolean getIsKeyAttribute()
    {
       return this.isKeyAttribute;
    }
-   
+
    public void setIsKeyAttribute(boolean value)
    {
       if (this.isKeyAttribute != value)
       {
          boolean oldValue = this.isKeyAttribute;
          this.isKeyAttribute = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ISKEYATTRIBUTE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ISKEYATTRIBUTE,
+            oldValue, value);
       }
    }
-   
+
    public PlaceHolderDescription withIsKeyAttribute(boolean value)
    {
       setIsKeyAttribute(value);
       return this;
-   } 
+   }
 
-   
-
-   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -321,62 +312,64 @@ public class PlaceHolderDescription implements PropertyChangeInterface
     *              placeholders                   owners
     * </pre>
     */
-   
+
    public static final String PROPERTY_OWNERS = "owners";
-   
+
    private TemplateSet owners = null;
-   
+
    public TemplateSet getOwners()
    {
       if (this.owners == null)
       {
          return Template.EMPTY_SET;
       }
-   
+
       return this.owners;
    }
-   
+
    public boolean addToOwners(Template value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.owners == null)
          {
             this.owners = new TemplateSet();
          }
-         
-         changed = this.owners.add (value);
-         
+
+         changed = this.owners.add(value);
+
          if (changed)
          {
             value.withPlaceholders(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNERS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNERS,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromOwners(Template value)
    {
       boolean changed = false;
-      
+
       if ((this.owners != null) && (value != null))
       {
-         changed = this.owners.remove (value);
-         
+         changed = this.owners.remove(value);
+
          if (changed)
          {
             value.withoutPlaceholders(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNERS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNERS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public PlaceHolderDescription withOwners(Template... value)
    {
       for (Template item : value)
@@ -384,8 +377,8 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          addToOwners(item);
       }
       return this;
-   } 
-   
+   }
+
    public PlaceHolderDescription withoutOwners(Template... value)
    {
       for (Template item : value)
@@ -394,25 +387,25 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromOwners()
    {
-      LinkedHashSet<Template> tmpSet = new LinkedHashSet<Template>(this.getOwners());
-   
+      LinkedHashSet<Template> tmpSet = new LinkedHashSet<Template>(
+            this.getOwners());
+
       for (Template value : tmpSet)
       {
          this.removeFromOwners(value);
       }
    }
-   
+
    public Template createOwners()
    {
       Template value = new Template();
       withOwners(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -420,62 +413,64 @@ public class PlaceHolderDescription implements PropertyChangeInterface
     *              placeholder                   matches
     * </pre>
     */
-   
+
    public static final String PROPERTY_MATCHES = "matches";
-   
+
    private MatchSet matches = null;
-   
+
    public MatchSet getMatches()
    {
       if (this.matches == null)
       {
          return Match.EMPTY_SET;
       }
-   
+
       return this.matches;
    }
-   
+
    public boolean addToMatches(Match value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.matches == null)
          {
             this.matches = new MatchSet();
          }
-         
-         changed = this.matches.add (value);
-         
+
+         changed = this.matches.add(value);
+
          if (changed)
          {
             value.withPlaceholder(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES,
+               null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromMatches(Match value)
    {
       boolean changed = false;
-      
+
       if ((this.matches != null) && (value != null))
       {
-         changed = this.matches.remove (value);
-         
+         changed = this.matches.remove(value);
+
          if (changed)
          {
             value.setPlaceholder(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public PlaceHolderDescription withMatches(Match... value)
    {
       for (Match item : value)
@@ -483,8 +478,8 @@ public class PlaceHolderDescription implements PropertyChangeInterface
          addToMatches(item);
       }
       return this;
-   } 
-   
+   }
+
    public PlaceHolderDescription withoutMatches(Match... value)
    {
       for (Match item : value)
@@ -493,25 +488,24 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromMatches()
    {
       LinkedHashSet<Match> tmpSet = new LinkedHashSet<Match>(this.getMatches());
-   
+
       for (Match value : tmpSet)
       {
          this.removeFromMatches(value);
       }
    }
-   
+
    public Match createMatches()
    {
       Match value = new Match();
       withMatches(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -519,83 +513,83 @@ public class PlaceHolderDescription implements PropertyChangeInterface
     *              parents                   subTemplate
     * </pre>
     */
-   
+
    public static final String PROPERTY_SUBTEMPLATE = "subTemplate";
-   
+
    private Template subTemplate = null;
-   
+
    public Template getSubTemplate()
    {
       return this.subTemplate;
    }
-   
+
    public boolean setSubTemplate(Template value)
    {
       boolean changed = false;
-      
+
       if (this.subTemplate != value)
       {
          Template oldValue = this.subTemplate;
-         
+
          if (this.subTemplate != null)
          {
             this.subTemplate = null;
             oldValue.withoutParents(this);
          }
-         
+
          this.subTemplate = value;
-         
+
          if (value != null)
          {
             value.withParents(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTEMPLATE, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBTEMPLATE,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public PlaceHolderDescription withSubTemplate(Template value)
    {
       setSubTemplate(value);
       return this;
-   } 
-   
+   }
+
    public Template createSubTemplate()
    {
       Template value = new Template();
       withSubTemplate(value);
       return value;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_PREFIX = "prefix";
-   
+
    private String prefix;
 
    public String getPrefix()
    {
       return this.prefix;
    }
-   
+
    public void setPrefix(String value)
    {
-      if ( ! StrUtil.stringEquals(this.prefix, value))
+      if (!StrUtil.stringEquals(this.prefix, value))
       {
          String oldValue = this.prefix;
          this.prefix = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PREFIX, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PREFIX,
+            oldValue, value);
       }
    }
-   
+
    public PlaceHolderDescription withPrefix(String value)
    {
       setPrefix(value);
       return this;
-   } 
+   }
 }
-

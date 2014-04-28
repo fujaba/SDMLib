@@ -18,54 +18,50 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
    public AssignmentSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       AssignmentSet matches = new AssignmentSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Assignment) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public AssignmentPO hasContent(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Assignment.PROPERTY_CONTENT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Assignment.PROPERTY_CONTENT).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AssignmentPO hasContent(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Assignment.PROPERTY_CONTENT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Assignment.PROPERTY_CONTENT).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AssignmentPO createContent(String value)
    {
       this.startCreate().hasContent(value).endCreate();
       return this;
    }
-   
+
    public String getContent()
    {
       if (this.getPattern().getHasMatch())
@@ -74,7 +70,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       }
       return null;
    }
-   
+
    public AssignmentPO withContent(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -83,42 +79,38 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       }
       return this;
    }
-   
+
    public AssignmentPO hasPoints(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Assignment.PROPERTY_POINTS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Assignment.PROPERTY_POINTS).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AssignmentPO hasPoints(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Assignment.PROPERTY_POINTS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Assignment.PROPERTY_POINTS).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public AssignmentPO createPoints(int value)
    {
       this.startCreate().hasPoints(value).endCreate();
       return this;
    }
-   
+
    public int getPoints()
    {
       if (this.getPattern().getHasMatch())
@@ -127,7 +119,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       }
       return 0;
    }
-   
+
    public AssignmentPO withPoints(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -136,14 +128,14 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       }
       return this;
    }
-   
+
    public RoomPO hasRoom()
    {
       RoomPO result = new RoomPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Assignment.PROPERTY_ROOM, result);
-      
+
       return result;
    }
 
@@ -175,9 +167,9 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
    {
       StudentPO result = new StudentPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Assignment.PROPERTY_STUDENTS, result);
-      
+
       return result;
    }
 
@@ -206,4 +198,3 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
    }
 
 }
-

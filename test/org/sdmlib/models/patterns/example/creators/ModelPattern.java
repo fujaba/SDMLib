@@ -12,7 +12,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -24,49 +24,47 @@ public class ModelPattern extends Pattern
       SimpleStatePO value = new SimpleStatePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public SimpleStatePO hasElementSimpleStatePO(SimpleState hostGraphObject)
    {
       SimpleStatePO value = new SimpleStatePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public NodePO hasElementNodePO()
    {
       NodePO value = new NodePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public NodePO hasElementNodePO(Node hostGraphObject)
    {
       NodePO value = new NodePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-

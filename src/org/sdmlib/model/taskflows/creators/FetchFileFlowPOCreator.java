@@ -8,15 +8,15 @@ public class FetchFileFlowPOCreator extends PatternObjectCreator
    {
       return new FetchFileFlowPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((FetchFileFlowPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((FetchFileFlowPO) target).set(attrName, value);
    }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.helloworld.creators;
 
 import java.util.Collection;
@@ -31,17 +31,18 @@ import org.sdmlib.examples.helloworld.creators.GraphSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class GraphComponentSet extends LinkedHashSet<GraphComponent>  implements org.sdmlib.models.modelsets.ModelSet
+public class GraphComponentSet extends LinkedHashSet<GraphComponent> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
    public StringList getText()
    {
       StringList result = new StringList();
-      
+
       for (GraphComponent obj : this)
       {
          result.add(obj.getText());
       }
-      
+
       return result;
    }
 
@@ -51,112 +52,94 @@ public class GraphComponentSet extends LinkedHashSet<GraphComponent>  implements
       {
          obj.withText(value);
       }
-      
+
       return this;
    }
 
    public GraphSet getParent()
    {
       GraphSet result = new GraphSet();
-      
+
       for (GraphComponent obj : this)
       {
          result.add(obj.getParent());
       }
-      
+
       return result;
    }
+
    public GraphComponentSet withParent(Graph value)
    {
       for (GraphComponent obj : this)
       {
          obj.withParent(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (GraphComponent elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.helloworld.GraphComponent";
    }
 
-
    public GraphComponentPO startModelPattern()
    {
       org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
-      
+
       GraphComponentPO patternObject = pattern.hasElementGraphComponentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public GraphComponentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GraphComponent>)value);
+         this.addAll((Collection<GraphComponent>) value);
       }
       else if (value != null)
       {
          this.add((GraphComponent) value);
       }
-      
+
       return this;
    }
-   
+
    public GraphComponentSet without(GraphComponent value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public GraphComponentPO hasGraphComponentPO()
    {
       org.sdmlib.examples.helloworld.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.creators.ModelPattern();
-      
+
       GraphComponentPO patternObject = pattern.hasElementGraphComponentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

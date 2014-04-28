@@ -16,41 +16,39 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    public PersonSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       PersonSet matches = new PersonSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Person) this.getCurrentMatch());
-         
-         this.getPattern()
-         .findMatch();
+
+         this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public StationPO hasStation()
    {
       StationPO result = new StationPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Person.PROPERTY_STATION, result);
-      
+
       return result;
    }
 
    public PersonPO hasStation(StationPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Person.PROPERTY_STATION)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Person.PROPERTY_STATION).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -67,23 +65,22 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    {
       TrainPO result = new TrainPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Person.PROPERTY_TRAIN, result);
-      
+
       return result;
    }
 
    public PersonPO hasTrain(TrainPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Person.PROPERTY_TRAIN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Person.PROPERTY_TRAIN).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -117,5 +114,3 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    }
 
 }
-
-

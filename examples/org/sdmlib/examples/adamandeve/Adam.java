@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.adamandeve;
 
 import java.beans.PropertyChangeSupport;
@@ -43,41 +43,39 @@ public class Adam implements PropertyChangeInterface
    public static void main(String[] args)
    {
       JsonIdMap idMap = CreatorCreator.createIdMap("adam");
-      
+
       idMap.put("json.idmap", idMap); // oh oh
-      
+
       SDMThread sdmThread = new SDMThread("ModelThread");
       sdmThread.start();
-      
-      new SocketThread().withIdMap(idMap)
-      .withDefaultTargetThread(sdmThread)
-      .withPort(4242)
-      .start();
-      
+
+      new SocketThread().withIdMap(idMap).withDefaultTargetThread(sdmThread)
+         .withPort(4242).start();
+
       System.out.println("Adam has started.");
-      
+
       // look for boot task
       try
       {
          BufferedReader in = new BufferedReader(new FileReader("bootTask.json"));
-         
+
          StringBuilder buf = new StringBuilder();
-         
+
          String line = "";
          while (line != null)
          {
             buf.append(line);
             line = in.readLine();
          }
-         
+
          in.close();
-         
+
          JsonArray jsonArray = new JsonArray().withValue(buf.toString());
-         
+
          Object obj = idMap.decode(jsonArray);
-         
+
          new File("bootTask.json").delete();
-         
+
          ((TaskFlow) obj).run();
       }
       catch (Exception e)
@@ -86,49 +84,41 @@ public class Adam implements PropertyChangeInterface
       }
    }
 
-   
+   // ==========================================================================
 
-
-   
-   //==========================================================================
-   
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-

@@ -4,7 +4,7 @@ package org.sdmlib.serialization.event;
  NetworkParser
  Copyright (c) 2011 - 2013, Stefan Lindel
  All rights reserved.
- 
+
  Licensed under the EUPL, Version 1.1 or (as soon they
  will be approved by the European Commission) subsequent
  versions of the EUPL (the "Licence");
@@ -20,64 +20,74 @@ package org.sdmlib.serialization.event;
  express or implied.
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
-*/
+ */
 /**
  * The Class BasicMessage.
  */
 
-public class BasicMessage {
-	/** The Constant PROPERTY_VALUE. */
-	public static final String PROPERTY_VALUE = "value";
+public class BasicMessage
+{
+   /** The Constant PROPERTY_VALUE. */
+   public static final String PROPERTY_VALUE = "value";
 
-	/** The value. */
-	private String value;
+   /** The value. */
+   private String value;
 
-	/*
-	 * Generic Getter for Attribute
-	 */
-	public Object get(String attrName) {
-		String attribute;
-		int pos = attrName.indexOf(".");
-		if (pos > 0) {
-			attribute = attrName.substring(0, pos);
-		} else {
-			attribute = attrName;
-		}
-		if (attribute.equalsIgnoreCase(PROPERTY_VALUE)) {
-			return getValue();
-		}
-		return null;
-	}
+   /*
+    * Generic Getter for Attribute
+    */
+   public Object get(String attrName)
+   {
+      String attribute;
+      int pos = attrName.indexOf(".");
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      else
+      {
+         attribute = attrName;
+      }
+      if (attribute.equalsIgnoreCase(PROPERTY_VALUE))
+      {
+         return getValue();
+      }
+      return null;
+   }
 
-	/*
-	 * Generic Setter for Attribute
-	 */
-	public boolean set(String attribute, Object value) {
-		if (attribute.equalsIgnoreCase(PROPERTY_VALUE)) {
-			withValue((String) value);
-			return true;
-		}
-		return false;
-	}
+   /*
+    * Generic Setter for Attribute
+    */
+   public boolean set(String attribute, Object value)
+   {
+      if (attribute.equalsIgnoreCase(PROPERTY_VALUE))
+      {
+         withValue((String) value);
+         return true;
+      }
+      return false;
+   }
 
-	/**
-	 * Gets the value.
-	 * 
-	 * @return the value
-	 */
-	public String getValue() {
-		return this.value;
-	}
+   /**
+    * Gets the value.
+    * 
+    * @return the value
+    */
+   public String getValue()
+   {
+      return this.value;
+   }
 
-	/**
-	 * Sets the value.
-	 * 
-	 * @param value
-	 *            the new value
-	 * @return 
-	 */
-	public BasicMessage withValue(String value) {
-		this.value = value;
-		return this;
-	}
+   /**
+    * Sets the value.
+    * 
+    * @param value
+    *           the new value
+    * @return
+    */
+   public BasicMessage withValue(String value)
+   {
+      this.value = value;
+      return this;
+   }
 }

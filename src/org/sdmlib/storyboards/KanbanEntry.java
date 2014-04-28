@@ -40,101 +40,109 @@ import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
 
 // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
-public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEntry>
+public class KanbanEntry implements PropertyChangeInterface,
+      Comparable<KanbanEntry>
 {
    public static final String PROPERTY_NAME = "name";
 
    private String name;
 
-   public void setName(String value) 
+   public void setName(String value)
    {
-      if ( StrUtil.stringCompare (this.name, value) != 0 )
+      if (StrUtil.stringCompare(this.name, value) != 0)
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
 
-   public String getName() {
+   public String getName()
+   {
       return this.name;
    }
-   
+
    public static final String PROPERTY_PHASE = "phase";
 
    private String phase;
 
-   public void setPhase(String value) 
+   public void setPhase(String value)
    {
-      if ( StrUtil.stringCompare (this.phase, value) != 0 )
+      if (StrUtil.stringCompare(this.phase, value) != 0)
       {
          String oldValue = this.phase;
          this.phase = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PHASE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PHASE,
+            oldValue, value);
       }
    }
 
-   public String getPhase() 
+   public String getPhase()
    {
       return this.phase;
    }
-   
+
    public static final String PROPERTY_LAST_DEVELOPER = "lastDeveloper";
 
    private String lastDeveloper;
 
-   public void setLastDeveloper(String value) {
-      if ( StrUtil.stringCompare (this.lastDeveloper, value) != 0 )
+   public void setLastDeveloper(String value)
+   {
+      if (StrUtil.stringCompare(this.lastDeveloper, value) != 0)
       {
          String oldValue = this.lastDeveloper;
          this.lastDeveloper = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LAST_DEVELOPER, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LAST_DEVELOPER,
+            oldValue, value);
       }
    }
 
-   public String getLastDeveloper() 
+   public String getLastDeveloper()
    {
       return this.lastDeveloper;
    }
-   
+
    public static final String PROPERTY_HOURS_REMAINING = "hoursRemaining";
 
    private double hoursRemaining;
 
-   public void setHoursRemaining(double value) 
+   public void setHoursRemaining(double value)
    {
-      if ( this.hoursRemaining != value )
+      if (this.hoursRemaining != value)
       {
          double oldValue = this.hoursRemaining;
          this.hoursRemaining = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOURS_REMAINING, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_HOURS_REMAINING, oldValue, value);
       }
    }
 
-   public double getHoursRemaining() 
+   public double getHoursRemaining()
    {
       return this.hoursRemaining;
    }
-   
+
    public static final String PROPERTY_HOURS_SPEND = "hoursSpend";
 
    private double hoursSpend;
 
-   public void setHoursSpend(double value) 
+   public void setHoursSpend(double value)
    {
-      if ( this.hoursSpend != value )
+      if (this.hoursSpend != value)
       {
          double oldValue = this.hoursSpend;
          this.hoursSpend = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOURS_SPEND, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOURS_SPEND,
+            oldValue, value);
       }
    }
 
-   public double getHoursSpend() 
+   public double getHoursSpend()
    {
       return this.hoursSpend;
    }
-   
+
    /**
     * <pre>
     *           0..n     1..1
@@ -146,7 +154,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    public static final String PROPERTY_PARENT = "parent";
    private KanbanEntry parent;
 
-   public boolean setParent (KanbanEntry value)		
+   public boolean setParent(KanbanEntry value)
    {
       boolean changed = false;
 
@@ -164,17 +172,18 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
          {
             value.addToSubentries(this);
          }
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT,
+            oldValue, value);
          changed = true;
       }
       return changed;
    }
 
-   public KanbanEntry getParent ()	
+   public KanbanEntry getParent()
    {
       return this.parent;
    }
-   
+
    /**
     * <pre>
     *           1..1     0..n
@@ -186,7 +195,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    public static final String PROPERTY_SUBENTRIES = "subentries";
    private KanbanEntrySet subentries;
 
-   public boolean addToSubentries (KanbanEntry value)
+   public boolean addToSubentries(KanbanEntry value)
    {
       boolean changed = false;
 
@@ -196,44 +205,45 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
          {
             this.subentries = new KanbanEntrySet();
          }
-         changed = this.subentries.add (value);
+         changed = this.subentries.add(value);
          if (changed)
          {
             value.setParent(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBENTRIES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBENTRIES,
+               null, value);
          }
       }
       return changed;
    }
 
-   public boolean removeFromSubentries (KanbanEntry value)	
+   public boolean removeFromSubentries(KanbanEntry value)
    {
       boolean changed = false;
 
       if ((this.subentries != null) && (value != null))
       {
-         changed = this.subentries.remove (value);
+         changed = this.subentries.remove(value);
          if (changed)
          {
             value.setParent(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBENTRIES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUBENTRIES,
+               value, null);
          }
       }
       return changed;
    }
 
-   public void removeAllFromSubentries ()
+   public void removeAllFromSubentries()
    {
       KanbanEntry tmpValue;
-      Iterator<KanbanEntry> iter = this.getSubentries().iterator ();
+      Iterator<KanbanEntry> iter = this.getSubentries().iterator();
 
-      while (iter.hasNext ())
+      while (iter.hasNext())
       {
-         tmpValue = (KanbanEntry) iter.next ();
-         this.removeFromSubentries (tmpValue);
+         tmpValue = (KanbanEntry) iter.next();
+         this.removeFromSubentries(tmpValue);
       }
    }
-
 
    public static final String PROPERTY_FILES = "files";
 
@@ -241,19 +251,23 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
 
    private String files;
 
-   public void setFiles(String value) {
-      if ( StrUtil.stringCompare (this.files, value) != 0 )
+   public void setFiles(String value)
+   {
+      if (StrUtil.stringCompare(this.files, value) != 0)
       {
          String oldValue = this.files;
          this.files = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_FILES, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_FILES,
+            oldValue, value);
       }
    }
 
-   public String getFiles() {
+   public String getFiles()
+   {
       return this.files;
    }
-   public LogEntry findOrCreateLogEntry(String date, String phase) 
+
+   public LogEntry findOrCreateLogEntry(String date, String phase)
    {
       LogEntry result = null;
 
@@ -267,25 +281,22 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       }
 
       // create new logEntry
-      result = new LogEntry()
-      .withDate(date)
-      .withDeveloper(System.getProperty("user.name"))
-      .withHoursSpend(0)
-      .withHoursRemainingInTotal(0)
-      .withPhase(phase)
-      .withKanbanEntry(this);
+      result = new LogEntry().withDate(date)
+         .withDeveloper(System.getProperty("user.name")).withHoursSpend(0)
+         .withHoursRemainingInTotal(0).withPhase(phase).withKanbanEntry(this);
 
       return result;
    }
 
-   public KanbanEntry findOldEntry(String name) {
+   public KanbanEntry findOldEntry(String name)
+   {
       KanbanEntry result = null;
 
       if (StrUtil.stringEquals(this.getName(), name))
       {
          return this;
       }
-      else 
+      else
       {
          for (KanbanEntry subEntry : this.getSubentries())
          {
@@ -301,32 +312,32 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return result;
    }
 
-   public KanbanEntry findOrCreate(String name) 
+   public KanbanEntry findOrCreate(String name)
    {
       KanbanEntry result = findOldEntry(name);
 
       if (result == null)
       {
-         result = new KanbanEntry()
-         .withName(name);
+         result = new KanbanEntry().withName(name);
       }
 
       return result;
    }
 
-   public KanbanEntry linkToTest(String rootDir, String className) 
+   public KanbanEntry linkToTest(String rootDir, String className)
    {
       return linkToTest(rootDir, className, this.getName());
    }
-   
-   public KanbanEntry linkToTest(String rootDir, String className, String testName) 
+
+   public KanbanEntry linkToTest(String rootDir, String className,
+         String testName)
    {
       int lastDotPos = className.lastIndexOf('.');
 
       String packageName = className.substring(0, lastDotPos);
       String fileName = rootDir + "." + className;
 
-      className = className.substring(lastDotPos+1);
+      className = className.substring(lastDotPos + 1);
 
       fileName = fileName.replaceAll("\\.", "/");
 
@@ -336,54 +347,59 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
 
       this.setFiles(fileName);
 
-      if ( ! javaFile.exists())
+      if (!javaFile.exists())
       {
          // create it
          StringBuilder fileBody = new StringBuilder(
-                     "/*\n" +
-                     "   Copyright (c) <year> <developer> \n" +
-                     "   \n" +
-                     "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
-                     "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
-                     "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
-                     "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n" +
-                     "   furnished to do so, subject to the following conditions: \n" +
-                     "   \n" +
-                     "   The above copyright notice and this permission notice shall be included in all copies or \n" +
-                     "   substantial portions of the Software. \n" +
-                     "   \n" +
-                     "   The Software shall be used for Good, not Evil. \n" +
-                     "   \n" +
-                     "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n" +
-                     "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n" +
-                     "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n" +
-                     "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n" +
-                     "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n" +
-                     " */\n" +
-                     "   \n" + 
-                     "package " + packageName + ";\n" +
-                     "   \n" +
-                     "import org.junit.Test;\n" +
-                     "import org.sdmlib.storyboards.LogEntry;\n" +
-                     "import org.sdmlib.storyboards.Storyboard;\n" +
-                     "import org.sdmlib.storyboards.StoryboardManager;\n" +
-                     "   \n" +
-                     "public class " + className + " \n" +
-                     "{\n" +
-                     "   private static final String MODELING = \"modeling\";\n" +
-                     "   private static final String ACTIVE = \"active\";\n" +
-                     "   private static final String DONE = \"done\";\n" +
-                     "   private static final String IMPLEMENTATION = \"implementation\";\n" +
-                     "   private static final String BACKLOG = \"backlog\";\n" +
-                     "   private static final String BUG = \"bug\";\n" +
-                     "}\n");
+               "/*\n"
+                  + "   Copyright (c) <year> <developer> \n"
+                  + "   \n"
+                  + "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n"
+                  + "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n"
+                  + "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n"
+                  + "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n"
+                  + "   furnished to do so, subject to the following conditions: \n"
+                  + "   \n"
+                  + "   The above copyright notice and this permission notice shall be included in all copies or \n"
+                  + "   substantial portions of the Software. \n"
+                  + "   \n"
+                  + "   The Software shall be used for Good, not Evil. \n"
+                  + "   \n"
+                  + "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n"
+                  + "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n"
+                  + "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n"
+                  + "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n"
+                  + "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n"
+                  + " */\n"
+                  + "   \n"
+                  + "package "
+                  + packageName
+                  + ";\n"
+                  + "   \n"
+                  + "import org.junit.Test;\n"
+                  + "import org.sdmlib.storyboards.LogEntry;\n"
+                  + "import org.sdmlib.storyboards.Storyboard;\n"
+                  + "import org.sdmlib.storyboards.StoryboardManager;\n"
+                  + "   \n"
+                  + "public class "
+                  + className
+                  + " \n"
+                  + "{\n"
+                  + "   private static final String MODELING = \"modeling\";\n"
+                  + "   private static final String ACTIVE = \"active\";\n"
+                  + "   private static final String DONE = \"done\";\n"
+                  + "   private static final String IMPLEMENTATION = \"implementation\";\n"
+                  + "   private static final String BACKLOG = \"backlog\";\n"
+                  + "   private static final String BUG = \"bug\";\n" + "}\n");
 
-               String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
-               CGUtil.replace(fileBody, "<year>", year);
+         String year = new SimpleDateFormat("yyyy").format(new Date(System
+            .currentTimeMillis()));
+         CGUtil.replace(fileBody, "<year>", year);
 
-               CGUtil.replace(fileBody, "<developer>", System.getProperty("user.name"));
-               
-               StoryboardManager.get().printFile(javaFile, fileBody.toString());
+         CGUtil.replace(fileBody, "<developer>",
+            System.getProperty("user.name"));
+
+         StoryboardManager.get().printFile(javaFile, fileBody.toString());
       }
 
       // find or create test method
@@ -396,27 +412,31 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       if (lastDotPos < 0)
       {
          // generate test method
-         String testBody = 
-               "   @Test\n" +
-                     "   public void " + methodName + "()\n" +
-                     "   {\n" +
-                     "      Storyboard storyboard = new Storyboard(\"" + rootDir + "\", \"" + testName + "\");\n" +
-                     "      \n" +
-                     "      storyboard.add(\"Start situation: \",\n" +
-                     "         BACKLOG, " +
-                     "\"" + System.getProperty("user.name") + "\", " +
-                     "\"" + StoryboardManager.get().dateParser.format(new Date(System.currentTimeMillis())) +  "\", " +
-                     "0, 0);\n" +
-                     "      \n" +
-                     "      storyboard.dumpHTML();\n" +
-                     "   }\n\n";
+         String testBody = "   @Test\n"
+            + "   public void "
+            + methodName
+            + "()\n"
+            + "   {\n"
+            + "      Storyboard storyboard = new Storyboard(\""
+            + rootDir
+            + "\", \""
+            + testName
+            + "\");\n"
+            + "      \n"
+            + "      storyboard.add(\"Start situation: \",\n"
+            + "         BACKLOG, "
+            + "\""
+            + System.getProperty("user.name")
+            + "\", "
+            + "\""
+            + StoryboardManager.get().dateParser.format(new Date(System
+               .currentTimeMillis())) + "\", " + "0, 0);\n" + "      \n"
+            + "      storyboard.dumpHTML();\n" + "   }\n\n";
 
          lastDotPos = fileBody.indexOf('{');
 
-         fileBody = 
-               fileBody.substring(0, lastDotPos+2)
-               + testBody
-               + fileBody.substring(lastDotPos+2);
+         fileBody = fileBody.substring(0, lastDotPos + 2) + testBody
+            + fileBody.substring(lastDotPos + 2);
 
          StoryboardManager.get().printFile(javaFile, fileBody);
       }
@@ -424,44 +444,47 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return this;
    }
 
-   public KanbanEntry withParent(KanbanEntry newValue) 
+   public KanbanEntry withParent(KanbanEntry newValue)
    {
       this.setParent(newValue);
       return this;
    }
 
-   public Set<KanbanEntry> getSubentries() 
+   public Set<KanbanEntry> getSubentries()
    {
       if (this.subentries == null)
       {
-         return KanbanEntry.EMPTY_SET;  
+         return KanbanEntry.EMPTY_SET;
       }
 
       return this.subentries;
    }
 
-   public KanbanEntry withSubentries(KanbanEntry newValue) {
+   public KanbanEntry withSubentries(KanbanEntry newValue)
+   {
       this.addToSubentries(newValue);
       return this;
    }
 
-   public KanbanEntry withoutSubentries(KanbanEntry newValue) {
+   public KanbanEntry withoutSubentries(KanbanEntry newValue)
+   {
       this.removeFromSubentries(newValue);
       return this;
    }
 
-   public boolean set(String attrName, Object value) {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName)) 
+   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          setName((String) value);
          return true;
-      } 
+      }
       if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
       {
          addToLogEntries((LogEntry) value);
          return true;
       }
-      
+
       if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLogEntries((LogEntry) value);
@@ -480,42 +503,42 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
          return true;
       }
 
-      else   if (PROPERTY_PHASE.equalsIgnoreCase(attrName)) 
+      else if (PROPERTY_PHASE.equalsIgnoreCase(attrName))
       {
          setPhase((String) value);
          return true;
-      } 
-      else   if (PROPERTY_LAST_DEVELOPER.equalsIgnoreCase(attrName)) 
+      }
+      else if (PROPERTY_LAST_DEVELOPER.equalsIgnoreCase(attrName))
       {
          setLastDeveloper((String) value);
          return true;
-      } 
-      else   if (PROPERTY_HOURS_REMAINING.equalsIgnoreCase(attrName)) 
+      }
+      else if (PROPERTY_HOURS_REMAINING.equalsIgnoreCase(attrName))
       {
          setHoursRemaining(Double.parseDouble(value.toString()));
          return true;
-      } 
-      else   if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attrName)) 
+      }
+      else if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attrName))
       {
          setHoursSpend(Double.parseDouble(value.toString()));
          return true;
-      } 
-      else   if (PROPERTY_PARENT.equalsIgnoreCase(attrName)) 
+      }
+      else if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          setParent((KanbanEntry) value);
          return true;
-      } 
-      else   if (PROPERTY_SUBENTRIES.equalsIgnoreCase(attrName)) 
+      }
+      else if (PROPERTY_SUBENTRIES.equalsIgnoreCase(attrName))
       {
          addToSubentries((KanbanEntry) value);
          return true;
-      } 
-      else   if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName)) 
+      }
+      else if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
       {
          addToLogEntries((LogEntry) value);
          return true;
-      } 
-      else   if (PROPERTY_FILES.equalsIgnoreCase(attrName)) 
+      }
+      else if (PROPERTY_FILES.equalsIgnoreCase(attrName))
       {
          setFiles((String) value);
          return true;
@@ -523,9 +546,9 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return false;
    }
 
-   public Object get(String attrName) 
+   public Object get(String attrName)
    {
-      int pos=attrName.indexOf(".");
+      int pos = attrName.indexOf(".");
       String attribute = attrName;
 
       if (pos > 0)
@@ -592,46 +615,52 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return null;
    }
 
-   public KanbanEntry withName(String newValue) {
+   public KanbanEntry withName(String newValue)
+   {
       this.setName(newValue);
       return this;
    }
 
-   public KanbanEntry withPhase(String newValue) {
+   public KanbanEntry withPhase(String newValue)
+   {
       this.setPhase(newValue);
       return this;
    }
 
-   public KanbanEntry withLastDeveloper(String newValue) {
+   public KanbanEntry withLastDeveloper(String newValue)
+   {
       this.setLastDeveloper(newValue);
       return this;
    }
 
-   public KanbanEntry withHoursRemaining(double newValue) {
+   public KanbanEntry withHoursRemaining(double newValue)
+   {
       this.setHoursRemaining(newValue);
       return this;
    }
 
-   public KanbanEntry withHoursSpend(double newValue) {
+   public KanbanEntry withHoursSpend(double newValue)
+   {
       this.setHoursSpend(newValue);
       return this;
    }
 
-   public KanbanEntry withFiles(String newValue) {
+   public KanbanEntry withFiles(String newValue)
+   {
       this.setFiles(newValue);
       return this;
    }
 
-
    public void removeYou()
    {
-      this.setParent (null);
+      this.setParent(null);
       removeAllFromSubentries();
       removeAllFromLogEntries();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
 
    public PropertyChangeSupport getPropertyChangeSupport()
    {
@@ -645,79 +674,81 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
     *              kanbanEntry                   logEntries
     * </pre>
     */
-   
+
    public static final String PROPERTY_LOGENTRIES = "logEntries";
-   
+
    private LogEntrySet logEntries = null;
-   
+
    public LogEntrySet getLogEntries()
    {
       if (this.logEntries == null)
       {
          return LogEntry.EMPTY_SET;
       }
-   
+
       return this.logEntries;
    }
-   
+
    public boolean addToLogEntries(LogEntry value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.logEntries == null)
          {
             this.logEntries = new LogEntrySet();
          }
-         
-         changed = this.logEntries.add (value);
-         
+
+         changed = this.logEntries.add(value);
+
          if (changed)
          {
             value.withKanbanEntry(this);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGENTRIES, null, value);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGENTRIES,
+            // null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromLogEntries(LogEntry value)
    {
       boolean changed = false;
-      
+
       if ((this.logEntries != null) && (value != null))
       {
-         changed = this.logEntries.remove (value);
-         
+         changed = this.logEntries.remove(value);
+
          if (changed)
          {
             value.setKanbanEntry(null);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGENTRIES, null, value);
+            // getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGENTRIES,
+            // null, value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public KanbanEntry withLogEntries(LogEntry value)
    {
       addToLogEntries(value);
       return this;
-   } 
-   
+   }
+
    public KanbanEntry withoutLogEntries(LogEntry value)
    {
       removeFromLogEntries(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromLogEntries()
    {
       LogEntrySet tmpSet = new LogEntrySet();
       tmpSet.addAll(this.getLogEntries());
-   
+
       for (LogEntry value : tmpSet)
       {
          this.removeFromLogEntries(value);
@@ -731,42 +762,42 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       {
          return this.getName().compareTo(o.getName());
       }
-      
+
       return 0;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_OLDNOOFLOGENTRIES = "oldNoOfLogEntries";
-   
+
    private int oldNoOfLogEntries;
 
    public int getOldNoOfLogEntries()
    {
       return this.oldNoOfLogEntries;
    }
-   
+
    public void setOldNoOfLogEntries(int value)
    {
       if (this.oldNoOfLogEntries != value)
       {
          int oldValue = this.oldNoOfLogEntries;
          this.oldNoOfLogEntries = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_OLDNOOFLOGENTRIES, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_OLDNOOFLOGENTRIES, oldValue, value);
       }
    }
-   
+
    public KanbanEntry withOldNoOfLogEntries(int value)
    {
       setOldNoOfLogEntries(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getOldNoOfLogEntries());
       _.append(" ").append(this.getPhases());
@@ -776,45 +807,44 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    public ArrayList<LogEntry> getAllLogEntries()
    {
       ArrayList<LogEntry> allLogEntries = new ArrayList<LogEntry>();
-      
+
       allLogEntries.addAll(this.getLogEntries());
-      
+
       for (KanbanEntry subEntry : this.getSubentries())
       {
          allLogEntries.addAll(subEntry.getAllLogEntries());
       }
-      
+
       return allLogEntries;
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_PHASES = "phases";
-   
+
    private String phases;
 
    public String getPhases()
    {
       return this.phases;
    }
-   
+
    public void setPhases(String value)
    {
-      if ( ! StrUtil.stringEquals(this.phases, value))
+      if (!StrUtil.stringEquals(this.phases, value))
       {
          String oldValue = this.phases;
          this.phases = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PHASES, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PHASES,
+            oldValue, value);
       }
    }
-   
+
    public KanbanEntry withPhases(String value)
    {
       setPhases(value);
       return this;
-   } 
+   }
 
    public KanbanEntry withLogEntries(LogEntry... value)
    {
@@ -823,7 +853,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
          addToLogEntries(item);
       }
       return this;
-   } 
+   }
 
    public KanbanEntry withoutLogEntries(LogEntry... value)
    {
@@ -839,6 +869,5 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       LogEntry value = new LogEntry();
       withLogEntries(value);
       return value;
-   } 
+   }
 }
-

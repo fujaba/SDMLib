@@ -31,12 +31,13 @@ import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
 import org.sdmlib.utils.StrUtil;
 
-public class GenericConstraint extends PatternElement implements PropertyChangeInterface
+public class GenericConstraint extends PatternElement implements
+      PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()
    {
-      if ( ! this.getPattern().getHasMatch())
+      if (!this.getPattern().getHasMatch())
       {
          return false;
       }
@@ -49,11 +50,11 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
       }
       else
       {
-         // forward 
+         // forward
          boolean ok = condition.check();
-         
+
          this.setHasMatch(ok);
-         
+
          if (ok && getTopPattern().getDebugMode() >= R.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// match is isomorphic");
@@ -64,14 +65,13 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
    }
 
    Condition condition;
-   
+
    public static abstract class Condition
    {
       public abstract boolean check();
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    @Override
    public void resetSearch()
@@ -79,10 +79,7 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
       setHasMatch(false);
    }
 
-
-
-
-   //==========================================================================
+   // ==========================================================================
 
    public Object get(String attrName)
    {
@@ -119,8 +116,7 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
       return null;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public boolean set(String attrName, Object value)
    {
@@ -163,8 +159,7 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
       return false;
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -173,13 +168,12 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
       return listeners;
    }
 
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-
-   //==========================================================================
+   // ==========================================================================
 
    public void removeYou()
    {
@@ -197,9 +191,6 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
       _.append(" ").append(this.getText());
       return _.substring(1);
    }
-
-
-
 
    public GenericConstraint withCondition(Condition newCondition)
    {
@@ -236,4 +227,3 @@ public class GenericConstraint extends PatternElement implements PropertyChangeI
       return this;
    } 
 }
-

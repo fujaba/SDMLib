@@ -12,7 +12,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -24,50 +24,48 @@ public class ModelPattern extends Pattern
       PlacePO value = new PlacePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PlacePO hasElementPlacePO(Place hostGraphObject)
    {
       PlacePO value = new PlacePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PropertyChangeInterfacePO hasElementPropertyChangeInterfacePO()
    {
       PropertyChangeInterfacePO value = new PropertyChangeInterfacePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
-   public PropertyChangeInterfacePO hasElementPropertyChangeInterfacePO(PropertyChangeInterface hostGraphObject)
+
+   public PropertyChangeInterfacePO hasElementPropertyChangeInterfacePO(
+         PropertyChangeInterface hostGraphObject)
    {
       PropertyChangeInterfacePO value = new PropertyChangeInterfacePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-
-

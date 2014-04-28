@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.storyboards;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -30,9 +30,8 @@ import org.sdmlib.storyboards.creators.StoryboardStepSet;
 public class StoryboardStep implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
@@ -48,9 +47,8 @@ public class StoryboardStep implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
@@ -68,71 +66,66 @@ public class StoryboardStep implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setStoryboard(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TEXT = "text";
-   
+
    private String text;
 
    public String getText()
    {
       return this.text;
    }
-   
+
    public void setText(String value)
    {
-      if ( ! StrUtil.stringEquals(this.text, value))
+      if (!StrUtil.stringEquals(this.text, value))
       {
          String oldValue = this.text;
          this.text = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue,
+            value);
       }
    }
-   
+
    public StoryboardStep withText(String value)
    {
       setText(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getText());
       return _.substring(1);
    }
 
-
-   
    public static final StoryboardStepSet EMPTY_SET = new StoryboardStepSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -140,55 +133,55 @@ public class StoryboardStep implements PropertyChangeInterface
     *              storyboardSteps                   storyboard
     * </pre>
     */
-   
+
    public static final String PROPERTY_STORYBOARD = "storyboard";
-   
+
    private Storyboard storyboard = null;
-   
+
    public Storyboard getStoryboard()
    {
       return this.storyboard;
    }
-   
+
    public boolean setStoryboard(Storyboard value)
    {
       boolean changed = false;
-      
+
       if (this.storyboard != value)
       {
          Storyboard oldValue = this.storyboard;
-         
+
          if (this.storyboard != null)
          {
             this.storyboard = null;
             oldValue.withoutStoryboardSteps(this);
          }
-         
+
          this.storyboard = value;
-         
+
          if (value != null)
          {
             value.withStoryboardSteps(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARD, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARD,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public StoryboardStep withStoryboard(Storyboard value)
    {
       setStoryboard(value);
       return this;
-   } 
-   
+   }
+
    public Storyboard createStoryboard()
    {
       Storyboard value = new Storyboard();
       withStoryboard(value);
       return value;
-   } 
+   }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.patterns.example.ferrmansproblem;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -31,9 +31,8 @@ import java.beans.PropertyChangeListener;
 public class River implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_BANKS.equalsIgnoreCase(attrName))
@@ -49,9 +48,8 @@ public class River implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_BANKS.equalsIgnoreCase(attrName))
@@ -59,7 +57,7 @@ public class River implements PropertyChangeInterface
          addToBanks((Bank) value);
          return true;
       }
-      
+
       if ((PROPERTY_BANKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromBanks((Bank) value);
@@ -75,19 +73,17 @@ public class River implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromBanks();
@@ -95,7 +91,6 @@ public class River implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -103,92 +98,93 @@ public class River implements PropertyChangeInterface
     *              river                   banks
     * </pre>
     */
-   
+
    public static final String PROPERTY_BANKS = "banks";
-   
+
    private BankSet banks = null;
-   
+
    public BankSet getBanks()
    {
       if (this.banks == null)
       {
          return Bank.EMPTY_SET;
       }
-   
+
       return this.banks;
    }
-   
+
    public boolean addToBanks(Bank value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.banks == null)
          {
             this.banks = new BankSet();
          }
-         
-         changed = this.banks.add (value);
-         
+
+         changed = this.banks.add(value);
+
          if (changed)
          {
             value.withRiver(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_BANKS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_BANKS, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromBanks(Bank value)
    {
       boolean changed = false;
-      
+
       if ((this.banks != null) && (value != null))
       {
-         changed = this.banks.remove (value);
-         
+         changed = this.banks.remove(value);
+
          if (changed)
          {
             value.setRiver(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_BANKS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_BANKS,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public River withBanks(Bank value)
    {
       addToBanks(value);
       return this;
-   } 
-   
+   }
+
    public River withoutBanks(Bank value)
    {
       removeFromBanks(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromBanks()
    {
       LinkedHashSet<Bank> tmpSet = new LinkedHashSet<Bank>(this.getBanks());
-   
+
       for (Bank value : tmpSet)
       {
          this.removeFromBanks(value);
       }
    }
-   
+
    public Bank createBanks()
    {
       Bank value = new Bank();
       withBanks(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -196,56 +192,57 @@ public class River implements PropertyChangeInterface
     *              river                   boat
     * </pre>
     */
-   
+
    public static final String PROPERTY_BOAT = "boat";
-   
+
    private Boat boat = null;
-   
+
    public Boat getBoat()
    {
       return this.boat;
    }
-   
+
    public boolean setBoat(Boat value)
    {
       boolean changed = false;
-      
+
       if (this.boat != value)
       {
          Boat oldValue = this.boat;
-         
+
          if (this.boat != null)
          {
             this.boat = null;
             oldValue.setRiver(null);
          }
-         
+
          this.boat = value;
-         
+
          if (value != null)
          {
             value.withRiver(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_BOAT, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_BOAT, oldValue,
+            value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public River withBoat(Boat value)
    {
       setBoat(value);
       return this;
-   } 
-   
+   }
+
    public Boat createBoat()
    {
       Boat value = new Boat();
       withBoat(value);
       return value;
-   } 
+   }
 
    public River withBanks(Bank... value)
    {
@@ -254,7 +251,7 @@ public class River implements PropertyChangeInterface
          addToBanks(item);
       }
       return this;
-   } 
+   }
 
    public River withoutBanks(Bank... value)
    {
@@ -265,4 +262,3 @@ public class River implements PropertyChangeInterface
       return this;
    }
 }
-

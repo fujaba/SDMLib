@@ -8,15 +8,14 @@ public class GenericObjectPOCreator extends PatternObjectCreator
    {
       return new GenericObjectPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((GenericObjectPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((GenericObjectPO) target).set(attrName, value);
    }
 }
-

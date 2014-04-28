@@ -8,15 +8,15 @@ public class ChangeHistoryPOCreator extends PatternObjectCreator
    {
       return new ChangeHistoryPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ChangeHistoryPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((ChangeHistoryPO) target).set(attrName, value);
    }
 }
-

@@ -12,7 +12,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -24,97 +24,95 @@ public class ModelPattern extends Pattern
       NoPropertiesPO value = new NoPropertiesPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public NoPropertiesPO hasElementNoPropertiesPO(NoProperties hostGraphObject)
    {
       NoPropertiesPO value = new NoPropertiesPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public ParentPO hasElementParentPO()
    {
       ParentPO value = new ParentPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public ParentPO hasElementParentPO(Parent hostGraphObject)
    {
       ParentPO value = new ParentPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public UnclePO hasElementUnclePO()
    {
       UnclePO value = new UnclePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public UnclePO hasElementUnclePO(Uncle hostGraphObject)
    {
       UnclePO value = new UnclePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public KidPO hasElementKidPO()
    {
       KidPO value = new KidPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public KidPO hasElementKidPO(Kid hostGraphObject)
    {
       KidPO value = new KidPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-

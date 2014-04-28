@@ -21,40 +21,39 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
    public GraphSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       GraphSet matches = new GraphSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Graph) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public PersonPO hasPersons()
    {
       PersonPO result = new PersonPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Graph.PROPERTY_PERSONS, result);
-      
+
       return result;
    }
 
    public GraphPO hasPersons(PersonPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_PERSONS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_PERSONS).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -71,23 +70,22 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
    {
       RelationPO result = new RelationPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Graph.PROPERTY_RELATIONS, result);
-      
+
       return result;
    }
 
    public GraphPO hasRelations(RelationPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_RELATIONS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_RELATIONS).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -104,23 +102,22 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
    {
       GraphComponentPO result = new GraphComponentPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Graph.PROPERTY_GCS, result);
-      
+
       return result;
    }
 
    public GraphPO hasGcs(GraphComponentPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_GCS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Graph.PROPERTY_GCS).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -164,7 +161,3 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
    }
 
 }
-
-
-
-

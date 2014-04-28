@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.test.methods;
 
 import java.beans.PropertyChangeSupport;
@@ -29,67 +29,60 @@ import java.beans.PropertyChangeListener;
 public class Place implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       return false;
    }
 
-   
-   //==========================================================================
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+   // ==========================================================================
+
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(
+         this);
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
-   public void findMyPosition(  )
+   // ==========================================================================
+
+   public void findMyPosition()
    {
    }
 
-   
-   //==========================================================================
-   
-   public void findMyPosition( String p0 )
+   // ==========================================================================
+
+   public void findMyPosition(String p0)
    {
    }
 
-   
-   //==========================================================================
-   
-   public void findMyPosition( String p0, int p1 )
+   // ==========================================================================
+
+   public void findMyPosition(String p0, int p1)
    {
    }
 }
-

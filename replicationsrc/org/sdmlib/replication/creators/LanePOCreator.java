@@ -8,15 +8,15 @@ public class LanePOCreator extends PatternObjectCreator
    {
       return new LanePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((LanePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((LanePO) target).set(attrName, value);
    }
 }
-

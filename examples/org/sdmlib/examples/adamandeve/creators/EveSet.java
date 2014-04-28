@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.adamandeve.creators;
 
 import java.util.Collection;
@@ -32,76 +32,65 @@ public class EveSet extends LinkedHashSet<Eve>
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Eve elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.adamandeve.Eve";
    }
 
-
    public EvePO startModelPattern()
    {
       org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
-      
+
       EvePO patternObject = pattern.hasElementEvePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public EveSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Eve>)value);
+         this.addAll((Collection<Eve>) value);
       }
       else if (value != null)
       {
          this.add((Eve) value);
       }
-      
+
       return this;
    }
-   
+
    public EveSet without(Eve value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public EvePO hasEvePO()
    {
       org.sdmlib.examples.adamandeve.creators.ModelPattern pattern = new org.sdmlib.examples.adamandeve.creators.ModelPattern();
-      
+
       EvePO patternObject = pattern.hasElementEvePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-

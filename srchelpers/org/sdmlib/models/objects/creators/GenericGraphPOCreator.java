@@ -8,15 +8,14 @@ public class GenericGraphPOCreator extends PatternObjectCreator
    {
       return new GenericGraphPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((GenericGraphPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((GenericGraphPO) target).set(attrName, value);
    }
 }
-

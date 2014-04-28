@@ -12,7 +12,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -24,98 +24,95 @@ public class ModelPattern extends Pattern
       TrainPO value = new TrainPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public TrainPO hasElementTrainPO(Train hostGraphObject)
    {
       TrainPO value = new TrainPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public StationPO hasElementStationPO()
    {
       StationPO value = new StationPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public StationPO hasElementStationPO(Station hostGraphObject)
    {
       StationPO value = new StationPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PersonPO hasElementPersonPO()
    {
       PersonPO value = new PersonPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PersonPO hasElementPersonPO(Person hostGraphObject)
    {
       PersonPO value = new PersonPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public SignalFlagPO hasElementSignalFlagPO()
    {
       SignalFlagPO value = new SignalFlagPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public SignalFlagPO hasElementSignalFlagPO(SignalFlag hostGraphObject)
    {
       SignalFlagPO value = new SignalFlagPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-
-

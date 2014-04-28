@@ -18,78 +18,71 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations.creators;
 
 import java.util.LinkedHashSet;
 import java.lang.Object;
 import org.sdmlib.models.modelsets.StringList;
 
-public class ObjectSet extends LinkedHashSet<Object> implements org.sdmlib.models.modelsets.ModelSet
+public class ObjectSet extends LinkedHashSet<Object> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Object elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "java.lang.Object";
    }
 
-
    public ObjectSet with(Object value)
    {
       this.add(value);
       return this;
    }
-   
+
    public ObjectSet without(Object value)
    {
       this.remove(value);
       return this;
    }
 
-
    public ObjectPO startModelPattern()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       ObjectPO patternObject = pattern.hasElementObjectPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ObjectPO hasObjectPO()
    {
       org.sdmlib.models.transformations.creators.ModelPattern pattern = new org.sdmlib.models.transformations.creators.ModelPattern();
-      
+
       ObjectPO patternObject = pattern.hasElementObjectPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

@@ -12,7 +12,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class JavaBeanPropertyValueFactory<S, T> extends PropertyValueFactory<S, T>
+public class JavaBeanPropertyValueFactory<S, T> extends
+      PropertyValueFactory<S, T>
 {
 
    private Class tClass;
@@ -20,7 +21,7 @@ public class JavaBeanPropertyValueFactory<S, T> extends PropertyValueFactory<S, 
    public JavaBeanPropertyValueFactory(String property, Class tClass)
    {
       super(property);
-      
+
       this.tClass = tClass;
    }
 
@@ -33,19 +34,23 @@ public class JavaBeanPropertyValueFactory<S, T> extends PropertyValueFactory<S, 
       {
          if (tClass == Double.class)
          {
-            beanProperty = (JavaBeanProperty<T>) JavaBeanDoublePropertyBuilder.create().bean(param.getValue()).name(getProperty()).build();
+            beanProperty = (JavaBeanProperty<T>) JavaBeanDoublePropertyBuilder
+               .create().bean(param.getValue()).name(getProperty()).build();
          }
          else if (tClass == Integer.class)
          {
-            beanProperty = (JavaBeanProperty<T>) JavaBeanIntegerPropertyBuilder.create().bean(param.getValue()).name(getProperty()).build();
+            beanProperty = (JavaBeanProperty<T>) JavaBeanIntegerPropertyBuilder
+               .create().bean(param.getValue()).name(getProperty()).build();
          }
          else if (tClass == String.class)
          {
-            beanProperty = (JavaBeanProperty<T>) JavaBeanStringPropertyBuilder.create().bean(param.getValue()).name(getProperty()).build();
+            beanProperty = (JavaBeanProperty<T>) JavaBeanStringPropertyBuilder
+               .create().bean(param.getValue()).name(getProperty()).build();
          }
          else
          {
-            beanProperty = JavaBeanObjectPropertyBuilder.create().bean(param.getValue()).name(getProperty()).build();
+            beanProperty = JavaBeanObjectPropertyBuilder.create()
+               .bean(param.getValue()).name(getProperty()).build();
          }
       }
       catch (NoSuchMethodException e)
@@ -56,6 +61,4 @@ public class JavaBeanPropertyValueFactory<S, T> extends PropertyValueFactory<S, 
       return beanProperty;
    }
 
-   
-   
 }

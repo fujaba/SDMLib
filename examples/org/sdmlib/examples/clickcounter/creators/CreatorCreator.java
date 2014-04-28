@@ -8,29 +8,34 @@ import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 public class CreatorCreator
 {
    public static LinkedHashSet<SendableEntityCreator> creatorSet = null;
-   
+
    public static LinkedHashSet<SendableEntityCreator> getCreatorSet()
    {
       if (creatorSet == null)
       {
          creatorSet = new LinkedHashSet<SendableEntityCreator>();
-         creatorSet.add(new org.sdmlib.examples.clickcounter.creators.DataCreator());
-         creatorSet.add(new org.sdmlib.examples.clickcounter.creators.DataPOCreator());
-         creatorSet.add(new org.sdmlib.examples.clickcounter.creators.IntegerPropertyCreator());
-         creatorSet.add(new org.sdmlib.examples.clickcounter.creators.IntegerPropertyPOCreator());
-         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator.getCreatorSet());
+         creatorSet
+            .add(new org.sdmlib.examples.clickcounter.creators.DataCreator());
+         creatorSet
+            .add(new org.sdmlib.examples.clickcounter.creators.DataPOCreator());
+         creatorSet
+            .add(new org.sdmlib.examples.clickcounter.creators.IntegerPropertyCreator());
+         creatorSet
+            .add(new org.sdmlib.examples.clickcounter.creators.IntegerPropertyPOCreator());
+         creatorSet.addAll(org.sdmlib.models.pattern.creators.CreatorCreator
+            .getCreatorSet());
       }
-      
+
       return creatorSet;
    }
 
    public static JsonIdMap createIdMap(String sessionID)
    {
-      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
-      
+      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap()
+         .withSessionId(sessionID);
+
       jsonIdMap.withCreator(getCreatorSet());
 
       return jsonIdMap;
    }
 }
-

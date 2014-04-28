@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.classes.test;
 
 import java.beans.PropertyChangeSupport;
@@ -30,9 +30,8 @@ import java.beans.PropertyChangeListener;
 public class Parent implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -48,9 +47,8 @@ public class Parent implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -68,61 +66,59 @@ public class Parent implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setUncle(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (!StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
+            value);
       }
    }
-   
+
    public Parent withName(String value)
    {
       setName(value);
       return this;
-   } 
+   }
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getName());
       return _.substring(1);
    }
-   
+
    /********************************************************************
     * <pre>
     *              one                       one
@@ -130,55 +126,55 @@ public class Parent implements PropertyChangeInterface
     *              brother                   uncle
     * </pre>
     */
-   
+
    public static final String PROPERTY_UNCLE = "uncle";
-   
+
    private Uncle uncle = null;
-   
+
    public Uncle getUncle()
    {
       return this.uncle;
    }
-   
+
    public boolean setUncle(Uncle value)
    {
       boolean changed = false;
-      
+
       if (this.uncle != value)
       {
          Uncle oldValue = this.uncle;
-         
+
          if (this.uncle != null)
          {
             this.uncle = null;
             oldValue.setBrother(null);
          }
-         
+
          this.uncle = value;
-         
+
          if (value != null)
          {
             value.withBrother(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNCLE, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNCLE,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Parent withUncle(Uncle value)
    {
       setUncle(value);
       return this;
-   } 
-   
+   }
+
    public Uncle createUncle()
    {
       Uncle value = new Uncle();
       withUncle(value);
       return value;
-   } 
+   }
 }
-

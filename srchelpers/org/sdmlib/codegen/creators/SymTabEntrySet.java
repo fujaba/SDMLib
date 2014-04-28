@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.codegen.creators;
 
 import java.util.Collection;
@@ -34,12 +34,12 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
    public StringList getKind()
    {
       StringList result = new StringList();
-      
+
       for (SymTabEntry obj : this)
       {
          result.add(obj.getKind());
       }
-      
+
       return result;
    }
 
@@ -49,19 +49,19 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       {
          obj.withKind(value);
       }
-      
+
       return this;
    }
 
    public StringList getMemberName()
    {
       StringList result = new StringList();
-      
+
       for (SymTabEntry obj : this)
       {
          result.add(obj.getMemberName());
       }
-      
+
       return result;
    }
 
@@ -71,19 +71,19 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       {
          obj.withMemberName(value);
       }
-      
+
       return this;
    }
 
    public StringList getType()
    {
       StringList result = new StringList();
-      
+
       for (SymTabEntry obj : this)
       {
          result.add(obj.getType());
       }
-      
+
       return result;
    }
 
@@ -93,19 +93,19 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       {
          obj.withType(value);
       }
-      
+
       return this;
    }
 
    public intList getStartPos()
    {
       intList result = new intList();
-      
+
       for (SymTabEntry obj : this)
       {
          result.add(obj.getStartPos());
       }
-      
+
       return result;
    }
 
@@ -115,19 +115,19 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       {
          obj.withStartPos(value);
       }
-      
+
       return this;
    }
 
    public intList getBodyStartPos()
    {
       intList result = new intList();
-      
+
       for (SymTabEntry obj : this)
       {
          result.add(obj.getBodyStartPos());
       }
-      
+
       return result;
    }
 
@@ -137,19 +137,19 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       {
          obj.withBodyStartPos(value);
       }
-      
+
       return this;
    }
 
    public intList getEndPos()
    {
       intList result = new intList();
-      
+
       for (SymTabEntry obj : this)
       {
          result.add(obj.getEndPos());
       }
-      
+
       return result;
    }
 
@@ -159,19 +159,19 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       {
          obj.withEndPos(value);
       }
-      
+
       return this;
    }
 
    public StringList getModifiers()
    {
       StringList result = new StringList();
-      
+
       for (SymTabEntry obj : this)
       {
          result.add(obj.getModifiers());
       }
-      
+
       return result;
    }
 
@@ -181,75 +181,66 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       {
          obj.withModifiers(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (SymTabEntry elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.codegen.SymTabEntry";
    }
 
-
    public SymTabEntrySet with(SymTabEntry value)
    {
       this.add(value);
       return this;
    }
-   
+
    public SymTabEntrySet without(SymTabEntry value)
    {
       this.remove(value);
       return this;
    }
 
-
    public SymTabEntryPO startModelPattern()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       SymTabEntryPO patternObject = pattern.hasElementSymTabEntryPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public SymTabEntrySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<SymTabEntry>)value);
+         this.addAll((Collection<SymTabEntry>) value);
       }
       else if (value != null)
       {
          this.add((SymTabEntry) value);
       }
-      
+
       return this;
    }
-   
-
-
 
    public SymTabEntryPO hasSymTabEntryPO()
    {
@@ -257,7 +248,3 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
 
    }
 }
-
-
-
-

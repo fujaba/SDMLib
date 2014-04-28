@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -32,12 +32,11 @@ import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
 
-public class TaskFlowBoard implements PropertyChangeInterface
+public class RemoteTaskBoard implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_LANES.equalsIgnoreCase(attrName))
@@ -48,9 +47,8 @@ public class TaskFlowBoard implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_LANES.equalsIgnoreCase(attrName))
@@ -58,36 +56,33 @@ public class TaskFlowBoard implements PropertyChangeInterface
          addToLanes((Lane) value);
          return true;
       }
-      
+
       if ((PROPERTY_LANES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLanes((Lane) value);
          return true;
       }
 
-       return false;
+      return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromLanes();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -95,92 +90,93 @@ public class TaskFlowBoard implements PropertyChangeInterface
     *              board                   lanes
     * </pre>
     */
-   
+
    public static final String PROPERTY_LANES = "lanes";
-   
+
    private LaneSet lanes = null;
-   
+
    public LaneSet getLanes()
    {
       if (this.lanes == null)
       {
          return Lane.EMPTY_SET;
       }
-   
+
       return this.lanes;
    }
-   
+
    public boolean addToLanes(Lane value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.lanes == null)
          {
             this.lanes = new LaneSet();
          }
-         
-         changed = this.lanes.add (value);
-         
+
+         changed = this.lanes.add(value);
+
          if (changed)
          {
             value.withBoard(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_LANES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_LANES, null,
+               value);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
+
    public boolean removeFromLanes(Lane value)
    {
       boolean changed = false;
-      
+
       if ((this.lanes != null) && (value != null))
       {
-         changed = this.lanes.remove (value);
-         
+         changed = this.lanes.remove(value);
+
          if (changed)
          {
             value.setBoard(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_LANES, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_LANES,
+               value, null);
          }
       }
-         
-      return changed;   
+
+      return changed;
    }
-   
-   public TaskFlowBoard withLanes(Lane value)
+
+   public RemoteTaskBoard withLanes(Lane value)
    {
       addToLanes(value);
       return this;
-   } 
-   
-   public TaskFlowBoard withoutLanes(Lane value)
+   }
+
+   public RemoteTaskBoard withoutLanes(Lane value)
    {
       removeFromLanes(value);
       return this;
-   } 
-   
+   }
+
    public void removeAllFromLanes()
    {
       LinkedHashSet<Lane> tmpSet = new LinkedHashSet<Lane>(this.getLanes());
-   
+
       for (Lane value : tmpSet)
       {
          this.removeFromLanes(value);
       }
    }
-   
+
    public Lane createLanes()
    {
       Lane value = new Lane();
       withLanes(value);
       return value;
-   } 
+   }
 
-   
    public Lane getLanes(String name)
    {
       // TODO Auto-generated method stub
@@ -191,24 +187,23 @@ public class TaskFlowBoard implements PropertyChangeInterface
             return l;
          }
       }
-      
+
       return null;
    }
 
    public BoardTask createTask(String laneName, String taskName)
    {
       Lane lane = this.getLanes(laneName);
-      
+
       return lane.createTask(taskName);
    }
 
    public void startTask(String laneName, String taskName)
    {
       Lane lane = this.getLanes(laneName);
-      
+
       lane.startTask(taskName);
    }
-
 
    public Lane createLanes(String name)
    {
@@ -217,16 +212,16 @@ public class TaskFlowBoard implements PropertyChangeInterface
       return lane;
    }
 
-   public TaskFlowBoard withLanes(Lane... value)
+   public RemoteTaskBoard withLanes(Lane... value)
    {
       for (Lane item : value)
       {
          addToLanes(item);
       }
       return this;
-   } 
+   }
 
-   public TaskFlowBoard withoutLanes(Lane... value)
+   public RemoteTaskBoard withoutLanes(Lane... value)
    {
       for (Lane item : value)
       {

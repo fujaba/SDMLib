@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.classes.creators;
 
 import java.util.Collection;
@@ -40,17 +40,17 @@ import org.sdmlib.models.classes.creators.AttributeSet;
 import org.sdmlib.models.classes.creators.MethodSet;
 import org.sdmlib.models.classes.creators.RoleSet;
 
-public class ClazzSet extends SDMSet<Clazz> 
+public class ClazzSet extends SDMSet<Clazz>
 {
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Clazz obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -60,14 +60,14 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withName(value);
       }
-      
+
       return this;
    }
-   
+
    public ClazzSet hasName(String value)
    {
       ClazzSet result = new ClazzSet();
-      
+
       for (Clazz clazz : this)
       {
          if (value.indexOf(clazz.getName()) >= 0)
@@ -75,61 +75,63 @@ public class ClazzSet extends SDMSet<Clazz>
             result.add(clazz);
          }
       }
-      
+
       return result;
    }
 
    public booleanSet getInterfaze()
    {
       booleanSet result = new booleanSet();
-      
+
       for (Clazz obj : this)
       {
          result.add(obj.isInterfaze());
       }
-      
+
       return result;
    }
 
    public ClassModelSet getClassModel()
    {
       ClassModelSet result = new ClassModelSet();
-      
+
       for (Clazz obj : this)
       {
          result.add(obj.getClassModel());
       }
-      
+
       return result;
    }
+
    public ClazzSet withClassModel(ClassModel value)
    {
       for (Clazz obj : this)
       {
          obj.withClassModel(value);
       }
-      
+
       return this;
    }
 
    public ClazzSet getKidClasses()
    {
       ClazzSet result = new ClazzSet();
-      
+
       for (Clazz obj : this)
       {
          result.addAll(obj.getKidClasses());
       }
-      
+
       return result;
    }
+
    public ClazzSet withKidClasses(Clazz value)
    {
       for (Clazz obj : this)
       {
          obj.withKidClasses(value);
       }
-      
+
       return this;
    }
 
@@ -139,49 +141,51 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withoutKidClasses(value);
       }
-      
+
       return this;
    }
 
    public ClazzSet getSuperClass()
    {
       ClazzSet result = new ClazzSet();
-      
+
       for (Clazz obj : this)
       {
          result.add(obj.getSuperClass());
       }
-      
+
       return result;
    }
+
    public ClazzSet withSuperClass(Clazz value)
    {
       for (Clazz obj : this)
       {
          obj.withSuperClass(value);
       }
-      
+
       return this;
    }
 
    public ClazzSet getInterfaces()
    {
       ClazzSet result = new ClazzSet();
-      
+
       for (Clazz obj : this)
       {
          result.addAll(obj.getInterfaces());
       }
-      
+
       return result;
    }
+
    public ClazzSet withInterfaces(Clazz value)
    {
       for (Clazz obj : this)
       {
          obj.withInterfaces(value);
       }
-      
+
       return this;
    }
 
@@ -191,28 +195,29 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withoutInterfaces(value);
       }
-      
+
       return this;
    }
 
    public AttributeSet getAttributes()
    {
       AttributeSet result = new AttributeSet();
-      
+
       for (Clazz obj : this)
       {
          result.addAll(obj.getAttributes());
       }
-      
+
       return result;
    }
+
    public ClazzSet withAttributes(Attribute value)
    {
       for (Clazz obj : this)
       {
          obj.withAttributes(value);
       }
-      
+
       return this;
    }
 
@@ -222,28 +227,29 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withoutAttributes(value);
       }
-      
+
       return this;
    }
 
    public MethodSet getMethods()
    {
       MethodSet result = new MethodSet();
-      
+
       for (Clazz obj : this)
       {
          result.addAll(obj.getMethods());
       }
-      
+
       return result;
    }
+
    public ClazzSet withMethods(Method value)
    {
       for (Clazz obj : this)
       {
          obj.withMethods(value);
       }
-      
+
       return this;
    }
 
@@ -253,28 +259,29 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withoutMethods(value);
       }
-      
+
       return this;
    }
 
    public RoleSet getSourceRoles()
    {
       RoleSet result = new RoleSet();
-      
+
       for (Clazz obj : this)
       {
          result.addAll(obj.getSourceRoles());
       }
-      
+
       return result;
    }
+
    public ClazzSet withSourceRoles(Role value)
    {
       for (Clazz obj : this)
       {
          obj.withSourceRoles(value);
       }
-      
+
       return this;
    }
 
@@ -284,28 +291,29 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withoutSourceRoles(value);
       }
-      
+
       return this;
    }
 
    public RoleSet getTargetRoles()
    {
       RoleSet result = new RoleSet();
-      
+
       for (Clazz obj : this)
       {
          result.addAll(obj.getTargetRoles());
       }
-      
+
       return result;
    }
+
    public ClazzSet withTargetRoles(Role value)
    {
       for (Clazz obj : this)
       {
          obj.withTargetRoles(value);
       }
-      
+
       return this;
    }
 
@@ -315,19 +323,19 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withoutTargetRoles(value);
       }
-      
+
       return this;
    }
 
    public booleanSet getExternal()
    {
       booleanSet result = new booleanSet();
-      
+
       for (Clazz obj : this)
       {
          result.add(obj.isExternal());
       }
-      
+
       return result;
    }
 
@@ -337,7 +345,7 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withInterfaze(value);
       }
-      
+
       return this;
    }
 
@@ -347,40 +355,36 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withExternal(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Clazz elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.models.classes.Clazz";
    }
 
-
    public booleanList getWrapped()
    {
       booleanList result = new booleanList();
-      
+
       for (Clazz obj : this)
       {
          result.add(obj.getWrapped());
       }
-      
+
       return result;
    }
 
@@ -390,19 +394,19 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withWrapped(value);
       }
-      
+
       return this;
    }
 
    public StringList getFilePath()
    {
       StringList result = new StringList();
-      
+
       for (Clazz obj : this)
       {
          result.add(obj.getFilePath());
       }
-      
+
       return result;
    }
 
@@ -412,56 +416,54 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withFilePath(value);
       }
-      
+
       return this;
    }
 
    public ClazzSet getKidClassesAsInterface()
    {
       ClazzSet result = new ClazzSet();
-      
+
       for (Clazz obj : this)
       {
          result.addAll(obj.getKidClassesAsInterface());
       }
-      
+
       return result;
    }
-   
+
    public ClazzSet getKidClassesAsInterfaceTransitive()
    {
       // transitive includes start classes
       ClazzSet result = (ClazzSet) this.clone();
-      
+
       ClazzSet todo = (ClazzSet) this.clone();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Clazz first = todo.first();
-         
+
          ClazzSet newKids = first.getKidClassesAsInterface();
-         
+
          newKids.removeAll(result); // already known
-         
+
          result.addAll(newKids);
-         
+
          todo.addAll(newKids);
-         
+
          todo.remove(first);
       }
-      
+
       return result;
    }
-   
-   
-   
+
    public ClazzSet withKidClassesAsInterface(Clazz value)
    {
       for (Clazz obj : this)
       {
          obj.withKidClassesAsInterface(value);
       }
-      
+
       return this;
    }
 
@@ -471,147 +473,128 @@ public class ClazzSet extends SDMSet<Clazz>
       {
          obj.withoutKidClassesAsInterface(value);
       }
-      
+
       return this;
    }
-
-
 
    public ClazzPO startModelPattern()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
-      
+
       ClazzPO patternObject = pattern.hasElementClazzPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ClazzSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Clazz>)value);
+         this.addAll((Collection<Clazz>) value);
       }
       else if (value != null)
       {
          this.add((Clazz) value);
       }
-      
+
       return this;
    }
-   
+
    public ClazzSet without(Clazz value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public ClazzPO hasClazzPO()
    {
       org.sdmlib.models.classes.creators.ModelPattern pattern = new org.sdmlib.models.classes.creators.ModelPattern();
-      
+
       ClazzPO patternObject = pattern.hasElementClazzPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 
    public ClazzSet getKidClassesTransitive()
    {
       ClazzSet todo = new ClazzSet().with(this);
-      
+
       ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Clazz current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getKidClasses().minus(result));
          }
       }
-      
+
       return result;
    }
-
 
    public ClazzSet getInterfacesTransitive()
    {
       ClazzSet todo = new ClazzSet().with(this);
-      
+
       ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Clazz current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
+
             todo.with(current.getInterfaces().minus(result));
          }
       }
-      
+
       return result;
    }
-
 
    public ClazzSet getSuperClassTransitive()
    {
       ClazzSet todo = new ClazzSet().with(this);
-      
+
       ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
+
+      while (!todo.isEmpty())
       {
          Clazz current = todo.first();
-         
+
          todo.remove(current);
-         
-         if ( ! result.contains(current))
+
+         if (!result.contains(current))
          {
             result.add(current);
-            
-            if ( ! result.contains(current.getSuperClass()))
+
+            if (!result.contains(current.getSuperClass()))
             {
                todo.with(current.getSuperClass());
             }
          }
       }
-      
+
       return result;
    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

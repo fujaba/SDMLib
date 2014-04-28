@@ -45,143 +45,112 @@ public class ClassModelTest
       Storyboard storyboard = new Storyboard("test", "ClassModelCodeGen");
 
       storyboard.setSprint("Sprint.001.Booting");
-      
-      //=======================================================================
+
+      // =======================================================================
       storyboard.add("This test generates some classes with some elements. ");
 
-
-      //=======================================================================
-      storyboard.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
+      // =======================================================================
+      storyboard
+         .add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
 
       ClassModel model = new ClassModel("org.sdmlib.models.classes");
-      
+
       Clazz modelClass = new Clazz("org.sdmlib.models.classes.ClassModel",
-    		  "packageName", String.class.getSimpleName());
-           
-      Clazz clazzClass = new Clazz("org.sdmlib.models.classes.Clazz",
-         "name", String.class.getSimpleName(),
-         "interfaze", boolean.class.getSimpleName(), 
-         "external", boolean.class.getSimpleName(), 
-         "wrapped", BOOLEAN, 
-         "filePath", STRING);
-      
-      new Association()
-      .withSource("classModel", modelClass, ONE, Role.AGGREGATION)
-      .withTarget("classes", clazzClass, MANY);
-      
-      new Association()
-      .withSource("superClass", clazzClass, ONE)
-      .withTarget("kidClasses", clazzClass, MANY);
-      
-      new Association()
-      .withSource("interfaces", clazzClass, MANY)
-      .withTarget("kidClassesAsInterface", clazzClass, MANY);     
-      
+            "packageName", String.class.getSimpleName());
+
+      Clazz clazzClass = new Clazz("org.sdmlib.models.classes.Clazz", "name",
+            String.class.getSimpleName(), "interfaze",
+            boolean.class.getSimpleName(), "external",
+            boolean.class.getSimpleName(), "wrapped", BOOLEAN, "filePath",
+            STRING);
+
+      new Association().withSource("classModel", modelClass, ONE,
+         Role.AGGREGATION).withTarget("classes", clazzClass, MANY);
+
+      new Association().withSource("superClass", clazzClass, ONE).withTarget(
+         "kidClasses", clazzClass, MANY);
+
+      new Association().withSource("interfaces", clazzClass, MANY).withTarget(
+         "kidClassesAsInterface", clazzClass, MANY);
+
       Clazz attributeClass = new Clazz("org.sdmlib.models.classes.Attribute")
-      .withAttributes(
-         "name", STRING,
-         "type", STRING,
-         "initialization", STRING 
-         );
-      
-      new Association()
-      .withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
-      .withTarget("attributes", attributeClass, MANY);
-      
-      
+         .withAttributes("name", STRING, "type", STRING, "initialization",
+            STRING);
+
+      new Association().withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
+         .withTarget("attributes", attributeClass, MANY);
+
       Clazz methodClass = new Clazz("org.sdmlib.models.classes.Method")
-      .withAttribute("signature", STRING)
-      .withAttribute("returnType", STRING)
-      .withAttribute("body", STRING);     
-      
-      new Association()
-      .withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
-      .withTarget("methods", methodClass, MANY);
-      
-      
-      Clazz associationClass = new Clazz("org.sdmlib.models.classes.Association");
-      
-      new Association()
-      .withSource("model", modelClass, ONE, Role.AGGREGATION)
-      .withTarget("associations", associationClass, MANY);
-      
-      
+         .withAttribute("signature", STRING)
+         .withAttribute("returnType", STRING).withAttribute("body", STRING);
+
+      new Association().withSource("clazz", clazzClass, ONE, Role.AGGREGATION)
+         .withTarget("methods", methodClass, MANY);
+
+      Clazz associationClass = new Clazz(
+            "org.sdmlib.models.classes.Association");
+
+      new Association().withSource("model", modelClass, ONE, Role.AGGREGATION)
+         .withTarget("associations", associationClass, MANY);
+
       Clazz roleClass = new Clazz("org.sdmlib.models.classes.Role")
-      .withAttribute("name", STRING)
-      .withAttribute("card", STRING, "MANY")
-      .withAttribute("kind", STRING, "VANILLA");
-      
-      new Association()
-      .withSource("clazz", clazzClass, ONE)
-      .withTarget("sourceRoles", roleClass, MANY);
-      
-      new Association()
-      .withSource("clazz", clazzClass, ONE)
-      .withTarget("targetRoles", roleClass, MANY);
+         .withAttribute("name", STRING).withAttribute("card", STRING, "MANY")
+         .withAttribute("kind", STRING, "VANILLA");
 
-      new Association()
-      .withSource("assoc", associationClass, ONE)
-      .withTarget("source", roleClass, ONE);
+      new Association().withSource("clazz", clazzClass, ONE).withTarget(
+         "sourceRoles", roleClass, MANY);
 
-      //      //=======================================================================
-      //      Clazz codeGenUtilClass = new Clazz()
-      //      .withName("org.sdmlib.codegen.CGUtil");
-      //      
-      //      //=======================================================================
-      //      Clazz parserContextClass = new Clazz()
-      //      .withName("org.sdmlib.codegen.Parser");
-      
+      new Association().withSource("clazz", clazzClass, ONE).withTarget(
+         "targetRoles", roleClass, MANY);
+
+      new Association().withSource("assoc", associationClass, ONE).withTarget(
+         "source", roleClass, ONE);
+
+      // //=======================================================================
+      // Clazz codeGenUtilClass = new Clazz()
+      // .withName("org.sdmlib.codegen.CGUtil");
+      //
+      // //=======================================================================
+      // Clazz parserContextClass = new Clazz()
+      // .withName("org.sdmlib.codegen.Parser");
+
       Clazz symTabEntryClass = new Clazz("org.sdmlib.codegen.SymTabEntry")
-      .withAttribute("kind", STRING)
-      .withAttribute("memberName", STRING)
-      .withAttribute("type", STRING)
-      .withAttribute("startPos", INT)
-      .withAttribute("bodyStartPos", INT)
-      .withAttribute("endPos", INT)
-      .withAttribute("modifiers", STRING);
-      
-      Clazz localVarTableEntryClass = new Clazz("org.sdmlib.codegen.LocalVarTableEntry")
-      .withAttribute("name", STRING)
-      .withAttribute("type", STRING)
-      .withAttribute("startPos", INT)
-      .withAttribute("endPos", INT);
+         .withAttribute("kind", STRING).withAttribute("memberName", STRING)
+         .withAttribute("type", STRING).withAttribute("startPos", INT)
+         .withAttribute("bodyStartPos", INT).withAttribute("endPos", INT)
+         .withAttribute("modifiers", STRING);
+
+      Clazz localVarTableEntryClass = new Clazz(
+            "org.sdmlib.codegen.LocalVarTableEntry")
+         .withAttribute("name", STRING).withAttribute("type", STRING)
+         .withAttribute("startPos", INT).withAttribute("endPos", INT);
       // .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
-      
-      
-      Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")
-      .withAttributes(
-         "kind", STRING,
-         "tokenList", "ArrayList<String>", 
-         "assignTargetVarName", STRING, 
-         "startPos", INT, 
-         "endPos", INT);
-      
-      new Association()
-      .withSource("parent", statementEntry, ONE)
-      .withTarget("bodyStats", statementEntry, MANY);
-      
-      
-      storyboard.add("Basic bootstrap done.", 
-         ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);
-      
-      storyboard.addSVGImage(model.dumpClassDiagram("src", "ClassModelClasses01"));
-      
-      storyboard.add("Generate generic get and set and removeYou.", 
+
+      Clazz statementEntry = new Clazz("org.sdmlib.codegen.StatementEntry")
+         .withAttributes("kind", STRING, "tokenList", "ArrayList<String>",
+            "assignTargetVarName", STRING, "startPos", INT, "endPos", INT);
+
+      new Association().withSource("parent", statementEntry, ONE).withTarget(
+         "bodyStats", statementEntry, MANY);
+
+      storyboard.add("Basic bootstrap done.", ProjectBoard.IMPLEMENTATION,
+         "zuendorf", "18.03.2012 23:35:42", 1, 0);
+
+      storyboard.addSVGImage(model.dumpClassDiagram("src",
+         "ClassModelClasses01"));
+
+      storyboard.add("Generate generic get and set and removeYou.",
          ProjectBoard.IMPLEMENTATION, "zuendorf", "19.03.2012 00:19:42", 1, 0);
 
-      storyboard.add("Generate creator classes.", 
-         ProjectBoard.IMPLEMENTATION, "zuendorf", "26.03.2012 22:54:42", 1, 0);
+      storyboard.add("Generate creator classes.", ProjectBoard.IMPLEMENTATION,
+         "zuendorf", "26.03.2012 22:54:42", 1, 0);
 
-      storyboard.add("Generate PatternObject classes.", 
+      storyboard.add("Generate PatternObject classes.",
          ProjectBoard.IMPLEMENTATION, "zuendorf", "19.08.2012 19:08:42", 8, 0);
 
-      
       model.generate("src", "srcHelpers");
-      
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();      
+
+      StoryboardManager.get().add(storyboard).dumpHTML();
    }
 
 }
-
