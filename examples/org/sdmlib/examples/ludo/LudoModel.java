@@ -1,26 +1,19 @@
 package org.sdmlib.examples.ludo;
 
-import static org.sdmlib.models.classes.Role.R.MANY;
-import static org.sdmlib.models.classes.Role.R.ONE;
-
 import java.awt.Point;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.Date;
 
 import org.junit.Test;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
 
 public class LudoModel
 {
-   private static final String INT = "int";
-   private static final String STRING = "String";
    public static final String MODELING = "modeling";
    public static final String ACTIVE = "active";
    public static final String DONE = "done";
@@ -47,72 +40,73 @@ public class LudoModel
       
       ClassModel model = new ClassModel("org.sdmlib.examples.ludo");
             
-      Clazz ludo = model.createClazz("Ludo").withAttribute("date", Date.class.getName());
+      Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
       
-      Clazz point = model.createClazz(Point.class.getName(),
-         "x", INT,
-         "y", INT
-         ).withWrapped(true);
+      Clazz point = model.createClazz(Point.class.getName())
+            .withAttribute("x", DataType.INT)
+            .withAttribute("y", DataType.INT)
+            .withWrapped(true);
       
-      Clazz player = ludo.createClassAndAssoc("Player",
-         "players", MANY,
-         "game", ONE 
-         )
-         .withAttributes(
-         "color", String.class.getSimpleName(),
-         "enumColor", LudoColor.class.getCanonicalName(),
-         "name", STRING,
-         "x", INT,
-         "y", INT);
+      Clazz player = model.createClazz("Player")
+            .withAssoc(ludo, "game", Card.ONE, "players", Card.MANY)
+            .withAttribute("color", DataType.STRING)
+            .withAttribute("enumColor", DataType.STRING)
+            .withAttribute("color", DataType.ref(LudoColor.class))
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("x", DataType.INT)
+            .withAttribute("y", DataType.INT);
+      
+      player.withAssoc(player, "next", Card.ONE, "prev", Card.ONE);
+      
+      Clazz dice = model.createClazz("Dice")
+            .withAssoc(ludo, "game", Card.ONE, "dice", Card.ONE);
+      
+      dice.withAttribute("value", DataType.INT);
+      
+      player.withAssoc(dice, "dice", Card.ONE, "player", Card.ONE);
+      
+      Clazz field = model.createClazz("Field")
+            .withAssoc(ludo, "game", Card.ONE, "fields", Card.MANY);
+      
+      field
+         .withAttribute("color", DataType.STRING)
+         .withAttribute("kind", DataType.STRING)
+         .withAttribute("x", DataType.INT)
+         .withAttribute("y", DataType.INT)
+         .withAttribute("point", DataType.ref(point));
 
+     
+      field.withAssoc(field, "next", Card.ONE, "prev", Card.ONE);
       
-      player.withAssoc(player, "next", ONE, "prev", ONE);
+      field.withAssoc(field, "landing", Card.ONE, "entry", Card.ONE);
       
-      Clazz dice = ludo.createClassAndAssoc("Dice", "dice", ONE, "game", ONE);
+      player.withAssoc(field, "start", Card.ONE, "starter", Card.ONE);
       
-      dice.withAttributes("value", INT);
+      player.withAssoc(field, "base", Card.ONE, "baseowner", Card.ONE);
       
-      player.withAssoc(dice, "dice", ONE, "player", ONE);
-      
-      Clazz field = ludo.createClassAndAssoc("Field", "fields", MANY, "game", ONE);
-      
-      field.withAttributes(
-         "color", STRING,
-         "kind", STRING,
-         "x", INT,
-         "y", INT, 
-         "point", point.getName());
-      
-      field.withAssoc(field, "next", ONE, "prev", ONE);
-      
-      field.withAssoc(field, "landing", ONE, "entry", ONE);
-      
-      player.withAssoc(field, "start", ONE, "starter", ONE);
-      
-      player.withAssoc(field, "base", ONE, "baseowner", ONE);
-      
-      player.withAssoc(field, "landing", ONE, "lander", ONE);
-      
-      Clazz pawn = player.createClassAndAssoc("Pawn", "pawns", MANY, "player", ONE);
+      player.withAssoc(field, "landing", Card.ONE, "lander", Card.ONE);
+     
+      Clazz pawn = model.createClazz("Pawn")
+            .withAssoc(player, "player", Card.ONE, "pawns", Card.MANY);
                
-      pawn.withAttributes(   
-         "color", STRING,
-         "x", INT,
-         "y", INT);
+      pawn
+         .withAttribute("color", DataType.STRING)
+         .withAttribute("x", DataType.INT)
+         .withAttribute("y", DataType.INT);
 
-      pawn.withAssoc(field, "pos", ONE, "pawns", MANY);
+      pawn.withAssoc(field, "pos", Card.ONE, "pawns", Card.MANY);
       
       // model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludo");
 
       // model.insertModelCreationCodeHere("examples");
      
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "LudoModel01"));
+      storyboard.addSVGImage(model.dumpClassDiagram("LudoModel01"));
 
       // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
       
-      model.generate("examples", "examplehelpers");
+      model.generate("examples");
       
-      storyboard.addLogEntry(R.DONE, "zuendorf", "15.07.2012 13:30:42 EST", 20, 0, "The famous ludo example.");
+      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "15.07.2012 13:30:42 EST", 20, 0, "The famous ludo example.");
       
       StoryboardManager.get()
       .add(storyboard)

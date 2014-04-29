@@ -270,18 +270,7 @@ public class Clazz extends SDMLibClass
 
       return changed;   
    }
-
-   public Clazz withAttributes(Attribute value)
-   {
-      addToAttributes(value);
-      return this;
-   } 
-
-   public Clazz withoutAttributes(Attribute value)
-   {
-      removeFromAttributes(value);
-      return this;
-   } 
+ 
 
    public void removeAllFromAttributes()
    {

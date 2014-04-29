@@ -31,4 +31,11 @@ public enum DataType
    public static DataType ref(String value){
       return REF.withValue(value);
    }
+   public static DataType ref(Class<?> value){
+      return REF.withValue(value.getName());
+   }
+   //TODO might be a bug when the user change the packagename or the name of clazz
+   public static DataType ref(Clazz value){
+      return REF.withValue(value.getFullName());
+   }
 }
