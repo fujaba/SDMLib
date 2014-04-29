@@ -51,7 +51,6 @@ public class Clazz extends SDMLibClass
    private ClazzSet kindClazzes = null;
    private Boolean interfaze = false;
    private RoleSet roles = null;
-   private boolean wrapped;
    private String name = null; 
    private AttributeSet attributes = null;
    
@@ -523,33 +522,6 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   //==========================================================================
-   @Deprecated
-   public boolean getWrapped()
-   {
-      return this.wrapped;
-//      return isExternal();
-   }
-   @Deprecated
-   public void setWrapped(boolean value)
-   {
-//      setExternal(value);
-//      return;
-      if (this.wrapped != value)
-      {
-         boolean oldValue = this.wrapped;
-         this.wrapped = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_WRAPPED, oldValue, value);
-      }
-   }
-   @Deprecated
-   public Clazz withWrapped(boolean value)
-   {
-//      setExternal(value);
-//      return this;
-      setWrapped(value);
-      return this;
-   }
 
    @Override
    public String toString()

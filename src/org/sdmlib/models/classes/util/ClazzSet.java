@@ -295,7 +295,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.add(obj.getWrapped());
+         result.add(obj.isExternal());
       }
       
       return result;
@@ -305,7 +305,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withWrapped(value);
+         obj.withExternal(value);
       }
       
       return this;

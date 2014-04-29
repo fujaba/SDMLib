@@ -3,8 +3,6 @@ package org.sdmlib.examples.ludo.model.creators;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.examples.ludo.model.creators.LudoPO;
 import org.sdmlib.examples.ludo.model.Ludo;
-import org.sdmlib.examples.ludo.model.creators.PointPO;
-import java.awt.Point;
 import org.sdmlib.examples.ludo.model.creators.PlayerPO;
 import org.sdmlib.examples.ludo.model.Player;
 import org.sdmlib.examples.ludo.model.creators.DicePO;
@@ -36,30 +34,6 @@ public class ModelPattern extends Pattern
    public LudoPO hasElementLudoPO(Ludo hostGraphObject)
    {
       LudoPO value = new LudoPO();
-      this.addToElements(value);
-      value.setModifier(Pattern.BOUND);
-      
-      value.setCurrentMatch(hostGraphObject);
-      
-      this.findMatch();
-      
-      return value;
-   } 
-
-   public PointPO hasElementPointPO()
-   {
-      PointPO value = new PointPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      this.findMatch();
-      
-      return value;
-   }
-   
-   public PointPO hasElementPointPO(Point hostGraphObject)
-   {
-      PointPO value = new PointPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
       

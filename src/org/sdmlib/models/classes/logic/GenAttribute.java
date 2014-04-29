@@ -470,7 +470,7 @@ public class GenAttribute extends Generator<Attribute>
 
          String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser);
          
-         if (ownerClazz.getWrapped())
+         if (ownerClazz.isExternal())
          {
             modelClass = modelClass + "Creator";
          }
@@ -553,7 +553,7 @@ public class GenAttribute extends Generator<Attribute>
       Clazz attributClass = model.getClazz();
       String packageNameFromFindClass = CGUtil.packageName(findClass.getFullName());
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
-      if (findClass.getWrapped())
+      if (findClass.isExternal())
       {
          return packageNameFromOwnerClass + ".creators." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
       }
@@ -610,7 +610,7 @@ public class GenAttribute extends Generator<Attribute>
 
          String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser);
          
-         if (ownerClazz.getWrapped())
+         if (ownerClazz.isExternal())
          {
             modelClass = modelClass + "Creator";
          }
@@ -660,7 +660,7 @@ public class GenAttribute extends Generator<Attribute>
 
          String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser);
          
-         if (ownerClazz.getWrapped())
+         if (ownerClazz.isExternal())
          {
             modelClass = modelClass + "Creator";
          }
@@ -883,7 +883,7 @@ public class GenAttribute extends Generator<Attribute>
          
          String entitiyClassName = CGUtil.shortClassName(model.getClazz().getFullName());
          String entitiyNameClass = entitiyClassName;
-         if(model.getClazz().getWrapped()){
+         if(model.getClazz().isExternal()){
             entitiyClassName = CGUtil.shortClassName(model.getClazz().getName()+"Creator");
          }
 
@@ -1013,7 +1013,7 @@ public class GenAttribute extends Generator<Attribute>
          }
          String entitiyClassName = CGUtil.shortClassName(ownerClazz.getFullName());
          String entitiyNameClass = entitiyClassName;
-         if(model.getClazz().getWrapped()){
+         if(model.getClazz().isExternal()){
             entitiyClassName += "Creator"; 
          }
          
@@ -1059,7 +1059,7 @@ public class GenAttribute extends Generator<Attribute>
    {
       // get parser from class
       Parser parser;
-      if (! clazz.getWrapped())
+      if (! clazz.isExternal())
       {
          parser = getGenerator( clazz).getOrCreateParser(rootDir);
          if (!fromSuperClass)
@@ -1152,7 +1152,7 @@ public class GenAttribute extends Generator<Attribute>
             "PROPERTY_NAME", propertyName
                );
 
-         if (ownerClazz.getWrapped())
+         if (ownerClazz.isExternal())
          {
             // declare the property in the creator class
             text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
@@ -1164,7 +1164,7 @@ public class GenAttribute extends Generator<Attribute>
 
          parser.getFileBody().insert(endOfStringArrayInit, text.toString());
 
-         if (ownerClazz.getWrapped())
+         if (ownerClazz.isExternal())
          {
             // declare the property
             text = new StringBuilder(  "public static final String PROPERTY_NAME = \"propertyName\";\n   ");

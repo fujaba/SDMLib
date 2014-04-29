@@ -324,7 +324,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Clazz) getCurrentMatch()).getWrapped();
+         return ((Clazz) getCurrentMatch()).isExternal();
       }
       return false;
    }

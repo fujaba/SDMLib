@@ -190,7 +190,7 @@ public class GenClassModel
             if (clazz == null)
             {
                // class is missing, create it.
-               model.createClazz(typeName).withWrapped(true);
+               model.createClazz(typeName).withExternal(true);
             }
          }
       }
@@ -340,7 +340,7 @@ public class GenClassModel
 
       printModelPatternFile(modelPatternFileHasChanged);
    }
-   
+
 
    public void printModelPatternFile(boolean really)
    {

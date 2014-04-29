@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.sdmlib.CGUtil;
-import org.sdmlib.examples.helloworld.creators.CreatorCreator;
 import org.sdmlib.examples.helloworld.creators.EdgePO;
 import org.sdmlib.examples.helloworld.creators.EdgeSet;
 import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
@@ -15,6 +14,7 @@ import org.sdmlib.examples.helloworld.creators.ModelPattern;
 import org.sdmlib.examples.helloworld.creators.NodePO;
 import org.sdmlib.examples.helloworld.creators.NodeSet;
 import org.sdmlib.examples.helloworld.creators.PersonPO;
+import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -299,7 +299,7 @@ public class HelloWorldTTC2011
       
       model.generate("examples", "examples");
       
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleGraphClassDiag"));
+      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldSimpleGraphClassDiag"));
       
       
       //==========================================================================

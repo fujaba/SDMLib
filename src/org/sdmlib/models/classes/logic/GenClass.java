@@ -82,7 +82,7 @@ public class GenClass extends Generator<Clazz>
       }
 
       // first generate the class itself
-      if ( ! model.getWrapped())
+      if ( ! model.isExternal())
       {
          getOrCreateParser(rootDir);
 
@@ -108,7 +108,7 @@ public class GenClass extends Generator<Clazz>
 
       generateAttributes(rootDir, helpersDir);
 
-      if ( ! model.getWrapped())
+      if ( ! model.isExternal())
       {
          printFile(isFileHasChanged());
       }
@@ -331,7 +331,7 @@ public class GenClass extends Generator<Clazz>
                      "\n"
                      );
 
-         if (model.getWrapped())
+         if (model.isExternal())
          {
             CGUtil.replaceAll(text,
                "((ModelClass) entity).removeYou();", "// wrapped object has no removeYou method");
@@ -671,7 +671,7 @@ public class GenClass extends Generator<Clazz>
 
          String packageName = name.substring(0, pos) + ".creators";
 
-         if (model.getWrapped())
+         if (model.isExternal())
          {
             packageName = model.getClassModel().getPackageName() + ".creators";
          }
@@ -704,6 +704,7 @@ public class GenClass extends Generator<Clazz>
                      "\n" +
                      "import org.sdmlib.serialization.interfaces.EntityFactory;\n" +
                      "import org.sdmlib.serialization.json.JsonIdMap;\n" +
+                     "import org.sdmlib.serialization.json.SDMLibJsonIdMap;\n"+
                      "import fullEntityClassName;\n" +
                      "\n" +
                      "public class creatorClassName extends EntityFactory\n" +
@@ -741,8 +742,16 @@ public class GenClass extends Generator<Clazz>
                      "      return false;\n" +
 //                     "      return ((entitiyClassName) target).set(attrName, value);\n" +
                      "   }\n" +
+                     "   public static JsonIdMap createIdMap(String sessionID)\n" +
+                           "   {\n" +
+                           "      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);\n" +
+                           "      \n" +
+                           "      JSONCREATORS" +
+                           "\n" +
+                           "      return jsonIdMap;\n" +
+                           "   }"+
                   "}\n");
-            if (model.getWrapped())
+            if (model.isExternal())
             {
                // wrapped class does not provide generic get / set
                CGUtil.replaceAll(text, 
@@ -789,12 +798,23 @@ public class GenClass extends Generator<Clazz>
                
                instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName+ "()";
             }
+            
+            StringBuilder creators = new StringBuilder();
+            for (Clazz clazz : model.getClassModel().getClasses())
+            {
+               if (!clazz.isInterface() && !clazz.isExternal()){
+                  String creatorName = CGUtil.packageName(clazz.getFullName())+".creators."+CGUtil.shortClassName(clazz.getFullName());
+                  creators.append("         jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
+                        "         jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
+               }
+            }
 
             CGUtil.replaceAll(text, 
                "creatorClassName", creatorClassName, 
                "entitiyClassName", entitiyClassName, 
                "fullEntityClassName", fullEntityClassName,
                "packageName", packageName,
+               "JSONCREATORS", creators.toString(),
                "instanceCreationClause", instanceCreationClause);
 
             creatorFileBody.append(text.toString());
@@ -818,7 +838,7 @@ public class GenClass extends Generator<Clazz>
 
       String packageName = name.substring(0, pos) + ".creators";
 
-      if (model.getWrapped())
+      if (model.isExternal())
       {
          packageName = model.getClassModel().getPackageName() + ".creators";
       }
@@ -850,7 +870,7 @@ public class GenClass extends Generator<Clazz>
 
          String packageName = name.substring(0, pos) + ".creators";
 
-         if (model.getWrapped())
+         if (model.isExternal())
          {
             packageName = model.getClassModel().getPackageName() + ".creators";
          }
@@ -1022,7 +1042,7 @@ public class GenClass extends Generator<Clazz>
       Clazz attributClass = model;
       String packageNameFromFindClass = CGUtil.packageName(findClass.getFullName());
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
-      if (findClass.getWrapped())
+      if (findClass.isExternal())
       {
          return packageNameFromOwnerClass + ".creators." + CGUtil.shortClassName(findClass.getFullName());
       }
@@ -1068,7 +1088,7 @@ public class GenClass extends Generator<Clazz>
 
          String packageName = name.substring(0, pos) + ".creators";
 
-         if (model.getWrapped())
+         if (model.isExternal())
          {
             packageName = model.getClassModel().getPackageName() + ".creators";
          }
@@ -1168,7 +1188,7 @@ public class GenClass extends Generator<Clazz>
 
          String packageName = name.substring(0, pos) + ".creators";
 
-         if (model.getWrapped())
+         if (model.isExternal())
          {
             packageName = model.getClassModel().getPackageName() + ".creators";
          }
@@ -1271,7 +1291,7 @@ public class GenClass extends Generator<Clazz>
       String creatorClassName = CGUtil.packageName(name) + ".creators." + shortCreatorClassName;
       String creatorPOClassName = CGUtil.packageName(name) + ".creators." + shortCreatorPOClassName;
 
-      if (model.getWrapped())
+      if (model.isExternal())
       {
          // generate creator for external class. Put it in the model package
          creatorClassName = model.getClassModel().getPackageName() + ".creators." + shortCreatorClassName;
@@ -1335,7 +1355,7 @@ public class GenClass extends Generator<Clazz>
    {
       String fullPOClassName = CGUtil.helperClassName(model.getFullName(), "PO");
 
-      if (model.getWrapped())
+      if (model.isExternal())
       {
          fullPOClassName = CGUtil.helperClassName(model.getClassModel().getPackageName() + "." + CGUtil.shortClassName(model.getFullName()), "PO");
       }

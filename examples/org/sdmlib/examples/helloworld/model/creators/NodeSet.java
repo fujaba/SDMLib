@@ -19,24 +19,22 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.ludo.model.creators;
+package org.sdmlib.examples.helloworld.model.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import java.awt.Point;
+import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.intList;
-import java.util.List;
 
-public class PointSet extends SDMSet<Point>
+public class NodeSet extends SDMSet<Node>
 {
 
 
-   public PointPO hasPointPO()
+   public NodePO hasNodePO()
    {
-      org.sdmlib.examples.ludo.model.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.model.creators.ModelPattern();
+      org.sdmlib.examples.helloworld.model.creators.ModelPattern pattern = new org.sdmlib.examples.helloworld.model.creators.ModelPattern();
       
-      PointPO patternObject = pattern.hasElementPointPO();
+      NodePO patternObject = pattern.hasElementNodePO();
       
       patternObject.withCandidates(this.clone());
       
@@ -50,101 +48,27 @@ public class PointSet extends SDMSet<Point>
    @Override
    public String getEntryType()
    {
-      return "java.awt.Point";
+      return "org.sdmlib.examples.helloworld.model.Node";
    }
 
 
-   public PointSet with(Object value)
+   public NodeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Point>)value);
+         this.addAll((Collection<Node>)value);
       }
       else if (value != null)
       {
-         this.add((Point) value);
+         this.add((Node) value);
       }
       
       return this;
    }
    
-   public PointSet without(Point value)
+   public NodeSet without(Node value)
    {
       this.remove(value);
-      return this;
-   }
-
-   public intList getX()
-   {
-      intList result = new intList();
-      
-      for (Point obj : this)
-      {
-         result.add(obj.x);
-      }
-      
-      return result;
-   }
-
-   public PointSet hasX(int value)
-   {
-      PointSet result = new PointSet();
-      
-      for (Point obj : this)
-      {
-         if (value == obj.getX())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PointSet withX(int value)
-   {
-      for (Point obj : this)
-      {
-         obj.x = (value);
-      }
-      
-      return this;
-   }
-
-   public intList getY()
-   {
-      intList result = new intList();
-      
-      for (Point obj : this)
-      {
-         result.add(obj.y);
-      }
-      
-      return result;
-   }
-
-   public PointSet hasY(int value)
-   {
-      PointSet result = new PointSet();
-      
-      for (Point obj : this)
-      {
-         if (value == obj.getY())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PointSet withY(int value)
-   {
-      for (Point obj : this)
-      {
-         obj.y =(value);
-      }
-      
       return this;
    }
 

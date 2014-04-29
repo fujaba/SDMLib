@@ -88,7 +88,7 @@ public class ClazzCreator extends EntityFactory
 
       if (Clazz.PROPERTY_WRAPPED.equalsIgnoreCase(attribute))
       {
-         return ((Clazz) target).getWrapped();
+         return ((Clazz) target).isExternal();
       }
 
       return null;
@@ -176,7 +176,7 @@ public class ClazzCreator extends EntityFactory
 
       if (Clazz.PROPERTY_WRAPPED.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).setWrapped((Boolean) value);
+         ((Clazz)target).setExternal((Boolean) value);
          return true;
       }
       return false;

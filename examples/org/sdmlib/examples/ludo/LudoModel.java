@@ -45,7 +45,7 @@ public class LudoModel
       Clazz point = model.createClazz(Point.class.getName())
             .withAttribute("x", DataType.INT)
             .withAttribute("y", DataType.INT)
-            .withWrapped(true);
+            .withExternal(true);
       
       Clazz player = model.createClazz("Player")
             .withAssoc(ludo, "game", Card.ONE, "players", Card.MANY)
