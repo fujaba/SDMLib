@@ -990,8 +990,13 @@ public class GenClass extends Generator<Clazz>
                   "   }\n"
                );
          
+//         String packageName = CGUtil.packageName(model.getFullName());
          String packageName = CGUtil.packageName(model.getFullName());
-         
+         if(!packageName.startsWith(model.getClassModel().getPackageName())){
+            packageName = model.getClassModel().getPackageName();
+         }
+
+         //FIXME EMF bad boy
          if (model.getFullName().endsWith("Impl") && packageName.endsWith(".impl"))
          {
             packageName = packageName.substring(0, packageName.length()-5);
@@ -1010,6 +1015,24 @@ public class GenClass extends Generator<Clazz>
       }
    }
 
+   private String checkSetImportFor(String type) {
+      Clazz findClass = model.getClassModel().getGenerator().findClass(type);
+      if (findClass == null)
+         return CGUtil.packageName(type);
+      Clazz attributClass = model;
+      String packageNameFromFindClass = CGUtil.packageName(findClass.getFullName());
+      String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
+      if (findClass.getWrapped())
+      {
+         return packageNameFromOwnerClass + ".creators." + CGUtil.shortClassName(findClass.getFullName());
+      }
+      else if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
+      {
+         return packageNameFromFindClass + ".creators." + CGUtil.shortClassName(findClass.getFullName());
+      }
+      return CGUtil.packageName(type);
+   }
+   
    private void insertSetEntryType(Parser parser)
    {
       String searchString = Parser.METHOD + ":getEntryType()";

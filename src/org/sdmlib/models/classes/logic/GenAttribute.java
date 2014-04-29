@@ -561,11 +561,9 @@ public class GenAttribute extends Generator<Attribute>
       {
          return packageNameFromFindClass + ".creators." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
       }
-      else 
-      {
-         return null;
-      }
+      return null;
    }
+   
    private void insertHasMethodInPatternObjectClass(Parser parser, Clazz ownerClazz) 
    {
       insertHasMethodInPatternObjectClassOneParam(parser, ownerClazz);
@@ -748,9 +746,9 @@ public class GenAttribute extends Generator<Attribute>
 
          if ( ! CGUtil.isPrimitiveType(fullModelSetType) && !fullModelSetType.contains("<") && !fullModelSetType.endsWith("Set")) 
          {
-            fullModelSetType = CGUtil.packageName(fullModelSetType) + ".creators." + CGUtil.shortClassName(fullModelSetType)+ "Set";
             modelSetType = CGUtil.shortClassName(fullModelSetType) + "Set";
-            String importForSet = checkSetImportFor(CGUtil.shortClassName(fullModelSetType));
+            fullModelSetType = CGUtil.packageName(fullModelSetType) + ".creators." + CGUtil.shortClassName(fullModelSetType)+ "Set";
+            String importForSet = checkSetImportFor(CGUtil.shortClassName(dataType.getValue()));
             if(importForSet != null)
             {
                importClassesFromTypes.add(importForSet);
@@ -762,8 +760,8 @@ public class GenAttribute extends Generator<Attribute>
          }
          
          String add = "add";
-
-         if (fullModelSetType.contains("<") || fullModelSetType.endsWith("Set")) 
+         
+         if (dataType.getValue().contains("<") || dataType.getValue().endsWith("Set")) 
          {
             add = "addAll";
          }
@@ -873,7 +871,7 @@ public class GenAttribute extends Generator<Attribute>
          StringBuilder text = new StringBuilder
                (  "\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                      "\n      {" +
-                     "\n         return ((entitiyClassName) target).getPropertyName();" +
+                     "\n         return ((entitiyNameClass) target).getPropertyName();" +
                      "\n      }" +
                      "\n" 
                      );
@@ -882,11 +880,18 @@ public class GenAttribute extends Generator<Attribute>
          {
             CGUtil.replaceAll(text, "getPropertyName()", "isPropertyName()");
          }
+         
+         String entitiyClassName = CGUtil.shortClassName(model.getClazz().getFullName());
+         String entitiyNameClass = entitiyClassName;
+         if(model.getClazz().getWrapped()){
+            entitiyClassName = CGUtil.shortClassName(model.getClazz().getName()+"Creator");
+         }
 
          CGUtil.replaceAll(text, 
             "PropertyName", StrUtil.upFirstChar(model.getName()),
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase(), 
-            "entitiyClassName", CGUtil.shortClassName(model.getClazz().getFullName())
+            "entitiyClassName", entitiyClassName,
+            "entitiyNameClass", entitiyNameClass
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
@@ -973,7 +978,7 @@ public class GenAttribute extends Generator<Attribute>
          StringBuilder text = new StringBuilder
                (  "\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                      "\n      {" +
-                     "\n         ((entitiyClassName) target).setPropertyName((type) value);" +
+                     "\n         ((entitiyNameClass) target).setPropertyName((type) value);" +
                      "\n         return true;" +
                      "\n      }" +
                      "\n" 
@@ -1006,12 +1011,18 @@ public class GenAttribute extends Generator<Attribute>
          {
             type = "Boolean";
          }
-
+         String entitiyClassName = CGUtil.shortClassName(ownerClazz.getFullName());
+         String entitiyNameClass = entitiyClassName;
+         if(model.getClazz().getWrapped()){
+            entitiyClassName += "Creator"; 
+         }
+         
          CGUtil.replaceAll(text, 
             typePlaceholder, type, 
             "PropertyName", StrUtil.upFirstChar(model.getName()),
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase(),
-            "entitiyClassName", CGUtil.shortClassName(ownerClazz.getFullName())
+            "entitiyClassName", entitiyClassName,
+            "entitiyNameClass", entitiyNameClass
                );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());

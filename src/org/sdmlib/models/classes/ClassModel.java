@@ -33,7 +33,7 @@ public class ClassModel extends SDMLibClass
 {
    public static final String PROPERTY_CLASSES = "classes";
    public static final String PROPERTY_PACKAGENAME = "packageName";
-   private Set<Feature> features=Feature.getNone();
+   private Set<Feature> features=Feature.getAll();
    private ClazzSet classes;
    private String packageName;
    private GenClassModel generator;

@@ -524,13 +524,17 @@ public class Clazz extends SDMLibClass
    }
 
    //==========================================================================
+   @Deprecated
    public boolean getWrapped()
    {
       return this.wrapped;
+//      return isExternal();
    }
-
+   @Deprecated
    public void setWrapped(boolean value)
    {
+//      setExternal(value);
+//      return;
       if (this.wrapped != value)
       {
          boolean oldValue = this.wrapped;
@@ -538,9 +542,11 @@ public class Clazz extends SDMLibClass
          getPropertyChangeSupport().firePropertyChange(PROPERTY_WRAPPED, oldValue, value);
       }
    }
-
+   @Deprecated
    public Clazz withWrapped(boolean value)
    {
+//      setExternal(value);
+//      return this;
       setWrapped(value);
       return this;
    }
@@ -671,4 +677,5 @@ public class Clazz extends SDMLibClass
       with(attribute);
       return attribute;
    }
+
 }

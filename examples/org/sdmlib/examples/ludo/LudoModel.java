@@ -38,7 +38,7 @@ public class LudoModel
       //      storyboard.add("The model: ",
       //         MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.ludo");
+      ClassModel model = new ClassModel("org.sdmlib.examples.ludo.model");
             
       Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
       
@@ -50,8 +50,7 @@ public class LudoModel
       Clazz player = model.createClazz("Player")
             .withAssoc(ludo, "game", Card.ONE, "players", Card.MANY)
             .withAttribute("color", DataType.STRING)
-            .withAttribute("enumColor", DataType.STRING)
-            .withAttribute("color", DataType.ref(LudoColor.class))
+            .withAttribute("enumColor", DataType.ref(LudoColor.class))
             .withAttribute("name", DataType.STRING)
             .withAttribute("x", DataType.INT)
             .withAttribute("y", DataType.INT);
