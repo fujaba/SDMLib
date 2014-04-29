@@ -4,28 +4,16 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.sdmlib.CGUtil;
-import org.sdmlib.examples.helloworld.creators.EdgePO;
-import org.sdmlib.examples.helloworld.creators.EdgeSet;
-import org.sdmlib.examples.helloworld.creators.GraphComponentSet;
-import org.sdmlib.examples.helloworld.creators.GraphPO;
-import org.sdmlib.examples.helloworld.creators.GreetingMessagePO;
-import org.sdmlib.examples.helloworld.creators.GreetingPO;
-import org.sdmlib.examples.helloworld.creators.ModelPattern;
-import org.sdmlib.examples.helloworld.creators.NodePO;
-import org.sdmlib.examples.helloworld.creators.NodeSet;
-import org.sdmlib.examples.helloworld.creators.PersonPO;
 import org.sdmlib.examples.helloworld.model.Node;
+import org.sdmlib.examples.helloworld.model.creators.ModelPattern;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
-import org.sdmlib.models.objects.creators.GenericAttributeSet;
-import org.sdmlib.models.objects.creators.GenericLinkPO;
-import org.sdmlib.models.objects.creators.GenericLinkSet;
-import org.sdmlib.models.objects.creators.GenericObjectPO;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.json.JsonArray;
 import org.sdmlib.serialization.json.JsonIdMap;
@@ -56,13 +44,13 @@ public class HelloWorldTTC2011
       ClassModel model = new ClassModel();
       
       Clazz greetingClazz = new Clazz("org.sdmlib.examples.helloworld.Greeting")
-      .withAttribute("text", "String");
+      .withAttribute("text", DataType.STRING);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldConstantTransformation1ClassDiag"));
+      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldConstantTransformation1ClassDiag"));
       
       
       //==========================================================================
@@ -125,18 +113,18 @@ public class HelloWorldTTC2011
       Clazz greetingClazz = new Clazz("org.sdmlib.examples.helloworld.Greeting");
       
       Clazz greetingMessageClazz = new Clazz("org.sdmlib.examples.helloworld.GreetingMessage")
-      .withAttribute("text", "String");
+      .withAttribute("text", "");
       
       Clazz personClazz = new Clazz("org.sdmlib.examples.helloworld.Person")
       .withAttribute("name", "String");
       
       new Association()
-      .withTarget(greetingMessageClazz, "greetingMessage", R.ONE)
-      .withSource(greetingClazz, "greeting", R.ONE);
+      .withTarget(greetingMessageClazz, "greetingMessage", Card.ONE)
+      .withSource(greetingClazz, "greeting", Card.ONE);
       
       new Association()
-      .withTarget(personClazz, "person", R.ONE)
-      .withSource(greetingClazz, "greeting", R.ONE);
+      .withTarget(personClazz, "person", CardR.ONE)
+      .withSource(greetingClazz, "greeting", Card.ONE);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       

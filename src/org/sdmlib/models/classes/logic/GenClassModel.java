@@ -54,6 +54,7 @@ public class GenClassModel
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
    private AssociationSet associations = null;
    private HashMap<Object, Generator<?>> generators=new HashMap<Object, Generator<?>>();
+   private Parser creatorCreatorParser;
 
    
    public boolean addToAssociations(Association value)
@@ -145,7 +146,7 @@ public class GenClassModel
       resetParsers();
       
       addHelperClassesForUnknownAttributeTypes();
-
+      getOrCreateCreatorCreatorParser(rootDir);
       generateModelPatternClass(rootDir);
       
       
@@ -163,6 +164,78 @@ public class GenClassModel
 
       attributNameConsistenceCheck(e, rootDir);
       return true;
+   }
+   
+   public Parser getOrCreateCreatorCreatorParser(String rootDir)
+   {
+      if (!model.getClasses().isEmpty() && creatorCreatorParser == null)
+      {
+         String packageName = model.getPackageName();
+         
+         packageName = packageName + ".creators";
+         String creatorCreatorClassName = packageName + ".CreatorCreator";
+         String fileName = creatorCreatorClassName;
+         fileName = fileName.replaceAll("\\.", "/");
+
+         fileName = rootDir + "/" + fileName + ".java";
+
+         javaFile = new File(fileName);
+
+         // found old one?
+         if (javaFile.exists())
+         {
+            fileBody = CGUtil.readFile(javaFile);
+         }
+         else
+         {
+            fileBody = new StringBuilder();
+
+            StringBuilder text =
+                  new StringBuilder(
+                        "package packageName;\n"
+                           +
+                           "\n"
+                           +
+                           "import org.sdmlib.serialization.json.JsonIdMap;\n"
+                           +
+                           "import org.sdmlib.serialization.json.SDMLibJsonIdMap;\n"
+                           +
+                           "\n"
+                           +
+                           "class className{\n"+
+                           "\n" +
+                           "   public static JsonIdMap createIdMap(String sessionID)\n" +
+                           "   {\n" +
+                           "      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);\n" +
+                           "      \n" +
+                           "JSONCREATORS\n" +
+                           "      return jsonIdMap;\n" +
+                           "   }\n" +
+                           "}\n");
+
+            StringBuilder creators = new StringBuilder();
+            for (Clazz clazz : model.getClasses())
+            {
+               if (!clazz.isInterface() && !clazz.isExternal()){
+                  String creatorName = CGUtil.packageName(clazz.getFullName())+".creators."+CGUtil.shortClassName(clazz.getFullName());
+                  creators.append("      jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
+                        "      jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
+               }
+            }
+
+            
+            CGUtil.replaceAll(text, 
+                  "className", CGUtil.shortClassName(creatorCreatorClassName), 
+                  "packageName", packageName,
+                  "JSONCREATORS", creators.toString());
+
+            fileBody.append(text.toString());
+         }
+         creatorCreatorParser = new Parser().withFileName(fileName).withFileBody(fileBody);
+         CGUtil.printFile(javaFile, fileBody.toString());
+      }
+
+      return creatorCreatorParser;
    }
    
    public void addHelperClassesForUnknownAttributeTypes()
@@ -334,7 +407,6 @@ public class GenClassModel
 
       for (Clazz clazz : model.getClasses())
       {
-         if (! clazz.isExternal()) 
             getOrCreate(clazz).insertHasMethodsInModelPattern(modelPatternParser);
       }
 

@@ -75,13 +75,7 @@ public class GenClass extends Generator<Clazz>
    
    public GenClass generate(String rootDir, String helpersDir)
    {
-      if (model.isExternal())
-      {
-         // nothing to generate 
-         return this;
-      }
-
-      // first generate the class itself
+       // first generate the class itself
       if ( ! model.isExternal())
       {
          getOrCreateParser(rootDir);
@@ -104,14 +98,10 @@ public class GenClass extends Generator<Clazz>
          for (Method method : model.getMethods()) {
             getGenerator(method).generate(rootDir, helpersDir, false);
          }
-      }
-
-      generateAttributes(rootDir, helpersDir);
-
-      if ( ! model.isExternal())
-      {
+         generateAttributes(rootDir, helpersDir);
          printFile(isFileHasChanged());
       }
+
 
       if ( !model.isInterface() )
       {
@@ -744,11 +734,7 @@ public class GenClass extends Generator<Clazz>
                      "   }\n" +
                      "   public static JsonIdMap createIdMap(String sessionID)\n" +
                            "   {\n" +
-                           "      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);\n" +
-                           "      \n" +
-                           "      JSONCREATORS" +
-                           "\n" +
-                           "      return jsonIdMap;\n" +
+                           "      return CreatorCreator.createIdMap(sessionID);\n" +
                            "   }"+
                   "}\n");
             if (model.isExternal())
@@ -799,22 +785,21 @@ public class GenClass extends Generator<Clazz>
                instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName+ "()";
             }
             
-            StringBuilder creators = new StringBuilder();
-            for (Clazz clazz : model.getClassModel().getClasses())
-            {
-               if (!clazz.isInterface() && !clazz.isExternal()){
-                  String creatorName = CGUtil.packageName(clazz.getFullName())+".creators."+CGUtil.shortClassName(clazz.getFullName());
-                  creators.append("         jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
-                        "         jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
-               }
-            }
+//            StringBuilder creators = new StringBuilder();
+//            for (Clazz clazz : model.getClassModel().getClasses())
+//            {
+//               if (!clazz.isInterface() && !clazz.isExternal()){
+//                  String creatorName = CGUtil.packageName(clazz.getFullName())+".creators."+CGUtil.shortClassName(clazz.getFullName());
+//                  creators.append("         jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
+//                        "         jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
+//               }
+//            }
 
             CGUtil.replaceAll(text, 
                "creatorClassName", creatorClassName, 
                "entitiyClassName", entitiyClassName, 
                "fullEntityClassName", fullEntityClassName,
                "packageName", packageName,
-               "JSONCREATORS", creators.toString(),
                "instanceCreationClause", instanceCreationClause);
 
             creatorFileBody.append(text.toString());
@@ -830,6 +815,9 @@ public class GenClass extends Generator<Clazz>
 
       return creatorParser;
    }
+   
+   
+   
 
    public String getModelSetClassName()
    {

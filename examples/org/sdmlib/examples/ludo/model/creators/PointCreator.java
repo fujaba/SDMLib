@@ -3,13 +3,12 @@ package org.sdmlib.examples.ludo.model.creators;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.examples.ludo.model.Ludo;
+import java.awt.Point;
 
-public class LudoCreator extends EntityFactory
+public class PointCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Ludo.PROPERTY_DATE,
    };
    
    @Override
@@ -21,17 +20,12 @@ public class LudoCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Ludo();
+      return new Point();
    }
    
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (Ludo.PROPERTY_DATE.equalsIgnoreCase(attrName))
-      {
-         return ((Ludo) target).getDate();
-      }
-
       return null;
    }
    
@@ -41,12 +35,6 @@ public class LudoCreator extends EntityFactory
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (Ludo.PROPERTY_DATE.equalsIgnoreCase(attrName))
-      {
-         ((Ludo) target).setDate((java.awt.Point) value);
-         return true;
       }
       return false;
    }
@@ -60,7 +48,7 @@ public class LudoCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Ludo) entity).removeYou();
+      // wrapped object has no removeYou method
    }
 }
 
