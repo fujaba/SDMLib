@@ -47,7 +47,7 @@ public class GenMethod extends Generator<Method>
                      "\n   " +
                      "\n   modifiers returnType mehodName( parameter )");
 
-         if ( clazz.isInterfaze())
+         if ( clazz.isInterface())
          {
             text.append(";\n");
          }
@@ -63,21 +63,8 @@ public class GenMethod extends Generator<Method>
 
          String methodName = signature.substring(0, signature.indexOf("("));
 
-         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
+         String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
 
-         String parameter = "";
-
-         String[] parameters = parameterSig.split("\\s*,\\s*");
-
-         if (!(parameters.length == 1 && parameters[0].isEmpty())) 
-         {
-            for (int i = 0; i < parameters.length; i++)
-            {
-               parameter += parameters[i] + " p" + i;
-               if (i + 1 < parameters.length)
-                  parameter += ", ";
-            }
-         }
          
          String returnClause = "";
          
@@ -96,7 +83,7 @@ public class GenMethod extends Generator<Method>
          
          CGUtil.replaceAll(text, 
             "modifiers", model.getModifier(), 
-            "returnType", model.getReturnType(),
+            "returnType", model.getReturnType().getValue(),
             "mehodName", methodName,
             "parameter", parameter, 
             "returnClause", returnClause
@@ -163,8 +150,10 @@ public class GenMethod extends Generator<Method>
          {
             for (int i = 0; i < parameters.length; i++)
             {
-               formalParameter += parameters[i] + " p" + i;
-               actualParameter += " p" + i;
+               String[] item = parameters[i].split(" ");
+               
+               formalParameter += item[0] + " "+item[1];
+               actualParameter += item[1];
                
                if (i + 1 < parameters.length)
                {
@@ -192,7 +181,7 @@ public class GenMethod extends Generator<Method>
          GenClass generator =  model.getClazz().getClassModel().getGenerator().getOrCreate( model.getClazz());
          if ("void".equals(type))
          {
-            type = CGUtil.shortClassName(clazz2.getName()) + "Set";
+            type = CGUtil.shortClassName(clazz2.getFullName()) + "Set";
          }
          else
          {
@@ -209,7 +198,7 @@ public class GenMethod extends Generator<Method>
             else
             {
                type = type + "Set";
-               importType = model.getClazz().getName();
+               importType = model.getClazz().getFullName();
                int dotpos = importType.lastIndexOf('.');
                importType = importType.substring(0, dotpos + 1) + "creators." + type ;
             }
@@ -231,7 +220,7 @@ public class GenMethod extends Generator<Method>
             "modifiers", model.getModifier(), 
             "returnType", type,
             "methodName", methodName,
-            "memberType", CGUtil.shortClassName(clazz2.getName()),
+            "memberType", CGUtil.shortClassName(clazz2.getFullName()),
             "formalParameter", formalParameter,
             "actualParameter", actualParameter
                );
@@ -282,8 +271,10 @@ public class GenMethod extends Generator<Method>
          {
             for (int i = 0; i < parameters.length; i++)
             {
-               formalParameter += parameters[i] + " p" + i;
-               actualParameter += " p" + i;
+               String[] item = parameters[i].split(" ");
+               
+               formalParameter += item[0] + " "+item[1];
+               actualParameter += item[1];
                
                if (i + 1 < parameters.length)
                {
@@ -335,7 +326,7 @@ public class GenMethod extends Generator<Method>
             "      returnStat\n", returnStat,
             "returnType", type,
             "methodName", methodName,
-            "memberType", CGUtil.shortClassName(clazz2.getName()),
+            "memberType", CGUtil.shortClassName(clazz2.getFullName()),
             "formalParameter", formalParameter,
             "actualParameter", actualParameter
                );

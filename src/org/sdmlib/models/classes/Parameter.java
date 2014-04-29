@@ -10,9 +10,8 @@ public class Parameter extends Value
       
    }
    
-   public Parameter(String name, DataType type)
+   public Parameter(DataType type)
    {
-      this.name = name; 
       this.type = type;
    }
 

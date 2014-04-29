@@ -54,20 +54,20 @@ public class Association extends SDMLibClass
       return  text;
    }
    
-   public Association withSource(Clazz sourceClass, String roleName, R card)
+   public Association withSource(Clazz sourceClass, String roleName, Card card)
    {
       withSource(roleName, sourceClass, card, Role.VANILLA);
       return this;
    }
    
-   public Association withSource(String roleName, Clazz sourceClass, R card)
+   public Association withSource(String roleName, Clazz sourceClass, Card card)
    {
       withSource(roleName, sourceClass, card, Role.VANILLA);
       return this;
    }
 
 
-   public Association withSource(String roleName, Clazz sourceClass, R card,
+   public Association withSource(String roleName, Clazz sourceClass, Card card,
       String kind)
    {
       setSource(new Role()
@@ -79,20 +79,20 @@ public class Association extends SDMLibClass
       return this;
    }
 
-   public Association withTarget(Clazz targetClass, String roleName, R card)
+   public Association withTarget(Clazz targetClass, String roleName, Card card)
    {
       withTarget(roleName, targetClass, card, Role.VANILLA);
       return this;
    }
    
-   public Association withTarget(String roleName, Clazz targetClass, R card)
+   public Association withTarget(String roleName, Clazz targetClass, Card card)
    {
       withTarget(roleName, targetClass, card, Role.VANILLA);
       return this;
    }
 
 
-   public Association withTarget(String roleName, Clazz targetClass, R card,
+   public Association withTarget(String roleName, Clazz targetClass, Card card,
       String kind)
    {
       setTarget(new Role()

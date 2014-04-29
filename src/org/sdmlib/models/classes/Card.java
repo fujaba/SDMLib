@@ -1,6 +1,6 @@
 package org.sdmlib.models.classes;
 
-public enum R
+public enum Card
 {
    ONE, MANY;
 

@@ -35,7 +35,7 @@ public class Role extends SDMLibClass
    private String kind= VANILLA;
    private String name= null;
    private Clazz clazz= null;
-   private String card= R.MANY.toString();
+   private String card= Card.MANY.toString();
 
    @Override
    public String toString()
@@ -51,7 +51,7 @@ public class Role extends SDMLibClass
    {
       String result = getName();
 
-      if (getCard().equals(R.MANY.toString()))
+      if (getCard().equals(Card.MANY.toString()))
       {
          result = result + " *";
       }

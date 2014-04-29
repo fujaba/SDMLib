@@ -32,7 +32,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.ClazzSet;
@@ -274,14 +274,14 @@ public class GenClassModel
             
             if(object instanceof Attribute) {
                Attribute attribute = (Attribute)object;
-               String position = defPosition(parser, localVarTable, attribute.getName(), attribute.getType(), attribute.getClazz().getName() );
+               String position = defPosition(parser, localVarTable, attribute.getName(), attribute.getType(), attribute.getClazz().getFullName() );
                
                System.err.println("in " + fileName + ":  duplicate name found in definition for " + attribute.getClazz() +"\n    "+ position+ "\n     Attribute " + attribute );
                attribute.removeYou();
             }
             else if(object instanceof Role) {
                Role role = (Role)object;
-               String position = defPosition(parser, localVarTable, role.getName(), DataType.ref("NONE") ,role.getClazz().getName() );
+               String position = defPosition(parser, localVarTable, role.getName(), DataType.ref("NONE") ,role.getClazz().getFullName() );
                System.err.println("in " + fileName + "  duplicate name found in definition for "+ role.getClazz() + "\n    " + position + "\n      Role " + role );
                Association assoc = role.getAssoc();
                
@@ -395,7 +395,7 @@ public class GenClassModel
    {
       for (Clazz clazz : getModel().getClasses())
       {
-         if (StrUtil.stringEquals(clazz.getName(), className))
+         if (StrUtil.stringEquals(clazz.getFullName(), className))
          {
             return clazz;
          }
@@ -428,7 +428,7 @@ public class GenClassModel
          {
             Clazz firstClass = model.getClasses().iterator().next();
 
-            modelPatternClassName = firstClass.getName();
+            modelPatternClassName = firstClass.getFullName();
 
             int pos = modelPatternClassName.lastIndexOf('.');
 
@@ -532,7 +532,7 @@ public class GenClassModel
    {
       for (Clazz clazz : model.getClasses())
       {
-         String modelClassName = clazz.getName();
+         String modelClassName = clazz.getFullName();
          LocalVarTableEntry entry = findInLocalVarTable(getOrCreate(modelCreationClass).getParser().getLocalVarTable(), modelClassName);
 
          if (entry != null)
@@ -578,7 +578,7 @@ public class GenClassModel
          currentInsertPos = insertCreationCode("\n       /*set superclass*/", currentInsertPos, modelCreationClass);
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass); 
          StringBuilder text = new StringBuilder("      .withSuperClass(superClassName)");
-         CGUtil.replaceAll(text, "superClassName", StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClass().getName())) + "Class" );
+         CGUtil.replaceAll(text, "superClassName", StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClass().getFullName())) + "Class" );
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass); 
          currentInsertPos++;
          //       currentInsertPos++;
@@ -587,7 +587,7 @@ public class GenClassModel
       }
 
       // check is interface
-      else if (clazz.isInterfaze() && !isInterface(entry))
+      else if (clazz.isInterface() && !isInterface(entry))
       {
          String token = Parser.NAME_TOKEN + ":" + entry.getName();
          int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
@@ -619,7 +619,7 @@ public class GenClassModel
             currentInsertPos = insertCreationCode("\n       /*add interface*/", currentInsertPos, modelCreationClass);
             currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
             StringBuilder text = new StringBuilder("      .withInterfaces(interfaceName)");
-            CGUtil.replaceAll(text, "interfaceName", StrUtil.downFirstChar(CGUtil.shortClassName(interfaze.getName())) + "Class" );
+            CGUtil.replaceAll(text, "interfaceName", StrUtil.downFirstChar(CGUtil.shortClassName(interfaze.getFullName())) + "Class" );
             currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass); 
             currentInsertPos++;
          }
@@ -723,8 +723,8 @@ public class GenClassModel
          Association  association = role.getAssoc();
          if (association == null)
             continue;
-         String sourceClassName = association.getSource().getClazz().getName();
-         String targetClassName = association.getTarget().getClazz().getName();
+         String sourceClassName = association.getSource().getClazz().getFullName();
+         String targetClassName = association.getTarget().getClazz().getFullName();
 
          if (handledClazzes.containsKey(sourceClassName) && handledClazzes.containsKey(targetClassName))
          {
@@ -820,7 +820,7 @@ public class GenClassModel
             String classVar = CGUtil.packageName(stat.getTokenList().get(0));
             LocalVarTableEntry localVarTableEntry = localVarTable.get(classVar);
             String classNameFromText = localVarTableEntry.getInitSequence().get(0).get(1).replaceAll("\"", "");
-            String classNameFromAssoc = assoc.getSource().getClazz().getName();
+            String classNameFromAssoc = assoc.getSource().getClazz().getFullName();
 
             if (StrUtil.stringEquals(classNameFromText, classNameFromAssoc) || classNameFromAssoc.endsWith("." + classNameFromText))
             {
@@ -828,7 +828,7 @@ public class GenClassModel
                classVar = stat.getTokenList().get(2);
                localVarTableEntry = localVarTable.get(classVar);
                classNameFromText = localVarTableEntry.getInitSequence().get(0).get(1).replaceAll("\"", "");
-               classNameFromAssoc = assoc.getTarget().getClazz().getName();
+               classNameFromAssoc = assoc.getTarget().getClazz().getFullName();
 
                if (StrUtil.stringEquals(classNameFromText, classNameFromAssoc) || classNameFromAssoc.endsWith("." + classNameFromText))
                {
@@ -858,13 +858,13 @@ public class GenClassModel
             String classVar = CGUtil.packageName(stat.getTokenList().get(0));
             LocalVarTableEntry localVarTableEntry = localVarTable.get(classVar);
             String classNameFromText = localVarTableEntry.getInitSequence().get(0).get(1).replaceAll("\"", "");
-            String classNameFromAssoc = assoc.getSource().getClazz().getName();
+            String classNameFromAssoc = assoc.getSource().getClazz().getFullName();
 
             if (StrUtil.stringEquals(classNameFromText, classNameFromAssoc) || classNameFromAssoc.endsWith("." + classNameFromText))
             {
                // ensure target class name
                classNameFromText = stat.getTokenList().get(2).replaceAll("\"", "");
-               classNameFromAssoc = assoc.getTarget().getClazz().getName();
+               classNameFromAssoc = assoc.getTarget().getClazz().getFullName();
 
                if (StrUtil.stringEquals(classNameFromText, classNameFromAssoc) || classNameFromAssoc.endsWith("." + classNameFromText))
                {
@@ -892,7 +892,7 @@ public class GenClassModel
 
       if (assocIsNew)
       {
-         String name = CGUtil.shortClassName(role.getClazz().getName()) + "Class";
+         String name = CGUtil.shortClassName(role.getClazz().getFullName()) + "Class";
          name = StrUtil.downFirstChar(name);
          LocalVarTableEntry localVarTableEntry = localVarTable.get(name);
          int insertPos = localVarTableEntry.getEndPos() + 3;
@@ -953,7 +953,7 @@ public class GenClassModel
       else
          return null;
       sequence += "\"" + role.getName() + "\"";
-      String shortClassName = CGUtil.shortClassName(role.getClazz().getName());
+      String shortClassName = CGUtil.shortClassName(role.getClazz().getFullName());
       String clazzString = StrUtil.downFirstChar(shortClassName) + "Class";
       sequence += "," + clazzString + ",";
       sequence += "\"" + role.getCard() + "\"" + ")";
@@ -1017,7 +1017,7 @@ public class GenClassModel
 
       if (methodIsNew)
       {
-         String name = CGUtil.shortClassName(method.getClazz().getName()) + "Class";
+         String name = CGUtil.shortClassName(method.getClazz().getFullName()) + "Class";
          name = StrUtil.downFirstChar(name);
          LocalVarTableEntry localVarTableEntry = localVarTable.get(name);
          if (localVarTableEntry == null)
@@ -1033,7 +1033,7 @@ public class GenClassModel
 
    private boolean compareMethodDecl(Method method, LocalVarTableEntry localVarTableEntry)
    {
-      String shortClassName = CGUtil.shortClassName(method.getClazz().getName()) + "Class";
+      String shortClassName = CGUtil.shortClassName(method.getClazz().getFullName()) + "Class";
       shortClassName = StrUtil.downFirstChar(shortClassName);
       ParameterSet parameters = method.getParameters();
       String signature = method.getSignature();
@@ -1065,12 +1065,12 @@ public class GenClassModel
    private int createAndInsertCodeForNewClazz(String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz, LinkedHashMap<String, Clazz> handledClazzes,
          int currentInsertPos)
    {
-      String modelClassName = clazz.getName();
+      String modelClassName = clazz.getFullName();
       // no creation code yet. Insert it.
       currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
 
       // check interface attr
-      if (clazz.isInterfaze()) {
+      if (clazz.isInterface()) {
          currentInsertPos = insertCreationIsInterfaceCode(currentInsertPos, modelCreationClass, symTabEntry);
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
       }
@@ -1078,14 +1078,14 @@ public class GenClassModel
       // insert code for superclass
       Clazz superClass = clazz.getSuperClass();
       if (superClass != null) {
-         currentInsertPos = insertCreationSuperClassCode( currentInsertPos, superClass.getName(), modelCreationClass, symTabEntry);
+         currentInsertPos = insertCreationSuperClassCode( currentInsertPos, superClass.getFullName(), modelCreationClass, symTabEntry);
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
       }
 
       // insert code for interfaces
       for ( Clazz interfaze :clazz.getInterfaces() ){
          if (interfaze != null) {
-            currentInsertPos = insertCreationInterfaceCode(currentInsertPos, interfaze.getName(), modelCreationClass, symTabEntry);
+            currentInsertPos = insertCreationInterfaceCode(currentInsertPos, interfaze.getFullName(), modelCreationClass, symTabEntry);
             currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
          }
       }
@@ -1157,7 +1157,7 @@ public class GenClassModel
          else
             secondRole = assoc.getSource();
 
-         String secondClassName = secondRole.getClazz().getName();
+         String secondClassName = secondRole.getClazz().getFullName();
 
          if (handledClazzes.containsKey(secondClassName))
          {
@@ -1186,7 +1186,7 @@ public class GenClassModel
       {
          Clazz clazz  = clazzQueue.poll();
 
-         String modelClassName = clazz.getName();
+         String modelClassName = clazz.getFullName();
 
          LocalVarTableEntry entry = findInLocalVarTable(getOrCreate(modelCreationClass).getParser().getLocalVarTable(), modelClassName);
 
@@ -1221,7 +1221,7 @@ public class GenClassModel
 
       for (Clazz depClazz : dependencies)
       {
-         if (handledClazzes.get(depClazz.getName()) == null) {
+         if (handledClazzes.get(depClazz.getFullName()) == null) {
             return false;
          }
       }  
@@ -1307,7 +1307,7 @@ public class GenClassModel
 
       StringBuilder text = new StringBuilder("\n      new Method()" + "\n        .withClazz(clazzName)" + "\n        .withSignature(\"methodSignature\");\n");
 
-      String clazzName = method.getClazz().getName();
+      String clazzName = method.getClazz().getFullName();
       clazzName = StrUtil.downFirstChar(CGUtil.shortClassName(clazzName)) + "Class";
       String signature = method.getSignature();
 
@@ -1354,11 +1354,11 @@ public class GenClassModel
 
       String sourceRole = assoc.getSource().getCard().toUpperCase();
       String sourceName = assoc.getSource().getName();
-      String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getName())) + "Class";
+      String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getFullName())) + "Class";
 
       String targetRole = assoc.getTarget().getCard().toUpperCase();
       String targetName = assoc.getTarget().getName();
-      String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getName())) + "Class";
+      String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getFullName())) + "Class";
 
       CGUtil.replaceAll(text, 
             "sourceName", sourceName, 
@@ -1375,7 +1375,7 @@ public class GenClassModel
    
    private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classType)
    {
-      String name = CGUtil.shortClassName( clazz.getName() );
+      String name = CGUtil.shortClassName( clazz.getFullName() );
       ArrayList<ArrayList<String>> initSequence = entry.getInitSequence();
       for (ArrayList<String> sequencePart : initSequence)
       {
@@ -1421,7 +1421,7 @@ public class GenClassModel
 
       for (Clazz clazz : model.getClasses())
       {
-         String name = CGUtil.shortClassName(clazz.getName());
+         String name = CGUtil.shortClassName(clazz.getFullName());
          if (StrUtil.stringEquals(name, currentType))
          {
             for (Attribute attr : clazz.getAttributes())
@@ -1438,7 +1438,7 @@ public class GenClassModel
                if (StrUtil.stringEquals(role.getName(), varName))
                {
 //                  currentTypeCard = role.getCard();
-                  return CGUtil.shortClassName(role.getClazz().getName());
+                  return CGUtil.shortClassName(role.getClazz().getFullName());
                }
             }
          }
@@ -1560,8 +1560,8 @@ public class GenClassModel
          Association currentAssoc = null; 
          for (Association assoc : getAssociations())
          {
-            if (sourceType.equals(CGUtil.shortClassName(assoc.getSource().getClazz().getName()))
-                  && targetType.equals(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()))
+            if (sourceType.equals(CGUtil.shortClassName(assoc.getSource().getClazz().getFullName()))
+                  && targetType.equals(CGUtil.shortClassName(assoc.getTarget().getClazz().getFullName()))
                   && sourceLabel.equals(assoc.getSource().getName())
                   && targetLabel.equals(assoc.getTarget().getName()))
             {
@@ -1576,19 +1576,19 @@ public class GenClassModel
          {
             // need to create a new one
             currentAssoc = new Association()
-            .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), R.ONE)
-            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), R.ONE);
+            .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), Card.ONE)
+            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), Card.ONE);
             getAssociations().add(currentAssoc);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
          {
-            currentAssoc.getTarget().setCard(R.MANY.toString());
+            currentAssoc.getTarget().setCard(Card.MANY.toString());
          }
          
          if (alreadyUsedLabels.contains(currentLink.getTgt().hashCode() + ":" + sourceLabel))
          {
-            currentAssoc.getSource().setCard(R.MANY.toString());
+            currentAssoc.getSource().setCard(Card.MANY.toString());
          }
          
          alreadyUsedLabels.add(currentLink.getSrc().hashCode() + ":" + targetLabel);
@@ -1628,7 +1628,7 @@ public class GenClassModel
    public Clazz findClass(String partnerClassName) {
       for (Clazz partnerClass : model.getClasses())
       {
-         String shortClassName = CGUtil.shortClassName(partnerClass.getName());
+         String shortClassName = CGUtil.shortClassName(partnerClass.getFullName());
          if (partnerClassName.equals(shortClassName))
          {
             return partnerClass;
@@ -1762,7 +1762,7 @@ public class GenClassModel
 
    private Clazz handleMember(Clazz clazz, String rootDir)
    {
-      System.out.println("parse " + clazz.getName());
+      System.out.println("parse " + clazz.getFullName());
       Parser parser = getOrCreate(clazz).getOrCreateParser(rootDir);
       parser.indexOf(Parser.CLASS_END);
 
@@ -1810,7 +1810,7 @@ public class GenClassModel
       return null;
    }
 
-   private void handleAssoc(Clazz clazz, String rootDir, String memberName, R card, String partnerClassName, Clazz partnerClass, String partnerAttrName)
+   private void handleAssoc(Clazz clazz, String rootDir, String memberName, Card card, String partnerClassName, Clazz partnerClass, String partnerAttrName)
    {
       partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
       Parser partnerParser = getOrCreate(partnerClass).getOrCreateParser(rootDir); 
@@ -1820,7 +1820,7 @@ public class GenClassModel
 
       if (attributePosition > -1)
       {
-         R partnerCard = findRoleCard(partnerParser, searchString);
+         Card partnerCard = findRoleCard(partnerParser, searchString);
          tryToCreateAssoc(clazz, memberName, card, partnerClassName, partnerClass, partnerAttrName, partnerCard);
       }
    }
@@ -1844,7 +1844,7 @@ public class GenClassModel
       // add super classes 
       if (memberName.startsWith(Parser.EXTENDS))
       {
-         if (clazz.isInterfaze()) {
+         if (clazz.isInterface()) {
             addMemberAsInterface(clazz, memberName, parser);
          }
          else {
@@ -1887,7 +1887,7 @@ public class GenClassModel
       Clazz memberClass = findMemberClass(clazz, memberName, parser);
 
       if (memberClass != null)
-         clazz.setSuperClass(memberClass);
+         clazz.withSuperClass(memberClass);
    }
 
    private void addMemberAsInterface(Clazz clazz, String memberName, Parser parser)
@@ -1898,7 +1898,7 @@ public class GenClassModel
       {
          memberClass.withInterfaze(true);
 
-         clazz.addToInterfaces(memberClass);
+         clazz.withSuperClass(memberClass);
       }
    }
 
@@ -1941,7 +1941,7 @@ public class GenClassModel
          }
       }
       
-      String name = clazz.getName();
+      String name = clazz.getFullName();
       int lastIndex = name.lastIndexOf('.');
       name = name.substring(0, lastIndex + 1) + signature;
 
@@ -1953,7 +1953,7 @@ public class GenClassModel
       LinkedHashSet<Clazz> classes = model.getClasses();
 
       for (Clazz eClazz : classes) {
-         if (eClazz.getName().equals(name)) {
+         if (eClazz.getFullName().equals(name)) {
             return eClazz;
          }
       }
@@ -2065,7 +2065,7 @@ public class GenClassModel
       return "set";
    }
 
-   private R findRoleCard(Parser partnerParser, String searchString)
+   private Card findRoleCard(Parser partnerParser, String searchString)
    {
       String partnerTypeName;
       SymTabEntry partnerSymTabEntry = partnerParser.getSymTab().get(searchString);
@@ -2074,15 +2074,15 @@ public class GenClassModel
       return findRoleCard(partnerTypeName);
    }
 
-   private R findRoleCard(String partnerTypeName)
+   private Card findRoleCard(String partnerTypeName)
    {
-      R partnerCard = R.ONE;
+      Card partnerCard = Card.ONE;
       int _openAngleBracket = partnerTypeName.indexOf("<");
       int _closeAngleBracket = partnerTypeName.indexOf(">");
       if (_openAngleBracket > -1 && _closeAngleBracket > _openAngleBracket)
       {
          // partner to many
-         partnerCard = R.MANY;
+         partnerCard = Card.MANY;
       }
       else if (partnerTypeName.endsWith("Set") && partnerTypeName.length() > 3)
       {
@@ -2090,9 +2090,9 @@ public class GenClassModel
          String prefix = partnerTypeName.substring(0, partnerTypeName.length() - 3);
          for (Clazz clazz : model.getClasses())
          {
-            if (prefix.equals(CGUtil.shortClassName(clazz.getName())))
+            if (prefix.equals(CGUtil.shortClassName(clazz.getFullName())))
             {
-               partnerCard = R.MANY;
+               partnerCard = Card.MANY;
                break;
             }
          }
@@ -2100,7 +2100,7 @@ public class GenClassModel
       return partnerCard;
    }
 
-   private void tryToCreateAssoc(Clazz clazz, String memberName, R card, String partnerClassName, Clazz partnerClass, String partnerAttrName, R partnerCard)
+   private void tryToCreateAssoc(Clazz clazz, String memberName, Card card, String partnerClassName, Clazz partnerClass, String partnerAttrName, Card partnerCard)
    {
       Role sourceRole = new Role().withName(partnerAttrName).withClazz(clazz).withCard(partnerCard.toString());
 
@@ -2129,7 +2129,7 @@ public class GenClassModel
    {
       for (Clazz clazz : model.getClasses())
       {
-         if (clazz.getName().equals(filePath))
+         if (clazz.getFullName().equals(filePath))
             return true;
       }
       return false;
@@ -2297,7 +2297,7 @@ public class GenClassModel
       String className;
       String fileName;
       String packageName;
-      className = clazz.getName();
+      className = clazz.getFullName();
       int pos = className.lastIndexOf('.');
       packageName = className.substring(0, pos);
 

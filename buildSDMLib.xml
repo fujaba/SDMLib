@@ -24,7 +24,7 @@
 		<mkdir dir="build/temp/" />
 		<mkdir dir="build/lib/" />
 		<mkdir dir="build/javadoc/" />
-		<javac srcdir="src:srchelpers" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
+		<javac srcdir="src" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
 			<classpath>
 				<pathelement location="lib/junit.jar"/>
 			</classpath>			
@@ -57,9 +57,8 @@
 			</manifest>
 			<fileset dir="build/temp/" />
 			<fileset dir="./src"/>
-			<fileset dir="./srchelpers"/>
 		</jar>
-		<javadoc destdir="build/javadoc/" sourcepath="src:srchelpers">
+		<javadoc destdir="build/javadoc/" sourcepath="src">
 		</javadoc>
 		<jar destfile="build/SDMLib-javadoc.jar">
 			<manifest>

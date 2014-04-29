@@ -13,14 +13,11 @@ public class ClazzCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       Clazz.PROPERTY_NAME,
-      Clazz.PROPERTY_INTERFAZE,
+      Clazz.PROPERTY_INTERFACE,
       Clazz.PROPERTY_EXTERNAL,
       Clazz.PROPERTY_WRAPPED,
       Clazz.PROPERTY_CLASSMODEL,
-      Clazz.PROPERTY_KIDCLASSES,
       Clazz.PROPERTY_SUPERCLASS,
-      Clazz.PROPERTY_KIDCLASSESASINTERFACE,
-      Clazz.PROPERTY_INTERFACES,
       Clazz.PROPERTY_ATTRIBUTES,
       Clazz.PROPERTY_METHODS,
       Clazz.PROPERTY_ROLES
@@ -74,29 +71,14 @@ public class ClazzCreator extends EntityFactory
          return ((Clazz) target).getRoles();
       }
 
-      if (Clazz.PROPERTY_KIDCLASSES.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getKidClasses();
-      }
-
       if (Clazz.PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
       {
          return ((Clazz) target).getSuperClass();
       }
 
-      if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
+      if (Clazz.PROPERTY_INTERFACE.equalsIgnoreCase(attrName))
       {
-         return ((Clazz) target).isInterfaze();
-      }
-
-      if (Clazz.PROPERTY_KIDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getKidClassesAsInterface();
-      }
-
-      if (Clazz.PROPERTY_INTERFACES.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getInterfaces();
+         return ((Clazz) target).isInterface();
       }
 
       if (Clazz.PROPERTY_EXTERNAL.equalsIgnoreCase(attribute))
@@ -168,51 +150,21 @@ public class ClazzCreator extends EntityFactory
          return true;
       }
 
-      if (Clazz.PROPERTY_KIDCLASSES.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).withKidClasses((Clazz) value);
-         return true;
-      }
-
-      if ((Clazz.PROPERTY_KIDCLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).removeFromKidClasses((Clazz) value);
-         return true;
-      }
-
       if (Clazz.PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).setSuperClass((Clazz) value);
+         ((Clazz)target).withSuperClass((Clazz) value);
          return true;
       }
-
-      if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
+      
+      if ((Clazz.PROPERTY_SUPERCLASS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Clazz)target).setInterfaze((Boolean) value);
          return true;
       }
 
-      if (Clazz.PROPERTY_KIDCLASSESASINTERFACE.equalsIgnoreCase(attrName))
+      if (Clazz.PROPERTY_INTERFACE.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).addToKidClassesAsInterface((Clazz) value);
-         return true;
-      }
-
-      if ((Clazz.PROPERTY_KIDCLASSESASINTERFACE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).removeFromKidClassesAsInterface((Clazz) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_INTERFACES.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).addToInterfaces((Clazz) value);
-         return true;
-      }
-
-      if ((Clazz.PROPERTY_INTERFACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).removeFromInterfaces((Clazz) value);
+         ((Clazz)target).setInterfaze((Boolean) value);
          return true;
       }
 

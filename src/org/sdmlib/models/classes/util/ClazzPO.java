@@ -61,7 +61,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasInterfaze(Boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_INTERFAZE)
+      .withAttrName(Clazz.PROPERTY_INTERFACE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -76,7 +76,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Clazz) getCurrentMatch()).isInterfaze();
+         return ((Clazz) getCurrentMatch()).isInterface();
       }
       return null;
    }
@@ -114,39 +114,6 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return null;
    }
    
-   public ClazzPO hasKidClasses()
-   {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Clazz.PROPERTY_KIDCLASSES, result);
-      
-      return result;
-   }
-   
-   public ClazzPO hasKidClasses(ClazzPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_KIDCLASSES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public ClazzSet getKidClasses()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return this.getCurrentMatch().getKidClasses();
-      }
-      return null;
-   }
-   
    public ClazzPO hasSuperClass()
    {
       ClazzPO result = new ClazzPO();
@@ -178,30 +145,6 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
          return ((Clazz) this.getCurrentMatch()).getSuperClass();
       }
       return null;
-   }
-   
-   public ClazzPO hasInterfaces()
-   {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Clazz.PROPERTY_INTERFACES, result);
-      
-      return result;
-   }
-   
-   public ClazzPO hasInterfaces(ClazzPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_INTERFACES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
    }
    
    public ClazzSet getInterfaces()
@@ -338,7 +281,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasInterfaze(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_INTERFAZE)
+      .withAttrName(Clazz.PROPERTY_INTERFACE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -400,40 +343,6 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this;
    }
    
- 
-   public ClazzPO hasKidClassesAsInterface()
-   {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Clazz.PROPERTY_KIDCLASSESASINTERFACE, result);
-      
-      return result;
-   }
-   
-   public ClazzPO hasKidClassesAsInterface(ClazzPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_KIDCLASSESASINTERFACE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public ClazzSet getKidClassesAsInterface()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return this.getCurrentMatch().getKidClassesAsInterface();
-      }
-      return null;
-   }
-   
    public ClazzPO hasName(String lower, String upper)
    {
       new AttributeConstraint()
@@ -452,7 +361,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasInterfaze(boolean lower, boolean upper)
    {
       new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_INTERFAZE)
+      .withAttrName(Clazz.PROPERTY_INTERFACE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -549,16 +458,6 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this.startCreate().hasClassModel(tgt).endCreate();
    }
 
-   public ClazzPO createKidClasses()
-   {
-      return this.startCreate().hasKidClasses().endCreate();
-   }
-
-   public ClazzPO createKidClasses(ClazzPO tgt)
-   {
-      return this.startCreate().hasKidClasses(tgt).endCreate();
-   }
-
    public ClazzPO createSuperClass()
    {
       return this.startCreate().hasSuperClass().endCreate();
@@ -567,26 +466,6 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO createSuperClass(ClazzPO tgt)
    {
       return this.startCreate().hasSuperClass(tgt).endCreate();
-   }
-
-   public ClazzPO createKidClassesAsInterface()
-   {
-      return this.startCreate().hasKidClassesAsInterface().endCreate();
-   }
-
-   public ClazzPO createKidClassesAsInterface(ClazzPO tgt)
-   {
-      return this.startCreate().hasKidClassesAsInterface(tgt).endCreate();
-   }
-
-   public ClazzPO createInterfaces()
-   {
-      return this.startCreate().hasInterfaces().endCreate();
-   }
-
-   public ClazzPO createInterfaces(ClazzPO tgt)
-   {
-      return this.startCreate().hasInterfaces(tgt).endCreate();
    }
 
    public AttributePO createAttributes()

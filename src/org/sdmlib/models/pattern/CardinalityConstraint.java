@@ -25,7 +25,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.R;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;

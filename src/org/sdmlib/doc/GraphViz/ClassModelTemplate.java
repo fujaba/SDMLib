@@ -34,7 +34,7 @@ public class ClassModelTemplate {
 			StringBuilder modelClassText = new StringBuilder(
 					"\n    _className [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF=\"classfilename\">className</td> </tr> attrCompartment methodCompartment </table>>];");
 
-			if (clazz.isInterfaze())
+			if (clazz.isInterface())
 				CGUtil.replaceAll(modelClassText, "table border", "table color='lightgrey' border");
 
 			CGUtil.replaceAll(modelClassText, 
@@ -69,7 +69,7 @@ public class ClassModelTemplate {
 		{
 			for (Clazz interfaceClass : clazz.getInterfaces())
 			{	
-				if (interfaceClass.isInterfaze())
+				if (interfaceClass.isInterface())
 				{
 					StringBuilder oneSuperClassText = new StringBuilder("\n    _interfaceClass ->  _mClass [dir = \"back\" arrowtail = \"empty\"];");
 

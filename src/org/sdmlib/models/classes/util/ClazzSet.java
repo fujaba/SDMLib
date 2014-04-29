@@ -76,13 +76,13 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
-   public booleanSet getInterfaze()
+   public booleanSet getInterface()
    {
       booleanSet result = new booleanSet();
       
       for (Clazz obj : this)
       {
-         result.add(obj.isInterfaze());
+         result.add(obj.isInterface());
       }
       
       return result;
@@ -104,37 +104,6 @@ public class ClazzSet extends SDMSet<Clazz>
       for (Clazz obj : this)
       {
          obj.withClassModel(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet getKidClasses()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getKidClasses());
-      }
-      
-      return result;
-   }
-   public ClazzSet withKidClasses(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withKidClasses(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutKidClasses(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withoutKidClasses(value);
       }
       
       return this;
@@ -172,26 +141,8 @@ public class ClazzSet extends SDMSet<Clazz>
       
       return result;
    }
-   public ClazzSet withInterfaces(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withInterfaces(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutInterfaces(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withoutInterfaces(value);
-      }
-      
-      return this;
-   }
-
+   
+   
    public AttributeSet getAttributes()
    {
       AttributeSet result = new AttributeSet();
@@ -360,67 +311,6 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
-   public ClazzSet getKidClassesAsInterface()
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getKidClassesAsInterface());
-      }
-      
-      return result;
-   }
-   
-   public ClazzSet getKidClassesAsInterfaceTransitive()
-   {
-      // transitive includes start classes
-      ClazzSet result = (ClazzSet) this.clone();
-      
-      ClazzSet todo = (ClazzSet) this.clone();
-      
-      while ( ! todo.isEmpty())
-      {
-         Clazz first = todo.first();
-         
-         ClazzSet newKids = first.getKidClassesAsInterface();
-         
-         newKids.removeAll(result); // already known
-         
-         result.addAll(newKids);
-         
-         todo.addAll(newKids);
-         
-         todo.remove(first);
-      }
-      
-      return result;
-   }
-   
-   
-   
-   public ClazzSet withKidClassesAsInterface(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withKidClassesAsInterface(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutKidClassesAsInterface(Clazz value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withoutKidClassesAsInterface(value);
-      }
-      
-      return this;
-   }
-
-
-
    public ClazzPO startModelPattern()
    {
       org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
@@ -474,30 +364,6 @@ public class ClazzSet extends SDMSet<Clazz>
       return patternObject;
    }
 
-   public ClazzSet getKidClassesTransitive()
-   {
-      ClazzSet todo = new ClazzSet().with(this);
-      
-      ClazzSet result = new ClazzSet();
-      
-      while ( ! todo.isEmpty())
-      {
-         Clazz current = todo.first();
-         
-         todo.remove(current);
-         
-         if ( ! result.contains(current))
-         {
-            result.add(current);
-            
-            todo.with(current.getKidClasses().minus(result));
-         }
-      }
-      
-      return result;
-   }
-
-
    public ClazzSet getInterfacesTransitive()
    {
       ClazzSet todo = new ClazzSet().with(this);
@@ -547,7 +413,6 @@ public class ClazzSet extends SDMSet<Clazz>
       
       return result;
    }
-
 }
 
 

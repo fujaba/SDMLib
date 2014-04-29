@@ -23,7 +23,6 @@ package org.sdmlib.models.classes;
 
 import java.util.LinkedHashSet;
 
-import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
@@ -33,17 +32,14 @@ public class Clazz extends SDMLibClass
 {
    public static final String PROPERTY_NAME = "name";
 
-   public static final String PROPERTY_SUPERCLASS = "superClass";
-   public static final String PROPERTY_KIDCLASSES = "kidClasses";
    
    public static final String PROPERTY_ATTRIBUTES = "attributes";
    public static final String PROPERTY_CLASSMODEL = "classModel";
    public static final String PROPERTY_EXTERNAL = "external";
-   public static final String PROPERTY_INTERFAZE = "interfaze";
+   public static final String PROPERTY_INTERFACE = "interface";
    public static final String PROPERTY_METHODS = "methods";
-
-   public static final String PROPERTY_INTERFACES = "interfaces";
-   public static final String PROPERTY_KIDCLASSESASINTERFACE = "kidClassesAsInterface";
+   public static final String PROPERTY_SUPERCLASS = "superclasses";
+   public static final String PROPERTY_KINDCLASSES = "kindclasses";
    
    public static final String PROPERTY_ROLES = "roles";
    public static final String PROPERTY_WRAPPED = "wrapped";
@@ -51,11 +47,9 @@ public class Clazz extends SDMLibClass
    private ClassModel classModel = null;  
    private boolean external;
    private MethodSet methods = null;
-   private ClazzSet kidClasses = null;
-   private ClazzSet kidClassesAsInterface = null;
-   private ClazzSet interfaces = null;
+   private ClazzSet superClazzes = null;
+   private ClazzSet kindClazzes = null;
    private Boolean interfaze = false;
-   private Clazz superClass = null; 
    private RoleSet roles = null;
    private boolean wrapped;
    private String name = null; 
@@ -68,7 +62,7 @@ public class Clazz extends SDMLibClass
       setName(name);
    }
    
-   public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, R tgtCard, String srcRoleName, R srcCard)
+   public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, Card tgtCard, String srcRoleName, Card srcCard)
    {      
       new Association()
       .withTarget(tgtRoleName, tgtClass, tgtCard)
@@ -77,7 +71,7 @@ public class Clazz extends SDMLibClass
       return this;
    }
    
-   public Clazz withReference(Clazz tgtClass, String tgtRoleName, R tgtCard){
+   public Clazz withReference(Clazz tgtClass, String tgtRoleName, Card tgtCard){
       //FIXME ALEX
       return this;
    }
@@ -86,21 +80,18 @@ public class Clazz extends SDMLibClass
    {
       return name;
    }
+   
+   public String getFullName()
+   {
+      if(name.indexOf('.') < 0 && getClassModel().getPackageName() != null)
+      {
+         return getClassModel().getPackageName()  + "." + name;
+      }
+      return name;
+   }
 
    public void setName(String name)
    {
-      if (getClassModel() != null)
-      {
-         if(name.indexOf('.') < 0 && getClassModel().getPackageName() != null)
-         {
-            name = "" + getClassModel().getPackageName()  + "." + name;
-         }
-         else if (getClassModel().getPackageName() == null)
-         {
-            getClassModel().setPackageName(CGUtil.packageName(name));
-         }
-      }
-      
       this.name = name;
    }
 
@@ -113,35 +104,88 @@ public class Clazz extends SDMLibClass
 
    public Clazz getSuperClass()
    {
-      return superClass;
-   }
-
-   public void setSuperClass(Clazz newSuperClass)
-   {
-      if (this.superClass != newSuperClass)
-      {
-         Clazz oldSuperClass = this.superClass;
-         if (this.superClass != null)
-         {
-            this.superClass = null;
-            oldSuperClass.removeFromKidClasses(oldSuperClass);
-         }
-         
-         this.superClass = newSuperClass;
-         
-         if (newSuperClass != null)
-         {
-            newSuperClass.addToKidClasses(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, oldSuperClass, newSuperClass);
+      if(superClazzes==null){
+         return null;
       }
+      for(Clazz clazz : superClazzes){
+         if(!clazz.isInterface()){
+            return clazz;
+         }
+      }
+      return null;
+   }
+   
+   public ClazzSet getInterfaces()
+   {
+      ClazzSet interfaces =new ClazzSet();
+      if(superClazzes==null){
+         return interfaces;
+      }
+      for(Clazz clazz : superClazzes){
+         if(clazz.isInterface()){
+            interfaces.add(clazz);
+         }
+      }
+      return interfaces;
+   }
+   
+   public ClazzSet getSuperClasses()
+   {
+      return superClazzes;
    }
 
-   public Clazz withSuperClass(Clazz superClass)
+   public Clazz withSuperClass(Clazz... newSuperClass)
    {
-      setSuperClass(superClass);
+      for(Clazz superClazz : newSuperClass){
+         if(this.superClazzes.add(superClazz)){
+            superClazz.withKindClass(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, null, newSuperClass);
+         }
+      }
       return this;
+   }
+   
+   public boolean removeFromSuperClass(Clazz... value)
+   {
+      boolean changed = false;
+      for(Clazz superClazz : value){
+         if(this.superClazzes.remove(superClazz)){
+            superClazz.removeFromKindClass(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, superClazz, null);
+            changed = true;
+         }
+      }
+      return changed;   
+   }
+   
+
+   public ClazzSet getKindClasses()
+   {
+      return kindClazzes;
+   }
+
+   Clazz withKindClass(Clazz... newSuperClass)
+   {
+      for(Clazz superClazz : newSuperClass){
+         if(this.superClazzes.add(superClazz)){
+            superClazz.withSuperClass(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, null, newSuperClass);
+         }
+      }
+      return this;
+   }
+   
+   boolean removeFromKindClass(Clazz... value)
+   {
+      boolean changed = false;
+      for(Clazz superClazz : value){
+         if(this.superClazzes.remove(superClazz)){
+            superClazz.removeFromSuperClass(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, superClazz, null);
+            changed = true;
+         }
+      }
+      return changed;   
    }
 
    public ClassModel getClassModel()
@@ -156,17 +200,11 @@ public class Clazz extends SDMLibClass
          ClassModel oldValue = this.classModel;
          if (this.classModel != null)
          {
-            if(name.startsWith(this.classModel.getPackageName())){
-               name = name.substring(this.classModel.getPackageName().length()+1);
-            }
             this.classModel = null;
             oldValue.removeFromClasses(this);
          }
          this.classModel = value;
-         if(name.indexOf('.') < 0){
-            name = "" + getClassModel().getPackageName()  + "." + name;
-         }  
-         if (value != null)
+       if (value != null)
          {
             value.addToClasses(this);
          }
@@ -441,278 +479,22 @@ public class Clazz extends SDMLibClass
       removeAllFromAttributes();
       removeAllFromMethods();
       removeAllFromRoles();
-      removeAllFromKidClasses();
-      setSuperClass(null);
-      removeAllFromKidClassesAsInterface();
-      removeAllFromInterfaces();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-
-
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Clazz ----------------------------------- Clazz
-    *              superClass                   kidClasses
-    * </pre>
-    */
-
-   public ClazzSet getKidClasses()
-   {
-      if (this.kidClasses == null)
-      {
-         return new ClazzSet();
-      }
-
-      return this.kidClasses;
-   }
-
-   boolean addToKidClasses(Clazz value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.kidClasses == null)
-         {
-            this.kidClasses = new ClazzSet();
-         }
-
-         changed = this.kidClasses.add (value);
-
-         if (changed)
-         {
-            value.withSuperClass(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLASSES, null, value);
-         }
-      }
-
-      return changed;   
-   }
-
-   public boolean removeFromKidClasses(Clazz value)
-   {
-      boolean changed = false;
-
-      if ((this.kidClasses != null) && (value != null))
-      {
-         changed = this.kidClasses.remove (value);
-
-         if (changed)
-         {
-            value.setSuperClass(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLASSES, value, null);
-         }
-      }
-
-      return changed;   
-   }
-
-   protected Clazz withKidClasses(Clazz value)
-   {
-      addToKidClasses(value);
-      return this;
-   } 
-
-   protected Clazz withoutKidClasses(Clazz value)
-   {
-      removeFromKidClasses(value);
-      return this;
-   } 
-
-   protected void removeAllFromKidClasses()
-   {
-      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getKidClasses());
-
-      for (Clazz value : tmpSet)
-      {
-         this.removeFromKidClasses(value);
-      }
-   }
-
-
    //==========================================================================
-   public Boolean isInterfaze()
+   public Boolean isInterface()
    {
       return this.interfaze;
    }
 
-   public void setInterfaze(Boolean value)
+   public void setInterface(Boolean value)
    {
       if (this.interfaze != value)
       {
          Boolean oldValue = this.interfaze;
          this.interfaze = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
-      }
-   }
-
-   public Clazz withInterfaze(Boolean value)
-   {
-      setInterfaze(value);
-      return this;
-   } 
-
-
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Clazz ----------------------------------- Clazz
-    *              interfaces                   kidClassesAsInterface
-    * </pre>
-    */
-   public ClazzSet getKidClassesAsInterface()
-   {
-      if (this.kidClassesAsInterface == null)
-      {
-         return new ClazzSet();
-      }
-
-      return this.kidClassesAsInterface;
-   }
-
-   public boolean addToKidClassesAsInterface(Clazz value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.kidClassesAsInterface == null)
-         {
-            this.kidClassesAsInterface = new ClazzSet();
-         }
-
-         changed = this.kidClassesAsInterface.add (value);
-
-         if (changed)
-         {
-            value.withInterfaces(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLASSESASINTERFACE, null, value);
-         }
-      }
-
-      return changed;   
-   }
-
-   public boolean removeFromKidClassesAsInterface(Clazz value)
-   {
-      boolean changed = false;
-
-      if ((this.kidClassesAsInterface != null) && (value != null))
-      {
-         changed = this.kidClassesAsInterface.remove (value);
-
-         if (changed)
-         {
-            value.withoutInterfaces(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLASSESASINTERFACE, value, null);
-         }
-      }
-
-      return changed;   
-   }
-
-   protected Clazz withKidClassesAsInterface(Clazz value)
-   {
-      addToKidClassesAsInterface(value);
-      return this;
-   } 
-
-   protected Clazz withoutKidClassesAsInterface(Clazz value)
-   {
-      removeFromKidClassesAsInterface(value);
-      return this;
-   } 
-
-   public void removeAllFromKidClassesAsInterface()
-   {
-      ClazzSet tmpSet = (ClazzSet) this.getInterfaces().clone();
-
-      for (Clazz value : tmpSet)
-      {
-         this.removeFromKidClassesAsInterface(value);
-      }
-   }
-
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Clazz ----------------------------------- Clazz
-    *              kindClassesAsInterface                   interfaces
-    * </pre>
-    */
-   public ClazzSet getInterfaces()
-   {
-      if (this.interfaces == null)
-      {
-         return new ClazzSet();
-      }
-
-      return this.interfaces;
-   }
-
-   public boolean addToInterfaces(Clazz value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.interfaces == null)
-         {
-            this.interfaces = new ClazzSet();
-         }
-
-         changed = this.interfaces.add (value);
-
-         if (changed)
-         {
-            value.withKidClassesAsInterface(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACES, null, value);
-         }
-      }
-
-      return changed;   
-   }
-
-   public boolean removeFromInterfaces(Clazz value)
-   {
-      boolean changed = false;
-
-      if ((this.interfaces != null) && (value != null))
-      {
-         changed = this.interfaces.remove (value);
-
-         if (changed)
-         {
-            value.withoutKidClassesAsInterface(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACES, value, null);
-         }
-      }
-
-      return changed;   
-   }
-
-   public Clazz withInterfaces(Clazz value)
-   {
-      addToInterfaces(value);
-      value.addToKidClassesAsInterface(this);
-      return this;
-   } 
-
-   public Clazz withoutInterfaces(Clazz value)
-   {
-      removeFromInterfaces(value);
-      return this;
-   } 
-
-   public void removeAllFromInterfaces()
-   {
-      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getInterfaces());
-
-      for (Clazz value : tmpSet)
-      {
-         this.removeFromInterfaces(value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACE, oldValue, value);
       }
    }
 
@@ -774,24 +556,6 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public ClazzSet getKidClassesClosure()
-   {
-      ClazzSet result = this.getKidClasses().union(this.getKidClassesAsInterface());
-
-      int oldSize = 0;
-
-      int newSize = result.size();
-
-      while (newSize > oldSize)
-      {
-         result.addAll(result.getKidClasses().union(result.getKidClassesAsInterface()));
-         oldSize = newSize;
-         newSize = result.size();
-      }
-
-      return result;
-   } 
-
    @Override
    public String toString()
    {
@@ -815,7 +579,7 @@ public class Clazz extends SDMLibClass
       {
          boolean oldValue = this.interfaze;
          this.interfaze = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACE, oldValue, value);
       }
    }
    
@@ -833,67 +597,6 @@ public class Clazz extends SDMLibClass
       return this.external;
    }
    
-   public Clazz withKidClasses(Clazz... value)
-   {
-      for (Clazz item : value)
-      {
-         addToKidClasses(item);
-      }
-      return this;
-   } 
-
-   public Clazz withoutKidClasses(Clazz... value)
-   {
-      for (Clazz item : value)
-      {
-         removeFromKidClasses(item);
-      }
-      return this;
-   }
-
-   public Clazz withKidClassesAsInterface(Clazz... value)
-   {
-      for (Clazz item : value)
-      {
-         addToKidClassesAsInterface(item);
-      }
-      return this;
-   } 
-
-   public Clazz withoutKidClassesAsInterface(Clazz... value)
-   {
-      for (Clazz item : value)
-      {
-         removeFromKidClassesAsInterface(item);
-      }
-      return this;
-   }
-
-   public Clazz createKidClassesAsInterface()
-   {
-      Clazz value = new Clazz();
-      withKidClassesAsInterface(value);
-      return value;
-   } 
-
-   public Clazz withInterfaces(Clazz... value)
-   {
-      for (Clazz item : value)
-      {
-         addToInterfaces(item);
-      }
-      return this;
-   } 
-
-   public Clazz withoutInterfaces(Clazz... value)
-   {
-      for (Clazz item : value)
-      {
-         removeFromInterfaces(item);
-      }
-      return this;
-   }
-
    public Clazz withAttributes(Attribute... value)
    {
       for (Attribute item : value)
@@ -955,22 +658,11 @@ public class Clazz extends SDMLibClass
       return value;
    } 
 
-   protected ClazzSet getKidClassesTransitive()
-   {
-      ClazzSet result = new ClazzSet().with(this);
-      return result.getKidClassesTransitive();
-   }
-
+ 
    public ClazzSet getSuperClassTransitive()
    {
       ClazzSet result = new ClazzSet().with(this);
       return result.getSuperClassTransitive();
-   }
-
-   protected ClazzSet getKidClassesAsInterfaceTransitive()
-   {
-      ClazzSet result = new ClazzSet().with(this);
-      return result.getKidClassesAsInterfaceTransitive();
    }
 
    public ClazzSet getInterfacesTransitive()

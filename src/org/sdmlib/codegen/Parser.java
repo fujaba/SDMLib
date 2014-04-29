@@ -184,8 +184,6 @@ public class Parser
 
    private Parser withInit(int startPos, int endPos) 
    {
-      double result = 0;
-
       if (symTab == null)
       {
          symTab = new LinkedHashMap<String, SymTabEntry>();
