@@ -200,7 +200,7 @@ public class GenMethod extends Generator<Method>
                type = type + "Set";
                importType = model.getClazz().getFullName();
                int dotpos = importType.lastIndexOf('.');
-               importType = importType.substring(0, dotpos + 1) + "creators." + type ;
+               importType = importType.substring(0, dotpos + 1) + GenClassModel.UTILPATH+"." + type ;
             }
             
             generator.insertImport(parser, importType);  // TODO: import might not be correct for user defined classes

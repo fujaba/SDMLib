@@ -761,6 +761,11 @@ public class Parser
       {
          skip("*");
       }
+//      if (currentRealToken.kind == '$'){
+//         nextRealToken();
+//         importName += "$"+currentRealWord();
+//         nextRealToken();
+//      }
 
       symTab.put(IMPORT + ":" + importName, 
          new SymTabEntry().withMemberName(importName)

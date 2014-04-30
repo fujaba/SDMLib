@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,75 +19,24 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.logger.util;
+package org.sdmlib.examples.adamandeve.model.util;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.intList;
+import java.util.List;
 
-public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
+public class TaskFlowSet extends SDMSet<TaskFlow>
 {
 
 
-   private static final long serialVersionUID = 1L;
-
-
-
-   @Override
-   public String toString()
+   public TaskFlowPO hasTaskFlowPO()
    {
-      StringList stringList = new StringList();
+      org.sdmlib.examples.adamandeve.model.util.ModelPattern pattern = new org.sdmlib.examples.adamandeve.model.util.ModelPattern();
       
-      for (SDMLibJsonIdMap elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.serialization.json.SDMLibJsonIdMap";
-   }
-
-
-   public SDMLibJsonIdMapPO startModelPattern()
-   {
-      return null;
-   }
-
-
-   public SDMLibJsonIdMapSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<SDMLibJsonIdMap>)value);
-      }
-      else if (value != null)
-      {
-         this.add((SDMLibJsonIdMap) value);
-      }
-      
-      return this;
-   }
-   
-   public SDMLibJsonIdMapSet without(SDMLibJsonIdMap value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-
-   public SDMLibJsonIdMapPO hasSDMLibJsonIdMapPO()
-   {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      SDMLibJsonIdMapPO patternObject = pattern.hasElementSDMLibJsonIdMapPO();
+      TaskFlowPO patternObject = pattern.hasElementTaskFlowPO();
       
       patternObject.withCandidates(this.clone());
       
@@ -96,9 +45,71 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
       
       return patternObject;
    }
+
+
+   @Override
+   public String getEntryType()
+   {
+      return "org.sdmlib.logger.TaskFlow";
+   }
+
+
+   public TaskFlowSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<TaskFlow>)value);
+      }
+      else if (value != null)
+      {
+         this.add((TaskFlow) value);
+      }
+      
+      return this;
+   }
+   
+   public TaskFlowSet without(TaskFlow value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+   public intList getTaskNo()
+   {
+      intList result = new intList();
+      
+      for (TaskFlow obj : this)
+      {
+         result.add(obj.getTaskNo());
+      }
+      
+      return result;
+   }
+
+   public TaskFlowSet hasTaskNo(int value)
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (TaskFlow obj : this)
+      {
+         if (value == obj.getTaskNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TaskFlowSet withTaskNo(int value)
+   {
+      for (TaskFlow obj : this)
+      {
+         obj.setTaskNo(value);
+      }
+      
+      return this;
+   }
+
 }
-
-
-
-
 

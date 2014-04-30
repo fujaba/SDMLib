@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,45 +19,36 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.logger.util;
+package org.sdmlib.examples.adamandeve.model.util;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.models.modelsets.StringList;
+import java.util.Collection;
 
-public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
+public class SDMLibJsonIdMapSet extends SDMSet<SDMLibJsonIdMap>
 {
 
 
-   private static final long serialVersionUID = 1L;
-
+   public SDMLibJsonIdMapPO hasSDMLibJsonIdMapPO()
+   {
+      org.sdmlib.examples.adamandeve.model.util.ModelPattern pattern = new org.sdmlib.examples.adamandeve.model.util.ModelPattern();
+      
+      SDMLibJsonIdMapPO patternObject = pattern.hasElementSDMLibJsonIdMapPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
 
 
    @Override
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (SDMLibJsonIdMap elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
    public String getEntryType()
    {
       return "org.sdmlib.serialization.json.SDMLibJsonIdMap";
-   }
-
-
-   public SDMLibJsonIdMapPO startModelPattern()
-   {
-      return null;
    }
 
 
@@ -81,24 +72,5 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
       return this;
    }
 
-
-
-   public SDMLibJsonIdMapPO hasSDMLibJsonIdMapPO()
-   {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      SDMLibJsonIdMapPO patternObject = pattern.hasElementSDMLibJsonIdMapPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
 }
-
-
-
-
 

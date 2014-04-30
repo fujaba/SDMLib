@@ -1,17 +1,18 @@
-package org.sdmlib.logger.util;
+package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import java.awt.Point;
 
-public class TaskFlowCreator extends EntityFactory
+public class PointCreator extends EntityFactory
 {
+   public static final String PROPERTY_X = "x";
+   public static final String PROPERTY_Y = "y";
    private final String[] properties = new String[]
    {
-         TaskFlow.PROPERTY_IDMAP,
-         TaskFlow.PROPERTY_PARENT,
-         TaskFlow.PROPERTY_SUBFLOW,
-         TaskFlow.PROPERTY_TASKNO
+      PROPERTY_X,
+      PROPERTY_Y,
    };
    
    @Override
@@ -23,12 +24,22 @@ public class TaskFlowCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return null;
+      return new Point();
    }
    
    @Override
    public Object getValue(Object target, String attrName)
    {
+      if (PointCreator.PROPERTY_X.equalsIgnoreCase(attrName))
+      {
+         return ((Point) target).getX();
+      }
+
+      if (PointCreator.PROPERTY_Y.equalsIgnoreCase(attrName))
+      {
+         return ((Point) target).getY();
+      }
+
       return null;
    }
    
@@ -38,6 +49,18 @@ public class TaskFlowCreator extends EntityFactory
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
+      }
+
+      if (PointCreator.PROPERTY_X.equalsIgnoreCase(attrName))
+      {
+         ((Point) target).x = (Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (PointCreator.PROPERTY_Y.equalsIgnoreCase(attrName))
+      {
+         ((Point) target).y = (Integer.parseInt(value.toString()));
+         return true;
       }
       return false;
    }

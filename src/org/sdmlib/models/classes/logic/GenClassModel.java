@@ -44,7 +44,7 @@ import org.sdmlib.models.objects.GenericObject;
 
 public class GenClassModel
 {
-   public static final String UTILPATH=".util.";
+   public static final String UTILPATH=".util";
 
    private Parser modelPatternParser;
    private String modelPatternClassName;
@@ -174,8 +174,9 @@ public class GenClassModel
       {
          String packageName = model.getName();
          
-         packageName = packageName + ".creators";
+         packageName = packageName + UTILPATH;
          String creatorCreatorClassName = packageName + ".CreatorCreator";
+
          String fileName = creatorCreatorClassName;
          fileName = fileName.replaceAll("\\.", "/");
 
@@ -220,7 +221,13 @@ public class GenClassModel
             {
                if (!clazz.isInterface() ){
                   if(clazz.getAttributes().size()>0 ){
-                     String creatorName = CGUtil.packageName(clazz.getFullName())+UTILPATH+CGUtil.shortClassName(clazz.getFullName());
+                     String creatorName = "";
+                     if(clazz.isExternal()){
+                        creatorName = model.getName()+UTILPATH+"."+CGUtil.shortClassName(clazz.getFullName());
+                     }else{
+                        creatorName = CGUtil.packageName(clazz.getFullName())+UTILPATH+"."+CGUtil.shortClassName(clazz.getFullName());
+                     }
+                     
                      creators.append("      jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
                            "      jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
                   }
@@ -503,7 +510,7 @@ public class GenClassModel
          String packageName = model.getName();
          if (model.getName() != null)
          {
-            packageName = packageName + ".creators";
+            packageName = packageName + UTILPATH;
             modelPatternClassName = packageName + ".ModelPattern";
          }
          else
@@ -514,7 +521,7 @@ public class GenClassModel
 
             int pos = modelPatternClassName.lastIndexOf('.');
 
-            packageName = modelPatternClassName.substring(0, pos) + ".creators";
+            packageName = modelPatternClassName.substring(0, pos) + UTILPATH;
 
             modelPatternClassName = packageName + ".ModelPattern";
          }
@@ -2387,28 +2394,30 @@ public class GenClassModel
       fileName = srcDir + "/" + className.replaceAll("\\.", "/") + ".java";
       deleteFile(fileName);
 
+      String path = helpersDir + "/" + (packageName+UTILPATH).replaceAll("\\.", "/") + "/";
+      
       // creator file
-      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "Creator.java";
+      fileName = path + CGUtil.shortClassName(className) + "Creator.java";
       deleteFile(fileName);
 
       // modelset file
-      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "Set.java";
+      fileName = path + CGUtil.shortClassName(className) + "Set.java";
       deleteFile(fileName);
 
       // pattern object file
-      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "PO.java";
+      fileName = path + CGUtil.shortClassName(className) + "PO.java";
       deleteFile(fileName);
 
       // pattern object creator file
-      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/" + CGUtil.shortClassName(className) + "POCreator.java";
+      fileName = path + CGUtil.shortClassName(className) + "POCreator.java";
       deleteFile(fileName);
 
       // model pattern file
-      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/ModelPattern.java";
+      fileName = path + "ModelPattern.java";
       deleteFile(fileName);
 
       // CreatorCreator in that package
-      fileName = helpersDir + "/" + packageName.replaceAll("\\.", "/") + "/creators/CreatorCreator.java";
+      fileName = path + "CreatorCreator.java";
       deleteFile(fileName);
    }
 

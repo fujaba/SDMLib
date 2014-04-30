@@ -26,7 +26,7 @@ public class AdamAndEveModel
       
       model.createClazz(SDMLibJsonIdMap.class.getName()).withExternal(true);
       
-      model.createClazz("PeerProxy")
+      model.createClazz("org.sdmlib.logger.PeerProxy")
             .withAttribute("ip", DataType.STRING)
             .withAttribute("port", DataType.INT)
             .withAttribute("idMap", DataType.ref("org.sdmlib.serialization.json.SDMLibJsonIdMap"))

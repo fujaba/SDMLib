@@ -1,8 +1,7 @@
 package org.sdmlib.logger.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.logger.TaskFlow;
-import org.sdmlib.examples.adamandeve.model.creators.TaskFlowSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
 {

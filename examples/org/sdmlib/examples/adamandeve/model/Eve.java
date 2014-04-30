@@ -19,13 +19,13 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.ludo.model;
+package org.sdmlib.examples.adamandeve.model;
 
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
-public class Ludo implements PropertyChangeInterface
+public class Eve implements PropertyChangeInterface
 {
 
    
@@ -51,33 +51,5 @@ public class Ludo implements PropertyChangeInterface
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_DATE = "date";
-   
-   private java.util.Date date;
-
-   public java.util.Date getDate()
-   {
-      return this.date;
-   }
-   
-   public void setDate(java.util.Date value)
-   {
-      if (this.date != value)
-      {
-         java.util.Date oldValue = this.date;
-         this.date = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue, value);
-      }
-   }
-   
-   public Ludo withDate(java.util.Date value)
-   {
-      setDate(value);
-      return this;
-   } 
 }
 

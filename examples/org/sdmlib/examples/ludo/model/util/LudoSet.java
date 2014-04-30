@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,75 +19,25 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.logger.util;
+package org.sdmlib.examples.ludo.model.util;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.ludo.model.Ludo;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.DateList;
+import java.util.List;
+import java.util.Date;
 
-public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
+public class LudoSet extends SDMSet<Ludo>
 {
 
 
-   private static final long serialVersionUID = 1L;
-
-
-
-   @Override
-   public String toString()
+   public LudoPO hasLudoPO()
    {
-      StringList stringList = new StringList();
+      org.sdmlib.examples.ludo.model.util.ModelPattern pattern = new org.sdmlib.examples.ludo.model.util.ModelPattern();
       
-      for (SDMLibJsonIdMap elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.serialization.json.SDMLibJsonIdMap";
-   }
-
-
-   public SDMLibJsonIdMapPO startModelPattern()
-   {
-      return null;
-   }
-
-
-   public SDMLibJsonIdMapSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<SDMLibJsonIdMap>)value);
-      }
-      else if (value != null)
-      {
-         this.add((SDMLibJsonIdMap) value);
-      }
-      
-      return this;
-   }
-   
-   public SDMLibJsonIdMapSet without(SDMLibJsonIdMap value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-
-   public SDMLibJsonIdMapPO hasSDMLibJsonIdMapPO()
-   {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      SDMLibJsonIdMapPO patternObject = pattern.hasElementSDMLibJsonIdMapPO();
+      LudoPO patternObject = pattern.hasElementLudoPO();
       
       patternObject.withCandidates(this.clone());
       
@@ -96,9 +46,71 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
       
       return patternObject;
    }
+
+
+   @Override
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.model.Ludo";
+   }
+
+
+   public LudoSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Ludo>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Ludo) value);
+      }
+      
+      return this;
+   }
+   
+   public LudoSet without(Ludo value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+   public DateList getDate()
+   {
+      DateList result = new DateList();
+      
+      for (Ludo obj : this)
+      {
+         result.add(obj.getDate());
+      }
+      
+      return result;
+   }
+
+   public LudoSet hasDate(java.util.Date value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value == obj.getDate())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LudoSet withDate(Date value)
+   {
+      for (Ludo obj : this)
+      {
+         obj.setDate(value);
+      }
+      
+      return this;
+   }
+
 }
-
-
-
-
 

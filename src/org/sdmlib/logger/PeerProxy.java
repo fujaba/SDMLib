@@ -28,9 +28,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
@@ -40,7 +39,7 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
       // blank
    }
    
-   public PeerProxy(String ip, int port, JsonIdMap map)
+   public PeerProxy(String ip, int port, SDMLibJsonIdMap map)
    {
       this.withIp(ip).withPort(port).withIdMap(map);
       map.put(ip + "." + port, this);
@@ -134,7 +133,7 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         setIdMap((org.sdmlib.serialization.json.JsonIdMap) value);
+         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
          return true;
       }
 
@@ -221,14 +220,14 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
    
    public static final String PROPERTY_IDMAP = "idMap";
    
-   private org.sdmlib.serialization.json.JsonIdMap idMap;
+   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
 
-   public org.sdmlib.serialization.json.JsonIdMap getIdMap()
+   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
    
-   public void setIdMap(org.sdmlib.serialization.json.JsonIdMap value)
+   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
@@ -238,7 +237,7 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
       }
    }
    
-   public PeerProxy withIdMap(org.sdmlib.serialization.json.JsonIdMap value)
+   public PeerProxy withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;

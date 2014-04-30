@@ -99,24 +99,24 @@ public class Player implements PropertyChangeInterface
    
    public static final String PROPERTY_ENUMCOLOR = "enumColor";
    
-   private java.awt.Point enumColor;
+   private org.sdmlib.examples.ludo.LudoModel.LudoColor enumColor;
 
-   public java.awt.Point getEnumColor()
+   public org.sdmlib.examples.ludo.LudoModel.LudoColor getEnumColor()
    {
       return this.enumColor;
    }
    
-   public void setEnumColor(java.awt.Point value)
+   public void setEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
    {
       if (this.enumColor != value)
       {
-         java.awt.Point oldValue = this.enumColor;
+         org.sdmlib.examples.ludo.LudoModel.LudoColor oldValue = this.enumColor;
          this.enumColor = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMCOLOR, oldValue, value);
       }
    }
    
-   public Player withEnumColor(java.awt.Point value)
+   public Player withEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
    {
       setEnumColor(value);
       return this;

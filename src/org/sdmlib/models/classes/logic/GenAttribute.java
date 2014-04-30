@@ -555,11 +555,11 @@ public class GenAttribute extends Generator<Attribute>
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
       if (findClass.isExternal())
       {
-         return packageNameFromOwnerClass + ".creators." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
+         return packageNameFromOwnerClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
       }
       else if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
       {
-         return packageNameFromFindClass + ".creators." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
+         return packageNameFromFindClass + GenClassModel.UTILPATH+"." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
       }
       return null;
    }
@@ -747,7 +747,7 @@ public class GenAttribute extends Generator<Attribute>
          if ( ! CGUtil.isPrimitiveType(fullModelSetType) && !fullModelSetType.contains("<") && !fullModelSetType.endsWith("Set")) 
          {
             modelSetType = CGUtil.shortClassName(fullModelSetType) + "Set";
-            fullModelSetType = CGUtil.packageName(fullModelSetType) + ".creators." + CGUtil.shortClassName(fullModelSetType)+ "Set";
+            fullModelSetType = CGUtil.packageName(fullModelSetType) + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(fullModelSetType)+ "Set";
             String importForSet = checkSetImportFor(CGUtil.shortClassName(dataType.getValue()));
             if(importForSet != null)
             {
@@ -1011,7 +1011,7 @@ public class GenAttribute extends Generator<Attribute>
          {
             type = "Boolean";
          }
-         String entitiyClassName = CGUtil.shortClassName(ownerClazz.getFullName());
+         String entitiyClassName = CGUtil.shortClassName(model.getClazz().getFullName());
          String entitiyNameClass = entitiyClassName;
          if(model.getClazz().isExternal()){
             entitiyClassName += "Creator"; 

@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.TreeMap;
 
+import org.sdmlib.models.classes.logic.GenClassModel;
+import org.sdmlib.models.classes.logic.GenMethod;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.interfaces.SendableEntityCreator;
@@ -211,7 +213,7 @@ public class CGUtil
 
    public static String helperClassName(String modelClassName, String suffix)
    {
-      return packageName(modelClassName) + ".creators." + shortClassName(modelClassName) + suffix;
+      return packageName(modelClassName) + GenClassModel.UTILPATH+"." + shortClassName(modelClassName) + suffix;
    }
    
    public static String encodeJavaName(String text)
@@ -245,7 +247,7 @@ public class CGUtil
          
          String packageName = packageName(typeName);
          
-         if (packageName.endsWith(".creators"))
+         if (packageName.endsWith(GenClassModel.UTILPATH))
          {
             packageName = packageName(packageName);
             

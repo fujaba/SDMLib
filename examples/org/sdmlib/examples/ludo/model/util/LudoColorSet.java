@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,75 +19,22 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.logger.util;
+package org.sdmlib.examples.ludo.model.util;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import java.util.Collection;
 
-public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
+public class LudoColorSet extends SDMSet<LudoColor>
 {
 
 
-   private static final long serialVersionUID = 1L;
-
-
-
-   @Override
-   public String toString()
+   public LudoColorPO hasLudoColorPO()
    {
-      StringList stringList = new StringList();
+      org.sdmlib.examples.ludo.model.util.ModelPattern pattern = new org.sdmlib.examples.ludo.model.util.ModelPattern();
       
-      for (SDMLibJsonIdMap elem : this)
-      {
-         stringList.add(elem.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.serialization.json.SDMLibJsonIdMap";
-   }
-
-
-   public SDMLibJsonIdMapPO startModelPattern()
-   {
-      return null;
-   }
-
-
-   public SDMLibJsonIdMapSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<SDMLibJsonIdMap>)value);
-      }
-      else if (value != null)
-      {
-         this.add((SDMLibJsonIdMap) value);
-      }
-      
-      return this;
-   }
-   
-   public SDMLibJsonIdMapSet without(SDMLibJsonIdMap value)
-   {
-      this.remove(value);
-      return this;
-   }
-
-
-
-   public SDMLibJsonIdMapPO hasSDMLibJsonIdMapPO()
-   {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      SDMLibJsonIdMapPO patternObject = pattern.hasElementSDMLibJsonIdMapPO();
+      LudoColorPO patternObject = pattern.hasElementLudoColorPO();
       
       patternObject.withCandidates(this.clone());
       
@@ -96,9 +43,34 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
       
       return patternObject;
    }
+
+
+   @Override
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.ludo.LudoModel.LudoColor";
+   }
+
+
+   public LudoColorSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<LudoColor>)value);
+      }
+      else if (value != null)
+      {
+         this.add((LudoColor) value);
+      }
+      
+      return this;
+   }
+   
+   public LudoColorSet without(LudoColor value)
+   {
+      this.remove(value);
+      return this;
+   }
+
 }
-
-
-
-
 

@@ -1,17 +1,15 @@
-package org.sdmlib.logger.util;
+package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.examples.ludo.model.Dice;
 
-public class TaskFlowCreator extends EntityFactory
+public class DiceCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-         TaskFlow.PROPERTY_IDMAP,
-         TaskFlow.PROPERTY_PARENT,
-         TaskFlow.PROPERTY_SUBFLOW,
-         TaskFlow.PROPERTY_TASKNO
+      Dice.PROPERTY_VALUE,
    };
    
    @Override
@@ -23,12 +21,17 @@ public class TaskFlowCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return null;
+      return new Dice();
    }
    
    @Override
    public Object getValue(Object target, String attrName)
    {
+      if (Dice.PROPERTY_VALUE.equalsIgnoreCase(attrName))
+      {
+         return ((Dice) target).getValue();
+      }
+
       return null;
    }
    
@@ -38,6 +41,12 @@ public class TaskFlowCreator extends EntityFactory
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
+      }
+
+      if (Dice.PROPERTY_VALUE.equalsIgnoreCase(attrName))
+      {
+         ((Dice) target).setValue(Integer.parseInt(value.toString()));
+         return true;
       }
       return false;
    }
@@ -51,7 +60,7 @@ public class TaskFlowCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      // wrapped object has no removeYou method
+      ((Dice) entity).removeYou();
    }
 }
 

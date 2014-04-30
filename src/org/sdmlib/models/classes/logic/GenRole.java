@@ -108,7 +108,7 @@ public class GenRole extends Generator<Role>
          String ownerClassName = partnerClass.getFullName();
          String packageName = CGUtil.packageName(ownerClassName);
          String shortClassName = CGUtil.shortClassName(ownerClassName);
-         getGenerator(partnerClass).insertImport(packageName + ".creators." + shortClassName + "Set");
+         getGenerator(partnerClass).insertImport(packageName + GenClassModel.UTILPATH+"." + shortClassName + "Set");
          
          getGenerator(partnerRole.getClazz()).setFileHasChanged(true);
          getGenerator(partnerRole.getClazz()).printFile(doGenerate);

@@ -31,7 +31,7 @@ public class DataType
       return new DataType(value);
    }
    public static DataType ref(Class<?> value){
-      return new DataType(value.getName());
+      return new DataType(value.getName().replace("$", "."));
    }
    //TODO might be a bug when the user change the packagename or the name of clazz
    public static DataType ref(Clazz value){
