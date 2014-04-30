@@ -76,7 +76,8 @@ public class Clazz extends SDMLibClass
 
    public String getFullName()
    {
-      if(name.indexOf('.') < 0 && getClassModel().getName() != null)
+      
+      if(name.indexOf('.') < 0 && getClassModel()!= null && getClassModel().getName() != null)
       {
          return getClassModel().getName()  + "." + name.replace("$", ".");
       }

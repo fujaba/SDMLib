@@ -53,7 +53,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       ClassModel model = new ClassModel();
 
-      Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.Professor")
+      Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.model.Professor")
       .withAttribute("name", DataType.STRING);
 
       Clazz topicClass = new Clazz("org.sdmlib.examples.studyright.Topic")
@@ -63,7 +63,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withSource("prof", professorClass, Card.ONE)
       .withTarget("topic", topicClass, Card.ONE);
       
-      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
+      Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.model.Room")
       .withAttribute("roomNo", DataType.STRING)
       .withAttribute("credits", DataType.INT);
 
@@ -84,7 +84,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withSource("in", roomClass, Card.ONE)
       .withTarget("students", studentClass, Card.MANY);
 
-      Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University")
+      Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.model.University")
       .withAttribute("name", DataType.STRING);
 
       new Association()
@@ -238,7 +238,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       Clazz studClass = new Clazz("Student")
       .withAttribute("name", DataType.STRING)
-      .withAttribute("matrNo", DataType.INT);
+      .withAttribute("matrNo", DataType.INT).withClassModel(model);
 
       storyboard.addClassDiagram(model);
 
