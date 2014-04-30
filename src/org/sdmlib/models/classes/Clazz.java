@@ -638,7 +638,7 @@ public class Clazz extends SDMLibClass
    
    public Method createMethod(String name, Parameter... parameters)
    {
-      return new Method().withName(name).withParameters(parameters).withClazz(this);     
+      return new Method().withName(name).withParameter(parameters).withClazz(this);     
    }
 
    public Attribute createAttribute(String name, DataType type)

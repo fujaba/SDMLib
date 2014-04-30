@@ -21,24 +21,23 @@
 
 package org.sdmlib.examples.studyright;
 
-import static org.sdmlib.models.classes.Role.R.INT;
-import static org.sdmlib.models.classes.Role.R.MANY;
-import static org.sdmlib.models.classes.Role.R.ONE;
-import static org.sdmlib.models.classes.Role.R.STRING;
-
 import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.logic.GenClass;
+import org.sdmlib.serialization.util.PropertyChangeInterface;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 
 public class StudyRightModel implements PropertyChangeInterface 
 {
@@ -55,45 +54,46 @@ public class StudyRightModel implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.Professor")
-      .withAttribute("name", STRING);
+      .withAttribute("name", DataType.STRING);
 
       Clazz topicClass = new Clazz("org.sdmlib.examples.studyright.Topic")
-      .withAttribute("title", STRING); 
+      .withAttribute("title", DataType.STRING); 
 
       new Association()
-      .withSource("prof", professorClass, ONE)
-      .withTarget("topic", topicClass, ONE);
+      .withSource("prof", professorClass, Card.ONE)
+      .withTarget("topic", topicClass, Card.ONE);
       
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.Room")
-      .withAttribute("roomNo", STRING)
-      .withAttribute("credits", INT);
+      .withAttribute("roomNo", DataType.STRING)
+      .withAttribute("credits", DataType.INT);
 
       new Method()
-      .withClazz(roomClass)
-      .withSignature("findPath(String,int)");
+         .withClazz(roomClass)
+         .withName("findPath")
+         .withParameter(new Parameter(DataType.STRING), new Parameter(DataType.INT));
 
       new Association()
-      .withSource("neighbors", roomClass, MANY)
-      .withTarget("neighbors", roomClass, MANY);
+      .withSource("neighbors", roomClass, Card.MANY)
+      .withTarget("neighbors", roomClass, Card.MANY);
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.Student")
-      .withAttribute("name", STRING)
-      .withAttribute("matrNo", INT);
+      .withAttribute("name", DataType.STRING)
+      .withAttribute("matrNo", DataType.INT);
 
       new Association()
-      .withSource("in", roomClass, ONE)
-      .withTarget("students", studentClass, MANY);
+      .withSource("in", roomClass, Card.ONE)
+      .withTarget("students", studentClass, Card.MANY);
 
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyright.University")
-      .withAttribute("name", STRING);
+      .withAttribute("name", DataType.STRING);
 
       new Association()
-      .withSource("rooms", roomClass, MANY)
-      .withTarget("uni", universityClass, ONE);
+      .withSource("rooms", roomClass, Card.MANY)
+      .withTarget("uni", universityClass, Card.ONE);
 
       new Association()
-      .withSource("students", studentClass, MANY)
-      .withTarget("uni", universityClass, ONE);
+      .withSource("students", studentClass, Card.MANY)
+      .withTarget("uni", universityClass, Card.ONE);
 
 
       // model.updateFromCode("examples test src", "org.sdmlib.examples.studyright");
@@ -123,106 +123,80 @@ public class StudyRightModel implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz lectureClass = new Clazz("org.sdmlib.examples.studyrightextends.Lecture")
-      .withAttribute("Title", STRING);
+      .withAttribute("Title", DataType.STRING);
 
       Clazz personClass = new Clazz("org.sdmlib.examples.studyrightextends.Person")
       .withInterfaze(true);
 
       new Method()
-      .withClazz(personClass)
-      .withSignature("findMyPosition()")
-      .withReturnType("void");
+      .withClazz(personClass).withName("findMyPosition");
 
-      new Method()
-      .withClazz(personClass)
-      .withSignature("findMyPosition(String)")
-      .withReturnType("void");
+      new Method("findMyPosition", new Parameter(DataType.STRING)).withClazz(personClass);
 
-      new Method()
-      .withClazz(personClass)
-      .withSignature("findMyPosition(String,int)")
-      .withReturnType("void");
-
+      new Method("findMyPosition", new Parameter(DataType.STRING), new Parameter(DataType.INT))
+            .withClazz(personClass);
+      
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyrightextends.Room")
-      .withAttribute("roomNo", STRING)
-      .withAttribute("credits", INT);
+      .withAttribute("roomNo", DataType.STRING)
+      .withAttribute("credits", DataType.INT);
 
-      new Method()
-      .withClazz(roomClass)
-      .withSignature("studentCount()")
-      .withReturnType(INT);
+      new Method("studentCount").withClazz(roomClass).withReturnType(DataType.INT);
 
       new Association()
-      .withSource("neighbors", roomClass, MANY)
-      .withTarget("neighbors", roomClass, MANY);
+      .withSource("neighbors", roomClass, Card.MANY)
+      .withTarget("neighbors", roomClass, Card.MANY);
 
       new Association()
-      .withSource("lecture", lectureClass, MANY)
-      .withTarget("in", roomClass, ONE);
+      .withSource("lecture", lectureClass, Card.MANY)
+      .withTarget("in", roomClass, Card.ONE);
 
       Clazz universityClass = new Clazz("org.sdmlib.examples.studyrightextends.University")
-      .withAttribute("name", STRING);
+      .withAttribute("name", DataType.STRING);
 
       new Association()
-      .withSource("rooms", roomClass, MANY)
-      .withTarget("uni", universityClass, ONE);
+      .withSource("rooms", roomClass, Card.MANY)
+      .withTarget("uni", universityClass, Card.ONE);
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyrightextends.Female")
-      .withInterfaces(personClass)
-      .withAttribute("name", STRING);
+      .withSuperClass(personClass)
+      .withAttribute("name", DataType.STRING);
 
-      new Method()
-      .withClazz(femaleClass)
-      .withSignature("findMyPosition()")
-      .withReturnType("void");
+      new Method("findMyPosition").withClazz(femaleClass);
 
-      new Method()
-      .withClazz(femaleClass)
-      .withSignature("findMyPosition(String)")
-      .withReturnType("void");
+      new Method("findMyPosition", new Parameter(DataType.STRING)).withClazz(femaleClass);
 
-      new Method()
-      .withClazz(femaleClass)
-      .withSignature("findMyPosition(String,int)")
-      .withReturnType("void");
+      new Method("findMyPosition", new Parameter(DataType.STRING), new Parameter(DataType.INT))
+         .withClazz(femaleClass);
 
       Clazz maleClass = new Clazz("org.sdmlib.examples.studyrightextends.Male")
       .withInterfaze(true)
-      .withInterfaces(personClass);
+      .withSuperClass(personClass);
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyrightextends.Professor")
       .withSuperClass(femaleClass)
-      .withAttribute("PersNr", INT);
+      .withAttribute("PersNr", DataType.INT);
 
       new Association()
-      .withSource("lecture", lectureClass, MANY)
-      .withTarget("has", professorClass, ONE);
+      .withSource("lecture", lectureClass, Card.MANY)
+      .withTarget("has", professorClass, Card.ONE);
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyrightextends.Student")
-      .withInterfaces(maleClass)
-      .withAttribute("name", STRING)
-      .withAttribute("matrNo", INT)
+      .withSuperClass(maleClass)
+      .withAttribute("name", DataType.STRING)
+      .withAttribute("matrNo", DataType.INT)
       /*set superclass*/
       .withSuperClass(femaleClass);
 
-      new Method()
-      .withClazz(studentClass)
-      .withSignature("findMyPosition()")
-      .withReturnType("void");
+      new Method("findMyPosition").withClazz(studentClass);
 
-      new Method()
-      .withClazz(studentClass)
-      .withSignature("findMyPosition(String)")
-      .withReturnType("void");
+      new Method("findMyPosition", new Parameter(DataType.STRING)).withClazz(studentClass);
 
-      new Method()
-      .withClazz(studentClass)
-      .withSignature("findMyPosition(String,int)")
-      .withReturnType("void");
+      new Method("findMyPosition", new Parameter(DataType.STRING), new Parameter(DataType.INT))
+         .withClazz(studentClass);
 
       new Association()
-      .withSource("lecture", lectureClass, MANY)
-      .withTarget("listen", studentClass, ONE);
+      .withSource("lecture", lectureClass, Card.MANY)
+      .withTarget("listen", studentClass, Card.ONE);
 
 
       // model.updateFromCode("examples", "examples test src", "org.sdmlib.examples.studyrightextends");
@@ -231,7 +205,7 @@ public class StudyRightModel implements PropertyChangeInterface
       
       // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
 
-      model.generate("examples", "examplehelpers");
+      model.generate("examples");
 
       storyboard.addClassDiagram(model);
 
@@ -253,7 +227,7 @@ public class StudyRightModel implements PropertyChangeInterface
       ClassModel model = new ClassModel("org.sdmlib.examples.studyright");
 
       Clazz uniClass = new Clazz("University")
-      .withAttribute("name", STRING);
+      .withAttribute("name", DataType.STRING);
 
       storyboard.addClassDiagram(model);
 
@@ -263,8 +237,8 @@ public class StudyRightModel implements PropertyChangeInterface
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
 
       Clazz studClass = new Clazz("Student")
-      .withAttribute("name", STRING)
-      .withAttribute("matrNo", INT);
+      .withAttribute("name", DataType.STRING)
+      .withAttribute("matrNo", DataType.INT);
 
       storyboard.addClassDiagram(model);
 
@@ -273,8 +247,8 @@ public class StudyRightModel implements PropertyChangeInterface
       storyboard.add("3. add uni --> stud assoc");
 
       Association uniToStud = new Association()
-      .withSource("uni", uniClass, ONE)
-      .withTarget("students", studClass, MANY); 
+      .withSource("uni", uniClass, Card.ONE)
+      .withTarget("students", studClass, Card.MANY); 
 
       storyboard.addClassDiagram(model);
 
@@ -283,21 +257,22 @@ public class StudyRightModel implements PropertyChangeInterface
       storyboard.add("4. add uni --> room");
 
       Clazz roomClass = new Clazz("Room")
-      .withAttribute("roomNo", STRING)
-      .withAttribute("credits", INT);
+      .withAttribute("roomNo", DataType.STRING)
+      .withAttribute("credits", DataType.INT);
 
-      new Method().withClazz(roomClass).withSignature("findPath(String,int)").withReturnType("void");
+      new Method("findPath", new Parameter(DataType.STRING), new Parameter(DataType.INT))
+         .withClazz(roomClass);
 
       Association uniToRoom = new Association()
-      .withSource("uni", uniClass, ONE, Role.AGGREGATION)
-      .withTarget("rooms", roomClass, MANY); 
+      .withSource("uni", uniClass, Card.ONE, Role.AGGREGATION)
+      .withTarget("rooms", roomClass, Card.MANY); 
 
-      Association doors = new Association().withSource("neighbors", roomClass, MANY)
-            .withTarget("neighbors", roomClass, MANY);
+      Association doors = new Association().withSource("neighbors", roomClass, Card.MANY)
+            .withTarget("neighbors", roomClass, Card.MANY);
 
       Association studsInRoom = new Association()
-      .withSource("students", studClass, MANY)
-      .withTarget("in", roomClass, ONE);
+      .withSource("students", studClass, Card.MANY)
+      .withTarget("in", roomClass, Card.ONE);
 
       storyboard.addClassDiagram(model);
 
@@ -305,22 +280,30 @@ public class StudyRightModel implements PropertyChangeInterface
       //============================================================
       storyboard.add("add assignments:");
       
-      Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", MANY, "room", ONE)
-            .withAttributes("name", STRING, "points", INT);
+      Clazz assignmentClass = model.createClazz("Assignment")
+            .withAssoc(roomClass, "assignments", Card.MANY, "room", Card.ONE)
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("points", DataType.INT);
+
+//      Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", Card.MANY, "room", Card.ONE)
+//            .withAttributes("name", DataType.STRING, "points", DataType.INT);
       
-      studClass.withAssoc(assignmentClass, "done", MANY, "students", ONE)
-      .withAttributes("credits", INT, "motivation", INT);
+      studClass.withAssoc(assignmentClass, "done", Card.MANY, "students", Card.ONE)
+          .withAttribute("credits", DataType.INT)
+           .withAttribute("motivation", DataType.INT);
 
       storyboard.addClassDiagram(model);
 
       
       //============================================================
-      model.generate("examples", "examplehelpers");
+      model.generate("examples");
 
       storyboard.add("5. generate generic set for attributes and assocs", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
 
-      Parser parser = studClass.getOrCreateParser("examples");
+      GenClass genCLazz = model.getGenerator().getOrCreate(studClass);
+      Parser parser = genCLazz.getOrCreateParser("examples");
+//      Parser parser = studClass.getOrCreateParser("examples");
 
       int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
 
@@ -435,18 +418,18 @@ public class StudyRightModel implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz profClass = new Clazz("org.sdmlib.examples.studyright.Professor")
-      .withAttribute("name", STRING);
+      .withAttribute("name", DataType.STRING);
 
       Clazz topicClass = new Clazz("org.sdmlib.examples.studyright.Topic")
-      .withAttribute("title", STRING);
+      .withAttribute("title", DataType.STRING);
 
       new Association()
-      .withSource("prof", profClass, ONE)
-      .withTarget("topic", topicClass, ONE);
+      .withSource("prof", profClass, Card.ONE)
+      .withTarget("topic", topicClass, Card.ONE);
 
       storyboard.addClassDiagram(model);
 
-      model.generate("examples", "examplehelpers");
+      model.generate("examples");
 
       storyboard.add("One to one assocs now work. ", DONE, "zuendorf", "20.05.2012 15:19:42", 1, 0);
 

@@ -78,8 +78,14 @@ public class Method extends SDMLibClass
    
    public Method(DataType returnType, Parameter... parameters)
    {
-      this.withParameters(parameters);
+      this.withParameter(parameters);
       this.setReturnType(returnType);
+   }
+   
+   public Method(String name, Parameter... parameters)
+   {
+      this.withParameter(parameters);
+      this.setName(name);
    }
 
    @Override
@@ -148,24 +154,19 @@ public class Method extends SDMLibClass
       return changed;   
    }
 
-   public Method withParameter(Parameter value)
-   {
-      addToParameter(value);
-      return this;
-   }
-   
-   public Method withParameters(Parameter... value)
+   public Method withParameter(Parameter... value)
    {
       for(Parameter parameter : value){
          addToParameter(parameter);
       }
       return this;
    }
-   
 
-   public Method withoutParameter(Parameter value)
+   public Method withoutParameter(Parameter... value)
    {
-      removeFromParameter(value);
+      for(Parameter parameter : value){
+         addToParameter(parameter);
+      }
       return this;
    } 
 
