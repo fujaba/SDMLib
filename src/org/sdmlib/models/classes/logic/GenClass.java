@@ -13,6 +13,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
@@ -663,7 +664,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.isExternal())
          {
-            packageName = model.getClassModel().getPackageName() + ".creators";
+            packageName = model.getClassModel().getName() + ".creators";
          }
 
          String fullEntityClassName = name;
@@ -828,7 +829,7 @@ public class GenClass extends Generator<Clazz>
 
       if (model.isExternal())
       {
-         packageName = model.getClassModel().getPackageName() + ".creators";
+         packageName = model.getClassModel().getName() + ".creators";
       }
 
       String entitiyClassName = model.getFullName().substring(pos + 1);
@@ -860,7 +861,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.isExternal())
          {
-            packageName = model.getClassModel().getPackageName() + ".creators";
+            packageName = model.getClassModel().getName() + ".creators";
          }
 
          String fullEntityClassName = name;
@@ -1000,8 +1001,8 @@ public class GenClass extends Generator<Clazz>
          
 //         String packageName = CGUtil.packageName(model.getFullName());
          String packageName = CGUtil.packageName(model.getFullName());
-         if(!packageName.startsWith(model.getClassModel().getPackageName())){
-            packageName = model.getClassModel().getPackageName();
+         if(!packageName.startsWith(model.getClassModel().getName())){
+            packageName = model.getClassModel().getName();
          }
 
          //FIXME EMF bad boy
@@ -1012,7 +1013,7 @@ public class GenClass extends Generator<Clazz>
          
          CGUtil.replaceAll(text, 
             "ModelPO", CGUtil.shortClassName(model.getFullName()) + "PO",
-            "ModelPatternClass", packageName + ".creators.ModelPattern"
+            "ModelPatternClass", packageName + GenClassModel.UTILPATH+"ModelPattern"
                );
 
          insertImport(parser, StringList.class.getName());
@@ -1032,11 +1033,11 @@ public class GenClass extends Generator<Clazz>
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
       if (findClass.isExternal())
       {
-         return packageNameFromOwnerClass + ".creators." + CGUtil.shortClassName(findClass.getFullName());
+         return packageNameFromOwnerClass + GenClassModel.UTILPATH + CGUtil.shortClassName(findClass.getFullName());
       }
       else if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
       {
-         return packageNameFromFindClass + ".creators." + CGUtil.shortClassName(findClass.getFullName());
+         return packageNameFromFindClass + GenClassModel.UTILPATH + CGUtil.shortClassName(findClass.getFullName());
       }
       return CGUtil.packageName(type);
    }
@@ -1078,7 +1079,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.isExternal())
          {
-            packageName = model.getClassModel().getPackageName() + ".creators";
+            packageName = model.getClassModel().getName() + ".creators";
          }
 
          String fullEntityClassName = name;
@@ -1178,7 +1179,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.isExternal())
          {
-            packageName = model.getClassModel().getPackageName() + ".creators";
+            packageName = model.getClassModel().getName() + ".creators";
          }
 
          String entitiyClassName = name.substring(pos + 1);
@@ -1276,14 +1277,14 @@ public class GenClass extends Generator<Clazz>
       int methodBodyStartPos = ccParser.getMethodBodyStartPos();
       String shortCreatorClassName = CGUtil.shortClassName(name) + "Creator";
       String shortCreatorPOClassName = CGUtil.shortClassName(name) + "POCreator";
-      String creatorClassName = CGUtil.packageName(name) + ".creators." + shortCreatorClassName;
-      String creatorPOClassName = CGUtil.packageName(name) + ".creators." + shortCreatorPOClassName;
+      String creatorClassName = CGUtil.packageName(name) + GenClassModel.UTILPATH + shortCreatorClassName;
+      String creatorPOClassName = CGUtil.packageName(name) + GenClassModel.UTILPATH + shortCreatorPOClassName;
 
       if (model.isExternal())
       {
          // generate creator for external class. Put it in the model package
-         creatorClassName = model.getClassModel().getPackageName() + ".creators." + shortCreatorClassName;
-         creatorPOClassName = model.getClassModel().getPackageName() + ".creators." + shortCreatorPOClassName;
+         creatorClassName = model.getClassModel().getName() + GenClassModel.UTILPATH + shortCreatorClassName;
+         creatorPOClassName = model.getClassModel().getName() + GenClassModel.UTILPATH + shortCreatorPOClassName;
       }
 
       pos = ccParser.methodBodyIndexOf(Parser.NAME_TOKEN + ":" + shortCreatorClassName, methodBodyStartPos);
@@ -1345,7 +1346,7 @@ public class GenClass extends Generator<Clazz>
 
       if (model.isExternal())
       {
-         fullPOClassName = CGUtil.helperClassName(model.getClassModel().getPackageName() + "." + CGUtil.shortClassName(model.getFullName()), "PO");
+         fullPOClassName = CGUtil.helperClassName(model.getClassModel().getName() + "." + CGUtil.shortClassName(model.getFullName()), "PO");
       }
 
       String poClassName = this.shortNameAndImport(fullPOClassName, modelPatternParser);

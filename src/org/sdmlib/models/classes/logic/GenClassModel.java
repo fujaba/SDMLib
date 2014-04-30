@@ -44,6 +44,8 @@ import org.sdmlib.models.objects.GenericObject;
 
 public class GenClassModel
 {
+   public static final String UTILPATH=".util.";
+
    private Parser modelPatternParser;
    private String modelPatternClassName;
    private boolean modelPatternFileHasChanged;
@@ -170,7 +172,7 @@ public class GenClassModel
    {
       if (!model.getClasses().isEmpty() && creatorCreatorParser == null)
       {
-         String packageName = model.getPackageName();
+         String packageName = model.getName();
          
          packageName = packageName + ".creators";
          String creatorCreatorClassName = packageName + ".CreatorCreator";
@@ -216,10 +218,12 @@ public class GenClassModel
             StringBuilder creators = new StringBuilder();
             for (Clazz clazz : model.getClasses())
             {
-               if (!clazz.isInterface() && !clazz.isExternal()){
-                  String creatorName = CGUtil.packageName(clazz.getFullName())+".creators."+CGUtil.shortClassName(clazz.getFullName());
-                  creators.append("      jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
-                        "      jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
+               if (!clazz.isInterface() ){
+                  if(clazz.getAttributes().size()>0 ){
+                     String creatorName = CGUtil.packageName(clazz.getFullName())+UTILPATH+CGUtil.shortClassName(clazz.getFullName());
+                     creators.append("      jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
+                           "      jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
+                  }
                }
             }
 
@@ -244,19 +248,25 @@ public class GenClassModel
       for (DataType item : this.model.getClasses().getAttributes().getType())
       {
          String typeName = item.getValue();
-         int pos = "int float double long String boolean Object java.util.Date".indexOf(typeName);
+         // seems to be a non trivial type. We should have a clazz with that type
          
+         // it may be an instance of a generic type like ArrayList<String>, cut off generic part
+         int pos = typeName.indexOf('<');
+         
+         if (pos >= 0)
+         {
+            typeName = typeName.substring(0, pos);
+         }
+         pos = typeName.indexOf('[');
+         
+         if (pos >= 0)
+         {
+            typeName = typeName.substring(0, pos);
+         }
+         pos = "int float double long String boolean Object java.util.Date".indexOf(typeName);
          if (pos < 0)
          {
-            // seems to be a non trivial type. We should have a clazz with that type
             
-            // it may be an instance of a generic type like ArrayList<String>, cut off generic part
-            pos = typeName.indexOf('<');
-            
-            if (pos >= 0)
-            {
-               typeName = typeName.substring(0, pos);
-            }
             
             Clazz clazz = this.model.getClazz(typeName);
             
@@ -290,7 +300,7 @@ public class GenClassModel
       }
       
       //FIXME ALEX SCHAUEN
-      Clazz modelCreationClass = new ClassModel().withPackageName(".").getGenerator().getOrCreateClazz(className);
+      Clazz modelCreationClass = new ClassModel().withName(".").getGenerator().getOrCreateClazz(className);
       
       Parser parser = getOrCreate(modelCreationClass).getOrCreateParser(rootDir);
       parser.indexOf(Parser.CLASS_END);
@@ -490,8 +500,8 @@ public class GenClassModel
       if (!model.getClasses().isEmpty() && modelPatternParser == null)
       {
          // try to find existing file
-         String packageName = model.getPackageName();
-         if (model.getPackageName() != null)
+         String packageName = model.getName();
+         if (model.getName() != null)
          {
             packageName = packageName + ".creators";
             modelPatternClassName = packageName + ".ModelPattern";

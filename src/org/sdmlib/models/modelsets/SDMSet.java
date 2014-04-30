@@ -8,6 +8,8 @@ import org.sdmlib.CGUtil;
 
 public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet 
 {
+   private static final long serialVersionUID = 1L;
+
    @Override
    public String toString()
    {
@@ -31,13 +33,13 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
       return null;
    }
 
-   public <ST extends SDMSet> ST instanceOf(ST target)
+   public <ST extends SDMSet<T>> ST instanceOf(ST target)
    {
       String className = target.getClass().getName();
       className = CGUtil.baseClassName(className, "Set");
       try
       {
-         Class targetClass = target.getClass().getClassLoader().loadClass(className);
+         Class<?> targetClass = target.getClass().getClassLoader().loadClass(className);
          for (T elem : this)
          {
             if (targetClass.isAssignableFrom(elem.getClass()))

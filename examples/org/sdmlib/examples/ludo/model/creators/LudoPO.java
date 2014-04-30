@@ -1,10 +1,10 @@
 package org.sdmlib.examples.ludo.model.creators;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.ludo.model.Ludo;
-import org.sdmlib.examples.ludo.model.creators.LudoSet;
 import java.awt.Point;
+
+import org.sdmlib.examples.ludo.model.Ludo;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {
@@ -62,6 +62,4 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
       }
       return this;
    }
-   
 }
-

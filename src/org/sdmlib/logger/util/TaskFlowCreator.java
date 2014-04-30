@@ -1,47 +1,54 @@
-package org.sdmlib.examples.adamandeve.creators;
+package org.sdmlib.logger.util;
 
-import org.sdmlib.examples.adamandeve.Eve;
 import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.logger.TaskFlow;
 
-public class EveCreator extends EntityFactory
+public class TaskFlowCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Eve();
+      return null;
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((Eve) target).get(attrName);
+      return null;
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((Eve) target).set(attrName, value);
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+      return false;
    }
-   
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
    
    @Override
    public void removeObject(Object entity)
    {
-      ((Eve) entity).removeYou();
+      // wrapped object has no removeYou method
    }
 }
 

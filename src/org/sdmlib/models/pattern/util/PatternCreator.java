@@ -22,21 +22,25 @@ public class PatternCreator extends EntityFactory
       Pattern.PROPERTY_NAME,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Pattern();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
       return ((Pattern) target).get(attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((Pattern) target).set(attrName, value);
@@ -56,24 +60,3 @@ public class PatternCreator extends EntityFactory
       ((Pattern) entity).removeYou();
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

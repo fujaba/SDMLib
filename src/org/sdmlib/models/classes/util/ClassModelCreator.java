@@ -10,7 +10,7 @@ public class ClassModelCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       ClassModel.PROPERTY_CLASSES,
-      ClassModel.PROPERTY_PACKAGENAME
+      ClassModel.PROPERTY_NAME
    };
    
    @Override
@@ -41,9 +41,9 @@ public class ClassModelCreator extends EntityFactory
          return ((ClassModel)target).getClasses();
       }
 
-      if (ClassModel.PROPERTY_PACKAGENAME.equalsIgnoreCase(attribute))
+      if (ClassModel.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((ClassModel)target).getPackageName();
+         return ((ClassModel)target).getName();
       }
 
       return null;
@@ -64,9 +64,9 @@ public class ClassModelCreator extends EntityFactory
          return true;
       }
 
-      if (ClassModel.PROPERTY_PACKAGENAME.equalsIgnoreCase(attrName))
+      if (ClassModel.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((ClassModel) target).setPackageName((String) value);
+         ((ClassModel) target).setName((String) value);
          return true;
       }
 

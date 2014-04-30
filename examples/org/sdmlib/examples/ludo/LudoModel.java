@@ -39,7 +39,6 @@ public class LudoModel
       //         MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.examples.ludo.model");
-            
       Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
       
       Clazz point = model.createClazz(Point.class.getName())
@@ -110,6 +109,7 @@ public class LudoModel
       StoryboardManager.get()
       .add(storyboard)
       .dumpHTML();
+      
    }
 }
 

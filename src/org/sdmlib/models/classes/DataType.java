@@ -1,15 +1,14 @@
 package org.sdmlib.models.classes;
 
-public enum DataType
+public class DataType
 {
-   VOID("void"), 
-   INT("int"), 
-   LONG("long"), 
-   DOUBLE("double"), 
-   STRING("String"), 
-   BOOLEAN("boolean"), 
-   OBJECT("Object"), 
-   REF("");
+   public static final DataType VOID = new DataType("void");
+   public static final DataType INT = new DataType("int");
+   public static final DataType LONG = new DataType("long");
+   public static final DataType DOUBLE = new DataType("double");
+   public static final DataType STRING = new DataType("String");
+   public static final DataType BOOLEAN = new DataType("boolean");
+   public static final DataType OBJECT = new DataType("Object");
    
    private String value;
    DataType(String value){
@@ -29,13 +28,13 @@ public enum DataType
    }
    
    public static DataType ref(String value){
-      return REF.withValue(value);
+      return new DataType(value);
    }
    public static DataType ref(Class<?> value){
-      return REF.withValue(value.getName());
+      return new DataType(value.getName());
    }
    //TODO might be a bug when the user change the packagename or the name of clazz
    public static DataType ref(Clazz value){
-      return REF.withValue(value.getFullName());
+      return new DataType(value.getFullName());
    }
 }

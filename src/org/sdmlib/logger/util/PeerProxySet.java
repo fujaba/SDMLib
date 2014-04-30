@@ -1,23 +1,69 @@
+/*
+   Copyright (c) 2014 Stefan 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.logger.util;
 
-import java.util.LinkedHashSet;
+import java.util.Collection;
 
 import org.sdmlib.logger.PeerProxy;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.storyboards.util.ModelPattern;
 
-public class PeerProxySet extends LinkedHashSet<PeerProxy>
+public class PeerProxySet extends SDMSet<PeerProxy>
 {
 
-   private static final long serialVersionUID = 1L;
 
-
-
-   public PeerProxySet with(PeerProxy value)
+   public PeerProxyPO hasPeerProxyPO()
    {
-      this.add(value);
+      ModelPattern pattern = new ModelPattern();
+      
+      PeerProxyPO patternObject = pattern.hasElementPeerProxyPO();
+      
+      patternObject.withCandidates(this.clone());
+      
+      pattern.setHasMatch(true);
+      pattern.findMatch();
+      
+      return patternObject;
+   }
+
+
+   @Override
+   public String getEntryType()
+   {
+      return "org.sdmlib.examples.adamandeve.model.PeerProxy";
+   }
+
+
+   public PeerProxySet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<PeerProxy>)value);
+      }
+      else if (value != null)
+      {
+         this.add((PeerProxy) value);
+      }
+      
       return this;
    }
    
@@ -26,105 +72,6 @@ public class PeerProxySet extends LinkedHashSet<PeerProxy>
       this.remove(value);
       return this;
    }
-   
-   public StringList getIp()
-   {
-      StringList result = new StringList();
-      
-      for (PeerProxy obj : this)
-      {
-         result.add(obj.getIp());
-      }
-      
-      return result;
-   }
 
-   public PeerProxySet withIp(String value)
-   {
-      for (PeerProxy obj : this)
-      {
-         obj.withIp(value);
-      }
-      
-      return this;
-   }
-
-   public intList getPort()
-   {
-      intList result = new intList();
-      
-      for (PeerProxy obj : this)
-      {
-         result.add(obj.getPort());
-      }
-      
-      return result;
-   }
-
-   public PeerProxySet withPort(int value)
-   {
-      for (PeerProxy obj : this)
-      {
-         obj.withPort(value);
-      }
-      
-      return this;
-   }
-
-
-   public PeerProxySet withIdMap(JsonIdMap value)
-   {
-      for (PeerProxy obj : this)
-      {
-         obj.withIdMap(value);
-      }
-      
-      return this;
-   }
-
-   public JsonIdMapSet getIdMap()
-   {
-      JsonIdMapSet result = new JsonIdMapSet();
-      
-      for (PeerProxy obj : this)
-      {
-         result.add(obj.getIdMap());
-      }
-      
-      return result;
-   }
-
-   public PeerProxySet withIdMap(SDMLibJsonIdMap value)
-   {
-      for (PeerProxy obj : this)
-      {
-         obj.withIdMap(value);
-      }
-      
-      return this;
-   }
-   
-   @Override
-   public String toString()
-   {
-      StringList stringList = new StringList();
-      
-      for (PeerProxy peerProxy : this)
-      {
-         stringList.add(peerProxy.toString());
-      }
-      
-      return "(" + stringList.concat(", ") + ")";
-   }
-
-
-
-   public String getEntryType()
-   {
-      return "org.sdmlib.model.taskflows.PeerProxy";
-   }
 }
-
-
-
 

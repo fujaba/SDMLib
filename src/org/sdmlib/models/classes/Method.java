@@ -33,10 +33,8 @@ public class Method extends SDMLibClass
    public static final String PROPERTY_BODY = "body";
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_MODIFIER = "modifier";
-   public static final String PROPERTY_NAME = "name";
    
    private String modifier = "public";
-   private String name;
    private Clazz clazz = null;
    private String body;
    private ParameterSet parameters = null;
@@ -49,7 +47,7 @@ public class Method extends SDMLibClass
       sb.append(this.getName()+"(");
       boolean first=true;
       int i = 0;
-      for(Parameter parameter : parameters){
+      for(Parameter parameter : getParameters()){
          if(first){
             sb.append(getParameterSignature(parameter, i));
             first=false;
@@ -84,16 +82,7 @@ public class Method extends SDMLibClass
       this.setReturnType(returnType);
    }
 
-   public String getName()
-   {
-      return name;
-   }
-
-   public void setName(String name)
-   {
-      this.name = name;
-   }
-
+   @Override
    public Method withName(String name)
    {
       setName(name);
@@ -112,7 +101,7 @@ public class Method extends SDMLibClass
    {
       if (this.parameters == null)
       {
-         return new ParameterSet();
+         this.parameters =  new ParameterSet();
       }
 
       return this.parameters;

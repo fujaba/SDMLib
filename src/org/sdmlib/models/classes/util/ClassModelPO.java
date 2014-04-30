@@ -66,10 +66,10 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return null;
    }
    
-     public ClassModelPO hasPackageName(String value)
+     public ClassModelPO hasName(String value)
    {
       new AttributeConstraint()
-      .withAttrName(ClassModel.PROPERTY_PACKAGENAME)
+      .withAttrName(ClassModel.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -80,19 +80,19 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return this;
    }
    
-   public String getPackageName()
+   public String geName()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ClassModel) getCurrentMatch()).getPackageName();
+         return ((ClassModel) getCurrentMatch()).getName();
       }
       return null;
    }
    
-   public ClassModelPO hasPackageName(String lower, String upper)
+   public ClassModelPO hasName(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(ClassModel.PROPERTY_PACKAGENAME)
+      .withAttrName(ClassModel.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -104,9 +104,9 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return this;
    }
    
-   public ClassModelPO createPackageName(String value)
+   public ClassModelPO createName(String value)
    {
-      this.startCreate().hasPackageName(value).endCreate();
+      this.startCreate().hasName(value).endCreate();
       return this;
    }
    

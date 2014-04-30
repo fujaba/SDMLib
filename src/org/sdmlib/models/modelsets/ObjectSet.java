@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 
 public class ObjectSet extends LinkedHashSet<Object>
 {
+   private static final long serialVersionUID = 1L;
 
    public ObjectSet with(Object... elems)
    {

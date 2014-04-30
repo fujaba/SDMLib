@@ -30,9 +30,6 @@ import org.sdmlib.models.classes.util.RoleSet;
 
 public class Clazz extends SDMLibClass
 {
-   public static final String PROPERTY_NAME = "name";
-
-   
    public static final String PROPERTY_ATTRIBUTES = "attributes";
    public static final String PROPERTY_CLASSMODEL = "classModel";
    public static final String PROPERTY_EXTERNAL = "external";
@@ -46,13 +43,15 @@ public class Clazz extends SDMLibClass
 
    private ClassModel classModel = null;  
    private boolean external;
-   private MethodSet methods = null;
+
    private ClazzSet superClazzes = null;
    private ClazzSet kindClazzes = null;
-   private Boolean interfaze = false;
-   private RoleSet roles = null;
-   private String name = null; 
+   
+   private MethodSet methods = null;
    private AttributeSet attributes = null;
+
+   private boolean interfaze = false;
+   private RoleSet roles = null;
    
    public Clazz(){
       
@@ -75,25 +74,16 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public String getName()
-   {
-      return name;
-   }
-   
    public String getFullName()
    {
-      if(name.indexOf('.') < 0 && getClassModel().getPackageName() != null)
+      if(name.indexOf('.') < 0 && getClassModel().getName() != null)
       {
-         return getClassModel().getPackageName()  + "." + name;
+         return getClassModel().getName()  + "." + name;
       }
       return name;
    }
 
-   public void setName(String name)
-   {
-      this.name = name;
-   }
-
+   @Override
    public Clazz withName(String name)
    {
       setName(name);
@@ -130,13 +120,17 @@ public class Clazz extends SDMLibClass
    
    public ClazzSet getSuperClasses()
    {
+      if (this.superClazzes == null)
+      {
+         superClazzes =  new ClazzSet();
+      }
       return superClazzes;
    }
 
    public Clazz withSuperClass(Clazz... newSuperClass)
    {
       for(Clazz superClazz : newSuperClass){
-         if(this.superClazzes.add(superClazz)){
+         if(getSuperClasses().add(superClazz)){
             superClazz.withKindClass(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, null, newSuperClass);
          }
@@ -160,13 +154,17 @@ public class Clazz extends SDMLibClass
 
    public ClazzSet getKindClasses()
    {
+      if (this.kindClazzes == null)
+      {
+         kindClazzes =  new ClazzSet();
+      }
       return kindClazzes;
    }
 
    Clazz withKindClass(Clazz... newSuperClass)
    {
       for(Clazz superClazz : newSuperClass){
-         if(this.superClazzes.add(superClazz)){
+         if(getKindClasses().add(superClazz)){
             superClazz.withSuperClass(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, null, newSuperClass);
          }

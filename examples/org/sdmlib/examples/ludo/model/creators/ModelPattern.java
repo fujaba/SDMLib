@@ -14,7 +14,9 @@ import org.sdmlib.examples.ludo.model.Field;
 import org.sdmlib.examples.ludo.model.creators.PawnPO;
 import org.sdmlib.examples.ludo.model.Pawn;
 
-public class ModelPattern extends Pattern
+//TODO Change ModelPattern to package visualisierung and change methods to POS to PO
+
+class ModelPattern extends Pattern
 {
    public ModelPattern startCreate()
    {

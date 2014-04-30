@@ -26,6 +26,8 @@ import org.sdmlib.CGUtil;
 public class Association extends SDMLibClass
 {
    
+   // ADDED NAME TO Assoc
+   
    /********************************************************************
     * <pre>
     *              one                       one
@@ -201,6 +203,13 @@ public class Association extends SDMLibClass
       setSource(null);
       setTarget(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
+
+   @Override
+   public Association withName(String value)
+   {
+      setName(value);
+      return this;
    }
 }
 

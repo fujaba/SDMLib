@@ -64,23 +64,23 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       return this;
    }
 
-   public StringList getPackageName()
+   public StringList getName()
    {
       StringList result = new StringList();
       
       for (ClassModel obj : this)
       {
-         result.add(obj.getPackageName());
+         result.add(obj.getName());
       }
       
       return result;
    }
 
-   public ClassModelSet withPackageName(String value)
+   public ClassModelSet withName(String value)
    {
       for (ClassModel obj : this)
       {
-         obj.withPackageName(value);
+         obj.withName(value);
       }
       
       return this;

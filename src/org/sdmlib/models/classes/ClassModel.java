@@ -24,7 +24,6 @@ package org.sdmlib.models.classes;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
@@ -32,17 +31,15 @@ import org.sdmlib.models.classes.util.ClazzSet;
 public class ClassModel extends SDMLibClass
 {
    public static final String PROPERTY_CLASSES = "classes";
-   public static final String PROPERTY_PACKAGENAME = "packageName";
    private Set<Feature> features=Feature.getAll();
    private ClazzSet classes;
-   private String packageName;
    private GenClassModel generator;
 
    public ClassModel(){
       
    }
    public ClassModel(String packageName){
-      withPackageName(packageName);
+      withName(packageName);
    }
    
 	public ClassModel generate()
@@ -172,34 +169,12 @@ public class ClassModel extends SDMLibClass
 	   getGenerator().removeAllGeneratedCode(rootDir, rootDir, rootDir);
    }
 
-	//==========================================================================
-	public String getPackageName()
-	{
-		return this.packageName;
-	}
-
-	public void setPackageName(String value)
-	{
-		if ( ! StrUtil.stringEquals(this.packageName, value))
-		{
-			String oldValue = this.packageName;
-			this.packageName = value;
-			getPropertyChangeSupport().firePropertyChange(PROPERTY_PACKAGENAME, oldValue, value);
-		}
-	}
-
-	public ClassModel withPackageName(String value)
-	{
-		setPackageName(value);
-		return this;
-	} 
-
 	@Override
    public String toString()
 	{
 		StringBuilder _ = new StringBuilder();
 
-		_.append(" ").append(this.getPackageName());
+		_.append(" ").append(this.getName());
 		return _.substring(1);
 	}
    public ClassModel withClasses(Clazz... value)
@@ -239,5 +214,11 @@ public class ClassModel extends SDMLibClass
    public boolean hasFeature(Feature value)
    {
       return features.contains(value);
+   }
+   @Override
+   public ClassModel withName(String value)
+   {
+      setName(value);
+      return this;
    }
 }

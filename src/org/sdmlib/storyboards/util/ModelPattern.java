@@ -1,5 +1,7 @@
 package org.sdmlib.storyboards.util;
 
+import org.sdmlib.logger.PeerProxy;
+import org.sdmlib.logger.util.PeerProxyPO;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
@@ -91,6 +93,31 @@ public class ModelPattern extends Pattern
       
       return value;
    } 
+   
+   public PeerProxyPO hasElementPeerProxyPO()
+   {
+      PeerProxyPO value = new PeerProxyPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public PeerProxyPO hasElementPeerProxyPO(PeerProxy hostGraphObject)
+   {
+      PeerProxyPO value = new PeerProxyPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+   
 
    public StoryboardStepPO hasElementStoryboardStepPO()
    {

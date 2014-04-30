@@ -29,11 +29,9 @@ public class Role extends SDMLibClass
    public static final String VANILLA = "vanilla";
    public static final String AGGREGATION = "aggregation";
    public static final String PROPERTY_CLAZZ = "clazz";
-   public static final String PROPERTY_NAME = "name";
    public static final String PROPERTY_KIND = "kind";
   
    private String kind= VANILLA;
-   private String name= null;
    private Clazz clazz= null;
    private String card= Card.MANY.toString();
 
@@ -113,17 +111,8 @@ public class Role extends SDMLibClass
       setCard(value);
       return this;
    } 
-
-   public String getName()
-   {
-      return this.name;
-   }
-   
-   public void setName(String value)
-   {
-      this.name = value;
-   }
-   
+  
+   @Override
    public Role withName(String value)
    {
       setName(value);
@@ -145,11 +134,6 @@ public class Role extends SDMLibClass
       setKind(value);
       return this;
    }
-
-
-
-
-
    
    public static final RoleSet EMPTY_SET = new RoleSet();
 
