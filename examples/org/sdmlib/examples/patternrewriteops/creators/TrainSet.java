@@ -162,3 +162,6 @@ public class TrainSet extends LinkedHashSet<Train> implements
       return patternObject;
    }
 }
+
+
+

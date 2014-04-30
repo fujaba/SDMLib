@@ -1,39 +1,385 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
 <p>LudoStoryboard</p>
 <p>Start situation: </p>
-<embed type="image/svg+xml" src='LudoStoryboard3.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"L1 : Ludo",
+            "attributes":[
+            "date=",
+               "dice="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P2 : Player",
+            "attributes":[
+            "color=blue",
+               "name=Tom",
+               "x=0",
+               "y=0",
+               "next=",
+               "prev=",
+               "landing="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P11 : Player",
+            "attributes":[
+            "color=red",
+               "name=Sabine",
+               "x=0",
+               "y=0",
+               "next=",
+               "prev=",
+               "dice=",
+               "base=",
+               "landing="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"L3 : LudoModel$LudoColor",
+            "attributes":[
+            "declaringClass=class org.sdmlib.examples.ludo.LudoModel$LudoColor"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"D4 : Dice",
+            "attributes":[
+            "value=6",
+               "game="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"F5 : Field",
+            "attributes":[
+            "color=blue",
+               "kind=start",
+               "x=0",
+               "y=0",
+               "point=",
+               "game=",
+               "landing=",
+               "entry=",
+               "baseowner=",
+               "lander="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"F14 : Field",
+            "attributes":[
+            "color=blue",
+               "kind=base",
+               "x=0",
+               "y=0",
+               "point=",
+               "game=",
+               "next=",
+               "prev=",
+               "landing=",
+               "entry=",
+               "starter=",
+               "lander="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P15 : Pawn",
+            "attributes":[
+            "color=blue",
+               "x=0",
+               "y=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"F6 : Field",
+            "attributes":[
+            "color=",
+               "kind=",
+               "x=0",
+               "y=0",
+               "point=",
+               "game=",
+               "landing=",
+               "entry=",
+               "starter=",
+               "baseowner=",
+               "lander="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P10 : Pawn",
+            "attributes":[
+            "color=red",
+               "x=0",
+               "y=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"F7 : Field",
+            "attributes":[
+            "color=",
+               "kind=",
+               "x=0",
+               "y=0",
+               "point=",
+               "game=",
+               "landing=",
+               "entry=",
+               "starter=",
+               "baseowner=",
+               "lander="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"F8 : Field",
+            "attributes":[
+            "color=",
+               "kind=",
+               "x=0",
+               "y=0",
+               "point=",
+               "game=",
+               "landing=",
+               "entry=",
+               "starter=",
+               "baseowner=",
+               "lander="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"F9 : Field",
+            "attributes":[
+            "color=",
+               "kind=",
+               "x=0",
+               "y=0",
+               "point=",
+               "game=",
+               "landing=",
+               "entry=",
+               "starter=",
+               "baseowner=",
+               "lander="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"L12 : LudoModel$LudoColor",
+            "attributes":[
+            "declaringClass=class org.sdmlib.examples.ludo.LudoModel$LudoColor"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"F13 : Field",
+            "attributes":[
+            "color=red",
+               "kind=start",
+               "x=0",
+               "y=0",
+               "point=",
+               "game=",
+               "next=",
+               "prev=",
+               "landing=",
+               "entry=",
+               "baseowner=",
+               "lander="
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"game",
+            "targetproperty":"players",
+            "source":"L1 : Ludo",
+            "target":"P2 : Player"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"game",
+            "targetproperty":"players",
+            "source":"L1 : Ludo",
+            "target":"P11 : Player"
+         },
+         {
+            "typ":"edge",
+            "targetcardinality":"1",
+            "targetproperty":"enumColor",
+            "source":"P2 : Player",
+            "target":"L3 : LudoModel$LudoColor"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"player",
+            "targetproperty":"dice",
+            "source":"P2 : Player",
+            "target":"D4 : Dice"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"starter",
+            "targetproperty":"start",
+            "source":"P2 : Player",
+            "target":"F5 : Field"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"baseowner",
+            "targetproperty":"base",
+            "source":"P2 : Player",
+            "target":"F14 : Field"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"player",
+            "targetproperty":"pawns",
+            "source":"P2 : Player",
+            "target":"P15 : Pawn"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"F5 : Field",
+            "target":"F6 : Field"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"pos",
+            "targetproperty":"pawns",
+            "source":"F5 : Field",
+            "target":"P10 : Pawn"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"F6 : Field",
+            "target":"F7 : Field"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"F7 : Field",
+            "target":"F8 : Field"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"F8 : Field",
+            "target":"F9 : Field"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"pawns",
+            "targetproperty":"player",
+            "source":"P10 : Pawn",
+            "target":"P11 : Player"
+         },
+         {
+            "typ":"edge",
+            "targetcardinality":"1",
+            "targetproperty":"enumColor",
+            "source":"P11 : Player",
+            "target":"L12 : LudoModel$LudoColor"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"starter",
+            "targetproperty":"start",
+            "source":"P11 : Player",
+            "target":"F13 : Field"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"pos",
+            "targetproperty":"pawns",
+            "source":"F14 : Field",
+            "target":"P15 : Pawn"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>now the pawn may move to Tom's start field</p>
 <pre>      &#x2F;&#x2F; build move operation with SDM model transformations
       ModelPattern p = new ModelPattern();
-      
+
       PawnPO pawnPO = (PawnPO) p.hasElementPawnPO(p2);
-      
+
       PlayerPO playerPO = pawnPO.hasPlayer();
-      
+
       DicePO dicePO = playerPO.hasDice().hasValue(6);
-      
+
       FieldPO baseField = pawnPO.hasPos().hasKind(&quot;base&quot;);
-      
+
       playerPO.hasBase(baseField);
-      
+
       FieldPO startFieldPO = playerPO.hasStart();
-      
+
       startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
 </pre><embed type="image/svg+xml"src='LudoMoveWithMatch01.svg'>
 <pre>      p.startDestroy();
       pawnPO.hasPos(baseField);
-      
+
       p.startCreate();
       pawnPO.hasPos(startFieldPO);
 </pre><embed type="image/svg+xml"src='LudoMoveAfterSetPos02.svg'>

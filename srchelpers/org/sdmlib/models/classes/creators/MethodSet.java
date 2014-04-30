@@ -187,3 +187,6 @@ public class MethodSet extends LinkedHashSet<Method> implements
       return patternObject;
    }
 }
+
+
+

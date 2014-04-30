@@ -168,3 +168,6 @@ public class CargoSet extends LinkedHashSet<Cargo> implements
       return patternObject;
    }
 }
+
+
+

@@ -354,3 +354,4 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return value;
    }
 }
+

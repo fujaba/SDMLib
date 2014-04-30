@@ -374,3 +374,4 @@ public class Association implements PropertyChangeInterface
       return value;
    }
 }
+

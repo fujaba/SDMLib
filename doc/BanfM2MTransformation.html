@@ -238,70 +238,63 @@
    json["options"]={"canvasid":"canvas8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph,
+         Storyboard storyboard)
    {
-      GenericGraph genGraph = new Specific2Generic()
-      .convert(GraphCreator.createIdMap(&quot;g&quot;), origGraph);
-      
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
+      GenericGraph genGraph = new Specific2Generic().convert(
+         GraphCreator.createIdMap(&quot;g&quot;), origGraph);
+
+      storyboard.addObjectDiagramWith(genGraph.getObjects(),
+         genGraph.getLinks(), genGraph.getObjects().getAttrs());
+
       renameFirstNameAttrRule = new org.sdmlib.models.objects.creators.ModelPattern();
-      renameFirstNameAttrRule
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasAttrs()
-      .hasName(Person.PROPERTY_FIRSTNAME)
-      .startCreate()
-      .hasName(GraphComponent.PROPERTY_TEXT)
-      .allMatches();
-      
-      storyboard.add(renameFirstNameAttrRule.dumpDiagram(&quot;banfsimpleMigrationByGenericGraph_renameAttr&quot;, false));
-      
-      
+      renameFirstNameAttrRule.hasElementGenericGraphPO(genGraph).hasObjects()
+         .hasAttrs().hasName(Person.PROPERTY_FIRSTNAME).startCreate()
+         .hasName(GraphComponent.PROPERTY_TEXT).allMatches();
+
+      storyboard.add(renameFirstNameAttrRule.dumpDiagram(
+         &quot;banfsimpleMigrationByGenericGraph_renameAttr&quot;, false));
+
       &#x2F;&#x2F; rename name to text attributes
       renameKindAttrRule = new org.sdmlib.models.objects.creators.ModelPattern();
-      renameKindAttrRule
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasAttrs()
-      .hasName(Relation.PROPERTY_KIND)
-      .startCreate()
-      .hasName(GraphComponent.PROPERTY_TEXT)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;banfsimpleMigrationByGenericGraph_renameAttr2&quot;, false));
-      
-      
+      renameKindAttrRule.hasElementGenericGraphPO(genGraph).hasObjects()
+         .hasAttrs().hasName(Relation.PROPERTY_KIND).startCreate()
+         .hasName(GraphComponent.PROPERTY_TEXT).allMatches();
+
+      storyboard
+         .add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern
+            .dumpDiagram(&quot;banfsimpleMigrationByGenericGraph_renameAttr2&quot;, false));
+
       &#x2F;&#x2F; rename graph--nodes links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasLinks()
-      .hasTgtLabel(Person.PROPERTY_GRAPH)
-      .startCreate()
-      .hasTgtLabel(GraphComponent.PROPERTY_PARENT)
-      .hasSrcLabel(Graph.PROPERTY_GCS)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;banfsimpleMigrationByGenericGraph_renameLink1&quot;, false));
+         .hasElementGenericGraphPO(genGraph).hasLinks()
+         .hasTgtLabel(Person.PROPERTY_GRAPH).startCreate()
+         .hasTgtLabel(GraphComponent.PROPERTY_PARENT)
+         .hasSrcLabel(Graph.PROPERTY_GCS).allMatches();
+
+      storyboard
+         .add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern
+            .dumpDiagram(&quot;banfsimpleMigrationByGenericGraph_renameLink1&quot;, false));
 
       &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-      
+
       &#x2F;&#x2F; rename graph--edges links to parent--gcs links
       new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasLinks()
-      .hasSrcLabel(Relation.PROPERTY_GRAPH)
-      .startCreate()
-      .hasSrcLabel(GraphComponent.PROPERTY_PARENT)
-      .hasTgtLabel(Graph.PROPERTY_GCS)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;banfsimpleMigrationByGenericGraph_renameLink2&quot;, false));
+         .hasElementGenericGraphPO(genGraph).hasLinks()
+         .hasSrcLabel(Relation.PROPERTY_GRAPH).startCreate()
+         .hasSrcLabel(GraphComponent.PROPERTY_PARENT)
+         .hasTgtLabel(Graph.PROPERTY_GCS).allMatches();
 
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphComponentCreator.createIdMap(&quot;tg&quot;), null, genGraph);
-      
+      storyboard
+         .add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern
+            .dumpDiagram(&quot;banfsimpleMigrationByGenericGraph_renameLink2&quot;, false));
+
+      storyboard.addObjectDiagramWith(genGraph.getObjects(),
+         genGraph.getLinks(), genGraph.getObjects().getAttrs());
+
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(
+         GraphComponentCreator.createIdMap(&quot;tg&quot;), null, genGraph);
+
       return tgtGraph;
    }</pre><script>
    var json = {
@@ -321,80 +314,80 @@
             "typ":"node",
             "id":"G17 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=persons"
+            "tgtLabel=persons",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G40 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=relations"
+            "tgtLabel=relations",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G26 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=persons"
+            "tgtLabel=persons",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G39 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=relations"
+            "tgtLabel=relations",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G33 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=persons"
+            "tgtLabel=persons",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G38 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=relations"
+            "tgtLabel=relations",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G48 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=relations"
+            "tgtLabel=relations",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G47 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=persons"
+            "tgtLabel=persons",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G49 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=persons"
+            "tgtLabel=persons",
+               "srcLabel=graph"
             ]
          },
          {
             "typ":"node",
             "id":"G56 : GenericLink",
             "attributes":[
-            "srcLabel=graph",
-               "tgtLabel=relations"
+            "tgtLabel=relations",
+               "srcLabel=graph"
             ]
          },
          {
@@ -418,24 +411,24 @@
             "typ":"node",
             "id":"G20 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
             "typ":"node",
             "id":"G37 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
             "typ":"node",
             "id":"G41 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
@@ -459,8 +452,8 @@
             "typ":"node",
             "id":"G23 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -484,8 +477,8 @@
             "typ":"node",
             "id":"G27 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -509,8 +502,8 @@
             "typ":"node",
             "id":"G30 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
@@ -534,8 +527,8 @@
             "typ":"node",
             "id":"G34 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -576,8 +569,8 @@
             "typ":"node",
             "id":"G44 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -618,16 +611,16 @@
             "typ":"node",
             "id":"G52 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
             "typ":"node",
             "id":"G55 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -1127,80 +1120,80 @@
             "typ":"node",
             "id":"G17 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G40 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G26 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G39 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G33 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G38 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G48 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G47 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G49 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
             "typ":"node",
             "id":"G56 : GenericLink",
             "attributes":[
-            "srcLabel=parent",
-               "tgtLabel=gcs"
+            "tgtLabel=gcs",
+               "srcLabel=parent"
             ]
          },
          {
@@ -1224,24 +1217,24 @@
             "typ":"node",
             "id":"G20 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
             "typ":"node",
             "id":"G37 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
             "typ":"node",
             "id":"G41 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
@@ -1265,8 +1258,8 @@
             "typ":"node",
             "id":"G23 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -1290,8 +1283,8 @@
             "typ":"node",
             "id":"G27 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -1315,8 +1308,8 @@
             "typ":"node",
             "id":"G30 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
@@ -1340,8 +1333,8 @@
             "typ":"node",
             "id":"G34 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -1382,8 +1375,8 @@
             "typ":"node",
             "id":"G44 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -1424,16 +1417,16 @@
             "typ":"node",
             "id":"G52 : GenericLink",
             "attributes":[
-            "srcLabel=outEdges",
-               "tgtLabel=src"
+            "tgtLabel=src",
+               "srcLabel=outEdges"
             ]
          },
          {
             "typ":"node",
             "id":"G55 : GenericLink",
             "attributes":[
-            "srcLabel=inEdges",
-               "tgtLabel=tgt"
+            "tgtLabel=tgt",
+               "srcLabel=inEdges"
             ]
          },
          {
@@ -1922,16 +1915,16 @@
             "id":"P58 : Person",
             "attributes":[
             "text=Albert",
-               "firstName=",
-               "graph="
+               "graph=",
+               "firstName="
             ]
          },
          {
             "typ":"node",
             "id":"R59 : Relation",
             "attributes":[
-            "graph=",
-               "kind=",
+            "kind=",
+               "graph=",
                "text=knows"
             ]
          },
@@ -1939,8 +1932,8 @@
             "typ":"node",
             "id":"R63 : Relation",
             "attributes":[
-            "graph=",
-               "kind=",
+            "kind=",
+               "graph=",
                "text=knows"
             ]
          },
@@ -1948,8 +1941,8 @@
             "typ":"node",
             "id":"R64 : Relation",
             "attributes":[
-            "graph=",
-               "kind=",
+            "kind=",
+               "graph=",
                "text=knows"
             ]
          },
@@ -1958,16 +1951,16 @@
             "id":"P60 : Person",
             "attributes":[
             "text=Gabi",
-               "firstName=",
-               "graph="
+               "graph=",
+               "firstName="
             ]
          },
          {
             "typ":"node",
             "id":"R61 : Relation",
             "attributes":[
-            "graph=",
-               "kind=",
+            "kind=",
+               "graph=",
                "text=knows"
             ]
          },
@@ -1976,8 +1969,8 @@
             "id":"P62 : Person",
             "attributes":[
             "text=Jens",
-               "firstName=",
-               "graph="
+               "graph=",
+               "firstName="
             ]
          },
          {
@@ -1985,8 +1978,8 @@
             "id":"P65 : Person",
             "attributes":[
             "text=Nina",
-               "firstName=",
-               "graph="
+               "graph=",
+               "firstName="
             ]
          },
          {
@@ -1994,16 +1987,16 @@
             "id":"P66 : Person",
             "attributes":[
             "text=Nerdi",
-               "firstName=",
-               "graph="
+               "graph=",
+               "firstName="
             ]
          },
          {
             "typ":"node",
             "id":"R67 : Relation",
             "attributes":[
-            "graph=",
-               "kind=",
+            "kind=",
+               "graph=",
                "text=knows"
             ]
          }
@@ -2366,63 +2359,71 @@
    g.layout(100,100);
 </script>
 <p>The transformation code:</p>
-<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
+<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(
+         Graph origGraph, Storyboard storyboard)
    {
-      GenericGraph genGraph = new Specific2Generic()
-      .convert(PersonCreator.createIdMap(&quot;g1&quot;), origGraph);
-      
+      GenericGraph genGraph = new Specific2Generic().convert(
+         PersonCreator.createIdMap(&quot;g1&quot;), origGraph);
+
       &#x2F;&#x2F; rename name to text attributes
       new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasAttrs()
-      .hasName(Person.PROPERTY_FIRSTNAME)
-      .startCreate()
-      .hasName(Person.PROPERTY_TEXT)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr&quot;, false));
-      
+         .hasElementGenericGraphPO(genGraph).hasObjects().hasAttrs()
+         .hasName(Person.PROPERTY_FIRSTNAME).startCreate()
+         .hasName(Person.PROPERTY_TEXT).allMatches();
+
+      storyboard
+         .add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern
+            .dumpDiagram(
+               &quot;banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr&quot;,
+               false));
+
       &#x2F;&#x2F; replace n.l.e.l.n by n.l.n
       GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasType(Relation.class.getName());
-      
-      GenericLinkPO srcLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Relation.PROPERTY_SRC);
-      
-      GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Relation.PROPERTY_TGT);
-      
+         .hasElementGenericGraphPO(genGraph).hasObjects()
+         .hasType(Relation.class.getName());
+
+      GenericLinkPO srcLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(
+         Relation.PROPERTY_SRC);
+
+      GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(
+         Relation.PROPERTY_TGT);
+
       GenericObjectPO srcNodePO = srcLinkPO.hasTgt();
-      
+
       GenericObjectPO tgtNodePO = tgtLinkPO.hasTgt();
-      
-      edgePO.destroy(); 
-      
+
+      edgePO.destroy();
+
       srcLinkPO.destroy();
-      
-      GenericLinkSet allMatches = tgtLinkPO.startCreate()
-      .hasSrc(srcNodePO)
-      .hasSrcLabel(Person.PROPERTY_KNOWS)
-      .hasTgtLabel(Person.PROPERTY_KNOWS)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges&quot;, false));
-      
+
+      GenericLinkSet allMatches = tgtLinkPO.startCreate().hasSrc(srcNodePO)
+         .hasSrcLabel(Person.PROPERTY_KNOWS).hasTgtLabel(Person.PROPERTY_KNOWS)
+         .allMatches();
+
+      storyboard
+         .add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern
+            .dumpDiagram(
+               &quot;banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges&quot;,
+               false));
+
       &#x2F;&#x2F; destroy dangling edges
       GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasType(Relation.class.getName());
-      
+         .hasElementGenericGraphPO(genGraph).hasObjects()
+         .hasType(Relation.class.getName());
+
       danglingPO.destroy();
-      
+
       danglingPO.allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges&quot;, false));
-      
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(PersonCreator.createIdMap(&quot;tg&quot;), null, genGraph);
-      
+
+      storyboard
+         .add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern
+            .dumpDiagram(
+               &quot;banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges&quot;,
+               false));
+
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(
+         PersonCreator.createIdMap(&quot;tg&quot;), null, genGraph);
+
       return tgtGraph;
 
    }</pre><embed type="image/svg+xml"src='banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr.svg'>
@@ -2483,6 +2484,33 @@
       "edges":[
       {
             "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"knowsTransitive",
+            "targetproperty":"knows",
+            "source":"P82 : Person",
+            "target":"P83 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"knowsTransitive",
+            "targetproperty":"knows",
+            "source":"P82 : Person",
+            "target":"P84 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"knowsTransitive",
+            "targetproperty":"knows",
+            "source":"P82 : Person",
+            "target":"P85 : Person"
+         },
+         {
+            "typ":"edge",
             "targetcardinality":"n",
             "targetproperty":"knowsTransitive",
             "source":"P82 : Person",
@@ -2490,51 +2518,33 @@
          },
          {
             "typ":"edge",
-            "sourcecardinality":"n",
             "targetcardinality":"n",
-            "sourceproperty":"knows",
             "targetproperty":"knowsTransitive",
             "source":"P82 : Person",
             "target":"P83 : Person"
          },
          {
             "typ":"edge",
-            "sourcecardinality":"n",
             "targetcardinality":"n",
-            "sourceproperty":"knows",
             "targetproperty":"knowsTransitive",
             "source":"P82 : Person",
             "target":"P84 : Person"
          },
          {
             "typ":"edge",
-            "sourcecardinality":"n",
             "targetcardinality":"n",
-            "sourceproperty":"knows",
             "targetproperty":"knowsTransitive",
             "source":"P82 : Person",
             "target":"P85 : Person"
          },
          {
             "typ":"edge",
+            "sourcecardinality":"n",
             "targetcardinality":"n",
+            "sourceproperty":"knowsTransitive",
             "targetproperty":"knows",
-            "source":"P82 : Person",
-            "target":"P83 : Person"
-         },
-         {
-            "typ":"edge",
-            "targetcardinality":"n",
-            "targetproperty":"knows",
-            "source":"P82 : Person",
+            "source":"P83 : Person",
             "target":"P84 : Person"
-         },
-         {
-            "typ":"edge",
-            "targetcardinality":"n",
-            "targetproperty":"knows",
-            "source":"P82 : Person",
-            "target":"P85 : Person"
          },
          {
             "typ":"edge",
@@ -2545,9 +2555,7 @@
          },
          {
             "typ":"edge",
-            "sourcecardinality":"n",
             "targetcardinality":"n",
-            "sourceproperty":"knows",
             "targetproperty":"knowsTransitive",
             "source":"P83 : Person",
             "target":"P84 : Person"
@@ -2560,13 +2568,6 @@
             "targetproperty":"knowsTransitive",
             "source":"P83 : Person",
             "target":"P85 : Person"
-         },
-         {
-            "typ":"edge",
-            "targetcardinality":"n",
-            "targetproperty":"knows",
-            "source":"P83 : Person",
-            "target":"P84 : Person"
          },
          {
             "typ":"edge",
@@ -2595,8 +2596,8 @@
             "typ":"edge",
             "sourcecardinality":"n",
             "targetcardinality":"n",
-            "sourceproperty":"knows",
-            "targetproperty":"knowsTransitive",
+            "sourceproperty":"knowsTransitive",
+            "targetproperty":"knows",
             "source":"P86 : Person",
             "target":"P86 : Person"
          }

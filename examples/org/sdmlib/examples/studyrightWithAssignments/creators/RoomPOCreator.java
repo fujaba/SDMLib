@@ -8,15 +8,15 @@ public class RoomPOCreator extends PatternObjectCreator
    {
       return new RoomPO();
    }
-
+   
    public Object getValue(Object target, String attrName)
    {
       return ((RoomPO) target).get(attrName);
    }
-
-   public boolean setValue(Object target, String attrName, Object value,
-         String type)
+   
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((RoomPO) target).set(attrName, value);
    }
 }
+

@@ -37,6 +37,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class Role implements PropertyChangeInterface
 {
@@ -1076,7 +1077,7 @@ public class Role implements PropertyChangeInterface
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_"
          + partnerRole.getName().toUpperCase());
 
-      if (pos < 0 && !this.getClazz().isInterfaze())
+      if (pos < 0)
       {
          text
             .append("\n   "
@@ -1412,7 +1413,7 @@ public class Role implements PropertyChangeInterface
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_"
          + partnerRole.getName().toUpperCase());
 
-      if (pos < 0 && !this.getClazz().isInterfaze())
+      if (pos < 0)
       {
          text
             .append("\n   "
@@ -1830,3 +1831,4 @@ public class Role implements PropertyChangeInterface
       return value;
    }
 }
+

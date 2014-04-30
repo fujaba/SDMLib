@@ -173,3 +173,6 @@ public class AssociationSet extends LinkedHashSet<Association> implements
       return patternObject;
    }
 }
+
+
+

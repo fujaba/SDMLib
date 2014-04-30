@@ -1,9 +1,5 @@
-@echo off
+@echo on
 
-SET cmd=""
+echo %*
 
-FOR %%A IN (%*) DO (
-SET cmd=%cmd% %%A;
-)
-
-%cmd%
+%*

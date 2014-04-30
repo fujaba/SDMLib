@@ -392,3 +392,4 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       return value;
    }
 }
+

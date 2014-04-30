@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -40,19 +40,21 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
 public class StudentSet extends SDMSet<Student>
 {
 
+
    public StudentPO hasStudentPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
-
+      
       StudentPO patternObject = pattern.hasElementStudentPO();
-
+      
       patternObject.withCandidates(this.clone());
-
+      
       pattern.setHasMatch(true);
       pattern.findMatch();
-
+      
       return patternObject;
    }
+
 
    @Override
    public String getEntryType()
@@ -60,20 +62,21 @@ public class StudentSet extends SDMSet<Student>
       return "org.sdmlib.examples.studyrightWithAssignments.Student";
    }
 
+
    public StudentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Student>) value);
+         this.addAll((Collection<Student>)value);
       }
       else if (value != null)
       {
          this.add((Student) value);
       }
-
+      
       return this;
    }
-
+   
    public StudentSet without(Student value)
    {
       this.remove(value);
@@ -83,19 +86,19 @@ public class StudentSet extends SDMSet<Student>
    public StringList getName()
    {
       StringList result = new StringList();
-
+      
       for (Student obj : this)
       {
          result.add(obj.getName());
       }
-
+      
       return result;
    }
 
    public StudentSet hasName(String value)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (value.equals(obj.getName()))
@@ -103,23 +106,22 @@ public class StudentSet extends SDMSet<Student>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public StudentSet hasName(String lower, String upper)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0
-            && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -129,26 +131,26 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.setName(value);
       }
-
+      
       return this;
    }
 
    public StringList getId()
    {
       StringList result = new StringList();
-
+      
       for (Student obj : this)
       {
          result.add(obj.getId());
       }
-
+      
       return result;
    }
 
    public StudentSet hasId(String value)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (value.equals(obj.getId()))
@@ -156,23 +158,22 @@ public class StudentSet extends SDMSet<Student>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public StudentSet hasId(String lower, String upper)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
-         if (lower.compareTo(obj.getId()) <= 0
-            && obj.getId().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getId()) <= 0 && obj.getId().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -182,26 +183,26 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.setId(value);
       }
-
+      
       return this;
    }
 
    public intList getAssignmentPoints()
    {
       intList result = new intList();
-
+      
       for (Student obj : this)
       {
          result.add(obj.getAssignmentPoints());
       }
-
+      
       return result;
    }
 
    public StudentSet hasAssignmentPoints(int value)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (value == obj.getAssignmentPoints())
@@ -209,23 +210,22 @@ public class StudentSet extends SDMSet<Student>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public StudentSet hasAssignmentPoints(int lower, int upper)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
-         if (lower <= obj.getAssignmentPoints()
-            && obj.getAssignmentPoints() <= upper)
+         if (lower <= obj.getAssignmentPoints() && obj.getAssignmentPoints() <= upper)
          {
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -235,26 +235,26 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.setAssignmentPoints(value);
       }
-
+      
       return this;
    }
 
    public intList getMotivation()
    {
       intList result = new intList();
-
+      
       for (Student obj : this)
       {
          result.add(obj.getMotivation());
       }
-
+      
       return result;
    }
 
    public StudentSet hasMotivation(int value)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (value == obj.getMotivation())
@@ -262,14 +262,14 @@ public class StudentSet extends SDMSet<Student>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public StudentSet hasMotivation(int lower, int upper)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (lower <= obj.getMotivation() && obj.getMotivation() <= upper)
@@ -277,7 +277,7 @@ public class StudentSet extends SDMSet<Student>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -287,26 +287,26 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.setMotivation(value);
       }
-
+      
       return this;
    }
 
    public intList getCredits()
    {
       intList result = new intList();
-
+      
       for (Student obj : this)
       {
          result.add(obj.getCredits());
       }
-
+      
       return result;
    }
 
    public StudentSet hasCredits(int value)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (value == obj.getCredits())
@@ -314,14 +314,14 @@ public class StudentSet extends SDMSet<Student>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public StudentSet hasCredits(int lower, int upper)
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (lower <= obj.getCredits() && obj.getCredits() <= upper)
@@ -329,7 +329,7 @@ public class StudentSet extends SDMSet<Student>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -339,19 +339,19 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.setCredits(value);
       }
-
+      
       return this;
    }
 
    public UniversitySet getUniversity()
    {
       UniversitySet result = new UniversitySet();
-
+      
       for (Student obj : this)
       {
          result.with(obj.getUniversity());
       }
-
+      
       return result;
    }
 
@@ -367,9 +367,9 @@ public class StudentSet extends SDMSet<Student>
       {
          neighbors.add(value);
       }
-
+      
       StudentSet answer = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (neighbors.contains(obj.getUniversity()))
@@ -377,7 +377,7 @@ public class StudentSet extends SDMSet<Student>
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -387,19 +387,19 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.withUniversity(value);
       }
-
+      
       return this;
    }
 
    public RoomSet getIn()
    {
       RoomSet result = new RoomSet();
-
+      
       for (Student obj : this)
       {
          result.with(obj.getIn());
       }
-
+      
       return result;
    }
 
@@ -415,9 +415,9 @@ public class StudentSet extends SDMSet<Student>
       {
          neighbors.add(value);
       }
-
+      
       StudentSet answer = new StudentSet();
-
+      
       for (Student obj : this)
       {
          if (neighbors.contains(obj.getIn()))
@@ -425,7 +425,7 @@ public class StudentSet extends SDMSet<Student>
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -435,19 +435,19 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.withIn(value);
       }
-
+      
       return this;
    }
 
    public AssignmentSet getDone()
    {
       AssignmentSet result = new AssignmentSet();
-
+      
       for (Student obj : this)
       {
          result.with(obj.getDone());
       }
-
+      
       return result;
    }
 
@@ -463,17 +463,17 @@ public class StudentSet extends SDMSet<Student>
       {
          neighbors.add(value);
       }
-
+      
       StudentSet answer = new StudentSet();
-
+      
       for (Student obj : this)
       {
-         if (!Collections.disjoint(neighbors, obj.getDone()))
+         if ( ! Collections.disjoint(neighbors, obj.getDone()))
          {
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -483,7 +483,7 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.withDone(value);
       }
-
+      
       return this;
    }
 
@@ -493,19 +493,19 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.withoutDone(value);
       }
-
+      
       return this;
    }
 
    public StudentSet getFriends()
    {
       StudentSet result = new StudentSet();
-
+      
       for (Student obj : this)
       {
          result.with(obj.getFriends());
       }
-
+      
       return result;
    }
 
@@ -521,40 +521,41 @@ public class StudentSet extends SDMSet<Student>
       {
          neighbors.add(value);
       }
-
+      
       StudentSet answer = new StudentSet();
-
+      
       for (Student obj : this)
       {
-         if (!Collections.disjoint(neighbors, obj.getFriends()))
+         if ( ! Collections.disjoint(neighbors, obj.getFriends()))
          {
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
+
 
    public StudentSet getFriendsTransitive()
    {
       StudentSet todo = new StudentSet().with(this);
-
+      
       StudentSet result = new StudentSet();
-
-      while (!todo.isEmpty())
+      
+      while ( ! todo.isEmpty())
       {
          Student current = todo.first();
-
+         
          todo.remove(current);
-
-         if (!result.contains(current))
+         
+         if ( ! result.contains(current))
          {
             result.add(current);
-
+            
             todo.with(current.getFriends().minus(result));
          }
       }
-
+      
       return result;
    }
 
@@ -564,7 +565,7 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.withFriends(value);
       }
-
+      
       return this;
    }
 
@@ -574,8 +575,9 @@ public class StudentSet extends SDMSet<Student>
       {
          obj.withoutFriends(value);
       }
-
+      
       return this;
    }
 
 }
+

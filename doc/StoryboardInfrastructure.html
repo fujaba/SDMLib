@@ -1,13 +1,11 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../test/org/sdmlib/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructure</a></p>
 <p>StoryboardInfrastructure</p>
@@ -19,7 +17,443 @@ phase entries will be used for planning, in future</p>
 <embed type="image/svg+xml" src='StoryboardInfrastructureClassDiagram7.svg'><p> Editing the log entries works now fine as part of the add method. </p>
 <p>Seems that we have solved the problem with the sorting of log entries after loading. </p>
 <p><a name = 'step_4'>Step 4: Show some internals</a></p><p>Internally, the class model looks like:</p>
-<embed type="image/svg+xml" src='StoryboardInfrastructure13.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"C1 : ClassModel",
+            "attributes":[
+            "packageName=org.sdmlib.storyboards"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"C2 : Clazz",
+            "attributes":[
+            "name=org.sdmlib.storyboards.KanbanEntry",
+               "interfaze=false",
+               "external=false",
+               "wrapped=false",
+               "filePath=",
+               "superClass="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"C8 : Clazz",
+            "attributes":[
+            "name=org.sdmlib.storyboards.LogEntry",
+               "interfaze=false",
+               "external=false",
+               "wrapped=false",
+               "filePath=",
+               "superClass="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"C9 : Clazz",
+            "attributes":[
+            "name=org.sdmlib.storyboards.StoryboardWall",
+               "interfaze=false",
+               "external=false",
+               "wrapped=false",
+               "filePath=",
+               "superClass="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"C13 : Clazz",
+            "attributes":[
+            "name=org.sdmlib.storyboards.Storyboard",
+               "interfaze=false",
+               "external=false",
+               "wrapped=false",
+               "filePath=",
+               "superClass="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"C20 : Clazz",
+            "attributes":[
+            "name=org.sdmlib.storyboards.StoryboardStep",
+               "interfaze=false",
+               "external=false",
+               "wrapped=false",
+               "filePath=",
+               "superClass="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A6 : Association",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"A11 : Association",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"A18 : Association",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"A3 : Attribute",
+            "attributes":[
+            "initialization=",
+               "type=int",
+               "name=oldNoOfLogEntries"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A4 : Attribute",
+            "attributes":[
+            "initialization=",
+               "type=String",
+               "name=phases"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R5 : Role",
+            "attributes":[
+            "name=kanbanEntry",
+               "card=one",
+               "kind=aggregation"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R7 : Role",
+            "attributes":[
+            "name=logEntries",
+               "card=many",
+               "kind=vanilla"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R10 : Role",
+            "attributes":[
+            "name=wall",
+               "card=one",
+               "kind=vanilla"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R12 : Role",
+            "attributes":[
+            "name=storyboard",
+               "card=one",
+               "kind=vanilla"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A14 : Attribute",
+            "attributes":[
+            "initialization=",
+               "type=String",
+               "name=rootDir"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A15 : Attribute",
+            "attributes":[
+            "initialization=",
+               "type=int",
+               "name=stepCounter"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A16 : Attribute",
+            "attributes":[
+            "initialization=",
+               "type=int",
+               "name=stepDoneCounter"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R17 : Role",
+            "attributes":[
+            "name=storyboard",
+               "card=one",
+               "kind=vanilla"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R19 : Role",
+            "attributes":[
+            "name=storyboardSteps",
+               "card=many",
+               "kind=vanilla"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A21 : Attribute",
+            "attributes":[
+            "initialization=",
+               "type=String",
+               "name=text"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"classModel",
+            "targetproperty":"classes",
+            "source":"C1 : ClassModel",
+            "target":"C2 : Clazz"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"classModel",
+            "targetproperty":"classes",
+            "source":"C1 : ClassModel",
+            "target":"C8 : Clazz"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"classModel",
+            "targetproperty":"classes",
+            "source":"C1 : ClassModel",
+            "target":"C9 : Clazz"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"classModel",
+            "targetproperty":"classes",
+            "source":"C1 : ClassModel",
+            "target":"C13 : Clazz"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"classModel",
+            "targetproperty":"classes",
+            "source":"C1 : ClassModel",
+            "target":"C20 : Clazz"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"model",
+            "targetproperty":"associations",
+            "source":"C1 : ClassModel",
+            "target":"A6 : Association"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"model",
+            "targetproperty":"associations",
+            "source":"C1 : ClassModel",
+            "target":"A11 : Association"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"model",
+            "targetproperty":"associations",
+            "source":"C1 : ClassModel",
+            "target":"A18 : Association"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"attributes",
+            "source":"C2 : Clazz",
+            "target":"A3 : Attribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"attributes",
+            "source":"C2 : Clazz",
+            "target":"A4 : Attribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"sourceRoles",
+            "source":"C2 : Clazz",
+            "target":"R5 : Role"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"source",
+            "targetproperty":"assoc",
+            "source":"R5 : Role",
+            "target":"A6 : Association"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"assoc",
+            "targetproperty":"target",
+            "source":"A6 : Association",
+            "target":"R7 : Role"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"sourceRoles",
+            "targetproperty":"clazz",
+            "source":"R7 : Role",
+            "target":"C8 : Clazz"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"sourceRoles",
+            "source":"C9 : Clazz",
+            "target":"R10 : Role"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"source",
+            "targetproperty":"assoc",
+            "source":"R10 : Role",
+            "target":"A11 : Association"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"assoc",
+            "targetproperty":"target",
+            "source":"A11 : Association",
+            "target":"R12 : Role"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"sourceRoles",
+            "targetproperty":"clazz",
+            "source":"R12 : Role",
+            "target":"C13 : Clazz"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"attributes",
+            "source":"C13 : Clazz",
+            "target":"A14 : Attribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"attributes",
+            "source":"C13 : Clazz",
+            "target":"A15 : Attribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"attributes",
+            "source":"C13 : Clazz",
+            "target":"A16 : Attribute"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"sourceRoles",
+            "source":"C13 : Clazz",
+            "target":"R17 : Role"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"source",
+            "targetproperty":"assoc",
+            "source":"R17 : Role",
+            "target":"A18 : Association"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"assoc",
+            "targetproperty":"target",
+            "source":"A18 : Association",
+            "target":"R19 : Role"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"sourceRoles",
+            "targetproperty":"clazz",
+            "source":"R19 : Role",
+            "target":"C20 : Clazz"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"clazz",
+            "targetproperty":"attributes",
+            "source":"C20 : Clazz",
+            "target":"A21 : Attribute"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

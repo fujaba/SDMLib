@@ -507,3 +507,4 @@ public class StatementEntry implements PropertyChangeInterface
    }
 
 }
+

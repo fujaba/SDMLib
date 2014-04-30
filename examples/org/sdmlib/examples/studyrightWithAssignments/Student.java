@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.examples.studyrightWithAssignments;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -33,8 +33,9 @@ import org.sdmlib.serialization.json.JsonIdMap;
 public class Student implements PropertyChangeInterface
 {
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public Object get(String attrName)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -85,8 +86,9 @@ public class Student implements PropertyChangeInterface
       return null;
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -136,7 +138,7 @@ public class Student implements PropertyChangeInterface
          addToDone((Assignment) value);
          return true;
       }
-
+      
       if ((PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromDone((Assignment) value);
@@ -148,7 +150,7 @@ public class Student implements PropertyChangeInterface
          addToFriends((Student) value);
          return true;
       }
-
+      
       if ((PROPERTY_FRIENDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromFriends((Student) value);
@@ -158,22 +160,24 @@ public class Student implements PropertyChangeInterface
       return false;
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
+   
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-
-   public void addPropertyChangeListener(PropertyChangeListener listener)
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public void removeYou()
    {
       setUniversity(null);
@@ -183,38 +187,38 @@ public class Student implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_NAME = "name";
-
+   
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-
+   
    public void setName(String value)
    {
-      if (!StrUtil.stringEquals(this.name, value))
+      if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
-            value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
-
+   
    public Student withName(String value)
    {
       setName(value);
       return this;
-   }
+   } 
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-
+      
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getId());
       _.append(" ").append(this.getAssignmentPoints());
@@ -223,120 +227,123 @@ public class Student implements PropertyChangeInterface
       return _.substring(1);
    }
 
-   // ==========================================================================
 
+   
+   //==========================================================================
+   
    public static final String PROPERTY_ID = "id";
-
+   
    private String id;
 
    public String getId()
    {
       return this.id;
    }
-
+   
    public void setId(String value)
    {
-      if (!StrUtil.stringEquals(this.id, value))
+      if ( ! StrUtil.stringEquals(this.id, value))
       {
          String oldValue = this.id;
          this.id = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ID, oldValue,
-            value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ID, oldValue, value);
       }
    }
-
+   
    public Student withId(String value)
    {
       setId(value);
       return this;
-   }
+   } 
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_ASSIGNMENTPOINTS = "assignmentPoints";
-
+   
    private int assignmentPoints;
 
    public int getAssignmentPoints()
    {
       return this.assignmentPoints;
    }
-
+   
    public void setAssignmentPoints(int value)
    {
       if (this.assignmentPoints != value)
       {
          int oldValue = this.assignmentPoints;
          this.assignmentPoints = value;
-         getPropertyChangeSupport().firePropertyChange(
-            PROPERTY_ASSIGNMENTPOINTS, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTPOINTS, oldValue, value);
       }
    }
-
+   
    public Student withAssignmentPoints(int value)
    {
       setAssignmentPoints(value);
       return this;
-   }
+   } 
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_MOTIVATION = "motivation";
-
+   
    private int motivation;
 
    public int getMotivation()
    {
       return this.motivation;
    }
-
+   
    public void setMotivation(int value)
    {
       if (this.motivation != value)
       {
          int oldValue = this.motivation;
          this.motivation = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MOTIVATION,
-            oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MOTIVATION, oldValue, value);
       }
    }
-
+   
    public Student withMotivation(int value)
    {
       setMotivation(value);
       return this;
-   }
+   } 
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_CREDITS = "credits";
-
+   
    private int credits;
 
    public int getCredits()
    {
       return this.credits;
    }
-
+   
    public void setCredits(int value)
    {
       if (this.credits != value)
       {
          int oldValue = this.credits;
          this.credits = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS,
-            oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS, oldValue, value);
       }
    }
-
+   
    public Student withCredits(int value)
    {
       setCredits(value);
       return this;
-   }
+   } 
 
+   
    public static final StudentSet EMPTY_SET = new StudentSet();
 
+   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -344,7 +351,7 @@ public class Student implements PropertyChangeInterface
     *              students                   university
     * </pre>
     */
-
+   
    public static final String PROPERTY_UNIVERSITY = "university";
 
    private University university = null;
@@ -357,29 +364,28 @@ public class Student implements PropertyChangeInterface
    public boolean setUniversity(University value)
    {
       boolean changed = false;
-
+      
       if (this.university != value)
       {
          University oldValue = this.university;
-
+         
          if (this.university != null)
          {
             this.university = null;
             oldValue.withoutStudents(this);
          }
-
+         
          this.university = value;
-
+         
          if (value != null)
          {
             value.withStudents(this);
          }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNIVERSITY,
-            oldValue, value);
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
 
@@ -387,15 +393,16 @@ public class Student implements PropertyChangeInterface
    {
       setUniversity(value);
       return this;
-   }
+   } 
 
    public University createUniversity()
    {
       University value = new University();
       withUniversity(value);
       return value;
-   }
+   } 
 
+   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -403,7 +410,7 @@ public class Student implements PropertyChangeInterface
     *              students                   in
     * </pre>
     */
-
+   
    public static final String PROPERTY_IN = "in";
 
    private Room in = null;
@@ -416,29 +423,28 @@ public class Student implements PropertyChangeInterface
    public boolean setIn(Room value)
    {
       boolean changed = false;
-
+      
       if (this.in != value)
       {
          Room oldValue = this.in;
-
+         
          if (this.in != null)
          {
             this.in = null;
             oldValue.withoutStudents(this);
          }
-
+         
          this.in = value;
-
+         
          if (value != null)
          {
             value.withStudents(this);
          }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IN, oldValue,
-            value);
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IN, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
 
@@ -446,15 +452,16 @@ public class Student implements PropertyChangeInterface
    {
       setIn(value);
       return this;
-   }
+   } 
 
    public Room createIn()
    {
       Room value = new Room();
       withIn(value);
       return value;
-   }
+   } 
 
+   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -462,62 +469,60 @@ public class Student implements PropertyChangeInterface
     *              students                   done
     * </pre>
     */
-
+   
    public static final String PROPERTY_DONE = "done";
 
    private AssignmentSet done = null;
-
+   
    public AssignmentSet getDone()
    {
       if (this.done == null)
       {
          return Assignment.EMPTY_SET;
       }
-
+   
       return this.done;
    }
 
    public boolean addToDone(Assignment value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.done == null)
          {
             this.done = new AssignmentSet();
          }
-
-         changed = this.done.add(value);
-
+         
+         changed = this.done.add (value);
+         
          if (changed)
          {
             value.withStudents(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, null,
-               value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, null, value);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public boolean removeFromDone(Assignment value)
    {
       boolean changed = false;
-
+      
       if ((this.done != null) && (value != null))
       {
-         changed = this.done.remove(value);
-
+         changed = this.done.remove (value);
+         
          if (changed)
          {
             value.withoutStudents(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, value,
-               null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, value, null);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public Student withDone(Assignment... value)
@@ -527,7 +532,7 @@ public class Student implements PropertyChangeInterface
          addToDone(item);
       }
       return this;
-   }
+   } 
 
    public Student withoutDone(Assignment... value)
    {
@@ -540,9 +545,8 @@ public class Student implements PropertyChangeInterface
 
    public void removeAllFromDone()
    {
-      LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(
-            this.getDone());
-
+      LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(this.getDone());
+   
       for (Assignment value : tmpSet)
       {
          this.removeFromDone(value);
@@ -554,8 +558,9 @@ public class Student implements PropertyChangeInterface
       Assignment value = new Assignment();
       withDone(value);
       return value;
-   }
+   } 
 
+   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -563,68 +568,66 @@ public class Student implements PropertyChangeInterface
     *              friends                   friends
     * </pre>
     */
-
+   
    public static final String PROPERTY_FRIENDS = "friends";
 
    private StudentSet friends = null;
-
+   
    public StudentSet getFriends()
    {
       if (this.friends == null)
       {
          return Student.EMPTY_SET;
       }
-
+   
       return this.friends;
    }
-
    public StudentSet getFriendsTransitive()
    {
       StudentSet result = new StudentSet().with(this);
       return result.getFriendsTransitive();
    }
 
+
    public boolean addToFriends(Student value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.friends == null)
          {
             this.friends = new StudentSet();
          }
-
-         changed = this.friends.add(value);
-
+         
+         changed = this.friends.add (value);
+         
          if (changed)
          {
             value.withFriends(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS,
-               null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS, null, value);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public boolean removeFromFriends(Student value)
    {
       boolean changed = false;
-
+      
       if ((this.friends != null) && (value != null))
       {
-         changed = this.friends.remove(value);
-
+         changed = this.friends.remove (value);
+         
          if (changed)
          {
             value.withoutFriends(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS,
-               value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS, value, null);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public Student withFriends(Student... value)
@@ -634,7 +637,7 @@ public class Student implements PropertyChangeInterface
          addToFriends(item);
       }
       return this;
-   }
+   } 
 
    public Student withoutFriends(Student... value)
    {
@@ -647,9 +650,8 @@ public class Student implements PropertyChangeInterface
 
    public void removeAllFromFriends()
    {
-      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(
-            this.getFriends());
-
+      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getFriends());
+   
       for (Student value : tmpSet)
       {
          this.removeFromFriends(value);
@@ -661,5 +663,6 @@ public class Student implements PropertyChangeInterface
       Student value = new Student();
       withFriends(value);
       return value;
-   }
+   } 
 }
+

@@ -271,3 +271,4 @@ public class Boat implements PropertyChangeInterface
       return value;
    }
 }
+

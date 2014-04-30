@@ -8,15 +8,15 @@ public class AssignmentPOCreator extends PatternObjectCreator
    {
       return new AssignmentPO();
    }
-
+   
    public Object getValue(Object target, String attrName)
    {
       return ((AssignmentPO) target).get(attrName);
    }
-
-   public boolean setValue(Object target, String attrName, Object value,
-         String type)
+   
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return ((AssignmentPO) target).set(attrName, value);
    }
 }
+

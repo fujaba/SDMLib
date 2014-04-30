@@ -391,3 +391,4 @@ public class LogEntry implements PropertyChangeInterface, Comparable<LogEntry>
       return value;
    }
 }
+

@@ -479,3 +479,4 @@ public class Room implements PropertyChangeInterface
    }
 
 }
+

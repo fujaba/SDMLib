@@ -193,3 +193,4 @@ public class SignalFlag implements PropertyChangeInterface
       return this;
    }
 }
+

@@ -394,3 +394,4 @@ public class University implements PropertyChangeInterface
       return this;
    }
 }
+

@@ -138,3 +138,6 @@ public class SimpleStateSet extends LinkedHashSet<SimpleState> implements
       return patternObject;
    }
 }
+
+
+

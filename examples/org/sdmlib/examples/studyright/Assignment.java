@@ -291,3 +291,4 @@ public class Assignment implements PropertyChangeInterface
       return value;
    }
 }
+

@@ -233,3 +233,18 @@ public class EdgeSet extends LinkedHashSet<Edge> implements
       return patternObject;
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

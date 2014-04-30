@@ -35,6 +35,7 @@ d5 -- d6 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 f7 -- f8 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 f9 -- f10 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 p12 -- p13 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
+p12 -- p13 [headlabel = "candidate" style="dotted" color="black" fontcolor="black"];
 p1 -- p3 [headlabel = "player" taillabel = "" color="black" fontcolor="black"];
 p3 -- d5 [headlabel = "dice" taillabel = "" color="black" fontcolor="black"];
 p1 -- f7 [headlabel = "pos" taillabel = "" color="black" fontcolor="black"];

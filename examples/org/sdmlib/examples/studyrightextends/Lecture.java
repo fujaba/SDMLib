@@ -327,3 +327,4 @@ public class Lecture implements PropertyChangeInterface
       return value;
    }
 }
+

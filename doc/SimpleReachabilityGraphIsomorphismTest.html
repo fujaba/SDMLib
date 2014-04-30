@@ -1,19 +1,201 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../test/org/sdmlib/models/patterns/ReachbilityGraphSimpleExamples.java' type='text/x-java'>SimpleReachabilityGraphIsomorphismTest</a></p>
 <p>SimpleReachabilityGraphIsomorphismTest</p>
 <p>Create two rings of three nodes with a mark at one node.</p>
-<embed type="image/svg+xml" src='SimpleReachabilityGraphIsomorphismTest3.svg'>
-<embed type="image/svg+xml" src='SimpleReachabilityGraphIsomorphismTest4.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"S1 : SimpleState",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N2 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N3 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N4 : Node",
+            "attributes":[
+            "num=42"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S1 : SimpleState",
+            "target":"N2 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S1 : SimpleState",
+            "target":"N3 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S1 : SimpleState",
+            "target":"N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"N2 : Node",
+            "target":"N3 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"next",
+            "targetproperty":"prev",
+            "source":"N2 : Node",
+            "target":"N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"N3 : Node",
+            "target":"N4 : Node"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"S5 : SimpleState",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N6 : Node",
+            "attributes":[
+            "num=42"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N7 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N8 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S5 : SimpleState",
+            "target":"N6 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S5 : SimpleState",
+            "target":"N7 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S5 : SimpleState",
+            "target":"N8 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"N6 : Node",
+            "target":"N7 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"next",
+            "targetproperty":"prev",
+            "source":"N6 : Node",
+            "target":"N8 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"N7 : Node",
+            "target":"N8 : Node"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>compute certificates</p>
 <p>Both certificates are equal: true</p>
 <p>{
@@ -65,8 +247,192 @@
 <p>Graphs are isomorphic:</p>
 <p>{s.S1=s.S1, s.N2=s.N3, s.N3=s.N4, s.N4=s.N2}</p>
 <p>removing the num</p>
-<embed type="image/svg+xml" src='SimpleReachabilityGraphIsomorphismTest11.svg'>
-<embed type="image/svg+xml" src='SimpleReachabilityGraphIsomorphismTest12.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"S1 : SimpleState",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N2 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N3 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N4 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S1 : SimpleState",
+            "target":"N2 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S1 : SimpleState",
+            "target":"N3 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S1 : SimpleState",
+            "target":"N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"N2 : Node",
+            "target":"N3 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"next",
+            "targetproperty":"prev",
+            "source":"N2 : Node",
+            "target":"N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"N3 : Node",
+            "target":"N4 : Node"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"S5 : SimpleState",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N6 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N7 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N8 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S5 : SimpleState",
+            "target":"N6 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S5 : SimpleState",
+            "target":"N7 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"S5 : SimpleState",
+            "target":"N8 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"N6 : Node",
+            "target":"N7 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"next",
+            "targetproperty":"prev",
+            "source":"N6 : Node",
+            "target":"N8 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"N7 : Node",
+            "target":"N8 : Node"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Both certificates are again equal: true</p>
 <p>{
   "class":"org.sdmlib.models.patterns.example.Node",

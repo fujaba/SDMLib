@@ -132,3 +132,6 @@ public class SignalFlagSet extends LinkedHashSet<SignalFlag> implements
       return patternObject;
    }
 }
+
+
+

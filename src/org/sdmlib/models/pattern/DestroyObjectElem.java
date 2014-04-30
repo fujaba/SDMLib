@@ -256,3 +256,4 @@ public class DestroyObjectElem extends PatternElement implements
    }
 
 }
+

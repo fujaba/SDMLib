@@ -1,12 +1,11 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
-<script src="includes/graph.js"></script>
 <script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
 <p>StudyRightClassesCodeGen</p>
@@ -49,7 +48,7 @@
          addToDone((Assignment) value);
          return true;
       }
-      
+
       if ((PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromDone((Assignment) value);
@@ -76,7 +75,7 @@
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -116,7 +115,7 @@
       {
          return getMotivation();
       }
-      
+
       return null;
    }</pre><p>7. generate creator classes</p>
 <a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><p>8. generate imports</p>

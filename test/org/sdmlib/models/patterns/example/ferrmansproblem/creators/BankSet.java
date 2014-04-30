@@ -234,3 +234,6 @@ public class BankSet extends LinkedHashSet<Bank> implements
       return patternObject;
    }
 }
+
+
+

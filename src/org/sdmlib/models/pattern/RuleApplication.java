@@ -251,3 +251,4 @@ public class RuleApplication implements PropertyChangeInterface
       return value;
    }
 }
+

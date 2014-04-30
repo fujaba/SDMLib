@@ -8,26 +8,28 @@ import org.sdmlib.examples.studyrightWithAssignments.University;
 public class UniversityCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-   { University.PROPERTY_NAME, University.PROPERTY_STUDENTS,
-         University.PROPERTY_ROOMS, };
-
+   {
+      University.PROPERTY_NAME,
+      University.PROPERTY_STUDENTS,
+      University.PROPERTY_ROOMS,
+   };
+   
    public String[] getProperties()
    {
       return properties;
    }
-
+   
    public Object getSendableInstance(boolean reference)
    {
       return new University();
    }
-
+   
    public Object getValue(Object target, String attrName)
    {
       return ((University) target).get(attrName);
    }
-
-   public boolean setValue(Object target, String attrName, Object value,
-         String type)
+   
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
@@ -35,17 +37,19 @@ public class UniversityCreator extends EntityFactory
       }
       return ((University) target).set(attrName, value);
    }
-
+   
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    @Override
    public void removeObject(Object entity)
    {
       ((University) entity).removeYou();
    }
 }
+

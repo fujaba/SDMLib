@@ -604,3 +604,4 @@ public class Person extends GraphComponent implements PropertyChangeInterface
    }
 
 }
+

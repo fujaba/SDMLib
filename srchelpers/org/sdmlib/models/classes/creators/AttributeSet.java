@@ -195,3 +195,6 @@ public class AttributeSet extends LinkedHashSet<Attribute> implements
       return patternObject;
    }
 }
+
+
+

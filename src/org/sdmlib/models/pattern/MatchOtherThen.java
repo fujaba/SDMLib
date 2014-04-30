@@ -391,3 +391,4 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements
       return value;
    }
 }
+

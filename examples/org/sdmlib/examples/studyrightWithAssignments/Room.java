@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.examples.studyrightWithAssignments;
 
 import org.sdmlib.utils.PropertyChangeInterface;
@@ -35,8 +35,9 @@ import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantS
 public class Room implements PropertyChangeInterface
 {
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public Object get(String attrName)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -82,8 +83,9 @@ public class Room implements PropertyChangeInterface
       return null;
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -115,7 +117,7 @@ public class Room implements PropertyChangeInterface
          addToDoors((Room) value);
          return true;
       }
-
+      
       if ((PROPERTY_DOORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromDoors((Room) value);
@@ -127,7 +129,7 @@ public class Room implements PropertyChangeInterface
          addToStudents((Student) value);
          return true;
       }
-
+      
       if ((PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromStudents((Student) value);
@@ -139,7 +141,7 @@ public class Room implements PropertyChangeInterface
          addToAssignments((Assignment) value);
          return true;
       }
-
+      
       if ((PROPERTY_ASSIGNMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromAssignments((Assignment) value);
@@ -151,7 +153,7 @@ public class Room implements PropertyChangeInterface
          addToTas((TeachingAssistant) value);
          return true;
       }
-
+      
       if ((PROPERTY_TAS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromTas((TeachingAssistant) value);
@@ -161,22 +163,24 @@ public class Room implements PropertyChangeInterface
       return false;
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
+   
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-
-   public void addPropertyChangeListener(PropertyChangeListener listener)
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public void removeYou()
    {
       setUniversity(null);
@@ -187,109 +191,113 @@ public class Room implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   // ==========================================================================
-
-   public void findPath(String p0, int p1)
+   
+   //==========================================================================
+   
+   public void findPath( String p0, int p1 )
    {
-
+      
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_NAME = "name";
-
+   
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-
+   
    public void setName(String value)
    {
-      if (!StrUtil.stringEquals(this.name, value))
+      if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue,
-            value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
-
+   
    public Room withName(String value)
    {
       setName(value);
       return this;
-   }
+   } 
 
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-
+      
       _.append(" ").append(this.getName());
       _.append(" ").append(this.getTopic());
       _.append(" ").append(this.getCredits());
       return _.substring(1);
    }
 
-   // ==========================================================================
 
+   
+   //==========================================================================
+   
    public static final String PROPERTY_TOPIC = "topic";
-
+   
    private String topic;
 
    public String getTopic()
    {
       return this.topic;
    }
-
+   
    public void setTopic(String value)
    {
-      if (!StrUtil.stringEquals(this.topic, value))
+      if ( ! StrUtil.stringEquals(this.topic, value))
       {
          String oldValue = this.topic;
          this.topic = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TOPIC,
-            oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TOPIC, oldValue, value);
       }
    }
-
+   
    public Room withTopic(String value)
    {
       setTopic(value);
       return this;
-   }
+   } 
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_CREDITS = "credits";
-
+   
    private int credits;
 
    public int getCredits()
    {
       return this.credits;
    }
-
+   
    public void setCredits(int value)
    {
       if (this.credits != value)
       {
          int oldValue = this.credits;
          this.credits = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS,
-            oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS, oldValue, value);
       }
    }
-
+   
    public Room withCredits(int value)
    {
       setCredits(value);
       return this;
-   }
+   } 
 
+   
    public static final RoomSet EMPTY_SET = new RoomSet();
 
+   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -297,7 +305,7 @@ public class Room implements PropertyChangeInterface
     *              rooms                   university
     * </pre>
     */
-
+   
    public static final String PROPERTY_UNIVERSITY = "university";
 
    private University university = null;
@@ -310,29 +318,28 @@ public class Room implements PropertyChangeInterface
    public boolean setUniversity(University value)
    {
       boolean changed = false;
-
+      
       if (this.university != value)
       {
          University oldValue = this.university;
-
+         
          if (this.university != null)
          {
             this.university = null;
             oldValue.withoutRooms(this);
          }
-
+         
          this.university = value;
-
+         
          if (value != null)
          {
             value.withRooms(this);
          }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNIVERSITY,
-            oldValue, value);
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
 
@@ -340,15 +347,16 @@ public class Room implements PropertyChangeInterface
    {
       setUniversity(value);
       return this;
-   }
+   } 
 
    public University createUniversity()
    {
       University value = new University();
       withUniversity(value);
       return value;
-   }
+   } 
 
+   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -356,68 +364,66 @@ public class Room implements PropertyChangeInterface
     *              doors                   doors
     * </pre>
     */
-
+   
    public static final String PROPERTY_DOORS = "doors";
 
    private RoomSet doors = null;
-
+   
    public RoomSet getDoors()
    {
       if (this.doors == null)
       {
          return Room.EMPTY_SET;
       }
-
+   
       return this.doors;
    }
-
    public RoomSet getDoorsTransitive()
    {
       RoomSet result = new RoomSet().with(this);
       return result.getDoorsTransitive();
    }
 
+
    public boolean addToDoors(Room value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.doors == null)
          {
             this.doors = new RoomSet();
          }
-
-         changed = this.doors.add(value);
-
+         
+         changed = this.doors.add (value);
+         
          if (changed)
          {
             value.withDoors(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, null,
-               value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, null, value);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public boolean removeFromDoors(Room value)
    {
       boolean changed = false;
-
+      
       if ((this.doors != null) && (value != null))
       {
-         changed = this.doors.remove(value);
-
+         changed = this.doors.remove (value);
+         
          if (changed)
          {
             value.withoutDoors(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS,
-               value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, value, null);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public Room withDoors(Room... value)
@@ -427,7 +433,7 @@ public class Room implements PropertyChangeInterface
          addToDoors(item);
       }
       return this;
-   }
+   } 
 
    public Room withoutDoors(Room... value)
    {
@@ -441,7 +447,7 @@ public class Room implements PropertyChangeInterface
    public void removeAllFromDoors()
    {
       LinkedHashSet<Room> tmpSet = new LinkedHashSet<Room>(this.getDoors());
-
+   
       for (Room value : tmpSet)
       {
          this.removeFromDoors(value);
@@ -453,8 +459,9 @@ public class Room implements PropertyChangeInterface
       Room value = new Room();
       withDoors(value);
       return value;
-   }
+   } 
 
+   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -462,62 +469,60 @@ public class Room implements PropertyChangeInterface
     *              in                   students
     * </pre>
     */
-
+   
    public static final String PROPERTY_STUDENTS = "students";
 
    private StudentSet students = null;
-
+   
    public StudentSet getStudents()
    {
       if (this.students == null)
       {
          return Student.EMPTY_SET;
       }
-
+   
       return this.students;
    }
 
    public boolean addToStudents(Student value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.students == null)
          {
             this.students = new StudentSet();
          }
-
-         changed = this.students.add(value);
-
+         
+         changed = this.students.add (value);
+         
          if (changed)
          {
             value.withIn(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS,
-               null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, null, value);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public boolean removeFromStudents(Student value)
    {
       boolean changed = false;
-
+      
       if ((this.students != null) && (value != null))
       {
-         changed = this.students.remove(value);
-
+         changed = this.students.remove (value);
+         
          if (changed)
          {
             value.setIn(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS,
-               value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, value, null);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public Room withStudents(Student... value)
@@ -527,7 +532,7 @@ public class Room implements PropertyChangeInterface
          addToStudents(item);
       }
       return this;
-   }
+   } 
 
    public Room withoutStudents(Student... value)
    {
@@ -540,9 +545,8 @@ public class Room implements PropertyChangeInterface
 
    public void removeAllFromStudents()
    {
-      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(
-            this.getStudents());
-
+      LinkedHashSet<Student> tmpSet = new LinkedHashSet<Student>(this.getStudents());
+   
       for (Student value : tmpSet)
       {
          this.removeFromStudents(value);
@@ -554,8 +558,9 @@ public class Room implements PropertyChangeInterface
       Student value = new Student();
       withStudents(value);
       return value;
-   }
+   } 
 
+   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -563,62 +568,60 @@ public class Room implements PropertyChangeInterface
     *              room                   assignments
     * </pre>
     */
-
+   
    public static final String PROPERTY_ASSIGNMENTS = "assignments";
 
    private AssignmentSet assignments = null;
-
+   
    public AssignmentSet getAssignments()
    {
       if (this.assignments == null)
       {
          return Assignment.EMPTY_SET;
       }
-
+   
       return this.assignments;
    }
 
    public boolean addToAssignments(Assignment value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.assignments == null)
          {
             this.assignments = new AssignmentSet();
          }
-
-         changed = this.assignments.add(value);
-
+         
+         changed = this.assignments.add (value);
+         
          if (changed)
          {
             value.withRoom(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS,
-               null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, null, value);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public boolean removeFromAssignments(Assignment value)
    {
       boolean changed = false;
-
+      
       if ((this.assignments != null) && (value != null))
       {
-         changed = this.assignments.remove(value);
-
+         changed = this.assignments.remove (value);
+         
          if (changed)
          {
             value.setRoom(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS,
-               value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, value, null);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public Room withAssignments(Assignment... value)
@@ -628,7 +631,7 @@ public class Room implements PropertyChangeInterface
          addToAssignments(item);
       }
       return this;
-   }
+   } 
 
    public Room withoutAssignments(Assignment... value)
    {
@@ -641,9 +644,8 @@ public class Room implements PropertyChangeInterface
 
    public void removeAllFromAssignments()
    {
-      LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(
-            this.getAssignments());
-
+      LinkedHashSet<Assignment> tmpSet = new LinkedHashSet<Assignment>(this.getAssignments());
+   
       for (Assignment value : tmpSet)
       {
          this.removeFromAssignments(value);
@@ -655,8 +657,9 @@ public class Room implements PropertyChangeInterface
       Assignment value = new Assignment();
       withAssignments(value);
       return value;
-   }
+   } 
 
+   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -664,62 +667,60 @@ public class Room implements PropertyChangeInterface
     *              room                   tas
     * </pre>
     */
-
+   
    public static final String PROPERTY_TAS = "tas";
 
    private TeachingAssistantSet tas = null;
-
+   
    public TeachingAssistantSet getTas()
    {
       if (this.tas == null)
       {
          return TeachingAssistant.EMPTY_SET;
       }
-
+   
       return this.tas;
    }
 
    public boolean addToTas(TeachingAssistant value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.tas == null)
          {
             this.tas = new TeachingAssistantSet();
          }
-
-         changed = this.tas.add(value);
-
+         
+         changed = this.tas.add (value);
+         
          if (changed)
          {
             value.withRoom(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, null,
-               value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, null, value);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public boolean removeFromTas(TeachingAssistant value)
    {
       boolean changed = false;
-
+      
       if ((this.tas != null) && (value != null))
       {
-         changed = this.tas.remove(value);
-
+         changed = this.tas.remove (value);
+         
          if (changed)
          {
             value.setRoom(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, value,
-               null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, value, null);
          }
       }
-
-      return changed;
+         
+      return changed;   
    }
 
    public Room withTas(TeachingAssistant... value)
@@ -729,7 +730,7 @@ public class Room implements PropertyChangeInterface
          addToTas(item);
       }
       return this;
-   }
+   } 
 
    public Room withoutTas(TeachingAssistant... value)
    {
@@ -742,9 +743,8 @@ public class Room implements PropertyChangeInterface
 
    public void removeAllFromTas()
    {
-      LinkedHashSet<TeachingAssistant> tmpSet = new LinkedHashSet<TeachingAssistant>(
-            this.getTas());
-
+      LinkedHashSet<TeachingAssistant> tmpSet = new LinkedHashSet<TeachingAssistant>(this.getTas());
+   
       for (TeachingAssistant value : tmpSet)
       {
          this.removeFromTas(value);
@@ -756,5 +756,6 @@ public class Room implements PropertyChangeInterface
       TeachingAssistant value = new TeachingAssistant();
       withTas(value);
       return value;
-   }
+   } 
 }
+

@@ -23,8 +23,6 @@ s11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../
 p12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p12 :Person</u></td></tr></table>>];
 p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p13 :Person</u></td></tr></table>>];
 p14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p14 :Person</u></td></tr></table>>];
-p15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p15 :Person</u></td></tr></table>>];
-p16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/patternrewriteops/Person.java"> <u>p16 :Person</u></td></tr></table>>];
 
 t1 -- t2 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
 s3 -- s4 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
@@ -38,8 +36,6 @@ t2 -- s4 [headlabel = "station" taillabel = "trains"];
 t2 -- p12 [headlabel = "passengers" taillabel = "train"];
 t2 -- p13 [headlabel = "passengers" taillabel = "train"];
 t2 -- p14 [headlabel = "passengers" taillabel = "train"];
-t2 -- p15 [headlabel = "passengers" taillabel = "train"];
-t2 -- p16 [headlabel = "passengers" taillabel = "train"];
 s4 -- s9 [headlabel = "prev" taillabel = "next"];
 s9 -- s10 [headlabel = "prev" taillabel = "next"];
 s10 -- s11 [headlabel = "prev" taillabel = "next"];

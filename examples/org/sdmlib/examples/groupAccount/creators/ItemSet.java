@@ -282,3 +282,6 @@ public class ItemSet extends LinkedHashSet<Item> implements
       return patternObject;
    }
 }
+
+
+

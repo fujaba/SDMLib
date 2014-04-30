@@ -58,6 +58,7 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class ClassModel implements PropertyChangeInterface
 {
@@ -3088,3 +3089,4 @@ public class ClassModel implements PropertyChangeInterface
       return value;
    }
 }
+

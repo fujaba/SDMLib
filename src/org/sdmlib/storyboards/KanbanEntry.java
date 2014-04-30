@@ -871,3 +871,4 @@ public class KanbanEntry implements PropertyChangeInterface,
       return value;
    }
 }
+

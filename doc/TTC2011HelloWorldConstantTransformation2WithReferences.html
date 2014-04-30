@@ -1,13 +1,11 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
 <p>TTC2011HelloWorldConstantTransformation2WithReferences</p>
@@ -15,28 +13,77 @@
 <p>Create class model and generate implementation:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation2ClassDiag.svg'><p>The code that builds and runs the transformation / pattern looks like: </p>
 <pre>      ModelPattern p = new ModelPattern().startCreate();
-      
+
       GreetingPO greetingPO = p.hasElementGreetingPO();
-      
-      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
-      .hasText(&quot;Hello&quot;);
-      
-      PersonPO personPO = greetingPO.hasPerson()
-      .hasName(&quot;TTC Participants&quot;);
+
+      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage()
+         .hasText(&quot;Hello&quot;);
+
+      PersonPO personPO = greetingPO.hasPerson().hasName(&quot;TTC Participants&quot;);
 </pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation2.svg'>
 <p>Check: Constant transformation has match</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation2AfterTransformation.svg'>
 <p>For completeness just the host graph:</p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation2WithReferences12.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"G1 : Greeting",
+            "attributes":[
+            "text="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"G2 : GreetingMessage",
+            "attributes":[
+            "text=Hello"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P3 : Person",
+            "attributes":[
+            "name=TTC Participants"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"greeting",
+            "targetproperty":"greetingMessage",
+            "source":"G1 : Greeting",
+            "target":"G2 : GreetingMessage"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"greeting",
+            "targetproperty":"person",
+            "source":"G1 : Greeting",
+            "target":"P3 : Person"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>For fairness, the java code that does this transformation looks like: </p>
 <pre>      Greeting greeting = new Greeting();
-      
+
       GreetingMessage greetingMessage = greeting.createGreetingMessage()
-      .withText(&quot;Hello&quot;);
-      
-      Person person = greeting.createPerson()
-      .withName(&quot;TTC Participants&quot;);
+         .withText(&quot;Hello&quot;);
+
+      Person person = greeting.createPerson().withName(&quot;TTC Participants&quot;);
 </pre>
 </body>
 </html>

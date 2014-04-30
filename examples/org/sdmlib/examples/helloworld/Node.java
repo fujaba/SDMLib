@@ -931,3 +931,4 @@ public class Node extends GraphComponent implements PropertyChangeInterface
    }
 
 }
+

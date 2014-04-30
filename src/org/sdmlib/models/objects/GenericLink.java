@@ -376,3 +376,4 @@ public class GenericLink implements PropertyChangeInterface
    }
 
 }
+

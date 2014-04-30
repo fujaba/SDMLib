@@ -521,3 +521,4 @@ public class AttributeConstraint extends PatternElement implements
       return value;
    }
 }
+

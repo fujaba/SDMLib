@@ -143,3 +143,6 @@ public class GreetingMessageSet extends LinkedHashSet<GreetingMessage>
       return patternObject;
    }
 }
+
+
+

@@ -19,50 +19,54 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
    public UniversitySet allMatches()
    {
       this.setDoAllMatches(true);
-
+      
       UniversitySet matches = new UniversitySet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((University) this.getCurrentMatch());
-
+         
          this.getPattern().findMatch();
       }
-
+      
       return matches;
    }
-
+   
    public UniversityPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-         .withAttrName(University.PROPERTY_NAME).withTgtValue(value)
-         .withSrc(this).withModifier(this.getPattern().getModifier())
-         .withPattern(this.getPattern());
-
+      .withAttrName(University.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
       this.getPattern().findMatch();
-
+      
       return this;
    }
-
+   
    public UniversityPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-         .withAttrName(University.PROPERTY_NAME).withTgtValue(lower)
-         .withUpperTgtValue(upper).withSrc(this)
-         .withModifier(this.getPattern().getModifier())
-         .withPattern(this.getPattern());
-
+      .withAttrName(University.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
       this.getPattern().findMatch();
-
+      
       return this;
    }
-
+   
    public UniversityPO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-
+   
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -71,7 +75,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       }
       return null;
    }
-
+   
    public UniversityPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -80,14 +84,14 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       }
       return this;
    }
-
+   
    public StudentPO hasStudents()
    {
       StudentPO result = new StudentPO();
       result.setModifier(this.getPattern().getModifier());
-
+      
       super.hasLink(University.PROPERTY_STUDENTS, result);
-
+      
       return result;
    }
 
@@ -119,9 +123,9 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
    {
       RoomPO result = new RoomPO();
       result.setModifier(this.getPattern().getModifier());
-
+      
       super.hasLink(University.PROPERTY_ROOMS, result);
-
+      
       return result;
    }
 
@@ -150,3 +154,4 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
    }
 
 }
+

@@ -652,3 +652,4 @@ public class Method implements PropertyChangeInterface
       return value;
    }
 }
+

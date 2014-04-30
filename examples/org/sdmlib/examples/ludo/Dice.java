@@ -252,3 +252,4 @@ public class Dice implements PropertyChangeInterface
       return value;
    }
 }
+

@@ -291,7 +291,7 @@ public class ReplicationChannel extends Thread implements
       JsonObject jsonObject = new JsonObject();
       jsonObject.put(SharedSpace.PROPERTY_SPACEID, spaceId);
 
-      String line = jsonObject.toString();
+      String line = jsonObject.toString() + "\n";
       this.send(line);
    }
 }

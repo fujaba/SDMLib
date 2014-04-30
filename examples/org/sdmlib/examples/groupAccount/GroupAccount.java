@@ -353,3 +353,4 @@ public class GroupAccount implements PropertyChangeInterface
       return this;
    }
 }
+

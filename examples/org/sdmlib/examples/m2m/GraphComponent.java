@@ -185,3 +185,4 @@ public class GraphComponent implements PropertyChangeInterface
       return value;
    }
 }
+

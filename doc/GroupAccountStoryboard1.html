@@ -1,37 +1,327 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/groupAccount/GroupAccountTests.java' type='text/x-java'>GroupAccountStoryboard1</a></p>
 <p>GroupAccountStoryboard1</p>
-<embed type="image/svg+xml" src='GroupAccountStoryboard12.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"G1 : GroupAccount",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"P2 : Person",
+            "attributes":[
+            "name=Albert",
+               "balance=0.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P4 : Person",
+            "attributes":[
+            "name=Nina",
+               "balance=0.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P6 : Person",
+            "attributes":[
+            "name=Artjom",
+               "balance=0.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"I3 : Item",
+            "attributes":[
+            "description=Beer",
+               "value=12.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"I5 : Item",
+            "attributes":[
+            "description=Bread",
+               "value=3.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"I7 : Item",
+            "attributes":[
+            "description=Meat",
+               "value=6.0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"persons",
+            "source":"G1 : GroupAccount",
+            "target":"P2 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"persons",
+            "source":"G1 : GroupAccount",
+            "target":"P4 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"persons",
+            "source":"G1 : GroupAccount",
+            "target":"P6 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"items",
+            "source":"G1 : GroupAccount",
+            "target":"I3 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"items",
+            "source":"G1 : GroupAccount",
+            "target":"I5 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"items",
+            "source":"G1 : GroupAccount",
+            "target":"I7 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"buyer",
+            "targetproperty":"items",
+            "source":"P2 : Person",
+            "target":"I3 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"buyer",
+            "targetproperty":"items",
+            "source":"P4 : Person",
+            "target":"I5 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"buyer",
+            "targetproperty":"items",
+            "source":"P6 : Person",
+            "target":"I7 : Item"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>We call updateBalances() to compute the correct balances.
 </p>
 <pre>      g1.updateBalances();
 </pre><p>Now see updateBalances() as code: </p>
-<pre>   public void updateBalances(  )
+<pre>   public void updateBalances()
    {
       double total = this.getItems().getValue().sum();
-      
+
       double share = total &#x2F; this.getPersons().size();
-      
-      for (Person person : this.getPersons() )
+
+      for (Person person : this.getPersons())
       {
          double personTotal = person.getItems().getValue().sum();
-         
+
          double personBalance = personTotal - share;
-         
+
          person.withBalance(personBalance);
       }
    }</pre><p>The effects of executing updateBalances() is shown in: </p>
-<embed type="image/svg+xml" src='GroupAccountStoryboard18.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"G1 : GroupAccount",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"P2 : Person",
+            "attributes":[
+            "name=Albert",
+               "balance=5.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P4 : Person",
+            "attributes":[
+            "name=Nina",
+               "balance=-4.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P6 : Person",
+            "attributes":[
+            "name=Artjom",
+               "balance=-1.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"I3 : Item",
+            "attributes":[
+            "description=Beer",
+               "value=12.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"I5 : Item",
+            "attributes":[
+            "description=Bread",
+               "value=3.0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"I7 : Item",
+            "attributes":[
+            "description=Meat",
+               "value=6.0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"persons",
+            "source":"G1 : GroupAccount",
+            "target":"P2 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"persons",
+            "source":"G1 : GroupAccount",
+            "target":"P4 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"persons",
+            "source":"G1 : GroupAccount",
+            "target":"P6 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"items",
+            "source":"G1 : GroupAccount",
+            "target":"I3 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"items",
+            "source":"G1 : GroupAccount",
+            "target":"I5 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"parent",
+            "targetproperty":"items",
+            "source":"G1 : GroupAccount",
+            "target":"I7 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"buyer",
+            "targetproperty":"items",
+            "source":"P2 : Person",
+            "target":"I3 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"buyer",
+            "targetproperty":"items",
+            "source":"P4 : Person",
+            "target":"I5 : Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"buyer",
+            "targetproperty":"items",
+            "source":"P6 : Person",
+            "target":"I7 : Item"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Check: Balance for Albert is now 5.0</p>
 <p>Check: The sum of all balances is 0.0</p>
 <p>Check: Found one person with name Albert 1.0</p>

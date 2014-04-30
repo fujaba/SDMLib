@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -36,19 +36,21 @@ import org.sdmlib.examples.studyrightWithAssignments.Room;
 public class UniversitySet extends SDMSet<University>
 {
 
+
    public UniversityPO hasUniversityPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
-
+      
       UniversityPO patternObject = pattern.hasElementUniversityPO();
-
+      
       patternObject.withCandidates(this.clone());
-
+      
       pattern.setHasMatch(true);
       pattern.findMatch();
-
+      
       return patternObject;
    }
+
 
    @Override
    public String getEntryType()
@@ -56,20 +58,21 @@ public class UniversitySet extends SDMSet<University>
       return "org.sdmlib.examples.studyrightWithAssignments.University";
    }
 
+
    public UniversitySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<University>) value);
+         this.addAll((Collection<University>)value);
       }
       else if (value != null)
       {
          this.add((University) value);
       }
-
+      
       return this;
    }
-
+   
    public UniversitySet without(University value)
    {
       this.remove(value);
@@ -79,19 +82,19 @@ public class UniversitySet extends SDMSet<University>
    public StringList getName()
    {
       StringList result = new StringList();
-
+      
       for (University obj : this)
       {
          result.add(obj.getName());
       }
-
+      
       return result;
    }
 
    public UniversitySet hasName(String value)
    {
       UniversitySet result = new UniversitySet();
-
+      
       for (University obj : this)
       {
          if (value.equals(obj.getName()))
@@ -99,23 +102,22 @@ public class UniversitySet extends SDMSet<University>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public UniversitySet hasName(String lower, String upper)
    {
       UniversitySet result = new UniversitySet();
-
+      
       for (University obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0
-            && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -125,19 +127,19 @@ public class UniversitySet extends SDMSet<University>
       {
          obj.setName(value);
       }
-
+      
       return this;
    }
 
    public StudentSet getStudents()
    {
       StudentSet result = new StudentSet();
-
+      
       for (University obj : this)
       {
          result.with(obj.getStudents());
       }
-
+      
       return result;
    }
 
@@ -153,17 +155,17 @@ public class UniversitySet extends SDMSet<University>
       {
          neighbors.add(value);
       }
-
+      
       UniversitySet answer = new UniversitySet();
-
+      
       for (University obj : this)
       {
-         if (!Collections.disjoint(neighbors, obj.getStudents()))
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
          {
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -173,7 +175,7 @@ public class UniversitySet extends SDMSet<University>
       {
          obj.withStudents(value);
       }
-
+      
       return this;
    }
 
@@ -183,19 +185,19 @@ public class UniversitySet extends SDMSet<University>
       {
          obj.withoutStudents(value);
       }
-
+      
       return this;
    }
 
    public RoomSet getRooms()
    {
       RoomSet result = new RoomSet();
-
+      
       for (University obj : this)
       {
          result.with(obj.getRooms());
       }
-
+      
       return result;
    }
 
@@ -211,17 +213,17 @@ public class UniversitySet extends SDMSet<University>
       {
          neighbors.add(value);
       }
-
+      
       UniversitySet answer = new UniversitySet();
-
+      
       for (University obj : this)
       {
-         if (!Collections.disjoint(neighbors, obj.getRooms()))
+         if ( ! Collections.disjoint(neighbors, obj.getRooms()))
          {
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -231,7 +233,7 @@ public class UniversitySet extends SDMSet<University>
       {
          obj.withRooms(value);
       }
-
+      
       return this;
    }
 
@@ -241,8 +243,9 @@ public class UniversitySet extends SDMSet<University>
       {
          obj.withoutRooms(value);
       }
-
+      
       return this;
    }
 
 }
+

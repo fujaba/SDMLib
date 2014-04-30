@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.examples.studyrightWithAssignments.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -42,20 +42,21 @@ import org.sdmlib.examples.studyrightWithAssignments.Student;
 public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
 {
 
+
    public TeachingAssistantPO hasTeachingAssistantPO()
    {
       org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern();
-
-      TeachingAssistantPO patternObject = pattern
-         .hasElementTeachingAssistantPO();
-
+      
+      TeachingAssistantPO patternObject = pattern.hasElementTeachingAssistantPO();
+      
       patternObject.withCandidates(this.clone());
-
+      
       pattern.setHasMatch(true);
       pattern.findMatch();
-
+      
       return patternObject;
    }
+
 
    @Override
    public String getEntryType()
@@ -63,20 +64,21 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return "org.sdmlib.examples.studyrightWithAssignments.TeachingAssistant";
    }
 
+
    public TeachingAssistantSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<TeachingAssistant>) value);
+         this.addAll((Collection<TeachingAssistant>)value);
       }
       else if (value != null)
       {
          this.add((TeachingAssistant) value);
       }
-
+      
       return this;
    }
-
+   
    public TeachingAssistantSet without(TeachingAssistant value)
    {
       this.remove(value);
@@ -86,19 +88,19 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
    public booleanList getCertified()
    {
       booleanList result = new booleanList();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.add(obj.getCertified());
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasCertified(boolean value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (value == obj.getCertified())
@@ -106,7 +108,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -116,26 +118,26 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.setCertified(value);
       }
-
+      
       return this;
    }
 
    public StringList getName()
    {
       StringList result = new StringList();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.add(obj.getName());
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasName(String value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (value.equals(obj.getName()))
@@ -143,23 +145,22 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasName(String lower, String upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
-         if (lower.compareTo(obj.getName()) <= 0
-            && obj.getName().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -169,26 +170,26 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.setName(value);
       }
-
+      
       return this;
    }
 
    public StringList getId()
    {
       StringList result = new StringList();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.add(obj.getId());
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasId(String value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (value.equals(obj.getId()))
@@ -196,23 +197,22 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasId(String lower, String upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
-         if (lower.compareTo(obj.getId()) <= 0
-            && obj.getId().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getId()) <= 0 && obj.getId().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -222,26 +222,26 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.setId(value);
       }
-
+      
       return this;
    }
 
    public intList getAssignmentPoints()
    {
       intList result = new intList();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.add(obj.getAssignmentPoints());
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasAssignmentPoints(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (value == obj.getAssignmentPoints())
@@ -249,23 +249,22 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasAssignmentPoints(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
-         if (lower <= obj.getAssignmentPoints()
-            && obj.getAssignmentPoints() <= upper)
+         if (lower <= obj.getAssignmentPoints() && obj.getAssignmentPoints() <= upper)
          {
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -275,26 +274,26 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.setAssignmentPoints(value);
       }
-
+      
       return this;
    }
 
    public intList getMotivation()
    {
       intList result = new intList();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.add(obj.getMotivation());
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasMotivation(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (value == obj.getMotivation())
@@ -302,14 +301,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasMotivation(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (lower <= obj.getMotivation() && obj.getMotivation() <= upper)
@@ -317,7 +316,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -327,26 +326,26 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.setMotivation(value);
       }
-
+      
       return this;
    }
 
    public intList getCredits()
    {
       intList result = new intList();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.add(obj.getCredits());
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasCredits(int value)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (value == obj.getCredits())
@@ -354,14 +353,14 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
    public TeachingAssistantSet hasCredits(int lower, int upper)
    {
       TeachingAssistantSet result = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (lower <= obj.getCredits() && obj.getCredits() <= upper)
@@ -369,7 +368,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             result.add(obj);
          }
       }
-
+      
       return result;
    }
 
@@ -379,19 +378,19 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.setCredits(value);
       }
-
+      
       return this;
    }
 
    public UniversitySet getUniversity()
    {
       UniversitySet result = new UniversitySet();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.with(obj.getUniversity());
       }
-
+      
       return result;
    }
 
@@ -407,9 +406,9 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          neighbors.add(value);
       }
-
+      
       TeachingAssistantSet answer = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (neighbors.contains(obj.getUniversity()))
@@ -417,7 +416,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -427,19 +426,19 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.withUniversity(value);
       }
-
+      
       return this;
    }
 
    public RoomSet getIn()
    {
       RoomSet result = new RoomSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.with(obj.getIn());
       }
-
+      
       return result;
    }
 
@@ -455,9 +454,9 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          neighbors.add(value);
       }
-
+      
       TeachingAssistantSet answer = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (neighbors.contains(obj.getIn()))
@@ -465,7 +464,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -475,19 +474,19 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.withIn(value);
       }
-
+      
       return this;
    }
 
    public AssignmentSet getDone()
    {
       AssignmentSet result = new AssignmentSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.with(obj.getDone());
       }
-
+      
       return result;
    }
 
@@ -503,17 +502,17 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          neighbors.add(value);
       }
-
+      
       TeachingAssistantSet answer = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
-         if (!Collections.disjoint(neighbors, obj.getDone()))
+         if ( ! Collections.disjoint(neighbors, obj.getDone()))
          {
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -523,7 +522,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.withDone(value);
       }
-
+      
       return this;
    }
 
@@ -533,19 +532,19 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.withoutDone(value);
       }
-
+      
       return this;
    }
 
    public StudentSet getFriends()
    {
       StudentSet result = new StudentSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.with(obj.getFriends());
       }
-
+      
       return result;
    }
 
@@ -561,40 +560,41 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          neighbors.add(value);
       }
-
+      
       TeachingAssistantSet answer = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
-         if (!Collections.disjoint(neighbors, obj.getFriends()))
+         if ( ! Collections.disjoint(neighbors, obj.getFriends()))
          {
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
+
 
    public StudentSet getFriendsTransitive()
    {
       StudentSet todo = new StudentSet().with(this);
-
+      
       StudentSet result = new StudentSet();
-
-      while (!todo.isEmpty())
+      
+      while ( ! todo.isEmpty())
       {
          Student current = todo.first();
-
+         
          todo.remove(current);
-
-         if (!result.contains(current))
+         
+         if ( ! result.contains(current))
          {
             result.add(current);
-
+            
             todo.with(current.getFriends().minus(result));
          }
       }
-
+      
       return result;
    }
 
@@ -604,7 +604,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.withFriends(value);
       }
-
+      
       return this;
    }
 
@@ -614,19 +614,19 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.withoutFriends(value);
       }
-
+      
       return this;
    }
 
    public RoomSet getRoom()
    {
       RoomSet result = new RoomSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          result.with(obj.getRoom());
       }
-
+      
       return result;
    }
 
@@ -642,9 +642,9 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          neighbors.add(value);
       }
-
+      
       TeachingAssistantSet answer = new TeachingAssistantSet();
-
+      
       for (TeachingAssistant obj : this)
       {
          if (neighbors.contains(obj.getRoom()))
@@ -652,7 +652,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
             answer.add(obj);
          }
       }
-
+      
       return answer;
    }
 
@@ -662,8 +662,9 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       {
          obj.withRoom(value);
       }
-
+      
       return this;
    }
 
 }
+

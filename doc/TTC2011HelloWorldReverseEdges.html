@@ -1,60 +1,1609 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldReverseEdges</a></p>
 <p>TTC2011HelloWorldReverseEdges</p>
 <hr/><p>create example graph: </p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldReverseEdges4.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"hg.G1 : Graph",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N2 : Node",
+            "attributes":[
+            "name=n1",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N4 : Node",
+            "attributes":[
+            "name=n2",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N6 : Node",
+            "attributes":[
+            "name=n3",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N9 : Node",
+            "attributes":[
+            "name=n4",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N11 : Node",
+            "attributes":[
+            "name=n5",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N15 : Node",
+            "attributes":[
+            "name=n6",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N16 : Node",
+            "attributes":[
+            "name=n7",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N17 : Node",
+            "attributes":[
+            "name=n8",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E12 : Edge",
+            "attributes":[
+            "tgt=",
+               "name=e18",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E14 : Edge",
+            "attributes":[
+            "src=",
+               "name=e19",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E3 : Edge",
+            "attributes":[
+            "name=e10",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E5 : Edge",
+            "attributes":[
+            "name=e11",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E7 : Edge",
+            "attributes":[
+            "name=e12",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E8 : Edge",
+            "attributes":[
+            "name=e13",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E10 : Edge",
+            "attributes":[
+            "name=e14",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E13 : Edge",
+            "attributes":[
+            "name=e15",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E18 : Edge",
+            "attributes":[
+            "name=e16",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E19 : Edge",
+            "attributes":[
+            "name=e17",
+               "text=",
+               "parent="
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N2 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N6 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N9 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N11 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N15 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N16 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N17 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E12 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E14 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E3 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E5 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E8 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E10 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E19 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N2 : Node",
+            "target":"hg.E3 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N2 : Node",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E3 : Edge",
+            "target":"hg.N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N4 : Node",
+            "target":"hg.E5 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E5 : Edge",
+            "target":"hg.N6 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N6 : Node",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N6 : Node",
+            "target":"hg.E8 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N6 : Node",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E8 : Edge",
+            "target":"hg.N9 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N9 : Node",
+            "target":"hg.E10 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E10 : Edge",
+            "target":"hg.N11 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N11 : Node",
+            "target":"hg.E12 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N11 : Node",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N11 : Node",
+            "target":"hg.E14 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"outEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"outEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E19 : Edge"
+         },
+         {
+            "typ":"edge",
+            "targetcardinality":"n",
+            "targetproperty":"inEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "targetcardinality":"n",
+            "targetproperty":"inEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E19 : Edge"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <hr/><h2>Reverse Edges per pattern: </h2><pre>   public void reverseEdgesPerPattern(Graph graph)
    {
       ModelPattern p = new ModelPattern();
-      
+
       EdgePO edgesPO = p.hasElementGraphPO(graph).hasEdges();
-      
+
       NodePO srcPO = edgesPO.hasSrc();
-      
+
       NodePO tgtPO = edgesPO.hasTgt();
-      
+
       p.startCreate();
-      
+
       edgesPO.hasSrc(tgtPO);
-      
+
       edgesPO.hasTgt(srcPO);
-      
+
       systemout = &quot;Number of reversed edges: &quot; + p.allMatches();
    }</pre><embed type="image/svg+xml"src='reverseEdgesPerPattern.svg'>
 <embed type="image/svg+xml"src='reverseEdgesPerPatternWithMatch.svg'>
 <p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldReverseEdges11.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"hg.G1 : Graph",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N2 : Node",
+            "attributes":[
+            "name=n1",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N6 : Node",
+            "attributes":[
+            "name=n2",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N4 : Node",
+            "attributes":[
+            "name=n3",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N12 : Node",
+            "attributes":[
+            "name=n4",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N9 : Node",
+            "attributes":[
+            "name=n5",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N15 : Node",
+            "attributes":[
+            "name=n6",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N16 : Node",
+            "attributes":[
+            "name=n7",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N17 : Node",
+            "attributes":[
+            "name=n8",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E10 : Edge",
+            "attributes":[
+            "tgt=",
+               "name=e18",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E14 : Edge",
+            "attributes":[
+            "src=",
+               "name=e19",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E7 : Edge",
+            "attributes":[
+            "name=e10",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E5 : Edge",
+            "attributes":[
+            "name=e11",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E3 : Edge",
+            "attributes":[
+            "name=e12",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E13 : Edge",
+            "attributes":[
+            "name=e13",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E11 : Edge",
+            "attributes":[
+            "name=e14",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E8 : Edge",
+            "attributes":[
+            "name=e15",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E18 : Edge",
+            "attributes":[
+            "name=e16",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E19 : Edge",
+            "attributes":[
+            "name=e17",
+               "text=",
+               "parent="
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N2 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N6 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N12 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N9 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N15 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N16 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N17 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E10 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E14 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E5 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E3 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E11 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E8 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E19 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N2 : Node",
+            "target":"hg.E3 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N2 : Node",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E3 : Edge",
+            "target":"hg.N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N4 : Node",
+            "target":"hg.E5 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N4 : Node",
+            "target":"hg.E8 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N4 : Node",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E5 : Edge",
+            "target":"hg.N6 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N6 : Node",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E8 : Edge",
+            "target":"hg.N9 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N9 : Node",
+            "target":"hg.E10 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N9 : Node",
+            "target":"hg.E11 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N9 : Node",
+            "target":"hg.E14 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E11 : Edge",
+            "target":"hg.N12 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N12 : Node",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"outEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"outEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E19 : Edge"
+         },
+         {
+            "typ":"edge",
+            "targetcardinality":"n",
+            "targetproperty":"inEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "targetcardinality":"n",
+            "targetproperty":"inEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E19 : Edge"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Number of reversed edges: 8</p>
 <h2>Reverse Edges (back) in Java: </h2>: <pre>   public void reverseEdgesInJava(Graph graph)
    {
       int noOfMatches = 0;
-      
+
       for (Edge edge : graph.getEdges())
       {
          Node src = edge.getSrc();
-         
+
          Node tgt = edge.getTgt();
-         
+
          edge.setSrc(tgt);
-         
+
          edge.setTgt(src);
-         
+
          noOfMatches++;
       }
-      
+
       systemout = &quot;Number of reversed edges: &quot; + noOfMatches;
    }</pre><p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldReverseEdges16.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"hg.G1 : Graph",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N2 : Node",
+            "attributes":[
+            "name=n1",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N4 : Node",
+            "attributes":[
+            "name=n2",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N6 : Node",
+            "attributes":[
+            "name=n3",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N9 : Node",
+            "attributes":[
+            "name=n4",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N11 : Node",
+            "attributes":[
+            "name=n5",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N15 : Node",
+            "attributes":[
+            "name=n6",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N16 : Node",
+            "attributes":[
+            "name=n7",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.N17 : Node",
+            "attributes":[
+            "name=n8",
+               "orig=",
+               "copy=",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E14 : Edge",
+            "attributes":[
+            "src=",
+               "name=e18",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E12 : Edge",
+            "attributes":[
+            "tgt=",
+               "name=e19",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E3 : Edge",
+            "attributes":[
+            "name=e10",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E5 : Edge",
+            "attributes":[
+            "name=e11",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E7 : Edge",
+            "attributes":[
+            "name=e12",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E8 : Edge",
+            "attributes":[
+            "name=e13",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E10 : Edge",
+            "attributes":[
+            "name=e14",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E13 : Edge",
+            "attributes":[
+            "name=e15",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E18 : Edge",
+            "attributes":[
+            "name=e16",
+               "text=",
+               "parent="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"hg.E19 : Edge",
+            "attributes":[
+            "name=e17",
+               "text=",
+               "parent="
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N2 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N6 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N9 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N11 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N15 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N16 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"nodes",
+            "source":"hg.G1 : Graph",
+            "target":"hg.N17 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E14 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E12 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E3 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E5 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E8 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E10 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"hg.G1 : Graph",
+            "target":"hg.E19 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N2 : Node",
+            "target":"hg.E3 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N2 : Node",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E3 : Edge",
+            "target":"hg.N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N4 : Node",
+            "target":"hg.E5 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E5 : Edge",
+            "target":"hg.N6 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N6 : Node",
+            "target":"hg.E7 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N6 : Node",
+            "target":"hg.E8 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N6 : Node",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E8 : Edge",
+            "target":"hg.N9 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N9 : Node",
+            "target":"hg.E10 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"hg.E10 : Edge",
+            "target":"hg.N11 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N11 : Node",
+            "target":"hg.E12 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"hg.N11 : Node",
+            "target":"hg.E13 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"hg.N11 : Node",
+            "target":"hg.E14 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"outEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"tgt",
+            "targetproperty":"outEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E19 : Edge"
+         },
+         {
+            "typ":"edge",
+            "targetcardinality":"n",
+            "targetproperty":"inEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E18 : Edge"
+         },
+         {
+            "typ":"edge",
+            "targetcardinality":"n",
+            "targetproperty":"inEdges",
+            "source":"hg.N17 : Node",
+            "target":"hg.E19 : Edge"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Number of reversed edges: 10</p>
 
 </body>

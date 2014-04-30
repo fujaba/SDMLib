@@ -10,7 +10,6 @@
     _Dice [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/ludo/Dice.java">Dice</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>value :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Field [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/ludo/Field.java">Field</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>color :String</td></tr> <tr><td align='left'>kind :String</td></tr> <tr><td align='left'>x :int</td></tr> <tr><td align='left'>y :int</td></tr> <tr><td align='left'>point :Point</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Pawn [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/ludo/Pawn.java">Pawn</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>color :String</td></tr> <tr><td align='left'>x :int</td></tr> <tr><td align='left'>y :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Date [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/java/util/Date.java">Date</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _LudoColor [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../examples/org/sdmlib/examples/ludo/LudoModel/LudoColor.java">LudoColor</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
@@ -27,7 +26,6 @@
     _Player -> _Field [headlabel = "landing" taillabel = "lander" arrowhead = "none" ];
     _Player -> _Pawn [headlabel = "pawns *" taillabel = "player" arrowhead = "none" ];
     _Pawn -> _Field [headlabel = "pos" taillabel = "pawns *" arrowhead = "none" ];
-    _Ludo -> _Date [headlabel = "date" taillabel = "" arrowhead = "vee" ];
     _Player -> _LudoColor [headlabel = "enumColor" taillabel = "" arrowhead = "vee" ];
     _Field -> _Point [headlabel = "point" taillabel = "" arrowhead = "vee" ];
 }

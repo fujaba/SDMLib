@@ -37,6 +37,7 @@ import org.sdmlib.serialization.interfaces.SendableEntityCreator;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+import java.beans.PropertyChangeListener;
 
 public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
 {
@@ -1467,3 +1468,4 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       return value;
    }
 }
+

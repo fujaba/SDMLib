@@ -356,3 +356,4 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
    }
 
 }
+

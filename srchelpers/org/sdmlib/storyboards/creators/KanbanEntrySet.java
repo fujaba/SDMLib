@@ -210,3 +210,6 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements
       return patternObject;
    }
 }
+
+
+

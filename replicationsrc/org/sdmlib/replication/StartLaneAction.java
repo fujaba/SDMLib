@@ -46,9 +46,14 @@ public class StartLaneAction
             rootPath = resource.getFile().replace("file:", "");
          }
          command = new String[]
-               { rootPath, "java", "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=" + debugSocket
-               + ",server=y,suspend=n", "-Dfile.encoding=UTF-8", "-classpath "
-                     + System.getProperty("java.class.path"), laneApplicationClassName, Integer.toString(serverPort), name };
+               { rootPath, 
+               "java", 
+               "-Xdebug", 
+               "-Xrunjdwp:transport=dt_socket,address=" + debugSocket + ",server=y,suspend=y", 
+               "-Dfile.encoding=UTF-8",
+               "-classpath",
+               System.getProperty("java.class.path") , 
+               laneApplicationClassName, Integer.toString(serverPort), name };
          
          ProcessBuilder processBuilder = new ProcessBuilder(command);
          processBuilder.redirectErrorStream(true);

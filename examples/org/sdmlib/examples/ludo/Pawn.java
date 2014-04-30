@@ -336,3 +336,4 @@ public class Pawn implements PropertyChangeInterface
       return value;
    }
 }
+

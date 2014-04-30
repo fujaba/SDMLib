@@ -292,3 +292,6 @@ public class PersonSet extends LinkedHashSet<Person> implements
       return patternObject;
    }
 }
+
+
+
