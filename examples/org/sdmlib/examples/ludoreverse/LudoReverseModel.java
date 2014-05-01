@@ -1,75 +1,58 @@
 package org.sdmlib.examples.ludoreverse;
 
-import static org.sdmlib.models.classes.Role.R.MANY;
-import static org.sdmlib.models.classes.Role.R.ONE;
-
 import java.awt.Point;
 
 import org.junit.Test;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.DataType;
 
 public class LudoReverseModel
-{
-   private static final String INT = "int";
-   private static final String STRING = "String";
-   
+{  
    
    @Test
    public void LudoModelCreation()
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
 
-      Clazz ludo = model.createClazz("Ludo", 
-         "style", STRING, 
-         "age", "int");
+      Clazz ludo = model.createClazz("Ludo")
+            .withAttribute("style", DataType.STRING)
+            .withAttribute("age", DataType.INT);
       
-      Clazz point = model.createClazz(Point.class.getName(),
-         "x", INT,
-         "y", INT
-         ).withWrapped(true);
+      Clazz point = model.createClazz(Point.class.getName())
+            .withAttribute("x", DataType.INT)
+            .withAttribute("y", DataType.INT)
+            .withExternal(true);
       
-      
+      Clazz player = model.createClazz("Player")
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("color", DataType.STRING)
+            .withAssoc(ludo, "players", Card.MANY, "game", Card.ONE);
 
-      Clazz player = ludo.createClassAndAssoc("Player",
-         "players", MANY,
-         "game", ONE 
-            );
-
-      player.withAttributes(
-         "name", "String", 
-         "color", "String");
-
-      model.generate("examples", "examplehelpers");
+      model.generate("examples");
    }
 
    @Test
    public void LudoModelReverse()
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
+      
+      Clazz ludoClass = model.createClazz("Ludo")
+            .withAttribute("style", DataType.STRING)
+            .withAttribute("age", DataType.INT)
+            .withMethod("toString");
+      
+      Clazz playerClass = model.createClazz("Player")
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("color", DataType.STRING)
+            .withAssoc(ludoClass, "players", Card.MANY, "game", Card.ONE)
+            .withMethod("toString");
 
-      Clazz ludoClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Ludo")
-      .withAttribute("style", "String")
-      .withAttribute("age", "int");
-
-      new Method()
-			.withClazz(ludoClass)
-			.withSignature("toString()");
-
-      Clazz playerClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Player")
-      .withAttribute("name", "String")
-      .withAttribute("color", "String");
-
-      new Method()
-			.withClazz(playerClass)
-			.withSignature("toString()");
-
-      ludoClass.withAssoc(playerClass, "players", MANY, "game", ONE);
-
-      model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludoreverse.model");
-
-      model.insertModelCreationCodeHere("examples");
+      //TODO: FIX integrate Reverse Engineering Module
+//      model.updateFromCode("examples", "org.sdmlib.examples.ludoreverse.model");
+//
+//      model.insertModelCreationCodeHere();
    }
 }
 

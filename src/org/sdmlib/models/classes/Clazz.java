@@ -424,6 +424,11 @@ public class Clazz extends SDMLibClass
 
       return changed;   
    }
+   
+   public Clazz withMethod(String name)
+   {
+      return with(new Method(name));
+   }
 
    public Clazz withMethod(String name, DataType returnType, Parameter... parameters)
    {
@@ -653,5 +658,4 @@ public class Clazz extends SDMLibClass
       with(attribute);
       return attribute;
    }
-
 }
