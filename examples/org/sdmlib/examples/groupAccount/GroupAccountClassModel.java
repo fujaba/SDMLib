@@ -8,6 +8,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Parameter;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.storyboards.Storyboard;
 
 public class GroupAccountClassModel
@@ -20,7 +21,7 @@ public class GroupAccountClassModel
       storyboard.setSprint("Sprint.002.Examples"); 
       
       storyboard.add("Start situation: Nothing here yet. Generate classes",
-         DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);
+         SDMLibConfig.DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.examples.groupAccount.model");
       
@@ -66,12 +67,4 @@ public class GroupAccountClassModel
       
       storyboard.dumpHTML();
    }
-
-   private static final String MODELING = "modeling";
-   private static final String ACTIVE = "active";
-   private static final String DONE = "done";
-   private static final String IMPLEMENTATION = "implementation";
-   private static final String BACKLOG = "backlog";
-
-
 }

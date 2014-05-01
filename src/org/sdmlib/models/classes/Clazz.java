@@ -425,9 +425,9 @@ public class Clazz extends SDMLibClass
       return changed;   
    }
 
-   public Clazz withMethod(DataType returnType, Parameter parameters)
+   public Clazz withMethod(String name, DataType returnType, Parameter... parameters)
    {
-      return with(new Method(returnType, parameters));
+      return with(new Method(name, returnType, parameters));
    } 
 
    public Clazz withoutMethods(Method value)

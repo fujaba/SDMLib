@@ -7,6 +7,7 @@ public class SDMLibConfig
    public static final String DONE = "done";
    public static final String IMPLEMENTATION = "implementation";
    public static final String BACKLOG = "backlog";
+
    public static final String BUG = "bug";
    public static final String ISSUE = "issue";
    
