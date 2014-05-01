@@ -47,12 +47,18 @@ public class Method extends SDMLibClass
       sb.append(this.getName()+"(");
       boolean first=true;
       int i = 0;
+      
       for(Parameter parameter : getParameters()){
+        
          if(first){
             sb.append(getParameterSignature(parameter, i));
             first=false;
          }else{
             sb.append(getParameterSignature(parameter, i));
+         }
+         
+         if ( i < getParameters().size()-1 ) {
+            sb.append(", ");
          }
          i++;
       }
