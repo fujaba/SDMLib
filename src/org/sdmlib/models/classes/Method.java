@@ -76,7 +76,7 @@ public class Method extends SDMLibClass
       
    }
    
-   public Method(DataType returnType, Parameter... parameters)
+   public Method(String name, DataType returnType, Parameter... parameters)
    {
       this.withParameter(parameters);
       this.setReturnType(returnType);

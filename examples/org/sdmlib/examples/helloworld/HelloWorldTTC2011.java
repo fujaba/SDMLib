@@ -110,27 +110,27 @@ public class HelloWorldTTC2011
       
       ClassModel model = new ClassModel();
       
-      Clazz greetingClazz = new Clazz("org.sdmlib.examples.helloworld.Greeting");
+      Clazz greetingClazz = model.createClazz("org.sdmlib.examples.helloworld.Greeting");
       
-      Clazz greetingMessageClazz = new Clazz("org.sdmlib.examples.helloworld.GreetingMessage")
-      .withAttribute("text", "");
+      Clazz greetingMessageClazz = model.createClazz("org.sdmlib.examples.helloworld.GreetingMessage")
+      .withAttribute("text", DataType.STRING);
       
-      Clazz personClazz = new Clazz("org.sdmlib.examples.helloworld.Person")
-      .withAttribute("name", "String");
+      Clazz personClazz = model.createClazz("org.sdmlib.examples.helloworld.Person")
+      .withAttribute("name", DataType.STRING);
       
       new Association()
       .withTarget(greetingMessageClazz, "greetingMessage", Card.ONE)
       .withSource(greetingClazz, "greeting", Card.ONE);
       
       new Association()
-      .withTarget(personClazz, "person", CardR.ONE)
+      .withTarget(personClazz, "person", Card.ONE)
       .withSource(greetingClazz, "greeting", Card.ONE);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldConstantTransformation2ClassDiag"));
+      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldConstantTransformation2ClassDiag"));
       
       
       //==========================================================================
@@ -259,33 +259,33 @@ public class HelloWorldTTC2011
       
       ClassModel model = new ClassModel("org.sdmlib.examples.helloworld");
       
-      Clazz graphClazz = new Clazz("Graph");
+      Clazz graphClazz = model.createClazz("Graph");
       
-      Clazz edgeClazz = new Clazz("Edge")
-      .withAttribute("name", "String");
+      Clazz edgeClazz = model.createClazz("Edge")
+      .withAttribute("name", DataType.STRING);
 
-      Clazz nodeClazz = new Clazz("Node")
-      .withAttribute("name", "String");
-
-      new Association()
-      .withTarget(nodeClazz, "nodes", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
-      
-      new Association()
-      .withTarget(edgeClazz, "edges", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
-      
-      new Association()
-      .withTarget(nodeClazz, "src", R.ONE)
-      .withSource(edgeClazz, "outEdges", R.MANY);
+      Clazz nodeClazz = model.createClazz("Node")
+      .withAttribute("name", DataType.STRING);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", R.ONE)
-      .withSource(edgeClazz, "inEdges", R.MANY);
+      .withTarget(nodeClazz, "nodes", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(edgeClazz, "edges", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
 
       // // model.removeAllGeneratedCode("examples", "examples", "examples");
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
       storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldSimpleGraphClassDiag"));
       
@@ -537,35 +537,35 @@ public class HelloWorldTTC2011
       
       ClassModel model = new ClassModel();
       
-      Clazz graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+      Clazz graphClazz = model.createClazz("org.sdmlib.examples.helloworld.Graph");
       
-      Clazz edgeClazz = new Clazz("org.sdmlib.examples.helloworld.Edge")
-      .withAttribute("name", "String");
+      Clazz edgeClazz = model.createClazz("org.sdmlib.examples.helloworld.Edge")
+      .withAttribute("name", DataType.STRING);
 
-      Clazz nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
-      .withAttribute("name", "String");
-
-      new Association()
-      .withTarget(nodeClazz, "nodes", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
-      
-      new Association()
-      .withTarget(edgeClazz, "edges", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
-      
-      new Association()
-      .withTarget(nodeClazz, "src", R.ONE)
-      .withSource(edgeClazz, "outEdges", R.MANY);
+      Clazz nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
+      .withAttribute("name", DataType.STRING);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", R.ONE)
-      .withSource(edgeClazz, "inEdges", R.MANY);
+      .withTarget(nodeClazz, "nodes", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(edgeClazz, "edges", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
+      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
       
       
       //==========================================================================
@@ -577,30 +577,30 @@ public class HelloWorldTTC2011
       
       graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
       
-      Clazz graphComponentClazz = new Clazz("org.sdmlib.examples.helloworld.GraphComponent")
-      .withAttribute("text", "String");
+      Clazz graphComponentClazz = model.createClazz("org.sdmlib.examples.helloworld.GraphComponent")
+      .withAttribute("text", DataType.STRING);
       
-      edgeClazz = new Clazz("org.sdmlib.examples.helloworld.Edge")
+      edgeClazz = model.createClazz("org.sdmlib.examples.helloworld.Edge")
       .withSuperClass(graphComponentClazz);
 
-      nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
+      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
       .withSuperClass(graphComponentClazz);
 
       new Association()
-      .withTarget(graphComponentClazz, "gcs", R.MANY)
-      .withSource(graphClazz, "parent", R.ONE);
+      .withTarget(graphComponentClazz, "gcs", Card.MANY)
+      .withSource(graphClazz, "parent", Card.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "src", R.ONE)
-      .withSource(edgeClazz, "outEdges", R.MANY);
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", R.ONE)
-      .withSource(edgeClazz, "inEdges", R.MANY);
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
       storyboard.addClassDiagram(model);
       
@@ -612,11 +612,11 @@ public class HelloWorldTTC2011
       
       model = new ClassModel();
       
-      nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node");
+      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node");
 
       new Association()
-      .withTarget(nodeClazz, "copy", R.ONE)
-      .withSource(nodeClazz, "orig", R.ONE);
+      .withTarget(nodeClazz, "copy", Card.ONE)
+      .withSource(nodeClazz, "orig", Card.ONE);
       
       model.generate("examples");
       
@@ -724,22 +724,22 @@ public class HelloWorldTTC2011
 
       model = new ClassModel();
       
-      graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+      graphClazz = model.createClazz("org.sdmlib.examples.helloworld.Graph");
 
-      nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
-      .withAttribute("text", "String");
+      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
+      .withAttribute("text", DataType.STRING);
 
       new Association()
-      .withTarget(nodeClazz, "nodes", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
+      .withTarget(nodeClazz, "nodes", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "linksTo", R.MANY)
-      .withSource(nodeClazz, "linksFrom", R.MANY);
+      .withTarget(nodeClazz, "linksTo", Card.MANY)
+      .withSource(nodeClazz, "linksFrom", Card.MANY);
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
+      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
       
       graph = createExampleGraph();
       
@@ -768,31 +768,31 @@ public class HelloWorldTTC2011
       
       ClassModel model = new ClassModel();
       
-      Clazz graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+      Clazz graphClazz = model.createClazz("org.sdmlib.examples.helloworld.Graph");
       
-      Clazz edgeClazz = new Clazz("org.sdmlib.examples.helloworld.Edge")
-      .withAttribute("name", "String");
+      Clazz edgeClazz = model.createClazz("org.sdmlib.examples.helloworld.Edge")
+      .withAttribute("name", DataType.STRING);
 
-      Clazz nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
-      .withAttribute("name", "String");
-
-      new Association()
-      .withTarget(nodeClazz, "nodes", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
-      
-      new Association()
-      .withTarget(edgeClazz, "edges", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
-      
-      new Association()
-      .withTarget(nodeClazz, "src", R.ONE)
-      .withSource(edgeClazz, "outEdges", R.MANY);
+      Clazz nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
+      .withAttribute("name", DataType.STRING);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", R.ONE)
-      .withSource(edgeClazz, "inEdges", R.MANY);
+      .withTarget(nodeClazz, "nodes", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
       
-      model.generate("examples", "examples");
+      new Association()
+      .withTarget(edgeClazz, "edges", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
+      
+      model.generate("examples");
       
       storyboard.addClassDiagram(model);
       
@@ -804,32 +804,32 @@ public class HelloWorldTTC2011
       
       model = new ClassModel();
       
-      graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+      graphClazz =model.createClazz("org.sdmlib.examples.helloworld.Graph");
       
-      Clazz graphComponentClazz = new Clazz("org.sdmlib.examples.helloworld.GraphComponent")
-      .withAttribute("text", "String");
+      Clazz graphComponentClazz = model.createClazz("org.sdmlib.examples.helloworld.GraphComponent")
+      .withAttribute("text", DataType.STRING);
       
-      edgeClazz = new Clazz("org.sdmlib.examples.helloworld.Edge")
+      edgeClazz = model.createClazz("org.sdmlib.examples.helloworld.Edge")
       .withSuperClass(graphComponentClazz);
 
-      nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
+      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
       .withSuperClass(graphComponentClazz);
 
       new Association()
-      .withTarget(graphComponentClazz, "gcs", R.MANY)
-      .withSource(graphClazz, "parent", R.ONE);
+      .withTarget(graphComponentClazz, "gcs", Card.MANY)
+      .withSource(graphClazz, "parent", Card.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "src", R.ONE)
-      .withSource(edgeClazz, "outEdges", R.MANY);
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", R.ONE)
-      .withSource(edgeClazz, "inEdges", R.MANY);
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
       storyboard.addClassDiagram(model);
       
@@ -868,20 +868,20 @@ public class HelloWorldTTC2011
 
       model = new ClassModel();
       
-      graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
+      graphClazz = model.createClazz("org.sdmlib.examples.helloworld.Graph");
 
-      nodeClazz = new Clazz("org.sdmlib.examples.helloworld.Node")
-      .withAttribute("text", "String");
+      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
+      .withAttribute("text", DataType.STRING);
 
       new Association()
-      .withTarget(nodeClazz, "nodes", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
+      .withTarget(nodeClazz, "nodes", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "linksTo", R.MANY)
-      .withSource(nodeClazz, "linksFrom", R.MANY);
+      .withTarget(nodeClazz, "linksTo", Card.MANY)
+      .withSource(nodeClazz, "linksFrom", Card.MANY);
       
-      model.generate("examples", "examples");
+      model.generate("examples");
       
       storyboard.addClassDiagram(model);
       

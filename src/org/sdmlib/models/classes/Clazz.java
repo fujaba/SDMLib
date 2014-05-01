@@ -641,6 +641,11 @@ public class Clazz extends SDMLibClass
    {
       return new Method().withName(name).withParameter(parameters).withClazz(this);     
    }
+   
+   public Method createMethod(String name, DataType returnValue, Parameter... parameters)
+   {
+      return new Method().withName(name).withParameter(parameters).withReturnType(returnValue).withClazz(this);     
+   }
 
    public Attribute createAttribute(String name, DataType type)
    {
