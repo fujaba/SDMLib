@@ -277,6 +277,7 @@ public class Clazz implements PropertyChangeInterface
       return this;
    }
 
+   
    private void insertConstants()
    {
       if (constantDecls.size() == 0)
