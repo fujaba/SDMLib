@@ -21,6 +21,7 @@
 
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
@@ -29,6 +30,8 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.utils.PropertyChangeInterface;
 
 import java.beans.PropertyChangeListener;
+
+import javax.swing.event.ChangeEvent;
 
 public class ReplicationNode implements PropertyChangeInterface
 {
@@ -118,7 +121,17 @@ public class ReplicationNode implements PropertyChangeInterface
          {
             replicationRoot.addPropertyChangeListener(this.remoteTaskListener);
          }
+         
+         RemoteTaskBoard remoteTaskBoard = new RemoteTaskBoard();
+         
+         map.put(SharedSpace.REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
 
+         if (this.remoteTaskListener != null)
+         {
+            remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(this.remoteTaskListener);
+            
+            this.remoteTaskListener.propertyChange(new PropertyChangeEvent(sharedSpace, "new", null, remoteTaskBoard));
+         }
          
          sharedSpace.start();
       }

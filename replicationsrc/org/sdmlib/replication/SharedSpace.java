@@ -97,7 +97,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.map = map;
    }
 
-   public SharedSpace init()
+   public SharedSpace init(PropertyChangeListener laneListener)
    {
       map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
       setName("Lane" + nodeId);
@@ -111,7 +111,10 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       channel.sendSpaceConnectionRequest(spaceId);
       waitForCurrentHistoryId();
       
-//      map.put(REMOTE_TASK_BOARD, new RemoteTaskBoard());
+      remoteTaskBoard = new RemoteTaskBoard();
+      map.put(REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
+      
+      remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(laneListener);
       
       return this;
    }
@@ -1138,6 +1141,13 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    public static final String REMOTE_TASK_BOARD_ROOT = "taskFlowBoardRoot";
 
    public static final String REPLICATION_ROOT = "replicationRoot";
+
+   private RemoteTaskBoard remoteTaskBoard;
+   
+   public RemoteTaskBoard getRemoteTaskBoard()
+   {
+      return remoteTaskBoard;
+   }
 
    public void setReadMessages(boolean readMessages)
    {
