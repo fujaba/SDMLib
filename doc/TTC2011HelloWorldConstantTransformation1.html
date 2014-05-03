@@ -1,33 +1,107 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation1</a></p>
 <p>TTC2011HelloWorldConstantTransformation1</p>
 <p>A constant transformation that creates a Greeting object</p>
 <p>Create class model and generate implementation:</p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation1ClassDiag.svg'><p>The code that builds and runs the transformation / pattern looks like: </p>
-<pre>      ModelPattern p = new ModelPattern().startCreate();
+<embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation1ClassDiagram3.svg'><pre>package org.sdmlib.examples.helloworld;
+
+import java.util.Arrays;
+
+import org.junit.Test;
+import org.sdmlib.CGUtil;
+import org.sdmlib.examples.helloworld.model.Node;
+import org.sdmlib.examples.helloworld.util.ModelPattern;
+import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Card;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.objects.Generic2Specific;
+import org.sdmlib.models.objects.GenericGraph;
+import org.sdmlib.models.objects.Specific2Generic;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.json.JsonArray;
+import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.storyboards.Storyboard;
+
+public class HelloWorldTTC2011
+{
+   private String systemout;
+   private Node n1;
+   private Node n6;
+   private Node n7;
+   private Node n8;
+   private Node n3;
+
+
+   @Test
+   public void testConstantTransformation1()
+   {
+      Storyboard storyboard = new Storyboard(&quot;examples&quot;, &quot;TTC2011HelloWorldConstantTransformation1&quot;)
+      .with(&quot;A constant transformation that creates a Greeting object&quot;);
       
-      PatternObject greetingPO = p.hasElementGreetingPO()
-                                  .hasText(&quot;Hello World&quot;);
-</pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1.svg'>
-<p>Check: Constant transformation has match</p>
-<p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
-<embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1AfterTransformation.svg'>
-<p>For completeness just the host graph:</p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation112.svg'>
-<p>TTC2011HelloWorldConstantTransformation1 number of matches is 1</p>
-<p>For fairness, the java code that does this transformation looks like: </p>
-<pre>      Greeting greeting = new Greeting()
-      .withText(&quot;Hello World&quot;);
+      
+      &#x2F;&#x2F;==========================================================================
+      
+      storyboard.add(&quot;Create class model and generate implementation:&quot;);
+      
+      ClassModel model = new ClassModel();
+      
+      Clazz greetingClazz = model.createClazz(&quot;org.sdmlib.examples.helloworld.Greeting&quot;)
+      .withAttribute(&quot;text&quot;, DataType.STRING);
+      
+      &#x2F;&#x2F; model.removeAllGeneratedCode(&quot;examples&quot;, &quot;examples&quot;, &quot;examples&quot;);
+      
+      model.generate(&quot;examples&quot;);
+      
+      storyboard.addClassDiagram(model, &quot;examples&quot;);
+      
+      
+      &#x2F;&#x2F;==========================================================================
+      
+&#x2F;&#x2F;      storyboard.add(&quot;The code that builds and runs the transformation &#x2F; pattern looks like: &quot;);
+&#x2F;&#x2F;      storyboard.markCodeStart();
+&#x2F;&#x2F;      ModelPattern p = new ModelPattern().startCreate();
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      PatternObject greetingPO = p.hasElementGreetingPO()
+&#x2F;&#x2F;                                  .hasText(&quot;Hello World&quot;);
+&#x2F;&#x2F;      storyboard.addCode(&quot;examples&quot;);
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      storyboard.addPattern(p, false);
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      storyboard.assertTrue(&quot;Constant transformation has match&quot;, p.getHasMatch());
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      storyboard.add(&quot;At runtime the object structure for the pattern and for the hostgraph looks like: &quot;);
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      storyboard.addPattern(p, true);
+
+
+&#x2F;&#x2F;      &#x2F;&#x2F;==========================================================================
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      storyboard.add(&quot;For completeness just the host graph:&quot;);
+&#x2F;&#x2F;
+&#x2F;&#x2F;      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      int noOfMatches = p.allMatches();
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      storyboard.add(&quot;TTC2011HelloWorldConstantTransformation1 number of matches is &quot; + noOfMatches);
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      &#x2F;&#x2F;==========================================================================
+&#x2F;&#x2F;      
+&#x2F;&#x2F;      storyboard.add(&quot;For fairness, the java code that does this transformation looks like: &quot;);
+&#x2F;&#x2F;      storyboard.markCodeStart();
+&#x2F;&#x2F;      Greeting greeting = new Greeting()
+&#x2F;&#x2F;      .withText(&quot;Hello World&quot;);
 </pre>
 </body>
 </html>

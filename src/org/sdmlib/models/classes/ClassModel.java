@@ -24,6 +24,7 @@ package org.sdmlib.models.classes;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
@@ -101,6 +102,10 @@ public class ClassModel extends SDMLibClass
 
 	public Clazz createClazz(String name)
 	{
+	   if (this.name == null)
+	   {
+	      this.name = CGUtil.packageName(name);
+	   }
 		Clazz clazz = new Clazz(name);
 		clazz.withClassModel(this);
 		return clazz;

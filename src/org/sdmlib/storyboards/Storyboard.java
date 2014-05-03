@@ -1073,6 +1073,7 @@ public class Storyboard implements PropertyChangeInterface
     * 
     * @param image
     */
+   @Deprecated // use addClassDiagram(model) instead
    public void addSVGImage(String imageFile)
    {
       this.addToSteps("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");
