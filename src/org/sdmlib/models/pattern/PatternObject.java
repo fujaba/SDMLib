@@ -91,7 +91,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
          {
             // forward execution: create hostgraph object and bind it
             String className = this.getClass().getName();
-            className = className.replace(".creators.", ".");
+            className = className.replace(".util.", ".");
             className = className.substring(0, className.length() - 2);
             SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClassName(className, true);
             if (creatorClass == null)

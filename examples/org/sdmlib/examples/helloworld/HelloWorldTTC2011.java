@@ -55,21 +55,21 @@ public class HelloWorldTTC2011
       
       //==========================================================================
       
-//      storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
-//      storyboard.markCodeStart();
-//      ModelPattern p = new ModelPattern().startCreate();
-//      
-//      PatternObject greetingPO = p.hasElementGreetingPO()
-//                                  .hasText("Hello World");
-//      storyboard.addCode("examples");
-//      
-//      storyboard.addPattern(p, false);
-//      
-//      storyboard.assertTrue("Constant transformation has match", p.getHasMatch());
-//      
-//      storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
-//      
-//      storyboard.addPattern(p, true);
+      storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
+      storyboard.markCodeStart();
+      ModelPattern p = new ModelPattern().startCreate();
+      
+      PatternObject greetingPO = p.hasElementGreetingPO()
+                                  .hasText("Hello World");
+      storyboard.addCode("examples");
+      
+      storyboard.addPattern(p, false);
+      
+      storyboard.assertTrue("Constant transformation has match", p.getHasMatch());
+      
+      storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
+      
+      storyboard.addPattern(p, true);
 
 
 //      //==========================================================================

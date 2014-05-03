@@ -6,6 +6,11 @@ import org.sdmlib.examples.helloworld.Greeting;
 
 public class ModelPattern extends Pattern
 {
+   public ModelPattern()
+   {
+      super(CreatorCreator.createIdMap("hg"));
+   }
+
    public ModelPattern startCreate()
    {
       super.startCreate();

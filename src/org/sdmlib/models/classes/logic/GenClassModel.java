@@ -418,13 +418,14 @@ public class GenClassModel
    {
       // take first class to find package
 
-     if( getOrCreateModelPatternParser(rootDir) == null){
+     if( getOrCreateModelPatternParser(rootDir) == null)
+     {
         return;
      }
 
       for (Clazz clazz : model.getClasses())
       {
-            getOrCreate(clazz).insertHasMethodsInModelPattern(modelPatternParser);
+         getOrCreate(clazz).insertHasMethodsInModelPattern(modelPatternParser);
       }
 
       printModelPatternFile(modelPatternFileHasChanged);
@@ -552,7 +553,12 @@ public class GenClassModel
                               "\n" + 
                               "public class ModelPattern extends Pattern\n" + 
                               "{\n" + 
-                             "   public ModelPattern startCreate()\n" + 
+                              "   public ModelPattern()\n" + 
+                              "   {\n" + 
+                              "      super(CreatorCreator.createIdMap(\"hg\"));\n" + 
+                              "   }\n" + 
+                              "\n" +
+                              "   public ModelPattern startCreate()\n" + 
                               "   {\n" + 
                               "      super.startCreate();\n" + 
                               "      return this;\n" + 
