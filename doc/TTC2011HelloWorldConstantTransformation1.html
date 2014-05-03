@@ -20,38 +20,30 @@
 <p>Check: Constant transformation has match</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1PatternDiagram9.svg'>
-<pre>      ModelPattern p = new ModelPattern().startCreate();
-      
-      PatternObject greetingPO = p.hasElementGreetingPO()
-                                  .hasText(&quot;Hello World&quot;);
-      storyboard.addCode(&quot;examples&quot;);
-      
-      storyboard.addPattern(p, false);
-      
-      storyboard.assertTrue(&quot;Constant transformation has match&quot;, p.getHasMatch());
-      
-      storyboard.add(&quot;At runtime the object structure for the pattern and for the hostgraph looks like: &quot;);
-      
-      storyboard.addPattern(p, true);
-
-
-&#x2F;&#x2F;      &#x2F;&#x2F;==========================================================================
-&#x2F;&#x2F;      
-&#x2F;&#x2F;      storyboard.add(&quot;For completeness just the host graph:&quot;);
-&#x2F;&#x2F;
-&#x2F;&#x2F;      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
-&#x2F;&#x2F;      
-&#x2F;&#x2F;      int noOfMatches = p.allMatches();
-&#x2F;&#x2F;      
-&#x2F;&#x2F;      storyboard.add(&quot;TTC2011HelloWorldConstantTransformation1 number of matches is &quot; + noOfMatches);
-&#x2F;&#x2F;      
-&#x2F;&#x2F;      
-&#x2F;&#x2F;      &#x2F;&#x2F;==========================================================================
-&#x2F;&#x2F;      
-&#x2F;&#x2F;      storyboard.add(&quot;For fairness, the java code that does this transformation looks like: &quot;);
-&#x2F;&#x2F;      storyboard.markCodeStart();
-&#x2F;&#x2F;      Greeting greeting = new Greeting()
-&#x2F;&#x2F;      .withText(&quot;Hello World&quot;);
+<p>For completeness just the host graph:</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"G1 : Greeting",
+            "attributes":[
+            "text=Hello World"
+            ]
+         }
+      ],
+      "edges":[]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>TTC2011HelloWorldConstantTransformation1 number of matches is 1</p>
+<p>For fairness, the java code that does this transformation looks like: </p>
+<pre>      Greeting greeting = new Greeting()
+      .withText(&quot;Hello World&quot;);
 </pre>
 </body>
 </html>

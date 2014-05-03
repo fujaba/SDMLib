@@ -72,23 +72,23 @@ public class HelloWorldTTC2011
       storyboard.addPattern(p, true);
 
 
-//      //==========================================================================
-//      
-//      storyboard.add("For completeness just the host graph:");
-//
-//      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
-//      
-//      int noOfMatches = p.allMatches();
-//      
-//      storyboard.add("TTC2011HelloWorldConstantTransformation1 number of matches is " + noOfMatches);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("For fairness, the java code that does this transformation looks like: ");
-//      storyboard.markCodeStart();
-//      Greeting greeting = new Greeting()
-//      .withText("Hello World");
+      //==========================================================================
+      
+      storyboard.add("For completeness just the host graph:");
+
+      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
+      
+      int noOfMatches = p.allMatches();
+      
+      storyboard.add("TTC2011HelloWorldConstantTransformation1 number of matches is " + noOfMatches);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("For fairness, the java code that does this transformation looks like: ");
+      storyboard.markCodeStart();
+      Greeting greeting = new Greeting()
+      .withText("Hello World");
       storyboard.addCode("examples");
       
       
