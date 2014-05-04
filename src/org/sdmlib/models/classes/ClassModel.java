@@ -220,6 +220,7 @@ public class ClassModel extends SDMLibClass
    {
       return features.contains(value);
    }
+   
    @Override
    public ClassModel withName(String value)
    {

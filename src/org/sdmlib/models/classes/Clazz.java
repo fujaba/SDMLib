@@ -62,12 +62,14 @@ public class Clazz extends SDMLibClass
    
    public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, Card tgtCard, String srcRoleName, Card srcCard)
    {      
-      new Association()
+      Association assoc = new Association()
       .withTarget(tgtRoleName, tgtClass, tgtCard)
-      .withSource(srcRoleName, this, srcCard)
-      ;
+      .withSource(srcRoleName, this, srcCard);
 
-      // this.getClassModel().a
+      if (this.getClassModel() != null && this.getClassModel().getGenerator() != null)
+      {
+         this.getClassModel().getGenerator().addToAssociations(assoc);
+      }
       
       return this;
    }

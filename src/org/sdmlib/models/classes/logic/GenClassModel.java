@@ -1555,12 +1555,12 @@ public class GenClassModel
       while (! todoObjects.isEmpty())
       {
          GenericObject currentObject = todoObjects.pop();
-         
+
          allObjects.add(currentObject);
 
          allLinks.addAll(currentObject.getOutgoingLinks());
          allLinks.addAll(currentObject.getIncommingLinks());
-               
+
          todoObjects.addAll(currentObject.getOutgoingLinks().getTgt().minus(allObjects));
          todoObjects.addAll(currentObject.getIncommingLinks().getSrc().minus(allObjects));
       }
@@ -1576,58 +1576,12 @@ public class GenClassModel
             for (GenericAttribute attr : currentObject.getAttrs())
             {
                Attribute attrDecl = currentClazz.getOrCreateAttribute(attr.getName(), DataType.OBJECT);
-               
-               String valueString = attr.getValue();
-               
-               String attrType = "String";
-               try
-               {
-                  Integer.parseInt(valueString);
-                  
-                  attrType = "int";
-               }
-               catch (NumberFormatException e)
-               {
-                  try
-                  {
-                     Double.parseDouble(valueString);
-                     
-                     attrType = "double";
-                  }
-                  catch (NumberFormatException e1)
-                  {
-                     try
-                     {
-                        DateFormat.getDateInstance().parse(valueString);
-                        
-                        attrType = "java.util.Date";
-                     }
-                     catch (ParseException e2)
-                     {
-                        try
-                        {
-                           SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd'T'hh:mm:ss");
-                           simpleDateFormat.parse(valueString);
-                           
-                           attrType = "java.util.Date";
-                        }
-                        catch (ParseException e3)
-                        {
-                        }
-                     }
-                  }
-               }
-               
-               String typeOrder = "Object int double java.util.Date String";
-               
-               if (typeOrder.indexOf(attrDecl.getType().getValue()) < typeOrder.indexOf(attrType))
-               {
-                  attrDecl.setType(DataType.ref(attrType));
-               }
+
+               learnAttrType(attr, attrDecl);
             }
          }
       }
-      
+
       LinkedHashSet<String> alreadyUsedLabels = new LinkedHashSet<String>();
 
       // now derive assocs from links
@@ -1650,19 +1604,19 @@ public class GenClassModel
          {
             targetLabel = StrUtil.downFirstChar(sourceType) + "s";
          }
-         
+
          // search for an assoc with similar srcClazz, srcLabel, tgtClass, tgtLabel
          Association currentAssoc = null; 
-         for (Association assoc : getAssociations())
+         for (Association assoc : this.getAssociations())
          {
-            if (sourceType.equals(CGUtil.shortClassName(assoc.getSource().getClazz().getFullName()))
-                  && targetType.equals(CGUtil.shortClassName(assoc.getTarget().getClazz().getFullName()))
+            if (sourceType.equals(CGUtil.shortClassName(assoc.getSource().getClazz().getName()))
+                  && targetType.equals(CGUtil.shortClassName(assoc.getTarget().getClazz().getName()))
                   && sourceLabel.equals(assoc.getSource().getName())
                   && targetLabel.equals(assoc.getTarget().getName()))
             {
                // found old one
                currentAssoc = assoc; 
-               
+
                break;
             }
          }
@@ -1673,25 +1627,77 @@ public class GenClassModel
             currentAssoc = new Association()
             .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), Card.ONE)
             .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), Card.ONE);
-            getAssociations().add(currentAssoc);
+            this.addToAssociations(currentAssoc);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
          {
             currentAssoc.getTarget().setCard(Card.MANY.toString());
          }
-         
+
          if (alreadyUsedLabels.contains(currentLink.getTgt().hashCode() + ":" + sourceLabel))
          {
             currentAssoc.getSource().setCard(Card.MANY.toString());
          }
-         
+
          alreadyUsedLabels.add(currentLink.getSrc().hashCode() + ":" + targetLabel);
          alreadyUsedLabels.add(currentLink.getTgt().hashCode() + ":" + sourceLabel);
       }
-      
-      return model;
+
+      return this.getModel();
    }
+
+   private void learnAttrType(GenericAttribute attr, Attribute attrDecl)
+   {
+      String valueString = attr.getValue();
+
+      DataType attrType = DataType.STRING;
+      try
+      {
+         Integer.parseInt(valueString);
+
+         attrType = DataType.INT;
+      }
+      catch (NumberFormatException e)
+      {
+         try
+         {
+            Double.parseDouble(valueString);
+
+            attrType = DataType.DOUBLE;
+         }
+         catch (NumberFormatException e1)
+         {
+            try
+            {
+               DateFormat.getDateInstance().parse(valueString);
+
+               attrType = DataType.ref("java.util.Date");
+            }
+            catch (ParseException e2)
+            {
+               try
+               {
+                  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd'T'hh:mm:ss");
+                  simpleDateFormat.parse(valueString);
+
+                  attrType = DataType.ref("java.util.Date");
+               }
+               catch (ParseException e3)
+               {
+               }
+            }
+         }
+      }
+
+      String typeOrder = "Object int double java.util.Date String";
+
+      if (typeOrder.indexOf(attrDecl.getType().getValue()) < typeOrder.indexOf(attrType.getValue()))
+      {
+         attrDecl.setType(attrType);
+      }
+   }
+
    
    private boolean compareRoles(Role source, Role target, Association assoc)
    {
