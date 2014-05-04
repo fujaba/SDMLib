@@ -3,6 +3,10 @@ package org.sdmlib.examples.helloworld.util;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
+import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.examples.helloworld.util.PersonPO;
+import org.sdmlib.examples.helloworld.Person;
 
 public class ModelPattern extends Pattern
 {
@@ -41,6 +45,55 @@ public class ModelPattern extends Pattern
       return value;
    } 
 
+   public GreetingMessagePO hasElementGreetingMessagePO()
+   {
+      GreetingMessagePO value = new GreetingMessagePO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public GreetingMessagePO hasElementGreetingMessagePO(GreetingMessage hostGraphObject)
+   {
+      GreetingMessagePO value = new GreetingMessagePO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
+   public PersonPO hasElementPersonPO()
+   {
+      PersonPO value = new PersonPO();
+      this.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      this.findMatch();
+      
+      return value;
+   }
+   
+   public PersonPO hasElementPersonPO(Person hostGraphObject)
+   {
+      PersonPO value = new PersonPO();
+      this.addToElements(value);
+      value.setModifier(Pattern.BOUND);
+      
+      value.setCurrentMatch(hostGraphObject);
+      
+      this.findMatch();
+      
+      return value;
+   } 
+
 }
+
 
 

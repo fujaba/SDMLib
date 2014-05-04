@@ -5,7 +5,10 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.examples.helloworld.model.Node;
+import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
+import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.examples.helloworld.util.ModelPattern;
+import org.sdmlib.examples.helloworld.util.PersonPO;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
@@ -96,45 +99,41 @@ public class HelloWorldTTC2011
    }
 
 
-//   //==========================================================================
-//   @Test
-//   public void testConstantTransformation2()
-//   {
-//      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldConstantTransformation2WithReferences")
-//      .with("A constant transformation that creates a Greeting object structure with references");
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("Create class model and generate implementation:");
-//      
-//      ClassModel model = new ClassModel();
-//      
-//      Clazz greetingClazz = model.createClazz("org.sdmlib.examples.helloworld.Greeting");
-//      
-//      Clazz greetingMessageClazz = model.createClazz("org.sdmlib.examples.helloworld.GreetingMessage")
-//      .withAttribute("text", DataType.STRING);
-//      
-//      Clazz personClazz = model.createClazz("org.sdmlib.examples.helloworld.Person")
-//      .withAttribute("name", DataType.STRING);
-//      
-//      new Association()
-//      .withTarget(greetingMessageClazz, "greetingMessage", Card.ONE)
-//      .withSource(greetingClazz, "greeting", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(personClazz, "person", Card.ONE)
-//      .withSource(greetingClazz, "greeting", Card.ONE);
-//      
-//      // model.removeAllGeneratedCode("examples", "examples", "examples");
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldConstantTransformation2ClassDiag"));
-//      
-//      
-//      //==========================================================================
-//      
+   //==========================================================================
+   @Test
+   public void testConstantTransformation2()
+   {
+      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldConstantTransformation2WithReferences")
+      .with("A constant transformation that creates a Greeting object structure with references");
+      
+      
+      //==========================================================================
+      
+      storyboard.add("Create class model and generate implementation:");
+      
+      ClassModel model = new ClassModel();
+      
+      Clazz greetingClazz = model.createClazz("org.sdmlib.examples.helloworld.Greeting");
+      
+      Clazz greetingMessageClazz = model.createClazz("org.sdmlib.examples.helloworld.GreetingMessage")
+      .withAttribute("text", DataType.STRING);
+      
+      Clazz personClazz = model.createClazz("org.sdmlib.examples.helloworld.Person")
+      .withAttribute("name", DataType.STRING);
+      
+      greetingClazz.withAssoc(greetingMessageClazz, "greetingMessage", Card.ONE, "greeting", Card.ONE);
+
+      greetingClazz.withAssoc(personClazz, "person", Card.ONE, "greeting", Card.ONE);
+      
+      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model);
+      
+      
+      //==========================================================================
+      
 //      storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
 //      storyboard.markCodeStart();
 //      ModelPattern p = new ModelPattern().startCreate();
@@ -178,11 +177,11 @@ public class HelloWorldTTC2011
 //      Person person = greeting.createPerson()
 //      .withName("TTC Participants");
 //      storyboard.addCode("examples");
-//      
-//      storyboard.dumpHTML();
-//   }
-//      
-//      
+      
+      storyboard.dumpHTML();
+   }
+      
+      
 //   //==========================================================================
 //   @Test
 //   public void testModelToTextTransformation()

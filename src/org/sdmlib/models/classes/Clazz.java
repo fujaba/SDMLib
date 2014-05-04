@@ -64,8 +64,11 @@ public class Clazz extends SDMLibClass
    {      
       new Association()
       .withTarget(tgtRoleName, tgtClass, tgtCard)
-      .withSource(srcRoleName, this, srcCard);
+      .withSource(srcRoleName, this, srcCard)
+      ;
 
+      // this.getClassModel().a
+      
       return this;
    }
    
