@@ -4,6 +4,13 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.util.GreetingSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
+import org.sdmlib.models.pattern.LinkConstraint;
+import org.sdmlib.examples.helloworld.util.GreetingPO;
+import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.examples.helloworld.util.PersonPO;
+import org.sdmlib.examples.helloworld.Person;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
@@ -77,5 +84,74 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return this;
    }
    
+   public GreetingMessagePO hasGreetingMessage()
+   {
+      GreetingMessagePO result = new GreetingMessagePO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Greeting.PROPERTY_GREETINGMESSAGE, result);
+      
+      return result;
+   }
+
+   public GreetingMessagePO createGreetingMessage()
+   {
+      return this.startCreate().hasGreetingMessage().endCreate();
+   }
+
+   public GreetingPO hasGreetingMessage(GreetingMessagePO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_GREETINGMESSAGE);
+   }
+
+   public GreetingPO createGreetingMessage(GreetingMessagePO tgt)
+   {
+      return this.startCreate().hasGreetingMessage(tgt).endCreate();
+   }
+
+   public GreetingMessage getGreetingMessage()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Greeting) this.getCurrentMatch()).getGreetingMessage();
+      }
+      return null;
+   }
+
+   public PersonPO hasPerson()
+   {
+      PersonPO result = new PersonPO();
+      result.setModifier(this.getPattern().getModifier());
+      
+      super.hasLink(Greeting.PROPERTY_PERSON, result);
+      
+      return result;
+   }
+
+   public PersonPO createPerson()
+   {
+      return this.startCreate().hasPerson().endCreate();
+   }
+
+   public GreetingPO hasPerson(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, Greeting.PROPERTY_PERSON);
+   }
+
+   public GreetingPO createPerson(PersonPO tgt)
+   {
+      return this.startCreate().hasPerson(tgt).endCreate();
+   }
+
+   public Person getPerson()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Greeting) this.getCurrentMatch()).getPerson();
+      }
+      return null;
+   }
+
 }
+
 

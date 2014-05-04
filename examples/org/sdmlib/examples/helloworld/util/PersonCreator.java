@@ -10,6 +10,7 @@ public class PersonCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       Person.PROPERTY_NAME,
+      Person.PROPERTY_GREETING,
    };
    
    @Override
@@ -63,4 +64,5 @@ public class PersonCreator extends EntityFactory
       ((Person) entity).removeYou();
    }
 }
+
 

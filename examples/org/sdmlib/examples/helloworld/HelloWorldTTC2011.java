@@ -134,49 +134,49 @@ public class HelloWorldTTC2011
       
       //==========================================================================
       
-//      storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
-//      storyboard.markCodeStart();
-//      ModelPattern p = new ModelPattern().startCreate();
-//      
-//      GreetingPO greetingPO = p.hasElementGreetingPO();
-//      
-//      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
-//      .hasText("Hello");
-//      
-//      PersonPO personPO = greetingPO.hasPerson()
-//      .hasName("TTC Participants");
-//      storyboard.addCode("examples");
-//      
-//      storyboard.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2", false));
-//      
-//      storyboard.assertTrue("Constant transformation has match", p.getHasMatch());
-//      
-//      storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
-//      
-//      // storyboard.addObjectDiag(p.getJsonIdMap(), greetingPO);
-//      
-//      storyboard.add(p.dumpDiagram("TTC2011HelloWorldConstantTransformation2AfterTransformation"));
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("For completeness just the host graph:");
-//
-//      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("For fairness, the java code that does this transformation looks like: ");
-//      
-//      storyboard.markCodeStart();
-//      Greeting greeting = new Greeting();
-//      
-//      GreetingMessage greetingMessage = greeting.createGreetingMessage()
-//      .withText("Hello");
-//      
-//      Person person = greeting.createPerson()
-//      .withName("TTC Participants");
-//      storyboard.addCode("examples");
+      storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
+      storyboard.markCodeStart();
+      ModelPattern p = new ModelPattern().startCreate();
+      
+      GreetingPO greetingPO = p.hasElementGreetingPO();
+      
+      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
+      .hasText("Hello");
+      
+      PersonPO personPO = greetingPO.hasPerson()
+      .hasName("TTC Participants");
+      storyboard.addCode("examples");
+      
+      storyboard.addPattern(p, false);
+      
+      storyboard.assertTrue("Constant transformation has match", p.getHasMatch());
+      
+      storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
+      
+      // storyboard.addObjectDiag(p.getJsonIdMap(), greetingPO);
+      
+      storyboard.addPattern(p, true);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("For completeness just the host graph:");
+
+      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
+      
+      //==========================================================================
+      
+      storyboard.add("For fairness, the java code that does this transformation looks like: ");
+      
+      storyboard.markCodeStart();
+      Greeting greeting = new Greeting();
+      
+      GreetingMessage greetingMessage = greeting.createGreetingMessage()
+      .withText("Hello");
+      
+      Person person = greeting.createPerson()
+      .withName("TTC Participants");
+      storyboard.addCode("examples");
       
       storyboard.dumpHTML();
    }

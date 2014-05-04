@@ -26,6 +26,10 @@ import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
 import java.util.List;
+import org.sdmlib.examples.helloworld.util.GreetingSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.helloworld.Greeting;
 
 public class PersonSet extends SDMSet<Person>
 {
@@ -110,5 +114,62 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
+   public GreetingSet getGreeting()
+   {
+      GreetingSet result = new GreetingSet();
+      
+      for (Person obj : this)
+      {
+         result.with(obj.getGreeting());
+      }
+      
+      return result;
+   }
+
+   public PersonSet hasGreeting(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PersonSet answer = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (neighbors.contains(obj.getGreeting()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public PersonSet withGreeting(Greeting value)
+   {
+      for (Person obj : this)
+      {
+         obj.withGreeting(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
+
+
+
+
+
+
 

@@ -49,6 +49,8 @@ public class Greeting implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setGreetingMessage(null);
+      setPerson(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -91,5 +93,123 @@ public class Greeting implements PropertyChangeInterface
    }
 
    
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Greeting ----------------------------------- GreetingMessage
+    *              greeting                   greetingMessage
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GREETINGMESSAGE = "greetingMessage";
+
+   private GreetingMessage greetingMessage = null;
+
+   public GreetingMessage getGreetingMessage()
+   {
+      return this.greetingMessage;
+   }
+
+   public boolean setGreetingMessage(GreetingMessage value)
+   {
+      boolean changed = false;
+      
+      if (this.greetingMessage != value)
+      {
+         GreetingMessage oldValue = this.greetingMessage;
+         
+         if (this.greetingMessage != null)
+         {
+            this.greetingMessage = null;
+            oldValue.setGreeting(null);
+         }
+         
+         this.greetingMessage = value;
+         
+         if (value != null)
+         {
+            value.withGreeting(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GREETINGMESSAGE, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Greeting withGreetingMessage(GreetingMessage value)
+   {
+      setGreetingMessage(value);
+      return this;
+   } 
+
+   public GreetingMessage createGreetingMessage()
+   {
+      GreetingMessage value = new GreetingMessage();
+      withGreetingMessage(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Greeting ----------------------------------- Person
+    *              greeting                   person
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PERSON = "person";
+
+   private Person person = null;
+
+   public Person getPerson()
+   {
+      return this.person;
+   }
+
+   public boolean setPerson(Person value)
+   {
+      boolean changed = false;
+      
+      if (this.person != value)
+      {
+         Person oldValue = this.person;
+         
+         if (this.person != null)
+         {
+            this.person = null;
+            oldValue.setGreeting(null);
+         }
+         
+         this.person = value;
+         
+         if (value != null)
+         {
+            value.withGreeting(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSON, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Greeting withPerson(Person value)
+   {
+      setPerson(value);
+      return this;
+   } 
+
+   public Person createPerson()
+   {
+      Person value = new Person();
+      withPerson(value);
+      return value;
+   } 
 }
 

@@ -49,6 +49,7 @@ public class Person implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setGreeting(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -90,5 +91,64 @@ public class Person implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Person ----------------------------------- Greeting
+    *              person                   greeting
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GREETING = "greeting";
+
+   private Greeting greeting = null;
+
+   public Greeting getGreeting()
+   {
+      return this.greeting;
+   }
+
+   public boolean setGreeting(Greeting value)
+   {
+      boolean changed = false;
+      
+      if (this.greeting != value)
+      {
+         Greeting oldValue = this.greeting;
+         
+         if (this.greeting != null)
+         {
+            this.greeting = null;
+            oldValue.setPerson(null);
+         }
+         
+         this.greeting = value;
+         
+         if (value != null)
+         {
+            value.withPerson(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GREETING, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Person withGreeting(Greeting value)
+   {
+      setGreeting(value);
+      return this;
+   } 
+
+   public Greeting createGreeting()
+   {
+      Greeting value = new Greeting();
+      withGreeting(value);
+      return value;
+   } 
 }
 

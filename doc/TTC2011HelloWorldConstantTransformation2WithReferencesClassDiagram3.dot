@@ -10,4 +10,6 @@
     
     
     
+    _Greeting -> _GreetingMessage [headlabel = "greetingMessage" taillabel = "greeting" arrowhead = "none" ];
+    _Greeting -> _Person [headlabel = "person" taillabel = "greeting" arrowhead = "none" ];
 }

@@ -26,6 +26,12 @@ import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
 import java.util.List;
+import org.sdmlib.examples.helloworld.util.GreetingMessageSet;
+import java.util.Collections;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.examples.helloworld.util.PersonSet;
+import org.sdmlib.examples.helloworld.Person;
 
 public class GreetingSet extends SDMSet<Greeting>
 {
@@ -110,5 +116,110 @@ public class GreetingSet extends SDMSet<Greeting>
       return this;
    }
 
+   public GreetingMessageSet getGreetingMessage()
+   {
+      GreetingMessageSet result = new GreetingMessageSet();
+      
+      for (Greeting obj : this)
+      {
+         result.with(obj.getGreetingMessage());
+      }
+      
+      return result;
+   }
+
+   public GreetingSet hasGreetingMessage(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      GreetingSet answer = new GreetingSet();
+      
+      for (Greeting obj : this)
+      {
+         if (neighbors.contains(obj.getGreetingMessage()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public GreetingSet withGreetingMessage(GreetingMessage value)
+   {
+      for (Greeting obj : this)
+      {
+         obj.withGreetingMessage(value);
+      }
+      
+      return this;
+   }
+
+   public PersonSet getPerson()
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Greeting obj : this)
+      {
+         result.with(obj.getPerson());
+      }
+      
+      return result;
+   }
+
+   public GreetingSet hasPerson(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      GreetingSet answer = new GreetingSet();
+      
+      for (Greeting obj : this)
+      {
+         if (neighbors.contains(obj.getPerson()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public GreetingSet withPerson(Person value)
+   {
+      for (Greeting obj : this)
+      {
+         obj.withPerson(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
+
+
+
+
+
+
 

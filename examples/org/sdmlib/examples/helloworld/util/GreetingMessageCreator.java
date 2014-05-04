@@ -10,6 +10,7 @@ public class GreetingMessageCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       GreetingMessage.PROPERTY_TEXT,
+      GreetingMessage.PROPERTY_GREETING,
    };
    
    @Override
@@ -63,4 +64,5 @@ public class GreetingMessageCreator extends EntityFactory
       ((GreetingMessage) entity).removeYou();
    }
 }
+
 
