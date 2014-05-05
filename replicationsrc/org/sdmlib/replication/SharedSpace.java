@@ -97,6 +97,18 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.map = map;
    }
 
+   public ReplicationRoot plainInit()
+   {
+      map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+      
+      map.withUpdateMsgListener((MapUpdateListener) this);
+      
+      ReplicationRoot replicationRoot = new ReplicationRoot();
+      map.put(SharedSpace.REPLICATION_ROOT, replicationRoot);
+      
+      return replicationRoot;
+   }
+
    public SharedSpace init(PropertyChangeListener laneListener)
    {
       map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
@@ -500,6 +512,19 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    private File logFile = null;
 
+   public void setLogFile(File logFile)
+   {
+      this.logFile = logFile;
+      try
+      {
+         logFileWriter = new FileWriter(logFile, true);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+   }
+   
    private void writeChange(ReplicationChange change)
    {
       try
@@ -548,6 +573,31 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          try
          {
             BufferedReader in = new BufferedReader(new FileReader(backupFile));
+
+            String line = in.readLine();
+            while (line != null)
+            {
+               ChannelMsg msg = new ChannelMsg(null, line);
+
+               handleMessage(msg);
+
+               line = in.readLine();
+            }
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
+   }
+   
+   public void loadHistoryFromFile(File file)
+   {
+      if (file.exists())
+      {
+         try
+         {
+            BufferedReader in = new BufferedReader(new FileReader(file));
 
             String line = in.readLine();
             while (line != null)
