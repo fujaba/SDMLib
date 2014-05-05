@@ -114,7 +114,10 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       remoteTaskBoard = new RemoteTaskBoard();
       map.put(REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
       
-      remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(laneListener);
+      if (laneListener != null)
+      {
+         remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(laneListener);
+      }
       
       return this;
    }
