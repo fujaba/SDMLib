@@ -26,10 +26,14 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -47,9 +51,12 @@ import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
+
 public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
       MapUpdateListener
 {
+
+   public static final String JLOG = "jlog";
 
    public static final String CURRENT_HISTORY_ID = "currentHistoryId";
 
@@ -479,6 +486,20 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    private void applyChange(ReplicationChange change, ReplicationChannel sender)
    {
+      applyChangeLocally(change);
+
+      sendNewChange(change);
+
+      // if the change is not the last, the sender might not have got some
+      // changes
+      for (ReplicationChange newerChange : getHistory().getChanges().tailSet(change, false))
+      {
+         sendChangeTo(sender, newerChange);
+      }
+   }
+
+   private void applyChangeLocally(ReplicationChange change)
+   {
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject().withValue(change.getChangeMsg());
 
@@ -499,15 +520,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.lastChangeId = Math.max(lastChangeId, change.getHistoryIdNumber());
 
       change.withLog("change applied", this.getName());
-
-      sendNewChange(change);
-
-      // if the change is not the last, the sender might not have got some
-      // changes
-      for (ReplicationChange newerChange : getHistory().getChanges().tailSet(change, false))
-      {
-         sendChangeTo(sender, newerChange);
-      }
    }
 
    private File logFile = null;
@@ -525,8 +537,15 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       }
    }
    
+   private boolean loadingHistory = false; 
+   
    private void writeChange(ReplicationChange change)
    {
+      if (loadingHistory)
+      {
+         return;
+      }
+      
       try
       {
          if (logFile == null)
@@ -597,6 +616,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       {
          try
          {
+            this.loadingHistory = true;
+            
             BufferedReader in = new BufferedReader(new FileReader(file));
 
             String line = in.readLine();
@@ -613,8 +634,79 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          {
             e.printStackTrace();
          }
+         finally
+         {
+            this.loadingHistory = false;
+         }
       }
    }
+   
+   public void loadHistoryFromDir(File logDir)
+   {
+      // loop through logDir and load all .jlog files
+      if (logDir.exists() && logDir.isDirectory())
+      {
+         ArrayList<ReplicationChange> changeList = new ArrayList<ReplicationChange>();
+         
+         for (File file : logDir.listFiles())
+         {
+            String fileName = file.getName();
+            
+            if (fileName.endsWith(JLOG))
+            {
+               // load all changes in list
+               try
+               {
+                  BufferedReader in = new BufferedReader(new FileReader(file));
+
+                  String line = in.readLine();
+                  while (line != null)
+                  {
+                     JsonObject jsonObject = new JsonObject().withValue(line);
+                     
+                     ReplicationChange change = (ReplicationChange) getChangeMap().decode(jsonObject);
+                     change.setChangeMsg(EntityUtil.unquote(change.getChangeMsg()));
+
+                     changeList.add(change);
+
+                     line = in.readLine();
+                  }
+               }
+               catch (Exception e)
+               {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+               }
+            }
+         }
+         
+         // sort by history id and prefix
+         Collections.sort(changeList);
+         
+         // apply in order
+         try
+         {
+            this.isApplyingChangeMsg = true;
+            this.loadingHistory = true;
+            
+            for (ReplicationChange change : changeList)
+            {
+               applyChangeLocally(change);
+            }
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+         finally
+         {
+            this.isApplyingChangeMsg = false;
+            this.loadingHistory = false;
+         }
+      }
+      
+   }
+
 
    private boolean isApplyingChangeMsg = false;
 
@@ -628,7 +720,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.isApplyingChangeMsg = isApplyingChangeMsg;
    }
 
-   private int logLevel = 1;
+   private int logLevel = 0;
    
    static public int msgNo = 0;
 
@@ -646,7 +738,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       .withHistoryIdPrefix(nodeId)
       .withHistoryIdNumber(getNewHistoryIdNumber())
       .withTargetObjectId(jsonObject.getString(JsonIdMap.ID))
-      .withChangeMsg(jsonObject.toString(3));
+      .withChangeMsg(jsonObject.toString());
 
       Object object = jsonObject.get(JsonIdMap.UPDATE);
 
@@ -1251,6 +1343,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       }
       return null;
    }
+
    
 }
 
