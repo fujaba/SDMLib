@@ -51,15 +51,13 @@ public class GroupAccountClassModel
       
       groupAccountClass.withAssoc(itemClass, "items", Card.MANY, "parent", Card.ONE);
       
-      new Association()
-      .withSource("buyer", personClass, Card.ONE)
-      .withTarget("items", itemClass, Card.MANY);
+      personClass.withAssoc(itemClass, "items", Card.MANY, "buyer", Card.ONE);
 
       // model.updateFromCode("examples", "examples", "org.sdmlib.examples.groupAccount");
       
       // model.insertModelCreationCodeHere("examples");
       
-      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      // model.removeAllGeneratedCode("examples");
       
       model.generate("examples");
       

@@ -4,6 +4,7 @@
   "prop":{
     "name":"SDMLibProject",
     "phase":"active",
+    "hoursSpend":5,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -56,6 +57,7 @@
   "prop":{
     "name":"Sprint.002.Examples",
     "phase":"active",
+    "hoursSpend":1,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K3"},
@@ -296,7 +298,11 @@
   "prop":{
     "name":"GroupAccountStoryboard1",
     "phase":"done",
+    "hoursSpend":4,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L122"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -452,7 +458,11 @@
   "prop":{
     "name":"GroupAccountCodegen",
     "phase":"done",
+    "hoursSpend":1,
     "parent":{"id":"KE.K2"},
+    "logEntries":[
+    {"id":"KE.L121"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -588,5 +598,27 @@
     "phase":"backlog",
     "parent":{"id":"KE.K1"},
     "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.L121",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"04.04.2012 00:11:32",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K92"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: Nothing here yet. Generate classes"
+  }
+},  {
+  "id":"KE.L122",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"17.01.2014 16:39:42",
+    "hoursSpend":4,
+    "kanbanEntry":{"id":"KE.K58"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: We call updateBalances() to compute the correct balances.\u000a"
   }
 }]

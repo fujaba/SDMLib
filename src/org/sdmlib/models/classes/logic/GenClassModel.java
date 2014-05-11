@@ -219,18 +219,17 @@ public class GenClassModel
             StringBuilder creators = new StringBuilder();
             for (Clazz clazz : model.getClasses())
             {
-               if (!clazz.isInterface() ){
-                  if(clazz.getAttributes().size()>0 ){
-                     String creatorName = "";
-                     if(clazz.isExternal()){
-                        creatorName = model.getName()+UTILPATH+"."+CGUtil.shortClassName(clazz.getFullName());
-                     }else{
-                        creatorName = CGUtil.packageName(clazz.getFullName())+UTILPATH+"."+CGUtil.shortClassName(clazz.getFullName());
-                     }
-                     
-                     creators.append("      jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
-                           "      jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
+               if (!clazz.isInterface() )
+               {
+                  String creatorName = "";
+                  if(clazz.isExternal()){
+                     creatorName = model.getName()+UTILPATH+"."+CGUtil.shortClassName(clazz.getFullName());
+                  }else{
+                     creatorName = CGUtil.packageName(clazz.getFullName())+UTILPATH+"."+CGUtil.shortClassName(clazz.getFullName());
                   }
+
+                  creators.append("      jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
+                        "      jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
                }
             }
 

@@ -1226,13 +1226,18 @@ public class Storyboard implements PropertyChangeInterface
    {
       ClassModel model = new ClassModel();
 
-      Clazz clazz = new Clazz(className);
+      Clazz clazz = model.createClazz(className);
       
       GenClass generator = clazz.getClassModel().getGenerator().getOrCreate( clazz);
 
       Parser parser = generator.getOrCreateParser(rootDir);
 
       int pos = parser.indexOf(Parser.METHOD + ":" + methodSignature);
+      
+      if (pos < 0)
+      {
+         return "did not find method " + methodSignature + " in class " + className;
+      }
 
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
 
