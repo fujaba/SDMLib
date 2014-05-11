@@ -1252,6 +1252,7 @@ public class GenClass extends Generator<Clazz>
       return fileHasChanged;
    }
 
+   @Deprecated // use fileBodyHasChanged at parser instead
    public void setFileHasChanged(boolean fileHasChanged)
    {
       this.fileHasChanged = fileHasChanged;

@@ -9,6 +9,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.Role;
@@ -29,7 +30,7 @@ public class GenRole extends Generator<Role>
          return;
       }
       
-      int pos = parser.indexOf(Parser.METHOD + ":get(String)");
+      int pos = parser.indexOf(Parser.METHOD + ":getValue(Object,String)");
 
       if (pos < 0)
       {
@@ -58,20 +59,22 @@ public class GenRole extends Generator<Role>
          }
          
          StringBuilder text = new StringBuilder
-            (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+            (  "\n      if (ClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                "\n      {" +
-               "\n         return getPropertyName();" +
+               "\n         return ((ClassName) target).getPropertyName();" +
                "\n      }" +
                "\n" 
                );
 
          CGUtil.replaceAll(text, 
+            "ClassName", CGUtil.shortClassName(clazz.getName()),
             "PropertyName", StrUtil.upFirstChar(partnerRole.getName()),
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getGenerator( clazz).setFileHasChanged(true);         
+         getGenerator(clazz).setCreatorFileHasChanged(true);
+         parser.setFileBodyHasChanged(true);
       }
    }
 
@@ -742,6 +745,7 @@ public class GenRole extends Generator<Role>
             int pos = myParser.indexOf(Parser.CLASS_END);
             myParser.getFileBody().insert(pos, text.toString());
             getGenerator(clazz).setFileHasChanged(true);
+            myParser.setFileBodyHasChanged(true);
 
          if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
          {
@@ -754,15 +758,17 @@ public class GenRole extends Generator<Role>
          getGenerator(clazz).insertImport(partnerRole.getClazz().getFullName());
       }
       
-      insertCaseInGenericGet(clazz, myParser, partnerRole, rootDir);
+      Parser creatorParser = getGenerator(clazz).getOrCreateParserForCreatorClass(helperDir);
+      
+      insertCaseInGenericGet(clazz, creatorParser, partnerRole, rootDir);
 
       if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
       {
-         insertCaseInGenericSetToMany(clazz, myParser, partnerRole, rootDir);
+         insertCaseInGenericSetToMany(clazz, creatorParser, partnerRole, rootDir);
       }
       else
       {
-         insertCaseInGenericSetToOne(clazz, myParser, partnerRole, rootDir);
+         insertCaseInGenericSetToOne(clazz, creatorParser, partnerRole, rootDir);
       }
       
       insertRemovalInRemoveYou(clazz, myParser, partnerRole);
@@ -773,8 +779,6 @@ public class GenRole extends Generator<Role>
       // generate property in creator class
       if (!clazz.isInterface())
       {
-         Parser creatorParser = getGenerator(clazz).getOrCreateParserForCreatorClass(helperDir);
-
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
          getGenerator(clazz).printCreatorFile(doGenerate);
@@ -1301,7 +1305,7 @@ public class GenRole extends Generator<Role>
          return;
       }
       
-      int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
+      int pos = parser.indexOf(Parser.METHOD + ":setValue(Object,String,Object,String)");
 
       if (pos < 0)
       {
@@ -1330,15 +1334,15 @@ public class GenRole extends Generator<Role>
          }
          
          StringBuilder text = new StringBuilder
-            (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+            (  "\n      if (ClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                "\n      {" +
-               "\n         addToPropertyName((type) value);" +
+               "\n         ((ClassName) target).addToPropertyName((type) value);" +
                "\n         return true;" +
                "\n      }" +
                "\n      " + 
-               "\n      if ((PROPERTY_NAME + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))" +
+               "\n      if ((ClassName.PROPERTY_NAME + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))" +
                "\n      {" +
-               "\n         removeFromPropertyName((type) value);" +
+               "\n         ((ClassName) target).removeFromPropertyName((type) value);" +
                "\n         return true;" +
                "\n      }" +
                "\n" 
@@ -1349,6 +1353,7 @@ public class GenRole extends Generator<Role>
 
          CGUtil.replaceAll(text, 
             typePlaceholder, type, 
+            "ClassName", CGUtil.shortClassName(clazz.getName()),
             "PropertyName", StrUtil.upFirstChar(partnerRole.getName()),
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
             );
@@ -1356,8 +1361,10 @@ public class GenRole extends Generator<Role>
          parser.getFileBody().insert(lastIfEndPos, text.toString());
          
          getGenerator(clazz).insertImport(JsonIdMap.class.getName());
+
+         getGenerator(clazz).insertImport(parser, partnerRole.getClazz().getFullName());
          
-         getGenerator(clazz).setFileHasChanged(true);
+         getGenerator(clazz).setCreatorFileHasChanged(true);
       }
    }
 
@@ -1368,7 +1375,7 @@ public class GenRole extends Generator<Role>
          return;
       }
       
-      int pos = parser.indexOf(Parser.METHOD + ":set(String,Object)");
+      int pos = parser.indexOf(Parser.METHOD + ":setValue(Object,String,Object,String)");
 
       if (pos < 0)
       {
@@ -1397,9 +1404,9 @@ public class GenRole extends Generator<Role>
          }
          
          StringBuilder text = new StringBuilder
-            (  "\n      if (PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+            (  "\n      if (ClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                "\n      {" +
-               "\n         setPropertyName((type) value);" +
+               "\n         ((ClassName) target).setPropertyName((type) value);" +
                "\n         return true;" +
                "\n      }" +
                "\n" 
@@ -1410,12 +1417,16 @@ public class GenRole extends Generator<Role>
 
          CGUtil.replaceAll(text, 
             typePlaceholder, type, 
+            "ClassName", CGUtil.shortClassName(clazz.getName()),
             "PropertyName", StrUtil.upFirstChar(partnerRole.getName()),
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
             );
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getGenerator(clazz).setFileHasChanged(true);
+         
+         getGenerator(clazz).insertImport(parser, partnerRole.getClazz().getFullName());
+         
+         getGenerator(clazz).setCreatorFileHasChanged(true);
       }
    }
 

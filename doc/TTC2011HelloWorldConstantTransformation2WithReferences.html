@@ -35,13 +35,44 @@
             "typ":"node",
             "id":"G1 : Greeting",
             "attributes":[
-            "greetingMessage=",
-               "text=",
-               "person="
+            "text="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"G2 : GreetingMessage",
+            "attributes":[
+            "text=Hello"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"P3 : Person",
+            "attributes":[
+            "name=TTC Participants"
             ]
          }
       ],
-      "edges":[]
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"greeting",
+            "targetproperty":"greetingMessage",
+            "source":"G1 : Greeting",
+            "target":"G2 : GreetingMessage"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"greeting",
+            "targetproperty":"person",
+            "source":"G1 : Greeting",
+            "target":"P3 : Person"
+         }
+      ]
    }
 }   ;
    json["options"]={"canvasid":"canvas11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);

@@ -4,6 +4,8 @@ import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.examples.helloworld.Person;
 
 public class GreetingCreator extends EntityFactory
 {
@@ -34,6 +36,16 @@ public class GreetingCreator extends EntityFactory
          return ((Greeting) target).getText();
       }
 
+      if (Greeting.PROPERTY_GREETINGMESSAGE.equalsIgnoreCase(attrName))
+      {
+         return ((Greeting) target).getGreetingMessage();
+      }
+
+      if (Greeting.PROPERTY_PERSON.equalsIgnoreCase(attrName))
+      {
+         return ((Greeting) target).getPerson();
+      }
+
       return null;
    }
    
@@ -50,8 +62,22 @@ public class GreetingCreator extends EntityFactory
          ((Greeting) target).setText((String) value);
          return true;
       }
+
+      if (Greeting.PROPERTY_GREETINGMESSAGE.equalsIgnoreCase(attrName))
+      {
+         ((Greeting) target).setGreetingMessage((GreetingMessage) value);
+         return true;
+      }
+
+      if (Greeting.PROPERTY_PERSON.equalsIgnoreCase(attrName))
+      {
+         ((Greeting) target).setPerson((Person) value);
+         return true;
+      }
+
       return false;
    }
+   
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
@@ -65,5 +91,12 @@ public class GreetingCreator extends EntityFactory
       ((Greeting) entity).removeYou();
    }
 }
+
+
+
+
+
+
+
 
 

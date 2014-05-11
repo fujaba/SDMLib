@@ -69,6 +69,18 @@ public class Parser
    public static char NEW_LINE = '\n';
 
    private StringBuilder fileBody = null;
+   
+   private boolean fileBodyHasChanged = false;
+   
+   public boolean getFileBodyHasChanged()
+   {
+      return fileBodyHasChanged;
+   }
+   
+   public void setFileBodyHasChanged(boolean fileBodyHasChanged)
+   {
+      this.fileBodyHasChanged = fileBodyHasChanged;
+   }
 
    private Token lookAheadToken = null;
 

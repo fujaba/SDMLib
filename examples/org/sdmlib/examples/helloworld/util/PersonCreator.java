@@ -4,6 +4,7 @@ import org.sdmlib.serialization.interfaces.EntityFactory;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.examples.helloworld.Person;
+import org.sdmlib.examples.helloworld.Greeting;
 
 public class PersonCreator extends EntityFactory
 {
@@ -33,6 +34,11 @@ public class PersonCreator extends EntityFactory
          return ((Person) target).getName();
       }
 
+      if (Person.PROPERTY_GREETING.equalsIgnoreCase(attrName))
+      {
+         return ((Person) target).getGreeting();
+      }
+
       return null;
    }
    
@@ -49,6 +55,14 @@ public class PersonCreator extends EntityFactory
          ((Person) target).setName((String) value);
          return true;
       }
+
+      if (Person.PROPERTY_GREETING.equalsIgnoreCase(attrName))
+      {
+         ((Person) target).setGreeting((Greeting) value);
+         return true;
+      }
+
+
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)
@@ -64,5 +78,9 @@ public class PersonCreator extends EntityFactory
       ((Person) entity).removeYou();
    }
 }
+
+
+
+
 
 
