@@ -51,6 +51,8 @@ import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
+import sun.security.action.GetLongAction;
+
 
 public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
       MapUpdateListener
@@ -660,6 +662,31 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
             this.loadingHistory = false;
          }
       }
+   }
+   
+   public void storeMyHistoryCompressed()
+   {
+      String loginName = logFile.getName(); 
+      
+      loginName = loginName.split("\\.")[0];
+      
+      // xy.backup loeschen
+      
+      // move old xy.jlog file to xy.backup
+
+      // loop through history
+      for (ReplicationChange change : getHistory().getChanges())
+      {
+         // if my change
+         if (change.getHistoryIdPrefix().equals(loginName))
+         {
+            // add to xy.jlog file   
+            writeChange(change);
+         }
+         
+      }
+      
+      
    }
    
    public void loadHistoryFromDir(File logDir)
