@@ -498,7 +498,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       }
    }
 
-   private void applyChangeLocally(ReplicationChange change)
+   public void applyChangeLocally(ReplicationChange change)
    {
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject().withValue(change.getChangeMsg());
@@ -815,7 +815,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    }
 
    // ==========================================================================
-   private JsonIdMap getChangeMap()
+   public JsonIdMap getChangeMap()
    {
       if (changeMap == null)
       {
@@ -1342,6 +1342,16 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          }
       }
       return null;
+   }
+
+   public boolean isLoadingHistory()
+   {
+      return loadingHistory;
+   }
+
+   public void setLoadingHistory(boolean loadingHistory)
+   {
+      this.loadingHistory = loadingHistory;
    }
 
    
