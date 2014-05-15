@@ -498,6 +498,27 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       }
    }
 
+   
+   public void applyNoConflictChange(ReplicationChange change)
+   {
+      String key = change.getTargetObjectId() + "|" + change.getTargetProperty();
+
+      Object oldChange = this.getHistory().getChangeMap().get(key);
+
+      if (change.getIsToManyProperty())
+      {
+         // no conflict, apply
+         applyChangeLocally(change);
+      }
+      else
+      {
+         if (oldChange == null || ((ReplicationChange) oldChange).compareTo(change) < 0)
+         {
+            applyChangeLocally(change);
+         }
+      }
+   }
+   
    public void applyChangeLocally(ReplicationChange change)
    {
       // no conflict, apply change
