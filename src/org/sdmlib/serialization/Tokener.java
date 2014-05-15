@@ -233,12 +233,12 @@ public abstract class Tokener
                continue;
             }
          default:
-            if (b == '\\')
-            {
-               b = c;
-               c = 1;
-               continue;
-            }
+//            if (b == '\\')
+//            {
+//               b = c;
+//               c = 1;
+//               continue;
+//            }
          }
          if (b == '\\' && c == '\\')
          {
