@@ -1294,6 +1294,12 @@ public class Storyboard implements PropertyChangeInterface
       this.add("Check: " + message);
       Assert.assertTrue("FAILED: " + message, condition);
    }
+   
+   public void assertFalse(String message, boolean condition)
+   {
+      this.add("Check: " + message);
+      Assert.assertFalse("FAILED: " + message, condition);
+   }
 
    public void assertEquals(String message, int expected, int actual)
    {
@@ -1305,6 +1311,12 @@ public class Storyboard implements PropertyChangeInterface
    {
       this.add("Check: " + message + obj);
       Assert.assertNotNull("FAILED: " + message, obj);
+   }
+   
+   public void assertNull(String message, Object obj)
+   {
+      this.add("Check: " + message + obj);
+      Assert.assertNull("FAILED: " + message, obj);
    }
 
    // ==========================================================================

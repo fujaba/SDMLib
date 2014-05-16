@@ -489,7 +489,10 @@ public class GenRole extends Generator<Role>
          "PartnerRoleName", partnerRoleUpFirstChar,
          "reverseWithoutCall(this)", reverseWithoutCall
          );
-      getGenerator(model.getClazz()).insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
+      GenClass generator = getGenerator(model.getClazz());
+      if(generator!=null){
+         generator.insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
+      }
    } 
    
    private void generateToOneRole(Parser myParser, Clazz genClazz, Role partnerRole, StringBuilder text)

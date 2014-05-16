@@ -21,6 +21,7 @@
 
 package org.sdmlib.models.classes;
 
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.util.AttributeSet;
@@ -193,6 +194,28 @@ public class Clazz extends SDMLibClass
 
    public ClassModel getClassModel()
    {
+      // Try to repair if no Classmodel is set
+      if(classModel!=null){
+         return classModel;
+      }
+           
+      for(Iterator<Clazz> i = getSuperClasses().iterator();i.hasNext();){
+         Clazz item = i.next();
+         if(item.getClassModel()!=null){
+            this.withClassModel(item.getClassModel());
+            System.err.println("Classmodel try to repair automaticly ("+classModel.getName()+"). Please add Classmodel to Clazz: "+getName());
+            return classModel;
+         }
+      }
+      for(Iterator<Role> i = getRoles().iterator();i.hasNext();){
+         Role item = i.next();
+         if(item.getPartnerRole().getClazz().getClassModel()!=null){
+            this.withClassModel(item.getPartnerRole().getClazz().getClassModel());
+            System.err.println("Classmodel try to repair automaticly ("+classModel.getName()+"). Please add Classmodel to Clazz: "+getName());
+            return classModel;
+         }
+      }
+      System.err.println("Classmodel try to repair automaticly. Please add Classmodel to Clazz: "+getName());
       return classModel;
    }
 
