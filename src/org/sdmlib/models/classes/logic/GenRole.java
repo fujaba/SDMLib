@@ -434,7 +434,7 @@ public class GenRole extends Generator<Role>
       
       //TODO UEBERPRUEFEN
       String realPartnerClassName = partnerClassName;
-      ClazzSet kindClasses = partnerRole.getClazz().getKindClasses();
+      ClazzSet kindClasses = partnerRole.getClazz().getKidClasses();
       ClazzSet kindClassesInterfaces =new ClazzSet();
       for(Clazz clazz : kindClasses){
          if(clazz.isInterface()){
@@ -658,7 +658,7 @@ public class GenRole extends Generator<Role>
       
       String realPartnerClassName = partnerClassName;
       
-      ClazzSet kindClasses = partnerRole.getClazz().getKindClasses();
+      ClazzSet kindClasses = partnerRole.getClazz().getKidClasses();
       ClazzSet kindClassesInterfaces =new ClazzSet();
       for(Clazz clazz : kindClasses){
          if(clazz.isInterface()){

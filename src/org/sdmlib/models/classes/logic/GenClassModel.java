@@ -27,12 +27,12 @@ import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.ClazzSet;
@@ -151,9 +151,10 @@ public class GenClassModel
       getOrCreateCreatorCreatorParser(rootDir);
       generateModelPatternClass(rootDir);
       
+      fixClassModel();
       
-      for (Clazz clazz : model.getClasses())
-      {
+     
+      for(Clazz clazz :  model.getClasses()){
          getOrCreate(clazz).generate(rootDir, rootDir);
       }
 
@@ -166,6 +167,52 @@ public class GenClassModel
 
       attributNameConsistenceCheck(e, rootDir);
       return true;
+   }
+   
+   private void fixClassModel(){
+      Clazz[] classes = model.getClasses().toArray(new Clazz[model.getClasses().size()]);
+      HashSet<Clazz> visited=new HashSet<Clazz>();
+      for(Clazz item : classes){
+         fixClassModel(item, visited);
+      }
+   }
+   private void fixClassModel(Clazz item, HashSet<Clazz> visited){
+      for(Clazz entity : item.getInterfaces()){
+         if(entity.getClassModel()==null){
+            entity.withClassModel(model);
+            if(visited.add(entity)){
+               fixClassModel(entity, visited);
+            }
+         }
+      }
+
+      for(Clazz entity : item.getSuperClasses()){
+         if(entity.getClassModel()==null){
+            entity.withClassModel(model);
+            if(visited.add(entity)){
+               fixClassModel(entity, visited);
+            }
+         }
+      }
+      
+      for(Clazz entity : item.getKidClasses()){
+         if(entity.getClassModel()==null){
+            entity.withClassModel(model);
+            if(visited.add(entity)){
+               fixClassModel(entity, visited);
+            }
+         }
+      }
+      
+      for(Role entity : item.getRoles()){
+         Clazz clazz = entity.getPartnerRole().getClazz();
+         if(clazz.getClassModel()==null){
+            clazz.withClassModel(model);
+            if(visited.add(clazz)){
+               fixClassModel(clazz, visited);
+            }
+         }
+      }
    }
    
    public Parser getOrCreateCreatorCreatorParser(String rootDir)

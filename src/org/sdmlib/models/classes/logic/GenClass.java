@@ -6,6 +6,7 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import org.sdmlib.CGUtil;
@@ -13,6 +14,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
@@ -95,9 +97,6 @@ public class GenClass extends Generator<Clazz>
 
          insertConstants();
          
-         insertAllAssocs();
-         
-
          if ( !model.isInterface())
          {
             insertSuperClass();
@@ -120,7 +119,7 @@ public class GenClass extends Generator<Clazz>
       if ( !model.isInterface() )
       {
          // now generate the corresponding creator class
-         if(model.getAttributes().size()>0 && model.getClassModel().hasFeature(Feature.Serialization)){
+         if(model.getAttributes().size()>0 && getRepairClassModel().hasFeature(Feature.Serialization)){
             getOrCreateParserForCreatorClass(helpersDir);
             insertRemoveObjectInCreatorClass();
          }
@@ -130,7 +129,7 @@ public class GenClass extends Generator<Clazz>
       // now generate the corresponding ModelSet class
       getOrCreateParserForModelSetFile(helpersDir);
       printModelSetFile(modelSetFileHasChanged);
-      if(model.getClassModel().hasFeature(Feature.PatternObject)){
+      if(getRepairClassModel().hasFeature(Feature.PatternObject)){
    
          // now generate the corresponding PatterObject class
          getOrCreateParserForPatternObjectFile(helpersDir);
@@ -145,15 +144,6 @@ public class GenClass extends Generator<Clazz>
    }
    
    
-   /**
-    * Add All Assoc to ClassModel
-    */
-   private void insertAllAssocs(){
-      for(Role role : model.getRoles()){
-         model.getClassModel().getGenerator().addToAssociations(role.getAssoc());
-      }
-   }
-
    private void insertConstants()
    {
       if (constantDecls.size() == 0)
@@ -174,6 +164,52 @@ public class GenClass extends Generator<Clazz>
             setFileHasChanged(true);
          }
       }
+   }
+   private boolean repairThis=false;
+   public ClassModel getRepairClassModel(){
+      if(model.getClassModel()!=null){
+         return model.getClassModel();
+      }
+      if(repairThis){
+         return null;
+      }
+      this.repairThis = true;
+      for(Iterator<Clazz> i = model.getSuperClasses().iterator(); i.hasNext(); ){
+         Clazz item = i.next();
+         
+         if(item.getClassModel()!=null){
+            model.withClassModel(item.getClassModel());
+            System.err.println("Classmodel try to repair automaticly from Superclass ("+getRepairClassModel().getName()+"). Please add Classmodel to Clazz: "+model.getName());
+            this.repairThis = false;
+            return getRepairClassModel();
+         }
+      }
+      
+      for(Iterator<Clazz> i = model.getKidClasses().iterator();i.hasNext();){
+         Clazz item = i.next();
+         
+         if(item.getClassModel()!=null){
+            model.withClassModel(item.getClassModel());
+            System.err.println("Classmodel try to repair automaticly from Kindclass ("+getRepairClassModel()+"). Please add Classmodel to Clazz: "+model.getName());
+            this.repairThis = false;
+            return getRepairClassModel();
+         }
+      }
+      for(Iterator<Role> i = model.getRoles().iterator();i.hasNext();){
+         Role item = i.next();
+         Clazz otherClazz=item.getPartnerRole().getClazz();
+         if(otherClazz != model){
+            if(otherClazz.getClassModel()!=null){
+               model.withClassModel(otherClazz.getClassModel());
+               System.err.println("Classmodel try to repair automaticly from Assoc ("+getRepairClassModel().getName()+"). Please add Classmodel to Clazz: "+model.getName());
+               this.repairThis = false;
+               return getRepairClassModel();
+            }
+         }
+      }
+      System.err.println("Classmodel try to repair automaticly. Please add Classmodel to Clazz: "+model.getName());
+      this.repairThis = false;
+      return getRepairClassModel();
    }
 
    private void generateAttributes(String rootDir, String helpersDir) 
@@ -201,7 +237,10 @@ public class GenClass extends Generator<Clazz>
       for (Attribute attr : superClazz.getAttributes()) {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
-         getGenerator(attr).generate(model, rootDir, helpersDir, false, true);
+         GenAttribute generator = getGenerator(attr);
+         if(generator!=null){
+            generator.generate(model, rootDir, helpersDir, false, true);
+         }
       }
       if (superClazz.getSuperClass() != null) {
          gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
@@ -322,7 +361,7 @@ public class GenClass extends Generator<Clazz>
 
    private void insertRemoveObjectInCreatorClass()
    {
-      if(!model.getClassModel().hasFeature(Feature.PropertyChangeSupport)){
+      if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
          return;
       }
       String searchString = Parser.METHOD + ":removeObject(Object)";
@@ -362,7 +401,7 @@ public class GenClass extends Generator<Clazz>
 
    private void insertRemoveYouMethod()
    {
-      if(!model.getClassModel().hasFeature(Feature.PropertyChangeSupport)){
+      if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
          return;
       }
       String searchString = Parser.METHOD + ":removeYou()";
@@ -397,7 +436,7 @@ public class GenClass extends Generator<Clazz>
 
    private void insertPropertyChangeSupport()
    {
-      if(!model.getClassModel().hasFeature(Feature.PropertyChangeSupport)){
+      if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
          return;
       }
       insertImplementsClauseForPropertyChangeInterface();
@@ -687,7 +726,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.isExternal())
          {
-            packageName = model.getClassModel().getName() + GenClassModel.UTILPATH;
+            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
          }
 
          String fullEntityClassName = name;
@@ -810,7 +849,7 @@ public class GenClass extends Generator<Clazz>
             }
             
 //            StringBuilder creators = new StringBuilder();
-//            for (Clazz clazz : model.getClassModel().getClasses())
+//            for (Clazz clazz : getRepairClassModel().getClasses())
 //            {
 //               if (!clazz.isInterface() && !clazz.isExternal()){
 //                  String creatorName = CGUtil.packageName(clazz.getFullName())+".creators."+CGUtil.shortClassName(clazz.getFullName());
@@ -852,7 +891,7 @@ public class GenClass extends Generator<Clazz>
 
       if (model.isExternal())
       {
-         packageName = model.getClassModel().getName() + GenClassModel.UTILPATH;
+         packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
       }
 
       String entitiyClassName = model.getFullName().substring(pos + 1);
@@ -866,7 +905,7 @@ public class GenClass extends Generator<Clazz>
 
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
-      if(!model.getClassModel().hasFeature(Feature.ALBERTsSets)){
+      if(!getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
          return null;
       }
 
@@ -884,7 +923,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.isExternal())
          {
-            packageName = model.getClassModel().getName() + GenClassModel.UTILPATH;
+            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
          }
 
          String fullEntityClassName = name;
@@ -996,7 +1035,7 @@ public class GenClass extends Generator<Clazz>
 
    private void insertSetStartModelPattern(Parser parser)
    {
-      if(!model.getClassModel().hasFeature(Feature.PatternObject)){
+      if(!getRepairClassModel().hasFeature(Feature.PatternObject)){
          return;
       }
       String searchString = Parser.METHOD + ":has" + CGUtil.shortClassName(model.getFullName()) + "PO()";
@@ -1024,9 +1063,9 @@ public class GenClass extends Generator<Clazz>
          
 //         String packageName = CGUtil.packageName(model.getFullName());
          String packageName = CGUtil.packageName(model.getFullName());
-         String name = model.getClassModel().getName();
-         if(name!=null && !packageName.startsWith(""+model.getClassModel().getName())){
-            packageName = model.getClassModel().getName();
+         String name = getRepairClassModel().getName();
+         if(name!=null && !packageName.startsWith(""+getRepairClassModel().getName())){
+            packageName = getRepairClassModel().getName();
          }
 
          //FIXME EMF bad boy
@@ -1049,7 +1088,7 @@ public class GenClass extends Generator<Clazz>
    }
 
    private String checkSetImportFor(String type) {
-      Clazz findClass = model.getClassModel().getGenerator().findClass(type);
+      Clazz findClass = getRepairClassModel().getGenerator().findClass(type);
       if (findClass == null)
          return CGUtil.packageName(type);
       Clazz attributClass = model;
@@ -1103,7 +1142,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.isExternal())
          {
-            packageName = model.getClassModel().getName() + GenClassModel.UTILPATH;
+            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
          }
 
          String fullEntityClassName = name;
@@ -1141,7 +1180,7 @@ public class GenClass extends Generator<Clazz>
                      "" + 
                   "}\n");
 
-            if(model.getClassModel().hasFeature(Feature.ALBERTsSets)){
+            if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
                CGUtil.replaceAll(text, 
                   "ALLMATCHES", "\n    public entitiyClassNameSet allMatches()\n" + 
                   "   {\n" + 
@@ -1176,7 +1215,7 @@ public class GenClass extends Generator<Clazz>
          patternObjectParser = new Parser()
          .withFileName(fileName)
          .withFileBody(patternObjectFileBody);
-         if(model.getClassModel().hasFeature(Feature.ALBERTsSets)){
+         if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
             this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
          }
       }
@@ -1189,7 +1228,7 @@ public class GenClass extends Generator<Clazz>
 
    public Parser getOrCreateParserForPatternObjectCreatorFile(String rootDir)
    {
-      if(!model.getClassModel().hasFeature(Feature.Serialization)){
+      if(!getRepairClassModel().hasFeature(Feature.Serialization)){
          return null;
       }
 
@@ -1203,7 +1242,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.isExternal())
          {
-            packageName = model.getClassModel().getName() + GenClassModel.UTILPATH;
+            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
          }
 
          String entitiyClassName = name.substring(pos + 1);
@@ -1308,8 +1347,8 @@ public class GenClass extends Generator<Clazz>
       if (model.isExternal())
       {
          // generate creator for external class. Put it in the model package
-         creatorClassName = model.getClassModel().getName() + GenClassModel.UTILPATH + "."+shortCreatorClassName;
-         creatorPOClassName = model.getClassModel().getName() + GenClassModel.UTILPATH + "."+shortCreatorPOClassName;
+         creatorClassName = getRepairClassModel().getName() + GenClassModel.UTILPATH + "."+shortCreatorClassName;
+         creatorPOClassName = getRepairClassModel().getName() + GenClassModel.UTILPATH + "."+shortCreatorPOClassName;
       }
 
       pos = ccParser.methodBodyIndexOf(Parser.NAME_TOKEN + ":" + shortCreatorClassName, methodBodyStartPos);
@@ -1361,8 +1400,8 @@ public class GenClass extends Generator<Clazz>
    public void removeAllGeneratedCode(String testDir, String srcDir,
          String helpersDir)
    {
-      model.getClassModel().getGenerator().turnRemoveCallToComment(testDir);
-      model.getClassModel().getGenerator().removeAllCodeForClass(srcDir, helpersDir, model);
+      getRepairClassModel().getGenerator().turnRemoveCallToComment(testDir);
+      getRepairClassModel().getGenerator().removeAllCodeForClass(srcDir, helpersDir, model);
    }
 
    public void insertHasMethodsInModelPattern(Parser modelPatternParser)
@@ -1371,7 +1410,7 @@ public class GenClass extends Generator<Clazz>
 
       if (model.isExternal())
       {
-         fullPOClassName = CGUtil.helperClassName(model.getClassModel().getName() + "." + CGUtil.shortClassName(model.getFullName()), "PO");
+         fullPOClassName = CGUtil.helperClassName(getRepairClassModel().getName() + "." + CGUtil.shortClassName(model.getFullName()), "PO");
       }
 
       String poClassName = this.shortNameAndImport(fullPOClassName, modelPatternParser);
@@ -1418,7 +1457,7 @@ public class GenClass extends Generator<Clazz>
 
          modelPatternParser.getFileBody().insert(pos, text.toString());
 
-        model.getClassModel().getGenerator().setModelPatternFileHasChanged(true);
+        getRepairClassModel().getGenerator().setModelPatternFileHasChanged(true);
       }
    }
    public GenClass withConstant(String name, int i)

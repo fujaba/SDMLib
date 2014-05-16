@@ -37,7 +37,7 @@ public class Clazz extends SDMLibClass
    public static final String PROPERTY_INTERFACE = "interface";
    public static final String PROPERTY_METHODS = "methods";
    public static final String PROPERTY_SUPERCLASS = "superclasses";
-   public static final String PROPERTY_KINDCLASSES = "kindclasses";
+   public static final String PROPERTY_KIDCLASSES = "kidclasses";
    
    public static final String PROPERTY_ROLES = "roles";
    public static final String PROPERTY_WRAPPED = "wrapped";
@@ -46,7 +46,7 @@ public class Clazz extends SDMLibClass
    private boolean external;
 
    private ClazzSet superClazzes = null;
-   private ClazzSet kindClazzes = null;
+   private ClazzSet kidClazzes = null;
    
    private MethodSet methods = null;
    private AttributeSet attributes = null;
@@ -138,7 +138,7 @@ public class Clazz extends SDMLibClass
    {
       for(Clazz superClazz : newSuperClass){
          if(getSuperClasses().add(superClazz)){
-            superClazz.withKindClass(this);
+            superClazz.withKidClass(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, null, newSuperClass);
          }
       }
@@ -150,7 +150,7 @@ public class Clazz extends SDMLibClass
       boolean changed = false;
       for(Clazz superClazz : value){
          if(this.superClazzes.remove(superClazz)){
-            superClazz.removeFromKindClass(this);
+            superClazz.removeFromKidClass(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, superClazz, null);
             changed = true;
          }
@@ -159,19 +159,19 @@ public class Clazz extends SDMLibClass
    }
    
 
-   public ClazzSet getKindClasses()
+   public ClazzSet getKidClasses()
    {
-      if (this.kindClazzes == null)
+      if (this.kidClazzes == null)
       {
-         kindClazzes =  new ClazzSet();
+         kidClazzes =  new ClazzSet();
       }
-      return kindClazzes;
+      return kidClazzes;
    }
 
-   Clazz withKindClass(Clazz... newSuperClass)
+   Clazz withKidClass(Clazz... newSuperClass)
    {
       for(Clazz superClazz : newSuperClass){
-         if(getKindClasses().add(superClazz)){
+         if(getKidClasses().add(superClazz)){
             superClazz.withSuperClass(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLASS, null, newSuperClass);
          }
@@ -179,7 +179,7 @@ public class Clazz extends SDMLibClass
       return this;
    }
    
-   boolean removeFromKindClass(Clazz... value)
+   boolean removeFromKidClass(Clazz... value)
    {
       boolean changed = false;
       for(Clazz superClazz : value){
@@ -194,32 +194,6 @@ public class Clazz extends SDMLibClass
 
    public ClassModel getClassModel()
    {
-      // Try to repair if no Classmodel is set
-      if(classModel!=null){
-         return classModel;
-      }
-           
-      for(Iterator<Clazz> i = getSuperClasses().iterator();i.hasNext();){
-         Clazz item = i.next();
-         
-         if(item.getClassModel()!=null){
-            this.withClassModel(item.getClassModel());
-            System.err.println("Classmodel try to repair automaticly ("+classModel.getName()+"). Please add Classmodel to Clazz: "+getName());
-            return classModel;
-         }
-      }
-      for(Iterator<Role> i = getRoles().iterator();i.hasNext();){
-         Role item = i.next();
-         Clazz otherClazz=item.getPartnerRole().getClazz();
-         if(otherClazz != this){
-            if(otherClazz.getClassModel()!=null){
-               this.withClassModel(otherClazz.getClassModel());
-               System.err.println("Classmodel try to repair automaticly ("+classModel.getName()+"). Please add Classmodel to Clazz: "+getName());
-                  return classModel;
-            }
-         }
-      }
-      System.err.println("Classmodel try to repair automaticly. Please add Classmodel to Clazz: "+getName());
       return classModel;
    }
 

@@ -111,14 +111,14 @@ public class ClassModel extends SDMLibClass
 		return clazz;
 	}
 
-	public void addToClasses(Clazz value)
+	public boolean addToClasses(Clazz value)
 	{
 		if (this.classes == null)
 		{
 			this.classes = new ClazzSet();
 		}
 
-		this.classes.add(value);
+		return this.classes.add(value);
 	}
 
 	public boolean removeFromClasses(Clazz value)
