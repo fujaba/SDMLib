@@ -201,6 +201,7 @@ public class Clazz extends SDMLibClass
            
       for(Iterator<Clazz> i = getSuperClasses().iterator();i.hasNext();){
          Clazz item = i.next();
+         
          if(item.getClassModel()!=null){
             this.withClassModel(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly ("+classModel.getName()+"). Please add Classmodel to Clazz: "+getName());
@@ -209,10 +210,13 @@ public class Clazz extends SDMLibClass
       }
       for(Iterator<Role> i = getRoles().iterator();i.hasNext();){
          Role item = i.next();
-         if(item.getPartnerRole().getClazz().getClassModel()!=null){
-            this.withClassModel(item.getPartnerRole().getClazz().getClassModel());
-            System.err.println("Classmodel try to repair automaticly ("+classModel.getName()+"). Please add Classmodel to Clazz: "+getName());
-            return classModel;
+         Clazz otherClazz=item.getPartnerRole().getClazz();
+         if(otherClazz != this){
+            if(otherClazz.getClassModel()!=null){
+               this.withClassModel(otherClazz.getClassModel());
+               System.err.println("Classmodel try to repair automaticly ("+classModel.getName()+"). Please add Classmodel to Clazz: "+getName());
+                  return classModel;
+            }
          }
       }
       System.err.println("Classmodel try to repair automaticly. Please add Classmodel to Clazz: "+getName());

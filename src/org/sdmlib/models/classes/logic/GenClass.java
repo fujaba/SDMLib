@@ -16,9 +16,18 @@ import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
+/**
+ * @author Stefan
+ *
+ */
+/**
+ * @author Stefan
+ *
+ */
 public class GenClass extends Generator<Clazz>
 {
    public static final String PROPERTY_FILEPATH = "filePath";
@@ -85,6 +94,9 @@ public class GenClass extends Generator<Clazz>
          insertInterfaces();
 
          insertConstants();
+         
+         insertAllAssocs();
+         
 
          if ( !model.isInterface())
          {
@@ -130,6 +142,16 @@ public class GenClass extends Generator<Clazz>
       }
 
       return this;
+   }
+   
+   
+   /**
+    * Add All Assoc to ClassModel
+    */
+   private void insertAllAssocs(){
+      for(Role role : model.getRoles()){
+         model.getClassModel().getGenerator().addToAssociations(role.getAssoc());
+      }
    }
 
    private void insertConstants()
@@ -1002,7 +1024,8 @@ public class GenClass extends Generator<Clazz>
          
 //         String packageName = CGUtil.packageName(model.getFullName());
          String packageName = CGUtil.packageName(model.getFullName());
-         if(!packageName.startsWith(model.getClassModel().getName())){
+         String name = model.getClassModel().getName();
+         if(name!=null && !packageName.startsWith(""+model.getClassModel().getName())){
             packageName = model.getClassModel().getName();
          }
 

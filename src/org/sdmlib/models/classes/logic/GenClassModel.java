@@ -170,7 +170,7 @@ public class GenClassModel
    
    public Parser getOrCreateCreatorCreatorParser(String rootDir)
    {
-      if (!model.getClasses().isEmpty() && creatorCreatorParser == null)
+      if (!model.getClasses().isEmpty() && creatorCreatorParser == null && model.getName() != null)
       {
          String packageName = model.getName();
          

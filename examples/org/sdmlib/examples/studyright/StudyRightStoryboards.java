@@ -1,14 +1,12 @@
 package org.sdmlib.examples.studyright;
 
-import java.util.LinkedHashMap;
-
 import org.junit.Test;
-import org.sdmlib.CGUtil;
-import org.sdmlib.examples.studyright.creators.RoomSet;
-import org.sdmlib.examples.studyright.creators.UniversityCreator;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.examples.studyright.model.Room;
+import org.sdmlib.examples.studyright.model.Student;
+import org.sdmlib.examples.studyright.model.University;
+import org.sdmlib.examples.studyright.model.util.UniversityCreator;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.debug.FlipBook;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
@@ -329,9 +327,9 @@ public class StudyRightStoryboards
       
       storyboard.addObjectDiagram(rootTemplate.getModelObject());
 
-      storyboard.addLogEntry(R.DONE, "zuendorf", "11.11.2013 18:06:42 EST", 40, 0, "Using attribute names for parsing and generation");
+      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "11.11.2013 18:06:42 EST", 40, 0, "Using attribute names for parsing and generation");
 
-      storyboard.addLogEntry(R.DONE, "zuendorf", "23.02.2014 18:06:42 EST", 2, 0, "Reenabled parsing with references");
+      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "23.02.2014 18:06:42 EST", 2, 0, "Reenabled parsing with references");
       
       storyboard.dumpHTML();
    }
