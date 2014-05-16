@@ -26,12 +26,13 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -50,8 +51,6 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
-
-import sun.security.action.GetLongAction;
 
 
 public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
@@ -582,7 +581,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          }
 
          JsonObject jsonObject = getChangeMap().toJsonObject(change);
-
          logFileWriter.write(jsonObject.toString() + "\n");
          logFileWriter.flush();
       }
@@ -667,12 +665,28 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    public void storeMyHistoryCompressed()
    {
       String loginName = logFile.getName(); 
-      
       loginName = loginName.split("\\.")[0];
       
-      // xy.backup loeschen
+      // create backup log
+      File backupFile = new File(logFile.getAbsolutePath() + ".backup");
+      try
+      {
+         Files.copy(logFile.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
       
-      // move old xy.jlog file to xy.backup
+      // clear log file
+      try
+      {
+         new RandomAccessFile(logFile, "rw").setLength(0);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
 
       // loop through history
       for (ReplicationChange change : getHistory().getChanges())
@@ -685,8 +699,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          }
          
       }
-      
-      
    }
    
    public void loadHistoryFromDir(File logDir)
