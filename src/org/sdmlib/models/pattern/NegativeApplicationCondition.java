@@ -23,10 +23,10 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.SDMLibConfig;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
 {

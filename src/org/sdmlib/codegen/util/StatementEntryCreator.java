@@ -1,7 +1,7 @@
 package org.sdmlib.codegen.util;
 
 import org.sdmlib.codegen.StatementEntry;
-import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.EntityFactory;
 
 public class StatementEntryCreator extends EntityFactory
 {

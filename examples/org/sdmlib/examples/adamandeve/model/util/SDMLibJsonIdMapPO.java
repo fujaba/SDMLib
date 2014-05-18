@@ -1,8 +1,7 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.examples.adamandeve.model.util.SDMLibJsonIdMapSet;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class SDMLibJsonIdMapPO extends PatternObject<SDMLibJsonIdMapPO, SDMLibJsonIdMap>
 {

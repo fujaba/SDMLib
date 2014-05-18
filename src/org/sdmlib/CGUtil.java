@@ -31,12 +31,12 @@ import java.util.LinkedHashMap;
 import java.util.TreeMap;
 
 import org.sdmlib.models.classes.logic.GenClassModel;
-import org.sdmlib.models.classes.logic.GenMethod;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.GenericIdMap;
+
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class CGUtil 
 {

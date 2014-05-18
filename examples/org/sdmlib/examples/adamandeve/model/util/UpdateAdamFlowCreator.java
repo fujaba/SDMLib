@@ -1,10 +1,10 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.examples.adamandeve.model.UpdateAdamFlow;
 import org.sdmlib.logger.TaskFlow;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class UpdateAdamFlowCreator extends EntityFactory
 {
@@ -82,7 +82,7 @@ public class UpdateAdamFlowCreator extends EntityFactory
 
       if (UpdateAdamFlow.PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         ((UpdateAdamFlow) target).setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
+         ((UpdateAdamFlow) target).setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
          return true;
       }
 

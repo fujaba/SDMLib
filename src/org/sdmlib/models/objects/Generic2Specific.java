@@ -2,8 +2,8 @@ package org.sdmlib.models.objects;
 
 import java.util.LinkedHashMap;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class Generic2Specific
 {
@@ -26,7 +26,7 @@ public class Generic2Specific
                type = packageName + "." + type;
             }
             
-            SendableEntityCreator creatorClass = jsonIdMap.getCreatorClassName(type, true);
+            SendableEntityCreator creatorClass = jsonIdMap.getCreator(type, true);
             
             if (creatorClass != null)
             {

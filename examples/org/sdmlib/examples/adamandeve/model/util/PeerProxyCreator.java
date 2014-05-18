@@ -1,9 +1,9 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.logger.PeerProxy;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PeerProxyCreator extends EntityFactory
 {
@@ -72,7 +72,7 @@ public class PeerProxyCreator extends EntityFactory
 
       if (PeerProxyCreator.PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         ((PeerProxy) target).setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
+         ((PeerProxy) target).setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
          return true;
       }
       return false;

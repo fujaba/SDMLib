@@ -27,10 +27,9 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.util.StatementEntrySet;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
-import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class StatementEntry implements PropertyChangeInterface
 {

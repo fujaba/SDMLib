@@ -41,11 +41,12 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.serialization.xml.HTMLEntities;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.xml.HTMLEntities;
 
 public class JsonToGraphViz implements GuiAdapter {
 	private String rootDir = "src";
@@ -84,12 +85,12 @@ public class JsonToGraphViz implements GuiAdapter {
 	}
 
 	public String toImg(String imgName,
-			org.sdmlib.serialization.json.JsonArray objects) {
+			JsonArray objects) {
 		return toImg(imgName, objects, false, null);
 	}
 
 	public String toImg(String imgName,
-			org.sdmlib.serialization.json.JsonArray objects, boolean omitRoot,
+			JsonArray objects, boolean omitRoot,
 			String[] aggregationRoles) {
 		String link = "<embed type=\"image/svg+xml\" src='<imagename>'>\n";
 		link = link.replaceFirst("<imagename>", imgName + ".svg");

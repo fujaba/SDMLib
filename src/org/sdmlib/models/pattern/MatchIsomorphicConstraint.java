@@ -24,9 +24,8 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.SDMLibConfig;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class MatchIsomorphicConstraint extends PatternElement implements PropertyChangeInterface
 {

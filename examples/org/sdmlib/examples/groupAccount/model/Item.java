@@ -21,9 +21,11 @@
    
 package org.sdmlib.examples.groupAccount.model;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
 
 public class Item implements PropertyChangeInterface

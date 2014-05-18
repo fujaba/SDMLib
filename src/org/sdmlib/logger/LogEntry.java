@@ -26,9 +26,10 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.logger.util.LogEntrySet;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class LogEntry implements PropertyChangeInterface
 {

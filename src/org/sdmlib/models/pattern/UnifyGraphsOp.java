@@ -21,9 +21,9 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class UnifyGraphsOp extends PatternElement implements PropertyChangeInterface
 {

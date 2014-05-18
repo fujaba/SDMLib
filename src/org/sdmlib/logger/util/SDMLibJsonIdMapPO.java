@@ -1,7 +1,7 @@
 package org.sdmlib.logger.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class SDMLibJsonIdMapPO extends PatternObject<SDMLibJsonIdMapPO, SDMLibJsonIdMap>
 {

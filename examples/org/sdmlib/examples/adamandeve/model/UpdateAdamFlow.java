@@ -22,7 +22,8 @@
 package org.sdmlib.examples.adamandeve.model;
 
 import org.sdmlib.logger.TaskFlow;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
@@ -130,24 +131,24 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
    
    public static final String PROPERTY_IDMAP = "idMap";
    
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
+   private org.sdmlib.serialization.SDMLibJsonIdMap idMap;
 
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
+   public org.sdmlib.serialization.SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
    
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   public void setIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
+         org.sdmlib.serialization.SDMLibJsonIdMap oldValue = this.idMap;
          this.idMap = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
       }
    }
    
-   public UpdateAdamFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   public UpdateAdamFlow withIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;

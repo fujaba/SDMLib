@@ -31,13 +31,11 @@ import java.util.Set;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.KanbanEntrySet;
 import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 
-import java.beans.PropertyChangeListener;
-import java.util.LinkedHashSet;
+import de.uniks.networkparser.json.JsonIdMap;
 
 // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
 public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEntry>

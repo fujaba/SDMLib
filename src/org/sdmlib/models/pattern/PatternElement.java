@@ -26,7 +26,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class PatternElement<PEC> implements PropertyChangeInterface
 {

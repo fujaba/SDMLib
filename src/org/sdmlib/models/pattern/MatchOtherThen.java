@@ -23,10 +23,9 @@ package org.sdmlib.models.pattern;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class MatchOtherThen extends PatternElement<MatchOtherThen> implements PropertyChangeInterface
 {

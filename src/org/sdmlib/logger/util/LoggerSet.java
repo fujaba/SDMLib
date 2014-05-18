@@ -8,7 +8,7 @@ import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
 {

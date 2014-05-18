@@ -1,7 +1,8 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 class CreatorCreator{
 

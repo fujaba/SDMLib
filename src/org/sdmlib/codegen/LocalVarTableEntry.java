@@ -25,9 +25,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeListener;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class LocalVarTableEntry implements PropertyChangeInterface
 {

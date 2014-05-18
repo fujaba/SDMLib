@@ -21,11 +21,12 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class CloneOp extends PatternElement implements PropertyChangeInterface
 {

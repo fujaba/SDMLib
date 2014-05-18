@@ -19,13 +19,14 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.serialization.json;
+package org.sdmlib.serialization;
 
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.models.debug.FlipBook;
-import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterface{
 	/** The Constant JSON_PROPS. */

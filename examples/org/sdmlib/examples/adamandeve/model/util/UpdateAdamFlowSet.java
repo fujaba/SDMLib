@@ -24,14 +24,18 @@ package org.sdmlib.examples.adamandeve.model.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.adamandeve.model.UpdateAdamFlow;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.adamandeve.model.util.PeerProxySet;
 import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.examples.adamandeve.model.util.SDMLibJsonIdMapSet;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.models.modelsets.longList;
+
 import java.util.List;
+
 import org.sdmlib.models.modelsets.intList;
 
 public class UpdateAdamFlowSet extends SDMSet<UpdateAdamFlow>
@@ -185,13 +189,13 @@ public class UpdateAdamFlowSet extends SDMSet<UpdateAdamFlow>
       
       for (UpdateAdamFlow obj : this)
       {
-         result.add(obj.getIdMap());
+         result.with(obj.getIdMap());
       }
       
       return result;
    }
 
-   public UpdateAdamFlowSet hasIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   public UpdateAdamFlowSet hasIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       UpdateAdamFlowSet result = new UpdateAdamFlowSet();
       

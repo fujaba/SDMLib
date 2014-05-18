@@ -24,8 +24,8 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.models.classes.SDMLibConfig;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class DestroyObjectElem extends PatternElement implements PropertyChangeInterface
 {

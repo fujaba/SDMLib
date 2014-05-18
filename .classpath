@@ -4,6 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="org/sdmlib/examples/patternrewriteops/|org/sdmlib/examples/studyrightextends/|org/sdmlib/examples/studyrightWithAssignments/|org/sdmlib/examples/m2m/" kind="src" path="examples"/>
+	<classpathentry kind="src" path="NetworkParser"/>
 	<classpathentry exported="true" kind="lib" path="lib/gwtx-1.5.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="swing2swt.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit.jar"/>

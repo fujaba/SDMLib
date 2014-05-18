@@ -4,11 +4,11 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.serialization.interfaces.MapUpdateListener;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
+import de.uniks.networkparser.interfaces.MapUpdateListener;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
 
 public class Specific2Generic
 {
@@ -36,7 +36,7 @@ public class Specific2Generic
          {
             JsonObject remObj = (JsonObject) tmp;
             
-            String propName = (String) remObj.names().get(0);
+            String propName = (String) remObj.iterator().next().getKey();
             
             firstPropName = secondPropName;
             

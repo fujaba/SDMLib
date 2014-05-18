@@ -25,9 +25,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.SDMLibConfig;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class GenericConstraint extends PatternElement implements PropertyChangeInterface
 {

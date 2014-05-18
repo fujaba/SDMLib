@@ -21,16 +21,14 @@
    
 package org.sdmlib.models.transformations;
 
-import org.sdmlib.models.transformations.Template;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.models.transformations.util.TemplateSet;
-
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.models.transformations.util.TemplateSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ChoiceTemplate extends Template implements PropertyChangeInterface
 {

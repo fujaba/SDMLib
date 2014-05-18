@@ -1,10 +1,10 @@
 package org.sdmlib.examples.helloworld.util;
 
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.Person;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PersonCreator extends EntityFactory
 {

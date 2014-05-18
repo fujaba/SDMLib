@@ -21,17 +21,17 @@
    
 package org.sdmlib.models.transformations;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.util.TemplateSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PlaceHolderDescription implements PropertyChangeInterface
 {

@@ -24,11 +24,13 @@ package org.sdmlib.examples.adamandeve.model.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.Collection;
 import java.util.List;
+
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.logger.util.SDMLibJsonIdMapSet;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class PeerProxySet extends SDMSet<PeerProxy>
 {
@@ -162,7 +164,7 @@ public class PeerProxySet extends SDMSet<PeerProxy>
       return result;
    }
 
-   public PeerProxySet hasIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   public PeerProxySet hasIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       PeerProxySet result = new PeerProxySet();
       

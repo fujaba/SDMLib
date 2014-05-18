@@ -2,7 +2,7 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.EntityFactory;
 
 public class AssociationCreator extends EntityFactory
 {

@@ -60,17 +60,18 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.serialization.Filter;
-import org.sdmlib.serialization.graph.GraphConverter;
-import org.sdmlib.serialization.graph.GraphIdMap;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.serialization.logic.ConditionMap;
-import org.sdmlib.serialization.logic.ValuesMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
+
+import de.uniks.networkparser.Filter;
+import de.uniks.networkparser.graph.GraphConverter;
+import de.uniks.networkparser.graph.GraphIdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.logic.ConditionMap;
+import de.uniks.networkparser.logic.ValuesMap;
 
 public class Storyboard implements PropertyChangeInterface
 {

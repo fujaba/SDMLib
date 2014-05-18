@@ -4,7 +4,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.examples.adamandeve.model.util.PeerProxySet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
 {

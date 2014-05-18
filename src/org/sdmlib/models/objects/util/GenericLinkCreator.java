@@ -1,7 +1,7 @@
 package org.sdmlib.models.objects.util;
 
 import org.sdmlib.models.objects.GenericLink;
-import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.EntityFactory;
 
 public class GenericLinkCreator extends EntityFactory
 {

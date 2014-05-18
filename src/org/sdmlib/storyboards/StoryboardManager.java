@@ -46,11 +46,12 @@ import java.util.Vector;
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdComparator;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
+import org.sdmlib.serialization.JsonIdComparator;
 import org.sdmlib.storyboards.util.KanbanEntryCreator;
+
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
 
 public class StoryboardManager 
 {

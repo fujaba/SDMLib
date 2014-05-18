@@ -31,14 +31,14 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
 {
@@ -509,7 +509,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    public PatternObject bind(Object hostGraphObject)
    {
-      SendableEntityCreator creatorClass = getJsonIdMap().getCreatorClassName(getPOClassName(hostGraphObject.getClass().getName()), true);
+      SendableEntityCreator creatorClass = getJsonIdMap().getCreator(getPOClassName(hostGraphObject.getClass().getName()), true);
       
       PatternObject po = (PatternObject) creatorClass.getSendableInstance(false);
       

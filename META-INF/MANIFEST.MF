@@ -35,23 +35,6 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.models.pattern;uses:="org.sdmlib.models.pattern.creators,org.sdmlib.serialization.json,org.sdmlib.utils",
  org.sdmlib.models.transformations,
  org.sdmlib.serialization;uses:="org.sdmlib.serialization.json,org.sdmlib.serialization.interfaces",
- org.sdmlib.serialization.event;uses:="org.sdmlib.serialization.interfaces",
- org.sdmlib.serialization.event.creator;uses:="org.sdmlib.serialization.interfaces",
- org.sdmlib.serialization.interfaces;
-  uses:="org.sdmlib.serialization,
-   org.sdmlib.serialization.xml,
-   org.sdmlib.serialization.json,
-   org.sdmlib.serialization.bytes",
- org.sdmlib.serialization.json;
-  uses:="org.sdmlib.serialization,
-   org.sdmlib.models.debug,
-   org.sdmlib.utils,
-   org.sdmlib.serialization.interfaces",
- org.sdmlib.serialization.json.creator;uses:="org.sdmlib.serialization.interfaces",
- org.sdmlib.serialization.sort;uses:="org.sdmlib.serialization",
- org.sdmlib.serialization.util,
- org.sdmlib.serialization.xml;uses:="org.sdmlib.serialization,org.sdmlib.serialization.json,org.sdmlib.serialization.interfaces",
- org.sdmlib.serialization.xml.creator;uses:="org.sdmlib.serialization,org.sdmlib.serialization.xml,org.sdmlib.serialization.interfaces",
  org.sdmlib.storyboards
 Import-Package: org.junit
 Require-Bundle: SDMLib

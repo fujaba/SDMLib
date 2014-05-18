@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.EntityFactory;
 
 public class GenericCreator extends EntityFactory
 {

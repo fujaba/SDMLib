@@ -1,26 +1,16 @@
 package org.sdmlib.examples.helloworld;
 
-import java.util.Arrays;
-
 import org.junit.Test;
-import org.sdmlib.CGUtil;
 import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
 import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.examples.helloworld.util.ModelPattern;
 import org.sdmlib.examples.helloworld.util.PersonPO;
-import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.objects.Generic2Specific;
-import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.Specific2Generic;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.storyboards.Storyboard;
 
 public class HelloWorldTTC2011

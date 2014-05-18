@@ -27,7 +27,7 @@ import java.util.TimerTask;
 import java.util.TreeSet;
 
 import org.sdmlib.logger.util.PeerProxySet;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface
 {
@@ -171,7 +171,7 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
 
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
+         setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
          return true;
       }
 
@@ -228,24 +228,24 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
    
    public static final String PROPERTY_IDMAP = "idMap";
    
-   protected org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
+   protected org.sdmlib.serialization.SDMLibJsonIdMap idMap;
 
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
+   public org.sdmlib.serialization.SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
    
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   public void setIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
+         org.sdmlib.serialization.SDMLibJsonIdMap oldValue = this.idMap;
          this.idMap = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
       }
    }
    
-   public TaskFlow withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   public TaskFlow withIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;

@@ -8,7 +8,7 @@ import org.sdmlib.examples.adamandeve.model.Adam;
 import org.sdmlib.examples.adamandeve.model.util.TaskFlowPO;
 import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.examples.adamandeve.model.util.SDMLibJsonIdMapPO;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.examples.adamandeve.model.util.PeerProxyPO;
 import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.examples.adamandeve.model.util.UpdateAdamFlowPO;

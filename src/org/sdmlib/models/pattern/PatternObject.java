@@ -28,16 +28,16 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 import org.sdmlib.models.pattern.util.PatternLinkSet;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
 {
@@ -93,11 +93,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
             String className = this.getClass().getName();
             className = className.replace(".util.", ".");
             className = className.substring(0, className.length() - 2);
-            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreatorClassName(className, true);
+            SendableEntityCreator creatorClass = this.getPattern().getJsonIdMap().getCreator(className, true);
             if (creatorClass == null)
             {
                className = CGUtil.packageName(className) + ".impl." + CGUtil.shortClassName(className) + "Impl";
-               creatorClass = this.getPattern().getJsonIdMap().getCreatorClassName(className, true);
+               creatorClass = this.getPattern().getJsonIdMap().getCreator(className, true);
             }
             Object sendableInstance = creatorClass.getSendableInstance(false);
             this.setCurrentMatch(sendableInstance);

@@ -3,7 +3,7 @@ package org.sdmlib.models.classes;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public abstract class SDMLibClass implements PropertyChangeInterface
 {  

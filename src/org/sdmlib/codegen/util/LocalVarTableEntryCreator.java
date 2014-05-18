@@ -1,7 +1,7 @@
 package org.sdmlib.codegen.util;
 
 import org.sdmlib.codegen.LocalVarTableEntry;
-import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.EntityFactory;
 
 public class LocalVarTableEntryCreator extends EntityFactory
 {

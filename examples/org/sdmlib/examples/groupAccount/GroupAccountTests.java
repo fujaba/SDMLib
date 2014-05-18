@@ -29,7 +29,7 @@ import org.sdmlib.examples.groupAccount.model.GroupAccount;
 import org.sdmlib.examples.groupAccount.model.Item;
 import org.sdmlib.examples.groupAccount.model.Person;
 import org.sdmlib.examples.groupAccount.model.util.PersonSet;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Storyboard;
    
 public class GroupAccountTests implements PropertyChangeInterface 

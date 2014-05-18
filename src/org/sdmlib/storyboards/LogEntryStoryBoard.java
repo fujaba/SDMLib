@@ -23,15 +23,13 @@ package org.sdmlib.storyboards;
 
 
 import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.StrUtil;
-import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
-import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
 
 
 // should have a creator class

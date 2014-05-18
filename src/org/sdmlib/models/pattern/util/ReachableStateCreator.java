@@ -1,8 +1,9 @@
 package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ReachableStateCreator extends EntityFactory
 {

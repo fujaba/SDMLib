@@ -9,15 +9,15 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Card;
+import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.serialization.json.JsonIdMap;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenRole extends Generator<Role>
 {

@@ -28,10 +28,9 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
-import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenericObject implements PropertyChangeInterface
 {

@@ -24,7 +24,7 @@ package org.sdmlib.models.modelsets;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class intList extends ArrayList<Integer> implements PropertyChangeInterface
 {

@@ -21,10 +21,10 @@
    
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class SDMLibJsonIdMapSet extends SDMSet<SDMLibJsonIdMap>
 {

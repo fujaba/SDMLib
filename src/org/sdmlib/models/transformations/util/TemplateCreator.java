@@ -1,8 +1,9 @@
 package org.sdmlib.models.transformations.util;
 
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class TemplateCreator extends EntityFactory
 {

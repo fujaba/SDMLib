@@ -21,9 +21,10 @@
    
 package org.sdmlib.storyboards;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class StoryboardWall implements PropertyChangeInterface
 {

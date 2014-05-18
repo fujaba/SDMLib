@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
 {

@@ -28,9 +28,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 {
@@ -133,7 +135,7 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
+         setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
          return true;
       }
 
@@ -220,24 +222,24 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
    
    public static final String PROPERTY_IDMAP = "idMap";
    
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
+   private org.sdmlib.serialization.SDMLibJsonIdMap idMap;
 
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
+   public org.sdmlib.serialization.SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
    
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   public void setIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
-         org.sdmlib.serialization.json.JsonIdMap oldValue = this.idMap;
+         JsonIdMap oldValue = this.idMap;
          this.idMap = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
       }
    }
    
-   public PeerProxy withIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
+   public PeerProxy withIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;

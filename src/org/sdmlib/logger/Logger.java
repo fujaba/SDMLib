@@ -30,10 +30,11 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.logger.util.LogEntrySet;
 import org.sdmlib.logger.util.LoggerSet;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.StoryboardManager;
+
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class Logger extends TaskFlow implements PropertyChangeInterface
 {
@@ -223,7 +224,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
+         setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
          return true;
       }
 

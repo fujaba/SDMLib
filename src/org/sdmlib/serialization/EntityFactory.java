@@ -1,4 +1,6 @@
-package org.sdmlib.serialization.interfaces;
+package org.sdmlib.serialization;
+
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class EntityFactory implements SendableEntityCreator
 {

@@ -1,9 +1,9 @@
 package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
 import org.sdmlib.examples.ludo.model.Dice;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class DiceCreator extends EntityFactory
 {

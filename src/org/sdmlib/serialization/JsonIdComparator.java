@@ -1,6 +1,9 @@
-package org.sdmlib.serialization.json;
+package org.sdmlib.serialization;
 
 import java.util.Comparator;
+
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
 
 public class JsonIdComparator implements Comparator<Object>
 {

@@ -21,14 +21,11 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
 import java.beans.PropertyChangeSupport;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
-
-import java.beans.PropertyChangeListener;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class RuleApplication implements PropertyChangeInterface
 {

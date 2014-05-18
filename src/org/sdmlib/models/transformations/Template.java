@@ -34,12 +34,13 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.util.TemplateSet;
-import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.GenericCreator;
 import org.sdmlib.storyboards.GenericIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 
 public class Template implements PropertyChangeInterface
@@ -591,7 +592,7 @@ public class Template implements PropertyChangeInterface
 
          currentPosInExpandedText = endOfMatchInExpandedText;
 
-         SendableEntityCreator creator = this.getIdMap().getCreatorClassName(this.getModelClassName(), true);
+         SendableEntityCreator creator = this.getIdMap().getCreator(this.getModelClassName(), true);
 
          boolean first = true;
          

@@ -1,4 +1,4 @@
-package org.sdmlib.serialization.util;
+package org.sdmlib.serialization;
 
 /*
 The FUJABA ToolSuite project

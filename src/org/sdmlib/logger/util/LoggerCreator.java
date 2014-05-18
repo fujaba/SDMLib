@@ -2,8 +2,7 @@ package org.sdmlib.logger.util;
 
 import org.sdmlib.logger.Logger;
 import org.sdmlib.logger.TaskFlow;
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.EntityFactory;
 
 public class LoggerCreator extends EntityFactory
 {

@@ -21,7 +21,6 @@
 
 package org.sdmlib.models.classes;
 
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.util.AttributeSet;

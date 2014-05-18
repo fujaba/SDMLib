@@ -1,13 +1,14 @@
 package org.sdmlib.storyboards;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class GenericIdMap extends SDMLibJsonIdMap
 {
    @Override
-   public SendableEntityCreator getCreatorClassName(String className, boolean fullName) 
+   public SendableEntityCreator getCreator(String className, boolean fullName) 
    {
       if (className.startsWith("java.util.Collections$"))
       {

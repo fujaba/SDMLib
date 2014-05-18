@@ -1,7 +1,8 @@
 package org.sdmlib.logger.util;
 
-import org.sdmlib.serialization.interfaces.EntityFactory;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PeerProxyCreator extends EntityFactory
 {

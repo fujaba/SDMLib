@@ -3,7 +3,7 @@ package org.sdmlib.models.classes.util;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.EntityFactory;
 
 public class AttributeCreator extends EntityFactory
 {

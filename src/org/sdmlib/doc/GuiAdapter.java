@@ -6,7 +6,8 @@ import org.sdmlib.logger.util.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.serialization.json.JsonArray;
+
+import de.uniks.networkparser.json.JsonArray;
 
 public interface GuiAdapter
 {
@@ -14,9 +15,9 @@ public interface GuiAdapter
 
    public GuiAdapter withIconMap(LinkedHashMap<String, String> iconMap);
 
-   public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects);
+   public String toImg(String imgName, JsonArray objects);
 
-   public String toImg(String imgName, org.sdmlib.serialization.json.JsonArray objects, boolean omitRoot,
+   public String toImg(String imgName, JsonArray objects, boolean omitRoot,
          String[] aggregationRoles);
 
    public String addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects);

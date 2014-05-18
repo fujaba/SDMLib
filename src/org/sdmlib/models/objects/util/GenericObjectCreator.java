@@ -1,7 +1,7 @@
 package org.sdmlib.models.objects.util;
 
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.serialization.interfaces.EntityFactory;
+import org.sdmlib.serialization.EntityFactory;
 
 public class GenericObjectCreator extends EntityFactory
 {
