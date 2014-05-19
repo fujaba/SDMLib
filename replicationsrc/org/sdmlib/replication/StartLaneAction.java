@@ -49,7 +49,7 @@ public class StartLaneAction
                { rootPath, 
                "java", 
                "-Xdebug", 
-               "-Xrunjdwp:transport=dt_socket,address=" + debugSocket + ",server=y,suspend=y", 
+               "-Xrunjdwp:transport=dt_socket,address=" + debugSocket + ",server=y,suspend=n", 
                "-Dfile.encoding=UTF-8",
                "-classpath",
                System.getProperty("java.class.path") , 
