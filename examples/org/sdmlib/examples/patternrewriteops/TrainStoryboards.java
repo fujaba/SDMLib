@@ -3,11 +3,13 @@ package org.sdmlib.examples.patternrewriteops;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.sdmlib.examples.patternrewriteops.creators.ModelPattern;
-import org.sdmlib.examples.patternrewriteops.creators.PersonPO;
-import org.sdmlib.examples.patternrewriteops.creators.SignalFlagPO;
-import org.sdmlib.examples.patternrewriteops.creators.StationPO;
-import org.sdmlib.examples.patternrewriteops.creators.TrainPO;
+import org.sdmlib.examples.patternrewriteops.model.Station;
+import org.sdmlib.examples.patternrewriteops.model.Train;
+import org.sdmlib.examples.patternrewriteops.model.util.ModelPattern;
+import org.sdmlib.examples.patternrewriteops.model.util.PersonPO;
+import org.sdmlib.examples.patternrewriteops.model.util.SignalFlagPO;
+import org.sdmlib.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.examples.patternrewriteops.model.util.TrainPO;
 import org.sdmlib.storyboards.Storyboard;
 
 public class TrainStoryboards

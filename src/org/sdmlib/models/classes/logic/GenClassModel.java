@@ -34,6 +34,7 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.ParameterSet;
@@ -147,11 +148,12 @@ public class GenClassModel
    {
       resetParsers();
       
+      fixClassModel();
+
       addHelperClassesForUnknownAttributeTypes();
       getOrCreateCreatorCreatorParser(rootDir);
       generateModelPatternClass(rootDir);
       
-      fixClassModel();
       
      
       for(Clazz clazz :  model.getClasses()){
@@ -246,9 +248,9 @@ public class GenClassModel
                            +
                            "\n"
                            +
-                           "import org.sdmlib.serialization.json.JsonIdMap;\n"
+                           "import "+SDMLibConfig.BASESERIALISATIONURL+".json.JsonIdMap;\n"
                            +
-                           "import org.sdmlib.serialization.json.SDMLibJsonIdMap;\n"
+                           "import org.sdmlib.serialization.SDMLibJsonIdMap;\n"
                            +
                            "\n"
                            +
@@ -1242,7 +1244,7 @@ public class GenClassModel
       String shortClassName = CGUtil.shortClassName(method.getClazz().getFullName()) + "Class";
       shortClassName = StrUtil.downFirstChar(shortClassName);
       ParameterSet parameters = method.getParameters();
-      String signature = method.getSignature();
+      String signature = method.getSignature(true);
 
       String methodClass = "";
       String methodSignature = "";
@@ -1515,7 +1517,7 @@ public class GenClassModel
 
       String clazzName = method.getClazz().getFullName();
       clazzName = StrUtil.downFirstChar(CGUtil.shortClassName(clazzName)) + "Class";
-      String signature = method.getSignature();
+      String signature = method.getSignature(true);
 
       CGUtil.replaceAll(text, "clazzName", clazzName, "methodSignature", signature);
 
@@ -1890,7 +1892,7 @@ public class GenClassModel
       LinkedHashSet<Method> methods = clazz.getMethods();
       for (Method method : methods)
       {
-         if (method.getSignature().contains(name))
+         if (method.getSignature(true).contains(name))
             return method;
       }
       return null;
@@ -2199,7 +2201,7 @@ public class GenClassModel
    {
       for ( Method method : clazz.getMethods() )
       {
-         if ( method.getSignature().equals(memberName) )
+         if ( method.getSignature(true).equals(memberName) )
             return false;
       }
 

@@ -160,7 +160,7 @@ public class ClassModelTemplate {
 			{
 				StringBuilder oneMethodText = new StringBuilder("<tr><td align='left'>methodDecl</td></tr>");
 
-				CGUtil.replaceAll(oneMethodText, "methodDecl", CGUtil.shortClassNameHTMLEncoded(method.getSignature()));
+				CGUtil.replaceAll(oneMethodText, "methodDecl", CGUtil.shortClassNameHTMLEncoded(method.getSignature(true)));
 
 				CGUtil.replaceAll(allMethodsText, "methodRow", oneMethodText.append(" methodRow").toString());
 			}

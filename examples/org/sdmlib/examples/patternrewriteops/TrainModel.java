@@ -1,9 +1,9 @@
 package org.sdmlib.examples.patternrewriteops;
 
 import org.junit.Test;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role.R;
 import org.sdmlib.storyboards.Storyboard;
 
 public class TrainModel
@@ -17,21 +17,21 @@ public class TrainModel
       storyboard.add("Example model for testing destroy with model patterns: ",
       		Storyboard.DONE, "zuendorf", "07.02.2013 16:20:42", 3, 0);
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.patternrewriteops");
+      ClassModel model = new ClassModel("org.sdmlib.examples.patternrewriteops.model");
             
-      Clazz trainClass = model.createClazz("Train");
+      Clazz trainClass = model.createClazz("Train").withClassModel(model);
       
-      Clazz stationClass = trainClass.createClassAndAssoc("Station", "station", R.ONE, "trains", R.MANY);
+      Clazz stationClass = model.createClazz("Station").withAssoc(trainClass, "trains", Card.MANY, "station", Card.ONE);
 
-      stationClass.withAssoc(stationClass, "next", R.ONE, "prev", R.ONE);
+      stationClass.withAssoc(stationClass, "next", Card.ONE, "prev", Card.ONE);
       
-      Clazz personClass = stationClass.createClassAndAssoc("Person", "people", R.MANY, "station", R.ONE);
+      Clazz personClass = model.createClazz("Person").withAssoc(stationClass, "station", Card.ONE, "people", Card.MANY);
       
-      trainClass.withAssoc(personClass, "passengers", R.MANY, "train", R.ONE);
+      trainClass.withAssoc(personClass, "passengers", Card.MANY, "train", Card.ONE);
       
-      stationClass.createClassAndAssoc("SignalFlag", "flag", R.ONE, "station", R.MANY);
+      model.createClazz("SignalFlag").withAssoc(stationClass, "station", Card.MANY, "flag", Card.ONE);
       
-      storyboard.addSVGImage(model.dumpClassDiagram("examples", "TrainModelClassDiag"));
+      storyboard.addSVGImage(model.dumpClassDiagram("TrainModelClassDiag"));
       
       model.generate("examples");
       

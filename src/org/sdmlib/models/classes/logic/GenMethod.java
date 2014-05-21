@@ -34,7 +34,7 @@ public class GenMethod extends Generator<Method>
    
    private void insertMethodDecl(Clazz clazz, Parser parser)
    {     
-      String signature = model.getSignature();
+      String signature = model.getSignature(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       String string = Parser.METHOD + ":" + signature;
@@ -42,6 +42,7 @@ public class GenMethod extends Generator<Method>
       GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
       if (pos < 0)
       {
+         signature = model.getSignature(true);
          StringBuilder text = new StringBuilder
                (  "\n   " +
                      "\n   //==========================================================================" +
@@ -117,11 +118,12 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)
    {
-      String signature = model.getSignature();
+      String signature = model.getSignature(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       if (pos < 0)
       {
+         signature = model.getSignature(true);
          StringBuilder text = new StringBuilder
                (  "   " +
                      "\n   //==========================================================================" +
@@ -236,7 +238,7 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodInPatternObject(Clazz clazz2, Parser parser)
    {
-      String signature = model.getSignature();
+      String signature = model.getSignature(false);
 
       String key = Parser.METHOD + ":" + signature;
 
@@ -244,6 +246,7 @@ public class GenMethod extends Generator<Method>
 
       if (pos < 0)
       {
+         signature = model.getSignature(true);
          StringBuilder text = new StringBuilder
                (  "   " +
                      "\n   //==========================================================================" +

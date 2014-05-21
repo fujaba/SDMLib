@@ -24,7 +24,7 @@
 		<mkdir dir="build/temp/" />
 		<mkdir dir="build/lib/" />
 		<mkdir dir="build/javadoc/" />
-		<javac srcdir="src" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
+		<javac srcdir="src:NetworkParser" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
 			<classpath>
 				<pathelement location="lib/junit.jar"/>
 			</classpath>			

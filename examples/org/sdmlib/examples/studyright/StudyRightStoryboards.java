@@ -1,6 +1,10 @@
 package org.sdmlib.examples.studyright;
 
 import org.junit.Test;
+import org.sdmlib.examples.studyright.model.Room;
+import org.sdmlib.examples.studyright.model.Student;
+import org.sdmlib.examples.studyright.model.University;
+import org.sdmlib.examples.studyright.model.util.UniversityCreator;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.models.transformations.Template;

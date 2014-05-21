@@ -19,6 +19,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
@@ -97,6 +98,10 @@ public class GenClass extends Generator<Clazz>
 
          insertConstants();
          
+         for (Method method : model.getMethods()) {
+            getGenerator(method).generate(rootDir, helpersDir, false);
+         }
+         
          if ( !model.isInterface())
          {
             insertSuperClass();
@@ -106,9 +111,6 @@ public class GenClass extends Generator<Clazz>
             insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
-         for (Method method : model.getMethods()) {
-            getGenerator(method).generate(rootDir, helpersDir, false);
-         }
          generateAttributes(rootDir, helpersDir);
          printFile(isFileHasChanged());
       }else{
@@ -119,7 +121,7 @@ public class GenClass extends Generator<Clazz>
       if ( !model.isInterface() )
       {
          // now generate the corresponding creator class
-         if(model.getAttributes().size()>0 && getRepairClassModel().hasFeature(Feature.Serialization)){
+         if(getRepairClassModel().hasFeature(Feature.Serialization)){
             getOrCreateParserForCreatorClass(helpersDir);
             insertRemoveObjectInCreatorClass();
          }
@@ -755,9 +757,9 @@ public class GenClass extends Generator<Clazz>
             StringBuilder text = new StringBuilder(
                "package packageName;\n" +
                      "\n" +
-                     "import org.sdmlib.serialization.interfaces.EntityFactory;\n" +
-                     "import org.sdmlib.serialization.json.JsonIdMap;\n" +
-                     "import org.sdmlib.serialization.json.SDMLibJsonIdMap;\n"+
+                     "import org.sdmlib.serialization.EntityFactory;\n" +
+                     "import "+SDMLibConfig.BASESERIALISATIONURL+".json.JsonIdMap;\n" +
+                     "import org.sdmlib.serialization.SDMLibJsonIdMap;\n"+
                      "import fullEntityClassName;\n" +
                      "\n" +
                      "public class creatorClassName extends EntityFactory\n" +
@@ -1416,7 +1418,6 @@ public class GenClass extends Generator<Clazz>
       String poClassName = this.shortNameAndImport(fullPOClassName, modelPatternParser);
 
       int pos = modelPatternParser.indexOf(Parser.METHOD + ":hasElement" + poClassName + "()");
-
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder (

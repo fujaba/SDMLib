@@ -1,71 +1,83 @@
 package org.sdmlib.examples.m2m;
 
+import javax.management.relation.Relation;
+
 import org.junit.Test;
-import org.sdmlib.examples.m2m.creators.GraphComponentCreator;
-import org.sdmlib.examples.m2m.creators.GraphCreator;
-import org.sdmlib.examples.m2m.creators.ModelPattern;
-import org.sdmlib.examples.m2m.creators.PersonCreator;
+import org.sdmlib.examples.groupAccount.model.Person;
+import org.sdmlib.examples.groupAccount.model.util.PersonCreator;
+import org.sdmlib.examples.m2m.model.Graph;
+import org.sdmlib.examples.m2m.model.util.GraphCreator;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
-import org.sdmlib.models.objects.creators.GenericLinkPO;
-import org.sdmlib.models.objects.creators.GenericLinkSet;
-import org.sdmlib.models.objects.creators.GenericObjectPO;
-import org.sdmlib.models.objects.creators.ModelPatternCreator;
+import org.sdmlib.models.objects.util.GenericLinkPO;
+import org.sdmlib.models.objects.util.GenericLinkSet;
+import org.sdmlib.models.objects.util.GenericObjectPO;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.PatternCreator;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
+
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class BanfM2MTransformations
 {
-   private org.sdmlib.models.objects.creators.ModelPattern renameFirstNameAttrRule;
-   private org.sdmlib.models.objects.creators.ModelPattern renameKindAttrRule;
-   private org.sdmlib.models.objects.creators.ModelPattern renamePersonsLinkRule;
-   private org.sdmlib.models.objects.creators.ModelPattern renameRelationsLinkRule;
+   private Clazz edgeClazz;
+   private Clazz nodeClazz;
+   private Clazz graphClazz;
 
+   
+   private ClassModel genModel(){
+      ClassModel model = new ClassModel("org.sdmlib.examples.m2m.model");
+      
+      graphClazz = new Clazz("Graph").withClassModel(model);
+      
+      nodeClazz = new Clazz("Person")
+         .withAttribute("firstName", DataType.STRING);
+      
+      edgeClazz = new Clazz("Relation").withAttribute("kind", DataType.STRING );
+
+      new Association()
+      .withTarget(nodeClazz, "persons", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(edgeClazz, "relations", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
+      
+      model.generate("examples");
+      return model;
+   }
+   
+   @Test
+   public void testBanGenModel(){
+      genModel();
+   }
+   
+   
    @Test
    public void testBanfM2MTransformation()
    {  
       Storyboard storyboard = new Storyboard();
       
       storyboard.add("Class diagram for source model:");
+      ClassModel model = genModel();
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.m2m");
-      
-      Clazz graphClazz = new Clazz("Graph");
-      
-      Clazz nodeClazz = new Clazz("Person")
-      .withAttribute("firstName", "String");
-      
-      Clazz edgeClazz = new Clazz("Relation")
-      .withAttribute("kind", "String");
-
-      new Association()
-      .withTarget(nodeClazz, "persons", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
-      
-      new Association()
-      .withTarget(edgeClazz, "relations", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
-      
-      new Association()
-      .withTarget(nodeClazz, "src", R.ONE)
-      .withSource(edgeClazz, "outEdges", R.MANY);
-
-      new Association()
-      .withTarget(nodeClazz, "tgt", R.ONE)
-      .withSource(edgeClazz, "inEdges", R.MANY);
-      
-      model.generate("examples");
       
       storyboard.addClassDiagram(model);
       
@@ -80,7 +92,7 @@ public class BanfM2MTransformations
       graphClazz = new Clazz("Graph");
       
       Clazz graphComponentClazz = new Clazz("GraphComponent")
-      .withAttribute("text", "String");
+      .withAttribute("text", DataType.STRING);
       
       nodeClazz = new Clazz("Person")
       .withSuperClass(graphComponentClazz);
@@ -89,16 +101,16 @@ public class BanfM2MTransformations
       .withSuperClass(graphComponentClazz);
 
       new Association()
-      .withTarget(graphComponentClazz, "gcs", R.MANY)
-      .withSource(graphClazz, "parent", R.ONE);
+      .withTarget(graphComponentClazz, "gcs", Card.MANY)
+      .withSource(graphClazz, "parent", Card.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "src", R.ONE)
-      .withSource(edgeClazz, "outEdges", R.MANY);
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
 
       new Association()
-      .withTarget(nodeClazz, "tgt", R.ONE)
-      .withSource(edgeClazz, "inEdges", R.MANY);
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
@@ -142,15 +154,15 @@ public class BanfM2MTransformations
       graphClazz = new Clazz("Graph");
 
       nodeClazz = new Clazz("Person")
-      .withAttribute("text", "String");
+      .withAttribute("text", DataType.STRING);
 
       new Association()
-      .withTarget(nodeClazz, "persons", R.MANY)
-      .withSource(graphClazz, "graph", R.ONE);
+      .withTarget(nodeClazz, "persons", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
       
       new Association()
-      .withTarget(nodeClazz, "knows", R.MANY)
-      .withSource(nodeClazz, "knows", R.MANY);
+      .withTarget(nodeClazz, "knows", Card.MANY)
+      .withSource(nodeClazz, "knows", Card.MANY);
       
       model.generate("examples");
       

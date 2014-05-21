@@ -22,25 +22,26 @@ package org.sdmlib.examples.studyrightWithAssignments;
 
 import org.junit.Test;
 import org.sdmlib.CGUtil;
-import org.sdmlib.examples.studyrightWithAssignments.creators.AssignmentSet;
-import org.sdmlib.examples.studyrightWithAssignments.creators.ModelPattern;
-import org.sdmlib.examples.studyrightWithAssignments.creators.RoomPO;
-import org.sdmlib.examples.studyrightWithAssignments.creators.RoomSet;
-import org.sdmlib.examples.studyrightWithAssignments.creators.StudentPO;
-import org.sdmlib.examples.studyrightWithAssignments.creators.StudentSet;
-import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantPO;
-import org.sdmlib.examples.studyrightWithAssignments.creators.TeachingAssistantSet;
-import org.sdmlib.examples.studyrightWithAssignments.creators.UniversityCreator;
+import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomPO;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentPO;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantPO;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversityCreator;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.GenericConstraint.Condition;
 import org.sdmlib.models.pattern.Match;
-import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.json.JsonArray;
-import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardManager;
+
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class StoryboardTests {
    @Test

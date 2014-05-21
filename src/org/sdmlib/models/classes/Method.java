@@ -41,7 +41,7 @@ public class Method extends SDMLibClass
    private DataType returnType = DataType.VOID;
 
    //TODO Right so
-   public String getSignature(){
+   public String getSignature(boolean includeName){
       StringBuilder sb=new StringBuilder();
       
       sb.append(this.getName()+"(");
@@ -51,30 +51,37 @@ public class Method extends SDMLibClass
       for(Parameter parameter : getParameters()){
         
          if(first){
-            sb.append(getParameterSignature(parameter, i));
+            sb.append(getParameterSignature(includeName, parameter, i));
             first=false;
          }else{
-            sb.append(getParameterSignature(parameter, i));
+            sb.append(getParameterSignature(includeName, parameter, i));
          }
          
          if ( i < getParameters().size()-1 ) {
-            sb.append(", ");
+            if(includeName){
+               sb.append(", ");
+            }else{
+               sb.append(",");
+            }
          }
          i++;
       }
       sb.append(")");
       return sb.toString();
    }
-   private String getParameterSignature(Parameter parameter, int i){
-      String param=parameter.getType().getValue()+" ";
+   private String getParameterSignature(boolean includeName, Parameter parameter, int i){
+      String param=parameter.getType().getValue();
+      if(!includeName){
+         return param;
+      }
       String name="";
       if(parameter.getName()!=null){
          name = parameter.getName().trim();
       }
       if(name!=""){
-         return param+name;
+         return param+" "+name;
       }
-      return param+"p" + i;
+      return param+" p" + i;
    }
      
    public Method()
@@ -162,11 +169,25 @@ public class Method extends SDMLibClass
 
    public Method withParameter(Parameter... value)
    {
+      if(value==null){
+         return this;
+      }
       for(Parameter parameter : value){
          addToParameter(parameter);
       }
       return this;
    }
+   public Method withParameter(String... value){
+      if(value==null){
+         return this;
+      }
+      for(String parameter : value){
+         
+         addToParameter(new Parameter(DataType.ref(parameter)));
+      }
+      return this;
+   }
+
 
    public Method withoutParameter(Parameter... value)
    {
