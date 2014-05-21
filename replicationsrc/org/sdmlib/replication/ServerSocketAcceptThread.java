@@ -35,6 +35,7 @@ public class ServerSocketAcceptThread extends Thread implements
 
    public int port;
    public ReplicationNode replicationNode;
+   private SharedSpace sharedSpace;
 
    public ServerSocketAcceptThread(ReplicationNode replicationNode,
          int replicationServerPort)
@@ -46,6 +47,12 @@ public class ServerSocketAcceptThread extends Thread implements
    public ServerSocketAcceptThread()
    {
       // blank
+   }
+
+   public ServerSocketAcceptThread(SharedSpace sharedSpace, int port)
+   {
+      this.sharedSpace = sharedSpace;
+      this.port = port;
    }
 
    @Override
@@ -66,6 +73,7 @@ public class ServerSocketAcceptThread extends Thread implements
             ReplicationChannel channel = new ReplicationChannel(
                   replicationNode, connection);
             channel.setName("ReplicationChannel" + i++);
+            channel.setSharedSpace(sharedSpace);
             channel.start();
          }
       }

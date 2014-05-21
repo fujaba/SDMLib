@@ -41,13 +41,20 @@ public class ReplicationModel
       Clazz sharedSpace = replicationNode
          .createClassAndAssoc("SharedSpace", "sharedSpaces", R.MANY, "node",
             R.ONE)
-         .withAttributes("spaceId", R.STRING, "history", CHANGE_HISTORY,
-            "lastChangeId", R.LONG, "nodeId", R.STRING).withSuperClass(thread);
+         .withAttributes(
+            "spaceId", R.STRING, 
+            "history", CHANGE_HISTORY,
+            "lastChangeId", R.LONG, 
+            "nodeId", R.STRING, 
+            "javaFXApplication", R.BOOLEAN)
+            .withSuperClass(thread);
 
       Clazz replicationChannel = sharedSpace
          .createClassAndAssoc("ReplicationChannel", "channels", R.MANY,
             "sharedSpace", R.ONE).withSuperClass(thread)
-         .withAttributes("socket", Socket.class.getSimpleName());
+         .withAttributes(
+            "socket", Socket.class.getSimpleName(), 
+            "targetNodeId", R.STRING);
 
       Clazz replicationServer = model.createClazz("ReplicationServer")
          .withSuperClass(replicationNode);

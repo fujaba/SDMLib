@@ -31,6 +31,7 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.List;
 
 public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel>
       implements org.sdmlib.models.modelsets.ModelSet
@@ -153,7 +154,62 @@ public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel>
       return this;
    }
 
+   public StringList getTargetNodeId()
+   {
+      StringList result = new StringList();
+      
+      for (ReplicationChannel obj : this)
+      {
+         result.add(obj.getTargetNodeId());
+      }
+      
+      return result;
+   }
+
+   public ReplicationChannelSet hasTargetNodeId(String value)
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (value.equals(obj.getTargetNodeId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ReplicationChannelSet hasTargetNodeId(String lower, String upper)
+   {
+      ReplicationChannelSet result = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (lower.compareTo(obj.getTargetNodeId()) <= 0 && obj.getTargetNodeId().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ReplicationChannelSet withTargetNodeId(String value)
+   {
+      for (ReplicationChannel obj : this)
+      {
+         obj.setTargetNodeId(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
 
 
 

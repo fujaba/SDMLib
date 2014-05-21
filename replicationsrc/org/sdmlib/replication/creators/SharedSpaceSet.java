@@ -41,6 +41,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.booleanList;
 
 public class SharedSpaceSet extends LinkedHashMap<String, SharedSpace>
       implements org.sdmlib.models.modelsets.ModelSet
@@ -239,7 +240,47 @@ public class SharedSpaceSet extends LinkedHashMap<String, SharedSpace>
       return this;
    }
 
+   public booleanList getJavaFXApplication()
+   {
+      booleanList result = new booleanList();
+      
+      for (SharedSpace obj : this.values())
+      {
+         result.add(obj.getJavaFXApplication());
+      }
+      
+      return result;
+   }
+
+   public SharedSpaceSet hasJavaFXApplication(boolean value)
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (SharedSpace obj : this.values())
+      {
+         if (value == obj.getJavaFXApplication())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SharedSpaceSet withJavaFXApplication(boolean value)
+   {
+      for (SharedSpace obj : this.values())
+      {
+         obj.setJavaFXApplication(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
 
 
 

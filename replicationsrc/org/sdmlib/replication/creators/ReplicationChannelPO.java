@@ -109,4 +109,58 @@ public class ReplicationChannelPO extends
       return this.startCreate().hasSharedSpace(tgt).endCreate();
    }
 
+   public ReplicationChannelPO hasTargetNodeId(String value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ReplicationChannel.PROPERTY_TARGETNODEID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ReplicationChannelPO hasTargetNodeId(String lower, String upper)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(ReplicationChannel.PROPERTY_TARGETNODEID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ReplicationChannelPO createTargetNodeId(String value)
+   {
+      this.startCreate().hasTargetNodeId(value).endCreate();
+      return this;
+   }
+   
+   public String getTargetNodeId()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ReplicationChannel) getCurrentMatch()).getTargetNodeId();
+      }
+      return null;
+   }
+   
+   public ReplicationChannelPO withTargetNodeId(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ReplicationChannel) getCurrentMatch()).setTargetNodeId(value);
+      }
+      return this;
+   }
+   
 }
+

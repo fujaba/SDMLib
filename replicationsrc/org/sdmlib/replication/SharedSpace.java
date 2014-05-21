@@ -40,6 +40,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javafx.application.Platform;
+
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.replication.creators.ReplicationRootSet;
@@ -51,6 +53,7 @@ import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
+
 
 
 public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
@@ -73,24 +76,13 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    private LinkedBlockingQueue<ChannelMsg> msgQueue = new LinkedBlockingQueue<ChannelMsg>();
 
-   public class ChannelMsg
-   {
-      public ChannelMsg(ReplicationChannel channel, String msg)
-      {
-         this.channel = channel;
-         this.msg = msg;
-      }
-
-      public ReplicationChannel channel;
-
-      public String msg;
-   }
-
    private boolean firstMessage = true;
 
    private String serverIp;
 
    private int serverPort;
+
+   private boolean javaFx;
 
    public SharedSpace()
    {
@@ -146,7 +138,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       try
       {
-         if (firstMessage)
+         if (firstMessage && ! javaFXApplication)
          {
             firstMessage = false;
             JsonObject jsonObject = new JsonObject().withValue(msg);
@@ -166,7 +158,15 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          }
 
          ChannelMsg channelMsg = new ChannelMsg(channel, msg);
-         msgQueue.put(channelMsg);
+         
+         if (javaFXApplication)
+         {
+            Platform.runLater(new JavaFXMsgHandler(channelMsg));
+         }
+         else
+         {
+            msgQueue.put(channelMsg);
+         }
       }
       catch (InterruptedException e)
       {
@@ -916,6 +916,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          return getNodeId();
       }
 
+      if (PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
+      {
+         return getJavaFXApplication();
+      }
+
       return null;
    }
 
@@ -962,6 +967,12 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       if (PROPERTY_NODEID.equalsIgnoreCase(attrName))
       {
          setNodeId((String) value);
+         return true;
+      }
+
+      if (PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
+      {
+         setJavaFXApplication((Boolean) value);
          return true;
       }
 
@@ -1414,6 +1425,61 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.loadingHistory = loadingHistory;
    }
 
+   //==========================================================================
    
+   public static final String PROPERTY_JAVAFXAPPLICATION = "javaFXApplication";
+   
+   private boolean javaFXApplication;
+
+   public boolean getJavaFXApplication()
+   {
+      return this.javaFXApplication;
+   }
+   
+   public void setJavaFXApplication(boolean value)
+   {
+      if (this.javaFXApplication != value)
+      {
+         boolean oldValue = this.javaFXApplication;
+         this.javaFXApplication = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_JAVAFXAPPLICATION, oldValue, value);
+      }
+   }
+   
+   public SharedSpace withJavaFXApplication(boolean value)
+   {
+      setJavaFXApplication(value);
+      return this;
+   } 
+   
+   private class JavaFXMsgHandler implements Runnable
+   {
+      private ChannelMsg channelMsg;
+
+      public JavaFXMsgHandler(ChannelMsg channelMsg)
+      {
+         this.channelMsg = channelMsg;
+         // TODO Auto-generated constructor stub
+      }
+
+      @Override
+      public void run()
+      {
+         handleMessage(channelMsg);
+      }
+   }
+
+   public class ChannelMsg
+   {
+      public ChannelMsg(ReplicationChannel channel, String msg)
+      {
+         this.channel = channel;
+         this.msg = msg;
+      }
+
+      public ReplicationChannel channel;
+
+      public String msg;
+   }
 }
 

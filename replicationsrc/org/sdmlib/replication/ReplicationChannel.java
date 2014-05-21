@@ -32,7 +32,10 @@ import java.net.Socket;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
+
 import java.beans.PropertyChangeListener;
+
+import org.sdmlib.utils.StrUtil;
 
 public class ReplicationChannel extends Thread implements
       PropertyChangeInterface
@@ -72,6 +75,11 @@ public class ReplicationChannel extends Thread implements
                   sharedSpace.enqueueMsg(this, line);
                }
             }
+            else if (line.startsWith("hello from"))
+            {
+               String senderNodeId = line.split(" ")[2];
+               this.setTargetNodeId(senderNodeId);
+            }
             else
             {
                sharedSpace.enqueueMsg(this, line);
@@ -81,6 +89,7 @@ public class ReplicationChannel extends Thread implements
       catch (IOException e)
       {
          System.out.println("Socket has been closed");
+         this.removeYou();
       }
    }
 
@@ -136,6 +145,11 @@ public class ReplicationChannel extends Thread implements
          return getSocket();
       }
 
+      if (PROPERTY_TARGETNODEID.equalsIgnoreCase(attrName))
+      {
+         return getTargetNodeId();
+      }
+
       return null;
    }
 
@@ -152,6 +166,12 @@ public class ReplicationChannel extends Thread implements
       if (PROPERTY_SOCKET.equalsIgnoreCase(attrName))
       {
          setSocket((Socket) value);
+         return true;
+      }
+
+      if (PROPERTY_TARGETNODEID.equalsIgnoreCase(attrName))
+      {
+         setTargetNodeId((String) value);
          return true;
       }
 
@@ -294,5 +314,42 @@ public class ReplicationChannel extends Thread implements
       String line = jsonObject.toString() + "\n";
       this.send(line);
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TARGETNODEID = "targetNodeId";
+   
+   private String targetNodeId;
+
+   public String getTargetNodeId()
+   {
+      return this.targetNodeId;
+   }
+   
+   public void setTargetNodeId(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.targetNodeId, value))
+      {
+         String oldValue = this.targetNodeId;
+         this.targetNodeId = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETNODEID, oldValue, value);
+      }
+   }
+   
+   public ReplicationChannel withTargetNodeId(String value)
+   {
+      setTargetNodeId(value);
+      return this;
+   } 
+
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTargetNodeId());
+      return _.substring(1);
+   }
+
 }
 

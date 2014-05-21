@@ -10,7 +10,8 @@ public class SharedSpaceCreator extends EntityFactory
    private final String[] properties = new String[]
    { SharedSpace.PROPERTY_SPACEID, SharedSpace.PROPERTY_HISTORY,
          SharedSpace.PROPERTY_LASTCHANGEID, SharedSpace.PROPERTY_NODEID,
-         SharedSpace.PROPERTY_NODE, SharedSpace.PROPERTY_CHANNELS, };
+         SharedSpace.PROPERTY_NODE, SharedSpace.PROPERTY_CHANNELS,    SharedSpace.PROPERTY_JAVAFXAPPLICATION,
+   };
 
    public String[] getProperties()
    {
@@ -50,3 +51,4 @@ public class SharedSpaceCreator extends EntityFactory
       ((SharedSpace) entity).removeYou();
    }
 }
+
