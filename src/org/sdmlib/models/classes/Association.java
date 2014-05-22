@@ -58,18 +58,11 @@ public class Association extends SDMLibClass
    
    public Association withSource(Clazz sourceClass, String roleName, Card card)
    {
-      withSource(roleName, sourceClass, card, Role.VANILLA);
+      withSource(sourceClass, roleName, card, Role.VANILLA);
       return this;
    }
    
-   public Association withSource(String roleName, Clazz sourceClass, Card card)
-   {
-      withSource(roleName, sourceClass, card, Role.VANILLA);
-      return this;
-   }
-
-
-   public Association withSource(String roleName, Clazz sourceClass, Card card,
+   public Association withSource(Clazz sourceClass, String roleName, Card card,
       String kind)
    {
       setSource(new Role()
@@ -78,23 +71,21 @@ public class Association extends SDMLibClass
       .withCard(card.toString())
       .withKind(kind));
       
+      if (sourceClass.getClassModel() != null && sourceClass.getClassModel().getGenerator() != null)
+      {
+         sourceClass.getClassModel().getGenerator().addToAssociations(this);
+      }
+      
       return this;
    }
 
    public Association withTarget(Clazz targetClass, String roleName, Card card)
    {
-      withTarget(roleName, targetClass, card, Role.VANILLA);
+      withTarget(targetClass, roleName, card, Role.VANILLA);
       return this;
    }
    
-   public Association withTarget(String roleName, Clazz targetClass, Card card)
-   {
-      withTarget(roleName, targetClass, card, Role.VANILLA);
-      return this;
-   }
-
-
-   public Association withTarget(String roleName, Clazz targetClass, Card card,
+   public Association withTarget(Clazz targetClass, String roleName, Card card,
       String kind)
    {
       setTarget(new Role()
@@ -102,6 +93,11 @@ public class Association extends SDMLibClass
       .withClazz(targetClass)
       .withCard(card.toString())
       .withKind(kind));
+      
+      if (targetClass.getClassModel() != null && targetClass.getClassModel().getGenerator() != null)
+      {
+         targetClass.getClassModel().getGenerator().addToAssociations(this);
+      }
       
       return this;
    }

@@ -31,13 +31,11 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.classes.util.ParameterSet;
 import org.sdmlib.models.classes.util.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
@@ -46,12 +44,7 @@ import org.sdmlib.models.objects.GenericObject;
 public class GenClassModel
 {
    public static final String UTILPATH=".util";
-
-   private Parser modelPatternParser;
-   private String modelPatternClassName;
-   private boolean modelPatternFileHasChanged;
    private ClassModel model;
-   
    private File javaFile;
    private StringBuilder fileBody;
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
@@ -152,9 +145,6 @@ public class GenClassModel
 
       addHelperClassesForUnknownAttributeTypes();
       getOrCreateCreatorCreatorParser(rootDir);
-      generateModelPatternClass(rootDir);
-      
-      
      
       for(Clazz clazz :  model.getClasses()){
          getOrCreate(clazz).generate(rootDir, rootDir);
@@ -214,6 +204,9 @@ public class GenClassModel
                fixClassModel(clazz, visited);
             }
          }
+      }
+      for(Role role : item.getRoles()){
+         this.addToAssociations(role.getAssoc());
       }
    }
    
@@ -527,33 +520,6 @@ public class GenClassModel
       return position;
    }
 
-   private void generateModelPatternClass(String rootDir)
-   {
-      // take first class to find package
-
-     if( getOrCreateModelPatternParser(rootDir) == null)
-     {
-        return;
-     }
-
-      for (Clazz clazz : model.getClasses())
-      {
-         getOrCreate(clazz).insertHasMethodsInModelPattern(modelPatternParser);
-      }
-
-      printModelPatternFile(modelPatternFileHasChanged);
-   }
-
-
-   public void printModelPatternFile(boolean really)
-   {
-      if (really)
-      {
-         File modelPatternFile = new File(modelPatternParser.getFileName());
-         CGUtil.printFile(modelPatternFile, modelPatternParser.getFileBody().toString());
-      }
-   }
-   
    public void printFile(boolean really)
    {
       if (really)
@@ -610,89 +576,6 @@ public class GenClassModel
    public ClassModel getModel()
    {
       return model;
-   }
-   
-   public Parser getOrCreateModelPatternParser(String rootDir)
-   {
-      if(!model.hasFeature(Feature.PatternObject)){
-         return null;
-      }
-      
-      if (!model.getClasses().isEmpty() && modelPatternParser == null)
-      {
-         // try to find existing file
-         String packageName = model.getName();
-         if (model.getName() != null)
-         {
-            packageName = packageName + UTILPATH;
-            modelPatternClassName = packageName + ".ModelPattern";
-         }
-         else
-         {
-            Clazz firstClass = model.getClasses().iterator().next();
-
-            modelPatternClassName = firstClass.getFullName();
-
-            int pos = modelPatternClassName.lastIndexOf('.');
-
-            packageName = modelPatternClassName.substring(0, pos) + UTILPATH;
-
-            modelPatternClassName = packageName + ".ModelPattern";
-         }
-
-         String fileName = modelPatternClassName;
-
-         fileName = fileName.replaceAll("\\.", "/");
-
-         fileName = rootDir + "/" + fileName + ".java";
-
-         File mpJavaFile = new File(fileName);
-
-         // found old one?
-         StringBuilder mpFileBody;
-         if (mpJavaFile.exists())
-         {
-            mpFileBody = CGUtil.readFile(mpJavaFile);
-         }
-         else
-         {
-            mpFileBody = new StringBuilder();
-
-            StringBuilder text = 
-                  new StringBuilder(
-                        "package packageName;\n" + 
-                              "\n" + 
-                              "import org.sdmlib.models.pattern.Pattern;\n" + 
-                              "\n" + 
-                              "public class ModelPattern extends Pattern\n" + 
-                              "{\n" + 
-                              "   public ModelPattern()\n" + 
-                              "   {\n" + 
-                              "      super(CreatorCreator.createIdMap(\"hg\"));\n" + 
-                              "   }\n" + 
-                              "\n" +
-                              "   public ModelPattern startCreate()\n" + 
-                              "   {\n" + 
-                              "      super.startCreate();\n" + 
-                              "      return this;\n" + 
-                              "   }\n" + 
-                              "\n" +
-                              "}\n" + 
-                        "\n" );
-
-            CGUtil.replaceAll(text, 
-                  "packageName", packageName);
-
-            mpFileBody.append(text.toString());
-
-            modelPatternFileHasChanged = true;
-         }
-
-         modelPatternParser = new Parser().withFileName(fileName).withFileBody(mpFileBody);
-
-      }
-
-      return modelPatternParser;
    }
    
    public void insertModelCreationCodeHere(String rootDir)
@@ -1243,7 +1126,6 @@ public class GenClassModel
    {
       String shortClassName = CGUtil.shortClassName(method.getClazz().getFullName()) + "Class";
       shortClassName = StrUtil.downFirstChar(shortClassName);
-      ParameterSet parameters = method.getParameters();
       String signature = method.getSignature(true);
 
       String methodClass = "";
@@ -1583,14 +1465,11 @@ public class GenClassModel
    
    private boolean checkSuper(Clazz clazz, LocalVarTableEntry entry, String classType)
    {
-      String name = CGUtil.shortClassName( clazz.getFullName() );
       ArrayList<ArrayList<String>> initSequence = entry.getInitSequence();
       for (ArrayList<String> sequencePart : initSequence)
       {
          if (classType.equals(sequencePart.get(0)))
          {
-            String sequencePartName = sequencePart.get(1).replace("\"", "");
-            //          if ( StrUtil.stringEquals(name, sequencePartName) )
             return true;
          }
       }
@@ -1738,8 +1617,8 @@ public class GenClassModel
          {
             // need to create a new one
             currentAssoc = new Association()
-            .withSource(sourceLabel, this.getOrCreateClazz(packageName + "." + sourceType), Card.ONE)
-            .withTarget(targetLabel, getOrCreateClazz(packageName + "." + targetType), Card.ONE);
+            .withSource(this.getOrCreateClazz(packageName + "." + sourceType), sourceLabel, Card.ONE)
+            .withTarget(getOrCreateClazz(packageName + "." + targetType), targetLabel, Card.ONE);
             this.addToAssociations(currentAssoc);
          }
 
@@ -1999,44 +1878,6 @@ public class GenClassModel
       }
 
       return clazz;
-   }
-
-   private void findAndRemoveAttributs(Clazz clazz, String names) { 
-      String[] split = names.split(" ");
-      for (String attrName : split)
-      {
-         Attribute attr = findAttribute(clazz, attrName);
-         if (attr != null)
-         {
-            clazz.removeFromAttributes(attr);
-         }
-      }
-
-   }
-
-   private Attribute findAttribute(Clazz clazz, String attrName) {
-      LinkedHashSet<Attribute> attrs = clazz.getAttributes();
-      for (Attribute attr : attrs)
-      {
-         if (attr.getName().equals(attrName))
-            return attr;
-      }
-      return null;
-   }
-
-   private void handleAssoc(Clazz clazz, String rootDir, String memberName, Card card, String partnerClassName, Clazz partnerClass, String partnerAttrName)
-   {
-      partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
-      Parser partnerParser = getOrCreate(partnerClass).getOrCreateParser(rootDir); 
-      String searchString = Parser.ATTRIBUTE + ":" + partnerAttrName;
-
-      int attributePosition = partnerParser.indexOf(searchString);
-
-      if (attributePosition > -1)
-      {
-         Card partnerCard = findRoleCard(partnerParser, searchString);
-         tryToCreateAssoc(clazz, memberName, card, partnerClassName, partnerClass, partnerAttrName, partnerCard);
-      }
    }
 
    private void addMemberToModel(Clazz clazz, Parser parser, String memberName)
@@ -2369,7 +2210,6 @@ public class GenClassModel
          if ("withAttribute".equals(sequencePart.get(0)))
          {
             String sequencePartName = sequencePart.get(1).replace("\"", "");
-            String sequencePartType = sequencePart.get(2).replace("\"", "");
             if (StrUtil.stringEquals(name, sequencePartName)) 
                // check only for attr name, user may have changed attr type, do not overwrite this. 
                //  && StrUtil.stringEquals(type, sequencePartType))
@@ -2382,7 +2222,7 @@ public class GenClassModel
             while (pos + 1 < sequencePart.size())
             {
                String attrName = sequencePart.get(pos).replace("\"", "");
-               String typeName = sequencePart.get(pos + 1).replace("\"", "");
+//               String typeName = sequencePart.get(pos + 1).replace("\"", "");
 
                if (StrUtil.stringEquals(name, attrName))
                {
@@ -2423,7 +2263,6 @@ public class GenClassModel
       turnRemoveCallToComment(rootDir);
 
       // now remove class file, creator file, and modelset file for each class and the CreatorCreator
-      String packageName = null;
       for (Clazz clazz : model.getClasses())
       {
          try
@@ -2537,10 +2376,6 @@ public class GenClassModel
       fileName = path + CGUtil.shortClassName(className) + "POCreator.java";
       deleteFile(fileName);
 
-      // model pattern file
-      fileName = path + "ModelPattern.java";
-      deleteFile(fileName);
-
       // CreatorCreator in that package
       fileName = path + "CreatorCreator.java";
       deleteFile(fileName);
@@ -2555,15 +2390,5 @@ public class GenClassModel
       {
          file.delete();
       }
-   }
-
-//   public void setFileHasChanged(boolean value)
-//   {
-//      this.fileHasChanged = value;
-//   }
-
-   public void setModelPatternFileHasChanged(boolean value)
-   {
-      this.modelPatternFileHasChanged = value;
    }
 }

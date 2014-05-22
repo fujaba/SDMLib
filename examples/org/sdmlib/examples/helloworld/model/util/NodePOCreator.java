@@ -1,22 +1,25 @@
-package org.sdmlib.examples.adamandeve.model.util;
+package org.sdmlib.examples.helloworld.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
-public class TaskFlowPOCreator extends PatternObjectCreator
+public class NodePOCreator extends PatternObjectCreator
 {
+   @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new TaskFlowPO();
+      return new NodePO();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((TaskFlowPO) target).get(attrName);
+      return ((NodePO) target).get(attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((TaskFlowPO) target).set(attrName, value);
+      return ((NodePO) target).set(attrName, value);
    }
 }
 

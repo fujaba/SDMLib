@@ -1,16 +1,16 @@
-package org.sdmlib.examples.patternrewriteops.model.util;
+package org.sdmlib.examples.helloworld.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.examples.patternrewriteops.model.SignalFlag;
-import org.sdmlib.examples.patternrewriteops.model.Station;
+import org.sdmlib.examples.helloworld.model.Node;
 
-public class SignalFlagCreator extends EntityFactory
+public class NodeCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      SignalFlag.PROPERTY_STATION,
+      Node.PROPERTY_COPY,
+      Node.PROPERTY_ORIG,
    };
    
    @Override
@@ -22,15 +22,20 @@ public class SignalFlagCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new SignalFlag();
+      return new Node();
    }
    
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (SignalFlag.PROPERTY_STATION.equalsIgnoreCase(attrName))
+      if (Node.PROPERTY_COPY.equalsIgnoreCase(attrName))
       {
-         return ((SignalFlag) target).getStation();
+         return ((Node) target).getCopy();
+      }
+
+      if (Node.PROPERTY_ORIG.equalsIgnoreCase(attrName))
+      {
+         return ((Node) target).getOrig();
       }
 
       return null;
@@ -44,15 +49,15 @@ public class SignalFlagCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (SignalFlag.PROPERTY_STATION.equalsIgnoreCase(attrName))
+      if (Node.PROPERTY_COPY.equalsIgnoreCase(attrName))
       {
-         ((SignalFlag) target).addToStation((Station) value);
+         ((Node) target).setCopy((Node) value);
          return true;
       }
-      
-      if ((SignalFlag.PROPERTY_STATION + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+
+      if (Node.PROPERTY_ORIG.equalsIgnoreCase(attrName))
       {
-         ((SignalFlag) target).removeFromStation((Station) value);
+         ((Node) target).setOrig((Node) value);
          return true;
       }
       return false;
@@ -67,7 +72,7 @@ public class SignalFlagCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((SignalFlag) entity).removeYou();
+      ((Node) entity).removeYou();
    }
 }
 

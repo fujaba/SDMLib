@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,16 +21,32 @@
    
 package org.sdmlib.examples.groupAccount.model;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.LinkedHashSet;
-
-import org.sdmlib.examples.groupAccount.model.util.ItemSet;
-import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.examples.groupAccount.model.util.PersonSet;
+import java.util.LinkedHashSet;
+import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.groupAccount.model.util.ItemSet;
 
 public class GroupAccount implements PropertyChangeInterface
 {
+
+   
+   //==========================================================================
+   
+   public double getTaskNames( double p0, String p1 )
+   {
+      return 0;
+   }
+
+   
+   //==========================================================================
+   
+   public void updateBalances(  )
+   {
+      
+   }
 
    
    //==========================================================================
@@ -56,29 +72,6 @@ public class GroupAccount implements PropertyChangeInterface
       removeAllFromPersons();
       removeAllFromItems();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
-
-   
-   //==========================================================================
-   
-   public double getTaskNames( double p0, String p1 )
-   {
-      return 0;
-   }
-
-   
-   //==========================================================================
-   
-   public void updateBalances(  )
-   {
-      double total = this.getItems().getValue().sum();
-      double share = total / this.getPersons().size();
-      
-      for (Person person : this.getPersons())
-      {
-         double expenditures = person.getItems().getValue().sum();
-         person.setBalance(expenditures - share);
-      }
    }
 
    

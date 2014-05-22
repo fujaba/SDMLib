@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,8 +23,8 @@ package org.sdmlib.examples.groupAccount.model.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.groupAccount.model.Person;
-import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
+import org.sdmlib.models.modelsets.StringList;
 import java.util.List;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.examples.groupAccount.model.util.GroupAccountSet;
@@ -36,21 +36,6 @@ import org.sdmlib.examples.groupAccount.model.Item;
 
 public class PersonSet extends SDMSet<Person>
 {
-
-
-   public PersonPO hasPersonPO()
-   {
-      org.sdmlib.examples.groupAccount.model.util.ModelPattern pattern = new org.sdmlib.examples.groupAccount.model.util.ModelPattern();
-      
-      PersonPO patternObject = pattern.hasElementPersonPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
-   }
 
 
    @Override

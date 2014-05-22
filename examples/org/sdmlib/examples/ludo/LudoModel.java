@@ -4,11 +4,13 @@ import java.awt.Point;
 import java.util.Date;
 
 import org.junit.Test;
+import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.SDMLibConfig;
+import org.sdmlib.models.classes.Attribute.VISIBILITY;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
 
@@ -42,8 +44,8 @@ public class LudoModel
       Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
       
       Clazz point = model.createClazz(Point.class.getName())
-            .withAttribute("x", DataType.INT)
-            .withAttribute("y", DataType.INT)
+            .withAttributes(new Attribute("x", DataType.INT).withVisibility(VISIBILITY.PUBLIC))
+            .withAttributes(new Attribute("y", DataType.INT).withVisibility(VISIBILITY.PUBLIC))
             .withExternal(true);
       
       Clazz player = model.createClazz("Player")

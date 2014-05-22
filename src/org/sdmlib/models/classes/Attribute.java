@@ -22,8 +22,10 @@ package org.sdmlib.models.classes;
 
 public class Attribute extends Value
 {
+   public enum VISIBILITY{PUBLIC, PRIVATE, PROTECTED};
    public static final String PROPERTY_CLAZZ = "clazz";
    private Clazz clazz = null;
+   private VISIBILITY visibility = VISIBILITY.PRIVATE;
    
    public Attribute()
    {
@@ -108,6 +110,17 @@ public class Attribute extends Value
    @Override
    public Attribute withInitialization(String value){
       setInitialization(value);
+      return this;
+   }
+
+   public VISIBILITY getVisibility()
+   {
+      return visibility;
+   }
+
+   public Attribute withVisibility(VISIBILITY visibility)
+   {
+      this.visibility = visibility;
       return this;
    }
 }

@@ -979,7 +979,7 @@ public class GenClass extends Generator<Clazz>
          .withFileBody(modelSetFileBody);
 
          insertLicense(modelSetParser);
-
+         
          insertSetStartModelPattern(modelSetParser);
 
          insertSetEntryType(modelSetParser);
@@ -1035,77 +1035,7 @@ public class GenClass extends Generator<Clazz>
       }
    }
 
-   private void insertSetStartModelPattern(Parser parser)
-   {
-      if(!getRepairClassModel().hasFeature(Feature.PatternObject)){
-         return;
-      }
-      String searchString = Parser.METHOD + ":has" + CGUtil.shortClassName(model.getFullName()) + "PO()";
-      int pos = parser.indexOf(searchString);
-
-      if (pos < 0)
-      {
-         StringBuilder text = new StringBuilder(
-            "\n\n" + 
-                  "   public ModelPO hasModelPO()\n" + 
-                  "   {\n" + 
-                  "      ModelPatternClass pattern = new ModelPatternClass();\n" + 
-                  "      \n" + 
-                  "      ModelPO patternObject = pattern.hasElementModelPO();\n" + 
-                  "      \n" + 
-                  "      patternObject.withCandidates(this.clone());\n" + 
-                  "      \n" + 
-                  "      pattern.setHasMatch(true);\n" + 
-                  "      pattern.findMatch();\n" + 
-                  "      \n" + 
-                  "      return patternObject;\n" + 
-                  "" + 
-                  "   }\n"
-               );
-         
-//         String packageName = CGUtil.packageName(model.getFullName());
-         String packageName = CGUtil.packageName(model.getFullName());
-         String name = getRepairClassModel().getName();
-         if(name!=null && !packageName.startsWith(""+getRepairClassModel().getName())){
-            packageName = getRepairClassModel().getName();
-         }
-
-         //FIXME EMF bad boy
-         if (model.getFullName().endsWith("Impl") && packageName.endsWith(".impl"))
-         {
-            packageName = packageName.substring(0, packageName.length()-5);
-         }
-         
-         CGUtil.replaceAll(text, 
-            "ModelPO", CGUtil.shortClassName(model.getFullName()) + "PO",
-            "ModelPatternClass", packageName + GenClassModel.UTILPATH+".ModelPattern"
-               );
-
-         insertImport(parser, StringList.class.getName());
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         parser.getFileBody().insert(pos, text.toString());
-         setModelSetFileHasChanged(true);
-      }
-   }
-
-   private String checkSetImportFor(String type) {
-      Clazz findClass = getRepairClassModel().getGenerator().findClass(type);
-      if (findClass == null)
-         return CGUtil.packageName(type);
-      Clazz attributClass = model;
-      String packageNameFromFindClass = CGUtil.packageName(findClass.getFullName());
-      String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
-      if (findClass.isExternal())
-      {
-         return packageNameFromOwnerClass + GenClassModel.UTILPATH + "."+CGUtil.shortClassName(findClass.getFullName());
-      }
-      else if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
-      {
-         return packageNameFromFindClass + GenClassModel.UTILPATH + "."+CGUtil.shortClassName(findClass.getFullName());
-      }
-      return CGUtil.packageName(type);
-   }
+  
    
    private void insertSetEntryType(Parser parser)
    {
@@ -1220,13 +1150,100 @@ public class GenClass extends Generator<Clazz>
          if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
             this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
          }
+         
+         insertHasMethodsInModelPattern(patternObjectParser);
       }
 
       return patternObjectParser;
    }
+   
+   private void insertHasMethodsInModelPattern(Parser modelPatternParser)
+   {
+      String fullPOClassName = CGUtil.helperClassName(model.getFullName(), "PO");
 
+      if (model.isExternal())
+      {
+         fullPOClassName = CGUtil.helperClassName(getRepairClassModel().getName() + "." + CGUtil.shortClassName(model.getFullName()), "PO");
+      }
 
+      String poClassName = this.shortNameAndImport(fullPOClassName, modelPatternParser);
 
+      int pos = modelPatternParser.indexOf(Parser.METHOD + ":hasElement" + poClassName + "()");
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder (
+            "   public PatternObjectType(){\n" +
+            "   }\n\n" +
+            "   public PatternObjectType(ModelClass... hostGraphObject)\n" + 
+                  "   {\n" +
+                  "      Pattern<Object> pattern = new Pattern<Object>();" +
+                  "      PatternObjectType value = new PatternObjectType();\n" + 
+                  "      pattern.addToElements(value);\n" + 
+                  "      value.setModifier(this.getModifier());\n" + 
+                  "      \n" +
+                  "      if(hostGraphObject!=null){\n" +
+                  "            if(hostGraphObject.length>1){\n" +
+                  "                  value.withCandidates(hostGraphObject);\n" +
+                  "            } else {\n" +
+                  "                  value.setCurrentMatch(hostGraphObject);\n" +
+                  "            }\n" +
+                  "      }\n" +
+                  "      pattern.findMatch();\n" + 
+                  "      \n" + 
+                  "   }\n" + 
+                  "\n" 
+               );
+
+         String modelClass = this.shortNameAndImport(model.getFullName(), modelPatternParser);
+
+         CGUtil.replaceAll(text, 
+            "PatternObjectType", poClassName, 
+            "ModelClass", modelClass
+               );
+
+         pos = modelPatternParser.indexOf(Parser.CLASS_END);
+
+         modelPatternParser.getFileBody().insert(pos, text.toString());
+         
+         this.insertImport(modelPatternParser, "org.sdmlib.models.pattern.Pattern");
+      }
+   }
+
+   private void insertSetStartModelPattern(Parser parser)
+   {
+      String searchString = Parser.METHOD + ":has" + CGUtil.shortClassName(model.getName()) + "PO()";
+      int pos = parser.indexOf(searchString);
+
+      if (pos < 0)
+      {
+         StringBuilder text = new StringBuilder(
+               "\n\n" +
+                  "   public ModelPO hasModelPO()\n" +
+                  "   {\n" +
+                  "      return new ModelPO (this.toArray(new ModelItem[this.size()]));\n" +
+                  "   }\n"
+               );
+
+         String packageName = CGUtil.packageName(model.getName());
+
+         if (model.getName().endsWith("Impl") && packageName.endsWith(".impl"))
+         {
+            packageName = packageName.substring(0, packageName.length() - 5);
+         }
+
+         CGUtil.replaceAll(text,
+            "ModelPO", CGUtil.shortClassName(model.getName()) + "PO",
+            "ModelPatternClass", packageName + ".creators.ModelPattern",
+            "ModelItem", CGUtil.shortClassName(model.getName())
+            );
+
+         insertImport(parser, StringList.class.getName());
+         pos = parser.indexOf(Parser.CLASS_END);
+
+         parser.getFileBody().insert(pos, text.toString());
+         setModelSetFileHasChanged(true);
+      }
+   }
 
    public Parser getOrCreateParserForPatternObjectCreatorFile(String rootDir)
    {
@@ -1275,16 +1292,19 @@ public class GenClass extends Generator<Clazz>
                      "\n" +
                      "public class patternObjectCreatorClassName extends PatternObjectCreator\n" +
                      "{\n" +
+                     "   @Override\n" +
                      "   public Object getSendableInstance(boolean reference)\n" + 
                      "   {\n" + 
                      "      return new entitiyPOClassName();\n" + 
                      "   }\n" + 
                      "   \n" + 
+                     "   @Override\n" +
                      "   public Object getValue(Object target, String attrName)\n" + 
                      "   {\n" + 
                      "      return ((entitiyPOClassName) target).get(attrName);\n" + 
                      "   }\n" + 
                      "   \n" + 
+                     "   @Override\n" +
                      "   public boolean setValue(Object target, String attrName, Object value, String type)\n" + 
                      "   {\n" + 
                      "      return ((entitiyPOClassName) target).set(attrName, value);\n" + 
@@ -1406,61 +1426,7 @@ public class GenClass extends Generator<Clazz>
       getRepairClassModel().getGenerator().removeAllCodeForClass(srcDir, helpersDir, model);
    }
 
-   public void insertHasMethodsInModelPattern(Parser modelPatternParser)
-   {
-      String fullPOClassName = CGUtil.helperClassName(model.getFullName(), "PO");
-
-      if (model.isExternal())
-      {
-         fullPOClassName = CGUtil.helperClassName(getRepairClassModel().getName() + "." + CGUtil.shortClassName(model.getFullName()), "PO");
-      }
-
-      String poClassName = this.shortNameAndImport(fullPOClassName, modelPatternParser);
-
-      int pos = modelPatternParser.indexOf(Parser.METHOD + ":hasElement" + poClassName + "()");
-      if (pos < 0)
-      {
-         StringBuilder text = new StringBuilder (
-            "   public PatternObjectType hasElementPatternObjectType()\n" + 
-                  "   {\n" + 
-                  "      PatternObjectType value = new PatternObjectType();\n" + 
-                  "      this.addToElements(value);\n" + 
-                  "      value.setModifier(this.getModifier());\n" + 
-                  "      \n" + 
-                  "      this.findMatch();\n" + 
-                  "      \n" + 
-                  "      return value;\n" + 
-                  "   }\n" + 
-                  "   \n" +
-                  "   public PatternObjectType hasElementPatternObjectType(ModelClass hostGraphObject)\n" + 
-                  "   {\n" + 
-                  "      PatternObjectType value = new PatternObjectType();\n" + 
-                  "      this.addToElements(value);\n" + 
-                  "      value.setModifier(Pattern.BOUND);\n" + 
-                  "      \n" + 
-                  "      value.setCurrentMatch(hostGraphObject);\n" + 
-                  "      \n" + 
-                  "      this.findMatch();\n" + 
-                  "      \n" + 
-                  "      return value;\n" + 
-                  "   } \n" + 
-                  "\n" 
-               );
-
-         String modelClass = this.shortNameAndImport(model.getFullName(), modelPatternParser);
-
-         CGUtil.replaceAll(text, 
-            "PatternObjectType", poClassName, 
-            "ModelClass", modelClass
-               );
-
-         pos = modelPatternParser.indexOf(Parser.CLASS_END);
-
-         modelPatternParser.getFileBody().insert(pos, text.toString());
-
-        getRepairClassModel().getGenerator().setModelPatternFileHasChanged(true);
-      }
-   }
+   
    public GenClass withConstant(String name, int i)
    {
       StringBuilder decl = new StringBuilder(

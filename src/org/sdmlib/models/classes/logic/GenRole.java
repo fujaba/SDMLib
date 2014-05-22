@@ -433,6 +433,7 @@ public class GenRole extends Generator<Role>
       pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + "()");
       
       //TODO UEBERPRUEFEN
+      System.out.println(partnerClassName +" ->" +genClazz.getName());
       String realPartnerClassName = partnerClassName;
       ClazzSet kindClasses = partnerRole.getClazz().getKidClasses();
       ClazzSet kindClassesInterfaces =new ClazzSet();
@@ -714,6 +715,11 @@ public class GenRole extends Generator<Role>
          "PartnerRoleName", partnerRoleUpFirstChar,
          "withoutMethodCall(this)", reverseWithoutCall
          );
+      
+      GenClass generator = getGenerator(model.getClazz());
+      if(generator!=null){
+         generator.insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
+      }
    } 
    public void generate(String rootDir, String helperDir, Role partnerRole, boolean doGenerate)
    {

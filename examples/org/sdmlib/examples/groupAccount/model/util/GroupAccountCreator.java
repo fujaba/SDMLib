@@ -1,11 +1,11 @@
 package org.sdmlib.examples.groupAccount.model.util;
 
-import org.sdmlib.examples.groupAccount.model.GroupAccount;
-import org.sdmlib.examples.groupAccount.model.Item;
-import org.sdmlib.examples.groupAccount.model.Person;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.examples.groupAccount.model.GroupAccount;
+import org.sdmlib.examples.groupAccount.model.Person;
+import org.sdmlib.examples.groupAccount.model.Item;
 
 public class GroupAccountCreator extends EntityFactory
 {
@@ -79,5 +79,14 @@ public class GroupAccountCreator extends EntityFactory
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
-   }}
+   }
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((GroupAccount) entity).removeYou();
+   }
+}
 

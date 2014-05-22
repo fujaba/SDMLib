@@ -19,78 +19,66 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.patternrewriteops.model.util;
+package org.sdmlib.examples.helloworld.model.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.patternrewriteops.model.Person;
+import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
-import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
+import org.sdmlib.examples.helloworld.model.util.NodeSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.patternrewriteops.model.Station;
-import org.sdmlib.examples.patternrewriteops.model.util.TrainSet;
-import org.sdmlib.examples.patternrewriteops.model.Train;
 
-public class PersonSet extends SDMSet<Person>
+public class NodeSet extends SDMSet<Node>
 {
 
 
-   public PersonPO hasPersonPO()
+   public NodePO hasNodePO()
    {
-      org.sdmlib.examples.patternrewriteops.model.util.ModelPattern pattern = new org.sdmlib.examples.patternrewriteops.model.util.ModelPattern();
-      
-      PersonPO patternObject = pattern.hasElementPersonPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new NodePO (this.toArray(new Node[this.size()]));
    }
 
 
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.patternrewriteops.model.Person";
+      return "org.sdmlib.examples.helloworld.model.Node";
    }
 
 
-   public PersonSet with(Object value)
+   public NodeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Person>)value);
+         this.addAll((Collection<Node>)value);
       }
       else if (value != null)
       {
-         this.add((Person) value);
+         this.add((Node) value);
       }
       
       return this;
    }
    
-   public PersonSet without(Person value)
+   public NodeSet without(Node value)
    {
       this.remove(value);
       return this;
    }
 
-   public StationSet getStation()
+   public NodeSet getCopy()
    {
-      StationSet result = new StationSet();
+      NodeSet result = new NodeSet();
       
-      for (Person obj : this)
+      for (Node obj : this)
       {
-         result.with(obj.getStation());
+         result.with(obj.getCopy());
       }
       
       return result;
    }
 
-   public PersonSet hasStation(Object value)
+   public NodeSet hasCopy(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -103,11 +91,11 @@ public class PersonSet extends SDMSet<Person>
          neighbors.add(value);
       }
       
-      PersonSet answer = new PersonSet();
+      NodeSet answer = new NodeSet();
       
-      for (Person obj : this)
+      for (Node obj : this)
       {
-         if (neighbors.contains(obj.getStation()))
+         if (neighbors.contains(obj.getCopy()))
          {
             answer.add(obj);
          }
@@ -116,29 +104,56 @@ public class PersonSet extends SDMSet<Person>
       return answer;
    }
 
-   public PersonSet withStation(Station value)
+
+   public NodeSet getCopyTransitive()
    {
-      for (Person obj : this)
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
       {
-         obj.withStation(value);
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getCopy()))
+            {
+               todo.with(current.getCopy());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   public NodeSet withCopy(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withCopy(value);
       }
       
       return this;
    }
 
-   public TrainSet getTrain()
+   public NodeSet getOrig()
    {
-      TrainSet result = new TrainSet();
+      NodeSet result = new NodeSet();
       
-      for (Person obj : this)
+      for (Node obj : this)
       {
-         result.with(obj.getTrain());
+         result.with(obj.getOrig());
       }
       
       return result;
    }
 
-   public PersonSet hasTrain(Object value)
+   public NodeSet hasOrig(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -151,11 +166,11 @@ public class PersonSet extends SDMSet<Person>
          neighbors.add(value);
       }
       
-      PersonSet answer = new PersonSet();
+      NodeSet answer = new NodeSet();
       
-      for (Person obj : this)
+      for (Node obj : this)
       {
-         if (neighbors.contains(obj.getTrain()))
+         if (neighbors.contains(obj.getOrig()))
          {
             answer.add(obj);
          }
@@ -164,11 +179,38 @@ public class PersonSet extends SDMSet<Person>
       return answer;
    }
 
-   public PersonSet withTrain(Train value)
+
+   public NodeSet getOrigTransitive()
    {
-      for (Person obj : this)
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
       {
-         obj.withTrain(value);
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getOrig()))
+            {
+               todo.with(current.getOrig());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   public NodeSet withOrig(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withOrig(value);
       }
       
       return this;

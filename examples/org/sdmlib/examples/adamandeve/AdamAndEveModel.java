@@ -29,13 +29,13 @@ public class AdamAndEveModel
       model.createClazz("org.sdmlib.logger.PeerProxy")
             .withAttribute("ip", DataType.STRING)
             .withAttribute("port", DataType.INT)
-            .withAttribute("idMap", DataType.ref("org.sdmlib.serialization.json.SDMLibJsonIdMap"))
+            .withAttribute("idMap", DataType.ref("org.sdmlib.serialization.SDMLibJsonIdMap"))
             .withExternal(true);
       
       Clazz clazzUpdate = model.createClazz("UpdateAdamFlow")
          .withAttribute("adam", DataType.ref("org.sdmlib.logger.PeerProxy"))
          .withAttribute("eve", DataType.ref("org.sdmlib.logger.PeerProxy"))
-         .withAttribute("idMap", DataType.ref("org.sdmlib.serialization.json.SDMLibJsonIdMap"))
+         .withAttribute("idMap", DataType.ref("org.sdmlib.serialization.SDMLibJsonIdMap"))
          .withAttribute("adamJarAtEveSiteLastModified", DataType.LONG)
          .withSuperClass(taskFlowClazz);
       

@@ -7,6 +7,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.Attribute.VISIBILITY;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
@@ -94,49 +95,50 @@ public class GenAttribute extends Generator<Attribute>
          hasNewContent = true;
       }
       
-      if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName())+ "()", parser))
-      {
-         text.append("\n   public type getName()" +
-               "\n   {" +
-               "\n      return this.name;" +
-               "\n   }" +
-               "\n   ");
-
-         hasNewContent = true;
-      }
-
-      if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType().getValue() + ")", parser))
-      {
-         text.append("\n   public void setName(type value)" +
-               "\n   {" +
-               "\n      if (valueCompare)" +
-               "\n      {PGOLD" +
-               "\n         this.name = value;PROPERTYCHANGE"+
-               "\n      }" +
-               "\n   }" +
-               "\n   ");
-         
-         if(model.getClazz().getClassModel().hasFeature(Feature.PropertyChangeSupport)){
-            CGUtil.replaceAll(text, 
-                  "PGOLD", "\n         type oldValue = this.name;",
-                  "PROPERTYCHANGE", "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);");
-         }else{
-            CGUtil.replaceAll(text, 
-                  "PGOLD", "",
-                  "PROPERTYCHANGE", "");
+      if(model.getVisibility()!=VISIBILITY.PUBLIC){
+         if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName())+ "()", parser))
+         {
+            text.append("\n   public type getName()" +
+                  "\n   {" +
+                  "\n      return this.name;" +
+                  "\n   }" +
+                  "\n   ");
+   
+            hasNewContent = true;
          }
-         hasNewContent = true;
-      }
-
-      if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType().getValue() + ")", parser))
-      {
-         text.append("\n   public ownerClass withName(type value)" +
-               "\n   {" +
-               "\n      setName(value);" +
-               "\n      return this;" +
-               "\n   } " +
-               "\n");
-         hasNewContent = true;
+         if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType().getValue() + ")", parser))
+         {
+            text.append("\n   public void setName(type value)" +
+                  "\n   {" +
+                  "\n      if (valueCompare)" +
+                  "\n      {PGOLD" +
+                  "\n         this.name = value;PROPERTYCHANGE"+
+                  "\n      }" +
+                  "\n   }" +
+                  "\n   ");
+            
+            if(model.getClazz().getClassModel().hasFeature(Feature.PropertyChangeSupport)){
+               CGUtil.replaceAll(text, 
+                     "PGOLD", "\n         type oldValue = this.name;",
+                     "PROPERTYCHANGE", "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);");
+            }else{
+               CGUtil.replaceAll(text, 
+                     "PGOLD", "",
+                     "PROPERTYCHANGE", "");
+            }
+            hasNewContent = true;
+         }
+   
+         if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType().getValue() + ")", parser))
+         {
+            text.append("\n   public ownerClass withName(type value)" +
+                  "\n   {" +
+                  "\n      setName(value);" +
+                  "\n      return this;" +
+                  "\n   } " +
+                  "\n");
+            hasNewContent = true;
+         }
       }
       
       if (hasNewContent)
@@ -272,8 +274,7 @@ public class GenAttribute extends Generator<Attribute>
          {
             type = "Boolean";
          }
-
-
+         
          CGUtil.replaceAll(text, 
             typePlaceholder, type, 
             "PropertyName", StrUtil.upFirstChar(model.getName()),
@@ -506,7 +507,7 @@ public class GenAttribute extends Generator<Attribute>
                   "   {\n" + 
                   "      if (this.getPattern().getHasMatch())\n" + 
                   "      {\n" + 
-                  "         return ((ModelClass) getCurrentMatch()).getAttrName();\n" + 
+                  "         return ((ModelClass) getCurrentMatch()).VALUEGET;\n" + 
                   "      }\n" + 
                   "      return nullValue;\n" + 
                   "   }\n" +
@@ -515,7 +516,7 @@ public class GenAttribute extends Generator<Attribute>
                   "   {\n" + 
                   "      if (this.getPattern().getHasMatch())\n" + 
                   "      {\n" + 
-                  "         ((ModelClass) getCurrentMatch()).setAttrName(value);\n" + 
+                  "         ((ModelClass) getCurrentMatch()).VALUESET;\n" + 
                   "      }\n" + 
                   "      return this;\n" + 
                   "   }\n" +
@@ -533,10 +534,22 @@ public class GenAttribute extends Generator<Attribute>
          {
             nullValue = "false";
          }
+         String name = StrUtil.upFirstChar(model.getName());
+         String attrNameGetter = "get"+name+"()";
+         if(model.getVisibility()==VISIBILITY.PUBLIC){
+            attrNameGetter = model.getName();
+         }
+         String attrNameSetter = "set"+name+"(value)";
+         if(model.getVisibility()==VISIBILITY.PUBLIC){
+            attrNameSetter = model.getName()+" = value";
+         }
+         
 
          CGUtil.replaceAll(text, 
             "nullValue", nullValue,
-            "AttrName", StrUtil.upFirstChar(model.getName()), 
+            "VALUEGET", attrNameGetter,
+            "VALUESET", attrNameSetter,
+            "AttrName", name, 
             "AttrType", attrType, 
             "ModelClass", getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser));
 
@@ -696,7 +709,7 @@ public class GenAttribute extends Generator<Attribute>
                   + "      \n"
                   + "      for (ContentType obj : this)\n"
                   + "      {\n"
-                  + "         result.addOneOrMore(obj.getName());\n"
+                  + "         result.addOneOrMore(obj.VALUEGET);\n"
                   + "      }\n" + "      \n"
                   + "      return result;\n" 
                   + "   }\n" 
@@ -738,6 +751,15 @@ public class GenAttribute extends Generator<Attribute>
                   + "\n"    
                );
          }
+         
+         String name = StrUtil.upFirstChar(model.getName());
+         String attrNameGetter = "get"+name+"()";
+         if(model.getVisibility()==VISIBILITY.PUBLIC){
+            attrNameGetter = model.getName();
+         }
+
+         
+         
          DataType dataType = model.getType();
          String fullModelSetType = dataType.getValue();
          String modelSetType = CGUtil.shortClassName(fullModelSetType);
@@ -809,6 +831,7 @@ public class GenAttribute extends Generator<Attribute>
          
          CGUtil.replaceAll(text, "ContentType",
             CGUtil.shortClassName(ownerClazz.getFullName()),
+            "VALUEGET", attrNameGetter,
             "ModelSetType", modelSetType, 
             "Name", StrUtil.upFirstChar(model.getName()), 
             "addOneOrMore", add, 
@@ -871,14 +894,20 @@ public class GenAttribute extends Generator<Attribute>
          StringBuilder text = new StringBuilder
                (  "\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                      "\n      {" +
-                     "\n         return ((entitiyNameClass) target).getPropertyName();" +
+                     "\n         return ((entitiyNameClass) target).VALUEGET;" +
                      "\n      }" +
                      "\n" 
                      );
 
-         if ("Boolean".equals(model.getType()))
-         {
-            CGUtil.replaceAll(text, "getPropertyName()", "isPropertyName()");
+         String name = StrUtil.upFirstChar(model.getName());
+         String attrNameGetter;
+         if ("Boolean".equals(model.getType())){
+            attrNameGetter = "is"+name+"()";
+         }else{
+            attrNameGetter = "get"+name+"()";
+         }
+         if(model.getVisibility()==VISIBILITY.PUBLIC){
+            attrNameGetter = model.getName();
          }
          
          String entitiyClassName = CGUtil.shortClassName(model.getClazz().getFullName());
@@ -887,7 +916,8 @@ public class GenAttribute extends Generator<Attribute>
             entitiyClassName = CGUtil.shortClassName(model.getClazz().getName()+"Creator");
          }
 
-         CGUtil.replaceAll(text, 
+         CGUtil.replaceAll(text,
+            "VALUEGET", attrNameGetter,
             "PropertyName", StrUtil.upFirstChar(model.getName()),
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase(), 
             "entitiyClassName", entitiyClassName,
@@ -916,7 +946,7 @@ public class GenAttribute extends Generator<Attribute>
                   + "   {\n"
                   + "      for (ContentType obj : this)\n"
                   + "      {\n"
-                  + "         obj.setName(value);\n"
+                  + "         obj.VALUESET;\n"
                   + "      }\n" + "      \n"
                   + "      return this;\n" 
                   + "   }\n" 
@@ -925,7 +955,14 @@ public class GenAttribute extends Generator<Attribute>
 //         String fullModelSetType = getType();
          String modelSetType = CGUtil.shortClassName(ownerClazz.getFullName()) + "Set";
 
-         CGUtil.replaceAll(text, 
+         String name = StrUtil.upFirstChar(model.getName());
+         String attrNameSetter = "set"+name+"(value)";
+         if(model.getVisibility()==VISIBILITY.PUBLIC){
+            attrNameSetter = model.getName() + " = value";
+         }
+         
+         CGUtil.replaceAll(text,
+            "VALUESET", attrNameSetter,
             "AttrType", attrType,
             "ContentType", CGUtil.shortClassName(ownerClazz.getFullName()),
             "ModelSetType", modelSetType, 
@@ -978,7 +1015,7 @@ public class GenAttribute extends Generator<Attribute>
          StringBuilder text = new StringBuilder
                (  "\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                      "\n      {" +
-                     "\n         ((entitiyNameClass) target).setPropertyName((type) value);" +
+                     "\n         ((entitiyNameClass) target).VALUESET;" +
                      "\n         return true;" +
                      "\n      }" +
                      "\n" 
@@ -1011,6 +1048,15 @@ public class GenAttribute extends Generator<Attribute>
          {
             type = "Boolean";
          }
+         
+         String name = StrUtil.upFirstChar(model.getName());
+         String attrNameSetter = "set"+name+"((type) value)";
+         if(model.getVisibility()==VISIBILITY.PUBLIC){
+            attrNameSetter = model.getName() + " = (type) value";
+         }
+         
+         attrNameSetter = CGUtil.replaceAll(attrNameSetter, typePlaceholder, type);
+         
          String entitiyClassName = CGUtil.shortClassName(model.getClazz().getFullName());
          String entitiyNameClass = entitiyClassName;
          if(model.getClazz().isExternal()){
@@ -1018,7 +1064,7 @@ public class GenAttribute extends Generator<Attribute>
          }
          
          CGUtil.replaceAll(text, 
-            typePlaceholder, type, 
+            "VALUESET", attrNameSetter,            
             "PropertyName", StrUtil.upFirstChar(model.getName()),
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase(),
             "entitiyClassName", entitiyClassName,
