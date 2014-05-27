@@ -113,6 +113,8 @@ public class ReplicationChannel extends Thread implements
       }
       catch (IOException e)
       {
+         // this channel is dead, remove it
+         this.removeYou();
          e.printStackTrace();
       }
 

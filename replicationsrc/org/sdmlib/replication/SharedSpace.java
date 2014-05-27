@@ -576,13 +576,15 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
             logFile = new File("./SharedSpace/" + getSpaceId() + "_" + getNodeId() + ".json");
 
             result = logFile.createNewFile();
-
-            logFileWriter = new FileWriter(logFile, true);
          }
+         
+         logFileWriter = new FileWriter(logFile, true);
 
          JsonObject jsonObject = getChangeMap().toJsonObject(change);
          logFileWriter.write(jsonObject.toString() + "\n");
          logFileWriter.flush();
+         logFileWriter.close();
+         
       }
       catch (IOException e)
       {
@@ -650,6 +652,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
                line = in.readLine();
             }
+            
+            in.close();
          }
          catch (Exception e)
          {
@@ -731,6 +735,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
                      line = in.readLine();
                   }
+                  
+                  in.close();
                }
                catch (Exception e)
                {
