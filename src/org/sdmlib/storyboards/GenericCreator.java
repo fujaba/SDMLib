@@ -168,7 +168,7 @@ public class GenericCreator extends EntityFactory
          
          Method method = clazz.getMethod("set", String.class, Object.class);
          
-         Object invoke = method.invoke(entity, attribute, value);
+         method.invoke(entity, attribute, value);
          
          return true;
       }
@@ -184,7 +184,7 @@ public class GenericCreator extends EntityFactory
          
          Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), value.getClass());
          
-         Object invoke = method.invoke(entity, value);
+         method.invoke(entity, value);
          
          return true;
       }
@@ -202,7 +202,7 @@ public class GenericCreator extends EntityFactory
          
          Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), int.class);
          
-         Object invoke = method.invoke(entity, intValue);
+         method.invoke(entity, intValue);
          
          return true;
       }
@@ -218,7 +218,7 @@ public class GenericCreator extends EntityFactory
          
          Method method = clazz.getMethod("with" + StrUtil.upFirstChar(attribute), value.getClass());
          
-         Object invoke = method.invoke(entity, value);
+         method.invoke(entity, value);
          
          return true;
       }

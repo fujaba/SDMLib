@@ -8,14 +8,15 @@ import org.sdmlib.examples.patternrewriteops.model.Train;
 import org.sdmlib.examples.patternrewriteops.model.util.PersonPO;
 import org.sdmlib.examples.patternrewriteops.model.util.SignalFlagPO;
 import org.sdmlib.examples.patternrewriteops.model.util.StationPO;
+import org.sdmlib.examples.patternrewriteops.model.util.TrainCreator;
 import org.sdmlib.examples.patternrewriteops.model.util.TrainPO;
 import org.sdmlib.storyboards.Storyboard;
 
 public class TrainStoryboards
 {
-   private Person p1;
-   private Person p2;
-   private Person p3;
+   protected Person p1;
+   protected Person p2;
+   protected Person p3;
 
    @Test 
    public void trainCollectPassengers()
@@ -41,6 +42,8 @@ public class TrainStoryboards
 
       stat3.createFlag();
 
+      storyboard.withMap(TrainCreator.createIdMap("Train"));
+      
       storyboard.addObjectDiagram(train);
       
       int i = 1;

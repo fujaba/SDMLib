@@ -75,15 +75,37 @@ import de.uniks.networkparser.logic.ValuesMap;
 
 public class Storyboard implements PropertyChangeInterface
 {
+   public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
+   public static final String PROPERTY_STEPCOUNTER = "stepCounter";
+   public static final String PROPERTY_MODELROOTDIR = "modelRootDir";
+   public static final String PROPERTY_ROOTDIR = "rootDir";
+   public static final String PROPERTY_WALL = "wall";
+   public static final String PROPERTY_STORYBOARDSTEPS = "storyboardSteps";
+
    public static final String MODELING = "modeling";
    public static final String ACTIVE = "active";
    public static final String DONE = "done";
    public static final String IMPLEMENTATION = "implementation";
    public static final String BACKLOG = "backlog";
-
+  
    private String name;
    private GuiAdapter adapter;
    private String javaTestFileName;
+   private JsonArray largestJsonArray = null;
+   private Object largestRoot = null;
+   private String kanbanWorkFlow = null;
+   private String projectName = null;
+   private int stepDoneCounter;
+   private String sprintName = null;
+   private int stepCounter;
+   private String modelRootDir = null;
+   private String rootDir = null;
+   private StoryboardWall wall = null;
+   private StoryboardStepSet storyboardSteps = null;
+   private int codeStartLineNumber = -1;
+   private ByteArrayOutputStream systemOutRecorder;
+   private JsonIdMap jsonIdMap = null;
+   private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
 
    public GuiAdapter getAdapter()
    {
@@ -235,8 +257,6 @@ public class Storyboard implements PropertyChangeInterface
       javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
    }
 
-   private static String backlog = "backlog";
-
    public void dumpHTML(KanbanEntry kanbanBoard)
    {
       // get kanbanEntry
@@ -248,12 +268,12 @@ public class Storyboard implements PropertyChangeInterface
          String todayString = DateFormat.getInstance().format(today);
          kanbanEntry = new KanbanEntry()
             .withName(this.getName())
-            .withPhase(backlog)
+            .withPhase(BACKLOG)
             .withParent(kanbanBoard)
             .withLogEntries(
                new LogEntryStoryBoard()
                   .withDate(todayString)
-                  .withPhase(backlog)
+                  .withPhase(BACKLOG)
                   .withDeveloper(System.getProperty("user.name"))
                   .withHoursRemainingInTotal(0.0));
       }
@@ -456,6 +476,11 @@ public class Storyboard implements PropertyChangeInterface
    public void addText(String string)
    {
       this.add(string);
+   }
+   
+   public Storyboard withMap(JsonIdMap map){
+      this.jsonIdMap = map;
+      return this;
    }
 
    public void coverage4GeneratedModelCode(Object root)
@@ -771,10 +796,6 @@ public class Storyboard implements PropertyChangeInterface
       addObjectDiagram(moreElems);
    }
 
-   private JsonIdMap jsonIdMap = null;
-
-   private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
-
    public void addObjectDiagram(Object... elems)
    {
       String objectName;
@@ -932,10 +953,6 @@ public class Storyboard implements PropertyChangeInterface
          return explicitElems.contains(values.value);
       }
    }
-
-   private JsonArray largestJsonArray = null;
-
-   private Object largestRoot = null;
 
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root)
    {
@@ -1131,10 +1148,6 @@ public class Storyboard implements PropertyChangeInterface
 
       return todoEntry;
    }
-
-   private int codeStartLineNumber = -1;
-
-   private ByteArrayOutputStream systemOutRecorder;
 
    public ByteArrayOutputStream getSystemOut()
    {
@@ -1437,9 +1450,6 @@ public class Storyboard implements PropertyChangeInterface
     * </pre>
     */
 
-   public static final String PROPERTY_STORYBOARDSTEPS = "storyboardSteps";
-
-   private StoryboardStepSet storyboardSteps = null;
 
    public StoryboardStepSet getStoryboardSteps()
    {
@@ -1535,10 +1545,6 @@ public class Storyboard implements PropertyChangeInterface
     * </pre>
     */
 
-   public static final String PROPERTY_WALL = "wall";
-
-   private StoryboardWall wall = null;
-
    public StoryboardWall getWall()
    {
       return this.wall;
@@ -1586,11 +1592,6 @@ public class Storyboard implements PropertyChangeInterface
    }
 
    // ==========================================================================
-
-   public static final String PROPERTY_ROOTDIR = "rootDir";
-
-   private String rootDir = null;
-
    public String getRootDir()
    {
       return this.rootDir;
@@ -1613,11 +1614,6 @@ public class Storyboard implements PropertyChangeInterface
    }
 
    // ==========================================================================
-
-   public static final String PROPERTY_MODELROOTDIR = "modelRootDir";
-
-   private String modelRootDir = null;
-
    public String getModelRootDir()
    {
       if (modelRootDir == null)
@@ -1644,11 +1640,6 @@ public class Storyboard implements PropertyChangeInterface
    }
 
    // ==========================================================================
-
-   public static final String PROPERTY_STEPCOUNTER = "stepCounter";
-
-   private int stepCounter;
-
    public int getStepCounter()
    {
       return this.stepCounter;
@@ -1671,10 +1662,6 @@ public class Storyboard implements PropertyChangeInterface
    }
 
    // ==========================================================================
-
-   public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
-
-   private int stepDoneCounter;
 
    public int getStepDoneCounter()
    {
@@ -1718,8 +1705,6 @@ public class Storyboard implements PropertyChangeInterface
       this.add(link);
    }
 
-   private String sprintName = null;
-
    public void setSprint(String string)
    {
       this.sprintName = string;
@@ -1731,11 +1716,7 @@ public class Storyboard implements PropertyChangeInterface
       StoryboardManager.get()
          .remove(this)
          .dumpHTML();
-
    }
-
-   private String kanbanWorkFlow = null;
-   private String projectName = null;
 
    public void setKanbanWorkFlow(String string)
    {

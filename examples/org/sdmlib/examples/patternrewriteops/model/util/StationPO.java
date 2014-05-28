@@ -3,10 +3,10 @@ package org.sdmlib.examples.patternrewriteops.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.patternrewriteops.model.Station;
 import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
-import org.sdmlib.examples.patternrewriteops.model.util.StationPO;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.examples.patternrewriteops.model.util.TrainPO;
 import org.sdmlib.examples.patternrewriteops.model.Train;
+import org.sdmlib.examples.patternrewriteops.model.util.StationPO;
 import org.sdmlib.examples.patternrewriteops.model.util.TrainSet;
 import org.sdmlib.examples.patternrewriteops.model.util.PersonPO;
 import org.sdmlib.examples.patternrewriteops.model.Person;
@@ -32,9 +32,10 @@ public class StationPO extends PatternObject<StationPO, Station>
       
       return matches;
    }
-   
+
+
    public StationPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("StationPO"));
+      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
       pattern.addToElements(this);
    }
 
@@ -42,7 +43,7 @@ public class StationPO extends PatternObject<StationPO, Station>
       if(hostGraphObject==null || hostGraphObject.length<1){
           return;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("StationPO"));
+      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
       pattern.addToElements(this);
       if(hostGraphObject.length>1){
            this.withCandidates(hostGraphObject);

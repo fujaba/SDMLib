@@ -20,7 +20,6 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.SDMLibConfig;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 /**
@@ -1101,16 +1100,30 @@ public class GenClass extends Generator<Clazz>
             patternObjectFileBody = new StringBuilder();
 
             StringBuilder text = new StringBuilder(
-               "package packageName;\n" +
-                     "\n" +
-                     "import org.sdmlib.models.pattern.PatternObject;\n" +
-                     "import fullEntityClassName;\n" +
-                     "\n" +
-                     "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n" +
-                     "{\nALLMATCHES" +
-                     "   \n" + 
-                     "" + 
-                  "}\n");
+                  ""
+                     + "package packageName;\n\n"
+                     + "import org.sdmlib.models.pattern.PatternObject;\n"
+                     + "import fullEntityClassName;\n\n"
+                     + "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n"
+                     + "{\nALLMATCHES\n\n"
+                     + "   public patternObjectClassName(){\n"
+                     + "      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
+                     + "      pattern.addToElements(this);\n"
+                     + "   }\n\n"
+                     + "   public patternObjectClassName(ModelClass... hostGraphObject) {\n"
+                     + "      if(hostGraphObject==null || hostGraphObject.length<1){\n"
+                     + "          return;\n"
+                     + "      }\n"
+                     + "      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
+                     + "      pattern.addToElements(this);\n"
+                     + "      if(hostGraphObject.length>1){\n"
+                     + "           this.withCandidates(hostGraphObject);\n"
+                     + "      } else {\n"
+                     + "           this.withCandidates(hostGraphObject[0]);\n"
+                     + "      }\n"
+                     + "      pattern.findMatch();\n"
+                     + "  }\n"
+                     + "}\n");
 
             if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
                CGUtil.replaceAll(text, 
@@ -1137,10 +1150,10 @@ public class GenClass extends Generator<Clazz>
                "patternObjectClassName", patternObjectClassName, 
                "entitiyClassName", entitiyClassName, 
                "fullEntityClassName", fullEntityClassName,
+               "ModelClass", entitiyClassName,
                "packageName", packageName);
-
+            
             patternObjectFileBody.append(text.toString());
-
             patternObjectFileHasChanged = true;
          }
 
@@ -1150,63 +1163,11 @@ public class GenClass extends Generator<Clazz>
          if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
             this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
          }
-         
-         insertHasMethodsInModelPattern(patternObjectParser);
+         this.insertImport(patternObjectParser, "org.sdmlib.models.pattern.Pattern");
       }
-
       return patternObjectParser;
    }
    
-   private void insertHasMethodsInModelPattern(Parser modelPatternParser)
-   {
-      String fullPOClassName = CGUtil.helperClassName(model.getFullName(), "PO");
-
-      if (model.isExternal())
-      {
-         fullPOClassName = CGUtil.helperClassName(getRepairClassModel().getName() + "." + CGUtil.shortClassName(model.getFullName()), "PO");
-      }
-
-      String poClassName = this.shortNameAndImport(fullPOClassName, modelPatternParser);
-
-      int pos = modelPatternParser.indexOf(Parser.METHOD + ":hasElement" + poClassName + "()");
-      if (pos < 0)
-      {
-         StringBuilder text = new StringBuilder (
-            "   public PatternObjectType(){\n"
-           +"      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
-           +"      pattern.addToElements(this);\n"
-           +"   }\n\n"
-           +"   public PatternObjectType(ModelClass... hostGraphObject) {\n"
-           +"      if(hostGraphObject==null || hostGraphObject.length<1){\n"
-           +"          return;\n"
-           +"      }\n"
-           +"      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
-           +"      pattern.addToElements(this);\n"
-           +"      if(hostGraphObject.length>1){\n"
-           +"           this.withCandidates(hostGraphObject);\n"
-           +"      } else {\n"
-           +"           this.withCandidates(hostGraphObject[0]);\n"
-//           +"           this.setModifier(Pattern.BOUND);\n"
-           +"      }\n"
-           +"      pattern.findMatch();\n"
-           +"  }\n"
-               );
-
-         String modelClass = this.shortNameAndImport(model.getFullName(), modelPatternParser);
-
-         CGUtil.replaceAll(text, 
-            "PatternObjectType", poClassName, 
-            "ModelClass", modelClass
-               );
-
-         pos = modelPatternParser.indexOf(Parser.CLASS_END);
-
-         modelPatternParser.getFileBody().insert(pos, text.toString());
-         
-         this.insertImport(modelPatternParser, "org.sdmlib.models.pattern.Pattern");
-      }
-   }
-
    private void insertSetStartModelPattern(Parser parser)
    {
       String searchString = Parser.METHOD + ":has" + CGUtil.shortClassName(model.getName()) + "PO()";

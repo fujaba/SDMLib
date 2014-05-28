@@ -3,10 +3,10 @@ package org.sdmlib.examples.patternrewriteops.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.examples.patternrewriteops.model.util.SignalFlagSet;
-import org.sdmlib.examples.patternrewriteops.model.util.SignalFlagPO;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.examples.patternrewriteops.model.util.StationPO;
 import org.sdmlib.examples.patternrewriteops.model.Station;
+import org.sdmlib.examples.patternrewriteops.model.util.SignalFlagPO;
 import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
 
 public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
@@ -27,9 +27,10 @@ public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
       
       return matches;
    }
-   
+
+
    public SignalFlagPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("SignalFlagPO"));
+      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
       pattern.addToElements(this);
    }
 
@@ -37,7 +38,7 @@ public class SignalFlagPO extends PatternObject<SignalFlagPO, SignalFlag>
       if(hostGraphObject==null || hostGraphObject.length<1){
           return;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("SignalFlagPO"));
+      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
       pattern.addToElements(this);
       if(hostGraphObject.length>1){
            this.withCandidates(hostGraphObject);

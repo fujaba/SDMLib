@@ -531,7 +531,6 @@ public class Parser
                skip(';');
 
             String methodSignature = Parser.METHOD + ":" + memberName + params;
-
             symTab.put(methodSignature, 
                new SymTabEntry()
             .withMemberName(methodSignature)
@@ -1642,9 +1641,9 @@ public class Parser
             while (! currentRealKindEquals(Parser.EOF)
                   && ! currentRealKindEquals(')'))
             {
-               int paramStartPos = currentRealToken.startPos;
+//               int paramStartPos = currentRealToken.startPos;
                parseExpressionDetails();
-               int paramEndPos = previousRealToken.endPos;
+//               int paramEndPos = previousRealToken.endPos;
 
                methodCallElements.add(previousRealToken.text.toString());
 

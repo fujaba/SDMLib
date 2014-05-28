@@ -1074,19 +1074,20 @@ public class GenRole extends Generator<Role>
 //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
          String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
-         
+         String partnerClass = partnerRole.getClazz().getName();
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
             "hasName", "has" + StrUtil.upFirstChar(partnerRole.getName()), 
-            "ClassObjectType", partnerRole.getClazz().getName(),
+            "ClassObjectType", partnerClass,
             "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getFullName(), parser),
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
-         
-         getGenerator(partnerRole.getClazz()).insertImport(parser, partnerRole.getClazz().getFullName());
+         if(partnerClass.indexOf(".")<0){
+            getGenerator(partnerRole.getClazz()).insertImport(parser, partnerRole.getClazz().getFullName());
+         }
          
          getGenerator(clazz).setPatternObjectFileHasChanged(true);
       }

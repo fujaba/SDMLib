@@ -164,11 +164,9 @@ public class GenClassModel
    private void fixClassModel(){
       Clazz[] classes = model.getClasses().toArray(new Clazz[model.getClasses().size()]);
       HashSet<Clazz> visited=new HashSet<Clazz>();
-      System.out.println("LEN: "+model.getClasses().size());
       for(Clazz item : classes){
          fixClassModel(item, visited);
       }
-      System.out.println("LEN: "+model.getClasses().size());
    }
    private void fixClassModel(Clazz item, HashSet<Clazz> visited){
       for(Clazz entity : item.getInterfaces()){
@@ -1691,13 +1689,7 @@ public class GenClassModel
          attrDecl.setType(attrType);
       }
    }
-
    
-   private boolean compareRoles(Role source, Role target, Association assoc)
-   {
-      return compareRoles(assoc.getSource(), source) && compareRoles(assoc.getTarget(), target);
-   }
-
    private boolean compareRoles(Role first, Role second)
    {
       Clazz firstClass = first.getClazz();
@@ -1709,15 +1701,6 @@ public class GenClassModel
       if (firstClass == secondClass && firstName.equals(secondName) && firstCard.equals(secondCard))
          return true;
       return false;
-   }
-
-   private Clazz findPartnerClass(String partnerTypeName)
-   {
-
-      String partnerClassName = findPartnerClassName(partnerTypeName);
-
-      // System.err.println("type note found : " + partnerTypeName);
-      return findClass(partnerClassName);
    }
 
    public Clazz findClass(String partnerClassName) {
@@ -1752,31 +1735,6 @@ public class GenClassModel
          partnerClassName = partnerTypeName;
       }
       return partnerClassName;
-   }
-
-   private void findAndRemoveMethods(Clazz clazz, String memberName, String prefix)
-   {
-      String name = StrUtil.upFirstChar(memberName);
-      String[] split = prefix.split(" ");
-      for (String post : split)
-      {
-         Method method = findMethod(clazz, post + name + "(");
-         if (method != null)
-         {
-            clazz.removeFromMethods(method);
-         }
-      }
-   }
-
-   private Method findMethod(Clazz clazz, String name)
-   {
-      LinkedHashSet<Method> methods = clazz.getMethods();
-      for (Method method : methods)
-      {
-         if (method.getSignature(true).contains(name))
-            return method;
-      }
-      return null;
    }
 
    // ==========================================================================
@@ -2110,68 +2068,6 @@ public class GenClassModel
       return false;
    }
 
-   private String findSetterPrefix(String partnerTypeName)
-   {
-      int openAngleBracket = partnerTypeName.indexOf("<");
-      int closeAngleBracket = partnerTypeName.indexOf(">");
-
-      if ((openAngleBracket > -1 && closeAngleBracket > openAngleBracket) || partnerTypeName.endsWith("Set"))
-      {
-         return "addTo";
-      }
-      return "set";
-   }
-
-   private Card findRoleCard(Parser partnerParser, String searchString)
-   {
-      String partnerTypeName;
-      SymTabEntry partnerSymTabEntry = partnerParser.getSymTab().get(searchString);
-      partnerTypeName = partnerSymTabEntry.getType();
-
-      return findRoleCard(partnerTypeName);
-   }
-
-   private Card findRoleCard(String partnerTypeName)
-   {
-      Card partnerCard = Card.ONE;
-      int _openAngleBracket = partnerTypeName.indexOf("<");
-      int _closeAngleBracket = partnerTypeName.indexOf(">");
-      if (_openAngleBracket > -1 && _closeAngleBracket > _openAngleBracket)
-      {
-         // partner to many
-         partnerCard = Card.MANY;
-      }
-      else if (partnerTypeName.endsWith("Set") && partnerTypeName.length() > 3)
-      {
-         // it might be a ModelSet. Look if it starts with a clazz name
-         String prefix = partnerTypeName.substring(0, partnerTypeName.length() - 3);
-         for (Clazz clazz : model.getClasses())
-         {
-            if (prefix.equals(CGUtil.shortClassName(clazz.getFullName())))
-            {
-               partnerCard = Card.MANY;
-               break;
-            }
-         }
-      }
-      return partnerCard;
-   }
-
-   private void tryToCreateAssoc(Clazz clazz, String memberName, Card card, String partnerClassName, Clazz partnerClass, String partnerAttrName, Card partnerCard)
-   {
-      Role sourceRole = new Role().withName(partnerAttrName).withClazz(clazz).withCard(partnerCard.toString());
-
-      Role targetRole = new Role().withName(memberName).withClazz(partnerClass).withCard(card.toString());
-
-      if (!assocWithRolesExists(sourceRole, targetRole))
-      {
-         new Association().withSource(sourceRole).withTarget(targetRole);
-
-         clazz.addToRoles(sourceRole);
-         partnerClass.addToRoles(targetRole);
-      }
-   }
-
    private boolean classContainsAttribut(Clazz clazz, String attrName, String type)
    {
       for (Attribute attr : clazz.getAttributes())
@@ -2192,19 +2088,9 @@ public class GenClassModel
       return false;
    }
 
-   private boolean assocWithRolesExists(Role source, Role target)
-   {
-      for (Association assoc : getAssociations())
-      {
-         if (compareRoles(source, target, assoc) || compareRoles(target, source, assoc))
-            return true;
-      }
-      return false;
-   }
    private boolean hasAttribute(Attribute attribute, LocalVarTableEntry entry)
    {
       String name = attribute.getName();
-      String type = attribute.getType().getValue();
       ArrayList<ArrayList<String>> initSequence = entry.getInitSequence();
 
       for (ArrayList<String> sequencePart : initSequence)

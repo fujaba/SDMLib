@@ -521,7 +521,6 @@ public class GenAttribute extends Generator<Attribute>
                   "      return this;\n" + 
                   "   }\n" +
                   "   \n"
-
                );
 
          String nullValue = "null";
@@ -543,7 +542,6 @@ public class GenAttribute extends Generator<Attribute>
          if(model.getVisibility()==VISIBILITY.PUBLIC){
             attrNameSetter = model.getName()+" = value";
          }
-         
 
          CGUtil.replaceAll(text, 
             "nullValue", nullValue,
@@ -592,7 +590,6 @@ public class GenAttribute extends Generator<Attribute>
          return;
       }
       
-      
       String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
       String key = Parser.METHOD + ":has"
             + StrUtil.upFirstChar(model.getName()) + "(" + attrType + "," + attrType + ")";
@@ -604,7 +601,7 @@ public class GenAttribute extends Generator<Attribute>
          StringBuilder text = new StringBuilder(
             "   public PatternObjectType hasName(AttrType lower, AttrType upper)\n" + 
                   "   {\n" + 
-                  "      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()\n" + 
+                  "      new AttributeConstraint()\n" + 
                   "      .withAttrName(ModelClass.PROPERTY_NAME)\n" + 
                   "      .withTgtValue(lower)\n" + 
                   "      .withUpperTgtValue(upper)\n" + 
@@ -655,7 +652,7 @@ public class GenAttribute extends Generator<Attribute>
          StringBuilder text = new StringBuilder(
             "   public PatternObjectType hasName(AttrType value)\n" + 
                   "   {\n" + 
-                  "      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()\n" + 
+                  "      new AttributeConstraint()\n" + 
                   "      .withAttrName(ModelClass.PROPERTY_NAME)\n" + 
                   "      .withTgtValue(value)\n" + 
                   "      .withSrc(this)\n" +
@@ -793,7 +790,7 @@ public class GenAttribute extends Generator<Attribute>
             fullModelSetType = "org.sdmlib.models.modelsets."
                   + modelSetType;
             importClassesFromTypes.add(fullModelSetType);
-            importClassesFromTypes.add("java.util.List");
+//            importClassesFromTypes.add("java.util.List");
          }
          else
          {
