@@ -20,13 +20,9 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.SDMLibConfig;
-import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-/**
- * @author Stefan
- *
- */
 /**
  * @author Stefan
  *
@@ -759,7 +755,6 @@ public class GenClass extends Generator<Clazz>
                      "\n" +
                      "import org.sdmlib.serialization.EntityFactory;\n" +
                      "import "+SDMLibConfig.BASESERIALISATIONURL+".json.JsonIdMap;\n" +
-                     "import org.sdmlib.serialization.SDMLibJsonIdMap;\n"+
                      "import fullEntityClassName;\n" +
                      "\n" +
                      "public class creatorClassName extends EntityFactory\n" +
@@ -959,6 +954,7 @@ public class GenClass extends Generator<Clazz>
                   "\n" +
                   "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
                   "{\n" + 
+                  "        private static final long serialVersionUID = 1L;\n"+
                   "}\n");
 
             CGUtil.replaceAll(text, 
@@ -1003,8 +999,12 @@ public class GenClass extends Generator<Clazz>
                   + "   public ModelTypeSet with(Object value)\n" 
                   + "   {\n"
                   + "      if (value instanceof java.util.Collection)\n"
-                  + "      {\n" 
-                  + "         this.addAll((Collection<ModelType>)value);\n" 
+                  + "      {\n"
+                  + "           Collection<?> collection = (Collection<?>) value;\n"
+                  + "           for(Object item : collection){\n"
+                  + "               this.add((ModelType) item);\n"
+                  + "           }\n"
+//                  + "         this.addAll((Collection<ModelType>)value);\n" 
                   + "      }\n"
                   + "      else if (value != null)\n"
                   + "      {\n" 
@@ -1172,26 +1172,24 @@ public class GenClass extends Generator<Clazz>
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder (
-            "   public PatternObjectType(){\n" +
-            "   }\n\n" +
-            "   public PatternObjectType(ModelClass... hostGraphObject)\n" + 
-                  "   {\n" +
-                  "      Pattern<Object> pattern = new Pattern<Object>();" +
-                  "      PatternObjectType value = new PatternObjectType();\n" + 
-                  "      pattern.addToElements(value);\n" + 
-                  "      value.setModifier(this.getModifier());\n" + 
-                  "      \n" +
-                  "      if(hostGraphObject!=null){\n" +
-                  "            if(hostGraphObject.length>1){\n" +
-                  "                  value.withCandidates(hostGraphObject);\n" +
-                  "            } else {\n" +
-                  "                  value.setCurrentMatch(hostGraphObject);\n" +
-                  "            }\n" +
-                  "      }\n" +
-                  "      pattern.findMatch();\n" + 
-                  "      \n" + 
-                  "   }\n" + 
-                  "\n" 
+            "   public PatternObjectType(){\n"
+           +"      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
+           +"      pattern.addToElements(this);\n"
+           +"   }\n\n"
+           +"   public PatternObjectType(ModelClass... hostGraphObject) {\n"
+           +"      if(hostGraphObject==null || hostGraphObject.length<1){\n"
+           +"          return;\n"
+           +"      }\n"
+           +"      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
+           +"      pattern.addToElements(this);\n"
+           +"      if(hostGraphObject.length>1){\n"
+           +"           this.withCandidates(hostGraphObject);\n"
+           +"      } else {\n"
+           +"           this.withCandidates(hostGraphObject[0]);\n"
+//           +"           this.setModifier(Pattern.BOUND);\n"
+           +"      }\n"
+           +"      pattern.findMatch();\n"
+           +"  }\n"
                );
 
          String modelClass = this.shortNameAndImport(model.getFullName(), modelPatternParser);
@@ -1237,7 +1235,7 @@ public class GenClass extends Generator<Clazz>
             "ModelItem", CGUtil.shortClassName(model.getName())
             );
 
-         insertImport(parser, StringList.class.getName());
+//         insertImport(parser, StringList.class.getName());
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.getFileBody().insert(pos, text.toString());
@@ -1277,6 +1275,7 @@ public class GenClass extends Generator<Clazz>
          patternObjectCreatorJavaFile = new File(fileName);
 
          // found old one?
+         boolean addImport=false;
          if (patternObjectCreatorJavaFile.exists())
          {
             patternObjectCreatorFileBody = CGUtil.readFile(patternObjectCreatorJavaFile);
@@ -1294,8 +1293,12 @@ public class GenClass extends Generator<Clazz>
                      "{\n" +
                      "   @Override\n" +
                      "   public Object getSendableInstance(boolean reference)\n" + 
-                     "   {\n" + 
-                     "      return new entitiyPOClassName();\n" + 
+                     "   {\n" +
+                     "      if(reference) {\n"+
+                     "          return new entitiyPOClassName(new entitiyClassName[]{});\n" +
+                     "      } else {\n" +
+                     "          return new entitiyPOClassName();\n" +
+                     "      }\n"+
                      "   }\n" + 
                      "   \n" + 
                      "   @Override\n" +
@@ -1313,18 +1316,22 @@ public class GenClass extends Generator<Clazz>
 
             CGUtil.replaceAll(text, 
                "patternObjectCreatorClassName", patternObjectCreatorClassName, 
-               "entitiyPOClassName", entitiyClassName + "PO", 
+               "entitiyPOClassName", entitiyClassName + "PO",
+               "entitiyClassName", entitiyClassName,
                "packageName", packageName);
 
             patternObjectCreatorFileBody.append(text.toString());
 
             patternObjectCreatorFileHasChanged = true;
+            addImport=true;
          }
 
          patternObjectCreatorParser = new Parser()
          .withFileName(fileName)
          .withFileBody(patternObjectCreatorFileBody);
-
+         if(addImport){
+            insertImport(patternObjectCreatorParser, name);
+         }
       }
 
       return modelSetParser;

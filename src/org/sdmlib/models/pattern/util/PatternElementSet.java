@@ -29,7 +29,7 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 
-public class PatternElementSet extends ArrayList<PatternElement>
+public class PatternElementSet extends ArrayList<PatternElement<?>>
 {
    public PatternSet getPattern()
    {
@@ -205,7 +205,7 @@ public class PatternElementSet extends ArrayList<PatternElement>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<PatternElement>)value);
+         this.addAll((Collection<PatternElement<?>>)value);
       }
       else if (value != null)
       {

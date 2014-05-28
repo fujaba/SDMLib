@@ -14,8 +14,6 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.PatternLink;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -117,7 +115,9 @@ public class GenRole extends Generator<Role>
          getGenerator(partnerRole.getClazz()).printFile(doGenerate);
 
       }
-      getGenerator(partnerRole.getClazz()).insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
+      if (model.getPartnerRole().getCard().equals(Card.MANY.toString())){
+         getGenerator(partnerRole.getClazz()).insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
+      }
    }
 
    private void generateToManyRole(Parser myParser, Clazz genClazz, Role partnerRole, StringBuilder text)
@@ -717,8 +717,10 @@ public class GenRole extends Generator<Role>
          );
       
       GenClass generator = getGenerator(model.getClazz());
-      if(generator!=null){
-         generator.insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
+      if (model.getPartnerRole().getCard().equals(Card.MANY.toString())){
+         if(generator!=null ){
+            generator.insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
+         }
       }
    } 
    public void generate(String rootDir, String helperDir, Role partnerRole, boolean doGenerate)
@@ -889,7 +891,7 @@ public class GenRole extends Generator<Role>
             "\n" + 
             "      if (value instanceof Collection)\n" + 
             "      {\n" + 
-            "         neighbors.addAll((Collection) value);\n" + 
+            "         neighbors.addAll((Collection<?>) value);\n" + 
             "      }\n" + 
             "      else\n" + 
             "      {\n" + 
@@ -958,6 +960,7 @@ public class GenRole extends Generator<Role>
          {
             containsClause = " ! Collections.disjoint(neighbors, obj.get" 
                   + StrUtil.upFirstChar(partnerRole.getName()) + "())";
+            getGenerator(tgtClass).insertImport(parser, Collections.class.getName());
          }
          
          String fullModelSetType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "Set");
@@ -979,7 +982,6 @@ public class GenRole extends Generator<Role>
          
          getGenerator(tgtClass).insertImport(parser, fullModelSetType);
          getGenerator(tgtClass).insertImport(parser, Collection.class.getName());
-         getGenerator(tgtClass).insertImport(parser, Collections.class.getName());
          getGenerator(tgtClass).insertImport(parser, ObjectSet.class.getName());
       }
    }
@@ -1025,14 +1027,15 @@ public class GenRole extends Generator<Role>
          }
          
          
-         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
-         
-         String targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(partnerRole.getClazz().getFullName(), parser);
+//         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
+         String targetType;
          
          if (partnerRole.getCard().equals(Card.MANY.toString()))
          {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "Set");
             targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullTargetType, parser);
+         }else{
+            targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(partnerRole.getClazz().getFullName(), parser);
          }
          
          CGUtil.replaceAll(text, 
@@ -1060,28 +1063,31 @@ public class GenRole extends Generator<Role>
          StringBuilder text = new StringBuilder(
             "   public PatternObjectType hasName()\n" + 
             "   {\n" + 
-            "      PatternObjectType result = new PatternObjectType();\n" + 
-            "      result.setModifier(this.getPattern().getModifier());\n" + 
+            "      PatternObjectType result = new PatternObjectType(new ClassObjectType[]{});\n" + 
             "      \n" + 
+            "      result.setModifier(this.getPattern().getModifier());\n" + 
             "      super.hasLink(ModelClass.PROPERTY_NAME, result);\n" + 
             "      \n" + 
             "      return result;\n" + 
             "   }\n\n");
 
-         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
-         
+//         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
          String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
             "hasName", "has" + StrUtil.upFirstChar(partnerRole.getName()), 
+            "ClassObjectType", partnerRole.getClazz().getName(),
             "ModelClass", getGenerator(model.getClazz()).shortNameAndImport(model.getClazz().getFullName(), parser),
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.getFileBody().insert(classEnd, text.toString());
+         
+         getGenerator(partnerRole.getClazz()).insertImport(parser, partnerRole.getClazz().getFullName());
+         
          getGenerator(clazz).setPatternObjectFileHasChanged(true);
       }
    }
@@ -1101,7 +1107,7 @@ public class GenRole extends Generator<Role>
             "      return this.startCreate().hasName().endCreate();\n" + 
             "   }\n\n");
 
-         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
+//         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
          String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
@@ -1136,7 +1142,7 @@ public class GenRole extends Generator<Role>
             "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME);\n" + 
             "   }\n\n");
 
-         getGenerator(clazz).insertImport(parser, LinkConstraint.class.getName());
+//         getGenerator(clazz).insertImport(parser, LinkConstraint.class.getName());
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getFullName(), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
@@ -1173,7 +1179,7 @@ public class GenRole extends Generator<Role>
             "      return this.startCreate().hasName(tgt).endCreate();\n" + 
             "   }\n\n");
 
-         getGenerator(clazz).insertImport(parser, LinkConstraint.class.getName());
+//         getGenerator(clazz).insertImport(parser, LinkConstraint.class.getName());
          
          String fullModelPOType = CGUtil.helperClassName(clazz.getFullName(), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
@@ -1369,7 +1375,7 @@ public class GenRole extends Generator<Role>
 
          parser.getFileBody().insert(lastIfEndPos, text.toString());
          
-         getGenerator(clazz).insertImport(JsonIdMap.class.getName());
+         getGenerator(clazz).insertImport(parser, JsonIdMap.class.getName());
 
          getGenerator(clazz).insertImport(parser, partnerRole.getClazz().getFullName());
          

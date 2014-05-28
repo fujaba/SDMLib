@@ -419,7 +419,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return this.elements;
    }
    
-   public boolean addToElements(PatternElement value)
+   public boolean addToElements(PatternElement<?> value)
    {
       boolean changed = false;
       
@@ -967,16 +967,6 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       getAdapter().dumpDiagram(diagramName, fileText);
       
    }
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
    
    //==========================================================================
    

@@ -21,7 +21,6 @@
 
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -34,12 +33,11 @@ import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.EntityFactory;
-import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class PatternObject<POC, MC> extends PatternElement<POC> implements PropertyChangeInterface
+public class PatternObject<POC, MC> extends PatternElement<POC>
 {
    public <POSC extends PatternObject> POSC instanceOf(POSC subclassPO)
    {
@@ -174,6 +172,13 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
                      + getTopPattern().getJsonIdMap().getId(obj) + " " + obj + " <- "
                      + valueSetString(this.getCandidates()));
             }
+         }
+         else
+         {
+            // out of candidates, resut match
+            this.setCurrentMatch(null);
+            this.setHasMatch(false);
+            resultStat = false;
          }
       }
       else
@@ -960,15 +965,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC> implements Prope
       this.getPattern().findMatch();
 
       return (POC) this;
-   }
-
-   // ==========================================================================
-
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
    }
 
    /********************************************************************

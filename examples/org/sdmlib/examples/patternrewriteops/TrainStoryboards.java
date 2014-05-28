@@ -1,11 +1,10 @@
 package org.sdmlib.examples.patternrewriteops;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
+import org.sdmlib.examples.patternrewriteops.model.Person;
 import org.sdmlib.examples.patternrewriteops.model.Station;
 import org.sdmlib.examples.patternrewriteops.model.Train;
-import org.sdmlib.examples.patternrewriteops.model.util.ModelPattern;
 import org.sdmlib.examples.patternrewriteops.model.util.PersonPO;
 import org.sdmlib.examples.patternrewriteops.model.util.SignalFlagPO;
 import org.sdmlib.examples.patternrewriteops.model.util.StationPO;
@@ -14,6 +13,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class TrainStoryboards
 {
+   private Person p1;
+   private Person p2;
+   private Person p3;
+
    @Test 
    public void trainCollectPassengers()
    {
@@ -27,9 +30,9 @@ public class TrainStoryboards
 
       stat3.createNext();
 
-      stat1.createPeople();
-      stat1.createPeople();
-      stat1.createPeople();
+      p1 = stat1.createPeople();
+      p2 = stat1.createPeople();
+      p3 = stat1.createPeople();
 
       stat1.createFlag();
 
@@ -45,9 +48,9 @@ public class TrainStoryboards
       do 
       {
          // collect people from first station
-         ModelPattern pattern = new ModelPattern();
-
-         TrainPO trainPO = pattern.hasElementTrainPO(train);
+//         ModelPattern pattern = new ModelPattern();
+         TrainPO trainPO = new TrainPO(train);
+//         TrainPO trainPO = pattern.hasElementTrainPO(train);
 
          StationPO stationPO = trainPO.hasStation();
 
@@ -55,16 +58,26 @@ public class TrainStoryboards
                .destroy();
 
          stationPO.startSubPattern();
+         
+         storyboard.dumpDiagram(trainPO, ("addPassengersPattern"+i+"-0"));
 
-         PersonPO personPO = stationPO.startDestroy().hasPeople();
+         StationPO stationDestroyPO = stationPO.startDestroy();
+         storyboard.dumpDiagram(trainPO, ("addPassengersPattern"+i+"-1"));
+         PersonPO personPO = stationDestroyPO.hasPeople();
+         
+         storyboard.dumpDiagram(trainPO, ("addPassengersPattern"+i+"-2"));
 
          personPO.startCreate().hasTrain(trainPO);
-
+         storyboard.dumpDiagram(trainPO, ("addPassengersPattern"+i+"-3"));
          // personPO.startDestroy().hasStation(stationPO);
 
          personPO.allMatches();
 
-         storyboard.add(pattern.dumpDiagram("addPassengersPattern" + i));
+         storyboard.dumpDiagram(trainPO, ("addPassengersPattern"+i+"-4"));
+//         storyboard.add(pattern.dumpDiagram("addPassengersPattern" + i));
+         
+         storyboard.add("step " + i);
+         storyboard.addPattern(trainPO, true);
          i++;
          
          train.setStation(train.getStation().getNext());

@@ -143,9 +143,9 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    
    public static final String PROPERTY_PATTERN = "pattern";
    
-   private Pattern pattern = null;
+   private Pattern<Object> pattern = null;
    
-   public Pattern getPattern()
+   public Pattern<Object> getPattern()
    {
       return this.pattern;
    }

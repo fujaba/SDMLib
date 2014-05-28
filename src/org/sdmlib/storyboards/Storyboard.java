@@ -1746,4 +1746,8 @@ public class Storyboard implements PropertyChangeInterface
    {
       this.projectName = string;
    }
+   
+   public void dumpDiagram(PatternObject<?, ?> po, String name) {
+      po.getPattern().dumpDiagram(name);
+   }
 }

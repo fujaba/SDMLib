@@ -164,9 +164,11 @@ public class GenClassModel
    private void fixClassModel(){
       Clazz[] classes = model.getClasses().toArray(new Clazz[model.getClasses().size()]);
       HashSet<Clazz> visited=new HashSet<Clazz>();
+      System.out.println("LEN: "+model.getClasses().size());
       for(Clazz item : classes){
          fixClassModel(item, visited);
       }
+      System.out.println("LEN: "+model.getClasses().size());
    }
    private void fixClassModel(Clazz item, HashSet<Clazz> visited){
       for(Clazz entity : item.getInterfaces()){

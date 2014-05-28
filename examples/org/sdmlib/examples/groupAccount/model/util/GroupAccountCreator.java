@@ -39,7 +39,6 @@ public class GroupAccountCreator extends EntityFactory
       {
          return ((GroupAccount) target).getItems();
       }
-
       return null;
    }
    
