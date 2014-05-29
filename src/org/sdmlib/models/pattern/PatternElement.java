@@ -30,97 +30,24 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class PatternElement<PEC> implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
-      {
-         return getPatternObjectName();
-      }
-      
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   public static final PatternElementSet EMPTY_SET = new PatternElementSet();
+   public static final String PROPERTY_PATTERN = "pattern";
+   public static final String PROPERTY_MODIFIER = "modifier";
+   public static final String PROPERTY_HASMATCH = "hasMatch";
+   public static final String PROPERTY_DOALLMATCHES = "doAllMatches";
    
+   private boolean doAllMatches;
+   protected boolean hasMatch = false;
+   private String modifier;
+   private Pattern<Object> pattern = null;
+  
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
    //==========================================================================
    
    public void removeYou()
@@ -128,10 +55,6 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   
-   public static final PatternElementSet EMPTY_SET = new PatternElementSet();
-
    
    /********************************************************************
     * <pre>
@@ -140,23 +63,18 @@ public class PatternElement<PEC> implements PropertyChangeInterface
     *              elements                   pattern
     * </pre>
     */
-   
-   public static final String PROPERTY_PATTERN = "pattern";
-   
-   private Pattern<Object> pattern = null;
-   
    public Pattern<Object> getPattern()
    {
       return this.pattern;
    }
    
-   public boolean setPattern(Pattern value)
+   public boolean setPattern(Pattern<Object> value)
    {
       boolean changed = false;
       
       if (this.pattern != value)
       {
-         Pattern oldValue = this.pattern;
+         Pattern<?> oldValue = this.pattern;
          
          if (this.pattern != null)
          {
@@ -178,13 +96,13 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return changed;
    }
    
-   public PEC withPattern(Pattern value)
+   public PEC withPattern(Pattern<Object> value)
    {
       setPattern(value);
       return (PEC) this;
    }
    
-   public Pattern getTopPattern()
+   public Pattern<Object> getTopPattern()
    {
       PatternElement result = this;
       
@@ -193,7 +111,7 @@ public class PatternElement<PEC> implements PropertyChangeInterface
          result = result.getPattern();
       }
       
-      return (Pattern) result;
+      return (Pattern<Object>) result;
    }
 
 
@@ -201,14 +119,9 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    {
       return false;
    } 
-
    
    //==========================================================================
    
-   public static final String PROPERTY_MODIFIER = "modifier";
-   
-   private String modifier;
-
    public String getModifier()
    {
       return this.modifier;
@@ -224,19 +137,13 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       }
    }
    
-   public PatternElement withModifier(String value)
+   public PatternElement<PEC> withModifier(String value)
    {
       setModifier(value);
       return this;
    } 
-
    
    //==========================================================================
-   
-   public static final String PROPERTY_HASMATCH = "hasMatch";
-   
-   protected boolean hasMatch = false;
-
    public boolean getHasMatch()
    {
       return this.hasMatch;
@@ -258,7 +165,6 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return this;
    }
 
-
    public void resetSearch()
    {
       // please override
@@ -267,11 +173,6 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    
 
    //==========================================================================
-   
-   public static final String PROPERTY_DOALLMATCHES = "doAllMatches";
-   
-   private boolean doAllMatches;
-
    public boolean getDoAllMatches()
    {
       return this.doAllMatches;
@@ -339,6 +240,7 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    }
 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

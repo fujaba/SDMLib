@@ -110,7 +110,6 @@ public class Association extends SDMLibClass
    
    public boolean setTarget(Role value)
    {
-      
       boolean changed = false;
       
       if (this.target != value)
@@ -133,9 +132,7 @@ public class Association extends SDMLibClass
          // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null, value);
          changed = true;
       }
-      
       return changed;
-      
    }
    
    public Association withTarget(Role value)
@@ -208,4 +205,3 @@ public class Association extends SDMLibClass
       return this;
    }
 }
-

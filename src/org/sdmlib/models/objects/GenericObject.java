@@ -30,135 +30,13 @@ import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
-
 public class GenericObject implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attribute))
-      {
-         return getType();
-      }
-
-      if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
-      {
-         return getGraph();
-      }
-
-      if (PROPERTY_ATTRS.equalsIgnoreCase(attrName))
-      {
-         return getAttrs();
-      }
-
-      if (PROPERTY_OUTGOINGLINKS.equalsIgnoreCase(attrName))
-      {
-         return getOutgoingLinks();
-      }
-
-      if (PROPERTY_INCOMMINGLINKS.equalsIgnoreCase(attrName))
-      {
-         return getIncommingLinks();
-      }
-
-      if (PROPERTY_ICON.equalsIgnoreCase(attribute))
-      {
-         return getIcon();
-      }
-      
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         setType((String) value);
-         return true;
-      }
-
-      if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
-      {
-         setGraph((GenericGraph) value);
-         return true;
-      }
-
-      if (PROPERTY_ATTRS.equalsIgnoreCase(attrName))
-      {
-         addToAttrs((GenericAttribute) value);
-         return true;
-      }
-      
-      if ((PROPERTY_ATTRS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromAttrs((GenericAttribute) value);
-         return true;
-      }
-
-      if (PROPERTY_OUTGOINGLINKS.equalsIgnoreCase(attrName))
-      {
-         addToOutgoingLinks((GenericLink) value);
-         return true;
-      }
-      
-      if ((PROPERTY_OUTGOINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromOutgoingLinks((GenericLink) value);
-         return true;
-      }
-
-      if (PROPERTY_INCOMMINGLINKS.equalsIgnoreCase(attrName))
-      {
-         addToIncommingLinks((GenericLink) value);
-         return true;
-      }
-      
-      if ((PROPERTY_INCOMMINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromIncommingLinks((GenericLink) value);
-         return true;
-      }
-
-      if (PROPERTY_ICON.equalsIgnoreCase(attrName))
-      {
-         setIcon((String) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -647,6 +525,7 @@ public class GenericObject implements PropertyChangeInterface
       return this.createOutgoingLinks().withSrcLabel(srcLabel).withTgtLabel(tgtLabel).withTgt(tgt);
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

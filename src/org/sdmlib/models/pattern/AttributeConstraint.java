@@ -30,7 +30,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class AttributeConstraint extends PatternElement implements PropertyChangeInterface
+public class AttributeConstraint extends PatternElement<Object> implements PropertyChangeInterface
 {
 
    
@@ -81,7 +81,7 @@ public class AttributeConstraint extends PatternElement implements PropertyChang
             
             if (upperTgtValue != null)
             {
-               Comparable comparable = (Comparable) value;
+               Comparable<Object> comparable = (Comparable<Object>) value;
                itWorks = comparable.compareTo(tgtValue) >= 0 && comparable.compareTo(upperTgtValue) <= 0;
             }
             

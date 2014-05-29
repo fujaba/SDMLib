@@ -1,7 +1,7 @@
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ClazzPOCreator extends PatternObjectCreator
 {
@@ -11,15 +11,8 @@ public class ClazzPOCreator extends PatternObjectCreator
       return new ClazzPO();
    }
    
-   @Override
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((ClazzPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((ClazzPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
-

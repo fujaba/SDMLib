@@ -19,8 +19,9 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 /**
  * @author Stefan
@@ -753,7 +754,7 @@ public class GenClass extends Generator<Clazz>
                "package packageName;\n" +
                      "\n" +
                      "import org.sdmlib.serialization.EntityFactory;\n" +
-                     "import "+SDMLibConfig.BASESERIALISATIONURL+".json.JsonIdMap;\n" +
+                     "import "+JsonIdMap.class.getName()+";\n" +
                      "import fullEntityClassName;\n" +
                      "\n" +
                      "public class creatorClassName extends EntityFactory\n" +
@@ -1249,6 +1250,7 @@ public class GenClass extends Generator<Clazz>
                "package packageName;\n" +
                      "\n" +
                      "import org.sdmlib.models.pattern.util.PatternObjectCreator;\n" +
+                     "import "+JsonIdMap.class.getName()+";\n" +
                      "\n" +
                      "public class patternObjectCreatorClassName extends PatternObjectCreator\n" +
                      "{\n" +
@@ -1262,17 +1264,9 @@ public class GenClass extends Generator<Clazz>
                      "      }\n"+
                      "   }\n" + 
                      "   \n" + 
-                     "   @Override\n" +
-                     "   public Object getValue(Object target, String attrName)\n" + 
-                     "   {\n" + 
-                     "      return ((entitiyPOClassName) target).get(attrName);\n" + 
-                     "   }\n" + 
-                     "   \n" + 
-                     "   @Override\n" +
-                     "   public boolean setValue(Object target, String attrName, Object value, String type)\n" + 
-                     "   {\n" + 
-                     "      return ((entitiyPOClassName) target).set(attrName, value);\n" + 
-                     "   }\n" +
+                     "   public static JsonIdMap createIdMap(String sessionID) {\n" +
+                     "       return CreatorCreator.createIdMap(sessionID);\n" +
+                     "   }\n"+
                   "}\n");
 
             CGUtil.replaceAll(text, 

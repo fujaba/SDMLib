@@ -21,6 +21,5 @@ public class ModelPatternCreator extends PatternCreator
       
       return new ModelPattern();
    }
-   
-   
+     
 }

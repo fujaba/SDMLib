@@ -162,13 +162,3 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-

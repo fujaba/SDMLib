@@ -35,8 +35,6 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
 {
    private static final long serialVersionUID = 1L;
 
-
-
    public StringList getInitialization()
    {
       StringList result = new StringList();
@@ -193,8 +191,6 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
       return this;
    }
 
-
-
    public AttributePO hasAttributePO()
    {
       org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
@@ -209,14 +205,3 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -16,7 +16,6 @@ import org.sdmlib.models.pattern.Pattern;
 
 public class ModelPattern extends Pattern<ModelPattern>
 {
-  
    @Override
    public ModelPattern startCreate()
    {

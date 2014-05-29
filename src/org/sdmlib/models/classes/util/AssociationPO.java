@@ -108,7 +108,4 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    {
       return this.startCreate().hasSource(tgt).endCreate();
    }
-
 }
-
-

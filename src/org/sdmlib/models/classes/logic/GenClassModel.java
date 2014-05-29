@@ -33,13 +33,14 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenClassModel
 {
@@ -237,11 +238,8 @@ public class GenClassModel
 
             StringBuilder text =
                   new StringBuilder(
-                        "package packageName;\n"
-                           +
-                           "\n"
-                           +
-                           "import "+SDMLibConfig.BASESERIALISATIONURL+".json.JsonIdMap;\n"
+                        "package packageName;\n\n"
+                             + "import "+JsonIdMap.class.getName()+";\n"
                            +
                            "import org.sdmlib.serialization.SDMLibJsonIdMap;\n"
                            +

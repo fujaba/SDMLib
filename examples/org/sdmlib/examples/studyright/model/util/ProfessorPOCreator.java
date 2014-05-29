@@ -1,6 +1,7 @@
 package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.studyright.model.Professor;
 
 public class ProfessorPOCreator extends PatternObjectCreator
@@ -15,16 +16,8 @@ public class ProfessorPOCreator extends PatternObjectCreator
       }
    }
    
-   @Override
-   public Object getValue(Object target, String attrName)
-   {
-      return ((ProfessorPO) target).get(attrName);
-   }
-   
-   @Override
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      return ((ProfessorPO) target).set(attrName, value);
+   public static JsonIdMap createIdMap(String sessionID) {
+       return CreatorCreator.createIdMap(sessionID);
    }
 }
 

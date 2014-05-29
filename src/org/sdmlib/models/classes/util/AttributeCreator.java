@@ -98,8 +98,3 @@ public class AttributeCreator extends EntityFactory
       ((Attribute) entity).removeYou();
    }
 }
-
-
-
-
-

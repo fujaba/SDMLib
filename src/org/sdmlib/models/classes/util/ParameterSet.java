@@ -35,8 +35,6 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
 {
    private static final long serialVersionUID = 1L;
 
-
-
    public StringList getInitialization()
    {
       StringList result = new StringList();

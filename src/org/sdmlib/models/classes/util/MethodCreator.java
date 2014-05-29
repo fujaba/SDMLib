@@ -96,7 +96,3 @@ public class MethodCreator extends EntityFactory
       ((Method) entity).removeYou();
    }
 }
-
-
-
-

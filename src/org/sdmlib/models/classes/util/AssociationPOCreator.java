@@ -2,6 +2,8 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
+import de.uniks.networkparser.json.JsonIdMap;
+
 public class AssociationPOCreator extends PatternObjectCreator
 {
    @Override
@@ -10,15 +12,8 @@ public class AssociationPOCreator extends PatternObjectCreator
       return new AssociationPO();
    }
    
-   @Override
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((AssociationPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((AssociationPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
-

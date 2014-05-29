@@ -38,7 +38,6 @@ public class ClazzSet extends SDMSet<Clazz>
 {
    private static final long serialVersionUID = 1L;
 
-
    public StringList getName()
    {
       StringList result = new StringList();
@@ -414,15 +413,3 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -11,7 +11,7 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
 {
    public GenericLinkPO hasTgtLabel(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericLink.PROPERTY_TGTLABEL)
       .withTgtValue(value)
       .withSrc(this)
@@ -34,7 +34,7 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
    
    public GenericLinkPO hasSrcLabel(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericLink.PROPERTY_SRCLABEL)
       .withTgtValue(value)
       .withSrc(this)
@@ -170,7 +170,7 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
    
    public GenericLinkPO hasTgtLabel(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericLink.PROPERTY_TGTLABEL)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -185,7 +185,7 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
    
    public GenericLinkPO hasSrcLabel(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericLink.PROPERTY_SRCLABEL)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -241,7 +241,3 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
    }
 
 }
-
-
-
-

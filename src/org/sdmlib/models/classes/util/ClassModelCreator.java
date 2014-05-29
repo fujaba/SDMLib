@@ -82,7 +82,3 @@ public class ClassModelCreator extends EntityFactory
       ((ClassModel) entity).removeYou();
    }
 }
-
-
-
-

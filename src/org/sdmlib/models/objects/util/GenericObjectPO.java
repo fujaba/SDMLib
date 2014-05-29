@@ -10,7 +10,7 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
 {
    public GenericObjectPO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericObject.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -33,7 +33,7 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
    
    public GenericObjectPO hasType(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericObject.PROPERTY_TYPE)
       .withTgtValue(value)
       .withSrc(this)
@@ -200,7 +200,7 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
    }
    public GenericObjectPO hasIcon(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericObject.PROPERTY_ICON)
       .withTgtValue(value)
       .withSrc(this)
@@ -223,7 +223,7 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
    
    public GenericObjectPO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericObject.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -238,7 +238,7 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
    
    public GenericObjectPO hasType(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericObject.PROPERTY_TYPE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -253,7 +253,7 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
    
    public GenericObjectPO hasIcon(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericObject.PROPERTY_ICON)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

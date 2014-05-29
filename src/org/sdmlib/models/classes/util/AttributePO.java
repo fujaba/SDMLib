@@ -229,8 +229,3 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    }
 
 }
-
-
-
-
-

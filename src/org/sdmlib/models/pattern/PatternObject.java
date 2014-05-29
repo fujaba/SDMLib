@@ -35,7 +35,6 @@ import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
@@ -359,228 +358,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return (POC) this;
    }
 
-   // ==========================================================================
-
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_CURRENTMATCH.equalsIgnoreCase(attrName))
-      {
-         return getCurrentMatch();
-      }
-
-      if (PROPERTY_INCOMMING.equalsIgnoreCase(attrName))
-      {
-         return getIncomming();
-      }
-
-      // if (PROPERTY_OUTGOING.equalsIgnoreCase(attrName))
-      // {
-      // return getOutgoing();
-      // }
-
-      if (PROPERTY_CANDIDATES.equalsIgnoreCase(attrName))
-      {
-         return getCandidates();
-      }
-
-      if (PROPERTY_ATTRCONSTRAINTS.equalsIgnoreCase(attrName))
-      {
-         return getAttrConstraints();
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_DESTROYELEM.equalsIgnoreCase(attrName))
-      {
-         return getDestroyElem();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-
-      if (PROPERTY_PONAME.equalsIgnoreCase(attrName))
-      {
-         return getPoName();
-      }
-
-      if (PROPERTY_CARDCONSTRAINTS.equalsIgnoreCase(attrName))
-      {
-         return getCardConstraints();
-      }
-
-      if (PROPERTY_MATCHOTHERTHEN.equalsIgnoreCase(attrName))
-      {
-         return getMatchOtherThen();
-      }
-
-      if (PROPERTY_EXCLUDERS.equalsIgnoreCase(attrName))
-      {
-         return getExcluders();
-      }
-
-      return super.get(attrName);
-   }
-
-   // ==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_CURRENTMATCH.equalsIgnoreCase(attrName))
-      {
-         setCurrentMatch((Object) value);
-         return true;
-      }
-
-      if (PROPERTY_INCOMMING.equalsIgnoreCase(attrName))
-      {
-         addToIncomming((PatternLink) value);
-         return true;
-      }
-
-      if ((PROPERTY_INCOMMING + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromIncomming((PatternLink) value);
-         return true;
-      }
-
-      if (PROPERTY_OUTGOING.equalsIgnoreCase(attrName))
-      {
-         addToOutgoing((PatternLink) value);
-         return true;
-      }
-
-      if ((PROPERTY_OUTGOING + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromOutgoing((PatternLink) value);
-         return true;
-      }
-
-      if (PROPERTY_CANDIDATES.equalsIgnoreCase(attrName))
-      {
-         setCandidates(value);
-         return true;
-      }
-
-      if (PROPERTY_ATTRCONSTRAINTS.equalsIgnoreCase(attrName))
-      {
-         addToAttrConstraints((AttributeConstraint) value);
-         return true;
-      }
-
-      if ((PROPERTY_ATTRCONSTRAINTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromAttrConstraints((AttributeConstraint) value);
-         return true;
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_DESTROYELEM.equalsIgnoreCase(attrName))
-      {
-         setDestroyElem((DestroyObjectElem) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      if (PROPERTY_PONAME.equalsIgnoreCase(attrName))
-      {
-         setPoName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_CARDCONSTRAINTS.equalsIgnoreCase(attrName))
-      {
-         addToCardConstraints((CardinalityConstraint) value);
-         return true;
-      }
-
-      if ((PROPERTY_CARDCONSTRAINTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromCardConstraints((CardinalityConstraint) value);
-         return true;
-      }
-
-      if (PROPERTY_MATCHOTHERTHEN.equalsIgnoreCase(attrName))
-      {
-         addToMatchOtherThen((MatchOtherThen) value);
-         return true;
-      }
-
-      if ((PROPERTY_MATCHOTHERTHEN + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromMatchOtherThen((MatchOtherThen) value);
-         return true;
-      }
-
-      if (PROPERTY_EXCLUDERS.equalsIgnoreCase(attrName))
-      {
-         addToExcluders((MatchOtherThen) value);
-         return true;
-      }
-
-      if ((PROPERTY_EXCLUDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromExcluders((MatchOtherThen) value);
-         return true;
-      }
-
-      return super.set(attrName, value);
-   }
 
    // ==========================================================================
 
@@ -637,7 +414,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    private PatternLinkSet incomming = null;
 
-   PatternLinkSet getIncomming()
+   public PatternLinkSet getIncomming()
    {
       if (this.incomming == null)
       {
@@ -722,15 +499,15 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    private PatternLinkSet outgoing = null;
 
-   // public PatternLinkSet getOutgoing()
-   // {
-   // if (this.outgoing == null)
-   // {
-   // return PatternLink.EMPTY_SET;
-   // }
-   //
-   // return this.outgoing;
-   // }
+   public PatternLinkSet getOutgoing()
+   {
+      if (this.outgoing == null)
+      {
+         return PatternLink.EMPTY_SET;
+      }
+
+      return this.outgoing;
+   }
 
    public boolean addToOutgoing(PatternLink value)
    {
