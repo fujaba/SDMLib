@@ -11,7 +11,7 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
 {
    public PatternElementPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternElement.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -33,7 +33,7 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
    
    public PatternElementPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternElement.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -121,7 +121,7 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
    
    public PatternElementPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternElement.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -144,7 +144,7 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
    
    public PatternElementPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternElement.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -167,7 +167,7 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
    
    public PatternElementPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternElement.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -182,7 +182,7 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
    
    public PatternElementPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternElement.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -197,7 +197,7 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
    
    public PatternElementPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternElement.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -212,7 +212,7 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
    
    public PatternElementPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternElement.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

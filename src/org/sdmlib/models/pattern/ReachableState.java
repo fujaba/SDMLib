@@ -184,7 +184,7 @@ public class ReachableState implements PropertyChangeInterface
          // numbering the certificates
          for (Entry<String, String> e : certificates2nodes.entrySet())
          {
-            String certificate = e.getKey();
+//            String certificate = e.getKey();
             String nodeList = e.getValue();
             String[] split = nodeList.split(" ");
 
@@ -226,102 +226,11 @@ public class ReachableState implements PropertyChangeInterface
       return num;
    }
 
-   public Object get(String attrName)
-   {
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         return getParent();
-      }
-
-      if (PROPERTY_MASTER.equalsIgnoreCase(attrName))
-      {
-         return getMaster();
-      }
-
-      if (PROPERTY_GRAPHROOT.equalsIgnoreCase(attrName))
-      {
-         return getGraphRoot();
-      }
-
-      if (PROPERTY_NUMBER.equalsIgnoreCase(attrName))
-      {
-         return getNumber();
-      }
-
-      if (PROPERTY_RULEAPPLICATIONS.equalsIgnoreCase(attrName))
-      {
-         return getRuleapplications();
-      }
-
-      if (PROPERTY_RESULTOF.equalsIgnoreCase(attrName))
-      {
-         return getResultOf();
-      }
-
-      return null;
-   }
-
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         setParent((ReachabilityGraph) value);
-         return true;
-      }
-
-      if (PROPERTY_MASTER.equalsIgnoreCase(attrName))
-      {
-         setMaster((ReachabilityGraph) value);
-         return true;
-      }
-
-      if (PROPERTY_GRAPHROOT.equalsIgnoreCase(attrName))
-      {
-         setGraphRoot((Object) value);
-         return true;
-      }
-
-      if (PROPERTY_NUMBER.equalsIgnoreCase(attrName))
-      {
-         setNumber(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_RULEAPPLICATIONS.equalsIgnoreCase(attrName))
-      {
-         addToRuleapplications((RuleApplication) value);
-         return true;
-      }
-      
-      if ((PROPERTY_RULEAPPLICATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromRuleapplications((RuleApplication) value);
-         return true;
-      }
-
-      if (PROPERTY_RESULTOF.equalsIgnoreCase(attrName))
-      {
-         addToResultOf((RuleApplication) value);
-         return true;
-      }
-      
-      if ((PROPERTY_RESULTOF + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromResultOf((RuleApplication) value);
-         return true;
-      }
-
-      return false;
-   }
-
-
    //==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -527,6 +436,7 @@ public class ReachableState implements PropertyChangeInterface
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

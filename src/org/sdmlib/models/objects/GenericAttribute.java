@@ -29,69 +29,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class GenericAttribute implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_VALUE.equalsIgnoreCase(attribute))
-      {
-         return getValue();
-      }
-
-      if (PROPERTY_OWNER.equalsIgnoreCase(attrName))
-      {
-         return getOwner();
-      }
-      
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
-      {
-         setValue((String) value);
-         return true;
-      }
-
-      if (PROPERTY_OWNER.equalsIgnoreCase(attrName))
-      {
-         setOwner((GenericObject) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -224,6 +166,7 @@ public class GenericAttribute implements PropertyChangeInterface
       return value;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

@@ -2,11 +2,10 @@ package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class MatchIsomorphicConstraintCreator extends EntityFactory
+public class MatchIsomorphicConstraintCreator extends PatternElementCreator
 {
    private final String[] properties = new String[]
    {
@@ -17,26 +16,18 @@ public class MatchIsomorphicConstraintCreator extends EntityFactory
       PatternElement.PROPERTY_PATTERN,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new MatchIsomorphicConstraint();
    }
-   
-   public Object getValue(Object target, String attrName)
-   {
-      return ((MatchIsomorphicConstraint) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      return ((MatchIsomorphicConstraint) target).set(attrName, value);
-   }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
@@ -51,7 +42,3 @@ public class MatchIsomorphicConstraintCreator extends EntityFactory
       ((MatchIsomorphicConstraint) entity).removeYou();
    }
 }
-
-
-
-

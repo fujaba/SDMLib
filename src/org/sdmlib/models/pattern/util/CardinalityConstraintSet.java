@@ -36,6 +36,7 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
 {
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -49,6 +50,7 @@ public class CardinalityConstraintSet extends LinkedHashSet<CardinalityConstrain
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.CardinalityConstraint";

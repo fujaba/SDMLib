@@ -26,7 +26,7 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
    
    public RuleApplicationPO hasDescription(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
       .withTgtValue(value)
       .withSrc(this)
@@ -124,7 +124,7 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
 
    public RuleApplicationPO hasDescription(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(RuleApplication.PROPERTY_DESCRIPTION)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

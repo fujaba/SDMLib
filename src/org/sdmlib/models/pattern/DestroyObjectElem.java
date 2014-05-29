@@ -21,8 +21,6 @@
    
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
-
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.PropertyChangeInterface;
@@ -77,108 +75,10 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
    {
       setHasMatch(false);
    }
-
-
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_PATTERNOBJECT.equalsIgnoreCase(attrName))
-      {
-         return getPatternObject();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-      
-      return null;
-   }
-
    
    //==========================================================================
    
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECT.equalsIgnoreCase(attrName))
-      {
-         setPatternObject((PatternObject) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-   
-   //==========================================================================
-   
+   @Override
    public void removeYou()
    {
       setPatternObject(null);
@@ -246,6 +146,7 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
       return value;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

@@ -11,7 +11,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
 {
    public AttributeConstraintPO hasAttrName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_ATTRNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -33,7 +33,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasTgtValue(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_TGTVALUE)
       .withTgtValue(value)
       .withSrc(this)
@@ -55,7 +55,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasHostGraphSrcObject(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(value)
       .withSrc(this)
@@ -77,7 +77,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -99,7 +99,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -214,7 +214,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -237,7 +237,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -293,7 +293,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
 
    public AttributeConstraintPO hasCmpOp(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_CMPOP)
       .withTgtValue(value)
       .withSrc(this)
@@ -325,7 +325,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasUpperTgtValue(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_UPPERTGTVALUE)
       .withTgtValue(value)
       .withSrc(this)
@@ -357,7 +357,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasAttrName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_ATTRNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -372,7 +372,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasTgtValue(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_TGTVALUE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -387,7 +387,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasUpperTgtValue(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_UPPERTGTVALUE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -402,7 +402,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasCmpOp(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_CMPOP)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -417,7 +417,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasHostGraphSrcObject(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -432,7 +432,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -447,7 +447,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -462,7 +462,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -477,7 +477,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(AttributeConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

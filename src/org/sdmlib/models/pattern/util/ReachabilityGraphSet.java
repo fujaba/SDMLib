@@ -31,8 +31,7 @@ import org.sdmlib.models.pattern.ReachableState;
 
 public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> implements org.sdmlib.models.modelsets.ModelSet
 {
-
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -46,6 +45,7 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.ReachabilityGraph";
@@ -200,14 +200,3 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-

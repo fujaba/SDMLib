@@ -21,7 +21,6 @@
    
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.SDMLibConfig;
@@ -96,98 +95,9 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
       setHasMatch(false);
    }
 
-
-
-
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-      
-      return null;
-   }
-
-   
    //==========================================================================
    
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-   
-   //==========================================================================
-   
+   @Override
    public void removeYou()
    {
       setPattern(null);
@@ -195,6 +105,7 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
       super.removeYou();
    }
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
@@ -203,6 +114,5 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
-
 }
 

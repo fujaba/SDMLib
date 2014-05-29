@@ -2,11 +2,11 @@ package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class PatternLinkCreator extends EntityFactory
+public class PatternLinkCreator extends PatternElementCreator
 {
    private final String[] properties = new String[]
    {
@@ -22,24 +22,89 @@ public class PatternLinkCreator extends EntityFactory
       PatternElement.PROPERTY_DOALLMATCHES,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new PatternLink();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((PatternLink) target).get(attrName);
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (PatternLink.PROPERTY_SRCROLENAME.equalsIgnoreCase(attribute))
+      {
+         return ((PatternLink)target).getSrcRoleName();
+      }
+
+      if (PatternLink.PROPERTY_TGTROLENAME.equalsIgnoreCase(attribute))
+      {
+         return ((PatternLink)target).getTgtRoleName();
+      }
+
+      if (PatternLink.PROPERTY_TGT.equalsIgnoreCase(attribute))
+      {
+         return ((PatternLink)target).getTgt();
+      }
+
+      if (PatternLink.PROPERTY_SRC.equalsIgnoreCase(attribute))
+      {
+         return ((PatternLink)target).getSrc();
+      }
+
+      if (PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attribute))
+      {
+         return ((PatternLink)target).getHostGraphSrcObject();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((PatternLink) target).set(attrName, value);
+      if (PatternLink.PROPERTY_SRCROLENAME.equalsIgnoreCase(attrName))
+      {
+         ((PatternLink)target).setSrcRoleName((String) value);
+         return true;
+      }
+
+      if (PatternLink.PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
+      {
+         ((PatternLink)target).setTgtRoleName((String) value);
+         return true;
+      }
+
+      if (PatternLink.PROPERTY_TGT.equalsIgnoreCase(attrName))
+      {
+         ((PatternLink)target).setTgt((PatternObject<?, ?>) value);
+         return true;
+      }
+
+      if (PatternLink.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         ((PatternLink)target).setSrc((PatternObject<?, ?>) value);
+         return true;
+      }
+
+      if (PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      {
+         ((PatternLink)target).setHostGraphSrcObject((Object) value);
+         return true;
+      }
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -56,8 +121,3 @@ public class PatternLinkCreator extends EntityFactory
       ((PatternLink) entity).removeYou();
    }
 }
-
-
-
-
-

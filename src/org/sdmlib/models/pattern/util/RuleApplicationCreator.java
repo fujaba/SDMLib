@@ -1,5 +1,6 @@
 package org.sdmlib.models.pattern.util;
 
+import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.serialization.EntityFactory;
 
@@ -14,28 +15,59 @@ public class RuleApplicationCreator extends EntityFactory
       RuleApplication.PROPERTY_TGT,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new RuleApplication();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((RuleApplication) target).get(attrName);
+      if (RuleApplication.PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
+      {
+         return ((RuleApplication)target).getDescription();
+      }
+
+      if (RuleApplication.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         return ((RuleApplication)target).getSrc();
+      }
+
+      if (RuleApplication.PROPERTY_TGT.equalsIgnoreCase(attrName))
+      {
+         return ((RuleApplication)target).getTgt();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type))
+      if (RuleApplication.PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
+         ((RuleApplication)target).setDescription((String) value);
+         return true;
       }
-      return ((RuleApplication) target).set(attrName, value);
+
+      if (RuleApplication.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         ((RuleApplication)target).setSrc((ReachableState) value);
+         return true;
+      }
+
+      if (RuleApplication.PROPERTY_TGT.equalsIgnoreCase(attrName))
+      {
+         ((RuleApplication)target).setTgt((ReachableState) value);
+         return true;
+      }
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

@@ -46,7 +46,7 @@ public class GenericAttributePO extends PatternObject
    
    public GenericAttributePO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericAttribute.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -124,7 +124,7 @@ public class GenericAttributePO extends PatternObject
    
    public GenericAttributePO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericAttribute.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -139,7 +139,7 @@ public class GenericAttributePO extends PatternObject
    
    public GenericAttributePO hasValue(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericAttribute.PROPERTY_VALUE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -173,8 +173,4 @@ public class GenericAttributePO extends PatternObject
    {
       return (GenericAttributePO) this.startCreate().hasOwner(tgt).endCreate();
    }
-
 }
-
-
-

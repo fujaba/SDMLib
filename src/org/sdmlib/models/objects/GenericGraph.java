@@ -28,80 +28,18 @@ import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
-
 public class GenericGraph implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_OBJECTS.equalsIgnoreCase(attrName))
-      {
-         return getObjects();
-      }
-
-      if (PROPERTY_LINKS.equalsIgnoreCase(attrName))
-      {
-         return getLinks();
-      }
-      
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_OBJECTS.equalsIgnoreCase(attrName))
-      {
-         addToObjects((GenericObject) value);
-         return true;
-      }
-      
-      if ((PROPERTY_OBJECTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromObjects((GenericObject) value);
-         return true;
-      }
-
-      if (PROPERTY_LINKS.equalsIgnoreCase(attrName))
-      {
-         addToLinks((GenericLink) value);
-         return true;
-      }
-      
-      if ((PROPERTY_LINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromLinks((GenericLink) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
    //==========================================================================
    
    public void removeYou()

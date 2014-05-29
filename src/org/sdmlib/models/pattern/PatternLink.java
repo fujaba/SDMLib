@@ -173,147 +173,12 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
    {
       this.setHostGraphSrcObject(null);
    }
-
-
-
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_SRCROLENAME.equalsIgnoreCase(attrName))
-      {
-         return getSrcRoleName();
-      }
-
-      if (PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
-      {
-         return getTgtRoleName();
-      }
-
-      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
-      {
-         return getTgt();
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         return getSrc();
-      }
-
-      if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
-      {
-         return getHostGraphSrcObject();
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-      
-      return super.get(attrName);
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_SRCROLENAME.equalsIgnoreCase(attrName))
-      {
-         setSrcRoleName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
-      {
-         setTgtRoleName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
-      {
-         setTgt((PatternObject) value);
-         return true;
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         setSrc((PatternObject) value);
-         return true;
-      }
-
-      if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
-      {
-         setHostGraphSrcObject((Object) value);
-         return true;
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      return super.set(attrName, value);
-   }
-
-   
+  
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -322,6 +187,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
    
    //==========================================================================
    
+   @Override
    public void removeYou()
    {
       setTgt(null);
@@ -522,6 +388,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

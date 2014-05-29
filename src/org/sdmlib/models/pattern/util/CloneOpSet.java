@@ -33,6 +33,7 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
 {
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -46,6 +47,7 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.CloneOp";

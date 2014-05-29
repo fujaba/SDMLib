@@ -24,7 +24,7 @@ public class PatternElementCreator extends EntityFactory
    }
    
    @Override
-   public PatternElement<Object> getSendableInstance(boolean reference)
+   public Object getSendableInstance(boolean reference)
    {
       return new PatternElement<Object>();
    }
@@ -72,7 +72,7 @@ public class PatternElementCreator extends EntityFactory
    {
       if (PatternElement.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
-         ((PatternElement<?>)target).setPattern((Pattern<?>) value);
+         ((PatternElement<?>)target).setPattern((Pattern<Object>) value);
          return true;
       }
 

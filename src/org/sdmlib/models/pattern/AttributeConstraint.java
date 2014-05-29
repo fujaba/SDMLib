@@ -21,8 +21,6 @@
    
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
-
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
@@ -136,162 +134,9 @@ public class AttributeConstraint extends PatternElement<Object> implements Prope
       this.setHostGraphSrcObject(null);
    }
 
-
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_ATTRNAME.equalsIgnoreCase(attrName))
-      {
-         return getAttrName();
-      }
-
-      if (PROPERTY_TGTVALUE.equalsIgnoreCase(attrName))
-      {
-         return getTgtValue();
-      }
-
-      if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
-      {
-         return getHostGraphSrcObject();
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         return getSrc();
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-
-      if (PROPERTY_CMPOP.equalsIgnoreCase(attrName))
-      {
-         return getCmpOp();
-      }
-
-      if (PROPERTY_UPPERTGTVALUE.equalsIgnoreCase(attrName))
-      {
-         return getUpperTgtValue();
-      }
-      
-      return null;
-   }
-
-   
    //==========================================================================
    
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_ATTRNAME.equalsIgnoreCase(attrName))
-      {
-         setAttrName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_TGTVALUE.equalsIgnoreCase(attrName))
-      {
-         setTgtValue(value);
-         return true;
-      }
-
-      if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
-      {
-         setHostGraphSrcObject((Object) value);
-         return true;
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         setSrc((PatternObject) value);
-         return true;
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      if (PROPERTY_CMPOP.equalsIgnoreCase(attrName))
-      {
-         setCmpOp((String) value);
-         return true;
-      }
-
-      if (PROPERTY_UPPERTGTVALUE.equalsIgnoreCase(attrName))
-      {
-         setUpperTgtValue((Object) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-   
-   //==========================================================================
-   
+   @Override
    public void removeYou()
    {
       setSrc(null);
@@ -440,6 +285,7 @@ public class AttributeConstraint extends PatternElement<Object> implements Prope
    
    public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet();
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

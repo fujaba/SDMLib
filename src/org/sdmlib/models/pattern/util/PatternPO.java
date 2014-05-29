@@ -8,11 +8,11 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 
-public class PatternPO extends PatternObject<PatternPO, Pattern>
+public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
 {
    public PatternPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Pattern.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -254,7 +254,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern>
       return this;
    }
 
-   public Pattern getPattern()
+   public Pattern<Object> getPattern()
    {
       if (this.getPattern().getHasMatch())
       {

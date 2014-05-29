@@ -21,7 +21,6 @@
 
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
 import org.sdmlib.StrUtil;
@@ -123,147 +122,9 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       this.setHostGraphSrcObject(null);
    }
 
-
-
-
    //==========================================================================
 
-   public Object get(String attrName)
-   {
-      if (PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
-      {
-         return getTgtRoleName();
-      }
-
-      if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
-      {
-         return getHostGraphSrcObject();
-      }
-
-      if (PROPERTY_MINCARD.equalsIgnoreCase(attrName))
-      {
-         return getMinCard();
-      }
-
-      if (PROPERTY_MAXCARD.equalsIgnoreCase(attrName))
-      {
-         return getMaxCard();
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         return getSrc();
-      }
-
-      return null;
-   }
-
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
-      {
-         setTgtRoleName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
-      {
-         setHostGraphSrcObject((Object) value);
-         return true;
-      }
-
-      if (PROPERTY_MINCARD.equalsIgnoreCase(attrName))
-      {
-         setMinCard(Long.parseLong(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_MAXCARD.equalsIgnoreCase(attrName))
-      {
-         setMaxCard(Long.parseLong(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         setSrc((PatternObject) value);
-         return true;
-      }
-
-      return false;
-   }
-
-
-   //==========================================================================
-
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-
-   //==========================================================================
-
+   @Override
    public void removeYou()
    {
       setPattern(null);
@@ -300,6 +161,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

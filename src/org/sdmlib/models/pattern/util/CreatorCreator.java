@@ -33,7 +33,6 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.logger.util.JsonIdMapPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.logger.util.SDMLibJsonIdMapCreator());
       jsonIdMap.withCreator(new org.sdmlib.logger.util.SDMLibJsonIdMapPOCreator());
-      // creatorSet.add(new null.creators.StringBuilderCreator());
       jsonIdMap.withCreator(new StringBuilderPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.pattern.util.StringBuilderCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.pattern.util.StringBuilderPOCreator());

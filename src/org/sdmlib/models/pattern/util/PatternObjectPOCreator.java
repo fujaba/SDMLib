@@ -1,21 +1,19 @@
-package org.sdmlib.models.pattern.util;
+ package org.sdmlib.models.pattern.util;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 
 public class PatternObjectPOCreator extends PatternObjectCreator
 {
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new PatternObjectPO();
    }
    
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((PatternObjectPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((PatternObjectPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
 

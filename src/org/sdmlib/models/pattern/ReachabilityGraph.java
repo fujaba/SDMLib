@@ -77,75 +77,9 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
    //==========================================================================
 
-   public Object get(String attrName)
-   {
-      if (PROPERTY_STATES.equalsIgnoreCase(attrName))
-      {
-         return getStates();
-      }
-
-      if (PROPERTY_TODO.equalsIgnoreCase(attrName))
-      {
-         return getTodo();
-      }
-
-      if (PROPERTY_RULES.equalsIgnoreCase(attrName))
-      {
-         return getRules();
-      }
-
-      return null;
-   }
-
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_STATES.equalsIgnoreCase(attrName))
-      {
-         addToStates((ReachableState) value);
-         return true;
-      }
-
-      if ((PROPERTY_STATES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromStates((ReachableState) value);
-         return true;
-      }
-
-      if (PROPERTY_TODO.equalsIgnoreCase(attrName))
-      {
-         addToTodo((ReachableState) value);
-         return true;
-      }
-
-      if ((PROPERTY_TODO + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromTodo((ReachableState) value);
-         return true;
-      }
-
-      if (PROPERTY_RULES.equalsIgnoreCase(attrName))
-      {
-         addToRules((Pattern) value);
-         return true;
-      }
-
-      if ((PROPERTY_RULES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromRules((Pattern) value);
-         return true;
-      }
-
-      return false;
-   }
-
-
-   //==========================================================================
-
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

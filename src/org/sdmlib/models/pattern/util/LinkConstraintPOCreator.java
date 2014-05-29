@@ -1,21 +1,18 @@
 package org.sdmlib.models.pattern.util;
 
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class LinkConstraintPOCreator extends PatternObjectCreator
 {
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new LinkConstraintPO();
    }
    
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((LinkConstraintPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((LinkConstraintPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
 

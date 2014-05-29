@@ -116,96 +116,15 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
       }
    }
 
+   @Override
    public void resetSearch()
    {
       this.setHasMatch(false);
    } 
 
-
-   
    //==========================================================================
    
-   public Object get(String attrName)
-   {
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-   
-   //==========================================================================
-   
+   @Override
    public void removeYou()
    {
       setPattern(null);
@@ -213,6 +132,7 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
       super.removeYou();
    }
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

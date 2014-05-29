@@ -169,15 +169,3 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

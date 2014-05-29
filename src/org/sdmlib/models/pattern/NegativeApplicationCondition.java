@@ -21,12 +21,8 @@
    
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
-
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.PropertyChangeInterface;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
 {
@@ -97,147 +93,9 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       }
    }
 
-
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attribute))
-      {
-         return getCurrentSubPattern();
-      }
-
-      if (PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
-      {
-         return getDebugMode();
-      }
-
-      if (PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
-      {
-         return getElements();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-
-      if (PROPERTY_TRACE.equalsIgnoreCase(attrName))
-      {
-         return getTrace();
-      }
-
-      if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
-      {
-         return getRgraph();
-      }
-      
-      return null;
-   }
-
-   
    //==========================================================================
    
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_CURRENTSUBPATTERN.equalsIgnoreCase(attrName))
-      {
-         setCurrentSubPattern((Pattern) value);
-         return true;
-      }
-
-      if (PROPERTY_DEBUGMODE.equalsIgnoreCase(attrName))
-      {
-         setDebugMode(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
-      {
-         addToElements((PatternElement) value);
-         return true;
-      }
-      
-      if ((PROPERTY_ELEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromElements((PatternElement) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      if (PROPERTY_TRACE.equalsIgnoreCase(attrName))
-      {
-         setTrace((StringBuilder) value);
-         return true;
-      }
-
-      if (PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
-      {
-         setRgraph((ReachabilityGraph) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
+   @Override
    public void removeYou()
    {
       removeAllFromElements();
@@ -247,16 +105,7 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       super.removeYou();
    }
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

@@ -2,11 +2,11 @@ package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class DestroyObjectElemCreator extends EntityFactory
+public class DestroyObjectElemCreator extends PatternElementCreator
 {
    private final String[] properties = new String[]
    {
@@ -18,24 +18,37 @@ public class DestroyObjectElemCreator extends EntityFactory
       PatternElement.PROPERTY_PATTERN,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new DestroyObjectElem();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((DestroyObjectElem) target).get(attrName);
+      if (DestroyObjectElem.PROPERTY_PATTERNOBJECT.equalsIgnoreCase(attrName))
+      {
+         return ((DestroyObjectElem)target).getPatternObject();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((DestroyObjectElem) target).set(attrName, value);
+      if (DestroyObjectElem.PROPERTY_PATTERNOBJECT.equalsIgnoreCase(attrName))
+      {
+         ((DestroyObjectElem)target).setPatternObject((PatternObject<?,?>) value);
+         return true;
+      }
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

@@ -27,7 +27,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasTgtRoleName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_TGTROLENAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -59,7 +59,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasHostGraphSrcObject(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(value)
       .withSrc(this)
@@ -91,7 +91,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasMinCard(long value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_MINCARD)
       .withTgtValue(value)
       .withSrc(this)
@@ -123,7 +123,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasMaxCard(long value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_MAXCARD)
       .withTgtValue(value)
       .withSrc(this)
@@ -155,7 +155,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -187,7 +187,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -219,7 +219,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -251,7 +251,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -349,7 +349,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
 
    public CardinalityConstraintPO hasTgtRoleName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_TGTROLENAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -364,7 +364,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasHostGraphSrcObject(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -379,7 +379,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasMinCard(long lower, long upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_MINCARD)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -394,7 +394,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasMaxCard(long lower, long upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_MAXCARD)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -409,7 +409,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -424,7 +424,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -439,7 +439,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -454,7 +454,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    
    public CardinalityConstraintPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CardinalityConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

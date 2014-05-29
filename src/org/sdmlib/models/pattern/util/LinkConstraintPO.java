@@ -11,7 +11,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
 {
    public LinkConstraintPO hasTgtRoleName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_TGTROLENAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -33,7 +33,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasHostGraphSrcObject(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(value)
       .withSrc(this)
@@ -55,7 +55,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -77,7 +77,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -135,7 +135,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -158,7 +158,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -280,7 +280,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
 
    public LinkConstraintPO hasTgtRoleName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_TGTROLENAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -295,7 +295,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasHostGraphSrcObject(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -310,7 +310,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -325,7 +325,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -340,7 +340,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -355,7 +355,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    
    public LinkConstraintPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(LinkConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

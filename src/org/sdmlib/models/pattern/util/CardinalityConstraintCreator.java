@@ -2,11 +2,11 @@ package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class CardinalityConstraintCreator extends EntityFactory
+public class CardinalityConstraintCreator extends PatternElementCreator
 {
    private final String[] properties = new String[]
    {
@@ -22,24 +22,81 @@ public class CardinalityConstraintCreator extends EntityFactory
       CardinalityConstraint.PROPERTY_SRC,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new CardinalityConstraint();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((CardinalityConstraint) target).get(attrName);
+      if (CardinalityConstraint.PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
+      {
+         return ((CardinalityConstraint)target).getTgtRoleName();
+      }
+
+      if (CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      {
+         return ((CardinalityConstraint)target).getHostGraphSrcObject();
+      }
+
+      if (CardinalityConstraint.PROPERTY_MINCARD.equalsIgnoreCase(attrName))
+      {
+         return ((CardinalityConstraint)target).getMinCard();
+      }
+
+      if (CardinalityConstraint.PROPERTY_MAXCARD.equalsIgnoreCase(attrName))
+      {
+         return ((CardinalityConstraint)target).getMaxCard();
+      }
+
+      if (CardinalityConstraint.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         return ((CardinalityConstraint)target).getSrc();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((CardinalityConstraint) target).set(attrName, value);
+      if (CardinalityConstraint.PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint)target).setTgtRoleName((String) value);
+         return true;
+      }
+
+      if (CardinalityConstraint.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint)target).setHostGraphSrcObject((Object) value);
+         return true;
+      }
+
+      if (CardinalityConstraint.PROPERTY_MINCARD.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint)target).setMinCard(Long.parseLong(value.toString()));
+         return true;
+      }
+
+      if (CardinalityConstraint.PROPERTY_MAXCARD.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint)target).setMaxCard(Long.parseLong(value.toString()));
+         return true;
+      }
+
+      if (CardinalityConstraint.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint)target).setSrc((PatternObject<?,?>) value);
+         return true;
+      }
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

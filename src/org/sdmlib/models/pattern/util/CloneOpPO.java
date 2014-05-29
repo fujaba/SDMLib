@@ -27,7 +27,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    
    public CloneOpPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -59,7 +59,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    
    public CloneOpPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -91,7 +91,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    
    public CloneOpPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -123,7 +123,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    
    public CloneOpPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -188,7 +188,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
 
    public CloneOpPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -203,7 +203,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    
    public CloneOpPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -218,7 +218,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    
    public CloneOpPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -233,7 +233,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    
    public CloneOpPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(CloneOp.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

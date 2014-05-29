@@ -30,6 +30,7 @@ public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements or
 {
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -43,6 +44,7 @@ public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements or
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "java.lang.StringBuilder";
@@ -82,9 +84,6 @@ public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements or
       return this;
    }
    
-
-
-
    public StringBuilderPO hasStringBuilderPO()
    {
       ModelPattern pattern = new ModelPattern();
@@ -99,7 +98,3 @@ public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements or
       return patternObject;
    }
 }
-
-
-
-

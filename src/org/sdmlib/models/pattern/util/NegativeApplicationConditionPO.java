@@ -21,7 +21,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -43,7 +43,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -83,7 +83,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -106,7 +106,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -129,7 +129,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasCurrentSubPattern(Pattern value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_CURRENTSUBPATTERN)
       .withTgtValue(value)
       .withSrc(this)
@@ -152,7 +152,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasDebugMode(int value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_DEBUGMODE)
       .withTgtValue(value)
       .withSrc(this)
@@ -250,7 +250,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
 
    public NegativeApplicationConditionPO hasTrace(StringBuilder value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_TRACE)
       .withTgtValue(value)
       .withSrc(this)
@@ -315,7 +315,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
 
    public NegativeApplicationConditionPO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -347,7 +347,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasCurrentSubPattern(Pattern lower, Pattern upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_CURRENTSUBPATTERN)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -362,7 +362,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasDebugMode(int lower, int upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_DEBUGMODE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -377,7 +377,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasTrace(StringBuilder lower, StringBuilder upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_TRACE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -392,7 +392,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -407,7 +407,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -422,7 +422,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -437,7 +437,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -452,7 +452,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    
    public NegativeApplicationConditionPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

@@ -3,11 +3,10 @@ package org.sdmlib.models.pattern.util;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class OptionalSubPatternCreator extends EntityFactory
+public class OptionalSubPatternCreator extends PatternCreator
 {
    private final String[] properties = new String[]
    {
@@ -25,24 +24,43 @@ public class OptionalSubPatternCreator extends EntityFactory
       Pattern.PROPERTY_NAME,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new OptionalSubPattern();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((OptionalSubPattern) target).get(attrName);
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      if (OptionalSubPattern.PROPERTY_MATCHFORWARD.equalsIgnoreCase(attribute))
+      {
+         return ((OptionalSubPattern)target).getMatchForward();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((OptionalSubPattern) target).set(attrName, value);
+      if (OptionalSubPattern.PROPERTY_MATCHFORWARD.equalsIgnoreCase(attrName)){
+         ((OptionalSubPattern)target).setMatchForward((Boolean) value);
+         return true;
+      }
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
@@ -59,9 +77,3 @@ public class OptionalSubPatternCreator extends EntityFactory
       ((OptionalSubPattern) entity).removeYou();
    }
 }
-
-
-
-
-
-

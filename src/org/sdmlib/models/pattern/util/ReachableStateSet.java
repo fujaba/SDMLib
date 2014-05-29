@@ -33,8 +33,9 @@ import org.sdmlib.models.pattern.RuleApplication;
 
 public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
+   private static final long serialVersionUID = 1L;
 
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -48,6 +49,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.ReachableState";

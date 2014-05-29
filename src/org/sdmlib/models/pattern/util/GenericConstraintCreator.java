@@ -2,11 +2,10 @@ package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class GenericConstraintCreator extends EntityFactory
+public class GenericConstraintCreator extends PatternElementCreator
 {
    private final String[] properties = new String[]
    {
@@ -18,28 +17,37 @@ public class GenericConstraintCreator extends EntityFactory
       GenericConstraint.PROPERTY_TEXT,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new GenericConstraint();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((GenericConstraint) target).get(attrName);
+      if (GenericConstraint.PROPERTY_TEXT.equalsIgnoreCase(attrName))
+      {
+         return ((GenericConstraint)target).getText();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+   {      
+      if (GenericConstraint.PROPERTY_TEXT.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
+         ((GenericConstraint)target).setText((String) value);
+         return true;
       }
-      return ((GenericConstraint) target).set(attrName, value);
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

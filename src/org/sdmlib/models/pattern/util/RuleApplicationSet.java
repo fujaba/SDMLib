@@ -30,8 +30,7 @@ import org.sdmlib.models.pattern.RuleApplication;
 
 public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
 {
-
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -45,6 +44,7 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.RuleApplication";

@@ -1,6 +1,8 @@
 package org.sdmlib.models.pattern.util;
 
+import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
@@ -17,28 +19,104 @@ public class ReachableStateCreator extends EntityFactory
       ReachableState.PROPERTY_RESULTOF,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new ReachableState();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((ReachableState) target).get(attrName);
+      if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return ((ReachableState)target).getParent();
+      }
+
+      if (ReachableState.PROPERTY_MASTER.equalsIgnoreCase(attrName))
+      {
+         return ((ReachableState)target).getMaster();
+      }
+
+      if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attrName))
+      {
+         return ((ReachableState)target).getGraphRoot();
+      }
+
+      if (ReachableState.PROPERTY_NUMBER.equalsIgnoreCase(attrName))
+      {
+         return ((ReachableState)target).getNumber();
+      }
+
+      if (ReachableState.PROPERTY_RULEAPPLICATIONS.equalsIgnoreCase(attrName))
+      {
+         return ((ReachableState)target).getRuleapplications();
+      }
+
+      if (ReachableState.PROPERTY_RESULTOF.equalsIgnoreCase(attrName))
+      {
+         return ((ReachableState)target).getResultOf();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type))
+      if (ReachableState.PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
+         ((ReachableState)target).setParent((ReachabilityGraph) value);
+         return true;
       }
-      return ((ReachableState) target).set(attrName, value);
+
+      if (ReachableState.PROPERTY_MASTER.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState)target).setMaster((ReachabilityGraph) value);
+         return true;
+      }
+
+      if (ReachableState.PROPERTY_GRAPHROOT.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState)target).setGraphRoot((Object) value);
+         return true;
+      }
+
+      if (ReachableState.PROPERTY_NUMBER.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState)target).setNumber(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (ReachableState.PROPERTY_RULEAPPLICATIONS.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState)target).addToRuleapplications((RuleApplication) value);
+         return true;
+      }
+      
+      if ((ReachableState.PROPERTY_RULEAPPLICATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ReachableState)target).removeFromRuleapplications((RuleApplication) value);
+         return true;
+      }
+
+      if (ReachableState.PROPERTY_RESULTOF.equalsIgnoreCase(attrName))
+      {
+         ((ReachableState)target).addToResultOf((RuleApplication) value);
+         return true;
+      }
+      
+      if ((ReachableState.PROPERTY_RESULTOF + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ReachableState)target).removeFromResultOf((RuleApplication) value);
+         return true;
+      }
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

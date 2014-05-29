@@ -1,21 +1,18 @@
 package org.sdmlib.models.pattern.util;
 
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class DestroyObjectElemPOCreator extends PatternObjectCreator
 {
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new DestroyObjectElemPO();
    }
    
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((DestroyObjectElemPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((DestroyObjectElemPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
 

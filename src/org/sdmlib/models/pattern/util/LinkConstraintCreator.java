@@ -3,11 +3,10 @@ package org.sdmlib.models.pattern.util;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class LinkConstraintCreator extends EntityFactory
+public class LinkConstraintCreator extends PatternLinkCreator
 {
    private final String[] properties = new String[]
    {
@@ -23,31 +22,22 @@ public class LinkConstraintCreator extends EntityFactory
       PatternElement.PROPERTY_DOALLMATCHES,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new LinkConstraint();
-   }
-   
-   public Object getValue(Object target, String attrName)
-   {
-      return ((LinkConstraint) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      return ((LinkConstraint) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
    
@@ -57,6 +47,3 @@ public class LinkConstraintCreator extends EntityFactory
       ((LinkConstraint) entity).removeYou();
    }
 }
-
-
-

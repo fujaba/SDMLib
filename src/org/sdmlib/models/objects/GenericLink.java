@@ -29,91 +29,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class GenericLink implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_TGTLABEL.equalsIgnoreCase(attribute))
-      {
-         return getTgtLabel();
-      }
-
-      if (PROPERTY_SRCLABEL.equalsIgnoreCase(attribute))
-      {
-         return getSrcLabel();
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         return getSrc();
-      }
-
-      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
-      {
-         return getTgt();
-      }
-
-      if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
-      {
-         return getGraph();
-      }
-      
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_TGTLABEL.equalsIgnoreCase(attrName))
-      {
-         setTgtLabel((String) value);
-         return true;
-      }
-
-      if (PROPERTY_SRCLABEL.equalsIgnoreCase(attrName))
-      {
-         setSrcLabel((String) value);
-         return true;
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         setSrc((GenericObject) value);
-         return true;
-      }
-
-      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
-      {
-         setTgt((GenericObject) value);
-         return true;
-      }
-
-      if (PROPERTY_GRAPH.equalsIgnoreCase(attrName))
-      {
-         setGraph((GenericGraph) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -372,6 +292,7 @@ public class GenericLink implements PropertyChangeInterface
       return value;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
@@ -380,6 +301,4 @@ public class GenericLink implements PropertyChangeInterface
       _.append(" ").append(this.getSrcLabel());
       return _.substring(1);
    }
-
 }
-

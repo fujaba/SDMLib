@@ -107,6 +107,3 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
    }
 
 }
-
-
-

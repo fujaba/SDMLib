@@ -3,11 +3,10 @@ package org.sdmlib.models.pattern.util;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class NegativeApplicationConditionCreator extends EntityFactory
+public class NegativeApplicationConditionCreator extends PatternCreator
 {
    private final String[] properties = new String[]
    {
@@ -24,32 +23,22 @@ public class NegativeApplicationConditionCreator extends EntityFactory
       Pattern.PROPERTY_NAME,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new NegativeApplicationCondition();
-   }
-   
-   public Object getValue(Object target, String attrName)
-   {
-      return ((NegativeApplicationCondition) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      return ((NegativeApplicationCondition) target).set(attrName, value);
    }
    
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-
-   
    //==========================================================================
    
    @Override
@@ -58,10 +47,3 @@ public class NegativeApplicationConditionCreator extends EntityFactory
       ((NegativeApplicationCondition) entity).removeYou();
    }
 }
-
-
-
-
-
-
-

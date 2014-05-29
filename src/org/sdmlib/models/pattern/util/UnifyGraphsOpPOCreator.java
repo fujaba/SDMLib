@@ -1,21 +1,18 @@
 package org.sdmlib.models.pattern.util;
 
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class UnifyGraphsOpPOCreator extends PatternObjectCreator
 {
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new UnifyGraphsOpPO();
    }
    
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((UnifyGraphsOpPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      return ((UnifyGraphsOpPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
 

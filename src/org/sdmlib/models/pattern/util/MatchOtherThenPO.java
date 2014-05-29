@@ -27,7 +27,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasHostGraphSrcObject(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(value)
       .withSrc(this)
@@ -59,7 +59,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -91,7 +91,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -123,7 +123,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -155,7 +155,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -286,7 +286,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public MatchOtherThenPO hasHostGraphSrcObject(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -301,7 +301,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -316,7 +316,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -331,7 +331,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -346,7 +346,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    
    public MatchOtherThenPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchOtherThen.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

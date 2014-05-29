@@ -2,11 +2,11 @@ package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class MatchOtherThenCreator extends EntityFactory
+public class MatchOtherThenCreator extends PatternElementCreator
 {
    private final String[] properties = new String[]
    {
@@ -20,24 +20,60 @@ public class MatchOtherThenCreator extends EntityFactory
       MatchOtherThen.PROPERTY_FORBIDDEN,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new MatchOtherThen();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((MatchOtherThen) target).get(attrName);
+      if (MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      {
+         return ((MatchOtherThen)target).getHostGraphSrcObject();
+      }
+
+      if (MatchOtherThen.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         return ((MatchOtherThen)target).getSrc();
+      }
+
+      if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
+      {
+         return ((MatchOtherThen)target).getForbidden();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((MatchOtherThen) target).set(attrName, value);
+      if (MatchOtherThen.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
+      {
+         ((MatchOtherThen)target).setHostGraphSrcObject((Object) value);
+         return true;
+      }
+
+      if (MatchOtherThen.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      {
+         ((MatchOtherThen)target).setSrc((PatternObject<?,?>) value);
+         return true;
+      }
+
+      if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
+      {
+         ((MatchOtherThen)target).setForbidden((PatternObject<?,?>) value);
+         return true;
+      }
+
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

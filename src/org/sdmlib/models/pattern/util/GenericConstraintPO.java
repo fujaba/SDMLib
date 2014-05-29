@@ -27,7 +27,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public GenericConstraintPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -59,7 +59,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public GenericConstraintPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -91,7 +91,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public GenericConstraintPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -123,7 +123,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public GenericConstraintPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -188,7 +188,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
 
    public GenericConstraintPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -203,7 +203,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public GenericConstraintPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -218,7 +218,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public GenericConstraintPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -233,7 +233,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public GenericConstraintPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -282,7 +282,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
 
    public GenericConstraintPO hasText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_TEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -296,7 +296,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public GenericConstraintPO hasText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GenericConstraint.PROPERTY_TEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

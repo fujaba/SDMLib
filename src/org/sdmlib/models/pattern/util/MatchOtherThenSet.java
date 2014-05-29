@@ -35,6 +35,7 @@ public class MatchOtherThenSet extends LinkedHashSet<MatchOtherThen> implements 
 {
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -48,6 +49,7 @@ public class MatchOtherThenSet extends LinkedHashSet<MatchOtherThen> implements 
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.MatchOtherThen";

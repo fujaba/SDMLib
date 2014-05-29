@@ -36,7 +36,9 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    public static final String PROPERTY_MODIFIER = "modifier";
    public static final String PROPERTY_HASMATCH = "hasMatch";
    public static final String PROPERTY_DOALLMATCHES = "doAllMatches";
+   public static final String PROPERTY_PATTERNOBJECTNAME = "patternObjectName";
    
+   private String patternObjectName;
    private boolean doAllMatches;
    protected boolean hasMatch = false;
    private String modifier;
@@ -197,10 +199,6 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    
    //==========================================================================
    
-   public static final String PROPERTY_PATTERNOBJECTNAME = "patternObjectName";
-   
-   private String patternObjectName;
-
    public String getPatternObjectName()
    {
       return this.patternObjectName;

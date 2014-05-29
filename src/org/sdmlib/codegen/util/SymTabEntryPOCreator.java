@@ -2,6 +2,8 @@ package org.sdmlib.codegen.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
+import de.uniks.networkparser.json.JsonIdMap;
+
 public class SymTabEntryPOCreator extends PatternObjectCreator
 {
    @Override
@@ -10,15 +12,9 @@ public class SymTabEntryPOCreator extends PatternObjectCreator
       return new SymTabEntryPO();
    }
    
-   @Override
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((SymTabEntryPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((SymTabEntryPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
 

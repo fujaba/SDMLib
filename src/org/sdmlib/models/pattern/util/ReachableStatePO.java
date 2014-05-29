@@ -92,7 +92,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
 
    public ReachableStatePO hasGraphRoot(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ReachableState.PROPERTY_GRAPHROOT)
       .withTgtValue(value)
       .withSrc(this)
@@ -124,7 +124,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    
    public ReachableStatePO hasNumber(long value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ReachableState.PROPERTY_NUMBER)
       .withTgtValue(value)
       .withSrc(this)
@@ -222,7 +222,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
 
    public ReachableStatePO hasNumber(long lower, long upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ReachableState.PROPERTY_NUMBER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -237,7 +237,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    
    public ReachableStatePO hasGraphRoot(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ReachableState.PROPERTY_GRAPHROOT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

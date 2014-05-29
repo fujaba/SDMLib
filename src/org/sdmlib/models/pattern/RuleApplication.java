@@ -29,61 +29,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class RuleApplication implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      if (PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
-      {
-         return getDescription();
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         return getSrc();
-      }
-
-      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
-      {
-         return getTgt();
-      }
-
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
-      {
-         setDescription((String) value);
-         return true;
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         setSrc((ReachableState) value);
-         return true;
-      }
-
-      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
-      {
-         setTgt((ReachableState) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -127,6 +77,7 @@ public class RuleApplication implements PropertyChangeInterface
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

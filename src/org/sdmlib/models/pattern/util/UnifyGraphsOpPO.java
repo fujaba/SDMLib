@@ -27,7 +27,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    
    public UnifyGraphsOpPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(UnifyGraphsOp.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -39,6 +39,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return this;
    }
    
+   @Override
    public String getModifier()
    {
       if (this.getPattern().getHasMatch())
@@ -48,6 +49,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return null;
    }
    
+   @Override
    public UnifyGraphsOpPO withModifier(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -59,7 +61,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    
    public UnifyGraphsOpPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(UnifyGraphsOp.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -71,6 +73,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return this;
    }
    
+   @Override
    public boolean getHasMatch()
    {
       if (this.getPattern().getHasMatch())
@@ -80,6 +83,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return false;
    }
    
+   @Override
    public UnifyGraphsOpPO withHasMatch(boolean value)
    {
       if (this.getPattern().getHasMatch())
@@ -91,7 +95,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    
    public UnifyGraphsOpPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(UnifyGraphsOp.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -103,6 +107,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return this;
    }
    
+   @Override
    public String getPatternObjectName()
    {
       if (this.getPattern().getHasMatch())
@@ -112,6 +117,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return null;
    }
    
+   @Override
    public UnifyGraphsOpPO withPatternObjectName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -123,7 +129,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    
    public UnifyGraphsOpPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(UnifyGraphsOp.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -135,6 +141,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return this;
    }
    
+   @Override
    public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
@@ -144,6 +151,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return false;
    }
    
+   @Override
    public UnifyGraphsOpPO withDoAllMatches(boolean value)
    {
       if (this.getPattern().getHasMatch())
@@ -177,6 +185,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return this;
    }
 
+   @Override
    public Pattern getPattern()
    {
       if (this.getPattern().getHasMatch())
@@ -188,7 +197,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
 
    public UnifyGraphsOpPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(UnifyGraphsOp.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -203,7 +212,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    
    public UnifyGraphsOpPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(UnifyGraphsOp.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -218,7 +227,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    
    public UnifyGraphsOpPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(UnifyGraphsOp.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -233,7 +242,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    
    public UnifyGraphsOpPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(UnifyGraphsOp.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -270,6 +279,7 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
       return this;
    }
    
+   @Override
    public PatternPO createPattern()
    {
       return this.startCreate().hasPattern().endCreate();
@@ -281,6 +291,3 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    }
 
 }
-
-
-

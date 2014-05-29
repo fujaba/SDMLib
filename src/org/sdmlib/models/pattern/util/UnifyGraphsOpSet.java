@@ -31,8 +31,7 @@ import org.sdmlib.models.pattern.UnifyGraphsOp;
 
 public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
 {
-
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -46,6 +45,7 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.pattern.UnifyGraphsOp";
@@ -204,9 +204,6 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
       return this;
    }
    
-
-
-
    public UnifyGraphsOpPO hasUnifyGraphsOpPO()
    {
       org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
@@ -221,12 +218,3 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-

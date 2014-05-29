@@ -21,7 +21,6 @@
    
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
 import org.sdmlib.StrUtil;
@@ -33,8 +32,6 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class LinkConstraint extends PatternLink implements PropertyChangeInterface
 {
-
-   
    //==========================================================================
    
    @Override
@@ -181,139 +178,9 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
    }
 
 
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
-      {
-         return getTgtRoleName();
-      }
-
-      if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
-      {
-         return getHostGraphSrcObject();
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attribute))
-      {
-         return getModifier();
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attribute))
-      {
-         return getHasMatch();
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attribute))
-      {
-         return getDoAllMatches();
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attribute))
-      {
-         return getPatternObjectName();
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         return getPattern();
-      }
-
-      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
-      {
-         return getTgt();
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         return getSrc();
-      }
-      
-      return super.get(attrName);
-   }
-
-   
    //==========================================================================
    
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_TGTROLENAME.equalsIgnoreCase(attrName))
-      {
-         setTgtRoleName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
-      {
-         setHostGraphSrcObject((Object) value);
-         return true;
-      }
-
-      if (PROPERTY_MODIFIER.equalsIgnoreCase(attrName))
-      {
-         setModifier((String) value);
-         return true;
-      }
-
-      if (PROPERTY_HASMATCH.equalsIgnoreCase(attrName))
-      {
-         setHasMatch((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_DOALLMATCHES.equalsIgnoreCase(attrName))
-      {
-         setDoAllMatches((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERNOBJECTNAME.equalsIgnoreCase(attrName))
-      {
-         setPatternObjectName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_PATTERN.equalsIgnoreCase(attrName))
-      {
-         setPattern((Pattern) value);
-         return true;
-      }
-
-      if (PROPERTY_TGT.equalsIgnoreCase(attrName))
-      {
-         setTgt((PatternObject) value);
-         return true;
-      }
-
-      if (PROPERTY_SRC.equalsIgnoreCase(attrName))
-      {
-         setSrc((PatternObject) value);
-         return true;
-      }
-
-      return super.set(attrName, value);
-   }
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-   
-   //==========================================================================
-   
+   @Override
    public void removeYou()
    {
       setPattern(null);
@@ -323,6 +190,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       super.removeYou();
    }
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
