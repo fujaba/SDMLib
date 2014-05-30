@@ -28,39 +28,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class StoryboardWall implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      if (PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
-      {
-         return getStoryboard();
-      }
-
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
-      {
-         setStoryboard((Storyboard) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

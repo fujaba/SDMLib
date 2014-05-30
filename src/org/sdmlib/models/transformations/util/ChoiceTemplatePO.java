@@ -25,7 +25,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasTemplateText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_TEMPLATETEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -39,7 +39,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasTemplateText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_TEMPLATETEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -72,7 +72,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasExpandedText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_EXPANDEDTEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -86,7 +86,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasExpandedText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_EXPANDEDTEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -119,7 +119,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasModelObject(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_MODELOBJECT)
       .withTgtValue(value)
       .withSrc(this)
@@ -133,7 +133,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasModelObject(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_MODELOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -166,7 +166,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasModelClassName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_MODELCLASSNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -180,7 +180,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasModelClassName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_MODELCLASSNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -213,7 +213,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasListStart(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_LISTSTART)
       .withTgtValue(value)
       .withSrc(this)
@@ -227,7 +227,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasListStart(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_LISTSTART)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -260,7 +260,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasListSeparator(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_LISTSEPARATOR)
       .withTgtValue(value)
       .withSrc(this)
@@ -274,7 +274,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasListSeparator(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_LISTSEPARATOR)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -307,7 +307,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasListEnd(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_LISTEND)
       .withTgtValue(value)
       .withSrc(this)
@@ -321,7 +321,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasListEnd(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_LISTEND)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -474,7 +474,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
 
    public ChoiceTemplatePO hasReferenceLookup(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_REFERENCELOOKUP)
       .withTgtValue(value)
       .withSrc(this)
@@ -506,7 +506,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -520,7 +520,7 @@ public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemp
    
    public ChoiceTemplatePO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(ChoiceTemplate.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

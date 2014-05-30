@@ -1,6 +1,7 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardWall;
 
 import de.uniks.networkparser.json.JsonIdMap;
@@ -12,28 +13,37 @@ public class StoryboardWallCreator extends EntityFactory
       StoryboardWall.PROPERTY_STORYBOARD,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new StoryboardWall();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((StoryboardWall) target).get(attrName);
+      if (StoryboardWall.PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
+      {
+         return ((StoryboardWall)target).getStoryboard();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type))
+      if (StoryboardWall.PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
+         ((StoryboardWall)target).setStoryboard((Storyboard) value);
+         return true;
       }
-      return ((StoryboardWall) target).set(attrName, value);
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

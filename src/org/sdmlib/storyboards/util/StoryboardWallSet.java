@@ -30,8 +30,9 @@ import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardWallSet extends LinkedHashSet<StoryboardWall> implements org.sdmlib.models.modelsets.ModelSet
 {
+   private static final long serialVersionUID = 1L;
 
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -45,6 +46,7 @@ public class StoryboardWallSet extends LinkedHashSet<StoryboardWall> implements 
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.storyboards.StoryboardWall";

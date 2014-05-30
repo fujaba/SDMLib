@@ -66,31 +66,7 @@ public class ModelPattern extends Pattern
       this.findMatch();
       
       return value;
-   } 
-
-   public ObjectPO hasElementObjectPO()
-   {
-      ObjectPO value = new ObjectPO();
-      this.addToElements(value);
-      value.setModifier(this.getModifier());
-      
-      this.findMatch();
-      
-      return value;
    }
-   
-   public ObjectPO hasElementObjectPO(Object hostGraphObject)
-   {
-      ObjectPO value = new ObjectPO();
-      this.addToElements(value);
-      value.setModifier(Pattern.BOUND);
-      
-      value.setCurrentMatch(hostGraphObject);
-      
-      this.findMatch();
-      
-      return value;
-   } 
 
    public ChoiceTemplatePO hasElementChoiceTemplatePO()
    {

@@ -27,7 +27,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasStartPos(int value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_STARTPOS)
       .withTgtValue(value)
       .withSrc(this)
@@ -59,7 +59,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasEndPos(int value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_ENDPOS)
       .withTgtValue(value)
       .withSrc(this)
@@ -91,7 +91,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasFullText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_FULLTEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -123,7 +123,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasMatchText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_MATCHTEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -155,7 +155,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasModelObject(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_MODELOBJECT)
       .withTgtValue(value)
       .withSrc(this)
@@ -319,7 +319,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
 
    public MatchPO hasStartPos(int lower, int upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_STARTPOS)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -334,7 +334,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasEndPos(int lower, int upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_ENDPOS)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -349,7 +349,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasFullText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_FULLTEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -364,7 +364,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasMatchText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_MATCHTEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -379,7 +379,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
    
    public MatchPO hasModelObject(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Match.PROPERTY_MODELOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

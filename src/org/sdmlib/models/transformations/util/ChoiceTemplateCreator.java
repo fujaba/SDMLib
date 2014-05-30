@@ -2,11 +2,10 @@ package org.sdmlib.models.transformations.util;
 
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class ChoiceTemplateCreator extends EntityFactory
+public class ChoiceTemplateCreator extends TemplateCreator
 {
    private final String[] properties = new String[]
    {
@@ -26,28 +25,44 @@ public class ChoiceTemplateCreator extends EntityFactory
       Template.PROPERTY_NAME,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new ChoiceTemplate();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((ChoiceTemplate) target).get(attrName);
+      if (ChoiceTemplate.PROPERTY_CHOICES.equalsIgnoreCase(attrName))
+      {
+         return ((ChoiceTemplate)target).getChoices();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (ChoiceTemplate.PROPERTY_CHOICES.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
+         ((ChoiceTemplate)target).addToChoices((Template) value);
+         return true;
       }
-      return ((ChoiceTemplate) target).set(attrName, value);
+      
+      if ((ChoiceTemplate.PROPERTY_CHOICES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate)target).removeFromChoices((Template) value);
+         return true;
+      }
+
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

@@ -162,103 +162,12 @@ public class LogEntryStoryBoard implements PropertyChangeInterface, Comparable<L
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-
-   public boolean set(String attrName, Object value) 
-   {
-      if (PROPERTY_DATE.equalsIgnoreCase(attrName)) 
-      {
-         setDate((String) value);
-         return true;
-      }
-
-      if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attrName))
-      {
-         setKanbanEntry((KanbanEntry) value);
-         return true;
-      }
-      else   if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attrName)) 
-      {
-         setHoursSpend(Double.parseDouble(value.toString()));
-         return true;
-      }
-      else   if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attrName)) 
-      {
-         setHoursRemainingInTotal(Double.parseDouble(value.toString()));
-         return true;
-      }
-      else   if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attrName)) 
-      {
-         setKanbanEntry((KanbanEntry) value);
-         return true;
-      }
-      else   if (PROPERTY_DEVELOPER.equalsIgnoreCase(attrName)) 
-      {
-         setDeveloper((String) value);
-         return true;
-      }
-      else   if (PROPERTY_PHASE.equalsIgnoreCase(attrName)) 
-      {
-         setPhase((String) value);
-         return true;
-      }
-      else   if (PROPERTY_COMMENT.equalsIgnoreCase(attrName)) 
-      {
-         setComment((String) value);
-         return true;
-      }
-      return false;
-   }
-
-   public Object get(String attrName) 
-   {
-      int pos=attrName.indexOf(".");
-      String attribute = attrName;
-
-      if(pos>0)
-      {
-         attribute=attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_DATE.equalsIgnoreCase(attribute)) 
-      {
-         return getDate();
-      }
-
-      if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attrName))
-      {
-         return getKanbanEntry();
-      }
-      else     if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attribute)) 
-      {
-         return getHoursSpend();
-      }
-      else     if (PROPERTY_HOURS_REMAINING_IN_TOTAL.equalsIgnoreCase(attribute)) 
-      {
-         return getHoursRemainingInTotal();
-      }
-      else     if (PROPERTY_KANBANENTRY.equalsIgnoreCase(attribute)) 
-      {
-         return getKanbanEntry();
-      }  
-      else     if (PROPERTY_DEVELOPER.equalsIgnoreCase(attribute)) 
-      {
-         return getDeveloper();
-      }
-      else     if (PROPERTY_PHASE.equalsIgnoreCase(attribute)) 
-      {
-         return getPhase();
-      }
-      else     if (PROPERTY_COMMENT.equalsIgnoreCase(attribute)) 
-      {
-         return getComment();
-      }
-      return null;
-   }
-
+   
    public LogEntryStoryBoard withDate(String newValue)
    {
       this.setDate(newValue);

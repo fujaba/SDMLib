@@ -36,6 +36,7 @@ import org.sdmlib.models.transformations.Template;
 public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 {
 
+   private static final long serialVersionUID = 1L;
 
    public ChoiceTemplatePO hasChoiceTemplatePO()
    {

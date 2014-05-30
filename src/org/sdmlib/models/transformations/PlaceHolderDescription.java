@@ -31,132 +31,13 @@ import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
-
 public class PlaceHolderDescription implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      if (PROPERTY_TEXTFRAGMENT.equalsIgnoreCase(attrName))
-      {
-         return getTextFragment();
-      }
-
-      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
-      {
-         return getValue();
-      }
-
-      if (PROPERTY_ATTRNAME.equalsIgnoreCase(attrName))
-      {
-         return getAttrName();
-      }
-
-      if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
-      {
-         return getIsKeyAttribute();
-      }
-
-      if (PROPERTY_OWNERS.equalsIgnoreCase(attrName))
-      {
-         return getOwners();
-      }
-
-      if (PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
-      {
-         return getSubTemplate();
-      }
-
-      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
-      {
-         return getMatches();
-      }
-
-      if (PROPERTY_PREFIX.equalsIgnoreCase(attrName))
-      {
-         return getPrefix();
-      }
-
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_TEXTFRAGMENT.equalsIgnoreCase(attrName))
-      {
-         setTextFragment((String) value);
-         return true;
-      }
-
-      if (PROPERTY_VALUE.equalsIgnoreCase(attrName))
-      {
-         setValue((String) value);
-         return true;
-      }
-
-      if (PROPERTY_ATTRNAME.equalsIgnoreCase(attrName))
-      {
-         setAttrName((String) value);
-         return true;
-      }
-
-     if (PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
-      {
-         setIsKeyAttribute((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_OWNERS.equalsIgnoreCase(attrName))
-      {
-         addToOwners((Template) value);
-         return true;
-      }
-      
-      if ((PROPERTY_OWNERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromOwners((Template) value);
-         return true;
-      }
-
-      if (PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
-      {
-         setSubTemplate((Template) value);
-         return true;
-      }
-
-      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
-      {
-         addToMatches((Match) value);
-         return true;
-      }
-      
-      if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromMatches((Match) value);
-         return true;
-      }
-
-      if (PROPERTY_PREFIX.equalsIgnoreCase(attrName))
-      {
-         setPrefix((String) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -206,6 +87,7 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

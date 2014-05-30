@@ -66,6 +66,7 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
 
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -79,6 +80,7 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.storyboards.KanbanEntry";

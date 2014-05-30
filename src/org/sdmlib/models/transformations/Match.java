@@ -29,137 +29,14 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
-
 public class Match implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         return getStartPos();
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         return getEndPos();
-      }
-
-      if (PROPERTY_FULLTEXT.equalsIgnoreCase(attrName))
-      {
-         return getFullText();
-      }
-
-      if (PROPERTY_MATCHTEXT.equalsIgnoreCase(attrName))
-      {
-         return getMatchText();
-      }
-
-      if (PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
-      {
-         return getModelObject();
-      }
-
-      if (PROPERTY_TEMPLATE.equalsIgnoreCase(attrName))
-      {
-         return getTemplate();
-      }
-
-      if (PROPERTY_PLACEHOLDER.equalsIgnoreCase(attrName))
-      {
-         return getPlaceholder();
-      }
-
-      if (PROPERTY_SUBMATCHES.equalsIgnoreCase(attrName))
-      {
-         return getSubMatches();
-      }
-
-      if (PROPERTY_PARENTMATCH.equalsIgnoreCase(attrName))
-      {
-         return getParentMatch();
-      }
-
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         setStartPos(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         setEndPos(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_FULLTEXT.equalsIgnoreCase(attrName))
-      {
-         setFullText((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MATCHTEXT.equalsIgnoreCase(attrName))
-      {
-         setMatchText((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
-      {
-         setModelObject((Object) value);
-         return true;
-      }
-
-      if (PROPERTY_TEMPLATE.equalsIgnoreCase(attrName))
-      {
-         setTemplate((Template) value);
-         return true;
-      }
-
-      if (PROPERTY_PLACEHOLDER.equalsIgnoreCase(attrName))
-      {
-         setPlaceholder((PlaceHolderDescription) value);
-         return true;
-      }
-
-      if (PROPERTY_SUBMATCHES.equalsIgnoreCase(attrName))
-      {
-         addToSubMatches((Match) value);
-         return true;
-      }
       
-      if ((PROPERTY_SUBMATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromSubMatches((Match) value);
-         return true;
-      }
-
-      if (PROPERTY_PARENTMATCH.equalsIgnoreCase(attrName))
-      {
-         setParentMatch((Match) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -210,6 +87,7 @@ public class Match implements PropertyChangeInterface
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

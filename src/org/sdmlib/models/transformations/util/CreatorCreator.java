@@ -13,8 +13,6 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.TemplatePOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.PlaceHolderDescriptionCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.PlaceHolderDescriptionPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.ObjectCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.ObjectPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.ChoiceTemplateCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.ChoiceTemplatePOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.MatchCreator());

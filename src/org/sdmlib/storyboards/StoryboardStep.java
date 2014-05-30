@@ -30,50 +30,11 @@ import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 public class StoryboardStep implements PropertyChangeInterface
 {
-
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
-      {
-         return getText();
-      }
-
-      if (PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
-      {
-         return getStoryboard();
-      }
-
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_TEXT.equalsIgnoreCase(attrName))
-      {
-         setText((String) value);
-         return true;
-      }
-
-      if (PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
-      {
-         setStoryboard((Storyboard) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -121,6 +82,7 @@ public class StoryboardStep implements PropertyChangeInterface
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

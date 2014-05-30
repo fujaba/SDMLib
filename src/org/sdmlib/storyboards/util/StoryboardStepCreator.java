@@ -1,6 +1,7 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
 
 import de.uniks.networkparser.json.JsonIdMap;
@@ -13,28 +14,48 @@ public class StoryboardStepCreator extends EntityFactory
       StoryboardStep.PROPERTY_STORYBOARD,
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new StoryboardStep();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((StoryboardStep) target).get(attrName);
+      if (StoryboardStep.PROPERTY_TEXT.equalsIgnoreCase(attrName))
+      {
+         return ((StoryboardStep)target).getText();
+      }
+
+      if (StoryboardStep.PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
+      {
+         return ((StoryboardStep)target).getStoryboard();
+      }
+      return super.getValue(target, attrName);
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type))
+      if (StoryboardStep.PROPERTY_TEXT.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
+         ((StoryboardStep)target).setText((String) value);
+         return true;
       }
-      return ((StoryboardStep) target).set(attrName, value);
+
+      if (StoryboardStep.PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
+      {
+         ((StoryboardStep)target).setStoryboard((Storyboard) value);
+         return true;
+      }
+      return super.setValue(target, attrName, value, type);
    }
    
    public static JsonIdMap createIdMap(String sessionID)

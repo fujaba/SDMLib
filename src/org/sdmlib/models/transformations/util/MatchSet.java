@@ -34,6 +34,7 @@ import org.sdmlib.models.transformations.Template;
 
 public class MatchSet extends SDMSet<Match>
 {
+   private static final long serialVersionUID = 1L;
 
 
    public MatchPO hasMatchPO()

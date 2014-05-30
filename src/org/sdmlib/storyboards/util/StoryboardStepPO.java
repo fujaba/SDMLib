@@ -26,7 +26,7 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
    
    public StoryboardStepPO hasText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(StoryboardStep.PROPERTY_TEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -91,7 +91,7 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
 
    public StoryboardStepPO hasText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(StoryboardStep.PROPERTY_TEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -121,6 +121,3 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
    }
 
 }
-
-
-

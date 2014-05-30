@@ -447,149 +447,6 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       this.removeFromSubentries(newValue);
       return this;
    }
-
-   public boolean set(String attrName, Object value) {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName)) 
-      {
-         setName((String) value);
-         return true;
-      } 
-      if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
-      {
-         addToLogEntries((LogEntryStoryBoard) value);
-         return true;
-      }
-      
-      if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromLogEntries((LogEntryStoryBoard) value);
-         return true;
-      }
-
-      if (PROPERTY_OLDNOOFLOGENTRIES.equalsIgnoreCase(attrName))
-      {
-         setOldNoOfLogEntries(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_PHASES.equalsIgnoreCase(attrName))
-      {
-         setPhases((String) value);
-         return true;
-      }
-
-      else   if (PROPERTY_PHASE.equalsIgnoreCase(attrName)) 
-      {
-         setPhase((String) value);
-         return true;
-      } 
-      else   if (PROPERTY_LAST_DEVELOPER.equalsIgnoreCase(attrName)) 
-      {
-         setLastDeveloper((String) value);
-         return true;
-      } 
-      else   if (PROPERTY_HOURS_REMAINING.equalsIgnoreCase(attrName)) 
-      {
-         setHoursRemaining(Double.parseDouble(value.toString()));
-         return true;
-      } 
-      else   if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attrName)) 
-      {
-         setHoursSpend(Double.parseDouble(value.toString()));
-         return true;
-      } 
-      else   if (PROPERTY_PARENT.equalsIgnoreCase(attrName)) 
-      {
-         setParent((KanbanEntry) value);
-         return true;
-      } 
-      else   if (PROPERTY_SUBENTRIES.equalsIgnoreCase(attrName)) 
-      {
-         addToSubentries((KanbanEntry) value);
-         return true;
-      } 
-      else   if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName)) 
-      {
-         addToLogEntries((LogEntryStoryBoard) value);
-         return true;
-      } 
-      else   if (PROPERTY_FILES.equalsIgnoreCase(attrName)) 
-      {
-         setFiles((String) value);
-         return true;
-      }
-      return false;
-   }
-
-   public Object get(String attrName) 
-   {
-      int pos=attrName.indexOf(".");
-      String attribute = attrName;
-
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
-      {
-         return getLogEntries();
-      }
-
-      if (PROPERTY_OLDNOOFLOGENTRIES.equalsIgnoreCase(attrName))
-      {
-         return getOldNoOfLogEntries();
-      }
-
-      if (PROPERTY_PHASES.equalsIgnoreCase(attrName))
-      {
-         return getPhases();
-      }
-
-      else if (PROPERTY_PHASE.equalsIgnoreCase(attribute))
-      {
-         return getPhase();
-      }
-      else if (PROPERTY_LAST_DEVELOPER.equalsIgnoreCase(attribute))
-      {
-         return getLastDeveloper();
-      }
-      else if (PROPERTY_HOURS_REMAINING.equalsIgnoreCase(attribute))
-      {
-         return getHoursRemaining();
-      }
-      else if (PROPERTY_HOURS_SPEND.equalsIgnoreCase(attribute))
-      {
-         return getHoursSpend();
-      }
-      else if (PROPERTY_PARENT.equalsIgnoreCase(attribute))
-      {
-         if (pos > 0)
-         {
-            return getParent().get(attrName.substring(pos + 1));
-         }
-
-         return getParent();
-      }
-      else if (PROPERTY_SUBENTRIES.equalsIgnoreCase(attribute))
-      {
-         return getSubentries();
-      }
-      else if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attribute))
-      {
-         return getLogEntries();
-      }
-      else if (PROPERTY_FILES.equalsIgnoreCase(attribute))
-      {
-         return getFiles();
-      }
-      return null;
-   }
-
    public KanbanEntry withName(String newValue) {
       this.setName(newValue);
       return this;
@@ -631,6 +488,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
 
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -761,6 +619,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

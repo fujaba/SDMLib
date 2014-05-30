@@ -92,7 +92,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
 
    public StoryboardPO hasRootDir(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Storyboard.PROPERTY_ROOTDIR)
       .withTgtValue(value)
       .withSrc(this)
@@ -124,7 +124,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
    
    public StoryboardPO hasStepCounter(int value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Storyboard.PROPERTY_STEPCOUNTER)
       .withTgtValue(value)
       .withSrc(this)
@@ -156,7 +156,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
    
    public StoryboardPO hasStepDoneCounter(int value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Storyboard.PROPERTY_STEPDONECOUNTER)
       .withTgtValue(value)
       .withSrc(this)
@@ -188,7 +188,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
    
    public StoryboardPO hasRootDir(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Storyboard.PROPERTY_ROOTDIR)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -203,7 +203,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
    
    public StoryboardPO hasStepCounter(int lower, int upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Storyboard.PROPERTY_STEPCOUNTER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -218,7 +218,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
    
    public StoryboardPO hasStepDoneCounter(int lower, int upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Storyboard.PROPERTY_STEPDONECOUNTER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

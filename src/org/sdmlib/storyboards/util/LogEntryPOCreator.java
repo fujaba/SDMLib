@@ -1,22 +1,18 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class LogEntryPOCreator extends PatternObjectCreator
 {
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new LogEntryPO();
    }
    
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((LogEntryPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((LogEntryPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
-

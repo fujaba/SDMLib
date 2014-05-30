@@ -1332,86 +1332,11 @@ public class Storyboard implements PropertyChangeInterface
       this.add("Check: " + message + obj);
       Assert.assertNull("FAILED: " + message, obj);
    }
-
-   // ==========================================================================
-
-   public Object get(String attrName)
-   {
-      if (PROPERTY_STORYBOARDSTEPS.equalsIgnoreCase(attrName))
-      {
-         return getStoryboardSteps();
-      }
-
-      if (PROPERTY_WALL.equalsIgnoreCase(attrName))
-      {
-         return getWall();
-      }
-
-      if (PROPERTY_ROOTDIR.equalsIgnoreCase(attrName))
-      {
-         return getRootDir();
-      }
-
-      if (PROPERTY_STEPCOUNTER.equalsIgnoreCase(attrName))
-      {
-         return getStepCounter();
-      }
-
-      if (PROPERTY_STEPDONECOUNTER.equalsIgnoreCase(attrName))
-      {
-         return getStepDoneCounter();
-      }
-
-      return null;
-   }
-
-   // ==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_STORYBOARDSTEPS.equalsIgnoreCase(attrName))
-      {
-         addToStoryboardSteps((StoryboardStep) value);
-         return true;
-      }
-
-      if ((PROPERTY_STORYBOARDSTEPS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromStoryboardSteps((StoryboardStep) value);
-         return true;
-      }
-
-      if (PROPERTY_WALL.equalsIgnoreCase(attrName))
-      {
-         setWall((StoryboardWall) value);
-         return true;
-      }
-
-      if (PROPERTY_ROOTDIR.equalsIgnoreCase(attrName))
-      {
-         setRootDir((String) value);
-         return true;
-      }
-
-      if (PROPERTY_STEPCOUNTER.equalsIgnoreCase(attrName))
-      {
-         setStepCounter(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_STEPDONECOUNTER.equalsIgnoreCase(attrName))
-      {
-         setStepDoneCounter(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      return false;
-   }
-
    // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -1431,6 +1356,7 @@ public class Storyboard implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

@@ -53,8 +53,7 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
       return this;
    }
 
-
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -68,6 +67,7 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.storyboards.LogEntry";
@@ -124,12 +124,3 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-

@@ -32,8 +32,9 @@ import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
 {
+   private static final long serialVersionUID = 1L;
 
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -47,6 +48,7 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.storyboards.Storyboard";
@@ -215,8 +217,6 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       
       return this;
    }
-   
-
 
    public StoryboardPO hasStoryboardPO()
    {
@@ -232,14 +232,3 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
