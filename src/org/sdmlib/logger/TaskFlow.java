@@ -114,87 +114,9 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
 
    //==========================================================================
    
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_TASKNO.equalsIgnoreCase(attribute))
-      {
-         return getTaskNo();
-      }
-
-      if (PROPERTY_TASKNO.equalsIgnoreCase(attribute))
-      {
-         return getTaskNo();
-      }
-
-      if (PROPERTY_IDMAP.equalsIgnoreCase(attribute))
-      {
-         return getIdMap();
-      }
-
-      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
-      {
-         return getSubFlow();
-      }
-
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         return getParent();
-      }
-      
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_TASKNO.equalsIgnoreCase(attrName))
-      {
-         setTaskNo(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_TASKNO.equalsIgnoreCase(attrName))
-      {
-         setTaskNo(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
-      {
-         setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
-         return true;
-      }
-
-      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
-      {
-         setSubFlow((TaskFlow) value);
-         return true;
-      }
-
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         setParent((TaskFlow) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -411,4 +333,3 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
       return false;
    } 
 }
-

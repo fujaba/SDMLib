@@ -12,8 +12,7 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
 {
-
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -27,6 +26,7 @@ public class LoggerSet extends LinkedHashSet<Logger> implements ModelSet
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.model.taskflows.Logger";

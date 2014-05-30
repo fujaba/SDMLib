@@ -25,7 +25,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasTemplateText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_TEMPLATETEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -39,7 +39,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasTemplateText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_TEMPLATETEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -72,7 +72,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasExpandedText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_EXPANDEDTEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -86,7 +86,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasExpandedText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_EXPANDEDTEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -119,7 +119,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasModelObject(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_MODELOBJECT)
       .withTgtValue(value)
       .withSrc(this)
@@ -133,7 +133,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasModelObject(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_MODELOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -166,7 +166,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasModelClassName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_MODELCLASSNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -180,7 +180,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasModelClassName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_MODELCLASSNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -213,7 +213,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasListStart(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_LISTSTART)
       .withTgtValue(value)
       .withSrc(this)
@@ -227,7 +227,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasListStart(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_LISTSTART)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -260,7 +260,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasListSeparator(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_LISTSEPARATOR)
       .withTgtValue(value)
       .withSrc(this)
@@ -274,7 +274,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasListSeparator(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_LISTSEPARATOR)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -307,7 +307,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasListEnd(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_LISTEND)
       .withTgtValue(value)
       .withSrc(this)
@@ -321,7 +321,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasListEnd(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_LISTEND)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -450,7 +450,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
 
    public TemplatePO hasReferenceLookup(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_REFERENCELOOKUP)
       .withTgtValue(value)
       .withSrc(this)
@@ -482,7 +482,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -496,7 +496,7 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
    
    public TemplatePO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Template.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

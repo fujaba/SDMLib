@@ -11,6 +11,7 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements ModelSet
 {
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -24,6 +25,7 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements ModelSet
    }
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.model.taskflows.LogEntry";

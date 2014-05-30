@@ -45,189 +45,11 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class Template implements PropertyChangeInterface
 {
-
-
-   //==========================================================================
-
-   public Object get(String attrName)
-   {
-      if (PROPERTY_TEMPLATETEXT.equalsIgnoreCase(attrName))
-      {
-         return getTemplateText();
-      }
-
-      if (PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
-      {
-         return getModelObject();
-      }
-
-      if (PROPERTY_MODELCLASSNAME.equalsIgnoreCase(attrName))
-      {
-         return getModelClassName();
-      }
-
-      if (PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attrName))
-      {
-         return getExpandedText();
-      }
-
-      if (PROPERTY_LISTSTART.equalsIgnoreCase(attrName))
-      {
-         return getListStart();
-      }
-
-      if (PROPERTY_LISTSEPARATOR.equalsIgnoreCase(attrName))
-      {
-         return getListSeparator();
-      }
-
-      if (PROPERTY_LISTEND.equalsIgnoreCase(attrName))
-      {
-         return getListEnd();
-      }
-
-      if (PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
-      {
-         return getPlaceholders();
-      }
-
-      if (PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
-      {
-         return getChooser();
-      }
-
-      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
-      {
-         return getMatches();
-      }
-
-      if (PROPERTY_PARENTS.equalsIgnoreCase(attrName))
-      {
-         return getParents();
-      }
-
-      if (PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
-      {
-         return getReferenceLookup();
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      return null;
-   }
-
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_TEMPLATETEXT.equalsIgnoreCase(attrName))
-      {
-         setTemplateText((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
-      {
-         setModelObject((Object) value);
-         return true;
-      }
-
-      if (PROPERTY_MODELCLASSNAME.equalsIgnoreCase(attrName))
-      {
-         setModelClassName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attrName))
-      {
-         setExpandedText((String) value);
-         return true;
-      }
-
-      if (PROPERTY_LISTSTART.equalsIgnoreCase(attrName))
-      {
-         setListStart((String) value);
-         return true;
-      }
-
-      if (PROPERTY_LISTSEPARATOR.equalsIgnoreCase(attrName))
-      {
-         setListSeparator((String) value);
-         return true;
-      }
-
-      if (PROPERTY_LISTEND.equalsIgnoreCase(attrName))
-      {
-         setListEnd((String) value);
-         return true;
-      }
-
-      if (PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
-      {
-         addToPlaceholders((PlaceHolderDescription) value);
-         return true;
-      }
-      
-      if ((PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromPlaceholders((PlaceHolderDescription) value);
-         return true;
-      }
-
-      if (PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
-      {
-         setChooser((ChoiceTemplate) value);
-         return true;
-      }
-
-      if (PROPERTY_MATCHES.equalsIgnoreCase(attrName))
-      {
-         addToMatches((Match) value);
-         return true;
-      }
-      
-      if ((PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromMatches((Match) value);
-         return true;
-      }
-
-      if (PROPERTY_PARENTS.equalsIgnoreCase(attrName))
-      {
-         addToParents((PlaceHolderDescription) value);
-         return true;
-      }
-      
-      if ((PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromParents((PlaceHolderDescription) value);
-         return true;
-      }
-
-      if (PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
-      {
-         setReferenceLookup((Boolean) value);
-         return true;
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      return false;
-   }
-
-
    //==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -278,6 +100,7 @@ public class Template implements PropertyChangeInterface
       return this;
    } 
 
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();

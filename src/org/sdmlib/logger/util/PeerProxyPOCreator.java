@@ -1,22 +1,19 @@
 package org.sdmlib.logger.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PeerProxyPOCreator extends PatternObjectCreator
 {
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new PeerProxyPO();
    }
    
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((PeerProxyPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      return ((PeerProxyPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
 

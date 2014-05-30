@@ -21,7 +21,6 @@
 
 package org.sdmlib.logger;
 
-import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -34,7 +33,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.StoryboardManager;
 
 import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class Logger extends TaskFlow implements PropertyChangeInterface
 {
@@ -43,6 +41,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       Start, Collect
    }
 
+   @Override
    public Object[] getTaskNames()
    {
       return TaskNames.values();
@@ -170,110 +169,9 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       return linksText;
    }
 
-
    //==========================================================================
 
-   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_TASKNO.equalsIgnoreCase(attribute))
-      {
-         return getTaskNo();
-      }
-
-      if (PROPERTY_IDMAP.equalsIgnoreCase(attribute))
-      {
-         return getIdMap();
-      }
-
-      if (PROPERTY_ENTRIES.equalsIgnoreCase(attrName))
-      {
-         return getEntries();
-      }
-
-      if (PROPERTY_STARTPEER.equalsIgnoreCase(attribute))
-      {
-         return getStartPeer();
-      }
-
-      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
-      {
-         return getSubFlow();
-      }
-
-      return super.get(attrName);
-   }
-
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_TASKNO.equalsIgnoreCase(attrName))
-      {
-         setTaskNo(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
-      {
-         setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
-         return true;
-      }
-
-      if (PROPERTY_ENTRIES.equalsIgnoreCase(attrName))
-      {
-         addToEntries((LogEntry) value);
-         return true;
-      }
-
-      if ((PROPERTY_ENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromEntries((LogEntry) value);
-         return true;
-      }
-
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         setParent((Logger) value);
-         return true;
-      }
-
-      if (PROPERTY_STARTPEER.equalsIgnoreCase(attrName))
-      {
-         setStartPeer((PeerProxy) value);
-         return true;
-      }
-
-      if (PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
-      {
-         setSubFlow((TaskFlow) value);
-         return true;
-      }
-
-      return false;
-   }
-
-
-   //==========================================================================
-
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-
-
-   //==========================================================================
-
+   @Override
    public void removeYou()
    {
       removeAllFromEntries();
@@ -404,4 +302,3 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       return this;
    } 
 }
-

@@ -17,7 +17,6 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.logger.util.PeerProxyPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.logger.util.SDMLibJsonIdMapCreator());
       jsonIdMap.withCreator(new org.sdmlib.logger.util.SDMLibJsonIdMapPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.logger.util.TaskFlowCreator());
       jsonIdMap.withCreator(new org.sdmlib.logger.util.TaskFlowPOCreator());
       
       return jsonIdMap;

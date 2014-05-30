@@ -5,7 +5,7 @@ import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class TaskFlowCreator extends EntityFactory
+public abstract class TaskFlowCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
@@ -22,23 +22,63 @@ public class TaskFlowCreator extends EntityFactory
    }
    
    @Override
-   public Object getSendableInstance(boolean reference)
-   {
-      return null;
-   }
-   
-   @Override
    public Object getValue(Object target, String attrName)
    {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (TaskFlow.PROPERTY_TASKNO.equalsIgnoreCase(attribute))
+      {
+         return ((TaskFlow)target).getTaskNo();
+      }
+
+      if (TaskFlow.PROPERTY_IDMAP.equalsIgnoreCase(attribute))
+      {
+         return ((TaskFlow)target).getIdMap();
+      }
+
+      if (TaskFlow.PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         return ((TaskFlow)target).getSubFlow();
+      }
+
+      if (TaskFlow.PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return ((TaskFlow)target).getParent();
+      }
+      
       return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (TaskFlow.PROPERTY_TASKNO.equalsIgnoreCase(attrName))
       {
-         attrName = attrName + type;
+         ((TaskFlow)target).setTaskNo(Integer.parseInt(value.toString()));
+         return true;
+      }
+      if (TaskFlow.PROPERTY_IDMAP.equalsIgnoreCase(attrName))
+      {
+         ((TaskFlow)target).setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
+         return true;
+      }
+
+      if (TaskFlow.PROPERTY_SUBFLOW.equalsIgnoreCase(attrName))
+      {
+         ((TaskFlow)target).setSubFlow((TaskFlow) value);
+         return true;
+      }
+
+      if (TaskFlow.PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         ((TaskFlow)target).setParent((TaskFlow) value);
+         return true;
       }
       return false;
    }
@@ -46,13 +86,4 @@ public class TaskFlowCreator extends EntityFactory
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-   
-   //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
-   {
-      // wrapped object has no removeYou method
-   }
 }
-

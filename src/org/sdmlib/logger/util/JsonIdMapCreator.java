@@ -26,13 +26,13 @@ public class JsonIdMapCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((JsonIdMap) target).get(attrName);
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((SDMLibJsonIdMap) target).set(attrName, value);
+      return false;
    }
    
    public static JsonIdMap createIdMap(String sessionID)

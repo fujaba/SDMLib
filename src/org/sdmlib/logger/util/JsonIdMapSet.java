@@ -30,9 +30,9 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
 {
+   private static final long serialVersionUID = 1L;
 
-
-
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();

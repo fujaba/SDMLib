@@ -2,21 +2,19 @@ package org.sdmlib.logger.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
+import de.uniks.networkparser.json.JsonIdMap;
+
 public class TaskFlowPOCreator extends PatternObjectCreator
 {
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new TaskFlowPO();
    }
    
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((TaskFlowPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      return ((TaskFlowPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
 
