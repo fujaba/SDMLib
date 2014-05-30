@@ -1,6 +1,7 @@
 package org.sdmlib.codegen.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class StatementEntryPOCreator extends PatternObjectCreator
 {
@@ -10,15 +11,9 @@ public class StatementEntryPOCreator extends PatternObjectCreator
       return new StatementEntryPO();
    }
    
-   @Override
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((StatementEntryPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((StatementEntryPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
 

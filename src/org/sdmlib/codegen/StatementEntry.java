@@ -29,11 +29,10 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
-
 public class StatementEntry implements PropertyChangeInterface
 {
 
+   @Override
    public String toString()
    {
       StringBuilder text = new StringBuilder();
@@ -52,110 +51,12 @@ public class StatementEntry implements PropertyChangeInterface
       
       return text.toString();
    }
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      if (PROPERTY_ASSIGNTARGETVARNAME.equalsIgnoreCase(attrName))
-      {
-         return getAssignTargetVarName();
-      }
-
-      if (PROPERTY_TOKENLIST.equalsIgnoreCase(attrName))
-      {
-         return getTokenList();
-      }
-
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
-      {
-         return getKind();
-      }
-
-      if (PROPERTY_BODYSTATS.equalsIgnoreCase(attrName))
-      {
-         return getBodyStats();
-      }
-
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         return getParent();
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         return getStartPos();
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         return getEndPos();
-      }
-
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_ASSIGNTARGETVARNAME.equalsIgnoreCase(attrName))
-      {
-         setAssignTargetVarName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_TOKENLIST.equalsIgnoreCase(attrName))
-      {
-         setTokenList((ArrayList<String>) value);
-         return true;
-      }
-
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
-      {
-         setKind((String) value);
-         return true;
-      }
-
-      if (PROPERTY_BODYSTATS.equalsIgnoreCase(attrName))
-      {
-         addToBodyStats((StatementEntry) value);
-         return true;
-      }
       
-      if ((PROPERTY_BODYSTATS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromBodyStats((StatementEntry) value);
-         return true;
-      }
-
-      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         setParent((StatementEntry) value);
-         return true;
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         setStartPos(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         setEndPos(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      return false;
-   }
-
-   
    //==========================================================================
    
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

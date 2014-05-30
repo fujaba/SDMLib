@@ -28,6 +28,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class SymTabEntry implements PropertyChangeInterface 
 {   
+   @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
@@ -39,101 +40,7 @@ public class SymTabEntry implements PropertyChangeInterface
       _.append(" ").append(this.getEndPos());
       _.append(" ").append(this.getModifiers());
       return "" + type;
-   }
-   
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-      if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
-      {
-         return getModifiers();
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         return getEndPos();
-      }
-
-      if (PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
-      {
-         return getBodyStartPos();
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         return getStartPos();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         return getType();
-      }
-
-      if (PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
-      {
-         return getMemberName();
-      }
-
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
-      {
-         return getKind();
-      }
-
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
-      {
-         setModifiers((String) value);
-         return true;
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         setEndPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
-      {
-         setBodyStartPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         setStartPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         setType((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
-      {
-         setMemberName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_KIND.equalsIgnoreCase(attrName))
-      {
-         setKind((String) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
+   }   
    //==========================================================================
    
    public static final String PROPERTY_KIND = "kind";
@@ -276,6 +183,7 @@ public class SymTabEntry implements PropertyChangeInterface
    
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -318,4 +226,3 @@ public class SymTabEntry implements PropertyChangeInterface
    } 
 
 }
-

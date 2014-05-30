@@ -31,13 +31,88 @@ public class SymTabEntryCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      return ((SymTabEntry) target).get(attrName);
+      if (SymTabEntry.PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry)target).getModifiers();
+      }
+
+      if (SymTabEntry.PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry)target).getEndPos();
+      }
+
+      if (SymTabEntry.PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry)target).getBodyStartPos();
+      }
+
+      if (SymTabEntry.PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry)target).getStartPos();
+      }
+
+      if (SymTabEntry.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry)target).getType();
+      }
+
+      if (SymTabEntry.PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry)target).getMemberName();
+      }
+
+      if (SymTabEntry.PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry)target).getKind();
+      }
+      return super.getValue(target, attrName);
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      return ((SymTabEntry) target).set(attrName, value);
+      if (SymTabEntry.PROPERTY_MODIFIERS.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry)target).setModifiers((String) value);
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry)target).setEndPos((Integer) value);
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_BODYSTARTPOS.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry)target).setBodyStartPos((Integer) value);
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry)target).setStartPos((Integer) value);
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry)target).setType((String) value);
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_MEMBERNAME.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry)target).setMemberName((String) value);
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_KIND.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry)target).setKind((String) value);
+         return true;
+      }
+      return super.setValue(target, attrName, value, type);
    }
    
   

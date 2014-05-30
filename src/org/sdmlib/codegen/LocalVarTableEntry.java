@@ -29,6 +29,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class LocalVarTableEntry implements PropertyChangeInterface
 {
+   @Override
    public String toString()
    {
    	//   	StringBuilder _ = new StringBuilder();
@@ -39,155 +40,9 @@ public class LocalVarTableEntry implements PropertyChangeInterface
       return "" + name + " : " + type;
    }
    
-   //==========================================================================
-   
-   public Object get(String attrName)
-   {
-	  int pos = attrName.indexOf('.');
-	  String attribute;
-	  if (pos > 0)
-      {
-		  attribute = attrName.substring(0, pos);
-      }else{
-    	  attribute = attrName;
-      }
-	  
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attribute))
-      {
-         return getInitSequence();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attribute))
-      {
-         return getType();
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attribute))
-      {
-         return getInitSequence();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attribute))
-      {
-         return getType();
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return getName();
-      }
-      if (PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attribute))
-      {
-         return getType();
-      }
-
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attribute))
-      {
-         return getInitSequence();
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attribute))
-      {
-         return getStartPos();
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attribute))
-      {
-         return getEndPos();
-      }
-      
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
-      {
-         setInitSequence((ArrayList<ArrayList<String>>) value);
-         return true;
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         setType((String) value);
-         return true;
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
-      {
-         setInitSequence((ArrayList<ArrayList<String>>) value);
-         return true;
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         setType((String) value);
-         return true;
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         setType((String) value);
-         return true;
-      }
-
-      if (PROPERTY_INITSEQUENCE.equalsIgnoreCase(attrName))
-      {
-         setInitSequence((ArrayList<ArrayList<String>>) value);
-         return true;
-      }
-
-      if (PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
-      {
-         setStartPos((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
-      {
-         setEndPos((Integer) value);
-         return true;
-      }
-
-      return false;
-   }
-
-   
-   //==========================================================================
-   
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

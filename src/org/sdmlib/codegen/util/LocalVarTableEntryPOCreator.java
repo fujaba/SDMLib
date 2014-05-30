@@ -1,6 +1,7 @@
 package org.sdmlib.codegen.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class LocalVarTableEntryPOCreator extends PatternObjectCreator
 {
@@ -10,15 +11,8 @@ public class LocalVarTableEntryPOCreator extends PatternObjectCreator
       return new LocalVarTableEntryPO();
    }
    
-   @Override
-   public Object getValue(Object target, String attrName)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return ((LocalVarTableEntryPO) target).get(attrName);
-   }
-   
-   public boolean setValue(Object target, String attrName, Object value)
-   {
-      return ((LocalVarTableEntryPO) target).set(attrName, value);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
-
