@@ -33,48 +33,24 @@ public class GenClass extends Generator<Clazz>
 
    private String filePath;
 
-   private StringBuilder fileBody;
-   private StringBuilder creatorFileBody;
    private LinkedHashMap<String, String> constantDecls = new LinkedHashMap<String, String>();
-   private boolean fileHasChanged;
-   private boolean creatorFileHasChanged;
-   private boolean modelSetFileHasChanged;
-   private boolean patternObjectFileHasChanged;
-   private boolean patternObjectCreatorFileHasChanged;
-   Parser creatorParser = null;
+   private Parser creatorParser = null;
+   private Parser modelSetParser = null;
+   private Parser patternObjectParser = null;
+   private Parser patternObjectCreatorParser = null;
+   private Parser parser = null;
+
+   //FIXME REMOVE   
    private File javaFile;
    private File creatorJavaFile;
    private File modelSetJavaFile;
    private File patternObjectJavaFile;
    private File patternObjectCreatorJavaFile;
-
-   private Parser modelSetParser = null;
    private StringBuilder modelSetFileBody;
-   private Parser patternObjectParser = null;
+   private StringBuilder fileBody;
+   private StringBuilder creatorFileBody;
    private StringBuilder patternObjectFileBody;
-   private Parser patternObjectCreatorParser = null;
    private StringBuilder patternObjectCreatorFileBody;
-   Parser parser = null;
-   
-   public void setPatternObjectCreatorFileHasChanged(boolean patternObjectCreatorFileHasChanged)
-   {
-      this.patternObjectCreatorFileHasChanged = patternObjectCreatorFileHasChanged;
-   }
-
-   public void setPatternObjectFileHasChanged(boolean patternObjectFileHasChanged)
-   {
-      this.patternObjectFileHasChanged = patternObjectFileHasChanged;
-   }
-
-   public void setCreatorFileHasChanged(boolean creatorFileHasChanged)
-   {
-      this.creatorFileHasChanged = creatorFileHasChanged;
-   }
-
-   public void setModelSetFileHasChanged(boolean modelSetFileHasChanged)
-   {
-      this.modelSetFileHasChanged = modelSetFileHasChanged;
-   }
 
    public StringBuilder getFileBody()
    {
@@ -157,9 +133,7 @@ public class GenClass extends Generator<Clazz>
 
          if (symTabEntry == null)
          {
-            parser.getFileBody().insert(endOfClass, constantDecls.get(constName));
-
-            setFileHasChanged(true);
+            parser.insert(endOfClass, constantDecls.get(constName));
          }
       }
    }
@@ -308,12 +282,10 @@ public class GenClass extends Generator<Clazz>
          {
             extendsPos = parser.getEndOfClassName();
 
-            parser.getFileBody().insert(extendsPos + 1, 
+            parser.insert(extendsPos + 1, 
                " " + string + " " + CGUtil.shortClassName(interfaze.getFullName()));
 
             insertImport(interfaze.getFullName());
-
-            setFileHasChanged(true);
          }
          else 
          {
@@ -325,11 +297,8 @@ public class GenClass extends Generator<Clazz>
 
             if (symTabEntry == null)
             {
-               parser.getFileBody().insert(parser.getEndOfImplementsClause() + 1, ", " + shortClassName);
-
+               parser.insert(parser.getEndOfImplementsClause() + 1, ", " + shortClassName);
                insertImport(interfaze.getFullName());
-
-               setFileHasChanged(true);
             }               
          }
       }    
@@ -348,12 +317,10 @@ public class GenClass extends Generator<Clazz>
       {
          extendsPos = parser.getEndOfClassName();
 
-         parser.getFileBody().insert(extendsPos + 1, 
+         parser.insert(extendsPos + 1, 
             " extends " + CGUtil.shortClassName(model.getSuperClass().getFullName()));
 
          insertImport(model.getSuperClass().getFullName());
-
-         setFileHasChanged(true);
       }
    }
 
@@ -391,8 +358,7 @@ public class GenClass extends Generator<Clazz>
          CGUtil.replaceAll(text,
             "ModelClass",  CGUtil.shortClassName(model.getFullName()));
 
-         creatorParser.getFileBody().insert(pos, text.toString());
-         setCreatorFileHasChanged(true);
+         creatorParser.insert(pos, text.toString());
       }
    }
 
@@ -427,8 +393,7 @@ public class GenClass extends Generator<Clazz>
 
          }
 
-         parser.getFileBody().insert(pos, text.toString());
-         setFileHasChanged(true);
+         parser.insert(pos, text.toString());
       }
    }
 
@@ -468,8 +433,7 @@ public class GenClass extends Generator<Clazz>
                      "\n"  
                      );
 
-         parser.getFileBody().insert(pos, text.toString());
-         setFileHasChanged(true);
+         parser.insert(pos, text.toString());
       }
 
       insertImport(PropertyChangeSupport.class.getName());
@@ -497,11 +461,8 @@ public class GenClass extends Generator<Clazz>
          String string = " implements ";
          if (model.isInterface())
             string = " extends ";
-         parser.getFileBody().insert(implementsPos + 1, string + propertyChangeInterface);
-
+         parser.insert(implementsPos + 1, string + propertyChangeInterface);
          insertImport(PropertyChangeInterface.class.getName());
-
-         setFileHasChanged(true);
       }
       else
       {
@@ -511,10 +472,8 @@ public class GenClass extends Generator<Clazz>
          if (symTabEntry == null)
          {
             // propertyChangeClients is still missing.
-            parser.getFileBody().insert(parser.getEndOfImplementsClause() + 1, 
+            parser.insert(parser.getEndOfImplementsClause() + 1, 
                ", " + propertyChangeInterface);
-
-            setFileHasChanged(true);
          }
 
          insertImport(PropertyChangeInterface.class.getName());        
@@ -536,7 +495,7 @@ public class GenClass extends Generator<Clazz>
       int pos = myParser.indexOf(Parser.IMPORT);
 
       String prefix = "";
-      if (myParser.getFileBody().indexOf(Parser.IMPORT, pos) < 0)
+      if (myParser.indexOf(Parser.IMPORT, pos) < 0)
       {
          prefix = "\n";
       }
@@ -544,16 +503,14 @@ public class GenClass extends Generator<Clazz>
       SymTabEntry symTabEntry = myParser.getSymTab().get(Parser.IMPORT + ":" + className);
       if (symTabEntry == null)
       {
-         myParser.getFileBody().insert(myParser.getEndOfImports() + 1, 
+         myParser.insert(myParser.getEndOfImports() + 1, 
             prefix + "\nimport " + className + ";");
-
-         // setFileHasChanged(true);
       }
    }
 
    public void printFile(boolean really)
    {
-      if (really || fileHasChanged)
+      if (really || parser.isFileBodyChanged())
       {
          while (fileBody.charAt(fileBody.length() - 1) == '\n')
          {
@@ -1297,13 +1254,6 @@ public class GenClass extends Generator<Clazz>
    {
       return fileHasChanged;
    }
-
-   @Deprecated // use fileBodyHasChanged at parser instead
-   public void setFileHasChanged(boolean fileHasChanged)
-   {
-      this.fileHasChanged = fileHasChanged;
-   }
-   
 
    public void insertCreatorClassInCreatorCreator(Parser ccParser)
    {

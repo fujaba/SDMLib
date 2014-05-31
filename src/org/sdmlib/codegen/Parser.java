@@ -72,16 +72,11 @@ public class Parser
    
    private boolean fileBodyHasChanged = false;
    
-   public boolean getFileBodyHasChanged()
+   public boolean isFileBodyChanged()
    {
       return fileBodyHasChanged;
    }
    
-   public void setFileBodyHasChanged(boolean fileBodyHasChanged)
-   {
-      this.fileBodyHasChanged = fileBodyHasChanged;
-   }
-
    private Token lookAheadToken = null;
 
    private Token currentToken;
@@ -180,13 +175,18 @@ public class Parser
       return methodBodyStartPos;
    }
 
+   public void insert(int offset, String text){
+      this.fileBody.insert(offset, text);
+      this.fileBodyHasChanged = true;
+   }
+   
+   public int indexOf(String searchText, int pos){
+      return this.fileBody.indexOf(searchText, pos);
+   }
+   
+   
    class SearchStringFoundException extends RuntimeException {
       private static final long serialVersionUID = 1L; }
-
-   public StringBuilder getFileBody()
-   {
-      return fileBody;
-   }
 
    public Parser withFileBody(StringBuilder fileBody)
    {
