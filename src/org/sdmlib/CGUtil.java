@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.TreeMap;
 
+import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
@@ -51,6 +52,9 @@ public class CGUtil
       return primitiveTypes.indexOf(" " + type + " ") >= 0;
    }
    
+   public static void printFile(Parser parser){
+      printFile(new File(parser.getFileName()), parser.getText().toString());
+   }
    public static void printFile(File file, String text)
    {
       try {
@@ -60,7 +64,7 @@ public class CGUtil
             parentFile.mkdirs();
          }
          PrintStream out = new PrintStream(file);
-         out.println(text);
+         out.println( text );
          out.flush();
          out.close();
       } catch (FileNotFoundException e) {

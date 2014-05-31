@@ -39,23 +39,6 @@ public class GenClass extends Generator<Clazz>
    private Parser patternObjectParser = null;
    private Parser patternObjectCreatorParser = null;
    private Parser parser = null;
-
-   //FIXME REMOVE   
-   private File javaFile;
-   private File creatorJavaFile;
-   private File modelSetJavaFile;
-   private File patternObjectJavaFile;
-   private File patternObjectCreatorJavaFile;
-   private StringBuilder modelSetFileBody;
-   private StringBuilder fileBody;
-   private StringBuilder creatorFileBody;
-   private StringBuilder patternObjectFileBody;
-   private StringBuilder patternObjectCreatorFileBody;
-
-   public StringBuilder getFileBody()
-   {
-      return fileBody;
-   }
    
    public GenClass generate(String rootDir, String helpersDir)
    {
@@ -512,13 +495,14 @@ public class GenClass extends Generator<Clazz>
    {
       if (really || parser.isFileBodyChanged())
       {
+         StringBuilder fileBody = parser.getText();
          while (fileBody.charAt(fileBody.length() - 1) == '\n')
          {
             fileBody.replace(fileBody.length() - 1 , fileBody.length(), "");
          }
          fileBody.append('\n');
 
-         CGUtil.printFile(javaFile, fileBody.toString());
+         CGUtil.printFile(parser);
       }
    }
 
@@ -526,7 +510,7 @@ public class GenClass extends Generator<Clazz>
    {
       if (really || creatorParser.isFileBodyChanged())
       {
-         CGUtil.printFile(creatorJavaFile, creatorFileBody.toString());
+         CGUtil.printFile(creatorParser);
       }
    }
 
@@ -534,7 +518,7 @@ public class GenClass extends Generator<Clazz>
    {
       if (really || modelSetParser.isFileBodyChanged())
       {
-         CGUtil.printFile(modelSetJavaFile, modelSetFileBody.toString());
+         CGUtil.printFile(modelSetParser);
       }
    }
 
@@ -542,7 +526,7 @@ public class GenClass extends Generator<Clazz>
    {
       if (really || patternObjectParser.isFileBodyChanged())
       {
-         CGUtil.printFile(patternObjectJavaFile, patternObjectFileBody.toString());
+         CGUtil.printFile(patternObjectParser);
       }
    }
 
@@ -550,7 +534,7 @@ public class GenClass extends Generator<Clazz>
    {
       if (really || patternObjectCreatorParser.isFileBodyChanged())
       {
-         CGUtil.printFile(patternObjectCreatorJavaFile, patternObjectCreatorFileBody.toString());
+         CGUtil.printFile(patternObjectCreatorParser);
       }
    }
 
@@ -604,12 +588,6 @@ public class GenClass extends Generator<Clazz>
       return parser;
    }
 
-
-   public File getJavaFile()
-   {
-      return javaFile;
-   }
-
    public Parser getOrCreateParser(String rootDir)
    {
       if (parser == null)
@@ -627,19 +605,17 @@ public class GenClass extends Generator<Clazz>
 
          fileName = rootDir + "/" + fileName + ".java";
 
-         javaFile = new File(fileName);
+         File javaFile = new File(fileName);
 
-         boolean changed=false;
+         parser = new Parser().withFileName(fileName);
          // found old one?
          if (javaFile.exists())
          {
-            fileBody = CGUtil.readFile(javaFile);
+            parser.withFileBody( CGUtil.readFile(javaFile) );
          }
          else
          {
             System.out.println("generate/modify file for " + fileName);
-            fileBody = new StringBuilder();
-
             StringBuilder text = new StringBuilder( "" +
                   "package packageName;\n" +
                   "\n" +
@@ -655,14 +631,8 @@ public class GenClass extends Generator<Clazz>
                "className", className, 
                "packageName", packageName);
 
-            fileBody.append(text.toString());
-            changed = true;
+            parser.withFileBody( text ).withFileChanged(true);
          }
-
-         parser = new Parser()
-         .withFileName(fileName)
-         .withFileBody(fileBody);
-         parser.withFileChanged(changed);
       }
 
       return parser;
@@ -695,18 +665,17 @@ public class GenClass extends Generator<Clazz>
 
          fileName = rootDir + "/" + fileName + ".java";
 
-         creatorJavaFile = new File(fileName);
+         File creatorJavaFile = new File(fileName);
+         creatorParser = new Parser()
+         .withFileName(fileName);
 
-         boolean changed=false;
          // found old one?
          if (creatorJavaFile.exists())
          {
-            creatorFileBody = CGUtil.readFile(creatorJavaFile);
+            creatorParser.withFileBody( CGUtil.readFile(creatorJavaFile) );
          }
          else
          {
-            creatorFileBody = new StringBuilder();
-
             StringBuilder text = new StringBuilder(
                "package packageName;\n" +
                      "\n" +
@@ -819,15 +788,8 @@ public class GenClass extends Generator<Clazz>
                "packageName", packageName,
                "instanceCreationClause", instanceCreationClause);
 
-            creatorFileBody.append(text.toString());
-
-            changed = true;
+            creatorParser.withFileBody(text).withFileChanged(true);
          }
-
-         creatorParser = new Parser()
-         .withFileName(fileName)
-         .withFileBody(creatorFileBody);
-         creatorParser.withFileChanged(changed);
       }
       return creatorParser;
    }
@@ -888,17 +850,17 @@ public class GenClass extends Generator<Clazz>
 
          fileName = rootDir + "/" + fileName + ".java";
 
-         modelSetJavaFile = new File(fileName);
-         boolean changed=false;
+         File modelSetJavaFile = new File(fileName);
+         modelSetParser = new Parser()
+         .withFileName(fileName);
+
          // found old one?
          if (modelSetJavaFile.exists())
          {
-            modelSetFileBody = CGUtil.readFile(modelSetJavaFile);
+            modelSetParser.withFileBody( CGUtil.readFile(modelSetJavaFile) );
          }
          else
          {
-            modelSetFileBody = new StringBuilder();
-
             StringBuilder text = new StringBuilder("" + 
                   "package packageName;\n" +
                   "\n" +
@@ -917,22 +879,11 @@ public class GenClass extends Generator<Clazz>
                "packageName", packageName,
                "Item", entitiyClassName
                   );
-
-            modelSetFileBody.append(text.toString());
-
-            changed = true;
+            modelSetParser.withFileBody( text ).withFileChanged(true);
          }
-
-         modelSetParser = new Parser()
-         .withFileName(fileName)
-         .withFileBody(modelSetFileBody).withFileChanged(changed);
-
          insertLicense(modelSetParser);
-         
          insertSetStartModelPattern(modelSetParser);
-
          insertSetEntryType(modelSetParser);
-
          insertSetWithWithout(modelSetParser);
       }
 
@@ -1037,18 +988,16 @@ public class GenClass extends Generator<Clazz>
 
          fileName = rootDir + "/" + fileName + ".java";
 
-         patternObjectJavaFile = new File(fileName);
-
-         boolean changed=false;
+         File patternObjectJavaFile = new File(fileName);
+         patternObjectParser = new Parser()
+         .withFileName(fileName);
          // found old one?
          if (patternObjectJavaFile.exists())
          {
-            patternObjectFileBody = CGUtil.readFile(patternObjectJavaFile);
+            patternObjectParser.withFileBody( CGUtil.readFile(patternObjectJavaFile) );
          }
          else
          {
-            patternObjectFileBody = new StringBuilder();
-
             StringBuilder text = new StringBuilder(
                   ""
                      + "package packageName;\n\n"
@@ -1103,13 +1052,9 @@ public class GenClass extends Generator<Clazz>
                "ModelClass", entitiyClassName,
                "packageName", packageName);
             
-            patternObjectFileBody.append(text.toString());
-            changed = true;
+            patternObjectParser.withFileBody( text ).withFileChanged(true);
          }
 
-         patternObjectParser = new Parser()
-         .withFileName(fileName)
-         .withFileBody(patternObjectFileBody).withFileChanged(changed);
          if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
             this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
          }
@@ -1182,19 +1127,17 @@ public class GenClass extends Generator<Clazz>
 
          fileName = rootDir + "/" + fileName + ".java";
 
-         patternObjectCreatorJavaFile = new File(fileName);
-
+         File patternObjectCreatorJavaFile = new File(fileName);
+         patternObjectCreatorParser = new Parser()
+         .withFileName(fileName);
          // found old one?
          boolean addImport=false;
-         boolean changed=false;
          if (patternObjectCreatorJavaFile.exists())
          {
-            patternObjectCreatorFileBody = CGUtil.readFile(patternObjectCreatorJavaFile);
+            patternObjectCreatorParser.withFileBody( CGUtil.readFile(patternObjectCreatorJavaFile) );
          }
          else
          {
-            patternObjectCreatorFileBody = new StringBuilder();
-
             StringBuilder text = new StringBuilder(
                "package packageName;\n" +
                      "\n" +
@@ -1224,15 +1167,10 @@ public class GenClass extends Generator<Clazz>
                "entitiyClassName", entitiyClassName,
                "packageName", packageName);
 
-            patternObjectCreatorFileBody.append(text.toString());
-
-            changed = true;
+            patternObjectCreatorParser.withFileBody( text ).withFileChanged(true);
             addImport=true;
          }
 
-         patternObjectCreatorParser = new Parser()
-         .withFileName(fileName)
-         .withFileBody(patternObjectCreatorFileBody).withFileChanged(changed);
          if(addImport){
             insertImport(patternObjectCreatorParser, name);
          }
