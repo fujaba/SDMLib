@@ -38,7 +38,7 @@ public class GenMethod extends Generator<Method>
 
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
-      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
+      clazz.getClassModel().getGenerator().getOrCreate(clazz);
       if (pos < 0)
       {
          signature = model.getSignature(true);
@@ -92,8 +92,7 @@ public class GenMethod extends Generator<Method>
 
          pos = parser.indexOf(Parser.CLASS_END);
 
-         parser.getFileBody().insert(pos, text.toString());
-         generator.setFileHasChanged(true);
+         parser.insert(pos, text.toString());
       }
       
       pos = parser.indexOf(Parser.METHOD + ":" + signature);
@@ -103,10 +102,8 @@ public class GenMethod extends Generator<Method>
       // in case of a method body, remove old method
       if (pos >= 0 && model.getBody() != null)
       {
-        parser.getFileBody().replace(symTabEntry.getBodyStartPos()+1, symTabEntry.getEndPos(), "\n" + model.getBody() + "   ");
+        parser.replace(symTabEntry.getBodyStartPos()+1, symTabEntry.getEndPos(), "\n" + model.getBody() + "   ");
         pos = -1;
-
-          generator.setFileHasChanged(true);
       }
    }
 
@@ -229,8 +226,7 @@ public class GenMethod extends Generator<Method>
 
          pos = parser.indexOf(Parser.CLASS_END);
 
-         parser.getFileBody().insert(pos, text.toString());
-         generator.setModelSetFileHasChanged(true);
+         parser.insert(pos, text.toString());
       }
    }
 
@@ -336,8 +332,7 @@ public class GenMethod extends Generator<Method>
 
          pos = parser.indexOf(Parser.CLASS_END);
 
-         parser.getFileBody().insert(pos, text.toString());
-         generator.setPatternObjectFileHasChanged(true);
+         parser.insert(pos, text.toString());
       }
    }
 }

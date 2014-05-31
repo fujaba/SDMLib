@@ -1256,7 +1256,7 @@ public class Storyboard implements PropertyChangeInterface
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
 
       String methodText = "<pre>   " +
-         StrUtil.htmlEncode(parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
+         StrUtil.htmlEncode(parser.getText().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
          + "</pre>";
 
       return methodText;

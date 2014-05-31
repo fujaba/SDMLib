@@ -70,9 +70,7 @@ public class GenRole extends Generator<Role>
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
             );
 
-         parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getGenerator(clazz).setCreatorFileHasChanged(true);
-         parser.setFileBodyHasChanged(true);
+         parser.insert(lastIfEndPos, text.toString());
       }
    }
 
@@ -103,7 +101,7 @@ public class GenRole extends Generator<Role>
             "type", setClass
             );
          
-         partnerParser.getFileBody().insert(partnerPos, partnerText.toString());
+         partnerParser.insert(partnerPos, partnerText.toString());
          
          // insert import 
          String ownerClassName = partnerClass.getFullName();
@@ -111,7 +109,6 @@ public class GenRole extends Generator<Role>
          String shortClassName = CGUtil.shortClassName(ownerClassName);
          getGenerator(partnerClass).insertImport(packageName + GenClassModel.UTILPATH+"." + shortClassName + "Set");
          
-         getGenerator(partnerRole.getClazz()).setFileHasChanged(true);
          getGenerator(partnerRole.getClazz()).printFile(doGenerate);
 
       }
@@ -754,9 +751,7 @@ public class GenRole extends Generator<Role>
             }
 
             int pos = myParser.indexOf(Parser.CLASS_END);
-            myParser.getFileBody().insert(pos, text.toString());
-            getGenerator(clazz).setFileHasChanged(true);
-            myParser.setFileBodyHasChanged(true);
+            myParser.insert(pos, text.toString());
 
          if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
          {
@@ -858,8 +853,7 @@ public class GenRole extends Generator<Role>
             return;
          }
          
-         parser.getFileBody().insert(pos, fullRemoveCall);
-         getGenerator(clazz).setFileHasChanged(true);
+         parser.insert(pos, fullRemoveCall);
       }
    }
 
@@ -977,8 +971,7 @@ public class GenRole extends Generator<Role>
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(tgtClass).setModelSetFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
          
          getGenerator(tgtClass).insertImport(parser, fullModelSetType);
          getGenerator(tgtClass).insertImport(parser, Collection.class.getName());
@@ -1046,8 +1039,7 @@ public class GenRole extends Generator<Role>
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator( clazz).setPatternObjectFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
       }
    }
 
@@ -1084,12 +1076,10 @@ public class GenRole extends Generator<Role>
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
-         parser.getFileBody().insert(classEnd, text.toString());
+         parser.insert(classEnd, text.toString());
          if(partnerClass.indexOf(".")<0){
             getGenerator(partnerRole.getClazz()).insertImport(parser, partnerRole.getClazz().getFullName());
          }
-         
-         getGenerator(clazz).setPatternObjectFileHasChanged(true);
       }
    }
 
@@ -1120,8 +1110,7 @@ public class GenRole extends Generator<Role>
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(clazz).setPatternObjectFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
       }
    }
 
@@ -1157,8 +1146,7 @@ public class GenRole extends Generator<Role>
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(clazz).setPatternObjectFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
       }
    }
 
@@ -1192,8 +1180,7 @@ public class GenRole extends Generator<Role>
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(clazz).setPatternObjectFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
       }
    }
 
@@ -1228,8 +1215,7 @@ public class GenRole extends Generator<Role>
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(tgtClass).setModelSetFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
          
          getGenerator(tgtClass).insertImport(parser, partnerRole.getClazz().getFullName());
       }
@@ -1262,8 +1248,7 @@ public class GenRole extends Generator<Role>
 
             int classEnd = parser.indexOf(Parser.CLASS_END);
             
-            parser.getFileBody().insert(classEnd, text.toString());
-            getGenerator(tgtClass).setModelSetFileHasChanged(true);
+            parser.insert(classEnd, text.toString());
             
             getGenerator(tgtClass).insertImport(parser, partnerRole.getClazz().getFullName());
          }
@@ -1291,7 +1276,7 @@ public class GenRole extends Generator<Role>
       
       String propertyName = "PROPERTY_" + partnerRole.getName().toUpperCase() +",";
       
-      int propertyNameIndex = parser.getFileBody().indexOf(propertyName, pos);
+      int propertyNameIndex = parser.search(propertyName, pos);
 
       if (propertyNameIndex < 0 || propertyNameIndex > endOfStringArrayInit)
       {         
@@ -1305,14 +1290,10 @@ public class GenRole extends Generator<Role>
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
             );
 
-         parser.getFileBody().insert(endOfStringArrayInit, text.toString());
+         parser.insert(endOfStringArrayInit, text.toString());
          getGenerator(clazz).insertImport(parser, model.getClazz().getFullName());
-         getGenerator(clazz).setCreatorFileHasChanged(true);
       }
    }
-
-
-   
    
    private void insertCaseInGenericSetToMany(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {   
@@ -1374,13 +1355,12 @@ public class GenRole extends Generator<Role>
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
             );
 
-         parser.getFileBody().insert(lastIfEndPos, text.toString());
+         parser.insert(lastIfEndPos, text.toString());
          
          getGenerator(clazz).insertImport(parser, JsonIdMap.class.getName());
 
          getGenerator(clazz).insertImport(parser, partnerRole.getClazz().getFullName());
          
-         getGenerator(clazz).setCreatorFileHasChanged(true);
       }
    }
 
@@ -1438,12 +1418,9 @@ public class GenRole extends Generator<Role>
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
             );
 
-         parser.getFileBody().insert(lastIfEndPos, text.toString());
+         parser.insert(lastIfEndPos, text.toString());
          
          getGenerator(clazz).insertImport(parser, partnerRole.getClazz().getFullName());
-         
-         getGenerator(clazz).setCreatorFileHasChanged(true);
       }
    }
-
 }

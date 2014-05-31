@@ -61,13 +61,11 @@ public class GenAttribute extends Generator<Attribute>
 
       int pos = parser.indexOf(Parser.CLASS_END);
 
-      parser.getFileBody().insert(pos, text.toString());
+      parser.insert(pos, text.toString());
       ArrayList<String> importClassesFromTypes = checkImportClassesFromType(model.getType());
       for (String typeImport : importClassesFromTypes) {
          getGenerator(clazz).insertImport(parser, typeImport);
       }
-      getGenerator(clazz).setFileHasChanged(true);
-
    }
 
    private StringBuilder insertPropertyInClass(Parser parser) 
@@ -280,8 +278,7 @@ public class GenAttribute extends Generator<Attribute>
             "PropertyName", StrUtil.upFirstChar(model.getName()),
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase()
                );
-         parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getGenerator(model.getClazz()).setFileHasChanged(true);
+         parser.insert(lastIfEndPos, text.toString());
       }
    }
 
@@ -335,8 +332,7 @@ public class GenAttribute extends Generator<Attribute>
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase()
                );
 
-         parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getGenerator(model.getClazz()).setFileHasChanged(true);
+         parser.insert(lastIfEndPos, text.toString());
       }
    }
 
@@ -368,9 +364,7 @@ public class GenAttribute extends Generator<Attribute>
          
          pos = parser.indexOf(Parser.CLASS_END);
 
-         parser.getFileBody().insert(pos, text.toString());
-         
-         getGenerator(model.getClazz()).setFileHasChanged(true);
+         parser.insert(pos, text.toString());
          
          pos = parser.indexOf(Parser.METHOD + ":toString()");
       }
@@ -380,20 +374,20 @@ public class GenAttribute extends Generator<Attribute>
 
       pos = parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
       
-      int attrPos = parser.getFileBody().indexOf("get" + StrUtil.upFirstChar(model.getName()), methodBodyStartPos);
+      int attrPos = parser.search("get" + StrUtil.upFirstChar(model.getName()), methodBodyStartPos);
       
       boolean noAttr = attrPos < 0 || attrPos > pos;
       
       if ( noAttr)
       {
-         attrPos = parser.getFileBody().indexOf(".append(" + model.getName() +")", methodBodyStartPos);
+         attrPos = parser.search(".append(" + model.getName() +")", methodBodyStartPos);
          noAttr = attrPos < 0 || attrPos > pos;
       }
       
       if ( noAttr)
       {         
          // need to add attr to text
-         int returnPos = parser.getFileBody().indexOf("return", methodBodyStartPos);
+         int returnPos = parser.search("return", methodBodyStartPos);
          
          StringBuilder text = new StringBuilder(  
             "_.append(\" \").append(this.getName());\n      " 
@@ -403,8 +397,7 @@ public class GenAttribute extends Generator<Attribute>
             "Name", StrUtil.upFirstChar(model.getName())
                );
 
-         parser.getFileBody().insert(returnPos, text.toString());
-         getGenerator(model.getClazz()).setFileHasChanged(true);
+         parser.insert(returnPos, text.toString());
       }
    }
    private ArrayList<String> checkImportClassesFromType(DataType value) 
@@ -483,8 +476,7 @@ public class GenAttribute extends Generator<Attribute>
             "ModelClass", modelClass);
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(ownerClazz).setPatternObjectFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
       }
    }
 
@@ -552,8 +544,7 @@ public class GenAttribute extends Generator<Attribute>
             "ModelClass", getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser));
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(ownerClazz).setPatternObjectFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
       }
    }
 
@@ -633,8 +624,7 @@ public class GenAttribute extends Generator<Attribute>
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(ownerClazz).setPatternObjectFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
       }
    }
 
@@ -683,8 +673,7 @@ public class GenAttribute extends Generator<Attribute>
             "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator(ownerClazz).setPatternObjectFileHasChanged(true);
+         parser.insert(classEnd, text.toString());
       }
    }
 
@@ -843,11 +832,7 @@ public class GenAttribute extends Generator<Attribute>
          //       ownerClazz.printFile(true);
          //       
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.getFileBody().insert(classEnd, text.toString());
-         // getClazz()
-         getGenerator(ownerClazz).setModelSetFileHasChanged(true);
-
-
+         parser.insert(classEnd, text.toString());
 
          // getClazz()
          for (String setType : importClassesFromTypes) {
@@ -921,8 +906,7 @@ public class GenAttribute extends Generator<Attribute>
             "entitiyNameClass", entitiyNameClass
                );
 
-         parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getGenerator( model.getClazz()).setFileHasChanged(true);
+         parser.insert(lastIfEndPos, text.toString());
       }
    }
 
@@ -967,8 +951,7 @@ public class GenAttribute extends Generator<Attribute>
 
          // ownerClazz.printFile(true);
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.getFileBody().insert(classEnd, text.toString());
-         getGenerator( ownerClazz).setModelSetFileHasChanged(true);         
+         parser.insert(classEnd, text.toString());
       }
    }
    private void insertGenericGetSetForWrapperInCreatorClass(Parser parser,
@@ -1068,8 +1051,7 @@ public class GenAttribute extends Generator<Attribute>
             "entitiyNameClass", entitiyNameClass
                );
 
-         parser.getFileBody().insert(lastIfEndPos, text.toString());
-         getGenerator( model.getClazz()).setFileHasChanged(true);
+         parser.insert(lastIfEndPos, text.toString());
       }
    }
    public GenAttribute generate(String rootDir, String helpersDir)
@@ -1147,7 +1129,7 @@ public class GenAttribute extends Generator<Attribute>
       int pos = creatorParser.indexOf(Parser.IMPORT);
 
       String prefix = "";
-      StringBuilder fileBody = creatorParser.getFileBody();
+      StringBuilder fileBody = creatorParser.getText();
       if (fileBody .indexOf(Parser.IMPORT, pos) < 0)
       {
          prefix = "\n";
@@ -1156,7 +1138,7 @@ public class GenAttribute extends Generator<Attribute>
       SymTabEntry symTabEntry = creatorParser.getSymTab().get(Parser.IMPORT + ":" + className);
       if (symTabEntry == null)
       {
-         creatorParser.getFileBody().insert(creatorParser.getEndOfImports() + 1, 
+         creatorParser.insert(creatorParser.getEndOfImports() + 1, 
             prefix + "\nimport " + className + ";");
 
       }      
@@ -1182,7 +1164,7 @@ public class GenAttribute extends Generator<Attribute>
 
       String propertyName = "PROPERTY_" + model.getName().toUpperCase();
 
-      int propertyNameIndex = parser.getFileBody().indexOf(propertyName, pos);
+      int propertyNameIndex = parser.search(propertyName, pos);
 
       if (propertyNameIndex < 0 || propertyNameIndex > endOfStringArrayInit)
       {         
@@ -1205,7 +1187,7 @@ public class GenAttribute extends Generator<Attribute>
                   );
          }
 
-         parser.getFileBody().insert(endOfStringArrayInit, text.toString());
+         parser.insert(endOfStringArrayInit, text.toString());
 
          if (ownerClazz.isExternal())
          {
@@ -1217,13 +1199,12 @@ public class GenAttribute extends Generator<Attribute>
                "propertyName", model.getName()
                   );
 
-            parser.getFileBody().insert(pos, text.toString());
+            parser.insert(pos, text.toString());
             
          }
          insertGenericGetSetForWrapperInCreatorClass(parser, ownerClazz);
 
          getGenerator( ownerClazz).insertImport(parser, model.getClazz().getFullName());
-         getGenerator( ownerClazz).setCreatorFileHasChanged(true);
       }
    }
 }

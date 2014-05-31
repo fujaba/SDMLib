@@ -180,8 +180,11 @@ public class Parser
       this.fileBodyHasChanged = true;
    }
    
-   public int indexOf(String searchText, int pos){
+   public int search(String searchText, int pos){
       return this.fileBody.indexOf(searchText, pos);
+   }
+   public int search(String searchText){
+      return this.fileBody.indexOf(searchText);
    }
    
    
@@ -1799,6 +1802,22 @@ public class Parser
             return key;
       }
       return "";
+   }
+
+    public void replace(int start, int end, String text)
+   {
+       this.fileBody.replace(start, end, text);
+       this.fileBodyHasChanged = true;
+   }
+
+   public Parser withFileChanged(boolean value)
+   {
+      this.fileBodyHasChanged = value;
+      return this;
+   }
+   
+   public StringBuilder getText(){
+      return fileBody;
    }
 }
 

@@ -345,7 +345,7 @@ public class StudyRightModel implements PropertyChangeInterface
          IMPLEMENTATION, "zuendorf", "25.03.2012 22:37:42", 1, 0);
 
       pos = parser.indexOf(Parser.IMPORT);
-      String methodText = parser.getFileBody().substring(pos, parser.getEndOfImports() + 1);
+      String methodText = parser.getText().substring(pos, parser.getEndOfImports() + 1);
 
       storyboard.add(methodText);
 
@@ -367,7 +367,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.assertNotNull("found symtab entry for method removeYou() ", symTabEntry);
 
-      methodText = "<pre>   " + parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1) + "</pre>";
+      methodText = "<pre>   " + parser.getText().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos()+1) + "</pre>";
 
       storyboard.add(methodText);
 

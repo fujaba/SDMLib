@@ -332,9 +332,9 @@ public class GenClassModel
 
       if (pos < 0)
       {
-         int medthodEndPos = ccParser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
+         ccParser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
 
-         int addCreatorPos = ccParser.getFileBody().indexOf("return jsonIdMap;", methodBodyStartPos);
+         int addCreatorPos = ccParser.search("return jsonIdMap;", methodBodyStartPos);
 
          StringBuilder text = new StringBuilder
                (  "jsonIdMap.withCreator(new ClassCreator());\n" + 
@@ -347,8 +347,8 @@ public class GenClassModel
             "ClassPOCreator", creatorPOClassName
             );
 
-         ccParser.getFileBody().insert(addCreatorPos, text.toString());
-         // this.setFileHasChanged(true);
+         ccParser.insert(addCreatorPos, text.toString());
+         //FIXME ALEX WARUM NICHT this.setFileHasChanged(true);
       }
 
    }
@@ -499,7 +499,7 @@ public class GenClassModel
                String type = entry.getInitSequence().get(0).get(1).replace("\"", "");
                
                if (clazzType.endsWith(type)) {
-                  CharSequence subSequence = parser.getFileBody().subSequence(entry.getStartPos(), entry.getEndPos()+1);
+                  CharSequence subSequence = parser.getText().subSequence(entry.getStartPos(), entry.getEndPos()+1);
                   String subSequenceString = subSequence.toString();
                   
                   Pattern fileName = Pattern.compile("\""+name+"\"\\s*,\\s*\""+attrType+"\"");
@@ -528,7 +528,7 @@ public class GenClassModel
    
    private void writeToFile(Clazz modelCreationClass)
    {
-      getOrCreate(modelCreationClass).printFile(getOrCreate(modelCreationClass).isFileHasChanged());
+      getOrCreate(modelCreationClass).printFile(getOrCreate(modelCreationClass).getParser().isFileBodyChanged());
    }
 
    
@@ -672,7 +672,7 @@ public class GenClassModel
          currentInsertPos++;
          //       currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, clazz);
-         getOrCreate(clazz).isFileHasChanged();
+         //FIXME ALEX NICHT NOTWENDIG ODER getOrCreate(clazz).isFileHasChanged();
       }
 
       // check is interface
@@ -690,7 +690,7 @@ public class GenClassModel
          currentInsertPos++;
          //       currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, clazz);
-         getOrCreate(clazz).isFileHasChanged();
+       //FIXME ALEX NICHT NOTWENDIG ODER  getOrCreate(clazz).isFileHasChanged();
       }
 
       // check has interfaces
@@ -1489,8 +1489,7 @@ public class GenClassModel
 
    private int insertCreationCode(StringBuilder text, int insertPos, Clazz modelCreationClass )
    {
-      getOrCreate(modelCreationClass).getParser().getFileBody().insert(insertPos, text.toString());
-      getOrCreate(modelCreationClass).setFileHasChanged(true);
+      getOrCreate(modelCreationClass).getParser().insert(insertPos, text.toString());
       return insertPos + text.length();
    }
 
