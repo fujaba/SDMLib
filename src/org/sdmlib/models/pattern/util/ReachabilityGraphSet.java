@@ -31,6 +31,10 @@ import org.sdmlib.models.pattern.ReachableState;
 
 public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> implements org.sdmlib.models.modelsets.ModelSet
 {
+   private static final long serialVersionUID = 1L;
+
+
+
    @Override
    public String toString()
    {

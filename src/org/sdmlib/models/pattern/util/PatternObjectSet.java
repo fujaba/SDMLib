@@ -324,28 +324,6 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
       return this;
    }
 
-   public StringList getPoName()
-   {
-      StringList result = new StringList();
-      
-      for (PatternObject obj : this)
-      {
-         result.add(obj.getPoName());
-      }
-      
-      return result;
-   }
-
-   public PatternObjectSet withPoName(String value)
-   {
-      for (PatternObject obj : this)
-      {
-         obj.setPoName(value);
-      }
-      
-      return this;
-   }
-
    public CardinalityConstraintSet getCardConstraints()
    {
       CardinalityConstraintSet result = new CardinalityConstraintSet();

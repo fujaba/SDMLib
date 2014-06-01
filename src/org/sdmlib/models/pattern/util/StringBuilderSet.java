@@ -21,14 +21,13 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
 
 public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements org.sdmlib.models.modelsets.ModelSet
 {
-
+   private static final long serialVersionUID = 7211481052043245973L;
 
    @Override
    public String toString()
@@ -74,7 +73,9 @@ public class StringBuilderSet extends LinkedHashSet<StringBuilder> implements or
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<StringBuilder>)value);
+         for(Object item : (java.util.Collection<?>)value) {
+            this.add((StringBuilder) item);
+         }
       }
       else if (value != null)
       {

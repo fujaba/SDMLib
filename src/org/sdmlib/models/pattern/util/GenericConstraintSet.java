@@ -32,6 +32,9 @@ import org.sdmlib.models.pattern.Pattern;
 
 public class GenericConstraintSet extends SDMSet<GenericConstraint>
 {
+   private static final long serialVersionUID = 1L;
+
+   @Override
    public GenericConstraint first()
    {
       for (GenericConstraint obj : this)
@@ -230,7 +233,9 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         for(Object item : (java.util.Collection<?>)value){
+            neighbors.add(item);
+         }
       }
       else
       {

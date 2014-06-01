@@ -27,7 +27,6 @@ public class PatternObjectCreator extends EntityFactory
       PatternObject.PROPERTY_CANDIDATES,
       PatternObject.PROPERTY_ATTRCONSTRAINTS,
       PatternObject.PROPERTY_DESTROYELEM,
-      PatternObject.PROPERTY_PONAME,
       PatternObject.PROPERTY_CARDCONSTRAINTS,
       PatternObject.PROPERTY_MATCHOTHERTHEN,
       PatternObject.PROPERTY_EXCLUDERS
@@ -83,11 +82,6 @@ public class PatternObjectCreator extends EntityFactory
       if (PatternObject.PROPERTY_DESTROYELEM.equalsIgnoreCase(attribute))
       {
          return ((PatternObject<?, ?>)target).getDestroyElem();
-      }
-
-      if (PatternObject.PROPERTY_PONAME.equalsIgnoreCase(attribute))
-      {
-         return ((PatternObject<?, ?>)target).getPoName();
       }
 
       if (PatternObject.PROPERTY_CARDCONSTRAINTS.equalsIgnoreCase(attribute))
@@ -161,12 +155,6 @@ public class PatternObjectCreator extends EntityFactory
       if (PatternObject.PROPERTY_DESTROYELEM.equalsIgnoreCase(attrName))
       {
          ((PatternObject<?, ?>)target).setDestroyElem((DestroyObjectElem) value);
-         return true;
-      }
-
-      if (PatternObject.PROPERTY_PONAME.equalsIgnoreCase(attrName))
-      {
-         ((PatternObject<?, ?>)target).setPoName((String) value);
          return true;
       }
 

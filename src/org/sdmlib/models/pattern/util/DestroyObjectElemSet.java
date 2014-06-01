@@ -32,6 +32,10 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
 {
+   private static final long serialVersionUID = 1L;
+
+
+
    public StringList getModifier()
    {
       StringList result = new StringList();

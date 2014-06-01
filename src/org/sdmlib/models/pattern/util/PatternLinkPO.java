@@ -11,7 +11,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
 {
    public PatternLinkPO hasTgtRoleName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_TGTROLENAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -33,7 +33,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasHostGraphSrcObject(Object value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(value)
       .withSrc(this)
@@ -55,7 +55,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -77,7 +77,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -231,7 +231,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -254,7 +254,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -310,7 +310,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
 
    public PatternLinkPO hasTgtRoleName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_TGTROLENAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -325,7 +325,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasHostGraphSrcObject(Object lower, Object upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -340,7 +340,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -355,7 +355,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -370,7 +370,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -385,7 +385,7 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    
    public PatternLinkPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(PatternLink.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

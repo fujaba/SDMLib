@@ -418,38 +418,6 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       return null;
    }
 
-   public PatternObjectPO hasPoName(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(PatternObject.PROPERTY_PONAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public String getPoName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((PatternObject) getCurrentMatch()).getPoName();
-      }
-      return null;
-   }
-   
-   public PatternObjectPO withPoName(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((PatternObject) getCurrentMatch()).setPoName(value);
-      }
-      return this;
-   }
-   
    public CardinalityConstraintPO hasCardConstraints()
    {
       CardinalityConstraintPO result = new CardinalityConstraintPO();

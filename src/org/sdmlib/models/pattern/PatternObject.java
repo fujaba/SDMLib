@@ -38,6 +38,27 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
+   public static final String PROPERTY_ATTRCONSTRAINTS = "attrConstraints";
+   public static final String PROPERTY_CANDIDATES = "candidates";
+   public static final String PROPERTY_CARDCONSTRAINTS = "cardConstraints";
+   public static final String PROPERTY_CURRENTMATCH = "currentMatch";
+   public static final String PROPERTY_DESTROYELEM = "destroyElem";
+   public static final String PROPERTY_EXCLUDERS = "excluders";
+   public static final String PROPERTY_INCOMMING = "incomming";
+   public static final String PROPERTY_MATCHOTHERTHEN = "matchOtherThen";
+   public static final String PROPERTY_OUTGOING = "outgoing";
+
+   private PatternLinkSet outgoing = null;
+   private MatchOtherThenSet matchOtherThen = null;
+   private PatternLinkSet incomming = null;
+   private MatchOtherThenSet excluders = null;
+   private DestroyObjectElem destroyElem = null;
+   private Object currentMatch;
+   private CardinalityConstraintSet cardConstraints = null;
+   private Object candidates;
+
+   private AttributeConstraintSet attrConstraints = null;
+
    public <POSC extends PatternObject> POSC instanceOf(POSC subclassPO)
    {
       // add a pattern link that checks the type of the source object and the
@@ -376,11 +397,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    }
 
    // ==========================================================================
-
-   public static final String PROPERTY_CURRENTMATCH = "currentMatch";
-
-   private Object currentMatch;
-
    public MC getCurrentMatch()
    {
       return (MC) this.currentMatch;
@@ -409,11 +425,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     *              tgt                   incomming
     * </pre>
     */
-
-   public static final String PROPERTY_INCOMMING = "incomming";
-
-   private PatternLinkSet incomming = null;
-
    public PatternLinkSet getIncomming()
    {
       if (this.incomming == null)
@@ -495,10 +506,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * </pre>
     */
 
-   public static final String PROPERTY_OUTGOING = "outgoing";
-
-   private PatternLinkSet outgoing = null;
-
    public PatternLinkSet getOutgoing()
    {
       if (this.outgoing == null)
@@ -574,11 +581,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    }
 
    // ==========================================================================
-
-   public static final String PROPERTY_CANDIDATES = "candidates";
-
-   private Object candidates;
-
    public Object getCandidates()
    {
       return this.candidates;
@@ -608,10 +610,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     *              src                   attrConstraints
     * </pre>
     */
-
-   public static final String PROPERTY_ATTRCONSTRAINTS = "attrConstraints";
-
-   private AttributeConstraintSet attrConstraints = null;
 
    public AttributeConstraintSet getAttrConstraints()
    {
@@ -751,11 +749,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     *              patternObject                   destroyElem
     * </pre>
     */
-
-   public static final String PROPERTY_DESTROYELEM = "destroyElem";
-
-   private DestroyObjectElem destroyElem = null;
-
    public DestroyObjectElem getDestroyElem()
    {
       return this.destroyElem;
@@ -808,35 +801,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
-      _.append(" ").append(this.getPoName());
       return _.substring(1);
-   }
-
-   // ==========================================================================
-
-   public static final String PROPERTY_PONAME = "poName";
-
-   private String poName;
-
-   public String getPoName()
-   {
-      return this.poName;
-   }
-
-   public void setPoName(String value)
-   {
-      if (!StrUtil.stringEquals(this.poName, value))
-      {
-         String oldValue = this.poName;
-         this.poName = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PONAME, oldValue, value);
-      }
-   }
-
-   public PatternObject withPoName(String value)
-   {
-      setPoName(value);
-      return this;
    }
 
    /********************************************************************
@@ -846,11 +811,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     *              src                   cardConstraints
     * </pre>
     */
-
-   public static final String PROPERTY_CARDCONSTRAINTS = "cardConstraints";
-
-   private CardinalityConstraintSet cardConstraints = null;
-
    public CardinalityConstraintSet getCardConstraints()
    {
       if (this.cardConstraints == null)
@@ -968,10 +928,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * </pre>
     */
 
-   public static final String PROPERTY_MATCHOTHERTHEN = "matchOtherThen";
-
-   private MatchOtherThenSet matchOtherThen = null;
-
    public MatchOtherThenSet getMatchOtherThen()
    {
       if (this.matchOtherThen == null)
@@ -1070,11 +1026,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     *              forbidden                   excluders
     * </pre>
     */
-
-   public static final String PROPERTY_EXCLUDERS = "excluders";
-
-   private MatchOtherThenSet excluders = null;
-
    public MatchOtherThenSet getExcluders()
    {
       if (this.excluders == null)
@@ -1189,7 +1140,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       return this;
    }
 
-   public PatternObject withoutCardConstraints(CardinalityConstraint... value)
+   public PatternObject<?,?> withoutCardConstraints(CardinalityConstraint... value)
    {
       for (CardinalityConstraint item : value)
       {

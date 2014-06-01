@@ -31,6 +31,8 @@ import org.sdmlib.models.pattern.Pattern;
 
 public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicConstraint>
 {
+   private static final long serialVersionUID = 1L;
+
    public StringList getModifier()
    {
       StringList result = new StringList();

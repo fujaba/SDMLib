@@ -31,6 +31,8 @@ import org.sdmlib.models.pattern.UnifyGraphsOp;
 
 public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
 {
+   private static final long serialVersionUID = 1L;
+
    @Override
    public String toString()
    {

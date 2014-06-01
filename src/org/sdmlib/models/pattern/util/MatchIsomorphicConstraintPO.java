@@ -9,11 +9,14 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicConstraintPO, MatchIsomorphicConstraint>
 {
+   @Override
    public MatchIsomorphicConstraintPO startNAC()
    {
-      return (MatchIsomorphicConstraintPO) super.startNAC();
+      super.startNAC();
+      return this;
    }
    
+   @Override
    public MatchIsomorphicConstraintPO endNAC()
    {
       return (MatchIsomorphicConstraintPO) super.endNAC();
@@ -35,7 +38,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    
    public MatchIsomorphicConstraintPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchIsomorphicConstraint.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -47,6 +50,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
       return this;
    }
    
+   @Override
    public String getModifier()
    {
       if (this.getPattern().getHasMatch())
@@ -58,7 +62,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    
    public MatchIsomorphicConstraintPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchIsomorphicConstraint.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -70,6 +74,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
       return this;
    }
    
+   @Override
    public boolean getHasMatch()
    {
       if (this.getPattern().getHasMatch())
@@ -81,7 +86,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    
    public MatchIsomorphicConstraintPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchIsomorphicConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -93,6 +98,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
       return this;
    }
    
+   @Override
    public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
@@ -104,7 +110,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    
    public MatchIsomorphicConstraintPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchIsomorphicConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -116,6 +122,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
       return this;
    }
    
+   @Override
    public String getPatternObjectName()
    {
       if (this.getPattern().getHasMatch())
@@ -149,6 +156,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
       return this;
    }
 
+   @Override
    public Pattern getPattern()
    {
       if (this.getPattern().getHasMatch())
@@ -160,7 +168,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
 
    public MatchIsomorphicConstraintPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchIsomorphicConstraint.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -175,7 +183,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    
    public MatchIsomorphicConstraintPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchIsomorphicConstraint.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -190,7 +198,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    
    public MatchIsomorphicConstraintPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchIsomorphicConstraint.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -205,7 +213,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    
    public MatchIsomorphicConstraintPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(MatchIsomorphicConstraint.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -242,6 +250,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
       return this;
    }
    
+   @Override
    public PatternPO createPattern()
    {
       return (PatternPO) this.startCreate().hasPattern().endCreate();

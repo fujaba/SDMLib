@@ -21,7 +21,6 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
@@ -30,6 +29,8 @@ import org.sdmlib.models.pattern.RuleApplication;
 
 public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
 {
+   private static final long serialVersionUID = 4806320760135586890L;
+
    @Override
    public String toString()
    {
@@ -138,7 +139,9 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<RuleApplication>)value);
+         for(Object item : (java.util.Collection<?>)value){
+            this.add((RuleApplication) item);
+         }
       }
       else if (value != null)
       {

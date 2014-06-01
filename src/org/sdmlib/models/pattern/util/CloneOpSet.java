@@ -21,7 +21,6 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
@@ -31,7 +30,7 @@ import org.sdmlib.models.pattern.Pattern;
 
 public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
 {
-
+   private static final long serialVersionUID = 1L;
 
    @Override
    public String toString()
@@ -185,7 +184,9 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<CloneOp>)value);
+         for(Object item : (java.util.Collection<?>)value){
+            this.add((CloneOp) item);
+         }
       }
       else if (value != null)
       {

@@ -33,6 +33,8 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
 {
+   private static final long serialVersionUID = 1L;
+
    public StringList getTgtRoleName()
    {
       StringList result = new StringList();

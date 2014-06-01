@@ -168,6 +168,7 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
 
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();

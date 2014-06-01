@@ -9,11 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, DestroyObjectElem>
 {
+   @Override
    public DestroyObjectElemPO startNAC()
    {
       return (DestroyObjectElemPO) super.startNAC();
    }
    
+   @Override
    public DestroyObjectElemPO endNAC()
    {
       return (DestroyObjectElemPO) super.endNAC();
@@ -35,7 +37,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemPO hasModifier(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
       .withTgtValue(value)
       .withSrc(this)
@@ -47,6 +49,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return this;
    }
    
+   @Override
    public String getModifier()
    {
       if (this.getPattern().getHasMatch())
@@ -58,7 +61,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemPO hasHasMatch(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_HASMATCH)
       .withTgtValue(value)
       .withSrc(this)
@@ -70,6 +73,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return this;
    }
    
+   @Override
    public boolean getHasMatch()
    {
       if (this.getPattern().getHasMatch())
@@ -114,7 +118,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemPO hasDoAllMatches(boolean value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
       .withTgtValue(value)
       .withSrc(this)
@@ -126,6 +130,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return this;
    }
    
+   @Override
    public boolean getDoAllMatches()
    {
       if (this.getPattern().getHasMatch())
@@ -137,7 +142,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemPO hasPatternObjectName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -149,6 +154,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return this;
    }
    
+   @Override
    public String getPatternObjectName()
    {
       if (this.getPattern().getHasMatch())
@@ -182,6 +188,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return this;
    }
 
+   @Override
    public Pattern getPattern()
    {
       if (this.getPattern().getHasMatch())
@@ -193,7 +200,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
 
    public DestroyObjectElemPO hasModifier(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_MODIFIER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -208,7 +215,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemPO hasHasMatch(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_HASMATCH)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -223,7 +230,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemPO hasPatternObjectName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_PATTERNOBJECTNAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -238,7 +245,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemPO hasDoAllMatches(boolean lower, boolean upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(DestroyObjectElem.PROPERTY_DOALLMATCHES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -275,6 +282,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
       return this;
    }
    
+   @Override
    public PatternPO createPattern()
    {
       return (PatternPO) this.startCreate().hasPattern().endCreate();

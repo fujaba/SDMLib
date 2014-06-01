@@ -33,7 +33,7 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class MatchOtherThenSet extends LinkedHashSet<MatchOtherThen> implements org.sdmlib.models.modelsets.ModelSet
 {
-
+   private static final long serialVersionUID = 1L;
 
    @Override
    public String toString()

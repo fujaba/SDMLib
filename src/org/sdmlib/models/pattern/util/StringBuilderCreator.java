@@ -10,21 +10,25 @@ public class StringBuilderCreator extends EntityFactory
    {
    };
    
+   @Override
    public String[] getProperties()
    {
       return properties;
    }
    
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new StringBuilder();
    }
    
+   @Override
    public Object getValue(Object target, String attrName)
    {
       return null;
    }
    
+   @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       return false;
