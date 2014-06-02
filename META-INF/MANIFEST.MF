@@ -34,7 +34,6 @@ Export-Package: com.googlecode.gwtx,
  org.sdmlib.models.objects;uses:="org.sdmlib.serialization.json,org.sdmlib.utils",
  org.sdmlib.models.pattern;uses:="org.sdmlib.models.pattern.creators,org.sdmlib.serialization.json,org.sdmlib.utils",
  org.sdmlib.models.transformations,
- org.sdmlib.serialization;uses:="org.sdmlib.serialization.json,org.sdmlib.serialization.interfaces",
  org.sdmlib.storyboards
 Import-Package: org.junit
 Require-Bundle: SDMLib

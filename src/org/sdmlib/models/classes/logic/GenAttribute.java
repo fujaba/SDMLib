@@ -1113,7 +1113,7 @@ public class GenAttribute extends Generator<Attribute>
       Parser modelSetParser = getGenerator( clazz).getOrCreateParserForModelSetFile(helpersDir);
       insertGetterInModelSetClass(modelSetParser, clazz);
       insertSetterInModelSetClass(modelSetParser, clazz);
-      getGenerator( model.getClazz()).printModelSetFile(doGenerate);
+      getGenerator( clazz).printModelSetFile(doGenerate);
 
       Parser patternObjectParser = getGenerator( clazz).getOrCreateParserForPatternObjectFile(helpersDir);
       insertHasMethodInPatternObjectClass(patternObjectParser, clazz);

@@ -79,9 +79,9 @@ public class GenClass extends Generator<Clazz>
          if(getRepairClassModel().hasFeature(Feature.Serialization)){
             getOrCreateParserForCreatorClass(helpersDir);
             insertRemoveObjectInCreatorClass();
+            printCreatorFile(creatorParser.isFileBodyChanged());
          }
       }
-      printCreatorFile(creatorParser.isFileBodyChanged());
 
       // now generate the corresponding ModelSet class
       getOrCreateParserForModelSetFile(helpersDir);
