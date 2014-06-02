@@ -15,6 +15,11 @@ public class BanfM2MModelGen
    private ClassModel genModel(){
       ClassModel model = new ClassModel("org.sdmlib.examples.m2m.model");
       
+      
+      Clazz graphComponentClazz = new Clazz("GraphComponent").withAttribute("text", DataType.STRING );
+      
+      
+      
       graphClazz = new Clazz("Graph").withClassModel(model);
       
       nodeClazz = new Clazz("Person")
@@ -22,6 +27,11 @@ public class BanfM2MModelGen
       
       edgeClazz = new Clazz("Relation").withAttribute("kind", DataType.STRING );
 
+      new Association()
+      .withTarget(graphClazz, "parent", Card.ONE)
+      .withSource(graphComponentClazz, "gcs", Card.MANY);
+      
+      
       new Association()
       .withTarget(nodeClazz, "persons", Card.MANY)
       .withSource(graphClazz, "graph", Card.ONE);

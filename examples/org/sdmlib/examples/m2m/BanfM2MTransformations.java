@@ -1,20 +1,21 @@
 package org.sdmlib.examples.m2m;
 
-import javax.management.relation.Relation;
-
 import org.junit.Test;
-import org.sdmlib.examples.groupAccount.model.Person;
-import org.sdmlib.examples.groupAccount.model.util.PersonCreator;
 import org.sdmlib.examples.m2m.model.Graph;
+import org.sdmlib.examples.m2m.model.GraphComponent;
+import org.sdmlib.examples.m2m.model.Person;
+import org.sdmlib.examples.m2m.model.util.GraphComponentCreator;
 import org.sdmlib.examples.m2m.model.util.GraphCreator;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
+import org.sdmlib.models.objects.util.GenericGraphPO;
 import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectPO;
@@ -195,7 +196,7 @@ public class BanfM2MTransformations
       
       storyboard.addObjectDiagramWith(sourceGraphRevers.getPersons(), sourceGraphRevers.getRelations());
       
-      storyboard.addLogEntry(R.DONE, "zuendorf", "10.10.2013 10:10:42", 20, 0, "should be published in paper");
+      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "10.10.2013 10:10:42", 20, 0, "should be published in paper");
       
       storyboard.dumpHTML();
    }
@@ -210,9 +211,7 @@ public class BanfM2MTransformations
       storyboard.add("_____ forward ______________ backward ___________");
       
       
-      renameFirstNameAttrRule = new org.sdmlib.models.objects.creators.ModelPattern();
-      renameFirstNameAttrRule
-      .hasElementGenericGraphPO(null)
+      Object renameFirstNameAttrRule = new GenericGraphPO()
       .hasObjects()
       .hasType(Person.class.getName())
       .hasAttrs()
@@ -339,7 +338,7 @@ public class BanfM2MTransformations
       Pattern backwardRule = (Pattern) bwdMap.decode(jsonArray);
       
       // look for attribute constraint with modifer create
-      for (PatternElement<Object> elem : backwardRule.getElements())
+      for (PatternElement<?> elem : backwardRule.getElements())
       {
          if (elem instanceof AttributeConstraint)
          {
@@ -369,9 +368,9 @@ public class BanfM2MTransformations
       .convert(PersonCreator.createIdMap("g1"), origGraph);
       
       // rename name to text attributes
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
+      GenericGraphPO po = new GenericGraphPO();
+      po.withCandidates(genGraph);
+      po.hasObjects()
       .hasAttrs()
       .hasName(Person.PROPERTY_FIRSTNAME)
       .startCreate()
