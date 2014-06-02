@@ -1,15 +1,26 @@
 package org.sdmlib.examples.helloworld;
 
 import org.junit.Test;
+import org.sdmlib.CGUtil;
+import org.sdmlib.examples.helloworld.model.Edge;
+import org.sdmlib.examples.helloworld.model.Graph;
 import org.sdmlib.examples.helloworld.model.Node;
+import org.sdmlib.examples.helloworld.model.util.EdgePO;
+import org.sdmlib.examples.helloworld.model.util.EdgeSet;
+import org.sdmlib.examples.helloworld.model.util.GraphCreator;
+import org.sdmlib.examples.helloworld.model.util.GraphPO;
+import org.sdmlib.examples.helloworld.model.util.NodePO;
+import org.sdmlib.examples.helloworld.model.util.NodeSet;
 import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
 import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.examples.helloworld.util.ModelPattern;
 import org.sdmlib.examples.helloworld.util.PersonPO;
+import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -21,6 +32,11 @@ public class HelloWorldTTC2011
    private Node n7;
    private Node n8;
    private Node n3;
+   private GraphPO graphPO;
+   private EdgePO edgesPO;
+   private GraphPO srcGraphPO;
+   private NodePO copySrcNodePO;
+   private NodePO copyTgtNodePO;
 
 
    @Test
@@ -172,280 +188,274 @@ public class HelloWorldTTC2011
    }
       
       
-//   //==========================================================================
-//   @Test
-//   public void testModelToTextTransformation()
-//   {  
-//      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldModelToText")
-//      .with("For model to text transformation we provide a simple template mechanism. ");
-//      
-//      storyboard.add("The model transformation that builds our object model looks like: ");
-//      storyboard.markCodeStart();
-//      ModelPattern p = new ModelPattern().startCreate();
-//      
-//      GreetingPO greetingPO = p.hasElementGreetingPO();
-//      
-//      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
-//      .hasText("Hello");
-//      
-//      PersonPO personPO = greetingPO.hasPerson()
-//      .hasName("TTC Participants");
-//      storyboard.addCode("examples");
-//      
-//      storyboard.add("The created object model looks like: ");
-//      
-//      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
-//      
-//      storyboard.add("The model to text transfromation template mechanism is used like this: ");
-//      
-//      storyboard.markCodeStart();
-//      StringBuilder text = new StringBuilder("message name");
-//      
-//      CGUtil.replaceAll(text, 
-//         "message", greetingMessagePO.getText(),
-//         "name", personPO.getName());
-//      
-//      systemout = text.toString();
-//      storyboard.addCode("examples");
-//      
-//      storyboard.add("systemout: \n" + systemout);
-//      
-//      String newText = "Hi dudes";
-//      
-//      storyboard.add("Assume we change the text manually to: " + newText);
-//      
-//      storyboard.markCodeStart();
-//      CGUtil.find("Hi dudes", 0, "message name", 
-//         "message", greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
-//         "name", personPO, Person.PROPERTY_NAME
-//         );
-//      storyboard.addCode("examples");
-//      
-//      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("Alternatively, plain java code that does the model to text transformation looks like: ");
-//      
-//      storyboard.markCodeStart();
-//      systemout = greetingMessagePO.getText() + " " + personPO.getName();
-//      storyboard.addCode("examples");
-//      
-//      storyboard.dumpHTML();  
-//   }
-//   
-//   
-//   //==========================================================================
-//   @Test
-//   public void testTTC2011HelloWorldCountNumberOfNodes()
-//   {  
-//      Storyboard storyboard = new Storyboard("examples");
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("Simple Graph application classes: ");
-//      
-//      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld");
-//      
-//      Clazz graphClazz = model.createClazz("Graph");
-//      
-//      Clazz edgeClazz = model.createClazz("Edge")
-//      .withAttribute("name", DataType.STRING);
-//
-//      Clazz nodeClazz = model.createClazz("Node")
-//      .withAttribute("name", DataType.STRING);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "nodes", Card.MANY)
-//      .withSource(graphClazz, "graph", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(edgeClazz, "edges", Card.MANY)
-//      .withSource(graphClazz, "graph", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(nodeClazz, "src", Card.ONE)
-//      .withSource(edgeClazz, "outEdges", Card.MANY);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "tgt", Card.ONE)
-//      .withSource(edgeClazz, "inEdges", Card.MANY);
-//
-//      // // model.removeAllGeneratedCode("examples", "examples", "examples");
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldSimpleGraphClassDiag"));
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("create example graph: ");
-//      
-//      Graph graph = createExampleGraph();
-//      
-//      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph, true);
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Count nodes in graph direct: </h2>");
-//      
-//      countNodesInJava(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesInJava(Graph)"));
-//      
-//      storyboard.add("systemout: " + systemout);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("Count nodes in graph per pattern: ");
-//      
-//      countNodesPerPattern(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesPerPattern(Graph)"));
-//      
-//      // storyboard.addObjectDiag(p.getJsonIdMap(), p.getElements().iterator().next());
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerPatternRule", false));
-//
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerPatternRuleWithMatch"));
-//      
-//      storyboard.add("systemout: " + systemout);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("Retrieve set of matching nodes per pattern and count its elements: ");
-//      
-//      countNodesPerNodeSet(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesPerNodeSet(Graph)"));
-//
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerNodeSet", false));
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countNodesPerNodeSetWithMatch"));
-//      
-//      storyboard.add("systemout: " + systemout);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Retrieve set of looping edges per pattern and count its elements: </h2>");
-//      
-//      countLoopingEdgesPerPattern(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesPerPattern(Graph)"));
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countLoopingEdgesPerPattern", false));
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countLoopingEdgesPerPatternWithMatch"));
-//      
-//      storyboard.add("systemout: " + systemout);
-//      
-//      storyboard.add("For comparison a Java solution: ");
-//      
-//      countLoopingEdgesInJava(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesInJava(Graph)"));
-//      
-//      storyboard.add("systemout: " + systemout);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Retrieve isolated nodes and count them: </h2>");
-//      
-//      countIsolatedNodesPerPattern(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesPerPattern(Graph)"));
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countIsolatedNodesPerPattern", false));
-//
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countIsolatedNodesPerPatternWithMatch", true));
-//
-//      storyboard.add("systemout: " + systemout);
-//      
-//      storyboard.add("For comparison a Java solution: ");
-//      
-//      countIsolatedNodesInJava(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesInJava(Graph)"));
-//      
-//      storyboard.add("systemout: " + systemout);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Count circles of three nodes: </h2>");
-//      
-//      countCirclesOfThreeNodesPerPattern(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPattern(Graph)"));
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPattern", false));
-//
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternWithMatch", true));
-//
-//      storyboard.add("systemout: " + systemout);
-//      
-//      storyboard.add("If you want to print the matched nodes for each circle, you need to iterate through the matches: ");
-//      
-//      countCirclesOfThreeNodesPerPatternReportMatches(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPatternReportMatches(Graph)"));
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternReportMatches", false));
-//
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countCirclesOfThreeNodesPerPatternReportMatchesWithMatch", true));
-//
-//      storyboard.add("systemout: " + systemout);
-//      
-//      storyboard.add("Just for comparison, a plain java implementation: ");
-//      
-//      countCirclesOfThreeNodesInJava(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesInJava(Graph)"));
-//      
-//      storyboard.add("systemout: " + systemout);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Count dangling edges per pattern: </h2>");
-//      
-//      countDanglingEdgesPerPattern(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesPerPattern(Graph)"));
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countDanglingEdgesPerPattern", false));
-//
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("countDanglingEdgesPerPatternWithMatch", true));
-//
-//      storyboard.add("systemout: " + systemout);
-//      
-//      storyboard.add("Count dangling edges in Java: ");
-//      
-//      countDanglingEdgesInJava(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesInJava(Graph)"));
-//      
-//      storyboard.add("systemout: " + systemout);
-//      
-//      
-//      
-//      
-//      storyboard.dumpHTML();
-//   }
-//
-//
+   //==========================================================================
+   @Test
+   public void testModelToTextTransformation()
+   {  
+      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldModelToText")
+      .with("For model to text transformation we provide a simple template mechanism. ");
+      
+      storyboard.add("The model transformation that builds our object model looks like: ");
+      storyboard.markCodeStart();
+      ModelPattern p = new ModelPattern().startCreate();
+      
+      GreetingPO greetingPO = p.hasElementGreetingPO();
+      
+      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
+      .hasText("Hello");
+      
+      PersonPO personPO = greetingPO.hasPerson()
+      .hasName("TTC Participants");
+      storyboard.addCode("examples");
+      
+      storyboard.add("The created object model looks like: ");
+      
+      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      
+      storyboard.add("The model to text transfromation template mechanism is used like this: ");
+      
+      storyboard.markCodeStart();
+      systemout = CGUtil.replaceAll("message name", 
+         "message", greetingMessagePO.getText(),
+         "name", personPO.getName());
+      storyboard.addCode("examples");
+      
+      storyboard.add("systemout: \n" + systemout);
+      
+      String newText = "Hi dudes";
+      
+      storyboard.add("Assume we change the text manually to: " + newText);
+      
+      storyboard.markCodeStart();
+      CGUtil.find("Hi dudes ", 0, "message name ", 
+         "message", greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
+         "name", personPO, Person.PROPERTY_NAME
+         );
+      storyboard.addCode("examples");
+      
+      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      
+      //==========================================================================
+      
+      storyboard.add("Alternatively, plain java code that does the model to text transformation looks like: ");
+      
+      storyboard.markCodeStart();
+      systemout = greetingMessagePO.getText() + " " + personPO.getName();
+      storyboard.addCode("examples");
+      
+      storyboard.dumpHTML();  
+   }
+   
+   
+   //==========================================================================
+   @Test
+   public void testTTC2011HelloWorldCountNumberOfNodes()
+   {  
+      Storyboard storyboard = new Storyboard("examples");
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("Simple Graph application classes: ");
+      
+      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      
+      Clazz graphClazz = model.createClazz("Graph");
+      
+      Clazz edgeClazz = model.createClazz("Edge")
+      .withAttribute("name", DataType.STRING);
+
+      Clazz nodeClazz = model.createClazz("Node")
+      .withAttribute("name", DataType.STRING);
+
+      new Association()
+      .withTarget(nodeClazz, "nodes", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(edgeClazz, "edges", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
+
+      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model, "examples");
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("create example graph: ");
+      
+      Graph graph = createExampleGraph();
+      
+      storyboard.addObjectDiagram(GraphCreator.createIdMap("hg"), graph, true);
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Count nodes in graph direct: </h2>");
+      
+      countNodesInJava(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesInJava(Graph)"));
+      
+      storyboard.add("systemout: " + systemout);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("Count nodes in graph per pattern: ");
+      
+      countNodesPerPattern(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesPerPattern(Graph)"));
+      
+      // storyboard.addObjectDiag(p.getJsonIdMap(), p.getElements().iterator().next());
+      
+      storyboard.addPattern(graphPO, false);
+
+      storyboard.addPattern(graphPO, true);
+      
+      storyboard.add("systemout: " + systemout);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("Retrieve set of matching nodes per pattern and count its elements: ");
+      
+      countNodesPerNodeSet(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesPerNodeSet(Graph)"));
+
+      storyboard.addPattern(graphPO, false);
+      
+      storyboard.addPattern(graphPO, true);
+      
+      storyboard.add("systemout: " + systemout);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Retrieve set of looping edges per pattern and count its elements: </h2>");
+      
+      countLoopingEdgesPerPattern(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesPerPattern(Graph)"));
+      
+      storyboard.addPattern(edgesPO, false);
+
+      storyboard.addPattern(edgesPO, true);
+      
+      storyboard.add("systemout: " + systemout);
+      
+      storyboard.add("For comparison a Java solution: ");
+      
+      countLoopingEdgesInJava(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesInJava(Graph)"));
+      
+      storyboard.add("systemout: " + systemout);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Retrieve isolated nodes and count them: </h2>");
+      
+      countIsolatedNodesPerPattern(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesPerPattern(Graph)"));
+      
+      storyboard.addPattern(graphPO, false);
+      
+      storyboard.addPattern(graphPO, true);
+      
+      storyboard.add("systemout: " + systemout);
+      
+      storyboard.add("For comparison a Java solution: ");
+      
+      countIsolatedNodesInJava(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesInJava(Graph)"));
+      
+      storyboard.add("systemout: " + systemout);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Count circles of three nodes: </h2>");
+      
+      countCirclesOfThreeNodesPerPattern(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPattern(Graph)"));
+      
+      storyboard.addPattern(graphPO, false);
+      
+      storyboard.addPattern(graphPO, true);
+      
+      storyboard.add("systemout: " + systemout);
+      
+      storyboard.add("If you want to print the matched nodes for each circle, you need to iterate through the matches: ");
+      
+      countCirclesOfThreeNodesPerPatternReportMatches(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPatternReportMatches(Graph)"));
+      
+      storyboard.addPattern(graphPO, false);
+      
+      storyboard.addPattern(graphPO, true);
+      
+      storyboard.add("systemout: " + systemout);
+      
+      storyboard.add("Just for comparison, a plain java implementation: ");
+      
+      countCirclesOfThreeNodesInJava(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesInJava(Graph)"));
+      
+      storyboard.add("systemout: " + systemout);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Count dangling edges per pattern: </h2>");
+      
+      countDanglingEdgesPerPattern(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesPerPattern(Graph)"));
+      
+      storyboard.addPattern(edgesPO, false);
+      
+      storyboard.addPattern(edgesPO, true);
+      
+      storyboard.add("systemout: " + systemout);
+      
+      storyboard.add("Count dangling edges in Java: ");
+      
+      countDanglingEdgesInJava(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesInJava(Graph)"));
+      
+      storyboard.add("systemout: " + systemout);
+      
+
+      storyboard.dumpHTML();
+   }
+
+
 //   private void sleep1000()
 //   {
 //      try
@@ -458,187 +468,186 @@ public class HelloWorldTTC2011
 //         e.printStackTrace();
 //      }
 //   }
-//   
-//   
-//   //==========================================================================
-//   @Test
-//   public void testTTC2011HelloWorldReverseEdges()
-//   {  
-//      Storyboard storyboard = new Storyboard("examples");
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("create example graph: ");
-//      
-//      Graph graph = createExampleGraph();
-//      
-//      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Reverse Edges per pattern: </h2>");
-//      
-//      reverseEdgesPerPattern(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "reverseEdgesPerPattern(Graph)"));
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("reverseEdgesPerPattern", false));
-//
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("reverseEdgesPerPatternWithMatch", true));
-//
-//      
-//      storyboard.add("Result graph: ");
-//      
-//      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
-//      
-//      storyboard.add(systemout);
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<h2>Reverse Edges (back) in Java: </h2>: ");
-//    
-//      reverseEdgesInJava(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "reverseEdgesInJava(Graph)"));
-//      
-//      storyboard.add("Result graph: ");
-//      
-//      storyboard.addObjectDiagram(CreatorCreator.createIdMap("hg"), graph);
-//      
-//      storyboard.add(systemout);
-//      
-//
-//      storyboard.dumpHTML();
-//   }
-//
-//
-//   
-//   //==========================================================================
-//   @Test
-//   public void testTTC2011SimpleMigration()
-//   {  
-//      Storyboard storyboard = new Storyboard("examples");
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("Source model:");
-//      
-//      ClassModel model = new ClassModel();
-//      
-//      Clazz graphClazz = model.createClazz("org.sdmlib.examples.helloworld.Graph");
-//      
-//      Clazz edgeClazz = model.createClazz("org.sdmlib.examples.helloworld.Edge")
-//      .withAttribute("name", DataType.STRING);
-//
-//      Clazz nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
-//      .withAttribute("name", DataType.STRING);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "nodes", Card.MANY)
-//      .withSource(graphClazz, "graph", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(edgeClazz, "edges", Card.MANY)
-//      .withSource(graphClazz, "graph", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(nodeClazz, "src", Card.ONE)
-//      .withSource(edgeClazz, "outEdges", Card.MANY);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "tgt", Card.ONE)
-//      .withSource(edgeClazz, "inEdges", Card.MANY);
-//      
-//      // model.removeAllGeneratedCode("examples", "examples", "examples");
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldSimpleMigrationSourceClassDiag"));
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("Target model:");
-//      
-//      model = new ClassModel();
-//      
-//      graphClazz = new Clazz("org.sdmlib.examples.helloworld.Graph");
-//      
-//      Clazz graphComponentClazz = model.createClazz("org.sdmlib.examples.helloworld.GraphComponent")
-//      .withAttribute("text", DataType.STRING);
-//      
-//      edgeClazz = model.createClazz("org.sdmlib.examples.helloworld.Edge")
-//      .withSuperClass(graphComponentClazz);
-//
-//      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
-//      .withSuperClass(graphComponentClazz);
-//
-//      new Association()
-//      .withTarget(graphComponentClazz, "gcs", Card.MANY)
-//      .withSource(graphClazz, "parent", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(nodeClazz, "src", Card.ONE)
-//      .withSource(edgeClazz, "outEdges", Card.MANY);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "tgt", Card.ONE)
-//      .withSource(edgeClazz, "inEdges", Card.MANY);
-//      
-//      // model.removeAllGeneratedCode("examples", "examples", "examples");
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addClassDiagram(model);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("Migration extension:");
-//      
-//      model = new ClassModel();
-//      
-//      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node");
-//
-//      new Association()
-//      .withTarget(nodeClazz, "copy", Card.ONE)
-//      .withSource(nodeClazz, "orig", Card.ONE);
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addClassDiagram(model);
-//      
-//
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("Create example source graph: ");
-//      
-//      Graph graph = createExampleGraph();
-//      
-//      storyboard.addObjectDiagram(graph);
-//      
-//      storyboard.dumpHTML();
-//
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Migrate per pattern: </h2>");
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationPerPattern(Graph,Storyboard)"));
-//      
-//      simpleMigrationPerPattern(graph, storyboard);
-//      
-//      storyboard.add("Result graph: ");
-//      
-//      storyboard.addObjectDiagram(graph);
-//      
-//      storyboard.add(systemout);
-//      
-//      
+   
+   
+   //==========================================================================
+   @Test
+   public void testTTC2011HelloWorldReverseEdges()
+   {  
+      Storyboard storyboard = new Storyboard("examples");
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("create example graph: ");
+      
+      Graph graph = createExampleGraph();
+      
+      storyboard.addObjectDiagram(GraphCreator.createIdMap("hg"), graph);
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Reverse Edges per pattern: </h2>");
+      
+      reverseEdgesPerPattern(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "reverseEdgesPerPattern(Graph)"));
+      
+      storyboard.addPattern(edgesPO, false);
+
+      storyboard.addPattern(edgesPO, true);
+      
+      storyboard.add("Result graph: ");
+      
+      storyboard.addObjectDiagram(GraphCreator.createIdMap("hg"), graph);
+      
+      storyboard.add(systemout);
+      
+      //==========================================================================
+      
+      storyboard.add("<h2>Reverse Edges (back) in Java: </h2>: ");
+    
+      reverseEdgesInJava(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "reverseEdgesInJava(Graph)"));
+      
+      storyboard.add("Result graph: ");
+      
+      storyboard.addObjectDiagram(GraphCreator.createIdMap("hg"), graph);
+      
+      storyboard.add(systemout);
+      
+
+      storyboard.dumpHTML();
+   }
+
+
+   
+   //==========================================================================
+   @Test
+   public void testTTC2011SimpleMigration()
+   {  
+      Storyboard storyboard = new Storyboard("examples");
+      
+      storyboard.add("<hr/>");
+      storyboard.add("Source model:");
+      
+      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      
+      Clazz graphClazz = model.createClazz("Graph");
+      
+      Clazz edgeClazz = model.createClazz("Edge")
+      .withAttribute("name", DataType.STRING);
+
+      Clazz nodeClazz = model.createClazz("Node")
+      .withAttribute("name", DataType.STRING);
+
+      new Association()
+      .withTarget(nodeClazz, "nodes", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(edgeClazz, "edges", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
+      
+      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("Target model:");
+      
+      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      
+      graphClazz = new Clazz("Graph");
+      
+      Clazz graphComponentClazz = model.createClazz("GraphComponent")
+      .withAttribute("text", DataType.STRING);
+      
+      edgeClazz = model.createClazz("Edge")
+      .withSuperClass(graphComponentClazz);
+
+      nodeClazz = model.createClazz("Node")
+      .withSuperClass(graphComponentClazz);
+
+      new Association()
+      .withTarget(graphComponentClazz, "gcs", Card.MANY)
+      .withSource(graphClazz, "parent", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
+      
+      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("Migration extension:");
+      
+      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      
+      nodeClazz = model.createClazz("Node");
+
+      new Association()
+      .withTarget(nodeClazz, "copy", Card.ONE)
+      .withSource(nodeClazz, "orig", Card.ONE);
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model);
+      
+
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("Create example source graph: ");
+      
+      Graph graph = createExampleGraph();
+      
+      storyboard.addObjectDiagram(graph);
+      
+      storyboard.dumpHTML();
+
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate per pattern: </h2>");
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationPerPattern(Graph,Storyboard)"));
+      
+      simpleMigrationPerPattern(graph, storyboard);
+      
+      storyboard.add("Result graph: ");
+      
+      storyboard.addObjectDiagram(graph);
+      
+      storyboard.add(systemout);
+      
+      
 //      //==========================================================================
 //      
 //      storyboard.add("<hr/>");
@@ -741,12 +750,12 @@ public class HelloWorldTTC2011
 //      storyboard.add("Result graph: ");
 //
 //      storyboard.addObjectDiagram(tgtGraph);
-//
-//      
-//      storyboard.dumpHTML();
-//   }
-//   
-//   
+
+      
+      storyboard.dumpHTML();
+   }
+   
+   
 //   //==========================================================================
 //   @Test
 //   public void testTTC2011SimpleMigrationViaGenericGraphs()
@@ -1275,434 +1284,398 @@ public class HelloWorldTTC2011
 //      }
 //      
 //   }
-//
-//
-//   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
-//   {
-//      //==========================================================================
-//      ModelPattern migrateGraph = new ModelPattern();
-//      
-//      GraphPO srcGraphPO = migrateGraph.hasElementGraphPO(graph);
-//      
-//      migrateGraph.startCreate();
-//      
-//      GraphPO tgtGraphPO = migrateGraph.hasElementGraphPO();
-//      
-//      storyboard.add(migrateGraph.dumpDiagram("simpleMigrationPerPattern_migrateGraph", false));
-//      
-//      //==========================================================================
-//      int noOfMatches = 0;
-//      
-//      ModelPattern migrateNodesPattern = new ModelPattern();
-//      
-//      srcGraphPO = migrateNodesPattern.hasElementGraphPO(graph);
-//      
-//      NodePO srcNodePO = srcGraphPO.hasNodes();
-//      
-//      tgtGraphPO = migrateNodesPattern.hasElementGraphPO(tgtGraphPO.getCurrentMatch());
-//      
-//      migrateNodesPattern.startCreate();
-//      
-//      NodePO tgtNodePO = tgtGraphPO.hasGcsNode();
-//      
-//      tgtNodePO.hasOrig(srcNodePO);
-//      
-//      while (migrateNodesPattern.getHasMatch())
-//      {
-//         tgtNodePO.withText(srcNodePO.getName());
-//         
-//         noOfMatches++;
-//         
-//         migrateNodesPattern.findNextMatch();
-//      }
-//      
-//      systemout = "Number of migrated nodes: " + noOfMatches;
-//      
-//      storyboard.add(migrateNodesPattern.dumpDiagram("simpleMigrationPerPattern_migrateNodesPattern", false));
-//      
-//      //==========================================================================
-//      noOfMatches = 0;
-//      
-//      ModelPattern migrateEdgesPattern = new ModelPattern();
-//      
-//      srcGraphPO = migrateEdgesPattern.hasElementGraphPO(graph);
-//      
-//      EdgePO srcEdgePO = srcGraphPO.hasEdges();
-//      
-//      tgtGraphPO = migrateEdgesPattern.hasElementGraphPO(tgtGraphPO.getCurrentMatch());
-//      
-//      migrateEdgesPattern.startCreate();
-//      
-//      EdgePO tgtEdgePO = tgtGraphPO.hasGcsEdge();
-//      
-//      ModelPattern migrateSrcHalfLinkPattern = null;
-//      ModelPattern migrateTgtHalfLinkPattern = null;
-//      
-//      while (migrateEdgesPattern.getHasMatch())
-//      {
-//         tgtEdgePO.withText(srcEdgePO.getName());
-//      
-//         migrateSrcHalfLinkPattern = new ModelPattern();
-//         
-//         NodePO copySrcNodePO = migrateSrcHalfLinkPattern.hasElementEdgePO(srcEdgePO.getCurrentMatch())
-//         .hasSrc()
-//         .hasCopy();
-//         
-//         EdgePO copyEdgePO = migrateSrcHalfLinkPattern.hasElementEdgePO(tgtEdgePO.getCurrentMatch());
-//         
-//         migrateSrcHalfLinkPattern.startCreate();
-//         
-//         copyEdgePO.hasSrc(copySrcNodePO);
-//         
-//
-//         migrateTgtHalfLinkPattern = new ModelPattern();
-//         
-//         NodePO copyTgtNodePO = migrateTgtHalfLinkPattern.hasElementEdgePO(srcEdgePO.getCurrentMatch())
-//         .hasTgt()
-//         .hasCopy();
-//         
-//         EdgePO copyEdgePO2 = migrateTgtHalfLinkPattern.hasElementEdgePO(tgtEdgePO.getCurrentMatch());
-//         
-//         migrateTgtHalfLinkPattern.startCreate();
-//         
-//         copyEdgePO2.hasTgt(copyTgtNodePO);
-//         
-//         noOfMatches++;
-//         
-//         migrateEdgesPattern.findNextMatch();
-//      }
-//
-//      systemout += "\nNumber of migrated Edges: " + noOfMatches;
-//      
-//      storyboard.add(migrateEdgesPattern.dumpDiagram("simpleMigrationPerPattern_migrateEdgesPattern", false));
-//      
-//      storyboard.add(migrateSrcHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateSrcHalfLinkPattern", false));
-//      
-//      storyboard.add(migrateTgtHalfLinkPattern.dumpDiagram("simpleMigrationPerPattern_migrateTgtHalfLinkPattern", false));
-//   }
-//
-//
-//   private Graph createExampleGraph()
-//   {
-//      Graph graph = new Graph();
-//      
-//      n1 = graph.createNodes().withName("n1");
-//      Node n2 = graph.createNodes().withName("n2");
-//      n3 = graph.createNodes().withName("n3");
-//      Node n4 = graph.createNodes().withName("n4");
-//      Node n5 = graph.createNodes().withName("n5");
-//      n6 = graph.createNodes().withName("n6");
-//      n7 = graph.createNodes().withName("n7");
-//      n8 = graph.createNodes().withName("n8");
-//      
-//      graph.createEdges().withSrc(n5).withName("e18");
-//      graph.createEdges().withTgt(n5).withName("e19");
-//
-//      graph.createEdges().withSrc(n1).withTgt(n2).withName("e10");
-//      graph.createEdges().withSrc(n2).withTgt(n3).withName("e11");
-//      graph.createEdges().withSrc(n3).withTgt(n1).withName("e12");
-//      graph.createEdges().withSrc(n3).withTgt(n4).withName("e13");
-//      graph.createEdges().withSrc(n4).withTgt(n5).withName("e14");
-//      graph.createEdges().withSrc(n5).withTgt(n3).withName("e15");
-//      graph.createEdges().withSrc(n8).withTgt(n8).withName("e16");
-//      graph.createEdges().withSrc(n8).withTgt(n8).withName("e17");
-//
-//      return graph;
-//   }
-//
-//
-//   public void countNodesInJava(Graph graph)
-//   {
-//      int noOfNodes = graph.getNodes().size();
-//      
-//      systemout = "Number of nodes: " + noOfNodes;
-//   }
-//   
-//   
-//   public void countNodesPerPattern(Graph graph)
-//   {
-//      ModelPattern p = new ModelPattern();
-//      
-//      GraphPO graphPO = p.hasElementGraphPO(graph);
-//      
-//      NodePO nodePO = graphPO.hasNodes();
-//      
-//      int noOfNodes = p.allMatches();
-//      
-//      systemout = "Number of nodes: " + noOfNodes;
-//   }
-//   
-//
-//   public void countNodesPerNodeSet(Graph graph)
-//   {
-//      NodeSet allMatches = new ModelPattern()
-//      .hasElementGraphPO(graph)
-//      .hasNodes()
-//      .allMatches();
-//      
-//      systemout = "Nodes: " + allMatches.getName().concat(", ") + " Number of nodes: " + allMatches.size();      
-//   }
-//   
-//
-//   public void countLoopingEdgesPerPattern(Graph graph)
-//   {
-//      EdgePO edgesPO = new ModelPattern()
-//      .hasElementGraphPO(graph)
-//      .hasEdges();
-//      
-//      NodePO srcPO = edgesPO.hasSrc();
-//      
-//      edgesPO.hasTgt(srcPO);
-//      
-//      EdgeSet loopingEdges = edgesPO.allMatches();
-//      
-//      systemout = "Looping Edges: " + loopingEdges.getName().concat(", ") + " Number of looping edges: " + loopingEdges.size();
-//   }
-//   
-//
-//   public void countLoopingEdgesInJava(Graph graph)
-//   {
-//      String sysout = "Looping Edges: ";
-//      
-//      int noOfLoopingEdges = 0;
-//      
-//      for (Edge edge : graph.getEdges())
-//      {
-//         if (edge.getSrc() != null && edge.getSrc() == edge.getTgt())
-//         {
-//            noOfLoopingEdges++;
-//            
-//            sysout += edge.getName() + ", ";
-//         }
-//      }
-//      
-//      systemout = sysout.substring(0, sysout.length() - 2) + " Number of looping edges: " + noOfLoopingEdges;
-//   }
-//
-//
-//   public ModelPattern countIsolatedNodesPerPattern(Graph graph)
-//   {
-//      ModelPattern p = new ModelPattern();
-//      
-//      GraphPO graphPO = p.hasElementGraphPO(graph);
-//      
-//      NodePO nodePO = graphPO.hasNodes();
-//      
-//      nodePO.startNAC().hasOutEdges().endNAC();
-//      
-//      nodePO.startNAC().hasInEdges().endNAC();
-//
-//      NodeSet isolatedNodes = nodePO.allMatches();
-//      
-//      systemout = "Isolated nodes: " + isolatedNodes.getName().concat(", ") + " Number of isolated nodes: " + isolatedNodes.size();
-//      
-//      return p;
-//   }
-//
-//
-//   public void countIsolatedNodesInJava(Graph graph)
-//   {
-//      systemout = "Isolated nodes: ";
-//      
-//      int noOfIsolatedNodes = 0;
-//      
-//      for (Node isoNode : graph.getNodes())
-//      {
-//         if (isoNode.getOutEdges().size() == 0 
-//               && isoNode.getInEdges().size() == 0)
-//         {
-//            noOfIsolatedNodes++;
-//            
-//            systemout += isoNode.getName() + ", ";
-//         }
-//      }
-//      
-//      systemout = systemout.substring(0, systemout.length() - 2) + " Number of isolated nodes: " + noOfIsolatedNodes;
-//   }
-//
-//
-//   public ModelPattern countCirclesOfThreeNodesPerPattern(Graph graph)
-//   {
-//      ModelPattern p = new ModelPattern();
-//      
-//      GraphPO graphPO = p.hasElementGraphPO(graph);
-//      
-//      NodePO firstCircleNodePO = graphPO.hasNodes();
-//      
-//      NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
-//      
-//      NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
-//      
-//      thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
-//      
-//      p.matchIsomorphic();
-//      
-//      int noOfCircles = p.allMatches();
-//      
-//      systemout = "Circles found: " + noOfCircles;
-//      
-//      return p;
-//   }
-//
-//
-//   public ModelPattern countCirclesOfThreeNodesPerPatternReportMatches(Graph graph)
-//   {
-//      ModelPattern p = new ModelPattern();
-//      
-//      GraphPO graphPO = p.hasElementGraphPO(graph);
-//      
-//      NodePO firstCircleNodePO = graphPO.hasNodes();
-//      
-//      NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
-//      
-//      NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
-//      
-//      thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
-//      
-//      p.matchIsomorphic();
-//      
-//      systemout = "Circles found: \n";
-//      int noOfCircles = 0;
-//      
-//      while (p.getHasMatch())
-//      {
-//         systemout += firstCircleNodePO.getName() + " --> "
-//               + secondCircleNodePO.getName() + " --> " 
-//               + thirdCircleNodePO.getName() + " --> \n";
-//         
-//         noOfCircles++; 
-//         
-//         p.findNextMatch();
-//      }
-//      
-//      systemout += "" + noOfCircles + " circles found";
-//      
-//      return p;
-//   }
-//
-//
-//   public void countCirclesOfThreeNodesInJava(Graph graph)
-//   {
-//      int noOfCircles = 0;
-//      
-//      systemout = "Circles found: \n";
-//      
-//      for (Node firstNode : graph.getNodes())
-//      {
-//         for (Edge firstEdge : firstNode.getOutEdges())
-//         {
-//            Node secondNode = firstEdge.getTgt();
-//            
-//            if (secondNode != null && secondNode != firstNode)
-//            {
-//               for (Edge secondEdge : secondNode.getOutEdges())
-//               {
-//                  Node thirdNode = secondEdge.getTgt();
-//            
-//                  if (thirdNode != null && thirdNode != secondNode && thirdNode != firstNode)
-//                  {
-//                     for (Edge thirdEdge : thirdNode.getOutEdges())
-//                     {
-//                        if (thirdEdge.getTgt() == firstNode)
-//                        {
-//                           // found match
-//                           systemout += firstNode.getName() + " --> "
-//                                 + secondNode.getName() + " --> " 
-//                                 + thirdNode.getName() + " --> \n";
-//                           
-//                           noOfCircles++;
-//                        }
-//                     }
-//                  }
-//               }
-//            }
-//         }
-//      }
-//      
-//      systemout += "" + noOfCircles + " circles found";
-//   }
-//
-//
-//   public ModelPattern countDanglingEdgesPerPattern(Graph graph)
-//   {
-//      ModelPattern p = new ModelPattern();
-//      
-//      EdgePO edgePO = p.hasElementGraphPO(graph).hasEdges();
-//      
-//      edgePO.startNAC().hasTgt();
-//      
-//      edgePO.hasSrc().endNAC();
-//      
-//      EdgeSet allMatches = edgePO.allMatches();
-//      
-//      systemout = "Dangling edges " + allMatches.getName().concat(", ") + " number: " + allMatches.size();
-//      
-//      return p;
-//   }
-//
-//
-//   public void countDanglingEdgesInJava(Graph graph)
-//   {
-//      systemout = "Dangling edges "; 
-//      
-//      int noOfMatches = 0;
-//      
-//      for (Edge edge : graph.getEdges())
-//      {
-//         if (edge.getSrc() == null
-//               || edge.getTgt() == null)
-//         {
-//            systemout += edge.getName() + ", ";
-//            
-//            noOfMatches++;
-//         }
-//      }
-//      
-//      systemout = systemout.substring(0, systemout.length() - 2) + " number: " + noOfMatches;
-//   }
-//
-//
-//   public void reverseEdgesPerPattern(Graph graph)
-//   {
-//      ModelPattern p = new ModelPattern();
-//      
-//      EdgePO edgesPO = p.hasElementGraphPO(graph).hasEdges();
-//      
-//      NodePO srcPO = edgesPO.hasSrc();
-//      
-//      NodePO tgtPO = edgesPO.hasTgt();
-//      
-//      p.startCreate();
-//      
-//      edgesPO.hasSrc(tgtPO);
-//      
-//      edgesPO.hasTgt(srcPO);
-//      
-//      systemout = "Number of reversed edges: " + p.allMatches();
-//   }
-//
-//
-//   public void reverseEdgesInJava(Graph graph)
-//   {
-//      int noOfMatches = 0;
-//      
-//      for (Edge edge : graph.getEdges())
-//      {
-//         Node src = edge.getSrc();
-//         
-//         Node tgt = edge.getTgt();
-//         
-//         edge.setSrc(tgt);
-//         
-//         edge.setTgt(src);
-//         
-//         noOfMatches++;
-//      }
-//      
-//      systemout = "Number of reversed edges: " + noOfMatches;
-//   }
-//
-//
-//   
+
+
+   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
+   {
+      //==========================================================================
+      srcGraphPO = new GraphPO(graph);
+      
+      GraphPO tgtGraphPO = (GraphPO) new GraphPO().withPattern(srcGraphPO.getPattern()).withModifier(Pattern.CREATE);
+      tgtGraphPO.findNextMatch();
+      
+      storyboard.addPattern(srcGraphPO, false);
+      
+      //==========================================================================
+      int noOfMatches = 0;
+      
+      srcGraphPO = new GraphPO(graph);
+      
+      NodePO srcNodePO = srcGraphPO.hasNodes();
+      
+      tgtGraphPO = new GraphPO(tgtGraphPO.getCurrentMatch()).withPattern(srcGraphPO.getPattern()).startCreate();
+      
+      NodePO tgtNodePO = tgtGraphPO.hasGcsNode();
+      
+      tgtNodePO.hasOrig(srcNodePO);
+      
+      while (srcGraphPO.getPattern().getHasMatch())
+      {
+         tgtNodePO.withText(srcNodePO.getName());
+         
+         noOfMatches++;
+         
+         srcGraphPO.getPattern().findNextMatch();
+      }
+      
+      systemout = "Number of migrated nodes: " + noOfMatches;
+      
+      storyboard.addPattern(srcGraphPO, false);
+      
+      //==========================================================================
+      noOfMatches = 0;
+      
+      srcGraphPO = new GraphPO(graph);
+      
+      EdgePO srcEdgePO = srcGraphPO.hasEdges();
+      
+      tgtGraphPO = new GraphPO(tgtGraphPO.getCurrentMatch()).withPattern(srcGraphPO.getPattern());
+      
+      tgtGraphPO.startCreate();
+      
+      EdgePO tgtEdgePO = tgtGraphPO.hasGcsEdge();
+      
+      boolean done = false;
+      
+      while (tgtEdgePO.getPattern().getHasMatch())
+      {
+         tgtEdgePO.withText(srcEdgePO.getName());
+      
+         copySrcNodePO = new EdgePO(srcEdgePO.getCurrentMatch())
+         .hasSrc()
+         .hasCopy();
+         
+         EdgePO copyEdgePO = new EdgePO(tgtEdgePO.getCurrentMatch()).withPattern(copySrcNodePO.getPattern());
+         
+         copySrcNodePO.startCreate();
+         
+         copyEdgePO.hasSrc(copySrcNodePO);
+         
+
+         copyTgtNodePO = new EdgePO(srcEdgePO.getCurrentMatch())
+         .hasTgt()
+         .hasCopy();
+         
+         EdgePO copyEdgePO2 = new EdgePO(tgtEdgePO.getCurrentMatch()).withPattern(copyTgtNodePO.getPattern());
+         
+         copyTgtNodePO.startCreate();
+         
+         copyEdgePO2.hasTgt(copyTgtNodePO);
+         
+         noOfMatches++;
+         
+         tgtEdgePO.getPattern().findNextMatch();
+      }
+
+      systemout += "\nNumber of migrated Edges: " + noOfMatches;
+      
+      storyboard.addPattern(tgtEdgePO, false);
+      storyboard.addPattern(copySrcNodePO, false);
+      storyboard.addPattern(copyTgtNodePO, false);
+   }
+
+
+   private Graph createExampleGraph()
+   {
+      Graph graph = new Graph();
+
+      n1 = graph.createNodes().withName("n1");
+      Node n2 = graph.createNodes().withName("n2");
+      n3 = graph.createNodes().withName("n3");
+      Node n4 = graph.createNodes().withName("n4");
+      Node n5 = graph.createNodes().withName("n5");
+      n6 = graph.createNodes().withName("n6");
+      n7 = graph.createNodes().withName("n7");
+      n8 = graph.createNodes().withName("n8");
+
+      graph.createEdges().withSrc(n5).withName("e18");
+      graph.createEdges().withTgt(n5).withName("e19");
+
+      graph.createEdges().withSrc(n1).withTgt(n2).withName("e10");
+      graph.createEdges().withSrc(n2).withTgt(n3).withName("e11");
+      graph.createEdges().withSrc(n3).withTgt(n1).withName("e12");
+      graph.createEdges().withSrc(n3).withTgt(n4).withName("e13");
+      graph.createEdges().withSrc(n4).withTgt(n5).withName("e14");
+      graph.createEdges().withSrc(n5).withTgt(n3).withName("e15");
+      graph.createEdges().withSrc(n8).withTgt(n8).withName("e16");
+      graph.createEdges().withSrc(n8).withTgt(n8).withName("e17");
+
+      return graph;
+   }
+
+
+   public void countNodesInJava(Graph graph)
+   {
+      int noOfNodes = graph.getNodes().size();
+      
+      systemout = "Number of nodes: " + noOfNodes;
+   }
+   
+   
+   public void countNodesPerPattern(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+      
+      NodePO nodePO = graphPO.hasNodes();
+      
+      int noOfNodes = graphPO.getPattern().allMatches();
+      
+      systemout = "Number of nodes: " + noOfNodes;
+   }
+   
+
+   public void countNodesPerNodeSet(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+      
+      NodeSet allMatches = graphPO
+      .hasNodes()
+      .allMatches();
+      
+      systemout = "Nodes: " + allMatches.getName().concat(", ") + " Number of nodes: " + allMatches.size();      
+   }
+   
+
+   public void countLoopingEdgesPerPattern(Graph graph)
+   {
+      edgesPO = new GraphPO(graph)
+      .hasEdges();
+      
+      NodePO srcPO = edgesPO.hasSrc();
+      
+      edgesPO.hasTgt(srcPO);
+      
+      EdgeSet loopingEdges = edgesPO.allMatches();
+      
+      systemout = "Looping Edges: " + loopingEdges.getName().concat(", ") + " Number of looping edges: " + loopingEdges.size();
+   }
+   
+
+   public void countLoopingEdgesInJava(Graph graph)
+   {
+      String sysout = "Looping Edges: ";
+      
+      int noOfLoopingEdges = 0;
+      
+      for (Edge edge : graph.getEdges())
+      {
+         if (edge.getSrc() != null && edge.getSrc() == edge.getTgt())
+         {
+            noOfLoopingEdges++;
+            
+            sysout += edge.getName() + ", ";
+         }
+      }
+      
+      systemout = sysout.substring(0, sysout.length() - 2) + " Number of looping edges: " + noOfLoopingEdges;
+   }
+
+
+   public void countIsolatedNodesPerPattern(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+      
+      NodePO nodePO = graphPO.hasNodes();
+      
+      nodePO.startNAC().hasOutEdges().endNAC();
+      
+      nodePO.startNAC().hasInEdges().endNAC();
+
+      NodeSet isolatedNodes = nodePO.allMatches();
+      
+      systemout = "Isolated nodes: " + isolatedNodes.getName().concat(", ") + " Number of isolated nodes: " + isolatedNodes.size();
+   }
+
+
+   public void countIsolatedNodesInJava(Graph graph)
+   {
+      systemout = "Isolated nodes: ";
+      
+      int noOfIsolatedNodes = 0;
+      
+      for (Node isoNode : graph.getNodes())
+      {
+         if (isoNode.getOutEdges().size() == 0 
+               && isoNode.getInEdges().size() == 0)
+         {
+            noOfIsolatedNodes++;
+            
+            systemout += isoNode.getName() + ", ";
+         }
+      }
+      
+      systemout = systemout.substring(0, systemout.length() - 2) + " Number of isolated nodes: " + noOfIsolatedNodes;
+   }
+
+
+   public void countCirclesOfThreeNodesPerPattern(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+      
+      NodePO firstCircleNodePO = graphPO.hasNodes();
+      
+      NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
+      
+      NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
+      
+      thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
+      
+      graphPO.getPattern().matchIsomorphic();
+      
+      int noOfCircles = graphPO.getPattern().allMatches();
+      
+      systemout = "Circles found: " + noOfCircles;
+   }
+
+
+   public void countCirclesOfThreeNodesPerPatternReportMatches(Graph graph)
+   {
+      graphPO = new GraphPO(graph);
+      
+      NodePO firstCircleNodePO = graphPO.hasNodes();
+      
+      NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
+      
+      NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
+      
+      thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
+      
+      graphPO.getPattern().matchIsomorphic();
+      
+      systemout = "Circles found: \n";
+      int noOfCircles = 0;
+      
+      while (graphPO.getPattern().getHasMatch())
+      {
+         systemout += firstCircleNodePO.getName() + " --> "
+               + secondCircleNodePO.getName() + " --> " 
+               + thirdCircleNodePO.getName() + " --> \n";
+         
+         noOfCircles++; 
+         
+         graphPO.getPattern().findNextMatch();
+      }
+      
+      systemout += "" + noOfCircles + " circles found";
+   }
+
+
+   public void countCirclesOfThreeNodesInJava(Graph graph)
+   {
+      int noOfCircles = 0;
+      
+      systemout = "Circles found: \n";
+      
+      for (Node firstNode : graph.getNodes())
+      {
+         for (Edge firstEdge : firstNode.getOutEdges())
+         {
+            Node secondNode = firstEdge.getTgt();
+            
+            if (secondNode != null && secondNode != firstNode)
+            {
+               for (Edge secondEdge : secondNode.getOutEdges())
+               {
+                  Node thirdNode = secondEdge.getTgt();
+            
+                  if (thirdNode != null && thirdNode != secondNode && thirdNode != firstNode)
+                  {
+                     for (Edge thirdEdge : thirdNode.getOutEdges())
+                     {
+                        if (thirdEdge.getTgt() == firstNode)
+                        {
+                           // found match
+                           systemout += firstNode.getName() + " --> "
+                                 + secondNode.getName() + " --> " 
+                                 + thirdNode.getName() + " --> \n";
+                           
+                           noOfCircles++;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+      
+      systemout += "" + noOfCircles + " circles found";
+   }
+
+
+   public void countDanglingEdgesPerPattern(Graph graph)
+   {
+      edgesPO = new GraphPO(graph).hasEdges();
+      
+      edgesPO.startNAC().hasTgt();
+      
+      edgesPO.hasSrc().endNAC();
+      
+      EdgeSet allMatches = edgesPO.allMatches();
+      
+      systemout = "Dangling edges " + allMatches.getName().concat(", ") + " number: " + allMatches.size();
+   }
+
+
+   public void countDanglingEdgesInJava(Graph graph)
+   {
+      systemout = "Dangling edges "; 
+      
+      int noOfMatches = 0;
+      
+      for (Edge edge : graph.getEdges())
+      {
+         if (edge.getSrc() == null
+               || edge.getTgt() == null)
+         {
+            systemout += edge.getName() + ", ";
+            
+            noOfMatches++;
+         }
+      }
+      
+      systemout = systemout.substring(0, systemout.length() - 2) + " number: " + noOfMatches;
+   }
+
+
+   public void reverseEdgesPerPattern(Graph graph)
+   {
+      edgesPO = new GraphPO(graph).hasEdges();
+      
+      NodePO srcPO = edgesPO.hasSrc();
+      
+      NodePO tgtPO = edgesPO.hasTgt();
+      
+      edgesPO.startCreate();
+      
+      edgesPO.hasSrc(tgtPO);
+      
+      edgesPO.hasTgt(srcPO);
+      
+      systemout = "Number of reversed edges: " + edgesPO.getPattern().allMatches();
+   }
+
+
+   public void reverseEdgesInJava(Graph graph)
+   {
+      int noOfMatches = 0;
+      
+      for (Edge edge : graph.getEdges())
+      {
+         Node src = edge.getSrc();
+         
+         Node tgt = edge.getTgt();
+         
+         edge.setSrc(tgt);
+         
+         edge.setTgt(src);
+         
+         noOfMatches++;
+      }
+      
+      systemout = "Number of reversed edges: " + noOfMatches;
+   }
+
+
+   
 
 }

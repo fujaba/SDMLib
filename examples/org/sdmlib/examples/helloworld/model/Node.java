@@ -25,8 +25,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.examples.helloworld.model.util.NodeSet;
+import org.sdmlib.examples.helloworld.model.util.EdgeSet;
+import java.util.LinkedHashSet;
+import org.sdmlib.examples.helloworld.model.GraphComponent;
 
-public class Node implements PropertyChangeInterface
+public class Node extends GraphComponent implements PropertyChangeInterface
 {
 
    
@@ -52,6 +55,10 @@ public class Node implements PropertyChangeInterface
    {
       setCopy(null);
       setOrig(null);
+      setGraph(null);
+      removeAllFromOutEdges();
+      removeAllFromInEdges();
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -182,6 +189,306 @@ public class Node implements PropertyChangeInterface
    {
       Node value = new Node();
       withOrig(value);
+      return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if (this.name != value)
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Node withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getText());
+      return _.substring(1);
+   }
+
+
+   
+   public static final NodeSet EMPTY_SET = new NodeSet();
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Node ----------------------------------- Graph
+    *              nodes                   graph
+    * </pre>
+    */
+   
+   public static final String PROPERTY_GRAPH = "graph";
+
+   private Graph graph = null;
+
+   public Graph getGraph()
+   {
+      return this.graph;
+   }
+
+   public boolean setGraph(Graph value)
+   {
+      boolean changed = false;
+      
+      if (this.graph != value)
+      {
+         Graph oldValue = this.graph;
+         
+         if (this.graph != null)
+         {
+            this.graph = null;
+            oldValue.withoutNodes(this);
+         }
+         
+         this.graph = value;
+         
+         if (value != null)
+         {
+            value.withNodes(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_GRAPH, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Node withGraph(Graph value)
+   {
+      setGraph(value);
+      return this;
+   } 
+
+   public Graph createGraph()
+   {
+      Graph value = new Graph();
+      withGraph(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Node ----------------------------------- Edge
+    *              src                   outEdges
+    * </pre>
+    */
+   
+   public static final String PROPERTY_OUTEDGES = "outEdges";
+
+   private EdgeSet outEdges = null;
+   
+   public EdgeSet getOutEdges()
+   {
+      if (this.outEdges == null)
+      {
+         return Edge.EMPTY_SET;
+      }
+   
+      return this.outEdges;
+   }
+
+   public boolean addToOutEdges(Edge value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.outEdges == null)
+         {
+            this.outEdges = new EdgeSet();
+         }
+         
+         changed = this.outEdges.add (value);
+         
+         if (changed)
+         {
+            value.withSrc(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OUTEDGES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+
+   public boolean removeFromOutEdges(Edge value)
+   {
+      boolean changed = false;
+      
+      if ((this.outEdges != null) && (value != null))
+      {
+         changed = this.outEdges.remove (value);
+         
+         if (changed)
+         {
+            value.setSrc(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_OUTEDGES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+
+   public Node withOutEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         addToOutEdges(item);
+      }
+      return this;
+   } 
+
+   public Node withoutOutEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         removeFromOutEdges(item);
+      }
+      return this;
+   }
+
+   public void removeAllFromOutEdges()
+   {
+      LinkedHashSet<Edge> tmpSet = new LinkedHashSet<Edge>(this.getOutEdges());
+   
+      for (Edge value : tmpSet)
+      {
+         this.removeFromOutEdges(value);
+      }
+   }
+
+   public Edge createOutEdges()
+   {
+      Edge value = new Edge();
+      withOutEdges(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Node ----------------------------------- Edge
+    *              tgt                   inEdges
+    * </pre>
+    */
+   
+   public static final String PROPERTY_INEDGES = "inEdges";
+
+   private EdgeSet inEdges = null;
+   
+   public EdgeSet getInEdges()
+   {
+      if (this.inEdges == null)
+      {
+         return Edge.EMPTY_SET;
+      }
+   
+      return this.inEdges;
+   }
+
+   public boolean addToInEdges(Edge value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.inEdges == null)
+         {
+            this.inEdges = new EdgeSet();
+         }
+         
+         changed = this.inEdges.add (value);
+         
+         if (changed)
+         {
+            value.withTgt(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INEDGES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+
+   public boolean removeFromInEdges(Edge value)
+   {
+      boolean changed = false;
+      
+      if ((this.inEdges != null) && (value != null))
+      {
+         changed = this.inEdges.remove (value);
+         
+         if (changed)
+         {
+            value.setTgt(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_INEDGES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+
+   public Node withInEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         addToInEdges(item);
+      }
+      return this;
+   } 
+
+   public Node withoutInEdges(Edge... value)
+   {
+      for (Edge item : value)
+      {
+         removeFromInEdges(item);
+      }
+      return this;
+   }
+
+   public void removeAllFromInEdges()
+   {
+      LinkedHashSet<Edge> tmpSet = new LinkedHashSet<Edge>(this.getInEdges());
+   
+      for (Edge value : tmpSet)
+      {
+         this.removeFromInEdges(value);
+      }
+   }
+
+   public Edge createInEdges()
+   {
+      Edge value = new Edge();
+      withInEdges(value);
       return value;
    } 
 }

@@ -1,385 +1,2491 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigration</a></p>
 <p>TTC2011SimpleMigration</p>
 <hr/><p>Source model:</p>
-<embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationSourceClassDiag.svg'><hr/><p>Target model:</p>
+<embed type="image/svg+xml" src='TTC2011SimpleMigrationClassDiagram3.svg'><hr/><p>Target model:</p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigrationClassDiagram6.svg'><hr/><p>Migration extension:</p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigrationClassDiagram9.svg'><hr/><p>Create example source graph: </p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration13.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"G1 : Graph",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N2 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E15 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"G4 : GraphSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Graph"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S3 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S5 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"E6 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E12 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"G14 : GraphSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Graph"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S7 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S8 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N9 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S10 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S11 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S13 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S16 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S17 : StringList",
+            "attributes":[]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"G1 : Graph",
+            "target":"N2 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"edges",
+            "source":"G1 : Graph",
+            "target":"E15 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"gcs",
+            "source":"G1 : Graph",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N2 : NodeSet",
+            "target":"S3 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N2 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N2 : NodeSet",
+            "target":"S5 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N2 : NodeSet",
+            "target":"N2 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"outEdges",
+            "source":"N2 : NodeSet",
+            "target":"E6 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"inEdges",
+            "source":"N2 : NodeSet",
+            "target":"E12 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"nodes",
+            "targetproperty":"graph",
+            "source":"N2 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N2 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N2 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"gcs",
+            "targetproperty":"nodes",
+            "source":"G4 : GraphSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E6 : EdgeSet",
+            "target":"S7 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E6 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E6 : EdgeSet",
+            "target":"S8 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"outEdges",
+            "targetproperty":"src",
+            "source":"E6 : EdgeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"E6 : EdgeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E6 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N9 : NodeSet",
+            "target":"S10 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N9 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N9 : NodeSet",
+            "target":"S11 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N9 : NodeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"N9 : NodeSet",
+            "target":"E12 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N9 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N9 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N9 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E12 : EdgeSet",
+            "target":"S13 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E12 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E12 : EdgeSet",
+            "target":"S8 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E12 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"G14 : GraphSet",
+            "target":"E15 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"gcs",
+            "source":"G14 : GraphSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E15 : EdgeSet",
+            "target":"S16 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E15 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E15 : EdgeSet",
+            "target":"S17 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"src",
+            "source":"E15 : EdgeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"E15 : EdgeSet",
+            "target":"N9 : NodeSet"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <hr/><h2>Migrate per pattern: </h2><pre>   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
    {
       &#x2F;&#x2F;==========================================================================
-      ModelPattern migrateGraph = new ModelPattern();
+      srcGraphPO = new GraphPO(graph);
       
-      GraphPO srcGraphPO = migrateGraph.hasElementGraphPO(graph);
+      GraphPO tgtGraphPO = (GraphPO) new GraphPO().withPattern(srcGraphPO.getPattern()).withModifier(Pattern.CREATE);
+      tgtGraphPO.findNextMatch();
       
-      migrateGraph.startCreate();
-      
-      GraphPO tgtGraphPO = migrateGraph.hasElementGraphPO();
-      
-      storyboard.add(migrateGraph.dumpDiagram(&quot;simpleMigrationPerPattern_migrateGraph&quot;, false));
+      storyboard.addPattern(srcGraphPO, false);
       
       &#x2F;&#x2F;==========================================================================
       int noOfMatches = 0;
       
-      ModelPattern migrateNodesPattern = new ModelPattern();
-      
-      srcGraphPO = migrateNodesPattern.hasElementGraphPO(graph);
+      srcGraphPO = new GraphPO(graph);
       
       NodePO srcNodePO = srcGraphPO.hasNodes();
       
-      tgtGraphPO = migrateNodesPattern.hasElementGraphPO(tgtGraphPO.getCurrentMatch());
-      
-      migrateNodesPattern.startCreate();
+      tgtGraphPO = new GraphPO(tgtGraphPO.getCurrentMatch()).withPattern(srcGraphPO.getPattern()).startCreate();
       
       NodePO tgtNodePO = tgtGraphPO.hasGcsNode();
       
       tgtNodePO.hasOrig(srcNodePO);
       
-      while (migrateNodesPattern.getHasMatch())
+      while (srcGraphPO.getPattern().getHasMatch())
       {
          tgtNodePO.withText(srcNodePO.getName());
          
          noOfMatches++;
          
-         migrateNodesPattern.findNextMatch();
+         srcGraphPO.getPattern().findNextMatch();
       }
       
       systemout = &quot;Number of migrated nodes: &quot; + noOfMatches;
       
-      storyboard.add(migrateNodesPattern.dumpDiagram(&quot;simpleMigrationPerPattern_migrateNodesPattern&quot;, false));
+      storyboard.addPattern(srcGraphPO, false);
       
       &#x2F;&#x2F;==========================================================================
       noOfMatches = 0;
       
-      ModelPattern migrateEdgesPattern = new ModelPattern();
-      
-      srcGraphPO = migrateEdgesPattern.hasElementGraphPO(graph);
+      srcGraphPO = new GraphPO(graph);
       
       EdgePO srcEdgePO = srcGraphPO.hasEdges();
       
-      tgtGraphPO = migrateEdgesPattern.hasElementGraphPO(tgtGraphPO.getCurrentMatch());
+      tgtGraphPO = new GraphPO(tgtGraphPO.getCurrentMatch()).withPattern(srcGraphPO.getPattern());
       
-      migrateEdgesPattern.startCreate();
+      tgtGraphPO.startCreate();
       
       EdgePO tgtEdgePO = tgtGraphPO.hasGcsEdge();
       
-      ModelPattern migrateSrcHalfLinkPattern = null;
-      ModelPattern migrateTgtHalfLinkPattern = null;
+      boolean done = false;
       
-      while (migrateEdgesPattern.getHasMatch())
+      while (tgtEdgePO.getPattern().getHasMatch())
       {
          tgtEdgePO.withText(srcEdgePO.getName());
       
-         migrateSrcHalfLinkPattern = new ModelPattern();
-         
-         NodePO copySrcNodePO = migrateSrcHalfLinkPattern.hasElementEdgePO(srcEdgePO.getCurrentMatch())
+         copySrcNodePO = new EdgePO(srcEdgePO.getCurrentMatch())
          .hasSrc()
          .hasCopy();
          
-         EdgePO copyEdgePO = migrateSrcHalfLinkPattern.hasElementEdgePO(tgtEdgePO.getCurrentMatch());
+         EdgePO copyEdgePO = new EdgePO(tgtEdgePO.getCurrentMatch()).withPattern(copySrcNodePO.getPattern());
          
-         migrateSrcHalfLinkPattern.startCreate();
+         copySrcNodePO.startCreate();
          
          copyEdgePO.hasSrc(copySrcNodePO);
          
 
-         migrateTgtHalfLinkPattern = new ModelPattern();
-         
-         NodePO copyTgtNodePO = migrateTgtHalfLinkPattern.hasElementEdgePO(srcEdgePO.getCurrentMatch())
+         copyTgtNodePO = new EdgePO(srcEdgePO.getCurrentMatch())
          .hasTgt()
          .hasCopy();
          
-         EdgePO copyEdgePO2 = migrateTgtHalfLinkPattern.hasElementEdgePO(tgtEdgePO.getCurrentMatch());
+         EdgePO copyEdgePO2 = new EdgePO(tgtEdgePO.getCurrentMatch()).withPattern(copyTgtNodePO.getPattern());
          
-         migrateTgtHalfLinkPattern.startCreate();
+         copyTgtNodePO.startCreate();
          
          copyEdgePO2.hasTgt(copyTgtNodePO);
          
          noOfMatches++;
          
-         migrateEdgesPattern.findNextMatch();
+         tgtEdgePO.getPattern().findNextMatch();
       }
 
       systemout += &quot;\nNumber of migrated Edges: &quot; + noOfMatches;
       
-      storyboard.add(migrateEdgesPattern.dumpDiagram(&quot;simpleMigrationPerPattern_migrateEdgesPattern&quot;, false));
-      
-      storyboard.add(migrateSrcHalfLinkPattern.dumpDiagram(&quot;simpleMigrationPerPattern_migrateSrcHalfLinkPattern&quot;, false));
-      
-      storyboard.add(migrateTgtHalfLinkPattern.dumpDiagram(&quot;simpleMigrationPerPattern_migrateTgtHalfLinkPattern&quot;, false));
-   }</pre><embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateGraph.svg'>
-<embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateNodesPattern.svg'>
-<embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateEdgesPattern.svg'>
-<embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateSrcHalfLinkPattern.svg'>
-<embed type="image/svg+xml"src='simpleMigrationPerPattern_migrateTgtHalfLinkPattern.svg'>
+      storyboard.addPattern(tgtEdgePO, false);
+      storyboard.addPattern(copySrcNodePO, false);
+      storyboard.addPattern(copyTgtNodePO, false);
+   }</pre><embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram16.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram17.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram18.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram19.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram20.svg'>
 <p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration23.svg'>
-<p>Number of migrated nodes: 8
-Number of migrated Edges: 10</p>
-<hr/><h2>Migrate in Java: </h2><pre>   private void simpleMigrationInJava(Graph origGraph)
-   {
-      int noOfMatches = 0;
-      
-      if (origGraph != null)
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
       {
-         Graph copyGraph = new Graph();
-         
-         &#x2F;&#x2F; migrate nodes
-         for (Node origNode : origGraph.getNodes())
+            "typ":"node",
+            "id":"G1 : Graph",
+            "attributes":[]
+         },
          {
-            Node copyNode = (Node) copyGraph.createGcsNode()
-                  .withOrig(origNode)
-                  .withText(origNode.getName());
-            
-            noOfMatches++;
-         }
-
-         systemout = &quot;Number of migrated nodes: &quot; + noOfMatches;
-         
-         &#x2F;&#x2F; migrate edges
-         for (Edge origEdge : origGraph.getEdges())
+            "typ":"node",
+            "id":"N2 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
          {
-            Edge copyEdge = (Edge) copyGraph.createGcsEdge()
-                  .withText(origEdge.getName());
-            
-            Node origSrcNode = origEdge.getSrc();
-            
-            if (origSrcNode != null)
-            {
-               copyEdge.setSrc(origSrcNode.getCopy());
-            }
-
-            Node origTgtNode = origEdge.getTgt();
-            
-            if (origTgtNode != null)
-            {
-               copyEdge.setTgt(origTgtNode.getCopy());
-            }
+            "typ":"node",
+            "id":"E15 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"G4 : GraphSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Graph"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S3 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S5 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N18 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E6 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E12 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"G14 : GraphSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Graph"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"N58 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S19 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"G20 : GraphSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Graph"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S23 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N27 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"G21 : GraphComponentSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.GraphComponent"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S22 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S7 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S8 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N9 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S10 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S11 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N24 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S25 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S26 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S13 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S16 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S17 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S28 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S29 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N30 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E33 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E61 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S31 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S32 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S34 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N35 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S36 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"E37 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S38 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N39 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S40 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"E41 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E59 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S42 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S43 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N44 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S45 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N46 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E49 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S47 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S48 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S50 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"N51 : NodeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Node"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S52 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"E53 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"E56 : EdgeSet",
+            "attributes":[
+            "entryType=org.sdmlib.examples.helloworld.model.Edge"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S54 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S55 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S57 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S60 : StringList",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"S62 : StringList",
+            "attributes":[]
          }
-      }
-      
-   }</pre><p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration29.svg'>
-<p>Number of migrated nodes: 8</p>
-<hr/><h2>Migrate using Serialisation / Clone : </h2><pre>   private Graph simpleMigrationByCloning(Graph graph)
-   {
-      JsonArray jsonArray = CreatorCreator.createIdMap(&quot;hg&quot;).toJsonArray(graph);
-      
-      Graph copyGraph = (Graph) CreatorCreator.createIdMap(&quot;hg&quot;).decode(jsonArray);
-      
-      GraphComponentSet gcs = new GraphComponentSet();
-      gcs.addAll(copyGraph.getNodes());
-      gcs.addAll(copyGraph.getEdges());
-      
-      for (GraphComponent comp : gcs)
+      ],
+      "edges":[
       {
-         comp.setParent(comp.getGraph());
-         comp.setGraph(null);
-         
-         comp.setText(comp.getName());
-         comp.setName(null);
-      }
-
-      return copyGraph;
-   }</pre><p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration35.svg'>
-<hr/><h2>Migrate using JSON Array repr�sentation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
-   {
-      JsonIdMap idMap = CreatorCreator.createIdMap(&quot;hg&quot;);
-      
-      JsonArray jsonArray = idMap.toJsonArray(graph);
-      
-      for (int i = 0; i &lt; jsonArray.size(); i++)
-      {
-         JsonObject jsonObject = jsonArray.getJSONObject(i);
-         
-         String className = jsonObject.getString(JsonIdMap.CLASS);
-         
-         if (Graph.class.getName().equals(className))
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"G1 : Graph",
+            "target":"N2 : NodeSet"
+         },
          {
-            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-            
-            &#x2F;&#x2F; migrate nodes and edges to gcs
-            JsonArray gcsArray = jsonProps.getJsonArray(Graph.PROPERTY_NODES);
-            
-            gcsArray.addAll(Arrays.asList(jsonProps.getJsonArray(Graph.PROPERTY_EDGES).toArray()));
-            
-            jsonProps.put(Graph.PROPERTY_GCS, gcsArray);
-            
-            jsonProps.remove(Graph.PROPERTY_NODES);
-            
-            jsonProps.remove(Graph.PROPERTY_EDGES);
-         }
-         else if (Node.class.getName().equals(className))
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"edges",
+            "source":"G1 : Graph",
+            "target":"E15 : EdgeSet"
+         },
          {
-            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-            
-            &#x2F;&#x2F; migrate name to text
-            jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));
-            
-            jsonProps.remove(Node.PROPERTY_NAME);
-            
-            &#x2F;&#x2F; migrate graph to parent
-            jsonProps.put(Node.PROPERTY_PARENT, jsonProps.get(Node.PROPERTY_GRAPH));
-            
-            jsonProps.remove(Node.PROPERTY_GRAPH);
-         }
-         else if (Edge.class.getName().equals(className))
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"gcs",
+            "source":"G1 : Graph",
+            "target":"G4 : GraphSet"
+         },
          {
-            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-
-            &#x2F;&#x2F; migrate name to text
-            jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));
-
-            jsonProps.remove(Node.PROPERTY_NAME);
-
-            &#x2F;&#x2F; migrate graph to parent
-            jsonProps.put(Node.PROPERTY_PARENT, jsonProps.get(Node.PROPERTY_GRAPH));
-
-            jsonProps.remove(Node.PROPERTY_GRAPH);
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N2 : NodeSet",
+            "target":"S3 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N2 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N2 : NodeSet",
+            "target":"S5 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copyTransitive",
+            "source":"N2 : NodeSet",
+            "target":"N18 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"origTransitive",
+            "source":"N2 : NodeSet",
+            "target":"N2 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"outEdges",
+            "source":"N2 : NodeSet",
+            "target":"E6 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"inEdges",
+            "source":"N2 : NodeSet",
+            "target":"E12 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"nodes",
+            "targetproperty":"graph",
+            "source":"N2 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N2 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N2 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"gcs",
+            "targetproperty":"nodes",
+            "source":"G4 : GraphSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N18 : NodeSet",
+            "target":"S19 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N18 : NodeSet",
+            "target":"G20 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N18 : NodeSet",
+            "target":"S23 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N18 : NodeSet",
+            "target":"N18 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"outEdges",
+            "source":"N18 : NodeSet",
+            "target":"E6 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"inEdges",
+            "source":"N18 : NodeSet",
+            "target":"E12 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N18 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N18 : NodeSet",
+            "target":"N27 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N18 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"G20 : GraphSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"edges",
+            "source":"G20 : GraphSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"parent",
+            "targetproperty":"gcs",
+            "source":"G20 : GraphSet",
+            "target":"G21 : GraphComponentSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"G21 : GraphComponentSet",
+            "target":"S22 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E6 : EdgeSet",
+            "target":"S7 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E6 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E6 : EdgeSet",
+            "target":"S8 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"outEdges",
+            "targetproperty":"src",
+            "source":"E6 : EdgeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"E6 : EdgeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E6 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N9 : NodeSet",
+            "target":"S10 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N9 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N9 : NodeSet",
+            "target":"S11 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copyTransitive",
+            "source":"N9 : NodeSet",
+            "target":"N24 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"origTransitive",
+            "source":"N9 : NodeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"N9 : NodeSet",
+            "target":"E12 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N9 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N9 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N9 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N24 : NodeSet",
+            "target":"S25 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N24 : NodeSet",
+            "target":"G20 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N24 : NodeSet",
+            "target":"S26 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N24 : NodeSet",
+            "target":"N24 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"outEdges",
+            "source":"N24 : NodeSet",
+            "target":"E6 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"inEdges",
+            "source":"N24 : NodeSet",
+            "target":"E12 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N24 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N24 : NodeSet",
+            "target":"N27 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N24 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E12 : EdgeSet",
+            "target":"S13 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E12 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E12 : EdgeSet",
+            "target":"S8 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E12 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"graph",
+            "targetproperty":"edges",
+            "source":"G14 : GraphSet",
+            "target":"E15 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"gcs",
+            "source":"G14 : GraphSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E15 : EdgeSet",
+            "target":"S16 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E15 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E15 : EdgeSet",
+            "target":"S17 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"src",
+            "source":"E15 : EdgeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"E15 : EdgeSet",
+            "target":"N9 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N27 : NodeSet",
+            "target":"S28 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N27 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N27 : NodeSet",
+            "target":"S29 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"orig",
+            "targetproperty":"copyTransitive",
+            "source":"N27 : NodeSet",
+            "target":"N30 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"origTransitive",
+            "source":"N27 : NodeSet",
+            "target":"N27 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"N27 : NodeSet",
+            "target":"E33 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"N27 : NodeSet",
+            "target":"E61 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N27 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N27 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"orig",
+            "targetproperty":"copy",
+            "source":"N27 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N30 : NodeSet",
+            "target":"S31 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N30 : NodeSet",
+            "target":"G20 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N30 : NodeSet",
+            "target":"S32 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N30 : NodeSet",
+            "target":"N30 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"outEdges",
+            "source":"N30 : NodeSet",
+            "target":"E33 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"inEdges",
+            "source":"N30 : NodeSet",
+            "target":"E61 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N30 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copy",
+            "source":"N30 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E33 : EdgeSet",
+            "target":"S34 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E33 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E33 : EdgeSet",
+            "target":"S29 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"E33 : EdgeSet",
+            "target":"N35 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E33 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N35 : NodeSet",
+            "target":"S36 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N35 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N35 : NodeSet",
+            "target":"S29 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N35 : NodeSet",
+            "target":"N35 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"N35 : NodeSet",
+            "target":"E37 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N35 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N35 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N35 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E37 : EdgeSet",
+            "target":"S38 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E37 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E37 : EdgeSet",
+            "target":"S29 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"E37 : EdgeSet",
+            "target":"N39 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E37 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N39 : NodeSet",
+            "target":"S40 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N39 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N39 : NodeSet",
+            "target":"S29 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N39 : NodeSet",
+            "target":"N39 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"N39 : NodeSet",
+            "target":"E41 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"N39 : NodeSet",
+            "target":"E59 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N39 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N39 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N39 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E41 : EdgeSet",
+            "target":"S42 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E41 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E41 : EdgeSet",
+            "target":"S43 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"inEdges",
+            "targetproperty":"tgt",
+            "source":"E41 : EdgeSet",
+            "target":"N44 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E41 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N44 : NodeSet",
+            "target":"S45 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N44 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N44 : NodeSet",
+            "target":"S43 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copyTransitive",
+            "source":"N44 : NodeSet",
+            "target":"N46 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"origTransitive",
+            "source":"N44 : NodeSet",
+            "target":"N44 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"N44 : NodeSet",
+            "target":"E49 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N44 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N44 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N44 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N46 : NodeSet",
+            "target":"S47 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N46 : NodeSet",
+            "target":"G20 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N46 : NodeSet",
+            "target":"S48 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N46 : NodeSet",
+            "target":"N46 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"outEdges",
+            "source":"N46 : NodeSet",
+            "target":"E49 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"inEdges",
+            "source":"N46 : NodeSet",
+            "target":"E41 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N46 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N46 : NodeSet",
+            "target":"N27 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N46 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E49 : EdgeSet",
+            "target":"S50 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E49 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E49 : EdgeSet",
+            "target":"S43 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"E49 : EdgeSet",
+            "target":"N51 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E49 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N51 : NodeSet",
+            "target":"S52 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N51 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N51 : NodeSet",
+            "target":"S43 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"origTransitive",
+            "targetproperty":"copyTransitive",
+            "source":"N51 : NodeSet",
+            "target":"N51 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"src",
+            "targetproperty":"outEdges",
+            "source":"N51 : NodeSet",
+            "target":"E53 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"tgt",
+            "targetproperty":"inEdges",
+            "source":"N51 : NodeSet",
+            "target":"E56 : EdgeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N51 : NodeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"orig",
+            "source":"N51 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N51 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E53 : EdgeSet",
+            "target":"S54 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E53 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E53 : EdgeSet",
+            "target":"S55 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"E53 : EdgeSet",
+            "target":"N39 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E53 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E56 : EdgeSet",
+            "target":"S57 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E56 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E56 : EdgeSet",
+            "target":"S55 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"src",
+            "source":"E56 : EdgeSet",
+            "target":"N44 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E56 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"N58 : NodeSet",
+            "target":"S29 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"N58 : NodeSet",
+            "target":"G20 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"N58 : NodeSet",
+            "target":"S28 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copyTransitive",
+            "source":"N58 : NodeSet",
+            "target":"N58 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"outEdges",
+            "source":"N58 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"inEdges",
+            "source":"N58 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"N58 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"copy",
+            "source":"N58 : NodeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E59 : EdgeSet",
+            "target":"S60 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E59 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E59 : EdgeSet",
+            "target":"S43 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"src",
+            "source":"E59 : EdgeSet",
+            "target":"N51 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E59 : EdgeSet",
+            "target":"G14 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"name",
+            "source":"E61 : EdgeSet",
+            "target":"S62 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"E61 : EdgeSet",
+            "target":"G4 : GraphSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"text",
+            "source":"E61 : EdgeSet",
+            "target":"S29 : StringList"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"src",
+            "source":"E61 : EdgeSet",
+            "target":"N39 : NodeSet"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"1",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"E61 : EdgeSet",
+            "target":"G14 : GraphSet"
          }
-         
-      }
-      
-      Graph copyGraph = (Graph) CreatorCreator.createIdMap(&quot;hg&quot;).decode(jsonArray);
-      
-      return copyGraph;
-   }</pre><p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration40.svg'>
-<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
-   {
-      GenericGraph genGraph = new Specific2Generic()
-      .convert(CreatorCreator.createIdMap(&quot;g1&quot;), origGraph);
-      
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
-      &#x2F;&#x2F; rename name to text attributes
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasAttrs()
-      .hasName(Node.PROPERTY_NAME)
-      .startCreate()
-      .hasName(Node.PROPERTY_TEXT)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationByGenericGraph_renameAttr&quot;, false));
-      
-      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-      
-      &#x2F;&#x2F; rename graph--nodes links to parent--gcs links
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasLinks()
-      .hasTgtLabel(Node.PROPERTY_GRAPH)
-      .startCreate()
-      .hasTgtLabel(Node.PROPERTY_PARENT)
-      .hasSrcLabel(Graph.PROPERTY_GCS)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationByGenericGraph_renameLink1&quot;, false));
-
-      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-      
-      &#x2F;&#x2F; rename graph--edges links to parent--gcs links
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasLinks()
-      .hasSrcLabel(Node.PROPERTY_GRAPH)
-      .startCreate()
-      .hasSrcLabel(Node.PROPERTY_PARENT)
-      .hasTgtLabel(Graph.PROPERTY_GCS)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationByGenericGraph_renameLink2&quot;, false));
-
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap(&quot;tg&quot;), null, genGraph);
-      
-      return tgtGraph;
-   }</pre><embed type="image/svg+xml" src='TTC2011SimpleMigration44.svg'>
-<embed type="image/svg+xml"src='simpleMigrationByGenericGraph_renameAttr.svg'>
-<embed type="image/svg+xml"src='simpleMigrationByGenericGraph_renameLink1.svg'>
-<embed type="image/svg+xml"src='simpleMigrationByGenericGraph_renameLink2.svg'>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration48.svg'>
-<p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration50.svg'>
-<hr/><h2>Even more evolved graph model : </h2><embed type="image/svg+xml" src='TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag.svg'><embed type="image/svg+xml" src='TTC2011SimpleMigration54.svg'>
-<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
-   {
-      GenericGraph genGraph = new Specific2Generic()
-      .convert(CreatorCreator.createIdMap(&quot;g1&quot;), origGraph);
-      
-      &#x2F;&#x2F; rename name to text attributes
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasAttrs()
-      .hasName(Node.PROPERTY_NAME)
-      .startCreate()
-      .hasName(Node.PROPERTY_TEXT)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr&quot;, false));
-      
-      &#x2F;&#x2F; replace n.l.e.l.n by n.l.n
-      GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasType(Edge.class.getName());
-      
-      GenericLinkPO srcLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_SRC);
-      
-      GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_TGT);
-      
-      GenericObjectPO srcNodePO = srcLinkPO.hasTgt();
-      
-      GenericObjectPO tgtNodePO = tgtLinkPO.hasTgt();
-      
-      edgePO.destroy(); 
-      
-      srcLinkPO.destroy();
-      
-      GenericLinkSet allMatches = tgtLinkPO.startCreate()
-      .hasSrc(srcNodePO)
-      .hasSrcLabel(Node.PROPERTY_LINKSFROM)
-      .hasTgtLabel(Node.PROPERTY_LINKSTO)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges&quot;, false));
-      
-      &#x2F;&#x2F; destroy dangling edges
-      GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasObjects()
-      .hasType(Edge.class.getName());
-      
-      danglingPO.destroy();
-      
-      danglingPO.allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram(&quot;simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges&quot;, false));
-      
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap(&quot;tg&quot;), null, genGraph);
-      
-      return tgtGraph;
-   }</pre><embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr.svg'>
-<embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges.svg'>
-<embed type="image/svg+xml"src='simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges.svg'>
-<p>Result graph: </p>
-<embed type="image/svg+xml" src='TTC2011SimpleMigration60.svg'>
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas22", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Number of migrated nodes: 1
+Number of migrated Edges: 1</p>
 
 </body>
 </html>

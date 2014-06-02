@@ -1218,6 +1218,7 @@ public class Storyboard implements PropertyChangeInterface
                   if (lineNo >= codeEndLineNumber)
                   {
                      this.add("<pre>" + StrUtil.htmlEncode(buf.toString()) + "</pre>");
+                     in.close();
                      return;
                   }
                }

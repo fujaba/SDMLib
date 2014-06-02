@@ -11,6 +11,7 @@ import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.examples.helloworld.GreetingMessage;
 import org.sdmlib.examples.helloworld.util.PersonPO;
 import org.sdmlib.examples.helloworld.Person;
+import org.sdmlib.models.pattern.Pattern;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
@@ -153,5 +154,6 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
    }
 
 }
+
 
 

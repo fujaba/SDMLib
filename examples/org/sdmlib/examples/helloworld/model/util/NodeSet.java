@@ -28,6 +28,10 @@ import java.util.Collection;
 import org.sdmlib.examples.helloworld.model.util.NodeSet;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.helloworld.model.util.GraphSet;
+import org.sdmlib.examples.helloworld.model.Graph;
+import org.sdmlib.examples.helloworld.model.util.EdgeSet;
+import org.sdmlib.examples.helloworld.model.Edge;
 
 public class NodeSet extends SDMSet<Node>
 {
@@ -216,5 +220,312 @@ public class NodeSet extends SDMSet<Node>
       return this;
    }
 
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Node obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasName(String value)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NodeSet withName(String value)
+   {
+      for (Node obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public GraphSet getGraph()
+   {
+      GraphSet result = new GraphSet();
+      
+      for (Node obj : this)
+      {
+         result.with(obj.getGraph());
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasGraph(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NodeSet answer = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (neighbors.contains(obj.getGraph()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public NodeSet withGraph(Graph value)
+   {
+      for (Node obj : this)
+      {
+         obj.withGraph(value);
+      }
+      
+      return this;
+   }
+
+   public EdgeSet getOutEdges()
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Node obj : this)
+      {
+         result.with(obj.getOutEdges());
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasOutEdges(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NodeSet answer = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getOutEdges()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public NodeSet withOutEdges(Edge value)
+   {
+      for (Node obj : this)
+      {
+         obj.withOutEdges(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet withoutOutEdges(Edge value)
+   {
+      for (Node obj : this)
+      {
+         obj.withoutOutEdges(value);
+      }
+      
+      return this;
+   }
+
+   public EdgeSet getInEdges()
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Node obj : this)
+      {
+         result.with(obj.getInEdges());
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasInEdges(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NodeSet answer = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getInEdges()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public NodeSet withInEdges(Edge value)
+   {
+      for (Node obj : this)
+      {
+         obj.withInEdges(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet withoutInEdges(Edge value)
+   {
+      for (Node obj : this)
+      {
+         obj.withoutInEdges(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getText()
+   {
+      StringList result = new StringList();
+      
+      for (Node obj : this)
+      {
+         result.add(obj.getText());
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasText(String value)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NodeSet withText(String value)
+   {
+      for (Node obj : this)
+      {
+         obj.setText(value);
+      }
+      
+      return this;
+   }
+
+   public GraphSet getParent()
+   {
+      GraphSet result = new GraphSet();
+      
+      for (Node obj : this)
+      {
+         result.with(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasParent(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NodeSet answer = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (neighbors.contains(obj.getParent()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public NodeSet withParent(Graph value)
+   {
+      for (Node obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -793,6 +793,7 @@ public class StoryboardManager
          PrintStream out = new PrintStream(file);
          out.println(text);
          out.flush();
+         out.close();
       } catch (FileNotFoundException e) {
          e.printStackTrace();
       }
@@ -811,6 +812,7 @@ public class StoryboardManager
             result.append(line).append('\n');
             line = in.readLine();
          }
+         in.close();
       }
       catch (Exception e)
       {

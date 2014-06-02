@@ -9,6 +9,7 @@ import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.helloworld.util.PersonPO;
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -117,5 +118,6 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    }
 
 }
+
 
 

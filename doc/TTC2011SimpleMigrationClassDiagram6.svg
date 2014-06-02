@@ -9,20 +9,9 @@
 <g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 376)">
 <title>ClassDiagram</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-376 112.937,-376 112.937,5 -4,5"/>
-<!-- _Graph -->
-<g id="node1" class="node"><title>_Graph</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Graph.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="44.937,-350 44.937,-367 76.937,-367 76.937,-350 44.937,-350"/>
-<text text-anchor="start" x="48.437" y="-356.5" font-family="Times New Roman,serif" font-size="10.00">Graph</text>
-</a>
-<polygon fill="none" stroke="black" points="44.937,-330 44.937,-350 76.937,-350 76.937,-330 44.937,-330"/>
-<text text-anchor="start" x="59.437" y="-338" font-family="Times New Roman,serif" font-size="10.00"> </text>
-<polygon fill="none" stroke="black" points="44.937,-310 44.937,-330 76.937,-330 76.937,-310 44.937,-310"/>
-<text text-anchor="start" x="59.437" y="-318" font-family="Times New Roman,serif" font-size="10.00"> </text>
-</g>
 <!-- _GraphComponent -->
-<g id="node2" class="node"><title>_GraphComponent</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/GraphComponent.java" xlink:title="&lt;TABLE&gt;">
+<g id="node1" class="node"><title>_GraphComponent</title>
+<a xlink:href="../src/GraphComponent.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="21.937,-248 21.937,-265 99.937,-265 99.937,-248 21.937,-248"/>
 <text text-anchor="start" x="25.437" y="-254.5" font-family="Times New Roman,serif" font-size="10.00">GraphComponent</text>
 </a>
@@ -31,15 +20,9 @@
 <polygon fill="none" stroke="black" points="21.937,-208 21.937,-228 99.937,-228 99.937,-208 21.937,-208"/>
 <text text-anchor="start" x="59.437" y="-216" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
-<!-- _Graph&#45;&gt;_GraphComponent -->
-<g id="edge6" class="edge"><title>_Graph&#45;&gt;_GraphComponent</title>
-<path fill="none" stroke="black" d="M60.937,-306.359C60.937,-294.686 60.937,-281.463 60.937,-269.778"/>
-<text text-anchor="middle" x="65.1632" y="-276.341" font-family="Times New Roman,serif" font-size="10.00">gcs *</text>
-<text text-anchor="middle" x="56.7108" y="-294.796" font-family="Times New Roman,serif" font-size="10.00">parent</text>
-</g>
 <!-- _Edge -->
-<g id="node3" class="node"><title>_Edge</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<g id="node2" class="node"><title>_Edge</title>
+<a xlink:href="../src/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="19.937,-146 19.937,-163 47.937,-163 47.937,-146 19.937,-146"/>
 <text text-anchor="start" x="23.437" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Edge</text>
 </a>
@@ -54,8 +37,8 @@
 <polygon fill="none" stroke="black" points="46.4083,-195.617 52.394,-204.359 53.1663,-193.793 46.4083,-195.617"/>
 </g>
 <!-- _Node -->
-<g id="node4" class="node"><title>_Node</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<g id="node3" class="node"><title>_Node</title>
+<a xlink:href="../src/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="19.937,-44 19.937,-61 48.937,-61 48.937,-44 19.937,-44"/>
 <text text-anchor="start" x="23.437" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Node</text>
 </a>
@@ -80,6 +63,23 @@
 <path fill="none" stroke="black" d="M40.2651,-102.359C40.8254,-90.6864 40.8276,-77.4631 40.2717,-65.778"/>
 <text text-anchor="middle" x="44.877" y="-72.1545" font-family="Times New Roman,serif" font-size="10.00">tgt</text>
 <text text-anchor="middle" x="36.4293" y="-90.6243" font-family="Times New Roman,serif" font-size="10.00">inEdges *</text>
+</g>
+<!-- _Graph -->
+<g id="node4" class="node"><title>_Graph</title>
+<a xlink:href="../src/Graph.java" xlink:title="&lt;TABLE&gt;">
+<polygon fill="none" stroke="black" points="44.937,-350 44.937,-367 76.937,-367 76.937,-350 44.937,-350"/>
+<text text-anchor="start" x="48.437" y="-356.5" font-family="Times New Roman,serif" font-size="10.00">Graph</text>
+</a>
+<polygon fill="none" stroke="black" points="44.937,-330 44.937,-350 76.937,-350 76.937,-330 44.937,-330"/>
+<text text-anchor="start" x="59.437" y="-338" font-family="Times New Roman,serif" font-size="10.00"> </text>
+<polygon fill="none" stroke="black" points="44.937,-310 44.937,-330 76.937,-330 76.937,-310 44.937,-310"/>
+<text text-anchor="start" x="59.437" y="-318" font-family="Times New Roman,serif" font-size="10.00"> </text>
+</g>
+<!-- _Graph&#45;&gt;_GraphComponent -->
+<g id="edge6" class="edge"><title>_Graph&#45;&gt;_GraphComponent</title>
+<path fill="none" stroke="black" d="M60.937,-306.359C60.937,-294.686 60.937,-281.463 60.937,-269.778"/>
+<text text-anchor="middle" x="65.1632" y="-276.341" font-family="Times New Roman,serif" font-size="10.00">gcs *</text>
+<text text-anchor="middle" x="56.7108" y="-294.796" font-family="Times New Roman,serif" font-size="10.00">parent</text>
 </g>
 </g>
 </svg>

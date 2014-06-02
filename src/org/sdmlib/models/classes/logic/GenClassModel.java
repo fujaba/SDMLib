@@ -46,8 +46,6 @@ public class GenClassModel
 {
    public static final String UTILPATH=".util";
    private ClassModel model;
-   private File javaFile;
-   private StringBuilder fileBody;
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
    private AssociationSet associations = null;
    private HashMap<Object, Generator<?>> generators=new HashMap<Object, Generator<?>>();
@@ -225,17 +223,16 @@ public class GenClassModel
 
          fileName = rootDir + "/" + fileName + ".java";
 
-         javaFile = new File(fileName);
+         File javaFile = new File(fileName);
 
+         creatorCreatorParser = new Parser().withFileName(fileName);
          // found old one?
          if (javaFile.exists())
          {
-            fileBody = CGUtil.readFile(javaFile);
+            creatorCreatorParser.withFileBody( CGUtil.readFile(javaFile) );
          }
          else
          {
-            fileBody = new StringBuilder();
-
             StringBuilder text =
                   new StringBuilder(
                         "package packageName;\n\n"
@@ -279,10 +276,9 @@ public class GenClassModel
                   "packageName", packageName,
                   "JSONCREATORS", creators.toString());
 
-            fileBody.append(text.toString());
+            creatorCreatorParser.withFileBody(text).withFileChanged(true);
          }
          
-         creatorCreatorParser = new Parser().withFileName(fileName).withFileBody(fileBody);
          
          for (Clazz clazz : this.getModel().getClasses())
          {
@@ -292,7 +288,7 @@ public class GenClassModel
             }
          }
          
-         CGUtil.printFile(javaFile, fileBody.toString());
+         CGUtil.printFile(creatorCreatorParser);
       }
 
       return creatorCreatorParser;
@@ -318,8 +314,8 @@ public class GenClassModel
 
       String shortCreatorClassName = CGUtil.shortClassName(clazz.getName()) + "Creator";
       String shortCreatorPOClassName = CGUtil.shortClassName(clazz.getName()) + "POCreator";
-      String creatorClassName = CGUtil.packageName(clazz.getName()) + ".util." + shortCreatorClassName;
-      String creatorPOClassName = CGUtil.packageName(clazz.getName()) + ".util." + shortCreatorPOClassName;
+      String creatorClassName = CGUtil.packageName(clazz.getFullName()) + ".util." + shortCreatorClassName;
+      String creatorPOClassName = CGUtil.packageName(clazz.getFullName()) + ".util." + shortCreatorPOClassName;
 
 //      if (getWrapped())
 //      {
@@ -516,14 +512,6 @@ public class GenClassModel
          }
       }
       return position;
-   }
-
-   public void printFile(boolean really)
-   {
-      if (really)
-      {
-         CGUtil.printFile(javaFile, fileBody.toString());
-      }
    }
    
    private void writeToFile(Clazz modelCreationClass)

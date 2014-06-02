@@ -14,6 +14,6 @@ g2 -- g5 [headlabel = "match" style="dotted" color="green" fontcolor="green"];
 p3 -- p6 [headlabel = "match" style="dotted" color="green" fontcolor="green"];
 g1 -- g2 [headlabel = "greetingMessage" taillabel = "" color="green" fontcolor="green"];
 g1 -- p3 [headlabel = "person" taillabel = "" color="green" fontcolor="green"];
-g4 -- g5 [headlabel = "greetingMessage" taillabel = "greeting"];
 g4 -- p6 [headlabel = "person" taillabel = "greeting"];
+g4 -- g5 [headlabel = "greetingMessage" taillabel = "greeting"];
 }

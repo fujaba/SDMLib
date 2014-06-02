@@ -9,6 +9,7 @@ import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.models.pattern.Pattern;
 
 public class GreetingMessagePO extends PatternObject<GreetingMessagePO, GreetingMessage>
 {
@@ -117,5 +118,6 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
    }
 
 }
+
 
 
