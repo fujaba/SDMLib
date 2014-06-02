@@ -115,7 +115,6 @@ public class ReplicationChannel extends Thread implements
       {
          // this channel is dead, remove it
          this.removeYou();
-         e.printStackTrace();
       }
 
    }
@@ -300,8 +299,8 @@ public class ReplicationChannel extends Thread implements
          }
          catch (Exception e)
          {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // did not work, close channel
+            removeYou();
          }
       }
 
