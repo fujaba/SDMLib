@@ -33,8 +33,8 @@ public class HelloWorldTTC2011
    private Node n8;
    private Node n3;
    private GraphPO graphPO;
-   private EdgePO edgesPO;
    private GraphPO srcGraphPO;
+   private EdgePO edgesPO;
    private NodePO copySrcNodePO;
    private NodePO copyTgtNodePO;
 
@@ -628,6 +628,8 @@ public class HelloWorldTTC2011
       
       Graph graph = createExampleGraph();
       
+      storyboard.withJsonIdMap(GraphCreator.createIdMap("hg"));
+      
       storyboard.addObjectDiagram(graph);
       
       storyboard.dumpHTML();
@@ -639,17 +641,17 @@ public class HelloWorldTTC2011
       
       storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationPerPattern(Graph,Storyboard)"));
       
-      simpleMigrationPerPattern(graph, storyboard);
+      Graph targetGraph = simpleMigrationPerPattern(graph, storyboard);
       
       storyboard.add("Result graph: ");
       
-      storyboard.addObjectDiagram(graph);
+      storyboard.addObjectDiagramWith(targetGraph, targetGraph.getGcs());
       
       storyboard.add(systemout);
       
       
-//      //==========================================================================
-//      
+      //==========================================================================
+      
 //      storyboard.add("<hr/>");
 //      storyboard.add("<h2>Migrate in Java: </h2>");
 //      
@@ -1286,24 +1288,31 @@ public class HelloWorldTTC2011
 //   }
 
 
-   private void simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
+   private Graph simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
    {
       //==========================================================================
+      // create target graph
       srcGraphPO = new GraphPO(graph);
       
       GraphPO tgtGraphPO = (GraphPO) new GraphPO().withPattern(srcGraphPO.getPattern()).withModifier(Pattern.CREATE);
       tgtGraphPO.findNextMatch();
       
+      Graph result = tgtGraphPO.getCurrentMatch();
+      
       storyboard.addPattern(srcGraphPO, false);
       
       //==========================================================================
+      // copy nodes
       int noOfMatches = 0;
       
       srcGraphPO = new GraphPO(graph);
       
       NodePO srcNodePO = srcGraphPO.hasNodes();
       
-      tgtGraphPO = new GraphPO(tgtGraphPO.getCurrentMatch()).withPattern(srcGraphPO.getPattern()).startCreate();
+      tgtGraphPO = (GraphPO) new GraphPO(tgtGraphPO.getCurrentMatch())
+      .withPattern(srcGraphPO.getPattern());
+
+      srcGraphPO.startCreate();
       
       NodePO tgtNodePO = tgtGraphPO.hasGcsNode();
       
@@ -1372,6 +1381,8 @@ public class HelloWorldTTC2011
       storyboard.addPattern(tgtEdgePO, false);
       storyboard.addPattern(copySrcNodePO, false);
       storyboard.addPattern(copyTgtNodePO, false);
+      
+      return result;
    }
 
 
@@ -1415,58 +1426,58 @@ public class HelloWorldTTC2011
    public void countNodesPerPattern(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodePO nodePO = graphPO.hasNodes();
-      
+
       int noOfNodes = graphPO.getPattern().allMatches();
-      
+
       systemout = "Number of nodes: " + noOfNodes;
    }
-   
+
 
    public void countNodesPerNodeSet(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodeSet allMatches = graphPO
-      .hasNodes()
-      .allMatches();
-      
+            .hasNodes()
+            .allMatches();
+
       systemout = "Nodes: " + allMatches.getName().concat(", ") + " Number of nodes: " + allMatches.size();      
    }
-   
+
 
    public void countLoopingEdgesPerPattern(Graph graph)
    {
       edgesPO = new GraphPO(graph)
       .hasEdges();
-      
+
       NodePO srcPO = edgesPO.hasSrc();
-      
+
       edgesPO.hasTgt(srcPO);
-      
+
       EdgeSet loopingEdges = edgesPO.allMatches();
-      
+
       systemout = "Looping Edges: " + loopingEdges.getName().concat(", ") + " Number of looping edges: " + loopingEdges.size();
    }
-   
+
 
    public void countLoopingEdgesInJava(Graph graph)
    {
       String sysout = "Looping Edges: ";
-      
+
       int noOfLoopingEdges = 0;
-      
+
       for (Edge edge : graph.getEdges())
       {
          if (edge.getSrc() != null && edge.getSrc() == edge.getTgt())
          {
             noOfLoopingEdges++;
-            
+
             sysout += edge.getName() + ", ";
          }
       }
-      
+
       systemout = sysout.substring(0, sysout.length() - 2) + " Number of looping edges: " + noOfLoopingEdges;
    }
 
@@ -1474,15 +1485,15 @@ public class HelloWorldTTC2011
    public void countIsolatedNodesPerPattern(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodePO nodePO = graphPO.hasNodes();
-      
+
       nodePO.startNAC().hasOutEdges().endNAC();
-      
+
       nodePO.startNAC().hasInEdges().endNAC();
 
       NodeSet isolatedNodes = nodePO.allMatches();
-      
+
       systemout = "Isolated nodes: " + isolatedNodes.getName().concat(", ") + " Number of isolated nodes: " + isolatedNodes.size();
    }
 
@@ -1490,20 +1501,20 @@ public class HelloWorldTTC2011
    public void countIsolatedNodesInJava(Graph graph)
    {
       systemout = "Isolated nodes: ";
-      
+
       int noOfIsolatedNodes = 0;
-      
+
       for (Node isoNode : graph.getNodes())
       {
          if (isoNode.getOutEdges().size() == 0 
                && isoNode.getInEdges().size() == 0)
          {
             noOfIsolatedNodes++;
-            
+
             systemout += isoNode.getName() + ", ";
          }
       }
-      
+
       systemout = systemout.substring(0, systemout.length() - 2) + " Number of isolated nodes: " + noOfIsolatedNodes;
    }
 
@@ -1511,19 +1522,19 @@ public class HelloWorldTTC2011
    public void countCirclesOfThreeNodesPerPattern(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodePO firstCircleNodePO = graphPO.hasNodes();
-      
+
       NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
-      
+
       NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
-      
+
       thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
-      
+
       graphPO.getPattern().matchIsomorphic();
-      
+
       int noOfCircles = graphPO.getPattern().allMatches();
-      
+
       systemout = "Circles found: " + noOfCircles;
    }
 
@@ -1531,31 +1542,31 @@ public class HelloWorldTTC2011
    public void countCirclesOfThreeNodesPerPatternReportMatches(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodePO firstCircleNodePO = graphPO.hasNodes();
-      
+
       NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
-      
+
       NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
-      
+
       thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
-      
+
       graphPO.getPattern().matchIsomorphic();
-      
+
       systemout = "Circles found: \n";
       int noOfCircles = 0;
-      
+
       while (graphPO.getPattern().getHasMatch())
       {
          systemout += firstCircleNodePO.getName() + " --> "
                + secondCircleNodePO.getName() + " --> " 
                + thirdCircleNodePO.getName() + " --> \n";
-         
+
          noOfCircles++; 
-         
+
          graphPO.getPattern().findNextMatch();
       }
-      
+
       systemout += "" + noOfCircles + " circles found";
    }
 

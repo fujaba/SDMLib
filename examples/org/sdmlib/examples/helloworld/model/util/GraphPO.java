@@ -49,7 +49,8 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
       if(hostGraphObject.length>1){
            this.withCandidates(hostGraphObject);
       } else {
-           this.withCandidates(hostGraphObject[0]);
+         this.withCurrentMatch(hostGraphObject[0]);  
+         this.withModifier(Pattern.BOUND);
       }
       pattern.findMatch();
   }

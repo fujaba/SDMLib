@@ -36,14 +36,15 @@ public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphCompo
 
    public GraphComponentPO(GraphComponent... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return;
       }
       Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
       pattern.addToElements(this);
       if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
+         this.withCandidates(hostGraphObject);
       } else {
-           this.withCandidates(hostGraphObject[0]);
+         this.withCurrentMatch(hostGraphObject[0]);
+         this.withModifier(Pattern.BOUND);
       }
       pattern.findMatch();
   }
