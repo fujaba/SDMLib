@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class CardinalityConstraintPO extends PatternObject<CardinalityConstraintPO, CardinalityConstraint>
 {
+   public CardinalityConstraintPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public CardinalityConstraintPO(CardinalityConstraint... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public CardinalityConstraintSet allMatches()
    {
       this.setDoAllMatches(true);

@@ -42,7 +42,7 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    private boolean doAllMatches;
    protected boolean hasMatch = false;
    private String modifier;
-   private Pattern<Object> pattern = null;
+   private Pattern<PatternElement<?>> pattern = null;
   
    @Override
    public PropertyChangeSupport getPropertyChangeSupport()
@@ -65,12 +65,12 @@ public class PatternElement<PEC> implements PropertyChangeInterface
     *              elements                   pattern
     * </pre>
     */
-   public Pattern<Object> getPattern()
+   public Pattern<PatternElement<?>> getPattern()
    {
       return this.pattern;
    }
    
-   public boolean setPattern(Pattern<Object> value)
+   public boolean setPattern(Pattern<PatternElement<?>> value)
    {
       boolean changed = false;
       
@@ -98,29 +98,30 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return changed;
    }
    
-   public PEC withPattern(Pattern<Object> value)
+   public PEC withPattern(Pattern<PatternElement<?>> value)
    {
       setPattern(value);
-      return (PEC) this;
+      return (PEC)this;
    }
    
-   public Pattern<Object> getTopPattern()
+   public Pattern<PatternElement<?>> getTopPattern()
    {
-      PatternElement result = this;
-      
+      Pattern<PatternElement<?>> result = this.getPattern();
+      if(this instanceof Pattern<?>){
+         result = (Pattern<PatternElement<?>>)this;
+      }
       while (result.getPattern() != null)
       {
          result = result.getPattern();
       }
       
-      return (Pattern<Object>) result;
+      return result;
    }
 
 
-   public boolean findNextMatch()
-   {
+   public boolean findNextMatch(){
       return false;
-   } 
+   }
    
    //==========================================================================
    
@@ -263,4 +264,3 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return value;
    } 
 }
-

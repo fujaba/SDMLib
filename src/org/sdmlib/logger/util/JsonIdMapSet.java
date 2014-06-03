@@ -77,19 +77,6 @@ public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
 
    public JsonIdMapPO hasJsonIdMapPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      JsonIdMapPO patternObject = pattern.hasElementJsonIdMapPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new JsonIdMapPO(this.toArray(new JsonIdMap[this.size()]));
    }
 }
-
-
-
-

@@ -113,16 +113,7 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
 
    public KanbanEntryPO startModelPattern()
    {
-      org.sdmlib.storyboards.util.ModelPattern pattern = new org.sdmlib.storyboards.util.ModelPattern();
-      
-      KanbanEntryPO patternObject = pattern.hasElementKanbanEntryPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new KanbanEntryPO(this.toArray(new KanbanEntry[this.size()]));
    }
 
 
@@ -202,27 +193,6 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
 
    public KanbanEntryPO hasKanbanEntryPO()
    {
-      org.sdmlib.storyboards.util.ModelPattern pattern = new org.sdmlib.storyboards.util.ModelPattern();
-      
-      KanbanEntryPO patternObject = pattern.hasElementKanbanEntryPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new KanbanEntryPO(this.toArray(new KanbanEntry[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

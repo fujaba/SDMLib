@@ -25,7 +25,6 @@ import java.util.Collection;
 
 import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.storyboards.util.ModelPattern;
 
 public class PeerProxySet extends SDMSet<PeerProxy>
 {
@@ -33,16 +32,7 @@ public class PeerProxySet extends SDMSet<PeerProxy>
 
    public PeerProxyPO hasPeerProxyPO()
    {
-      ModelPattern pattern = new ModelPattern();
-      
-      PeerProxyPO patternObject = pattern.hasElementPeerProxyPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PeerProxyPO(this.toArray(new PeerProxy[this.size()]));
    }
 
 

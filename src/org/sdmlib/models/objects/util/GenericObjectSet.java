@@ -246,16 +246,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
 
    public GenericObjectPO startModelPattern()
    {
-      org.sdmlib.models.objects.util.ModelPattern pattern = new org.sdmlib.models.objects.util.ModelPattern();
-      
-      GenericObjectPO patternObject = pattern.hasElementGenericObjectPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
    }
 
 
@@ -283,30 +274,6 @@ public class GenericObjectSet extends SDMSet<GenericObject>
 
    public GenericObjectPO hasGenericObjectPO()
    {
-      org.sdmlib.models.objects.util.ModelPattern pattern = new org.sdmlib.models.objects.util.ModelPattern();
-      
-      GenericObjectPO patternObject = pattern.hasElementGenericObjectPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
    }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

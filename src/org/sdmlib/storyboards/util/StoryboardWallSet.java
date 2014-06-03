@@ -90,16 +90,7 @@ public class StoryboardWallSet extends LinkedHashSet<StoryboardWall> implements 
 
    public StoryboardWallPO startModelPattern()
    {
-      org.sdmlib.storyboards.util.ModelPattern pattern = new org.sdmlib.storyboards.util.ModelPattern();
-      
-      StoryboardWallPO patternObject = pattern.hasElementStoryboardWallPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new StoryboardWallPO(this.toArray(new StoryboardWall[this.size()]));
    }
 
 
@@ -122,22 +113,6 @@ public class StoryboardWallSet extends LinkedHashSet<StoryboardWall> implements 
 
    public StoryboardWallPO hasStoryboardWallPO()
    {
-      org.sdmlib.storyboards.util.ModelPattern pattern = new org.sdmlib.storyboards.util.ModelPattern();
-      
-      StoryboardWallPO patternObject = pattern.hasElementStoryboardWallPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new StoryboardWallPO(this.toArray(new StoryboardWall[this.size()]));
    }
 }
-
-
-
-
-
-
-

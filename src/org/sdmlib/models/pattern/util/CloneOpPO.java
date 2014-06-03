@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
 {
+   public CloneOpPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public CloneOpPO(CloneOp... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public CloneOpSet allMatches()
    {
       this.setDoAllMatches(true);

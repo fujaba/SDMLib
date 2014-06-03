@@ -6,6 +6,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
 {
+   public GenericGraphPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public GenericGraphPO(GenericGraph... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public GenericGraphSet allMatches()
    {
       GenericGraphSet matches = new GenericGraphSet();

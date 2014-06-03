@@ -11,6 +11,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObject>
 {
+   public PatternObjectPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public PatternObjectPO(PatternObject... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public PatternObjectPO hasCurrentMatch(Object value)
    {
       new AttributeConstraint()

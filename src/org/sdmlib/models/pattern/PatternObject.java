@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
@@ -35,6 +34,7 @@ import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
@@ -59,6 +59,27 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    private AttributeConstraintSet attrConstraints = null;
 
+   protected void newInstance(JsonIdMap map){
+      Pattern<Object> pattern = new Pattern<Object>(map);
+      pattern.addToElements(this);
+   }
+   
+   protected void newInstance(JsonIdMap map, Object[] hostGraphObject){
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      Pattern<Object> pattern = new Pattern<Object>(map);
+      pattern.addToElements(this);
+      if(hostGraphObject.length>1){
+         this.withCandidates(hostGraphObject);
+      } else {
+         this.withCurrentMatch(hostGraphObject[0]);
+         this.withModifier(Pattern.BOUND);
+      }
+      pattern.findMatch();
+   }
+   
+   
    public <POSC extends PatternObject> POSC instanceOf(POSC subclassPO)
    {
       // add a pattern link that checks the type of the source object and the

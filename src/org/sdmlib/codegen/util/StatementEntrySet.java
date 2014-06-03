@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.StatementEntry;
-import org.sdmlib.models.classes.util.ModelPattern;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
@@ -236,18 +235,8 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
 
    public StatementEntryPO startModelPattern()
    {
-      ModelPattern pattern = new ModelPattern();
-      
-      StatementEntryPO patternObject = pattern.hasElementStatementEntryPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new StatementEntryPO(this.toArray(new StatementEntry[this.size()]));
    }
-
 
    public StatementEntrySet with(Object value)
    {
@@ -325,10 +314,3 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
    }
 
 }
-
-
-
-
-
-
-

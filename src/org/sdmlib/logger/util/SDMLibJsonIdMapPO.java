@@ -5,6 +5,13 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class SDMLibJsonIdMapPO extends PatternObject<SDMLibJsonIdMapPO, SDMLibJsonIdMap>
 {
+   public SDMLibJsonIdMapPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public SDMLibJsonIdMapPO(SDMLibJsonIdMap... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public SDMLibJsonIdMapSet allMatches()
    {
       this.setDoAllMatches(true);

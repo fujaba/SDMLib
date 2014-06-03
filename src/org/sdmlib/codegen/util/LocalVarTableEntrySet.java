@@ -146,16 +146,7 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
 
    public LocalVarTableEntryPO startModelPattern()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      LocalVarTableEntryPO patternObject = pattern.hasElementLocalVarTableEntryPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new LocalVarTableEntryPO(this.toArray(new LocalVarTableEntry[this.size()]));
    }
 
 

@@ -7,6 +7,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class AssociationPO extends PatternObject<AssociationPO, Association>
 {
+   public AssociationPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public AssociationPO(Association... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public AssociationPO startNAC()
    {

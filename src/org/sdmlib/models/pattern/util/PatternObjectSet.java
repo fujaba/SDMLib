@@ -461,16 +461,7 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
 
    public PatternObjectPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      PatternObjectPO patternObject = pattern.hasElementPatternObjectPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PatternObjectPO(this.toArray(new PatternObject[this.size()]));
    }
 
 
@@ -498,45 +489,6 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
 
    public PatternObjectPO hasPatternObjectPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      PatternObjectPO patternObject = pattern.hasElementPatternObjectPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PatternObjectPO(this.toArray(new PatternObject[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -313,16 +313,7 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
 
    public AttributeConstraintPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      AttributeConstraintPO patternObject = pattern.hasElementAttributeConstraintPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new AttributeConstraintPO(this.toArray(new AttributeConstraint[this.size()]));
    }
 
 
@@ -382,33 +373,6 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
 
    public AttributeConstraintPO hasAttributeConstraintPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      AttributeConstraintPO patternObject = pattern.hasElementAttributeConstraintPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new AttributeConstraintPO(this.toArray(new AttributeConstraint[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

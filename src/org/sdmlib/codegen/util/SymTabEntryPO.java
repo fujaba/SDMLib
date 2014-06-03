@@ -6,6 +6,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class SymTabEntryPO extends PatternObject<SymTabEntryPO, SymTabEntry>
 {
+   public SymTabEntryPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public SymTabEntryPO(SymTabEntry... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public SymTabEntryPO startNAC()
    {

@@ -8,6 +8,13 @@ import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
 {
+   public StoryboardPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public StoryboardPO(Storyboard... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public StoryboardSet allMatches()
    {
       this.setDoAllMatches(true);

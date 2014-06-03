@@ -162,16 +162,7 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
 
    public AttributePO startModelPattern()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      AttributePO patternObject = pattern.hasElementAttributePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new AttributePO(this.toArray(new Attribute[this.size()]));
    }
 
 
@@ -193,15 +184,6 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
 
    public AttributePO hasAttributePO()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      AttributePO patternObject = pattern.hasElementAttributePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new AttributePO(this.toArray(new Attribute[this.size()]));
    }
 }

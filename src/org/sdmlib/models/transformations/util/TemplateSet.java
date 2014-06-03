@@ -39,16 +39,7 @@ public class TemplateSet extends SDMSet<Template>
 
    public TemplatePO startModelPattern()
    {
-      org.sdmlib.models.transformations.util.ModelPattern pattern = new org.sdmlib.models.transformations.util.ModelPattern();
-      
-      TemplatePO patternObject = pattern.hasElementTemplatePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new TemplatePO(this.toArray(new Template[this.size()]));
    }
 
 
@@ -743,25 +734,6 @@ public class TemplateSet extends SDMSet<Template>
 
    public TemplatePO hasTemplatePO()
    {
-      org.sdmlib.models.transformations.util.ModelPattern pattern = new org.sdmlib.models.transformations.util.ModelPattern();
-      
-      TemplatePO patternObject = pattern.hasElementTemplatePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new TemplatePO(this.toArray(new Template[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-

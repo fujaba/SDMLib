@@ -267,16 +267,7 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
 
    public PatternLinkPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      PatternLinkPO patternObject = pattern.hasElementPatternLinkPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
    }
 
 
@@ -304,31 +295,6 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
 
    public PatternLinkPO hasPatternLinkPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      PatternLinkPO patternObject = pattern.hasElementPatternLinkPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

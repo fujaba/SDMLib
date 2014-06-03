@@ -10,6 +10,13 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class NegativeApplicationConditionPO extends PatternObject<NegativeApplicationConditionPO, NegativeApplicationCondition>
 {
+   public NegativeApplicationConditionPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public NegativeApplicationConditionPO(NegativeApplicationCondition... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public NegativeApplicationConditionPO withCurrentNAC(NegativeApplicationCondition value)
    {
       if (this.getPattern().getHasMatch())

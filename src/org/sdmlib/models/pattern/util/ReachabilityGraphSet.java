@@ -155,16 +155,7 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
 
    public ReachabilityGraphPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      ReachabilityGraphPO patternObject = pattern.hasElementReachabilityGraphPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new ReachabilityGraphPO(this.toArray(new ReachabilityGraph[this.size()]));
    }
 
 
@@ -192,15 +183,6 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
 
    public ReachabilityGraphPO hasReachabilityGraphPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      ReachabilityGraphPO patternObject = pattern.hasElementReachabilityGraphPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new ReachabilityGraphPO(this.toArray(new ReachabilityGraph[this.size()]));
    }
 }

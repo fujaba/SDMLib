@@ -188,16 +188,7 @@ public class PatternElementSet extends ArrayList<PatternElement<?>>
 
    public PatternElementPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      PatternElementPO patternObject = pattern.hasElementPatternElementPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
    }
 
 
@@ -225,31 +216,6 @@ public class PatternElementSet extends ArrayList<PatternElement<?>>
 
    public PatternElementPO hasPatternElementPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      PatternElementPO patternObject = pattern.hasElementPatternElementPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

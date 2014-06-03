@@ -322,16 +322,7 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
 
    public NegativeApplicationConditionPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      NegativeApplicationConditionPO patternObject = pattern.hasElementNegativeApplicationConditionPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
    }
 
 
@@ -359,35 +350,6 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
 
    public NegativeApplicationConditionPO hasNegativeApplicationConditionPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      NegativeApplicationConditionPO patternObject = pattern.hasElementNegativeApplicationConditionPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

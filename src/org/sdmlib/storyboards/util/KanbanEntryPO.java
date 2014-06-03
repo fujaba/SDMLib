@@ -9,6 +9,13 @@ import org.sdmlib.storyboards.LogEntryStoryBoard;
 
 public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
 {
+   public KanbanEntryPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public KanbanEntryPO(KanbanEntry... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public LogEntryPO hasLogEntries()
    {
       LogEntryPO result = new LogEntryPO();

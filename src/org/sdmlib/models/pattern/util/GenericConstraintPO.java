@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class GenericConstraintPO extends PatternObject<GenericConstraintPO, GenericConstraint>
 {
+   public GenericConstraintPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public GenericConstraintPO(GenericConstraint... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public GenericConstraintSet allMatches()
    {
       this.setDoAllMatches(true);

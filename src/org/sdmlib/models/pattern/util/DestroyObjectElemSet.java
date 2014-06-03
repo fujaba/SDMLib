@@ -191,16 +191,7 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
 
    public DestroyObjectElemPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      DestroyObjectElemPO patternObject = pattern.hasElementDestroyObjectElemPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new DestroyObjectElemPO(this.toArray(new DestroyObjectElem[this.size()]));
    }
 
 
@@ -228,27 +219,6 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
 
    public DestroyObjectElemPO hasDestroyObjectElemPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      DestroyObjectElemPO patternObject = pattern.hasElementDestroyObjectElemPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new DestroyObjectElemPO(this.toArray(new DestroyObjectElem[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -8,6 +8,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class GenericAttributePO extends PatternObject
 {
+   public GenericAttributePO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public GenericAttributePO(GenericAttribute... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public GenericAttributePO startNAC()
    {
       return (GenericAttributePO) super.startNAC();

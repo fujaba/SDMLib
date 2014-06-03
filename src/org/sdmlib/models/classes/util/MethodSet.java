@@ -150,16 +150,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
 
    public MethodPO startModelPattern()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      MethodPO patternObject = pattern.hasElementMethodPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new MethodPO(this.toArray(new Method[this.size()]));
    }
 
 
@@ -189,15 +180,6 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
 
    public MethodPO hasMethodPO()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      MethodPO patternObject = pattern.hasElementMethodPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new MethodPO(this.toArray(new Method[this.size()]));
    }
 }

@@ -15,6 +15,7 @@ import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
+import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.models.objects.util.GenericGraphPO;
 import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.util.GenericLinkSet;
@@ -211,7 +212,8 @@ public class BanfM2MTransformations
       storyboard.add("_____ forward ______________ backward ___________");
       
       
-      Object renameFirstNameAttrRule = new GenericGraphPO()
+      GenericGraphPO genericGraphPO = new GenericGraphPO();
+      GenericAttributeSet renameFirstNameAttrRule = new GenericGraphPO()
       .hasObjects()
       .hasType(Person.class.getName())
       .hasAttrs()
@@ -221,10 +223,10 @@ public class BanfM2MTransformations
       .allMatches();
       
       storyboard.markCodeStart();
-      Pattern reverseRenameFirstNameAttrRule = revertRule(renameFirstNameAttrRule);
+      Pattern reverseRenameFirstNameAttrRule = revertRule(genericGraphPO.getPattern());
       storyboard.addCode();
       
-      storyboard.add(renameFirstNameAttrRule.dumpDiagram("banfSimpleMigrationRenameFirstNameAttrRule2", false));
+      storyboard.addPattern(genericGraphPO, false);
       
       storyboard.add(reverseRenameFirstNameAttrRule.dumpDiagram("banfSimpleMigrationReverseRenameFirstNameAttrRule", false));
       
@@ -444,6 +446,7 @@ public class BanfM2MTransformations
       
       
       // rename name to text attributes
+      //FIXME LIKE THIS ALbert new GenericGraphPO().withCurrentMatch(genGraph);
       renameKindAttrRule = new org.sdmlib.models.objects.creators.ModelPattern();
       renameKindAttrRule
       .hasElementGenericGraphPO(genGraph)

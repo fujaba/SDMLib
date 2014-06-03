@@ -1,19 +1,34 @@
 package org.sdmlib.examples.helloworld.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.helloworld.Person;
-import org.sdmlib.examples.helloworld.util.PersonSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.helloworld.util.GreetingPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.helloworld.util.PersonPO;
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.Person;
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
 
+   public PersonPO(){
+   }
+
+   public PersonPO(Person... hostGraphObject)
+   {
+      Pattern<Object> pattern = new Pattern<Object>();
+      PersonPO value = new PersonPO();
+      pattern.addToElements(value);
+      value.setModifier(this.getModifier());
+      
+      if(hostGraphObject!=null){
+            if(hostGraphObject.length>1){
+                  value.withCandidates(hostGraphObject);
+            } else {
+                  value.setCurrentMatch(hostGraphObject);
+            }
+      }
+      pattern.findMatch();
+   }
+  
     public PersonSet allMatches()
    {
       this.setDoAllMatches(true);
@@ -32,7 +47,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    
    public PersonPO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -46,7 +61,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    
    public PersonPO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

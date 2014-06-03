@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOtherThen>
 {
+   public MatchOtherThenPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public MatchOtherThenPO(MatchOtherThen... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public MatchOtherThenSet allMatches()
    {
       this.setDoAllMatches(true);

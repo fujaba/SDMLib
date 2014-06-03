@@ -38,16 +38,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
 
    public PlaceHolderDescriptionPO startModelPattern()
    {
-      org.sdmlib.models.transformations.util.ModelPattern pattern = new org.sdmlib.models.transformations.util.ModelPattern();
-      
-      PlaceHolderDescriptionPO patternObject = pattern.hasElementPlaceHolderDescriptionPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PlaceHolderDescriptionPO(this.toArray(new PlaceHolderDescription[this.size()]));
    }
 
 
@@ -439,16 +430,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
 
    public PlaceHolderDescriptionPO hasPlaceHolderDescriptionPO()
    {
-      org.sdmlib.models.transformations.util.ModelPattern pattern = new org.sdmlib.models.transformations.util.ModelPattern();
-      
-      PlaceHolderDescriptionPO patternObject = pattern.hasElementPlaceHolderDescriptionPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PlaceHolderDescriptionPO(this.toArray(new PlaceHolderDescription[this.size()]));
    }
    public StringList getPrefix()
    {

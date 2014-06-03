@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.util.ModelPattern;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
@@ -223,16 +222,7 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
 
    public SymTabEntryPO startModelPattern()
    {
-      ModelPattern pattern = new ModelPattern();
-      
-      SymTabEntryPO patternObject = pattern.hasElementSymTabEntryPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new SymTabEntryPO(this.toArray(new SymTabEntry[this.size()]));
    }
 
 

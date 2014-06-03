@@ -8,6 +8,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObject>
 {
+   public GenericObjectPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public GenericObjectPO(GenericObject... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public GenericObjectPO hasName(String value)
    {
       new AttributeConstraint()

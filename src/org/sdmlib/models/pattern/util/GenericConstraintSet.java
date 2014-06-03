@@ -48,16 +48,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
 
    public GenericConstraintPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      GenericConstraintPO patternObject = pattern.hasElementGenericConstraintPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericConstraintPO(this.toArray(new GenericConstraint[this.size()]));
    }
 
 
@@ -291,16 +282,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
 
    public GenericConstraintPO hasGenericConstraintPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      GenericConstraintPO patternObject = pattern.hasElementGenericConstraintPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericConstraintPO(this.toArray(new GenericConstraint[this.size()]));
    }
    public StringList getText()
    {

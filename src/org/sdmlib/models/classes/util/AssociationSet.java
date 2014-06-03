@@ -111,16 +111,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
 
    public AssociationPO startModelPattern()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      AssociationPO patternObject = pattern.hasElementAssociationPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new AssociationPO(this.toArray(new Association[this.size()]));
    }
 
 
@@ -142,15 +133,6 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
 
    public AssociationPO hasAssociationPO()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      AssociationPO patternObject = pattern.hasElementAssociationPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new AssociationPO(this.toArray(new Association[this.size()]));
    }
 }

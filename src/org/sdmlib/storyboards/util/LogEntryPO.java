@@ -1,5 +1,6 @@
 package org.sdmlib.storyboards.util;
 
+import org.sdmlib.logger.LogEntry;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
@@ -8,6 +9,13 @@ import org.sdmlib.storyboards.LogEntryStoryBoard;
 
 public class LogEntryPO extends PatternObject<LogEntryPO, LogEntryStoryBoard>
 {
+   public LogEntryPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public LogEntryPO(LogEntry... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public KanbanEntryPO hasKanbanEntry()
    {
       KanbanEntryPO result = new KanbanEntryPO();

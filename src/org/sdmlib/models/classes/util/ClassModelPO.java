@@ -7,6 +7,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
 {
+   public ClassModelPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public ClassModelPO(ClassModel... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public ClassModelPO startNAC()
    {

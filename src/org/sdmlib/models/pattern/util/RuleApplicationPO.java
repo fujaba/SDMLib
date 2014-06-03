@@ -8,6 +8,13 @@ import org.sdmlib.models.pattern.RuleApplication;
 
 public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleApplication>
 {
+   public RuleApplicationPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public RuleApplicationPO(RuleApplication... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public RuleApplicationSet allMatches()
    {
       this.setDoAllMatches(true);

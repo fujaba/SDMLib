@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class AttributePO extends PatternObject<AttributePO, Attribute>
 {
+   public AttributePO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public AttributePO(Attribute... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public AttributePO startNAC()
    {

@@ -120,16 +120,7 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
 
    public GenericAttributePO startModelPattern()
    {
-      org.sdmlib.models.objects.util.ModelPattern pattern = new org.sdmlib.models.objects.util.ModelPattern();
-      
-      GenericAttributePO patternObject = pattern.hasElementGenericAttributePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericAttributePO(this.toArray(new GenericAttribute[this.size()]));
    }
 
 
@@ -157,15 +148,6 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
 
    public GenericAttributePO hasGenericAttributePO()
    {
-      org.sdmlib.models.objects.util.ModelPattern pattern = new org.sdmlib.models.objects.util.ModelPattern();
-      
-      GenericAttributePO patternObject = pattern.hasElementGenericAttributePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericAttributePO(this.toArray(new GenericAttribute[this.size()]));
    }
 }

@@ -10,6 +10,13 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
 {
+   public PatternPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public PatternPO(Pattern... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public PatternPO hasModifier(String value)
    {
       new AttributeConstraint()
@@ -254,7 +261,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       return this;
    }
 
-   public Pattern<Object> getPattern()
+   public Pattern<PatternElement<?>> getPattern()
    {
       if (this.getPattern().getHasMatch())
       {

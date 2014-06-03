@@ -337,16 +337,7 @@ public class ClazzSet extends SDMSet<Clazz>
 
    public ClazzPO startModelPattern()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      ClazzPO patternObject = pattern.hasElementClazzPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new ClazzPO(this.toArray(new Clazz[this.size()]));
    }
 
 
@@ -376,16 +367,7 @@ public class ClazzSet extends SDMSet<Clazz>
 
    public ClazzPO hasClazzPO()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      ClazzPO patternObject = pattern.hasElementClazzPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new ClazzPO(this.toArray(new Clazz[this.size()]));
    }
 
    public ClazzSet getInterfacesTransitive()

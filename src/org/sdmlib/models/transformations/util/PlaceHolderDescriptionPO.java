@@ -7,6 +7,13 @@ import org.sdmlib.models.transformations.Template;
 
 public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescriptionPO, PlaceHolderDescription>
 {
+   public PlaceHolderDescriptionPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public PlaceHolderDescriptionPO(PlaceHolderDescription... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public PlaceHolderDescriptionSet allMatches()
    {
       this.setDoAllMatches(true);

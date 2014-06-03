@@ -292,7 +292,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             {
                changed = this.elements.add (value);
 
-               value.withPattern((Pattern<Object>) this);
+               value.withPattern((Pattern<PatternElement<?>>) this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ELEMENTS, null, value);
                
                if (value instanceof PatternObject || value instanceof Pattern)

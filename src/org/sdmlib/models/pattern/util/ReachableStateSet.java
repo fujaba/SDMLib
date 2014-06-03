@@ -232,16 +232,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
 
    public ReachableStatePO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      ReachableStatePO patternObject = pattern.hasElementReachableStatePO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
    }
 
 
@@ -271,29 +262,6 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
 
    public ReachableStatePO hasReachableStatePO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      ReachableStatePO patternObject = pattern.hasElementReachableStatePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

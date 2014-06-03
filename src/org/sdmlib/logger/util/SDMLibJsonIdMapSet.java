@@ -85,20 +85,6 @@ public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
 
    public SDMLibJsonIdMapPO hasSDMLibJsonIdMapPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      SDMLibJsonIdMapPO patternObject = pattern.hasElementSDMLibJsonIdMapPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new SDMLibJsonIdMapPO(this.toArray(new SDMLibJsonIdMap[this.size()]));
    }
 }
-
-
-
-
-
