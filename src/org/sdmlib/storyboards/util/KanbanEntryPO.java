@@ -53,7 +53,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       return this;
    }
    
-   public LogEntryStoryboardSet getLogEntries()
+   public LogEntryStoryBoardSet getLogEntries()
    {
       if (this.getPattern().getHasMatch())
       {

@@ -29,7 +29,7 @@ import java.util.Date;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
+import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
@@ -44,7 +44,7 @@ public class LogEntryStoryBoard implements PropertyChangeInterface, Comparable<L
       i = i + 1;
    }
    
-   public static final LogEntryStoryboardSet EMPTY_SET = new LogEntryStoryboardSet();
+   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet();
 
    public static final String PROPERTY_DATE = "date";
 

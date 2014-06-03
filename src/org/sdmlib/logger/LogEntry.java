@@ -27,7 +27,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.logger.util.LogEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
+import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -197,7 +197,7 @@ public class LogEntry implements PropertyChangeInterface
    } 
 
    
-   public static final LogEntryStoryboardSet EMPTY_SET = new LogEntryStoryboardSet();
+   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet();
 
    
    /********************************************************************

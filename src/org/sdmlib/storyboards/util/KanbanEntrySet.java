@@ -36,9 +36,9 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
 {
    private static final long serialVersionUID = 1L;
 
-   public LogEntryStoryboardSet getLogEntries()
+   public LogEntryStoryBoardSet getLogEntries()
    {
-      LogEntryStoryboardSet result = new LogEntryStoryboardSet();
+      LogEntryStoryBoardSet result = new LogEntryStoryBoardSet();
       
       for (KanbanEntry obj : this)
       {

@@ -12,7 +12,6 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.KanbanEntryCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.KanbanEntryPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.LogEntryStoryBoardCreator());
-      jsonIdMap.withCreator(new org.sdmlib.storyboards.util.LogEntryPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardStepCreator());

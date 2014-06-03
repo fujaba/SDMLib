@@ -34,7 +34,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.KanbanEntrySet;
-import org.sdmlib.storyboards.util.LogEntryStoryboardSet;
+import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
 import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
@@ -507,9 +507,9 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    
    public static final String PROPERTY_LOGENTRIES = "logEntries";
    
-   private LogEntryStoryboardSet logEntries = null;
+   private LogEntryStoryBoardSet logEntries = null;
    
-   public LogEntryStoryboardSet getLogEntries()
+   public LogEntryStoryBoardSet getLogEntries()
    {
       if (this.logEntries == null)
       {
@@ -527,7 +527,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       {
          if (this.logEntries == null)
          {
-            this.logEntries = new LogEntryStoryboardSet();
+            this.logEntries = new LogEntryStoryBoardSet();
          }
          
          changed = this.logEntries.add (value);

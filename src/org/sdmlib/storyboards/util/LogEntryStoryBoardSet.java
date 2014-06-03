@@ -30,7 +30,7 @@ import org.sdmlib.storyboards.LogEntryStoryBoard;
 import org.sdmlib.storyboards.util.KanbanEntrySet;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> implements org.sdmlib.models.modelsets.ModelSet
+public class LogEntryStoryBoardSet extends LinkedHashSet<LogEntryStoryBoard> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -45,7 +45,7 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
       
       return result;
    }
-   public LogEntryStoryboardSet withKanbanEntry(KanbanEntry value)
+   public LogEntryStoryBoardSet withKanbanEntry(KanbanEntry value)
    {
       for (LogEntryStoryBoard obj : this)
       {
@@ -81,7 +81,7 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
    }
 
 
-   public LogEntryStoryboardSet with(Object value)
+   public LogEntryStoryBoardSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
@@ -95,7 +95,7 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
       return this;
    }
    
-   public LogEntryStoryboardSet without(LogEntryStoryBoard value)
+   public LogEntryStoryBoardSet without(LogEntryStoryBoard value)
    {
       this.remove(value);
       return this;
@@ -105,7 +105,7 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
 
    public LogEntryStoryBoardPO hasLogEntryPO()
    {
-      return new LogEntryStoryBoardPO(this.toArray(new LogEntry[this.size()]));
+      return new LogEntryStoryBoardPO(this.toArray(new LogEntryStoryBoard[this.size()]));
    }
 
 
