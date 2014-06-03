@@ -465,6 +465,36 @@ public class GenRole extends Generator<Role>
          }
       }
       
+      // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
+      ClazzSet kidClasses = partnerRole.getClazz().getKidClassesTransitive().without(partnerRole.getClazz());
+      
+      for (Clazz kid : kidClasses)
+      {
+         String kidClassName = CGUtil.shortClassName(kid.getName());
+         pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + kidClassName + "()");
+         
+         
+         if (pos < 0 && ! kid.getInterfaze())
+         {
+            if (! genClazz.getInterfaze())
+            {
+               text.append 
+               (     "\n   public partnerClassName createPartnerRoleName" + kidClassName + "()" +
+                     "\n   {" +
+                     "\n      partnerClassName value = new " + kidClassName + "();" +
+                     "\n      withPartnerRoleName(value);" +
+                     "\n      return value;" +
+                     "\n   } " +
+                     "\n");
+            }
+            else
+            {
+               text.append
+               (     "\n   public partnerClassName createPartnerRoleName" + kidClassName + "();" +
+                     "\n");
+            }
+         }
+      }
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
       

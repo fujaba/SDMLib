@@ -118,6 +118,52 @@
 <embed type="image/svg+xml" src='TTC2011SimpleMigration23.svg'>
 <p>Number of migrated nodes: 8
 Number of migrated Edges: 10</p>
+<hr/><h2>Migrate in Java: </h2><pre>   private void simpleMigrationInJava(Graph origGraph)
+   {
+      int noOfMatches = 0;
+      
+      if (origGraph != null)
+      {
+         Graph copyGraph = new Graph();
+         
+         &#x2F;&#x2F; migrate nodes
+         for (Node origNode : origGraph.getNodes())
+         {
+            Node copyNode = (Node) copyGraph.createGcsNode()
+                  .withText(origNode.getName());
+            
+            copyNode.withOrig(origNode);
+            
+            noOfMatches++;
+         }
+
+         systemout = &quot;Number of migrated nodes: &quot; + noOfMatches;
+         
+         &#x2F;&#x2F; migrate edges
+         for (Edge origEdge : origGraph.getEdges())
+         {
+            Edge copyEdge = (Edge) copyGraph.createGcsEdge()
+                  .withText(origEdge.getName());
+            
+            Node origSrcNode = origEdge.getSrc();
+            
+            if (origSrcNode != null)
+            {
+               copyEdge.setSrc(origSrcNode.getCopy());
+            }
+
+            Node origTgtNode = origEdge.getTgt();
+            
+            if (origTgtNode != null)
+            {
+               copyEdge.setTgt(origTgtNode.getCopy());
+            }
+         }
+      }
+      
+   }</pre><p>Result graph: </p>
+<embed type="image/svg+xml" src='TTC2011SimpleMigration29.svg'>
+<p>Number of migrated nodes: 8</p>
 
 </body>
 </html>

@@ -652,23 +652,23 @@ public class HelloWorldTTC2011
       
       //==========================================================================
       
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Migrate in Java: </h2>");
-//      
-//      graph = createExampleGraph();
-//      
-//      simpleMigrationInJava(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationInJava(Graph)"));
-//      
-//      storyboard.add("Result graph: ");
-//      
-//      storyboard.addObjectDiagram(graph);
-//      
-//      
-//      storyboard.add(systemout);
-//
-//      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate in Java: </h2>");
+      
+      graph = createExampleGraph();
+      
+      simpleMigrationInJava(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationInJava(Graph)"));
+      
+      storyboard.add("Result graph: ");
+      
+      storyboard.addObjectDiagram(graph);
+      
+      
+      storyboard.add(systemout);
+
+      
 //      //==========================================================================
 //      
 //      storyboard.add("<hr/>");
@@ -1242,50 +1242,51 @@ public class HelloWorldTTC2011
 //      return copyGraph;
 //   }
 //
-//
-//   private void simpleMigrationInJava(Graph origGraph)
-//   {
-//      int noOfMatches = 0;
-//      
-//      if (origGraph != null)
-//      {
-//         Graph copyGraph = new Graph();
-//         
-//         // migrate nodes
-//         for (Node origNode : origGraph.getNodes())
-//         {
-//            Node copyNode = (Node) copyGraph.createGcsNode()
-//                  .withOrig(origNode)
-//                  .withText(origNode.getName());
-//            
-//            noOfMatches++;
-//         }
-//
-//         systemout = "Number of migrated nodes: " + noOfMatches;
-//         
-//         // migrate edges
-//         for (Edge origEdge : origGraph.getEdges())
-//         {
-//            Edge copyEdge = (Edge) copyGraph.createGcsEdge()
-//                  .withText(origEdge.getName());
-//            
-//            Node origSrcNode = origEdge.getSrc();
-//            
-//            if (origSrcNode != null)
-//            {
-//               copyEdge.setSrc(origSrcNode.getCopy());
-//            }
-//
-//            Node origTgtNode = origEdge.getTgt();
-//            
-//            if (origTgtNode != null)
-//            {
-//               copyEdge.setTgt(origTgtNode.getCopy());
-//            }
-//         }
-//      }
-//      
-//   }
+
+   private void simpleMigrationInJava(Graph origGraph)
+   {
+      int noOfMatches = 0;
+      
+      if (origGraph != null)
+      {
+         Graph copyGraph = new Graph();
+         
+         // migrate nodes
+         for (Node origNode : origGraph.getNodes())
+         {
+            Node copyNode = (Node) copyGraph.createGcsNode()
+                  .withText(origNode.getName());
+            
+            copyNode.withOrig(origNode);
+            
+            noOfMatches++;
+         }
+
+         systemout = "Number of migrated nodes: " + noOfMatches;
+         
+         // migrate edges
+         for (Edge origEdge : origGraph.getEdges())
+         {
+            Edge copyEdge = (Edge) copyGraph.createGcsEdge()
+                  .withText(origEdge.getName());
+            
+            Node origSrcNode = origEdge.getSrc();
+            
+            if (origSrcNode != null)
+            {
+               copyEdge.setSrc(origSrcNode.getCopy());
+            }
+
+            Node origTgtNode = origEdge.getTgt();
+            
+            if (origTgtNode != null)
+            {
+               copyEdge.setTgt(origTgtNode.getCopy());
+            }
+         }
+      }
+      
+   }
 
 
    private Graph simpleMigrationPerPattern(Graph graph, Storyboard storyboard)

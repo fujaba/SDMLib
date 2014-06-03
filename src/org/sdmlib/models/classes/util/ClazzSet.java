@@ -119,6 +119,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       return result;
    }
+   
    public ClazzSet withSuperClass(Clazz value)
    {
       for (Clazz obj : this)
@@ -127,6 +128,30 @@ public class ClazzSet extends SDMSet<Clazz>
       }
       
       return this;
+   }
+   
+   public ClazzSet getKidClassesTransitive()
+   {
+      ClazzSet todo = new ClazzSet().with(this);
+      
+      ClazzSet result = new ClazzSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Clazz current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getKidClasses().minus(result));
+         }
+      }
+      
+      return result;
+
    }
 
    public ClazzSet getInterfaces()

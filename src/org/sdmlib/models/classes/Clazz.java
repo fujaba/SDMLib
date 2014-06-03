@@ -166,6 +166,12 @@ public class Clazz extends SDMLibClass
       }
       return kidClazzes;
    }
+   
+   public ClazzSet getKidClassesTransitive()
+   {
+      ClazzSet result = new ClazzSet().with(this);
+      return result.getKidClassesTransitive();
+   }
 
    Clazz withKidClass(Clazz... newSuperClass)
    {
