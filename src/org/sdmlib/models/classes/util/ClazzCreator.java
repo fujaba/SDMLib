@@ -16,7 +16,6 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_NAME,
       Clazz.PROPERTY_INTERFACE,
       Clazz.PROPERTY_EXTERNAL,
-      Clazz.PROPERTY_WRAPPED,
       Clazz.PROPERTY_CLASSMODEL,
       Clazz.PROPERTY_SUPERCLASS,
       Clazz.PROPERTY_ATTRIBUTES,
@@ -86,12 +85,6 @@ public class ClazzCreator extends EntityFactory
       {
          return ((Clazz) target).isExternal();
       }
-
-      if (Clazz.PROPERTY_WRAPPED.equalsIgnoreCase(attribute))
-      {
-         return ((Clazz) target).isExternal();
-      }
-
       return null;
    }
    
@@ -170,12 +163,6 @@ public class ClazzCreator extends EntityFactory
       }
 
       if (Clazz.PROPERTY_EXTERNAL.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).setExternal((Boolean) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_WRAPPED.equalsIgnoreCase(attrName))
       {
          ((Clazz)target).setExternal((Boolean) value);
          return true;

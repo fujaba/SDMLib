@@ -28,9 +28,6 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.Visibility;
-import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardManager;
 
 public class ClassModelTest
 {
@@ -90,56 +87,47 @@ public class ClassModelTest
       .withAttribute("card", DataType.STRING, "MANY")
       .withAttribute("kind", DataType.STRING, "VANILLA");
       
-//      new Association()
-//      .withSource(clazzClass, "clazz", Card.ONE)
-//      .withTarget(roleClass, "sourceRoles", Card.MANY);
-//      
-//      new Association()
-//      .withSource("clazz", clazzClass, ONE)
-//      .withTarget("targetRoles", roleClass, MANY);
-//
-//      new Association()
-//      .withSource("assoc", associationClass, ONE)
-//      .withTarget("source", roleClass, ONE);
-//
-//      //      //=======================================================================
-//      //      Clazz codeGenUtilClass = new Clazz()
-//      //      .withName("org.sdmlib.codegen.CGUtil");
-//      //      
-//      //      //=======================================================================
-//      //      Clazz parserContextClass = new Clazz()
-//      //      .withName("org.sdmlib.codegen.Parser");
-//      
-//      Clazz symTabEntryClass = new Clazz("org.sdmlib.codegen.SymTabEntry")
-//      .withAttribute("kind", STRING)
-//      .withAttribute("memberName", STRING)
-//      .withAttribute("type", STRING)
-//      .withAttribute("startPos", INT)
-//      .withAttribute("bodyStartPos", INT)
-//      .withAttribute("endPos", INT)
-//      .withAttribute("modifiers", STRING);
-//      
-//      Clazz localVarTableEntryClass = new Clazz("org.sdmlib.codegen.LocalVarTableEntry")
-//      .withAttribute("name", STRING)
-//      .withAttribute("type", STRING)
-//      .withAttribute("startPos", INT)
-//      .withAttribute("endPos", INT);
-//      // .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
-//      
-//      
-//      Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")
-//      .withAttributes(
-//         "kind", STRING,
-//         "tokenList", "ArrayList<String>", 
-//         "assignTargetVarName", STRING, 
-//         "startPos", INT, 
-//         "endPos", INT);
-//      
-//      new Association()
-//      .withSource("parent", statementEntry, ONE)
-//      .withTarget("bodyStats", statementEntry, MANY);
-//      
-//      
+      new Association()
+      .withSource(clazzClass, "clazz", Card.ONE)
+      .withTarget(roleClass, "roles", Card.MANY);
+      
+      new Association()
+      .withSource(associationClass, "assoc", Card.ONE)
+      .withTarget(roleClass, "source", Card.ONE);
+
+      new Association()
+      .withSource(associationClass, "assoc", Card.ONE)
+      .withTarget(roleClass, "target", Card.ONE);
+
+      new Clazz("org.sdmlib.codegen.SymTabEntry")
+      .withAttribute("kind", DataType.STRING)
+      .withAttribute("memberName", DataType.STRING)
+      .withAttribute("type", DataType.STRING)
+      .withAttribute("startPos", DataType.INT)
+      .withAttribute("bodyStartPos", DataType.INT)
+      .withAttribute("endPos", DataType.INT)
+      .withAttribute("modifiers", DataType.STRING);
+      
+      new Clazz("org.sdmlib.codegen.LocalVarTableEntry")
+      .withAttribute("name", DataType.STRING)
+      .withAttribute("type", DataType.STRING)
+      .withAttribute("startPos", DataType.INT)
+      .withAttribute("endPos", DataType.INT);
+      // .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
+      
+      
+      Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")
+      .withAttribute("kind", DataType.STRING)
+       .withAttribute("tokenList", DataType.ref("ArrayList<String>")) 
+       .withAttribute("assignTargetVarName", DataType.STRING) 
+       .withAttribute("startPos", DataType.INT) 
+          .withAttribute("endPos", DataType.INT);
+      
+      new Association()
+      .withSource(statementEntry, "parent", Card.ONE)
+      .withTarget(statementEntry, "bodyStats", Card.MANY);
+      
+      
 //      storyboard.add("Basic bootstrap done.", 
 //         ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);
 //      

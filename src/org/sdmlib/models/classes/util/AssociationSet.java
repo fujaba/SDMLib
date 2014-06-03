@@ -119,9 +119,9 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
    {
       if (value instanceof java.util.Collection)
       {
-         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
-            this.add((Association) i.next());
-         }
+           for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
+              this.add((Association) i.next());
+           }
       }
       else if (value != null)
       {

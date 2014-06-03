@@ -7,10 +7,10 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Attribute.VISIBILITY;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
+import org.sdmlib.models.classes.Visibility;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class GenAttribute extends Generator<Attribute>
@@ -93,7 +93,7 @@ public class GenAttribute extends Generator<Attribute>
          hasNewContent = true;
       }
       
-      if(model.getVisibility()!=VISIBILITY.PUBLIC){
+      if(model.getVisibility().equals(Visibility.PUBLIC)){
          if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName())+ "()", parser))
          {
             text.append("\n   public type getName()" +
@@ -391,11 +391,11 @@ public class GenAttribute extends Generator<Attribute>
          }
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameGetter = "get"+name+"()";
-         if(model.getVisibility()==VISIBILITY.PUBLIC){
+         if(Visibility.PUBLIC.equals(model.getVisibility())){
             attrNameGetter = model.getName();
          }
          String attrNameSetter = "set"+name+"(value)";
-         if(model.getVisibility()==VISIBILITY.PUBLIC){
+         if(Visibility.PUBLIC.equals(model.getVisibility())){
             attrNameSetter = model.getName()+" = value";
          }
 
@@ -604,7 +604,7 @@ public class GenAttribute extends Generator<Attribute>
          
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameGetter = "get"+name+"()";
-         if(model.getVisibility()==VISIBILITY.PUBLIC){
+         if(Visibility.PUBLIC.equals(model.getVisibility())){
             attrNameGetter = model.getName();
          }
 
@@ -752,7 +752,7 @@ public class GenAttribute extends Generator<Attribute>
          }else{
             attrNameGetter = "get"+name+"()";
          }
-         if(model.getVisibility()==VISIBILITY.PUBLIC){
+         if(Visibility.PUBLIC.equals(model.getVisibility())){
             attrNameGetter = model.getName();
          }
          
@@ -802,7 +802,7 @@ public class GenAttribute extends Generator<Attribute>
 
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameSetter = "set"+name+"(value)";
-         if(model.getVisibility()==VISIBILITY.PUBLIC){
+         if(Visibility.PUBLIC.equals(model.getVisibility())){
             attrNameSetter = model.getName() + " = value";
          }
          
@@ -895,7 +895,7 @@ public class GenAttribute extends Generator<Attribute>
          
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameSetter = "set"+name+"((type) value)";
-         if(model.getVisibility()==VISIBILITY.PUBLIC){
+         if(Visibility.PUBLIC.equals(model.getVisibility())){
             attrNameSetter = model.getName() + " = (type) value";
          }
          

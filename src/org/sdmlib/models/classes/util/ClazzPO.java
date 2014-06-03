@@ -312,21 +312,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       
       return this;
    }
-   
-   public ClazzPO hasWrapped(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_WRAPPED)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
    public boolean getWrapped()
    {
       if (this.getPattern().getHasMatch())
@@ -395,21 +381,6 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this;
    }
    
-   public ClazzPO hasWrapped(boolean lower, boolean upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_WRAPPED)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
    public ClazzPO hasFilePath(String lower, String upper)
    {
       new AttributeConstraint()
@@ -440,12 +411,6 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO createExternal(boolean value)
    {
       this.startCreate().hasExternal(value).endCreate();
-      return this;
-   }
-   
-   public ClazzPO createWrapped(boolean value)
-   {
-      this.startCreate().hasWrapped(value).endCreate();
       return this;
    }
    

@@ -34,7 +34,7 @@ public class Method extends SDMLibClass
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_MODIFIER = "modifier";
    
-   private String modifier = "public";
+   private Visibility modifier = Visibility.PUBLIC;
    private Clazz clazz = null;
    private String body;
    private ParameterSet parameters = null;
@@ -207,17 +207,17 @@ public class Method extends SDMLibClass
       }
    }
 
-   public String getModifier()
+   public Visibility getModifier()
    {
       return this.modifier;
    }
 
-   public void setModifier(String value)
+   public void setModifier(Visibility value)
    {
       this.modifier = value;
    }
 
-   public Method withModifier(String value)
+   public Method withModifier(Visibility value)
    {
       setModifier(value);
       return this;
@@ -280,6 +280,7 @@ public class Method extends SDMLibClass
    
    //==========================================================================
 
+   @Override
    public void removeYou()
    {
       setClazz(null);
