@@ -24,7 +24,6 @@ package org.sdmlib.storyboards.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.logger.LogEntry;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
@@ -39,7 +38,7 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
       
       for (LogEntryStoryBoard obj : this)
       {
-         result.add(obj.getKanbanEntry());
+         result.with(obj.getKanbanEntry());
       }
       
       return result;
@@ -71,12 +70,12 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.storyboards.LogEntry";
+      return "org.sdmlib.storyboards.LogEntryStoryBoard";
    }
 
-   public LogEntryPO startModelPattern()
+   public LogEntryStoryBoardPO startModelPattern()
    {
-      return new LogEntryPO(this.toArray(new LogEntry[this.size()]));
+      return new LogEntryStoryBoardPO(this.toArray(new LogEntryStoryBoard[this.size()]));
    }
 
 
@@ -102,8 +101,8 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
 
 
 
-   public LogEntryPO hasLogEntryPO()
+   public LogEntryStoryBoardPO hasLogEntryPO()
    {
-      return new LogEntryPO(this.toArray(new LogEntry[this.size()]));
+      return new LogEntryStoryBoardPO(this.toArray(new LogEntry[this.size()]));
    }
 }

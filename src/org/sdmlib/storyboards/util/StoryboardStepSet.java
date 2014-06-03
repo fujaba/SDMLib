@@ -92,7 +92,7 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
       
       for (StoryboardStep obj : this)
       {
-         result.add(obj.getStoryboard());
+         result.with(obj.getStoryboard());
       }
       
       return result;
@@ -157,6 +157,6 @@ public class StoryboardStepSet extends LinkedHashSet<StoryboardStep> implements 
 
    public StoryboardStepPO hasStoryboardStepPO()
    {
-      return new StoryboardStepPO(this.toArray(new StoryboardStep[this.size()]));
+      return new StoryboardStepPO (this.toArray(new StoryboardStep[this.size()]));
    }
 }

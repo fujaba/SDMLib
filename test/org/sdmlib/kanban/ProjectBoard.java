@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 zuendorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -135,7 +135,7 @@ public class ProjectBoard
             .withAttribute("oldNoOfLogEntries", DataType.INT)  
             .withAttribute("phases", DataType.STRING);
 
-      Clazz logEntryClass = model.createClazz("LogEntry");
+      Clazz logEntryClass = model.createClazz("LogEntryStoryBoard");
 
       new Association()
       .withSource(kanbanEntryClass, "kanbanEntry", Card.ONE, Role.AGGREGATION)

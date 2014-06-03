@@ -39,11 +39,12 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
       
       for (KanbanEntry obj : this)
       {
-         result.addAll(obj.getLogEntries());
+         result.with(obj.getLogEntries());
       }
       
       return result;
    }
+   
    public KanbanEntrySet withLogEntries(LogEntryStoryBoard value)
    {
       for (KanbanEntry obj : this)
@@ -189,10 +190,8 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
       return this;
    }
 
-
-
    public KanbanEntryPO hasKanbanEntryPO()
    {
-      return new KanbanEntryPO(this.toArray(new KanbanEntry[this.size()]));
+      return new KanbanEntryPO (this.toArray(new KanbanEntry[this.size()]));
    }
 }

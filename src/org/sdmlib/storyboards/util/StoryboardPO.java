@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
@@ -33,9 +34,9 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
    
    public StoryboardStepPO hasStoryboardSteps()
    {
-      StoryboardStepPO result = new StoryboardStepPO();
-      result.setModifier(this.getPattern().getModifier());
+      StoryboardStepPO result = new StoryboardStepPO(new StoryboardStep[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Storyboard.PROPERTY_STORYBOARDSTEPS, result);
       
       return result;
@@ -43,16 +44,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
 
    public StoryboardPO hasStoryboardSteps(StoryboardStepPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Storyboard.PROPERTY_STORYBOARDSTEPS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Storyboard.PROPERTY_STORYBOARDSTEPS);
    }
 
    public StoryboardStepSet getStoryboardSteps()
@@ -66,9 +58,9 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
 
    public StoryboardWallPO hasWall()
    {
-      StoryboardWallPO result = new StoryboardWallPO();
-      result.setModifier(this.getPattern().getModifier());
+      StoryboardWallPO result = new StoryboardWallPO(new StoryboardWall[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Storyboard.PROPERTY_WALL, result);
       
       return result;
@@ -76,16 +68,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
 
    public StoryboardPO hasWall(StoryboardWallPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Storyboard.PROPERTY_WALL)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Storyboard.PROPERTY_WALL);
    }
 
    public StoryboardWall getWall()

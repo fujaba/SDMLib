@@ -1,10 +1,9 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class KanbanEntryCreator extends EntityFactory
 {
@@ -104,6 +103,11 @@ public class KanbanEntryCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
       if (KanbanEntry.PROPERTY_NAME.equalsIgnoreCase(attrName)) 
       {
          ((KanbanEntry)target).setName((String) value);

@@ -1,9 +1,8 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.storyboards.KanbanEntry;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.storyboards.KanbanEntry;
 
 public class KanbanEntryPOCreator extends PatternObjectCreator
 {

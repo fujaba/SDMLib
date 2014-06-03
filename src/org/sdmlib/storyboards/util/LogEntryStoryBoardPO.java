@@ -1,19 +1,18 @@
 package org.sdmlib.storyboards.util;
 
-import org.sdmlib.logger.LogEntry;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
 
-public class LogEntryPO extends PatternObject<LogEntryPO, LogEntryStoryBoard>
+public class LogEntryStoryBoardPO extends PatternObject<LogEntryStoryBoardPO, LogEntryStoryBoard>
 {
-   public LogEntryPO(){
+   public LogEntryStoryBoardPO(){
       newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
-   public LogEntryPO(LogEntry... hostGraphObject) {
+   public LogEntryStoryBoardPO(LogEntryStoryBoard... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
@@ -21,35 +20,20 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntryStoryBoard>
   }
    public KanbanEntryPO hasKanbanEntry()
    {
-      KanbanEntryPO result = new KanbanEntryPO();
+      KanbanEntryPO result = new KanbanEntryPO(new KanbanEntry[]{});
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(LogEntryStoryBoard.PROPERTY_KANBANENTRY)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(LogEntryStoryBoard.PROPERTY_KANBANENTRY, result);
       
       return result;
    }
    
-   public LogEntryPO hasKanbanEntry(KanbanEntryPO tgt)
+   public LogEntryStoryBoardPO hasKanbanEntry(KanbanEntryPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(LogEntryStoryBoard.PROPERTY_KANBANENTRY)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, LogEntryStoryBoard.PROPERTY_KANBANENTRY);
    }
    
-   public LogEntryPO withKanbanEntry(KanbanEntryPO tgtPO)
+   public LogEntryStoryBoardPO withKanbanEntry(KanbanEntryPO tgtPO)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -72,7 +56,7 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntryStoryBoard>
       return this.startCreate().hasKanbanEntry().endCreate();
    }
 
-   public LogEntryPO createKanbanEntry(KanbanEntryPO tgt)
+   public LogEntryStoryBoardPO createKanbanEntry(KanbanEntryPO tgt)
    {
       return this.startCreate().hasKanbanEntry(tgt).endCreate();
    }

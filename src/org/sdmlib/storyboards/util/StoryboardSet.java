@@ -73,7 +73,7 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       
       for (Storyboard obj : this)
       {
-         result.addAll(obj.getStoryboardSteps());
+         result.with(obj.getStoryboardSteps());
       }
       
       return result;
@@ -105,7 +105,7 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       
       for (Storyboard obj : this)
       {
-         result.add(obj.getWall());
+         result.with(obj.getWall());
       }
       
       return result;
@@ -211,6 +211,6 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
 
    public StoryboardPO hasStoryboardPO()
    {
-      return new StoryboardPO(this.toArray(new Storyboard[this.size()]));
+      return new StoryboardPO (this.toArray(new Storyboard[this.size()]));
    }
 }

@@ -1,19 +1,18 @@
 package org.sdmlib.storyboards.util;
 
-import org.sdmlib.logger.LogEntry;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
 
-public class LogEntryPOCreator extends PatternObjectCreator
+public class LogEntryStoryBoardPOCreator extends PatternObjectCreator
 {
    @Override
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-         return new LogEntryPO(new LogEntry[]{});
+         return new LogEntryStoryBoardPO(new LogEntryStoryBoard[]{});
      } else {
-         return new LogEntryPO();
+         return new LogEntryStoryBoardPO();
      }
    }
    

@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -21,6 +22,7 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.StoryboardStep;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -916,9 +918,7 @@ public class GenClass extends Generator<Clazz>
                   + "   {\n"
                   + "      if (value instanceof java.util.Collection)\n"
                   + "      {\n"
-                  + "           for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){\n"
-                  + "              this.add((ModelType) i.next());\n"
-                  + "           }\n"
+                  + "         this.addAll((Collection<ModelType>)value);\n"
                   + "      }\n"
                   + "      else if (value != null)\n"
                   + "      {\n" 

@@ -1,10 +1,9 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardStep;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.storyboards.StoryboardStep;
+import org.sdmlib.storyboards.Storyboard;
 
 public class StoryboardStepCreator extends EntityFactory
 {
@@ -44,17 +43,23 @@ public class StoryboardStepCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
       if (StoryboardStep.PROPERTY_TEXT.equalsIgnoreCase(attrName))
       {
-         ((StoryboardStep)target).setText((String) value);
+         ((StoryboardStep) target).setText((String) value);
          return true;
       }
 
       if (StoryboardStep.PROPERTY_STORYBOARD.equalsIgnoreCase(attrName))
       {
-         ((StoryboardStep)target).setStoryboard((Storyboard) value);
+         ((StoryboardStep) target).setStoryboard((Storyboard) value);
          return true;
       }
+      
       return super.setValue(target, attrName, value, type);
    }
    

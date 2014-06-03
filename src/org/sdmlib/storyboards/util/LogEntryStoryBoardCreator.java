@@ -1,12 +1,11 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntryStoryBoard;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.storyboards.LogEntryStoryBoard;
+import org.sdmlib.storyboards.KanbanEntry;
 
-public class LogEntryCreator extends EntityFactory
+public class LogEntryStoryBoardCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
@@ -80,6 +79,11 @@ public class LogEntryCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+      
       if (LogEntryStoryBoard.PROPERTY_DATE.equalsIgnoreCase(attrName)) 
       {
          ((LogEntryStoryBoard)target).setDate((String) value);

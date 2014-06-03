@@ -1,11 +1,11 @@
 package org.sdmlib.storyboards.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.storyboards.util.LogEntryStoryBoardPO;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
+import org.sdmlib.storyboards.util.KanbanEntryPO;
 
 public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
 {
@@ -19,37 +19,22 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
-   public LogEntryPO hasLogEntries()
+   public LogEntryStoryBoardPO hasLogEntries()
    {
-      LogEntryPO result = new LogEntryPO();
+      LogEntryStoryBoardPO result = new LogEntryStoryBoardPO(new LogEntryStoryBoard[]{});
       
-      PatternLink patternLink = new PatternLink()
-      .withTgt(result).withTgtRoleName(KanbanEntry.PROPERTY_LOGENTRIES)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().addToElements(result);
-      
-      this.getPattern().findMatch();
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(KanbanEntry.PROPERTY_LOGENTRIES, result);
       
       return result;
    }
    
-   public KanbanEntryPO hasLogEntries(LogEntryPO tgt)
+   public KanbanEntryPO hasLogEntries(LogEntryStoryBoardPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(KanbanEntry.PROPERTY_LOGENTRIES)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, KanbanEntry.PROPERTY_LOGENTRIES);
    }
    
-   public KanbanEntryPO withLogEntries(LogEntryPO tgtPO)
+   public KanbanEntryPO withLogEntries(LogEntryStoryBoardPO tgtPO)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -58,7 +43,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       return this;
    }
    
-   public KanbanEntryPO withoutLogEntries(LogEntryPO tgtPO)
+   public KanbanEntryPO withoutLogEntries(LogEntryStoryBoardPO tgtPO)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -78,7 +63,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
    
    public KanbanEntryPO hasOldNoOfLogEntries(int value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES)
       .withTgtValue(value)
       .withSrc(this)
@@ -109,7 +94,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
    }
    public KanbanEntryPO hasOldNoOfLogEntries(int lower, int upper)
    {
-      AttributeConstraint constr = new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -124,7 +109,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
    
    public KanbanEntryPO hasPhases(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(KanbanEntry.PROPERTY_PHASES)
       .withTgtValue(value)
       .withSrc(this)
@@ -138,7 +123,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
    
    public KanbanEntryPO hasPhases(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(KanbanEntry.PROPERTY_PHASES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -181,12 +166,12 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
       return this;
    }
    
-   public LogEntryPO createLogEntries()
+   public LogEntryStoryBoardPO createLogEntries()
    {
-      return (LogEntryPO) this.startCreate().hasLogEntries().endCreate();
+      return this.startCreate().hasLogEntries().endCreate();
    }
 
-   public KanbanEntryPO createLogEntries(LogEntryPO tgt)
+   public KanbanEntryPO createLogEntries(LogEntryStoryBoardPO tgt)
    {
       return this.startCreate().hasLogEntries(tgt).endCreate();
    }

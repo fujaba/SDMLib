@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2014 zuendorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.sdmlib.CGUtil;
@@ -571,8 +572,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    
    public void removeAllFromLogEntries()
    {
-      LogEntryStoryboardSet tmpSet = new LogEntryStoryboardSet();
-      tmpSet.addAll(this.getLogEntries());
+      LinkedHashSet<LogEntryStoryBoard> tmpSet = new LinkedHashSet<LogEntryStoryBoard>(this.getLogEntries());
    
       for (LogEntryStoryBoard value : tmpSet)
       {

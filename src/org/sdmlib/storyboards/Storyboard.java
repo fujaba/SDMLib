@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2014 zuendorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -1359,8 +1359,8 @@ public class Storyboard implements PropertyChangeInterface
 
    public void removeYou()
    {
-      removeAllFromStoryboardSteps();
       setWall(null);
+      removeAllFromStoryboardSteps();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -1406,7 +1406,7 @@ public class Storyboard implements PropertyChangeInterface
             this.storyboardSteps = new StoryboardStepSet();
          }
 
-         changed = this.storyboardSteps.add(value);
+         changed = this.storyboardSteps.add (value);
 
          if (changed)
          {
@@ -1424,7 +1424,7 @@ public class Storyboard implements PropertyChangeInterface
 
       if ((this.storyboardSteps != null) && (value != null))
       {
-         changed = this.storyboardSteps.remove(value);
+         changed = this.storyboardSteps.remove (value);
 
          if (changed)
          {
