@@ -53,7 +53,9 @@ public class CGUtil
    }
    
    public static void printFile(Parser parser){
-      printFile(new File(parser.getFileName()), parser.getText().toString());
+      if(parser.isFileBodyChanged()){
+         printFile(new File(parser.getFileName()), parser.getText().toString());
+      }
    }
    public static void printFile(File file, String text)
    {

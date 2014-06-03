@@ -50,6 +50,7 @@ public class GenClassModel
    private AssociationSet associations = null;
    private HashMap<Object, Generator<?>> generators=new HashMap<Object, Generator<?>>();
    private Parser creatorCreatorParser;
+   private boolean showDiff;
 
    
    public boolean addToAssociations(Association value)
@@ -157,6 +158,13 @@ public class GenClassModel
       Exception e = new RuntimeException();
 
       attributNameConsistenceCheck(e, rootDir);
+      
+      // Write all
+      if(isShowDiff()){
+         for(Clazz clazz :  model.getClasses()){
+            getOrCreate(clazz).printAll();
+         }
+      }
       return true;
    }
    
@@ -2263,5 +2271,16 @@ public class GenClassModel
       {
          file.delete();
       }
+   }
+
+   public boolean isShowDiff()
+   {
+      return showDiff;
+   }
+
+   public GenClassModel withShowDiff(boolean showDiff)
+   {
+      this.showDiff = showDiff;
+      return this;
    }
 }

@@ -273,6 +273,10 @@ public class Parser
 
       return indexOfResult;
    }
+   
+   public void parse(){
+      indexOf(CLASS_END);
+   }
 
    private void parseFile()
    {

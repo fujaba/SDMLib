@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
@@ -493,47 +494,50 @@ public class GenClass extends Generator<Clazz>
 
    public void printFile(boolean really)
    {
-      if (really || parser.isFileBodyChanged())
-      {
-         StringBuilder fileBody = parser.getText();
-         while (fileBody.charAt(fileBody.length() - 1) == '\n')
-         {
-            fileBody.replace(fileBody.length() - 1 , fileBody.length(), "");
-         }
-         fileBody.append('\n');
-
+      GenClassModel clazzModel = model.getClassModel().getGenerator();
+      if(!clazzModel.isShowDiff()){
          CGUtil.printFile(parser);
       }
    }
+//      if (really || parser.isFileBodyChanged())
+//      {
+//         StringBuilder fileBody = parser.getText();
+//         while (fileBody.charAt(fileBody.length() - 1) == '\n')
+//         {
+//            fileBody.replace(fileBody.length() - 1 , fileBody.length(), "");
+//         }
+//         fileBody.append('\n');
+//      }
+//   }
 
    public void printCreatorFile(boolean really)
    {
-      if (really || creatorParser.isFileBodyChanged())
-      {
+      GenClassModel clazzModel = model.getClassModel().getGenerator();
+      if(!clazzModel.isShowDiff()){
          CGUtil.printFile(creatorParser);
       }
    }
 
    public void printModelSetFile(boolean really)
    {
-      if (really || modelSetParser.isFileBodyChanged())
-      {
+      GenClassModel clazzModel = model.getClassModel().getGenerator();
+      if(!clazzModel.isShowDiff()){
          CGUtil.printFile(modelSetParser);
       }
    }
 
    public void printPatternObjectFile(boolean really)
    {
-      if (really || patternObjectParser.isFileBodyChanged())
-      {
+      GenClassModel clazzModel = model.getClassModel().getGenerator();
+      if(!clazzModel.isShowDiff()){
          CGUtil.printFile(patternObjectParser);
       }
    }
 
    public void printPatternObjectCreatorFile(boolean really)
    {
-      if (really || patternObjectCreatorParser.isFileBodyChanged())
-      {
+      GenClassModel clazzModel = model.getClassModel().getGenerator();
+      if(!clazzModel.isShowDiff()){
          CGUtil.printFile(patternObjectCreatorParser);
       }
    }
@@ -609,7 +613,7 @@ public class GenClass extends Generator<Clazz>
 
          parser = new Parser().withFileName(fileName);
          // found old one?
-         if (javaFile.exists())
+         if (javaFile.exists() && !isShowDiff())
          {
             parser.withFileBody( CGUtil.readFile(javaFile) );
          }
@@ -636,6 +640,14 @@ public class GenClass extends Generator<Clazz>
       }
 
       return parser;
+   }
+   
+   public boolean isShowDiff(){
+      ClassModel model = getModel().getClassModel();
+      if(model != null){
+         return model.getGenerator().isShowDiff();
+      }
+      return false;
    }
 
    public Parser getOrCreateParserForCreatorClass(String rootDir)
@@ -670,7 +682,7 @@ public class GenClass extends Generator<Clazz>
          .withFileName(fileName);
 
          // found old one?
-         if (creatorJavaFile.exists())
+         if (creatorJavaFile.exists() && !isShowDiff())
          {
             creatorParser.withFileBody( CGUtil.readFile(creatorJavaFile) );
          }
@@ -855,7 +867,7 @@ public class GenClass extends Generator<Clazz>
          .withFileName(fileName);
 
          // found old one?
-         if (modelSetJavaFile.exists())
+         if (modelSetJavaFile.exists() && !isShowDiff())
          {
             modelSetParser.withFileBody( CGUtil.readFile(modelSetJavaFile) );
          }
@@ -992,7 +1004,7 @@ public class GenClass extends Generator<Clazz>
          patternObjectParser = new Parser()
          .withFileName(fileName);
          // found old one?
-         if (patternObjectJavaFile.exists())
+         if (patternObjectJavaFile.exists() && !isShowDiff())
          {
             patternObjectParser.withFileBody( CGUtil.readFile(patternObjectJavaFile) );
          }
@@ -1013,6 +1025,7 @@ public class GenClass extends Generator<Clazz>
                      + "         return ;\n" 
                      + "      }\n" 
                      + "      newInstance(CreatorCreator.createIdMap(\"PatternObjectType\"), hostGraphObject);\n"
+                     + "   }\n"
                      + "}\n");
 
             if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
@@ -1049,7 +1062,6 @@ public class GenClass extends Generator<Clazz>
          if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
             this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
          }
-         this.insertImport(patternObjectParser, "org.sdmlib.models.pattern.Pattern");
       }
       return patternObjectParser;
    }
@@ -1123,7 +1135,7 @@ public class GenClass extends Generator<Clazz>
          .withFileName(fileName);
          // found old one?
          boolean addImport=false;
-         if (patternObjectCreatorJavaFile.exists())
+         if (patternObjectCreatorJavaFile.exists() && !isShowDiff())
          {
             patternObjectCreatorParser.withFileBody( CGUtil.readFile(patternObjectCreatorJavaFile) );
          }
@@ -1311,6 +1323,46 @@ public class GenClass extends Generator<Clazz>
    {
       setFilePath(value);
       return this;
-   } 
+   }
 
+
+   public void printAll()
+   {
+      showDiffForParser(parser);
+      showDiffForParser(creatorParser);
+      showDiffForParser(modelSetParser);
+      showDiffForParser(patternObjectParser);
+      showDiffForParser(patternObjectCreatorParser);
+   }
+   private void showDiffForParser(Parser newFileParser){
+//      if(parser.isFileBodyChanged()){
+         File file = new File(newFileParser.getFileName());
+         if(file.exists()){
+            Parser oldFileParser = new Parser().withFileName(newFileParser.getFileName());
+            oldFileParser.withFileBody( CGUtil.readFile(file) );
+            oldFileParser.parse();
+            
+            newFileParser.parse();
+            // Diff Methods
+            LinkedHashMap<String, SymTabEntry> oldSymTab = oldFileParser.getSymTab();
+            for(Iterator<Entry<String, SymTabEntry>> i = newFileParser.getSymTab().entrySet().iterator();i.hasNext();){
+               Entry<String, SymTabEntry> item = i.next();
+               if(!oldSymTab.containsKey(item.getKey())){
+                  System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Method not found");
+                  continue;
+               }
+               SymTabEntry oldValue = oldSymTab.get(item.getKey());
+               int oldValueLen = oldValue.getEndPos()-oldValue.getStartPos();
+               int newValueLen = item.getValue().getEndPos()-item.getValue().getStartPos();
+               if(oldValueLen!=newValueLen){
+                  System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen);
+                  continue;
+               }
+            }
+         }else{
+            System.err.println(file.getAbsolutePath()+";;File not Found!!!");
+         }
+//         CGUtil.printFile(newFileParser);
+//      }
+   }
 }
