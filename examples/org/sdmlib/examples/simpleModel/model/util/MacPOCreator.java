@@ -9,7 +9,11 @@ public class MacPOCreator extends PatternObjectCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new MacPO();
+      if(reference) {
+          return new MacPO(new Mac[]{});
+      } else {
+          return new MacPO();
+      }
    }
    
    public static JsonIdMap createIdMap(String sessionID) {

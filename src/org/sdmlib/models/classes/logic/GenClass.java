@@ -731,9 +731,9 @@ public class GenClass extends Generator<Clazz>
 //                     "      return ((entitiyClassName) target).set(attrName, value);\n" +
                      "   }\n" +
                      "   public static JsonIdMap createIdMap(String sessionID)\n" +
-                           "   {\n" +
-                           "      return CreatorCreator.createIdMap(sessionID);\n" +
-                           "   }"+
+                     "   {\n" +
+                     "      return CreatorCreator.createIdMap(sessionID);\n" +
+                     "   }"+
                   "}\n");
             if (model.isExternal())
             {
@@ -1160,7 +1160,7 @@ public class GenClass extends Generator<Clazz>
                      "   }\n" + 
                      "   \n" + 
                      "   public static JsonIdMap createIdMap(String sessionID) {\n" +
-                     "       return CreatorCreator.createIdMap(sessionID);\n" +
+                     "      return CreatorCreator.createIdMap(sessionID);\n" +
                      "   }\n"+
                   "}\n");
 
@@ -1326,15 +1326,21 @@ public class GenClass extends Generator<Clazz>
    }
 
 
-   public void printAll()
+   public int printAll()
    {
-      showDiffForParser(parser);
-      showDiffForParser(creatorParser);
-      showDiffForParser(modelSetParser);
-      showDiffForParser(patternObjectParser);
-      showDiffForParser(patternObjectCreatorParser);
+      int count=0;
+      count += showDiffForParser(parser);
+      count += showDiffForParser(creatorParser);
+      count += showDiffForParser(modelSetParser);
+      count += showDiffForParser(patternObjectParser);
+      count += showDiffForParser(patternObjectCreatorParser);
+      return count;
    }
-   private void showDiffForParser(Parser newFileParser){
+   private int showDiffForParser(Parser newFileParser){
+      int count=0;
+      if(newFileParser==null){
+         return 0;
+      }
 //      if(parser.isFileBodyChanged()){
          File file = new File(newFileParser.getFileName());
          if(file.exists()){
@@ -1345,23 +1351,46 @@ public class GenClass extends Generator<Clazz>
             newFileParser.parse();
             // Diff Methods
             LinkedHashMap<String, SymTabEntry> oldSymTab = oldFileParser.getSymTab();
+            
+            String packageName = CGUtil.packageName(this.model.getFullName());
+            String shortName = newFileParser.getFileName().replace("\\", ".").replace("/", ".");
+            shortName = shortName.substring(shortName.indexOf(packageName));
+            
             for(Iterator<Entry<String, SymTabEntry>> i = newFileParser.getSymTab().entrySet().iterator();i.hasNext();){
                Entry<String, SymTabEntry> item = i.next();
+               if(item.getValue().getMemberName().startsWith(Parser.IMPORT)){
+                  //ignore Import
+                  continue;
+               }
                if(!oldSymTab.containsKey(item.getKey())){
                   System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Method not found");
                   continue;
                }
                SymTabEntry oldValue = oldSymTab.get(item.getKey());
                int oldValueLen = oldValue.getEndPos()-oldValue.getStartPos();
-               int newValueLen = item.getValue().getEndPos()-item.getValue().getStartPos();
-               if(oldValueLen!=newValueLen){
-                  System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen);
+               SymTabEntry newValue = item.getValue();
+               int newValueLen = newValue.getEndPos()-newValue.getStartPos();
+               
+               String oldStrValue = oldFileParser.getText().substring(oldValue.getStartPos(), oldValue.getEndPos() + 1).trim();
+               String newStrValue = newFileParser.getText().substring(newValue.getStartPos(), newValue.getEndPos() + 1).trim();
+               
+               
+               if(!oldStrValue.equals(newStrValue)){
+                  System.err.println(file.getPath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen+";");
+                  System.err.println("("+shortName+":"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+")");
+
+                  System.out.println(oldStrValue);
+                  System.out.println("--------------------------------------------------------------------------------------------------");
+                  System.err.println(newStrValue);
+                  count += 1;
                   continue;
                }
             }
          }else{
             System.err.println(file.getAbsolutePath()+";;File not Found!!!");
+            
          }
+         return count;
 //         CGUtil.printFile(newFileParser);
 //      }
    }

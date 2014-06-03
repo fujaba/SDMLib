@@ -22,8 +22,9 @@ package org.sdmlib.models.classes;
 
 public class Attribute extends Value
 {
-   public enum VISIBILITY{PUBLIC, PRIVATE, PROTECTED};
    public static final String PROPERTY_CLAZZ = "clazz";
+   public enum VISIBILITY{PUBLIC, PRIVATE, PROTECTED};
+
    private Clazz clazz = null;
    private VISIBILITY visibility = VISIBILITY.PRIVATE;
    

@@ -24,6 +24,10 @@ class CreatorCreator{
       jsonIdMap.withCreator(new ParameterPOCreator());
       jsonIdMap.withCreator(new RoleCreator());
       jsonIdMap.withCreator(new RolePOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.SDMLibClassCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.SDMLibClassPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ValueCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ValuePOCreator());
       return jsonIdMap;
    }
 }

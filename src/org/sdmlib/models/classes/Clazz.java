@@ -32,26 +32,26 @@ public class Clazz extends SDMLibClass
 {
    public static final String PROPERTY_ATTRIBUTES = "attributes";
    public static final String PROPERTY_CLASSMODEL = "classModel";
-   public static final String PROPERTY_EXTERNAL = "external";
-   public static final String PROPERTY_INTERFACE = "interface";
-   public static final String PROPERTY_METHODS = "methods";
    public static final String PROPERTY_SUPERCLASS = "superclasses";
    public static final String PROPERTY_KIDCLASSES = "kidclasses";
    
+   public static final String PROPERTY_METHODS = "methods";
    public static final String PROPERTY_ROLES = "roles";
-   public static final String PROPERTY_WRAPPED = "wrapped";
+   
+   public static final String PROPERTY_INTERFACE = "interface";
+   public static final String PROPERTY_EXTERNAL = "external";
+   public static final ClazzSet EMPTY_SET = new ClazzSet();
 
+   private AttributeSet attributes = null;
    private ClassModel classModel = null;  
-   private boolean external;
-
    private ClazzSet superClazzes = null;
    private ClazzSet kidClazzes = null;
    
    private MethodSet methods = null;
-   private AttributeSet attributes = null;
-
-   private boolean interfaze = false;
    private RoleSet roles = null;
+   
+   private boolean interfaze = false;
+   private boolean external;
    
    public Clazz(){
       

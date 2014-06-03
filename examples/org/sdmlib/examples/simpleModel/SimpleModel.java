@@ -17,7 +17,6 @@ public class SimpleModel
       Clazz macClazz = model.createClazz("Mac");
       macClazz.withAttribute("Name", DataType.STRING);
       
-      
       // Enable Special Thinks
       model.getGenerator().withShowDiff(true);
       model.generate("examples");

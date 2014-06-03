@@ -161,9 +161,11 @@ public class GenClassModel
       
       // Write all
       if(isShowDiff()){
+         int count = 0;
          for(Clazz clazz :  model.getClasses()){
-            getOrCreate(clazz).printAll();
+            count += getOrCreate(clazz).printAll();
          }
+         System.out.println("Totalchanges of all Files: "+count);
       }
       return true;
    }

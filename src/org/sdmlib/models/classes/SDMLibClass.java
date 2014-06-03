@@ -35,4 +35,9 @@ public abstract class SDMLibClass implements PropertyChangeInterface
    }
    
    public abstract SDMLibClass withName(String value);
+
+
+   public void removeYou()
+   {
+   }
 }

@@ -79,14 +79,15 @@ public class ClassModel extends SDMLibClass
       }
    }
 	
-	public ClazzSet getClasses()
-	{
-		if (classes == null)
-		{
-			return new ClazzSet();
-		}
-		return this.classes;
-	}
+   public ClazzSet getClasses()
+   {
+      if (this.classes == null)
+      {
+         return Clazz.EMPTY_SET;
+      }
+   
+      return this.classes;
+   }
 	
 	public Clazz getClazz(String name)
 	{
@@ -112,14 +113,27 @@ public class ClassModel extends SDMLibClass
 	}
 
 	public boolean addToClasses(Clazz value)
-	{
-		if (this.classes == null)
-		{
-			this.classes = new ClazzSet();
-		}
-
-		return this.classes.add(value);
-	}
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.classes == null)
+         {
+            this.classes = new ClazzSet();
+         }
+         
+         changed = this.classes.add (value);
+         
+         if (changed)
+         {
+            value.withClassModel(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
 
 	public boolean removeFromClasses(Clazz value)
 	{
@@ -158,10 +172,13 @@ public class ClassModel extends SDMLibClass
 
 	// ==========================================================================
 
-	public void removeYou()
+	@Override
+   public void removeYou()
 	{
+	   super.removeYou();
 		removeAllFromClasses();
 		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+		
 	}
 
 	public void removeAllGeneratedCode()
@@ -175,13 +192,14 @@ public class ClassModel extends SDMLibClass
    }
 
 	@Override
-   public String toString()
-	{
-		StringBuilder _ = new StringBuilder();
+	public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getName());
+      return _.substring(1);
+   }
 
-		_.append(" ").append(this.getName());
-		return _.substring(1);
-	}
    public ClassModel withClasses(Clazz... value)
    {
       for (Clazz item : value)

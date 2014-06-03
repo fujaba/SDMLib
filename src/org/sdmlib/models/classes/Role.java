@@ -25,9 +25,10 @@ import org.sdmlib.models.classes.util.RoleSet;
 
 public class Role extends SDMLibClass
 {
-   public static final String PROPERTY_CARD = "card";
    public static final String VANILLA = "vanilla";
    public static final String AGGREGATION = "aggregation";
+
+   public static final String PROPERTY_CARD = "card";
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_KIND = "kind";
   
