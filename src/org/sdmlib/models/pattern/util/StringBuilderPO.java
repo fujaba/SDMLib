@@ -4,6 +4,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class StringBuilderPO extends PatternObject<StringBuilderPO, StringBuilder>
 {
+   public StringBuilderPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public StringBuilderPO(StringBuilder... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public StringBuilderSet allMatches()
    {
       this.setDoAllMatches(true);

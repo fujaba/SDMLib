@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstraint>
 {
+   public LinkConstraintPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public LinkConstraintPO(LinkConstraint... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public LinkConstraintPO hasTgtRoleName(String value)
    {
       new AttributeConstraint()

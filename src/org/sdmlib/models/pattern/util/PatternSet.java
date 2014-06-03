@@ -320,16 +320,7 @@ public class PatternSet extends LinkedHashSet<Pattern>
 
    public PatternPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      PatternPO patternObject = pattern.hasElementPatternPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PatternPO(this.toArray(new Pattern[this.size()]));
    }
 
 
@@ -357,36 +348,6 @@ public class PatternSet extends LinkedHashSet<Pattern>
 
    public PatternPO hasPatternPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      PatternPO patternObject = pattern.hasElementPatternPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PatternPO(this.toArray(new Pattern[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

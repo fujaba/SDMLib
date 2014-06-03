@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.UnifyGraphsOp;
 
 public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsOp>
 {
+   public UnifyGraphsOpPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public UnifyGraphsOpPO(UnifyGraphsOp... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public UnifyGraphsOpSet allMatches()
    {
       this.setDoAllMatches(true);

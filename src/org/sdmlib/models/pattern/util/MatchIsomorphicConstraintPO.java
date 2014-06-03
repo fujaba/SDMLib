@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicConstraintPO, MatchIsomorphicConstraint>
 {
+   public MatchIsomorphicConstraintPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public MatchIsomorphicConstraintPO(MatchIsomorphicConstraint... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public MatchIsomorphicConstraintPO startNAC()
    {

@@ -23,7 +23,8 @@ public class BanfM2MModelGen
       graphClazz = new Clazz("Graph").withClassModel(model);
       
       nodeClazz = new Clazz("Person")
-         .withAttribute("firstName", DataType.STRING);
+         .withAttribute("firstName", DataType.STRING)
+         .withAttribute("text", DataType.STRING);
       
       edgeClazz = new Clazz("Relation").withAttribute("kind", DataType.STRING );
 
@@ -47,6 +48,12 @@ public class BanfM2MModelGen
       new Association()
       .withTarget(nodeClazz, "tgt", Card.ONE)
       .withSource(edgeClazz, "inEdges", Card.MANY);
+      
+      
+      new Association()
+      .withTarget(nodeClazz, "knows", Card.MANY)
+      .withSource(nodeClazz, "knows", Card.MANY);
+
       
       model.generate("examples");
       return model;

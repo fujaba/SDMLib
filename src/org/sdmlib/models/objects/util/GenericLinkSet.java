@@ -166,16 +166,7 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
 
    public GenericLinkPO startModelPattern()
    {
-      org.sdmlib.models.objects.util.ModelPattern pattern = new org.sdmlib.models.objects.util.ModelPattern();
-      
-      GenericLinkPO patternObject = pattern.hasElementGenericLinkPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericLinkPO(this.toArray(new GenericLink[this.size()]));
    }
 
 
@@ -203,42 +194,7 @@ public class GenericLinkSet extends LinkedHashSet<GenericLink>
 
    public GenericLinkPO hasGenericLinkPO()
    {
-      org.sdmlib.models.objects.util.ModelPattern pattern = new org.sdmlib.models.objects.util.ModelPattern();
-      
-      GenericLinkPO patternObject = pattern.hasElementGenericLinkPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericLinkPO(this.toArray(new GenericLink[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

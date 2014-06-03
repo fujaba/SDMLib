@@ -7,6 +7,13 @@ import org.sdmlib.models.transformations.Template;
 
 public class ChoiceTemplatePO extends PatternObject<ChoiceTemplatePO, ChoiceTemplate>
 {
+   public ChoiceTemplatePO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public ChoiceTemplatePO(ChoiceTemplate... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public ChoiceTemplateSet allMatches()
    {
       this.setDoAllMatches(true);

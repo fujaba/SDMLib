@@ -7,6 +7,13 @@ import org.sdmlib.models.transformations.Template;
 
 public class TemplatePO extends PatternObject<TemplatePO, Template>
 {
+   public TemplatePO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public TemplatePO(Template... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public TemplateSet allMatches()
    {
       this.setDoAllMatches(true);

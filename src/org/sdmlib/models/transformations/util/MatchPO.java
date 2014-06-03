@@ -9,6 +9,13 @@ import org.sdmlib.models.transformations.Template;
 
 public class MatchPO extends PatternObject<MatchPO, Match>
 {
+   public MatchPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public MatchPO(Match... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public MatchSet allMatches()
    {
       this.setDoAllMatches(true);

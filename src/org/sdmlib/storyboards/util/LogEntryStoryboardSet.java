@@ -24,6 +24,7 @@ package org.sdmlib.storyboards.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.logger.LogEntry;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
@@ -75,16 +76,7 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
 
    public LogEntryPO startModelPattern()
    {
-      org.sdmlib.storyboards.util.ModelPattern pattern = new org.sdmlib.storyboards.util.ModelPattern();
-      
-      LogEntryPO patternObject = pattern.hasElementLogEntryPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new LogEntryPO(this.toArray(new LogEntry[this.size()]));
    }
 
 
@@ -112,15 +104,6 @@ public class LogEntryStoryboardSet extends LinkedHashSet<LogEntryStoryBoard> imp
 
    public LogEntryPO hasLogEntryPO()
    {
-      org.sdmlib.storyboards.util.ModelPattern pattern = new org.sdmlib.storyboards.util.ModelPattern();
-      
-      LogEntryPO patternObject = pattern.hasElementLogEntryPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new LogEntryPO(this.toArray(new LogEntry[this.size()]));
    }
 }

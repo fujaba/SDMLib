@@ -10,6 +10,13 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, OptionalSubPattern>
 {
+   public OptionalSubPatternPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public OptionalSubPatternPO(OptionalSubPattern... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public OptionalSubPatternSet allMatches()
    {
       this.setDoAllMatches(true);

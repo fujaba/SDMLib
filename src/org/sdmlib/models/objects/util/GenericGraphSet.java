@@ -120,16 +120,7 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
 
    public GenericGraphPO startModelPattern()
    {
-      org.sdmlib.models.objects.util.ModelPattern pattern = new org.sdmlib.models.objects.util.ModelPattern();
-      
-      GenericGraphPO patternObject = pattern.hasElementGenericGraphPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
    }
 
 
@@ -157,42 +148,7 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
 
    public GenericGraphPO hasGenericGraphPO()
    {
-      org.sdmlib.models.objects.util.ModelPattern pattern = new org.sdmlib.models.objects.util.ModelPattern();
-      
-      GenericGraphPO patternObject = pattern.hasElementGenericGraphPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -19,7 +19,6 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
@@ -1007,23 +1006,10 @@ public class GenClass extends Generator<Clazz>
                      + "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n"
                      + "{\nALLMATCHES\n\n"
                      + "   public patternObjectClassName(){\n"
-                     + "      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
-                     + "      pattern.addToElements(this);\n"
+                     + "      newInstance(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
                      + "   }\n\n"
                      + "   public patternObjectClassName(ModelClass... hostGraphObject) {\n"
-                     + "      if(hostGraphObject==null || hostGraphObject.length<1){\n"
-                     + "         return;\n"
-                     + "      }\n"
-                     + "      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
-                     + "      pattern.addToElements(this);\n"
-                     + "      if(hostGraphObject.length>1){\n"
-                     + "         this.withCandidates(hostGraphObject);\n"
-                     + "      } else {\n"
-                     + "         this.withCurrentMatch(hostGraphObject[0]);\n" 
-                     + "         this.withModifier(Pattern.BOUND);\n"  
-                     + "      }\n"
-                     + "      pattern.findMatch();\n"
-                     + "  }\n"
+                     + "      newInstance(CreatorCreator.createIdMap(\"PatternObjectType\"), hostGraphObject);\n"
                      + "}\n");
 
             if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){

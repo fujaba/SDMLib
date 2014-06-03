@@ -1,21 +1,23 @@
 package org.sdmlib.examples.helloworld.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.examples.helloworld.util.GreetingSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.examples.helloworld.GreetingMessage;
-import org.sdmlib.examples.helloworld.util.PersonPO;
 import org.sdmlib.examples.helloworld.Person;
-import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.examples.helloworld.model.Node;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
+   public GreetingPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
 
+   public GreetingPO(Greeting... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
+   
+   
     public GreetingSet allMatches()
    {
       this.setDoAllMatches(true);

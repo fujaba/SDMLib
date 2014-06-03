@@ -6,6 +6,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, LocalVarTableEntry>
 {
+   public LocalVarTableEntryPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public LocalVarTableEntryPO(LocalVarTableEntry... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public LocalVarTableEntryPO startNAC()
    {

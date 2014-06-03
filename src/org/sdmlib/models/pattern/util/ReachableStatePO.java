@@ -8,6 +8,13 @@ import org.sdmlib.models.pattern.ReachableState;
 
 public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableState>
 {
+   public ReachableStatePO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public ReachableStatePO(ReachableState... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public ReachableStateSet allMatches()
    {
       this.setDoAllMatches(true);

@@ -167,16 +167,7 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
 
    public MatchIsomorphicConstraintPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      MatchIsomorphicConstraintPO patternObject = pattern.hasElementMatchIsomorphicConstraintPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
    }
 
 
@@ -204,27 +195,6 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
 
    public MatchIsomorphicConstraintPO hasMatchIsomorphicConstraintPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      MatchIsomorphicConstraintPO patternObject = pattern.hasElementMatchIsomorphicConstraintPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

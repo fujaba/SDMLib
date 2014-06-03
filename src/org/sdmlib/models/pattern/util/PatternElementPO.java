@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class PatternElementPO extends PatternObject<PatternElementPO, PatternElement>
 {
+   public PatternElementPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public PatternElementPO(PatternElement... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public PatternElementPO hasModifier(String value)
    {
       new AttributeConstraint()

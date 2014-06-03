@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class RolePO extends PatternObject<RolePO, Role>
 {
+   public RolePO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public RolePO(Role... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public RolePO startNAC()
    {

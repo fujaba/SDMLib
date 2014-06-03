@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class ClazzPO extends PatternObject<ClazzPO, Clazz>
 {
+   public ClazzPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public ClazzPO(Clazz... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public ClazzPO startNAC()
    {

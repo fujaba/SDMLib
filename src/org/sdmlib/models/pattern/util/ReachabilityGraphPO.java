@@ -6,6 +6,13 @@ import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, ReachabilityGraph>
 {
+   public ReachabilityGraphPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public ReachabilityGraphPO(ReachabilityGraph... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public ReachabilityGraphSet allMatches()
    {
       this.setDoAllMatches(true);

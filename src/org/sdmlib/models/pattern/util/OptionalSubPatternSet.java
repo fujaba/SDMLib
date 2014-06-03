@@ -333,16 +333,7 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
 
    public OptionalSubPatternPO startModelPattern()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      OptionalSubPatternPO patternObject = pattern.hasElementOptionalSubPatternPO();
-      
-      patternObject.withCandidates(this);
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new OptionalSubPatternPO(this.toArray(new OptionalSubPattern[this.size()]));
    }
 
 
@@ -370,29 +361,6 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
 
    public OptionalSubPatternPO hasOptionalSubPatternPO()
    {
-      org.sdmlib.models.pattern.util.ModelPattern pattern = new org.sdmlib.models.pattern.util.ModelPattern();
-      
-      OptionalSubPatternPO patternObject = pattern.hasElementOptionalSubPatternPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new OptionalSubPatternPO(this.toArray(new OptionalSubPattern[this.size()]));
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

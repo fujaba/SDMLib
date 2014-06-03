@@ -189,16 +189,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
 
    public RolePO startModelPattern()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      RolePO patternObject = pattern.hasElementRolePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new RolePO(this.toArray(new Role[this.size()]));
    }
 
 
@@ -226,15 +217,6 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
 
    public RolePO hasRolePO()
    {
-      org.sdmlib.models.classes.util.ModelPattern pattern = new org.sdmlib.models.classes.util.ModelPattern();
-      
-      RolePO patternObject = pattern.hasElementRolePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new RolePO(this.toArray(new Role[this.size()]));
    }
 }

@@ -18,7 +18,6 @@ class CreatorCreator{
       jsonIdMap.withCreator(new GenericLinkPOCreator());
       jsonIdMap.withCreator(new GenericObjectCreator());
       jsonIdMap.withCreator(new GenericObjectPOCreator());
-      jsonIdMap.withCreator(new ModelPatternCreator());
       return jsonIdMap;
    }
 }

@@ -5,7 +5,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
 {
+   public PeerProxyPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
 
+   public PeerProxyPO(PeerProxy... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
     public PeerProxySet allMatches()
    {
       this.setDoAllMatches(true);

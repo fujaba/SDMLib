@@ -21,34 +21,22 @@
    
 package org.sdmlib.examples.helloworld.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.helloworld.Person;
-import org.sdmlib.models.modelsets.StringList;
 import java.util.Collection;
-import java.util.List;
-import org.sdmlib.examples.helloworld.util.GreetingSet;
-import java.util.Collections;
-import org.sdmlib.models.modelsets.ObjectSet;
+
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.Person;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class PersonSet extends SDMSet<Person>
 {
-
+   private static final long serialVersionUID = 1L;
 
    public PersonPO hasPersonPO()
    {
-      org.sdmlib.examples.helloworld.util.ModelPattern pattern = new org.sdmlib.examples.helloworld.util.ModelPattern();
-      
-      PersonPO patternObject = pattern.hasElementPersonPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new PersonPO(this.toArray(new Person[this.size()]));
    }
-
 
    @Override
    public String getEntryType()
@@ -61,7 +49,10 @@ public class PersonSet extends SDMSet<Person>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Person>)value);
+         Collection<?> collection = (Collection<?>) value;
+         for(Object item : collection){
+             this.add((Person) item);
+         }
       }
       else if (value != null)
       {
@@ -132,7 +123,10 @@ public class PersonSet extends SDMSet<Person>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         Collection<?> collection = (Collection<?>) value;
+         for(Object item : collection){
+            neighbors.add(item);
+         }
       }
       else
       {

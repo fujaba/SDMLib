@@ -39,16 +39,7 @@ public class MatchSet extends SDMSet<Match>
 
    public MatchPO hasMatchPO()
    {
-      org.sdmlib.models.transformations.util.ModelPattern pattern = new org.sdmlib.models.transformations.util.ModelPattern();
-      
-      MatchPO patternObject = pattern.hasElementMatchPO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new MatchPO(this.toArray(new Match[this.size()]));
    }
 
 

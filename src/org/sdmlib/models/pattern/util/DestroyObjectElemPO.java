@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, DestroyObjectElem>
 {
+   public DestroyObjectElemPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public DestroyObjectElemPO(DestroyObjectElem... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public DestroyObjectElemPO startNAC()
    {

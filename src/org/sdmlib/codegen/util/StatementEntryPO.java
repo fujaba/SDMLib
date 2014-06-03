@@ -9,6 +9,13 @@ import org.sdmlib.models.pattern.PatternObject;
 
 public class StatementEntryPO extends PatternObject<StatementEntryPO, StatementEntry>
 {
+   public StatementEntryPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public StatementEntryPO(StatementEntry... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    @Override
    public StatementEntryPO startNAC()
    {

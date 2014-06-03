@@ -8,6 +8,13 @@ import org.sdmlib.storyboards.StoryboardStep;
 
 public class StoryboardStepPO extends PatternObject<StoryboardStepPO, StoryboardStep>
 {
+   public StoryboardStepPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public StoryboardStepPO(StoryboardStep... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public StoryboardStepSet allMatches()
    {
       this.setDoAllMatches(true);

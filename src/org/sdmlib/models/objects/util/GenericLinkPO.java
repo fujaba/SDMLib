@@ -13,6 +13,13 @@ import org.sdmlib.models.objects.util.GenericGraphPO;
 
 public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
 {
+   public GenericLinkPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public GenericLinkPO(GenericLink... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public GenericLinkPO hasTgtLabel(String value)
    {
       new AttributeConstraint()

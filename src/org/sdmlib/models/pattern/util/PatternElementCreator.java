@@ -72,7 +72,7 @@ public class PatternElementCreator extends EntityFactory
    {
       if (PatternElement.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
-         ((PatternElement<?>)target).setPattern((Pattern<Object>) value);
+         ((PatternElement<?>)target).setPattern((Pattern<PatternElement<?>>) value);
          return true;
       }
 

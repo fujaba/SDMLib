@@ -6,6 +6,13 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class JsonIdMapPO extends PatternObject<JsonIdMapPO, JsonIdMap>
 {
+   public JsonIdMapPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public JsonIdMapPO(JsonIdMap... hostGraphObject) {
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
    public JsonIdMapSet allMatches()
    {
       this.setDoAllMatches(true);
