@@ -18,6 +18,8 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardStepCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardStepPOCreator());
      
+      jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardWallCreator());
+      jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardWallPOCreator());
       return jsonIdMap;
    }
 }

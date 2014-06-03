@@ -65,7 +65,7 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
    
    public StoryboardPO hasStoryboard()
    {
-      StoryboardPO result = new StoryboardPO();
+      StoryboardPO result = new StoryboardPO(new org.sdmlib.storyboards.Storyboard[]{});
       result.setModifier(this.getPattern().getModifier());
       
       super.hasLink(StoryboardStep.PROPERTY_STORYBOARD, result);
@@ -75,16 +75,7 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
 
    public StoryboardStepPO hasStoryboard(StoryboardPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(StoryboardStep.PROPERTY_STORYBOARD)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, StoryboardStep.PROPERTY_STORYBOARD);
    }
 
    public Storyboard getStoryboard()

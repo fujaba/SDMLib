@@ -1374,8 +1374,21 @@ public class GenClass extends Generator<Clazz>
                String oldStrValue = oldFileParser.getText().substring(oldValue.getStartPos(), oldValue.getEndPos() + 1).trim();
                String newStrValue = newFileParser.getText().substring(newValue.getStartPos(), newValue.getEndPos() + 1).trim();
                
+               String[] oldSplit = oldStrValue.split("\\s+");
+               String[] newSplit = newStrValue.split("\\s+");
                
-               if(!oldStrValue.equals(newStrValue)){
+               boolean foundDiff = oldSplit.length != newSplit.length;
+               
+               for (int j = 0; j < oldSplit.length && ! foundDiff; j++ )
+               {
+                  if ( ! oldSplit[j].equals(newSplit[j]))
+                  {
+                     foundDiff = true;
+                     break;
+                  }
+               }
+               
+               if(foundDiff){
                   System.err.println(file.getPath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen+";");
                   System.err.println("("+shortName+":"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+")");
 
