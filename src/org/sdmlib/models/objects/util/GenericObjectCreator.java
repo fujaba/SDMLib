@@ -1,12 +1,11 @@
 package org.sdmlib.models.objects.util;
 
-import org.sdmlib.models.objects.GenericAttribute;
-import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.GenericLink;
-import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.objects.GenericGraph;
+import org.sdmlib.models.objects.GenericAttribute;
+import org.sdmlib.models.objects.GenericLink;
 
 public class GenericObjectCreator extends EntityFactory
 {
@@ -14,11 +13,11 @@ public class GenericObjectCreator extends EntityFactory
    {
       GenericObject.PROPERTY_NAME,
       GenericObject.PROPERTY_TYPE,
+      GenericObject.PROPERTY_ICON,
       GenericObject.PROPERTY_GRAPH,
       GenericObject.PROPERTY_ATTRS,
       GenericObject.PROPERTY_OUTGOINGLINKS,
       GenericObject.PROPERTY_INCOMMINGLINKS,
-      GenericObject.PROPERTY_ICON,
    };
    
    @Override
@@ -36,116 +35,118 @@ public class GenericObjectCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
+      if (GenericObject.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         attribute = attrName.substring(0, pos);
+         return ((GenericObject) target).getName();
       }
 
-      if (GenericObject.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (GenericObject.PROPERTY_TYPE.equalsIgnoreCase(attrName))
       {
-         return ((GenericObject)target).getName();
+         return ((GenericObject) target).getType();
       }
 
-      if (GenericObject.PROPERTY_TYPE.equalsIgnoreCase(attribute))
+      if (GenericObject.PROPERTY_ICON.equalsIgnoreCase(attrName))
       {
-         return ((GenericObject)target).getType();
+         return ((GenericObject) target).getIcon();
       }
 
-      if (GenericObject.PROPERTY_GRAPH.equalsIgnoreCase(attribute))
+      if (GenericObject.PROPERTY_GRAPH.equalsIgnoreCase(attrName))
       {
-         return ((GenericObject)target).getGraph();
+         return ((GenericObject) target).getGraph();
       }
 
-      if (GenericObject.PROPERTY_ATTRS.equalsIgnoreCase(attribute))
+      if (GenericObject.PROPERTY_ATTRS.equalsIgnoreCase(attrName))
       {
-         return ((GenericObject)target).getAttrs();
+         return ((GenericObject) target).getAttrs();
       }
 
-      if (GenericObject.PROPERTY_OUTGOINGLINKS.equalsIgnoreCase(attribute))
+      if (GenericObject.PROPERTY_OUTGOINGLINKS.equalsIgnoreCase(attrName))
       {
-         return ((GenericObject)target).getOutgoingLinks();
+         return ((GenericObject) target).getOutgoingLinks();
       }
 
-      if (GenericObject.PROPERTY_INCOMMINGLINKS.equalsIgnoreCase(attribute))
+      if (GenericObject.PROPERTY_INCOMMINGLINKS.equalsIgnoreCase(attrName))
       {
-         return ((GenericObject)target).getIncommingLinks();
+         return ((GenericObject) target).getIncommingLinks();
       }
 
-      if (GenericObject.PROPERTY_ICON.equalsIgnoreCase(attribute))
-      {
-         return ((GenericObject)target).getIcon();
-      }
-      return super.getValue(target, attribute);
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
       if (GenericObject.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((GenericObject)target).setName((String) value);
+         ((GenericObject) target).setName((String) value);
          return true;
       }
 
       if (GenericObject.PROPERTY_TYPE.equalsIgnoreCase(attrName))
       {
-         ((GenericObject)target).setType((String) value);
-         return true;
-      }
-
-      if (GenericObject.PROPERTY_GRAPH.equalsIgnoreCase(attrName))
-      {
-         ((GenericObject)target).setGraph((GenericGraph) value);
-         return true;
-      }
-
-      if (GenericObject.PROPERTY_ATTRS.equalsIgnoreCase(attrName))
-      {
-         ((GenericObject)target).addToAttrs((GenericAttribute) value);
-         return true;
-      }
-      
-      if ((GenericObject.PROPERTY_ATTRS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((GenericObject)target).removeFromAttrs((GenericAttribute) value);
-         return true;
-      }
-
-      if (GenericObject.PROPERTY_OUTGOINGLINKS.equalsIgnoreCase(attrName))
-      {
-         ((GenericObject)target).addToOutgoingLinks((GenericLink) value);
-         return true;
-      }
-      
-      if ((GenericObject.PROPERTY_OUTGOINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((GenericObject)target).removeFromOutgoingLinks((GenericLink) value);
-         return true;
-      }
-
-      if (GenericObject.PROPERTY_INCOMMINGLINKS.equalsIgnoreCase(attrName))
-      {
-         ((GenericObject)target).addToIncommingLinks((GenericLink) value);
-         return true;
-      }
-      
-      if ((GenericObject.PROPERTY_INCOMMINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((GenericObject)target).removeFromIncommingLinks((GenericLink) value);
+         ((GenericObject) target).setType((String) value);
          return true;
       }
 
       if (GenericObject.PROPERTY_ICON.equalsIgnoreCase(attrName))
       {
-         ((GenericObject)target).setIcon((String) value);
+         ((GenericObject) target).setIcon((String) value);
          return true;
       }
-      return super.setValue(target, attrName, value, type);
+
+      if (GenericObject.PROPERTY_GRAPH.equalsIgnoreCase(attrName))
+      {
+         ((GenericObject) target).setGraph((GenericGraph) value);
+         return true;
+      }
+
+      if (GenericObject.PROPERTY_ATTRS.equalsIgnoreCase(attrName))
+      {
+         ((GenericObject) target).addToAttrs((GenericAttribute) value);
+         return true;
+      }
+      
+      if ((GenericObject.PROPERTY_ATTRS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((GenericObject) target).removeFromAttrs((GenericAttribute) value);
+         return true;
+      }
+
+      if (GenericObject.PROPERTY_OUTGOINGLINKS.equalsIgnoreCase(attrName))
+      {
+         ((GenericObject) target).addToOutgoingLinks((GenericLink) value);
+         return true;
+      }
+      
+      if ((GenericObject.PROPERTY_OUTGOINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((GenericObject) target).removeFromOutgoingLinks((GenericLink) value);
+         return true;
+      }
+
+      if (GenericObject.PROPERTY_INCOMMINGLINKS.equalsIgnoreCase(attrName))
+      {
+         ((GenericObject) target).addToIncommingLinks((GenericLink) value);
+         return true;
+      }
+      
+      if ((GenericObject.PROPERTY_INCOMMINGLINKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((GenericObject) target).removeFromIncommingLinks((GenericLink) value);
+         return true;
+      }
+      return false;
    }
- 
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+   
    //==========================================================================
    
    @Override

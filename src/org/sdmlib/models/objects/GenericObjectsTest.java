@@ -24,19 +24,8 @@ package org.sdmlib.models.objects;
 import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Card;
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.objects.util.GenericGraphCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardManager;
-
-import de.kassel.roombook.Building;
-import de.kassel.roombook.creators.CreatorCreator;
-import de.uniks.networkparser.json.JsonIdMap;
    
 public class GenericObjectsTest implements PropertyChangeInterface 
 {
@@ -54,50 +43,6 @@ public class GenericObjectsTest implements PropertyChangeInterface
       
       storyboard.add("Step 1: We build a generic class model for object structures: ");
 
-      ClassModel genericModel = new ClassModel("org.sdmlib.models.objects");
-      
-      Clazz genericGraph = genericModel.createClazz("org.sdmlib.models.objects.GenericGraph");
-      
-      Clazz genericObjectClazz = genericModel.createClazz("org.sdmlib.models.objects.GenericObject")
-      .withAttribute("name", DataType.STRING)
-      .withAttribute("type", DataType.STRING)
-      .withAttribute("icon", DataType.STRING);
-      
-      new Association()
-      .withTarget(genericObjectClazz, "objects", Card.MANY)
-      .withSource(genericGraph, "graph", Card.ONE);
-      
-      Clazz genericAttributeClazz = genericModel.createClazz("org.sdmlib.models.objects.GenericAttribute")
-      .withAttribute("name", DataType.STRING)
-      .withAttribute("value", DataType.STRING);
-      
-      new Association()
-      .withSource(genericObjectClazz, "owner", Card.ONE)
-      .withTarget(genericAttributeClazz, "attrs", Card.MANY);
-      
-      Clazz genericLinkClazz = genericModel.createClazz("org.sdmlib.models.objects.GenericLink")
-      .withAttribute("tgtLabel", DataType.STRING)
-      .withAttribute("srcLabel", DataType.STRING);
-      
-      new Association()
-      .withSource(genericObjectClazz, "src", Card.ONE)
-      .withTarget(genericLinkClazz, "outgoingLinks", Card.MANY);
-      
-      new Association()
-      .withSource(genericObjectClazz, "tgt", Card.ONE)
-      .withTarget(genericLinkClazz, "incommingLinks", Card.MANY);
-      
-      new Association()
-      .withTarget(genericLinkClazz, "links", Card.MANY)
-      .withSource(genericGraph, "graph", Card.ONE);
-      
-      storyboard.addClassDiagram(genericModel);
-      
-      // genericModel.removeAllGeneratedCode("test", "src", "srchelpers");
-     
-      genericModel.generate("src");
-      
-      
       //====================================================================================================
       storyboard.add("Step 2: We just build our example object structure with generic objects: ");
       

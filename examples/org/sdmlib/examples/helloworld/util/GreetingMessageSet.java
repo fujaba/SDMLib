@@ -23,11 +23,16 @@ package org.sdmlib.examples.helloworld.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.Collection;
 import java.util.List;
+
 import org.sdmlib.examples.helloworld.util.GreetingSet;
+
 import java.util.Collections;
+
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.helloworld.Greeting;
 
@@ -37,16 +42,7 @@ public class GreetingMessageSet extends SDMSet<GreetingMessage>
 
    public GreetingMessagePO hasGreetingMessagePO()
    {
-      org.sdmlib.examples.helloworld.util.ModelPattern pattern = new org.sdmlib.examples.helloworld.util.ModelPattern();
-      
-      GreetingMessagePO patternObject = pattern.hasElementGreetingMessagePO();
-      
-      patternObject.withCandidates(this.clone());
-      
-      pattern.setHasMatch(true);
-      pattern.findMatch();
-      
-      return patternObject;
+      return new GreetingMessagePO(this.toArray(new GreetingMessage[this.size()]));
    }
 
 

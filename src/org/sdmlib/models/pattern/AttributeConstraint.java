@@ -28,7 +28,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class AttributeConstraint extends PatternElement<Object> implements PropertyChangeInterface
+public class AttributeConstraint extends PatternElement<AttributeConstraint> implements PropertyChangeInterface
 {
 
    

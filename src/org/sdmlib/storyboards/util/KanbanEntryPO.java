@@ -14,6 +14,9 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
    }
 
    public KanbanEntryPO(KanbanEntry... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public LogEntryPO hasLogEntries()
@@ -106,7 +109,7 @@ public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
    }
    public KanbanEntryPO hasOldNoOfLogEntries(int lower, int upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      AttributeConstraint constr = new AttributeConstraint()
       .withAttrName(KanbanEntry.PROPERTY_OLDNOOFLOGENTRIES)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

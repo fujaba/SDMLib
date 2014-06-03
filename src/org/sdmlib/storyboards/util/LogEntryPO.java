@@ -14,6 +14,9 @@ public class LogEntryPO extends PatternObject<LogEntryPO, LogEntryStoryBoard>
    }
 
    public LogEntryPO(LogEntry... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public KanbanEntryPO hasKanbanEntry()

@@ -1009,6 +1009,9 @@ public class GenClass extends Generator<Clazz>
                      + "      newInstance(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
                      + "   }\n\n"
                      + "   public patternObjectClassName(ModelClass... hostGraphObject) {\n"
+                     + "      if(hostGraphObject==null || hostGraphObject.length<1){\n" 
+                     + "         return ;\n" 
+                     + "      }\n" 
                      + "      newInstance(CreatorCreator.createIdMap(\"PatternObjectType\"), hostGraphObject);\n"
                      + "}\n");
 

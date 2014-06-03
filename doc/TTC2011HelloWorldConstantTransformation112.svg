@@ -17,9 +17,9 @@
 <text text-anchor="start" x="35.5" y="-58.5" font-family="Arial" font-size="10.00">g1 :Greeting</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-4 8,-52 113,-52 113,-4 8,-4"/>
-<text text-anchor="start" x="13" y="-40" font-family="Arial" font-size="10.00">greetingMessage = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">person = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">text = &quot;Hello World&quot;</text>
+<text text-anchor="start" x="13" y="-40" font-family="Arial" font-size="10.00">person = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">text = &quot;Hello World&quot;</text>
+<text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">greetingMessage = &quot;&quot;</text>
 </g>
 </g>
 </svg>

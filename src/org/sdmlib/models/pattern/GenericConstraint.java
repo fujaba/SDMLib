@@ -27,7 +27,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-public class GenericConstraint extends PatternElement implements PropertyChangeInterface
+public class GenericConstraint extends PatternElement<GenericConstraint> implements PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()

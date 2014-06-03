@@ -303,4 +303,3 @@ public class GenericLink implements PropertyChangeInterface
       return _.substring(1);
    }
 }
-

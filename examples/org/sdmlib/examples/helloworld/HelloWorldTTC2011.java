@@ -17,7 +17,6 @@ import org.sdmlib.examples.helloworld.model.util.NodePO;
 import org.sdmlib.examples.helloworld.model.util.NodeSet;
 import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
 import org.sdmlib.examples.helloworld.util.GreetingPO;
-import org.sdmlib.examples.helloworld.util.ModelPattern;
 import org.sdmlib.examples.helloworld.util.PersonPO;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
@@ -27,6 +26,7 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
+import org.sdmlib.models.objects.util.GenericGraphPO;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
@@ -77,19 +77,21 @@ public class HelloWorldTTC2011
       
       storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
       storyboard.markCodeStart();
-      ModelPattern p = new ModelPattern().startCreate();
       
-      PatternObject greetingPO = p.hasElementGreetingPO()
-                                  .hasText("Hello World");
+      GreetingPO greetingPO = new GreetingPO().startCreate()
+         .withModifier(Pattern.CREATE);
+      greetingPO.getPattern().findNextMatch();
+      greetingPO.hasText("Hello World");
+      
       storyboard.addCode("examples");
       
-      storyboard.addPattern(p, false);
+      storyboard.addPattern(greetingPO, false);
       
-      storyboard.assertTrue("Constant transformation has match", p.getHasMatch());
+      storyboard.assertTrue("Constant transformation has match", greetingPO.getPattern().getHasMatch());
       
       storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
       
-      storyboard.addPattern(p, true);
+      storyboard.addPattern(greetingPO, true);
 
 
       //==========================================================================
@@ -98,7 +100,7 @@ public class HelloWorldTTC2011
 
       storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
       
-      int noOfMatches = p.allMatches();
+      int noOfMatches = greetingPO.getPattern().allMatches();
       
       storyboard.add("TTC2011HelloWorldConstantTransformation1 number of matches is " + noOfMatches);
       

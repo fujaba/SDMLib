@@ -65,9 +65,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
    }
    
    protected void newInstance(JsonIdMap map, Object[] hostGraphObject){
-      if(hostGraphObject==null || hostGraphObject.length<1){
-         return ;
-      }
       Pattern<Object> pattern = new Pattern<Object>(map);
       pattern.addToElements(this);
       if(hostGraphObject.length>1){

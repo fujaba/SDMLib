@@ -1,9 +1,10 @@
 package org.sdmlib.models.objects.util;
 
-import org.sdmlib.models.objects.GenericGraph;
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.models.objects.GenericGraph;
 
 public class GenericLinkCreator extends EntityFactory
 {
@@ -31,77 +32,78 @@ public class GenericLinkCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
+      if (GenericLink.PROPERTY_TGTLABEL.equalsIgnoreCase(attrName))
       {
-         attribute = attrName.substring(0, pos);
+         return ((GenericLink) target).getTgtLabel();
       }
 
-      if (GenericLink.PROPERTY_TGTLABEL.equalsIgnoreCase(attribute))
+      if (GenericLink.PROPERTY_SRCLABEL.equalsIgnoreCase(attrName))
       {
-         return ((GenericLink)target).getTgtLabel();
+         return ((GenericLink) target).getSrcLabel();
       }
 
-      if (GenericLink.PROPERTY_SRCLABEL.equalsIgnoreCase(attribute))
+      if (GenericLink.PROPERTY_SRC.equalsIgnoreCase(attrName))
       {
-         return ((GenericLink)target).getSrcLabel();
+         return ((GenericLink) target).getSrc();
       }
 
-      if (GenericLink.PROPERTY_SRC.equalsIgnoreCase(attribute))
+      if (GenericLink.PROPERTY_TGT.equalsIgnoreCase(attrName))
       {
-         return ((GenericLink)target).getSrc();
+         return ((GenericLink) target).getTgt();
       }
 
-      if (GenericLink.PROPERTY_TGT.equalsIgnoreCase(attribute))
+      if (GenericLink.PROPERTY_GRAPH.equalsIgnoreCase(attrName))
       {
-         return ((GenericLink)target).getTgt();
+         return ((GenericLink) target).getGraph();
       }
 
-      if (GenericLink.PROPERTY_GRAPH.equalsIgnoreCase(attribute))
-      {
-         return ((GenericLink)target).getGraph();
-      }
-      return super.getValue(target, attribute);
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
       if (GenericLink.PROPERTY_TGTLABEL.equalsIgnoreCase(attrName))
       {
-         ((GenericLink)target).setTgtLabel((String) value);
+         ((GenericLink) target).setTgtLabel((String) value);
          return true;
       }
 
       if (GenericLink.PROPERTY_SRCLABEL.equalsIgnoreCase(attrName))
       {
-         ((GenericLink)target).setSrcLabel((String) value);
+         ((GenericLink) target).setSrcLabel((String) value);
          return true;
       }
 
       if (GenericLink.PROPERTY_SRC.equalsIgnoreCase(attrName))
       {
-         ((GenericLink)target).setSrc((GenericObject) value);
+         ((GenericLink) target).setSrc((GenericObject) value);
          return true;
       }
 
       if (GenericLink.PROPERTY_TGT.equalsIgnoreCase(attrName))
       {
-         ((GenericLink)target).setTgt((GenericObject) value);
+         ((GenericLink) target).setTgt((GenericObject) value);
          return true;
       }
 
       if (GenericLink.PROPERTY_GRAPH.equalsIgnoreCase(attrName))
       {
-         ((GenericLink)target).setGraph((GenericGraph) value);
+         ((GenericLink) target).setGraph((GenericGraph) value);
          return true;
       }
-      return super.setValue(target, attrName, value, type);
+      return false;
    }
- 
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+   
    //==========================================================================
    
    @Override

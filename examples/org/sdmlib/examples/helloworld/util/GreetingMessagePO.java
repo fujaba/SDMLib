@@ -13,6 +13,17 @@ import org.sdmlib.models.pattern.Pattern;
 
 public class GreetingMessagePO extends PatternObject<GreetingMessagePO, GreetingMessage>
 {
+   public GreetingMessagePO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public GreetingMessagePO(GreetingMessage... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
+   
 
     public GreetingMessageSet allMatches()
    {

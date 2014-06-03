@@ -6,6 +6,8 @@ import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.helloworld.util.GreetingSet;
+import org.sdmlib.models.pattern.Pattern;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
@@ -14,6 +16,9 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
    }
 
    public GreetingPO(Greeting... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    

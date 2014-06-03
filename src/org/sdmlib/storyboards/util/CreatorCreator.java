@@ -13,8 +13,6 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.KanbanEntryPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.LogEntryCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.LogEntryPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardWallCreator());
-      jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardWallPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.storyboards.util.StoryboardStepCreator());

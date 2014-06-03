@@ -140,10 +140,10 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       }
    }
    
-   public PatternElement<PEC> withModifier(String value)
+   public PEC withModifier(String value)
    {
       setModifier(value);
-      return this;
+      return (PEC) this;
    } 
    
    //==========================================================================
