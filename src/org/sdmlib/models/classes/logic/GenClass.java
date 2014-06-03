@@ -916,11 +916,9 @@ public class GenClass extends Generator<Clazz>
                   + "   {\n"
                   + "      if (value instanceof java.util.Collection)\n"
                   + "      {\n"
-                  + "           Collection<?> collection = (Collection<?>) value;\n"
-                  + "           for(Object item : collection){\n"
-                  + "               this.add((ModelType) item);\n"
+                  + "           for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){\n"
+                  + "              this.add((ModelType) i.next());\n"
                   + "           }\n"
-//                  + "         this.addAll((Collection<ModelType>)value);\n" 
                   + "      }\n"
                   + "      else if (value != null)\n"
                   + "      {\n" 
@@ -1362,6 +1360,10 @@ public class GenClass extends Generator<Clazz>
                   //ignore Import
                   continue;
                }
+               if(item.getValue().getMemberName().startsWith(Parser.EXTENDS)){
+                  //ignore Import
+                  continue;
+               }
                if(!oldSymTab.containsKey(item.getKey())){
                   System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Method not found");
                   continue;
@@ -1392,15 +1394,15 @@ public class GenClass extends Generator<Clazz>
                   System.err.println(file.getPath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen+";");
                   System.err.println("("+shortName+":"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+")");
 
-                  System.out.println(oldStrValue);
-                  System.out.println("--------------------------------------------------------------------------------------------------");
+//                  System.out.println(oldStrValue);
+//                  System.out.println("--------------------------------------------------------------------------------------------------");
                   System.err.println(newStrValue);
                   count += 1;
                   continue;
                }
             }
          }else{
-            System.err.println(file.getAbsolutePath()+";;File not Found!!!");
+//            System.err.println(file.getAbsolutePath()+";;File not Found!!!");
             
          }
          return count;

@@ -28,6 +28,22 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class SymTabEntry implements PropertyChangeInterface 
 {   
+   public static final String PROPERTY_KIND = "kind";
+   public static final String PROPERTY_MEMBERNAME = "memberName";
+   public static final String PROPERTY_TYPE = "type";
+   public static final String PROPERTY_STARTPOS = "startPos";
+   public static final String PROPERTY_BODYSTARTPOS = "bodyStartPos";
+   public static final String PROPERTY_ENDPOS = "endPos";
+   public static final String PROPERTY_MODIFIERS = "modifiers";
+   
+   private String modifiers;
+   private int endPos;
+   private int bodyStartPos;
+   private int startPos;
+   private String type;
+   private String memberName;
+   private String kind;
+   
    @Override
    public String toString()
    {
@@ -42,10 +58,6 @@ public class SymTabEntry implements PropertyChangeInterface
       return "" + type;
    }   
    //==========================================================================
-   
-   public static final String PROPERTY_KIND = "kind";
-   
-   private String kind;
    
    public String getKind()
    {
@@ -66,10 +78,6 @@ public class SymTabEntry implements PropertyChangeInterface
    
    //==========================================================================
    
-   public static final String PROPERTY_MEMBERNAME = "memberName";
-   
-   private String memberName;
-   
    public String getMemberName()
    {
       return this.memberName;
@@ -88,11 +96,7 @@ public class SymTabEntry implements PropertyChangeInterface
 
    
    //==========================================================================
-   
-   public static final String PROPERTY_TYPE = "type";
-   
-   private String type;
-   
+      
    public String getType()
    {
       return this.type;
@@ -111,11 +115,7 @@ public class SymTabEntry implements PropertyChangeInterface
 
    
    //==========================================================================
-   
-   public static final String PROPERTY_STARTPOS = "startPos";
-   
-   private int startPos;
-   
+      
    public int getStartPos()
    {
       return this.startPos;
@@ -135,9 +135,6 @@ public class SymTabEntry implements PropertyChangeInterface
    
    //==========================================================================
    
-   public static final String PROPERTY_BODYSTARTPOS = "bodyStartPos";
-   
-   private int bodyStartPos;
    
    public int getBodyStartPos()
    {
@@ -157,10 +154,6 @@ public class SymTabEntry implements PropertyChangeInterface
 
    
    //==========================================================================
-   
-   public static final String PROPERTY_ENDPOS = "endPos";
-   
-   private int endPos;
    
    public int getEndPos()
    {
@@ -199,10 +192,6 @@ public class SymTabEntry implements PropertyChangeInterface
 
    
    //==========================================================================
-   
-   public static final String PROPERTY_MODIFIERS = "modifiers";
-   
-   private String modifiers;
    
    public String getModifiers()
    {

@@ -23,10 +23,9 @@ package org.sdmlib.models.classes;
 public class Attribute extends Value
 {
    public static final String PROPERTY_CLAZZ = "clazz";
-   public enum VISIBILITY{PUBLIC, PRIVATE, PROTECTED};
 
    private Clazz clazz = null;
-   private VISIBILITY visibility = VISIBILITY.PRIVATE;
+   private Visibility visibility = Visibility.PRIVATE;
    
    public Attribute()
    {
@@ -86,6 +85,7 @@ public class Attribute extends Value
    }
    
    //==========================================================================
+   @Override
    public void removeYou()
    {
       setClazz(null);
@@ -114,12 +114,12 @@ public class Attribute extends Value
       return this;
    }
 
-   public VISIBILITY getVisibility()
+   public Visibility getVisibility()
    {
       return visibility;
    }
 
-   public Attribute withVisibility(VISIBILITY visibility)
+   public Attribute withVisibility(Visibility visibility)
    {
       this.visibility = visibility;
       return this;

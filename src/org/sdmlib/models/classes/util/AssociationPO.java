@@ -28,6 +28,8 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    
    public AssociationSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       AssociationSet matches = new AssociationSet();
 
       while (this.getPattern().getHasMatch())
