@@ -159,7 +159,7 @@ public class ProjectBoard
 
       //      storyboard.addClassDiagram(model);
 
-      model.getGenerator().withShowDiff(true);
+      // model.getGenerator().withShowDiff(true);
       
       model.generate();
 

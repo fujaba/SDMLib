@@ -6,6 +6,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardPO;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
 import org.sdmlib.storyboards.util.KanbanEntryPO;
+import org.sdmlib.storyboards.util.KanbanEntrySet;
 
 public class KanbanEntryPO extends PatternObject<KanbanEntryPO, KanbanEntry>
 {

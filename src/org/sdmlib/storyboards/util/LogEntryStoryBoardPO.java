@@ -5,6 +5,8 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
+import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
+import org.sdmlib.storyboards.util.KanbanEntryPO;
 
 public class LogEntryStoryBoardPO extends PatternObject<LogEntryStoryBoardPO, LogEntryStoryBoard>
 {
