@@ -14,6 +14,9 @@ public class StoryboardStepPO extends PatternObject<StoryboardStepPO, Storyboard
    }
 
    public StoryboardStepPO(StoryboardStep... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public StoryboardStepSet allMatches()

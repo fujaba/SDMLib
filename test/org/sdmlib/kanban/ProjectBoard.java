@@ -110,25 +110,27 @@ public class ProjectBoard
    //   }
    //   
 
+   private static final String DONE = "done";
+
    @Test
    public void testStoryboardInfrastructure()
    {
-      //      Storyboard storyboard = new Storyboard();
-      //      
-      //      storyboard.setProjectName("SDMLibProject");
-      //      
-      //      storyboard.setSprint("Sprint.001.Booting");
-      //      
-      //      storyboard.add("This storyboard tests the storyboard infrastructure. ");
-      //      storyboard.addStep("At first creating the html file just with text should work. ");
-      //      storyboard.addStep("Next we need to create some class model. This will be done in a parallel activity.");
-      //      storyboard.addStep("With the class model we create an object model and try to dump it here.");
-      //      storyboard.addStep("Well, dumping the class model would be great, either.");
-      //
-      //      storyboard.add("need to restructure design: logentries shall be direct kids of kanbanentries. \n" +
-      //            "(has been below phase entries before.)\n" +
-      //            "phase entries will be used for planning, in future");
-      //      
+      Storyboard storyboard = new Storyboard();
+
+      storyboard.setProjectName("SDMLibProject");
+
+      storyboard.setSprint("Sprint.001.Booting");
+
+      storyboard.add("This storyboard tests the storyboard infrastructure. ");
+      storyboard.addStep("At first creating the html file just with text should work. ");
+      storyboard.addStep("Next we need to create some class model. This will be done in a parallel activity.");
+      storyboard.addStep("With the class model we create an object model and try to dump it here.");
+      storyboard.addStep("Well, dumping the class model would be great, either.");
+
+      storyboard.add("need to restructure design: logentries shall be direct kids of kanbanentries. \n" +
+            "(has been below phase entries before.)\n" +
+            "phase entries will be used for planning, in future");
+
       ClassModel model = new ClassModel("org.sdmlib.storyboards"); 
 
       Clazz kanbanEntryClass = model.createClazz("KanbanEntry")
@@ -140,8 +142,6 @@ public class ProjectBoard
       new Association()
       .withSource(kanbanEntryClass, "kanbanEntry", Card.ONE, Role.AGGREGATION)
       .withTarget(logEntryClass, "logEntries", Card.MANY);
-
-      // Clazz phaseEntryClass = kanbanEntryClass.createClassAndAssoc(PhaseEntry.class.getName(), "phaseEntries", R.MANY, "kanbanEntry", R.ONE);
 
       Clazz storyboardWallClass = model.createClazz("StoryboardWall");
 
@@ -157,28 +157,28 @@ public class ProjectBoard
 
       storyboardClass.withAssoc(storyboardStepClass, "storyboardSteps", Card.MANY, "storyboard", Card.ONE);
 
-      //      storyboard.addClassDiagram(model);
+      storyboard.addClassDiagram(model);
 
       // model.getGenerator().withShowDiff(true);
       
       model.generate();
 
-      //      storyboard.add(" Editing the log entries works now fine as part of the add method. " , 
-      //            DONE, "zuendorf", "07.05.2012 23:36:42", 0, 0);
-      //      
-      //      storyboard.add("Seems that we have solved the problem with the sorting of log entries after loading. " , 
-      //         DONE, "zuendorf", "19.05.2012 19:22:42", 1, 0);
-      //      
-      //      storyboard.addStep("Show some internals");
-      //      
-      //      storyboard.add("Internally, the class model looks like:");
-      //      
-      //      storyboard.addObjectDiagram(model);
-      //      
-      //      storyboard.addLogEntry(R.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
-      //      storyboard.addLogEntry(R.DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
-      //   
-      //      storyboard.dumpHTML();
+      storyboard.add(" Editing the log entries works now fine as part of the add method. " , 
+         DONE, "zuendorf", "07.05.2012 23:36:42", 0, 0);
+
+      storyboard.add("Seems that we have solved the problem with the sorting of log entries after loading. " , 
+         DONE, "zuendorf", "19.05.2012 19:22:42", 1, 0);
+
+      storyboard.addStep("Show some internals");
+
+      storyboard.add("Internally, the class model looks like:");
+
+      storyboard.addObjectDiagram(model);
+
+      storyboard.addLogEntry(DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
+      storyboard.addLogEntry(DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
+
+      storyboard.dumpHTML();
    }
 
    //   @Test

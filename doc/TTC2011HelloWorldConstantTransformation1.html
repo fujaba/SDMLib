@@ -12,36 +12,18 @@
 <p>A constant transformation that creates a Greeting object</p>
 <p>Create class model and generate implementation:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation1ClassDiagram3.svg'><p>The code that builds and runs the transformation / pattern looks like: </p>
-<pre>      ModelPattern p = new ModelPattern().startCreate();
+<pre>      
+      GreetingPO greetingPO = new GreetingPO().startCreate()
+         .withModifier(Pattern.CREATE);
+      greetingPO.getPattern().findNextMatch();
+      greetingPO.hasText(&quot;Hello World&quot;);
       
-      PatternObject greetingPO = p.hasElementGreetingPO()
-                                  .hasText(&quot;Hello World&quot;);
 </pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1PatternDiagram6.svg'>
 <p>Check: Constant transformation has match</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1PatternDiagram9.svg'>
 <p>For completeness just the host graph:</p>
-<script>
-   var json = {
-   "typ":"object",
-   "value":{
-      "nodes":[
-      {
-            "typ":"node",
-            "id":"G1 : Greeting",
-            "attributes":[
-            "text=Hello World",
-               "greetingMessage=",
-               "person="
-            ]
-         }
-      ],
-      "edges":[]
-   }
-}   ;
-   json["options"]={"canvasid":"canvas11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
+<embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation112.svg'>
 <p>TTC2011HelloWorldConstantTransformation1 number of matches is 1</p>
 <p>For fairness, the java code that does this transformation looks like: </p>
 <pre>      Greeting greeting = new Greeting()

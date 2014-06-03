@@ -17,31 +17,34 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
    }
 
    public StoryboardPO(Storyboard... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
+   }
    public StoryboardSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       StoryboardSet matches = new StoryboardSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Storyboard) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public StoryboardStepPO hasStoryboardSteps()
    {
       StoryboardStepPO result = new StoryboardStepPO(new StoryboardStep[]{});
-      
+
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(Storyboard.PROPERTY_STORYBOARDSTEPS, result);
-      
+
       return result;
    }
 
@@ -62,10 +65,10 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
    public StoryboardWallPO hasWall()
    {
       StoryboardWallPO result = new StoryboardWallPO(new StoryboardWall[]{});
-      
+
       result.setModifier(this.getPattern().getModifier());
       super.hasLink(Storyboard.PROPERTY_WALL, result);
-      
+
       return result;
    }
 
@@ -91,12 +94,12 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getRootDir()
    {
       if (this.getPattern().getHasMatch())
@@ -105,7 +108,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       }
       return null;
    }
-   
+
    public StoryboardPO withRootDir(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -114,7 +117,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       }
       return this;
    }
-   
+
    public StoryboardPO hasStepCounter(int value)
    {
       new AttributeConstraint()
@@ -123,12 +126,12 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getStepCounter()
    {
       if (this.getPattern().getHasMatch())
@@ -137,7 +140,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       }
       return 0;
    }
-   
+
    public StoryboardPO withStepCounter(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -146,7 +149,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       }
       return this;
    }
-   
+
    public StoryboardPO hasStepDoneCounter(int value)
    {
       new AttributeConstraint()
@@ -155,12 +158,12 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getStepDoneCounter()
    {
       if (this.getPattern().getHasMatch())
@@ -169,7 +172,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       }
       return 0;
    }
-   
+
    public StoryboardPO withStepDoneCounter(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -178,7 +181,7 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       }
       return this;
    }
-   
+
    public StoryboardPO hasRootDir(String lower, String upper)
    {
       new AttributeConstraint()
@@ -188,12 +191,12 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public StoryboardPO hasStepCounter(int lower, int upper)
    {
       new AttributeConstraint()
@@ -203,12 +206,12 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public StoryboardPO hasStepDoneCounter(int lower, int upper)
    {
       new AttributeConstraint()
@@ -218,30 +221,30 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public StoryboardPO createRootDir(String value)
    {
       this.startCreate().hasRootDir(value).endCreate();
       return this;
    }
-   
+
    public StoryboardPO createStepCounter(int value)
    {
       this.startCreate().hasStepCounter(value).endCreate();
       return this;
    }
-   
+
    public StoryboardPO createStepDoneCounter(int value)
    {
       this.startCreate().hasStepDoneCounter(value).endCreate();
       return this;
    }
-   
+
    public StoryboardWallPO createWall()
    {
       return this.startCreate().hasWall().endCreate();

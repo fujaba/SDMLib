@@ -228,6 +228,12 @@ public class Storyboard implements PropertyChangeInterface
 
    public Storyboard(String rootDir)
    {
+      if (rootDir == null)
+      {
+         // do nothing just for getSendableInstance
+         return;
+      }
+      
       this.rootDir = rootDir;
 
       Exception e = new RuntimeException();
@@ -906,7 +912,7 @@ public class Storyboard implements PropertyChangeInterface
             catch (Exception e)
             {
                // cannot find creator creator class, use generic idMap instead;
-               e.printStackTrace();
+               // e.printStackTrace();
             }
          }
 

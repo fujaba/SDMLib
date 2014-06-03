@@ -4,7 +4,7 @@
   "prop":{
     "name":"SDMLibProject",
     "phase":"active",
-    "hoursSpend":9,
+    "hoursSpend":34,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -118,7 +118,7 @@
   "prop":{
     "name":"Sprint.001.Booting",
     "phase":"active",
-    "hoursSpend":4,
+    "hoursSpend":29,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K10"},
@@ -376,7 +376,14 @@
   "prop":{
     "name":"StoryboardInfrastructure",
     "phase":"done",
+    "hoursSpend":25,
     "parent":{"id":"KE.K11"},
+    "logEntries":[
+    {"id":"KE.L124"},
+      {"id":"KE.L125"},
+      {"id":"KE.L126"},
+      {"id":"KE.L127"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -636,5 +643,48 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"Achieved: Start situation: we do not yet have a class diagram but want to start with some example object models"
+  }
+},  {
+  "id":"KE.L124",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"07.05.2012 23:36:42",
+    "kanbanEntry":{"id":"KE.K72"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved:  Editing the log entries works now fine as part of the add method. "
+  }
+},  {
+  "id":"KE.L125",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.05.2012 19:22:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K72"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Seems that we have solved the problem with the sorting of log entries after loading. "
+  }
+},  {
+  "id":"KE.L126",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"24.02.2014 18:38:00",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K72"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"resolved old style admin to new storyboard features."
+  }
+},  {
+  "id":"KE.L127",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"28.02.2014 18:31:42",
+    "hoursSpend":23,
+    "kanbanEntry":{"id":"KE.K72"},
+    "developer":"stefan, zuendorf",
+    "phase":"done",
+    "comment":"switched to open source charts."
   }
 }]

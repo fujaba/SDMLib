@@ -26,7 +26,7 @@ public class StoryboardCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Storyboard();
+      return new Storyboard(null);
    }
    
    @Override
