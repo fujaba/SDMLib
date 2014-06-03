@@ -22,7 +22,7 @@ public class GenericIdMap extends SDMLibJsonIdMap
       {
          String packageName = CGUtil.packageName(className);
          
-         if (packageName.endsWith(".creators"))
+         if (packageName.endsWith(".util"))
          {
             return null;
          }

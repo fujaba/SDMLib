@@ -80,7 +80,12 @@ public class GenericGraphCreator extends EntityFactory
       return super.setValue(target, attrName, value, type);
    }
    
- 
+   
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+
    //==========================================================================
    
    @Override

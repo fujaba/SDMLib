@@ -890,8 +890,8 @@ public class Storyboard implements PropertyChangeInterface
          if (objectCreator == null || objectCreator instanceof GenericCreator)
          {
             String className = object.getClass().getName();
-            String packageName = CGUtil.packageName(className) + ".creators";
-            className = packageName + ".CreatorCreator";
+            String packageName = CGUtil.packageName(className) + ".util";
+            className = CGUtil.helperClassName(className, "Creator");
 
             Object idMap = null;
             try
@@ -906,6 +906,7 @@ public class Storyboard implements PropertyChangeInterface
             catch (Exception e)
             {
                // cannot find creator creator class, use generic idMap instead;
+               e.printStackTrace();
             }
          }
 

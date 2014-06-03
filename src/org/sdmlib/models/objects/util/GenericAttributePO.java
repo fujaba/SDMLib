@@ -5,6 +5,9 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.objects.util.GenericAttributeSet;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.objects.util.GenericObjectPO;
 
 public class GenericAttributePO extends PatternObject
 {
@@ -174,3 +177,4 @@ public class GenericAttributePO extends PatternObject
       return (GenericAttributePO) this.startCreate().hasOwner(tgt).endCreate();
    }
 }
+

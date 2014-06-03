@@ -4,7 +4,7 @@
   "prop":{
     "name":"SDMLibProject",
     "phase":"active",
-    "hoursSpend":5,
+    "hoursSpend":9,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -118,6 +118,7 @@
   "prop":{
     "name":"Sprint.001.Booting",
     "phase":"active",
+    "hoursSpend":4,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K10"},
@@ -506,8 +507,12 @@
   "class":"org.sdmlib.storyboards.KanbanEntry",
   "prop":{
     "name":"GenericObjectDiagram",
-    "phase":"implementation",
+    "phase":"done",
+    "hoursSpend":4,
     "parent":{"id":"KE.K11"},
+    "logEntries":[
+    {"id":"KE.L123"}
+    ],
     "phases":"active, backlog, implementation, done, bug"
   }
 },  {
@@ -620,5 +625,16 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"Achieved: We call updateBalances() to compute the correct balances.\u000a"
+  }
+},  {
+  "id":"KE.L123",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"28.05.2012 23:51:42",
+    "hoursSpend":4,
+    "kanbanEntry":{"id":"KE.K98"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: we do not yet have a class diagram but want to start with some example object models"
   }
 }]

@@ -3,6 +3,10 @@ package org.sdmlib.models.objects.util;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.objects.util.GenericGraphSet;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.objects.util.GenericObjectPO;
+import org.sdmlib.models.objects.util.GenericLinkPO;
 
 public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
 {
@@ -107,3 +111,4 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
    }
 
 }
+

@@ -22,13 +22,19 @@
 package org.sdmlib.examples.helloworld.model;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
 import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
 
 public class GraphComponent implements PropertyChangeInterface
 {
 
+   public boolean setGraph(Graph g)
+   {
+      throw new UnsupportedOperationException();
+   }
    
    //==========================================================================
    
@@ -153,6 +159,16 @@ public class GraphComponent implements PropertyChangeInterface
       Graph value = new Graph();
       withParent(value);
       return value;
+   }
+
+   public String getName()
+   {
+      throw new UnsupportedOperationException();
+   }
+
+   public void setName(String object)
+   {
+      throw new UnsupportedOperationException();
    } 
 }
 

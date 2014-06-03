@@ -28,6 +28,10 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
+import java.util.Collections;
+import org.sdmlib.models.objects.util.GenericObjectSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.objects.util.GenericLinkSet;
 
 public class GenericGraphSet extends LinkedHashSet<GenericGraph>
 {
@@ -165,6 +169,21 @@ public class GenericGraphSet extends LinkedHashSet<GenericGraph>
       return patternObject;
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

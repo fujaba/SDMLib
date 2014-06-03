@@ -1,46 +1,20 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../test/org/sdmlib/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
 <p>GenericObjectDiagram</p>
 <p>Start situation: we do not yet have a class diagram but want to start with some example object models</p>
 <p>Step 1: We build a generic class model for object structures: </p>
-<embed type="image/svg+xml" src='GenericObjectStructureClasses.svg'><p>Step 2: We just build our example object structure with generic objects: </p>
+<embed type="image/svg+xml" src='GenericObjectDiagramClassDiagram3.svg'><p>Step 2: We just build our example object structure with generic objects: </p>
 <embed type="image/svg+xml" src='GenericObjectDiagram6.svg'>
 <p>Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: </p>
 <embed type="image/svg+xml" src='specificgenericobjectdiag.svg'>
-<p>Step 4: now we try to learn a class diagram from the generic object structure: </p>
-<embed type="image/svg+xml" src='DerivedFromGenericObjectsClassDiag.svg'><p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
-<pre>      ClassModel model = new ClassModel();
-
-      Clazz buildingClass = new Clazz(&quot;de.kassel.roombook.Building&quot;)
-      .withAttribute(&quot;name&quot;, &quot;String&quot;);
-
-      Clazz floorClass = new Clazz(&quot;de.kassel.roombook.Floor&quot;)
-      .withAttribute(&quot;level&quot;, &quot;int&quot;)
-		.withAttribute(&quot;name&quot;, &quot;String&quot;)
-			&#x2F;*add attribut*&#x2F;
-      .withAttribute(&quot;guest&quot;, &quot;String&quot;); &#x2F;&#x2F; changed attr type to int
-		
-      new Association()
-			.withSource(&quot;buildings&quot;, buildingClass, R.ONE) &#x2F;&#x2F; changed cardinality to ONE
-			.withTarget(&quot;has&quot;, floorClass, R.MANY);
-
-      learnedModel.insertModelCreationCodeHere(&quot;test&quot;);
-</pre><embed type="image/svg+xml" src='ManuallyImprovedLearnedClassDiag.svg'><p>Step 6: generate code from the learned class diagram </p>
-<p>Step 7: derive non-generic objects from the generic objects </p>
-<embed type="image/svg+xml" src='GenericObjectDiagram16.svg'>
-<p>BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram </p>
-<p>New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model </p>
-<embed type="image/svg+xml" src='GenericObjectDiagram19.svg'>
 
 </body>
 </html>

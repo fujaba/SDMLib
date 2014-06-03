@@ -1,12 +1,16 @@
 package org.sdmlib.examples.helloworld;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.examples.helloworld.model.Edge;
 import org.sdmlib.examples.helloworld.model.Graph;
+import org.sdmlib.examples.helloworld.model.GraphComponent;
 import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.examples.helloworld.model.util.EdgePO;
 import org.sdmlib.examples.helloworld.model.util.EdgeSet;
+import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
 import org.sdmlib.examples.helloworld.model.util.GraphCreator;
 import org.sdmlib.examples.helloworld.model.util.GraphPO;
 import org.sdmlib.examples.helloworld.model.util.NodePO;
@@ -20,9 +24,16 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.objects.Generic2Specific;
+import org.sdmlib.models.objects.GenericGraph;
+import org.sdmlib.models.objects.Specific2Generic;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
+
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
 
 public class HelloWorldTTC2011
 {
@@ -657,66 +668,66 @@ public class HelloWorldTTC2011
       
       graph = createExampleGraph();
       
-      simpleMigrationInJava(graph);
+      graph = simpleMigrationInJava(graph);
       
       storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationInJava(Graph)"));
       
       storyboard.add("Result graph: ");
       
-      storyboard.addObjectDiagram(graph);
+      storyboard.addObjectDiagramWith(graph, graph.getGcs());
       
       
       storyboard.add(systemout);
 
       
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Migrate using Serialisation / Clone : </h2>");
-//      
-//      graph = createExampleGraph();
-//      
-//      graph = simpleMigrationByCloning(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByCloning(Graph)"));
-//      
-//      storyboard.add("Result graph: ");
-//      
-//      storyboard.addObjectDiagram(graph);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Migrate using JSON Array repr�sentation : </h2>");
-//      
-//      graph = createExampleGraph();
-//      
-//      graph = simpleMigrationByJsonArray(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByJsonArray(Graph)"));
-//      
-//      storyboard.add("Result graph: ");
-//      
-//      storyboard.addObjectDiagram(graph);
-//      
-//      
-//      //==========================================================================
-//
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Migrate using Generic Graph representation : </h2>");
-//
-//      graph = createExampleGraph();
-//
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
-//      
-//      Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
-//
-//      storyboard.add("Result graph: ");
-//
-//      storyboard.addObjectDiagram(tgtGraph);
-//
-//   
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate using Serialisation / Clone : </h2>");
+      
+      graph = createExampleGraph();
+      
+      graph = simpleMigrationByCloning(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByCloning(Graph)"));
+      
+      storyboard.add("Result graph: ");
+      
+      storyboard.addObjectDiagramWith(graph, graph.getGcs());
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate using JSON Array representation : </h2>");
+      
+      graph = createExampleGraph();
+      
+      graph = simpleMigrationByJsonArray(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByJsonArray(Graph)"));
+      
+      storyboard.add("Result graph: ");
+      
+      storyboard.addObjectDiagramWith(graph, graph.getGcs());
+      
+      
+      //==========================================================================
+
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate using Generic Graph representation : </h2>");
+
+      graph = createExampleGraph();
+
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
+      
+      Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
+
+      storyboard.add("Result graph: ");
+
+      storyboard.addObjectDiagram(tgtGraph);
+
+   
 //      //==========================================================================
 //
 //      storyboard.add("<hr/>");
@@ -1099,158 +1110,157 @@ public class HelloWorldTTC2011
 //      
 //      return tgtGraph;
 //   }
-//   
-//   
-//   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
-//   {
-//      GenericGraph genGraph = new Specific2Generic()
-//      .convert(CreatorCreator.createIdMap("g1"), origGraph);
-//      
-//      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-//      
-//      // rename name to text attributes
-//      new org.sdmlib.models.objects.creators.ModelPattern()
-//      .hasElementGenericGraphPO(genGraph)
-//      .hasObjects()
-//      .hasAttrs()
-//      .hasName(Node.PROPERTY_NAME)
-//      .startCreate()
-//      .hasName(Node.PROPERTY_TEXT)
-//      .allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
-//      
-//      // storyboard.add("<hr/>");
-//      
-//      // rename graph--nodes links to parent--gcs links
-//      new org.sdmlib.models.objects.creators.ModelPattern()
-//      .hasElementGenericGraphPO(genGraph)
-//      .hasLinks()
-//      .hasTgtLabel(Node.PROPERTY_GRAPH)
-//      .startCreate()
-//      .hasTgtLabel(Node.PROPERTY_PARENT)
-//      .hasSrcLabel(Graph.PROPERTY_GCS)
-//      .allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink1", false));
-//
-//      // storyboard.add("<hr/>");
-//      
-//      // rename graph--edges links to parent--gcs links
-//      new org.sdmlib.models.objects.creators.ModelPattern()
-//      .hasElementGenericGraphPO(genGraph)
-//      .hasLinks()
-//      .hasSrcLabel(Node.PROPERTY_GRAPH)
-//      .startCreate()
-//      .hasSrcLabel(Node.PROPERTY_PARENT)
-//      .hasTgtLabel(Graph.PROPERTY_GCS)
-//      .allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink2", false));
-//
-//      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-//      
-//      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
-//      
-//      return tgtGraph;
-//   }
-//   
-//   
-//   private Graph simpleMigrationByJsonArray(Graph graph)
-//   {
-//      JsonIdMap idMap = CreatorCreator.createIdMap("hg");
-//      
-//      JsonArray jsonArray = idMap.toJsonArray(graph);
-//      
-//      for (int i = 0; i < jsonArray.size(); i++)
-//      {
-//         JsonObject jsonObject = jsonArray.getJSONObject(i);
-//         
-//         String className = jsonObject.getString(JsonIdMap.CLASS);
-//         
-//         if (Graph.class.getName().equals(className))
-//         {
-//            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-//            
-//            // migrate nodes and edges to gcs
-//            JsonArray gcsArray = jsonProps.getJsonArray(Graph.PROPERTY_NODES);
-//            
-//            gcsArray.addAll(Arrays.asList(jsonProps.getJsonArray(Graph.PROPERTY_EDGES).toArray()));
-//            
-//            jsonProps.put(Graph.PROPERTY_GCS, gcsArray);
-//            
-//            jsonProps.remove(Graph.PROPERTY_NODES);
-//            
-//            jsonProps.remove(Graph.PROPERTY_EDGES);
-//         }
-//         else if (Node.class.getName().equals(className))
-//         {
-//            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-//            
-//            // migrate name to text
-//            jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));
-//            
-//            jsonProps.remove(Node.PROPERTY_NAME);
-//            
-//            // migrate graph to parent
-//            jsonProps.put(Node.PROPERTY_PARENT, jsonProps.get(Node.PROPERTY_GRAPH));
-//            
-//            jsonProps.remove(Node.PROPERTY_GRAPH);
-//         }
-//         else if (Edge.class.getName().equals(className))
-//         {
-//            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-//
-//            // migrate name to text
-//            jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));
-//
-//            jsonProps.remove(Node.PROPERTY_NAME);
-//
-//            // migrate graph to parent
-//            jsonProps.put(Node.PROPERTY_PARENT, jsonProps.get(Node.PROPERTY_GRAPH));
-//
-//            jsonProps.remove(Node.PROPERTY_GRAPH);
-//         }
-//         
-//      }
-//      
-//      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").decode(jsonArray);
-//      
-//      return copyGraph;
-//   }
-//
-//
-//   private Graph simpleMigrationByCloning(Graph graph)
-//   {
-//      JsonArray jsonArray = CreatorCreator.createIdMap("hg").toJsonArray(graph);
-//      
-//      Graph copyGraph = (Graph) CreatorCreator.createIdMap("hg").decode(jsonArray);
-//      
-//      GraphComponentSet gcs = new GraphComponentSet();
-//      gcs.addAll(copyGraph.getNodes());
-//      gcs.addAll(copyGraph.getEdges());
-//      
-//      for (GraphComponent comp : gcs)
-//      {
-//         comp.setParent(comp.getGraph());
-//         comp.setGraph(null);
-//         
-//         comp.setText(comp.getName());
-//         comp.setName(null);
-//      }
-//
-//      return copyGraph;
-//   }
-//
+   
+   
+   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+   {
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(GraphCreator.createIdMap("g1"), origGraph);
+      
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      // rename name to text attributes
+      new GenericGraphPO(genGraph)
+      .hasObjects()
+      .hasAttrs()
+      .hasName(Node.PROPERTY_NAME)
+      .startCreate()
+      .hasName(Node.PROPERTY_TEXT)
+      .allMatches();
+      
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
+      
+      // storyboard.add("<hr/>");
+      
+      // rename graph--nodes links to parent--gcs links
+      new org.sdmlib.models.objects.creators.ModelPattern()
+      .hasElementGenericGraphPO(genGraph)
+      .hasLinks()
+      .hasTgtLabel(Node.PROPERTY_GRAPH)
+      .startCreate()
+      .hasTgtLabel(Node.PROPERTY_PARENT)
+      .hasSrcLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink1", false));
 
-   private void simpleMigrationInJava(Graph origGraph)
+      // storyboard.add("<hr/>");
+      
+      // rename graph--edges links to parent--gcs links
+      new org.sdmlib.models.objects.creators.ModelPattern()
+      .hasElementGenericGraphPO(genGraph)
+      .hasLinks()
+      .hasSrcLabel(Node.PROPERTY_GRAPH)
+      .startCreate()
+      .hasSrcLabel(Node.PROPERTY_PARENT)
+      .hasTgtLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink2", false));
+
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
+      
+      return tgtGraph;
+   }
+   
+   
+   private Graph simpleMigrationByJsonArray(Graph graph)
+   {
+      JsonIdMap idMap = GraphCreator.createIdMap("hg");
+      
+      JsonArray jsonArray = idMap.toJsonArray(graph);
+      
+      for (int i = 0; i < jsonArray.size(); i++)
+      {
+         JsonObject jsonObject = jsonArray.getJSONObject(i);
+         
+         String className = jsonObject.getString(JsonIdMap.CLASS);
+         
+         if (Graph.class.getName().equals(className))
+         {
+            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+            
+            // migrate nodes and edges to gcs
+            JsonArray gcsArray = jsonProps.getJsonArray(Graph.PROPERTY_NODES);
+            
+            gcsArray.addAll(Arrays.asList(jsonProps.getJsonArray(Graph.PROPERTY_EDGES).toArray()));
+            
+            jsonProps.put(Graph.PROPERTY_GCS, gcsArray);
+            
+            jsonProps.remove(Graph.PROPERTY_NODES);
+            
+            jsonProps.remove(Graph.PROPERTY_EDGES);
+         }
+         else if (Node.class.getName().equals(className))
+         {
+            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+            
+            // migrate name to text
+            jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));
+            
+            jsonProps.remove(Node.PROPERTY_NAME);
+            
+            // migrate graph to parent
+            jsonProps.put(Node.PROPERTY_PARENT, jsonProps.get(Node.PROPERTY_GRAPH));
+            
+            jsonProps.remove(Node.PROPERTY_GRAPH);
+         }
+         else if (Edge.class.getName().equals(className))
+         {
+            JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
+
+            // migrate name to text
+            jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));
+
+            jsonProps.remove(Node.PROPERTY_NAME);
+
+            // migrate graph to parent
+            jsonProps.put(Node.PROPERTY_PARENT, jsonProps.get(Node.PROPERTY_GRAPH));
+
+            jsonProps.remove(Node.PROPERTY_GRAPH);
+         }
+         
+      }
+      
+      Graph copyGraph = (Graph) GraphCreator.createIdMap("hg").decode(jsonArray);
+      
+      return copyGraph;
+   }
+
+
+   private Graph simpleMigrationByCloning(Graph graph)
+   {
+      JsonArray jsonArray = GraphCreator.createIdMap("hg").toJsonArray(graph);
+      
+      Graph copyGraph = (Graph) GraphCreator.createIdMap("hg").decode(jsonArray);
+      
+      GraphComponentSet gcs = new GraphComponentSet();
+      gcs.addAll(copyGraph.getNodes());
+      gcs.addAll(copyGraph.getEdges());
+      
+      for (GraphComponent comp : gcs)
+      {
+         comp.setParent(copyGraph);
+         comp.setGraph(null);
+         
+         comp.setText(comp.getName());
+         comp.setName(null);
+      }
+
+      return copyGraph;
+   }
+
+
+   private Graph simpleMigrationInJava(Graph origGraph)
    {
       int noOfMatches = 0;
+
+      Graph copyGraph = new Graph();
       
       if (origGraph != null)
       {
-         Graph copyGraph = new Graph();
-         
          // migrate nodes
          for (Node origNode : origGraph.getNodes())
          {
@@ -1286,6 +1296,7 @@ public class HelloWorldTTC2011
          }
       }
       
+      return copyGraph;
    }
 
 
