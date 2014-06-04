@@ -13,9 +13,10 @@
 <p>Create class model and generate implementation:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation1ClassDiagram3.svg'><p>The code that builds and runs the transformation / pattern looks like: </p>
 <pre>      
-      GreetingPO greetingPO = new GreetingPO().startCreate()
-         .withModifier(Pattern.CREATE);
-      greetingPO.getPattern().findNextMatch();
+      GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
+            .startCreate()
+            .has(new GreetingPO());
+      
       greetingPO.hasText(&quot;Hello World&quot;);
       
 </pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1PatternDiagram6.svg'>

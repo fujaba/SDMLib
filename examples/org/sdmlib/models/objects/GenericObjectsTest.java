@@ -24,6 +24,8 @@ package org.sdmlib.models.objects;
 import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Storyboard;
    
@@ -33,7 +35,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
    public void testGenericObjectDiagram()
    {
       //====================================================================================================
-      Storyboard storyboard = new Storyboard("test", "GenericObjectDiagram");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.setSprint("Sprint.001.Booting");
       
@@ -42,6 +44,8 @@ public class GenericObjectsTest implements PropertyChangeInterface
       
       
       storyboard.add("Step 1: We build a generic class model for object structures: ");
+      
+      storyboard.add("<embed type=\"image/svg+xml\" src='GenericGraphModelClassDiagram1.svg'>");
 
       //====================================================================================================
       storyboard.add("Step 2: We just build our example object structure with generic objects: ");
@@ -87,13 +91,14 @@ public class GenericObjectsTest implements PropertyChangeInterface
       storyboard.addGenericObjectDiag("specificgenericobjectdiag", graph);
       
       
-//      //====================================================================================================
-//      storyboard.add("Step 4: now we try to learn a class diagram from the generic object structure: ");
-//      
-//      ClassModel learnedModel = new ClassModel().learnFromGenericObjects("de.kassel.roombook", building);
-//      
-//      storyboard.addSVGImage(learnedModel.dumpClassDiagram("test", "DerivedFromGenericObjectsClassDiag"));
-//      
+      //====================================================================================================
+      storyboard.add("Step 4: now we try to learn a class diagram from the generic object structure: ");
+      
+      
+      ClassModel learnedModel = new ClassModel().getGenerator().learnFromGenericObjects("de.kassel.roombook", building);
+      
+      storyboard.addClassDiagram(learnedModel);
+      
 //      //====================================================================================================
 //      storyboard.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ",
 //         DONE, "zuendorf", "31.05.2012 13:51:42", 1, 0);

@@ -31,6 +31,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
+import org.sdmlib.examples.helloworld.util.GreetingPO;
 import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
@@ -1134,6 +1135,15 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    {
       this.riskConcurrentModification = riskConcurrentModification;
       return (MP) this;
+   }
+
+   public PatternObject has(PatternObject po)
+   {
+      po.withModifier(this.getModifier());
+      this.setJsonIdMap(po.getPattern().getJsonIdMap());
+      this.addToElements(po);
+      this.findMatch();
+      return (PatternObject) po;
    } 
 
 
