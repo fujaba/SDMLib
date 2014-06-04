@@ -202,7 +202,7 @@ public class Clazz extends SDMLibClass
       return classModel;
    }
 
-   public Clazz withClassModel(ClassModel value)
+   public void setClassModel(ClassModel value)
    {
       if (this.classModel != value)
       {
@@ -218,10 +218,15 @@ public class Clazz extends SDMLibClass
             value.addToClasses(this);
          }
       }
-      return this;
    }
 
-
+   public Clazz withClassModel(ClassModel value)
+   {
+      this.setClassModel(value);
+      return this;
+   }
+   
+   
    /********************************************************************
     * <pre>
     *              one                       many

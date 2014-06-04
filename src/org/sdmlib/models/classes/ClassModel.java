@@ -145,7 +145,7 @@ public class ClassModel extends SDMLibClass
 
 			if (changed)
 			{
-				value.withClassModel(null);
+				value.setClassModel(null);
 				getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, value, null);
 			}
 		}
