@@ -385,13 +385,26 @@ public class GenClass extends Generator<Clazz>
 
    private void insertPropertyChangeSupport()
    {
-      if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
-         return;
-      }
+         if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
+            return;
+         }
+         
+         String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
+         // Check if no super has PropertyChange
+         for (Clazz clazz : model.getSuperClazzes()) 
+         {
+            if(clazz.isInterface()){
+               continue;
+            }
+            if(getGenerator(clazz).getParser().indexOf(searchString)>=0){
+               return;
+            }
+         }
+      
       insertImplementsClauseForPropertyChangeInterface();
 
       // does it implement PropertyChangeSupportClient?
-      String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
+      
       int pos = parser.indexOf(searchString);
 
       if (pos < 0)
