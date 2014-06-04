@@ -70,7 +70,7 @@ public class GenClass extends Generator<Clazz>
          }
 
          generateAttributes(rootDir, helpersDir);
-         printFile(parser.isFileBodyChanged());
+         printFile();
       }else{
          generateAttributes(rootDir, helpersDir);
       }
@@ -507,10 +507,10 @@ public class GenClass extends Generator<Clazz>
       }
    }
 
-   public void printFile(boolean really)
+   public void printFile()
    {
-      GenClassModel clazzModel = model.getClassModel().getGenerator();
-      if(clazzModel.getShowDiff()==DIFF.NONE){
+      if(model.getClassModel() == null || model.getClassModel().getGenerator().getShowDiff()==DIFF.NONE)
+      {
          CGUtil.printFile(parser);
       }
    }

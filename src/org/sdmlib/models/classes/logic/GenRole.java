@@ -109,7 +109,7 @@ public class GenRole extends Generator<Role>
          String shortClassName = CGUtil.shortClassName(ownerClassName);
          getGenerator(partnerClass).insertImport(packageName + GenClassModel.UTILPATH+"." + shortClassName + "Set");
          
-         getGenerator(partnerRole.getClazz()).printFile(doGenerate);
+         getGenerator(partnerRole.getClazz()).printFile();
 
       }
       if (model.getPartnerRole().getCard().equals(Card.MANY.toString())){
@@ -812,7 +812,7 @@ public class GenRole extends Generator<Role>
       
       insertRemovalInRemoveYou(clazz, myParser, partnerRole);
       
-      getGenerator(clazz).printFile(doGenerate);
+      getGenerator(clazz).printFile();
       
       
       // generate property in creator class

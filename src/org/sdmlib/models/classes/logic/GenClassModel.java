@@ -532,7 +532,7 @@ public class GenClassModel
    
    private void writeToFile(Clazz modelCreationClass)
    {
-      getOrCreate(modelCreationClass).printFile(getOrCreate(modelCreationClass).getParser().isFileBodyChanged());
+      getOrCreate(modelCreationClass).printFile();
    }
 
    
@@ -571,7 +571,9 @@ public class GenClassModel
             return clazz;
          }
       }
-      Clazz clazz = new Clazz(className);
+      
+      Clazz clazz = getModel().createClazz(className);
+      
       return clazz;
    }
    
@@ -613,26 +615,33 @@ public class GenClassModel
       // insert code
       int currentInsertPos = 0;
       
-      currentInsertPos = completeCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos);
+      currentInsertPos = completeCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir);
 
-      currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos);
+      currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir);
 
       writeToFile(modelCreationClass);
    }
    
    private int completeCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
-         int currentInsertPos)
+         int currentInsertPos, String rootDir)
    {
+      refreshMethodScan(signature, modelCreationClass, rootDir);
+      
       for (Clazz clazz : model.getClasses())
       {
          String modelClassName = clazz.getFullName();
-         LocalVarTableEntry entry = findInLocalVarTable(getOrCreate(modelCreationClass).getParser().getLocalVarTable(), modelClassName);
+         LocalVarTableEntry entry = findInLocalVarTable(
+            getOrCreate(modelCreationClass)
+            .getParser()
+            .getLocalVarTable(), 
+            modelClassName);
 
          if (entry != null)
          {
             // check code for clazz
             handledClazzes.put(modelClassName, clazz);
-            currentInsertPos = checkCodeForClazz(entry, signature, callMethodName, modelCreationClass, refreshMethodScan(signature, clazz), clazz, handledClazzes, currentInsertPos);
+            currentInsertPos = checkCodeForClazz(entry, signature, callMethodName, modelCreationClass, 
+               refreshMethodScan(signature, modelCreationClass, rootDir), clazz, handledClazzes, currentInsertPos, rootDir);
          }
          writeToFile(modelCreationClass);
 
@@ -640,24 +649,34 @@ public class GenClassModel
       return currentInsertPos;
    }
    
-   private SymTabEntry refreshMethodScan(String signature , Clazz clazz)
+   private SymTabEntry refreshMethodScan(String signature , Clazz clazz, String rootDir)
    {
-      SymTabEntry symTabEntry;
-      rescanCode( clazz);
-      symTabEntry = getOrCreate(clazz).getParser().getSymTab().get(signature);
+      SymTabEntry symTabEntry = null;
+      rescanCode(clazz, rootDir);
+      LinkedHashMap<String, SymTabEntry> symTab = getOrCreate(clazz).getOrCreateParser(rootDir).getSymTab();
+      for (String key : symTab.keySet())
+      {
+         if (key.startsWith(signature))
+         {
+            symTabEntry = symTab.get(key);
+            break;
+         }
+      }
+
       getOrCreate(clazz).getParser().parseMethodBody(symTabEntry);
+      
       return symTabEntry;
    }
    
-   private void rescanCode(Clazz clazz)
+   private void rescanCode(Clazz clazz, String rootDir)
    {
-      getOrCreate(clazz).getParser().indexOf(Parser.CLASS_END);
+      getOrCreate(clazz).getOrCreateParser(rootDir).indexOf(Parser.CLASS_END);
    }
    
    private int checkCodeForClazz(LocalVarTableEntry entry, String signature, String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz,
-         LinkedHashMap<String, Clazz> handledClazzes, int currentInsertPos)
+         LinkedHashMap<String, Clazz> handledClazzes, int currentInsertPos, String rootDir)
    {
-      rescanCode(modelCreationClass);
+      rescanCode(modelCreationClass, rootDir);
       Parser creatorCreatorParser = getOrCreate(modelCreationClass).getParser();
 
       // check has superclass
@@ -675,7 +694,7 @@ public class GenClassModel
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass); 
          currentInsertPos++;
          //       currentInsertPos++;
-         symTabEntry = refreshMethodScan(signature, clazz);
+         symTabEntry = refreshMethodScan(signature, clazz, rootDir);
          //FIXME ALEX NICHT NOTWENDIG ODER getOrCreate(clazz).isFileHasChanged();
       }
 
@@ -693,7 +712,7 @@ public class GenClassModel
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass); 
          currentInsertPos++;
          //       currentInsertPos++;
-         symTabEntry = refreshMethodScan(signature, clazz);
+         symTabEntry = refreshMethodScan(signature, clazz, rootDir);
        //FIXME ALEX NICHT NOTWENDIG ODER  getOrCreate(clazz).isFileHasChanged();
       }
 
@@ -719,7 +738,7 @@ public class GenClassModel
 
          // set insert position to next line
          currentInsertPos++;
-         symTabEntry = refreshMethodScan(signature, interfaze);
+         symTabEntry = refreshMethodScan(signature, interfaze, rootDir);
       }
 
       // check code for attribut
@@ -764,7 +783,7 @@ public class GenClassModel
 
                   currentInsertPos = insertCreationCode(text.toString(), entry.getEndPos() + 2, modelCreationClass);
 
-                  symTabEntry = refreshMethodScan(signature, clazz);
+                  symTabEntry = refreshMethodScan(signature, clazz, rootDir);
 
                   continue;
                }
@@ -794,7 +813,7 @@ public class GenClassModel
 
          // set insert position to next line
          currentInsertPos += 2;
-         symTabEntry = refreshMethodScan(signature, clazz);
+         symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
       }
 
       // check code for method
@@ -822,10 +841,10 @@ public class GenClassModel
          if (handledClazzes.containsKey(sourceClassName) && handledClazzes.containsKey(targetClassName))
          {
 
-            symTabEntry = refreshMethodScan(signature, clazz);
+            symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
 
-            int indexOfSourceClassPos = positionOfClazzDecl(sourceClassName, clazz);
-            int indexOfTargetClassPos = positionOfClazzDecl(targetClassName, clazz);
+            int indexOfSourceClassPos = positionOfClazzDecl(sourceClassName, modelCreationClass);
+            int indexOfTargetClassPos = positionOfClazzDecl(targetClassName, modelCreationClass);
             int resultPos = Math.max(indexOfSourceClassPos, indexOfTargetClassPos) + 3;
             currentInsertPos = Math.max(resultPos, currentInsertPos);
             currentInsertPos = tryToInsertAssoc(symTabEntry, role, currentInsertPos, modelCreationClass);
@@ -1262,7 +1281,7 @@ public class GenClassModel
    }
    
    private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
-         int currentInsertPos)
+         int currentInsertPos, String rootDir)
    {
 
       Queue<Clazz> clazzQueue = new LinkedList<Clazz>(); 
@@ -1296,7 +1315,7 @@ public class GenClassModel
                }
 
                handledClazzes.put(modelClassName, clazz);
-               currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, refreshMethodScan(signature, clazz), clazz, handledClazzes, currentInsertPos);
+               currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, refreshMethodScan(signature, clazz, rootDir), clazz, handledClazzes, currentInsertPos);
             }
          }
       }
@@ -1442,23 +1461,23 @@ public class GenClassModel
    private int insertCreationAssociationCode(Association assoc, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
    {
       StringBuilder text = new StringBuilder(
-            "\n      sourceClazz.withAssoc(targetClazz, \"targetName\", targetRole, \"sourceName\", sourceRole);\n");
+            "\n      sourceClazz.withAssoc(targetClazz, \"targetName\", targetCard, \"sourceName\", sourceCard);\n");
 
-      String sourceRole = assoc.getSource().getCard().toUpperCase();
+      String sourceCard = "Card." + assoc.getSource().getCard().toUpperCase();
       String sourceName = assoc.getSource().getName();
       String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getFullName())) + "Class";
 
-      String targetRole = assoc.getTarget().getCard().toUpperCase();
+      String targetCard = "Card." + assoc.getTarget().getCard().toUpperCase();
       String targetName = assoc.getTarget().getName();
       String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getFullName())) + "Class";
 
       CGUtil.replaceAll(text, 
             "sourceName", sourceName, 
             "sourceClazz", sourceClazz, 
-            "sourceRole", sourceRole, 
+            "sourceCard", sourceCard, 
             "targetName", targetName, 
             "targetClazz", targetClazz, 
-            "targetRole", targetRole);
+            "targetCard", targetCard);
 
       currentInsertPos = checkImport("Association", currentInsertPos, modelCreationClass, symTabEntry);
 

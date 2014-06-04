@@ -5,7 +5,7 @@
     "name":"SDMLibProject",
     "phase":"active",
     "hoursRemaining":24,
-    "hoursSpend":43,
+    "hoursSpend":69,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -120,7 +120,7 @@
   "prop":{
     "name":"Sprint.001.Booting",
     "phase":"active",
-    "hoursSpend":29,
+    "hoursSpend":55,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K10"},
@@ -528,11 +528,16 @@
   "class":"org.sdmlib.storyboards.KanbanEntry",
   "prop":{
     "name":"GenericObjectDiagram",
-    "phase":"done",
-    "hoursSpend":4,
+    "phase":"implementation",
+    "hoursSpend":30,
     "parent":{"id":"KE.K11"},
     "logEntries":[
-    {"id":"KE.L123"}
+    {"id":"KE.L123"},
+      {"id":"KE.L138"},
+      {"id":"KE.L139"},
+      {"id":"KE.L140"},
+      {"id":"KE.L141"},
+      {"id":"KE.L142"}
     ],
     "phases":"active, backlog, implementation, done, bug"
   }
@@ -828,5 +833,59 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"Achieved: It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
+  }
+},  {
+  "id":"KE.L138",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"31.05.2012 13:51:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K98"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: "
+  }
+},  {
+  "id":"KE.L139",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"31.05.2012 15:15:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K98"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Step 7: derive non-generic objects from the generic objects "
+  }
+},  {
+  "id":"KE.L140",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"31.05.2012 15:22:42",
+    "kanbanEntry":{"id":"KE.K98"},
+    "developer":"zuendorf",
+    "phase":"bug",
+    "comment":"Achieved: BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram "
+  }
+},  {
+  "id":"KE.L141",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"05.08.2012 15:43:42",
+    "hoursSpend":4,
+    "kanbanEntry":{"id":"KE.K98"},
+    "developer":"zuendorf",
+    "phase":"implementation",
+    "comment":"Achieved: New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model "
+  }
+},  {
+  "id":"KE.L142",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"31.07.2012 15:22:42",
+    "hoursSpend":20,
+    "kanbanEntry":{"id":"KE.K98"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"works great"
   }
 }]

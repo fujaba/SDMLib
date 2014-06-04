@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-160 219,-160 219,5 -4,5"/>
 <!-- b1 -->
 <g id="node1" class="node"><title>b1</title>
-<a xlink:href="../test/de/kassel/roombook/Building.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/de/kassel/roombook/Building.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="66,-134 66,-151 148,-151 148,-134 66,-134"/>
 <text text-anchor="start" x="79" y="-140.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="83" y="-140.5" font-family="Arial" font-size="10.00">b1 :Building</text>
@@ -21,7 +21,7 @@
 </g>
 <!-- f2 -->
 <g id="node2" class="node"><title>f2</title>
-<a xlink:href="../test/de/kassel/roombook/Floor.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/de/kassel/roombook/Floor.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-52 8,-69 90,-69 90,-52 8,-52"/>
 <text text-anchor="start" x="29" y="-58.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="33" y="-58.5" font-family="Arial" font-size="10.00">f2 :Floor</text>
@@ -39,7 +39,7 @@
 </g>
 <!-- f3 -->
 <g id="node3" class="node"><title>f3</title>
-<a xlink:href="../test/de/kassel/roombook/Floor.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/de/kassel/roombook/Floor.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="124,-52 124,-69 206,-69 206,-52 124,-52"/>
 <text text-anchor="start" x="145" y="-58.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="149" y="-58.5" font-family="Arial" font-size="10.00">f3 :Floor</text>
