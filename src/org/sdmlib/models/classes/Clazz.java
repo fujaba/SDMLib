@@ -222,7 +222,7 @@ public class Clazz extends SDMLibClass
 
    public Clazz withClassModel(ClassModel value)
    {
-      this.setClassModel(value);
+      setClassModel(value);
       return this;
    }
    
@@ -238,50 +238,50 @@ public class Clazz extends SDMLibClass
    {
       if (this.attributes == null)
       {
-         return new AttributeSet();
+         return Attribute.EMPTY_SET;
       }
-
+   
       return this.attributes;
    }
 
-   boolean addToAttributes(Attribute value)
+   public boolean addToAttributes(Attribute value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.attributes == null)
          {
             this.attributes = new AttributeSet();
          }
-
+         
          changed = this.attributes.add (value);
-
+         
          if (changed)
          {
-            value.setClazz(this);
+            value.withClazz(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, null, value);
          }
       }
-
+         
       return changed;   
    }
 
    public boolean removeFromAttributes(Attribute value)
    {
       boolean changed = false;
-
+      
       if ((this.attributes != null) && (value != null))
       {
-         changed = this.attributes.remove (value);
-
+         changed = this.attributes.remove(value);
+         
          if (changed)
          {
             value.setClazz(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, value, null);
          }
       }
-
+         
       return changed;   
    }
  
@@ -583,12 +583,15 @@ public class Clazz extends SDMLibClass
    
    public Clazz withAttributes(Attribute... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Attribute item : value)
       {
          addToAttributes(item);
       }
       return this;
-   } 
+   }
 
    public Clazz withoutAttributes(Attribute... value)
    {

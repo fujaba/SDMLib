@@ -22,19 +22,16 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.modelsets.DataTypeSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmlib.models.modelsets.ModelSet
+public class AttributeSet extends SDMSet<Attribute>
 {
-   private static final long serialVersionUID = 1L;
-
    public StringList getInitialization()
    {
       StringList result = new StringList();
