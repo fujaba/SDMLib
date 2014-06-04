@@ -1,10 +1,9 @@
 package org.sdmlib.models.classes.util;
 
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.serialization.EntityFactory;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class AssociationCreator extends EntityFactory
 {
@@ -12,6 +11,7 @@ public class AssociationCreator extends EntityFactory
    {
       Association.PROPERTY_SOURCE,
       Association.PROPERTY_TARGET
+      Association.PROPERTY_TARGET,
    };
    
    @Override
@@ -31,19 +31,19 @@ public class AssociationCreator extends EntityFactory
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
+
       if (Association.PROPERTY_SOURCE.equalsIgnoreCase(attribute))
       {
-         return ((Association)target).getSource();
+         return ((Association) target).getSource();
       }
 
       if (Association.PROPERTY_TARGET.equalsIgnoreCase(attribute))
       {
-         return ((Association)target).getTarget();
+         return ((Association) target).getTarget();
       }
       return null;
    }

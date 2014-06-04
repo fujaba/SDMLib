@@ -6,6 +6,8 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.util.ClazzPO;
 
 public class MethodPO extends PatternObject<MethodPO, Method>
 {
@@ -226,6 +228,26 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return this.startCreate().hasClazz(tgt).endCreate();
    }
 
+   public MethodPO hasReturnType(DataType value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Method.PROPERTY_RETURNTYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public MethodPO createReturnType(DataType value)
+   {
+      this.startCreate().hasReturnType(value).endCreate();
+      return this;
+   }
+   
 }
 
 

@@ -126,12 +126,13 @@ public class Association extends SDMLibClass
          
          if (value != null)
          {
-            value.setAssoc(this);
+            value.withAssoc(this);
          }
          
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGET, oldValue, value);
          changed = true;
       }
+      
       return changed;
    }
    
@@ -164,10 +165,10 @@ public class Association extends SDMLibClass
          
          if (value != null)
          {
-            value.setAssoc(this);
+            value.withAssoc(this);
          }
          
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, null, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, oldValue, value);
          changed = true;
       }
       

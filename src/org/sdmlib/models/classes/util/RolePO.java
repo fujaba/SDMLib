@@ -6,6 +6,9 @@ import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.RoleSet;
+import org.sdmlib.models.classes.util.AssociationPO;
+import org.sdmlib.models.classes.util.ClazzPO;
 
 public class RolePO extends PatternObject<RolePO, Role>
 {
