@@ -50,8 +50,9 @@ public class GenClassModel
    private AssociationSet associations = null;
    private HashMap<Object, Generator<?>> generators=new HashMap<Object, Generator<?>>();
    private Parser creatorCreatorParser;
-   private boolean showDiff;
-
+   private DIFF showDiff = DIFF.NONE;
+   
+   public enum DIFF{NONE,DIFF, FULL};
    
    public boolean addToAssociations(Association value)
    {
@@ -160,10 +161,10 @@ public class GenClassModel
       attributNameConsistenceCheck(e, rootDir);
       
       // Write all
-      if(isShowDiff()){
+      if(getShowDiff()!=DIFF.NONE){
          int count = 0;
          for(Clazz clazz :  model.getClasses()){
-            count += getOrCreate(clazz).printAll();
+            count += getOrCreate(clazz).printAll(getShowDiff());
          }
          System.out.println("Totalchanges of all Files: "+count);
       }
@@ -297,7 +298,7 @@ public class GenClassModel
                insertCreatorClassInCreatorCreator(creatorCreatorParser, clazz);
             }
          }
-         if(!isShowDiff()){
+         if(getShowDiff()==DIFF.NONE){
             CGUtil.printFile(creatorCreatorParser);
          }
       }
@@ -2276,12 +2277,12 @@ public class GenClassModel
       }
    }
 
-   public boolean isShowDiff()
+   public DIFF getShowDiff()
    {
       return showDiff;
    }
 
-   public GenClassModel withShowDiff(boolean showDiff)
+   public GenClassModel withShowDiff(DIFF showDiff)
    {
       this.showDiff = showDiff;
       return this;

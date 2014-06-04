@@ -30,6 +30,8 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.modelsets.DataTypeList;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmlib.models.modelsets.ModelSet
 {

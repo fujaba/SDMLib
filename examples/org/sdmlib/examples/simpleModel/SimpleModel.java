@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 
 public class SimpleModel
 {
@@ -18,7 +19,7 @@ public class SimpleModel
       macClazz.withAttribute("Name", DataType.STRING);
       
       // Enable Special Thinks
-      model.getGenerator().withShowDiff(true);
+      model.getGenerator().withShowDiff(DIFF.FULL);
       model.generate("examples");
    }
 }

@@ -28,6 +28,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 
 public class ClassModelTest
 {
@@ -143,7 +144,7 @@ public class ClassModelTest
 //         ProjectBoard.IMPLEMENTATION, "zuendorf", "19.08.2012 19:08:42", 8, 0);
 
       
-      model.getGenerator().withShowDiff(true);
+      model.getGenerator().withShowDiff(DIFF.DIFF);
       
       model.generate("src");
       

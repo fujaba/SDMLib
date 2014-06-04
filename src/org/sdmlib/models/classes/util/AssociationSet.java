@@ -27,6 +27,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.RoleSet;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {

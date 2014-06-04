@@ -20,6 +20,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
@@ -495,7 +496,7 @@ public class GenClass extends Generator<Clazz>
    public void printFile(boolean really)
    {
       GenClassModel clazzModel = model.getClassModel().getGenerator();
-      if(!clazzModel.isShowDiff()){
+      if(clazzModel.getShowDiff()==DIFF.NONE){
          CGUtil.printFile(parser);
       }
    }
@@ -512,32 +513,28 @@ public class GenClass extends Generator<Clazz>
 
    public void printCreatorFile(boolean really)
    {
-      GenClassModel clazzModel = model.getClassModel().getGenerator();
-      if(!clazzModel.isShowDiff()){
+      if(!isShowDiff()){
          CGUtil.printFile(creatorParser);
       }
    }
 
    public void printModelSetFile(boolean really)
    {
-      GenClassModel clazzModel = model.getClassModel().getGenerator();
-      if(!clazzModel.isShowDiff()){
+      if(!isShowDiff()){
          CGUtil.printFile(modelSetParser);
       }
    }
 
    public void printPatternObjectFile(boolean really)
    {
-      GenClassModel clazzModel = model.getClassModel().getGenerator();
-      if(!clazzModel.isShowDiff()){
+      if(!isShowDiff()){
          CGUtil.printFile(patternObjectParser);
       }
    }
 
    public void printPatternObjectCreatorFile(boolean really)
    {
-      GenClassModel clazzModel = model.getClassModel().getGenerator();
-      if(!clazzModel.isShowDiff()){
+      if(!isShowDiff()){
          CGUtil.printFile(patternObjectCreatorParser);
       }
    }
@@ -645,7 +642,7 @@ public class GenClass extends Generator<Clazz>
    public boolean isShowDiff(){
       ClassModel model = getModel().getClassModel();
       if(model != null){
-         return model.getGenerator().isShowDiff();
+         return model.getGenerator().getShowDiff()!=DIFF.NONE;
       }
       return false;
    }
@@ -1328,17 +1325,17 @@ public class GenClass extends Generator<Clazz>
    }
 
 
-   public int printAll()
+   public int printAll(DIFF diff)
    {
       int count=0;
-      count += showDiffForParser(parser);
-      count += showDiffForParser(creatorParser);
-      count += showDiffForParser(modelSetParser);
-      count += showDiffForParser(patternObjectParser);
-      count += showDiffForParser(patternObjectCreatorParser);
+      count += showDiffForParser(parser, diff);
+      count += showDiffForParser(creatorParser, diff);
+      count += showDiffForParser(modelSetParser, diff);
+      count += showDiffForParser(patternObjectParser, diff);
+      count += showDiffForParser(patternObjectCreatorParser, diff);
       return count;
    }
-   private int showDiffForParser(Parser newFileParser){
+   private int showDiffForParser(Parser newFileParser, DIFF diff){
       int count=0;
       if(newFileParser==null){
          return 0;
@@ -1369,7 +1366,9 @@ public class GenClass extends Generator<Clazz>
                   continue;
                }
                if(!oldSymTab.containsKey(item.getKey())){
-                  System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Method not found");
+                  if(diff==DIFF.FULL){
+                     System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Method not found");
+                  }
                   continue;
                }
                SymTabEntry oldValue = oldSymTab.get(item.getKey());
@@ -1406,8 +1405,8 @@ public class GenClass extends Generator<Clazz>
                   continue;
                }
             }
-         }else{
-//            System.err.println(file.getAbsolutePath()+";;File not Found!!!");
+         }else if(diff==DIFF.FULL){
+            System.err.println(file.getAbsolutePath()+";;File not Found!!!");
             
          }
          return count;
