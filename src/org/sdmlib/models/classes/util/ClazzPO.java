@@ -76,7 +76,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasInterfaze(Boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_INTERFACE)
+      .withAttrName(Clazz.PROPERTY_INTERFAZE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -260,7 +260,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasInterfaze(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_INTERFACE)
+      .withAttrName(Clazz.PROPERTY_INTERFAZE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -326,7 +326,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasInterfaze(boolean lower, boolean upper)
    {
       new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_INTERFACE)
+      .withAttrName(Clazz.PROPERTY_INTERFAZE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -444,7 +444,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasInterface(boolean value)
    {
       new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_INTERFACE)
+      .withAttrName(Clazz.PROPERTY_INTERFAZE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())

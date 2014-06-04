@@ -38,6 +38,7 @@ public class DataType
       return new DataType(value.getFullName());
    }
    
+   @Override
    public String toString()
    {
       return "DataType." + value.toUpperCase();

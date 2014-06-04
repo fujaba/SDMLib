@@ -39,7 +39,7 @@ public class Clazz extends SDMLibClass
    public static final String PROPERTY_METHODS = "methods";
    public static final String PROPERTY_ROLES = "roles";
    
-   public static final String PROPERTY_INTERFACE = "interface";
+   public static final String PROPERTY_INTERFAZE = "interface";
    public static final String PROPERTY_EXTERNAL = "external";
    public static final ClazzSet EMPTY_SET = new ClazzSet();
 
@@ -621,7 +621,7 @@ public class Clazz extends SDMLibClass
       {
          Boolean oldValue = this.interfaze;
          this.interfaze = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
       }
    }
 
@@ -684,7 +684,7 @@ public class Clazz extends SDMLibClass
       {
          boolean oldValue = this.interfaze;
          this.interfaze = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACE, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
       }
    }
    
@@ -864,9 +864,4 @@ public class Clazz extends SDMLibClass
       withSuperClazzes(value);
       return value;
    } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_INTERFAZE = "interfaze";
-   }
+}

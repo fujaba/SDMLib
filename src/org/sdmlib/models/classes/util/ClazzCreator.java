@@ -14,7 +14,6 @@ public class ClazzCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       Clazz.PROPERTY_NAME,
-      Clazz.PROPERTY_INTERFACE,
       Clazz.PROPERTY_EXTERNAL,
       Clazz.PROPERTY_CLASSMODEL,
       Clazz.PROPERTY_SUPERCLAZZES,
@@ -71,11 +70,6 @@ public class ClazzCreator extends EntityFactory
       if (Clazz.PROPERTY_SUPERCLAZZES.equalsIgnoreCase(attrName))
       {
          return ((Clazz) target).getSuperClass();
-      }
-
-      if (Clazz.PROPERTY_INTERFACE.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).isInterface();
       }
 
       if (Clazz.PROPERTY_EXTERNAL.equalsIgnoreCase(attribute))
@@ -152,12 +146,6 @@ public class ClazzCreator extends EntityFactory
       }
       
       if ((Clazz.PROPERTY_SUPERCLAZZES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).setInterfaze((Boolean) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_INTERFACE.equalsIgnoreCase(attrName))
       {
          ((Clazz)target).setInterfaze((Boolean) value);
          return true;
