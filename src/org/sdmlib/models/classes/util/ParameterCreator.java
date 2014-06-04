@@ -4,7 +4,11 @@ import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
+import org.sdmlib.models.classes.SDMLibClass;
+import org.sdmlib.models.classes.Value;
 import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ParameterCreator extends EntityFactory
 {
@@ -25,7 +29,7 @@ public class ParameterCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Attribute();
+      return new Parameter();
    }
    
    @Override
@@ -33,40 +37,58 @@ public class ParameterCreator extends EntityFactory
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-
+      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
 
-      if (Parameter.PROPERTY_INITIALIZATION.equalsIgnoreCase(attribute))
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
       {
-         return ((Parameter) target).getInitialization();
+         return ((Value) target).getInitialization();
+      }
+
+      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         return ((Value) target).getType();
+      }
+
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return ((SDMLibClass) target).getName();
       }
 
       if (Parameter.PROPERTY_METHOD.equalsIgnoreCase(attribute))
       {
          return ((Parameter) target).getMethod();
       }
-
-      if (Parameter.PROPERTY_TYPE.equalsIgnoreCase(attribute))
-      {
-         return ((Parameter) target).getType();
-      }
-
-      if (Parameter.PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return ((Parameter) target).getName();
-      }
+      
       return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Parameter.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
-         ((Parameter) target).setInitialization((String) value);
+         attrName = attrName + type;
+      }
+
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      {
+         ((Value) target).setInitialization((String) value);
+         return true;
+      }
+
+      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         ((Value) target).setType((org.sdmlib.models.classes.DataType) value);
+         return true;
+      }
+
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((SDMLibClass) target).setName((String) value);
          return true;
       }
 
@@ -75,19 +97,7 @@ public class ParameterCreator extends EntityFactory
          ((Parameter) target).setMethod((Method) value);
          return true;
       }
-
-      if (Parameter.PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         ((Parameter) target).setType((DataType) value);
-         return true;
-      }
-
-      if (Parameter.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Parameter) target).setName((String) value);
-         return true;
-      }
-
+      
       return false;
    }
      
@@ -96,6 +106,6 @@ public class ParameterCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Attribute) entity).removeYou();
+      ((Parameter) entity).removeYou();
    }
 }

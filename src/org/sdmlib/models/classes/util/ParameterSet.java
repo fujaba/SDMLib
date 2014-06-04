@@ -52,7 +52,7 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
    {
       for (Parameter obj : this)
       {
-         obj.withInitialization(value);
+         obj.setInitialization(value);
       }
       
       return this;
@@ -99,7 +99,7 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.models.classes.Attribute";
+      return "org.sdmlib.models.classes.Parameter";
    }
 
 
@@ -171,9 +171,7 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
    {
       if (value instanceof java.util.Collection)
       {
-         for(Iterator<?> i = ((Collection<?>) value).iterator();i.hasNext();){
-            this.add((Parameter) i.next());
-         }
+         this.addAll((Collection<Parameter>)value);
       }
       else if (value != null)
       {
