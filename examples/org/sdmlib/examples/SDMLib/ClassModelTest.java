@@ -154,6 +154,9 @@ public class ClassModelTest
          .withIgnoreClazz("org.sdmlib.models.classes.util.MethodCreator")
          .withIgnoreClazz("org.sdmlib.models.classes.util.AssociationCreator")
          .withIgnoreClazz("org.sdmlib.models.classes.Method")
+         .withIgnoreClazz("org.sdmlib.models.classes.util.ClazzCreator")
+         .withIgnoreClazz("org.sdmlib.models.classes.util.ClazzSet")
+         .withIgnoreClazz("org.sdmlib.models.classes.Attribute")
          .withShowDiff(DIFF.DIFF);
       
       model.generate("src");

@@ -747,7 +747,7 @@ public class GenAttribute extends Generator<Attribute>
 
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameGetter;
-         if ("Boolean".equals(model.getType())){
+         if ("boolean".equalsIgnoreCase(model.getType().getValue())){
             attrNameGetter = "is"+name+"()";
          }else{
             attrNameGetter = "get"+name+"()";

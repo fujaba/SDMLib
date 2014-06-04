@@ -2,8 +2,11 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.SDMLibClass;
+import org.sdmlib.models.classes.Value;
 import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class AttributeCreator extends EntityFactory
 {
@@ -32,40 +35,58 @@ public class AttributeCreator extends EntityFactory
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-
+      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
 
-      if (Attribute.PROPERTY_INITIALIZATION.equalsIgnoreCase(attribute))
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
       {
-         return ((Attribute) target).getInitialization();
+         return ((Value) target).getInitialization();
+      }
+
+      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         return ((Value) target).getType();
+      }
+
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         return ((SDMLibClass) target).getName();
       }
 
       if (Attribute.PROPERTY_CLAZZ.equalsIgnoreCase(attribute))
       {
          return ((Attribute) target).getClazz();
       }
-
-      if (Attribute.PROPERTY_TYPE.equalsIgnoreCase(attribute))
-      {
-         return ((Attribute) target).getType();
-      }
-
-      if (Attribute.PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return ((Attribute) target).getName();
-      }
+      
       return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Attribute.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
-         ((Attribute) target).setInitialization((String) value);
+         attrName = attrName + type;
+      }
+
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      {
+         ((Value) target).setInitialization((String) value);
+         return true;
+      }
+
+      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         ((Value) target).setType((org.sdmlib.models.classes.DataType) value);
+         return true;
+      }
+
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((SDMLibClass) target).setName((String) value);
          return true;
       }
 
@@ -74,19 +95,7 @@ public class AttributeCreator extends EntityFactory
          ((Attribute) target).setClazz((Clazz) value);
          return true;
       }
-
-      if (Attribute.PROPERTY_TYPE.equalsIgnoreCase(attrName))
-      {
-         ((Attribute) target).setType((DataType) value);
-         return true;
-      }
-
-      if (Attribute.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Attribute) target).setName((String) value);
-         return true;
-      }
-
+      
       return false;
    }
      

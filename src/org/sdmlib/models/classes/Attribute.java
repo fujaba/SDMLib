@@ -88,6 +88,7 @@ public class Attribute extends Value
    @Override
    public void removeYou()
    {
+      super.removeYou();
       setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
