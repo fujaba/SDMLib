@@ -145,7 +145,7 @@ public class Clazz extends SDMLibClass
       return this;
    }
    
-   public boolean removeFromSuperClass(Clazz... value)
+   public boolean removeFromSuperClasses(Clazz... value)
    {
       boolean changed = false;
       for(Clazz superClazz : value){
@@ -534,8 +534,12 @@ public class Clazz extends SDMLibClass
    
    private void removeAllFromKidclasses()
    {
-      // TODO Auto-generated method stub
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.superClazzes);
       
+      for (Clazz value : tmpSet)
+      {
+         this.removeFromSuperClass(value);
+      }      
    }
    //==========================================================================
    public Boolean isInterface()

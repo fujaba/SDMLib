@@ -58,8 +58,8 @@ public class ClassModelTest
       .withTarget(clazzClass, "classes", Card.MANY);
       
       new Association()
-      .withSource(clazzClass, "superclasses", Card.MANY)
-      .withTarget(clazzClass, "kidclasses", Card.MANY);
+      .withSource(clazzClass, "superclazzes", Card.MANY)
+      .withTarget(clazzClass, "kidclazzes", Card.MANY);
       
       
       Clazz valueClass = new Clazz("Value").withSuperClass(sdmLibClazz);

@@ -41,17 +41,17 @@ public class AttributeCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attribute))
       {
          return ((Value) target).getInitialization();
       }
 
-      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attribute))
       {
          return ((Value) target).getType();
       }
 
-      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((SDMLibClass) target).getName();
       }
