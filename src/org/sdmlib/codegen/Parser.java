@@ -46,6 +46,8 @@ public class Parser
 
    public static final char LONG_COMMENT_END = 'd';
 
+   public static final String CONSTRUCTOR = "constructor";
+   
    public static final String ATTRIBUTE = "attribute";
 
    public static final String METHOD = "method";
@@ -462,10 +464,25 @@ public class Parser
 
       if (currentRealTokenEquals(className) && lookAheadRealToken.kind == '(')
       {
-         // TODO: constructor
+         // constructor 
          skip(className);
-         parseFormalParamList();
+         String params = parseFormalParamList();
          parseBlock();
+         
+         String constructorSignature = Parser.CONSTRUCTOR + ":" + className + params;
+         symTab.put(constructorSignature, 
+            new SymTabEntry()
+         .withMemberName(constructorSignature)
+         .withKind(CONSTRUCTOR)
+         .withType(constructorSignature + ":" + CONSTRUCTOR)
+         .withStartPos(startPos)
+         .withEndPos(previousRealToken.startPos)
+         .withBodyStartPos(methodBodyStartPos)
+         .withModifiers(modifiers)
+          );
+
+         checkSearchStringFound(constructorSignature, startPos);
+         
       }
       else
       {

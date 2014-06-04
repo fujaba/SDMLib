@@ -1392,6 +1392,7 @@ public class GenClass extends Generator<Clazz>
                
                if(foundDiff){
                   System.err.println(file.getPath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen+";");
+                  System.err.println("in line:"+parser.getLineIndexOf(oldValue.getStartPos())+"-"+parser.getLineIndexOf(oldValue.getEndPos())+";");
                   System.err.println("("+shortName+":"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+")");
 
 //                  System.out.println(oldStrValue);
