@@ -57,7 +57,7 @@ public class GenClass extends Generator<Clazz>
          insertConstants();
          
          for (Method method : model.getMethods()) {
-            getGenerator(method).generate(rootDir, helpersDir, false);
+            getGenerator(method).generate(rootDir, helpersDir, false, false);
          }
          
          if ( !model.isInterface())
@@ -65,7 +65,7 @@ public class GenClass extends Generator<Clazz>
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
             insertInterfaceMethods(model, rootDir, helpersDir);
-            insertRemoveYouMethod();
+            insertRemoveYouMethod(rootDir);
             insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
@@ -243,7 +243,7 @@ public class GenClass extends Generator<Clazz>
 
             for (Method method : interfaze.getMethods())
             {
-               getGenerator(method).generate(clazz, rootDir, helpersDir, false);
+               getGenerator(method).generate(clazz, rootDir, helpersDir, false, true);
             }
 
          }
@@ -349,7 +349,7 @@ public class GenClass extends Generator<Clazz>
    }
 
 
-   private void insertRemoveYouMethod()
+   private void insertRemoveYouMethod(String rootDir)
    {
       if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
          return;
@@ -366,6 +366,7 @@ public class GenClass extends Generator<Clazz>
                (     "\n   " +
                      "\n   //==========================================================================" +
                      "\n   " +
+                     "\n   OVERRIDE" +
                      "\n   public void removeYou()" +
                      "\n   {" +
                      "\n      getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);" +              
@@ -373,10 +374,25 @@ public class GenClass extends Generator<Clazz>
                      "\n"
                      );
 
+         String overrideText="";
+         for (Clazz clazz : model.getSuperClazzesTransitive().minus(model)) 
+         {
+            if(clazz.isInterface()){
+               continue;
+            }
+            if ( ! model.isExternal()){
+               overrideText = "@Override";
+            }
+            if(getGenerator(clazz).getOrCreateParser(rootDir).indexOf(searchString)>=0){
+               overrideText = "@Override";
+               break;
+            }
+         }
+      
+         CGUtil.replaceAll(text, "OVERRIDE",  overrideText);
+         
          if (model.getSuperClass() != null && !model.getSuperClass().isExternal()) {
-
             CGUtil.replaceAll(text,"{\n",  "{\n      super.removeYou();\n");
-
          }
 
          parser.insert(pos, text.toString());
@@ -391,10 +407,13 @@ public class GenClass extends Generator<Clazz>
          
          String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
          // Check if no super has PropertyChange
-         for (Clazz clazz : model.getSuperClazzesTransitive()) 
+         for (Clazz clazz : model.getSuperClazzesTransitive().minus(model)) 
          {
             if(clazz.isInterface()){
                continue;
+            }
+            if(!clazz.isExternal()){
+               return;
             }
             if(getGenerator(clazz).getOrCreateParser(rootDir).indexOf(searchString)>=0){
                return;
@@ -902,8 +921,7 @@ public class GenClass extends Generator<Clazz>
                   "import fullEntityClassName;\n" +
                   "\n" +
                   "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
-                  "{\n" + 
-                  "        private static final long serialVersionUID = 1L;\n"+
+                  "{\n" +
                   "}\n");
 
             CGUtil.replaceAll(text, 
@@ -933,7 +951,8 @@ public class GenClass extends Generator<Clazz>
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "\n\n" 
+            "\n\n"
+                  + "   @SuppressWarnings(\"unchecked\")\n"
                   + "   public ModelTypeSet with(Object value)\n" 
                   + "   {\n"
                   + "      if (value instanceof java.util.Collection)\n"

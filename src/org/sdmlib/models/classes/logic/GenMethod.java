@@ -10,13 +10,13 @@ import org.sdmlib.models.classes.Method;
 
 public class GenMethod extends Generator<Method>
 {
-   public GenMethod generate(Clazz clazz,  String rootDir, String helpersDir, boolean doGenerate)
+   public GenMethod generate(Clazz clazz,  String rootDir, String helpersDir, boolean doGenerate, boolean overrideFlag)
    {
       // get parser from class
       GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
       Parser parser = clazz.getClassModel().getGenerator().getOrCreate(clazz).getOrCreateParser(rootDir);
 
-      insertMethodDecl(clazz, parser);
+      insertMethodDecl(clazz, parser, overrideFlag);
 
       //    insertCaseInGenericGetSet(parser);
 
@@ -31,7 +31,7 @@ public class GenMethod extends Generator<Method>
       return this;
    }
    
-   private void insertMethodDecl(Clazz clazz, Parser parser)
+   private void insertMethodDecl(Clazz clazz, Parser parser, boolean overrideFlag)
    {     
       String signature = model.getSignature(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
@@ -45,7 +45,7 @@ public class GenMethod extends Generator<Method>
          StringBuilder text = new StringBuilder
                (  "\n   " +
                      "\n   //==========================================================================" +
-                     "\n   " +
+                     "\n   OVERRIDE" +
                      "\n   modifiers returnType mehodName( parameter )");
 
          if ( clazz.isInterface())
@@ -65,7 +65,6 @@ public class GenMethod extends Generator<Method>
          String methodName = signature.substring(0, signature.indexOf("("));
 
          String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
-
          
          String returnClause = "";
          
@@ -81,13 +80,19 @@ public class GenMethod extends Generator<Method>
          {
             returnClause = "return null;";
          }
+         String overrideText="";
+         if(overrideFlag){
+            overrideText="@Override";
+            
+         }
          
          CGUtil.replaceAll(text, 
-            "modifiers", model.getModifier(), 
+            "modifiers", model.getModifier().getValue(), 
             "returnType", model.getReturnType().getValue(),
             "mehodName", methodName,
             "parameter", parameter, 
-            "returnClause", returnClause
+            "returnClause", returnClause,
+            "OVERRIDE", overrideText
                );
 
          pos = parser.indexOf(Parser.CLASS_END);
@@ -107,9 +112,9 @@ public class GenMethod extends Generator<Method>
       }
    }
 
-   public void generate(String rootDir, String helpersDir, boolean doGenerate)
+   public void generate(String rootDir, String helpersDir, boolean doGenerate, boolean overrideFlag)
    {
-      generate(model.getClazz(),  rootDir, helpersDir, doGenerate);  
+      generate(model.getClazz(),  rootDir, helpersDir, doGenerate, overrideFlag);
    }
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)
@@ -216,7 +221,7 @@ public class GenMethod extends Generator<Method>
             "returnSetAdd ", returnSetAdd,
             " returnSetAddEnd", returnSetAddEnd,
             "returnStat", returnStat,
-            "modifiers", model.getModifier(), 
+            "modifiers", model.getModifier().getValue(), 
             "returnType", type,
             "methodName", methodName,
             "memberType", CGUtil.shortClassName(clazz2.getFullName()),

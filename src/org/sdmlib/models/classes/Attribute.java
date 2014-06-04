@@ -28,7 +28,7 @@ public class Attribute extends Value
    public static final AttributeSet EMPTY_SET = new AttributeSet().withReadonly(true);
 
    private Clazz clazz = null;
-   private Visibility visibility = Visibility.PUBLIC;
+   private Visibility visibility = Visibility.PRIVATE;
    
    public Attribute()
    {

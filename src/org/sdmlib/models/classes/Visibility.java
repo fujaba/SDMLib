@@ -45,4 +45,8 @@ public class Visibility
       }
       return new Visibility(first+seconds);
    }
+   public boolean same(Visibility other)
+   {
+      return this.getValue().equalsIgnoreCase(other.getValue());
+   }
 }

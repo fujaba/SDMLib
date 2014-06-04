@@ -185,19 +185,19 @@ public class GenClassModel
    private void fixClassModel(Clazz item, HashSet<Clazz> visited){
       for(Clazz entity : item.getInterfaces()){
          if(entity.getClassModel()==null){
-            entity.withClassModel(model);
             if(visited.add(entity)){
                fixClassModel(entity, visited);
             }
+            entity.withClassModel(model);
          }
       }
 
       for(Clazz entity : item.getSuperClazzes()){
          if(entity.getClassModel()==null){
-            entity.withClassModel(model);
             if(visited.add(entity)){
                fixClassModel(entity, visited);
             }
+            entity.withClassModel(model);
          }
       }
       
@@ -210,16 +210,14 @@ public class GenClassModel
          }
       }
       
-      for(Role entity : item.getRoles()){
-         Clazz clazz = entity.getPartnerRole().getClazz();
+      for(Role role : item.getRoles()){
+         Clazz clazz = role.getPartnerRole().getClazz();
          if(clazz.getClassModel()==null){
             clazz.withClassModel(model);
             if(visited.add(clazz)){
                fixClassModel(clazz, visited);
             }
          }
-      }
-      for(Role role : item.getRoles()){
          this.addToAssociations(role.getAssoc());
       }
    }
