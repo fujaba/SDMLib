@@ -35,7 +35,9 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.AssociationSet;
+import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
@@ -721,7 +723,7 @@ public class GenClassModel
       }
 
       // check code for attribut
-      LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
+      AttributeSet clazzAttributes = clazz.getAttributes();
 
       for (Attribute attribute : clazzAttributes)
       {
@@ -796,7 +798,7 @@ public class GenClassModel
       }
 
       // check code for method
-      LinkedHashSet<Method> methods = clazz.getMethods();
+      MethodSet methods = clazz.getMethods();
 
       for (Method method : methods)
       {
@@ -1181,7 +1183,7 @@ public class GenClassModel
       }
 
       // insert code for new Attr()
-      LinkedHashSet<Attribute> clazzAttributes = clazz.getAttributes();
+      AttributeSet clazzAttributes = clazz.getAttributes();
       for (Attribute attribute : clazzAttributes)
       {
          if ( !"PropertyChangeSupport".equals(attribute.getType())) {
@@ -1194,7 +1196,7 @@ public class GenClassModel
       currentInsertPos = 1 + insertCreationCode(";", currentInsertPos - 1, modelCreationClass);
 
       // insert code for new Method()
-      LinkedHashSet<Method> methods = clazz.getMethods();
+      MethodSet methods = clazz.getMethods();
       for (Method method : methods)
       {
          currentInsertPos = insertCreationMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);

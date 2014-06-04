@@ -22,6 +22,7 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
 
 public class Method extends SDMLibClass
@@ -31,6 +32,7 @@ public class Method extends SDMLibClass
    public static final String PROPERTY_BODY = "body";
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_MODIFIER = "modifier";
+   public static final MethodSet EMPTY_SET = new MethodSet().withReadonly(true);
    
    private Visibility modifier = Visibility.PUBLIC;
    private Clazz clazz = null;

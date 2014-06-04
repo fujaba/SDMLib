@@ -22,19 +22,16 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.modelsets.DataTypeSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmlib.models.modelsets.ModelSet
+public class AttributeSet extends SDMSet<Attribute>
 {
-   private static final long serialVersionUID = 1L;
-
    public StringList getInitialization()
    {
       StringList result = new StringList();
@@ -51,7 +48,7 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
    {
       for (Attribute obj : this)
       {
-         obj.withInitialization(value);
+         obj.setInitialization(value);
       }
       
       return this;
@@ -165,14 +162,12 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
       return new AttributePO(this.toArray(new Attribute[this.size()]));
    }
 
-
+   @SuppressWarnings("unchecked")
    public AttributeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
-            this.add((Attribute) i.next());
-         }
+         this.addAll((Collection<Attribute>)value);
       }
       else if (value != null)
       {

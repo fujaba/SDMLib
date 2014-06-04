@@ -1,7 +1,10 @@
 package org.sdmlib.models.classes.util;
 
+import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
@@ -95,9 +98,9 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClassModelPO hasClassModel()
    {
-      ClassModelPO result = new ClassModelPO();
-      result.setModifier(this.getPattern().getModifier());
+      ClassModelPO result = new ClassModelPO(new ClassModel[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Clazz.PROPERTY_CLASSMODEL, result);
       
       return result;
@@ -105,16 +108,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasClassModel(ClassModelPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_CLASSMODEL)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Clazz.PROPERTY_CLASSMODEL);
    }
    
    public ClassModel getClassModel()
@@ -170,9 +164,9 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public AttributePO hasAttributes()
    {
-      AttributePO result = new AttributePO();
-      result.setModifier(this.getPattern().getModifier());
+      AttributePO result = new AttributePO(new Attribute[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Clazz.PROPERTY_ATTRIBUTES, result);
       
       return result;
@@ -180,16 +174,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasAttributes(AttributePO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_ATTRIBUTES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Clazz.PROPERTY_ATTRIBUTES);
    }
    
    public AttributeSet getAttributes()
@@ -203,9 +188,9 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public MethodPO hasMethods()
    {
-      MethodPO result = new MethodPO();
-      result.setModifier(this.getPattern().getModifier());
+      MethodPO result = new MethodPO(new Method[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Clazz.PROPERTY_METHODS, result);
       
       return result;
@@ -213,16 +198,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasMethods(MethodPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_METHODS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Clazz.PROPERTY_METHODS);
    }
    
    public MethodSet getMethods()
@@ -236,9 +212,9 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public RolePO hasRoles()
    {
-      RolePO result = new RolePO();
-      result.setModifier(this.getPattern().getModifier());
+      RolePO result = new RolePO(new Role[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Clazz.PROPERTY_ROLES, result);
       
       return result;
@@ -246,16 +222,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzPO hasRoles(RolePO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_ROLES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Clazz.PROPERTY_ROLES);
    }
    
    public RoleSet getRoles()
@@ -281,11 +248,11 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this;
    }
    
-   public boolean getExternal()
+   public boolean isExternal()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Clazz) getCurrentMatch()).getExternal();
+         return ((Clazz) getCurrentMatch()).isExternal();
       }
       return false;
    }

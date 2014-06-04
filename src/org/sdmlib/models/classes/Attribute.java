@@ -20,9 +20,12 @@
 
 package org.sdmlib.models.classes;
 
+import org.sdmlib.models.classes.util.AttributeSet;
+
 public class Attribute extends Value
 {
    public static final String PROPERTY_CLAZZ = "clazz";
+   public static final AttributeSet EMPTY_SET = new AttributeSet().withReadonly(true);
 
    private Clazz clazz = null;
    private Visibility visibility = Visibility.PRIVATE;
@@ -88,6 +91,7 @@ public class Attribute extends Value
    @Override
    public void removeYou()
    {
+      super.removeYou();
       setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }

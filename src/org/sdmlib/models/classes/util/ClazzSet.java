@@ -22,7 +22,6 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
@@ -52,7 +51,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withName(value);
+         obj.setName(value);
       }
       
       return this;
@@ -62,18 +61,18 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       ClazzSet result = new ClazzSet();
       
-      for (Clazz clazz : this)
+      for (Clazz obj : this)
       {
-         if (value.indexOf(clazz.getName()) >= 0)
+         if (value.indexOf(obj.getName()) >= 0)
          {
-            result.add(clazz);
+            result.add(obj);
          }
       }
       
       return result;
    }
 
-   public booleanSet getInterface()
+   public booleanSet isInterface()
    {
       booleanSet result = new booleanSet();
       
@@ -258,7 +257,7 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
-   public booleanSet getExternal()
+   public booleanSet isExternal()
    {
       booleanSet result = new booleanSet();
       
@@ -284,7 +283,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withExternal(value);
+         obj.setExternal(value);
       }
       
       return this;
@@ -339,13 +338,12 @@ public class ClazzSet extends SDMSet<Clazz>
    }
 
 
+   @SuppressWarnings("unchecked")
    public ClazzSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
-            this.add((Clazz) i.next());
-         }
+         this.addAll((Collection<Clazz>)value);
       }
       else if (value != null)
       {

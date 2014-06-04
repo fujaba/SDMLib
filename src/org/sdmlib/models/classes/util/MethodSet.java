@@ -22,19 +22,17 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.models.modelsets.ModelSet
+public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    public ParameterSet getParametere()
    {
       ParameterSet result = new ParameterSet();
@@ -85,7 +83,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       
       for (Method obj : this)
       {
-         result.with(obj.getClazz());
+         result.add(obj.getClazz());
       }
       
       return result;
@@ -173,8 +171,6 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       this.remove(value);
       return this;
    }
-
-
 
    public MethodPO hasMethodPO()
    {

@@ -248,50 +248,50 @@ public class Clazz extends SDMLibClass
    {
       if (this.attributes == null)
       {
-         return new AttributeSet();
+         return Attribute.EMPTY_SET;
       }
-
+   
       return this.attributes;
    }
 
-   boolean addToAttributes(Attribute value)
+   public boolean addToAttributes(Attribute value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.attributes == null)
          {
             this.attributes = new AttributeSet();
          }
-
+         
          changed = this.attributes.add (value);
-
+         
          if (changed)
          {
-            value.setClazz(this);
+            value.withClazz(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, null, value);
          }
       }
-
+         
       return changed;   
    }
 
    public boolean removeFromAttributes(Attribute value)
    {
       boolean changed = false;
-
+      
       if ((this.attributes != null) && (value != null))
       {
-         changed = this.attributes.remove (value);
-
+         changed = this.attributes.remove(value);
+         
          if (changed)
          {
             value.setClazz(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, value, null);
          }
       }
-
+         
       return changed;   
    }
  
@@ -334,40 +334,41 @@ public class Clazz extends SDMLibClass
    public boolean addToRoles(Role value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.roles == null)
          {
             this.roles = new RoleSet();
          }
-
+         
          changed = this.roles.add (value);
-
+         
          if (changed)
          {
             value.withClazz(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, null, value);
          }
       }
-
+         
       return changed;   
    }
 
    public boolean removeFromRoles(Role value)
    {
       boolean changed = false;
-
+      
       if ((this.roles != null) && (value != null))
       {
-         changed = this.roles.remove (value);
-
+         changed = this.roles.remove(value);
+         
          if (changed)
          {
             value.setClazz(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, value, null);
          }
       }
-
+         
       return changed;   
    }
 
@@ -404,50 +405,50 @@ public class Clazz extends SDMLibClass
    {
       if (this.methods == null)
       {
-         return new MethodSet();
+         return Method.EMPTY_SET;
       }
-
+   
       return this.methods;
    }
 
    public boolean addToMethods(Method value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
          if (this.methods == null)
          {
             this.methods = new MethodSet();
          }
-
+         
          changed = this.methods.add (value);
-
+         
          if (changed)
          {
             value.withClazz(this);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, value);
          }
       }
-
+         
       return changed;   
    }
 
    public boolean removeFromMethods(Method value)
    {
       boolean changed = false;
-
+      
       if ((this.methods != null) && (value != null))
       {
-         changed = this.methods.remove (value);
-
+         changed = this.methods.remove(value);
+         
          if (changed)
          {
             value.setClazz(null);
-            // getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, value, null);
          }
       }
-
+         
       return changed;   
    }
    
@@ -602,19 +603,17 @@ public class Clazz extends SDMLibClass
    
    //==========================================================================
    
-   public boolean getExternal()
-   {
-      return this.external;
-   }
-   
    public Clazz withAttributes(Attribute... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Attribute item : value)
       {
          addToAttributes(item);
       }
       return this;
-   } 
+   }
 
    public Clazz withoutAttributes(Attribute... value)
    {
@@ -625,14 +624,17 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-  public Clazz withMethods(Method... value)
+   public Clazz withMethods(Method... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Method item : value)
       {
          addToMethods(item);
       }
       return this;
-   } 
+   }
 
    public Clazz withoutMethods(Method... value)
    {
@@ -645,12 +647,15 @@ public class Clazz extends SDMLibClass
 
    public Clazz withRoles(Role... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Role item : value)
       {
          addToRoles(item);
       }
       return this;
-   } 
+   }
 
    public Clazz withoutRoles(Role... value)
    {

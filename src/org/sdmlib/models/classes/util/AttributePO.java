@@ -4,7 +4,6 @@ import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 
 public class AttributePO extends PatternObject<AttributePO, Attribute>
@@ -14,8 +13,11 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    }
 
    public AttributePO(Attribute... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
+   }
    @Override
    public AttributePO startNAC()
    {
@@ -30,6 +32,8 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public AttributeSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       AttributeSet matches = new AttributeSet();
 
       while (this.getPattern().getHasMatch())
@@ -67,9 +71,9 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public ClazzPO hasClazz()
    {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
+      ClazzPO result = new ClazzPO(new Clazz[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Attribute.PROPERTY_CLAZZ, result);
       
       return result;
@@ -77,16 +81,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    
    public AttributePO hasClazz(ClazzPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Attribute.PROPERTY_CLAZZ)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Attribute.PROPERTY_CLAZZ);
    }
    
    public Clazz getClazz()

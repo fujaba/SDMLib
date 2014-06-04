@@ -906,7 +906,7 @@ public class GenRole extends Generator<Role>
             "      \n" + 
             "      for (ContentType obj : this)\n" + 
             "      {\n" + 
-            "         result.with(obj.getName());\n" + 
+            "         result.addOneOrMore(obj.getName());\n" + 
             "      }\n" + 
             "      \n" + 
             "      return result;\n" + 
@@ -993,12 +993,19 @@ public class GenRole extends Generator<Role>
          String fullModelSetType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "Set");
 //         String modelSetType = CGUtil.shortClassName(fullModelSetType);
          
+         String add = "add";
+         if (partnerRole.getCard().equalsIgnoreCase(Card.MANY.name()))
+         {
+            add = "addAll";
+         }
+         
          
          CGUtil.replaceAll(text, 
             "ContentType", CGUtil.shortClassName(tgtClass.getFullName()),
             "ModelType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()),
             "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()) + "Set",
             "Name", StrUtil.upFirstChar(partnerRole.getName()),
+            "addOneOrMore", add,
             "containsClause", containsClause
             );
 
