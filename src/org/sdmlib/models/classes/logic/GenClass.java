@@ -1368,7 +1368,7 @@ public class GenClass extends Generator<Clazz>
                   //ignore Import
                   continue;
                }
-               if(item.getValue().getMemberName().startsWith(Parser.EXTENDS)){
+               if(item.getKey().startsWith(Parser.EXTENDS)){
                   //ignore Import
                   continue;
                }
