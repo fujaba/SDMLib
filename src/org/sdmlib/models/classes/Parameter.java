@@ -81,8 +81,8 @@ public class Parameter extends Value
    {
       StringBuilder _ = new StringBuilder();
       
-      _.append(" ").append(this.getName());
       _.append(" ").append(this.getInitialization());
+      _.append(" ").append(this.getName());
       return _.substring(1);
    }
    

@@ -17,7 +17,7 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_INTERFACE,
       Clazz.PROPERTY_EXTERNAL,
       Clazz.PROPERTY_CLASSMODEL,
-      Clazz.PROPERTY_SUPERCLASS,
+      Clazz.PROPERTY_SUPERCLAZZES,
       Clazz.PROPERTY_ATTRIBUTES,
       Clazz.PROPERTY_METHODS,
       Clazz.PROPERTY_ROLES
@@ -66,7 +66,7 @@ public class ClazzCreator extends EntityFactory
          return ((Clazz) target).getRoles();
       }
 
-      if (Clazz.PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
+      if (Clazz.PROPERTY_SUPERCLAZZES.equalsIgnoreCase(attrName))
       {
          return ((Clazz) target).getSuperClass();
       }
@@ -133,13 +133,13 @@ public class ClazzCreator extends EntityFactory
          return true;
       }
 
-      if (Clazz.PROPERTY_SUPERCLASS.equalsIgnoreCase(attrName))
+      if (Clazz.PROPERTY_SUPERCLAZZES.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).withSuperClass((Clazz) value);
+         ((Clazz)target).withSuperClazzes((Clazz) value);
          return true;
       }
       
-      if ((Clazz.PROPERTY_SUPERCLASS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Clazz.PROPERTY_SUPERCLAZZES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Clazz)target).setInterfaze((Boolean) value);
          return true;

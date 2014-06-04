@@ -158,7 +158,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withTarget(universityClass, "uni", Card.ONE);
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyright.model.Female")
-      .withSuperClass(personClass)
+      .withSuperClazzes(personClass)
       .withAttribute("name", DataType.STRING);
 
       new Method("findMyPosition").withClazz(femaleClass);
@@ -170,10 +170,10 @@ public class StudyRightModel implements PropertyChangeInterface
 
       Clazz maleClass = new Clazz("org.sdmlib.examples.studyright.model.Male")
       .withInterfaze(true)
-      .withSuperClass(personClass);
+      .withSuperClazzes(personClass);
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.model.Professor")
-      .withSuperClass(femaleClass)
+      .withSuperClazzes(femaleClass)
       .withAttribute("PersNr", DataType.INT);
 
       new Association()
@@ -181,11 +181,11 @@ public class StudyRightModel implements PropertyChangeInterface
       .withTarget(professorClass, "has", Card.ONE);
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.model.Student")
-      .withSuperClass(maleClass)
+      .withSuperClazzes(maleClass)
       .withAttribute("name", DataType.STRING)
       .withAttribute("matrNo", DataType.INT)
       /*set superclass*/
-      .withSuperClass(femaleClass);
+      .withSuperClazzes(femaleClass);
 
       new Method("findMyPosition").withClazz(studentClass);
 

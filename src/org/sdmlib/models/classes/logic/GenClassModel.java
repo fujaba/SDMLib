@@ -192,7 +192,7 @@ public class GenClassModel
          }
       }
 
-      for(Clazz entity : item.getSuperClasses()){
+      for(Clazz entity : item.getSuperClazzes()){
          if(entity.getClassModel()==null){
             entity.withClassModel(model);
             if(visited.add(entity)){
@@ -201,7 +201,7 @@ public class GenClassModel
          }
       }
       
-      for(Clazz entity : item.getKidClasses()){
+      for(Clazz entity : item.getKidClazzes()){
          if(entity.getClassModel()==null){
             entity.withClassModel(model);
             if(visited.add(entity)){
@@ -1903,7 +1903,7 @@ public class GenClassModel
       Clazz memberClass = findMemberClass(clazz, memberName, parser);
 
       if (memberClass != null)
-         clazz.withSuperClass(memberClass);
+         clazz.withSuperClazzes(memberClass);
    }
 
    private void addMemberAsInterface(Clazz clazz, String memberName, Parser parser)
@@ -1914,7 +1914,7 @@ public class GenClassModel
       {
          memberClass.withInterfaze(true);
 
-         clazz.withSuperClass(memberClass);
+         clazz.withSuperClazzes(memberClass);
       }
    }
 

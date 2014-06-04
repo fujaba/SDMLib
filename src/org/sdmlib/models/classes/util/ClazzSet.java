@@ -121,13 +121,13 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withSuperClass(value);
+         obj.withSuperClazzes(value);
       }
       
       return this;
    }
    
-   public ClazzSet getKidClassesTransitive()
+   public ClazzSet getKidClazzesTransitive()
    {
       ClazzSet todo = new ClazzSet().with(this);
       
@@ -143,7 +143,7 @@ public class ClazzSet extends SDMSet<Clazz>
          {
             result.add(current);
             
-            todo.with(current.getKidClasses().minus(result));
+            todo.with(current.getKidClazzes().minus(result));
          }
       }
       

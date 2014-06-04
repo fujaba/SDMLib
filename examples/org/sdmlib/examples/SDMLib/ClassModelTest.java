@@ -47,9 +47,9 @@ public class ClassModelTest
 
       ClassModel model = new ClassModel("org.sdmlib.models.classes");
       Clazz sdmLibClazz = new Clazz("SDMLibClass").withAttribute("name", DataType.STRING);
-      Clazz modelClass = model.createClazz("ClassModel").withSuperClass(sdmLibClazz).withAttribute("Name", DataType.STRING);
+      Clazz modelClass = model.createClazz("ClassModel").withSuperClazzes(sdmLibClazz);
            
-      Clazz clazzClass = new Clazz("Clazz").withSuperClass(sdmLibClazz)
+      Clazz clazzClass = new Clazz("Clazz").withSuperClazzes(sdmLibClazz)
          .withAttribute("interface", DataType.BOOLEAN) 
          .withAttribute("external", DataType.BOOLEAN);
       
@@ -58,35 +58,35 @@ public class ClassModelTest
       .withTarget(clazzClass, "classes", Card.MANY);
       
       new Association()
-      .withSource(clazzClass, "superclazzes", Card.MANY)
-      .withTarget(clazzClass, "kidclazzes", Card.MANY);
+      .withSource(clazzClass, "superClazzes", Card.MANY)
+      .withTarget(clazzClass, "kidClazzes", Card.MANY);
       
       
-      Clazz valueClass = new Clazz("Value").withSuperClass(sdmLibClazz);
+      Clazz valueClass = new Clazz("Value").withSuperClazzes(sdmLibClazz);
       valueClass.withAttribute("initialization", DataType.STRING)
          .withAttribute("type", DataType.ref(DataType.class));
       
       
-      Clazz attributeClass = new Clazz("Attribute").withSuperClass(valueClass);
+      Clazz attributeClass = new Clazz("Attribute").withSuperClazzes(valueClass);
          
       new Association()
       .withSource(clazzClass, "clazz", Card.ONE, Role.AGGREGATION)
       .withTarget(attributeClass, "attributes", Card.MANY);
       
       
-      Clazz methodClass = new Clazz("Method").withSuperClass(sdmLibClazz)
+      Clazz methodClass = new Clazz("Method").withSuperClazzes(sdmLibClazz)
             .withAttribute("returnType", DataType.ref(DataType.class))
             .withAttribute("body", DataType.STRING);
       
-      model.createClazz("Parameter").withSuperClass(valueClass).withAssoc(methodClass, "method", Card.ONE, "parameter", Card.MANY);
+      model.createClazz("Parameter").withSuperClazzes(valueClass).withAssoc(methodClass, "method", Card.ONE, "parameter", Card.MANY);
       
       new Association()
       .withSource(clazzClass, "clazz", Card.ONE, Role.AGGREGATION)
       .withTarget(methodClass, "methods", Card.MANY);
       
-      Clazz associationClass = new Clazz("Association").withSuperClass(sdmLibClazz);
+      Clazz associationClass = new Clazz("Association").withSuperClazzes(sdmLibClazz);
       
-      Clazz roleClass = new Clazz("Role").withSuperClass(sdmLibClazz)
+      Clazz roleClass = new Clazz("Role").withSuperClazzes(sdmLibClazz)
       .withAttribute("card", DataType.STRING, "MANY")
       .withAttribute("kind", DataType.STRING, "VANILLA");
       

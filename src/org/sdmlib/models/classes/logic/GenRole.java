@@ -435,7 +435,7 @@ public class GenRole extends Generator<Role>
       //TODO UEBERPRUEFEN
       System.out.println(partnerClassName +" ->" +genClazz.getName());
       String realPartnerClassName = partnerClassName;
-      ClazzSet kindClasses = partnerRole.getClazz().getKidClasses();
+      ClazzSet kindClasses = partnerRole.getClazz().getKidClazzes();
       ClazzSet kindClassesInterfaces =new ClazzSet();
       for(Clazz clazz : kindClasses){
          if(clazz.isInterface()){
@@ -469,7 +469,7 @@ public class GenRole extends Generator<Role>
       }
       
       // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
-      ClazzSet kidClasses = partnerRole.getClazz().getKidClassesTransitive().without(partnerRole.getClazz());
+      ClazzSet kidClasses = partnerRole.getClazz().getKidClazzesTransitive().without(partnerRole.getClazz());
       
       for (Clazz kid : kidClasses)
       {
@@ -689,7 +689,7 @@ public class GenRole extends Generator<Role>
       
       String realPartnerClassName = partnerClassName;
       
-      ClazzSet kindClasses = partnerRole.getClazz().getKidClasses();
+      ClazzSet kindClasses = partnerRole.getClazz().getKidClazzes();
       ClazzSet kindClassesInterfaces =new ClazzSet();
       for(Clazz clazz : kindClasses){
          if(clazz.isInterface()){

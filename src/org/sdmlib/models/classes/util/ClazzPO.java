@@ -125,7 +125,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       ClazzPO result = new ClazzPO();
       result.setModifier(this.getPattern().getModifier());
       
-      super.hasLink(Clazz.PROPERTY_SUPERCLASS, result);
+      super.hasLink(Clazz.PROPERTY_SUPERCLAZZES, result);
       
       return result;
    }
@@ -133,7 +133,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    public ClazzPO hasSuperClass(ClazzPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_SUPERCLASS)
+      .withTgt(tgt).withTgtRoleName(Clazz.PROPERTY_SUPERCLAZZES)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier());
       

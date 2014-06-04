@@ -132,7 +132,7 @@ public class GenClass extends Generator<Clazz>
          return null;
       }
       this.repairThis = true;
-      for(Iterator<Clazz> i = model.getSuperClasses().iterator(); i.hasNext(); ){
+      for(Iterator<Clazz> i = model.getSuperClazzes().iterator(); i.hasNext(); ){
          Clazz item = i.next();
          
          if(item.getClassModel()!=null){
@@ -143,7 +143,7 @@ public class GenClass extends Generator<Clazz>
          }
       }
       
-      for(Iterator<Clazz> i = model.getKidClasses().iterator();i.hasNext();){
+      for(Iterator<Clazz> i = model.getKidClazzes().iterator();i.hasNext();){
          Clazz item = i.next();
          
          if(item.getClassModel()!=null){
