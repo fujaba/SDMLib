@@ -1,12 +1,11 @@
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.serialization.EntityFactory;
 
-public class MethodCreator extends EntityFactory
+import de.uniks.networkparser.json.JsonIdMap;
+
+public class MethodCreator extends SDMLibClassCreator
 {
    private final String[] properties = new String[]
    {
@@ -34,58 +33,56 @@ public class MethodCreator extends EntityFactory
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-
+      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
 
-      if (Method.PROPERTY_PARAMETERS.equalsIgnoreCase(attribute))
+      if (Method.PROPERTY_RETURNTYPE.equalsIgnoreCase(attrName))
       {
-         return ((Method) target).getParameters();
+         return ((Method) target).getReturnType();
+      }
+
+      if (Method.PROPERTY_BODY.equalsIgnoreCase(attrName))
+      {
+         return ((Method) target).getBody();
       }
 
       if (Method.PROPERTY_CLAZZ.equalsIgnoreCase(attribute))
       {
          return ((Method) target).getClazz();
       }
-
-      if (Method.PROPERTY_RETURNTYPE.equalsIgnoreCase(attribute))
-      {
-         return ((Method) target).getReturnType();
-      }
-
-      if (Method.PROPERTY_BODY.equalsIgnoreCase(attribute))
-      {
-         return ((Method) target).getBody();
-      }
-      return null;
+      return super.getValue(target, attrName);
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Method.PROPERTY_PARAMETERS.equalsIgnoreCase(attrName))
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
-         ((Method) target).addToParameter((Parameter) value);
-         return true;
+         attrName = attrName + type;
       }
-      if (Method.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
-      {
-         ((Method) target).setClazz((Clazz) value);
-         return true;
-      }
+
       if (Method.PROPERTY_RETURNTYPE.equalsIgnoreCase(attrName))
       {
-         ((Method) target).setReturnType((DataType) value);
+         ((Method) target).setReturnType((org.sdmlib.models.classes.DataType) value);
          return true;
       }
+
       if (Method.PROPERTY_BODY.equalsIgnoreCase(attrName))
       {
          ((Method) target).setBody((String) value);
          return true;
       }
-      return false;
+
+      if (Method.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
+      {
+         ((Method) target).setClazz((Clazz) value);
+         return true;
+      }
+      
+      return super.setValue(target, attrName, value, type);
    }
    
    //==========================================================================

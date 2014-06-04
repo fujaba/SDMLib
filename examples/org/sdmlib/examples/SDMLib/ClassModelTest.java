@@ -46,7 +46,7 @@ public class ClassModelTest
 //      storyboard.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
 
       ClassModel model = new ClassModel("org.sdmlib.models.classes");
-      Clazz sdmLibClazz = new Clazz("SDMLibClass");
+      Clazz sdmLibClazz = new Clazz("SDMLibClass").withAttribute("name", DataType.STRING);
       Clazz modelClass = model.createClazz("ClassModel").withSuperClass(sdmLibClazz).withAttribute("Name", DataType.STRING);
            
       Clazz clazzClass = new Clazz("Clazz").withSuperClass(sdmLibClazz)
@@ -77,6 +77,8 @@ public class ClassModelTest
       Clazz methodClass = new Clazz("Method").withSuperClass(sdmLibClazz)
             .withAttribute("returnType", DataType.ref(DataType.class))
             .withAttribute("body", DataType.STRING);
+      
+      model.createClazz("Parameter").withSuperClass(valueClass).withAssoc(methodClass, "method", Card.ONE, "parameter", Card.MANY);
       
       new Association()
       .withSource(clazzClass, "clazz", Card.ONE, Role.AGGREGATION)
@@ -149,6 +151,7 @@ public class ClassModelTest
          .withIgnoreClazz("org.sdmlib.models.classes.Association")
          .withIgnoreClazz("org.sdmlib.models.classes.util.RoleCreator")
          .withIgnoreClazz("org.sdmlib.models.classes.Role")
+         .withIgnoreClazz("org.sdmlib.models.classes.util.MethodCreator")
          .withShowDiff(DIFF.DIFF);
       
       model.generate("src");
