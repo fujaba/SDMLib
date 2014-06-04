@@ -52,7 +52,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    public MethodPO hasSignature(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_PARAMETERS)
+      .withAttrName(Method.PROPERTY_PARAMETER)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -154,7 +154,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    public MethodPO hasSignature(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(Method.PROPERTY_PARAMETERS)
+      .withAttrName(Method.PROPERTY_PARAMETER)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)

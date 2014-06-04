@@ -10,7 +10,7 @@ public class MethodCreator extends SDMLibClassCreator
    private final String[] properties = new String[]
    {
       Method.PROPERTY_NAME,
-      Method.PROPERTY_PARAMETERS,
+      Method.PROPERTY_PARAMETER,
       Method.PROPERTY_RETURNTYPE,
       Method.PROPERTY_CLAZZ,
       Method.PROPERTY_BODY

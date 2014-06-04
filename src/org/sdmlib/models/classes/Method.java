@@ -21,15 +21,13 @@
 
 package org.sdmlib.models.classes;
 
-import java.util.LinkedHashSet;
-
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.ParameterSet;
 
 public class Method extends SDMLibClass
 {
    public static final String PROPERTY_RETURNTYPE = "returnType";
-   public static final String PROPERTY_PARAMETERS = "parameter";
+   public static final String PROPERTY_PARAMETER = "parameter";
    public static final String PROPERTY_BODY = "body";
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_MODIFIER = "modifier";
@@ -37,7 +35,7 @@ public class Method extends SDMLibClass
    private Visibility modifier = Visibility.PUBLIC;
    private Clazz clazz = null;
    private String body;
-   private ParameterSet parameters = null;
+   private ParameterSet parameter = null;
    private DataType returnType = DataType.VOID;
 
    //TODO Right so
@@ -118,52 +116,51 @@ public class Method extends SDMLibClass
     */
    public ParameterSet getParameters()
    {
-      if (this.parameters == null)
+      if (this.parameter == null)
       {
-         this.parameters =  new ParameterSet();
+         this.parameter =  new ParameterSet();
       }
 
-      return this.parameters;
+      return this.parameter;
    }
 
    public boolean addToParameter(Parameter value)
    {
       boolean changed = false;
-
+      
       if (value != null)
       {
-         if (this.parameters == null)
+         if (this.parameter == null)
          {
-            this.parameters = new ParameterSet();
+            this.parameter = new ParameterSet();
          }
-
-         changed = this.parameters.add (value);
-
+         
+         changed = this.parameter.add (value);
+         
          if (changed)
          {
-            value.setMethod(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETERS, null, value);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, null, value);
          }
       }
-
+         
       return changed;   
    }
 
    public boolean removeFromParameter(Parameter value)
    {
       boolean changed = false;
-
-      if ((this.parameters != null) && (value != null))
+      
+      if ((this.parameter != null) && (value != null))
       {
-         changed = this.parameters.remove (value);
-
+         changed = this.parameter.remove(value);
+         
          if (changed)
          {
             value.setMethod(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETERS, value, null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, value, null);
          }
       }
-
+         
       return changed;   
    }
 
@@ -172,8 +169,9 @@ public class Method extends SDMLibClass
       if(value==null){
          return this;
       }
-      for(Parameter parameter : value){
-         addToParameter(parameter);
+      for (Parameter item : value)
+      {
+         addToParameter(item);
       }
       return this;
    }
@@ -191,20 +189,11 @@ public class Method extends SDMLibClass
 
    public Method withoutParameter(Parameter... value)
    {
-      for(Parameter parameter : value){
-         addToParameter(parameter);
+      for (Parameter item : value)
+      {
+         removeFromParameter(item);
       }
       return this;
-   } 
-
-   public void removeAllFromParameter()
-   {
-      LinkedHashSet<Parameter> tmpSet = new LinkedHashSet<Parameter>(this.getParameters());
-
-      for (Parameter value : tmpSet)
-      {
-         this.removeFromParameter(value);
-      }
    }
 
    public Visibility getModifier()
@@ -239,28 +228,28 @@ public class Method extends SDMLibClass
    public boolean setClazz(Clazz value)
    {
       boolean changed = false;
-
+      
       if (this.clazz != value)
       {
          Clazz oldValue = this.clazz;
-
+         
          if (this.clazz != null)
          {
             this.clazz = null;
             oldValue.withoutMethods(this);
          }
-
+         
          this.clazz = value;
-
+         
          if (value != null)
          {
             value.withMethods(this);
          }
-
-         // getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, null, value);
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
          changed = true;
       }
-
+      
       return changed;
    }
 
@@ -283,6 +272,7 @@ public class Method extends SDMLibClass
    @Override
    public void removeYou()
    {
+      super.removeYou();
       setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }

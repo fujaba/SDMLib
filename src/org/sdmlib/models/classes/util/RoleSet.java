@@ -49,7 +49,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
    {
       for (Role obj : this)
       {
-         obj.withName(value);
+         obj.setName(value);
       }
       
       return this;

@@ -358,6 +358,9 @@ public class GenRole extends Generator<Role>
             text.append 
             (     "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
                   "\n   {" +
+                  "\n      if(value==null){" + 
+                  "\n         return this;" +
+                  "\n      }" +
                   "\n      for (partnerClassName item : value)" +
                   "\n      {" +
                   "\n         addToPartnerRoleName(item);" +
