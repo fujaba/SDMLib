@@ -374,7 +374,7 @@ public class GenClass extends Generator<Clazz>
 
          if (model.getSuperClass() != null && !model.getSuperClass().isExternal()) {
 
-            CGUtil.replaceAll(text,"\n   }",  "\n      super.removeYou();\n   }");
+            CGUtil.replaceAll(text,"{\n",  "{\n      super.removeYou();\n");
 
          }
 
