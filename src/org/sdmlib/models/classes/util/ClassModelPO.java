@@ -16,6 +16,9 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    }
 
    public ClassModelPO(ClassModel... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override
@@ -48,9 +51,9 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    
    public ClazzPO hasClasses()
    {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
+      ClazzPO result = new ClazzPO(new Clazz[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(ClassModel.PROPERTY_CLASSES, result);
       
       return result;

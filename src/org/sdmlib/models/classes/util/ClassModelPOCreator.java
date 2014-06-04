@@ -9,7 +9,11 @@ public class ClassModelPOCreator extends PatternObjectCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ClassModelPO();
+      if(reference) {
+          return new ClassModelPO(new ClassModel[]{});
+      } else {
+          return new ClassModelPO();
+      }
    }
    
    public static JsonIdMap createIdMap(String sessionID)
