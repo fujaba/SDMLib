@@ -70,6 +70,7 @@ public class SDMSetBase<T> extends ItemList<T>
    public <ST extends SDMSetBase<T>> ST minus(Object other)
    {
       ST result = (ST) this.getNewInstance();
+      result.with(this);
       if (other instanceof Collection)
       {
          result.removeAll((Collection) other);
