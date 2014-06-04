@@ -199,30 +199,40 @@ public class Clazz extends SDMLibClass
 
    public ClassModel getClassModel()
    {
-      return classModel;
+      return this.classModel;
    }
 
-   public void setClassModel(ClassModel value)
+   public boolean setClassModel(ClassModel value)
    {
+      boolean changed = false;
+      
       if (this.classModel != value)
       {
          ClassModel oldValue = this.classModel;
+         
          if (this.classModel != null)
          {
             this.classModel = null;
-            oldValue.removeFromClasses(this);
+            oldValue.withoutClasses(this);
          }
+         
          this.classModel = value;
-       if (value != null)
+         
+         if (value != null)
          {
-            value.addToClasses(this);
+            value.withClasses(this);
          }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSMODEL, oldValue, value);
+         changed = true;
       }
+      
+      return changed;
    }
 
    public Clazz withClassModel(ClassModel value)
    {
-      this.setClassModel(value);
+      setClassModel(value);
       return this;
    }
    
@@ -484,13 +494,26 @@ public class Clazz extends SDMLibClass
    @Override
    public void removeYou()
    {
-      withClassModel(null);
+      super.removeYou();
+      setClassModel(null);
       removeAllFromAttributes();
       removeAllFromMethods();
       removeAllFromRoles();
+      removeAllFromKidclasses();
+      removeAllFromSuperclasses();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
+   private void removeAllFromSuperclasses()
+   {
+      // TODO Auto-generated method stub
+      
+   }
+   private void removeAllFromKidclasses()
+   {
+      // TODO Auto-generated method stub
+      
+   }
    //==========================================================================
    public Boolean isInterface()
    {
@@ -550,7 +573,6 @@ public class Clazz extends SDMLibClass
       StringBuilder _ = new StringBuilder();
 
       _.append(" ").append(this.getName());
-      // _.append(" ").append(this.getFilePath());
       return _.substring(1);
    }
    

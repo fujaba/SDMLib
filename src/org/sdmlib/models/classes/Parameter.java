@@ -117,4 +117,10 @@ public class Parameter extends Value
       return this;
    }
 
+   public Parameter withMethod(Method value)
+   {
+      setMethod(value);
+      return this;
+   }
+
 }

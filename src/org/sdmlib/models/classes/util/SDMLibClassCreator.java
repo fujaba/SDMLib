@@ -41,7 +41,7 @@ public abstract class SDMLibClassCreator implements SendableEntityCreator
     */
    public void removeObject(Object entity)
    {
-      
+      ((SDMLibClass) entity).removeYou();      
    }
 
    public Object call(Object entity, String method, Object... args)
@@ -56,37 +56,38 @@ public abstract class SDMLibClassCreator implements SendableEntityCreator
    }
 
    @Override
-   public Object getValue(Object entity, String attrName)
+   public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-
+      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
 
-      if (Clazz.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((Clazz) entity).getName();
+         return ((SDMLibClass) target).getName();
       }
+      
       return null;
    }
 
    @Override
-   public boolean setValue(Object entity, String attrName, Object value,
-         String type)
+   public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type))
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
-      
-      if (Clazz.PROPERTY_NAME.equalsIgnoreCase(attrName))
+
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Clazz)entity).setName((String) value);
+         ((SDMLibClass) target).setName((String) value);
          return true;
       }
+      
       return false;
-   }   
+   }  
 }

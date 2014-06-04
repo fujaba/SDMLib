@@ -1,14 +1,25 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 
-public class ParameterPO extends PatternObject<ParameterPO, Attribute>
+public class ParameterPO extends PatternObject<ParameterPO, Parameter>
 {
+   public ParameterPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public ParameterPO(Parameter... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+  }
+
    @Override
    public ParameterPO startNAC()
    {
@@ -21,13 +32,15 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
       return (ParameterPO) super.endNAC();
    }
    
-   public AttributeSet allMatches()
+   public ParameterSet allMatches()
    {
-      AttributeSet matches = new AttributeSet();
+      this.setDoAllMatches(true);
+      
+      ParameterSet matches = new ParameterSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((Attribute) this.getCurrentMatch());
+         matches.add((Parameter) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -38,7 +51,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    public ParameterPO hasInitialization(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Attribute.PROPERTY_INITIALIZATION)
+      .withAttrName(Parameter.PROPERTY_INITIALIZATION)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -53,40 +66,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Attribute) getCurrentMatch()).getInitialization();
-      }
-      return null;
-   }
-   
-   public ClazzPO hasClazz()
-   {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Attribute.PROPERTY_CLAZZ, result);
-      
-      return result;
-   }
-   
-   public ParameterPO hasClazz(ClazzPO tgt)
-   {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Attribute.PROPERTY_CLAZZ)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public Clazz getClazz()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Attribute) this.getCurrentMatch()).getClazz();
+         return ((Parameter) getCurrentMatch()).getInitialization();
       }
       return null;
    }
@@ -94,7 +74,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    public ParameterPO hasType(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Attribute.PROPERTY_TYPE)
+      .withAttrName(Parameter.PROPERTY_TYPE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -109,7 +89,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Attribute) getCurrentMatch()).getType();
+         return ((Parameter) getCurrentMatch()).getType();
       }
       return null;
    }
@@ -118,7 +98,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Attribute) getCurrentMatch()).setType(value);
+         ((Parameter) getCurrentMatch()).setType(value);
       }
       return this;
    }
@@ -126,7 +106,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    public ParameterPO hasName(String value)
    {
       new AttributeConstraint()
-      .withAttrName(Attribute.PROPERTY_NAME)
+      .withAttrName(Parameter.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -141,7 +121,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Attribute) getCurrentMatch()).getName();
+         return ((Parameter) getCurrentMatch()).getName();
       }
       return null;
    }
@@ -150,7 +130,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Attribute) getCurrentMatch()).setName(value);
+         ((Parameter) getCurrentMatch()).setName(value);
       }
       return this;
    }
@@ -158,7 +138,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    public ParameterPO hasName(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(Attribute.PROPERTY_NAME)
+      .withAttrName(Parameter.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -173,7 +153,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    public ParameterPO hasType(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(Attribute.PROPERTY_TYPE)
+      .withAttrName(Parameter.PROPERTY_TYPE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -188,7 +168,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
    public ParameterPO hasInitialization(String lower, String upper)
    {
       new AttributeConstraint()
-      .withAttrName(Attribute.PROPERTY_INITIALIZATION)
+      .withAttrName(Parameter.PROPERTY_INITIALIZATION)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
       .withSrc(this)
@@ -217,15 +197,4 @@ public class ParameterPO extends PatternObject<ParameterPO, Attribute>
       this.startCreate().hasInitialization(value).endCreate();
       return this;
    }
-   
-   public ClazzPO createClazz()
-   {
-      return this.startCreate().hasClazz().endCreate();
-   }
-
-   public ParameterPO createClazz(ClazzPO tgt)
-   {
-      return this.startCreate().hasClazz(tgt).endCreate();
-   }
-
 }

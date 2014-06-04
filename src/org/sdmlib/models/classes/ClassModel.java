@@ -202,6 +202,9 @@ public class ClassModel extends SDMLibClass
 
    public ClassModel withClasses(Clazz... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Clazz item : value)
       {
          addToClasses(item);

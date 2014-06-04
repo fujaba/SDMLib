@@ -64,7 +64,7 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
       
       for (Parameter obj : this)
       {
-         result.add(obj.getMethod());
+         result.with(obj.getMethod());
       }
       
       return result;
@@ -74,7 +74,7 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
    {
       for (Parameter obj : this)
       {
-         obj.withClazz(value);
+         obj.withMethod(value);
       }
       
       return this;

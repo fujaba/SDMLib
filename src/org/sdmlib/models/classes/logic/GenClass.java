@@ -741,6 +741,7 @@ public class GenClass extends Generator<Clazz>
                      "      return CreatorCreator.createIdMap(sessionID);\n" +
                      "   }"+
                   "}\n");
+            
             if (model.isExternal())
             {
                // wrapped class does not provide generic get / set
@@ -805,8 +806,10 @@ public class GenClass extends Generator<Clazz>
                "fullEntityClassName", fullEntityClassName,
                "packageName", packageName,
                "instanceCreationClause", instanceCreationClause);
-
+            
             creatorParser.withFileBody(text).withFileChanged(true);
+            
+            insertLicense(creatorParser);
          }
       }
       return creatorParser;

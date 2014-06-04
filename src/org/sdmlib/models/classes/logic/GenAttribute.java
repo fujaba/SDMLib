@@ -738,7 +738,7 @@ public class GenAttribute extends Generator<Attribute>
          }
 
          StringBuilder text = new StringBuilder
-               (  "\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+               (  "\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attribute))" +
                      "\n      {" +
                      "\n         return ((entitiyNameClass) target).VALUEGET;" +
                      "\n      }" +
