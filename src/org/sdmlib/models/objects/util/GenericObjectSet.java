@@ -29,11 +29,6 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericGraphSet;
-import org.sdmlib.models.modelsets.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.models.objects.util.GenericAttributeSet;
-import org.sdmlib.models.objects.util.GenericLinkSet;
 
 public class GenericObjectSet extends SDMSet<GenericObject>
 {
@@ -228,6 +223,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
    }
 
 
+   @Override
    public String toString()
    {
       StringList stringList = new StringList();
@@ -243,6 +239,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
 
 
 
+   @Override
    public String getEntryType()
    {
       return "org.sdmlib.models.objects.GenericObject";

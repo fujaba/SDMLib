@@ -32,9 +32,6 @@ import org.sdmlib.models.modelsets.intList;
 
 public class StatementEntrySet extends SDMSet<StatementEntry>
 {
-   private static final long serialVersionUID = 1L;
-
-
    public StringList getKind()
    {
       StringList result = new StringList();

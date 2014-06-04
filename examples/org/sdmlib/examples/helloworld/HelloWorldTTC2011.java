@@ -23,12 +23,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.objects.Generic2Specific;
-import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.Specific2Generic;
-import org.sdmlib.models.objects.util.GenericGraphPO;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.json.JsonArray;
@@ -155,9 +150,9 @@ public class HelloWorldTTC2011
       
       storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
       storyboard.markCodeStart();
-      ModelPattern p = new ModelPattern().startCreate();
-      
-      GreetingPO greetingPO = p.hasElementGreetingPO();
+//      ModelPattern p = new ModelPattern().startCreate();
+      GreetingPO greetingPO = new GreetingPO();
+//      GreetingPO greetingPO = p.hasElementGreetingPO();
       
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
       .hasText("Hello");
@@ -166,15 +161,15 @@ public class HelloWorldTTC2011
       .hasName("TTC Participants");
       storyboard.addCode("examples");
       
-      storyboard.addPattern(p, false);
+      storyboard.addPattern(greetingPO, false);
       
-      storyboard.assertTrue("Constant transformation has match", p.getHasMatch());
+      storyboard.assertTrue("Constant transformation has match", greetingPO.getHasMatch());
       
       storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
       
       // storyboard.addObjectDiag(p.getJsonIdMap(), greetingPO);
       
-      storyboard.addPattern(p, true);
+      storyboard.addPattern(greetingPO, true);
       
       
       //==========================================================================
@@ -210,9 +205,10 @@ public class HelloWorldTTC2011
       
       storyboard.add("The model transformation that builds our object model looks like: ");
       storyboard.markCodeStart();
-      ModelPattern p = new ModelPattern().startCreate();
+      //FIXME ALBERT  ModelPattern p = new ModelPattern().startCreate();
       
-      GreetingPO greetingPO = p.hasElementGreetingPO();
+      //FIXME ALBERT GreetingPO greetingPO = p.hasElementGreetingPO();
+      GreetingPO greetingPO = new GreetingPO();
       
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
       .hasText("Hello");
@@ -223,7 +219,7 @@ public class HelloWorldTTC2011
       
       storyboard.add("The created object model looks like: ");
       
-      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      storyboard.addObjectDiagram(greetingPO.getPattern().getJsonIdMap(), greetingPO.getCurrentMatch());
       
       storyboard.add("The model to text transfromation template mechanism is used like this: ");
       
@@ -246,7 +242,7 @@ public class HelloWorldTTC2011
          );
       storyboard.addCode("examples");
       
-      storyboard.addObjectDiagram(p.getJsonIdMap(), greetingPO.getCurrentMatch());
+      storyboard.addObjectDiagram(greetingPO.getPattern().getJsonIdMap(), greetingPO.getCurrentMatch());
       
       //==========================================================================
       
@@ -723,11 +719,11 @@ public class HelloWorldTTC2011
 
       storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
       
-      Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
+      //FIXME ALBERT Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagram(tgtGraph);
+      //FIXME ALBERT       storyboard.addObjectDiagram(tgtGraph);
 
    
 //      //==========================================================================
@@ -1114,58 +1110,58 @@ public class HelloWorldTTC2011
 //   }
    
    
-   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
-   {
-      GenericGraph genGraph = new Specific2Generic()
-      .convert(GraphCreator.createIdMap("g1"), origGraph);
-      
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
-      // rename name to text attributes
-      new GenericGraphPO(genGraph)
-      .hasObjects()
-      .hasAttrs()
-      .hasName(Node.PROPERTY_NAME)
-      .startCreate()
-      .hasName(Node.PROPERTY_TEXT)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
-      
-      // storyboard.add("<hr/>");
-      
-      // rename graph--nodes links to parent--gcs links
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasLinks()
-      .hasTgtLabel(Node.PROPERTY_GRAPH)
-      .startCreate()
-      .hasTgtLabel(Node.PROPERTY_PARENT)
-      .hasSrcLabel(Graph.PROPERTY_GCS)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink1", false));
-
-      // storyboard.add("<hr/>");
-      
-      // rename graph--edges links to parent--gcs links
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
-      .hasLinks()
-      .hasSrcLabel(Node.PROPERTY_GRAPH)
-      .startCreate()
-      .hasSrcLabel(Node.PROPERTY_PARENT)
-      .hasTgtLabel(Graph.PROPERTY_GCS)
-      .allMatches();
-      
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink2", false));
-
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
-      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
-      
-      return tgtGraph;
-   }
+//FIXME ALBERT   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+//   {
+//      GenericGraph genGraph = new Specific2Generic()
+//      .convert(GraphCreator.createIdMap("g1"), origGraph);
+//      
+//      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+//      
+//      // rename name to text attributes
+//      new GenericGraphPO(genGraph)
+//      .hasObjects()
+//      .hasAttrs()
+//      .hasName(Node.PROPERTY_NAME)
+//      .startCreate()
+//      .hasName(Node.PROPERTY_TEXT)
+//      .allMatches();
+//      
+//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
+//      
+//      // storyboard.add("<hr/>");
+//      
+//      // rename graph--nodes links to parent--gcs links
+//      new org.sdmlib.models.objects.creators.ModelPattern()
+//      .hasElementGenericGraphPO(genGraph)
+//      .hasLinks()
+//      .hasTgtLabel(Node.PROPERTY_GRAPH)
+//      .startCreate()
+//      .hasTgtLabel(Node.PROPERTY_PARENT)
+//      .hasSrcLabel(Graph.PROPERTY_GCS)
+//      .allMatches();
+//      
+//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink1", false));
+//
+//      // storyboard.add("<hr/>");
+//      
+//      // rename graph--edges links to parent--gcs links
+//      new org.sdmlib.models.objects.creators.ModelPattern()
+//      .hasElementGenericGraphPO(genGraph)
+//      .hasLinks()
+//      .hasSrcLabel(Node.PROPERTY_GRAPH)
+//      .startCreate()
+//      .hasSrcLabel(Node.PROPERTY_PARENT)
+//      .hasTgtLabel(Graph.PROPERTY_GCS)
+//      .allMatches();
+//      
+//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink2", false));
+//
+//      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+//      
+//      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
+//      
+//      return tgtGraph;
+//   }
    
    
    private Graph simpleMigrationByJsonArray(Graph graph)

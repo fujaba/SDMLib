@@ -1,15 +1,14 @@
 package org.sdmlib.models.modelsets;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 
+import de.uniks.networkparser.gui.ItemList;
 
-public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet 
+
+public abstract class SDMSet<T> extends ItemList<T> implements ModelSet 
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -23,16 +22,6 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
       return "(" + stringList.concat(", ") + ")";
    }
    
-   public T first()
-   {
-      for (T elem : this)
-      {
-         return elem;
-      }
-      
-      return null;
-   }
-
    public <ST extends SDMSet<T>> ST instanceOf(ST target)
    {
       String className = target.getClass().getName();
@@ -58,8 +47,7 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
    
    public <ST extends SDMSet<T>> ST union(ST other)
    {
-      ST result = (ST) this.clone();
-      
+      ST result = (ST) this.getNewInstance();
       result.addAll(other);
       
       return result;
@@ -68,18 +56,15 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
    
    public <ST extends SDMSet<T>> ST intersection(ST other)
    {
-      ST result = (ST) this.clone();
-      
+      ST result = (ST) this.getNewInstance();
       result.retainAll(other);
-      
       return result;
    }
    
    
    public <ST extends SDMSet<T>> ST minus(Object other)
    {
-      ST result = (ST) this.clone();
-      
+      ST result = (ST) this.getNewInstance();
       if (other instanceof Collection)
       {
          result.removeAll((Collection) other);
@@ -94,7 +79,7 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
 
    public <ST extends SDMSet<T>> ST has(Condition condition)
    {
-      ST result = (ST) this.clone();
+      ST result = (ST) this.getNewInstance();
       
       for (T elem : this)
       {
@@ -103,7 +88,6 @@ public abstract class SDMSet<T> extends LinkedHashSet<T> implements ModelSet
             result.remove(elem);
          }
       };
-      
       return result;
    }
    

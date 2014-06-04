@@ -1,38 +1,39 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
-
+   Copyright (c) 2014 zuendorf 
+   
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
    including without limitation the rights to use, copy, modify, merge, publish, distribute, 
    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-   furnished to do so, subject to the following conditions:
-
+   furnished to do so, subject to the following conditions: 
+   
    The above copyright notice and this permission notice shall be included in all copies or 
-   substantial portions of the Software.
-
-   The Software shall be used for Good, not Evil.
-
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
    BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
 
-package org.sdmlib.kanban;
+package org.sdmlib.examples.SDMLib;
 
 import java.util.LinkedHashMap;
 
 import org.junit.Test;
+import org.sdmlib.logger.LogEntry;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.Role.R;
+import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntry;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.storyboards.StoryboardWall;
 
 public class ProjectBoard
@@ -68,8 +69,8 @@ public class ProjectBoard
       story.setSprint("Features");
       story.add("This feature has been tested within <a href='StudyRight%20with%20assignments%20class%20generation.html'>StudyRight with assignments class generation</a> ");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");
-      story.addLogEntry(R.DONE, "zuendorf", "11.03.2014 12:55:42", 4, 0, "works like a charm");
-      story.addLogEntry(R.DONE, "zuendorf", "11.03.2014 18:12:42", 2, 0, "well some legacy problems had to be fixed");
+      story.addLogEntry(SDMLibConfig.DONE, "zuendorf", "11.03.2014 12:55:42", 4, 0, "works like a charm");
+      story.addLogEntry(SDMLibConfig.DONE, "zuendorf", "11.03.2014 18:12:42", 2, 0, "well some legacy problems had to be fixed");
       story.dumpHTML();
       
    }
@@ -132,34 +133,34 @@ public class ProjectBoard
       
       ClassModel model = new ClassModel("org.sdmlib.storyboards"); 
       
-      Clazz kanbanEntryClass = new Clazz("org.sdmlib.storyboards.KanbanEntry", 
-         "oldNoOfLogEntries", R.INT, 
-         "phases", R.STRING);
+      Clazz kanbanEntryClass = new Clazz("org.sdmlib.storyboards.KanbanEntry")
+         .withAttribute("oldNoOfLogEntries", DataType.INT)
+         .withAttribute("phases", DataType.STRING);
 
       Clazz logEntryClass = new Clazz("org.sdmlib.storyboards.LogEntry");
       
       new Association()
-      .withSource("kanbanEntry", kanbanEntryClass, R.ONE, Role.AGGREGATION)
-      .withTarget("logEntries", logEntryClass, R.MANY);
+      .withSource(kanbanEntryClass, "kanbanEntry", Card.ONE, Role.AGGREGATION)
+      .withTarget(logEntryClass, "logEntries", Card.MANY);
       
       // Clazz phaseEntryClass = kanbanEntryClass.createClassAndAssoc(PhaseEntry.class.getName(), "phaseEntries", R.MANY, "kanbanEntry", R.ONE);
       
       Clazz storyboardWallClass = model.createClazz("StoryboardWall");
       
-      Clazz storyboardClass = model.createClazz(Storyboard.class.getName(), 
-               "rootDir", R.STRING,
-               "stepCounter", R.INT, 
-               "stepDoneCounter", R.INT
-                  );
+      Clazz storyboardClass = model.createClazz(Storyboard.class.getName())
+            .withAttribute("rootDir", DataType.STRING)
+            .withAttribute("stepCounter", DataType.INT) 
+            .withAttribute("stepDoneCounter", DataType.INT);
       
-      storyboardWallClass.withAssoc(storyboardClass, "storyboard", R.ONE, "wall", R.ONE);
+      storyboardWallClass.withAssoc(storyboardClass, "storyboard", Card.ONE, "wall", Card.ONE);
       
-      Clazz storyboardStepClass = storyboardClass.createClassAndAssoc("StoryboardStep", "storyboardSteps", R.MANY, "storyboard", R.ONE)
-            .withAttributes("text", R.STRING);
+      Clazz storyboardStepClass = new Clazz("StoryboardStep")
+         .withAssoc(storyboardClass, "storyboardSteps", Card.MANY, "storyboard", Card.ONE)
+         .withAttribute("text", DataType.STRING);
       
       storyboard.addClassDiagram(model);
       
-      model.generate("src", "srchelpers");
+      model.generate("src");
 
       storyboard.add(" Editing the log entries works now fine as part of the add method. " , 
             DONE, "zuendorf", "07.05.2012 23:36:42", 0, 0);
@@ -173,8 +174,8 @@ public class ProjectBoard
       
       storyboard.addObjectDiagram(model);
       
-      storyboard.addLogEntry(R.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
-      storyboard.addLogEntry(R.DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
+      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
+      storyboard.addLogEntry(SDMLibConfig.DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
    
       storyboard.dumpHTML();
    }
@@ -201,11 +202,11 @@ public class ProjectBoard
       .withPhase(DONE)
       .withParent(parent);
       
-      LinkedHashMap<String, LogEntry> newLogEntries = storyboard.getNewLogEntries();
-      for (LogEntry entry : newLogEntries.values())
-      {
-         kanbanEntry.addToLogEntries(entry);
-      }
+//FIXME ALBERT      LinkedHashMap<String, LogEntry> newLogEntries = storyboard.getNewLogEntries();
+//      for (LogEntry entry : newLogEntries.values())
+//      {
+//         kanbanEntry.addToLogEntries(entry);
+//      }
       
       
       

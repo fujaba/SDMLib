@@ -19,16 +19,16 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.patterns;
+package org.sdmlib.examples.SDMLib;
    
 import org.junit.Test;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.creators.PatternSet;
-import org.sdmlib.serialization.json.SDMLibJsonIdMap;
+import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.SDMLibConfig;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
    
@@ -41,46 +41,45 @@ public class PatternModelCodeGen
       
       storyboard.setSprint("Sprint.001.Booting");
       
-      storyboard.add("Start situation: ",
-         DONE, "zuendorf", "19.08.2012 22:52:42", 80, 0);
+      storyboard.add("Start situation: ", SDMLibConfig.DONE, "zuendorf", "19.08.2012 22:52:42", 80, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.models.pattern");
       
       Clazz patternElement = new Clazz("PatternElement")
-      .withAttribute("modifier", "String")
-      .withAttribute("hasMatch", "boolean", "false")
-      .withAttribute("patternObjectName", String.class.getSimpleName())
-      .withAttribute("doAllMatches", boolean.class.getName());
+      .withAttribute("modifier", DataType.STRING)
+      .withAttribute("hasMatch", DataType.BOOLEAN, "false")
+      .withAttribute("patternObjectName", DataType.STRING)
+      .withAttribute("doAllMatches", DataType.BOOLEAN);
       
-      Clazz pattern = new Clazz("Pattern",
-         "currentSubPattern", "Pattern",
-         "debugMode", R.INT, 
-         "trace", "StringBuilder",
-         "name", R.STRING)
-      .withSuperClass(patternElement);
+      Clazz pattern = new Clazz("Pattern")
+         .withAttribute("currentSubPattern", DataType.ref("Pattern"))
+         .withAttribute("debugMode", DataType.INT) 
+         .withAttribute("trace", DataType.ref("StringBuilder"))
+         .withAttribute("name", DataType.STRING)
+         .withSuperClass(patternElement);
       
-      Clazz stringBuilderClazz = new Clazz(StringBuilder.class.getName()).withWrapped(true);
+      model.createClazz(StringBuilder.class.getName());
       
-      Clazz NegativeApplicationCondition = new Clazz("NegativeApplicationCondition")
+      model.createClazz("NegativeApplicationCondition")
       .withSuperClass(pattern);
       
-      Clazz OptionalSubPattern = new Clazz("OptionalSubPattern")
+      model.createClazz("OptionalSubPattern")
       .withSuperClass(pattern)
-      .withAttribute("matchForward", boolean.class.getSimpleName());
+      .withAttribute("matchForward", DataType.BOOLEAN);
       
       new Association()
-      .withTarget(patternElement, "elements", R.MANY)
-      .withSource(pattern, "pattern", R.ONE);
+      .withTarget(patternElement, "elements", Card.MANY)
+      .withSource(pattern, "pattern", Card.ONE);
       
       Clazz patternObject = new Clazz("PatternObject")
       .withSuperClass(patternElement)
-      .withAttributes("currentMatch", "Object", 
-         "candidates", "Object");
+      .withAttribute("currentMatch", DataType.OBJECT) 
+       .withAttribute("candidates", DataType.OBJECT);
       
       Clazz patternLink = new Clazz("PatternLink")
       .withSuperClass(patternElement)
-      .withAttribute("tgtRoleName", "String")
-      .withAttribute("hostGraphSrcObject", "Object");
+      .withAttribute("tgtRoleName", DataType.STRING)
+      .withAttribute("hostGraphSrcObject", DataType.OBJECT);
       
 //      new Association()
 //      .withTarget(patternObject, "tgt", R.ONE)
@@ -92,52 +91,51 @@ public class PatternModelCodeGen
       
       Clazz attrConstraint = new Clazz("AttributeConstraint")
       .withSuperClass(patternElement)
-      .withAttribute("attrName", "String")
-      .withAttribute("tgtValue", "Object")
-      .withAttribute("upperTgtValue", "Object")
-      .withAttribute("cmpOp", R.STRING)
-      .withAttribute("hostGraphSrcObject", "Object");
+      .withAttribute("attrName", DataType.STRING)
+      .withAttribute("tgtValue", DataType.OBJECT)
+      .withAttribute("upperTgtValue", DataType.OBJECT)
+      .withAttribute("cmpOp", DataType.STRING)
+      .withAttribute("hostGraphSrcObject", DataType.OBJECT);
       
       new Association()
-      .withTarget(patternObject, "src", R.ONE)
-      .withSource(attrConstraint, "attrConstraints", R.MANY);
+      .withTarget(patternObject, "src", Card.ONE)
+      .withSource(attrConstraint, "attrConstraints", Card.MANY);
       
-      Clazz linkConstraint = new Clazz("LinkConstraint")
+      model.createClazz("LinkConstraint")
       .withSuperClass(patternLink);
       
-      Clazz matchIsomorphicConstraint = new Clazz("MatchIsomorphicConstraint")
+      model.createClazz("MatchIsomorphicConstraint")
       .withSuperClass(patternElement);
       
-      Clazz cloneOp = new Clazz("CloneOp")
+      model.createClazz("CloneOp")
       .withSuperClass(patternElement);
       
-      Clazz unifyGraphsOp = new Clazz("UnifyGraphsOp")
+      model.createClazz("UnifyGraphsOp")
       .withSuperClass(patternElement);
 
       Clazz destroyObjectClazz = new Clazz("DestroyObjectElem")
       .withSuperClass(patternElement);
       
       new Association()
-      .withTarget(patternObject, "patternObject", R.ONE)
-      .withSource(destroyObjectClazz, "destroyElem", R.ONE);
+      .withTarget(patternObject, "patternObject", Card.ONE)
+      .withSource(destroyObjectClazz, "destroyElem", Card.ONE);
       
-      Clazz cardinalityConstraint = new Clazz("CardinalityConstraint")
+      model.createClazz("CardinalityConstraint")
       .withSuperClass(patternElement)
-      .withAttributes("tgtRoleName", "String",
-         "hostGraphSrcObject", "Object",
-         "minCard", R.LONG,
-         "maxCard", R.LONG)
-      .withAssoc(patternObject, "src", R.ONE, "cardConstraints", R.MANY);
+         .withAttribute("tgtRoleName", DataType.STRING)
+         .withAttribute("hostGraphSrcObject", DataType.OBJECT)
+         .withAttribute("minCard", DataType.LONG)
+         .withAttribute("maxCard", DataType.LONG)
+      .withAssoc(patternObject, "src", Card.ONE, "cardConstraints", Card.MANY);
       
-      Clazz matchOtherThen = new Clazz("MatchOtherThen")
-      .withSuperClass(patternElement)
-      .withAttributes("hostGraphSrcObject", "Object")
-      .withAssoc(patternObject, "src", R.ONE, "matchOtherThen", R.MANY)
-      .withAssoc(patternObject, "forbidden", R.ONE, "excluders", R.MANY);
+      model.createClazz("MatchOtherThen")
+         .withSuperClass(patternElement)
+         .withAttribute("hostGraphSrcObject", DataType.OBJECT)
+         .withAssoc(patternObject, "src", Card.ONE, "matchOtherThen", Card.MANY)
+         .withAssoc(patternObject, "forbidden", Card.ONE, "excluders", Card.MANY);
       
-      Clazz genericConstraint = new Clazz("GenericConstraint",
-         "text", R.STRING)
-      .withSuperClass(patternElement);
+      model.createClazz("GenericConstraint").withAttribute("text", DataType.STRING)
+            .withSuperClass(patternElement);
       
       model.createClazz("org.sdmlib.serialization.json.JsonIdMap");
       
@@ -145,35 +143,25 @@ public class PatternModelCodeGen
       
       Clazz reachabilityGraph = model.createClazz("ReachabilityGraph");
       
-      Clazz rState = reachabilityGraph.createClassAndAssoc("ReachableState", "states", R.MANY, "parent", R.ONE)
-            .withAttributes("number", R.LONG, "graphRoot", "Object");
+      Clazz rState = new Clazz("ReachableState").withAssoc(reachabilityGraph, "states", Card.MANY, "parent", Card.ONE)
+            .withAttribute("number", DataType.LONG)
+            .withAttribute("graphRoot", DataType.OBJECT);
       
-      Clazz ruleApplication = rState.createClassAndAssoc("RuleApplication", "ruleapplications", R.MANY, "src", R.ONE)
-            .withAttributes("description", R.STRING);
+      Clazz ruleApplication = new Clazz("ruleApplication").withAssoc(rState, "ruleapplications", Card.MANY, "src", Card.ONE)
+            .withAttribute("description", DataType.STRING);
       
-      ruleApplication.withAssoc(rState, "tgt", R.ONE, "resultOf", R.MANY);
+      ruleApplication.withAssoc(rState, "tgt", Card.ONE, "resultOf", Card.MANY);
       
-      reachabilityGraph.withAssoc(rState, "todo", R.MANY, "master", R.ONE);
+      reachabilityGraph.withAssoc(rState, "todo", Card.MANY, "master", Card.ONE);
       
-      reachabilityGraph.withAssoc(pattern, "rules", R.MANY, "rgraph", R.ONE);
+      reachabilityGraph.withAssoc(pattern, "rules", Card.MANY, "rgraph", Card.ONE);
       
-      model.generate("src", "srchelpers");
+      model.generate("src");
       
-      storyboard.addSVGImage(model.dumpClassDiagram("src", "PatternModel01"));
+      storyboard.addSVGImage(model.dumpClassDiagram("src"));
            
       StoryboardManager.get()
       .add(storyboard)
       .dumpHTML();
    }
-
-   private static final String MODELING = "modeling";
-   private static final String ACTIVE = "active";
-   private static final String DONE = "done";
-   private static final String IMPLEMENTATION = "implementation";
-   private static final String BACKLOG = "backlog";
-   private static final String BUG = "bug";
 }
-
-
-
-

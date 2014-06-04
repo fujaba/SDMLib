@@ -1960,7 +1960,7 @@ public class GenClassModel
 
    private Clazz findClassInModel(String name)
    {
-      LinkedHashSet<Clazz> classes = model.getClasses();
+      ClazzSet classes = model.getClasses();
 
       for (Clazz eClazz : classes) {
          if (eClazz.getFullName().equals(name)) {
