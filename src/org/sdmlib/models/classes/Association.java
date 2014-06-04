@@ -22,8 +22,11 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
-public class Association extends SDMLibClass
+public class Association extends SDMLibClass implements PropertyChangeInterface
 {
    
    // ADDED NAME TO Assoc
@@ -206,4 +209,34 @@ public class Association extends SDMLibClass
       setName(value);
       return this;
    }
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   @Override
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
+
+   public Role createSource()
+   {
+      Role value = new Role();
+      withSource(value);
+      return value;
+   } 
+
+   public Role createTarget()
+   {
+      Role value = new Role();
+      withTarget(value);
+      return value;
+   } 
 }

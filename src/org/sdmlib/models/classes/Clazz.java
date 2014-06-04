@@ -28,8 +28,11 @@ import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
-public class Clazz extends SDMLibClass
+public class Clazz extends SDMLibClass implements PropertyChangeInterface
 {
    public static final String PROPERTY_ATTRIBUTES = "attributes";
    public static final String PROPERTY_CLASSMODEL = "classModel";
@@ -796,4 +799,94 @@ public class Clazz extends SDMLibClass
       with(attribute);
       return attribute;
    }
-}
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   @Override
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
+
+   
+   //==========================================================================
+   
+   public ClassModel createClassModel()
+   {
+      ClassModel value = new ClassModel();
+      withClassModel(value);
+      return value;
+   } 
+
+   public Attribute createAttributes()
+   {
+      Attribute value = new Attribute();
+      withAttributes(value);
+      return value;
+   } 
+
+   public Method createMethods()
+   {
+      Method value = new Method();
+      withMethods(value);
+      return value;
+   } 
+
+   public Role createRoles()
+   {
+      Role value = new Role();
+      withRoles(value);
+      return value;
+   } 
+
+   public Clazz withoutKidClazzes(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         removeFromKidClazzes(item);
+      }
+      return this;
+   }
+
+   public Clazz createKidClazzes()
+   {
+      Clazz value = new Clazz();
+      withKidClazzes(value);
+      return value;
+   } 
+   public ClazzSet getSuperClazzesTransitive()
+   {
+      ClazzSet result = new ClazzSet().with(this);
+      return result.getSuperClazzesTransitive();
+   }
+
+
+   public Clazz withoutSuperClazzes(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         removeFromSuperClazzes(item);
+      }
+      return this;
+   }
+
+   public Clazz createSuperClazzes()
+   {
+      Clazz value = new Clazz();
+      withSuperClazzes(value);
+      return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_INTERFAZE = "interfaze";
+   }

@@ -4,6 +4,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Parameter;
 
 public class MethodCreator extends SDMLibClassCreator
 {
@@ -53,6 +54,11 @@ public class MethodCreator extends SDMLibClassCreator
       {
          return ((Method) target).getClazz();
       }
+
+      if (Method.PROPERTY_PARAMETER.equalsIgnoreCase(attribute))
+      {
+         return ((Method) target).getParameter();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -79,6 +85,18 @@ public class MethodCreator extends SDMLibClassCreator
       if (Method.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
       {
          ((Method) target).setClazz((Clazz) value);
+         return true;
+      }
+
+      if (Method.PROPERTY_PARAMETER.equalsIgnoreCase(attrName))
+      {
+         ((Method) target).addToParameter((Parameter) value);
+         return true;
+      }
+      
+      if ((Method.PROPERTY_PARAMETER + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Method) target).removeFromParameter((Parameter) value);
          return true;
       }
       

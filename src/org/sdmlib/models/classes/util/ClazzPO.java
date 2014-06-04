@@ -9,6 +9,12 @@ import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.classes.util.ClassModelPO;
+import org.sdmlib.models.classes.util.AttributePO;
+import org.sdmlib.models.classes.util.MethodPO;
+import org.sdmlib.models.classes.util.RolePO;
+import org.sdmlib.models.classes.util.ClazzPO;
 
 public class ClazzPO extends PatternObject<ClazzPO, Clazz>
 {
@@ -441,4 +447,120 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    {
       return this.startCreate().hasRoles(tgt).endCreate();
    }
+   public ClazzPO hasInterface(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Clazz.PROPERTY_INTERFACE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ClazzPO createInterface(boolean value)
+   {
+      this.startCreate().hasInterface(value).endCreate();
+      return this;
+   }
+   
+   
+   public ClazzPO withInterface(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Clazz) getCurrentMatch()).setInterface(value);
+      }
+      return this;
+   }
+   
+   public ClazzPO hasKidClazzes()
+   {
+      ClazzPO result = new ClazzPO(new Clazz[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Clazz.PROPERTY_KIDCLAZZES, result);
+      
+      return result;
+   }
+
+   public ClazzPO createKidClazzes()
+   {
+      return this.startCreate().hasKidClazzes().endCreate();
+   }
+
+   public ClazzPO hasKidClazzes(ClazzPO tgt)
+   {
+      return hasLinkConstraint(tgt, Clazz.PROPERTY_KIDCLAZZES);
+   }
+
+   public ClazzPO createKidClazzes(ClazzPO tgt)
+   {
+      return this.startCreate().hasKidClazzes(tgt).endCreate();
+   }
+
+   public ClazzSet getKidClazzes()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Clazz) this.getCurrentMatch()).getKidClazzes();
+      }
+      return null;
+   }
+
+   public ClazzPO hasSuperClazzes()
+   {
+      ClazzPO result = new ClazzPO(new Clazz[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Clazz.PROPERTY_SUPERCLAZZES, result);
+      
+      return result;
+   }
+
+   public ClazzPO createSuperClazzes()
+   {
+      return this.startCreate().hasSuperClazzes().endCreate();
+   }
+
+   public ClazzPO hasSuperClazzes(ClazzPO tgt)
+   {
+      return hasLinkConstraint(tgt, Clazz.PROPERTY_SUPERCLAZZES);
+   }
+
+   public ClazzPO createSuperClazzes(ClazzPO tgt)
+   {
+      return this.startCreate().hasSuperClazzes(tgt).endCreate();
+   }
+
+   public ClazzSet getSuperClazzes()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Clazz) this.getCurrentMatch()).getSuperClazzes();
+      }
+      return null;
+   }
+
+   public boolean getExternal()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Clazz) getCurrentMatch()).isExternal();
+      }
+      return false;
+   }
+   
+   public ClazzPO withExternal(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Clazz) getCurrentMatch()).setExternal(value);
+      }
+      return this;
+   }
+   
 }

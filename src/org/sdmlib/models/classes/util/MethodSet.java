@@ -30,6 +30,10 @@ import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import java.util.Collections;
+import org.sdmlib.models.classes.util.ParameterSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.classes.util.ClazzSet;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -176,4 +180,89 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       return new MethodPO(this.toArray(new Method[this.size()]));
    }
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Method obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public MethodSet hasName(String value)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MethodSet withName(String value)
+   {
+      for (Method obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public ParameterSet getParameter()
+   {
+      ParameterSet result = new ParameterSet();
+      
+      for (Method obj : this)
+      {
+         result.addAll(obj.getParameter());
+      }
+      
+      return result;
+   }
+
+   public MethodSet hasParameter(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      MethodSet answer = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getParameter()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public MethodSet withoutParameter(Parameter value)
+   {
+      for (Method obj : this)
+      {
+         obj.withoutParameter(value);
+      }
+      
+      return this;
+   }
+
 }

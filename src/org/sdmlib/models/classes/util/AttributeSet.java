@@ -29,6 +29,8 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class AttributeSet extends SDMSet<Attribute>
 {

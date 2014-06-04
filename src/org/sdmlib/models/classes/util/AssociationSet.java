@@ -27,6 +27,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.RoleSet;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -133,4 +135,41 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
    {
       return new AssociationPO(this.toArray(new Association[this.size()]));
    }
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Association obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public AssociationSet hasName(String value)
+   {
+      AssociationSet result = new AssociationSet();
+      
+      for (Association obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AssociationSet withName(String value)
+   {
+      for (Association obj : this)
+      {
+         obj.setName(value);
+      }
+      
+      return this;
+   }
+
 }

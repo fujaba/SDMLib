@@ -18,60 +18,65 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
+   
+package org.sdmlib.models.classes.util;
 
-package org.sdmlib.models.classes;
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.DataType;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-
-public abstract class SDMLibClass implements PropertyChangeInterface
-{  
-   public static final String PROPERTY_NAME = "name";
-
-   protected String name = null;
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
+public class DataTypeCreator extends EntityFactory
+{
+   private final String[] properties = new String[]
+   {
+   };
+   
    @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public String[] getProperties()
    {
-      return listeners;
+      return properties;
    }
    
-   
-   public void setName(String value)
-   {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
-   }
-  
-   public String getName()
-   {
-      return name;
-   }
-   
-   public abstract SDMLibClass withName(String value);
-
-
-   public void removeYou()
-   {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
-
-
    @Override
-   public String toString()
+   public Object getSendableInstance(boolean reference)
    {
-      StringBuilder _ = new StringBuilder();
+      return null;
+   }
+   
+   @Override
+   public Object getValue(Object target, String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
       
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
    }
-
+   
+   @Override
+   public boolean setValue(Object target, String attrName, Object value, String type)
+   {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+      
+      return false;
+   }
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      // wrapped object has no removeYou method
+   }
 }

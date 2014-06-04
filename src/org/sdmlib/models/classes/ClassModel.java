@@ -28,8 +28,11 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
-public class ClassModel extends SDMLibClass
+public class ClassModel extends SDMLibClass implements PropertyChangeInterface
 {
    public static final String PROPERTY_CLASSES = "classes";
    private Set<Feature> features=Feature.getAll();
@@ -248,4 +251,27 @@ public class ClassModel extends SDMLibClass
       setName(value);
       return this;
    }
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   @Override
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
+
+   public Clazz createClasses()
+   {
+      Clazz value = new Clazz();
+      withClasses(value);
+      return value;
+   } 
 }

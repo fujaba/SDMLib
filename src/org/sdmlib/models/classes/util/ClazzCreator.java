@@ -20,7 +20,9 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_SUPERCLAZZES,
       Clazz.PROPERTY_ATTRIBUTES,
       Clazz.PROPERTY_METHODS,
-      Clazz.PROPERTY_ROLES
+      Clazz.PROPERTY_ROLES,
+      Clazz.PROPERTY_KIDCLAZZES,
+      Clazz.PROPERTY_INTERFAZE,
    };
    
    @Override
@@ -79,6 +81,16 @@ public class ClazzCreator extends EntityFactory
       if (Clazz.PROPERTY_EXTERNAL.equalsIgnoreCase(attribute))
       {
          return ((Clazz) target).isExternal();
+      }
+
+      if (Clazz.PROPERTY_KIDCLAZZES.equalsIgnoreCase(attribute))
+      {
+         return ((Clazz) target).getKidClazzes();
+      }
+
+      if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attribute))
+      {
+         return ((Clazz) target).getInterfaze();
       }
       return super.getValue(target, attrName);
    }
@@ -154,6 +166,24 @@ public class ClazzCreator extends EntityFactory
       if (Clazz.PROPERTY_EXTERNAL.equalsIgnoreCase(attrName))
       {
          ((Clazz)target).setExternal((Boolean) value);
+         return true;
+      }
+
+      if (Clazz.PROPERTY_KIDCLAZZES.equalsIgnoreCase(attrName))
+      {
+         ((Clazz) target).addToKidClazzes((Clazz) value);
+         return true;
+      }
+      
+      if ((Clazz.PROPERTY_KIDCLAZZES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Clazz) target).removeFromKidClazzes((Clazz) value);
+         return true;
+      }
+
+      if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
+      {
+         ((Clazz) target).setInterfaze((Boolean) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

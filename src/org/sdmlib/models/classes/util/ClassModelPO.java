@@ -126,4 +126,22 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    {
       return this.startCreate().hasClasses(tgt).endCreate();
    }
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ClassModel) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public ClassModelPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ClassModel) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
 }

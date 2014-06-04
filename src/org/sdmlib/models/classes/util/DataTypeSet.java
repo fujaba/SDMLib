@@ -18,60 +18,49 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
+   
+package org.sdmlib.models.classes.util;
 
-package org.sdmlib.models.classes;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.DataType;
+import java.util.Collection;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
+public class DataTypeSet extends SDMSet<DataType>
+{
+        private static final long serialVersionUID = 1L;
 
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 
-public abstract class SDMLibClass implements PropertyChangeInterface
-{  
-   public static final String PROPERTY_NAME = "name";
+   public DataTypePO hasDataTypePO()
+   {
+      return new DataTypePO(this.toArray(new DataType[this.size()]));
+   }
 
-   protected String name = null;
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
    @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public String getEntryType()
    {
-      return listeners;
+      return "org.sdmlib.models.classes.DataType";
    }
-   
-   
-   public void setName(String value)
+
+
+   public DataTypeSet with(Object value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (value instanceof java.util.Collection)
       {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         this.addAll((Collection<DataType>)value);
       }
-   }
-  
-   public String getName()
-   {
-      return name;
+      else if (value != null)
+      {
+         this.add((DataType) value);
+      }
+      
+      return this;
    }
    
-   public abstract SDMLibClass withName(String value);
-
-
-   public void removeYou()
+   public DataTypeSet without(DataType value)
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
-
-
-   @Override
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      this.remove(value);
+      return this;
    }
 
 }

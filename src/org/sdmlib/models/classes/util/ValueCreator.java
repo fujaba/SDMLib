@@ -18,43 +18,35 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Value;
 import org.sdmlib.models.classes.SDMLibClass;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.json.JsonIdMap;
-
-public class SDMLibClassCreator implements SendableEntityCreator
+public class ValueCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-         {
-            SDMLibClass.PROPERTY_NAME
-         };
+   {
+      Value.PROPERTY_INITIALIZATION,
+      Value.PROPERTY_TYPE,
+      SDMLibClass.PROPERTY_NAME,
+   };
    
-   /**
-    * Calls entity.removeYou().
-    *
-    * @param entity the entity to be deleted
-    */
-   public void removeObject(Object entity)
-   {
-      ((SDMLibClass) entity).removeYou();      
-   }
-
-   public Object call(Object entity, String method, Object... args)
-   {
-      return null;
-   }
-
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-
+   
+   @Override
+   public Object getSendableInstance(boolean reference)
+   {
+      return null;
+   }
+   
    @Override
    public Object getValue(Object target, String attrName)
    {
@@ -66,6 +58,16 @@ public class SDMLibClassCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attribute))
+      {
+         return ((Value) target).getInitialization();
+      }
+
+      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attribute))
+      {
+         return ((Value) target).getType();
+      }
+
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((SDMLibClass) target).getName();
@@ -73,13 +75,25 @@ public class SDMLibClassCreator implements SendableEntityCreator
       
       return null;
    }
-
+   
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
+      }
+
+      if (Value.PROPERTY_INITIALIZATION.equalsIgnoreCase(attrName))
+      {
+         ((Value) target).setInitialization((String) value);
+         return true;
+      }
+
+      if (Value.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         ((Value) target).setType((org.sdmlib.models.classes.DataType) value);
+         return true;
       }
 
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -90,10 +104,16 @@ public class SDMLibClassCreator implements SendableEntityCreator
       
       return false;
    }
-
-   @Override
-   public Object getSendableInstance(boolean prototyp)
+   public static JsonIdMap createIdMap(String sessionID)
    {
-      return null;
-   }  
+      return CreatorCreator.createIdMap(sessionID);
+   }
+   
+   //==========================================================================
+   
+   @Override
+   public void removeObject(Object entity)
+   {
+      ((Value) entity).removeYou();
+   }
 }

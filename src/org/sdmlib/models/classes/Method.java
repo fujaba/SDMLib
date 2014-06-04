@@ -24,8 +24,12 @@ package org.sdmlib.models.classes;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import java.util.LinkedHashSet;
 
-public class Method extends SDMLibClass
+public class Method extends SDMLibClass implements PropertyChangeInterface
 {
    public static final String PROPERTY_RETURNTYPE = "returnType";
    public static final String PROPERTY_PARAMETER = "parameter";
@@ -276,6 +280,7 @@ public class Method extends SDMLibClass
    {
       super.removeYou();
       setClazz(null);
+      removeAllFromParameter();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -308,6 +313,7 @@ public class Method extends SDMLibClass
       _.append(" ").append(this.getParameters());
       _.append(" ").append(this.getReturnType());
       _.append(" ").append(this.getBody());
+      _.append(" ").append(this.getName());
       return _.substring(1);
    }
 
@@ -331,4 +337,54 @@ public class Method extends SDMLibClass
       setBody(value);
       return this;
    }
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   @Override
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
+
+   public ParameterSet getParameter()
+   {
+      if (this.parameter == null)
+      {
+         return Parameter.EMPTY_SET;
+      }
+   
+      return this.parameter;
+   }
+
+   public void removeAllFromParameter()
+   {
+      LinkedHashSet<Parameter> tmpSet = new LinkedHashSet<Parameter>(this.getParameter());
+   
+      for (Parameter value : tmpSet)
+      {
+         this.removeFromParameter(value);
+      }
+   }
+
+   public Parameter createParameter()
+   {
+      Parameter value = new Parameter();
+      withParameter(value);
+      return value;
+   } 
+
+   public Clazz createClazz()
+   {
+      Clazz value = new Clazz();
+      withClazz(value);
+      return value;
+   } 
 }

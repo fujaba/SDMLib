@@ -8,6 +8,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.classes.util.ClazzPO;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.util.MethodPO;
+import org.sdmlib.models.classes.util.ParameterPO;
+import org.sdmlib.models.classes.Parameter;
+import org.sdmlib.models.classes.util.ParameterSet;
 
 public class MethodPO extends PatternObject<MethodPO, Method>
 {
@@ -244,6 +247,93 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return this;
    }
    
+   public MethodPO hasName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Method.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public MethodPO hasName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Method.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public MethodPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Method) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public MethodPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Method) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
+   public ParameterPO hasParameter()
+   {
+      ParameterPO result = new ParameterPO(new Parameter[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Method.PROPERTY_PARAMETER, result);
+      
+      return result;
+   }
+
+   public ParameterPO createParameter()
+   {
+      return this.startCreate().hasParameter().endCreate();
+   }
+
+   public MethodPO hasParameter(ParameterPO tgt)
+   {
+      return hasLinkConstraint(tgt, Method.PROPERTY_PARAMETER);
+   }
+
+   public MethodPO createParameter(ParameterPO tgt)
+   {
+      return this.startCreate().hasParameter(tgt).endCreate();
+   }
+
+   public ParameterSet getParameter()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Method) this.getCurrentMatch()).getParameter();
+      }
+      return null;
+   }
+
 }
 
 

@@ -6,6 +6,7 @@ import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.RolePO;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.AssociationPO;
+import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class AssociationPO extends PatternObject<AssociationPO, Association>
 {
@@ -104,4 +105,67 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    {
       return this.startCreate().hasSource(tgt).endCreate();
    }
+   public AssociationPO hasName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Association.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public AssociationPO hasName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Association.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public AssociationPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Association) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public AssociationPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Association) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
+   public RolePO createTarget()
+   {
+      return this.startCreate().hasTarget().endCreate();
+   }
+
+   public AssociationPO createTarget(RolePO tgt)
+   {
+      return this.startCreate().hasTarget(tgt).endCreate();
+   }
+
 }

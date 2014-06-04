@@ -50,7 +50,7 @@ public class ClassModelTest
       Clazz modelClass = model.createClazz("ClassModel").withSuperClazzes(sdmLibClazz);
            
       Clazz clazzClass = new Clazz("Clazz").withSuperClazzes(sdmLibClazz)
-         .withAttribute("interface", DataType.BOOLEAN) 
+         .withAttribute("interfaze", DataType.BOOLEAN) 
          .withAttribute("external", DataType.BOOLEAN);
       
       new Association()
@@ -147,17 +147,17 @@ public class ClassModelTest
 
       
 
-      model.getGenerator()
-         .withIgnoreClazz("org.sdmlib.models.classes.Association")
-         .withIgnoreClazz("org.sdmlib.models.classes.util.RoleCreator")
-         .withIgnoreClazz("org.sdmlib.models.classes.Role")
-         .withIgnoreClazz("org.sdmlib.models.classes.util.MethodCreator")
-         .withIgnoreClazz("org.sdmlib.models.classes.util.AssociationCreator")
-         .withIgnoreClazz("org.sdmlib.models.classes.Method")
-         .withIgnoreClazz("org.sdmlib.models.classes.util.ClazzCreator")
-         .withIgnoreClazz("org.sdmlib.models.classes.util.ClazzSet")
-         .withIgnoreClazz("org.sdmlib.models.classes.Attribute")
-         .withShowDiff(DIFF.DIFF);
+//      model.getGenerator()
+//         .withIgnoreClazz("org.sdmlib.models.classes.Association")
+//         .withIgnoreClazz("org.sdmlib.models.classes.util.RoleCreator")
+//         .withIgnoreClazz("org.sdmlib.models.classes.Role")
+//         .withIgnoreClazz("org.sdmlib.models.classes.util.MethodCreator")
+//         .withIgnoreClazz("org.sdmlib.models.classes.util.AssociationCreator")
+//         .withIgnoreClazz("org.sdmlib.models.classes.Method")
+//         .withIgnoreClazz("org.sdmlib.models.classes.util.ClazzCreator")
+//         .withIgnoreClazz("org.sdmlib.models.classes.util.ClazzSet")
+//         .withIgnoreClazz("org.sdmlib.models.classes.Attribute")
+//         .withShowDiff(DIFF.DIFF);
       
       model.generate("src");
       

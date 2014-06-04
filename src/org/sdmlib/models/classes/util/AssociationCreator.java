@@ -3,13 +3,16 @@ package org.sdmlib.models.classes.util;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.SDMLibClass;
 
 public class AssociationCreator extends SDMLibClassCreator
 {
    private final String[] properties = new String[]
    {
       Association.PROPERTY_SOURCE,
-      Association.PROPERTY_TARGET
+      Association.PROPERTY_TARGET,
+      SDMLibClass.PROPERTY_NAME,
+      Association.PROPERTY_TARGET,
    };
    
    @Override
@@ -43,6 +46,11 @@ public class AssociationCreator extends SDMLibClassCreator
       {
          return ((Association) target).getTarget();
       }
+
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return ((SDMLibClass) target).getName();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -63,6 +71,12 @@ public class AssociationCreator extends SDMLibClassCreator
       if (Association.PROPERTY_TARGET.equalsIgnoreCase(attrName))
       {
          ((Association) target).setTarget((Role) value);
+         return true;
+      }
+
+      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((SDMLibClass) target).setName((String) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

@@ -28,6 +28,9 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.AssociationSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.classes.util.ClazzSet;
 
 public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.modelsets.ModelSet
 {

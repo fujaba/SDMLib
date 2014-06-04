@@ -5,6 +5,8 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.AttributeSet;
+import org.sdmlib.models.classes.util.ClazzPO;
 
 public class AttributePO extends PatternObject<AttributePO, Attribute>
 {
@@ -230,4 +232,24 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       return this.startCreate().hasClazz(tgt).endCreate();
    }
 
+   public AttributePO hasType(DataType value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Attribute.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public AttributePO createType(DataType value)
+   {
+      this.startCreate().hasType(value).endCreate();
+      return this;
+   }
+   
 }

@@ -31,6 +31,8 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -187,5 +189,11 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
    {
       return new AttributePO(this.toArray(new Attribute[this.size()]));
 
+   }
+
+
+   public ParameterPO hasParameterPO()
+   {
+      return new ParameterPO(this.toArray(new Parameter[this.size()]));
    }
 }

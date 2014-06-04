@@ -32,6 +32,13 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
+import org.sdmlib.models.classes.util.ClassModelSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.models.classes.util.AttributeSet;
+import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.util.RoleSet;
+import org.sdmlib.models.classes.util.ClazzSet;
 
 public class ClazzSet extends SDMSet<Clazz> 
 {
@@ -415,4 +422,282 @@ public class ClazzSet extends SDMSet<Clazz>
       
       return result;
    }
+
+   public ClazzSet hasInterface(boolean value)
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if (value == obj.isInterface())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ClazzSet withInterface(boolean value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.setInterface(value);
+      }
+      
+      return this;
+   }
+
+   public RoleSet getRoles()
+   {
+      RoleSet result = new RoleSet();
+      
+      for (Clazz obj : this)
+      {
+         result.addAll(obj.getRoles());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet hasRoles(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ClazzSet answer = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getRoles()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ClazzSet withRoles(Role value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withRoles(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet withoutRoles(Role value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withoutRoles(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet getKidClazzes()
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         result.addAll(obj.getKidClazzes());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet hasKidClazzes(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ClazzSet answer = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getKidClazzes()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ClazzSet withKidClazzes(Clazz value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withKidClazzes(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet withoutKidClazzes(Clazz value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withoutKidClazzes(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet getSuperClazzes()
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         result.addAll(obj.getSuperClazzes());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet hasSuperClazzes(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ClazzSet answer = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getSuperClazzes()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+
+   public ClazzSet getSuperClazzesTransitive()
+   {
+      ClazzSet todo = new ClazzSet().with(this);
+      
+      ClazzSet result = new ClazzSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Clazz current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getSuperClazzes().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+   public ClazzSet withSuperClazzes(Clazz value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withSuperClazzes(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet withoutSuperClazzes(Clazz value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withoutSuperClazzes(value);
+      }
+      
+      return this;
+   }
+
+   public booleanList getInterfaze()
+   {
+      booleanList result = new booleanList();
+      
+      for (Clazz obj : this)
+      {
+         result.add(obj.getInterfaze());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet hasInterfaze(boolean value)
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if (value == obj.getInterfaze())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public booleanList getExternal()
+   {
+      booleanList result = new booleanList();
+      
+      for (Clazz obj : this)
+      {
+         result.add(obj.isExternal());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet hasExternal(boolean value)
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if (value == obj.isExternal())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -6,6 +6,10 @@ import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.ParameterSet;
+import org.sdmlib.models.classes.util.MethodPO;
+import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.util.ParameterPO;
 
 public class ParameterPO extends PatternObject<ParameterPO, Parameter>
 {
@@ -197,4 +201,58 @@ public class ParameterPO extends PatternObject<ParameterPO, Parameter>
       this.startCreate().hasInitialization(value).endCreate();
       return this;
    }
+   public ParameterPO hasType(DataType value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Parameter.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public ParameterPO createType(DataType value)
+   {
+      this.startCreate().hasType(value).endCreate();
+      return this;
+   }
+   
+   public MethodPO hasMethod()
+   {
+      MethodPO result = new MethodPO(new Method[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Parameter.PROPERTY_METHOD, result);
+      
+      return result;
+   }
+
+   public MethodPO createMethod()
+   {
+      return this.startCreate().hasMethod().endCreate();
+   }
+
+   public ParameterPO hasMethod(MethodPO tgt)
+   {
+      return hasLinkConstraint(tgt, Parameter.PROPERTY_METHOD);
+   }
+
+   public ParameterPO createMethod(MethodPO tgt)
+   {
+      return this.startCreate().hasMethod(tgt).endCreate();
+   }
+
+   public Method getMethod()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Parameter) this.getCurrentMatch()).getMethod();
+      }
+      return null;
+   }
+
 }
