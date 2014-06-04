@@ -476,6 +476,7 @@ public class Clazz extends SDMLibClass
    }
 
    //==========================================================================
+   @Override
    public void removeYou()
    {
       withClassModel(null);

@@ -5,7 +5,6 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -22,7 +21,6 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.StoryboardStep;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -718,6 +716,12 @@ public class GenClass extends Generator<Clazz>
                      "   @Override\n" +
                      "   public Object getValue(Object target, String attrName)\n" +
                      "   {\n" +
+                     "      int pos = attrName.indexOf('.');\n"+
+                     "      String attribute = attrName;\n"+
+                     "      if (pos > 0)\n"+
+                     "      {\n"+
+                     "         attribute = attrName.substring(0, pos);\n"+
+                     "      }\n"+
                    "      return null;\n" +
 //                     "      return ((entitiyClassName) target).get(attrName);\n" +
                      "   }\n" +
@@ -1075,7 +1079,7 @@ public class GenClass extends Generator<Clazz>
                "\n\n" +
                   "   public ModelPO hasModelPO()\n" +
                   "   {\n" +
-                  "      return new ModelPO (this.toArray(new ModelItem[this.size()]));\n" +
+                  "      return new ModelPO(this.toArray(new ModelItem[this.size()]));\n" +
                   "   }\n"
                );
 
@@ -1392,7 +1396,7 @@ public class GenClass extends Generator<Clazz>
                
                if(foundDiff){
                   System.err.println(file.getPath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen+";");
-                  System.err.println("in line:"+parser.getLineIndexOf(oldValue.getStartPos())+"-"+parser.getLineIndexOf(oldValue.getEndPos())+";");
+                  System.err.println("in line:"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+"-"+oldFileParser.getLineIndexOf(oldValue.getEndPos())+";");
                   System.err.println("("+shortName+":"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+")");
 
 //                  System.out.println(oldStrValue);

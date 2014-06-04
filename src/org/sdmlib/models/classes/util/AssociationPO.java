@@ -1,9 +1,11 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.util.AssociationSet;
+import org.sdmlib.models.classes.util.RolePO;
+import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.util.AssociationPO;
 
 public class AssociationPO extends PatternObject<AssociationPO, Association>
 {
@@ -12,6 +14,9 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    }
 
    public AssociationPO(Association... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override
@@ -44,9 +49,9 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
 
    public RolePO hasSource()
    {
-      RolePO result = new RolePO();
-      result.setModifier(this.getPattern().getModifier());
+      RolePO result = new RolePO(new Role[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Association.PROPERTY_SOURCE, result);
       
       return result;
@@ -54,16 +59,7 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    
    public AssociationPO hasSource(RolePO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Association.PROPERTY_SOURCE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Association.PROPERTY_SOURCE);
    }
    
    public Role getSource()
@@ -77,9 +73,9 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    
    public RolePO hasTarget()
    {
-      RolePO result = new RolePO();
-      result.setModifier(this.getPattern().getModifier());
+      RolePO result = new RolePO(new Role[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Association.PROPERTY_TARGET, result);
       
       return result;
@@ -87,16 +83,7 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    
    public AssociationPO hasTarget(RolePO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Association.PROPERTY_TARGET)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Association.PROPERTY_TARGET);
    }
    
    public Role getTarget()

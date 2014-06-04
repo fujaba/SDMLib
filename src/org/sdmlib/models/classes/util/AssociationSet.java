@@ -22,7 +22,6 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Association;
@@ -39,7 +38,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       
       for (Association obj : this)
       {
-         result.add(obj.getSource());
+         result.with(obj.getSource());
       }
       
       return result;
@@ -60,7 +59,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       
       for (Association obj : this)
       {
-         result.add(obj.getTarget());
+         result.with(obj.getTarget());
       }
       
       return result;
@@ -115,13 +114,12 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
    }
 
 
+   @SuppressWarnings("unchecked")
    public AssociationSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
-              this.add((Association) i.next());
-           }
+         this.addAll((Collection<Association>)value);
       }
       else if (value != null)
       {

@@ -297,8 +297,9 @@ public class GenClassModel
                insertCreatorClassInCreatorCreator(creatorCreatorParser, clazz);
             }
          }
-         
-         CGUtil.printFile(creatorCreatorParser);
+         if(!isShowDiff()){
+            CGUtil.printFile(creatorCreatorParser);
+         }
       }
 
       return creatorCreatorParser;

@@ -179,6 +179,7 @@ public class Role extends SDMLibClass
       return this;
    } 
    
+   @Override
    public void removeYou()
    {
       setClazz(null);

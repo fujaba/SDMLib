@@ -57,7 +57,7 @@ public class GenRole extends Generator<Role>
          }
          
          StringBuilder text = new StringBuilder
-            (  "\n      if (ClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+            (  "\n      if (ClassName.PROPERTY_NAME.equalsIgnoreCase(attribute))" +
                "\n      {" +
                "\n         return ((ClassName) target).getPropertyName();" +
                "\n      }" +
