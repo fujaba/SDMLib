@@ -36,13 +36,13 @@ public class GenAttribute extends Generator<Attribute>
          return;
 
       String valueCompare = "this.name != value";
-      if ("String".equals(model.getType()))
+      if ("String".equalsIgnoreCase(model.getType().getValue()))
       {
          valueCompare = " ! StrUtil.stringEquals(this.name, value)";
          getGenerator(clazz).insertImport(StrUtil.class.getName()); 
       }
 
-      else if ("Boolean".equals(model.getType()))
+      else if ("boolean".equalsIgnoreCase(model.getType().getValue()))
       {
          CGUtil.replaceAll(text, "getName()", "isName()");
          getGenerator(clazz).insertImport(StrUtil.class.getName()); 
@@ -385,7 +385,7 @@ public class GenAttribute extends Generator<Attribute>
          {
             nullValue = "0";
          }
-         else if ("boolean".equals(attrType))
+         else if ("boolean".equalsIgnoreCase(attrType))
          {
             nullValue = "false";
          }
