@@ -1,9 +1,13 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.util.ClassModelSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.classes.util.ClazzPO;
+import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.util.ClassModelPO;
+import org.sdmlib.models.classes.util.ClazzSet;
 
 public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
 {
@@ -52,16 +56,7 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    
    public ClassModelPO hasClasses(ClazzPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(ClassModel.PROPERTY_CLASSES)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, ClassModel.PROPERTY_CLASSES);
    }
    
    public ClazzSet getClasses()

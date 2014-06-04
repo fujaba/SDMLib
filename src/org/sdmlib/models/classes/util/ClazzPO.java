@@ -14,6 +14,9 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    }
 
    public ClazzPO(Clazz... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override
@@ -30,6 +33,8 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
    
    public ClazzSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       ClazzSet matches = new ClazzSet();
 
       while (this.getPattern().getHasMatch())
@@ -276,13 +281,13 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this;
    }
    
-   public Boolean getExternal()
+   public boolean getExternal()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Clazz) getCurrentMatch()).isExternal();
+         return ((Clazz) getCurrentMatch()).getExternal();
       }
-      return null;
+      return false;
    }
    
    public ClazzPO hasInterfaze(boolean value)

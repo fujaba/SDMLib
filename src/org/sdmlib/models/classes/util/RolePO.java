@@ -14,6 +14,9 @@ public class RolePO extends PatternObject<RolePO, Role>
    }
 
    public RolePO(Role... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override
