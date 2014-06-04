@@ -1,13 +1,13 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.classes.util.ClazzPO;
+import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.util.MethodPO;
 
 public class MethodPO extends PatternObject<MethodPO, Method>
 {
@@ -16,8 +16,11 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    }
 
    public MethodPO(Method... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
+   }
    @Override
    public MethodPO startNAC()
    {
@@ -32,6 +35,8 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public MethodSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       MethodSet matches = new MethodSet();
 
       while (this.getPattern().getHasMatch())
@@ -92,9 +97,9 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public ClazzPO hasClazz()
    {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
+      ClazzPO result = new ClazzPO(new Clazz[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Method.PROPERTY_CLAZZ, result);
       
       return result;
@@ -102,16 +107,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    
    public MethodPO hasClazz(ClazzPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Method.PROPERTY_CLAZZ)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Method.PROPERTY_CLAZZ);
    }
    
    public Clazz getClazz()

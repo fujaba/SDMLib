@@ -2,13 +2,18 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Method;
 
 public class MethodPOCreator extends PatternObjectCreator
 {
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new MethodPO();
+      if(reference) {
+          return new MethodPO(new Method[]{});
+      } else {
+          return new MethodPO();
+      }
    }
    
    public static JsonIdMap createIdMap(String sessionID)

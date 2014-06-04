@@ -28,7 +28,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.modelsets.DataTypeList;
+import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
@@ -116,9 +116,9 @@ public class AttributeSet extends LinkedHashSet<Attribute>  implements org.sdmli
       return this;
    }
    
-   public DataTypeList getType()
+   public DataTypeSet getType()
    {
-      DataTypeList result = new DataTypeList();
+      DataTypeSet result = new DataTypeSet();
       
       for (Attribute obj : this)
       {

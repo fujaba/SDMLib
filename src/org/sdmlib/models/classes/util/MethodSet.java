@@ -22,17 +22,14 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.modelsets.DataTypeList;
+import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.modelsets.ObjectSet;
 
 public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -60,9 +57,9 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       return this;
    }
 
-   public DataTypeList getReturnType()
+   public DataTypeSet getReturnType()
    {
-      DataTypeList result = new DataTypeList();
+      DataTypeSet result = new DataTypeSet();
       
       for (Method obj : this)
       {
@@ -76,7 +73,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
    {
       for (Method obj : this)
       {
-         obj.withReturnType(value);
+         obj.setReturnType(value);
       }
       
       return this;
@@ -88,7 +85,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       
       for (Method obj : this)
       {
-         result.add(obj.getClazz());
+         result.with(obj.getClazz());
       }
       
       return result;
@@ -156,13 +153,12 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
    }
 
 
+   @SuppressWarnings("unchecked")
    public MethodSet with(Object value)
    {
-      if (value instanceof Collection)
+      if (value instanceof java.util.Collection)
       {
-         for(Iterator<?> i= ((Collection<?>) value).iterator();i.hasNext();){
-            this.add((Method) i.next());
-         }
+         this.addAll((Collection<Method>)value);
       }
       else if (value != null)
       {

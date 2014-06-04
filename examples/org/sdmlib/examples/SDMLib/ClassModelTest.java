@@ -148,6 +148,7 @@ public class ClassModelTest
       model.getGenerator()
          .withIgnoreClazz("org.sdmlib.models.classes.Association")
          .withIgnoreClazz("org.sdmlib.models.classes.util.RoleCreator")
+         .withIgnoreClazz("org.sdmlib.models.classes.Role")
          .withShowDiff(DIFF.DIFF);
       
       model.generate("src");
