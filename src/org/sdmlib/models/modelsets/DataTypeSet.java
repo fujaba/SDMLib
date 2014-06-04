@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import org.sdmlib.models.classes.DataType;
 
-public class DataTypeList extends ArrayList<DataType>
+public class DataTypeSet extends ArrayList<DataType>
 {
    private static final long serialVersionUID = 1L;
    
@@ -58,7 +58,4 @@ public class DataTypeList extends ArrayList<DataType>
       
       return buf.toString();
    }
-
-
 }
-

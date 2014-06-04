@@ -29,7 +29,7 @@ import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.modelsets.DataTypeList;
+import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
@@ -115,9 +115,9 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
       return this;
    }
    
-   public DataTypeList getType()
+   public DataTypeSet getType()
    {
-      DataTypeList result = new DataTypeList();
+      DataTypeSet result = new DataTypeSet();
       
       for (Parameter obj : this)
       {
