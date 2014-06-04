@@ -93,7 +93,7 @@ public class GenAttribute extends Generator<Attribute>
       }
       
       if(model.getVisibility().equals(Visibility.PUBLIC)){
-         if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName())+ "()", parser))
+         if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName())+ "()", parser) && !entryExist(Parser.METHOD + ":is" + StrUtil.upFirstChar(model.getName())+ "()", parser))
          {
             text.append("\n   public type getName()" +
                   "\n   {" +
@@ -103,7 +103,7 @@ public class GenAttribute extends Generator<Attribute>
    
             hasNewContent = true;
          }
-         if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType().getValue() + ")", parser))
+         if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(model.getName())+ "(" + CGUtil.shortClassName(model.getType().getValue()) + ")", parser))
          {
             text.append("\n   public void setName(type value)" +
                   "\n   {" +
@@ -126,7 +126,7 @@ public class GenAttribute extends Generator<Attribute>
             hasNewContent = true;
          }
    
-         if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType().getValue() + ")", parser))
+         if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName())+ "(" + CGUtil.shortClassName(model.getType().getValue())  + ")", parser))
          {
             text.append("\n   public ownerClass withName(type value)" +
                   "\n   {" +
@@ -944,6 +944,7 @@ public class GenAttribute extends Generator<Attribute>
       return generate( clazz,  rootDir,  helpersDir,  doGenerate, false);
    }
    
+   @Override
    public String toString()
    {
       return "gen " + model; 

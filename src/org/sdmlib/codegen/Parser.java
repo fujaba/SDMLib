@@ -189,6 +189,10 @@ public class Parser
       return this.fileBody.indexOf(searchText);
    }
    
+   public String getClassName(){
+      return className;
+   }
+   
    
    class SearchStringFoundException extends RuntimeException {
       private static final long serialVersionUID = 1L; }

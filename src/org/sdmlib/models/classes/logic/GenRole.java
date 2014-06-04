@@ -938,6 +938,18 @@ public class GenRole extends Generator<Role>
             "      return answer;\n" + 
             "   }\n" + 
             "\n");
+            getGenerator(tgtClass).insertImport(parser, Collection.class.getName());
+            getGenerator(tgtClass).insertImport(parser, ObjectSet.class.getName());
+            String containsClause = "neighbors.contains(obj.get"
+                  + StrUtil.upFirstChar(partnerRole.getName()) + "())";
+            
+            if (partnerRole.getCard().equals(Card.MANY.toString()))
+            {
+               containsClause = " ! Collections.disjoint(neighbors, obj.get" 
+                     + StrUtil.upFirstChar(partnerRole.getName()) + "())";
+               getGenerator(tgtClass).insertImport(parser, Collections.class.getName());
+            }
+            CGUtil.replaceAll(text, "containsClause", containsClause);
       }
        
       
@@ -980,19 +992,6 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0 || pos2 < 0)
       {      
-         String containsClause = "neighbors.contains(obj.get"
-               + StrUtil.upFirstChar(partnerRole.getName()) + "())";
-         
-         if (partnerRole.getCard().equals(Card.MANY.toString()))
-         {
-            containsClause = " ! Collections.disjoint(neighbors, obj.get" 
-                  + StrUtil.upFirstChar(partnerRole.getName()) + "())";
-            getGenerator(tgtClass).insertImport(parser, Collections.class.getName());
-         }
-         
-         String fullModelSetType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "Set");
-//         String modelSetType = CGUtil.shortClassName(fullModelSetType);
-         
          String add = "add";
          if (partnerRole.getCard().equalsIgnoreCase(Card.MANY.name()))
          {
@@ -1005,19 +1004,14 @@ public class GenRole extends Generator<Role>
             "ModelType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()),
             "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()) + "Set",
             "Name", StrUtil.upFirstChar(partnerRole.getName()),
-            "addOneOrMore", add,
-            "containsClause", containsClause
+            "addOneOrMore", add
             );
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
          
          parser.insert(classEnd, text.toString());
          
-         getGenerator(tgtClass).insertImport(parser, fullModelSetType);
-         getGenerator(tgtClass).insertImport(parser, Collection.class.getName());
-         if(pos<0){
-            getGenerator(tgtClass).insertImport(parser, ObjectSet.class.getName());
-         }
+//FIXME STEFAN         getGenerator(tgtClass).insertImport(parser, fullModelSetType);
       }
    }
 
@@ -1161,7 +1155,8 @@ public class GenRole extends Generator<Role>
          Role partnerRole)
    {
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
-      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
+//      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
+      String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
       String key = Parser.METHOD + ":has" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
@@ -1197,7 +1192,8 @@ public class GenRole extends Generator<Role>
          Role partnerRole)
    {
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
-      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
+//      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
+      String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
