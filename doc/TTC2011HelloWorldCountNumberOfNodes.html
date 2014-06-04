@@ -22,11 +22,11 @@
 <pre>   public void countNodesPerPattern(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodePO nodePO = graphPO.hasNodes();
-      
+
       int noOfNodes = graphPO.getPattern().allMatches();
-      
+
       systemout = &quot;Number of nodes: &quot; + noOfNodes;
    }</pre><embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram13.svg'>
 <embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram14.svg'>
@@ -35,11 +35,11 @@
 <pre>   public void countNodesPerNodeSet(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodeSet allMatches = graphPO
-      .hasNodes()
-      .allMatches();
-      
+            .hasNodes()
+            .allMatches();
+
       systemout = &quot;Nodes: &quot; + allMatches.getName().concat(&quot;, &quot;) + &quot; Number of nodes: &quot; + allMatches.size();      
    }</pre><embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram18.svg'>
 <embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram19.svg'>
@@ -48,13 +48,13 @@
    {
       edgesPO = new GraphPO(graph)
       .hasEdges();
-      
+
       NodePO srcPO = edgesPO.hasSrc();
-      
+
       edgesPO.hasTgt(srcPO);
-      
+
       EdgeSet loopingEdges = edgesPO.allMatches();
-      
+
       systemout = &quot;Looping Edges: &quot; + loopingEdges.getName().concat(&quot;, &quot;) + &quot; Number of looping edges: &quot; + loopingEdges.size();
    }</pre><embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram24.svg'>
 <embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram25.svg'>
@@ -63,33 +63,33 @@
 <pre>   public void countLoopingEdgesInJava(Graph graph)
    {
       String sysout = &quot;Looping Edges: &quot;;
-      
+
       int noOfLoopingEdges = 0;
-      
+
       for (Edge edge : graph.getEdges())
       {
          if (edge.getSrc() != null &amp;&amp; edge.getSrc() == edge.getTgt())
          {
             noOfLoopingEdges++;
-            
+
             sysout += edge.getName() + &quot;, &quot;;
          }
       }
-      
+
       systemout = sysout.substring(0, sysout.length() - 2) + &quot; Number of looping edges: &quot; + noOfLoopingEdges;
    }</pre><p>systemout: Looping Edges: e16, e17 Number of looping edges: 2</p>
 <hr/><h2>Retrieve isolated nodes and count them: </h2><pre>   public void countIsolatedNodesPerPattern(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodePO nodePO = graphPO.hasNodes();
-      
+
       nodePO.startNAC().hasOutEdges().endNAC();
-      
+
       nodePO.startNAC().hasInEdges().endNAC();
 
       NodeSet isolatedNodes = nodePO.allMatches();
-      
+
       systemout = &quot;Isolated nodes: &quot; + isolatedNodes.getName().concat(&quot;, &quot;) + &quot; Number of isolated nodes: &quot; + isolatedNodes.size();
    }</pre><embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram33.svg'>
 <embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram34.svg'>
@@ -98,38 +98,38 @@
 <pre>   public void countIsolatedNodesInJava(Graph graph)
    {
       systemout = &quot;Isolated nodes: &quot;;
-      
+
       int noOfIsolatedNodes = 0;
-      
+
       for (Node isoNode : graph.getNodes())
       {
          if (isoNode.getOutEdges().size() == 0 
                &amp;&amp; isoNode.getInEdges().size() == 0)
          {
             noOfIsolatedNodes++;
-            
+
             systemout += isoNode.getName() + &quot;, &quot;;
          }
       }
-      
+
       systemout = systemout.substring(0, systemout.length() - 2) + &quot; Number of isolated nodes: &quot; + noOfIsolatedNodes;
    }</pre><p>systemout: Isolated nodes: n6, n7 Number of isolated nodes: 2</p>
 <hr/><h2>Count circles of three nodes: </h2><pre>   public void countCirclesOfThreeNodesPerPattern(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodePO firstCircleNodePO = graphPO.hasNodes();
-      
+
       NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
-      
+
       NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
-      
+
       thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
-      
+
       graphPO.getPattern().matchIsomorphic();
-      
+
       int noOfCircles = graphPO.getPattern().allMatches();
-      
+
       systemout = &quot;Circles found: &quot; + noOfCircles;
    }</pre><embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram42.svg'>
 <embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram43.svg'>
@@ -138,31 +138,31 @@
 <pre>   public void countCirclesOfThreeNodesPerPatternReportMatches(Graph graph)
    {
       graphPO = new GraphPO(graph);
-      
+
       NodePO firstCircleNodePO = graphPO.hasNodes();
-      
+
       NodePO secondCircleNodePO = firstCircleNodePO.hasOutEdges().hasTgt();
-      
+
       NodePO thirdCircleNodePO = secondCircleNodePO.hasOutEdges().hasTgt();
-      
+
       thirdCircleNodePO.hasOutEdges().hasTgt(firstCircleNodePO);
-      
+
       graphPO.getPattern().matchIsomorphic();
-      
+
       systemout = &quot;Circles found: \n&quot;;
       int noOfCircles = 0;
-      
+
       while (graphPO.getPattern().getHasMatch())
       {
          systemout += firstCircleNodePO.getName() + &quot; --&gt; &quot;
                + secondCircleNodePO.getName() + &quot; --&gt; &quot; 
                + thirdCircleNodePO.getName() + &quot; --&gt; \n&quot;;
-         
+
          noOfCircles++; 
-         
+
          graphPO.getPattern().findNextMatch();
       }
-      
+
       systemout += &quot;&quot; + noOfCircles + &quot; circles found&quot;;
    }</pre><embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram47.svg'>
 <embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram48.svg'>

@@ -11,9 +11,10 @@
 <p>TTC2011HelloWorldModelToText</p>
 <p>For model to text transformation we provide a simple template mechanism. </p>
 <p>The model transformation that builds our object model looks like: </p>
-<pre>      ModelPattern p = new ModelPattern().startCreate();
-      
-      GreetingPO greetingPO = p.hasElementGreetingPO();
+<pre>
+      GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
+            .startCreate()
+            .has(new GreetingPO());
       
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
       .hasText(&quot;Hello&quot;);
@@ -21,58 +22,7 @@
       PersonPO personPO = greetingPO.hasPerson()
       .hasName(&quot;TTC Participants&quot;);
 </pre><p>The created object model looks like: </p>
-<script>
-   var json = {
-   "typ":"object",
-   "value":{
-      "nodes":[
-      {
-            "typ":"node",
-            "id":"hg.G1 : Greeting",
-            "attributes":[
-            "text="
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"hg.G2 : GreetingMessage",
-            "attributes":[
-            "text=Hello"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"hg.P3 : Person",
-            "attributes":[
-            "name=TTC Participants"
-            ]
-         }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"1",
-            "targetcardinality":"1",
-            "sourceproperty":"greeting",
-            "targetproperty":"greetingMessage",
-            "source":"hg.G1 : Greeting",
-            "target":"hg.G2 : GreetingMessage"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"1",
-            "targetcardinality":"1",
-            "sourceproperty":"greeting",
-            "targetproperty":"person",
-            "source":"hg.G1 : Greeting",
-            "target":"hg.P3 : Person"
-         }
-      ]
-   }
-}   ;
-   json["options"]={"canvasid":"canvas5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
+<embed type="image/svg+xml" src='TTC2011HelloWorldModelToText6.svg'>
 <p>The model to text transfromation template mechanism is used like this: </p>
 <pre>      systemout = CGUtil.replaceAll(&quot;message name&quot;, 
          &quot;message&quot;, greetingMessagePO.getText(),
@@ -84,58 +34,7 @@ Hello TTC Participants</p>
          &quot;message&quot;, greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
          &quot;name&quot;, personPO, Person.PROPERTY_NAME
          );
-</pre><script>
-   var json = {
-   "typ":"object",
-   "value":{
-      "nodes":[
-      {
-            "typ":"node",
-            "id":"hg.G1 : Greeting",
-            "attributes":[
-            "text="
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"hg.G2 : GreetingMessage",
-            "attributes":[
-            "text=Hi"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"hg.P3 : Person",
-            "attributes":[
-            "name=dudes"
-            ]
-         }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"1",
-            "targetcardinality":"1",
-            "sourceproperty":"greeting",
-            "targetproperty":"greetingMessage",
-            "source":"hg.G1 : Greeting",
-            "target":"hg.G2 : GreetingMessage"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"1",
-            "targetcardinality":"1",
-            "sourceproperty":"greeting",
-            "targetproperty":"person",
-            "source":"hg.G1 : Greeting",
-            "target":"hg.P3 : Person"
-         }
-      ]
-   }
-}   ;
-   json["options"]={"canvasid":"canvas11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
+</pre><embed type="image/svg+xml" src='TTC2011HelloWorldModelToText12.svg'>
 <p>Alternatively, plain java code that does the model to text transformation looks like: </p>
 <pre>      systemout = greetingMessagePO.getText() + &quot; &quot; + personPO.getName();
 </pre>

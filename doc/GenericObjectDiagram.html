@@ -7,14 +7,37 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body onload="init();">
-<p>Storyboard <a href='../test/org/sdmlib/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
 <p>GenericObjectDiagram</p>
 <p>Start situation: we do not yet have a class diagram but want to start with some example object models</p>
 <p>Step 1: We build a generic class model for object structures: </p>
-<embed type="image/svg+xml" src='GenericObjectDiagramClassDiagram3.svg'><p>Step 2: We just build our example object structure with generic objects: </p>
+<embed type="image/svg+xml" src='GenericGraphModelClassDiagram1.svg'><p>Step 2: We just build our example object structure with generic objects: </p>
 <embed type="image/svg+xml" src='GenericObjectDiagram6.svg'>
 <p>Step 3: Then we tune our diagram dumper to show it as a non-generic object diagram: </p>
 <embed type="image/svg+xml" src='specificgenericobjectdiag.svg'>
+<p>Step 4: now we try to learn a class diagram from the generic object structure: </p>
+<embed type="image/svg+xml" src='GenericObjectDiagramClassDiagram9.svg'><p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
+<pre>      ClassModel model = new ClassModel();
+
+      Clazz buildingClass = model.createClazz(&quot;de.kassel.roombook.Building&quot;)
+            .withAttribute(&quot;name&quot;, DataType.STRING);
+
+      Clazz floorClass = model.createClazz(&quot;de.kassel.roombook.Floor&quot;)
+            .withAttribute(&quot;level&quot;, DataType.INT)
+            .withAttribute(&quot;name&quot;, DataType.STRING)
+            &#x2F;*add attribut*&#x2F;
+            .withAttribute(&quot;guest&quot;, DataType.STRING);    
+      
+      &#x2F;* add assoc *&#x2F;
+      buildingClass.withAssoc(floorClass, &quot;has&quot;, Card.MANY, &quot;buildings&quot;, Card.ONE);
+
+      learnedModel.getGenerator().insertModelCreationCodeHere(&quot;examples&quot;);
+</pre><embed type="image/svg+xml" src='GenericObjectDiagramClassDiagram12.svg'><p>Step 6: generate code from the learned class diagram </p>
+<p>Step 7: derive non-generic objects from the generic objects </p>
+<embed type="image/svg+xml" src='GenericObjectDiagram16.svg'>
+<p>BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram </p>
+<p>New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model </p>
+<embed type="image/svg+xml" src='GenericObjectDiagram19.svg'>
 
 </body>
 </html>

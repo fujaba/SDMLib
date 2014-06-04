@@ -12,10 +12,10 @@
 <p>A constant transformation that creates a Greeting object structure with references</p>
 <p>Create class model and generate implementation:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation2WithReferencesClassDiagram3.svg'><p>The code that builds and runs the transformation / pattern looks like: </p>
-<pre>      ModelPattern p = new ModelPattern().startCreate();
-      
-      GreetingPO greetingPO = p.hasElementGreetingPO();
-      
+<pre>      GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
+            .startCreate()
+            .has(new GreetingPO());
+
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
       .hasText(&quot;Hello&quot;);
       
@@ -26,58 +26,7 @@
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation2WithReferencesPatternDiagram9.svg'>
 <p>For completeness just the host graph:</p>
-<script>
-   var json = {
-   "typ":"object",
-   "value":{
-      "nodes":[
-      {
-            "typ":"node",
-            "id":"G1 : Greeting",
-            "attributes":[
-            "text="
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"G2 : GreetingMessage",
-            "attributes":[
-            "text=Hello"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"P3 : Person",
-            "attributes":[
-            "name=TTC Participants"
-            ]
-         }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"1",
-            "targetcardinality":"1",
-            "sourceproperty":"greeting",
-            "targetproperty":"greetingMessage",
-            "source":"G1 : Greeting",
-            "target":"G2 : GreetingMessage"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"1",
-            "targetcardinality":"1",
-            "sourceproperty":"greeting",
-            "targetproperty":"person",
-            "source":"G1 : Greeting",
-            "target":"P3 : Person"
-         }
-      ]
-   }
-}   ;
-   json["options"]={"canvasid":"canvas11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
+<embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation2WithReferences12.svg'>
 <p>For fairness, the java code that does this transformation looks like: </p>
 <pre>      Greeting greeting = new Greeting();
       

@@ -37,4 +37,9 @@ public class DataType
    public static DataType ref(Clazz value){
       return new DataType(value.getFullName());
    }
+   
+   public String toString()
+   {
+      return "DataType." + value.toUpperCase();
+   }
 }

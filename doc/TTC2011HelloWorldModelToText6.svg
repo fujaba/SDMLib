@@ -30,7 +30,7 @@
 <text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">text = &quot;Hello&quot;</text>
 </g>
 <!-- g1&#45;&#45;g2 -->
-<g id="edge2" class="edge"><title>g1&#45;&#45;g2</title>
+<g id="edge4" class="edge"><title>g1&#45;&#45;g2</title>
 <path fill="none" stroke="black" d="M114.506,-82.1396C103.837,-70.759 90.8371,-56.8929 80.2096,-45.5569"/>
 <text text-anchor="middle" x="89.4914" y="-46.7783" font-family="Arial" font-size="10.00">greetingMessage</text>
 <text text-anchor="middle" x="105.224" y="-75.9183" font-family="Arial" font-size="10.00">greeting</text>
@@ -46,7 +46,7 @@
 <text text-anchor="start" x="152" y="-12" font-family="Arial" font-size="10.00">name = &quot;TTC Participants&quot;</text>
 </g>
 <!-- g1&#45;&#45;p3 -->
-<g id="edge4" class="edge"><title>g1&#45;&#45;p3</title>
+<g id="edge2" class="edge"><title>g1&#45;&#45;p3</title>
 <path fill="none" stroke="black" d="M155.494,-82.1396C166.163,-70.759 179.163,-56.8929 189.79,-45.5569"/>
 <text text-anchor="middle" x="186.675" y="-52.5592" font-family="Arial" font-size="10.00">person</text>
 <text text-anchor="middle" x="158.61" y="-70.1373" font-family="Arial" font-size="10.00">greeting</text>

@@ -191,6 +191,11 @@ public class Role extends SDMLibClass
 
    public Role getPartnerRole()
    {
+      if (this.getAssoc() == null)
+      {
+         return null;
+      }
+      
       if (this == this.getAssoc().getSource())
       {
          return this.getAssoc().getTarget();

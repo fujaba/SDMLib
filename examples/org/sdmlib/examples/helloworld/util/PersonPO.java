@@ -5,6 +5,8 @@ import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.helloworld.util.PersonSet;
+import org.sdmlib.examples.helloworld.util.GreetingPO;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

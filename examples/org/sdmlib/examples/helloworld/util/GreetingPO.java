@@ -8,6 +8,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.helloworld.util.GreetingSet;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
+import org.sdmlib.examples.helloworld.util.PersonPO;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {

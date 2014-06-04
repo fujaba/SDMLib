@@ -943,6 +943,11 @@ public class GenAttribute extends Generator<Attribute>
    {
       return generate( clazz,  rootDir,  helpersDir,  doGenerate, false);
    }
+   
+   public String toString()
+   {
+      return "gen " + model; 
+   }
 
    public GenAttribute generate(Clazz clazz, String rootDir, String helpersDir, boolean doGenerate, boolean fromSuperClass)
    {
@@ -960,7 +965,7 @@ public class GenAttribute extends Generator<Attribute>
             insertCaseInToString(parser);
          }
 
-         getGenerator( clazz).printFile(doGenerate);
+         getGenerator( clazz).printFile();
       }
 
       if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization))

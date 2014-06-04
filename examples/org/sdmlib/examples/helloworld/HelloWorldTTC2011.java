@@ -73,9 +73,10 @@ public class HelloWorldTTC2011
       storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
       storyboard.markCodeStart();
       
-      GreetingPO greetingPO = new GreetingPO().startCreate()
-         .withModifier(Pattern.CREATE);
-      greetingPO.getPattern().findNextMatch();
+      GreetingPO greetingPO = (GreetingPO) new Pattern<Pattern>()
+            .startCreate()
+            .has(new GreetingPO());
+      
       greetingPO.hasText("Hello World");
       
       storyboard.addCode("examples");
@@ -150,10 +151,10 @@ public class HelloWorldTTC2011
       
       storyboard.add("The code that builds and runs the transformation / pattern looks like: ");
       storyboard.markCodeStart();
-//      ModelPattern p = new ModelPattern().startCreate();
-      GreetingPO greetingPO = new GreetingPO();
-//      GreetingPO greetingPO = p.hasElementGreetingPO();
-      
+      GreetingPO greetingPO = (GreetingPO) new Pattern<Pattern>()
+            .startCreate()
+            .has(new GreetingPO());
+
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
       .hasText("Hello");
       
@@ -163,11 +164,9 @@ public class HelloWorldTTC2011
       
       storyboard.addPattern(greetingPO, false);
       
-      storyboard.assertTrue("Constant transformation has match", greetingPO.getHasMatch());
+      storyboard.assertTrue("Constant transformation has match", greetingPO.getPattern().getHasMatch());
       
       storyboard.add("At runtime the object structure for the pattern and for the hostgraph looks like: ");
-      
-      // storyboard.addObjectDiag(p.getJsonIdMap(), greetingPO);
       
       storyboard.addPattern(greetingPO, true);
       
@@ -205,10 +204,10 @@ public class HelloWorldTTC2011
       
       storyboard.add("The model transformation that builds our object model looks like: ");
       storyboard.markCodeStart();
-      //FIXME ALBERT  ModelPattern p = new ModelPattern().startCreate();
-      
-      //FIXME ALBERT GreetingPO greetingPO = p.hasElementGreetingPO();
-      GreetingPO greetingPO = new GreetingPO();
+
+      GreetingPO greetingPO = (GreetingPO) new Pattern<Pattern>()
+            .startCreate()
+            .has(new GreetingPO());
       
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
       .hasText("Hello");
@@ -219,7 +218,7 @@ public class HelloWorldTTC2011
       
       storyboard.add("The created object model looks like: ");
       
-      storyboard.addObjectDiagram(greetingPO.getPattern().getJsonIdMap(), greetingPO.getCurrentMatch());
+      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
       
       storyboard.add("The model to text transfromation template mechanism is used like this: ");
       
