@@ -38,7 +38,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       
       for (Association obj : this)
       {
-         result.with(obj.getSource());
+         result.add(obj.getSource());
       }
       
       return result;
@@ -59,7 +59,7 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       
       for (Association obj : this)
       {
-         result.with(obj.getTarget());
+         result.add(obj.getTarget());
       }
       
       return result;

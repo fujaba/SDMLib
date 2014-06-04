@@ -105,7 +105,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
       
       for (Role obj : this)
       {
-         result.with(obj.getClazz());
+         result.add(obj.getClazz());
       }
       
       return result;
@@ -126,7 +126,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
       
       for (Role obj : this)
       {
-         result.with(obj.getAssoc());
+         result.add(obj.getAssoc());
       }
       
       return result;

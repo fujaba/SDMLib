@@ -906,7 +906,7 @@ public class GenRole extends Generator<Role>
             "      \n" + 
             "      for (ContentType obj : this)\n" + 
             "      {\n" + 
-            "         result.with(obj.getName());\n" + 
+            "         result.add(obj.getName());\n" + 
             "      }\n" + 
             "      \n" + 
             "      return result;\n" + 

@@ -85,7 +85,7 @@ public class MethodSet extends LinkedHashSet<Method> implements org.sdmlib.model
       
       for (Method obj : this)
       {
-         result.with(obj.getClazz());
+         result.add(obj.getClazz());
       }
       
       return result;
