@@ -1,16 +1,11 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.util.MethodSet;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.classes.util.ClazzPO;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.util.MethodPO;
-import org.sdmlib.models.classes.util.ParameterPO;
+import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.classes.util.ParameterSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class MethodPO extends PatternObject<MethodPO, Method>
 {

@@ -21,11 +21,10 @@
 
 package org.sdmlib.models.classes;
 
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 
 public abstract class SDMLibClass implements PropertyChangeInterface
 {  

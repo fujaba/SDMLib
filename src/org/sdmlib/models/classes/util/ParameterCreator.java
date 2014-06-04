@@ -21,8 +21,6 @@
 
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.SDMLibClass;

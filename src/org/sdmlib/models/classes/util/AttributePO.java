@@ -5,8 +5,6 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.util.AttributeSet;
-import org.sdmlib.models.classes.util.ClazzPO;
 
 public class AttributePO extends PatternObject<AttributePO, Attribute>
 {

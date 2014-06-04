@@ -1,14 +1,10 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.util.RoleSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.classes.util.AssociationPO;
 import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.util.RolePO;
-import org.sdmlib.models.classes.util.ClazzPO;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class RolePO extends PatternObject<RolePO, Role>
 {

@@ -21,11 +21,8 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.models.classes.util.AttributeSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 
-public class Attribute extends Value implements PropertyChangeInterface
+public class Attribute extends Value
 {
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final AttributeSet EMPTY_SET = new AttributeSet().withReadonly(true);
@@ -134,28 +131,5 @@ public class Attribute extends Value implements PropertyChangeInterface
       this.visibility = visibility;
       return this;
    }
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   public Clazz createClazz()
-   {
-      Clazz value = new Clazz();
-      withClazz(value);
-      return value;
-   } 
 }
 

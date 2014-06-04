@@ -24,12 +24,9 @@ package org.sdmlib.models.classes;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
 
-public class Method extends SDMLibClass implements PropertyChangeInterface
+public class Method extends SDMLibClass
 {
    public static final String PROPERTY_RETURNTYPE = "returnType";
    public static final String PROPERTY_PARAMETER = "parameter";
@@ -336,22 +333,6 @@ public class Method extends SDMLibClass implements PropertyChangeInterface
    {
       setBody(value);
       return this;
-   }
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    public ParameterSet getParameter()

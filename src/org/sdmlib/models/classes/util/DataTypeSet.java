@@ -21,15 +21,13 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.classes.DataType;
 import java.util.Collection;
+
+import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class DataTypeSet extends SDMSet<DataType>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public DataTypePO hasDataTypePO()
    {
       return new DataTypePO(this.toArray(new DataType[this.size()]));
@@ -43,6 +41,7 @@ public class DataTypeSet extends SDMSet<DataType>
    }
 
 
+   @SuppressWarnings("unchecked")
    public DataTypeSet with(Object value)
    {
       if (value instanceof java.util.Collection)

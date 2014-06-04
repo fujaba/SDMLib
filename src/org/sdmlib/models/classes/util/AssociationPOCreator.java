@@ -1,8 +1,9 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class AssociationPOCreator extends PatternObjectCreator
 {

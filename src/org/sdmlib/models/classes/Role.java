@@ -22,11 +22,8 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.models.classes.util.RoleSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 
-public class Role extends SDMLibClass implements PropertyChangeInterface
+public class Role extends SDMLibClass
 {
    public static final String VANILLA = "vanilla";
    public static final String AGGREGATION = "aggregation";
@@ -217,20 +214,4 @@ public class Role extends SDMLibClass implements PropertyChangeInterface
       withAssoc(value);
       return value;
    } 
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
 }

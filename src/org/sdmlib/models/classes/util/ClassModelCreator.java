@@ -21,13 +21,12 @@
 
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.serialization.EntityFactory;
-
-import de.uniks.networkparser.json.JsonIdMap;
-
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.SDMLibClass;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ClassModelCreator extends EntityFactory
 {

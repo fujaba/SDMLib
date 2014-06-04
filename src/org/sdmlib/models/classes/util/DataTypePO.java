@@ -1,8 +1,7 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.util.DataTypeSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class DataTypePO extends PatternObject<DataTypePO, DataType>
 {

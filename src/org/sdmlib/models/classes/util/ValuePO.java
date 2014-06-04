@@ -1,10 +1,9 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.Value;
-import org.sdmlib.models.classes.util.ValueSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Value;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ValuePO extends PatternObject<ValuePO, Value>
 {

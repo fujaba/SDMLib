@@ -1,9 +1,8 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.classes.SDMLibClass;
-import org.sdmlib.models.classes.util.SDMLibClassSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class SDMLibClassPO extends PatternObject<SDMLibClassPO, SDMLibClass>
 {

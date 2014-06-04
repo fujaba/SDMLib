@@ -21,10 +21,11 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.Value;
 import org.sdmlib.models.classes.SDMLibClass;
+import org.sdmlib.models.classes.Value;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ValueCreator extends EntityFactory
 {

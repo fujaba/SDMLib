@@ -21,18 +21,15 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.classes.Value;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.DataTypeSet;
+
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Value;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class ValueSet extends SDMSet<Value>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public ValuePO hasValuePO()
    {
       return new ValuePO(this.toArray(new Value[this.size()]));
@@ -46,6 +43,7 @@ public class ValueSet extends SDMSet<Value>
    }
 
 
+   @SuppressWarnings("unchecked")
    public ValueSet with(Object value)
    {
       if (value instanceof java.util.Collection)

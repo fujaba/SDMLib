@@ -1,13 +1,9 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.util.ClassModelSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.classes.util.ClazzPO;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.util.ClassModelPO;
-import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
 {

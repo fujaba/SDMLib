@@ -21,18 +21,15 @@
 
 package org.sdmlib.models.classes;
 
-import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 
-public class Clazz extends SDMLibClass implements PropertyChangeInterface
+
+public class Clazz extends SDMLibClass
 {
    public static final String PROPERTY_ATTRIBUTES = "attributes";
    public static final String PROPERTY_CLASSMODEL = "classModel";
@@ -800,23 +797,6 @@ public class Clazz extends SDMLibClass implements PropertyChangeInterface
       return attribute;
    }
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   
    //==========================================================================
    
    public ClassModel createClassModel()

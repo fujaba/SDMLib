@@ -21,7 +21,6 @@
 
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.SDMLibClass;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;

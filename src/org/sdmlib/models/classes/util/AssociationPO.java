@@ -1,12 +1,9 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.util.AssociationSet;
-import org.sdmlib.models.classes.util.RolePO;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.util.AssociationPO;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class AssociationPO extends PatternObject<AssociationPO, Association>
 {

@@ -9,12 +9,6 @@ import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.classes.util.ClassModelPO;
-import org.sdmlib.models.classes.util.AttributePO;
-import org.sdmlib.models.classes.util.MethodPO;
-import org.sdmlib.models.classes.util.RolePO;
-import org.sdmlib.models.classes.util.ClazzPO;
 
 public class ClazzPO extends PatternObject<ClazzPO, Clazz>
 {

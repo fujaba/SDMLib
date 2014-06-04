@@ -21,12 +21,9 @@
 
 package org.sdmlib.models.classes;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 import org.sdmlib.models.classes.util.ParameterSet;
 
-public class Parameter extends Value implements PropertyChangeInterface
+public class Parameter extends Value
 {
    public static final String PROPERTY_METHOD = "method";
    private Method method = null;
@@ -126,23 +123,6 @@ public class Parameter extends Value implements PropertyChangeInterface
    {
       setMethod(value);
       return this;
-   }
-
-
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
    public Method createMethod()

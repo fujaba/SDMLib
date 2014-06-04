@@ -22,8 +22,8 @@
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.serialization.EntityFactory;
+
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.DataType;
 
 public class DataTypeCreator extends EntityFactory
 {
@@ -46,14 +46,6 @@ public class DataTypeCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-      
       return null;
    }
    

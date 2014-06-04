@@ -22,7 +22,6 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Attribute;
@@ -31,8 +30,6 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.MethodSet;
-import org.sdmlib.models.modelsets.ObjectSet;
 
 public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -169,6 +166,7 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
    }
 
 
+   @SuppressWarnings("unchecked")
    public ParameterSet with(Object value)
    {
       if (value instanceof java.util.Collection)
@@ -182,7 +180,6 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
       
       return this;
    }
-
 
 
    public AttributePO hasAttributePO()

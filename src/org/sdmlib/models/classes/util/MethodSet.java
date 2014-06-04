@@ -22,18 +22,16 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.Collections;
-import org.sdmlib.models.classes.util.ParameterSet;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.classes.util.ClazzSet;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {

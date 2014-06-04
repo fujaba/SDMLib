@@ -20,12 +20,7 @@
  */
 package org.sdmlib.models.classes;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-
-
-public abstract class Value extends SDMLibClass implements PropertyChangeInterface
+public abstract class Value extends SDMLibClass
 {
    public static final String PROPERTY_INITIALIZATION = "initialization";
    public static final String PROPERTY_TYPE = "type";
@@ -71,25 +66,7 @@ public abstract class Value extends SDMLibClass implements PropertyChangeInterfa
       this.initialization = value;
    }
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
    @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   
-   //==========================================================================
-   
    public void removeYou()
    {
       super.removeYou();
@@ -106,6 +83,4 @@ public abstract class Value extends SDMLibClass implements PropertyChangeInterfa
       _.append(" ").append(this.getName());
       return _.substring(1);
    }
-
 }
-

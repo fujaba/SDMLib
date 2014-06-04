@@ -21,16 +21,14 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.classes.SDMLibClass;
 import java.util.Collection;
+
+import org.sdmlib.models.classes.SDMLibClass;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class SDMLibClassSet extends SDMSet<SDMLibClass>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public SDMLibClassPO hasSDMLibClassPO()
    {
       return new SDMLibClassPO(this.toArray(new SDMLibClass[this.size()]));
@@ -44,6 +42,7 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
    }
 
 
+   @SuppressWarnings("unchecked")
    public SDMLibClassSet with(Object value)
    {
       if (value instanceof java.util.Collection)
