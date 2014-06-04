@@ -642,7 +642,7 @@ public class GenClass extends Generator<Clazz>
    public boolean isShowDiff(){
       ClassModel model = getModel().getClassModel();
       if(model != null){
-         return model.getGenerator().getShowDiff()==DIFF.NONE;
+         return model.getGenerator().getShowDiff()!=DIFF.NONE;
       }
       return false;
    }

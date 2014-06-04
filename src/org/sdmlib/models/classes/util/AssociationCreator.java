@@ -11,7 +11,6 @@ public class AssociationCreator extends EntityFactory
    {
       Association.PROPERTY_SOURCE,
       Association.PROPERTY_TARGET
-      Association.PROPERTY_TARGET,
    };
    
    @Override
