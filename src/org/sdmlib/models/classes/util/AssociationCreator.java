@@ -1,11 +1,10 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Role;
 
-public class AssociationCreator extends EntityFactory
+public class AssociationCreator extends SDMLibClassCreator
 {
    private final String[] properties = new String[]
    {
@@ -44,7 +43,7 @@ public class AssociationCreator extends EntityFactory
       {
          return ((Association) target).getTarget();
       }
-      return null;
+      return super.getValue(target, attrName);
    }
    
    @Override
@@ -66,7 +65,7 @@ public class AssociationCreator extends EntityFactory
          ((Association) target).setTarget((Role) value);
          return true;
       }
-      return false;
+      return super.setValue(target, attrName, value, type);
    }
    
    @Override
