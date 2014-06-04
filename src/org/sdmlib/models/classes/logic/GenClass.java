@@ -715,11 +715,13 @@ public class GenClass extends Generator<Clazz>
                      "   {\n" +
                      "      int pos = attrName.indexOf('.');\n"+
                      "      String attribute = attrName;\n"+
+                     "      \n" +
                      "      if (pos > 0)\n"+
                      "      {\n"+
                      "         attribute = attrName.substring(0, pos);\n"+
                      "      }\n"+
-                   "      return null;\n" +
+                     "      \n"+
+                     "      return null;\n" +
 //                     "      return ((entitiyClassName) target).get(attrName);\n" +
                      "   }\n" +
                      "   \n" +
@@ -730,6 +732,7 @@ public class GenClass extends Generator<Clazz>
                      "      {\n" + 
                      "         attrName = attrName + type;\n" + 
                      "      }\n" + 
+                     "      \n"+
                      "      return false;\n" +
 //                     "      return ((entitiyClassName) target).set(attrName, value);\n" +
                      "   }\n" +
@@ -1383,12 +1386,14 @@ public class GenClass extends Generator<Clazz>
                String[] newSplit = newStrValue.split("\\s+");
                
                boolean foundDiff = oldSplit.length != newSplit.length;
+               String diffToken = "";
                
                for (int j = 0; j < oldSplit.length && ! foundDiff; j++ )
                {
                   if ( ! oldSplit[j].equals(newSplit[j]))
                   {
                      foundDiff = true;
+                     diffToken = oldSplit[j] + " != " + newSplit[j];
                      break;
                   }
                }
@@ -1401,6 +1406,8 @@ public class GenClass extends Generator<Clazz>
 //                  System.out.println(oldStrValue);
 //                  System.out.println("--------------------------------------------------------------------------------------------------");
                   System.err.println(newStrValue);
+                  System.err.println("diff token: " + diffToken);
+                  
                   count += 1;
                   continue;
                }

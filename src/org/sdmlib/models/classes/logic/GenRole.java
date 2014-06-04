@@ -327,7 +327,7 @@ public class GenRole extends Generator<Role>
                   "\n      " +
                   "\n      if ((this.partnerRoleName != null) && (value != null))" +
                   "\n      {" +
-                  "\n         changed = this.partnerRoleName.remove (value);" +
+                  "\n         changed = this.partnerRoleName.remove(value);" +
                   "\n         " +
                   "\n         if (changed)" +
                   "\n         {" +

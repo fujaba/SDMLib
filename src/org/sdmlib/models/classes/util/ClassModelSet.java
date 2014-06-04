@@ -122,9 +122,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
    {
       if (value instanceof java.util.Collection)
       {
-         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
-            this.add((ClassModel) i.next());
-         }
+         this.addAll((Collection<ClassModel>)value);
       }
       else if (value != null)
       {
