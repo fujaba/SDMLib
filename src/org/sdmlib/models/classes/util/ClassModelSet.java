@@ -38,7 +38,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       
       for (ClassModel obj : this)
       {
-         result.with(obj.getClasses());
+         result.addAll(obj.getClasses());
       }
       
       return result;

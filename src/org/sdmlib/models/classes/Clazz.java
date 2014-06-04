@@ -21,6 +21,7 @@
 
 package org.sdmlib.models.classes;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.util.AttributeSet;
@@ -505,11 +506,32 @@ public class Clazz extends SDMLibClass
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   private void removeAllFromSuperclasses()
+   public void removeAllFromSuperclasses()
+   {
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getKidclasses());
+   
+      for (Clazz value : tmpSet)
+      {
+         this.removeFromKidclasses(value);
+      }
+   }
+   
+   public ClazzSet getKidclasses()
+   {
+      if (this.kidClazzes == null)
+      {
+         return Clazz.EMPTY_SET;
+      }
+   
+      return this.kidClazzes;
+   }
+   
+   public void removeFromKidclasses(Clazz value)
    {
       // TODO Auto-generated method stub
       
    }
+   
    private void removeAllFromKidclasses()
    {
       // TODO Auto-generated method stub
