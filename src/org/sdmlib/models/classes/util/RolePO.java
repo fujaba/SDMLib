@@ -1,14 +1,14 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.RoleSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.classes.util.AssociationPO;
+import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.util.RolePO;
 import org.sdmlib.models.classes.util.ClazzPO;
+import org.sdmlib.models.classes.Clazz;
 
 public class RolePO extends PatternObject<RolePO, Role>
 {
@@ -36,6 +36,8 @@ public class RolePO extends PatternObject<RolePO, Role>
    
    public RoleSet allMatches()
    {
+      this.setDoAllMatches(true);
+
       RoleSet matches = new RoleSet();
 
       while (this.getPattern().getHasMatch())
@@ -119,9 +121,9 @@ public class RolePO extends PatternObject<RolePO, Role>
    
    public ClazzPO hasClazz()
    {
-      ClazzPO result = new ClazzPO();
-      result.setModifier(this.getPattern().getModifier());
+      ClazzPO result = new ClazzPO(new Clazz[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Role.PROPERTY_CLAZZ, result);
       
       return result;
@@ -129,16 +131,7 @@ public class RolePO extends PatternObject<RolePO, Role>
    
    public RolePO hasClazz(ClazzPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Role.PROPERTY_CLAZZ)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Role.PROPERTY_CLAZZ);
    }
    
    public Clazz getClazz()
@@ -152,9 +145,9 @@ public class RolePO extends PatternObject<RolePO, Role>
    
    public AssociationPO hasAssoc()
    {
-      AssociationPO result = new AssociationPO();
-      result.setModifier(this.getPattern().getModifier());
+      AssociationPO result = new AssociationPO(new Association[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Role.PROPERTY_ASSOC, result);
       
       return result;
@@ -162,16 +155,7 @@ public class RolePO extends PatternObject<RolePO, Role>
    
    public RolePO hasAssoc(AssociationPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Role.PROPERTY_ASSOC)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Role.PROPERTY_ASSOC);
    }
    
    public Association getAssoc()

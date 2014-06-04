@@ -3,9 +3,10 @@ package org.sdmlib.models.classes.util;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.serialization.EntityFactory;
 
-public class RoleCreator extends EntityFactory
+import de.uniks.networkparser.json.JsonIdMap;
+
+public class RoleCreator extends SDMLibClassCreator
 {
    private final String[] properties = new String[]
    {
@@ -33,35 +34,29 @@ public class RoleCreator extends EntityFactory
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
       }
 
-      if (Role.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (Role.PROPERTY_CARD.equalsIgnoreCase(attrName))
       {
-         return ((Role)target).getName();
+         return ((Role) target).getCard();
       }
 
-      if (Role.PROPERTY_CARD.equalsIgnoreCase(attribute))
+      if (Role.PROPERTY_KIND.equalsIgnoreCase(attrName))
       {
-         return ((Role)target).getCard();
-      }
-
-      if (Role.PROPERTY_KIND.equalsIgnoreCase(attribute))
-      {
-         return ((Role)target).getKind();
-      }
-
-      if (Role.PROPERTY_CLAZZ.equalsIgnoreCase(attribute))
-      {
-         return ((Role)target).getClazz();
+         return ((Role) target).getKind();
       }
 
       if (Role.PROPERTY_ASSOC.equalsIgnoreCase(attribute))
       {
-         return ((Role)target).getAssoc();
+         return ((Role) target).getAssoc();
+      }
+
+      if (Role.PROPERTY_CLAZZ.equalsIgnoreCase(attribute))
+      {
+         return ((Role) target).getClazz();
       }
       return super.getValue(target, attrName);
    }
@@ -69,33 +64,32 @@ public class RoleCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Role.PROPERTY_KIND.equalsIgnoreCase(attrName))
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
-         ((Role)target).setKind((String) value);
-         return true;
+         attrName = attrName + type;
       }
 
       if (Role.PROPERTY_CARD.equalsIgnoreCase(attrName))
       {
-         ((Role)target).setCard((String) value);
+         ((Role) target).setCard((String) value);
          return true;
       }
 
-      if (Role.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Role.PROPERTY_KIND.equalsIgnoreCase(attrName))
       {
-         ((Role)target).setName((String) value);
-         return true;
-      }
-
-      if (Role.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
-      {
-         ((Role)target).setClazz((Clazz) value);
+         ((Role) target).setKind((String) value);
          return true;
       }
 
       if (Role.PROPERTY_ASSOC.equalsIgnoreCase(attrName))
       {
-         ((Role)target).setAssoc((Association) value);
+         ((Role) target).setAssoc((Association) value);
+         return true;
+      }
+
+      if (Role.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
+      {
+         ((Role) target).setClazz((Clazz) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

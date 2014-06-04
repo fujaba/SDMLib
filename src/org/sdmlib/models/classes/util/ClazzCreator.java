@@ -46,11 +46,6 @@ public class ClazzCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Clazz.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return ((Clazz) target).getName();
-      }
-
       if (Clazz.PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
       {
          return ((Clazz) target).getClassModel();
@@ -85,7 +80,7 @@ public class ClazzCreator extends EntityFactory
       {
          return ((Clazz) target).isExternal();
       }
-      return null;
+      return super.getValue(target, attrName);
    }
    
    @Override
@@ -96,12 +91,6 @@ public class ClazzCreator extends EntityFactory
          attrName = attrName + type;
       }
       
-      if (Clazz.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Clazz)target).setName((String) value);
-         return true;
-      }
-
       if (Clazz.PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
       {
          ((Clazz)target).withClassModel((ClassModel) value);
@@ -167,7 +156,7 @@ public class ClazzCreator extends EntityFactory
          ((Clazz)target).setExternal((Boolean) value);
          return true;
       }
-      return false;
+      return super.setValue(target, attrName, value, type);
    }
    
    //==========================================================================

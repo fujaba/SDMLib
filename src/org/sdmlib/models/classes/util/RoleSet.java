@@ -22,16 +22,12 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.AssociationSet;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.classes.util.ClazzSet;
 
 public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -75,7 +71,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
    {
       for (Role obj : this)
       {
-         obj.withCard(value);
+         obj.setCard(value);
       }
       
       return this;
@@ -97,7 +93,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
    {
       for (Role obj : this)
       {
-         obj.withKind(value);
+         obj.setKind(value);
       }
       
       return this;
@@ -109,7 +105,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
       
       for (Role obj : this)
       {
-         result.add(obj.getClazz());
+         result.with(obj.getClazz());
       }
       
       return result;
@@ -130,7 +126,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
       
       for (Role obj : this)
       {
-         result.add(obj.getAssoc());
+         result.with(obj.getAssoc());
       }
       
       return result;
@@ -196,13 +192,12 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
    }
 
 
+   @SuppressWarnings("unchecked")
    public RoleSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         for(Iterator<?> i = ((Collection<?>)value).iterator();i.hasNext();){
-            this.add((Role) i.next());
-         }
+         this.addAll((Collection<Role>)value);
       }
       else if (value != null)
       {

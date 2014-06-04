@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,6 +52,7 @@ public class GenClassModel
    private HashMap<Object, Generator<?>> generators=new HashMap<Object, Generator<?>>();
    private Parser creatorCreatorParser;
    private DIFF showDiff = DIFF.NONE;
+   private List<String> ignoreDiff;
    
    public enum DIFF{NONE,DIFF, FULL};
    
@@ -164,7 +166,7 @@ public class GenClassModel
       if(getShowDiff()!=DIFF.NONE){
          int count = 0;
          for(Clazz clazz :  model.getClasses()){
-            count += getOrCreate(clazz).printAll(getShowDiff());
+            count += getOrCreate(clazz).printAll(getShowDiff(), this.ignoreDiff);
          }
          System.out.println("Totalchanges of all Files: "+count);
       }
@@ -2285,6 +2287,14 @@ public class GenClassModel
    public GenClassModel withShowDiff(DIFF showDiff)
    {
       this.showDiff = showDiff;
+      return this;
+   }
+   
+   public GenClassModel withIgnoreClazz(String name){
+      if(this.ignoreDiff==null){
+         this.ignoreDiff=new ArrayList<String>();
+      }
+      this.ignoreDiff.add(name);
       return this;
    }
 }

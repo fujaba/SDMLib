@@ -39,11 +39,11 @@ public class Role extends SDMLibClass
    @Override
    public String toString()
    {
-   	//   	StringBuilder _ = new StringBuilder();
-   	//   	_.append(" ").append(this.getName());
-   	//      _.append(" ").append(this.getCard());
-   	//      _.append(" ").append(this.getKind());
-      return "" + name + " " + card;
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getCard());
+      _.append(" ").append(this.getKind());
+      return _.substring(1);
    }
  
    public String labelForRole()
@@ -182,8 +182,9 @@ public class Role extends SDMLibClass
    @Override
    public void removeYou()
    {
-      setClazz(null);
+      super.removeYou();
       setAssoc(null);
+      setClazz(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

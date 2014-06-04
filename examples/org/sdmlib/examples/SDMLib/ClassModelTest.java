@@ -84,7 +84,7 @@ public class ClassModelTest
       
       Clazz associationClass = new Clazz("Association").withSuperClass(sdmLibClazz);
       
-      Clazz roleClass = new Clazz("Role")
+      Clazz roleClass = new Clazz("Role").withSuperClass(sdmLibClazz)
       .withAttribute("card", DataType.STRING, "MANY")
       .withAttribute("kind", DataType.STRING, "VANILLA");
       
@@ -144,7 +144,11 @@ public class ClassModelTest
 //         ProjectBoard.IMPLEMENTATION, "zuendorf", "19.08.2012 19:08:42", 8, 0);
 
       
-      model.getGenerator().withShowDiff(DIFF.DIFF);
+
+      model.getGenerator()
+         .withIgnoreClazz("org.sdmlib.models.classes.Association")
+         .withIgnoreClazz("org.sdmlib.models.classes.util.RoleCreator")
+         .withShowDiff(DIFF.DIFF);
       
       model.generate("src");
       

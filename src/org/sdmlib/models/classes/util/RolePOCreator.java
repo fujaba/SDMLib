@@ -1,9 +1,8 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Role;
 
 public class RolePOCreator extends PatternObjectCreator
 {

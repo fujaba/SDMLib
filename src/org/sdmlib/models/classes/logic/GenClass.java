@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.sdmlib.CGUtil;
@@ -731,7 +732,6 @@ public class GenClass extends Generator<Clazz>
                      "         attrName = attrName + type;\n" + 
                      "      }\n" + 
                      "      return false;\n" +
-//                     "      return ((entitiyClassName) target).set(attrName, value);\n" +
                      "   }\n" +
                      "   public static JsonIdMap createIdMap(String sessionID)\n" +
                      "   {\n" +
@@ -1325,17 +1325,17 @@ public class GenClass extends Generator<Clazz>
    }
 
 
-   public int printAll(DIFF diff)
+   public int printAll(DIFF diff, List<String> ignoreDiff)
    {
       int count=0;
-      count += showDiffForParser(parser, diff);
-      count += showDiffForParser(creatorParser, diff);
-      count += showDiffForParser(modelSetParser, diff);
-      count += showDiffForParser(patternObjectParser, diff);
-      count += showDiffForParser(patternObjectCreatorParser, diff);
+      count += showDiffForParser(parser, diff, ignoreDiff);
+      count += showDiffForParser(creatorParser, diff, ignoreDiff);
+      count += showDiffForParser(modelSetParser, diff, ignoreDiff);
+      count += showDiffForParser(patternObjectParser, diff, ignoreDiff);
+      count += showDiffForParser(patternObjectCreatorParser, diff, ignoreDiff);
       return count;
    }
-   private int showDiffForParser(Parser newFileParser, DIFF diff){
+   private int showDiffForParser(Parser newFileParser, DIFF diff, List<String> ignoreDiff){
       int count=0;
       if(newFileParser==null){
          return 0;
@@ -1354,6 +1354,10 @@ public class GenClass extends Generator<Clazz>
             String packageName = CGUtil.packageName(this.model.getFullName());
             String shortName = newFileParser.getFileName().replace("\\", ".").replace("/", ".");
             shortName = shortName.substring(shortName.indexOf(packageName));
+            
+            if(ignoreDiff != null && ignoreDiff.contains(shortName.substring(0, shortName.length()-5))){
+               return 0;
+            }
             
             for(Iterator<Entry<String, SymTabEntry>> i = newFileParser.getSymTab().entrySet().iterator();i.hasNext();){
                Entry<String, SymTabEntry> item = i.next();
