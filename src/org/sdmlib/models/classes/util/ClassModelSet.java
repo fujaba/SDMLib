@@ -42,7 +42,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       
       for (ClassModel obj : this)
       {
-         result.addAll(obj.getClasses());
+         result.with(obj.getClasses());
       }
       
       return result;
@@ -83,7 +83,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
    {
       for (ClassModel obj : this)
       {
-         obj.withName(value);
+         obj.setName(value);
       }
       
       return this;

@@ -32,6 +32,8 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    
    public ClassModelSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       ClassModelSet matches = new ClassModelSet();
 
       while (this.getPattern().getHasMatch())
