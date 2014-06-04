@@ -63,7 +63,7 @@ public class GenClass extends Generator<Clazz>
          if ( !model.isInterface())
          {
             insertSuperClass();
-            insertPropertyChangeSupport();
+            insertPropertyChangeSupport(rootDir);
             insertInterfaceMethods(model, rootDir, helpersDir);
             insertRemoveYouMethod();
             insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
@@ -383,7 +383,7 @@ public class GenClass extends Generator<Clazz>
       }
    }
 
-   private void insertPropertyChangeSupport()
+   private void insertPropertyChangeSupport(String rootDir)
    {
          if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
             return;
@@ -391,12 +391,12 @@ public class GenClass extends Generator<Clazz>
          
          String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
          // Check if no super has PropertyChange
-         for (Clazz clazz : model.getSuperClazzes()) 
+         for (Clazz clazz : model.getSuperClazzesTransitive()) 
          {
             if(clazz.isInterface()){
                continue;
             }
-            if(getGenerator(clazz).getParser().indexOf(searchString)>=0){
+            if(getGenerator(clazz).getOrCreateParser(rootDir).indexOf(searchString)>=0){
                return;
             }
          }
