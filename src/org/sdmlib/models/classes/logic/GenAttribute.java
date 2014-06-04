@@ -45,7 +45,6 @@ public class GenAttribute extends Generator<Attribute>
       else if ("boolean".equalsIgnoreCase(model.getType().getValue()))
       {
          CGUtil.replaceAll(text, "getName()", "isName()");
-         getGenerator(clazz).insertImport(StrUtil.class.getName()); 
       }
 
       CGUtil.replaceAll(text, "valueCompare", valueCompare);
@@ -688,7 +687,8 @@ public class GenAttribute extends Generator<Attribute>
             "ObjectSetType", objectSetType, 
             "AttrType", model.getType().getValue(),
             "valueComparison", valueComparison,
-            "rangeCheck", rangeCheck
+            "rangeCheck"
+            + "", rangeCheck
             );
 
          //       importClassesFromTypes.addAll(checkImportClassesFromType(fullModelSetType));

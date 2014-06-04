@@ -1015,7 +1015,9 @@ public class GenRole extends Generator<Role>
          
          getGenerator(tgtClass).insertImport(parser, fullModelSetType);
          getGenerator(tgtClass).insertImport(parser, Collection.class.getName());
-         getGenerator(tgtClass).insertImport(parser, ObjectSet.class.getName());
+         if(pos<0){
+            getGenerator(tgtClass).insertImport(parser, ObjectSet.class.getName());
+         }
       }
    }
 

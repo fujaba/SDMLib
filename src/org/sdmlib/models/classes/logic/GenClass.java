@@ -1077,9 +1077,9 @@ public class GenClass extends Generator<Clazz>
             patternObjectParser.withFileBody( text ).withFileChanged(true);
          }
 
-         if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
-            this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
-         }
+//FIXME STEFAN         if(getRepairClassModel().hasFeature(Feature.ALBERTsSets)){
+//            this.insertImport(patternObjectParser, packageName + "." + entitiyClassName + "Set");
+//         }
       }
       return patternObjectParser;
    }
