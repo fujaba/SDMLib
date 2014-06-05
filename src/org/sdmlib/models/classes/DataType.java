@@ -1,7 +1,14 @@
 package org.sdmlib.models.classes;
 
-public class DataType
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+public class DataType implements PropertyChangeInterface
 {
+   public static final String PROPERTY_VALUE = "value";
+
    public static final DataType VOID = new DataType("void");
    public static final DataType INT = new DataType("int");
    public static final DataType LONG = new DataType("long");
@@ -18,9 +25,16 @@ public class DataType
    {
       return value;
    }
-   public void setValue(String value)
+   public boolean setValue(String value)
    {
-      this.value = value;
+      if ( ! StrUtil.stringEquals(this.value, value))
+      {
+         String oldValue = this.value;
+         this.value = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE, oldValue, value);
+         return true;
+      }
+      return false;
    }
    public DataType withValue(String value){
       this.value = value;
@@ -33,7 +47,6 @@ public class DataType
    public static DataType ref(Class<?> value){
       return new DataType(value.getName().replace("$", "."));
    }
-   //TODO might be a bug when the user change the packagename or the name of clazz
    public static DataType ref(Clazz value){
       return new DataType(value.getFullName());
    }
@@ -43,4 +56,13 @@ public class DataType
    {
       return "DataType." + value.toUpperCase();
    }
+   
+   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
+   @Override
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
 }

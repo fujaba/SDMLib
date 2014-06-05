@@ -1844,5 +1844,50 @@ public class Parser
    public StringBuilder getText(){
       return fileBody;
    }
+
+   
+   public StringBuilder replaceAll(StringBuilder text, Object... args)
+   {
+      int pos = -1 - args[0].toString().length();
+      String placeholder;
+      // args are pairs of placeholder, replacement
+      
+      // in the first run, replace placeholders by <$<placeholders>$> to mark them uniquely
+      for (int i = 0; i < args.length; i += 2)
+      {
+         placeholder = args[i].toString();
+         pos = -1 - placeholder.length();
+         
+         pos = text.indexOf(placeholder, pos + placeholder.length());
+         
+         while (pos >= 0)
+         {
+            text.replace(pos, pos + placeholder.length(), "<$<" + placeholder + ">$>");
+            pos = text.indexOf(placeholder, pos + placeholder.length()+6);
+         }
+      }
+      
+      // in the second run, replace <$<placeholders>$> by replacement
+      for (int i = 0; i < args.length; i += 2)
+      {
+         placeholder = "<$<" + args[i] + ">$>";
+         pos = -1 - placeholder.length();
+           
+         pos = text.indexOf(placeholder, pos + placeholder.length());
+         
+         while (pos >= 0)
+         {
+            text.replace(pos, pos + placeholder.length(), args[i+1].toString());
+            pos = text.indexOf(placeholder, pos + args[i+1].toString().length());
+         }
+      }
+      if(this.fileBody==null){
+         this.fileBody = text;
+      }else{
+         this.insert(indexOf(Parser.CLASS_END), text.toString());
+      }
+      return text;
+   }
+
 }
 

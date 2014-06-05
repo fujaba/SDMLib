@@ -188,7 +188,7 @@ public class GenClassModel
             if(visited.add(entity)){
                fixClassModel(entity, visited);
             }
-            entity.withClassModel(model);
+            entity.with(model);
          }
       }
 
@@ -197,13 +197,13 @@ public class GenClassModel
             if(visited.add(entity)){
                fixClassModel(entity, visited);
             }
-            entity.withClassModel(model);
+            entity.with(model);
          }
       }
       
       for(Clazz entity : item.getKidClazzes()){
          if(entity.getClassModel()==null){
-            entity.withClassModel(model);
+            entity.with(model);
             if(visited.add(entity)){
                fixClassModel(entity, visited);
             }
@@ -213,7 +213,7 @@ public class GenClassModel
       for(Role role : item.getRoles()){
          Clazz clazz = role.getPartnerRole().getClazz();
          if(clazz.getClassModel()==null){
-            clazz.withClassModel(model);
+            clazz.with(model);
             if(visited.add(clazz)){
                fixClassModel(clazz, visited);
             }
@@ -295,7 +295,7 @@ public class GenClassModel
          
          for (Clazz clazz : this.getModel().getClasses())
          {
-            if (!clazz.getInterfaze() && !clazz.isExternal())
+            if (!clazz.isInterface() && !clazz.isExternal())
             {
                insertCreatorClassInCreatorCreator(creatorCreatorParser, clazz);
             }
@@ -1840,7 +1840,7 @@ public class GenClassModel
       // set class or interface
       if (Parser.INTERFACE.equals(parser.getClassType()))
       {
-         clazz.setInterfaze(true);
+         clazz.setInterface(true);
       }
 
       LinkedHashMap<String, SymTabEntry> symTab = new LinkedHashMap<String, SymTabEntry>();
@@ -1920,7 +1920,7 @@ public class GenClassModel
       Clazz memberClass = findMemberClass(clazz, memberName, parser);
 
       if (memberClass != null)
-         clazz.withSuperClazzes(memberClass);
+         clazz.withSuperClasses(memberClass);
    }
 
    private void addMemberAsInterface(Clazz clazz, String memberName, Parser parser)
@@ -1929,9 +1929,9 @@ public class GenClassModel
       
       if (memberClass != null) 
       {
-         memberClass.withInterfaze(true);
+         memberClass.withInterface(true);
 
-         clazz.withSuperClazzes(memberClass);
+         clazz.withSuperClasses(memberClass);
       }
    }
 

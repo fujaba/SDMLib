@@ -44,8 +44,8 @@ public class LudoModel
       Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
       
       Clazz point = model.createClazz(Point.class.getName())
-            .withAttributes(new Attribute("x", DataType.INT).withVisibility(Visibility.PUBLIC))
-            .withAttributes(new Attribute("y", DataType.INT).withVisibility(Visibility.PUBLIC))
+            .with(new Attribute("x", DataType.INT).withVisibility(Visibility.PUBLIC))
+            .with(new Attribute("y", DataType.INT).withVisibility(Visibility.PUBLIC))
             .withExternal(true);
       
       Clazz player = model.createClazz("Player")

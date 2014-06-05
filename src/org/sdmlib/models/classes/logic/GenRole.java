@@ -23,7 +23,7 @@ public class GenRole extends Generator<Role>
 
    private void insertCaseInGenericGet(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {
-      if (clazz.getInterfaze())
+      if (clazz.isInterface())
       {
          return;
       }
@@ -145,7 +145,7 @@ public class GenRole extends Generator<Role>
                "\n" );
       }
       
-      if (! genClazz.getInterfaze())
+      if (! genClazz.isInterface())
       {
          pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
 
@@ -160,7 +160,7 @@ public class GenRole extends Generator<Role>
 
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public type getPartnerRoleName()" +
@@ -198,7 +198,7 @@ public class GenRole extends Generator<Role>
 
          if (pos < 0)
          {
-            if (! genClazz.getInterfaze())
+            if (! genClazz.isInterface())
             {
                text.append 
                (     "  public type getPartnerRoleNameSet()\n" + 
@@ -225,7 +225,7 @@ public class GenRole extends Generator<Role>
          
          if (pos < 0)
          {
-            if (! genClazz.getInterfaze())
+            if (! genClazz.isInterface())
             {
                text.append(
                   "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
@@ -254,7 +254,7 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             if (elistPos < 0)
             {
@@ -318,7 +318,7 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public boolean removeFromPartnerRoleName(partnerClassName value)" +
@@ -353,7 +353,7 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
@@ -382,7 +382,7 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
@@ -408,7 +408,7 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public void removeAllFromPartnerRoleName()" +
@@ -442,14 +442,14 @@ public class GenRole extends Generator<Role>
             kindClassesInterfaces.add(clazz);
          }
       }
-      if (partnerRole.getClazz().getInterfaze() && kindClassesInterfaces.size() == 1)
+      if (partnerRole.getClazz().isInterface() && kindClassesInterfaces.size() == 1)
       {
          realPartnerClassName = CGUtil.shortClassName(kindClassesInterfaces.first().getFullName());
       }
       
-      if (pos < 0 && ! (partnerRole.getClazz().getInterfaze() && kindClassesInterfaces.size() != 1))
+      if (pos < 0 && ! (partnerRole.getClazz().isInterface() && kindClassesInterfaces.size() != 1))
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public partnerClassName createPartnerRoleName()" +
@@ -477,9 +477,9 @@ public class GenRole extends Generator<Role>
          pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + kidClassName + "()");
          
          
-         if (pos < 0 && ! kid.getInterfaze())
+         if (pos < 0 && ! kid.isInterface())
          {
-            if (! genClazz.getInterfaze())
+            if (! genClazz.isInterface())
             {
                text.append 
                (     "\n   public partnerClassName createPartnerRoleName" + kidClassName + "()" +
@@ -554,7 +554,7 @@ public class GenRole extends Generator<Role>
                "\n" );
       }
       
-      if (! genClazz.getInterfaze())
+      if (! genClazz.isInterface())
       {
          pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
 
@@ -569,7 +569,7 @@ public class GenRole extends Generator<Role>
 
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public partnerClassName getPartnerRoleName()" +
@@ -595,7 +595,7 @@ public class GenRole extends Generator<Role>
          
          if (pos < 0)
          {
-            if (! genClazz.getInterfaze())
+            if (! genClazz.isInterface())
             {
                text.append(
                   "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
@@ -621,7 +621,7 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public boolean setPartnerRoleName(partnerClassName value)" +
@@ -666,7 +666,7 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public myClassName withPartnerRoleName(partnerClassName value)" +
@@ -697,14 +697,14 @@ public class GenRole extends Generator<Role>
          }
       }
       
-      if (partnerRole.getClazz().getInterfaze() && kindClassesInterfaces.size() == 1)
+      if (partnerRole.getClazz().isInterface() && kindClassesInterfaces.size() == 1)
       {
          realPartnerClassName = CGUtil.shortClassName(kindClassesInterfaces.first().getFullName());
       }
       
-      if (pos < 0 && ! (partnerRole.getClazz().getInterfaze() && kindClassesInterfaces.size() != 1))
+      if (pos < 0 && ! (partnerRole.getClazz().isInterface() && kindClassesInterfaces.size() != 1))
       {
-         if (! genClazz.getInterfaze())
+         if (! genClazz.isInterface())
          {
             text.append 
             (     "\n   public partnerClassName createPartnerRoleName()" +
@@ -842,7 +842,7 @@ public class GenRole extends Generator<Role>
    
    private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Role partnerRole)
    {
-      if (clazz.getInterfaze())
+      if (clazz.isInterface())
       {
          return;
       }
@@ -1335,7 +1335,7 @@ public class GenRole extends Generator<Role>
    
    private void insertCaseInGenericSetToMany(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {   
-      if (clazz.getInterfaze())
+      if (clazz.isInterface())
       {
          return;
       }
@@ -1404,7 +1404,7 @@ public class GenRole extends Generator<Role>
 
    private void insertCaseInGenericSetToOne(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
    {
-      if (clazz.getInterfaze())
+      if (clazz.isInterface())
       {
          return;
       }

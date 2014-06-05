@@ -37,7 +37,7 @@ public class AdamAndEveModel
          .withAttribute("eve", DataType.ref("org.sdmlib.logger.PeerProxy"))
          .withAttribute("idMap", DataType.ref("org.sdmlib.serialization.SDMLibJsonIdMap"))
          .withAttribute("adamJarAtEveSiteLastModified", DataType.LONG)
-         .withSuperClazzes(taskFlowClazz);
+         .withSuperClasses(taskFlowClazz);
       
       clazzUpdate.createMethod("run");
       clazzUpdate.createMethod("getTaskNames")

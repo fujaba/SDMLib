@@ -101,7 +101,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withClassModel(value);
+         obj.with(value);
       }
       
       return this;
@@ -123,7 +123,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withSuperClazzes(value);
+         obj.withSuperClasses(value);
       }
       
       return this;
@@ -181,7 +181,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withAttributes(value);
+         obj.with(value);
       }
       
       return this;
@@ -191,7 +191,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutAttributes(value);
+         obj.without(value);
       }
       
       return this;
@@ -212,7 +212,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withMethods(value);
+         obj.with(value);
       }
       
       return this;
@@ -222,7 +222,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutMethods(value);
+         obj.without(value);
       }
       
       return this;
@@ -243,7 +243,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withRoles(value);
+         obj.with(value);
       }
       
       return this;
@@ -253,7 +253,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutRoles(value);
+         obj.without(value);
       }
       
       return this;
@@ -275,7 +275,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withInterfaze(value);
+         obj.withInterface(value);
       }
       
       return this;
@@ -485,7 +485,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withRoles(value);
+         obj.with(value);
       }
       
       return this;
@@ -495,7 +495,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutRoles(value);
+         obj.without(value);
       }
       
       return this;
@@ -625,7 +625,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withSuperClazzes(value);
+         obj.withSuperClasses(value);
       }
       
       return this;
@@ -647,7 +647,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.add(obj.getInterfaze());
+         result.add(obj.isInterface());
       }
       
       return result;
@@ -659,7 +659,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         if (value == obj.getInterfaze())
+         if (value == obj.isInterface())
          {
             result.add(obj);
          }

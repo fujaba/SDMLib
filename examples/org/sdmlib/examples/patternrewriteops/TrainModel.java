@@ -19,7 +19,7 @@ public class TrainModel
       
       ClassModel model = new ClassModel("org.sdmlib.examples.patternrewriteops.model");
             
-      Clazz trainClass = model.createClazz("Train").withClassModel(model);
+      Clazz trainClass = model.createClazz("Train").with(model);
       
       Clazz stationClass = model.createClazz("Station").withAssoc(trainClass, "trains", Card.MANY, "station", Card.ONE);
 

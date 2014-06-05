@@ -140,7 +140,7 @@ public class ProjectBoard
       Clazz logEntryClass = new Clazz("org.sdmlib.storyboards.LogEntry");
       
       new Association()
-      .withSource(kanbanEntryClass, "kanbanEntry", Card.ONE, Role.AGGREGATION)
+      .withSource(new Role(kanbanEntryClass, "kanbanEntry", Card.ONE).withKind(Role.AGGREGATION))
       .withTarget(logEntryClass, "logEntries", Card.MANY);
       
       // Clazz phaseEntryClass = kanbanEntryClass.createClassAndAssoc(PhaseEntry.class.getName(), "phaseEntries", R.MANY, "kanbanEntry", R.ONE);

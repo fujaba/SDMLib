@@ -49,7 +49,7 @@ public class Method extends SDMLibClass
       boolean first=true;
       int i = 0;
       
-      for(Parameter parameter : getParameters()){
+      for(Parameter parameter : getParameter()){
         
          if(first){
             sb.append(getParameterSignature(includeName, parameter, i));
@@ -58,7 +58,7 @@ public class Method extends SDMLibClass
             sb.append(getParameterSignature(includeName, parameter, i));
          }
          
-         if ( i < getParameters().size()-1 ) {
+         if ( i < getParameter().size()-1 ) {
             if(includeName){
                sb.append(", ");
             }else{
@@ -109,24 +109,6 @@ public class Method extends SDMLibClass
       return this;
    }
    
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Clazz ----------------------------------- Attribute
-    *              clazz                   attributes
-    * </pre>
-    */
-   public ParameterSet getParameters()
-   {
-      if (this.parameter == null)
-      {
-         this.parameter =  new ParameterSet();
-      }
-
-      return this.parameter;
-   }
-
    public boolean addToParameter(Parameter value)
    {
       boolean changed = false;
@@ -239,14 +221,14 @@ public class Method extends SDMLibClass
          if (this.clazz != null)
          {
             this.clazz = null;
-            oldValue.withoutMethods(this);
+            oldValue.without(this);
          }
          
          this.clazz = value;
          
          if (value != null)
          {
-            value.withMethods(this);
+            value.with(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
@@ -261,15 +243,6 @@ public class Method extends SDMLibClass
       setClazz(value);
       return this;
    }
-
-   //==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-
-      return false;
-   }
-   
    //==========================================================================
 
    @Override
@@ -307,7 +280,7 @@ public class Method extends SDMLibClass
    {
       StringBuilder _ = new StringBuilder();
       
-      _.append(" ").append(this.getParameters());
+      _.append(" ").append(this.getParameter());
       _.append(" ").append(this.getReturnType());
       _.append(" ").append(this.getBody());
       _.append(" ").append(this.getName());
@@ -319,14 +292,16 @@ public class Method extends SDMLibClass
       return this.body;
    }
    
-   public void setBody(String value)
+   public boolean setBody(String value)
    {
       if ( ! StrUtil.stringEquals(this.body, value))
       {
          String oldValue = this.body;
          this.body = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_BODY, oldValue, value);
+         return true;
       }
+      return false;
    }
    
    public Method withBody(String value)

@@ -135,7 +135,7 @@ public class ProjectBoard
       Clazz logEntryClass = model.createClazz("LogEntryStoryBoard");
 
       new Association()
-      .withSource(kanbanEntryClass, "kanbanEntry", Card.ONE, Role.AGGREGATION)
+      .withSource(new Role(kanbanEntryClass, "kanbanEntry", Card.ONE).withKind(Role.AGGREGATION))
       .withTarget(logEntryClass, "logEntries", Card.MANY);
 
       Clazz storyboardWallClass = model.createClazz("StoryboardWall");

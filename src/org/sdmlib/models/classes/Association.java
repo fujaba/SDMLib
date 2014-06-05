@@ -58,18 +58,10 @@ public class Association extends SDMLibClass
    
    public Association withSource(Clazz sourceClass, String roleName, Card card)
    {
-      withSource(sourceClass, roleName, card, Role.VANILLA);
-      return this;
-   }
-   
-   public Association withSource(Clazz sourceClass, String roleName, Card card,
-      String kind)
-   {
       setSource(new Role()
       .withName(roleName)
       .withClazz(sourceClass)
-      .withCard(card.toString())
-      .withKind(kind));
+      .withCard(card.toString()));
       
       if (sourceClass.getClassModel() != null && sourceClass.getClassModel().getGenerator() != null)
       {
@@ -81,18 +73,10 @@ public class Association extends SDMLibClass
 
    public Association withTarget(Clazz targetClass, String roleName, Card card)
    {
-      withTarget(targetClass, roleName, card, Role.VANILLA);
-      return this;
-   }
-   
-   public Association withTarget(Clazz targetClass, String roleName, Card card,
-      String kind)
-   {
       setTarget(new Role()
       .withName(roleName)
       .withClazz(targetClass)
-      .withCard(card.toString())
-      .withKind(kind));
+      .withCard(card.toString()));
       
       if (targetClass.getClassModel() != null && targetClass.getClassModel().getGenerator() != null)
       {

@@ -35,18 +35,6 @@ import org.sdmlib.models.modelsets.StringList;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public ParameterSet getParametere()
-   {
-      ParameterSet result = new ParameterSet();
-      
-      for (Method obj : this)
-      {
-         result.addAll(obj.getParameters());
-      }
-      
-      return result;
-   }
-
    public MethodSet withParameter(Parameter value)
    {
       for (Method obj : this)

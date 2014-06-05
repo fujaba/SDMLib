@@ -84,7 +84,7 @@ public class ClazzCreator extends EntityFactory
 
       if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attribute))
       {
-         return ((Clazz) target).getInterfaze();
+         return ((Clazz) target).isInterface();
       }
       return super.getValue(target, attrName);
    }
@@ -99,55 +99,55 @@ public class ClazzCreator extends EntityFactory
       
       if (Clazz.PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).withClassModel((ClassModel) value);
+         ((Clazz)target).with((ClassModel) value);
          return true;
       }
 
       if (Clazz.PROPERTY_ATTRIBUTES.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).withAttributes((Attribute) value);
+         ((Clazz)target).with((Attribute) value);
          return true;
       }
 
       if ((Clazz.PROPERTY_ATTRIBUTES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).removeFromAttributes((Attribute) value);
+         ((Clazz)target).without((Attribute) value);
          return true;
       }
 
       if (Clazz.PROPERTY_METHODS.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).addToMethods((Method) value);
+         ((Clazz)target).with((Method) value);
          return true;
       }
 
       if ((Clazz.PROPERTY_METHODS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).removeFromMethods((Method) value);
+         ((Clazz)target).without((Method) value);
          return true;
       }
 
       if (Clazz.PROPERTY_ROLES.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).addToRoles((Role) value);
+         ((Clazz)target).with((Role) value);
          return true;
       }
 
       if ((Clazz.PROPERTY_ROLES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).removeFromRoles((Role) value);
+         ((Clazz)target).without((Role) value);
          return true;
       }
 
       if (Clazz.PROPERTY_SUPERCLAZZES.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).withSuperClazzes((Clazz) value);
+         ((Clazz)target).withSuperClasses((Clazz) value);
          return true;
       }
       
       if ((Clazz.PROPERTY_SUPERCLAZZES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).setInterfaze((Boolean) value);
+         ((Clazz)target).setInterface((Boolean) value);
          return true;
       }
 
@@ -159,19 +159,19 @@ public class ClazzCreator extends EntityFactory
 
       if (Clazz.PROPERTY_KIDCLAZZES.equalsIgnoreCase(attrName))
       {
-         ((Clazz) target).addToKidClazzes((Clazz) value);
+         ((Clazz) target).withKidClazzes((Clazz) value);
          return true;
       }
       
       if ((Clazz.PROPERTY_KIDCLAZZES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Clazz) target).removeFromKidClazzes((Clazz) value);
+         ((Clazz) target).withoutKidClazzes((Clazz) value);
          return true;
       }
 
       if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
       {
-         ((Clazz) target).setInterfaze((Boolean) value);
+         ((Clazz) target).setInterface((Boolean) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

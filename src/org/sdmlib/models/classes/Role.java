@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.classes;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.RoleSet;
 
 public class Role extends SDMLibClass
@@ -36,11 +37,20 @@ public class Role extends SDMLibClass
    private Clazz clazz= null;
    private String card= Card.MANY.toString();
 
+   public Role(){
+      
+   }
+   
+   public Role(Clazz clazz, String roleName, Card card){
+      setName(roleName);
+      setClazz(clazz);
+      setCard(card.toString());
+   }
+   
    @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
       _.append(" ").append(this.getCard());
       _.append(" ").append(this.getKind());
       _.append(" ").append(this.getName());
@@ -75,14 +85,14 @@ public class Role extends SDMLibClass
          if (this.clazz != null)
          {
             this.clazz = null;
-            oldValue.withoutRoles(this);
+            oldValue.without(this);
          }
          
          this.clazz = value;
          
          if (value != null)
          {
-            value.withRoles(this);
+            value.with(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
@@ -103,9 +113,16 @@ public class Role extends SDMLibClass
       return this.card;
    }
    
-   public void setCard(String value)
+   public boolean setCard(String value)
    {
-      this.card = value;
+      if ( ! StrUtil.stringEquals(this.card, value))
+      {
+         String oldValue = this.card;
+         this.card = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CARD, oldValue, value);
+         return true;
+      }
+      return false;
    }
    
    public Role withCard(String value)
@@ -126,9 +143,16 @@ public class Role extends SDMLibClass
       return this.kind;
    }
    
-   public void setKind(String value)
+   public boolean setKind(String value)
    {
-      this.kind = value;
+      if ( ! StrUtil.stringEquals(this.kind, value))
+      {
+         String oldValue = this.kind;
+         this.kind = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_KIND, oldValue, value);
+         return true;
+      }
+      return false;
    }
    
    public Role withKind(String value)

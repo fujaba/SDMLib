@@ -57,7 +57,7 @@ public class ModelToTextToModelClassModel
             .withAttribute("prefix", DataType.STRING);
       
       model.createClazz("ChoiceTemplate")
-            .withSuperClazzes(template)
+            .withSuperClasses(template)
             .withAssoc(template, "choices", Card.MANY, "chooser", Card.ONE);
       
       Clazz matchClazz = model.createClazz("Match") 

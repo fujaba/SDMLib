@@ -136,7 +136,7 @@ public class GenClass extends Generator<Clazz>
          Clazz item = i.next();
          
          if(item.getClassModel()!=null){
-            model.withClassModel(item.getClassModel());
+            model.with(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly from Superclass ("+getRepairClassModel().getName()+"). Please add Classmodel to Clazz: "+model.getName());
             this.repairThis = false;
             return getRepairClassModel();
@@ -147,7 +147,7 @@ public class GenClass extends Generator<Clazz>
          Clazz item = i.next();
          
          if(item.getClassModel()!=null){
-            model.withClassModel(item.getClassModel());
+            model.with(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly from Kindclass ("+getRepairClassModel()+"). Please add Classmodel to Clazz: "+model.getName());
             this.repairThis = false;
             return getRepairClassModel();
@@ -158,7 +158,7 @@ public class GenClass extends Generator<Clazz>
          Clazz otherClazz=item.getPartnerRole().getClazz();
          if(otherClazz != model){
             if(otherClazz.getClassModel()!=null){
-               model.withClassModel(otherClazz.getClassModel());
+               model.with(otherClazz.getClassModel());
                System.err.println("Classmodel try to repair automaticly from Assoc ("+getRepairClassModel().getName()+"). Please add Classmodel to Clazz: "+model.getName());
                this.repairThis = false;
                return getRepairClassModel();
@@ -321,30 +321,19 @@ public class GenClass extends Generator<Clazz>
       if (pos < 0)
       {
          // add removeObject method
-         pos = creatorParser.indexOf(Parser.CLASS_END);
-
-         StringBuilder text = new StringBuilder
-               (     "\n   " +
-                     "\n   //==========================================================================" +
-                     "\n   " +
-                     "\n   @Override\n" + 
-                     "   public void removeObject(Object entity)\n" + 
-                     "   {\n" + 
-                     "      ((ModelClass) entity).removeYou();\n" + 
-                     "   }" +
-                     "\n"
-                     );
-
-         if (model.isExternal())
-         {
-            CGUtil.replaceAll(text,
-               "((ModelClass) entity).removeYou();", "// wrapped object has no removeYou method");
-         }
-
-         CGUtil.replaceAll(text,
-            "ModelClass",  CGUtil.shortClassName(model.getFullName()));
-
-         creatorParser.insert(pos, text.toString());
+         creatorParser.replaceAll(new StringBuilder
+            (     "\n   " +
+                  "\n   //==========================================================================" +
+                  "\n   " +
+                  "\n   @Override\n" + 
+                  "   public void removeObject(Object entity)\n" + 
+                  "   {\n" + 
+                  "      BODY\n" + 
+                  "   }" +
+                  "\n"
+                  ),
+                  "ModelClass", CGUtil.shortClassName(model.getFullName()),
+                  "BODY", (model.isExternal() ? "// wrapped object has no removeYou method" : "((ModelClass) entity).removeYou();")); 
       }
    }
 
@@ -649,23 +638,17 @@ public class GenClass extends Generator<Clazz>
          }
          else
          {
-            System.out.println("generate/modify file for " + fileName);
-            StringBuilder text = new StringBuilder( "" +
+            parser.replaceAll(new StringBuilder( "" +
                   "package packageName;\n" +
                   "\n" +
-                  "public class className\n" +
+                  "public clazz className\n" +
                   "{\n" +
-                  "}\n");
-
-            if (model.isInterface()) {
-               CGUtil.replaceAll(text, "public class className", "public interface className");
-            }
-
-            CGUtil.replaceAll(text, 
-               "className", className, 
-               "packageName", packageName);
-
-            parser.withFileBody( text ).withFileChanged(true);
+                  "}\n"),
+                  "className", className, 
+                  "packageName", packageName,
+                  "clazz", (model.isInterface() ? "class" : "interface")
+                  );
+            parser.withFileChanged(true);
          }
       }
 

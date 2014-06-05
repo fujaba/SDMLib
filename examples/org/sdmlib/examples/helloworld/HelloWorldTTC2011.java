@@ -587,10 +587,10 @@ public class HelloWorldTTC2011
       .withAttribute("text", DataType.STRING);
       
       edgeClazz = model.createClazz("Edge")
-      .withSuperClazzes(graphComponentClazz);
+      .withSuperClasses(graphComponentClazz);
 
       nodeClazz = model.createClazz("Node")
-      .withSuperClazzes(graphComponentClazz);
+      .withSuperClasses(graphComponentClazz);
 
       new Association()
       .withTarget(graphComponentClazz, "gcs", Card.MANY)

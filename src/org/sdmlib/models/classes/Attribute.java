@@ -57,14 +57,14 @@ public class Attribute extends Value
          if (this.clazz != null)
          {
             this.clazz = null;
-            oldValue.withoutAttributes(this);
+            oldValue.without(this);
          }
 
          this.clazz = value;
 
          if (value != null)
          {
-            value.withAttributes(this);
+            value.with(this);
          }
 
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);

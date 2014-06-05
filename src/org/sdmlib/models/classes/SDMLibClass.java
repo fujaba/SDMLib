@@ -40,14 +40,16 @@ public abstract class SDMLibClass implements PropertyChangeInterface
    }
    
    
-   public void setName(String value)
+   public boolean setName(String value)
    {
       if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         return true;
       }
+      return false;
    }
   
    public String getName()

@@ -20,6 +20,8 @@
  */
 package org.sdmlib.models.classes;
 
+import org.sdmlib.StrUtil;
+
 public abstract class Value extends SDMLibClass
 {
    public static final String PROPERTY_INITIALIZATION = "initialization";
@@ -29,14 +31,16 @@ public abstract class Value extends SDMLibClass
 
    protected DataType type = null;
    
-   public void setType(DataType value)
+   public boolean setType(DataType value)
    {
       if (( this.type==null && value!=null) || (this.type!=null && this.type!=value))
       {
          DataType oldValue = this.type;
          this.type = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue, value);
+         return true;
       }
+      return false;
    }
    
    public Value withType(DataType value)
@@ -61,9 +65,16 @@ public abstract class Value extends SDMLibClass
       return this.initialization;
    }
 
-   public void setInitialization(String value)
+   public boolean setInitialization(String value)
    {
-      this.initialization = value;
+      if ( ! StrUtil.stringEquals(this.initialization, value))
+      {
+         String oldValue = this.initialization;
+         this.initialization = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INITIALIZATION, oldValue, value);
+         return true;
+      }
+      return false;
    }
 
    @Override

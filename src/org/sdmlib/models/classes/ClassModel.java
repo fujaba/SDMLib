@@ -108,7 +108,7 @@ public class ClassModel extends SDMLibClass
 	      this.name = CGUtil.packageName(name);
 	   }
 		Clazz clazz = new Clazz(name);
-		clazz.withClassModel(this);
+		clazz.with(this);
 		return clazz;
 	}
 
@@ -127,7 +127,7 @@ public class ClassModel extends SDMLibClass
          
          if (changed)
          {
-            value.withClassModel(this);
+            value.with(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, null, value);
          }
       }

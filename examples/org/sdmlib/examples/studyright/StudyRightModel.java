@@ -54,7 +54,7 @@ public class StudyRightModel implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.model.Professor")
-      .withAttribute("name", DataType.STRING).withClassModel(model);
+      .withAttribute("name", DataType.STRING).with(model);
 
       Clazz topicClass = new Clazz("org.sdmlib.examples.studyright.Topic")
       .withAttribute("title", DataType.STRING); 
@@ -122,11 +122,11 @@ public class StudyRightModel implements PropertyChangeInterface
 
       ClassModel model = new ClassModel();
 
-      Clazz lectureClass = new Clazz("org.sdmlib.examples.studyright.model.Lecture").withClassModel(model)
+      Clazz lectureClass = new Clazz("org.sdmlib.examples.studyright.model.Lecture").with(model)
       .withAttribute("Title", DataType.STRING);
 
       Clazz personClass = new Clazz("org.sdmlib.examples.studyright.model.Person")
-      .withInterfaze(true);
+      .withInterface(true);
 
       new Method()
       .withClazz(personClass).withName("findMyPosition");
@@ -158,7 +158,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withTarget(universityClass, "uni", Card.ONE);
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyright.model.Female")
-      .withSuperClazzes(personClass)
+      .withSuperClasses(personClass)
       .withAttribute("name", DataType.STRING);
 
       new Method("findMyPosition").withClazz(femaleClass);
@@ -169,11 +169,11 @@ public class StudyRightModel implements PropertyChangeInterface
          .withClazz(femaleClass);
 
       Clazz maleClass = new Clazz("org.sdmlib.examples.studyright.model.Male")
-      .withInterfaze(true)
-      .withSuperClazzes(personClass);
+      .withInterface(true)
+      .withSuperClasses(personClass);
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.model.Professor")
-      .withSuperClazzes(femaleClass)
+      .withSuperClasses(femaleClass)
       .withAttribute("PersNr", DataType.INT);
 
       new Association()
@@ -181,11 +181,11 @@ public class StudyRightModel implements PropertyChangeInterface
       .withTarget(professorClass, "has", Card.ONE);
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.model.Student")
-      .withSuperClazzes(maleClass)
+      .withSuperClasses(maleClass)
       .withAttribute("name", DataType.STRING)
       .withAttribute("matrNo", DataType.INT)
       /*set superclass*/
-      .withSuperClazzes(femaleClass);
+      .withSuperClasses(femaleClass);
 
       new Method("findMyPosition").withClazz(studentClass);
 
@@ -238,7 +238,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       Clazz studClass = new Clazz("Student")
       .withAttribute("name", DataType.STRING)
-      .withAttribute("matrNo", DataType.INT).withClassModel(model);
+      .withAttribute("matrNo", DataType.INT).with(model);
 
       storyboard.addClassDiagram(model);
 
@@ -264,7 +264,7 @@ public class StudyRightModel implements PropertyChangeInterface
          .withClazz(roomClass);
 
       Association uniToRoom = new Association()
-      .withSource(uniClass, "uni", Card.ONE, Role.AGGREGATION)
+      .withSource(new Role(uniClass, "uni", Card.ONE).withKind(Role.AGGREGATION))
       .withTarget(roomClass, "rooms", Card.MANY); 
 
       Association doors = new Association().withSource(roomClass, "neighbors", Card.MANY)

@@ -56,15 +56,15 @@ public class PatternModelCodeGen
          .withAttribute("debugMode", DataType.INT) 
          .withAttribute("trace", DataType.ref("StringBuilder"))
          .withAttribute("name", DataType.STRING)
-         .withSuperClazzes(patternElement);
+         .withSuperClasses(patternElement);
       
       model.createClazz(StringBuilder.class.getName());
       
       model.createClazz("NegativeApplicationCondition")
-      .withSuperClazzes(pattern);
+      .withSuperClasses(pattern);
       
       model.createClazz("OptionalSubPattern")
-      .withSuperClazzes(pattern)
+      .withSuperClasses(pattern)
       .withAttribute("matchForward", DataType.BOOLEAN);
       
       new Association()
@@ -72,12 +72,12 @@ public class PatternModelCodeGen
       .withSource(pattern, "pattern", Card.ONE);
       
       Clazz patternObject = new Clazz("PatternObject")
-      .withSuperClazzes(patternElement)
+      .withSuperClasses(patternElement)
       .withAttribute("currentMatch", DataType.OBJECT) 
        .withAttribute("candidates", DataType.OBJECT);
       
       Clazz patternLink = new Clazz("PatternLink")
-      .withSuperClazzes(patternElement)
+      .withSuperClasses(patternElement)
       .withAttribute("tgtRoleName", DataType.STRING)
       .withAttribute("hostGraphSrcObject", DataType.OBJECT);
       
@@ -90,7 +90,7 @@ public class PatternModelCodeGen
 //      .withSource(patternLink, "outgoing", R.MANY);
       
       Clazz attrConstraint = new Clazz("AttributeConstraint")
-      .withSuperClazzes(patternElement)
+      .withSuperClasses(patternElement)
       .withAttribute("attrName", DataType.STRING)
       .withAttribute("tgtValue", DataType.OBJECT)
       .withAttribute("upperTgtValue", DataType.OBJECT)
@@ -102,26 +102,26 @@ public class PatternModelCodeGen
       .withSource(attrConstraint, "attrConstraints", Card.MANY);
       
       model.createClazz("LinkConstraint")
-      .withSuperClazzes(patternLink);
+      .withSuperClasses(patternLink);
       
       model.createClazz("MatchIsomorphicConstraint")
-      .withSuperClazzes(patternElement);
+      .withSuperClasses(patternElement);
       
       model.createClazz("CloneOp")
-      .withSuperClazzes(patternElement);
+      .withSuperClasses(patternElement);
       
       model.createClazz("UnifyGraphsOp")
-      .withSuperClazzes(patternElement);
+      .withSuperClasses(patternElement);
 
       Clazz destroyObjectClazz = new Clazz("DestroyObjectElem")
-      .withSuperClazzes(patternElement);
+      .withSuperClasses(patternElement);
       
       new Association()
       .withTarget(patternObject, "patternObject", Card.ONE)
       .withSource(destroyObjectClazz, "destroyElem", Card.ONE);
       
       model.createClazz("CardinalityConstraint")
-      .withSuperClazzes(patternElement)
+      .withSuperClasses(patternElement)
          .withAttribute("tgtRoleName", DataType.STRING)
          .withAttribute("hostGraphSrcObject", DataType.OBJECT)
          .withAttribute("minCard", DataType.LONG)
@@ -129,13 +129,13 @@ public class PatternModelCodeGen
       .withAssoc(patternObject, "src", Card.ONE, "cardConstraints", Card.MANY);
       
       model.createClazz("MatchOtherThen")
-         .withSuperClazzes(patternElement)
+         .withSuperClasses(patternElement)
          .withAttribute("hostGraphSrcObject", DataType.OBJECT)
          .withAssoc(patternObject, "src", Card.ONE, "matchOtherThen", Card.MANY)
          .withAssoc(patternObject, "forbidden", Card.ONE, "excluders", Card.MANY);
       
       model.createClazz("GenericConstraint").withAttribute("text", DataType.STRING)
-            .withSuperClazzes(patternElement);
+            .withSuperClasses(patternElement);
       
       model.createClazz("org.sdmlib.serialization.json.JsonIdMap");
       

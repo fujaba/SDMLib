@@ -65,7 +65,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Method) getCurrentMatch()).getParameters();
+         return ((Method) getCurrentMatch()).getParameter();
       }
       return null;
    }
