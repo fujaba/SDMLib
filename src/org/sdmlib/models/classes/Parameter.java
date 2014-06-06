@@ -28,7 +28,7 @@ public class Parameter extends Value
    public static final String PROPERTY_METHOD = "method";
    private Method method = null;
    
-   public Parameter()
+   protected Parameter()
    {
       
    }
@@ -37,6 +37,13 @@ public class Parameter extends Value
    {
       this.type = type;
    }
+   
+   public Parameter(String name, DataType type)
+   {
+      withName(name);
+      this.type = type;
+   }
+
 
    public Method getMethod()
    {
@@ -71,20 +78,17 @@ public class Parameter extends Value
       return changed;
    }
 
-   public Parameter withClazz(Method value)
-   {
-      setMethod(value);
-      return this;
-   } 
-
-
    @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getInitialization());
-      _.append(" ").append(this.getName());
+      _.append(" ").append(this.getType());
+      if(this.name!=null){
+         _.append(" ").append(this.getName());
+      }
+      if(this.initialization!=null){
+         _.append(":").append(this.getInitialization());
+      }
       return _.substring(1);
    }
    
@@ -97,7 +101,6 @@ public class Parameter extends Value
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
-   // OVERRIDE
    @Override
    public Parameter withName(String string)
    {
@@ -107,7 +110,7 @@ public class Parameter extends Value
 
    
    @Override
-   public Parameter withType(DataType value)
+   public Parameter with(DataType value)
    {
       setType(value);
       return this;
@@ -119,16 +122,16 @@ public class Parameter extends Value
       return this;
    }
 
-   public Parameter withMethod(Method value)
+   public Parameter with(Method value)
    {
       setMethod(value);
       return this;
    }
 
-   public Method createMethod()
+   protected Method createMethod()
    {
       Method value = new Method();
-      withMethod(value);
+      with(value);
       return value;
    } 
 

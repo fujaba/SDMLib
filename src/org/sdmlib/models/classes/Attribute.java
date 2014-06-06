@@ -30,7 +30,7 @@ public class Attribute extends Value
    private Clazz clazz = null;
    private Visibility visibility = Visibility.PRIVATE;
    
-   public Attribute()
+   protected Attribute()
    {
       
    }
@@ -48,8 +48,6 @@ public class Attribute extends Value
 
    public boolean setClazz(Clazz value)
    {
-      boolean changed = false;
-
       if (this.clazz != value)
       {
          Clazz oldValue = this.clazz;
@@ -68,13 +66,13 @@ public class Attribute extends Value
          }
 
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
-         changed = true;
+         return true;
       }
 
-      return changed;
+      return false;
    }
 
-   public Attribute withClazz(Clazz value)
+   public Attribute with(Clazz value)
    {
       setClazz(value);
       return this;
@@ -109,7 +107,7 @@ public class Attribute extends Value
 
    
    @Override
-   public Attribute withType(DataType value)
+   public Attribute with(DataType value)
    {
       setType(value);
       return this;
@@ -126,17 +124,10 @@ public class Attribute extends Value
       return visibility;
    }
 
-   public Attribute withVisibility(Visibility visibility)
+   public Attribute with(Visibility visibility)
    {
       this.visibility = visibility;
       return this;
    }
-
-   public Clazz createClazz()
-   {
-      Clazz value = new Clazz();
-      withClazz(value);
-      return value;
-   } 
 }
 

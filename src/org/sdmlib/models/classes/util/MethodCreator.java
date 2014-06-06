@@ -26,7 +26,7 @@ public class MethodCreator extends SDMLibClassCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Method();
+      return new Method(null);
    }
    
    @Override

@@ -22,19 +22,17 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
+public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    public StringList getInitialization()
    {
       StringList result = new StringList();
@@ -73,7 +71,7 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
    {
       for (Parameter obj : this)
       {
-         obj.withMethod(value);
+         obj.with(value);
       }
       
       return this;
@@ -192,5 +190,11 @@ public class ParameterSet extends LinkedHashSet<Parameter>  implements org.sdmli
    public ParameterPO hasParameterPO()
    {
       return new ParameterPO(this.toArray(new Parameter[this.size()]));
+   }
+
+   @Override
+   public ParameterSet getNewInstance()
+   {
+      return new ParameterSet();
    }
 }

@@ -1846,8 +1846,36 @@ public class Parser
    }
 
    
-   public StringBuilder replaceAll(StringBuilder text, Object... args)
+   public StringBuilder replaceAll(String text, Object... args){
+      return replaceAll(-1, text, args);
+   }
+   
+   public StringBuilder replaceAll(StringBuilder text, Object... args){
+      return replaceAll(-1, text, args);
+   }
+   public StringBuilder replaceAll(int insertPos, String text, Object... args)
    {
+      return replaceAll(insertPos, new StringBuilder(text), args);      
+   }
+   
+   public StringBuilder replaceAll(int insertPos, StringBuilder text, Object... args)
+   {
+      replace(text, args);
+      if(this.fileBody==null){
+         this.fileBody = text;
+      }else{
+         if(insertPos==-1){
+            insertPos = indexOf(Parser.CLASS_END); 
+         }
+         this.fileBody.insert(insertPos, text.toString());
+      }
+      this.fileBodyHasChanged = true;
+      return text;
+   }
+   public StringBuilder replace(String text, Object... args){
+      return replace(new StringBuilder(text), args);
+   }
+   public StringBuilder replace(StringBuilder text, Object... args){
       int pos = -1 - args[0].toString().length();
       String placeholder;
       // args are pairs of placeholder, replacement
@@ -1881,13 +1909,6 @@ public class Parser
             pos = text.indexOf(placeholder, pos + args[i+1].toString().length());
          }
       }
-      if(this.fileBody==null){
-         this.fileBody = text;
-      }else{
-         this.insert(indexOf(Parser.CLASS_END), text.toString());
-      }
       return text;
    }
-
 }
-

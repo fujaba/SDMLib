@@ -48,7 +48,7 @@ public class ParameterCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Parameter();
+      return new Parameter(null);
    }
    
    @Override

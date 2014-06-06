@@ -43,7 +43,7 @@ public abstract class Value extends SDMLibClass
       return false;
    }
    
-   public Value withType(DataType value)
+   public Value with(DataType value)
    {
       setType(value);
       return this;

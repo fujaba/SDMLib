@@ -695,4 +695,9 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
+   @Override
+   public ClazzSet getNewInstance()
+   {
+      return new ClazzSet();
+   }
 }

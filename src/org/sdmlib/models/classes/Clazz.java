@@ -38,7 +38,7 @@ public class Clazz extends SDMLibClass
    
    public static final String PROPERTY_INTERFAZE = "interface";
    public static final String PROPERTY_EXTERNAL = "external";
-   public static final ClazzSet EMPTY_SET = new ClazzSet();
+   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadonly(true);
 
    private AttributeSet attributes = null;
    private ClassModel classModel = null;  
@@ -51,9 +51,6 @@ public class Clazz extends SDMLibClass
    private boolean interfaze = false;
    private boolean external;
    
-   public Clazz(){
-      
-   }
    public Clazz(String name){
       setName(name);
    }
@@ -277,7 +274,7 @@ public class Clazz extends SDMLibClass
          {
             if (this.attributes.add(item))
             {
-               item.withClazz(this);
+               item.with(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, null, item);
             }
          }
@@ -314,13 +311,13 @@ public class Clazz extends SDMLibClass
 
    public Clazz withAttribute(String name, DataType type)
    {      
-      this.with(new Attribute().withName(name).withType(type));
+      this.with(new Attribute().withName(name).with(type));
       return this;
    }
 
    public Clazz withAttribute(String name, DataType type, String initialization)
    {      
-      this.with(new Attribute().withName(name).withType(type).withInitialization(initialization));
+      this.with(new Attribute().withName(name).with(type).withInitialization(initialization));
       return this;
    }
 
@@ -331,6 +328,7 @@ public class Clazz extends SDMLibClass
       super.removeYou();
       setClassModel(null);
       without(this.getAttributes().toArray(new Attribute[this.getAttributes().size()]));
+      
       without(this.getMethods().toArray(new Method[this.getMethods().size()]));
       without(this.getRoles().toArray(new Role[this.getRoles().size()]));
       withoutKidClazz(this.getKidClazzes().toArray(new Clazz[this.getKidClazzes().size()]));
@@ -366,7 +364,7 @@ public class Clazz extends SDMLibClass
          }
       }
 
-      return new Attribute().withName(attrName).withType(attrType).withClazz(this);
+      return new Attribute().withName(attrName).with(attrType).with(this);
 
    }
 
@@ -489,7 +487,7 @@ public class Clazz extends SDMLibClass
             }
             if (this.roles.add (item))
             {
-               item.withClazz(this);
+               item.with(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, null, value);
             }
          }
@@ -545,14 +543,14 @@ public class Clazz extends SDMLibClass
       return attribute;
    }
 
-   public Attribute createAttribute()
+   protected Attribute createAttribute()
    {
       Attribute value = new Attribute();
       with(value);
       return value;
    } 
 
-   public Method createMethod()
+   protected Method createMethod()
    {
       Method value = new Method();
       with(value);
@@ -578,9 +576,16 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public Clazz createKidClazz()
+   public  Clazz createKidClazz(String name)
    {
-      Clazz value = new Clazz();
+      Clazz value = new Clazz(name);
+      withKidClazzes(value);
+      return value;
+   } 
+   
+   protected Clazz createKidClazz()
+   {
+      Clazz value = new Clazz(null);
       withKidClazzes(value);
       return value;
    } 
@@ -610,9 +615,9 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public Clazz createSuperClazz()
+   protected Clazz createSuperClazz()
    {
-      Clazz value = new Clazz();
+      Clazz value = new Clazz(null);
       withSuperClazz(value);
       return value;
    } 

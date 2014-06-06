@@ -60,7 +60,7 @@ public class Association extends SDMLibClass
    {
       setSource(new Role()
       .withName(roleName)
-      .withClazz(sourceClass)
+      .with(sourceClass)
       .withCard(card.toString()));
       
       if (sourceClass.getClassModel() != null && sourceClass.getClassModel().getGenerator() != null)
@@ -75,7 +75,7 @@ public class Association extends SDMLibClass
    {
       setTarget(new Role()
       .withName(roleName)
-      .withClazz(targetClass)
+      .with(targetClass)
       .withCard(card.toString()));
       
       if (targetClass.getClassModel() != null && targetClass.getClassModel().getGenerator() != null)
@@ -110,7 +110,7 @@ public class Association extends SDMLibClass
          
          if (value != null)
          {
-            value.withAssoc(this);
+            value.with(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGET, oldValue, value);
@@ -149,7 +149,7 @@ public class Association extends SDMLibClass
          
          if (value != null)
          {
-            value.withAssoc(this);
+            value.with(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_SOURCE, oldValue, value);

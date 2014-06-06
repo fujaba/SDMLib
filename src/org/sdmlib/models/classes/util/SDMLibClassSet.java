@@ -99,5 +99,10 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
       
       return this;
    }
-
+   
+   @Override
+   public SDMLibClassSet getNewInstance()
+   {
+      return new SDMLibClassSet();
+   }
 }

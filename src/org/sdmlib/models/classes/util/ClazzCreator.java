@@ -33,7 +33,7 @@ public class ClazzCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Clazz();
+      return new Clazz(null);
    }
    
    @Override

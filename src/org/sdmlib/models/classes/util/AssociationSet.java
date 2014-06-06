@@ -22,16 +22,14 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class AssociationSet extends LinkedHashSet<Association> implements org.sdmlib.models.modelsets.ModelSet
+public class AssociationSet extends SDMSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    public RoleSet getSource()
    {
       RoleSet result = new RoleSet();
@@ -169,5 +167,10 @@ public class AssociationSet extends LinkedHashSet<Association> implements org.sd
       
       return this;
    }
-
+   
+   @Override
+   public AssociationSet getNewInstance()
+   {
+      return new AssociationSet();
+   }
 }

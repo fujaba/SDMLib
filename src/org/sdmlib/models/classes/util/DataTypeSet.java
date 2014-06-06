@@ -62,4 +62,9 @@ public class DataTypeSet extends SDMSet<DataType>
       return this;
    }
 
+   @Override
+   public DataTypeSet getNewInstance()
+   {
+      return new DataTypeSet();
+   }
 }

@@ -175,4 +175,9 @@ public class ValueSet extends SDMSet<Value>
       return this;
    }
 
+   @Override
+   public ValueSet getNewInstance()
+   {
+      return new ValueSet();
+   }
 }

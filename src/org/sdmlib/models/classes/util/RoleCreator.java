@@ -26,7 +26,7 @@ public class RoleCreator extends SDMLibClassCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Role();
+      return new Role(null, null, null);
    }
    
    @Override

@@ -37,7 +37,7 @@ public class Role extends SDMLibClass
    private Clazz clazz= null;
    private String card= Card.MANY.toString();
 
-   public Role(){
+   protected Role(){
       
    }
    
@@ -102,7 +102,7 @@ public class Role extends SDMLibClass
       return changed;
    }
    
-   public Role withClazz(Clazz value)
+   public Role with(Clazz value)
    {
       setClazz(value);
       return this;
@@ -198,7 +198,7 @@ public class Role extends SDMLibClass
       return changed;
    }
    
-   public Role withAssoc(Association value)
+   public Role with(Association value)
    {
       setAssoc(value);
       return this;
@@ -230,17 +230,17 @@ public class Role extends SDMLibClass
       }
    }
 
-   public Clazz createClazz()
+   protected Clazz createClazz()
    {
-      Clazz value = new Clazz();
-      withClazz(value);
+      Clazz value = new Clazz(null);
+      with(value);
       return value;
    } 
 
-   public Association createAssoc()
+   protected Association createAssoc()
    {
       Association value = new Association();
-      withAssoc(value);
+      with(value);
       return value;
    } 
 }

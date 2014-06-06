@@ -48,7 +48,7 @@ public class AttributeCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Attribute();
+      return new Attribute(null, null);
    }
    
    @Override

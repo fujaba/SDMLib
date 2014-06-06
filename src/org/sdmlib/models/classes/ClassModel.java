@@ -61,7 +61,7 @@ public class ClassModel extends SDMLibClass
 	   return generator;
 	}
 	
-   public void setGenerator(GenClassModel value)
+   protected void setGenerator(GenClassModel value)
    {
       if (this.generator != value)
       {

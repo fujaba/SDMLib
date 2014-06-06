@@ -6,11 +6,10 @@
 	<classpathentry excluding="org/sdmlib/examples/studyrightWithAssignments/|org/sdmlib/examples/m2m/" kind="src" path="examples"/>
 	<classpathentry kind="src" path="NetworkParser"/>
 	<classpathentry excluding="de/kassel/roombook/|org/sdmlib/model/|org/sdmlib/models/" kind="src" path="test"/>
-	<classpathentry exported="true" kind="lib" path="lib/gwtx-1.5.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="swing2swt.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/emma_ant.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/emma.jar"/>
+	<classpathentry kind="lib" path="lib/antlr-runtime-4.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

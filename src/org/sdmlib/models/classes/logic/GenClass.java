@@ -315,14 +315,12 @@ public class GenClass extends Generator<Clazz>
       if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
          return;
       }
-      String searchString = Parser.METHOD + ":removeObject(Object)";
-      int pos = creatorParser.indexOf(searchString);
-
-      if (pos < 0)
+      if (creatorParser.indexOf(Parser.METHOD + ":removeObject(Object)") < 0)
       {
          // add removeObject method
-         creatorParser.replaceAll(new StringBuilder
-            (     "\n   " +
+         
+         StringBuilder template = creatorParser.replace(
+            "\n   " +
                   "\n   //==========================================================================" +
                   "\n   " +
                   "\n   @Override\n" + 
@@ -331,12 +329,15 @@ public class GenClass extends Generator<Clazz>
                   "      BODY\n" + 
                   "   }" +
                   "\n"
-                  ),
-                  "ModelClass", CGUtil.shortClassName(model.getFullName()),
-                  "BODY", (model.isExternal() ? "// wrapped object has no removeYou method" : "((ModelClass) entity).removeYou();")); 
+                  ,
+                  "BODY", (model.isExternal() ? "// wrapped object has no removeYou method" : "((ModelClass) entity).removeYou();")
+               ); 
+
+         creatorParser.replaceAll(template,    
+            "ModelClass", CGUtil.shortClassName(model.getFullName()));
       }
    }
-
+   
 
    private void insertRemoveYouMethod(String rootDir)
    {
@@ -344,25 +345,9 @@ public class GenClass extends Generator<Clazz>
          return;
       }
       String searchString = Parser.METHOD + ":removeYou()";
-      int pos = parser.indexOf(searchString);
-
-      if (pos < 0)
+      if (parser.indexOf(searchString) < 0)
       {
          // add removeYou method
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         StringBuilder text = new StringBuilder
-               (     "\n   " +
-                     "\n   //==========================================================================" +
-                     "\n   " +
-                     "\n   OVERRIDE" +
-                     "\n   public void removeYou()" +
-                     "\n   {" +
-                     "\n      getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);" +              
-                     "\n   }" +
-                     "\n"
-                     );
-
          String overrideText="";
          for (Clazz clazz : model.getSuperClazzesTransitive().minus(model)) 
          {
@@ -377,14 +362,21 @@ public class GenClass extends Generator<Clazz>
                break;
             }
          }
-      
-         CGUtil.replaceAll(text, "OVERRIDE",  overrideText);
-         
+         String superReplacement="";
          if (model.getSuperClass() != null && !model.getSuperClass().isExternal()) {
-            CGUtil.replaceAll(text,"{\n",  "{\n      super.removeYou();\n");
+            superReplacement = "      super.removeYou();\n";
          }
-
-         parser.insert(pos, text.toString());
+         parser.replaceAll("\n   " +
+               "\n   //==========================================================================" +
+               "\n   " +
+               "\n   OVERRIDE" +
+               "\n   public void removeYou()" +
+               "\n   {SUPER" +
+               "\n      getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);" +              
+               "\n   }" +
+               "\n", 
+               "OVERRIDE",  overrideText,
+               "SUPER", superReplacement);
       }
    }
 
@@ -567,8 +559,9 @@ public class GenClass extends Generator<Clazz>
       int pos = parser.search("/*");
       if (pos < 0 || pos > 20)
       {
-         // insert MIT License otherwise. 
-         StringBuilder text = new StringBuilder(
+         // insert MIT License otherwise.
+         String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
+         parser.replaceAll(0, 
             "/*\n" +
                   "   Copyright (c) <year> <developer> \n" +
                   "   \n" +
@@ -589,14 +582,9 @@ public class GenClass extends Generator<Clazz>
                   "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n" +
                   "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n" +
                   " */\n" +
-               "   \n");
-
-         String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
-         CGUtil.replace(text, "<year>", year);
-
-         CGUtil.replace(text, "<developer>", System.getProperty("user.name"));
-
-         parser.replace(0, 0, text.toString());
+               "   \n", "<year>", year,
+                "<developer>", System.getProperty("user.name")
+            );
       }
 
    }
@@ -638,15 +626,15 @@ public class GenClass extends Generator<Clazz>
          }
          else
          {
-            parser.replaceAll(new StringBuilder( "" +
+            parser.replaceAll("" +
                   "package packageName;\n" +
                   "\n" +
                   "public clazz className\n" +
                   "{\n" +
-                  "}\n"),
+                  "}\n",
                   "className", className, 
                   "packageName", packageName,
-                  "clazz", (model.isInterface() ? "class" : "interface")
+                  "clazz", (model.isInterface() ? "interface" : "class")
                   );
             parser.withFileChanged(true);
          }
@@ -738,7 +726,6 @@ public class GenClass extends Generator<Clazz>
                      "      }\n"+
                      "      \n"+
                      "      return null;\n" +
-//                     "      return ((entitiyClassName) target).get(attrName);\n" +
                      "   }\n" +
                      "   \n" +
                      "   @Override\n" +
@@ -759,16 +746,9 @@ public class GenClass extends Generator<Clazz>
             
             if (model.isExternal())
             {
-               // wrapped class does not provide generic get / set
-               CGUtil.replaceAll(text, 
-                  "((entitiyClassName) target).get(attrName)", "null", 
-                  "((entitiyClassName) target).set(attrName, value)", "false");
-
                // check if it has a constructor
                ClassLoader classLoader = this.getClass().getClassLoader();
-
                boolean hasConstructor = false;
-
                try
                {
                   Class<?> loadClass = classLoader.loadClass(model.getFullName());
@@ -805,16 +785,6 @@ public class GenClass extends Generator<Clazz>
                instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName+ "()";
             }
             
-//            StringBuilder creators = new StringBuilder();
-//            for (Clazz clazz : getRepairClassModel().getClasses())
-//            {
-//               if (!clazz.isInterface() && !clazz.isExternal()){
-//                  String creatorName = CGUtil.packageName(clazz.getFullName())+".creators."+CGUtil.shortClassName(clazz.getFullName());
-//                  creators.append("         jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
-//                        "         jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
-//               }
-//            }
-
             CGUtil.replaceAll(text, 
                "creatorClassName", creatorClassName, 
                "entitiyClassName", entitiyClassName, 
@@ -1333,9 +1303,7 @@ public class GenClass extends Generator<Clazz>
    {
       if ( ! StrUtil.stringEquals(this.filePath, value))
       {
-         String oldValue = this.filePath;
          this.filePath = value;
-         model.getPropertyChangeSupport().firePropertyChange(PROPERTY_FILEPATH, oldValue, value);
       }
    }
 
@@ -1361,85 +1329,81 @@ public class GenClass extends Generator<Clazz>
       if(newFileParser==null){
          return 0;
       }
-//      if(parser.isFileBodyChanged()){
-         File file = new File(newFileParser.getFileName());
-         if(file.exists()){
-            Parser oldFileParser = new Parser().withFileName(newFileParser.getFileName());
-            oldFileParser.withFileBody( CGUtil.readFile(file) );
-            oldFileParser.parse();
+      File file = new File(newFileParser.getFileName());
+      if(file.exists()){
+         Parser oldFileParser = new Parser().withFileName(newFileParser.getFileName());
+         oldFileParser.withFileBody( CGUtil.readFile(file) );
+         oldFileParser.parse();
+         
+         newFileParser.parse();
+         // Diff Methods
+         LinkedHashMap<String, SymTabEntry> oldSymTab = oldFileParser.getSymTab();
+         
+         String packageName = CGUtil.packageName(this.model.getFullName());
+         String shortName = newFileParser.getFileName().replace("\\", ".").replace("/", ".");
+         shortName = shortName.substring(shortName.indexOf(packageName));
+         
+         if(ignoreDiff != null && ignoreDiff.contains(shortName.substring(0, shortName.length()-5))){
+            return 0;
+         }
+         
+         for(Iterator<Entry<String, SymTabEntry>> i = newFileParser.getSymTab().entrySet().iterator();i.hasNext();){
+            Entry<String, SymTabEntry> item = i.next();
+            if(item.getValue().getMemberName().startsWith(Parser.IMPORT)){
+               //ignore Import
+               continue;
+            }
+            if(item.getKey().startsWith(Parser.EXTENDS) || item.getKey().startsWith(Parser.IMPLEMENTS)){
+               //ignore Import
+               continue;
+            }
+            if(!oldSymTab.containsKey(item.getKey())){
+               if(diff==DIFF.FULL){
+                  System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Method not found");
+               }
+               continue;
+            }
+            SymTabEntry oldValue = oldSymTab.get(item.getKey());
+            int oldValueLen = oldValue.getEndPos()-oldValue.getStartPos();
+            SymTabEntry newValue = item.getValue();
+            int newValueLen = newValue.getEndPos()-newValue.getStartPos();
             
-            newFileParser.parse();
-            // Diff Methods
-            LinkedHashMap<String, SymTabEntry> oldSymTab = oldFileParser.getSymTab();
+            String oldStrValue = oldFileParser.getText().substring(oldValue.getStartPos(), oldValue.getEndPos() + 1).trim();
+            String newStrValue = newFileParser.getText().substring(newValue.getStartPos(), newValue.getEndPos() + 1).trim();
             
-            String packageName = CGUtil.packageName(this.model.getFullName());
-            String shortName = newFileParser.getFileName().replace("\\", ".").replace("/", ".");
-            shortName = shortName.substring(shortName.indexOf(packageName));
+            String[] oldSplit = oldStrValue.split("\\s+");
+            String[] newSplit = newStrValue.split("\\s+");
             
-            if(ignoreDiff != null && ignoreDiff.contains(shortName.substring(0, shortName.length()-5))){
-               return 0;
+            boolean foundDiff = oldSplit.length != newSplit.length;
+            String diffToken = "";
+            
+            for (int j = 0; j < oldSplit.length && ! foundDiff; j++ )
+            {
+               if ( ! oldSplit[j].equals(newSplit[j]))
+               {
+                  foundDiff = true;
+                  diffToken = oldSplit[j] + " != " + newSplit[j];
+                  break;
+               }
             }
             
-            for(Iterator<Entry<String, SymTabEntry>> i = newFileParser.getSymTab().entrySet().iterator();i.hasNext();){
-               Entry<String, SymTabEntry> item = i.next();
-               if(item.getValue().getMemberName().startsWith(Parser.IMPORT)){
-                  //ignore Import
-                  continue;
-               }
-               if(item.getKey().startsWith(Parser.EXTENDS) || item.getKey().startsWith(Parser.IMPLEMENTS)){
-                  //ignore Import
-                  continue;
-               }
-               if(!oldSymTab.containsKey(item.getKey())){
-                  if(diff==DIFF.FULL){
-                     System.err.println(file.getAbsolutePath()+";"+item.getKey()+";Method not found");
-                  }
-                  continue;
-               }
-               SymTabEntry oldValue = oldSymTab.get(item.getKey());
-               int oldValueLen = oldValue.getEndPos()-oldValue.getStartPos();
-               SymTabEntry newValue = item.getValue();
-               int newValueLen = newValue.getEndPos()-newValue.getStartPos();
-               
-               String oldStrValue = oldFileParser.getText().substring(oldValue.getStartPos(), oldValue.getEndPos() + 1).trim();
-               String newStrValue = newFileParser.getText().substring(newValue.getStartPos(), newValue.getEndPos() + 1).trim();
-               
-               String[] oldSplit = oldStrValue.split("\\s+");
-               String[] newSplit = newStrValue.split("\\s+");
-               
-               boolean foundDiff = oldSplit.length != newSplit.length;
-               String diffToken = "";
-               
-               for (int j = 0; j < oldSplit.length && ! foundDiff; j++ )
-               {
-                  if ( ! oldSplit[j].equals(newSplit[j]))
-                  {
-                     foundDiff = true;
-                     diffToken = oldSplit[j] + " != " + newSplit[j];
-                     break;
-                  }
-               }
-               
-               if(foundDiff){
-                  System.err.println(file.getPath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen+";");
-                  System.err.println("in line:"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+"-"+oldFileParser.getLineIndexOf(oldValue.getEndPos())+";");
-                  System.err.println("("+shortName+":"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+")");
-
+            if(foundDiff){
+               System.err.println(file.getPath()+";"+item.getKey()+";Body different:"+oldValueLen+"!="+newValueLen+";");
+               System.err.println("in line:"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+"-"+oldFileParser.getLineIndexOf(oldValue.getEndPos())+";");
+               System.err.println("("+shortName+":"+oldFileParser.getLineIndexOf(oldValue.getStartPos())+")");
 //                  System.out.println(oldStrValue);
 //                  System.out.println("--------------------------------------------------------------------------------------------------");
-                  System.err.println(newStrValue);
-                  System.err.println("diff token: " + diffToken);
-                  
-                  count += 1;
-                  continue;
-               }
+               System.err.println(newStrValue);
+               System.err.println("diff token: " + diffToken);
+               
+               count += 1;
+               continue;
             }
-         }else if(diff==DIFF.FULL){
-            System.err.println(file.getAbsolutePath()+";;File not Found!!!");
-            
          }
-         return count;
-//         CGUtil.printFile(newFileParser);
-//      }
+      }else if(diff==DIFF.FULL){
+         System.err.println(file.getAbsolutePath()+";;File not Found!!!");
+         
+      }
+      return count;
    }
 }

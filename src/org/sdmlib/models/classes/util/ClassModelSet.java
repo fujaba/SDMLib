@@ -22,16 +22,14 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
+public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    public ClazzSet getClasses()
    {
       ClazzSet result = new ClazzSet();
@@ -135,10 +133,14 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
       return this;
    }
 
-
-
    public ClassModelPO hasClassModelPO()
    {
       return new ClassModelPO(this.toArray(new ClassModel[this.size()]));
+   }
+   
+   @Override
+   public ClassModelSet getNewInstance()
+   {
+      return new ClassModelSet();
    }
 }

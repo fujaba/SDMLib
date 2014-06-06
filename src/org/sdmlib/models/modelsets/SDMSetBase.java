@@ -1,6 +1,7 @@
 package org.sdmlib.models.modelsets;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.sdmlib.CGUtil;
 
@@ -52,6 +53,7 @@ public class SDMSetBase<T> extends ItemList<T>
    
    public <ST extends SDMSet<T>> ST union(ST other)
    {
+      @SuppressWarnings("unchecked")
       ST result = (ST) this.getNewInstance();
       result.addAll(other);
       
@@ -61,19 +63,21 @@ public class SDMSetBase<T> extends ItemList<T>
    
    public <ST extends SDMSetBase<T>> ST intersection(ST other)
    {
+      @SuppressWarnings("unchecked")
       ST result = (ST) this.getNewInstance();
       result.retainAll(other);
       return result;
    }
    
    
+   @SuppressWarnings("unchecked")
    public <ST extends SDMSetBase<T>> ST minus(Object other)
    {
       ST result = (ST) this.getNewInstance();
       result.with(this);
       if (other instanceof Collection)
       {
-         result.removeAll((Collection) other);
+         result.removeAll((Collection<?>) other);
       }
       else
       {
@@ -83,6 +87,7 @@ public class SDMSetBase<T> extends ItemList<T>
       return result;
    }
 
+   @SuppressWarnings("unchecked")
    public <ST extends SDMSet<T>> ST has(Condition condition)
    {
       ST result = (ST) this.getNewInstance();
@@ -97,6 +102,15 @@ public class SDMSetBase<T> extends ItemList<T>
       return result;
    }
    
+//   @Override
+//   public AbstractList<T> clone() {
+//      return this.getNewInstance().with(this);
+//   }
+   
+   public Iterator<T> cloneIterator() {
+      return super.clone().iterator();
+   }
+   
    public abstract class Condition
    {
       public abstract boolean check(T elem);
@@ -109,9 +123,9 @@ public class SDMSetBase<T> extends ItemList<T>
    @SuppressWarnings("unchecked")
    @Override
    public SDMSetBase<T> with(Object... values) {
-       for(Object item : values){
-           this.add((T) item);
-       }
-       return this;
+      for(Object item : values){
+         this.add((T) item);
+      }
+      return this;
    }
 }

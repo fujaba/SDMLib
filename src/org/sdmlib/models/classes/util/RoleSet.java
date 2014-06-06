@@ -22,17 +22,15 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
-public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.modelsets.ModelSet
+public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    public StringList getName()
    {
       StringList result = new StringList();
@@ -114,7 +112,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
    {
       for (Role obj : this)
       {
-         obj.withClazz(value);
+         obj.with(value);
       }
       
       return this;
@@ -135,7 +133,7 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
    {
       for (Role obj : this)
       {
-         obj.withAssoc(value);
+         obj.with(value);
       }
       
       return this;
@@ -216,5 +214,11 @@ public class RoleSet extends LinkedHashSet<Role> implements org.sdmlib.models.mo
    public RolePO hasRolePO()
    {
       return new RolePO(this.toArray(new Role[this.size()]));
+   }
+   
+   @Override
+   public RoleSet getNewInstance()
+   {
+      return new RoleSet();
    }
 }

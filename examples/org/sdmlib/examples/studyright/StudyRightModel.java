@@ -67,10 +67,8 @@ public class StudyRightModel implements PropertyChangeInterface
       .withAttribute("roomNo", DataType.STRING)
       .withAttribute("credits", DataType.INT);
 
-      new Method()
-         .with(roomClass)
-         .withName("findPath")
-         .with(new Parameter(DataType.STRING), new Parameter(DataType.INT));
+      new Method("findPath", new Parameter(DataType.STRING), new Parameter(DataType.INT))
+         .with(roomClass);
 
       new Association()
       .withSource(roomClass, "neighbors", Card.MANY)
@@ -128,8 +126,8 @@ public class StudyRightModel implements PropertyChangeInterface
       Clazz personClass = new Clazz("org.sdmlib.examples.studyright.model.Person")
       .withInterface(true);
 
-      new Method()
-      .with(personClass).withName("findMyPosition");
+      new Method("findMyPosition")
+      .with(personClass);
 
       new Method("findMyPosition", new Parameter(DataType.STRING)).with(personClass);
 

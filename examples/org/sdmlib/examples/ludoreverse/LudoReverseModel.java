@@ -3,10 +3,14 @@ package org.sdmlib.examples.ludoreverse;
 import java.awt.Point;
 
 import org.junit.Test;
+import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Parameter;
 
 public class LudoReverseModel
 {  
@@ -21,8 +25,8 @@ public class LudoReverseModel
             .withAttribute("age", DataType.INT);
       
       Clazz point = model.createClazz(Point.class.getName())
-            .withAttribute("x", DataType.INT)
-            .withAttribute("y", DataType.INT)
+            .with(new Attribute("x", DataType.INT).with(Visibility.PUBLIC))
+            .with(new Attribute("y", DataType.INT).with(Visibility.PUBLIC))
             .withExternal(true);
       
       Clazz player = model.createClazz("Player")
@@ -33,26 +37,15 @@ public class LudoReverseModel
       model.generate("examples");
    }
 
-   @Test
+//   @Test
    public void LudoModelReverse()
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
-      
-      Clazz ludoClass = model.createClazz("Ludo")
-            .withAttribute("style", DataType.STRING)
-            .withAttribute("age", DataType.INT)
-            .withMethod("toString");
-      
-      Clazz playerClass = model.createClazz("Player")
-            .withAttribute("name", DataType.STRING)
-            .withAttribute("color", DataType.STRING)
-            .withAssoc(ludoClass, "players", Card.MANY, "game", Card.ONE)
-            .withMethod("toString");
 
       //TODO: FIX integrate Reverse Engineering Module
-//      model.updateFromCode("examples", "org.sdmlib.examples.ludoreverse.model");
-//
-//      model.insertModelCreationCodeHere();
+      model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.ludoreverse.model");
+
+      model.getGenerator().insertModelCreationCodeHere("examples");
    }
 }
 

@@ -70,13 +70,11 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.withClazz(value);
+         obj.with(value);
       }
       
       return this;
    }
-
-
 
    @Override
    public String toString()
@@ -180,5 +178,11 @@ public class AttributeSet extends SDMSet<Attribute>
    public AttributePO hasAttributePO()
    {
       return new AttributePO(this.toArray(new Attribute[this.size()]));
+   }
+   
+   @Override
+   public AttributeSet getNewInstance()
+   {
+      return new AttributeSet();
    }
 }

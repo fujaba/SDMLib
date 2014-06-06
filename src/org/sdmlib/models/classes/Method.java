@@ -84,7 +84,7 @@ public class Method extends SDMLibClass
       return param+" p" + i;
    }
      
-   public Method()
+   protected Method()
    {
       
    }
@@ -258,11 +258,13 @@ public class Method extends SDMLibClass
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getParameter());
+      _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getReturnType());
-      _.append(" ").append(this.getBody());
       _.append(" ").append(this.getName());
+      _.append(" ").append(this.getParameter());
+      if(this.body!=null){
+         _.append(" ").append(this.getBody());
+      }
       return _.substring(1);
    }
 

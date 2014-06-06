@@ -48,4 +48,9 @@ public class Visibility
    {
       return this.getValue().equalsIgnoreCase(other.getValue());
    }
+   
+   @Override
+   public String toString(){
+      return this.value;
+   }
 }
