@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.examples.helloworld.model.util.EdgeSet;
 import org.sdmlib.examples.helloworld.model.GraphComponent;
+import org.sdmlib.StrUtil;
 
 public class Edge extends GraphComponent implements PropertyChangeInterface
 {
@@ -276,6 +277,34 @@ public class Edge extends GraphComponent implements PropertyChangeInterface
       Node value = new Node();
       withTgt(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TEXT = "text";
+   
+   private String text;
+
+   public String getText()
+   {
+      return this.text;
+   }
+   
+   public void setText(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.text, value))
+      {
+         String oldValue = this.text;
+         this.text = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+      }
+   }
+   
+   public GraphComponent withText(String value)
+   {
+      setText(value);
+      return this;
    } 
 }
 

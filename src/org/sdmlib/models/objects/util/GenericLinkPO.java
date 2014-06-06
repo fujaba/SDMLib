@@ -18,6 +18,9 @@ public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
    }
 
    public GenericLinkPO(GenericLink... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public GenericLinkPO hasTgtLabel(String value)

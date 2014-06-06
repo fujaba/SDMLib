@@ -506,6 +506,170 @@ public class NodeSet extends SDMSet<Node>
       return this;
    }
 
+   public NodeSet getLinksTo()
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         result.addAll(obj.getLinksTo());
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasLinksTo(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NodeSet answer = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getLinksTo()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+
+   public NodeSet getLinksToTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getLinksTo().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+   public NodeSet withLinksTo(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withLinksTo(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet withoutLinksTo(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withoutLinksTo(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet getLinksFrom()
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         result.addAll(obj.getLinksFrom());
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasLinksFrom(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      NodeSet answer = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getLinksFrom()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+
+   public NodeSet getLinksFromTransitive()
+   {
+      NodeSet todo = new NodeSet().with(this);
+      
+      NodeSet result = new NodeSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Node current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            todo.with(current.getLinksFrom().minus(result));
+         }
+      }
+      
+      return result;
+   }
+
+   public NodeSet withLinksFrom(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withLinksFrom(value);
+      }
+      
+      return this;
+   }
+
+   public NodeSet withoutLinksFrom(Node value)
+   {
+      for (Node obj : this)
+      {
+         obj.withoutLinksFrom(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

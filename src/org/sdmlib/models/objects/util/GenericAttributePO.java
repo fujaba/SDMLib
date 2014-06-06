@@ -16,6 +16,9 @@ public class GenericAttributePO extends PatternObject
    }
 
    public GenericAttributePO(GenericAttribute... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public GenericAttributePO startNAC()

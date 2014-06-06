@@ -873,6 +873,12 @@ public class Storyboard implements PropertyChangeInterface
          if (object instanceof Collection)
          {
             explicitElems.addAll((Collection) object);
+            
+            Collection coll = (Collection) object;
+            if (  ! coll.isEmpty())
+            {
+               object = coll.iterator().next();
+            }
          }
          else
          {
@@ -912,7 +918,7 @@ public class Storyboard implements PropertyChangeInterface
             catch (Exception e)
             {
                // cannot find creator creator class, use generic idMap instead;
-               // e.printStackTrace();
+               e.printStackTrace();
             }
          }
 

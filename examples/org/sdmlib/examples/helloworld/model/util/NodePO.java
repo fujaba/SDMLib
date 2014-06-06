@@ -362,6 +362,74 @@ public class NodePO extends PatternObject<NodePO, Node>
       return null;
    }
 
+   public NodePO hasLinksTo()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_LINKSTO, result);
+      
+      return result;
+   }
+
+   public NodePO createLinksTo()
+   {
+      return this.startCreate().hasLinksTo().endCreate();
+   }
+
+   public NodePO hasLinksTo(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_LINKSTO);
+   }
+
+   public NodePO createLinksTo(NodePO tgt)
+   {
+      return this.startCreate().hasLinksTo(tgt).endCreate();
+   }
+
+   public NodeSet getLinksTo()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Node) this.getCurrentMatch()).getLinksTo();
+      }
+      return null;
+   }
+
+   public NodePO hasLinksFrom()
+   {
+      NodePO result = new NodePO(new Node[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Node.PROPERTY_LINKSFROM, result);
+      
+      return result;
+   }
+
+   public NodePO createLinksFrom()
+   {
+      return this.startCreate().hasLinksFrom().endCreate();
+   }
+
+   public NodePO hasLinksFrom(NodePO tgt)
+   {
+      return hasLinkConstraint(tgt, Node.PROPERTY_LINKSFROM);
+   }
+
+   public NodePO createLinksFrom(NodePO tgt)
+   {
+      return this.startCreate().hasLinksFrom(tgt).endCreate();
+   }
+
+   public NodeSet getLinksFrom()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Node) this.getCurrentMatch()).getLinksFrom();
+      }
+      return null;
+   }
+
 }
 
 

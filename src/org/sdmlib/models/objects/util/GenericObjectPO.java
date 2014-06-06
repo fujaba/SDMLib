@@ -18,6 +18,9 @@ public class GenericObjectPO extends PatternObject<GenericObjectPO, GenericObjec
    }
 
    public GenericObjectPO(GenericObject... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public GenericObjectPO hasName(String value)

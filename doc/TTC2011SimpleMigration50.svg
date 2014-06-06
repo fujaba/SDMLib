@@ -9,451 +9,451 @@
 <g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 1294)">
 <title>ObjectDiagram</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-1294 919.906,-1294 919.906,5 -4,5"/>
-<!-- g191 -->
-<g id="node1" class="node"><title>g191</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Graph.java" xlink:title="&lt;TABLE&gt;">
+<!-- g169 -->
+<g id="node1" class="node"><title>g169</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Graph.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="357.906,-1263 357.906,-1280 422.906,-1280 422.906,-1263 357.906,-1263"/>
 <text text-anchor="start" x="361.406" y="-1269.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="365.406" y="-1269.5" font-family="Arial" font-size="10.00">g191 :Graph</text>
+<text text-anchor="start" x="365.406" y="-1269.5" font-family="Arial" font-size="10.00">g169 :Graph</text>
 </a>
 </g>
-<!-- n192 -->
-<g id="node2" class="node"><title>n192</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<!-- n170 -->
+<g id="node2" class="node"><title>n170</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="197.906,-1196 197.906,-1213 258.906,-1213 258.906,-1196 197.906,-1196"/>
 <text text-anchor="start" x="201.406" y="-1202.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="205.406" y="-1202.5" font-family="Arial" font-size="10.00">n192 :Node</text>
+<text text-anchor="start" x="205.406" y="-1202.5" font-family="Arial" font-size="10.00">n170 :Node</text>
 </a>
 <polygon fill="none" stroke="black" points="197.906,-1120 197.906,-1196 258.906,-1196 258.906,-1120 197.906,-1120"/>
-<text text-anchor="start" x="202.906" y="-1184" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="202.906" y="-1184" font-family="Arial" font-size="10.00">text = &quot;n1&quot;</text>
 <text text-anchor="start" x="202.906" y="-1170" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="202.906" y="-1156" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
-<text text-anchor="start" x="202.906" y="-1142" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
-<text text-anchor="start" x="202.906" y="-1128" font-family="Arial" font-size="10.00">text = &quot;n1&quot;</text>
+<text text-anchor="start" x="202.906" y="-1156" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="202.906" y="-1142" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
+<text text-anchor="start" x="202.906" y="-1128" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;n192 -->
-<g id="edge2" class="edge"><title>g191&#45;&#45;n192</title>
+<!-- g169&#45;&#45;n170 -->
+<g id="edge2" class="edge"><title>g169&#45;&#45;n170</title>
 <path fill="none" stroke="black" d="M349.459,-1254.86C328.197,-1245.52 302.202,-1232.71 280.906,-1218 276.014,-1214.62 271.132,-1210.8 266.421,-1206.81"/>
 <text text-anchor="middle" x="276.078" y="-1206.9" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="339.46" y="-1252.53" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e193 -->
-<g id="node3" class="node"><title>e193</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e171 -->
+<g id="node3" class="node"><title>e171</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="233.906,-1058 233.906,-1075 296.906,-1075 296.906,-1058 233.906,-1058"/>
 <text text-anchor="start" x="238.406" y="-1064.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="242.406" y="-1064.5" font-family="Arial" font-size="10.00">e193 :Edge</text>
+<text text-anchor="start" x="242.406" y="-1064.5" font-family="Arial" font-size="10.00">e171 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="233.906,-1010 233.906,-1058 296.906,-1058 296.906,-1010 233.906,-1010"/>
-<text text-anchor="start" x="238.906" y="-1046" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="238.906" y="-1032" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="238.906" y="-1018" font-family="Arial" font-size="10.00">text = &quot;e10&quot;</text>
+<text text-anchor="start" x="238.906" y="-1046" font-family="Arial" font-size="10.00">text = &quot;e10&quot;</text>
+<text text-anchor="start" x="238.906" y="-1032" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="238.906" y="-1018" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e193 -->
-<g id="edge4" class="edge"><title>g191&#45;&#45;e193</title>
+<!-- g169&#45;&#45;e171 -->
+<g id="edge4" class="edge"><title>g169&#45;&#45;e171</title>
 <path fill="none" stroke="black" d="M358.668,-1253.86C344.748,-1244.82 329.204,-1232.57 318.906,-1218 289.15,-1175.9 275.395,-1116.87 269.327,-1079.54"/>
 <text text-anchor="middle" x="275.047" y="-1085.24" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="348.782" y="-1249.86" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- n194 -->
-<g id="node4" class="node"><title>n194</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<!-- n172 -->
+<g id="node4" class="node"><title>n172</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="311.906,-948 311.906,-965 372.906,-965 372.906,-948 311.906,-948"/>
 <text text-anchor="start" x="315.406" y="-954.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="319.406" y="-954.5" font-family="Arial" font-size="10.00">n194 :Node</text>
+<text text-anchor="start" x="319.406" y="-954.5" font-family="Arial" font-size="10.00">n172 :Node</text>
 </a>
 <polygon fill="none" stroke="black" points="311.906,-872 311.906,-948 372.906,-948 372.906,-872 311.906,-872"/>
-<text text-anchor="start" x="316.906" y="-936" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="316.906" y="-936" font-family="Arial" font-size="10.00">text = &quot;n2&quot;</text>
 <text text-anchor="start" x="316.906" y="-922" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="316.906" y="-908" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
-<text text-anchor="start" x="316.906" y="-894" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
-<text text-anchor="start" x="316.906" y="-880" font-family="Arial" font-size="10.00">text = &quot;n2&quot;</text>
+<text text-anchor="start" x="316.906" y="-908" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="316.906" y="-894" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
+<text text-anchor="start" x="316.906" y="-880" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;n194 -->
-<g id="edge6" class="edge"><title>g191&#45;&#45;n194</title>
+<!-- g169&#45;&#45;n172 -->
+<g id="edge6" class="edge"><title>g169&#45;&#45;n172</title>
 <path fill="none" stroke="black" d="M387.526,-1253.59C380.489,-1202.14 359.595,-1049.35 348.695,-969.644"/>
 <text text-anchor="middle" x="354.11" y="-975.551" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="382.111" y="-1242.69" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e195 -->
-<g id="node5" class="node"><title>e195</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e173 -->
+<g id="node5" class="node"><title>e173</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="317.906,-810 317.906,-827 380.906,-827 380.906,-810 317.906,-810"/>
 <text text-anchor="start" x="322.406" y="-816.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="326.406" y="-816.5" font-family="Arial" font-size="10.00">e195 :Edge</text>
+<text text-anchor="start" x="326.406" y="-816.5" font-family="Arial" font-size="10.00">e173 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="317.906,-762 317.906,-810 380.906,-810 380.906,-762 317.906,-762"/>
-<text text-anchor="start" x="322.906" y="-798" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="322.906" y="-784" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="322.906" y="-770" font-family="Arial" font-size="10.00">text = &quot;e11&quot;</text>
+<text text-anchor="start" x="322.906" y="-798" font-family="Arial" font-size="10.00">text = &quot;e11&quot;</text>
+<text text-anchor="start" x="322.906" y="-784" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="322.906" y="-770" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e195 -->
-<g id="edge8" class="edge"><title>g191&#45;&#45;e195</title>
+<!-- g169&#45;&#45;e173 -->
+<g id="edge8" class="edge"><title>g169&#45;&#45;e173</title>
 <path fill="none" stroke="black" d="M392.891,-1253.71C402.024,-1197.15 426.756,-1012.86 388.906,-868 385.653,-855.548 379.743,-842.953 373.447,-831.854"/>
 <text text-anchor="middle" x="381.544" y="-835.222" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="390.071" y="-1241.62" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- n196 -->
-<g id="node6" class="node"><title>n196</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<!-- n174 -->
+<g id="node6" class="node"><title>n174</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="318.906,-700 318.906,-717 379.906,-717 379.906,-700 318.906,-700"/>
 <text text-anchor="start" x="322.406" y="-706.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="326.406" y="-706.5" font-family="Arial" font-size="10.00">n196 :Node</text>
+<text text-anchor="start" x="326.406" y="-706.5" font-family="Arial" font-size="10.00">n174 :Node</text>
 </a>
 <polygon fill="none" stroke="black" points="318.906,-624 318.906,-700 379.906,-700 379.906,-624 318.906,-624"/>
-<text text-anchor="start" x="323.906" y="-688" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="323.906" y="-688" font-family="Arial" font-size="10.00">text = &quot;n3&quot;</text>
 <text text-anchor="start" x="323.906" y="-674" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="323.906" y="-660" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
-<text text-anchor="start" x="323.906" y="-646" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
-<text text-anchor="start" x="323.906" y="-632" font-family="Arial" font-size="10.00">text = &quot;n3&quot;</text>
+<text text-anchor="start" x="323.906" y="-660" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="323.906" y="-646" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
+<text text-anchor="start" x="323.906" y="-632" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;n196 -->
-<g id="edge10" class="edge"><title>g191&#45;&#45;n196</title>
+<!-- g169&#45;&#45;n174 -->
+<g id="edge10" class="edge"><title>g169&#45;&#45;n174</title>
 <path fill="none" stroke="black" d="M400.279,-1253.91C405.986,-1243.79 412.736,-1230.54 416.906,-1218 441.662,-1143.53 446.906,-1122.47 446.906,-1044 446.906,-1044 446.906,-1044 446.906,-918 446.906,-845.823 410.047,-769.652 381.539,-721.532"/>
 <text text-anchor="middle" x="389.718" y="-724.786" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="400.996" y="-1241.43" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e197 -->
-<g id="node7" class="node"><title>e197</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e175 -->
+<g id="node7" class="node"><title>e175</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="157.906,-562 157.906,-579 220.906,-579 220.906,-562 157.906,-562"/>
 <text text-anchor="start" x="162.406" y="-568.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="166.406" y="-568.5" font-family="Arial" font-size="10.00">e197 :Edge</text>
+<text text-anchor="start" x="166.406" y="-568.5" font-family="Arial" font-size="10.00">e175 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="157.906,-514 157.906,-562 220.906,-562 220.906,-514 157.906,-514"/>
-<text text-anchor="start" x="162.906" y="-550" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="162.906" y="-536" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="162.906" y="-522" font-family="Arial" font-size="10.00">text = &quot;e12&quot;</text>
+<text text-anchor="start" x="162.906" y="-550" font-family="Arial" font-size="10.00">text = &quot;e12&quot;</text>
+<text text-anchor="start" x="162.906" y="-536" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="162.906" y="-522" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e197 -->
-<g id="edge12" class="edge"><title>g191&#45;&#45;e197</title>
+<!-- g169&#45;&#45;e175 -->
+<g id="edge12" class="edge"><title>g169&#45;&#45;e175</title>
 <path fill="none" stroke="black" d="M349.459,-1266.23C294.908,-1258.93 202.019,-1243.12 179.906,-1218 128.436,-1159.53 158.906,-1121.89 158.906,-1044 158.906,-1044 158.906,-1044 158.906,-794 158.906,-718.707 172.925,-631.398 181.797,-583.685"/>
 <text text-anchor="middle" x="184.341" y="-590.856" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="339.896" y="-1266.66" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e198 -->
-<g id="node8" class="node"><title>e198</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e176 -->
+<g id="node8" class="node"><title>e176</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="254.906,-562 254.906,-579 317.906,-579 317.906,-562 254.906,-562"/>
 <text text-anchor="start" x="259.406" y="-568.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="263.406" y="-568.5" font-family="Arial" font-size="10.00">e198 :Edge</text>
+<text text-anchor="start" x="263.406" y="-568.5" font-family="Arial" font-size="10.00">e176 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="254.906,-514 254.906,-562 317.906,-562 317.906,-514 254.906,-514"/>
-<text text-anchor="start" x="259.906" y="-550" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="259.906" y="-536" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="259.906" y="-522" font-family="Arial" font-size="10.00">text = &quot;e13&quot;</text>
+<text text-anchor="start" x="259.906" y="-550" font-family="Arial" font-size="10.00">text = &quot;e13&quot;</text>
+<text text-anchor="start" x="259.906" y="-536" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="259.906" y="-522" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e198 -->
-<g id="edge14" class="edge"><title>g191&#45;&#45;e198</title>
+<!-- g169&#45;&#45;e176 -->
+<g id="edge14" class="edge"><title>g169&#45;&#45;e176</title>
 <path fill="none" stroke="black" d="M381.095,-1253.66C376.158,-1243.46 370.158,-1230.21 365.906,-1218 333.967,-1126.28 347.601,-1096.71 312.906,-1006 306.443,-989.102 298.422,-987.519 293.906,-970 258.055,-830.924 272.411,-657.439 281.11,-583.758"/>
 <text text-anchor="middle" x="284.329" y="-590.726" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="373.364" y="-1244.82" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- n199 -->
-<g id="node9" class="node"><title>n199</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<!-- n177 -->
+<g id="node9" class="node"><title>n177</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="119.906,-452 119.906,-469 180.906,-469 180.906,-452 119.906,-452"/>
 <text text-anchor="start" x="123.406" y="-458.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="127.406" y="-458.5" font-family="Arial" font-size="10.00">n199 :Node</text>
+<text text-anchor="start" x="127.406" y="-458.5" font-family="Arial" font-size="10.00">n177 :Node</text>
 </a>
 <polygon fill="none" stroke="black" points="119.906,-376 119.906,-452 180.906,-452 180.906,-376 119.906,-376"/>
-<text text-anchor="start" x="124.906" y="-440" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="124.906" y="-440" font-family="Arial" font-size="10.00">text = &quot;n4&quot;</text>
 <text text-anchor="start" x="124.906" y="-426" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="124.906" y="-412" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
-<text text-anchor="start" x="124.906" y="-398" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
-<text text-anchor="start" x="124.906" y="-384" font-family="Arial" font-size="10.00">text = &quot;n4&quot;</text>
+<text text-anchor="start" x="124.906" y="-412" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="124.906" y="-398" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
+<text text-anchor="start" x="124.906" y="-384" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;n199 -->
-<g id="edge16" class="edge"><title>g191&#45;&#45;n199</title>
+<!-- g169&#45;&#45;n177 -->
+<g id="edge16" class="edge"><title>g169&#45;&#45;n177</title>
 <path fill="none" stroke="black" d="M349.494,-1267.66C287.708,-1261.7 174.048,-1247.01 146.906,-1218 93.4824,-1160.9 120.906,-1122.19 120.906,-1044 120.906,-1044 120.906,-1044 120.906,-670 120.906,-601.624 132.093,-523.287 140.571,-473.74"/>
 <text text-anchor="middle" x="143.252" y="-480.873" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="340.045" y="-1268.44" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e200 -->
-<g id="node10" class="node"><title>e200</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e178 -->
+<g id="node10" class="node"><title>e178</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="100.906,-314 100.906,-331 163.906,-331 163.906,-314 100.906,-314"/>
 <text text-anchor="start" x="105.406" y="-320.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="109.406" y="-320.5" font-family="Arial" font-size="10.00">e200 :Edge</text>
+<text text-anchor="start" x="109.406" y="-320.5" font-family="Arial" font-size="10.00">e178 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="100.906,-266 100.906,-314 163.906,-314 163.906,-266 100.906,-266"/>
-<text text-anchor="start" x="105.906" y="-302" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="105.906" y="-288" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="105.906" y="-274" font-family="Arial" font-size="10.00">text = &quot;e14&quot;</text>
+<text text-anchor="start" x="105.906" y="-302" font-family="Arial" font-size="10.00">text = &quot;e14&quot;</text>
+<text text-anchor="start" x="105.906" y="-288" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="105.906" y="-274" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e200 -->
-<g id="edge18" class="edge"><title>g191&#45;&#45;e200</title>
+<!-- g169&#45;&#45;e178 -->
+<g id="edge18" class="edge"><title>g169&#45;&#45;e178</title>
 <path fill="none" stroke="black" d="M349.639,-1268.95C280.265,-1264.54 142.5,-1251.69 109.906,-1218 55.493,-1161.75 82.9062,-1122.26 82.9062,-1044 82.9062,-1044 82.9062,-1044 82.9062,-546 82.9062,-468.207 82.5259,-447.34 101.906,-372 105.044,-359.803 109.861,-346.966 114.723,-335.564"/>
 <text text-anchor="middle" x="115.106" y="-343.056" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="340.303" y="-1270.03" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- n201 -->
-<g id="node11" class="node"><title>n201</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<!-- n179 -->
+<g id="node11" class="node"><title>n179</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="101.906,-204 101.906,-221 162.906,-221 162.906,-204 101.906,-204"/>
 <text text-anchor="start" x="105.406" y="-210.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="109.406" y="-210.5" font-family="Arial" font-size="10.00">n201 :Node</text>
+<text text-anchor="start" x="109.406" y="-210.5" font-family="Arial" font-size="10.00">n179 :Node</text>
 </a>
 <polygon fill="none" stroke="black" points="101.906,-128 101.906,-204 162.906,-204 162.906,-128 101.906,-128"/>
-<text text-anchor="start" x="106.906" y="-192" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="106.906" y="-192" font-family="Arial" font-size="10.00">text = &quot;n5&quot;</text>
 <text text-anchor="start" x="106.906" y="-178" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="106.906" y="-164" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
-<text text-anchor="start" x="106.906" y="-150" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
-<text text-anchor="start" x="106.906" y="-136" font-family="Arial" font-size="10.00">text = &quot;n5&quot;</text>
+<text text-anchor="start" x="106.906" y="-164" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="106.906" y="-150" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
+<text text-anchor="start" x="106.906" y="-136" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;n201 -->
-<g id="edge20" class="edge"><title>g191&#45;&#45;n201</title>
+<!-- g169&#45;&#45;n179 -->
+<g id="edge20" class="edge"><title>g169&#45;&#45;n179</title>
 <path fill="none" stroke="black" d="M349.55,-1269.92C273.016,-1267 111.012,-1256.34 72.9062,-1218 17.6892,-1162.44 44.9062,-1122.33 44.9062,-1044 44.9062,-1044 44.9062,-1044 44.9062,-422 44.9062,-348.911 56.0992,-329.996 82.9062,-262 87.6962,-249.85 93.9607,-237.335 100.402,-225.742"/>
 <text text-anchor="middle" x="99.7409" y="-233.22" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="340.308" y="-1271.24" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e202 -->
-<g id="node12" class="node"><title>e202</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e180 -->
+<g id="node12" class="node"><title>e180</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="29.9062,-66 29.9062,-83 92.9062,-83 92.9062,-66 29.9062,-66"/>
 <text text-anchor="start" x="34.4062" y="-72.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="38.4062" y="-72.5" font-family="Arial" font-size="10.00">e202 :Edge</text>
+<text text-anchor="start" x="38.4062" y="-72.5" font-family="Arial" font-size="10.00">e180 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="29.9062,-4 29.9062,-66 92.9062,-66 92.9062,-4 29.9062,-4"/>
-<text text-anchor="start" x="34.9062" y="-54" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="34.9062" y="-40" font-family="Arial" font-size="10.00">tgt = &quot;&quot;</text>
+<text text-anchor="start" x="34.9062" y="-54" font-family="Arial" font-size="10.00">text = &quot;e18&quot;</text>
+<text text-anchor="start" x="34.9062" y="-40" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
 <text text-anchor="start" x="34.9062" y="-26" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="34.9062" y="-12" font-family="Arial" font-size="10.00">text = &quot;e18&quot;</text>
+<text text-anchor="start" x="34.9062" y="-12" font-family="Arial" font-size="10.00">tgt = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e202 -->
-<g id="edge22" class="edge"><title>g191&#45;&#45;e202</title>
+<!-- g169&#45;&#45;e180 -->
+<g id="edge22" class="edge"><title>g169&#45;&#45;e180</title>
 <path fill="none" stroke="black" d="M349.62,-1270.74C266.197,-1269.32 78.665,-1261.26 34.9062,-1218 -20.7936,-1162.93 6.9062,-1122.33 6.9062,-1044 6.9062,-1044 6.9062,-1044 6.9062,-298 6.9062,-222.771 30.0238,-137.676 46.0075,-87.831"/>
 <text text-anchor="middle" x="47.3439" y="-95.2413" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="340.461" y="-1272.25" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e203 -->
-<g id="node13" class="node"><title>e203</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e181 -->
+<g id="node13" class="node"><title>e181</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="322.906,-59 322.906,-76 385.906,-76 385.906,-59 322.906,-59"/>
 <text text-anchor="start" x="327.406" y="-65.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="331.406" y="-65.5" font-family="Arial" font-size="10.00">e203 :Edge</text>
+<text text-anchor="start" x="331.406" y="-65.5" font-family="Arial" font-size="10.00">e181 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="322.906,-11 322.906,-59 385.906,-59 385.906,-11 322.906,-11"/>
-<text text-anchor="start" x="327.906" y="-47" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="327.906" y="-33" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="327.906" y="-19" font-family="Arial" font-size="10.00">text = &quot;e15&quot;</text>
+<text text-anchor="start" x="327.906" y="-47" font-family="Arial" font-size="10.00">text = &quot;e15&quot;</text>
+<text text-anchor="start" x="327.906" y="-33" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="327.906" y="-19" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e203 -->
-<g id="edge24" class="edge"><title>g191&#45;&#45;e203</title>
+<!-- g169&#45;&#45;e181 -->
+<g id="edge24" class="edge"><title>g169&#45;&#45;e181</title>
 <path fill="none" stroke="black" d="M413.067,-1253.98C424.285,-1244.57 437.004,-1231.96 444.906,-1218 483.985,-1148.94 484.906,-1123.35 484.906,-1044 484.906,-1044 484.906,-1044 484.906,-298 484.906,-212.43 425.081,-126.973 386.288,-80.5546"/>
 <text text-anchor="middle" x="395.275" y="-82.4403" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="417.199" y="-1242.37" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e204 -->
-<g id="node14" class="node"><title>e204</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e182 -->
+<g id="node14" class="node"><title>e182</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="455.906,-66 455.906,-83 518.906,-83 518.906,-66 455.906,-66"/>
 <text text-anchor="start" x="460.406" y="-72.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="464.406" y="-72.5" font-family="Arial" font-size="10.00">e204 :Edge</text>
+<text text-anchor="start" x="464.406" y="-72.5" font-family="Arial" font-size="10.00">e182 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="455.906,-4 455.906,-66 518.906,-66 518.906,-4 455.906,-4"/>
-<text text-anchor="start" x="460.906" y="-54" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="460.906" y="-40" font-family="Arial" font-size="10.00">src = &quot;&quot;</text>
+<text text-anchor="start" x="460.906" y="-54" font-family="Arial" font-size="10.00">text = &quot;e19&quot;</text>
+<text text-anchor="start" x="460.906" y="-40" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
 <text text-anchor="start" x="460.906" y="-26" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="460.906" y="-12" font-family="Arial" font-size="10.00">text = &quot;e19&quot;</text>
+<text text-anchor="start" x="460.906" y="-12" font-family="Arial" font-size="10.00">src = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e204 -->
-<g id="edge26" class="edge"><title>g191&#45;&#45;e204</title>
+<!-- g169&#45;&#45;e182 -->
+<g id="edge26" class="edge"><title>g169&#45;&#45;e182</title>
 <path fill="none" stroke="black" d="M430.326,-1254.98C447.298,-1246.37 465.856,-1234.15 477.906,-1218 525.666,-1153.97 522.906,-1123.88 522.906,-1044 522.906,-1044 522.906,-1044 522.906,-298 522.906,-223.465 507.402,-137.799 496.743,-87.7113"/>
 <text text-anchor="middle" x="502.719" y="-93.2292" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="436.388" y="-1244.53" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- n205 -->
-<g id="node15" class="node"><title>n205</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<!-- n183 -->
+<g id="node15" class="node"><title>n183</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="559.906,-1196 559.906,-1213 620.906,-1213 620.906,-1196 559.906,-1196"/>
 <text text-anchor="start" x="563.406" y="-1202.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="567.406" y="-1202.5" font-family="Arial" font-size="10.00">n205 :Node</text>
+<text text-anchor="start" x="567.406" y="-1202.5" font-family="Arial" font-size="10.00">n183 :Node</text>
 </a>
 <polygon fill="none" stroke="black" points="559.906,-1120 559.906,-1196 620.906,-1196 620.906,-1120 559.906,-1120"/>
-<text text-anchor="start" x="564.906" y="-1184" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="564.906" y="-1184" font-family="Arial" font-size="10.00">text = &quot;n6&quot;</text>
 <text text-anchor="start" x="564.906" y="-1170" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="564.906" y="-1156" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
-<text text-anchor="start" x="564.906" y="-1142" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
-<text text-anchor="start" x="564.906" y="-1128" font-family="Arial" font-size="10.00">text = &quot;n6&quot;</text>
+<text text-anchor="start" x="564.906" y="-1156" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="564.906" y="-1142" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
+<text text-anchor="start" x="564.906" y="-1128" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;n205 -->
-<g id="edge28" class="edge"><title>g191&#45;&#45;n205</title>
+<!-- g169&#45;&#45;n183 -->
+<g id="edge28" class="edge"><title>g169&#45;&#45;n183</title>
 <path fill="none" stroke="black" d="M430.267,-1261.28C460.98,-1252.77 503.51,-1238.53 536.906,-1218 541.863,-1214.95 546.75,-1211.39 551.432,-1207.59"/>
 <text text-anchor="middle" x="547.013" y="-1214.06" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="437.822" y="-1252.23" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- n206 -->
-<g id="node16" class="node"><title>n206</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<!-- n184 -->
+<g id="node16" class="node"><title>n184</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="654.906,-1196 654.906,-1213 715.906,-1213 715.906,-1196 654.906,-1196"/>
 <text text-anchor="start" x="658.406" y="-1202.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="662.406" y="-1202.5" font-family="Arial" font-size="10.00">n206 :Node</text>
+<text text-anchor="start" x="662.406" y="-1202.5" font-family="Arial" font-size="10.00">n184 :Node</text>
 </a>
 <polygon fill="none" stroke="black" points="654.906,-1120 654.906,-1196 715.906,-1196 715.906,-1120 654.906,-1120"/>
-<text text-anchor="start" x="659.906" y="-1184" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="659.906" y="-1184" font-family="Arial" font-size="10.00">text = &quot;n7&quot;</text>
 <text text-anchor="start" x="659.906" y="-1170" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="659.906" y="-1156" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
-<text text-anchor="start" x="659.906" y="-1142" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
-<text text-anchor="start" x="659.906" y="-1128" font-family="Arial" font-size="10.00">text = &quot;n7&quot;</text>
+<text text-anchor="start" x="659.906" y="-1156" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="659.906" y="-1142" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
+<text text-anchor="start" x="659.906" y="-1128" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;n206 -->
-<g id="edge30" class="edge"><title>g191&#45;&#45;n206</title>
+<!-- g169&#45;&#45;n184 -->
+<g id="edge30" class="edge"><title>g169&#45;&#45;n184</title>
 <path fill="none" stroke="black" d="M430.507,-1269.52C481.651,-1266.1 570.826,-1254.84 636.906,-1218 640.164,-1216.18 643.337,-1214.07 646.398,-1211.77"/>
 <text text-anchor="middle" x="641.649" y="-1218.07" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="439.215" y="-1262.1" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- n207 -->
-<g id="node17" class="node"><title>n207</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Node.java" xlink:title="&lt;TABLE&gt;">
+<!-- n185 -->
+<g id="node17" class="node"><title>n185</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Node.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="788.906,-1196 788.906,-1213 849.906,-1213 849.906,-1196 788.906,-1196"/>
 <text text-anchor="start" x="792.406" y="-1202.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="796.406" y="-1202.5" font-family="Arial" font-size="10.00">n207 :Node</text>
+<text text-anchor="start" x="796.406" y="-1202.5" font-family="Arial" font-size="10.00">n185 :Node</text>
 </a>
 <polygon fill="none" stroke="black" points="788.906,-1120 788.906,-1196 849.906,-1196 849.906,-1120 788.906,-1120"/>
-<text text-anchor="start" x="793.906" y="-1184" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="793.906" y="-1184" font-family="Arial" font-size="10.00">text = &quot;n8&quot;</text>
 <text text-anchor="start" x="793.906" y="-1170" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="793.906" y="-1156" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
-<text text-anchor="start" x="793.906" y="-1142" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
-<text text-anchor="start" x="793.906" y="-1128" font-family="Arial" font-size="10.00">text = &quot;n8&quot;</text>
+<text text-anchor="start" x="793.906" y="-1156" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="793.906" y="-1142" font-family="Arial" font-size="10.00">orig = &quot;&quot;</text>
+<text text-anchor="start" x="793.906" y="-1128" font-family="Arial" font-size="10.00">copy = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;n207 -->
-<g id="edge32" class="edge"><title>g191&#45;&#45;n207</title>
+<!-- g169&#45;&#45;n185 -->
+<g id="edge32" class="edge"><title>g169&#45;&#45;n185</title>
 <path fill="none" stroke="black" d="M430.324,-1268.4C514.815,-1262.48 707.162,-1246.24 765.906,-1218 770.922,-1215.59 775.78,-1212.53 780.385,-1209.11"/>
 <text text-anchor="middle" x="775.554" y="-1215.37" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="439.052" y="-1261.02" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e208 -->
-<g id="node18" class="node"><title>e208</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e186 -->
+<g id="node18" class="node"><title>e186</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="729.906,-1058 729.906,-1075 792.906,-1075 792.906,-1058 729.906,-1058"/>
 <text text-anchor="start" x="734.406" y="-1064.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="738.406" y="-1064.5" font-family="Arial" font-size="10.00">e208 :Edge</text>
+<text text-anchor="start" x="738.406" y="-1064.5" font-family="Arial" font-size="10.00">e186 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="729.906,-1010 729.906,-1058 792.906,-1058 792.906,-1010 729.906,-1010"/>
-<text text-anchor="start" x="734.906" y="-1046" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="734.906" y="-1032" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="734.906" y="-1018" font-family="Arial" font-size="10.00">text = &quot;e16&quot;</text>
+<text text-anchor="start" x="734.906" y="-1046" font-family="Arial" font-size="10.00">text = &quot;e16&quot;</text>
+<text text-anchor="start" x="734.906" y="-1032" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="734.906" y="-1018" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e208 -->
-<g id="edge34" class="edge"><title>g191&#45;&#45;e208</title>
+<!-- g169&#45;&#45;e186 -->
+<g id="edge34" class="edge"><title>g169&#45;&#45;e186</title>
 <path fill="none" stroke="black" d="M430.249,-1270.46C511.349,-1268.5 689.98,-1259.45 731.906,-1218 768.167,-1182.15 769.528,-1119.33 766.047,-1079.79"/>
 <text text-anchor="middle" x="770.891" y="-1086.03" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="439.179" y="-1263.46" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- e209 -->
-<g id="node19" class="node"><title>e209</title>
-<a xlink:href="../examples/org/sdmlib/examples/helloworld/Edge.java" xlink:title="&lt;TABLE&gt;">
+<!-- e187 -->
+<g id="node19" class="node"><title>e187</title>
+<a xlink:href="../examples/org/sdmlib/examples/helloworld/model/Edge.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="844.906,-1058 844.906,-1075 907.906,-1075 907.906,-1058 844.906,-1058"/>
 <text text-anchor="start" x="849.406" y="-1064.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="853.406" y="-1064.5" font-family="Arial" font-size="10.00">e209 :Edge</text>
+<text text-anchor="start" x="853.406" y="-1064.5" font-family="Arial" font-size="10.00">e187 :Edge</text>
 </a>
 <polygon fill="none" stroke="black" points="844.906,-1010 844.906,-1058 907.906,-1058 907.906,-1010 844.906,-1010"/>
-<text text-anchor="start" x="849.906" y="-1046" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
-<text text-anchor="start" x="849.906" y="-1032" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
-<text text-anchor="start" x="849.906" y="-1018" font-family="Arial" font-size="10.00">text = &quot;e17&quot;</text>
+<text text-anchor="start" x="849.906" y="-1046" font-family="Arial" font-size="10.00">text = &quot;e17&quot;</text>
+<text text-anchor="start" x="849.906" y="-1032" font-family="Arial" font-size="10.00">graph = &quot;&quot;</text>
+<text text-anchor="start" x="849.906" y="-1018" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 </g>
-<!-- g191&#45;&#45;e209 -->
-<g id="edge36" class="edge"><title>g191&#45;&#45;e209</title>
+<!-- g169&#45;&#45;e187 -->
+<g id="edge36" class="edge"><title>g169&#45;&#45;e187</title>
 <path fill="none" stroke="black" d="M430.302,-1269.44C539.806,-1264.79 836.125,-1249.42 865.906,-1218 900.565,-1181.44 894.37,-1118.83 885.803,-1079.52"/>
 <text text-anchor="middle" x="891.707" y="-1085.1" font-family="Arial" font-size="10.00">gcs</text>
 <text text-anchor="middle" x="439.164" y="-1262.3" font-family="Arial" font-size="10.00">parent</text>
 </g>
-<!-- n192&#45;&#45;e193 -->
-<g id="edge38" class="edge"><title>n192&#45;&#45;e193</title>
+<!-- n170&#45;&#45;e171 -->
+<g id="edge40" class="edge"><title>n170&#45;&#45;e171</title>
 <path fill="none" stroke="black" d="M242.956,-1116.38C246.677,-1104.11 250.591,-1091.2 254.067,-1079.74"/>
 <text text-anchor="middle" x="255.481" y="-1087.14" font-family="Arial" font-size="10.00">outEdges</text>
 <text text-anchor="middle" x="241.542" y="-1103.98" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- n192&#45;&#45;e197 -->
-<g id="edge40" class="edge"><title>n192&#45;&#45;e197</title>
+<!-- n170&#45;&#45;e175 -->
+<g id="edge38" class="edge"><title>n170&#45;&#45;e175</title>
 <path fill="none" stroke="black" d="M217.927,-1116.29C208.865,-1066.76 196.906,-988.443 196.906,-920 196.906,-920 196.906,-920 196.906,-794 196.906,-719.221 193.168,-631.723 190.802,-583.84"/>
 <text text-anchor="middle" x="195.459" y="-590.189" font-family="Arial" font-size="10.00">inEdges</text>
 <text text-anchor="middle" x="212.178" y="-1105.61" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- e193&#45;&#45;n194 -->
-<g id="edge42" class="edge"><title>e193&#45;&#45;n194</title>
+<!-- e171&#45;&#45;n172 -->
+<g id="edge42" class="edge"><title>e171&#45;&#45;n172</title>
 <path fill="none" stroke="black" d="M287.385,-1006.38C294.576,-994.991 302.675,-982.159 310.387,-969.94"/>
 <text text-anchor="middle" x="309.124" y="-977.36" font-family="Arial" font-size="10.00">tgt</text>
 <text text-anchor="middle" x="288.648" y="-993.965" font-family="Arial" font-size="10.00">inEdges</text>
 </g>
-<!-- n194&#45;&#45;e195 -->
-<g id="edge44" class="edge"><title>n194&#45;&#45;e195</title>
+<!-- n172&#45;&#45;e173 -->
+<g id="edge44" class="edge"><title>n172&#45;&#45;e173</title>
 <path fill="none" stroke="black" d="M344.753,-868.378C345.457,-856.108 346.198,-843.2 346.856,-831.739"/>
 <text text-anchor="middle" x="350.556" y="-838.529" font-family="Arial" font-size="10.00">outEdges</text>
 <text text-anchor="middle" x="341.053" y="-856.588" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- e195&#45;&#45;n196 -->
-<g id="edge46" class="edge"><title>e195&#45;&#45;n196</title>
+<!-- e173&#45;&#45;n174 -->
+<g id="edge46" class="edge"><title>e173&#45;&#45;n174</title>
 <path fill="none" stroke="black" d="M348.906,-758.385C348.906,-746.991 348.906,-734.159 348.906,-721.94"/>
 <text text-anchor="middle" x="353.132" y="-728.503" font-family="Arial" font-size="10.00">tgt</text>
 <text text-anchor="middle" x="344.68" y="-746.822" font-family="Arial" font-size="10.00">inEdges</text>
 </g>
-<!-- n196&#45;&#45;e197 -->
-<g id="edge48" class="edge"><title>n196&#45;&#45;e197</title>
+<!-- n174&#45;&#45;e175 -->
+<g id="edge50" class="edge"><title>n174&#45;&#45;e175</title>
 <path fill="none" stroke="black" d="M310.582,-640.778C285.713,-621.815 253.389,-597.168 228.308,-578.044"/>
 <text text-anchor="middle" x="238.078" y="-577.679" font-family="Arial" font-size="10.00">outEdges</text>
 <text text-anchor="middle" x="300.813" y="-636.143" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- n196&#45;&#45;e198 -->
-<g id="edge50" class="edge"><title>n196&#45;&#45;e198</title>
+<!-- n174&#45;&#45;e176 -->
+<g id="edge52" class="edge"><title>n174&#45;&#45;e176</title>
 <path fill="none" stroke="black" d="M323.282,-620.378C316.945,-608.108 310.28,-595.2 304.361,-583.739"/>
 <text text-anchor="middle" x="312.275" y="-587.352" font-family="Arial" font-size="10.00">outEdges</text>
 <text text-anchor="middle" x="315.368" y="-611.764" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- n196&#45;&#45;e203 -->
-<g id="edge52" class="edge"><title>n196&#45;&#45;e203</title>
+<!-- n174&#45;&#45;e181 -->
+<g id="edge48" class="edge"><title>n174&#45;&#45;e181</title>
 <path fill="none" stroke="black" d="M350.516,-620.064C351.977,-570.367 353.906,-491.92 353.906,-424 353.906,-424 353.906,-424 353.906,-298 353.906,-220.475 353.906,-129.587 353.906,-80.6139"/>
 <text text-anchor="middle" x="358.132" y="-87.177" font-family="Arial" font-size="10.00">inEdges</text>
 <text text-anchor="middle" x="346.551" y="-608.384" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- e198&#45;&#45;n199 -->
-<g id="edge54" class="edge"><title>e198&#45;&#45;n199</title>
+<!-- e176&#45;&#45;n177 -->
+<g id="edge54" class="edge"><title>e176&#45;&#45;n177</title>
 <path fill="none" stroke="black" d="M246.569,-510.713C228.212,-494.245 206.444,-474.718 188.217,-458.367"/>
 <text text-anchor="middle" x="197.785" y="-458.773" font-family="Arial" font-size="10.00">tgt</text>
 <text text-anchor="middle" x="237.001" y="-505.307" font-family="Arial" font-size="10.00">inEdges</text>
 </g>
-<!-- n199&#45;&#45;e200 -->
-<g id="edge56" class="edge"><title>n199&#45;&#45;e200</title>
+<!-- n177&#45;&#45;e178 -->
+<g id="edge56" class="edge"><title>n177&#45;&#45;e178</title>
 <path fill="none" stroke="black" d="M142.585,-372.378C140.775,-360.108 138.87,-347.2 137.179,-335.739"/>
 <text text-anchor="middle" x="142.683" y="-341.588" font-family="Arial" font-size="10.00">outEdges</text>
 <text text-anchor="middle" x="137.081" y="-361.529" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- e200&#45;&#45;n201 -->
-<g id="edge58" class="edge"><title>e200&#45;&#45;n201</title>
+<!-- e178&#45;&#45;n179 -->
+<g id="edge58" class="edge"><title>e178&#45;&#45;n179</title>
 <path fill="none" stroke="black" d="M131.906,-262.385C131.906,-250.991 131.906,-238.159 131.906,-225.94"/>
 <text text-anchor="middle" x="136.132" y="-232.503" font-family="Arial" font-size="10.00">tgt</text>
 <text text-anchor="middle" x="127.68" y="-250.822" font-family="Arial" font-size="10.00">inEdges</text>
 </g>
-<!-- n201&#45;&#45;e202 -->
-<g id="edge60" class="edge"><title>n201&#45;&#45;e202</title>
+<!-- n179&#45;&#45;e180 -->
+<g id="edge62" class="edge"><title>n179&#45;&#45;e180</title>
 <path fill="none" stroke="black" d="M104.659,-124.494C98.0107,-112.415 90.9539,-99.5937 84.4927,-87.8543"/>
 <text text-anchor="middle" x="92.5652" y="-91.2565" font-family="Arial" font-size="10.00">outEdges</text>
 <text text-anchor="middle" x="96.5863" y="-116.092" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- n201&#45;&#45;e203 -->
-<g id="edge62" class="edge"><title>n201&#45;&#45;e203</title>
+<!-- n179&#45;&#45;e181 -->
+<g id="edge64" class="edge"><title>n179&#45;&#45;e181</title>
 <path fill="none" stroke="black" d="M170.322,-151.677C210.655,-128.241 273.755,-91.5744 314.467,-67.9172"/>
 <text text-anchor="middle" x="308.755" y="-73.6247" font-family="Arial" font-size="10.00">outEdges</text>
 <text text-anchor="middle" x="176.035" y="-140.97" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- n201&#45;&#45;e204 -->
-<g id="edge64" class="edge"><title>n201&#45;&#45;e204</title>
+<!-- n179&#45;&#45;e182 -->
+<g id="edge60" class="edge"><title>n179&#45;&#45;e182</title>
 <path fill="none" stroke="black" d="M170.599,-163.782C223.649,-149.301 321.542,-120.879 401.906,-88 417.059,-81.8004 433.204,-73.9651 447.308,-66.6863"/>
 <text text-anchor="middle" x="441.17" y="-72.0808" font-family="Arial" font-size="10.00">inEdges</text>
 <text text-anchor="middle" x="178.209" y="-154.795" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- n207&#45;&#45;e208 -->
-<g id="edge66" class="edge"><title>n207&#45;&#45;e208</title>
+<!-- n185&#45;&#45;e186 -->
+<g id="edge66" class="edge"><title>n185&#45;&#45;e186</title>
 <path fill="none" stroke="black" d="M795.315,-1116.38C789.482,-1104.11 783.346,-1091.2 777.897,-1079.74"/>
-<text text-anchor="middle" x="785.605" y="-1083.61" font-family="Arial" font-size="10.00">outEdges_inEdges</text>
-<text text-anchor="middle" x="787.607" y="-1107.51" font-family="Arial" font-size="10.00">src_tgt</text>
+<text text-anchor="middle" x="785.605" y="-1083.61" font-family="Arial" font-size="10.00">inEdges_outEdges</text>
+<text text-anchor="middle" x="787.607" y="-1107.51" font-family="Arial" font-size="10.00">tgt_src</text>
 </g>
-<!-- n207&#45;&#45;e209 -->
-<g id="edge68" class="edge"><title>n207&#45;&#45;e209</title>
+<!-- n185&#45;&#45;e187 -->
+<g id="edge68" class="edge"><title>n185&#45;&#45;e187</title>
 <path fill="none" stroke="black" d="M842.09,-1116.38C847.823,-1104.11 853.854,-1091.2 859.209,-1079.74"/>
-<text text-anchor="middle" x="859.201" y="-1087.24" font-family="Arial" font-size="10.00">outEdges_inEdges</text>
-<text text-anchor="middle" x="842.098" y="-1103.88" font-family="Arial" font-size="10.00">src_tgt</text>
+<text text-anchor="middle" x="859.201" y="-1087.24" font-family="Arial" font-size="10.00">inEdges_outEdges</text>
+<text text-anchor="middle" x="842.098" y="-1103.88" font-family="Arial" font-size="10.00">tgt_src</text>
 </g>
 </g>
 </svg>

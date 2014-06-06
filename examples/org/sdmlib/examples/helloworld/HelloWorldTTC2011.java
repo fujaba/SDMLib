@@ -23,6 +23,14 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.objects.Generic2Specific;
+import org.sdmlib.models.objects.GenericGraph;
+import org.sdmlib.models.objects.Specific2Generic;
+import org.sdmlib.models.objects.util.GenericAttributeSet;
+import org.sdmlib.models.objects.util.GenericGraphPO;
+import org.sdmlib.models.objects.util.GenericLinkPO;
+import org.sdmlib.models.objects.util.GenericLinkSet;
+import org.sdmlib.models.objects.util.GenericObjectPO;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -718,241 +726,224 @@ public class HelloWorldTTC2011
 
       storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
       
-      //FIXME ALBERT Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
+      Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
 
       storyboard.add("Result graph: ");
 
-      //FIXME ALBERT       storyboard.addObjectDiagram(tgtGraph);
-
+      storyboard.addObjectDiagramWith(tgtGraph, tgtGraph.getGcs());
+      
    
-//      //==========================================================================
-//
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Even more evolved graph model : </h2>");
-//
-//      model = new ClassModel();
-//      
-//      graphClazz = model.createClazz("org.sdmlib.examples.helloworld.Graph");
-//
-//      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
-//      .withAttribute("text", DataType.STRING);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "nodes", Card.MANY)
-//      .withSource(graphClazz, "graph", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(nodeClazz, "linksTo", Card.MANY)
-//      .withSource(nodeClazz, "linksFrom", Card.MANY);
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addSVGImage(model.dumpClassDiagram("TTC2011HelloWorldSimpleMigrationEvenMoreEvolvedDiag"));
-//      
-//      graph = createExampleGraph();
-//      
-//      storyboard.addObjectDiagram(graph);
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
-//      
-//      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
-//
-//      storyboard.add("Result graph: ");
-//
-//      storyboard.addObjectDiagram(tgtGraph);
+      //==========================================================================
 
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Even more evolved graph model : </h2>");
+
+      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      
+      graphClazz = model.createClazz("Graph");
+
+      nodeClazz = model.createClazz("Node")
+      .withAttribute("text", DataType.STRING);
+
+      graphClazz.withAssoc(nodeClazz, "nodes", Card.MANY, "graph", Card.ONE);
+      
+      nodeClazz.withAssoc(nodeClazz, "linksTo", Card.MANY, "linksFrom", Card.MANY);
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model);
+
+      graph = createExampleGraph();
+      
+      storyboard.addObjectDiagram(graph);
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
+      
+      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
+
+      storyboard.add("Result graph: ");
+
+      storyboard.addObjectDiagram(tgtGraph);
       
       storyboard.dumpHTML();
    }
    
    
-//   //==========================================================================
-//   @Test
-//   public void testTTC2011SimpleMigrationViaGenericGraphs()
-//   {  
-//      Storyboard storyboard = new Storyboard();
-//      
-//      storyboard.add("Class diagram for source model:");
-//      
-//      ClassModel model = new ClassModel();
-//      
-//      Clazz graphClazz = model.createClazz("org.sdmlib.examples.helloworld.Graph");
-//      
-//      Clazz edgeClazz = model.createClazz("org.sdmlib.examples.helloworld.Edge")
-//      .withAttribute("name", DataType.STRING);
-//
-//      Clazz nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
-//      .withAttribute("name", DataType.STRING);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "nodes", Card.MANY)
-//      .withSource(graphClazz, "graph", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(edgeClazz, "edges", Card.MANY)
-//      .withSource(graphClazz, "graph", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(nodeClazz, "src", Card.ONE)
-//      .withSource(edgeClazz, "outEdges", Card.MANY);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "tgt", Card.ONE)
-//      .withSource(edgeClazz, "inEdges", Card.MANY);
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addClassDiagram(model);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("Class diagram for target model:");
-//      
-//      model = new ClassModel();
-//      
-//      graphClazz =model.createClazz("org.sdmlib.examples.helloworld.Graph");
-//      
-//      Clazz graphComponentClazz = model.createClazz("org.sdmlib.examples.helloworld.GraphComponent")
-//      .withAttribute("text", DataType.STRING);
-//      
-//      edgeClazz = model.createClazz("org.sdmlib.examples.helloworld.Edge")
-//      .withSuperClass(graphComponentClazz);
-//
-//      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
-//      .withSuperClass(graphComponentClazz);
-//
-//      new Association()
-//      .withTarget(graphComponentClazz, "gcs", Card.MANY)
-//      .withSource(graphClazz, "parent", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(nodeClazz, "src", Card.ONE)
-//      .withSource(edgeClazz, "outEdges", Card.MANY);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "tgt", Card.ONE)
-//      .withSource(edgeClazz, "inEdges", Card.MANY);
-//      
-//      // model.removeAllGeneratedCode("examples", "examples", "examples");
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addClassDiagram(model);
-//      
-//      
-//      //==========================================================================
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("Create example source graph: ");
-//      
-//      Graph graph = createExampleGraph();
-//      
-//      storyboard.addObjectDiagramWith(graph.getNodes(), graph.getEdges());;
-//      
-//      storyboard.dumpHTML();
-//
-//      //==========================================================================
-//
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Migrate using Generic Graph representation : </h2>");
-//
-//      graph = createExampleGraph();
-//
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
-//      
-//      Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
-//
-//      storyboard.add("Result graph: ");
-//
-//      storyboard.addObjectDiagramWith(tgtGraph.getNodes(), tgtGraph.getGcs());
-//
-//   
-//      //==========================================================================
-//
-//      storyboard.add("<hr/>");
-//      storyboard.add("<h2>Even more evolved class diagram : </h2>");
-//
-//      model = new ClassModel();
-//      
-//      graphClazz = model.createClazz("org.sdmlib.examples.helloworld.Graph");
-//
-//      nodeClazz = model.createClazz("org.sdmlib.examples.helloworld.Node")
-//      .withAttribute("text", DataType.STRING);
-//
-//      new Association()
-//      .withTarget(nodeClazz, "nodes", Card.MANY)
-//      .withSource(graphClazz, "graph", Card.ONE);
-//      
-//      new Association()
-//      .withTarget(nodeClazz, "linksTo", Card.MANY)
-//      .withSource(nodeClazz, "linksFrom", Card.MANY);
-//      
-//      model.generate("examples");
-//      
-//      storyboard.addClassDiagram(model);
-//      
-//      storyboard.add("<hr/>");
-//      
-//      storyboard.add("Again the input graph:");
-//      
-//      graph = createExampleGraph();
-//      
-//      storyboard.addObjectDiagramWith(graph.getNodes(), graph.getEdges());
-//      
-//      storyboard.add("The transformation code:");
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
-//      
-//      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
-//
-//      storyboard.add("Result graph: ");
-//
-//      storyboard.addObjectDiagramWith(tgtGraph.getNodes(), tgtGraph.getEdges());
-//
-//      
-//      storyboard.dumpHTML();
-//   }
-//   
-//   
-//   //==========================================================================
-//   @Test
-//   public void testTTC2011DeleteNodeWithSpecificName()
-//   {  
-//      Storyboard storyboard = new Storyboard("examples");
-//      
-//      storyboard.add("<hr/>");
-//      storyboard.add("Delete node with name n1 and its incidemnt edges.");
-//      
-//      storyboard.add("Start graph:");
-//      
-//      Graph graph = createExampleGraph();
-//      
-//      // rename node n3 to make case more interesting
-//      n3.withName("n1");
-//      
-//      JsonIdMap createIdMap = CreatorCreator.createIdMap("sg");
-//      
-//      storyboard.addObjectDiagram(createIdMap, graph);
-//      
-//      storyboard.add("Transformation:");
-//      
-//      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph)"));
-//
-//      deleteNodeWithNameN1(graph);
-//      
-//      storyboard.add(ModelPattern.lastPattern.dumpDiagram("deleteNodeWithNameN1_nodeN1", false));
-//      
-//      storyboard.add("Result graph:");
-//      
-//      storyboard.addObjectDiagram(createIdMap, graph);
-//      
-//      
-//      storyboard.dumpHTML();
-//   }
-//
-//
+   //==========================================================================
+   @Test
+   public void testTTC2011SimpleMigrationViaGenericGraphs()
+   {  
+      Storyboard storyboard = new Storyboard();
+
+      storyboard.add("<hr/>");
+      storyboard.add("Source model:");
+      
+      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      
+      Clazz graphClazz = model.createClazz("Graph");
+      
+      Clazz edgeClazz = model.createClazz("Edge")
+      .withAttribute("name", DataType.STRING);
+
+      Clazz nodeClazz = model.createClazz("Node")
+      .withAttribute("name", DataType.STRING);
+
+      new Association()
+      .withTarget(nodeClazz, "nodes", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(edgeClazz, "edges", Card.MANY)
+      .withSource(graphClazz, "graph", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
+      
+      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model);
+      
+      
+      //==========================================================================
+      
+      storyboard.add("<hr/>");
+      storyboard.add("Target model:");
+      
+      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      
+      graphClazz = new Clazz("Graph");
+      
+      Clazz graphComponentClazz = model.createClazz("GraphComponent")
+      .withAttribute("text", DataType.STRING);
+      
+      edgeClazz = model.createClazz("Edge")
+      .withSuperClazz(graphComponentClazz);
+
+      nodeClazz = model.createClazz("Node")
+      .withSuperClazz(graphComponentClazz);
+
+      new Association()
+      .withTarget(graphComponentClazz, "gcs", Card.MANY)
+      .withSource(graphClazz, "parent", Card.ONE);
+      
+      new Association()
+      .withTarget(nodeClazz, "src", Card.ONE)
+      .withSource(edgeClazz, "outEdges", Card.MANY);
+
+      new Association()
+      .withTarget(nodeClazz, "tgt", Card.ONE)
+      .withSource(edgeClazz, "inEdges", Card.MANY);
+      
+      // model.removeAllGeneratedCode("examples", "examples", "examples");
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model);
+      
+      
+      //==========================================================================
+
+      storyboard.add("<hr/>");
+      storyboard.add("Create example source graph: ");
+
+      Graph graph = createExampleGraph();
+
+      storyboard.addObjectDiagramWith(graph.getNodes(), graph.getEdges());;
+
+      storyboard.dumpHTML();
+
+      //==========================================================================
+
+      //==========================================================================
+
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Migrate using Generic Graph representation : </h2>");
+
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
+      
+      Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
+
+      storyboard.add("Result graph: ");
+
+      storyboard.addObjectDiagramWith(tgtGraph, tgtGraph.getGcs());
+      
+   
+      //==========================================================================
+
+      storyboard.add("<hr/>");
+      storyboard.add("<h2>Even more evolved graph model : </h2>");
+
+      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      
+      graphClazz = model.createClazz("Graph");
+
+      nodeClazz = model.createClazz("Node")
+      .withAttribute("text", DataType.STRING);
+
+      graphClazz.withAssoc(nodeClazz, "nodes", Card.MANY, "graph", Card.ONE);
+      
+      nodeClazz.withAssoc(nodeClazz, "linksTo", Card.MANY, "linksFrom", Card.MANY);
+      
+      model.generate("examples");
+      
+      storyboard.addClassDiagram(model);
+
+      graph = createExampleGraph();
+      
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
+      
+      tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
+
+      storyboard.add("Result graph: ");
+
+      storyboard.addObjectDiagram(tgtGraph);
+
+
+      storyboard.dumpHTML();
+   }
+
+
+   //==========================================================================
+   @Test
+   public void testTTC2011DeleteNodeWithSpecificName()
+   {  
+      Storyboard storyboard = new Storyboard("examples");
+
+      storyboard.add("<hr/>");
+      storyboard.add("Delete node with name n1 and its incidemnt edges.");
+
+      storyboard.add("Start graph:");
+
+      Graph graph = createExampleGraph();
+
+      // rename node n3 to make case more interesting
+      n3.withName("n1");
+
+      storyboard.addObjectDiagram(graph);
+
+      storyboard.add("Transformation:");
+
+      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph)"));
+
+      NodePO nodeN1PO = deleteNodeWithNameN1(graph);
+
+      storyboard.addPattern(nodeN1PO, false);
+
+      storyboard.add("Result graph:");
+
+      storyboard.addObjectDiagram(graph);
+
+      storyboard.dumpHTML();
+   }
+
+
 // //==========================================================================
 //   @Test
 //   public void testTTC2011InsertTransitiveEdges()
@@ -1020,147 +1011,146 @@ public class HelloWorldTTC2011
 //      
 //      return p.allMatches();
 //}
-//
-//   private void deleteNodeWithNameN1(Graph graph)
-//   {
-//      // find node
-//      NodePO nodeN1PO = new ModelPattern()
-//      .hasElementGraphPO(graph)
-//      .hasNodes()
-//      .hasName("n1");
-//      
-//      // destroy all leaving edges
-//      nodeN1PO.startSubPattern()
-//      .hasOutEdges()
-//      .destroy()
-//      .endSubPattern()
-//      .allMatches();
-//
-//      // destroy all incoming edges
-//      nodeN1PO.startSubPattern()
-//      .hasInEdges()
-//      .destroy()
-//      .endSubPattern()
-//      .allMatches();
-//      
-//      // destroy the node
-//      nodeN1PO.destroy().allMatches();
-//   }
-//
-//
-//   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
-//   {
-//      GenericGraph genGraph = new Specific2Generic()
-//      .convert(CreatorCreator.createIdMap("g1"), origGraph);
-//      
-//      // rename name to text attributes
-//      new org.sdmlib.models.objects.creators.ModelPattern()
-//      .hasElementGenericGraphPO(genGraph)
-//      .hasObjects()
-//      .hasAttrs()
-//      .hasName(Node.PROPERTY_NAME)
-//      .startCreate()
-//      .hasName(Node.PROPERTY_TEXT)
-//      .allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
-//      
-//      // replace n.l.e.l.n by n.l.n
-//      GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
-//      .hasElementGenericGraphPO(genGraph)
-//      .hasObjects()
-//      .hasType(Edge.class.getName());
-//      
-//      GenericLinkPO srcLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_SRC);
-//      
-//      GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_TGT);
-//      
-//      GenericObjectPO srcNodePO = srcLinkPO.hasTgt();
-//      
-//      GenericObjectPO tgtNodePO = tgtLinkPO.hasTgt();
-//      
-//      edgePO.destroy(); 
-//      
-//      srcLinkPO.destroy();
-//      
-//      GenericLinkSet allMatches = tgtLinkPO.startCreate()
-//      .hasSrc(srcNodePO)
-//      .hasSrcLabel(Node.PROPERTY_LINKSFROM)
-//      .hasTgtLabel(Node.PROPERTY_LINKSTO)
-//      .allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
-//      
-//      // destroy dangling edges
-//      GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
-//      .hasElementGenericGraphPO(genGraph)
-//      .hasObjects()
-//      .hasType(Edge.class.getName());
-//      
-//      danglingPO.destroy();
-//      
-//      danglingPO.allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
-//      
-//      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
-//      
-//      return tgtGraph;
-//   }
+
+   private NodePO deleteNodeWithNameN1(Graph graph)
+   {
+      // find node
+      NodePO nodeN1PO = new GraphPO(graph)
+      .hasNodes()
+      .hasName("n1");
+      
+      // destroy all leaving edges
+      nodeN1PO.startSubPattern()
+      .hasOutEdges()
+      .destroy()
+      .endSubPattern()
+      .allMatches();
+
+      // destroy all incoming edges
+      nodeN1PO.startSubPattern()
+      .hasInEdges()
+      .destroy()
+      .endSubPattern()
+      .allMatches();
+      
+      // destroy the node
+      nodeN1PO.destroy().allMatches();
+      
+      return nodeN1PO;
+   }
+
+
+   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
+   {
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(GraphCreator.createIdMap("g1"), origGraph);
+
+      // rename name to text attributes
+      GenericGraphPO graphPO = new GenericGraphPO(genGraph);
+      graphPO
+      .hasObjects()
+      .hasAttrs()
+      .hasName(Node.PROPERTY_NAME)
+      .startCreate()
+      .hasName(Node.PROPERTY_TEXT)
+      .allMatches();
+
+      storyboard.addPattern(graphPO, false);
+
+      // replace n.l.e.l.n by n.l.n
+      GenericObjectPO edgePO = new GenericGraphPO(genGraph)
+      .hasObjects()
+      .hasType(Edge.class.getName());
+
+      GenericLinkPO srcLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_SRC);
+
+      GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_TGT);
+
+      GenericObjectPO srcNodePO = srcLinkPO.hasTgt();
+
+      GenericObjectPO tgtNodePO = tgtLinkPO.hasTgt();
+
+      edgePO.destroy(); 
+
+      srcLinkPO.destroy();
+
+      GenericLinkSet allMatches = tgtLinkPO.startCreate()
+            .hasSrc(srcNodePO)
+            .hasSrcLabel(Node.PROPERTY_LINKSFROM)
+            .hasTgtLabel(Node.PROPERTY_LINKSTO)
+            .allMatches();
+
+      storyboard.addPattern(edgePO, false);
+
+      // destroy dangling edges
+      GenericObjectPO danglingPO = new GenericGraphPO(genGraph)
+      .hasObjects()
+      .hasType(Edge.class.getName());
+
+      danglingPO.destroy();
+
+      danglingPO.allMatches();
+
+      storyboard.addPattern(danglingPO, false);
+
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap("tg"), null, genGraph);
+
+      return tgtGraph;
+   }
    
    
-//FIXME ALBERT   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
-//   {
-//      GenericGraph genGraph = new Specific2Generic()
-//      .convert(GraphCreator.createIdMap("g1"), origGraph);
-//      
-//      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-//      
-//      // rename name to text attributes
-//      new GenericGraphPO(genGraph)
-//      .hasObjects()
-//      .hasAttrs()
-//      .hasName(Node.PROPERTY_NAME)
-//      .startCreate()
-//      .hasName(Node.PROPERTY_TEXT)
-//      .allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameAttr", false));
-//      
-//      // storyboard.add("<hr/>");
-//      
-//      // rename graph--nodes links to parent--gcs links
-//      new org.sdmlib.models.objects.creators.ModelPattern()
-//      .hasElementGenericGraphPO(genGraph)
-//      .hasLinks()
-//      .hasTgtLabel(Node.PROPERTY_GRAPH)
-//      .startCreate()
-//      .hasTgtLabel(Node.PROPERTY_PARENT)
-//      .hasSrcLabel(Graph.PROPERTY_GCS)
-//      .allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink1", false));
-//
-//      // storyboard.add("<hr/>");
-//      
-//      // rename graph--edges links to parent--gcs links
-//      new org.sdmlib.models.objects.creators.ModelPattern()
-//      .hasElementGenericGraphPO(genGraph)
-//      .hasLinks()
-//      .hasSrcLabel(Node.PROPERTY_GRAPH)
-//      .startCreate()
-//      .hasSrcLabel(Node.PROPERTY_PARENT)
-//      .hasTgtLabel(Graph.PROPERTY_GCS)
-//      .allMatches();
-//      
-//      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("simpleMigrationByGenericGraph_renameLink2", false));
-//
-//      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-//      
-//      Graph tgtGraph = (Graph) new Generic2Specific().convert(CreatorCreator.createIdMap("tg"), null, genGraph);
-//      
-//      return tgtGraph;
-//   }
+   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+   {
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(GraphCreator.createIdMap("g1"), origGraph);
+      
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      // rename name to text attributes
+      GenericGraphPO graphPO = new GenericGraphPO(genGraph);
+      graphPO.hasObjects()
+      .hasAttrs()
+      .hasName(Node.PROPERTY_NAME)
+      .startCreate()
+      .hasName(Node.PROPERTY_TEXT)
+      .allMatches();
+      
+      storyboard.addPattern(graphPO, false);
+
+      // storyboard.add("<hr/>");
+      
+      // rename graph--nodes links to parent--gcs links
+      graphPO = new GenericGraphPO(genGraph);
+      graphPO
+      .hasLinks()
+      .hasTgtLabel(Node.PROPERTY_GRAPH)
+      .startCreate()
+      .hasTgtLabel(Node.PROPERTY_PARENT)
+      .hasSrcLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.addPattern(graphPO, false);
+
+      // storyboard.add("<hr/>");
+      
+      // rename graph--edges links to parent--gcs links
+      graphPO = new GenericGraphPO(genGraph);
+      graphPO
+      .hasLinks()
+      .hasSrcLabel(Node.PROPERTY_GRAPH)
+      .startCreate()
+      .hasSrcLabel(Node.PROPERTY_PARENT)
+      .hasTgtLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.addPattern(graphPO, false);
+
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap("tg"), null, genGraph);
+      
+      return tgtGraph;
+   }
    
    
    private Graph simpleMigrationByJsonArray(Graph graph)

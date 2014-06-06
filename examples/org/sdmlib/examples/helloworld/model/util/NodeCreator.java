@@ -20,6 +20,8 @@ public class NodeCreator extends EntityFactory
       Node.PROPERTY_INEDGES,
       GraphComponent.PROPERTY_TEXT,
       GraphComponent.PROPERTY_PARENT,
+      Node.PROPERTY_LINKSTO,
+      Node.PROPERTY_LINKSFROM,
    };
    
    @Override
@@ -75,6 +77,16 @@ public class NodeCreator extends EntityFactory
       if (Node.PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          return ((Node) target).getParent();
+      }
+
+      if (Node.PROPERTY_LINKSTO.equalsIgnoreCase(attrName))
+      {
+         return ((Node) target).getLinksTo();
+      }
+
+      if (Node.PROPERTY_LINKSFROM.equalsIgnoreCase(attrName))
+      {
+         return ((Node) target).getLinksFrom();
       }
 
       return null;
@@ -145,6 +157,30 @@ public class NodeCreator extends EntityFactory
       if (Node.PROPERTY_PARENT.equalsIgnoreCase(attrName))
       {
          ((Node) target).setParent((Graph) value);
+         return true;
+      }
+
+      if (Node.PROPERTY_LINKSTO.equalsIgnoreCase(attrName))
+      {
+         ((Node) target).addToLinksTo((Node) value);
+         return true;
+      }
+      
+      if ((Node.PROPERTY_LINKSTO + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Node) target).removeFromLinksTo((Node) value);
+         return true;
+      }
+
+      if (Node.PROPERTY_LINKSFROM.equalsIgnoreCase(attrName))
+      {
+         ((Node) target).addToLinksFrom((Node) value);
+         return true;
+      }
+      
+      if ((Node.PROPERTY_LINKSFROM + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Node) target).removeFromLinksFrom((Node) value);
          return true;
       }
       return false;

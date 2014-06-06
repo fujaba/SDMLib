@@ -250,8 +250,126 @@ Number of migrated Edges: 10</p>
       return copyGraph;
    }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration40.svg'>
-<hr/><h2>Migrate using Generic Graph representation : </h2><p>did not find method simpleMigrationByGenericGraph(Graph,Storyboard) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+   {
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(GraphCreator.createIdMap(&quot;g1&quot;), origGraph);
+      
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      &#x2F;&#x2F; rename name to text attributes
+      GenericGraphPO graphPO = new GenericGraphPO(genGraph);
+      graphPO.hasObjects()
+      .hasAttrs()
+      .hasName(Node.PROPERTY_NAME)
+      .startCreate()
+      .hasName(Node.PROPERTY_TEXT)
+      .allMatches();
+      
+      storyboard.addPattern(graphPO, false);
+
+      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
+      
+      &#x2F;&#x2F; rename graph--nodes links to parent--gcs links
+      graphPO = new GenericGraphPO(genGraph);
+      graphPO
+      .hasLinks()
+      .hasTgtLabel(Node.PROPERTY_GRAPH)
+      .startCreate()
+      .hasTgtLabel(Node.PROPERTY_PARENT)
+      .hasSrcLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.addPattern(graphPO, false);
+
+      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
+      
+      &#x2F;&#x2F; rename graph--edges links to parent--gcs links
+      graphPO = new GenericGraphPO(genGraph);
+      graphPO
+      .hasLinks()
+      .hasSrcLabel(Node.PROPERTY_GRAPH)
+      .startCreate()
+      .hasSrcLabel(Node.PROPERTY_PARENT)
+      .hasTgtLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.addPattern(graphPO, false);
+
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap(&quot;tg&quot;), null, genGraph);
+      
+      return tgtGraph;
+   }</pre><embed type="image/svg+xml" src='TTC2011SimpleMigration44.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram44.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram45.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram46.svg'>
+<embed type="image/svg+xml" src='TTC2011SimpleMigration48.svg'>
 <p>Result graph: </p>
+<embed type="image/svg+xml" src='TTC2011SimpleMigration50.svg'>
+<hr/><h2>Even more evolved graph model : </h2><embed type="image/svg+xml" src='TTC2011SimpleMigrationClassDiagram52.svg'><embed type="image/svg+xml" src='TTC2011SimpleMigration54.svg'>
+<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
+   {
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(GraphCreator.createIdMap(&quot;g1&quot;), origGraph);
+
+      &#x2F;&#x2F; rename name to text attributes
+      GenericGraphPO graphPO = new GenericGraphPO(genGraph);
+      graphPO
+      .hasObjects()
+      .hasAttrs()
+      .hasName(Node.PROPERTY_NAME)
+      .startCreate()
+      .hasName(Node.PROPERTY_TEXT)
+      .allMatches();
+
+      storyboard.addPattern(graphPO, false);
+
+      &#x2F;&#x2F; replace n.l.e.l.n by n.l.n
+      GenericObjectPO edgePO = new GenericGraphPO(genGraph)
+      .hasObjects()
+      .hasType(Edge.class.getName());
+
+      GenericLinkPO srcLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_SRC);
+
+      GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Edge.PROPERTY_TGT);
+
+      GenericObjectPO srcNodePO = srcLinkPO.hasTgt();
+
+      GenericObjectPO tgtNodePO = tgtLinkPO.hasTgt();
+
+      edgePO.destroy(); 
+
+      srcLinkPO.destroy();
+
+      GenericLinkSet allMatches = tgtLinkPO.startCreate()
+            .hasSrc(srcNodePO)
+            .hasSrcLabel(Node.PROPERTY_LINKSFROM)
+            .hasTgtLabel(Node.PROPERTY_LINKSTO)
+            .allMatches();
+
+      storyboard.addPattern(edgePO, false);
+
+      &#x2F;&#x2F; destroy dangling edges
+      GenericObjectPO danglingPO = new GenericGraphPO(genGraph)
+      .hasObjects()
+      .hasType(Edge.class.getName());
+
+      danglingPO.destroy();
+
+      danglingPO.allMatches();
+
+      storyboard.addPattern(danglingPO, false);
+
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap(&quot;tg&quot;), null, genGraph);
+
+      return tgtGraph;
+   }</pre><embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram55.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram56.svg'>
+<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram57.svg'>
+<p>Result graph: </p>
+<embed type="image/svg+xml" src='TTC2011SimpleMigration60.svg'>
 
 </body>
 </html>

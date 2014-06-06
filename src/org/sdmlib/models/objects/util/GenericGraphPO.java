@@ -15,6 +15,9 @@ public class GenericGraphPO extends PatternObject<GenericGraphPO, GenericGraph>
    }
 
    public GenericGraphPO(GenericGraph... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public GenericGraphSet allMatches()
