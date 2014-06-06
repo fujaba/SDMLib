@@ -17,9 +17,9 @@
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(GraphCreator.createIdMap(&quot;g1&quot;), origGraph);
-      
+
       storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
+
       &#x2F;&#x2F; rename name to text attributes
       GenericGraphPO graphPO = new GenericGraphPO(genGraph);
       graphPO.hasObjects()
@@ -28,11 +28,11 @@
       .startCreate()
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
-      
+
       storyboard.addPattern(graphPO, false);
 
       &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-      
+
       &#x2F;&#x2F; rename graph--nodes links to parent--gcs links
       graphPO = new GenericGraphPO(genGraph);
       graphPO
@@ -42,11 +42,11 @@
       .hasTgtLabel(Node.PROPERTY_PARENT)
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
-      
+
       storyboard.addPattern(graphPO, false);
 
       &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-      
+
       &#x2F;&#x2F; rename graph--edges links to parent--gcs links
       graphPO = new GenericGraphPO(genGraph);
       graphPO
@@ -56,13 +56,13 @@
       .hasSrcLabel(Node.PROPERTY_PARENT)
       .hasTgtLabel(Graph.PROPERTY_GCS)
       .allMatches();
-      
+
       storyboard.addPattern(graphPO, false);
 
       storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
+
       Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap(&quot;tg&quot;), null, genGraph);
-      
+
       return tgtGraph;
    }</pre><embed type="image/svg+xml" src='TTC2011SimpleMigrationViaGenericGraphs14.svg'>
 <embed type="image/svg+xml"src='TTC2011SimpleMigrationViaGenericGraphsPatternDiagram14.svg'>

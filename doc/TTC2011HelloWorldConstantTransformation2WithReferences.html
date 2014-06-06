@@ -17,10 +17,10 @@
             .has(new GreetingPO());
 
       GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
-      .hasText(&quot;Hello&quot;);
-      
+            .hasText(&quot;Hello&quot;);
+
       PersonPO personPO = greetingPO.hasPerson()
-      .hasName(&quot;TTC Participants&quot;);
+            .hasName(&quot;TTC Participants&quot;);
 </pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation2WithReferencesPatternDiagram6.svg'>
 <p>Check: Constant transformation has match</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
@@ -29,12 +29,12 @@
 <embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation2WithReferences12.svg'>
 <p>For fairness, the java code that does this transformation looks like: </p>
 <pre>      Greeting greeting = new Greeting();
-      
+
       GreetingMessage greetingMessage = greeting.createGreetingMessage()
-      .withText(&quot;Hello&quot;);
-      
+            .withText(&quot;Hello&quot;);
+
       Person person = greeting.createPerson()
-      .withName(&quot;TTC Participants&quot;);
+            .withName(&quot;TTC Participants&quot;);
 </pre>
 </body>
 </html>

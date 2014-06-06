@@ -19,95 +19,95 @@
       &#x2F;&#x2F;==========================================================================
       &#x2F;&#x2F; create target graph
       srcGraphPO = new GraphPO(graph);
-      
+
       GraphPO tgtGraphPO = (GraphPO) new GraphPO().withPattern(srcGraphPO.getPattern()).withModifier(Pattern.CREATE);
       tgtGraphPO.findNextMatch();
-      
+
       Graph result = tgtGraphPO.getCurrentMatch();
-      
+
       storyboard.addPattern(srcGraphPO, false);
-      
+
       &#x2F;&#x2F;==========================================================================
       &#x2F;&#x2F; copy nodes
       int noOfMatches = 0;
-      
+
       srcGraphPO = new GraphPO(graph);
-      
+
       NodePO srcNodePO = srcGraphPO.hasNodes();
-      
+
       tgtGraphPO = (GraphPO) new GraphPO(tgtGraphPO.getCurrentMatch())
       .withPattern(srcGraphPO.getPattern());
 
       srcGraphPO.startCreate();
-      
+
       NodePO tgtNodePO = tgtGraphPO.hasGcsNode();
-      
+
       tgtNodePO.hasOrig(srcNodePO);
-      
+
       while (srcGraphPO.getPattern().getHasMatch())
       {
          tgtNodePO.withText(srcNodePO.getName());
-         
+
          noOfMatches++;
-         
+
          srcGraphPO.getPattern().findNextMatch();
       }
-      
+
       systemout = &quot;Number of migrated nodes: &quot; + noOfMatches;
-      
+
       storyboard.addPattern(srcGraphPO, false);
-      
+
       &#x2F;&#x2F;==========================================================================
       noOfMatches = 0;
-      
+
       srcGraphPO = new GraphPO(graph);
-      
+
       EdgePO srcEdgePO = srcGraphPO.hasEdges();
-      
+
       tgtGraphPO = new GraphPO(tgtGraphPO.getCurrentMatch()).withPattern(srcGraphPO.getPattern());
-      
+
       tgtGraphPO.startCreate();
-      
+
       EdgePO tgtEdgePO = tgtGraphPO.hasGcsEdge();
-      
+
       boolean done = false;
-      
+
       while (tgtEdgePO.getPattern().getHasMatch())
       {
          tgtEdgePO.withText(srcEdgePO.getName());
-      
+
          copySrcNodePO = new EdgePO(srcEdgePO.getCurrentMatch())
          .hasSrc()
          .hasCopy();
-         
+
          EdgePO copyEdgePO = new EdgePO(tgtEdgePO.getCurrentMatch()).withPattern(copySrcNodePO.getPattern());
-         
+
          copySrcNodePO.startCreate();
-         
+
          copyEdgePO.hasSrc(copySrcNodePO);
-         
+
 
          copyTgtNodePO = new EdgePO(srcEdgePO.getCurrentMatch())
          .hasTgt()
          .hasCopy();
-         
+
          EdgePO copyEdgePO2 = new EdgePO(tgtEdgePO.getCurrentMatch()).withPattern(copyTgtNodePO.getPattern());
-         
+
          copyTgtNodePO.startCreate();
-         
+
          copyEdgePO2.hasTgt(copyTgtNodePO);
-         
+
          noOfMatches++;
-         
+
          tgtEdgePO.getPattern().findNextMatch();
       }
 
       systemout += &quot;\nNumber of migrated Edges: &quot; + noOfMatches;
-      
+
       storyboard.addPattern(tgtEdgePO, false);
       storyboard.addPattern(copySrcNodePO, false);
       storyboard.addPattern(copyTgtNodePO, false);
-      
+
       return result;
    }</pre><embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram16.svg'>
 <embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram17.svg'>
@@ -123,7 +123,7 @@ Number of migrated Edges: 10</p>
       int noOfMatches = 0;
 
       Graph copyGraph = new Graph();
-      
+
       if (origGraph != null)
       {
          &#x2F;&#x2F; migrate nodes
@@ -131,36 +131,36 @@ Number of migrated Edges: 10</p>
          {
             Node copyNode = (Node) copyGraph.createGcsNode()
                   .withText(origNode.getName());
-            
+
             copyNode.withOrig(origNode);
-            
+
             noOfMatches++;
          }
 
          systemout = &quot;Number of migrated nodes: &quot; + noOfMatches;
-         
+
          &#x2F;&#x2F; migrate edges
          for (Edge origEdge : origGraph.getEdges())
          {
             Edge copyEdge = (Edge) copyGraph.createGcsEdge()
                   .withText(origEdge.getName());
-            
+
             Node origSrcNode = origEdge.getSrc();
-            
+
             if (origSrcNode != null)
             {
                copyEdge.setSrc(origSrcNode.getCopy());
             }
 
             Node origTgtNode = origEdge.getTgt();
-            
+
             if (origTgtNode != null)
             {
                copyEdge.setTgt(origTgtNode.getCopy());
             }
          }
       }
-      
+
       return copyGraph;
    }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration29.svg'>
@@ -168,18 +168,18 @@ Number of migrated Edges: 10</p>
 <hr/><h2>Migrate using Serialisation / Clone : </h2><pre>   private Graph simpleMigrationByCloning(Graph graph)
    {
       JsonArray jsonArray = GraphCreator.createIdMap(&quot;hg&quot;).toJsonArray(graph);
-      
+
       Graph copyGraph = (Graph) GraphCreator.createIdMap(&quot;hg&quot;).decode(jsonArray);
-      
+
       GraphComponentSet gcs = new GraphComponentSet();
       gcs.addAll(copyGraph.getNodes());
       gcs.addAll(copyGraph.getEdges());
-      
+
       for (GraphComponent comp : gcs)
       {
          comp.setParent(copyGraph);
          comp.setGraph(null);
-         
+
          comp.setText(comp.getName());
          comp.setName(null);
       }
@@ -190,42 +190,42 @@ Number of migrated Edges: 10</p>
 <hr/><h2>Migrate using JSON Array representation : </h2><pre>   private Graph simpleMigrationByJsonArray(Graph graph)
    {
       JsonIdMap idMap = GraphCreator.createIdMap(&quot;hg&quot;);
-      
+
       JsonArray jsonArray = idMap.toJsonArray(graph);
-      
+
       for (int i = 0; i &lt; jsonArray.size(); i++)
       {
          JsonObject jsonObject = jsonArray.getJSONObject(i);
-         
+
          String className = jsonObject.getString(JsonIdMap.CLASS);
-         
+
          if (Graph.class.getName().equals(className))
          {
             JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-            
+
             &#x2F;&#x2F; migrate nodes and edges to gcs
             JsonArray gcsArray = jsonProps.getJsonArray(Graph.PROPERTY_NODES);
-            
+
             gcsArray.addAll(Arrays.asList(jsonProps.getJsonArray(Graph.PROPERTY_EDGES).toArray()));
-            
+
             jsonProps.put(Graph.PROPERTY_GCS, gcsArray);
-            
+
             jsonProps.remove(Graph.PROPERTY_NODES);
-            
+
             jsonProps.remove(Graph.PROPERTY_EDGES);
          }
          else if (Node.class.getName().equals(className))
          {
             JsonObject jsonProps = jsonObject.getJsonObject(JsonIdMap.JSON_PROPS);
-            
+
             &#x2F;&#x2F; migrate name to text
             jsonProps.put(Node.PROPERTY_TEXT, jsonProps.get(Node.PROPERTY_NAME));
-            
+
             jsonProps.remove(Node.PROPERTY_NAME);
-            
+
             &#x2F;&#x2F; migrate graph to parent
             jsonProps.put(Node.PROPERTY_PARENT, jsonProps.get(Node.PROPERTY_GRAPH));
-            
+
             jsonProps.remove(Node.PROPERTY_GRAPH);
          }
          else if (Edge.class.getName().equals(className))
@@ -242,11 +242,11 @@ Number of migrated Edges: 10</p>
 
             jsonProps.remove(Node.PROPERTY_GRAPH);
          }
-         
+
       }
-      
+
       Graph copyGraph = (Graph) GraphCreator.createIdMap(&quot;hg&quot;).decode(jsonArray);
-      
+
       return copyGraph;
    }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011SimpleMigration40.svg'>
@@ -254,9 +254,9 @@ Number of migrated Edges: 10</p>
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(GraphCreator.createIdMap(&quot;g1&quot;), origGraph);
-      
+
       storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
+
       &#x2F;&#x2F; rename name to text attributes
       GenericGraphPO graphPO = new GenericGraphPO(genGraph);
       graphPO.hasObjects()
@@ -265,11 +265,11 @@ Number of migrated Edges: 10</p>
       .startCreate()
       .hasName(Node.PROPERTY_TEXT)
       .allMatches();
-      
+
       storyboard.addPattern(graphPO, false);
 
       &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-      
+
       &#x2F;&#x2F; rename graph--nodes links to parent--gcs links
       graphPO = new GenericGraphPO(genGraph);
       graphPO
@@ -279,11 +279,11 @@ Number of migrated Edges: 10</p>
       .hasTgtLabel(Node.PROPERTY_PARENT)
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
-      
+
       storyboard.addPattern(graphPO, false);
 
       &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
-      
+
       &#x2F;&#x2F; rename graph--edges links to parent--gcs links
       graphPO = new GenericGraphPO(genGraph);
       graphPO
@@ -293,13 +293,13 @@ Number of migrated Edges: 10</p>
       .hasSrcLabel(Node.PROPERTY_PARENT)
       .hasTgtLabel(Graph.PROPERTY_GCS)
       .allMatches();
-      
+
       storyboard.addPattern(graphPO, false);
 
       storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
-      
+
       Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap(&quot;tg&quot;), null, genGraph);
-      
+
       return tgtGraph;
    }</pre><embed type="image/svg+xml" src='TTC2011SimpleMigration44.svg'>
 <embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram44.svg'>

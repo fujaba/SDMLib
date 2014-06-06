@@ -12,13 +12,13 @@
 <p>A constant transformation that creates a Greeting object</p>
 <p>Create class model and generate implementation:</p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldConstantTransformation1ClassDiagram3.svg'><p>The code that builds and runs the transformation / pattern looks like: </p>
-<pre>      
+<pre>
       GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
             .startCreate()
             .has(new GreetingPO());
-      
+
       greetingPO.hasText(&quot;Hello World&quot;);
-      
+
 </pre><embed type="image/svg+xml"src='TTC2011HelloWorldConstantTransformation1PatternDiagram6.svg'>
 <p>Check: Constant transformation has match</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>

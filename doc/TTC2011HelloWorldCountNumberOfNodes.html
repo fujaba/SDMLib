@@ -15,7 +15,7 @@
 <hr/><h2>Count nodes in graph direct: </h2><pre>   public void countNodesInJava(Graph graph)
    {
       int noOfNodes = graph.getNodes().size();
-      
+
       systemout = &quot;Number of nodes: &quot; + noOfNodes;
    }</pre><p>systemout: Number of nodes: 8</p>
 <p>Count nodes in graph per pattern: </p>
@@ -178,21 +178,21 @@ n5 --> n3 --> n4 -->
 <pre>   public void countCirclesOfThreeNodesInJava(Graph graph)
    {
       int noOfCircles = 0;
-      
+
       systemout = &quot;Circles found: \n&quot;;
-      
+
       for (Node firstNode : graph.getNodes())
       {
          for (Edge firstEdge : firstNode.getOutEdges())
          {
             Node secondNode = firstEdge.getTgt();
-            
+
             if (secondNode != null &amp;&amp; secondNode != firstNode)
             {
                for (Edge secondEdge : secondNode.getOutEdges())
                {
                   Node thirdNode = secondEdge.getTgt();
-            
+
                   if (thirdNode != null &amp;&amp; thirdNode != secondNode &amp;&amp; thirdNode != firstNode)
                   {
                      for (Edge thirdEdge : thirdNode.getOutEdges())
@@ -203,7 +203,7 @@ n5 --> n3 --> n4 -->
                            systemout += firstNode.getName() + &quot; --&gt; &quot;
                                  + secondNode.getName() + &quot; --&gt; &quot; 
                                  + thirdNode.getName() + &quot; --&gt; \n&quot;;
-                           
+
                            noOfCircles++;
                         }
                      }
@@ -212,7 +212,7 @@ n5 --> n3 --> n4 -->
             }
          }
       }
-      
+
       systemout += &quot;&quot; + noOfCircles + &quot; circles found&quot;;
    }</pre><p>systemout: Circles found: 
 n1 --> n2 --> n3 --> 
@@ -225,13 +225,13 @@ n5 --> n3 --> n4 -->
 <hr/><h2>Count dangling edges per pattern: </h2><pre>   public void countDanglingEdgesPerPattern(Graph graph)
    {
       edgesPO = new GraphPO(graph).hasEdges();
-      
+
       edgesPO.startNAC().hasTgt();
-      
+
       edgesPO.hasSrc().endNAC();
-      
+
       EdgeSet allMatches = edgesPO.allMatches();
-      
+
       systemout = &quot;Dangling edges &quot; + allMatches.getName().concat(&quot;, &quot;) + &quot; number: &quot; + allMatches.size();
    }</pre><embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram56.svg'>
 <embed type="image/svg+xml"src='TTC2011HelloWorldCountNumberOfNodesPatternDiagram57.svg'>
@@ -240,20 +240,20 @@ n5 --> n3 --> n4 -->
 <pre>   public void countDanglingEdgesInJava(Graph graph)
    {
       systemout = &quot;Dangling edges &quot;; 
-      
+
       int noOfMatches = 0;
-      
+
       for (Edge edge : graph.getEdges())
       {
          if (edge.getSrc() == null
                || edge.getTgt() == null)
          {
             systemout += edge.getName() + &quot;, &quot;;
-            
+
             noOfMatches++;
          }
       }
-      
+
       systemout = systemout.substring(0, systemout.length() - 2) + &quot; number: &quot; + noOfMatches;
    }</pre><p>systemout: Dangling edges e18, e19 number: 2</p>
 

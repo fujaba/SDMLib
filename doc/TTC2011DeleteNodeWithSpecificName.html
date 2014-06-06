@@ -19,7 +19,7 @@
       NodePO nodeN1PO = new GraphPO(graph)
       .hasNodes()
       .hasName(&quot;n1&quot;);
-      
+
       &#x2F;&#x2F; destroy all leaving edges
       nodeN1PO.startSubPattern()
       .hasOutEdges()
@@ -33,10 +33,10 @@
       .destroy()
       .endSubPattern()
       .allMatches();
-      
+
       &#x2F;&#x2F; destroy the node
       nodeN1PO.destroy().allMatches();
-      
+
       return nodeN1PO;
    }</pre><embed type="image/svg+xml"src='TTC2011DeleteNodeWithSpecificNamePatternDiagram7.svg'>
 <p>Result graph:</p>

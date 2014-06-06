@@ -14,17 +14,17 @@
 <hr/><h2>Reverse Edges per pattern: </h2><pre>   public void reverseEdgesPerPattern(Graph graph)
    {
       edgesPO = new GraphPO(graph).hasEdges();
-      
+
       NodePO srcPO = edgesPO.hasSrc();
-      
+
       NodePO tgtPO = edgesPO.hasTgt();
-      
+
       edgesPO.startCreate();
-      
+
       edgesPO.hasSrc(tgtPO);
-      
+
       edgesPO.hasTgt(srcPO);
-      
+
       systemout = &quot;Number of reversed edges: &quot; + edgesPO.getPattern().allMatches();
    }</pre><embed type="image/svg+xml"src='TTC2011HelloWorldReverseEdgesPatternDiagram7.svg'>
 <embed type="image/svg+xml"src='TTC2011HelloWorldReverseEdgesPatternDiagram8.svg'>
@@ -34,20 +34,20 @@
 <h2>Reverse Edges (back) in Java: </h2>: <pre>   public void reverseEdgesInJava(Graph graph)
    {
       int noOfMatches = 0;
-      
+
       for (Edge edge : graph.getEdges())
       {
          Node src = edge.getSrc();
-         
+
          Node tgt = edge.getTgt();
-         
+
          edge.setSrc(tgt);
-         
+
          edge.setTgt(src);
-         
+
          noOfMatches++;
       }
-      
+
       systemout = &quot;Number of reversed edges: &quot; + noOfMatches;
    }</pre><p>Result graph: </p>
 <embed type="image/svg+xml" src='TTC2011HelloWorldReverseEdges16.svg'>
