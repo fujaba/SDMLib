@@ -606,7 +606,7 @@ public class GenClassModel
       // parse the model creation file
       Clazz modelCreationClass = getOrCreateClazz(className);
 
-      modelCreationClass.getClassModel().removeFromClasses(modelCreationClass);
+      modelCreationClass.getClassModel().withoutClazz(modelCreationClass);
       
       String signature = Parser.METHOD + ":" + methodName + "(";
 
@@ -1920,7 +1920,7 @@ public class GenClassModel
       Clazz memberClass = findMemberClass(clazz, memberName, parser);
 
       if (memberClass != null)
-         clazz.withSuperClasses(memberClass);
+         clazz.withSuperClazz(memberClass);
    }
 
    private void addMemberAsInterface(Clazz clazz, String memberName, Parser parser)
@@ -1931,7 +1931,7 @@ public class GenClassModel
       {
          memberClass.withInterface(true);
 
-         clazz.withSuperClasses(memberClass);
+         clazz.withSuperClazz(memberClass);
       }
    }
 
@@ -2010,7 +2010,7 @@ public class GenClassModel
       if (filterString.indexOf(signature) < 0 && isNewMethod(signature, clazz))
       {
          new Method()
-         .withClazz(clazz);
+         .with(clazz);
 //FIXME MONTAG mit Alex         .withSignature(signature)
 //         .withReturnType(split[2]);
       }

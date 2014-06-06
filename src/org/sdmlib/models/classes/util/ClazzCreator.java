@@ -141,7 +141,7 @@ public class ClazzCreator extends EntityFactory
 
       if (Clazz.PROPERTY_SUPERCLAZZES.equalsIgnoreCase(attrName))
       {
-         ((Clazz)target).withSuperClasses((Clazz) value);
+         ((Clazz)target).withSuperClazz((Clazz) value);
          return true;
       }
       
@@ -165,7 +165,7 @@ public class ClazzCreator extends EntityFactory
       
       if ((Clazz.PROPERTY_KIDCLAZZES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Clazz) target).withoutKidClazzes((Clazz) value);
+         ((Clazz) target).withoutKidClazz((Clazz) value);
          return true;
       }
 

@@ -21,7 +21,6 @@
 
 package org.sdmlib.models.classes;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.sdmlib.CGUtil;
@@ -32,6 +31,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 public class ClassModel extends SDMLibClass
 {
    public static final String PROPERTY_CLASSES = "classes";
+   private static final String PROPERTY_FEATURE = "feature";
    private Set<Feature> features=Feature.getAll();
    private ClazzSet classes;
    private GenClassModel generator;
@@ -112,57 +112,6 @@ public class ClassModel extends SDMLibClass
 		return clazz;
 	}
 
-	public boolean addToClasses(Clazz value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.classes == null)
-         {
-            this.classes = new ClazzSet();
-         }
-         
-         changed = this.classes.add (value);
-         
-         if (changed)
-         {
-            value.with(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-	public boolean removeFromClasses(Clazz value)
-	{
-		boolean changed = false;
-
-		if ((this.classes != null) && (value != null))
-		{
-			changed = this.classes.remove(value);
-
-			if (changed)
-			{
-				value.setClassModel(null);
-				getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, value, null);
-			}
-		}
-
-		return changed;
-	}
-
-	public void removeAllFromClasses()
-	{
-		LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getClasses());
-
-		for (Clazz value : tmpSet)
-		{
-			this.removeFromClasses(value);
-		}
-	}
-
 	 public String dumpClassDiagram(String diagName)
 	{
 		JsonToGraphViz graphViz = new JsonToGraphViz();
@@ -176,7 +125,7 @@ public class ClassModel extends SDMLibClass
    public void removeYou()
 	{
 	   super.removeYou();
-		removeAllFromClasses();
+	   withoutClazz(this.getClasses().toArray(new Clazz[this.getClasses().size()]));
 		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
 		
 	}
@@ -200,23 +149,44 @@ public class ClassModel extends SDMLibClass
       return _.substring(1);
    }
 
-   public ClassModel withClasses(Clazz... value)
+   public ClassModel withClazz(Clazz... value)
    {
       if(value==null){
          return this;
       }
+      if (this.classes == null)
+      {
+         this.classes = new ClazzSet();
+      }
       for (Clazz item : value)
       {
-         addToClasses(item);
+         if (item != null)
+         {
+            if ( this.classes.add (item))
+            {
+               item.with(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, null, item);
+            }
+         }
       }
       return this;
    } 
 
-   public ClassModel withoutClasses(Clazz... value)
+   public ClassModel withoutClazz(Clazz... value)
    {
+      if (this.classes == null){
+         return this;
+      }
       for (Clazz item : value)
       {
-         removeFromClasses(item);
+         if (item != null)
+         {
+            if (this.classes.remove(item))
+            {
+               item.setClassModel(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, item, null);
+            }
+         }
       }
       return this;
    }
@@ -226,14 +196,21 @@ public class ClassModel extends SDMLibClass
       return features;
    }
 
-   public ClassModel withFeature(Feature value)
+   public ClassModel withFeature(Feature... value)
    {
-      this.features.add(value);
-      return this;
-   }
-   public ClassModel withFeatures(Set<Feature> value)
-   {
-      this.features = value;
+      if(value==null){
+         return this;
+      }
+      for (Feature item : value)
+      {
+         if (item != null)
+         {
+            if ( this.features.add (item))
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, null, item);
+            }
+         }
+      }
       return this;
    }
 
@@ -248,11 +225,4 @@ public class ClassModel extends SDMLibClass
       setName(value);
       return this;
    }
-
-   public Clazz createClasses()
-   {
-      Clazz value = new Clazz();
-      withClasses(value);
-      return value;
-   } 
 }

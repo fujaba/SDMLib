@@ -24,7 +24,6 @@ package org.sdmlib.models.classes;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
-import java.util.LinkedHashSet;
 
 public class Method extends SDMLibClass
 {
@@ -92,13 +91,13 @@ public class Method extends SDMLibClass
    
    public Method(String name, DataType returnType, Parameter... parameters)
    {
-      this.withParameter(parameters);
+      this.with(parameters);
       this.setReturnType(returnType);
    }
    
    public Method(String name, Parameter... parameters)
    {
-      this.withParameter(parameters);
+      this.with(parameters);
       this.setName(name);
    }
 
@@ -109,74 +108,54 @@ public class Method extends SDMLibClass
       return this;
    }
    
-   public boolean addToParameter(Parameter value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.parameter == null)
-         {
-            this.parameter = new ParameterSet();
-         }
-         
-         changed = this.parameter.add (value);
-         
-         if (changed)
-         {
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public boolean removeFromParameter(Parameter value)
-   {
-      boolean changed = false;
-      
-      if ((this.parameter != null) && (value != null))
-      {
-         changed = this.parameter.remove(value);
-         
-         if (changed)
-         {
-            value.setMethod(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public Method withParameter(Parameter... value)
+   public Method with(Parameter... value)
    {
       if(value==null){
          return this;
       }
+      if (this.parameter == null)
+      {
+         this.parameter = new ParameterSet();
+      }
       for (Parameter item : value)
       {
-         addToParameter(item);
+         if (item != null)
+         {
+            if (this.parameter.add (item))
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, null, item);
+            }
+         }
       }
       return this;
    }
-   public Method withParameter(String... value){
-      if(value==null){
+//TODO ALEX USE??   public Method withParameter(String... value){
+//      if(value==null){
+//         return this;
+//      }
+//      for(String parameter : value){
+//         
+//         withParameter(new Parameter(DataType.ref(parameter)));
+//      }
+//      return this;
+//   }
+
+
+   public Method without(Parameter... value)
+   {
+      if (this.parameter == null || value==null){
          return this;
       }
-      for(String parameter : value){
-         
-         addToParameter(new Parameter(DataType.ref(parameter)));
-      }
-      return this;
-   }
-
-
-   public Method withoutParameter(Parameter... value)
-   {
       for (Parameter item : value)
       {
-         removeFromParameter(item);
+         if(item != null)
+         {
+            if (this.parameter.remove(item))
+            {
+               item.setMethod(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, item, null);
+            }
+         }
       }
       return this;
    }
@@ -191,7 +170,7 @@ public class Method extends SDMLibClass
       this.modifier = value;
    }
 
-   public Method withModifier(Visibility value)
+   public Method with(Visibility value)
    {
       setModifier(value);
       return this;
@@ -238,7 +217,7 @@ public class Method extends SDMLibClass
       return changed;
    }
 
-   public Method withClazz(Clazz value)
+   public Method with(Clazz value)
    {
       setClazz(value);
       return this;
@@ -250,7 +229,7 @@ public class Method extends SDMLibClass
    {
       super.removeYou();
       setClazz(null);
-      removeAllFromParameter();
+      without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -320,27 +299,10 @@ public class Method extends SDMLibClass
       return this.parameter;
    }
 
-   public void removeAllFromParameter()
+   public Parameter createParameter(DataType type)
    {
-      LinkedHashSet<Parameter> tmpSet = new LinkedHashSet<Parameter>(this.getParameter());
-   
-      for (Parameter value : tmpSet)
-      {
-         this.removeFromParameter(value);
-      }
-   }
-
-   public Parameter createParameter()
-   {
-      Parameter value = new Parameter();
-      withParameter(value);
-      return value;
-   } 
-
-   public Clazz createClazz()
-   {
-      Clazz value = new Clazz();
-      withClazz(value);
+      Parameter value = new Parameter(type);
+      with(value);
       return value;
    } 
 }

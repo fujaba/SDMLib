@@ -90,13 +90,13 @@ public class MethodCreator extends SDMLibClassCreator
 
       if (Method.PROPERTY_PARAMETER.equalsIgnoreCase(attrName))
       {
-         ((Method) target).addToParameter((Parameter) value);
+         ((Method) target).with((Parameter) value);
          return true;
       }
       
       if ((Method.PROPERTY_PARAMETER + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Method) target).removeFromParameter((Parameter) value);
+         ((Method) target).without((Parameter) value);
          return true;
       }
       

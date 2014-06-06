@@ -46,9 +46,9 @@ public class ClassModelTest
 
       ClassModel model = new ClassModel("org.sdmlib.models.classes");
       Clazz sdmLibClazz = new Clazz("SDMLibClass").withAttribute("name", DataType.STRING);
-      Clazz modelClass = model.createClazz("ClassModel").withSuperClasses(sdmLibClazz);
+      Clazz modelClass = model.createClazz("ClassModel").withSuperClazz(sdmLibClazz);
            
-      Clazz clazzClass = new Clazz("Clazz").withSuperClasses(sdmLibClazz)
+      Clazz clazzClass = new Clazz("Clazz").withSuperClazz(sdmLibClazz)
          .withAttribute("interfaze", DataType.BOOLEAN) 
          .withAttribute("external", DataType.BOOLEAN);
       
@@ -61,31 +61,31 @@ public class ClassModelTest
       .withTarget(clazzClass, "kidClazzes", Card.MANY);
       
       
-      Clazz valueClass = new Clazz("Value").withSuperClasses(sdmLibClazz);
+      Clazz valueClass = new Clazz("Value").withSuperClazz(sdmLibClazz);
       valueClass.withAttribute("initialization", DataType.STRING)
          .withAttribute("type", DataType.ref(DataType.class));
       
       
-      Clazz attributeClass = new Clazz("Attribute").withSuperClasses(valueClass);
+      Clazz attributeClass = new Clazz("Attribute").withSuperClazz(valueClass);
          
       new Association()
       .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
       .withTarget(attributeClass, "attributes", Card.MANY);
       
       
-      Clazz methodClass = new Clazz("Method").withSuperClasses(sdmLibClazz)
+      Clazz methodClass = new Clazz("Method").withSuperClazz(sdmLibClazz)
             .withAttribute("returnType", DataType.ref(DataType.class))
             .withAttribute("body", DataType.STRING);
       
-      model.createClazz("Parameter").withSuperClasses(valueClass).withAssoc(methodClass, "method", Card.ONE, "parameter", Card.MANY);
+      model.createClazz("Parameter").withSuperClazz(valueClass).withAssoc(methodClass, "method", Card.ONE, "parameter", Card.MANY);
       
       new Association()
       .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
       .withTarget(methodClass, "methods", Card.MANY);
       
-      Clazz associationClass = new Clazz("Association").withSuperClasses(sdmLibClazz);
+      Clazz associationClass = new Clazz("Association").withSuperClazz(sdmLibClazz);
       
-      Clazz roleClass = new Clazz("Role").withSuperClasses(sdmLibClazz)
+      Clazz roleClass = new Clazz("Role").withSuperClazz(sdmLibClazz)
       .withAttribute("card", DataType.STRING, "MANY")
       .withAttribute("kind", DataType.STRING, "VANILLA");
       

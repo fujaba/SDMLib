@@ -28,8 +28,8 @@ public class GroupAccountClassModel
       Clazz groupAccountClass = model.createClazz("GroupAccount");
             
       groupAccountClass.createMethod("getTaskNames")
-            .withParameter(new Parameter(DataType.DOUBLE))
-            .withParameter(new Parameter(DataType.STRING))
+            .with(new Parameter(DataType.DOUBLE))
+            .with(new Parameter(DataType.STRING))
             .withReturnType(DataType.DOUBLE);
       
       groupAccountClass.createMethod("updateBalances");

@@ -47,7 +47,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
    {
       for (ClassModel obj : this)
       {
-         obj.withClasses(value);
+         obj.withClazz(value);
       }
       
       return this;
@@ -57,7 +57,7 @@ public class ClassModelSet extends LinkedHashSet<ClassModel> implements org.sdml
    {
       for (ClassModel obj : this)
       {
-         obj.withoutClasses(value);
+         obj.withoutClazz(value);
       }
       
       return this;

@@ -68,9 +68,9 @@ public class StudyRightModel implements PropertyChangeInterface
       .withAttribute("credits", DataType.INT);
 
       new Method()
-         .withClazz(roomClass)
+         .with(roomClass)
          .withName("findPath")
-         .withParameter(new Parameter(DataType.STRING), new Parameter(DataType.INT));
+         .with(new Parameter(DataType.STRING), new Parameter(DataType.INT));
 
       new Association()
       .withSource(roomClass, "neighbors", Card.MANY)
@@ -129,18 +129,18 @@ public class StudyRightModel implements PropertyChangeInterface
       .withInterface(true);
 
       new Method()
-      .withClazz(personClass).withName("findMyPosition");
+      .with(personClass).withName("findMyPosition");
 
-      new Method("findMyPosition", new Parameter(DataType.STRING)).withClazz(personClass);
+      new Method("findMyPosition", new Parameter(DataType.STRING)).with(personClass);
 
       new Method("findMyPosition", new Parameter(DataType.STRING), new Parameter(DataType.INT))
-            .withClazz(personClass);
+            .with(personClass);
       
       Clazz roomClass = new Clazz("org.sdmlib.examples.studyright.model.Room")
       .withAttribute("roomNo", DataType.STRING)
       .withAttribute("credits", DataType.INT);
 
-      new Method("studentCount").withClazz(roomClass).withReturnType(DataType.INT);
+      new Method("studentCount").with(roomClass).withReturnType(DataType.INT);
 
       new Association()
       .withSource(roomClass, "neighbors", Card.MANY)
@@ -158,22 +158,22 @@ public class StudyRightModel implements PropertyChangeInterface
       .withTarget(universityClass, "uni", Card.ONE);
 
       Clazz femaleClass = new Clazz("org.sdmlib.examples.studyright.model.Female")
-      .withSuperClasses(personClass)
+      .withSuperClazz(personClass)
       .withAttribute("name", DataType.STRING);
 
-      new Method("findMyPosition").withClazz(femaleClass);
+      new Method("findMyPosition").with(femaleClass);
 
-      new Method("findMyPosition", new Parameter(DataType.STRING)).withClazz(femaleClass);
+      new Method("findMyPosition", new Parameter(DataType.STRING)).with(femaleClass);
 
       new Method("findMyPosition", new Parameter(DataType.STRING), new Parameter(DataType.INT))
-         .withClazz(femaleClass);
+         .with(femaleClass);
 
       Clazz maleClass = new Clazz("org.sdmlib.examples.studyright.model.Male")
       .withInterface(true)
-      .withSuperClasses(personClass);
+      .withSuperClazz(personClass);
 
       Clazz professorClass = new Clazz("org.sdmlib.examples.studyright.model.Professor")
-      .withSuperClasses(femaleClass)
+      .withSuperClazz(femaleClass)
       .withAttribute("PersNr", DataType.INT);
 
       new Association()
@@ -181,18 +181,18 @@ public class StudyRightModel implements PropertyChangeInterface
       .withTarget(professorClass, "has", Card.ONE);
 
       Clazz studentClass = new Clazz("org.sdmlib.examples.studyright.model.Student")
-      .withSuperClasses(maleClass)
+      .withSuperClazz(maleClass)
       .withAttribute("name", DataType.STRING)
       .withAttribute("matrNo", DataType.INT)
       /*set superclass*/
-      .withSuperClasses(femaleClass);
+      .withSuperClazz(femaleClass);
 
-      new Method("findMyPosition").withClazz(studentClass);
+      new Method("findMyPosition").with(studentClass);
 
-      new Method("findMyPosition", new Parameter(DataType.STRING)).withClazz(studentClass);
+      new Method("findMyPosition", new Parameter(DataType.STRING)).with(studentClass);
 
       new Method("findMyPosition", new Parameter(DataType.STRING), new Parameter(DataType.INT))
-         .withClazz(studentClass);
+         .with(studentClass);
 
       new Association()
       .withSource(lectureClass, "lecture", Card.MANY)
@@ -261,7 +261,7 @@ public class StudyRightModel implements PropertyChangeInterface
       .withAttribute("credits", DataType.INT);
 
       new Method("findPath", new Parameter(DataType.STRING), new Parameter(DataType.INT))
-         .withClazz(roomClass);
+         .with(roomClass);
 
       Association uniToRoom = new Association()
       .withSource(new Role(uniClass, "uni", Card.ONE).withKind(Role.AGGREGATION))

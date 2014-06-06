@@ -39,7 +39,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withParameter(value);
+         obj.with(value);
       }
       
       return this;
@@ -82,7 +82,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withClazz(value);
+         obj.with(value);
       }
       
       return this;
@@ -245,7 +245,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withoutParameter(value);
+         obj.without(value);
       }
       
       return this;

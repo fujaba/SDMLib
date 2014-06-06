@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2012 Albert Zündorf
+   Copyright (c) 2012 Albert zuendorf
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -127,7 +127,7 @@ public class Clazz extends SDMLibClass
       return this.superClazzes;
    }
 
-   public Clazz withSuperClasses(Clazz... value)
+   public Clazz withSuperClazz(Clazz... value)
    {
       if(value==null){
          return this;
@@ -181,7 +181,7 @@ public class Clazz extends SDMLibClass
          {
             if (this.kidClazzes.add(item))
             {
-               item.withSuperClasses(this);
+               item.withSuperClazz(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLAZZES, null, item);
             }
          }
@@ -205,14 +205,14 @@ public class Clazz extends SDMLibClass
          if (this.classModel != null)
          {
             this.classModel = null;
-            oldValue.withoutClasses(this);
+            oldValue.withoutClazz(this);
          }
          
          this.classModel = value;
          
          if (value != null)
          {
-            value.withClasses(this);
+            value.withClazz(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSMODEL, oldValue, value);
@@ -333,25 +333,27 @@ public class Clazz extends SDMLibClass
       without(this.getAttributes().toArray(new Attribute[this.getAttributes().size()]));
       without(this.getMethods().toArray(new Method[this.getMethods().size()]));
       without(this.getRoles().toArray(new Role[this.getRoles().size()]));
-      withoutKidClazzes(this.getKidClazzes().toArray(new Clazz[this.getKidClazzes().size()]));
-      withoutSuperClazzes(this.getSuperClazzes().toArray(new Clazz[this.getSuperClazzes().size()]));
+      withoutKidClazz(this.getKidClazzes().toArray(new Clazz[this.getKidClazzes().size()]));
+      withoutSuperClazz(this.getSuperClazzes().toArray(new Clazz[this.getSuperClazzes().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
    //==========================================================================
-   public Boolean isInterface()
+   public boolean isInterface()
    {
       return this.interfaze;
    }
 
-   public void setInterface(boolean value)
+   public boolean setInterface(boolean value)
    {
       if (this.interfaze != value)
       {
          boolean oldValue = this.interfaze;
          this.interfaze = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
+         return true;
       }
+      return false;
    }
 
    public Attribute getOrCreateAttribute(String attrName, DataType attrType)
@@ -374,14 +376,16 @@ public class Clazz extends SDMLibClass
       return this.external;
    }
 
-   public void setExternal(boolean value)
+   public boolean setExternal(boolean value)
    {
       if (this.external != value)
       {
          boolean oldValue = this.external;
          this.external = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_EXTERNAL, oldValue, value);
+         return true;
       }
+      return false;
    }
 
    public Clazz withExternal(boolean value)
@@ -411,16 +415,17 @@ public class Clazz extends SDMLibClass
    
    public Clazz without(Attribute... value)
    {
-      if (this.attributes != null){
-         for (Attribute item : value)
+      if (this.attributes == null || value==null){
+         return this;
+      }
+      for (Attribute item : value)
+      {
+         if (item != null)
          {
-            if (item != null)
+            if (this.attributes.remove(item))
             {
-               if (this.attributes.remove(item))
-               {
-                  item.setClazz(null);
-                  getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, item, null);
-               }
+               item.setClazz(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, item, null);
             }
          }
       }
@@ -442,7 +447,7 @@ public class Clazz extends SDMLibClass
          {
             if (this.methods.add(item))
             {
-               item.withClazz(this);
+               item.with(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, item);
             }
          }
@@ -452,16 +457,17 @@ public class Clazz extends SDMLibClass
 
    public Clazz without(Method... value)
    {
-      if (this.methods != null){
-         for (Method item : value)
+      if (this.methods == null || value==null){
+         return this;
+      }
+      for (Method item : value)
+      {
+         if (item != null)
          {
-            if (item != null)
+            if (this.methods.remove(item))
             {
-               if (this.methods.remove(item))
-               {
-                  item.setClazz(null);
-                  getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, item, null);
-               }
+               item.setClazz(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, item, null);
             }
          }
       }
@@ -493,16 +499,17 @@ public class Clazz extends SDMLibClass
 
    public Clazz without(Role... value)
    {
-      if(this.roles != null){
-         for (Role item : value)
+      if (this.roles == null || value==null){
+         return this;
+      }
+      for (Role item : value)
+      {
+         if (item != null)
          {
-            if (item != null)
+            if (this.roles.remove(item))
             {
-               if (this.roles.remove(item))
-               {
-                  item.setClazz(null);
-                  getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, item, null);
-               }
+               item.setClazz(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, item, null);
             }
          }
       }
@@ -523,12 +530,12 @@ public class Clazz extends SDMLibClass
    
    public Method createMethod(String name, Parameter... parameters)
    {
-      return new Method().withName(name).withParameter(parameters).withClazz(this);     
+      return new Method().withName(name).with(parameters).with(this);     
    }
    
    public Method createMethod(String name, DataType returnValue, Parameter... parameters)
    {
-      return new Method().withName(name).withParameter(parameters).withReturnType(returnValue).withClazz(this);     
+      return new Method().withName(name).with(parameters).withReturnType(returnValue).with(this);     
    }
 
    public Attribute createAttribute(String name, DataType type)
@@ -538,39 +545,40 @@ public class Clazz extends SDMLibClass
       return attribute;
    }
 
-   public Attribute createAttributes()
+   public Attribute createAttribute()
    {
       Attribute value = new Attribute();
       with(value);
       return value;
    } 
 
-   public Method createMethods()
+   public Method createMethod()
    {
       Method value = new Method();
       with(value);
       return value;
    } 
 
-   public Clazz withoutKidClazzes(Clazz... value)
+   public Clazz withoutKidClazz(Clazz... value)
    {
-      if (this.kidClazzes != null){
-         for (Clazz item : value)
+      if (this.kidClazzes == null || value==null){
+         return this;
+      }
+      for (Clazz item : value)
+      {
+         if (item != null)
          {
-            if (item != null)
+            if (this.kidClazzes.remove(item))
             {
-               if (this.kidClazzes.remove(item))
-               {
-                  item.withoutSuperClazzes(this);
-                  getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLAZZES, item, null);
-               }
+               item.withoutSuperClazz(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLAZZES, item, null);
             }
          }
       }
       return this;
    }
 
-   public Clazz createKidClazzes()
+   public Clazz createKidClazz()
    {
       Clazz value = new Clazz();
       withKidClazzes(value);
@@ -583,28 +591,29 @@ public class Clazz extends SDMLibClass
    }
 
 
-   public Clazz withoutSuperClazzes(Clazz... value)
+   public Clazz withoutSuperClazz(Clazz... value)
    {
-      if(this.superClazzes != null){
-         for (Clazz item : value)
+      if (this.superClazzes == null || value==null){
+         return this;
+      }
+      for (Clazz item : value)
+      {
+         if (item != null)
          {
-            if (item != null)
+            if (this.superClazzes.remove(item))
             {
-               if (this.superClazzes.remove(item))
-               {
-                  item.withoutKidClazzes(this);
-                  getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLAZZES, item, null);
-               }
+               item.withoutKidClazz(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLAZZES, item, null);
             }
          }
       }
       return this;
    }
 
-   public Clazz createSuperClazzes()
+   public Clazz createSuperClazz()
    {
       Clazz value = new Clazz();
-      withSuperClasses(value);
+      withSuperClazz(value);
       return value;
    } 
 }

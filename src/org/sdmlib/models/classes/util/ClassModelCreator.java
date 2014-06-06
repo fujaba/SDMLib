@@ -88,13 +88,13 @@ public class ClassModelCreator extends EntityFactory
 
       if (ClassModel.PROPERTY_CLASSES.equalsIgnoreCase(attrName))
       {
-         ((ClassModel) target).addToClasses((Clazz) value);
+         ((ClassModel) target).withClazz((Clazz) value);
          return true;
       }
       
       if ((ClassModel.PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ClassModel) target).removeFromClasses((Clazz) value);
+         ((ClassModel) target).withoutClazz((Clazz) value);
          return true;
       }
       

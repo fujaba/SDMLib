@@ -54,14 +54,14 @@ public class Parameter extends Value
          if (this.method != null)
          {
             this.method = null;
-            oldValue.withoutParameter(this);
+            oldValue.without(this);
          }
 
          this.method = value;
 
          if (value != null)
          {
-            value.withParameter(this);
+            value.with(this);
          }
 
          getPropertyChangeSupport().firePropertyChange(PROPERTY_METHOD, oldValue, value);

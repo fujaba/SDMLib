@@ -123,7 +123,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withSuperClasses(value);
+         obj.withSuperClazz(value);
       }
       
       return this;
@@ -553,7 +553,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutKidClazzes(value);
+         obj.withoutKidClazz(value);
       }
       
       return this;
@@ -625,7 +625,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withSuperClasses(value);
+         obj.withSuperClazz(value);
       }
       
       return this;
@@ -635,7 +635,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutSuperClazzes(value);
+         obj.withoutSuperClazz(value);
       }
       
       return this;

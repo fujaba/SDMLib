@@ -33,7 +33,6 @@ public class Visibility
    }
    
    public static Visibility ref(Visibility... value){
-      //TODO VODOO
       Visibility first=PUBLIC;
       String seconds="";
       for(Visibility item : value){
