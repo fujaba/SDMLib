@@ -10,7 +10,7 @@ import org.sdmlib.models.classes.Method;
 
 public class GenMethod extends Generator<Method>
 {
-   public GenMethod generate(Clazz clazz,  String rootDir, String helpersDir, boolean doGenerate, boolean overrideFlag)
+   public GenMethod generate(Clazz clazz,  String rootDir, String helpersDir, boolean overrideFlag)
    {
       // get parser from class
       GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
@@ -22,11 +22,11 @@ public class GenMethod extends Generator<Method>
 
       Parser modelSetParser = generator.getOrCreateParserForModelSetFile(helpersDir);
       insertMethodInModelSet(clazz, modelSetParser);
-      generator.printModelSetFile(doGenerate);
+      generator.printFile(modelSetParser);
 
       Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
       insertMethodInPatternObject(clazz, patternObjectParser);
-      generator.printPatternObjectFile(doGenerate);
+      generator.printFile(patternObjectParser);
 
       return this;
    }
@@ -112,9 +112,9 @@ public class GenMethod extends Generator<Method>
       }
    }
 
-   public void generate(String rootDir, String helpersDir, boolean doGenerate, boolean overrideFlag)
+   public void generate(String rootDir, String helpersDir,  boolean overrideFlag)
    {
-      generate(model.getClazz(),  rootDir, helpersDir, doGenerate, overrideFlag);
+      generate(model.getClazz(),  rootDir, helpersDir, overrideFlag);
    }
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)

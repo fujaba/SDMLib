@@ -932,14 +932,7 @@ public class GenAttribute extends Generator<Attribute>
 
    public GenAttribute generate(Clazz clazz, String rootDir, String helpersDir)
    {
-      generate(clazz, rootDir, helpersDir, true);
-
-      return this;
-   } 
-
-   public GenAttribute generate(Clazz clazz, String rootDir, String helpersDir, boolean doGenerate)
-   {
-      return generate( clazz,  rootDir,  helpersDir,  doGenerate, false);
+      return generate( clazz,  rootDir,  helpersDir,  false);
    }
    
    @Override
@@ -948,7 +941,7 @@ public class GenAttribute extends Generator<Attribute>
       return "gen " + model; 
    }
 
-   public GenAttribute generate(Clazz clazz, String rootDir, String helpersDir, boolean doGenerate, boolean fromSuperClass)
+   public GenAttribute generate(Clazz clazz, String rootDir, String helpersDir, boolean fromSuperClass)
    {
       // get parser from class
       Parser parser;
@@ -973,13 +966,13 @@ public class GenAttribute extends Generator<Attribute>
 
          insertPropertyInCreatorClass(creatorParser, clazz );
          
-         getGenerator( clazz).printCreatorFile(doGenerate);
+         getGenerator( clazz).printFile(creatorParser);
       }
 
       Parser modelSetParser = getGenerator( clazz).getOrCreateParserForModelSetFile(helpersDir);
       insertGetterInModelSetClass(modelSetParser, clazz);
       insertSetterInModelSetClass(modelSetParser, clazz);
-      getGenerator( clazz).printModelSetFile(doGenerate);
+      getGenerator( clazz).printFile(modelSetParser);
 
       Parser patternObjectParser = getGenerator( clazz).getOrCreateParserForPatternObjectFile(helpersDir);
       insertHasMethodInPatternObjectClass(patternObjectParser, clazz);

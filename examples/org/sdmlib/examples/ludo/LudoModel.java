@@ -94,6 +94,7 @@ public class LudoModel
          .withAttribute("x", DataType.INT)
          .withAttribute("y", DataType.INT);
 
+      
       pawn.withAssoc(field, "pos", Card.ONE, "pawns", Card.MANY);
       
       // model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludo");

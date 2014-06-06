@@ -24,6 +24,7 @@ package org.sdmlib.examples.simpleModel.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 
 public class Alex implements PropertyChangeInterface
 {
@@ -47,6 +48,7 @@ public class Alex implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -66,7 +68,7 @@ public class Alex implements PropertyChangeInterface
    
    public void setName(String value)
    {
-      if (this.Name != value)
+      if ( ! StrUtil.stringEquals(this.Name, value))
       {
          String oldValue = this.Name;
          this.Name = value;

@@ -28,12 +28,11 @@ import org.sdmlib.models.modelsets.StringList;
 
 public class AlexSet extends SDMSet<Alex>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public AlexPO hasAlexPO()
    {
-      return new AlexPO (this.toArray(new Alex[this.size()]));
+      return new AlexPO(this.toArray(new Alex[this.size()]));
    }
 
 
@@ -44,14 +43,12 @@ public class AlexSet extends SDMSet<Alex>
    }
 
 
+   @SuppressWarnings("unchecked")
    public AlexSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Alex) item);
-           }
+         this.addAll((Collection<Alex>)value);
       }
       else if (value != null)
       {

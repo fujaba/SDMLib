@@ -2,7 +2,6 @@ package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.simpleModel.model.Mac;
-import org.sdmlib.examples.simpleModel.model.util.MacSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class MacPO extends PatternObject<MacPO, Mac>

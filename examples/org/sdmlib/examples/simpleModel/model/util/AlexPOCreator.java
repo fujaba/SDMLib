@@ -9,10 +9,14 @@ public class AlexPOCreator extends PatternObjectCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-       return new AlexPO();
+      if(reference) {
+          return new AlexPO(new Alex[]{});
+      } else {
+          return new AlexPO();
+      }
    }
    
    public static JsonIdMap createIdMap(String sessionID) {
-       return CreatorCreator.createIdMap(sessionID);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }

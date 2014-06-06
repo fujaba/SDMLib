@@ -159,7 +159,7 @@ public class GenClassModel
 
       for (Association assoc : getAssociations())
       {
-         getOrCreate(assoc).generate(rootDir, rootDir, false);
+         getOrCreate(assoc).generate(rootDir, rootDir);
       }
 
       Exception e = new RuntimeException();

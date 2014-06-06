@@ -2,7 +2,6 @@ package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.simpleModel.model.Alex;
-import org.sdmlib.examples.simpleModel.model.util.AlexSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class AlexPO extends PatternObject<AlexPO, Alex>

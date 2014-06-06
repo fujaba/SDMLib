@@ -75,7 +75,7 @@ public class GenRole extends Generator<Role>
    }
 
    
-   private void generateEmptySetInPartnerClass(String rootDir, Role partnerRole, boolean doGenerate)
+   private void generateEmptySetInPartnerClass(String rootDir, Role partnerRole)
    {
       // generate EMPTY_SET in partner class
       Clazz partnerClass = partnerRole.getClazz();
@@ -753,13 +753,13 @@ public class GenRole extends Generator<Role>
          }
       }
    } 
-   public void generate(String rootDir, String helperDir, Role partnerRole, boolean doGenerate)
+   public void generate(String rootDir, String helperDir, Role partnerRole)
    {
-      generate(model.getClazz(), rootDir, helperDir, partnerRole, doGenerate, false);
+      generate(model.getClazz(), rootDir, helperDir, partnerRole, false);
    }
    
    
-   public void generate(Clazz clazz, String rootDir, String helperDir, Role partnerRole, boolean doGenerate, boolean fromSuperClass)
+   public void generate(Clazz clazz, String rootDir, String helperDir, Role partnerRole, boolean fromSuperClass)
    {
       if (clazz.isExternal())
       {
@@ -788,7 +788,7 @@ public class GenRole extends Generator<Role>
 
          if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
          {
-            generateEmptySetInPartnerClass(rootDir, partnerRole, doGenerate);
+            generateEmptySetInPartnerClass(rootDir, partnerRole);
          }
       }
       
@@ -820,7 +820,7 @@ public class GenRole extends Generator<Role>
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
-         getGenerator(clazz).printCreatorFile(doGenerate);
+         getGenerator(clazz).printFile(creatorParser);
       }
       
       // generate property in model set class
@@ -829,14 +829,14 @@ public class GenRole extends Generator<Role>
       insertGetterInModelSetFile(clazz, modelSetParser, partnerRole);
       insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
       
-      getGenerator(clazz).printModelSetFile(doGenerate);
+      getGenerator(clazz).printFile(modelSetParser);
 
       // generate property in pattern object class
       Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
       
       insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
       
-      getGenerator(clazz).printPatternObjectFile(doGenerate);
+      getGenerator(clazz).printFile(patternObjectParser);
 
    }
    

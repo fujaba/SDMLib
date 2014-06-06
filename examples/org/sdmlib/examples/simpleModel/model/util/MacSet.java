@@ -28,12 +28,11 @@ import org.sdmlib.models.modelsets.StringList;
 
 public class MacSet extends SDMSet<Mac>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public MacPO hasMacPO()
    {
-      return new MacPO (this.toArray(new Mac[this.size()]));
+      return new MacPO(this.toArray(new Mac[this.size()]));
    }
 
 
@@ -44,14 +43,12 @@ public class MacSet extends SDMSet<Mac>
    }
 
 
+   @SuppressWarnings("unchecked")
    public MacSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Mac) item);
-           }
+         this.addAll((Collection<Mac>)value);
       }
       else if (value != null)
       {

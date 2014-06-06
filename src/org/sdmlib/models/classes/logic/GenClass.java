@@ -57,7 +57,7 @@ public class GenClass extends Generator<Clazz>
          insertConstants();
          
          for (Method method : model.getMethods()) {
-            getGenerator(method).generate(rootDir, helpersDir, false, false);
+            getGenerator(method).generate(rootDir, helpersDir, false);
          }
          
          if ( !model.isInterface())
@@ -82,22 +82,22 @@ public class GenClass extends Generator<Clazz>
          if(getRepairClassModel().hasFeature(Feature.Serialization)){
             getOrCreateParserForCreatorClass(helpersDir);
             insertRemoveObjectInCreatorClass();
-            printCreatorFile(creatorParser.isFileBodyChanged());
+            printFile(creatorParser);
          }
       }
 
       // now generate the corresponding ModelSet class
       getOrCreateParserForModelSetFile(helpersDir);
-      printModelSetFile(modelSetParser.isFileBodyChanged());
+      printFile(modelSetParser);
       if(getRepairClassModel().hasFeature(Feature.PatternObject)){
    
          // now generate the corresponding PatterObject class
          getOrCreateParserForPatternObjectFile(helpersDir);
-         printPatternObjectFile(patternObjectParser.isFileBodyChanged());
+         printFile(patternObjectParser);
    
          // now generate the corresponding PatterObjectCreator class
          getOrCreateParserForPatternObjectCreatorFile(helpersDir);
-         printPatternObjectCreatorFile(patternObjectCreatorParser.isFileBodyChanged());
+         printFile(patternObjectCreatorParser);
       }
 
       return this;
@@ -197,7 +197,7 @@ public class GenClass extends Generator<Clazz>
             continue;
          GenAttribute generator = getGenerator(attr);
          if(generator!=null){
-            generator.generate(model, rootDir, helpersDir, false, true);
+            generator.generate(model, rootDir, helpersDir, false);
          }
       }
       if (superClazz.getSuperClass() != null) {
@@ -243,7 +243,7 @@ public class GenClass extends Generator<Clazz>
 
             for (Method method : interfaze.getMethods())
             {
-               getGenerator(method).generate(clazz, rootDir, helpersDir, false, true);
+               getGenerator(method).generate(clazz, rootDir, helpersDir, true);
             }
 
          }
@@ -410,11 +410,8 @@ public class GenClass extends Generator<Clazz>
       if (pos < 0)
       {
          // add property change implementation
-         pos = parser.indexOf(Parser.CLASS_END);
-         //System.out.println(parser.getLineIndexOf(pos));
-
-         StringBuilder text = new StringBuilder
-               (  "\n   " +
+         parser.replaceAll(
+               "\n   " +
                      "\n   //==========================================================================" +
                      "\n   " +
                      "\n   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);" +
@@ -430,9 +427,7 @@ public class GenClass extends Generator<Clazz>
                      "\n      getPropertyChangeSupport().addPropertyChangeListener(listener);" + 
                      "\n   }" +
                      "\n"  
-                     );
-
-         parser.insert(pos, text.toString());
+               );
       }
 
       insertImport(PropertyChangeSupport.class.getName());
@@ -525,31 +520,10 @@ public class GenClass extends Generator<Clazz>
 //      }
 //   }
 
-   public void printCreatorFile(boolean really)
+   public void printFile(Parser parser)
    {
       if(!isShowDiff()){
-         CGUtil.printFile(creatorParser);
-      }
-   }
-
-   public void printModelSetFile(boolean really)
-   {
-      if(!isShowDiff()){
-         CGUtil.printFile(modelSetParser);
-      }
-   }
-
-   public void printPatternObjectFile(boolean really)
-   {
-      if(!isShowDiff()){
-         CGUtil.printFile(patternObjectParser);
-      }
-   }
-
-   public void printPatternObjectCreatorFile(boolean really)
-   {
-      if(!isShowDiff()){
-         CGUtil.printFile(patternObjectCreatorParser);
+         CGUtil.printFile(parser);
       }
    }
 
@@ -694,7 +668,7 @@ public class GenClass extends Generator<Clazz>
                      "\n" +
                      "import org.sdmlib.serialization.EntityFactory;\n" +
                      "import "+JsonIdMap.class.getName()+";\n" +
-                     "import fullEntityClassName;\n" +
+                     "fullEntityClassName" +
                      "\n" +
                      "public class creatorClassName extends EntityFactory\n" +
                      "{\n" +
@@ -766,7 +740,7 @@ public class GenClass extends Generator<Clazz>
                if (! hasConstructor)
                {
                   CGUtil.replaceAll(text, 
-                     "instanceCreationClause", "null"); 
+                     "instanceCreationClause", "null", "fullEntityClassName", ""); 
                }
             }
             
@@ -788,7 +762,7 @@ public class GenClass extends Generator<Clazz>
             CGUtil.replaceAll(text, 
                "creatorClassName", creatorClassName, 
                "entitiyClassName", entitiyClassName, 
-               "fullEntityClassName", fullEntityClassName,
+               "fullEntityClassName", "import "+fullEntityClassName+";\n",
                "packageName", packageName,
                "instanceCreationClause", instanceCreationClause);
             
