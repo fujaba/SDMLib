@@ -41,6 +41,7 @@ import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import javafx.application.Platform;
+import jdk.internal.org.objectweb.asm.commons.TableSwitchGenerator;
 
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
@@ -221,16 +222,61 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       }
    }
 
+   public static abstract class HookAction
+   {
+      public abstract void run(ReplicationChange change);
+   }
+   
+   private LinkedHashSet<HookAction> beforeHandleMessageActions = new LinkedHashSet<HookAction>();
+   private LinkedHashSet<HookAction> afterHandleMessageActions = new LinkedHashSet<HookAction>();
+   
+   public void addToBeforeHandleMessageActions(HookAction r)
+   {
+      this.beforeHandleMessageActions.add(r);
+   }
+   
+   public void removeFromBeforeHandleMessageActions(HookAction r)
+   {
+      this.beforeHandleMessageActions.remove(r);
+   }
+   
+   
+   public void addToAfterHandleMessageActions(HookAction r) {
+      this.afterHandleMessageActions.add(r);
+   }
+   
+   public void removeFromAfterHandleMessageActions(HookAction r) {
+      this.afterHandleMessageActions.remove(r);
+   }
+   
    private ReplicationChange previousChange = null;
 
    public void handleMessage(ChannelMsg msg)
    {
-      this.isApplyingChangeMsg = true;
-
       try
       {
          // reconstruct change
          JsonObject jsonObject = new JsonObject().withValue(msg.msg);
+//         System.out.println(jsonObject.toString(2));
+//         JsonObject propJson = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
+//         if (propJson != null) {
+//            String id = (String) propJson.get("historyIdPrefix");
+//            if (id == null || !id.equals(nodeId))
+//            {
+//               for (HookAction r : beforeHandleMessageActions)
+//               {
+//                  
+//                  r.run(jsonObject);
+//               }
+//            }
+//         }
+//         else {
+//            System.out.println(msg.msg);
+//         }
+
+
+         this.isApplyingChangeMsg = true;
+
 
          if (previousChange == null)
          {
@@ -275,8 +321,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          {
             // change already known, ignore
             change.withLog("ignore change already known", this.getName());
-
-            // System.out.println(change);
+            
             return;
          }
 
@@ -287,49 +332,49 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
          // is previous change known?
          String previousPrefix = (String) jsonObject.get(LOWER_ID_PREFIX);
-         if (previousPrefix != null)
-         {
-            long previousNumber = jsonObject.getLong(LOWER_ID_NUMBER);
-            previousChange.withHistoryIdNumber(previousNumber).withHistoryIdPrefix(previousPrefix);
-
-            // there is an id for the previous change, do I know that one?
-            ReplicationChange floor = this.getHistory().getChanges().floor(previousChange);
-            if (floor == null || floor.compareTo(previousChange) != 0)
-            {
-               // ups, I do not have the previous change.
-               // this should not happen.
-               // well, ask for the previous change and wait for it
-               // well what is the latest change I have already that is before
-               // the one I have no longer
-               ReplicationChange previousfloor = getHistory().getChanges().floor(previousChange);
-               if (floor != null)
-               {
-                  previousNumber = previousfloor.getHistoryIdNumber();
-                  previousPrefix = previousfloor.getHistoryIdPrefix();
-               }
-               else
-               {
-                  // ups, I do not have the previous Id nor any one before that,
-                  // start from the beginning
-                  previousNumber = 0;
-                  previousPrefix = " ";
-               }
-               JsonObject jsonRequest = new JsonObject();
-               jsonRequest.put(RESEND_ID_HISTORY_NUMBER, previousNumber);
-               jsonRequest.put(RESEND_ID_HISTORY_PREFIX, previousPrefix);
-
-               msg.channel.send(jsonRequest.toString());
-
-               // wait for it
-               return;
-            }
-         }
-         else
-         {
-            // sender does not have an earlier change, use dummy for further
-            // processing
-            previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
-         }
+//         if (false && previousPrefix != null)
+//         {
+//            long previousNumber = jsonObject.getLong(LOWER_ID_NUMBER);
+//            previousChange.withHistoryIdNumber(previousNumber).withHistoryIdPrefix(previousPrefix);
+//
+//            // there is an id for the previous change, do I know that one?
+//            ReplicationChange floor = this.getHistory().getChanges().floor(previousChange);
+//            if (floor == null || floor.compareTo(previousChange) != 0)
+//            {
+//               // ups, I do not have the previous change.
+//               // this should not happen.
+//               // well, ask for the previous change and wait for it
+//               // well what is the latest change I have already that is before
+//               // the one I have no longer
+//               ReplicationChange previousfloor = getHistory().getChanges().floor(previousChange);
+//               if (floor != null)
+//               {
+//                  previousNumber = previousfloor.getHistoryIdNumber();
+//                  previousPrefix = previousfloor.getHistoryIdPrefix();
+//               }
+//               else
+//               {
+//                  // ups, I do not have the previous Id nor any one before that,
+//                  // start from the beginning
+//                  previousNumber = 0;
+//                  previousPrefix = " ";
+//               }
+//               JsonObject jsonRequest = new JsonObject();
+//               jsonRequest.put(RESEND_ID_HISTORY_NUMBER, previousNumber);
+//               jsonRequest.put(RESEND_ID_HISTORY_PREFIX, previousPrefix);
+//
+//               msg.channel.send(jsonRequest.toString());
+//
+//               // wait for it
+//               return;
+//            }
+//         }
+//         else
+//         {
+//            // sender does not have an earlier change, use dummy for further
+//            // processing
+//            previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
+//         }
 
          // try to apply change
          // is it a conflict?
@@ -437,6 +482,20 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       finally
       {
          this.isApplyingChangeMsg = false;
+         
+//         JsonObject jsonObject = new JsonObject().withValue(msg.msg);
+//         System.out.println(jsonObject.toString(2));
+//         JsonObject propJson = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
+//         if (propJson != null) {
+//            String id = (String) propJson.get("historyIdPrefix");
+//            if (id == null || !id.equals(nodeId))
+//            {
+//               for (HookAction r : afterHandleMessageActions)
+//               {
+//                  r.run(jsonObject);
+//               }
+//            }
+//         }
       }
 
    }
@@ -524,7 +583,12 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject().withValue(change.getChangeMsg());
-
+      
+      for (HookAction r : beforeHandleMessageActions)
+      {
+         r.run(change);
+      }
+   
       try
       {
          this.setReadMessages(true);
@@ -542,6 +606,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.lastChangeId = Math.max(lastChangeId, change.getHistoryIdNumber());
 
       change.withLog("change applied", this.getName());
+      
+      for (HookAction r : afterHandleMessageActions)
+      {
+         r.run(change);
+      }
    }
 
    private File logFile = null;
