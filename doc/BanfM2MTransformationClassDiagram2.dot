@@ -4,12 +4,14 @@
     edge [fontsize = 10];
     
     
+    _GraphComponent [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/GraphComponent.java">GraphComponent</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Graph [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/Graph.java">Graph</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _Person [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/Person.java">Person</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>firstName :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Person [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/Person.java">Person</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>firstName :String</td></tr> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Relation [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/Relation.java">Relation</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>kind :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
+    _Graph -> _GraphComponent [headlabel = "gcs *" taillabel = "parent" arrowhead = "none" ];
     _Graph -> _Person [headlabel = "persons *" taillabel = "graph" arrowhead = "none" ];
     _Graph -> _Relation [headlabel = "relations *" taillabel = "graph" arrowhead = "none" ];
     _Relation -> _Person [headlabel = "src" taillabel = "outEdges *" arrowhead = "none" ];

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,22 +25,18 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.m2m.model.Person;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.m2m.model.util.GraphSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.m2m.model.Graph;
 import java.util.Collections;
-import org.sdmlib.examples.m2m.model.util.RelationSet;
 import org.sdmlib.examples.m2m.model.Relation;
-import org.sdmlib.examples.m2m.model.util.PersonSet;
 
 public class PersonSet extends SDMSet<Person>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public PersonPO hasPersonPO()
    {
-      return new PersonPO (this.toArray(new Person[this.size()]));
+      return new PersonPO(this.toArray(new Person[this.size()]));
    }
 
 
@@ -51,14 +47,12 @@ public class PersonSet extends SDMSet<Person>
    }
 
 
+   @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Person) item);
-           }
+         this.addAll((Collection<Person>)value);
       }
       else if (value != null)
       {
@@ -111,13 +105,50 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
+   public StringList getText()
+   {
+      StringList result = new StringList();
+      
+      for (Person obj : this)
+      {
+         result.add(obj.getText());
+      }
+      
+      return result;
+   }
+
+   public PersonSet hasText(String value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PersonSet withText(String value)
+   {
+      for (Person obj : this)
+      {
+         obj.setText(value);
+      }
+      
+      return this;
+   }
+
    public GraphSet getGraph()
    {
       GraphSet result = new GraphSet();
       
       for (Person obj : this)
       {
-         result.with(obj.getGraph());
+         result.add(obj.getGraph());
       }
       
       return result;
@@ -165,7 +196,7 @@ public class PersonSet extends SDMSet<Person>
       
       for (Person obj : this)
       {
-         result.with(obj.getOutEdges());
+         result.addAll(obj.getOutEdges());
       }
       
       return result;
@@ -223,7 +254,7 @@ public class PersonSet extends SDMSet<Person>
       
       for (Person obj : this)
       {
-         result.with(obj.getInEdges());
+         result.addAll(obj.getInEdges());
       }
       
       return result;
@@ -281,7 +312,7 @@ public class PersonSet extends SDMSet<Person>
       
       for (Person obj : this)
       {
-         result.with(obj.getKnows());
+         result.addAll(obj.getKnows());
       }
       
       return result;
@@ -357,49 +388,52 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
-   public StringList getText()
+   public GraphSet getParent()
    {
-      StringList result = new StringList();
+      GraphSet result = new GraphSet();
       
       for (Person obj : this)
       {
-         result.add(obj.getText());
+         result.add(obj.getParent());
       }
       
       return result;
    }
 
-   public PersonSet hasText(String value)
+   public PersonSet hasParent(Object value)
    {
-      PersonSet result = new PersonSet();
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PersonSet answer = new PersonSet();
       
       for (Person obj : this)
       {
-         if (value.equals(obj.getText()))
+         if (neighbors.contains(obj.getParent()))
          {
-            result.add(obj);
+            answer.add(obj);
          }
       }
       
-      return result;
+      return answer;
    }
 
-   public PersonSet withText(String value)
+   public PersonSet withParent(Graph value)
    {
       for (Person obj : this)
       {
-         obj.setText(value);
+         obj.withParent(value);
       }
       
       return this;
    }
 
 }
-
-
-
-
-
-
-
-

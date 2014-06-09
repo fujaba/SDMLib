@@ -2,8 +2,6 @@ package org.sdmlib.examples.m2m.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.m2m.model.Graph;
-import org.sdmlib.examples.m2m.model.util.GraphSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.examples.m2m.model.util.GraphComponentPO;
 import org.sdmlib.examples.m2m.model.GraphComponent;
 import org.sdmlib.examples.m2m.model.util.GraphPO;
@@ -36,23 +34,15 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
 
 
    public GraphPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public GraphPO(Graph... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    public GraphComponentPO hasGcs()
    {
       GraphComponentPO result = new GraphComponentPO(new GraphComponent[]{});
@@ -156,4 +146,3 @@ public class GraphPO extends PatternObject<GraphPO, Graph>
    }
 
 }
-

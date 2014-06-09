@@ -14,6 +14,9 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    }
 
    public MatchOtherThenPO(MatchOtherThen... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public MatchOtherThenSet allMatches()

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,20 +25,17 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.m2m.model.Relation;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.m2m.model.util.GraphSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.m2m.model.Graph;
-import org.sdmlib.examples.m2m.model.util.PersonSet;
 import org.sdmlib.examples.m2m.model.Person;
 
 public class RelationSet extends SDMSet<Relation>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public RelationPO hasRelationPO()
    {
-      return new RelationPO (this.toArray(new Relation[this.size()]));
+      return new RelationPO(this.toArray(new Relation[this.size()]));
    }
 
 
@@ -49,14 +46,12 @@ public class RelationSet extends SDMSet<Relation>
    }
 
 
+   @SuppressWarnings("unchecked")
    public RelationSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Relation) item);
-           }
+         this.addAll((Collection<Relation>)value);
       }
       else if (value != null)
       {
@@ -115,7 +110,7 @@ public class RelationSet extends SDMSet<Relation>
       
       for (Relation obj : this)
       {
-         result.with(obj.getGraph());
+         result.add(obj.getGraph());
       }
       
       return result;
@@ -163,7 +158,7 @@ public class RelationSet extends SDMSet<Relation>
       
       for (Relation obj : this)
       {
-         result.with(obj.getSrc());
+         result.add(obj.getSrc());
       }
       
       return result;
@@ -211,7 +206,7 @@ public class RelationSet extends SDMSet<Relation>
       
       for (Relation obj : this)
       {
-         result.with(obj.getTgt());
+         result.add(obj.getTgt());
       }
       
       return result;
@@ -253,12 +248,89 @@ public class RelationSet extends SDMSet<Relation>
       return this;
    }
 
+   public StringList getText()
+   {
+      StringList result = new StringList();
+      
+      for (Relation obj : this)
+      {
+         result.add(obj.getText());
+      }
+      
+      return result;
+   }
+
+   public RelationSet hasText(String value)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RelationSet withText(String value)
+   {
+      for (Relation obj : this)
+      {
+         obj.setText(value);
+      }
+      
+      return this;
+   }
+
+   public GraphSet getParent()
+   {
+      GraphSet result = new GraphSet();
+      
+      for (Relation obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public RelationSet hasParent(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RelationSet answer = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (neighbors.contains(obj.getParent()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public RelationSet withParent(Graph value)
+   {
+      for (Relation obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
 }
-
-
-
-
-
-
-
-

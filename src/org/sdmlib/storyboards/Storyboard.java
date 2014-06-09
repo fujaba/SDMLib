@@ -52,7 +52,6 @@ import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.objects.GenericGraph;
@@ -292,7 +291,7 @@ public class Storyboard implements PropertyChangeInterface
 
       if (kanbanEntry.getPhase() == null)
       {
-         kanbanEntry.setPhase(SDMLibConfig.BACKLOG);
+         kanbanEntry.setPhase(Kanban.BACKLOG);
       }
 
       if (this.kanbanWorkFlow != null)

@@ -24,8 +24,8 @@ package org.sdmlib.models.pattern;
 import java.util.Collection;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
@@ -56,7 +56,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             creatorClass.setValue(srcObj, this.getTgtRoleName(), this.getTgt().getCurrentMatch(), "");
             this.setHasMatch(true);
             
-            if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+            if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
             {
                getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
                   + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
@@ -88,7 +88,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             }
             else if (value instanceof Collection)
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {
                   getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
                      + ".removeFrom" + StrUtil.upFirstChar(getTgtRoleName()) + "(" + this.getTgt().getPatternObjectName() + ")");
@@ -98,7 +98,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             }
             else
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {
                   getTopPattern().addLogMsg(this.getSrc().getPatternObjectName()
                      + ".set" + StrUtil.upFirstChar(getTgtRoleName()) + "(null); // remove" + this.getTgt().dumpHostGraphObject(this.getTgt().getCurrentMatch()));
@@ -127,7 +127,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             if (hostGraphTgtObject != null && 
                   (hostGraphTgtObject == value || (value instanceof Collection && ((Collection) value).contains(hostGraphTgtObject))))
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {
                   String msg = "// cnet link from x to y exists";
                   msg = msg.replaceFirst("y", getTopPattern().getJsonIdMap().getId(value) + " " + value.toString());
@@ -140,7 +140,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             }
             else
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {
                   String msg = "// cnet link from x to ? does not exists, backtrack";
                   if (value != null)

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,11 +24,13 @@ package org.sdmlib.examples.m2m.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.m2m.model.util.PersonSet;
 import org.sdmlib.examples.m2m.model.util.RelationSet;
 import java.util.LinkedHashSet;
+import org.sdmlib.examples.m2m.model.GraphComponent;
 
-public class Person implements PropertyChangeInterface
+public class Person extends GraphComponent implements PropertyChangeInterface
 {
 
    
@@ -50,12 +52,14 @@ public class Person implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       setGraph(null);
       removeAllFromOutEdges();
       removeAllFromInEdges();
       removeAllFromKnows();
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -73,7 +77,7 @@ public class Person implements PropertyChangeInterface
    
    public void setFirstName(String value)
    {
-      if (this.firstName != value)
+      if ( ! StrUtil.stringEquals(this.firstName, value))
       {
          String oldValue = this.firstName;
          this.firstName = value;
@@ -98,6 +102,34 @@ public class Person implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TEXT = "text";
+   
+   private String text;
+
+   public String getText()
+   {
+      return this.text;
+   }
+   
+   public void setText(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.text, value))
+      {
+         String oldValue = this.text;
+         this.text = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+      }
+   }
+   
+   public Person withText(String value)
+   {
+      setText(value);
+      return this;
+   } 
 
    
    public static final PersonSet EMPTY_SET = new PersonSet();
@@ -213,7 +245,7 @@ public class Person implements PropertyChangeInterface
       
       if ((this.outEdges != null) && (value != null))
       {
-         changed = this.outEdges.remove (value);
+         changed = this.outEdges.remove(value);
          
          if (changed)
          {
@@ -227,6 +259,9 @@ public class Person implements PropertyChangeInterface
 
    public Person withOutEdges(Relation... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Relation item : value)
       {
          addToOutEdges(item);
@@ -312,7 +347,7 @@ public class Person implements PropertyChangeInterface
       
       if ((this.inEdges != null) && (value != null))
       {
-         changed = this.inEdges.remove (value);
+         changed = this.inEdges.remove(value);
          
          if (changed)
          {
@@ -326,6 +361,9 @@ public class Person implements PropertyChangeInterface
 
    public Person withInEdges(Relation... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Relation item : value)
       {
          addToInEdges(item);
@@ -417,7 +455,7 @@ public class Person implements PropertyChangeInterface
       
       if ((this.knows != null) && (value != null))
       {
-         changed = this.knows.remove (value);
+         changed = this.knows.remove(value);
          
          if (changed)
          {
@@ -431,6 +469,9 @@ public class Person implements PropertyChangeInterface
 
    public Person withKnows(Person... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Person item : value)
       {
          addToKnows(item);
@@ -463,33 +504,4 @@ public class Person implements PropertyChangeInterface
       withKnows(value);
       return value;
    } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_TEXT = "text";
-   
-   private String text;
-
-   public String getText()
-   {
-      return this.text;
-   }
-   
-   public void setText(String value)
-   {
-      if (this.text != value)
-      {
-         String oldValue = this.text;
-         this.text = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
-      }
-   }
-   
-   public Person withText(String value)
-   {
-      setText(value);
-      return this;
-   } 
 }
-

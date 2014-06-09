@@ -14,6 +14,9 @@ public class PatternElementPO extends PatternObject<PatternElementPO, PatternEle
    }
 
    public PatternElementPO(PatternElement... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public PatternElementPO hasModifier(String value)

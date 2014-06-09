@@ -28,9 +28,9 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
@@ -112,7 +112,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
             {
                this.getTgt().setCandidates(value);
                
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {
                   // add set of candidates to trace
                   String setVarName = this.getTgt().getPatternObjectName() + "Candidates";
@@ -135,7 +135,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
             {
                this.getTgt().setCandidates(value);
 
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {
                   String setVarName = this.getTgt().getPatternObjectName();
                   LinkedHashSet<String> variablesAlreadyInTrace = getTopPattern().getVariablesAlreadyInTrace();

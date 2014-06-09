@@ -14,6 +14,9 @@ public class UnifyGraphsOpPO extends PatternObject<UnifyGraphsOpPO, UnifyGraphsO
    }
 
    public UnifyGraphsOpPO(UnifyGraphsOp... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public UnifyGraphsOpSet allMatches()

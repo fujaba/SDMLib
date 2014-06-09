@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,6 +24,7 @@ package org.sdmlib.examples.m2m.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.m2m.model.util.GraphComponentSet;
 
 public class GraphComponent implements PropertyChangeInterface
@@ -48,6 +49,7 @@ public class GraphComponent implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       setParent(null);
@@ -68,7 +70,7 @@ public class GraphComponent implements PropertyChangeInterface
    
    public void setText(String value)
    {
-      if (this.text != value)
+      if ( ! StrUtil.stringEquals(this.text, value))
       {
          String oldValue = this.text;
          this.text = value;
@@ -92,6 +94,9 @@ public class GraphComponent implements PropertyChangeInterface
       return _.substring(1);
    }
 
+
+   
+   public static final GraphComponentSet EMPTY_SET = new GraphComponentSet();
 
    
    /********************************************************************
@@ -151,8 +156,4 @@ public class GraphComponent implements PropertyChangeInterface
       withParent(value);
       return value;
    } 
-
-   
-   public static final GraphComponentSet EMPTY_SET = new GraphComponentSet();
 }
-

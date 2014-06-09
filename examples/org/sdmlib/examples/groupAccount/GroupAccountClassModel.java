@@ -2,13 +2,12 @@ package org.sdmlib.examples.groupAccount;
 
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.classes.SDMLibConfig;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
 public class GroupAccountClassModel
@@ -21,7 +20,7 @@ public class GroupAccountClassModel
       storyboard.setSprint("Sprint.002.Examples"); 
       
       storyboard.add("Start situation: Nothing here yet. Generate classes",
-         SDMLibConfig.DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);
+         Kanban.DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.examples.groupAccount.model");
       

@@ -21,7 +21,6 @@
    
 package org.sdmlib.models.pattern;
 
-import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
@@ -31,11 +30,10 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GuiAdapter;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
-import org.sdmlib.examples.helloworld.util.GreetingPO;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
@@ -118,7 +116,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       
       this.addToElements(nac);
 
-      if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+      if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
       {
          nac.setPatternObjectName("n" + getTopPattern().getPatternObjectCount());
          
@@ -190,7 +188,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          
          i = 0;
          
-         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             getTopPattern().addLogMsg("\n     Restart pattern: ");
          }
@@ -867,7 +865,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          this.debugMode = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_DEBUGMODE, oldValue, value);
          
-         if (value >= SDMLibConfig.DEBUG_ON)
+         if (value >= Kanban.DEBUG_ON)
          {
             setTrace(new StringBuilder());
          }
@@ -945,7 +943,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    
    public MP addLogMsg(String msg)
    {
-      if (debugMode >= SDMLibConfig.DEBUG_ON)
+      if (debugMode >= Kanban.DEBUG_ON)
       {
          if (trace == null)
          {
@@ -957,7 +955,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
          String line = ""  + traceLength + ": " + msg + "\n";
          trace.append(line);
       
-         if (debugMode >= SDMLibConfig.TRACE_ON)
+         if (debugMode >= Kanban.TRACE_ON)
          {
             System.out.print(line);
          }

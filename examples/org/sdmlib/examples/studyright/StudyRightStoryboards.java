@@ -5,10 +5,10 @@ import org.sdmlib.examples.studyright.model.Room;
 import org.sdmlib.examples.studyright.model.Student;
 import org.sdmlib.examples.studyright.model.University;
 import org.sdmlib.examples.studyright.model.util.UniversityCreator;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
 public class StudyRightStoryboards
@@ -327,9 +327,9 @@ public class StudyRightStoryboards
       
       storyboard.addObjectDiagram(rootTemplate.getModelObject());
 
-      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "11.11.2013 18:06:42 EST", 40, 0, "Using attribute names for parsing and generation");
+      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "11.11.2013 18:06:42 EST", 40, 0, "Using attribute names for parsing and generation");
 
-      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "23.02.2014 18:06:42 EST", 2, 0, "Reenabled parsing with references");
+      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "23.02.2014 18:06:42 EST", 2, 0, "Reenabled parsing with references");
       
       storyboard.dumpHTML();
    }

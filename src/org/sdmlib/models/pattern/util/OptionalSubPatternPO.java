@@ -15,6 +15,9 @@ public class OptionalSubPatternPO extends PatternObject<OptionalSubPatternPO, Op
    }
 
    public OptionalSubPatternPO(OptionalSubPattern... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public OptionalSubPatternSet allMatches()
