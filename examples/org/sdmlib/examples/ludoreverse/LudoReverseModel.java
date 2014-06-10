@@ -39,10 +39,7 @@ public class LudoReverseModel
    public void LudoModelReverse()
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
-
-
       model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.ludoreverse.model");
-
       model.getGenerator().insertModelCreationCodeHere("examples");
    }
 }
