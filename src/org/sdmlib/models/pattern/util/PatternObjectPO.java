@@ -16,6 +16,9 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
    }
 
    public PatternObjectPO(PatternObject... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public PatternObjectPO hasCurrentMatch(Object value)

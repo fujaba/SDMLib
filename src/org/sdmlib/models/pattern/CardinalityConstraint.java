@@ -24,9 +24,9 @@ package org.sdmlib.models.pattern;
 import java.util.Collection;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
@@ -70,7 +70,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
 
             if (minCard <= valueSize && valueSize <= maxCard)
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// node x has size tgtRole neighbors, which is between minCard and maxCard";
                   msg = msg.replaceFirst("maxCard", "" + maxCard);
@@ -85,7 +85,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
             }
             else 
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// node x has size tgtRole neighbors, which is NOT between minCard and maxCard";
                   msg = msg.replaceFirst("maxCard", "" + maxCard);

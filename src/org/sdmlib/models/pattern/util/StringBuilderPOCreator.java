@@ -7,7 +7,11 @@ public class StringBuilderPOCreator extends PatternObjectCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new StringBuilderPO();
+      if(reference) {
+         return new StringBuilderPO(new StringBuilder[]{});
+      } else {
+         return new StringBuilderPO();
+      }
    }
    
    public static JsonIdMap createIdMap(String sessionID)

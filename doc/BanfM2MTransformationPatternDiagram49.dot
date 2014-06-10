@@ -1,0 +1,11 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
+
+g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'> <tr> <td border='0' align='right'><font color='black'>&#171;bound&#187;</font></td></tr> <tr> <td align='center'> <font color='black'> g1 :GenericGraphPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+g2 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> g2 :GenericLinkPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> srcLabel == "graph" </font></td></tr><tr><td><font color='black'> tgtLabel == "relations" </font></td></tr><tr><td><font color='green'> srcLabel := "parent" </font></td></tr><tr><td><font color='green'> tgtLabel := "gcs" </font></td></tr></table></td></tr></table>>];
+allMatches_g2 [label=allMatches];
+
+g2 -- allMatches_g2 [style="dotted"];
+g1 -- g2 [headlabel = "links" taillabel = "" color="black" fontcolor="black"];
+}

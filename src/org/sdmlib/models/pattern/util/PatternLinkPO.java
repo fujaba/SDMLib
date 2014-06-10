@@ -14,6 +14,9 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
    }
 
    public PatternLinkPO(PatternLink... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public PatternLinkPO hasTgtRoleName(String value)

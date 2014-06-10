@@ -13,6 +13,9 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
    }
 
    public RuleApplicationPO(RuleApplication... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public RuleApplicationSet allMatches()

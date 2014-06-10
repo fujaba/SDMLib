@@ -14,6 +14,9 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    }
 
    public CardinalityConstraintPO(CardinalityConstraint... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public CardinalityConstraintSet allMatches()

@@ -1860,21 +1860,35 @@ public class Parser
    
    public StringBuilder replaceAll(int insertPos, StringBuilder text, Object... args)
    {
-      replace(text, args);
-      if(this.fileBody==null){
+      if (args != null && args.length > 0)
+      {
+         replace(text, args);
+      }
+       
+      if(this.fileBody==null)
+      {
          this.fileBody = text;
-      }else{
-         if(insertPos==-1){
+      }
+      else
+      {
+         if(insertPos==-1)
+         {
             insertPos = indexOf(Parser.CLASS_END); 
          }
+         
          this.fileBody.insert(insertPos, text.toString());
       }
+      
       this.fileBodyHasChanged = true;
+      
       return text;
    }
-   public StringBuilder replace(String text, Object... args){
+   
+   public StringBuilder replace(String text, Object... args)
+   {
       return replace(new StringBuilder(text), args);
    }
+
    public StringBuilder replace(StringBuilder text, Object... args){
       if (args.length < 1) 
          return text;

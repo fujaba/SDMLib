@@ -11,6 +11,9 @@ public class ReachabilityGraphPO extends PatternObject<ReachabilityGraphPO, Reac
    }
 
    public ReachabilityGraphPO(ReachabilityGraph... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public ReachabilityGraphSet allMatches()

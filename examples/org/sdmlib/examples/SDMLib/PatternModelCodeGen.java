@@ -27,8 +27,8 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
    
@@ -41,7 +41,7 @@ public class PatternModelCodeGen
       
       storyboard.setSprint("Sprint.001.Booting");
       
-      storyboard.add("Start situation: ", SDMLibConfig.DONE, "zuendorf", "19.08.2012 22:52:42", 80, 0);
+      storyboard.add("Start situation: ", Kanban.DONE, "zuendorf", "19.08.2012 22:52:42", 80, 0);
       
       ClassModel model = new ClassModel("org.sdmlib.models.pattern");
       

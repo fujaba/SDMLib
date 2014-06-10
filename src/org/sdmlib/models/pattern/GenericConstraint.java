@@ -24,8 +24,8 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeListener;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 public class GenericConstraint extends PatternElement<GenericConstraint> implements PropertyChangeInterface
 {
@@ -50,7 +50,7 @@ public class GenericConstraint extends PatternElement<GenericConstraint> impleme
          
          this.setHasMatch(ok);
          
-         if (ok && getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+         if (ok && getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// match is isomorphic");
          }

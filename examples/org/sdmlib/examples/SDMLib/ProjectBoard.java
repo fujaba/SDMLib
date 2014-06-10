@@ -21,17 +21,14 @@
 
 package org.sdmlib.examples.SDMLib;
 
-import java.util.LinkedHashMap;
-
 import org.junit.Test;
-import org.sdmlib.logger.LogEntry;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.SDMLibConfig;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardWall;
@@ -69,8 +66,8 @@ public class ProjectBoard
       story.setSprint("Features");
       story.add("This feature has been tested within <a href='StudyRight%20with%20assignments%20class%20generation.html'>StudyRight with assignments class generation</a> ");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");
-      story.addLogEntry(SDMLibConfig.DONE, "zuendorf", "11.03.2014 12:55:42", 4, 0, "works like a charm");
-      story.addLogEntry(SDMLibConfig.DONE, "zuendorf", "11.03.2014 18:12:42", 2, 0, "well some legacy problems had to be fixed");
+      story.addLogEntry(Kanban.DONE, "zuendorf", "11.03.2014 12:55:42", 4, 0, "works like a charm");
+      story.addLogEntry(Kanban.DONE, "zuendorf", "11.03.2014 18:12:42", 2, 0, "well some legacy problems had to be fixed");
       story.dumpHTML();
       
    }
@@ -174,8 +171,8 @@ public class ProjectBoard
       
       storyboard.addObjectDiagram(model);
       
-      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
-      storyboard.addLogEntry(SDMLibConfig.DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
+      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
+      storyboard.addLogEntry(Kanban.DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
    
       storyboard.dumpHTML();
    }

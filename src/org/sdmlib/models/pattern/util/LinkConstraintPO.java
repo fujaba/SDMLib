@@ -14,6 +14,9 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    }
 
    public LinkConstraintPO(LinkConstraint... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public LinkConstraintPO hasTgtRoleName(String value)

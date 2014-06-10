@@ -21,9 +21,9 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 public class MatchOtherThen extends PatternElement<MatchOtherThen> implements PropertyChangeInterface
 {
@@ -51,7 +51,7 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
 
             if (hostGraphSrcObject != forbidden)
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// node x differs from node y";
                   msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);
@@ -63,7 +63,7 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
             }
             else 
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// node x equals forbidden node y, backtrack!";
                   msg = msg.replaceFirst("y", "" + getTopPattern().getJsonIdMap().getId(forbidden) + " " + forbidden);

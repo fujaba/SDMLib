@@ -25,7 +25,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.SDMLibConfig;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
 public class ModelToTextToModelClassModel
@@ -77,7 +77,7 @@ public class ModelToTextToModelClassModel
       
       model.generate("src");
       
-      story.addLogEntry(SDMLibConfig.DONE, "zuendorf", "23.02.2014 17:50:42", 50, 0, "Solving tricky parsing issue. Enabling reference lookup on demand");
+      story.addLogEntry(Kanban.DONE, "zuendorf", "23.02.2014 17:50:42", 50, 0, "Solving tricky parsing issue. Enabling reference lookup on demand");
       
       story.dumpHTML();
    }

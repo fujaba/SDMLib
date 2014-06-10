@@ -22,9 +22,9 @@
 package org.sdmlib.models.pattern;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
@@ -85,7 +85,7 @@ public class AttributeConstraint extends PatternElement<AttributeConstraint> imp
             
             if (itWorks)
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// attribute a1 of node x has required value y";
                   msg = msg.replaceFirst("y", "" + value);
@@ -98,7 +98,7 @@ public class AttributeConstraint extends PatternElement<AttributeConstraint> imp
             }
             else
             {
-               if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+               if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {  
                   String msg = "// attribute a1 of node x has value actual and not required value y, backtrack!";
                   msg = msg.replaceFirst("y", "" + tgtValue);

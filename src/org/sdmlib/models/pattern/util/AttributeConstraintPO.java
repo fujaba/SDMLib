@@ -14,6 +14,9 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    }
 
    public AttributeConstraintPO(AttributeConstraint... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public AttributeConstraintPO hasAttrName(String value)

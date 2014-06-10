@@ -9,53 +9,36 @@ import org.sdmlib.models.classes.DataType;
 
 public class BanfM2MModelGen
 {
-   private Clazz edgeClazz;
-   private Clazz nodeClazz;
-   private Clazz graphClazz;
-   private ClassModel genModel(){
+   public static ClassModel genModel()
+   {
       ClassModel model = new ClassModel("org.sdmlib.examples.m2m.model");
       
-      
-      Clazz graphComponentClazz = new Clazz("GraphComponent").withAttribute("text", DataType.STRING );
-      
-      
-      
-      graphClazz = new Clazz("Graph").withClassModel(model);
-      
-      nodeClazz = new Clazz("Person")
-         .withAttribute("firstName", DataType.STRING)
-         .withAttribute("text", DataType.STRING);
-      
-      edgeClazz = new Clazz("Relation").withAttribute("kind", DataType.STRING );
+      Clazz graphComponentClazz = model.createClazz("GraphComponent")
+            .withAttribute("text", DataType.STRING );
 
-      new Association()
-      .withTarget(graphClazz, "parent", Card.ONE)
-      .withSource(graphComponentClazz, "gcs", Card.MANY);
-      
-      
-      new Association()
-      .withTarget(nodeClazz, "persons", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
-      
-      new Association()
-      .withTarget(edgeClazz, "relations", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
-      
-      new Association()
-      .withTarget(nodeClazz, "src", Card.ONE)
-      .withSource(edgeClazz, "outEdges", Card.MANY);
+      Clazz graphClazz = model.createClazz("Graph");
 
-      new Association()
-      .withTarget(nodeClazz, "tgt", Card.ONE)
-      .withSource(edgeClazz, "inEdges", Card.MANY);
-      
-      
-      new Association()
-      .withTarget(nodeClazz, "knows", Card.MANY)
-      .withSource(nodeClazz, "knows", Card.MANY);
+      Clazz nodeClazz = model.createClazz("Person")
+            .withAttribute("firstName", DataType.STRING)
+            .withAttribute("text", DataType.STRING);
 
+      Clazz edgeClazz = model.createClazz("Relation")
+            .withAttribute("kind", DataType.STRING );
+
+      graphClazz.withAssoc(graphComponentClazz, "gcs", Card.MANY, "parent", Card.ONE);
       
+      graphClazz.withAssoc(nodeClazz, "persons", Card.MANY, "graph", Card.ONE);
+
+      graphClazz.withAssoc(edgeClazz, "relations", Card.MANY, "graph", Card.ONE);
+
+      edgeClazz.withAssoc(nodeClazz, "src", Card.ONE, "outEdges", Card.MANY);
+
+      edgeClazz.withAssoc(nodeClazz, "tgt", Card.ONE, "inEdges", Card.MANY);
+      
+      nodeClazz.withAssoc(nodeClazz, "knows", Card.MANY, "knows", Card.MANY);
+
       model.generate("examples");
+      
       return model;
    }
    

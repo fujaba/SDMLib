@@ -15,6 +15,9 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    }
 
    public PatternPO(Pattern... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public PatternPO hasModifier(String value)

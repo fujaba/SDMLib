@@ -13,6 +13,9 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    }
 
    public ReachableStatePO(ReachableState... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public ReachableStateSet allMatches()

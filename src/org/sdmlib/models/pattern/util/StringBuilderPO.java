@@ -9,6 +9,9 @@ public class StringBuilderPO extends PatternObject<StringBuilderPO, StringBuilde
    }
 
    public StringBuilderPO(StringBuilder... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public StringBuilderSet allMatches()

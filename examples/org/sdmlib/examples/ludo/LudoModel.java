@@ -9,8 +9,8 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
 
@@ -107,7 +107,7 @@ public class LudoModel
       
       model.generate("examples");
       
-      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "15.07.2012 13:30:42 EST", 20, 0, "The famous ludo example.");
+      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "15.07.2012 13:30:42 EST", 20, 0, "The famous ludo example.");
       
       StoryboardManager.get()
       .add(storyboard)

@@ -14,6 +14,9 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    }
 
    public CloneOpPO(CloneOp... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public CloneOpSet allMatches()

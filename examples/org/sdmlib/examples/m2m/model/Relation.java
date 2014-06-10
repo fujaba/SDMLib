@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,9 +24,11 @@ package org.sdmlib.examples.m2m.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.m2m.model.util.RelationSet;
+import org.sdmlib.examples.m2m.model.GraphComponent;
 
-public class Relation implements PropertyChangeInterface
+public class Relation extends GraphComponent implements PropertyChangeInterface
 {
 
    
@@ -48,11 +50,13 @@ public class Relation implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       setGraph(null);
       setSrc(null);
       setTgt(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -70,7 +74,7 @@ public class Relation implements PropertyChangeInterface
    
    public void setKind(String value)
    {
-      if (this.kind != value)
+      if ( ! StrUtil.stringEquals(this.kind, value))
       {
          String oldValue = this.kind;
          this.kind = value;
@@ -91,6 +95,7 @@ public class Relation implements PropertyChangeInterface
       StringBuilder _ = new StringBuilder();
       
       _.append(" ").append(this.getKind());
+      _.append(" ").append(this.getText());
       return _.substring(1);
    }
 
@@ -274,5 +279,32 @@ public class Relation implements PropertyChangeInterface
       withTgt(value);
       return value;
    } 
-}
 
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TEXT = "text";
+   
+   private String text;
+
+   public String getText()
+   {
+      return this.text;
+   }
+   
+   public void setText(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.text, value))
+      {
+         String oldValue = this.text;
+         this.text = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEXT, oldValue, value);
+      }
+   }
+   
+   public GraphComponent withText(String value)
+   {
+      setText(value);
+      return this;
+   } 
+}

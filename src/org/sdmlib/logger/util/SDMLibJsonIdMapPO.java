@@ -10,6 +10,9 @@ public class SDMLibJsonIdMapPO extends PatternObject<SDMLibJsonIdMapPO, SDMLibJs
    }
 
    public SDMLibJsonIdMapPO(SDMLibJsonIdMap... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public SDMLibJsonIdMapSet allMatches()

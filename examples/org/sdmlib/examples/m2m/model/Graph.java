@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -50,6 +50,7 @@ public class Graph implements PropertyChangeInterface
 
    
    //==========================================================================
+   
    
    public void removeYou()
    {
@@ -111,7 +112,7 @@ public class Graph implements PropertyChangeInterface
       
       if ((this.gcs != null) && (value != null))
       {
-         changed = this.gcs.remove (value);
+         changed = this.gcs.remove(value);
          
          if (changed)
          {
@@ -125,6 +126,9 @@ public class Graph implements PropertyChangeInterface
 
    public Graph withGcs(GraphComponent... value)
    {
+      if(value==null){
+         return this;
+      }
       for (GraphComponent item : value)
       {
          addToGcs(item);
@@ -210,7 +214,7 @@ public class Graph implements PropertyChangeInterface
       
       if ((this.persons != null) && (value != null))
       {
-         changed = this.persons.remove (value);
+         changed = this.persons.remove(value);
          
          if (changed)
          {
@@ -224,6 +228,9 @@ public class Graph implements PropertyChangeInterface
 
    public Graph withPersons(Person... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Person item : value)
       {
          addToPersons(item);
@@ -309,7 +316,7 @@ public class Graph implements PropertyChangeInterface
       
       if ((this.relations != null) && (value != null))
       {
-         changed = this.relations.remove (value);
+         changed = this.relations.remove(value);
          
          if (changed)
          {
@@ -323,6 +330,9 @@ public class Graph implements PropertyChangeInterface
 
    public Graph withRelations(Relation... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Relation item : value)
       {
          addToRelations(item);
@@ -355,5 +365,18 @@ public class Graph implements PropertyChangeInterface
       withRelations(value);
       return value;
    } 
-}
 
+   public GraphComponent createGcsPerson()
+   {
+      GraphComponent value = new Person();
+      withGcs(value);
+      return value;
+   } 
+
+   public GraphComponent createGcsRelation()
+   {
+      GraphComponent value = new Relation();
+      withGcs(value);
+      return value;
+   } 
+}

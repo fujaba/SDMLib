@@ -2,8 +2,6 @@ package org.sdmlib.examples.m2m.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.m2m.model.Person;
-import org.sdmlib.examples.m2m.model.util.PersonSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.m2m.model.util.GraphPO;
 import org.sdmlib.examples.m2m.model.Graph;
@@ -11,6 +9,8 @@ import org.sdmlib.examples.m2m.model.util.PersonPO;
 import org.sdmlib.examples.m2m.model.util.RelationPO;
 import org.sdmlib.examples.m2m.model.Relation;
 import org.sdmlib.examples.m2m.model.util.RelationSet;
+import org.sdmlib.examples.m2m.model.util.PersonSet;
+import org.sdmlib.examples.m2m.model.GraphComponent;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -33,23 +33,15 @@ public class PersonPO extends PatternObject<PersonPO, Person>
 
 
    public PersonPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public PersonPO(Person... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    public PersonPO hasFirstName(String value)
    {
       new AttributeConstraint()
@@ -99,6 +91,59 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       if (this.getPattern().getHasMatch())
       {
          ((Person) getCurrentMatch()).setFirstName(value);
+      }
+      return this;
+   }
+   
+   public PersonPO hasText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PersonPO hasText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PersonPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public String getText()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) getCurrentMatch()).getText();
+      }
+      return null;
+   }
+   
+   public PersonPO withText(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Person) getCurrentMatch()).setText(value);
       }
       return this;
    }
@@ -239,60 +284,38 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
 
-   public PersonPO hasText(String value)
+   public GraphPO hasParent()
    {
-      new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_TEXT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
+      GraphPO result = new GraphPO(new Graph[]{});
       
-      this.getPattern().findMatch();
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GraphComponent.PROPERTY_PARENT, result);
       
-      return this;
+      return result;
    }
-   
-   public PersonPO hasText(String lower, String upper)
+
+   public GraphPO createParent()
    {
-      new AttributeConstraint()
-      .withAttrName(Person.PROPERTY_TEXT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return this.startCreate().hasParent().endCreate();
    }
-   
-   public PersonPO createText(String value)
+
+   public PersonPO hasParent(GraphPO tgt)
    {
-      this.startCreate().hasText(value).endCreate();
-      return this;
+      return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT);
    }
-   
-   public String getText()
+
+   public PersonPO createParent(GraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
+   public Graph getParent()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Person) getCurrentMatch()).getText();
+         return ((GraphComponent) this.getCurrentMatch()).getParent();
       }
       return null;
    }
-   
-   public PersonPO withText(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Person) getCurrentMatch()).setText(value);
-      }
-      return this;
-   }
-   
+
 }
-
-
-
