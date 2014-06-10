@@ -589,7 +589,7 @@ public class HelloWorldTTC2011
 
       model = new ClassModel("org.sdmlib.examples.helloworld.model");
 
-      graphClazz = new Clazz("Graph");
+      graphClazz = model.createClazz("Graph");
 
       Clazz graphComponentClazz = model.createClazz("GraphComponent")
             .withAttribute("text", DataType.STRING);
@@ -818,7 +818,7 @@ public class HelloWorldTTC2011
 
       model = new ClassModel("org.sdmlib.examples.helloworld.model");
 
-      graphClazz = new Clazz("Graph");
+      graphClazz = model.createClazz("Graph");
 
       Clazz graphComponentClazz = model.createClazz("GraphComponent")
             .withAttribute("text", DataType.STRING);

@@ -45,10 +45,10 @@ public class ClassModelTest
 //      storyboard.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
 
       ClassModel model = new ClassModel("org.sdmlib.models.classes");
-      Clazz sdmLibClazz = new Clazz("SDMLibClass").withAttribute("name", DataType.STRING);
+      Clazz sdmLibClazz = model.createClazz("SDMLibClass").withAttribute("name", DataType.STRING);
       Clazz modelClass = model.createClazz("ClassModel").withSuperClazz(sdmLibClazz);
            
-      Clazz clazzClass = new Clazz("Clazz").withSuperClazz(sdmLibClazz)
+      Clazz clazzClass = model.createClazz("Clazz").withSuperClazz(sdmLibClazz)
          .withAttribute("interfaze", DataType.BOOLEAN) 
          .withAttribute("external", DataType.BOOLEAN);
       
@@ -61,19 +61,19 @@ public class ClassModelTest
       .withTarget(clazzClass, "kidClazzes", Card.MANY);
       
       
-      Clazz valueClass = new Clazz("Value").withSuperClazz(sdmLibClazz);
+      Clazz valueClass = model.createClazz("Value").withSuperClazz(sdmLibClazz);
       valueClass.withAttribute("initialization", DataType.STRING)
          .withAttribute("type", DataType.ref(DataType.class));
       
       
-      Clazz attributeClass = new Clazz("Attribute").withSuperClazz(valueClass);
+      Clazz attributeClass = model.createClazz("Attribute").withSuperClazz(valueClass);
          
       new Association()
       .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
       .withTarget(attributeClass, "attributes", Card.MANY);
       
       
-      Clazz methodClass = new Clazz("Method").withSuperClazz(sdmLibClazz)
+      Clazz methodClass = model.createClazz("Method").withSuperClazz(sdmLibClazz)
             .withAttribute("returnType", DataType.ref(DataType.class))
             .withAttribute("body", DataType.STRING);
       
@@ -83,9 +83,9 @@ public class ClassModelTest
       .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
       .withTarget(methodClass, "methods", Card.MANY);
       
-      Clazz associationClass = new Clazz("Association").withSuperClazz(sdmLibClazz);
+      Clazz associationClass = model.createClazz("Association").withSuperClazz(sdmLibClazz);
       
-      Clazz roleClass = new Clazz("Role").withSuperClazz(sdmLibClazz)
+      Clazz roleClass = model.createClazz("Role").withSuperClazz(sdmLibClazz)
       .withAttribute("card", DataType.STRING, "MANY")
       .withAttribute("kind", DataType.STRING, "VANILLA");
       
@@ -101,7 +101,7 @@ public class ClassModelTest
       .withSource(associationClass, "assoc", Card.ONE)
       .withTarget(roleClass, "target", Card.ONE);
 
-      new Clazz("org.sdmlib.codegen.SymTabEntry")
+      model.createClazz("org.sdmlib.codegen.SymTabEntry")
       .withAttribute("kind", DataType.STRING)
       .withAttribute("memberName", DataType.STRING)
       .withAttribute("type", DataType.STRING)
@@ -110,7 +110,7 @@ public class ClassModelTest
       .withAttribute("endPos", DataType.INT)
       .withAttribute("modifiers", DataType.STRING);
       
-      new Clazz("org.sdmlib.codegen.LocalVarTableEntry")
+      model.createClazz("org.sdmlib.codegen.LocalVarTableEntry")
       .withAttribute("name", DataType.STRING)
       .withAttribute("type", DataType.STRING)
       .withAttribute("startPos", DataType.INT)
@@ -118,7 +118,7 @@ public class ClassModelTest
       // .withAttribute("initSequence", "ArrayList<ArrayList<String>>");
       
       
-      Clazz statementEntry =  new Clazz("org.sdmlib.codegen.StatementEntry")
+      Clazz statementEntry =  model.createClazz("org.sdmlib.codegen.StatementEntry")
       .withAttribute("kind", DataType.STRING)
        .withAttribute("tokenList", DataType.ref("ArrayList<String>")) 
        .withAttribute("assignTargetVarName", DataType.STRING) 

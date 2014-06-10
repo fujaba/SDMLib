@@ -45,13 +45,13 @@ public class PatternModelCodeGen
       
       ClassModel model = new ClassModel("org.sdmlib.models.pattern");
       
-      Clazz patternElement = new Clazz("PatternElement")
+      Clazz patternElement = model.createClazz("PatternElement")
       .withAttribute("modifier", DataType.STRING)
       .withAttribute("hasMatch", DataType.BOOLEAN, "false")
       .withAttribute("patternObjectName", DataType.STRING)
       .withAttribute("doAllMatches", DataType.BOOLEAN);
       
-      Clazz pattern = new Clazz("Pattern")
+      Clazz pattern = model.createClazz("Pattern")
          .withAttribute("currentSubPattern", DataType.ref("Pattern"))
          .withAttribute("debugMode", DataType.INT) 
          .withAttribute("trace", DataType.ref("StringBuilder"))
@@ -71,12 +71,12 @@ public class PatternModelCodeGen
       .withTarget(patternElement, "elements", Card.MANY)
       .withSource(pattern, "pattern", Card.ONE);
       
-      Clazz patternObject = new Clazz("PatternObject")
+      Clazz patternObject = model.createClazz("PatternObject")
       .withSuperClazz(patternElement)
       .withAttribute("currentMatch", DataType.OBJECT) 
        .withAttribute("candidates", DataType.OBJECT);
       
-      Clazz patternLink = new Clazz("PatternLink")
+      Clazz patternLink = model.createClazz("PatternLink")
       .withSuperClazz(patternElement)
       .withAttribute("tgtRoleName", DataType.STRING)
       .withAttribute("hostGraphSrcObject", DataType.OBJECT);
@@ -89,7 +89,7 @@ public class PatternModelCodeGen
 //      .withTarget(patternObject, "src", R.ONE)
 //      .withSource(patternLink, "outgoing", R.MANY);
       
-      Clazz attrConstraint = new Clazz("AttributeConstraint")
+      Clazz attrConstraint = model.createClazz("AttributeConstraint")
       .withSuperClazz(patternElement)
       .withAttribute("attrName", DataType.STRING)
       .withAttribute("tgtValue", DataType.OBJECT)
@@ -113,7 +113,7 @@ public class PatternModelCodeGen
       model.createClazz("UnifyGraphsOp")
       .withSuperClazz(patternElement);
 
-      Clazz destroyObjectClazz = new Clazz("DestroyObjectElem")
+      Clazz destroyObjectClazz = model.createClazz("DestroyObjectElem")
       .withSuperClazz(patternElement);
       
       new Association()
@@ -143,11 +143,11 @@ public class PatternModelCodeGen
       
       Clazz reachabilityGraph = model.createClazz("ReachabilityGraph");
       
-      Clazz rState = new Clazz("ReachableState").withAssoc(reachabilityGraph, "states", Card.MANY, "parent", Card.ONE)
+      Clazz rState = model.createClazz("ReachableState").withAssoc(reachabilityGraph, "states", Card.MANY, "parent", Card.ONE)
             .withAttribute("number", DataType.LONG)
             .withAttribute("graphRoot", DataType.OBJECT);
       
-      Clazz ruleApplication = new Clazz("ruleApplication").withAssoc(rState, "ruleapplications", Card.MANY, "src", Card.ONE)
+      Clazz ruleApplication = model.createClazz("ruleApplication").withAssoc(rState, "ruleapplications", Card.MANY, "src", Card.ONE)
             .withAttribute("description", DataType.STRING);
       
       ruleApplication.withAssoc(rState, "tgt", Card.ONE, "resultOf", Card.MANY);

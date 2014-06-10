@@ -4,7 +4,11 @@
     edge [fontsize = 10];
     
     
+    _Graph [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/Graph.java">Graph</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Person [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/Person.java">Person</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     
     
     
+    _Graph -> _Person [headlabel = "persons *" taillabel = "graph" arrowhead = "none" ];
+    _Person -> _Person [headlabel = "knows *" taillabel = "knows *" arrowhead = "none" ];
 }

@@ -21,7 +21,7 @@
 <text text-anchor="start" x="45.5" y="-318" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
 <!-- _GraphComponent -->
-<g id="node4" class="node"><title>_GraphComponent</title>
+<g id="node2" class="node"><title>_GraphComponent</title>
 <a xlink:href="../src/GraphComponent.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-248 8,-265 86,-265 86,-248 8,-248"/>
 <text text-anchor="start" x="11.5" y="-254.5" font-family="Times New Roman,serif" font-size="10.00">GraphComponent</text>
@@ -38,7 +38,7 @@
 <text text-anchor="middle" x="42.7738" y="-294.796" font-family="Times New Roman,serif" font-size="10.00">parent</text>
 </g>
 <!-- _Person -->
-<g id="node2" class="node"><title>_Person</title>
+<g id="node3" class="node"><title>_Person</title>
 <a xlink:href="../src/Person.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="59,-44 59,-61 94,-61 94,-44 59,-44"/>
 <text text-anchor="start" x="62.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Person</text>
@@ -48,8 +48,13 @@
 <polygon fill="none" stroke="black" points="59,-4 59,-24 94,-24 94,-4 59,-4"/>
 <text text-anchor="start" x="75" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
 </g>
+<!-- _GraphComponent&#45;&gt;_Person -->
+<g id="edge2" class="edge"><title>_GraphComponent&#45;&gt;_Person</title>
+<path fill="none" stroke="black" d="M37.4252,-194.155C32.9494,-167.398 30.14,-132.178 38,-102 41.2723,-89.4363 47.4341,-76.7328 53.8582,-65.7612"/>
+<polygon fill="none" stroke="black" points="34.0429,-195.119 39.2746,-204.332 40.9301,-193.867 34.0429,-195.119"/>
+</g>
 <!-- _Relation -->
-<g id="node3" class="node"><title>_Relation</title>
+<g id="node4" class="node"><title>_Relation</title>
 <a xlink:href="../src/Relation.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="56,-146 56,-163 97,-163 97,-146 56,-146"/>
 <text text-anchor="start" x="59.5" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Relation</text>
@@ -58,6 +63,11 @@
 <text text-anchor="start" x="75" y="-134" font-family="Times New Roman,serif" font-size="10.00"> </text>
 <polygon fill="none" stroke="black" points="56,-106 56,-126 97,-126 97,-106 56,-106"/>
 <text text-anchor="start" x="75" y="-114" font-family="Times New Roman,serif" font-size="10.00"> </text>
+</g>
+<!-- _GraphComponent&#45;&gt;_Relation -->
+<g id="edge4" class="edge"><title>_GraphComponent&#45;&gt;_Relation</title>
+<path fill="none" stroke="black" d="M59.0352,-194.499C61.6247,-185.57 64.3223,-176.268 66.7844,-167.778"/>
+<polygon fill="none" stroke="black" points="55.5996,-193.78 56.1758,-204.359 62.3226,-195.73 55.5996,-193.78"/>
 </g>
 <!-- _Relation&#45;&gt;_Person -->
 <g id="edge8" class="edge"><title>_Relation&#45;&gt;_Person</title>
@@ -70,16 +80,6 @@
 <path fill="none" stroke="black" d="M82.3281,-102.359C82.8884,-90.6864 82.8906,-77.4631 82.3347,-65.778"/>
 <text text-anchor="middle" x="86.9399" y="-72.1545" font-family="Times New Roman,serif" font-size="10.00">tgt</text>
 <text text-anchor="middle" x="78.4923" y="-90.6243" font-family="Times New Roman,serif" font-size="10.00">inEdges *</text>
-</g>
-<!-- _GraphComponent&#45;&gt;_Person -->
-<g id="edge2" class="edge"><title>_GraphComponent&#45;&gt;_Person</title>
-<path fill="none" stroke="black" d="M37.4252,-194.155C32.9494,-167.398 30.14,-132.178 38,-102 41.2723,-89.4363 47.4341,-76.7328 53.8582,-65.7612"/>
-<polygon fill="none" stroke="black" points="34.0429,-195.119 39.2746,-204.332 40.9301,-193.867 34.0429,-195.119"/>
-</g>
-<!-- _GraphComponent&#45;&gt;_Relation -->
-<g id="edge4" class="edge"><title>_GraphComponent&#45;&gt;_Relation</title>
-<path fill="none" stroke="black" d="M59.0352,-194.499C61.6247,-185.57 64.3223,-176.268 66.7844,-167.778"/>
-<polygon fill="none" stroke="black" points="55.5996,-193.78 56.1758,-204.359 62.3226,-195.73 55.5996,-193.78"/>
 </g>
 </g>
 </svg>

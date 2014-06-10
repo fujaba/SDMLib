@@ -130,11 +130,11 @@ public class ProjectBoard
       
       ClassModel model = new ClassModel("org.sdmlib.storyboards"); 
       
-      Clazz kanbanEntryClass = new Clazz("org.sdmlib.storyboards.KanbanEntry")
+      Clazz kanbanEntryClass = model.createClazz("org.sdmlib.storyboards.KanbanEntry")
          .withAttribute("oldNoOfLogEntries", DataType.INT)
          .withAttribute("phases", DataType.STRING);
 
-      Clazz logEntryClass = new Clazz("org.sdmlib.storyboards.LogEntry");
+      Clazz logEntryClass = model.createClazz("org.sdmlib.storyboards.LogEntry");
       
       new Association()
       .withSource(new Role(kanbanEntryClass, "kanbanEntry", Card.ONE).withKind(Role.AGGREGATION))
@@ -151,7 +151,7 @@ public class ProjectBoard
       
       storyboardWallClass.withAssoc(storyboardClass, "storyboard", Card.ONE, "wall", Card.ONE);
       
-      Clazz storyboardStepClass = new Clazz("StoryboardStep")
+      Clazz storyboardStepClass = model.createClazz("StoryboardStep")
          .withAssoc(storyboardClass, "storyboardSteps", Card.MANY, "storyboard", Card.ONE)
          .withAttribute("text", DataType.STRING);
       

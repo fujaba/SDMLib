@@ -51,7 +51,7 @@ public class Clazz extends SDMLibClass
    private boolean interfaze = false;
    private boolean external;
    
-   public Clazz(String name){
+   Clazz(String name){
       setName(name);
    }
    
