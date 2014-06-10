@@ -27,6 +27,7 @@ import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Card;
@@ -45,6 +46,7 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 
+import de.uniks.networkparser.gui.ItemList;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenClassModel
@@ -710,7 +712,7 @@ public class GenClassModel
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass); 
          currentInsertPos++;
          //       currentInsertPos++;
-         symTabEntry = refreshMethodScan(signature, clazz, rootDir);
+         symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
          //FIXME ALEX NICHT NOTWENDIG ODER getOrCreate(clazz).isFileHasChanged();
       }
 
@@ -728,7 +730,7 @@ public class GenClassModel
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass); 
          currentInsertPos++;
          //       currentInsertPos++;
-         symTabEntry = refreshMethodScan(signature, clazz, rootDir);
+         symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
        //FIXME ALEX NICHT NOTWENDIG ODER  getOrCreate(clazz).isFileHasChanged();
       }
 
@@ -754,7 +756,7 @@ public class GenClassModel
 
          // set insert position to next line
          currentInsertPos++;
-         symTabEntry = refreshMethodScan(signature, interfaze, rootDir);
+         symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
       }
 
       // check code for attribut
@@ -1423,7 +1425,8 @@ public class GenClassModel
       }
       StringBuilder result =parser.replaceAll(currentInsertPos, 
          "      .with(new Attribute(\"attributeName\", DataType.ref(\"attributeType\")) attributeInit)",
-         "attributeType", attribute.getType().getValue(), 
+         "attributeType", attribute.getType().getValue(),
+         "attributeName", attribute.getName(),
          "attributeInit", initialization);
 
       return currentInsertPos+result.length();
@@ -1438,15 +1441,13 @@ public class GenClassModel
 
       StringBuilder paString = new StringBuilder();
       for(Parameter parameter : method.getParameter()) {
-         paString.append("\n        .with(new Parameter(DataType.ref(\""+parameter.getType().getValue()+"\")))");
+         paString.append(", new Parameter(DataType.ref(\""+parameter.getType().getValue()+"\"))");
       }
       
       
       StringBuilder result = parser.replaceAll(currentInsertPos, "\n"+
-                  "      new Method()" +
-                  "\n        .with(clazzName)" + 
-                  "PARAMETERS" +
-                  "\n        .withName(\"METHODNAME\");",
+                  "      new Method(\"METHODNAME\"PARAMETERS)" +
+                  "\n        .with(clazzName);\n",
                   "clazzName", clazzName, 
                   "PARAMETERS", paString.toString(),
                   "METHODNAME", method.getName());
@@ -1864,6 +1865,10 @@ public class GenClassModel
       Parser parser = getOrCreate(clazz).getOrCreateParser(rootDir);
       parser.indexOf(Parser.CLASS_END);
 
+      if (isHelperClass(parser)) {
+         clazz.removeYou();
+      }
+      
       // set class or interface
       if (Parser.INTERFACE.equals(parser.getClassType()))
       {
@@ -1885,12 +1890,69 @@ public class GenClassModel
       return clazz;
    }
 
+   private boolean isSDMLibClass(Clazz clazz) {
+      
+      String className = clazz.getFullName();
+      
+      String sDMLibClasses = 
+           "org.sdmlib.serialization.EntityFactory "
+         + "org.sdmlib.models.pattern.PatternObject "
+         + "org.sdmlib.models.pattern.util.PatternObjectCreator "
+         + "org.sdmlib.models.modelsets.SDMSet "
+         + "org.sdmlib.serialization.PropertyChangeInterface";
+      
+      if (sDMLibClasses.indexOf(className) >= 0) {
+         return true;
+      }
+      
+      return false;
+   }
+
+   private boolean isHelperClass(Parser parser)
+   {
+      String className = parser.getClassName();
+      
+      // is creatorcreator class
+      if ("CreatorCreator".equals(className)) {
+         return true;
+      } 
+      
+      // is creator class       
+      if (className.endsWith("Creator") 
+            && isClassExtends("EntityFactory PatternObjectCreator", parser) ) {
+         return true;
+      }
+      
+      // is PO class       
+      if (isClassExtends("PatternObject", parser) ) {
+         return true;
+      }
+      
+      // is Set class       
+      if (isClassExtends("SDMSet", parser) ) {
+         return true;
+      }
+      
+      return false;
+   }
+
+   private boolean isClassExtends(String extendsString, Parser parser)
+   {   
+      for (String extendClass : extendsString.split(" "))
+      {  
+         if ( parser.getSymTabEntriesFor("extends:" + extendClass).size() > 0 )
+            return true;
+      }      
+
+      return false;
+   }
+
    private void addMemberToModel(Clazz clazz, Parser parser, String memberName)
    {
       // add new methods
       if (memberName.startsWith(Parser.METHOD))
       {
-         addMemberAsMethod(clazz, memberName, parser.getSymTab().get(memberName));
+         addMemberAsMethod(clazz, memberName, parser);
       }
       // add new attributes
       else if (memberName.startsWith(Parser.ATTRIBUTE))
@@ -1901,7 +1963,7 @@ public class GenClassModel
          addMemberAsAttribut(clazz, attrName, symTabEntry);
       }
 
-      // add super classes 
+      // add super classes     
       if (memberName.startsWith(Parser.EXTENDS))
       {
          if (clazz.isInterface()) {
@@ -1945,7 +2007,13 @@ public class GenClassModel
    private void addMemberAsSuperClass(Clazz clazz, String memberName, Parser parser)
    {
       Clazz memberClass = findMemberClass(clazz, memberName, parser);
-
+     
+      // ignore helperclasses    
+      if ( isSDMLibClass(memberClass) ) {
+         memberClass.removeYou();
+         return;
+      }
+      
       if (memberClass != null)
          clazz.withSuperClazz(memberClass);
    }
@@ -1953,6 +2021,12 @@ public class GenClassModel
    private void addMemberAsInterface(Clazz clazz, String memberName, Parser parser)
    {
       Clazz memberClass = findMemberClass(clazz, memberName, parser);
+      
+      // ignore helperclasses    
+      if ( isSDMLibClass(memberClass) ) {
+         memberClass.removeYou();
+         return;
+      }
       
       if (memberClass != null) 
       {
@@ -2023,8 +2097,10 @@ public class GenClassModel
 
 
 
-   private void addMemberAsMethod(Clazz clazz, String memberName, SymTabEntry symTabEntry)
+   private void addMemberAsMethod(Clazz clazz, String memberName, Parser parser)
    {
+      SymTabEntry symTabEntry = parser.getSymTab().get(memberName);
+      
       String fullSignature = symTabEntry.getType();
       String[] split = fullSignature.split(":");
       String signature = split[1];
@@ -2032,9 +2108,10 @@ public class GenClassModel
       // filter internal generated methods
       String filterString = "get(String) set(String,Object) getPropertyChangeSupport() removeYou()" +
             " addPropertyChangeListener(PropertyChangeListener) removePropertyChangeListener(PropertyChangeListener)" +
-            " addPropertyChangeListener(String,PropertyChangeListener) removePropertyChangeListener(String,PropertyChangeListener)";
-
-      if (filterString.indexOf(signature) < 0 && isNewMethod(signature, clazz))
+            " addPropertyChangeListener(String,PropertyChangeListener) removePropertyChangeListener(String,PropertyChangeListener)"
+            + "toString()";    
+      
+      if (filterString.indexOf(signature) < 0 && !isGetterSetter(signature, parser) && isNewMethod(signature, clazz))
       {
          int part=signature.indexOf("(");
          String[] params = signature.substring(part+1, signature.length() - 1).split(",");
@@ -2048,6 +2125,41 @@ public class GenClassModel
             }
          }
       }
+   }
+
+   private boolean isGetterSetter(String signature, Parser parser)
+   {
+      LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
+      List<String> attributeKeys = new ArrayList<>();      
+      
+      for (String key : symTab.keySet()) {
+         
+         if (key.startsWith("attribute:")) { 
+            attributeKeys.add(key);
+         }
+      }
+      
+      // method starts with: with set get ...
+      if ( signature.startsWith("with") 
+            || signature.startsWith("set") 
+            || signature.startsWith("get") 
+            || signature.startsWith("add")
+            || signature.startsWith("remove")
+            || signature.startsWith("create") ) {
+         
+         // is class attribute
+         for (String attrKey: attributeKeys)
+         {
+            SymTabEntry symTabEntry = symTab.get(attrKey); 
+            String attrName = symTabEntry.getMemberName();
+            String signName = signature.substring(0, signature.indexOf("("));
+            
+            if (signName.toLowerCase().endsWith(attrName)) {
+               return true;
+            }
+         }              
+      }
+      return false;
    }
 
    private boolean isNewMethod(String memberName, Clazz clazz)
@@ -2177,7 +2289,15 @@ public class GenClassModel
       // there may be separate clazz.withAttributes(...) statements
       String withAttrCall = entry.getName() + ".with";
       String attrNameQuoted = "\"" +  name + "\"";
-      for (StatementEntry stat : getOrCreate(attribute.getClazz()).getParser().getCurrentStatement().getParent().getBodyStats())
+      GenClass orCreate = getOrCreate(attribute.getClazz());
+      Parser parser = orCreate.getParser();
+      parser.parse();
+      StatementEntry currentStatement = parser.getCurrentStatement();
+      if (currentStatement == null)
+         return false;
+      StatementEntry parent = currentStatement.getParent();
+      StatementEntrySet bodyStats = parent.getBodyStats();
+      for (StatementEntry stat : bodyStats)
       {
          String firstToken = stat.getTokenList().get(0);
          if (StrUtil.stringEquals(withAttrCall, firstToken))
