@@ -21,8 +21,8 @@
    
 package org.sdmlib.models.pattern;
 
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
 {
@@ -64,14 +64,14 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
          // check the NAC again
          resetSearch();
          
-         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// start NAC " + getPatternObjectName());
          }
          
          boolean nacHasMatch = findMatch();
          
-         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             if (nacHasMatch)
             {

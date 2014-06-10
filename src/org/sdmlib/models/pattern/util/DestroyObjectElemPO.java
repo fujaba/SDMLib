@@ -14,6 +14,9 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    }
 
    public DestroyObjectElemPO(DestroyObjectElem... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override

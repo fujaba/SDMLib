@@ -14,6 +14,9 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    }
 
    public GenericConstraintPO(GenericConstraint... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public GenericConstraintSet allMatches()

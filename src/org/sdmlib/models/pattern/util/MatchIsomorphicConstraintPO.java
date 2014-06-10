@@ -14,6 +14,9 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    }
 
    public MatchIsomorphicConstraintPO(MatchIsomorphicConstraint... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override

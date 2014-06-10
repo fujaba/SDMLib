@@ -9,10 +9,10 @@ class CreatorCreator{
    {
       JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.GraphCreator());
-      jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.GraphPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.GraphComponentCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.GraphComponentPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.GraphCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.GraphPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.PersonCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.PersonPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.m2m.model.util.RelationCreator());
@@ -21,11 +21,3 @@ class CreatorCreator{
       return jsonIdMap;
    }
 }
-
-
-
-
-
-
-
-

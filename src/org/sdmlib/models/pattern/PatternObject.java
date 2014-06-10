@@ -26,12 +26,12 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 import org.sdmlib.models.pattern.util.PatternLinkSet;
 import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
@@ -139,7 +139,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
             this.setCurrentMatch(sendableInstance);
             this.setHasMatch(true);
 
-            if (this.getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+            if (this.getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
             {
                String shortClassName = CGUtil.shortClassName(className);
 
@@ -202,7 +202,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
             resultStat = true;
 
-            if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+            if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
             {
                String tgtVar = getLHSPatternObjectName();
                getTopPattern().addLogMsg(
@@ -302,7 +302,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       this.getPattern().addToElements(nac);
 
-      if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+      if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
       {
          nac.setPatternObjectName("n" + getTopPattern().getPatternObjectCount());
 
@@ -338,7 +338,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       this.getPattern().addToElements(optionalSubPattern);
 
-      if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+      if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
       {
          optionalSubPattern.setPatternObjectName("o" + getTopPattern().getPatternObjectCount());
 
@@ -374,7 +374,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
       while (this.getPattern().getHasMatch())
       {
-         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// " + getPattern().getPatternObjectName() + " allMatches?");
          }

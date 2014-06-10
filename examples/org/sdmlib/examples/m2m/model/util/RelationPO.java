@@ -2,14 +2,13 @@ package org.sdmlib.examples.m2m.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.m2m.model.Relation;
-import org.sdmlib.examples.m2m.model.util.RelationSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.m2m.model.util.GraphPO;
 import org.sdmlib.examples.m2m.model.Graph;
 import org.sdmlib.examples.m2m.model.util.RelationPO;
 import org.sdmlib.examples.m2m.model.util.PersonPO;
 import org.sdmlib.examples.m2m.model.Person;
+import org.sdmlib.examples.m2m.model.GraphComponent;
 
 public class RelationPO extends PatternObject<RelationPO, Relation>
 {
@@ -32,23 +31,15 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
 
 
    public RelationPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public RelationPO(Relation... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    public RelationPO hasKind(String value)
    {
       new AttributeConstraint()
@@ -204,5 +195,91 @@ public class RelationPO extends PatternObject<RelationPO, Relation>
       return null;
    }
 
-}
+   public RelationPO hasText(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Relation.PROPERTY_TEXT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public RelationPO hasText(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Relation.PROPERTY_TEXT)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public RelationPO createText(String value)
+   {
+      this.startCreate().hasText(value).endCreate();
+      return this;
+   }
+   
+   public String getText()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Relation) getCurrentMatch()).getText();
+      }
+      return null;
+   }
+   
+   public RelationPO withText(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Relation) getCurrentMatch()).setText(value);
+      }
+      return this;
+   }
+   
+   public GraphPO hasParent()
+   {
+      GraphPO result = new GraphPO(new Graph[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(GraphComponent.PROPERTY_PARENT, result);
+      
+      return result;
+   }
 
+   public GraphPO createParent()
+   {
+      return this.startCreate().hasParent().endCreate();
+   }
+
+   public RelationPO hasParent(GraphPO tgt)
+   {
+      return hasLinkConstraint(tgt, GraphComponent.PROPERTY_PARENT);
+   }
+
+   public RelationPO createParent(GraphPO tgt)
+   {
+      return this.startCreate().hasParent(tgt).endCreate();
+   }
+
+   public Graph getParent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((GraphComponent) this.getCurrentMatch()).getParent();
+      }
+      return null;
+   }
+
+}

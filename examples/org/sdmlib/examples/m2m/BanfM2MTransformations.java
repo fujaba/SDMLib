@@ -4,14 +4,15 @@ import org.junit.Test;
 import org.sdmlib.examples.m2m.model.Graph;
 import org.sdmlib.examples.m2m.model.GraphComponent;
 import org.sdmlib.examples.m2m.model.Person;
+import org.sdmlib.examples.m2m.model.Relation;
 import org.sdmlib.examples.m2m.model.util.GraphComponentCreator;
 import org.sdmlib.examples.m2m.model.util.GraphCreator;
+import org.sdmlib.examples.m2m.model.util.PersonCreator;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
@@ -24,6 +25,8 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.util.PatternCreator;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.json.JsonArray;
@@ -34,51 +37,20 @@ public class BanfM2MTransformations
    private Clazz edgeClazz;
    private Clazz nodeClazz;
    private Clazz graphClazz;
+   private GenericGraphPO renameKindAttrGraphPO;
+   private GenericGraphPO renamePersonsLinkGraphPO;
+   private GenericGraphPO renameRelationsLinkGraphPO;
+   private GenericGraphPO renameFirstNameAttrGraphPO;
 
-   
-   private ClassModel genModel(){
-      ClassModel model = new ClassModel("org.sdmlib.examples.m2m.model");
       
-      graphClazz = new Clazz("Graph").withClassModel(model);
-      
-      nodeClazz = new Clazz("Person")
-         .withAttribute("firstName", DataType.STRING);
-      
-      edgeClazz = new Clazz("Relation").withAttribute("kind", DataType.STRING );
-
-      new Association()
-      .withTarget(nodeClazz, "persons", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
-      
-      new Association()
-      .withTarget(edgeClazz, "relations", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
-      
-      new Association()
-      .withTarget(nodeClazz, "src", Card.ONE)
-      .withSource(edgeClazz, "outEdges", Card.MANY);
-
-      new Association()
-      .withTarget(nodeClazz, "tgt", Card.ONE)
-      .withSource(edgeClazz, "inEdges", Card.MANY);
-      
-      model.generate("examples");
-      return model;
-   }
-   
-   @Test
-   public void testBanGenModel(){
-      genModel();
-   }
-   
-   
    @Test
    public void testBanfM2MTransformation()
    {  
       Storyboard storyboard = new Storyboard();
       
       storyboard.add("Class diagram for source model:");
-      ClassModel model = genModel();
+   
+      ClassModel model = BanfM2MModelGen.genModel();
       
       
       storyboard.addClassDiagram(model);
@@ -89,36 +61,32 @@ public class BanfM2MTransformations
       storyboard.add("<hr/>");
       storyboard.add("Class diagram for target model:");
       
-      model = new ClassModel("org.sdmlib.examples.m2m");
+      model = new ClassModel("org.sdmlib.examples.m2m.model");
       
-      graphClazz = new Clazz("Graph");
+      graphClazz = model.createClazz("Graph");
       
       Clazz graphComponentClazz = new Clazz("GraphComponent")
       .withAttribute("text", DataType.STRING);
       
-      nodeClazz = new Clazz("Person")
-      .withSuperClass(graphComponentClazz);
+      Clazz nodeClazz = model.createClazz("Person")
+      .withSuperClazz(graphComponentClazz);
       
-      edgeClazz = new Clazz("Relation")
-      .withSuperClass(graphComponentClazz);
+      Clazz edgeClazz = model.createClazz("Relation")
+      .withSuperClazz(graphComponentClazz);
 
-      new Association()
-      .withTarget(graphComponentClazz, "gcs", Card.MANY)
-      .withSource(graphClazz, "parent", Card.ONE);
+      graphClazz.withAssoc(graphComponentClazz, "gcs", Card.MANY, "parent", Card.ONE);
       
-      new Association()
-      .withTarget(nodeClazz, "src", Card.ONE)
-      .withSource(edgeClazz, "outEdges", Card.MANY);
+      edgeClazz.withAssoc(nodeClazz, "src", Card.ONE, "outEdges", Card.MANY);
 
-      new Association()
-      .withTarget(nodeClazz, "tgt", Card.ONE)
-      .withSource(edgeClazz, "inEdges", Card.MANY);
+      edgeClazz.withAssoc(nodeClazz, "tgt", Card.ONE, "inEdges", Card.MANY);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
       model.generate("examples");
       
       storyboard.addClassDiagram(model);
+      
+      storyboard.dumpHTML();
       
       
       //==========================================================================
@@ -158,13 +126,9 @@ public class BanfM2MTransformations
       nodeClazz = new Clazz("Person")
       .withAttribute("text", DataType.STRING);
 
-      new Association()
-      .withTarget(nodeClazz, "persons", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
+      graphClazz.withAssoc(nodeClazz, "persons", Card.MANY, "graph", Card.ONE);
       
-      new Association()
-      .withTarget(nodeClazz, "knows", Card.MANY)
-      .withSource(nodeClazz, "knows", Card.MANY);
+      nodeClazz.withAssoc(nodeClazz, "knows", Card.MANY, "knows", Card.MANY);
       
       model.generate("examples");
       
@@ -197,7 +161,7 @@ public class BanfM2MTransformations
       
       storyboard.addObjectDiagramWith(sourceGraphRevers.getPersons(), sourceGraphRevers.getRelations());
       
-      storyboard.addLogEntry(SDMLibConfig.DONE, "zuendorf", "10.10.2013 10:10:42", 20, 0, "should be published in paper");
+      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "10.10.2013 10:10:42", 20, 0, "should be published in paper");
       
       storyboard.dumpHTML();
    }
@@ -233,9 +197,8 @@ public class BanfM2MTransformations
       storyboard.add("<hr/>");
       
       
-      renameKindAttrRule = new org.sdmlib.models.objects.creators.ModelPattern();
-      renameKindAttrRule
-      .hasElementGenericGraphPO(genGraph)
+      renameKindAttrGraphPO = new GenericGraphPO(genGraph);
+      renameKindAttrGraphPO
       .hasObjects()
       .hasType(Relation.class.getName())
       .hasAttrs()
@@ -245,19 +208,18 @@ public class BanfM2MTransformations
       .allMatches();
       
       storyboard.markCodeStart();
-      Pattern reverseRenameKindAttrRule = revertRule(renameKindAttrRule);
+      Pattern reverseRenameKindAttrRule = revertRule(renameKindAttrGraphPO.getPattern());
       storyboard.addCode();
       
-      storyboard.add(renameKindAttrRule.dumpDiagram("banfSimpleMigrationRenameKindAttrRule2", false));
+      storyboard.addPattern(renameKindAttrGraphPO, false);
       
-      storyboard.add(reverseRenameKindAttrRule.dumpDiagram("banfSimpleMigrationReverseRenameKindAttrRule", false));
+      storyboard.addPattern(reverseRenameKindAttrRule, false);
       
       storyboard.add("<hr/>");
       
       // rename graph--nodes links to parent--gcs links
-      renamePersonsLinkRule = new org.sdmlib.models.objects.creators.ModelPattern();
-      renamePersonsLinkRule
-      .hasElementGenericGraphPO(null)
+      renamePersonsLinkGraphPO = new GenericGraphPO(genGraph);
+      renamePersonsLinkGraphPO
       .hasLinks()
       .hasTgtLabel(Person.PROPERTY_GRAPH)
       .hasSrcLabel(Graph.PROPERTY_PERSONS)
@@ -267,20 +229,19 @@ public class BanfM2MTransformations
       .allMatches();
       
       storyboard.markCodeStart();
-      Pattern reverseRenamePersonsLinkRule = revertRule(renamePersonsLinkRule);
+      Pattern reverseRenamePersonsLinkRule = revertRule(renamePersonsLinkGraphPO.getPattern());
       storyboard.addCode();
       
       
-      storyboard.add(renamePersonsLinkRule.dumpDiagram("banfSimpleMigrationRenamePersonsLinkRule2", false));
+      storyboard.addPattern(renamePersonsLinkGraphPO, false);
       
-      storyboard.add(reverseRenamePersonsLinkRule.dumpDiagram("banfSimpleMigrationReverseRenamePersonsLinkRule", false));
+      storyboard.addPattern(reverseRenamePersonsLinkRule, false);
       
       storyboard.add("<hr/>");
       
       // rename graph--edges links to parent--gcs links
-      renameRelationsLinkRule = new org.sdmlib.models.objects.creators.ModelPattern();
-      renameRelationsLinkRule
-      .hasElementGenericGraphPO(null)
+      renameRelationsLinkGraphPO = new GenericGraphPO(genGraph);
+      renameRelationsLinkGraphPO
       .hasLinks()
       .hasSrcLabel(Relation.PROPERTY_GRAPH)
       .hasTgtLabel(Graph.PROPERTY_RELATIONS)
@@ -290,13 +251,13 @@ public class BanfM2MTransformations
       .allMatches();
       
       storyboard.markCodeStart();
-      Pattern reverseRenameRelationsLinkRule = revertRule(renameRelationsLinkRule);
+      Pattern reverseRenameRelationsLinkRule = revertRule(renameRelationsLinkGraphPO.getPattern());
       storyboard.addCode();
       
       
-      storyboard.add(renameRelationsLinkRule.dumpDiagram("banfSimpleMigrationRenameRelationsLinkRule2", false));
+      storyboard.addPattern(renameRelationsLinkGraphPO, false);
       
-      storyboard.add(reverseRenameRelationsLinkRule.dumpDiagram("banfSimpleMigrationReverseRenameRelationsLinkRule", false));
+      storyboard.addPattern(reverseRenameRelationsLinkRule, false);
       
       storyboard.add("<hr/>");
       
@@ -329,7 +290,7 @@ public class BanfM2MTransformations
    private Pattern revertRule(Pattern forwardRule)
    {
       JsonIdMap origMap = forwardRule.getJsonIdMap();
-      // origMap.withCreator(new ModelPatternCreator());
+      origMap.withCreator(PatternCreator.createIdMap("x").getCreators());
       
       JsonIdMap fwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
 
@@ -338,6 +299,7 @@ public class BanfM2MTransformations
       JsonIdMap bwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
       
       Pattern backwardRule = (Pattern) bwdMap.decode(jsonArray);
+      backwardRule.setJsonIdMap(origMap);
       
       // look for attribute constraint with modifer create
       for (PatternElement<?> elem : backwardRule.getElements())
@@ -379,11 +341,10 @@ public class BanfM2MTransformations
       .hasName(Person.PROPERTY_TEXT)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_renameAttr", false));
+      storyboard.addPattern(po, false);
       
       // replace n.l.e.l.n by n.l.n
-      GenericObjectPO edgePO = new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
+      GenericObjectPO edgePO = new GenericGraphPO(genGraph) 
       .hasObjects()
       .hasType(Relation.class.getName());
       
@@ -405,11 +366,10 @@ public class BanfM2MTransformations
       .hasTgtLabel(Person.PROPERTY_KNOWS)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_replaceEdges", false));
+      storyboard.addPattern(edgePO, false);
       
       // destroy dangling edges
-      GenericObjectPO danglingPO = new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
+      GenericObjectPO danglingPO = new GenericGraphPO(genGraph)
       .hasObjects()
       .hasType(Relation.class.getName());
       
@@ -417,7 +377,7 @@ public class BanfM2MTransformations
       
       danglingPO.allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("banfsimpleMigrationToEvenMoreEvolvedGraphByGenericGraph_removeDanglingEdges", false));
+      storyboard.addPattern(danglingPO, false);
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(PersonCreator.createIdMap("tg"), null, genGraph);
       
@@ -432,9 +392,8 @@ public class BanfM2MTransformations
       
       storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
-      renameFirstNameAttrRule = new org.sdmlib.models.objects.creators.ModelPattern();
-      renameFirstNameAttrRule
-      .hasElementGenericGraphPO(genGraph)
+      renameFirstNameAttrGraphPO = new GenericGraphPO(genGraph);
+      renameFirstNameAttrGraphPO
       .hasObjects()
       .hasAttrs()
       .hasName(Person.PROPERTY_FIRSTNAME)
@@ -442,14 +401,12 @@ public class BanfM2MTransformations
       .hasName(GraphComponent.PROPERTY_TEXT)
       .allMatches();
       
-      storyboard.add(renameFirstNameAttrRule.dumpDiagram("banfsimpleMigrationByGenericGraph_renameAttr", false));
+      storyboard.addPattern(renameFirstNameAttrGraphPO, false);
       
       
       // rename name to text attributes
-      //FIXME LIKE THIS ALbert new GenericGraphPO().withCurrentMatch(genGraph);
-      renameKindAttrRule = new org.sdmlib.models.objects.creators.ModelPattern();
-      renameKindAttrRule
-      .hasElementGenericGraphPO(genGraph)
+      renameKindAttrGraphPO = new GenericGraphPO(genGraph);
+      renameKindAttrGraphPO
       .hasObjects()
       .hasAttrs()
       .hasName(Relation.PROPERTY_KIND)
@@ -457,12 +414,12 @@ public class BanfM2MTransformations
       .hasName(GraphComponent.PROPERTY_TEXT)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("banfsimpleMigrationByGenericGraph_renameAttr2", false));
+      storyboard.addPattern(renameKindAttrGraphPO, false);
       
       
       // rename graph--nodes links to parent--gcs links
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
+      GenericGraphPO renameNodesEdgeGraphPO = new GenericGraphPO(genGraph);
+      renameNodesEdgeGraphPO
       .hasLinks()
       .hasTgtLabel(Person.PROPERTY_GRAPH)
       .startCreate()
@@ -470,13 +427,13 @@ public class BanfM2MTransformations
       .hasSrcLabel(Graph.PROPERTY_GCS)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("banfsimpleMigrationByGenericGraph_renameLink1", false));
+      storyboard.addPattern(renameNodesEdgeGraphPO, false);
 
       // storyboard.add("<hr/>");
       
       // rename graph--edges links to parent--gcs links
-      new org.sdmlib.models.objects.creators.ModelPattern()
-      .hasElementGenericGraphPO(genGraph)
+      GenericGraphPO genericGraphPO = new GenericGraphPO(genGraph);
+      genericGraphPO
       .hasLinks()
       .hasSrcLabel(Relation.PROPERTY_GRAPH)
       .startCreate()
@@ -484,7 +441,7 @@ public class BanfM2MTransformations
       .hasTgtLabel(Graph.PROPERTY_GCS)
       .allMatches();
       
-      storyboard.add(org.sdmlib.models.objects.creators.ModelPattern.lastPattern.dumpDiagram("banfsimpleMigrationByGenericGraph_renameLink2", false));
+      storyboard.addPattern(genericGraphPO, false);
 
       storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       

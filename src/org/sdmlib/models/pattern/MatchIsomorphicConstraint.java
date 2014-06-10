@@ -23,8 +23,8 @@ package org.sdmlib.models.pattern;
 
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.classes.SDMLibConfig;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 
 public class MatchIsomorphicConstraint extends PatternElement implements PropertyChangeInterface
 {
@@ -57,7 +57,7 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
                
                if (usedObjects.contains(currentMatch))
                {
-                  if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+                  if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                   {
                      getTopPattern().addLogMsg("// match is NOT isomorphic. "
                         + dumpHostGraphObject(currentMatch) + " has been matched twice (or more). Backtrack! ");
@@ -75,7 +75,7 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
          // no double match, match is isomorphic
          this.setHasMatch(true);
          
-         if (getTopPattern().getDebugMode() >= SDMLibConfig.DEBUG_ON)
+         if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
          {
             getTopPattern().addLogMsg("// match is isomorphic");
          }

@@ -11,6 +11,9 @@ public class JsonIdMapPO extends PatternObject<JsonIdMapPO, JsonIdMap>
    }
 
    public JsonIdMapPO(JsonIdMap... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public JsonIdMapSet allMatches()

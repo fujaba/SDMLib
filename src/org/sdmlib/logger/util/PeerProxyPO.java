@@ -10,6 +10,9 @@ public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
    }
 
    public PeerProxyPO(PeerProxy... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
     public PeerProxySet allMatches()

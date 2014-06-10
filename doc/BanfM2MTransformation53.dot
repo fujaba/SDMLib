@@ -3,29 +3,24 @@ graph ObjectDiagram {
    edge [fontsize = 10, fontname = "Arial"];
    compound=true;
 
-p90 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p90 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Albert"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
-r91 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r91 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
-p92 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p92 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Gabi"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
-r93 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r93 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
-p94 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p94 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Jens"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
-r95 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r95 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
-r96 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r96 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
-p97 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p97 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Nina"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
-p98 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Person.java"> <u>p98 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>firstName = "Nerdi"</td></tr><tr><td align='left'>parent = ""</td></tr></table></td></tr></table>>];
-r99 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/Relation.java"> <u>r99 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>kind = "knows"</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>text = ""</td></tr></table></td></tr></table>>];
+p79 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Person.java"> <u>p79 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>firstName = ""</td></tr></table></td></tr></table>>];
+r80 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Relation.java"> <u>r80 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>kind = "knows"</td></tr></table></td></tr></table>>];
+p81 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Person.java"> <u>p81 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>firstName = ""</td></tr></table></td></tr></table>>];
+r82 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Relation.java"> <u>r82 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>kind = "knows"</td></tr></table></td></tr></table>>];
+p83 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Person.java"> <u>p83 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>firstName = ""</td></tr></table></td></tr></table>>];
+r84 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Relation.java"> <u>r84 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>kind = "knows"</td></tr></table></td></tr></table>>];
+r85 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Relation.java"> <u>r85 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>kind = "knows"</td></tr></table></td></tr></table>>];
+p86 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Person.java"> <u>p86 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>firstName = ""</td></tr></table></td></tr></table>>];
+p87 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Person.java"> <u>p87 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>firstName = ""</td></tr></table></td></tr></table>>];
+r88 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/m2m/model/Relation.java"> <u>r88 :Relation</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>text = ""</td></tr><tr><td align='left'>parent = ""</td></tr><tr><td align='left'>kind = "knows"</td></tr></table></td></tr></table>>];
 
-p90 -- r91 [headlabel = "outEdges" taillabel = "src"];
-p90 -- r95 [headlabel = "outEdges" taillabel = "src"];
-p90 -- r96 [headlabel = "outEdges" taillabel = "src"];
-p90 -- p90 [headlabel = "knowsTransitive" taillabel = ""];
-r91 -- p92 [headlabel = "tgt" taillabel = "inEdges"];
-p92 -- r93 [headlabel = "inEdges" taillabel = "tgt"];
-p92 -- p92 [headlabel = "knowsTransitive" taillabel = ""];
-r93 -- p94 [headlabel = "src" taillabel = "outEdges"];
-p94 -- r95 [headlabel = "inEdges" taillabel = "tgt"];
-p94 -- p94 [headlabel = "knowsTransitive" taillabel = ""];
-r96 -- p97 [headlabel = "tgt" taillabel = "inEdges"];
-p97 -- p97 [headlabel = "knowsTransitive" taillabel = ""];
-p98 -- r99 [headlabel = "outEdges_inEdges" taillabel = "src_tgt"];
-p98 -- p98 [headlabel = "knowsTransitive" taillabel = ""];
+p79 -- r80 [headlabel = "outEdges" taillabel = "src"];
+p79 -- r84 [headlabel = "outEdges" taillabel = "src"];
+p79 -- r85 [headlabel = "outEdges" taillabel = "src"];
+r80 -- p81 [headlabel = "tgt" taillabel = "inEdges"];
+p81 -- r82 [headlabel = "inEdges" taillabel = "tgt"];
+r82 -- p83 [headlabel = "src" taillabel = "outEdges"];
+p83 -- r84 [headlabel = "inEdges" taillabel = "tgt"];
+r85 -- p86 [headlabel = "tgt" taillabel = "inEdges"];
+p87 -- r88 [headlabel = "inEdges_outEdges" taillabel = "tgt_src"];
 }

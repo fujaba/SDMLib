@@ -15,6 +15,9 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
    }
 
    public NegativeApplicationConditionPO(NegativeApplicationCondition... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    public NegativeApplicationConditionPO withCurrentNAC(NegativeApplicationCondition value)

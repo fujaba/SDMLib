@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,18 +25,16 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.m2m.model.GraphComponent;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.m2m.model.util.GraphSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.m2m.model.Graph;
 
 public class GraphComponentSet extends SDMSet<GraphComponent>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public GraphComponentPO hasGraphComponentPO()
    {
-      return new GraphComponentPO (this.toArray(new GraphComponent[this.size()]));
+      return new GraphComponentPO(this.toArray(new GraphComponent[this.size()]));
    }
 
 
@@ -47,14 +45,12 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
    }
 
 
+   @SuppressWarnings("unchecked")
    public GraphComponentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((GraphComponent) item);
-           }
+         this.addAll((Collection<GraphComponent>)value);
       }
       else if (value != null)
       {
@@ -113,7 +109,7 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
       
       for (GraphComponent obj : this)
       {
-         result.with(obj.getParent());
+         result.add(obj.getParent());
       }
       
       return result;
@@ -156,5 +152,3 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
    }
 
 }
-
-

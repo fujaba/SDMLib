@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,23 +24,19 @@ package org.sdmlib.examples.m2m.model.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.m2m.model.Graph;
 import java.util.Collection;
-import java.util.Collections;
-import org.sdmlib.examples.m2m.model.util.GraphComponentSet;
 import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.examples.m2m.model.GraphComponent;
-import org.sdmlib.examples.m2m.model.util.PersonSet;
 import org.sdmlib.examples.m2m.model.Person;
-import org.sdmlib.examples.m2m.model.util.RelationSet;
 import org.sdmlib.examples.m2m.model.Relation;
 
 public class GraphSet extends SDMSet<Graph>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public GraphPO hasGraphPO()
    {
-      return new GraphPO (this.toArray(new Graph[this.size()]));
+      return new GraphPO(this.toArray(new Graph[this.size()]));
    }
 
 
@@ -51,14 +47,12 @@ public class GraphSet extends SDMSet<Graph>
    }
 
 
+   @SuppressWarnings("unchecked")
    public GraphSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Graph) item);
-           }
+         this.addAll((Collection<Graph>)value);
       }
       else if (value != null)
       {
@@ -80,7 +74,7 @@ public class GraphSet extends SDMSet<Graph>
       
       for (Graph obj : this)
       {
-         result.with(obj.getGcs());
+         result.addAll(obj.getGcs());
       }
       
       return result;
@@ -138,7 +132,7 @@ public class GraphSet extends SDMSet<Graph>
       
       for (Graph obj : this)
       {
-         result.with(obj.getPersons());
+         result.addAll(obj.getPersons());
       }
       
       return result;
@@ -196,7 +190,7 @@ public class GraphSet extends SDMSet<Graph>
       
       for (Graph obj : this)
       {
-         result.with(obj.getRelations());
+         result.addAll(obj.getRelations());
       }
       
       return result;
@@ -249,11 +243,3 @@ public class GraphSet extends SDMSet<Graph>
    }
 
 }
-
-
-
-
-
-
-
-

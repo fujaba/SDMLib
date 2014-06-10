@@ -11,7 +11,7 @@ import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class PatternObjectCreator extends EntityFactory
+public class PatternObjectCreator extends PatternElementCreator
 {
    private final String[] properties = new String[]
    {

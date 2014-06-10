@@ -55,7 +55,7 @@
 //      storyboard.setSprint("Sprint.002.Examples");
 //      
 //      storyboard.add("Start situation: ",
-//         SDMLibConfig.DONE, "zuendorf", "19.08.2012 22:59:05", 40, 0);
+//         Kanban.DONE, "zuendorf", "19.08.2012 22:59:05", 40, 0);
 //      
 //      JsonIdMap jsonIdMap = CreatorCreator.createIdMap("l1");
 //      
