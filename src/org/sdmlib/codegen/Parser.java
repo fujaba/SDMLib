@@ -1876,6 +1876,9 @@ public class Parser
       return replace(new StringBuilder(text), args);
    }
    public StringBuilder replace(StringBuilder text, Object... args){
+      if (args.length < 1) 
+         return text;
+      
       int pos = -1 - args[0].toString().length();
       String placeholder;
       // args are pairs of placeholder, replacement
