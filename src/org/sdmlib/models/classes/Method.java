@@ -24,6 +24,7 @@ package org.sdmlib.models.classes;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
+import java.util.LinkedHashSet;
 
 public class Method extends SDMLibClass
 {
@@ -230,6 +231,7 @@ public class Method extends SDMLibClass
       super.removeYou();
       setClazz(null);
       without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
+      removeAllFromParameter();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -305,6 +307,98 @@ public class Method extends SDMLibClass
    {
       Parameter value = new Parameter(type);
       with(value);
+      return value;
+   } 
+
+   boolean addToParameter(Parameter value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.parameter == null)
+         {
+            this.parameter = new ParameterSet();
+         }
+         
+         changed = this.parameter.add (value);
+         
+         if (changed)
+         {
+            value.withMethod(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+
+   boolean removeFromParameter(Parameter value)
+   {
+      boolean changed = false;
+      
+      if ((this.parameter != null) && (value != null))
+      {
+         changed = this.parameter.remove(value);
+         
+         if (changed)
+         {
+            value.setMethod(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+
+   Method withParameter(Parameter... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Parameter item : value)
+      {
+         addToParameter(item);
+      }
+      return this;
+   } 
+
+   Method withoutParameter(Parameter... value)
+   {
+      for (Parameter item : value)
+      {
+         removeFromParameter(item);
+      }
+      return this;
+   }
+
+   void removeAllFromParameter()
+   {
+      LinkedHashSet<Parameter> tmpSet = new LinkedHashSet<Parameter>(this.getParameter());
+   
+      for (Parameter value : tmpSet)
+      {
+         this.removeFromParameter(value);
+      }
+   }
+
+   Parameter createParameter()
+   {
+      Parameter value = new Parameter();
+      withParameter(value);
+      return value;
+   } 
+
+   Method withClazz(Clazz value)
+   {
+      setClazz(value);
+      return this;
+   } 
+
+   Clazz createClazz()
+   {
+      Clazz value = new Clazz(null);
+      withClazz(value);
       return value;
    } 
 }

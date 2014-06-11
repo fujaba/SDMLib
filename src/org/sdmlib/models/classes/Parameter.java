@@ -137,4 +137,10 @@ public class Parameter extends Value
 
    
    public static final ParameterSet EMPTY_SET = new ParameterSet();
+
+   Parameter withMethod(Method value)
+   {
+      setMethod(value);
+      return this;
+   } 
 }
