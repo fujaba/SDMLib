@@ -5,7 +5,7 @@
     "name":"SDMLibProject",
     "phase":"active",
     "hoursRemaining":24,
-    "hoursSpend":169,
+    "hoursSpend":149,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -102,11 +102,7 @@
   "prop":{
     "name":"BanfM2MTransformation",
     "phase":"done",
-    "hoursSpend":20,
     "parent":{"id":"KE.K1"},
-    "logEntries":[
-    {"id":"KE.L143"}
-    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -895,17 +891,6 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"works great"
-  }
-},  {
-  "id":"KE.L143",
-  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
-  "prop":{
-    "date":"10.10.2013 10:10:42",
-    "hoursSpend":20,
-    "kanbanEntry":{"id":"KE.K9"},
-    "developer":"zuendorf",
-    "phase":"done",
-    "comment":"should be published in paper"
   }
 },  {
   "id":"KE.L144",

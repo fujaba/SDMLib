@@ -202,5 +202,62 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
       return _.substring(1);
    }
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TGTROLENAME = "tgtRoleName";
+   
+   private String tgtRoleName;
+
+   public String getTgtRoleName()
+   {
+      return this.tgtRoleName;
+   }
+   
+   public void setTgtRoleName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.tgtRoleName, value))
+      {
+         String oldValue = this.tgtRoleName;
+         this.tgtRoleName = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGTROLENAME, oldValue, value);
+      }
+   }
+   
+   public PatternLink withTgtRoleName(String value)
+   {
+      setTgtRoleName(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_HOSTGRAPHSRCOBJECT = "hostGraphSrcObject";
+   
+   private Object hostGraphSrcObject;
+
+   public Object getHostGraphSrcObject()
+   {
+      return this.hostGraphSrcObject;
+   }
+   
+   public void setHostGraphSrcObject(Object value)
+   {
+      if (this.hostGraphSrcObject != value)
+      {
+         Object oldValue = this.hostGraphSrcObject;
+         this.hostGraphSrcObject = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOSTGRAPHSRCOBJECT, oldValue, value);
+      }
+   }
+   
+   public PatternLink withHostGraphSrcObject(Object value)
+   {
+      setHostGraphSrcObject(value);
+      return this;
+   } 
+
 }
 

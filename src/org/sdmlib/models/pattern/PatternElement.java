@@ -27,6 +27,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class PatternElement<PEC> implements PropertyChangeInterface
 {
@@ -70,7 +71,7 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return this.pattern;
    }
    
-   public boolean setPattern(Pattern<PatternElement<?>> value)
+   public boolean setPattern(Pattern value)
    {
       boolean changed = false;
       
@@ -98,7 +99,7 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return changed;
    }
    
-   public PEC withPattern(Pattern<PatternElement<?>> value)
+   public PEC withPattern(Pattern value)
    {
       setPattern(value);
       return (PEC)this;
@@ -263,4 +264,5 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       withPattern(value);
       return value;
    } 
+
 }

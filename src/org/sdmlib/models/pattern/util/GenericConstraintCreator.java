@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.PatternElement;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class GenericConstraintCreator extends PatternElementCreator
 {
@@ -36,6 +37,11 @@ public class GenericConstraintCreator extends PatternElementCreator
       {
          return ((GenericConstraint)target).getText();
       }
+
+      if (GenericConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return ((GenericConstraint) target).getPattern();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -45,6 +51,12 @@ public class GenericConstraintCreator extends PatternElementCreator
       if (GenericConstraint.PROPERTY_TEXT.equalsIgnoreCase(attrName))
       {
          ((GenericConstraint)target).setText((String) value);
+         return true;
+      }
+
+      if (GenericConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((GenericConstraint) target).setPattern((Pattern) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

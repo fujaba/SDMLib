@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class OptionalSubPatternCreator extends PatternCreator
 {
@@ -50,6 +51,16 @@ public class OptionalSubPatternCreator extends PatternCreator
       {
          return ((OptionalSubPattern)target).getMatchForward();
       }
+
+      if (OptionalSubPattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attribute))
+      {
+         return ((OptionalSubPattern) target).getElements();
+      }
+
+      if (OptionalSubPattern.PROPERTY_RGRAPH.equalsIgnoreCase(attribute))
+      {
+         return ((OptionalSubPattern) target).getRgraph();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -58,6 +69,24 @@ public class OptionalSubPatternCreator extends PatternCreator
    {
       if (OptionalSubPattern.PROPERTY_MATCHFORWARD.equalsIgnoreCase(attrName)){
          ((OptionalSubPattern)target).setMatchForward((Boolean) value);
+         return true;
+      }
+
+      if (OptionalSubPattern.PROPERTY_ELEMENTS.equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).addToElements((PatternElement) value);
+         return true;
+      }
+      
+      if ((OptionalSubPattern.PROPERTY_ELEMENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).removeFromElements((PatternElement) value);
+         return true;
+      }
+
+      if (OptionalSubPattern.PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).setRgraph((ReachabilityGraph) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

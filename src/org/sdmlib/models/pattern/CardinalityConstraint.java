@@ -319,5 +319,6 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
 
 
    public static final CardinalityConstraintSet EMPTY_SET = new CardinalityConstraintSet();
+
 }
 

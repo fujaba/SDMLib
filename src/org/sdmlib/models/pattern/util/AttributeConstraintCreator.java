@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class AttributeConstraintCreator extends PatternElementCreator
 {
@@ -75,6 +76,11 @@ public class AttributeConstraintCreator extends PatternElementCreator
       {
          return ((AttributeConstraint)target).getUpperTgtValue();
       }
+
+      if (AttributeConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
+      {
+         return ((AttributeConstraint) target).getPattern();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -114,6 +120,12 @@ public class AttributeConstraintCreator extends PatternElementCreator
       if (AttributeConstraint.PROPERTY_UPPERTGTVALUE.equalsIgnoreCase(attrName))
       {
          ((AttributeConstraint)target).setUpperTgtValue((Object) value);
+         return true;
+      }
+
+      if (AttributeConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((AttributeConstraint) target).setPattern((Pattern) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

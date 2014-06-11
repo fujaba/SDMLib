@@ -37,6 +37,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import java.beans.PropertyChangeListener;
 
 public class ReachableState implements PropertyChangeInterface
 {

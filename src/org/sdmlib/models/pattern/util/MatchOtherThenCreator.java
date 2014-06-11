@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class MatchOtherThenCreator extends PatternElementCreator
 {
@@ -49,6 +50,11 @@ public class MatchOtherThenCreator extends PatternElementCreator
       {
          return ((MatchOtherThen)target).getForbidden();
       }
+
+      if (MatchOtherThen.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return ((MatchOtherThen) target).getPattern();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -70,6 +76,12 @@ public class MatchOtherThenCreator extends PatternElementCreator
       if (MatchOtherThen.PROPERTY_FORBIDDEN.equalsIgnoreCase(attrName))
       {
          ((MatchOtherThen)target).setForbidden((PatternObject<?,?>) value);
+         return true;
+      }
+
+      if (MatchOtherThen.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((MatchOtherThen) target).setPattern((Pattern) value);
          return true;
       }
 

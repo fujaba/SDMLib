@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class CardinalityConstraintCreator extends PatternElementCreator
 {
@@ -61,6 +62,11 @@ public class CardinalityConstraintCreator extends PatternElementCreator
       {
          return ((CardinalityConstraint)target).getSrc();
       }
+
+      if (CardinalityConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return ((CardinalityConstraint) target).getPattern();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -94,6 +100,12 @@ public class CardinalityConstraintCreator extends PatternElementCreator
       if (CardinalityConstraint.PROPERTY_SRC.equalsIgnoreCase(attrName))
       {
          ((CardinalityConstraint)target).setSrc((PatternObject<?,?>) value);
+         return true;
+      }
+
+      if (CardinalityConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((CardinalityConstraint) target).setPattern((Pattern) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

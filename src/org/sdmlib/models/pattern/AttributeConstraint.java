@@ -363,5 +363,6 @@ public class AttributeConstraint extends PatternElement<AttributeConstraint> imp
       withSrc(value);
       return value;
    } 
+
 }
 

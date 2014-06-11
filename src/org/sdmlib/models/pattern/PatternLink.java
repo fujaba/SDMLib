@@ -399,6 +399,6 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
-
+   
 }
 

@@ -269,7 +269,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return this.elements;
    }
    
-   public boolean addToElements(PatternElement<?> value)
+   public boolean addToElements(PatternElement value)
    {
       boolean changed = false;
       
@@ -1146,7 +1146,6 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       this.findMatch();
       return (PatternObject) po;
    } 
-
 
 }
 

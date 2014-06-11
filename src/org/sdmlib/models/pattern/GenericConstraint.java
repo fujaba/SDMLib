@@ -140,5 +140,6 @@ public class GenericConstraint extends PatternElement<GenericConstraint> impleme
       setText(value);
       return this;
    } 
+
 }
 

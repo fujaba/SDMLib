@@ -23,6 +23,8 @@ package org.sdmlib.models.pattern;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.StrUtil;
 
 public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements PropertyChangeInterface
 {
@@ -155,6 +157,7 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       _.append(" ").append(this.getDebugMode());
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
+      _.append(" ").append(this.getName());
       return _.substring(1);
    }
 
