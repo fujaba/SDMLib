@@ -35,10 +35,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.KanbanEntrySet;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
-
-import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
 // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
 public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEntry>
@@ -699,5 +696,6 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       withLogEntries(value);
       return value;
    } 
+
 }
 

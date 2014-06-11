@@ -36,6 +36,10 @@ public class ClazzCreator extends EntityFactory
       return new ClassModel().createClazz(null);
    }
    
+   public static JsonIdMap createIdMap(String sessionID) {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+
    @Override
    public Object getValue(Object target, String attrName)
    {

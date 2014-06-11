@@ -40,17 +40,17 @@ public class ProjectBoard
    {
       Storyboard story = new Storyboard();
 
-      story = new Storyboard("test", "MiniTutorials");
+      story = new Storyboard("examples", "MiniTutorials");
       story.setSprint("ToDo");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:13:42", 0, 12, "high priority");
       story.dumpHTML();
       
-      story = new Storyboard("test", "FeatureList");
+      story = new Storyboard("examples", "FeatureList");
       story.setSprint("ToDo");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:25:42", 0, 6, "medium priority");
       story.dumpHTML();
       
-      story = new Storyboard("test", "POJO Code enhancer");
+      story = new Storyboard("examples", "POJO Code enhancer");
       story.setSprint("ToDo");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 22:25:42", 0, 6, "high priority");
       story.dumpHTML();
@@ -62,7 +62,7 @@ public class ProjectBoard
    {
       Storyboard story = new Storyboard();
 
-      story = new Storyboard("test", "GenerateTransitiveClosureGetter");
+      story = new Storyboard("examples", "GenerateTransitiveClosureGetter");
       story.setSprint("Features");
       story.add("This feature has been tested within <a href='StudyRight%20with%20assignments%20class%20generation.html'>StudyRight with assignments class generation</a> ");
       story.addLogEntry(BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");
@@ -76,7 +76,7 @@ public class ProjectBoard
    @Test
    public void testExtendStoryboardByAddToDoMethod()
    {
-      Storyboard storyboard = new Storyboard("test");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Start situation: ",
          DONE, "zuendorf", "01.11.2012 12:33:42", 1, 0);
@@ -93,7 +93,7 @@ public class ProjectBoard
    @Test
    public void testTodoEntries()
    {
-      Storyboard story = new Storyboard("test");
+      Storyboard story = new Storyboard();
       
       story.add("Internal things.");
       
@@ -101,7 +101,7 @@ public class ProjectBoard
          , DONE, "zuendorf", "08.10.2013 13:30:42", 1, 0);
       
       story.addToDo("ExtendStoryboardByAddToDoMethod", DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
-      .linkToTest("test", this.getClass().getName());
+      .linkToTest("examples", this.getClass().getName());
       
       story.dumpHTML();
       
@@ -134,7 +134,7 @@ public class ProjectBoard
          .withAttribute("oldNoOfLogEntries", DataType.INT)
          .withAttribute("phases", DataType.STRING);
 
-      Clazz logEntryClass = model.createClazz("org.sdmlib.storyboards.LogEntry");
+      Clazz logEntryClass = model.createClazz("org.sdmlib.storyboards.LogEntryStoryBoard");
       
       new Association()
       .withSource(new Role(kanbanEntryClass, "kanbanEntry", Card.ONE).withKind(Role.AGGREGATION))
@@ -152,7 +152,7 @@ public class ProjectBoard
       storyboardWallClass.withAssoc(storyboardClass, "storyboard", Card.ONE, "wall", Card.ONE);
       
       Clazz storyboardStepClass = model.createClazz("StoryboardStep")
-         .withAssoc(storyboardClass, "storyboardSteps", Card.MANY, "storyboard", Card.ONE)
+         .withAssoc(storyboardClass, "storyboard", Card.ONE, "storyboardSteps", Card.MANY)
          .withAttribute("text", DataType.STRING);
       
       storyboard.addClassDiagram(model);
@@ -169,7 +169,7 @@ public class ProjectBoard
       
       storyboard.add("Internally, the class model looks like:");
       
-      storyboard.addObjectDiagram(model);
+      storyboard.addClassDiagram(model, "src");
       
       storyboard.addLogEntry(Kanban.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
       storyboard.addLogEntry(Kanban.DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
@@ -180,7 +180,7 @@ public class ProjectBoard
    @Test
    public void testStoryboardInfrastructureInternals()
    {
-      Storyboard storyboard = new Storyboard("test");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Internals.");
       

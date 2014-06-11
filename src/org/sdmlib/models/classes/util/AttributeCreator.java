@@ -45,6 +45,10 @@ public class AttributeCreator extends EntityFactory
       return properties;
    }
    
+   public static JsonIdMap createIdMap(String sessionID) {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+
    @Override
    public Object getSendableInstance(boolean reference)
    {

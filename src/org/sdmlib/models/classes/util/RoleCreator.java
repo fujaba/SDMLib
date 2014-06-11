@@ -1,6 +1,7 @@
 package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 
@@ -26,9 +27,13 @@ public class RoleCreator extends SDMLibClassCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Role(null, null, null);
+      return new Role(null, null, Card.MANY);
    }
    
+   public static JsonIdMap createIdMap(String sessionID) {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+
    @Override
    public Object getValue(Object target, String attrName)
    {

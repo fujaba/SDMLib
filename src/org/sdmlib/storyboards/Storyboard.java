@@ -917,6 +917,7 @@ public class Storyboard implements PropertyChangeInterface
             catch (Exception e)
             {
                // cannot find creator creator class, use generic idMap instead;
+               System.out.println("Could not find creator class for " + className);
                e.printStackTrace();
             }
          }

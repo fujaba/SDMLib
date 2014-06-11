@@ -11,6 +11,9 @@ public class SymTabEntryPO extends PatternObject<SymTabEntryPO, SymTabEntry>
    }
 
    public SymTabEntryPO(SymTabEntry... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override
