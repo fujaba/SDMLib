@@ -49,7 +49,7 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
    {
       for (MatchIsomorphicConstraint obj : this)
       {
-         obj.withModifier(value);
+         obj.setModifier(value);
       }
       
       return this;
@@ -71,7 +71,7 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
    {
       for (MatchIsomorphicConstraint obj : this)
       {
-         obj.withHasMatch(value);
+         obj.setHasMatch(value);
       }
       
       return this;
@@ -93,7 +93,7 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
    {
       for (MatchIsomorphicConstraint obj : this)
       {
-         obj.withDoAllMatches(value);
+         obj.setDoAllMatches(value);
       }
       
       return this;
@@ -115,7 +115,7 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
    {
       for (MatchIsomorphicConstraint obj : this)
       {
-         obj.withPatternObjectName(value);
+         obj.setPatternObjectName(value);
       }
       
       return this;

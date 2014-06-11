@@ -5,7 +5,7 @@
     "name":"SDMLibProject",
     "phase":"active",
     "hoursRemaining":24,
-    "hoursSpend":89,
+    "hoursSpend":169,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -124,7 +124,7 @@
   "prop":{
     "name":"Sprint.001.Booting",
     "phase":"active",
-    "hoursSpend":55,
+    "hoursSpend":135,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K10"},
@@ -318,7 +318,11 @@
   "prop":{
     "name":"PatternModelCodegen",
     "phase":"done",
+    "hoursSpend":80,
     "parent":{"id":"KE.K11"},
+    "logEntries":[
+    {"id":"KE.L144"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -902,5 +906,16 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"should be published in paper"
+  }
+},  {
+  "id":"KE.L144",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.08.2012 22:52:42",
+    "hoursSpend":80,
+    "kanbanEntry":{"id":"KE.K60"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: "
   }
 }]

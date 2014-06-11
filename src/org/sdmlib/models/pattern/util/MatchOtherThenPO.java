@@ -198,8 +198,8 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
    public PatternPO hasPattern()
    {
       PatternPO result = new PatternPO();
-      result.setModifier(this.getPattern().getModifier());
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
       
       return result;
@@ -207,16 +207,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public MatchOtherThenPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    public Pattern getPattern()
@@ -230,9 +221,9 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public PatternObjectPO hasSrc()
    {
-      PatternObjectPO result = new PatternObjectPO();
-      result.setModifier(this.getPattern().getModifier());
+      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(MatchOtherThen.PROPERTY_SRC, result);
       
       return result;
@@ -240,16 +231,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public MatchOtherThenPO hasSrc(PatternObjectPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(MatchOtherThen.PROPERTY_SRC)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, MatchOtherThen.PROPERTY_SRC);
    }
 
    public PatternObject getSrc()
@@ -263,9 +245,9 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public PatternObjectPO hasForbidden()
    {
-      PatternObjectPO result = new PatternObjectPO();
-      result.setModifier(this.getPattern().getModifier());
+      PatternObjectPO result = new PatternObjectPO(new PatternObject[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(MatchOtherThen.PROPERTY_FORBIDDEN, result);
       
       return result;
@@ -273,16 +255,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public MatchOtherThenPO hasForbidden(PatternObjectPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(MatchOtherThen.PROPERTY_FORBIDDEN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, MatchOtherThen.PROPERTY_FORBIDDEN);
    }
 
    public PatternObject getForbidden()
@@ -421,7 +394,7 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public PatternObjectPO createForbidden()
    {
-      return (PatternObjectPO) this.startCreate().hasForbidden().endCreate();
+      return this.startCreate().hasForbidden().endCreate();
    }
 
    public MatchOtherThenPO createForbidden(PatternObjectPO tgt)

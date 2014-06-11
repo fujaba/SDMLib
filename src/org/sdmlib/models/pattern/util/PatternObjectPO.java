@@ -224,15 +224,7 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
    
    public PatternObjectPO hasAttrConstraints(AttributeConstraintPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_ATTRCONSTRAINTS)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_ATTRCONSTRAINTS);
    }
    
    public PatternObjectPO withAttrConstraints(AttributeConstraintPO tgtPO)
@@ -325,19 +317,9 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
       
       return result;
    }
-   
    public PatternObjectPO hasDestroyElem(DestroyObjectElemPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_DESTROYELEM)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_DESTROYELEM);
    }
    
    public DestroyObjectElem getDestroyElem()
@@ -407,16 +389,7 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
 
    public PatternObjectPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    public Pattern getPattern()
@@ -440,16 +413,7 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
 
    public PatternObjectPO hasCardConstraints(CardinalityConstraintPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_CARDCONSTRAINTS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_CARDCONSTRAINTS);
    }
 
    public CardinalityConstraintSet getCardConstraints()
@@ -473,16 +437,7 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
 
    public PatternObjectPO hasMatchOtherThen(MatchOtherThenPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_MATCHOTHERTHEN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_MATCHOTHERTHEN);
    }
 
    public MatchOtherThenSet getMatchOtherThen()
@@ -506,16 +461,7 @@ public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObjec
 
    public PatternObjectPO hasExcluders(MatchOtherThenPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternObject.PROPERTY_EXCLUDERS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternObject.PROPERTY_EXCLUDERS);
    }
 
    public MatchOtherThenSet getExcluders()

@@ -68,9 +68,9 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
    
    public ReachableStatePO hasSrc()
    {
-      ReachableStatePO result = new ReachableStatePO();
-      result.setModifier(this.getPattern().getModifier());
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(RuleApplication.PROPERTY_SRC, result);
       
       return result;
@@ -78,16 +78,7 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
 
    public RuleApplicationPO hasSrc(ReachableStatePO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(RuleApplication.PROPERTY_SRC)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_SRC);
    }
 
    public ReachableState getSrc()
@@ -101,9 +92,9 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
 
    public ReachableStatePO hasTgt()
    {
-      ReachableStatePO result = new ReachableStatePO();
-      result.setModifier(this.getPattern().getModifier());
+      ReachableStatePO result = new ReachableStatePO(new ReachableState[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(RuleApplication.PROPERTY_TGT, result);
       
       return result;
@@ -111,16 +102,7 @@ public class RuleApplicationPO extends PatternObject<RuleApplicationPO, RuleAppl
 
    public RuleApplicationPO hasTgt(ReachableStatePO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(RuleApplication.PROPERTY_TGT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, RuleApplication.PROPERTY_TGT);
    }
 
    public ReachableState getTgt()

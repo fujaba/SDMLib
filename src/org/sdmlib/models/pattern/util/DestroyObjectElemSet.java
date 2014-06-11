@@ -52,7 +52,7 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
    {
       for (DestroyObjectElem obj : this)
       {
-         obj.withModifier(value);
+         obj.setModifier(value);
       }
       
       return this;
@@ -74,7 +74,7 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
    {
       for (DestroyObjectElem obj : this)
       {
-         obj.withHasMatch(value);
+         obj.setHasMatch(value);
       }
       
       return this;
@@ -117,7 +117,7 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
    {
       for (DestroyObjectElem obj : this)
       {
-         obj.withDoAllMatches(value);
+         obj.setDoAllMatches(value);
       }
       
       return this;
@@ -135,16 +135,16 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
       return result;
    }
 
+   
    public DestroyObjectElemSet withPatternObjectName(String value)
    {
       for (DestroyObjectElem obj : this)
       {
-         obj.withPatternObjectName(value);
+         obj.setPatternObjectName(value);
       }
       
       return this;
    }
-
 
 
    public String toString()

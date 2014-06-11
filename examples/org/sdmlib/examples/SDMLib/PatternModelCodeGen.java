@@ -27,6 +27,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
@@ -37,7 +38,7 @@ public class PatternModelCodeGen
    @Test
    public void testPatternModelCodegen()
    {
-      Storyboard storyboard = new Storyboard("test", "PatternModelCodegen");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.setSprint("Sprint.001.Booting");
       
@@ -54,11 +55,11 @@ public class PatternModelCodeGen
       Clazz pattern = model.createClazz("Pattern")
          .withAttribute("currentSubPattern", DataType.ref("Pattern"))
          .withAttribute("debugMode", DataType.INT) 
-         .withAttribute("trace", DataType.ref("StringBuilder"))
+         // .withAttribute("trace", DataType.ref("StringBuilder"))
          .withAttribute("name", DataType.STRING)
          .withSuperClazz(patternElement);
       
-      model.createClazz(StringBuilder.class.getName());
+      // model.createClazz(StringBuilder.class.getName());
       
       model.createClazz("NegativeApplicationCondition")
       .withSuperClazz(pattern);
@@ -66,7 +67,7 @@ public class PatternModelCodeGen
       model.createClazz("OptionalSubPattern")
       .withSuperClazz(pattern)
       .withAttribute("matchForward", DataType.BOOLEAN);
-      
+
       new Association()
       .withTarget(patternElement, "elements", Card.MANY)
       .withSource(pattern, "pattern", Card.ONE);
@@ -136,25 +137,27 @@ public class PatternModelCodeGen
       
       model.createClazz("GenericConstraint").withAttribute("text", DataType.STRING)
             .withSuperClazz(patternElement);
-      
-      model.createClazz("org.sdmlib.serialization.json.JsonIdMap");
-      
-      model.createClazz(SDMLibJsonIdMap.class.getName());
-      
+            
       Clazz reachabilityGraph = model.createClazz("ReachabilityGraph");
       
-      Clazz rState = model.createClazz("ReachableState").withAssoc(reachabilityGraph, "states", Card.MANY, "parent", Card.ONE)
+      Clazz rState = model.createClazz("ReachableState")
             .withAttribute("number", DataType.LONG)
             .withAttribute("graphRoot", DataType.OBJECT);
       
-      Clazz ruleApplication = model.createClazz("ruleApplication").withAssoc(rState, "ruleapplications", Card.MANY, "src", Card.ONE)
+      reachabilityGraph.withAssoc(rState, "states", Card.MANY, "parent", Card.ONE);
+      
+      Clazz ruleApplication = model.createClazz("RuleApplication")
             .withAttribute("description", DataType.STRING);
+      
+      ruleApplication.withAssoc(rState, "src", Card.ONE, "ruleapplications", Card.MANY);
       
       ruleApplication.withAssoc(rState, "tgt", Card.ONE, "resultOf", Card.MANY);
       
       reachabilityGraph.withAssoc(rState, "todo", Card.MANY, "master", Card.ONE);
       
       reachabilityGraph.withAssoc(pattern, "rules", Card.MANY, "rgraph", Card.ONE);
+      
+      model.getGenerator().withShowDiff(DIFF.FULL);
       
       model.generate("src");
       

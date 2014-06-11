@@ -1106,6 +1106,9 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    public Pattern withElements(PatternElement... value)
    {
+      if(value==null){
+         return this;
+      }
       for (PatternElement item : value)
       {
          addToElements(item);

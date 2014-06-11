@@ -402,6 +402,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public void removeYou()
    {
+      super.removeYou();
+
       removeAllFromIncomming();
       removeAllFromOutgoing();
       removeAllFromAttrConstraints();
@@ -411,7 +413,6 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       removeAllFromMatchOtherThen();
       removeAllFromExcluders();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    // ==========================================================================
@@ -1126,6 +1127,10 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public PatternObject withAttrConstraints(AttributeConstraint... value)
    {
+      if(value==null)
+      {
+         return this;
+      }
       for (AttributeConstraint item : value)
       {
          addToAttrConstraints(item);
@@ -1151,6 +1156,10 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public PatternObject withCardConstraints(CardinalityConstraint... value)
    {
+      if(value==null)
+      {
+         return this;
+      }
       for (CardinalityConstraint item : value)
       {
          addToCardConstraints(item);
@@ -1187,6 +1196,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
 
    public PatternObject withExcluders(MatchOtherThen... value)
    {
+      if(value==null){
+         return this;
+      }
       for (MatchOtherThen item : value)
       {
          addToExcluders(item);

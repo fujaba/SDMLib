@@ -193,18 +193,18 @@ public class ReachabilityGraph implements PropertyChangeInterface
    public boolean removeFromStates(ReachableState value)
    {
       boolean changed = false;
-
+      
       if ((this.states != null) && (value != null))
       {
-         changed = this.states.remove (value);
-
+         changed = this.states.remove(value);
+         
          if (changed)
          {
             value.setParent(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_STATES, value, null);
          }
       }
-
+         
       return changed;   
    }
 
@@ -286,18 +286,18 @@ public class ReachabilityGraph implements PropertyChangeInterface
    public boolean removeFromTodo(ReachableState value)
    {
       boolean changed = false;
-
+      
       if ((this.todo != null) && (value != null))
       {
-         changed = this.todo.remove (value);
-
+         changed = this.todo.remove(value);
+         
          if (changed)
          {
             value.setMaster(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_TODO, value, null);
          }
       }
-
+         
       return changed;   
    }
 
@@ -379,18 +379,18 @@ public class ReachabilityGraph implements PropertyChangeInterface
    public boolean removeFromRules(Pattern value)
    {
       boolean changed = false;
-
+      
       if ((this.rules != null) && (value != null))
       {
-         changed = this.rules.remove (value);
-
+         changed = this.rules.remove(value);
+         
          if (changed)
          {
             value.setRgraph(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_RULES, value, null);
          }
       }
-
+         
       return changed;   
    }
 
@@ -707,12 +707,15 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
    public ReachabilityGraph withStates(ReachableState... value)
    {
+      if(value==null){
+         return this;
+      }
       for (ReachableState item : value)
       {
          addToStates(item);
       }
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutStates(ReachableState... value)
    {
@@ -725,12 +728,15 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
    public ReachabilityGraph withTodo(ReachableState... value)
    {
+      if(value==null){
+         return this;
+      }
       for (ReachableState item : value)
       {
          addToTodo(item);
       }
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutTodo(ReachableState... value)
    {
@@ -743,12 +749,15 @@ public class ReachabilityGraph implements PropertyChangeInterface
 
    public ReachabilityGraph withRules(Pattern... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Pattern item : value)
       {
          addToRules(item);
       }
       return this;
-   } 
+   }
 
    public ReachabilityGraph withoutRules(Pattern... value)
    {

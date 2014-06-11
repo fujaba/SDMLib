@@ -41,9 +41,10 @@ public class UnifyGraphsOp extends PatternElement implements PropertyChangeInter
    
    public void removeYou()
    {
+      super.removeYou();
+
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    public String toString()

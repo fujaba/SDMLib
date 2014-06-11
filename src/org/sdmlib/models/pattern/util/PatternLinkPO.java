@@ -297,18 +297,10 @@ public class PatternLinkPO extends PatternObject<PatternLinkPO, PatternLink>
 
    public PatternLinkPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
-
+   
+   
    public Pattern getPattern()
    {
       if (this.getPattern().getHasMatch())

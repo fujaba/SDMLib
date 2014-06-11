@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.RuleApplication;
 
 public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableState>
 {
@@ -36,9 +37,9 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    
    public ReachabilityGraphPO hasParent()
    {
-      ReachabilityGraphPO result = new ReachabilityGraphPO();
-      result.setModifier(this.getPattern().getModifier());
+      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(ReachableState.PROPERTY_PARENT, result);
       
       return result;
@@ -46,16 +47,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
 
    public ReachableStatePO hasParent(ReachabilityGraphPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(ReachableState.PROPERTY_PARENT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_PARENT);
    }
 
    public ReachabilityGraph getParent()
@@ -69,9 +61,9 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
 
    public ReachabilityGraphPO hasMaster()
    {
-      ReachabilityGraphPO result = new ReachabilityGraphPO();
-      result.setModifier(this.getPattern().getModifier());
+      ReachabilityGraphPO result = new ReachabilityGraphPO(new ReachabilityGraph[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(ReachableState.PROPERTY_MASTER, result);
       
       return result;
@@ -79,16 +71,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
 
    public ReachableStatePO hasMaster(ReachabilityGraphPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(ReachableState.PROPERTY_MASTER)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_MASTER);
    }
 
    public ReachabilityGraph getMaster()
@@ -166,9 +149,9 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
    
    public RuleApplicationPO hasRuleapplications()
    {
-      RuleApplicationPO result = new RuleApplicationPO();
-      result.setModifier(this.getPattern().getModifier());
+      RuleApplicationPO result = new RuleApplicationPO(new RuleApplication[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(ReachableState.PROPERTY_RULEAPPLICATIONS, result);
       
       return result;
@@ -176,16 +159,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
 
    public ReachableStatePO hasRuleapplications(RuleApplicationPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(ReachableState.PROPERTY_RULEAPPLICATIONS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_RULEAPPLICATIONS);
    }
 
    public RuleApplicationSet getRuleapplications()
@@ -199,9 +173,9 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
 
    public RuleApplicationPO hasResultOf()
    {
-      RuleApplicationPO result = new RuleApplicationPO();
-      result.setModifier(this.getPattern().getModifier());
+      RuleApplicationPO result = new RuleApplicationPO(new RuleApplication[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(ReachableState.PROPERTY_RESULTOF, result);
       
       return result;
@@ -209,16 +183,7 @@ public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableS
 
    public ReachableStatePO hasResultOf(RuleApplicationPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(ReachableState.PROPERTY_RESULTOF)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, ReachableState.PROPERTY_RESULTOF);
    }
 
    public RuleApplicationSet getResultOf()

@@ -303,16 +303,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
 
    public CardinalityConstraintPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    public Pattern getPattern()
@@ -327,8 +318,8 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
    public PatternObjectPO hasSrc()
    {
       PatternObjectPO result = new PatternObjectPO();
-      result.setModifier(this.getPattern().getModifier());
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(CardinalityConstraint.PROPERTY_SRC, result);
       
       return result;
@@ -336,16 +327,7 @@ public class CardinalityConstraintPO extends PatternObject<CardinalityConstraint
 
    public CardinalityConstraintPO hasSrc(PatternObjectPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(CardinalityConstraint.PROPERTY_SRC)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, CardinalityConstraint.PROPERTY_SRC);
    }
 
    public PatternObject getSrc()

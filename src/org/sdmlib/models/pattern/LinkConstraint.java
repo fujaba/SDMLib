@@ -183,11 +183,12 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setPattern(null);
       setTgt(null);
       setSrc(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    @Override

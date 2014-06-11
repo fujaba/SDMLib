@@ -204,16 +204,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
 
    public NegativeApplicationConditionPO hasElements(PatternElementPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Pattern.PROPERTY_ELEMENTS)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_ELEMENTS);
    }
 
    public PatternElementSet getElements()
@@ -302,16 +293,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
 
    public NegativeApplicationConditionPO hasRgraph(ReachabilityGraphPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Pattern.PROPERTY_RGRAPH)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_RGRAPH);
    }
 
    public ReachabilityGraph getRgraph()

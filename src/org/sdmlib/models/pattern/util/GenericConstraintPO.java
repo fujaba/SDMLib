@@ -165,9 +165,9 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public PatternPO hasPattern()
    {
-      PatternPO result = new PatternPO();
-      result.setModifier(this.getPattern().getModifier());
+      PatternPO result = new PatternPO(new Pattern[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
       
       return result;
@@ -175,16 +175,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
 
    public GenericConstraintPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    public Pattern getPattern()
@@ -282,7 +273,7 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
    
    public PatternPO createPattern()
    {
-      return (PatternPO) this.startCreate().hasPattern().endCreate();
+      return this.startCreate().hasPattern().endCreate();
    }
 
    public GenericConstraintPO createPattern(PatternPO tgt)

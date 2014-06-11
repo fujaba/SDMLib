@@ -98,11 +98,12 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       removeAllFromElements();
       setPattern(null);
       setRgraph(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    @Override

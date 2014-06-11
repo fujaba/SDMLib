@@ -102,11 +102,12 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setPattern(null);
       setSrc(null);
       setForbidden(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    

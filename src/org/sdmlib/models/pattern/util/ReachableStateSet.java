@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.pattern.util;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
@@ -240,9 +241,7 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
    {
       if (value instanceof java.util.Collection)
       {
-         for(Object item : (java.util.Collection<?>)value){
-            this.add((ReachableState) item);
-         }
+         this.addAll((Collection<ReachableState>)value);
       }
       else if (value != null)
       {

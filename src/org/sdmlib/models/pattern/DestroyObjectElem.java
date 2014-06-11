@@ -81,10 +81,11 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setPatternObject(null);
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    

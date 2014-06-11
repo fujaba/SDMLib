@@ -85,20 +85,21 @@ public class GenericConstraint extends PatternElement<GenericConstraint> impleme
 
    @Override
    public void removeYou()
-   {
+   {      
+      super.removeYou();
+
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    @Override
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-
+      
+      _.append(" ").append(this.getText());
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
-      _.append(" ").append(this.getText());
       return _.substring(1);
    }
 

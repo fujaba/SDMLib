@@ -100,9 +100,10 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    @Override

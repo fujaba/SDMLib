@@ -34,6 +34,8 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    
    public MatchIsomorphicConstraintSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       MatchIsomorphicConstraintSet matches = new MatchIsomorphicConstraintSet();
 
       while (this.getPattern().getHasMatch())
@@ -145,8 +147,8 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
    public PatternPO hasPattern()
    {
       PatternPO result = new PatternPO();
-      result.setModifier(this.getPattern().getModifier());
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
       
       return result;
@@ -154,16 +156,7 @@ public class MatchIsomorphicConstraintPO extends PatternObject<MatchIsomorphicCo
 
    public MatchIsomorphicConstraintPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    @Override

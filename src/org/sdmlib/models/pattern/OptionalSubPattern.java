@@ -103,11 +103,12 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       removeAllFromElements();
       setPattern(null);
       setRgraph(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    
