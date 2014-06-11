@@ -176,7 +176,7 @@ public class GenClass extends Generator<Clazz>
       {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
-         getGenerator(attr).generate(rootDir, helpersDir, false);
+         getGenerator(attr).generate(rootDir, helpersDir, true);
       }
 
       if (model.getSuperClass() != null) 
@@ -197,7 +197,7 @@ public class GenClass extends Generator<Clazz>
             continue;
          GenAttribute generator = getGenerator(attr);
          if(generator!=null){
-            generator.generate(model, rootDir, helpersDir, false);
+            generator.generate(model, rootDir, helpersDir, true);
          }
       }
       if (superClazz.getSuperClass() != null) {

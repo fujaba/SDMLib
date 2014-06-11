@@ -157,7 +157,7 @@ public class PatternModelCodeGen
       
       reachabilityGraph.withAssoc(pattern, "rules", Card.MANY, "rgraph", Card.ONE);
       
-      // model.getGenerator().withShowDiff(DIFF.FULL);
+      model.getGenerator().withShowDiff(DIFF.FULL);
       
       model.generate("src");
       
