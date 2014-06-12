@@ -47,22 +47,22 @@ public class ChoiceTemplateCreator extends TemplateCreator
          return ((ChoiceTemplate)target).getChoices();
       }
 
-      if (ChoiceTemplate.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attribute))
+      if (ChoiceTemplate.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
       {
          return ((ChoiceTemplate) target).getPlaceholders();
       }
 
-      if (ChoiceTemplate.PROPERTY_CHOOSER.equalsIgnoreCase(attribute))
+      if (ChoiceTemplate.PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
       {
          return ((ChoiceTemplate) target).getChooser();
       }
 
-      if (ChoiceTemplate.PROPERTY_MATCHES.equalsIgnoreCase(attribute))
+      if (ChoiceTemplate.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
       {
          return ((ChoiceTemplate) target).getMatches();
       }
 
-      if (ChoiceTemplate.PROPERTY_PARENTS.equalsIgnoreCase(attribute))
+      if (ChoiceTemplate.PROPERTY_PARENTS.equalsIgnoreCase(attrName))
       {
          return ((ChoiceTemplate) target).getParents();
       }
