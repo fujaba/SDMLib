@@ -280,8 +280,9 @@ public class Parser
       return indexOfResult;
    }
    
-   public void parse(){
+   public Parser parse(){
       indexOf(CLASS_END);
+      return this;
    }
 
    private void parseFile()
@@ -1535,6 +1536,7 @@ public class Parser
                if (!methodClassDetails.isEmpty())
                {
                   initCallSequence.add(methodClassDetails);
+                  methodBodyQualifiedNames.clear();
                }
             } else if ( ! currentRealKindEquals(';'))
             {
@@ -1669,15 +1671,29 @@ public class Parser
             while (! currentRealKindEquals(Parser.EOF)
                   && ! currentRealKindEquals(')'))
             {
+               methodBodyQualifiedNames.clear();
 //               int paramStartPos = currentRealToken.startPos;
                parseExpressionDetails();
 //               int paramEndPos = previousRealToken.endPos;
 
+               if ( !(methodBodyQualifiedNames.keySet().isEmpty() )
+                     && 
+                        !(methodBodyQualifiedNames.keySet().size() == 1 
+                        && methodBodyQualifiedNames.keySet().toArray()[0].equals(previousRealToken.text.toString())) )
+               {
+                  methodCallElements.add("[");
+                  methodCallElements.addAll(methodBodyQualifiedNames.keySet());
+                  methodCallElements.add("]");
+               }
                methodCallElements.add(previousRealToken.text.toString());
 
                if (currentRealKindEquals(','))
                {
                   readToken (',');
+               }
+               else {
+                  
+                  return methodCallElements;
                }
             }
 
@@ -1738,6 +1754,15 @@ public class Parser
             parseBracketExpressionDetails();
          }
          else if (currentRealKindEquals('v'))
+         {
+            checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
+
+            String qualifiedName = parseQualifiedName();
+
+            methodBodyQualifiedNames.put(qualifiedName, currentRealToken.startPos);
+            currentStatement.withToken(qualifiedName, currentRealToken.endPos);
+         }
+         else if (currentRealKindEquals('"'))
          {
             checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentRealToken.startPos);
 

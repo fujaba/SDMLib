@@ -9,6 +9,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Association;
 
 public class LudoReverseModel
 {  
@@ -39,8 +40,18 @@ public class LudoReverseModel
    public void LudoModelReverse()
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
+
+      Clazz ludoClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Ludo")
+      .with(new Attribute("style", DataType.ref("String")) )
+      .with(new Attribute("age", DataType.ref("int")) );
+
+      Clazz playerClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Player")
+      .with(new Attribute("name", DataType.ref("String")) )
+      .with(new Attribute("color", DataType.ref("String")) );
+
+      ludoClass.withAssoc(playerClass, "game", Card.ONE, "players", Card.MANY);
+
       model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.ludoreverse.model");
       model.getGenerator().insertModelCreationCodeHere("examples");
    }
 }
-
