@@ -25,7 +25,7 @@
 <text text-anchor="start" x="28.5" y="-140.5" font-family="Arial" font-size="10.00">p2 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="10,-100 10,-134 91,-134 91,-100 10,-100"/>
-<text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">balance = 0.0</text>
+<text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">balance = 5.0</text>
 <text text-anchor="start" x="15" y="-108" font-family="Arial" font-size="10.00">name = &quot;Albert&quot;</text>
 </g>
 <!-- g1&#45;&#45;p2 -->
@@ -59,7 +59,7 @@
 <text text-anchor="start" x="179.5" y="-140.5" font-family="Arial" font-size="10.00">p4 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="164,-100 164,-134 239,-134 239,-100 164,-100"/>
-<text text-anchor="start" x="169" y="-122" font-family="Arial" font-size="10.00">balance = 0.0</text>
+<text text-anchor="start" x="169" y="-122" font-family="Arial" font-size="10.00">balance = &#45;4.0</text>
 <text text-anchor="start" x="169" y="-108" font-family="Arial" font-size="10.00">name = &quot;Nina&quot;</text>
 </g>
 <!-- g1&#45;&#45;p4 -->
@@ -93,7 +93,7 @@
 <text text-anchor="start" x="331" y="-140.5" font-family="Arial" font-size="10.00">p6 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="311,-100 311,-134 395,-134 395,-100 311,-100"/>
-<text text-anchor="start" x="316" y="-122" font-family="Arial" font-size="10.00">balance = 0.0</text>
+<text text-anchor="start" x="316" y="-122" font-family="Arial" font-size="10.00">balance = &#45;1.0</text>
 <text text-anchor="start" x="316" y="-108" font-family="Arial" font-size="10.00">name = &quot;Artjom&quot;</text>
 </g>
 <!-- g1&#45;&#45;p6 -->

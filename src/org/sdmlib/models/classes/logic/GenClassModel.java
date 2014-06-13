@@ -658,6 +658,7 @@ public class GenClassModel
          {
             // check code for clazz
             handledClazzes.put(modelClassName, clazz);
+            getOrCreate(clazz).getOrCreateParser(rootDir);
             currentInsertPos = checkCodeForClazz(entry, signature, callMethodName, modelCreationClass, 
                refreshMethodScan(signature, modelCreationClass, rootDir), clazz, handledClazzes, currentInsertPos, rootDir);
          }

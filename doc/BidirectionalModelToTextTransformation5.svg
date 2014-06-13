@@ -22,8 +22,8 @@
 <text text-anchor="start" x="397" y="-1120" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
 <text text-anchor="start" x="397" y="-1106" font-family="Arial" font-size="10.00">listEnd = &quot;&quot;</text>
 <text text-anchor="start" x="397" y="-1092" font-family="Arial" font-size="10.00">templateText = &quot;The example University has 99 rooms and 88 students: roomList The students are: studentList &quot;</text>
-<text text-anchor="start" x="397" y="-1078" font-family="Arial" font-size="10.00">listStart = &quot;&quot;</text>
-<text text-anchor="start" x="397" y="-1064" font-family="Arial" font-size="10.00">chooser = &quot;&quot;</text>
+<text text-anchor="start" x="397" y="-1078" font-family="Arial" font-size="10.00">chooser = &quot;&quot;</text>
+<text text-anchor="start" x="397" y="-1064" font-family="Arial" font-size="10.00">listStart = &quot;&quot;</text>
 <text text-anchor="start" x="397" y="-1050" font-family="Arial" font-size="10.00">valueStartPos = 0</text>
 <text text-anchor="start" x="397" y="-1036" font-family="Arial" font-size="10.00">modelClassName = &quot;&quot;</text>
 <text text-anchor="start" x="397" y="-1022" font-family="Arial" font-size="10.00">expandedText = &quot;&quot;</text>
@@ -333,8 +333,8 @@
 <polygon fill="none" stroke="black" points="666,-640 666,-800 1040,-800 1040,-640 666,-640"/>
 <text text-anchor="start" x="671" y="-788" font-family="Arial" font-size="10.00">referenceLookup = &quot;true&quot;</text>
 <text text-anchor="start" x="671" y="-774" font-family="Arial" font-size="10.00">listSeparator = &quot;&quot;</text>
-<text text-anchor="start" x="671" y="-760" font-family="Arial" font-size="10.00">listEnd = &quot;&quot;</text>
-<text text-anchor="start" x="671" y="-746" font-family="Arial" font-size="10.00">templateText = &quot; &#45; The xy room has 42 credits. It is connected to rooms: neighbors&quot;</text>
+<text text-anchor="start" x="671" y="-760" font-family="Arial" font-size="10.00">templateText = &quot; &#45; The xy room has 42 credits. It is connected to rooms: neighbors&quot;</text>
+<text text-anchor="start" x="671" y="-746" font-family="Arial" font-size="10.00">listEnd = &quot;&quot;</text>
 <text text-anchor="start" x="671" y="-732" font-family="Arial" font-size="10.00">chooser = &quot;&quot;</text>
 <text text-anchor="start" x="671" y="-718" font-family="Arial" font-size="10.00">listStart = &quot;&quot;</text>
 <text text-anchor="start" x="671" y="-704" font-family="Arial" font-size="10.00">modelObject = &quot;&quot;</text>
@@ -421,8 +421,8 @@
 <polygon fill="none" stroke="black" points="625,-266 625,-426 744,-426 744,-266 625,-266"/>
 <text text-anchor="start" x="630" y="-414" font-family="Arial" font-size="10.00">referenceLookup = &quot;true&quot;</text>
 <text text-anchor="start" x="630" y="-400" font-family="Arial" font-size="10.00">listSeparator = &quot;, &quot;</text>
-<text text-anchor="start" x="630" y="-386" font-family="Arial" font-size="10.00">listEnd = &quot;.&quot;</text>
-<text text-anchor="start" x="630" y="-372" font-family="Arial" font-size="10.00">templateText = &quot;name&quot;</text>
+<text text-anchor="start" x="630" y="-386" font-family="Arial" font-size="10.00">templateText = &quot;name&quot;</text>
+<text text-anchor="start" x="630" y="-372" font-family="Arial" font-size="10.00">listEnd = &quot;.&quot;</text>
 <text text-anchor="start" x="630" y="-358" font-family="Arial" font-size="10.00">chooser = &quot;&quot;</text>
 <text text-anchor="start" x="630" y="-344" font-family="Arial" font-size="10.00">listStart = &quot;&quot;</text>
 <text text-anchor="start" x="630" y="-330" font-family="Arial" font-size="10.00">modelObject = &quot;&quot;</text>
@@ -468,8 +468,8 @@
 <polygon fill="none" stroke="black" points="1075,-640 1075,-800 1308,-800 1308,-640 1075,-640"/>
 <text text-anchor="start" x="1080" y="-788" font-family="Arial" font-size="10.00">referenceLookup = &quot;false&quot;</text>
 <text text-anchor="start" x="1080" y="-774" font-family="Arial" font-size="10.00">listSeparator = &quot;&quot;</text>
-<text text-anchor="start" x="1080" y="-760" font-family="Arial" font-size="10.00">listEnd = &quot;&quot;</text>
-<text text-anchor="start" x="1080" y="-746" font-family="Arial" font-size="10.00">templateText = &quot; &#45; Stud has student number 1234.&quot;</text>
+<text text-anchor="start" x="1080" y="-760" font-family="Arial" font-size="10.00">templateText = &quot; &#45; Stud has student number 1234.&quot;</text>
+<text text-anchor="start" x="1080" y="-746" font-family="Arial" font-size="10.00">listEnd = &quot;&quot;</text>
 <text text-anchor="start" x="1080" y="-732" font-family="Arial" font-size="10.00">chooser = &quot;&quot;</text>
 <text text-anchor="start" x="1080" y="-718" font-family="Arial" font-size="10.00">listStart = &quot;&quot;</text>
 <text text-anchor="start" x="1080" y="-704" font-family="Arial" font-size="10.00">modelObject = &quot;&quot;</text>
