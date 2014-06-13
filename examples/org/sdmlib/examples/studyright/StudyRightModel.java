@@ -51,7 +51,7 @@ public class StudyRightModel implements PropertyChangeInterface
       
       storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.examples.studyright.model");
 
       Clazz professorClass = model.createClazz("org.sdmlib.examples.studyright.model.Professor")
       .withAttribute("name", DataType.STRING).with(model);
@@ -118,7 +118,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
 
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.examples.studyright.model");
 
       Clazz lectureClass = model.createClazz("org.sdmlib.examples.studyright.model.Lecture").with(model)
       .withAttribute("Title", DataType.STRING);
@@ -413,12 +413,12 @@ public class StudyRightModel implements PropertyChangeInterface
       //============================================================
       storyboard.add("Add class Prof --gives-- Topic");
 
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("org.sdmlib.examples.studyright.model");
 
-      Clazz profClass = model.createClazz("org.sdmlib.examples.studyright.Professor")
+      Clazz profClass = model.createClazz("Professor")
       .withAttribute("name", DataType.STRING);
 
-      Clazz topicClass = model.createClazz("org.sdmlib.examples.studyright.Topic")
+      Clazz topicClass = model.createClazz("Topic")
       .withAttribute("title", DataType.STRING);
 
       profClass.withAssoc(topicClass, "topic", Card.ONE, "prof", Card.ONE);

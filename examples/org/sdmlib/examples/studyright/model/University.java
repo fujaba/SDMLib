@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,6 +24,7 @@ package org.sdmlib.examples.studyright.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyright.model.util.RoomSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyright.model.util.StudentSet;
@@ -50,6 +51,7 @@ public class University implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       removeAllFromRooms();
@@ -71,7 +73,7 @@ public class University implements PropertyChangeInterface
    
    public void setName(String value)
    {
-      if (this.name != value)
+      if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
@@ -148,7 +150,7 @@ public class University implements PropertyChangeInterface
       
       if ((this.rooms != null) && (value != null))
       {
-         changed = this.rooms.remove (value);
+         changed = this.rooms.remove(value);
          
          if (changed)
          {
@@ -162,6 +164,9 @@ public class University implements PropertyChangeInterface
 
    public University withRooms(Room... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Room item : value)
       {
          addToRooms(item);
@@ -247,7 +252,7 @@ public class University implements PropertyChangeInterface
       
       if ((this.students != null) && (value != null))
       {
-         changed = this.students.remove (value);
+         changed = this.students.remove(value);
          
          if (changed)
          {
@@ -261,6 +266,9 @@ public class University implements PropertyChangeInterface
 
    public University withStudents(Student... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Student item : value)
       {
          addToStudents(item);
@@ -294,4 +302,3 @@ public class University implements PropertyChangeInterface
       return value;
    } 
 }
-

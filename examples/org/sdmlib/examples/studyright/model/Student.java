@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,11 +23,12 @@ package org.sdmlib.examples.studyright.model;
 
 import org.sdmlib.examples.studyright.model.Male;
 import org.sdmlib.examples.studyright.model.Female;
+import org.sdmlib.StrUtil;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
+import java.util.LinkedHashSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
-import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyright.model.util.StudentSet;
 import org.sdmlib.examples.studyright.model.util.AssignmentSet;
 
@@ -61,30 +62,16 @@ public class Student extends Female implements Male, PropertyChangeInterface
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
    @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   
-   //==========================================================================
-   
    public void removeYou()
    {
+      super.removeYou();
+
       removeAllFromLecture();
       setUni(null);
       setIn(null);
       removeAllFromDone();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    
@@ -101,7 +88,7 @@ public class Student extends Female implements Male, PropertyChangeInterface
    
    public void setName(String value)
    {
-      if (this.name != value)
+      if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
@@ -209,7 +196,7 @@ public class Student extends Female implements Male, PropertyChangeInterface
       
       if ((this.lecture != null) && (value != null))
       {
-         changed = this.lecture.remove (value);
+         changed = this.lecture.remove(value);
          
          if (changed)
          {
@@ -223,6 +210,9 @@ public class Student extends Female implements Male, PropertyChangeInterface
 
    public Student withLecture(Lecture... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Lecture item : value)
       {
          addToLecture(item);
@@ -255,6 +245,22 @@ public class Student extends Female implements Male, PropertyChangeInterface
       withLecture(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   @Override
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
 
    
    //==========================================================================
@@ -485,7 +491,7 @@ public class Student extends Female implements Male, PropertyChangeInterface
       
       if ((this.done != null) && (value != null))
       {
-         changed = this.done.remove (value);
+         changed = this.done.remove(value);
          
          if (changed)
          {
@@ -499,6 +505,9 @@ public class Student extends Female implements Male, PropertyChangeInterface
 
    public Student withDone(Assignment... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Assignment item : value)
       {
          addToDone(item);
@@ -532,4 +541,3 @@ public class Student extends Female implements Male, PropertyChangeInterface
       return value;
    } 
 }
-

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,26 +26,20 @@ import org.sdmlib.examples.studyright.model.Room;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.Collections;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
 import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.examples.studyright.model.Lecture;
-import org.sdmlib.examples.studyright.model.util.UniversitySet;
 import org.sdmlib.examples.studyright.model.University;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
 import org.sdmlib.examples.studyright.model.Student;
-import org.sdmlib.examples.studyright.model.util.AssignmentSet;
 import org.sdmlib.examples.studyright.model.Assignment;
 
 public class RoomSet extends SDMSet<Room>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public RoomPO hasRoomPO()
    {
-      return new RoomPO (this.toArray(new Room[this.size()]));
+      return new RoomPO(this.toArray(new Room[this.size()]));
    }
 
 
@@ -56,14 +50,12 @@ public class RoomSet extends SDMSet<Room>
    }
 
 
+   @SuppressWarnings("unchecked")
    public RoomSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Room) item);
-           }
+         this.addAll((Collection<Room>)value);
       }
       else if (value != null)
       {
@@ -166,119 +158,13 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
-   public LectureSet getLecture()
-   {
-      LectureSet result = new LectureSet();
-      
-      for (Room obj : this)
-      {
-         result.with(obj.getLecture());
-      }
-      
-      return result;
-   }
-
-   public RoomSet hasLecture(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      RoomSet answer = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getLecture()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public RoomSet withLecture(Lecture value)
-   {
-      for (Room obj : this)
-      {
-         obj.withLecture(value);
-      }
-      
-      return this;
-   }
-
-   public RoomSet withoutLecture(Lecture value)
-   {
-      for (Room obj : this)
-      {
-         obj.withoutLecture(value);
-      }
-      
-      return this;
-   }
-
-   public UniversitySet getUni()
-   {
-      UniversitySet result = new UniversitySet();
-      
-      for (Room obj : this)
-      {
-         result.with(obj.getUni());
-      }
-      
-      return result;
-   }
-
-   public RoomSet hasUni(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      RoomSet answer = new RoomSet();
-      
-      for (Room obj : this)
-      {
-         if (neighbors.contains(obj.getUni()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public RoomSet withUni(University value)
-   {
-      for (Room obj : this)
-      {
-         obj.withUni(value);
-      }
-      
-      return this;
-   }
-
    public RoomSet getNeighbors()
    {
       RoomSet result = new RoomSet();
       
       for (Room obj : this)
       {
-         result.with(obj.getNeighbors());
+         result.addAll(obj.getNeighbors());
       }
       
       return result;
@@ -354,6 +240,112 @@ public class RoomSet extends SDMSet<Room>
       return this;
    }
 
+   public LectureSet getLecture()
+   {
+      LectureSet result = new LectureSet();
+      
+      for (Room obj : this)
+      {
+         result.addAll(obj.getLecture());
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasLecture(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getLecture()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public RoomSet withLecture(Lecture value)
+   {
+      for (Room obj : this)
+      {
+         obj.withLecture(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet withoutLecture(Lecture value)
+   {
+      for (Room obj : this)
+      {
+         obj.withoutLecture(value);
+      }
+      
+      return this;
+   }
+
+   public UniversitySet getUni()
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (Room obj : this)
+      {
+         result.add(obj.getUni());
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasUni(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RoomSet answer = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (neighbors.contains(obj.getUni()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public RoomSet withUni(University value)
+   {
+      for (Room obj : this)
+      {
+         obj.withUni(value);
+      }
+      
+      return this;
+   }
+
    
    //==========================================================================
    
@@ -372,7 +364,7 @@ public class RoomSet extends SDMSet<Room>
       
       for (Room obj : this)
       {
-         result.with(obj.getStudents());
+         result.addAll(obj.getStudents());
       }
       
       return result;
@@ -430,7 +422,7 @@ public class RoomSet extends SDMSet<Room>
       
       for (Room obj : this)
       {
-         result.with(obj.getRoom());
+         result.add(obj.getRoom());
       }
       
       return result;
@@ -473,5 +465,3 @@ public class RoomSet extends SDMSet<Room>
    }
 
 }
-
-

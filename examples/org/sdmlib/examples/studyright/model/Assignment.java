@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,6 +24,7 @@ package org.sdmlib.examples.studyright.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyright.model.util.RoomSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyright.model.util.AssignmentSet;
@@ -50,6 +51,7 @@ public class Assignment implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       removeAllFromAssignments();
@@ -71,7 +73,7 @@ public class Assignment implements PropertyChangeInterface
    
    public void setName(String value)
    {
-      if (this.name != value)
+      if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
@@ -177,7 +179,7 @@ public class Assignment implements PropertyChangeInterface
       
       if ((this.assignments != null) && (value != null))
       {
-         changed = this.assignments.remove (value);
+         changed = this.assignments.remove(value);
          
          if (changed)
          {
@@ -191,6 +193,9 @@ public class Assignment implements PropertyChangeInterface
 
    public Assignment withAssignments(Room... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Room item : value)
       {
          addToAssignments(item);
@@ -286,4 +291,3 @@ public class Assignment implements PropertyChangeInterface
       return value;
    } 
 }
-

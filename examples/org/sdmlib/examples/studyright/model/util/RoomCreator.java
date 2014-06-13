@@ -1,3 +1,24 @@
+/*
+   Copyright (c) 2014 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
@@ -14,9 +35,9 @@ public class RoomCreator extends EntityFactory
    {
       Room.PROPERTY_ROOMNO,
       Room.PROPERTY_CREDITS,
+      Room.PROPERTY_NEIGHBORS,
       Room.PROPERTY_LECTURE,
       Room.PROPERTY_UNI,
-      Room.PROPERTY_NEIGHBORS,
       Room.PROPERTY_STUDENTS,
       Room.PROPERTY_ROOM,
    };
@@ -36,41 +57,49 @@ public class RoomCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (Room.PROPERTY_ROOMNO.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (Room.PROPERTY_ROOMNO.equalsIgnoreCase(attribute))
       {
          return ((Room) target).getRoomNo();
       }
 
-      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attribute))
       {
          return ((Room) target).getCredits();
       }
 
-      if (Room.PROPERTY_LECTURE.equalsIgnoreCase(attrName))
-      {
-         return ((Room) target).getLecture();
-      }
-
-      if (Room.PROPERTY_UNI.equalsIgnoreCase(attrName))
-      {
-         return ((Room) target).getUni();
-      }
-
-      if (Room.PROPERTY_NEIGHBORS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_NEIGHBORS.equalsIgnoreCase(attribute))
       {
          return ((Room) target).getNeighbors();
       }
 
-      if (Room.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_LECTURE.equalsIgnoreCase(attribute))
+      {
+         return ((Room) target).getLecture();
+      }
+
+      if (Room.PROPERTY_UNI.equalsIgnoreCase(attribute))
+      {
+         return ((Room) target).getUni();
+      }
+
+      if (Room.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
       {
          return ((Room) target).getStudents();
       }
 
-      if (Room.PROPERTY_ROOM.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_ROOM.equalsIgnoreCase(attribute))
       {
          return ((Room) target).getRoom();
       }
-
+      
       return null;
    }
    
@@ -94,6 +123,18 @@ public class RoomCreator extends EntityFactory
          return true;
       }
 
+      if (Room.PROPERTY_NEIGHBORS.equalsIgnoreCase(attrName))
+      {
+         ((Room) target).addToNeighbors((Room) value);
+         return true;
+      }
+      
+      if ((Room.PROPERTY_NEIGHBORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Room) target).removeFromNeighbors((Room) value);
+         return true;
+      }
+
       if (Room.PROPERTY_LECTURE.equalsIgnoreCase(attrName))
       {
          ((Room) target).addToLecture((Lecture) value);
@@ -109,18 +150,6 @@ public class RoomCreator extends EntityFactory
       if (Room.PROPERTY_UNI.equalsIgnoreCase(attrName))
       {
          ((Room) target).setUni((University) value);
-         return true;
-      }
-
-      if (Room.PROPERTY_NEIGHBORS.equalsIgnoreCase(attrName))
-      {
-         ((Room) target).addToNeighbors((Room) value);
-         return true;
-      }
-      
-      if ((Room.PROPERTY_NEIGHBORS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Room) target).removeFromNeighbors((Room) value);
          return true;
       }
 
@@ -141,6 +170,7 @@ public class RoomCreator extends EntityFactory
          ((Room) target).setRoom((Assignment) value);
          return true;
       }
+      
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)
@@ -156,5 +186,3 @@ public class RoomCreator extends EntityFactory
       ((Room) entity).removeYou();
    }
 }
-
-

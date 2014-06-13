@@ -2,12 +2,12 @@ package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.Professor;
-import org.sdmlib.examples.studyright.model.util.ProfessorSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.studyright.model.util.LecturePO;
 import org.sdmlib.examples.studyright.model.util.ProfessorPO;
 import org.sdmlib.examples.studyright.model.util.LectureSet;
+import org.sdmlib.examples.studyright.model.util.TopicPO;
+import org.sdmlib.examples.studyright.model.Topic;
 
 public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
 {
@@ -30,23 +30,15 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
 
 
    public ProfessorPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public ProfessorPO(Professor... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    public ProfessorPO hasPersNr(int value)
    {
       new AttributeConstraint()
@@ -187,5 +179,38 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
       return null;
    }
 
-}
+   public TopicPO hasTopic()
+   {
+      TopicPO result = new TopicPO(new Topic[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Professor.PROPERTY_TOPIC, result);
+      
+      return result;
+   }
 
+   public TopicPO createTopic()
+   {
+      return this.startCreate().hasTopic().endCreate();
+   }
+
+   public ProfessorPO hasTopic(TopicPO tgt)
+   {
+      return hasLinkConstraint(tgt, Professor.PROPERTY_TOPIC);
+   }
+
+   public ProfessorPO createTopic(TopicPO tgt)
+   {
+      return this.startCreate().hasTopic(tgt).endCreate();
+   }
+
+   public Topic getTopic()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Professor) this.getCurrentMatch()).getTopic();
+      }
+      return null;
+   }
+
+}

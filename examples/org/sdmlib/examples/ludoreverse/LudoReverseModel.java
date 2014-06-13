@@ -40,10 +40,20 @@ public class LudoReverseModel
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
 
+      Clazz ludoClass = model.createClazz("org.sdmlib.examples.ludoreverse.model.Ludo")
+      .with(new Attribute("style", DataType.ref("String")) )
+      .with(new Attribute("age", DataType.ref("int")) );
+
+      Clazz playerClass = model.createClazz("org.sdmlib.examples.ludoreverse.model.Player")
+      .with(new Attribute("name", DataType.ref("String")) )
+      .with(new Attribute("color", DataType.ref("String")) );
+
+
 
       model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.ludoreverse.model");
 
-      model.getGenerator().insertModelCreationCodeHere("examples");
+      // FIXME: Alex
+      // model.getGenerator().insertModelCreationCodeHere("examples");
    }
 }
 

@@ -11,6 +11,161 @@
 <p>BanfM2MTransformation</p>
 <p>Class diagram for source model:</p>
 <embed type="image/svg+xml" src='BanfM2MTransformationClassDiagram2.svg'><hr/><p>Class diagram for target model:</p>
-<embed type="image/svg+xml" src='BanfM2MTransformationClassDiagram5.svg'>
+<embed type="image/svg+xml" src='BanfM2MTransformationClassDiagram5.svg'><hr/><p>Create example source graph: </p>
+<embed type="image/svg+xml" src='BanfM2MTransformation9.svg'>
+<hr/><h2>Migrate using Generic Graph representation : </h2><pre>   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+   {
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(GraphCreator.createIdMap(&quot;g&quot;), origGraph);
+      
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      renameFirstNameAttrGraphPO = new GenericGraphPO(genGraph);
+      renameFirstNameAttrGraphPO
+      .hasObjects()
+      .hasAttrs()
+      .hasName(Person.PROPERTY_FIRSTNAME)
+      .startCreate()
+      .hasName(GraphComponent.PROPERTY_TEXT)
+      .allMatches();
+      
+      storyboard.addPattern(renameFirstNameAttrGraphPO, false);
+      
+      
+      &#x2F;&#x2F; rename name to text attributes
+      renameKindAttrGraphPO = new GenericGraphPO(genGraph);
+      renameKindAttrGraphPO
+      .hasObjects()
+      .hasAttrs()
+      .hasName(Relation.PROPERTY_KIND)
+      .startCreate()
+      .hasName(GraphComponent.PROPERTY_TEXT)
+      .allMatches();
+      
+      storyboard.addPattern(renameKindAttrGraphPO, false);
+      
+      
+      &#x2F;&#x2F; rename graph--nodes links to parent--gcs links
+      GenericGraphPO renameNodesEdgeGraphPO = new GenericGraphPO(genGraph);
+      renameNodesEdgeGraphPO
+      .hasLinks()
+      .hasTgtLabel(Person.PROPERTY_GRAPH)
+      .startCreate()
+      .hasTgtLabel(GraphComponent.PROPERTY_PARENT)
+      .hasSrcLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.addPattern(renameNodesEdgeGraphPO, false);
+
+      &#x2F;&#x2F; storyboard.add(&quot;&lt;hr&#x2F;&gt;&quot;);
+      
+      &#x2F;&#x2F; rename graph--edges links to parent--gcs links
+      GenericGraphPO genericGraphPO = new GenericGraphPO(genGraph);
+      genericGraphPO
+      .hasLinks()
+      .hasSrcLabel(Relation.PROPERTY_GRAPH)
+      .startCreate()
+      .hasSrcLabel(GraphComponent.PROPERTY_PARENT)
+      .hasTgtLabel(Graph.PROPERTY_GCS)
+      .allMatches();
+      
+      storyboard.addPattern(genericGraphPO, false);
+
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphComponentCreator.createIdMap(&quot;tg&quot;), null, genGraph);
+      
+      return tgtGraph;
+   }</pre><embed type="image/svg+xml" src='BanfM2MTransformation13.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram13.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram14.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram15.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram16.svg'>
+<embed type="image/svg+xml" src='BanfM2MTransformation18.svg'>
+<p>Result graph: </p>
+<embed type="image/svg+xml" src='BanfM2MTransformation20.svg'>
+<hr/><h2>Even more evolved class diagram : </h2><embed type="image/svg+xml" src='BanfM2MTransformationClassDiagram22.svg'><hr/><p>Again the input graph:</p>
+<embed type="image/svg+xml" src='BanfM2MTransformation26.svg'>
+<p>The transformation code:</p>
+<pre>   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
+   {
+      GenericGraph genGraph = new Specific2Generic()
+      .convert(PersonCreator.createIdMap(&quot;g1&quot;), origGraph);
+      
+      &#x2F;&#x2F; rename name to text attributes
+      GenericGraphPO po = new GenericGraphPO();
+      po.withCandidates(genGraph);
+      po.hasObjects()
+      .hasAttrs()
+      .hasName(Person.PROPERTY_FIRSTNAME)
+      .startCreate()
+      .hasName(Person.PROPERTY_TEXT)
+      .allMatches();
+      
+      storyboard.addPattern(po, false);
+      
+      &#x2F;&#x2F; replace n.l.e.l.n by n.l.n
+      GenericObjectPO edgePO = new GenericGraphPO(genGraph) 
+      .hasObjects()
+      .hasType(Relation.class.getName());
+      
+      GenericLinkPO srcLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Relation.PROPERTY_SRC);
+      
+      GenericLinkPO tgtLinkPO = edgePO.hasOutgoingLinks().hasTgtLabel(Relation.PROPERTY_TGT);
+      
+      GenericObjectPO srcNodePO = srcLinkPO.hasTgt();
+      
+      GenericObjectPO tgtNodePO = tgtLinkPO.hasTgt();
+      
+      edgePO.destroy(); 
+      
+      srcLinkPO.destroy();
+      
+      GenericLinkSet allMatches = tgtLinkPO.startCreate()
+      .hasSrc(srcNodePO)
+      .hasSrcLabel(Person.PROPERTY_KNOWS)
+      .hasTgtLabel(Person.PROPERTY_KNOWS)
+      .allMatches();
+      
+      storyboard.addPattern(edgePO, false);
+      
+      &#x2F;&#x2F; destroy dangling edges
+      GenericObjectPO danglingPO = new GenericGraphPO(genGraph)
+      .hasObjects()
+      .hasType(Relation.class.getName());
+      
+      danglingPO.destroy();
+      
+      danglingPO.allMatches();
+      
+      storyboard.addPattern(danglingPO, false);
+      
+      Graph tgtGraph = (Graph) new Generic2Specific().convert(PersonCreator.createIdMap(&quot;tg&quot;), null, genGraph);
+      
+      return tgtGraph;
+
+   }</pre><embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram28.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram29.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram30.svg'>
+<p>Result graph: </p>
+<embed type="image/svg+xml" src='BanfM2MTransformation33.svg'>
+<hr/><p>Let us derive the reverse transformation for the first model evolution:</p>
+<p>_____ forward ______________ backward ___________</p>
+<pre>      Pattern reverseRenameFirstNameAttrRule = revertRule(genericGraphPO.getPattern());
+</pre><embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram37.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram38.svg'>
+<hr/><pre>      Pattern reverseRenameKindAttrRule = revertRule(renameKindAttrGraphPO.getPattern());
+</pre><embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram41.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram42.svg'>
+<hr/><pre>      Pattern reverseRenamePersonsLinkRule = revertRule(renamePersonsLinkGraphPO.getPattern());
+</pre><embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram45.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram46.svg'>
+<hr/><pre>      Pattern reverseRenameRelationsLinkRule = revertRule(renameRelationsLinkGraphPO.getPattern());
+</pre><embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram49.svg'>
+<embed type="image/svg+xml"src='BanfM2MTransformationPatternDiagram50.svg'>
+<hr/><embed type="image/svg+xml" src='BanfM2MTransformation53.svg'>
+<hr/><embed type="image/svg+xml" src='BanfM2MTransformation55.svg'>
+<hr/><embed type="image/svg+xml" src='BanfM2MTransformation57.svg'>
+
 </body>
 </html>

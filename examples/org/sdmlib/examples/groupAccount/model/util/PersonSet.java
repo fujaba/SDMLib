@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,17 +25,20 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.groupAccount.model.Person;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.examples.groupAccount.model.util.GroupAccountSet;
-import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.groupAccount.model.GroupAccount;
-import org.sdmlib.examples.groupAccount.model.util.ItemSet;
+import java.util.Collections;
 import org.sdmlib.examples.groupAccount.model.Item;
 
 public class PersonSet extends SDMSet<Person>
 {
+
+
+   public PersonPO hasPersonPO()
+   {
+      return new PersonPO(this.toArray(new Person[this.size()]));
+   }
 
 
    @Override
@@ -45,6 +48,7 @@ public class PersonSet extends SDMSet<Person>
    }
 
 
+   @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
    {
       if (value instanceof java.util.Collection)
@@ -145,7 +149,7 @@ public class PersonSet extends SDMSet<Person>
       
       for (Person obj : this)
       {
-         result.with(obj.getParent());
+         result.add(obj.getParent());
       }
       
       return result;
@@ -157,7 +161,7 @@ public class PersonSet extends SDMSet<Person>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -193,7 +197,7 @@ public class PersonSet extends SDMSet<Person>
       
       for (Person obj : this)
       {
-         result.with(obj.getItems());
+         result.addAll(obj.getItems());
       }
       
       return result;
@@ -205,7 +209,7 @@ public class PersonSet extends SDMSet<Person>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -246,4 +250,3 @@ public class PersonSet extends SDMSet<Person>
    }
 
 }
-

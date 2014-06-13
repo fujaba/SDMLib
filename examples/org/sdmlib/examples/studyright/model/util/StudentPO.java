@@ -2,8 +2,6 @@ package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.Student;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.studyright.model.util.LecturePO;
 import org.sdmlib.examples.studyright.model.util.StudentPO;
@@ -37,23 +35,15 @@ public class StudentPO extends PatternObject<StudentPO, Student>
 
 
    public StudentPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public StudentPO(Student... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    
    //==========================================================================
    
@@ -436,5 +426,3 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    }
 
 }
-
-

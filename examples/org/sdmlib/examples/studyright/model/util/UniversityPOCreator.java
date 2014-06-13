@@ -17,7 +17,6 @@ public class UniversityPOCreator extends PatternObjectCreator
    }
    
    public static JsonIdMap createIdMap(String sessionID) {
-       return CreatorCreator.createIdMap(sessionID);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
-

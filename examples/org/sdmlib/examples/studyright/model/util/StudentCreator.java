@@ -1,3 +1,24 @@
+/*
+   Copyright (c) 2014 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
@@ -37,46 +58,54 @@ public class StudentCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (Student.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (Student.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getName();
       }
 
-      if (Student.PROPERTY_MATRNO.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_MATRNO.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getMatrNo();
       }
 
-      if (Student.PROPERTY_LECTURE.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_LECTURE.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getLecture();
       }
 
-      if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getCredits();
       }
 
-      if (Student.PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_MOTIVATION.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getMotivation();
       }
 
-      if (Student.PROPERTY_UNI.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_UNI.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getUni();
       }
 
-      if (Student.PROPERTY_IN.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_IN.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getIn();
       }
 
-      if (Student.PROPERTY_DONE.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_DONE.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getDone();
       }
-
+      
       return null;
    }
    
@@ -147,6 +176,7 @@ public class StudentCreator extends EntityFactory
          ((Student) target).removeFromDone((Assignment) value);
          return true;
       }
+      
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)
@@ -162,5 +192,3 @@ public class StudentCreator extends EntityFactory
       ((Student) entity).removeYou();
    }
 }
-
-

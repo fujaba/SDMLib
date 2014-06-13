@@ -5,7 +5,7 @@
     "name":"SDMLibProject",
     "phase":"active",
     "hoursRemaining":24,
-    "hoursSpend":199,
+    "hoursSpend":310,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -59,7 +59,7 @@
   "prop":{
     "name":"Sprint.002.Examples",
     "phase":"active",
-    "hoursSpend":1,
+    "hoursSpend":21,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K3"},
@@ -106,7 +106,11 @@
   "prop":{
     "name":"BanfM2MTransformation",
     "phase":"done",
+    "hoursSpend":20,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L147"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -124,7 +128,7 @@
   "prop":{
     "name":"Sprint.001.Booting",
     "phase":"active",
-    "hoursSpend":135,
+    "hoursSpend":155,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K10"},
@@ -143,7 +147,14 @@
   "prop":{
     "name":"Flipbook",
     "phase":"done",
+    "hoursSpend":5,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L148"},
+      {"id":"KE.L149"},
+      {"id":"KE.L150"},
+      {"id":"KE.L151"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -152,7 +163,12 @@
   "prop":{
     "name":"BidirectionalModelToTextTransformation",
     "phase":"done",
+    "hoursSpend":42,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L152"},
+      {"id":"KE.L153"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -161,7 +177,14 @@
   "prop":{
     "name":"StudyRightObjectStoryboards",
     "phase":"backlog",
+    "hoursSpend":7,
     "parent":{"id":"KE.K11"},
+    "logEntries":[
+    {"id":"KE.L154"},
+      {"id":"KE.L155"},
+      {"id":"KE.L156"},
+      {"id":"KE.L157"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -252,6 +275,9 @@
     "name":"StudyRightExtendsReverseClassModel",
     "phase":"backlog",
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L158"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -260,7 +286,11 @@
   "prop":{
     "name":"StudyRightOneToOneAssoc",
     "phase":"done",
+    "hoursSpend":1,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L159"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -269,7 +299,12 @@
   "prop":{
     "name":"StudyRightReverseClassModel",
     "phase":"done",
+    "hoursSpend":1,
     "parent":{"id":"KE.K11"},
+    "logEntries":[
+    {"id":"KE.L160"},
+      {"id":"KE.L161"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -278,7 +313,19 @@
   "prop":{
     "name":"StudyRightClassesCodeGen",
     "phase":"done",
+    "hoursSpend":12,
     "parent":{"id":"KE.K11"},
+    "logEntries":[
+    {"id":"KE.L162"},
+      {"id":"KE.L163"},
+      {"id":"KE.L164"},
+      {"id":"KE.L165"},
+      {"id":"KE.L166"},
+      {"id":"KE.L167"},
+      {"id":"KE.L168"},
+      {"id":"KE.L169"},
+      {"id":"KE.L170"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -296,7 +343,11 @@
   "prop":{
     "name":"LudoModel",
     "phase":"done",
+    "hoursSpend":20,
     "parent":{"id":"KE.K2"},
+    "logEntries":[
+    {"id":"KE.L171"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -340,7 +391,11 @@
   "prop":{
     "name":"TrainModel",
     "phase":"done",
+    "hoursSpend":3,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L146"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -917,5 +972,287 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"Solving tricky parsing issue. Enabling reference lookup on demand"
+  }
+},  {
+  "id":"KE.L146",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"07.02.2013 16:20:42",
+    "hoursSpend":3,
+    "kanbanEntry":{"id":"KE.K64"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Example model for testing destroy with model patterns: "
+  }
+},  {
+  "id":"KE.L147",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"10.10.2013 10:10:42",
+    "hoursSpend":20,
+    "kanbanEntry":{"id":"KE.K9"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"should be published in paper"
+  }
+},  {
+  "id":"KE.L148",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"06.10.2013 21:37:46",
+    "kanbanEntry":{"id":"KE.K16"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: use University class to build object structure"
+  }
+},  {
+  "id":"KE.L149",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.05.2012 20:40:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K16"},
+    "developer":"zuendorf joern alex",
+    "phase":"done",
+    "comment":"Achieved:       shall compute to 88\u000a      Path classes are generated."
+  }
+},  {
+  "id":"KE.L150",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.05.2012 20:42:42",
+    "hoursRemainingInTotal":2,
+    "kanbanEntry":{"id":"KE.K16"},
+    "developer":"zuendorf",
+    "phase":"backlog",
+    "comment":"Achieved: Feature Request: model sets need to provide a navigation to any neighbors\u000ae.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
+  }
+},  {
+  "id":"KE.L151",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.08.2012 23:04:42",
+    "hoursSpend":4,
+    "kanbanEntry":{"id":"KE.K16"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \u000ae.g.: room.getNeighbors().findPath(path, motivation); "
+  }
+},  {
+  "id":"KE.L152",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"11.11.2013 18:06:42 EST",
+    "hoursSpend":40,
+    "kanbanEntry":{"id":"KE.K21"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Using attribute names for parsing and generation"
+  }
+},  {
+  "id":"KE.L153",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"23.02.2014 18:06:42 EST",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K21"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Reenabled parsing with references"
+  }
+},  {
+  "id":"KE.L154",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"06.10.2013 21:37:46",
+    "kanbanEntry":{"id":"KE.K24"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: use University class to build object structure"
+  }
+},  {
+  "id":"KE.L155",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.05.2012 20:40:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K24"},
+    "developer":"zuendorf joern alex",
+    "phase":"done",
+    "comment":"Achieved: shall compute to 88."
+  }
+},  {
+  "id":"KE.L156",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"17.01.2014 16:42:42",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K24"},
+    "developer":"zuendorf",
+    "phase":"backlog",
+    "comment":"Achieved: Feature Request: model sets need to provide a navigation to any neighbors\u000ae.g.: ModelSet any = ModelSet.startWith(albert).getAny(); "
+  }
+},  {
+  "id":"KE.L157",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.08.2012 23:04:42",
+    "hoursSpend":4,
+    "kanbanEntry":{"id":"KE.K24"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \u000ae.g.: room.getNeighbors().findPath(path, motivation); "
+  }
+},  {
+  "id":"KE.L158",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"02.04.2012 14:58:18",
+    "kanbanEntry":{"id":"KE.K38"},
+    "developer":"ajahl",
+    "phase":"backlog",
+    "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: "
+  }
+},  {
+  "id":"KE.L159",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"20.05.2012 15:19:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K40"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: One to one assocs now work. "
+  }
+},  {
+  "id":"KE.L160",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"02.04.2012 14:58:18",
+    "kanbanEntry":{"id":"KE.K42"},
+    "developer":"ajahl",
+    "phase":"backlog",
+    "comment":"Achieved: Start situation: There are some java files. We parse them and generate a class model: "
+  }
+},  {
+  "id":"KE.L161",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.05.2012 19:39:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K42"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Bug: running the test multiple times inserts the code multiple times <br>Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>Hm, might be added to future work. "
+  }
+},  {
+  "id":"KE.L162",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"18.03.2012 23:05:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf",
+    "phase":"implementation",
+    "comment":"Achieved: 5. generate generic set for attributes and assocs"
+  }
+},  {
+  "id":"KE.L163",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"22.03.2012 14:40:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf",
+    "phase":"implementation",
+    "comment":"Achieved: 6. generate generic get for attributes and assocs"
+  }
+},  {
+  "id":"KE.L164",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"25.03.2012 22:32:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf joern alex",
+    "phase":"implementation",
+    "comment":"Achieved: 7. generate creator classes"
+  }
+},  {
+  "id":"KE.L165",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"25.03.2012 22:37:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf",
+    "phase":"implementation",
+    "comment":"Achieved: 8. generate imports"
+  }
+},  {
+  "id":"KE.L166",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"25.03.2012 22:39:42",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf",
+    "phase":"implementation",
+    "comment":"Achieved: 9. generate property change support"
+  }
+},  {
+  "id":"KE.L167",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"26.03.2012 22:20:42",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf",
+    "phase":"implementation",
+    "comment":"Achieved: 10. generate removeYou method"
+  }
+},  {
+  "id":"KE.L168",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.05.2012 19:59:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf",
+    "phase":"implementation",
+    "comment":"Achieved: Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel"
+  }
+},  {
+  "id":"KE.L169",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.05.2012 13:51:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf",
+    "phase":"implementation",
+    "comment":"Achieved: generic set now works for double. Perhabs boolean and other are still missing"
+  }
+},  {
+  "id":"KE.L170",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"20.05.2012 20:01:42",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K45"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets"
+  }
+},  {
+  "id":"KE.L171",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"15.07.2012 13:30:42 EST",
+    "hoursSpend":20,
+    "kanbanEntry":{"id":"KE.K56"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"The famous ludo example."
   }
 }]

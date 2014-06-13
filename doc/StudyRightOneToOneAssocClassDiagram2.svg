@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-172 81,-172 81,5 -4,5"/>
 <!-- _Professor -->
 <g id="node1" class="node"><title>_Professor</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyright/Professor.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/Professor.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-146 8,-163 69,-163 69,-146 8,-146"/>
 <text text-anchor="start" x="19" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Professor</text>
 </a>
@@ -22,7 +22,7 @@
 </g>
 <!-- _Topic -->
 <g id="node2" class="node"><title>_Topic</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyright/Topic.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/Topic.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="11,-44 11,-61 66,-61 66,-44 11,-44"/>
 <text text-anchor="start" x="26.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">Topic</text>
 </a>

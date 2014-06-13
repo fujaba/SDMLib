@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,22 +25,18 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyright.model.Lecture;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyright.model.Room;
-import org.sdmlib.examples.studyright.model.util.ProfessorSet;
 import org.sdmlib.examples.studyright.model.Professor;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
 import org.sdmlib.examples.studyright.model.Student;
 
 public class LectureSet extends SDMSet<Lecture>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public LecturePO hasLecturePO()
    {
-      return new LecturePO (this.toArray(new Lecture[this.size()]));
+      return new LecturePO(this.toArray(new Lecture[this.size()]));
    }
 
 
@@ -51,14 +47,12 @@ public class LectureSet extends SDMSet<Lecture>
    }
 
 
+   @SuppressWarnings("unchecked")
    public LectureSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Lecture) item);
-           }
+         this.addAll((Collection<Lecture>)value);
       }
       else if (value != null)
       {
@@ -117,7 +111,7 @@ public class LectureSet extends SDMSet<Lecture>
       
       for (Lecture obj : this)
       {
-         result.with(obj.getIn());
+         result.add(obj.getIn());
       }
       
       return result;
@@ -165,7 +159,7 @@ public class LectureSet extends SDMSet<Lecture>
       
       for (Lecture obj : this)
       {
-         result.with(obj.getHas());
+         result.add(obj.getHas());
       }
       
       return result;
@@ -213,7 +207,7 @@ public class LectureSet extends SDMSet<Lecture>
       
       for (Lecture obj : this)
       {
-         result.with(obj.getListen());
+         result.add(obj.getListen());
       }
       
       return result;
@@ -256,4 +250,3 @@ public class LectureSet extends SDMSet<Lecture>
    }
 
 }
-

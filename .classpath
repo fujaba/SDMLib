@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="org/sdmlib/examples/studyrightWithAssignments/" kind="src" path="examples"/>
 	<classpathentry kind="src" path="NetworkParser"/>
-	<classpathentry excluding="de/kassel/roombook/|org/sdmlib/model/|org/sdmlib/models/" kind="src" path="test"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/emma_ant.jar"/>

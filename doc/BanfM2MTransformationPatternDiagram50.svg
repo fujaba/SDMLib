@@ -11,12 +11,12 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-260 131,-260 131,5 -4,5"/>
 <!-- g3 -->
 <g id="node1" class="node"><title>g3</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="17.5,-200.5 17.5,-251.5 108.5,-251.5 108.5,-200.5 17.5,-200.5"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="22.5,-200.5 22.5,-251.5 103.5,-251.5 103.5,-200.5 22.5,-200.5"/>
 <text text-anchor="start" x="75" y="-241.5" font-family="Arial" font-size="10.00">«bound»</text>
-<polygon fill="none" stroke="black" points="18,-220 18,-236 109,-236 109,-220 18,-220"/>
-<text text-anchor="start" x="21.5" y="-226" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="25.5" y="-226" font-family="Arial" font-size="10.00"> g3 :GenericGraphPO </text>
-<polygon fill="none" stroke="black" points="18,-200 18,-220 109,-220 109,-200 18,-200"/>
+<polygon fill="none" stroke="black" points="23,-220 23,-236 104,-236 104,-220 23,-220"/>
+<text text-anchor="start" x="26.5" y="-226" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="30.5" y="-226" font-family="Arial" font-size="10.00"> g3 :GenericGraphPO </text>
+<polygon fill="none" stroke="black" points="23,-200 23,-220 104,-220 104,-200 23,-200"/>
 <text text-anchor="start" x="60" y="-208" font-family="Arial" font-size="10.00"> &#160;</text>
 </g>
 <!-- g4 -->

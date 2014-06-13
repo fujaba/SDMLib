@@ -2,11 +2,10 @@ package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.Room;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.studyright.model.util.LecturePO;
 import org.sdmlib.examples.studyright.model.util.RoomPO;
+import org.sdmlib.examples.studyright.model.util.RoomSet;
+import org.sdmlib.examples.studyright.model.util.LecturePO;
 import org.sdmlib.examples.studyright.model.util.LectureSet;
 import org.sdmlib.examples.studyright.model.util.UniversityPO;
 import org.sdmlib.examples.studyright.model.University;
@@ -37,23 +36,15 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
 
    public RoomPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public RoomPO(Room... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    
    //==========================================================================
    
@@ -172,6 +163,40 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       return this;
    }
    
+   public RoomPO hasNeighbors()
+   {
+      RoomPO result = new RoomPO(new org.sdmlib.examples.studyright.model.Room[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Room.PROPERTY_NEIGHBORS, result);
+      
+      return result;
+   }
+
+   public RoomPO createNeighbors()
+   {
+      return this.startCreate().hasNeighbors().endCreate();
+   }
+
+   public RoomPO hasNeighbors(RoomPO tgt)
+   {
+      return hasLinkConstraint(tgt, Room.PROPERTY_NEIGHBORS);
+   }
+
+   public RoomPO createNeighbors(RoomPO tgt)
+   {
+      return this.startCreate().hasNeighbors(tgt).endCreate();
+   }
+
+   public RoomSet getNeighbors()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) this.getCurrentMatch()).getNeighbors();
+      }
+      return null;
+   }
+
    public LecturePO hasLecture()
    {
       LecturePO result = new LecturePO(new org.sdmlib.examples.studyright.model.Lecture[]{});
@@ -236,40 +261,6 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       if (this.getPattern().getHasMatch())
       {
          return ((Room) this.getCurrentMatch()).getUni();
-      }
-      return null;
-   }
-
-   public RoomPO hasNeighbors()
-   {
-      RoomPO result = new RoomPO(new org.sdmlib.examples.studyright.model.Room[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Room.PROPERTY_NEIGHBORS, result);
-      
-      return result;
-   }
-
-   public RoomPO createNeighbors()
-   {
-      return this.startCreate().hasNeighbors().endCreate();
-   }
-
-   public RoomPO hasNeighbors(RoomPO tgt)
-   {
-      return hasLinkConstraint(tgt, Room.PROPERTY_NEIGHBORS);
-   }
-
-   public RoomPO createNeighbors(RoomPO tgt)
-   {
-      return this.startCreate().hasNeighbors(tgt).endCreate();
-   }
-
-   public RoomSet getNeighbors()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) this.getCurrentMatch()).getNeighbors();
       }
       return null;
    }
@@ -354,5 +345,3 @@ public class RoomPO extends PatternObject<RoomPO, Room>
    }
 
 }
-
-

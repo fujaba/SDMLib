@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,17 +25,19 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.groupAccount.model.Item;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.List;
 import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.examples.groupAccount.model.util.GroupAccountSet;
-import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.groupAccount.model.GroupAccount;
-import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.Person;
 
 public class ItemSet extends SDMSet<Item>
 {
+
+
+   public ItemPO hasItemPO()
+   {
+      return new ItemPO(this.toArray(new Item[this.size()]));
+   }
 
 
    @Override
@@ -45,6 +47,7 @@ public class ItemSet extends SDMSet<Item>
    }
 
 
+   @SuppressWarnings("unchecked")
    public ItemSet with(Object value)
    {
       if (value instanceof java.util.Collection)
@@ -145,7 +148,7 @@ public class ItemSet extends SDMSet<Item>
       
       for (Item obj : this)
       {
-         result.with(obj.getParent());
+         result.add(obj.getParent());
       }
       
       return result;
@@ -157,7 +160,7 @@ public class ItemSet extends SDMSet<Item>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -193,7 +196,7 @@ public class ItemSet extends SDMSet<Item>
       
       for (Item obj : this)
       {
-         result.with(obj.getBuyer());
+         result.add(obj.getBuyer());
       }
       
       return result;
@@ -205,7 +208,7 @@ public class ItemSet extends SDMSet<Item>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -236,4 +239,3 @@ public class ItemSet extends SDMSet<Item>
    }
 
 }
-

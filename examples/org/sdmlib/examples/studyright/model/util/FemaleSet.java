@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -28,12 +28,11 @@ import org.sdmlib.models.modelsets.StringList;
 
 public class FemaleSet extends SDMSet<Female>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public FemalePO hasFemalePO()
    {
-      return new FemalePO (this.toArray(new Female[this.size()]));
+      return new FemalePO(this.toArray(new Female[this.size()]));
    }
 
 
@@ -44,14 +43,12 @@ public class FemaleSet extends SDMSet<Female>
    }
 
 
+   @SuppressWarnings("unchecked")
    public FemaleSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Female) item);
-           }
+         this.addAll((Collection<Female>)value);
       }
       else if (value != null)
       {
@@ -141,4 +138,3 @@ public class FemaleSet extends SDMSet<Female>
    }
 
 }
-

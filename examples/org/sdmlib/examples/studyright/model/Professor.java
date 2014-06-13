@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,11 +22,12 @@
 package org.sdmlib.examples.studyright.model;
 
 import org.sdmlib.examples.studyright.model.Female;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
+import java.util.LinkedHashSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.StrUtil;
 
 public class Professor extends Female implements PropertyChangeInterface
 {
@@ -34,27 +35,14 @@ public class Professor extends Female implements PropertyChangeInterface
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
    @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
-   
-   //==========================================================================
-   
    public void removeYou()
    {
-      removeAllFromLecture();
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
+
+      removeAllFromLecture();
+      setTopic(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -149,7 +137,7 @@ public class Professor extends Female implements PropertyChangeInterface
       
       if ((this.lecture != null) && (value != null))
       {
-         changed = this.lecture.remove (value);
+         changed = this.lecture.remove(value);
          
          if (changed)
          {
@@ -163,6 +151,9 @@ public class Professor extends Female implements PropertyChangeInterface
 
    public Professor withLecture(Lecture... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Lecture item : value)
       {
          addToLecture(item);
@@ -195,5 +186,107 @@ public class Professor extends Female implements PropertyChangeInterface
       withLecture(value);
       return value;
    } 
-}
 
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   @Override
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Professor withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Professor ----------------------------------- Topic
+    *              prof                   topic
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TOPIC = "topic";
+
+   private Topic topic = null;
+
+   public Topic getTopic()
+   {
+      return this.topic;
+   }
+
+   public boolean setTopic(Topic value)
+   {
+      boolean changed = false;
+      
+      if (this.topic != value)
+      {
+         Topic oldValue = this.topic;
+         
+         if (this.topic != null)
+         {
+            this.topic = null;
+            oldValue.setProf(null);
+         }
+         
+         this.topic = value;
+         
+         if (value != null)
+         {
+            value.withProf(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TOPIC, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Professor withTopic(Topic value)
+   {
+      setTopic(value);
+      return this;
+   } 
+
+   public Topic createTopic()
+   {
+      Topic value = new Topic();
+      withTopic(value);
+      return value;
+   } 
+}

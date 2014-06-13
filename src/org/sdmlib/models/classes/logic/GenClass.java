@@ -69,10 +69,10 @@ public class GenClass extends Generator<Clazz>
             insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
-         generateAttributes(rootDir, helpersDir);
+         generateAttributes(rootDir, helpersDir, false);
          printFile();
       }else{
-         generateAttributes(rootDir, helpersDir);
+         generateAttributes(rootDir, helpersDir, false);
       }
 
 
@@ -170,13 +170,13 @@ public class GenClass extends Generator<Clazz>
       return getRepairClassModel();
    }
 
-   private void generateAttributes(String rootDir, String helpersDir) 
+   private void generateAttributes(String rootDir, String helpersDir, boolean fromSuperClass) 
    {
       for (Attribute attr : model.getAttributes()) 
       {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
-         getGenerator(attr).generate(rootDir, helpersDir, true);
+         getGenerator(attr).generate(rootDir, helpersDir, fromSuperClass);
       }
 
       if (model.getSuperClass() != null) 
