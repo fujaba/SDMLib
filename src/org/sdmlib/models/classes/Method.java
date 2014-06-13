@@ -128,6 +128,12 @@ public class Method extends SDMLibClass
       }
       return this;
    }
+   
+   public Method withParameter(String paramName, DataType dataType)
+   {
+      this.createParameter().withName(paramName).with(dataType);
+      return this;
+   }
 
    public Method without(Parameter... value)
    {

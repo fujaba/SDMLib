@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-358 181.649,-358 181.649,5 -4,5"/>
 <!-- _University -->
 <g id="node1" class="node"><title>_University</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/University.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/University.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="69,-332 69,-349 130,-349 130,-332 69,-332"/>
 <text text-anchor="start" x="78" y="-338.5" font-family="Times New Roman,serif" font-size="10.00">University</text>
 </a>
@@ -22,7 +22,7 @@
 </g>
 <!-- _Student -->
 <g id="node2" class="node"><title>_Student</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Student.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/Student.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-230 8,-247 106,-247 106,-230 8,-230"/>
 <text text-anchor="start" x="41" y="-236.5" font-family="Times New Roman,serif" font-size="10.00">Student</text>
 </a>
@@ -43,7 +43,7 @@
 </g>
 <!-- _Room -->
 <g id="node3" class="node"><title>_Room</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="55,-72 55,-89 143,-89 143,-72 55,-72"/>
 <text text-anchor="start" x="87" y="-78.5" font-family="Times New Roman,serif" font-size="10.00">Room</text>
 </a>
@@ -52,7 +52,7 @@
 <text text-anchor="start" x="60" y="-46" font-family="Times New Roman,serif" font-size="10.00">topic :String</text>
 <text text-anchor="start" x="60" y="-32" font-family="Times New Roman,serif" font-size="10.00">credits :int</text>
 <polygon fill="none" stroke="black" points="55,-4 55,-24 143,-24 143,-4 55,-4"/>
-<text text-anchor="start" x="60" y="-12" font-family="Times New Roman,serif" font-size="10.00">findPath(String,int)</text>
+<text text-anchor="start" x="60" y="-12" font-family="Times New Roman,serif" font-size="10.00">findPath(int String)</text>
 </g>
 <!-- _University&#45;&gt;_Room -->
 <g id="edge4" class="edge"><title>_University&#45;&gt;_Room</title>

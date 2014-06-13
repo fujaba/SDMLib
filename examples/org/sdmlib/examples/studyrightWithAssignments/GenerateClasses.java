@@ -29,6 +29,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
@@ -73,8 +74,8 @@ public class GenerateClasses {
 
       //Association universityToStudent = 
       new Association()
-      .withSource("university", universityClass, Card.ONE)
-      .withTarget("students", studentClass, Card.MANY); 
+      .withSource(universityClass, "university", Card.ONE)
+      .withTarget(studentClass, "students", Card.MANY); 
 
       storyboard.addClassDiagram(model);
 
@@ -82,27 +83,27 @@ public class GenerateClasses {
       //============================================================
       storyboard.add("4. add University --> Room association");
 
-      Clazz roomClass = new Clazz("Room")
+      Clazz roomClass = model.createClazz("Room")
       .withAttribute("name", DataType.STRING)
       .withAttribute("topic", DataType.STRING)
       .withAttribute("credits", DataType.INT);
 
-      new Method().withClazz(roomClass).withName("findPath").withParameter("String", "int");
+      roomClass.createMethod("findPath").withParameter("String", DataType.INT);
 
       //Association universityToRoom = 
       new Association()
-      .withSource("university", universityClass, Card.ONE, Role.AGGREGATION)
-      .withTarget("rooms", roomClass, Card.MANY); 
+      .withSource(universityClass, "university", Card.ONE)
+      .withTarget(roomClass, "rooms", Card.MANY); 
 
       //Association doors = 
       new Association()
-      .withSource("doors", roomClass, Card.MANY)
-      .withTarget("doors", roomClass, Card.MANY);
+      .withSource(roomClass, "doors", Card.MANY)
+      .withTarget(roomClass, "doors", Card.MANY);
 
       //Association studentsInRoom = 
       new Association()
-      .withSource("students", studentClass, Card.MANY)
-      .withTarget("in", roomClass, Card.ONE);
+      .withSource(studentClass, "students", Card.MANY)
+      .withTarget(roomClass, "in", Card.ONE);
 
       storyboard.addClassDiagram(model);
       
@@ -130,9 +131,9 @@ public class GenerateClasses {
       studentClass.withAssoc(studentClass, "friends", Card.MANY, "friends", Card.MANY);
       
       model.createClazz("TeachingAssistant")
-            .withAssoc(roomClass, "room", Card.ONE, "tas", Card.MANY)
-            .withSuperClass(studentClass)
-            .withAttribute("certified", DataType.BOOLEAN);
+      .withSuperClazz(studentClass)
+      .withAssoc(roomClass, "room", Card.ONE, "tas", Card.MANY)
+      .withAttribute("certified", DataType.BOOLEAN);
       
 
       //============================================================
