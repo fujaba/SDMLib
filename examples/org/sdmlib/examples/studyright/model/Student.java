@@ -21,16 +21,15 @@
    
 package org.sdmlib.examples.studyright.model;
 
-import org.sdmlib.examples.studyright.model.Male;
-import org.sdmlib.examples.studyright.model.Female;
-import org.sdmlib.StrUtil;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
-import java.util.LinkedHashSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
+import java.beans.PropertyChangeSupport;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyright.model.util.AssignmentSet;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
+import org.sdmlib.examples.studyright.model.util.StudentSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Student extends Female implements Male, PropertyChangeInterface
 {

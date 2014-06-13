@@ -21,7 +21,6 @@
    
 package org.sdmlib.examples.studyright.model;
 
-import org.sdmlib.examples.studyright.model.Person;
 
 public interface Male extends Person
 {

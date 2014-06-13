@@ -1149,19 +1149,6 @@ public class GenClassModel
       return sequence;
    }
 
-   private String findSequence(String searchString, ArrayList<String> initSequence)
-   {
-      for (String sequence : initSequence)
-      {
-
-         if (sequence.startsWith(searchString))
-         {
-            return sequence;
-         }
-      }
-      return null;
-   }
-
    private String findInitSequenceAsString(String searchString, ArrayList<ArrayList<String>> initSequence)
    {
       for (ArrayList<String> sequence : initSequence)
@@ -2516,7 +2503,6 @@ public class GenClassModel
    private boolean hasAttribute(Attribute attribute, LocalVarTableEntry entry, String rootDir)
    {
       String name = attribute.getName();
-      DataType type = attribute.getType();
       ArrayList<ArrayList<String>> initSequence = entry.getInitSequence();
 
       for (ArrayList<String> sequencePart : initSequence)

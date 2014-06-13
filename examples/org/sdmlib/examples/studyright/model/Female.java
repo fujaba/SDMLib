@@ -21,11 +21,11 @@
    
 package org.sdmlib.examples.studyright.model;
 
-import org.sdmlib.examples.studyright.model.Person;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Female implements Person, PropertyChangeInterface
 {
@@ -33,6 +33,7 @@ public class Female implements Person, PropertyChangeInterface
    
    //==========================================================================
    
+   @Override
    public void findMyPosition(  )
    {
       
@@ -41,6 +42,7 @@ public class Female implements Person, PropertyChangeInterface
    
    //==========================================================================
    
+   @Override
    public void findMyPosition( String p0 )
    {
       
@@ -49,6 +51,7 @@ public class Female implements Person, PropertyChangeInterface
    
    //==========================================================================
    
+   @Override
    public void findMyPosition( String p0, int p1 )
    {
       

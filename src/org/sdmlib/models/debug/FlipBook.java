@@ -378,6 +378,7 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

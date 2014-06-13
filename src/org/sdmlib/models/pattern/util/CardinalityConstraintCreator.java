@@ -105,7 +105,7 @@ public class CardinalityConstraintCreator extends PatternElementCreator
 
       if (CardinalityConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
-         ((CardinalityConstraint) target).setPattern((Pattern) value);
+         ((CardinalityConstraint) target).setPattern((Pattern<?>) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

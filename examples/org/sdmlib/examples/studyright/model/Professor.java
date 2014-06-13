@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.studyright.model;
 
-import org.sdmlib.examples.studyright.model.Female;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
-import java.util.LinkedHashSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.StrUtil;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Professor extends Female implements PropertyChangeInterface
 {
@@ -198,6 +198,7 @@ public class Professor extends Female implements PropertyChangeInterface
       return listeners;
    }
    
+   @Override
    public void addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
@@ -210,11 +211,13 @@ public class Professor extends Female implements PropertyChangeInterface
    
    private String name;
 
+   @Override
    public String getName()
    {
       return this.name;
    }
    
+   @Override
    public void setName(String value)
    {
       if ( ! StrUtil.stringEquals(this.name, value))
@@ -225,6 +228,7 @@ public class Professor extends Female implements PropertyChangeInterface
       }
    }
    
+   @Override
    public Professor withName(String value)
    {
       setName(value);
