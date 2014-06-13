@@ -646,6 +646,7 @@ public class GenClassModel
       for ( String className : imports.keySet()) {
          GenClass genClass = imports.get(className);
          genClass.insertImport(className);
+         imports.clear();
       }
    }
 
