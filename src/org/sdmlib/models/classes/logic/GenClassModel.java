@@ -646,8 +646,8 @@ public class GenClassModel
       for ( String className : imports.keySet()) {
          GenClass genClass = imports.get(className);
          genClass.insertImport(className);
-         imports.clear();
       }
+      imports.clear();
    }
 
    private int completeCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
@@ -1249,6 +1249,7 @@ public class GenClassModel
    private int createAndInsertCodeForNewClazz(String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz, LinkedHashMap<String, Clazz> handledClazzes,
          int currentInsertPos)
    {
+
       String modelClassName = clazz.getFullName();
       // no creation code yet. Insert it.
       currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
@@ -1436,8 +1437,21 @@ public class GenClassModel
 
    private int insertCreationClassCode(int currentInsertPos, String modelClassName, Clazz modelCreationClass, SymTabEntry symTabEntry)
    {
-      StringBuilder text = new StringBuilder("\n      Clazz localVar = new Clazz(\"className\")\n");
+      StringBuilder text = new StringBuilder("\n      Clazz localVar = clazzModel.createClazz(\"className\")\n");
 
+      Parser parser = getOrCreate(modelCreationClass).getParser();
+      LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+      for (String key : localVarTable.keySet())
+      {
+         LocalVarTableEntry localVarTableEntry = localVarTable.get(key);
+         
+         if ("ClassModel".equals(localVarTableEntry.getType()) ) {
+            String classmodelName = localVarTableEntry.getName();
+            CGUtil.replaceAll(text,"clazzModel", classmodelName);
+            break;
+         }
+      }
+      
       CGUtil.replaceAll(text, "localVar", StrUtil.downFirstChar(CGUtil.shortClassName(modelClassName)) + "Class", 
             "className", modelClassName);
 
