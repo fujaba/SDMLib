@@ -54,6 +54,7 @@ public class Train implements PropertyChangeInterface
    {
       setStation(null);
       removeAllFromPassengers();
+      withoutPassengers(this.getPassengers().toArray(new Person[this.getPassengers().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

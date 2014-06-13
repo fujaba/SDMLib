@@ -128,6 +128,12 @@ public class Method extends SDMLibClass
       }
       return this;
    }
+   
+   public Method withParameter(String paramName, DataType dataType)
+   {
+      this.createParameter().withName(paramName).with(dataType);
+      return this;
+   }
 
    public Method without(Parameter... value)
    {
@@ -218,6 +224,7 @@ public class Method extends SDMLibClass
       super.removeYou();
       setClazz(null);
       without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
+      withoutParameter(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

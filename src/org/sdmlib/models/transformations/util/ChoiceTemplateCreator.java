@@ -1,13 +1,34 @@
+/*
+   Copyright (c) 2014 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.transformations.util;
 
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Template;
-
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Match;
 
-public class ChoiceTemplateCreator extends TemplateCreator
+public class ChoiceTemplateCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
@@ -18,13 +39,13 @@ public class ChoiceTemplateCreator extends TemplateCreator
       Template.PROPERTY_LISTSTART,
       Template.PROPERTY_LISTSEPARATOR,
       Template.PROPERTY_LISTEND,
+      Template.PROPERTY_REFERENCELOOKUP,
+      Template.PROPERTY_NAME,
       Template.PROPERTY_PLACEHOLDERS,
       ChoiceTemplate.PROPERTY_CHOICES,
       Template.PROPERTY_CHOOSER,
       Template.PROPERTY_MATCHES,
       Template.PROPERTY_PARENTS,
-      Template.PROPERTY_REFERENCELOOKUP,
-      Template.PROPERTY_NAME,
    };
    
    @Override
@@ -42,57 +63,170 @@ public class ChoiceTemplateCreator extends TemplateCreator
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (ChoiceTemplate.PROPERTY_CHOICES.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((ChoiceTemplate)target).getChoices();
+         attribute = attrName.substring(0, pos);
       }
 
-      if (ChoiceTemplate.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_TEMPLATETEXT.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getTemplateText();
+      }
+
+      if (Template.PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getExpandedText();
+      }
+
+      if (Template.PROPERTY_MODELOBJECT.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getModelObject();
+      }
+
+      if (Template.PROPERTY_MODELCLASSNAME.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getModelClassName();
+      }
+
+      if (Template.PROPERTY_LISTSTART.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getListStart();
+      }
+
+      if (Template.PROPERTY_LISTSEPARATOR.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getListSeparator();
+      }
+
+      if (Template.PROPERTY_LISTEND.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getListEnd();
+      }
+
+      if (Template.PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getReferenceLookup();
+      }
+
+      if (Template.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getName();
+      }
+
+      if (ChoiceTemplate.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attribute))
       {
          return ((ChoiceTemplate) target).getPlaceholders();
       }
 
-      if (ChoiceTemplate.PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
+      if (ChoiceTemplate.PROPERTY_CHOICES.equalsIgnoreCase(attribute))
+      {
+         return ((ChoiceTemplate) target).getChoices();
+      }
+
+      if (ChoiceTemplate.PROPERTY_CHOOSER.equalsIgnoreCase(attribute))
       {
          return ((ChoiceTemplate) target).getChooser();
       }
 
-      if (ChoiceTemplate.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      if (ChoiceTemplate.PROPERTY_MATCHES.equalsIgnoreCase(attribute))
       {
          return ((ChoiceTemplate) target).getMatches();
       }
 
-      if (ChoiceTemplate.PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      if (ChoiceTemplate.PROPERTY_PARENTS.equalsIgnoreCase(attribute))
       {
          return ((ChoiceTemplate) target).getParents();
       }
-      return super.getValue(target, attrName);
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (ChoiceTemplate.PROPERTY_CHOICES.equalsIgnoreCase(attrName))
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
-         ((ChoiceTemplate)target).addToChoices((Template) value);
+         attrName = attrName + type;
+      }
+
+      if (Template.PROPERTY_TEMPLATETEXT.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withTemplateText((String) value);
          return true;
       }
-      
-      if ((ChoiceTemplate.PROPERTY_CHOICES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+
+      if (Template.PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attrName))
       {
-         ((ChoiceTemplate)target).removeFromChoices((Template) value);
+         ((Template) target).withExpandedText((String) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withModelObject((Object) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_MODELCLASSNAME.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withModelClassName((String) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_LISTSTART.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withListStart((String) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_LISTSEPARATOR.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withListSeparator((String) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_LISTEND.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withListEnd((String) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withReferenceLookup((Boolean) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withName((String) value);
          return true;
       }
 
       if (ChoiceTemplate.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
       {
-         ((ChoiceTemplate) target).addToPlaceholders((PlaceHolderDescription) value);
+         ((ChoiceTemplate) target).withPlaceholders((PlaceHolderDescription) value);
          return true;
       }
       
       if ((ChoiceTemplate.PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ChoiceTemplate) target).removeFromPlaceholders((PlaceHolderDescription) value);
+         ((ChoiceTemplate) target).withoutPlaceholders((PlaceHolderDescription) value);
+         return true;
+      }
+
+      if (ChoiceTemplate.PROPERTY_CHOICES.equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).withChoices((Template) value);
+         return true;
+      }
+      
+      if ((ChoiceTemplate.PROPERTY_CHOICES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).withoutChoices((Template) value);
          return true;
       }
 
@@ -104,36 +238,34 @@ public class ChoiceTemplateCreator extends TemplateCreator
 
       if (ChoiceTemplate.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
       {
-         ((ChoiceTemplate) target).addToMatches((Match) value);
+         ((ChoiceTemplate) target).withMatches((Match) value);
          return true;
       }
       
       if ((ChoiceTemplate.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ChoiceTemplate) target).removeFromMatches((Match) value);
+         ((ChoiceTemplate) target).withoutMatches((Match) value);
          return true;
       }
 
       if (ChoiceTemplate.PROPERTY_PARENTS.equalsIgnoreCase(attrName))
       {
-         ((ChoiceTemplate) target).addToParents((PlaceHolderDescription) value);
+         ((ChoiceTemplate) target).withParents((PlaceHolderDescription) value);
          return true;
       }
       
       if ((ChoiceTemplate.PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ChoiceTemplate) target).removeFromParents((PlaceHolderDescription) value);
+         ((ChoiceTemplate) target).withoutParents((PlaceHolderDescription) value);
          return true;
       }
-
-      return super.setValue(target, attrName, value, type);
+      
+      return false;
    }
-   
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
    
@@ -143,6 +275,3 @@ public class ChoiceTemplateCreator extends TemplateCreator
       ((ChoiceTemplate) entity).removeYou();
    }
 }
-
-
-

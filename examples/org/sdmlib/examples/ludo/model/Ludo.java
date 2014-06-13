@@ -57,6 +57,8 @@ public class Ludo implements PropertyChangeInterface
       removeAllFromPlayers();
       setDice(null);
       removeAllFromFields();
+      withoutPlayers(this.getPlayers().toArray(new Player[this.getPlayers().size()]));
+      withoutFields(this.getFields().toArray(new Field[this.getFields().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

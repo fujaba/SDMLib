@@ -58,6 +58,8 @@ public class Station implements PropertyChangeInterface
       setPrev(null);
       removeAllFromPeople();
       setFlag(null);
+      withoutTrains(this.getTrains().toArray(new Train[this.getTrains().size()]));
+      withoutPeople(this.getPeople().toArray(new Person[this.getPeople().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

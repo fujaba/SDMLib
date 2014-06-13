@@ -53,9 +53,9 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    
    public void removeYou()
    {
-      removeAllFromOwners();
       setSubTemplate(null);
-      removeAllFromMatches();
+       withoutOwners(this.getOwners().toArray(new Template[this.getOwners().size()]));
+       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

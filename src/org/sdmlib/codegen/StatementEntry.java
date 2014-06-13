@@ -28,6 +28,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class StatementEntry implements PropertyChangeInterface
 {
@@ -67,7 +68,7 @@ public class StatementEntry implements PropertyChangeInterface
    
    public void removeYou()
    {
-      removeAllFromBodyStats();
+      withoutBodyStats(this.getBodyStats().toArray(new StatementEntry[this.getBodyStats().size()]));
       setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }

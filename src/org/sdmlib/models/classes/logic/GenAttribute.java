@@ -397,6 +397,10 @@ public class GenAttribute extends Generator<Attribute>
          }
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameGetter = "get"+name+"()";
+         if ("boolean".equalsIgnoreCase(attrType))
+         {
+            attrNameGetter = "is"+name+"()";
+         }
          String attrNameSetter = "set"+name+"(value)";
          if(model.getVisibility().same(Visibility.PUBLIC)){
             attrNameGetter = model.getName();
@@ -608,6 +612,11 @@ public class GenAttribute extends Generator<Attribute>
          
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameGetter = "get"+name+"()";
+         if ("boolean".equalsIgnoreCase(model.getType().getValue()))
+         {
+            attrNameGetter = "is"+name+"()";
+         }
+         
          if(model.getVisibility().same(Visibility.PUBLIC)){
             attrNameGetter = model.getName();
          }
@@ -680,6 +689,10 @@ public class GenAttribute extends Generator<Attribute>
          if ( ! DataType.STRING.equals(model.getType()))
          {
             valueComparison = "value == obj.get" + StrUtil.upFirstChar(model.getName()) + "()";
+            if ("boolean".equalsIgnoreCase(model.getType().getValue()))
+            {
+               valueComparison = "value == obj.is" + StrUtil.upFirstChar(model.getName()) + "()";
+            }
             rangeCheck = "lower <= obj.get" + StrUtil.upFirstChar(model.getName()) + "() && obj.get" + StrUtil.upFirstChar(model.getName()) + "() <= upper";
          }
          

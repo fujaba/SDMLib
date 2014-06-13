@@ -21,22 +21,21 @@
    
 package org.sdmlib.models.transformations.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.Match;
 
 public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
 {
 
 
-   public PlaceHolderDescriptionPO startModelPattern()
+   public PlaceHolderDescriptionPO hasPlaceHolderDescriptionPO()
    {
       return new PlaceHolderDescriptionPO(this.toArray(new PlaceHolderDescription[this.size()]));
    }
@@ -49,6 +48,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
    }
 
 
+   @SuppressWarnings("unchecked")
    public PlaceHolderDescriptionSet with(Object value)
    {
       if (value instanceof java.util.Collection)
@@ -96,21 +96,6 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       return result;
    }
 
-   public PlaceHolderDescriptionSet hasTextFragment(String lower, String upper)
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         if (lower.compareTo(obj.getTextFragment()) <= 0 && obj.getTextFragment().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public PlaceHolderDescriptionSet withTextFragment(String value)
    {
       for (PlaceHolderDescription obj : this)
@@ -148,21 +133,6 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       return result;
    }
 
-   public PlaceHolderDescriptionSet hasValue(String lower, String upper)
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         if (lower.compareTo(obj.getValue()) <= 0 && obj.getValue().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public PlaceHolderDescriptionSet withValue(String value)
    {
       for (PlaceHolderDescription obj : this)
@@ -192,21 +162,6 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       for (PlaceHolderDescription obj : this)
       {
          if (value.equals(obj.getAttrName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet hasAttrName(String lower, String upper)
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         if (lower.compareTo(obj.getAttrName()) <= 0 && obj.getAttrName().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -262,13 +217,50 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       return this;
    }
 
+   public StringList getPrefix()
+   {
+      StringList result = new StringList();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         result.add(obj.getPrefix());
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasPrefix(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getPrefix()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet withPrefix(String value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.setPrefix(value);
+      }
+      
+      return this;
+   }
+
    public TemplateSet getOwners()
    {
       TemplateSet result = new TemplateSet();
       
       for (PlaceHolderDescription obj : this)
       {
-         result.with(obj.getOwners());
+         result.addAll(obj.getOwners());
       }
       
       return result;
@@ -326,7 +318,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       
       for (PlaceHolderDescription obj : this)
       {
-         result.with(obj.getMatches());
+         result.addAll(obj.getMatches());
       }
       
       return result;
@@ -384,7 +376,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       
       for (PlaceHolderDescription obj : this)
       {
-         result.with(obj.getSubTemplate());
+         result.add(obj.getSubTemplate());
       }
       
       return result;
@@ -426,71 +418,4 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       return this;
    }
 
-
-
-   public PlaceHolderDescriptionPO hasPlaceHolderDescriptionPO()
-   {
-      return new PlaceHolderDescriptionPO(this.toArray(new PlaceHolderDescription[this.size()]));
-   }
-   public StringList getPrefix()
-   {
-      StringList result = new StringList();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         result.add(obj.getPrefix());
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet hasPrefix(String value)
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         if (value.equals(obj.getPrefix()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet hasPrefix(String lower, String upper)
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         if (lower.compareTo(obj.getPrefix()) <= 0 && obj.getPrefix().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet withPrefix(String value)
-   {
-      for (PlaceHolderDescription obj : this)
-      {
-         obj.setPrefix(value);
-      }
-      
-      return this;
-   }
-
 }
-
-
-
-
-
-
-
-
-

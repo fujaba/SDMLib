@@ -55,8 +55,8 @@ public class University implements PropertyChangeInterface
    
    public void removeYou()
    {
-      removeAllFromRooms();
-      removeAllFromStudents();
+      withoutRooms(this.getRooms().toArray(new Room[this.getRooms().size()]));
+      withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

@@ -21,22 +21,20 @@
    
 package org.sdmlib.models.transformations.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.transformations.ChoiceTemplate;
+import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.Match;
 
 public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 {
 
-   private static final long serialVersionUID = 1L;
 
    public ChoiceTemplatePO hasChoiceTemplatePO()
    {
@@ -51,6 +49,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
    }
 
 
+   @SuppressWarnings("unchecked")
    public ChoiceTemplateSet with(Object value)
    {
       if (value instanceof java.util.Collection)
@@ -98,21 +97,6 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return result;
    }
 
-   public ChoiceTemplateSet hasTemplateText(String lower, String upper)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (lower.compareTo(obj.getTemplateText()) <= 0 && obj.getTemplateText().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public ChoiceTemplateSet withTemplateText(String value)
    {
       for (ChoiceTemplate obj : this)
@@ -142,21 +126,6 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getExpandedText()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet hasExpandedText(String lower, String upper)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (lower.compareTo(obj.getExpandedText()) <= 0 && obj.getExpandedText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -239,21 +208,6 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return result;
    }
 
-   public ChoiceTemplateSet hasModelClassName(String lower, String upper)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (lower.compareTo(obj.getModelClassName()) <= 0 && obj.getModelClassName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public ChoiceTemplateSet withModelClassName(String value)
    {
       for (ChoiceTemplate obj : this)
@@ -283,21 +237,6 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListStart()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet hasListStart(String lower, String upper)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (lower.compareTo(obj.getListStart()) <= 0 && obj.getListStart().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -343,21 +282,6 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return result;
    }
 
-   public ChoiceTemplateSet hasListSeparator(String lower, String upper)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (lower.compareTo(obj.getListSeparator()) <= 0 && obj.getListSeparator().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public ChoiceTemplateSet withListSeparator(String value)
    {
       for (ChoiceTemplate obj : this)
@@ -387,21 +311,6 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       for (ChoiceTemplate obj : this)
       {
          if (value.equals(obj.getListEnd()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ChoiceTemplateSet hasListEnd(String lower, String upper)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (lower.compareTo(obj.getListEnd()) <= 0 && obj.getListEnd().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -484,21 +393,6 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       return result;
    }
 
-   public ChoiceTemplateSet hasName(String lower, String upper)
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (ChoiceTemplate obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public ChoiceTemplateSet withName(String value)
    {
       for (ChoiceTemplate obj : this)
@@ -515,7 +409,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       
       for (ChoiceTemplate obj : this)
       {
-         result.with(obj.getPlaceholders());
+         result.addAll(obj.getPlaceholders());
       }
       
       return result;
@@ -573,7 +467,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       
       for (ChoiceTemplate obj : this)
       {
-         result.with(obj.getChoices());
+         result.addAll(obj.getChoices());
       }
       
       return result;
@@ -631,7 +525,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       
       for (ChoiceTemplate obj : this)
       {
-         result.with(obj.getChooser());
+         result.add(obj.getChooser());
       }
       
       return result;
@@ -679,7 +573,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       
       for (ChoiceTemplate obj : this)
       {
-         result.with(obj.getMatches());
+         result.addAll(obj.getMatches());
       }
       
       return result;
@@ -737,7 +631,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
       
       for (ChoiceTemplate obj : this)
       {
-         result.with(obj.getParents());
+         result.addAll(obj.getParents());
       }
       
       return result;
@@ -790,7 +684,3 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
    }
 
 }
-
-
-
-

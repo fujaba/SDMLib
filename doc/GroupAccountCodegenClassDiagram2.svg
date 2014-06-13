@@ -54,13 +54,13 @@
 <!-- _GroupAccount&#45;&gt;_Item -->
 <g id="edge4" class="edge"><title>_GroupAccount&#45;&gt;_Item</title>
 <path fill="none" stroke="black" d="M96.4882,-232.355C99.1657,-220.756 101.664,-207.941 103,-196 106.954,-160.665 106.954,-151.335 103,-116 101.664,-104.059 99.1657,-91.2437 96.4882,-79.6455"/>
-<text text-anchor="middle" x="102.614" y="-85.0494" font-family="Times New Roman,serif" font-size="10.00">items *</text>
+<text text-anchor="middle" x="102.614" y="-85.0494" font-family="Times New Roman,serif" font-size="10.00">item *</text>
 <text text-anchor="middle" x="94.3711" y="-220.081" font-family="Times New Roman,serif" font-size="10.00">parent</text>
 </g>
 <!-- _Person&#45;&gt;_Item -->
 <g id="edge6" class="edge"><title>_Person&#45;&gt;_Item</title>
 <path fill="none" stroke="black" d="M61.5265,-116.405C65.384,-104.519 69.6297,-91.4381 73.4864,-79.5555"/>
-<text text-anchor="middle" x="74.7083" y="-86.9805" font-family="Times New Roman,serif" font-size="10.00">items *</text>
+<text text-anchor="middle" x="74.7083" y="-86.9805" font-family="Times New Roman,serif" font-size="10.00">item *</text>
 <text text-anchor="middle" x="60.3046" y="-103.98" font-family="Times New Roman,serif" font-size="10.00">buyer</text>
 </g>
 </g>

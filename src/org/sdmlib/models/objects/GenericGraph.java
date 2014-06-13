@@ -45,8 +45,8 @@ public class GenericGraph implements PropertyChangeInterface
    
    public void removeYou()
    {
-      removeAllFromObjects();
-      removeAllFromLinks();
+      withoutObjects(this.getObjects().toArray(new GenericObject[this.getObjects().size()]));
+      withoutLinks(this.getLinks().toArray(new GenericLink[this.getLinks().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

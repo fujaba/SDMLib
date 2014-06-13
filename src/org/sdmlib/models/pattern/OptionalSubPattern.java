@@ -110,6 +110,7 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       removeAllFromElements();
       setPattern(null);
       setRgraph(null);
+      withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

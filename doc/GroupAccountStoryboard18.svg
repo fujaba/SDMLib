@@ -25,7 +25,7 @@
 <text text-anchor="start" x="28.5" y="-140.5" font-family="Arial" font-size="10.00">p2 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="10,-100 10,-134 91,-134 91,-100 10,-100"/>
-<text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">balance = 0.0</text>
+<text text-anchor="start" x="15" y="-122" font-family="Arial" font-size="10.00">balance = 5.0</text>
 <text text-anchor="start" x="15" y="-108" font-family="Arial" font-size="10.00">name = &quot;Albert&quot;</text>
 </g>
 <!-- g1&#45;&#45;p2 -->
@@ -48,7 +48,7 @@
 <!-- g1&#45;&#45;i3 -->
 <g id="edge2" class="edge"><title>g1&#45;&#45;i3</title>
 <path fill="none" stroke="black" d="M199.475,-191.981C181.865,-182.969 161.52,-170.708 146,-156 122.915,-134.123 125.377,-121.958 107,-96 98.4447,-83.9152 88.5886,-70.9217 79.9006,-59.7524"/>
-<text text-anchor="middle" x="88.7943" y="-61.8242" font-family="Arial" font-size="10.00">items</text>
+<text text-anchor="middle" x="88.7943" y="-61.8242" font-family="Arial" font-size="10.00">item</text>
 <text text-anchor="middle" x="189.485" y="-189.028" font-family="Arial" font-size="10.00">parent</text>
 </g>
 <!-- p4 -->
@@ -59,7 +59,7 @@
 <text text-anchor="start" x="179.5" y="-140.5" font-family="Arial" font-size="10.00">p4 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="164,-100 164,-134 239,-134 239,-100 164,-100"/>
-<text text-anchor="start" x="169" y="-122" font-family="Arial" font-size="10.00">balance = 0.0</text>
+<text text-anchor="start" x="169" y="-122" font-family="Arial" font-size="10.00">balance = &#45;4.0</text>
 <text text-anchor="start" x="169" y="-108" font-family="Arial" font-size="10.00">name = &quot;Nina&quot;</text>
 </g>
 <!-- g1&#45;&#45;p4 -->
@@ -82,7 +82,7 @@
 <!-- g1&#45;&#45;i5 -->
 <g id="edge4" class="edge"><title>g1&#45;&#45;i5</title>
 <path fill="none" stroke="black" d="M245.336,-191.771C253.849,-169.277 265.463,-128.896 255,-96 250.852,-82.9573 243.033,-70.2815 235.002,-59.6393"/>
-<text text-anchor="middle" x="243.784" y="-61.9231" font-family="Arial" font-size="10.00">items</text>
+<text text-anchor="middle" x="243.784" y="-61.9231" font-family="Arial" font-size="10.00">item</text>
 <text text-anchor="middle" x="244.439" y="-179.311" font-family="Arial" font-size="10.00">parent</text>
 </g>
 <!-- p6 -->
@@ -93,7 +93,7 @@
 <text text-anchor="start" x="331" y="-140.5" font-family="Arial" font-size="10.00">p6 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="311,-100 311,-134 395,-134 395,-100 311,-100"/>
-<text text-anchor="start" x="316" y="-122" font-family="Arial" font-size="10.00">balance = 0.0</text>
+<text text-anchor="start" x="316" y="-122" font-family="Arial" font-size="10.00">balance = &#45;1.0</text>
 <text text-anchor="start" x="316" y="-108" font-family="Arial" font-size="10.00">name = &quot;Artjom&quot;</text>
 </g>
 <!-- g1&#45;&#45;p6 -->
@@ -116,25 +116,25 @@
 <!-- g1&#45;&#45;i7 -->
 <g id="edge6" class="edge"><title>g1&#45;&#45;i7</title>
 <path fill="none" stroke="black" d="M291.156,-208.609C331.46,-205.158 384.463,-193.174 412,-156 432.669,-128.097 420.207,-87.022 407.636,-59.6627"/>
-<text text-anchor="middle" x="415.125" y="-63.7897" font-family="Arial" font-size="10.00">items</text>
+<text text-anchor="middle" x="415.125" y="-63.7897" font-family="Arial" font-size="10.00">item</text>
 <text text-anchor="middle" x="299.727" y="-200.958" font-family="Arial" font-size="10.00">parent</text>
 </g>
 <!-- p2&#45;&#45;i3 -->
 <g id="edge14" class="edge"><title>p2&#45;&#45;i3</title>
 <path fill="none" stroke="black" d="M52.1383,-96.2861C53.0067,-84.624 54.0077,-71.1822 54.8748,-59.538"/>
-<text text-anchor="middle" x="58.4163" y="-66.3899" font-family="Arial" font-size="10.00">items</text>
+<text text-anchor="middle" x="58.4163" y="-66.3899" font-family="Arial" font-size="10.00">item</text>
 <text text-anchor="middle" x="48.5968" y="-84.4342" font-family="Arial" font-size="10.00">buyer</text>
 </g>
 <!-- p4&#45;&#45;i5 -->
 <g id="edge16" class="edge"><title>p4&#45;&#45;i5</title>
 <path fill="none" stroke="black" d="M203.444,-96.2861C204.436,-84.624 205.58,-71.1822 206.571,-59.538"/>
-<text text-anchor="middle" x="210.014" y="-66.4268" font-family="Arial" font-size="10.00">items</text>
+<text text-anchor="middle" x="210.014" y="-66.4268" font-family="Arial" font-size="10.00">item</text>
 <text text-anchor="middle" x="200.001" y="-84.3973" font-family="Arial" font-size="10.00">buyer</text>
 </g>
 <!-- p6&#45;&#45;i7 -->
 <g id="edge18" class="edge"><title>p6&#45;&#45;i7</title>
 <path fill="none" stroke="black" d="M364.913,-96.2861C369.752,-84.624 375.329,-71.1822 380.16,-59.538"/>
-<text text-anchor="middle" x="380.59" y="-67.0288" font-family="Arial" font-size="10.00">items</text>
+<text text-anchor="middle" x="380.59" y="-67.0288" font-family="Arial" font-size="10.00">item</text>
 <text text-anchor="middle" x="364.483" y="-83.7954" font-family="Arial" font-size="10.00">buyer</text>
 </g>
 </g>

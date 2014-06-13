@@ -64,6 +64,7 @@ public class Field implements PropertyChangeInterface
       setBaseowner(null);
       setLander(null);
       removeAllFromPawns();
+      withoutPawns(this.getPawns().toArray(new Pawn[this.getPawns().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

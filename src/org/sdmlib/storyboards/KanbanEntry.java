@@ -481,8 +481,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    public void removeYou()
    {
       this.setParent (null);
-      removeAllFromSubentries();
-      removeAllFromLogEntries();
+      withoutLogEntries(this.getLogEntries().toArray(new LogEntryStoryBoard[this.getLogEntries().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

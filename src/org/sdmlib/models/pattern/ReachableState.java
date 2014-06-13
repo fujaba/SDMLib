@@ -246,6 +246,8 @@ public class ReachableState implements PropertyChangeInterface
       removeAllFromRuleapplications();
       removeAllFromResultOf();
       setMaster(null);
+      withoutRuleapplications(this.getRuleapplications().toArray(new RuleApplication[this.getRuleapplications().size()]));
+      withoutResultOf(this.getResultOf().toArray(new RuleApplication[this.getResultOf().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

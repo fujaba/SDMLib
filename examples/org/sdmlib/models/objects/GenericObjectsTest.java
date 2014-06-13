@@ -127,7 +127,8 @@ public class GenericObjectsTest implements PropertyChangeInterface
       /* add assoc */
       buildingClass.withAssoc(floorClass, "has", Card.MANY, "buildings", Card.ONE);
 
-      learnedModel.getGenerator().insertModelCreationCodeHere("examples");
+      // FIXME: Alex
+      // learnedModel.getGenerator().insertModelCreationCodeHere("examples");
       storyboard.addCode("examples");
 
       storyboard.addClassDiagram(model);

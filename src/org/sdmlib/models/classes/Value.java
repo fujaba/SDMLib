@@ -21,6 +21,7 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.DataType;
 
 public abstract class Value extends SDMLibClass
 {
@@ -98,7 +99,7 @@ public abstract class Value extends SDMLibClass
    
    //==========================================================================
    
-   public Value withType(org.sdmlib.models.classes.DataType value)
+   public Value withType(DataType value)
    {
       setType(value);
       return this;

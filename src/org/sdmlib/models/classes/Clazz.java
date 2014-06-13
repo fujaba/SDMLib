@@ -332,6 +332,11 @@ public class Clazz extends SDMLibClass
       without(this.getRoles().toArray(new Role[this.getRoles().size()]));
       withoutKidClazz(this.getKidClazzes().toArray(new Clazz[this.getKidClazzes().size()]));
       withoutSuperClazz(this.getSuperClazzes().toArray(new Clazz[this.getSuperClazzes().size()]));
+      withoutKidClazzes(this.getKidClazzes().toArray(new Clazz[this.getKidClazzes().size()]));
+      withoutSuperClazzes(this.getSuperClazzes().toArray(new Clazz[this.getSuperClazzes().size()]));
+      withoutAttributes(this.getAttributes().toArray(new Attribute[this.getAttributes().size()]));
+      withoutMethods(this.getMethods().toArray(new Method[this.getMethods().size()]));
+      withoutRoles(this.getRoles().toArray(new Role[this.getRoles().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    

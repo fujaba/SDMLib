@@ -242,6 +242,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       removeAllFromElements();
       setPattern(null);
       setRgraph(null);
+      withoutElements(this.getElements().toArray(new PatternElement[this.getElements().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

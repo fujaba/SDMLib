@@ -1380,4 +1380,10 @@ public class GenClass extends Generator<Clazz>
       }
       return count;
    }
+   
+   @Override
+   public String toString()
+   {
+      return "gen " + model;
+   }
 }

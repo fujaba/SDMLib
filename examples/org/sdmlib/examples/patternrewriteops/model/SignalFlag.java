@@ -52,6 +52,7 @@ public class SignalFlag implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromStation();
+      withoutStation(this.getStation().toArray(new Station[this.getStation().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

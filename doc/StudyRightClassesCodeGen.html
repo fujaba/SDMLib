@@ -37,11 +37,10 @@ import org.sdmlib.examples.studyright.model.util.AssignmentSet;</p>
 <pre>   public void removeYou()
    {
       super.removeYou();
-
-      removeAllFromLecture();
+      withoutLecture(this.getLecture().toArray(new Lecture[this.getLecture().size()]));
       setUni(null);
       setIn(null);
-      removeAllFromDone();
+      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }</pre><p>Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
 <p>generic set now works for double. Perhabs boolean and other are still missing</p>

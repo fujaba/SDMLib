@@ -11,6 +11,6 @@
     
     
     _GroupAccount -> _Person [headlabel = "persons *" taillabel = "parent" arrowhead = "none" ];
-    _GroupAccount -> _Item [headlabel = "items *" taillabel = "parent" arrowhead = "none" ];
-    _Person -> _Item [headlabel = "items *" taillabel = "buyer" arrowhead = "none" ];
+    _GroupAccount -> _Item [headlabel = "item *" taillabel = "parent" arrowhead = "none" ];
+    _Person -> _Item [headlabel = "item *" taillabel = "buyer" arrowhead = "none" ];
 }

@@ -53,6 +53,7 @@ public class Building implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromHas();
+      withoutHas(this.getHas().toArray(new Floor[this.getHas().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

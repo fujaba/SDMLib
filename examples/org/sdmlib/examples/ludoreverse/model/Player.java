@@ -54,6 +54,7 @@ public class Player implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromPlayers();
+      withoutPlayers(this.getPlayers().toArray(new Ludo[this.getPlayers().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

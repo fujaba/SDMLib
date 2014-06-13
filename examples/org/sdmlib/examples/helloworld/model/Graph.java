@@ -56,6 +56,9 @@ public class Graph implements PropertyChangeInterface
       removeAllFromNodes();
       removeAllFromEdges();
       removeAllFromGcs();
+      withoutNodes(this.getNodes().toArray(new Node[this.getNodes().size()]));
+      withoutEdges(this.getEdges().toArray(new Edge[this.getEdges().size()]));
+      withoutGcs(this.getGcs().toArray(new GraphComponent[this.getGcs().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

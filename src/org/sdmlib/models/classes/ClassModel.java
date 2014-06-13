@@ -126,6 +126,7 @@ public class ClassModel extends SDMLibClass
 	{
 	   super.removeYou();
 	   without(this.getClasses().toArray(new Clazz[this.getClasses().size()]));
+      withoutClasses(this.getClasses().toArray(new Clazz[this.getClasses().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
 		
 	}

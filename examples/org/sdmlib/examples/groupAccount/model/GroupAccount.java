@@ -43,7 +43,15 @@ public class GroupAccount implements PropertyChangeInterface
    
    public void updateBalances(  )
    {
+      // compute share
+      double totalExpenses = this.getItem().getValue().sum();
+      double share = totalExpenses / this.getItem().size();
       
+      for (Person person : this.getPersons())
+      {
+         double personExpenses  = person.getItem().getValue().sum();
+         person.setBalance(personExpenses - share);
+      }
    }
 
    
