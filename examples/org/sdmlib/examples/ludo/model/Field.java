@@ -25,6 +25,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
+import java.awt.Point;
 import org.sdmlib.examples.ludo.model.util.FieldSet;
 import org.sdmlib.examples.ludo.model.util.PawnSet;
 import java.util.LinkedHashSet;
@@ -197,24 +198,24 @@ public class Field implements PropertyChangeInterface
    
    public static final String PROPERTY_POINT = "point";
    
-   private java.awt.Point point;
+   private Point point;
 
-   public java.awt.Point getPoint()
+   public Point getPoint()
    {
       return this.point;
    }
    
-   public void setPoint(java.awt.Point value)
+   public void setPoint(Point value)
    {
       if (this.point != value)
       {
-         java.awt.Point oldValue = this.point;
+         Point oldValue = this.point;
          this.point = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_POINT, oldValue, value);
       }
    }
    
-   public Field withPoint(java.awt.Point value)
+   public Field withPoint(Point value)
    {
       setPoint(value);
       return this;

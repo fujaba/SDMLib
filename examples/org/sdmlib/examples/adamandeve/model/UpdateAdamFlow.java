@@ -25,6 +25,8 @@ import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.logger.PeerProxy;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
 {
@@ -40,7 +42,7 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
    
    //==========================================================================
    
-   public Object[] getTaskNames( )
+   public Object[] getTaskNames(  )
    {
       return null;
    }
@@ -70,40 +72,29 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-
-   @Override
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getTaskNo());
-      return _.substring(1);
-   }
-
-
    
    //==========================================================================
    
    public static final String PROPERTY_ADAM = "adam";
    
-   private org.sdmlib.logger.PeerProxy adam;
+   private PeerProxy adam;
 
-   public org.sdmlib.logger.PeerProxy getAdam()
+   public PeerProxy getAdam()
    {
       return this.adam;
    }
    
-   public void setAdam(org.sdmlib.logger.PeerProxy value)
+   public void setAdam(PeerProxy value)
    {
       if (this.adam != value)
       {
-         org.sdmlib.logger.PeerProxy oldValue = this.adam;
+         PeerProxy oldValue = this.adam;
          this.adam = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_ADAM, oldValue, value);
       }
    }
    
-   public UpdateAdamFlow withAdam(org.sdmlib.logger.PeerProxy value)
+   public UpdateAdamFlow withAdam(PeerProxy value)
    {
       setAdam(value);
       return this;
@@ -114,24 +105,24 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
    
    public static final String PROPERTY_EVE = "eve";
    
-   private org.sdmlib.logger.PeerProxy eve;
+   private PeerProxy eve;
 
-   public org.sdmlib.logger.PeerProxy getEve()
+   public PeerProxy getEve()
    {
       return this.eve;
    }
    
-   public void setEve(org.sdmlib.logger.PeerProxy value)
+   public void setEve(PeerProxy value)
    {
       if (this.eve != value)
       {
-         org.sdmlib.logger.PeerProxy oldValue = this.eve;
+         PeerProxy oldValue = this.eve;
          this.eve = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_EVE, oldValue, value);
       }
    }
    
-   public UpdateAdamFlow withEve(org.sdmlib.logger.PeerProxy value)
+   public UpdateAdamFlow withEve(PeerProxy value)
    {
       setEve(value);
       return this;
@@ -142,24 +133,24 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
    
    public static final String PROPERTY_IDMAP = "idMap";
    
-   private org.sdmlib.serialization.SDMLibJsonIdMap idMap;
+   private SDMLibJsonIdMap idMap;
 
-   public org.sdmlib.serialization.SDMLibJsonIdMap getIdMap()
+   public SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
    
-   public void setIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public void setIdMap(SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
-         org.sdmlib.serialization.SDMLibJsonIdMap oldValue = this.idMap;
+         SDMLibJsonIdMap oldValue = this.idMap;
          this.idMap = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
       }
    }
    
-   public UpdateAdamFlow withIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public UpdateAdamFlow withIdMap(SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;
@@ -192,4 +183,15 @@ public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface
       setAdamJarAtEveSiteLastModified(value);
       return this;
    } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
+
 }

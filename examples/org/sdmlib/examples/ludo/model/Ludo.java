@@ -24,6 +24,7 @@ package org.sdmlib.examples.ludo.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.Date;
 import org.sdmlib.examples.ludo.model.util.PlayerSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.examples.ludo.model.util.FieldSet;
@@ -64,24 +65,24 @@ public class Ludo implements PropertyChangeInterface
    
    public static final String PROPERTY_DATE = "date";
    
-   private java.util.Date date;
+   private Date date;
 
-   public java.util.Date getDate()
+   public Date getDate()
    {
       return this.date;
    }
    
-   public void setDate(java.util.Date value)
+   public void setDate(Date value)
    {
       if (this.date != value)
       {
-         java.util.Date oldValue = this.date;
+         Date oldValue = this.date;
          this.date = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue, value);
       }
    }
    
-   public Ludo withDate(java.util.Date value)
+   public Ludo withDate(Date value)
    {
       setDate(value);
       return this;

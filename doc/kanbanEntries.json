@@ -109,7 +109,7 @@
     "hoursSpend":20,
     "parent":{"id":"KE.K1"},
     "logEntries":[
-    {"id":"KE.L147"}
+    {"id":"KE.L172"}
     ],
     "phases":"active, backlog, implementation, done"
   }
@@ -985,17 +985,6 @@
     "comment":"Achieved: Example model for testing destroy with model patterns: "
   }
 },  {
-  "id":"KE.L147",
-  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
-  "prop":{
-    "date":"10.10.2013 10:10:42",
-    "hoursSpend":20,
-    "kanbanEntry":{"id":"KE.K9"},
-    "developer":"zuendorf",
-    "phase":"done",
-    "comment":"should be published in paper"
-  }
-},  {
   "id":"KE.L148",
   "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
   "prop":{
@@ -1254,5 +1243,16 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"The famous ludo example."
+  }
+},  {
+  "id":"KE.L172",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"10.10.2013 10:10:42",
+    "hoursSpend":20,
+    "kanbanEntry":{"id":"KE.K9"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"should be published in paper"
   }
 }]

@@ -1023,4 +1023,28 @@ public class Clazz extends SDMLibClass
       withRoles(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   public boolean isInterfaze()
+   {
+      return this.interfaze;
+   }
+   
+   public void setInterfaze(boolean value)
+   {
+      if (this.interfaze != value)
+      {
+         boolean oldValue = this.interfaze;
+         this.interfaze = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
+      }
+   }
+   
+   public Clazz withInterfaze(boolean value)
+   {
+      setInterfaze(value);
+      return this;
+   } 
 }
