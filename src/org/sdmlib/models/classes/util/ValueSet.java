@@ -169,7 +169,7 @@ public class ValueSet extends SDMSet<Value>
    {
       for (Value obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

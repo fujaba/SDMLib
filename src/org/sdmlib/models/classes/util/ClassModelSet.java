@@ -45,7 +45,7 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
    {
       for (ClassModel obj : this)
       {
-         obj.withClazz(value);
+         obj.with(value);
       }
       
       return this;
@@ -55,7 +55,7 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
    {
       for (ClassModel obj : this)
       {
-         obj.withoutClazz(value);
+         obj.without(value);
       }
       
       return this;
@@ -77,7 +77,7 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
    {
       for (ClassModel obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

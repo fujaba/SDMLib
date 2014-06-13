@@ -275,6 +275,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
       return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
+   @Override
    public Pattern getPattern()
    {
       if (this.getPattern().getHasMatch())

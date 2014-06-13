@@ -3,7 +3,6 @@ package org.sdmlib.models.classes.logic;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
@@ -92,7 +91,7 @@ public class GenRole extends Generator<Role>
 
          StringBuilder partnerText = new StringBuilder
             (  "\n   " +
-               "\n   public static final type EMPTY_SET = new type();" +
+               "\n   public static final type EMPTY_SET = new type().withReadonly(true);" +
                "\n"
                );
          
@@ -247,108 +246,6 @@ public class GenRole extends Generator<Role>
          }
       }
       
-      
-      
-      pos = myParser.indexOf(Parser.METHOD + ":addTo" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
-      
-      
-      if (pos < 0)
-      {
-         if (! genClazz.isInterface())
-         {
-            if (elistPos < 0)
-            {
-               text.append 
-               (     "\n   public boolean addToPartnerRoleName(partnerClassName value)" +
-                     "\n   {" +
-                     "\n      boolean changed = false;" +
-                     "\n      " +
-                     "\n      if (value != null)" +
-                     "\n      {" +
-                     "\n         if (this.partnerRoleName == null)" +
-                     "\n         {" +
-                     "\n            this.partnerRoleName = new type();" +
-                     "\n         }" +
-                     "\n         " +
-                     "\n         changed = this.partnerRoleName.add (value);" +
-                     "\n         " +
-                     "\n         if (changed)" +
-                     "\n         {" +
-                     "\n            value.withMyRoleName(this);" +
-                     "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
-                     "\n         }" +
-                     "\n      }" +
-                     "\n         " +
-                     "\n      return changed;   " +
-                     "\n   }" +
-                     "\n");
-            }
-            else
-            {
-               text.append 
-               (     "\n   public boolean addToPartnerRoleName(partnerClassName value)" +
-                     "\n   {" +
-                     "\n      boolean changed = false;" +
-                     "\n      " +
-                     "\n      if (value != null)" +
-                     "\n      {" +
-                     "\n         changed = this.getPartnerRoleName().add (value);" +
-                     "\n         " +
-                     "\n         if (changed)" +
-                     "\n         {" +
-                     "\n            value.withMyRoleName(this);" +
-                     "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, value);" +
-                     "\n         }" +
-                     "\n      }" +
-                     "\n         " +
-                     "\n      return changed;   " +
-                     "\n   }" +
-                     "\n");
-            }
-         }
-         else
-         {
-            text.append
-            (     "\n   boolean addToPartnerRoleName(partnerClassName value);" +
-                  "\n");
-         }
-      }
-      
-      pos = myParser.indexOf(Parser.METHOD + ":removeFrom" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
-      
-      if (pos < 0)
-      {
-         if (! genClazz.isInterface())
-         {
-            text.append 
-            (     "\n   public boolean removeFromPartnerRoleName(partnerClassName value)" +
-                  "\n   {" +
-                  "\n      boolean changed = false;" +
-                  "\n      " +
-                  "\n      if ((this.partnerRoleName != null) && (value != null))" +
-                  "\n      {" +
-                  "\n         changed = this.partnerRoleName.remove(value);" +
-                  "\n         " +
-                  "\n         if (changed)" +
-                  "\n         {" +
-                  "\n            value.reverseWithoutCall(this);" +
-                  "\n            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, value, null);" +
-                  "\n         }" +
-                  "\n      }" +
-                  "\n         " +
-                  "\n      return changed;   " +
-                  "\n   }" +
-                  "\n");
-         }
-         else
-         {
-            text.append
-            (     "\n   boolean removeFromPartnerRoleName(partnerClassName value);" +
-                  "\n");
-         }
-      }
-      
-      
       pos = myParser.indexOf(Parser.METHOD + ":with" + partnerRoleUpFirstChar + "(" + partnerClassName  +  "...)");
       
       if (pos < 0)
@@ -363,7 +260,21 @@ public class GenRole extends Generator<Role>
                   "\n      }" +
                   "\n      for (partnerClassName item : value)" +
                   "\n      {" +
-                  "\n         addToPartnerRoleName(item);" +
+                  "\n         if (item != null)" +
+                  "\n         {" +
+                  "\n            if (this.partnerRoleName == null)" +
+                  "\n            {" +
+                  "\n               this.partnerRoleName = new type();" +
+                  "\n            }" +
+                  "\n            " +
+                  "\n            boolean changed = this.partnerRoleName.add (item);" +
+                  "\n" +
+                  "\n            if (changed)" +
+                  "\n            {" +
+                  "\n               item.withMyRoleName(this);" +
+                  "\n               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);" +
+                  "\n            }" +
+                  "\n         }" +
                   "\n      }" +
                   "\n      return this;" +
                   "\n   } " +
@@ -389,7 +300,15 @@ public class GenRole extends Generator<Role>
                   "\n   {" +
                   "\n      for (partnerClassName item : value)" +
                   "\n      {" +
-                  "\n         removeFromPartnerRoleName(item);" +
+                  "\n         if ((this.partnerRoleName != null) && (item != null))" +
+                  "\n         {" +
+                  "\n            if (this.partnerRoleName.remove(item))" +
+                  "\n            {" +
+                  "\n               item.reverseWithoutCall(this);" +
+                  "\n               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);" +
+                  "\n            }" +
+                  "\n         }" +
+                  "\n         withoutPartnerRoleName(item);" +
                   "\n      }" +
                   "\n      return this;" +
                   "\n   }" +
@@ -399,33 +318,6 @@ public class GenRole extends Generator<Role>
          {
             text.append
             (     "\n   public myClassName withoutPartnerRoleName(partnerClassName... value);" +
-                  "\n");
-         }
-      }
-      
-      
-      pos = myParser.indexOf(Parser.METHOD + ":removeAllFrom" + partnerRoleUpFirstChar + "()");
-      
-      if (pos < 0)
-      {
-         if (! genClazz.isInterface())
-         {
-            text.append 
-            (     "\n   public void removeAllFromPartnerRoleName()" +
-                  "\n   {" +
-                  "\n      LinkedHashSet<partnerClassName> tmpSet = new LinkedHashSet<partnerClassName>(this.getPartnerRoleName());" +
-                  "\n   " +
-                  "\n      for (partnerClassName value : tmpSet)" +
-                  "\n      {" +
-                  "\n         this.removeFromPartnerRoleName(value);" +
-                  "\n      }" +
-                  "\n   }" +
-                  "\n");
-         }
-         else
-         {
-            text.append
-            (     "\n   public void removeAllFromPartnerRoleName();" +
                   "\n");
          }
       }
@@ -776,7 +668,7 @@ public class GenRole extends Generator<Role>
             if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
             {
                generateToManyRole(myParser, clazz, partnerRole, text);
-               getGenerator(clazz).insertImport(LinkedHashSet.class.getName());
+//               getGenerator(clazz).insertImport(LinkedHashSet.class.getName());
             }
             else
             {
@@ -864,8 +756,10 @@ public class GenRole extends Generator<Role>
       String fullRemoveCall = removeCall + "(null);\n      ";
       if (partnerRole.getCard().equals(Card.MANY.toString()))
       {
-         removeCall = "removeAllFrom" + StrUtil.upFirstChar(partnerRole.getName());
-         fullRemoveCall = removeCall + "();\n      ";
+         String name = StrUtil.upFirstChar(partnerRole.getName());
+         String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
+         removeCall = " without"+name;
+         fullRemoveCall = removeCall + "(this.get"+name+"().toArray(new "+clazzName+"[this.get"+name+"().size()]));\n      ";
       }            
       
       int methodBodyStartPos = parser.getMethodBodyStartPos();
@@ -1371,13 +1265,13 @@ public class GenRole extends Generator<Role>
          StringBuilder text = new StringBuilder
             (  "\n      if (ClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
                "\n      {" +
-               "\n         ((ClassName) target).addToPropertyName((type) value);" +
+               "\n         ((ClassName) target).withPropertyName((type) value);" +
                "\n         return true;" +
                "\n      }" +
                "\n      " + 
                "\n      if ((ClassName.PROPERTY_NAME + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))" +
                "\n      {" +
-               "\n         ((ClassName) target).removeFromPropertyName((type) value);" +
+               "\n         ((ClassName) target).withoutPropertyName((type) value);" +
                "\n         return true;" +
                "\n      }" +
                "\n" 

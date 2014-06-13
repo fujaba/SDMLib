@@ -8,7 +8,6 @@ import org.sdmlib.examples.m2m.model.Relation;
 import org.sdmlib.examples.m2m.model.util.GraphComponentCreator;
 import org.sdmlib.examples.m2m.model.util.GraphCreator;
 import org.sdmlib.examples.m2m.model.util.PersonCreator;
-import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -16,7 +15,6 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
-import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.models.objects.util.GenericGraphPO;
 import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.util.GenericLinkSet;
@@ -266,20 +264,20 @@ public class BanfM2MTransformations
       storyboard.add("<hr/>");
       
       // apply the transformations
-      PatternObject boundPO = (PatternObject) reverseRenameRelationsLinkRule.getElements().first();
+      PatternObject<?,?> boundPO = (PatternObject<?,?>) reverseRenameRelationsLinkRule.getElements().first();
       reverseRenameRelationsLinkRule.rebind(boundPO, genGraph);
       reverseRenameRelationsLinkRule.allMatches();
       
-      boundPO = (PatternObject) reverseRenamePersonsLinkRule.getElements().first();
+      boundPO = (PatternObject<?,?>) reverseRenamePersonsLinkRule.getElements().first();
       reverseRenamePersonsLinkRule.rebind(boundPO, genGraph);
       reverseRenamePersonsLinkRule.allMatches();
       
-      boundPO = (PatternObject) reverseRenameKindAttrRule.getElements().first();
+      boundPO = (PatternObject<?,?>) reverseRenameKindAttrRule.getElements().first();
       reverseRenameKindAttrRule.rebind(boundPO, genGraph);
       reverseRenameKindAttrRule.allMatches();
       
 
-      boundPO = (PatternObject) reverseRenameFirstNameAttrRule.getElements().first();
+      boundPO = (PatternObject<?,?>) reverseRenameFirstNameAttrRule.getElements().first();
       reverseRenameFirstNameAttrRule.rebind(boundPO, genGraph);
       reverseRenameFirstNameAttrRule.allMatches();
       
@@ -295,7 +293,7 @@ public class BanfM2MTransformations
    }
 
 
-   private Pattern revertRule(Pattern forwardRule)
+   private Pattern<?> revertRule(Pattern<?> forwardRule)
    {
       JsonIdMap origMap = forwardRule.getJsonIdMap();
       origMap.withCreator(PatternCreator.createIdMap("x").getCreators());
@@ -309,8 +307,8 @@ public class BanfM2MTransformations
       
       JsonIdMap bwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
       
-      PatternElement decode = (PatternElement) bwdMap.decode(jsonArray);
-      Pattern backwardRule = (Pattern) decode.getPattern();
+      PatternElement<?> decode = (PatternElement<?>) bwdMap.decode(jsonArray);
+      Pattern<?> backwardRule = (Pattern<?>) decode.getPattern();
       backwardRule.setJsonIdMap(origMap);
       
       // look for attribute constraint with modifer create

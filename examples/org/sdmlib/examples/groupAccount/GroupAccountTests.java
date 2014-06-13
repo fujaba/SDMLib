@@ -30,6 +30,7 @@ import org.sdmlib.examples.groupAccount.model.Item;
 import org.sdmlib.examples.groupAccount.model.Person;
 import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
    
 public class GroupAccountTests implements PropertyChangeInterface 
@@ -51,7 +52,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       .withName("Artjom")
       .withParent(g1);
 
-      Item beer = g1.createItems()
+      Item beer = g1.createItem()
       .withBuyer(albert)
       .withDescription("Beer")
       .withValue(12);
@@ -72,7 +73,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       storyboard.addObjectDiagram(g1);
       
       storyboard.add("We call updateBalances() to compute the correct balances.\n",
-         DONE, "zuendorf", "17.01.2014 16:39:42", 4, 0);
+         Kanban.DONE, "zuendorf", "17.01.2014 16:39:42", 4, 0);
       
       storyboard.markCodeStart();
       g1.updateBalances();
@@ -97,20 +98,12 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       storyboard.assertTrue("Albert has name Albert", g1.getPersons().hasName("Albert").first() == albert);
       
-      PersonSet contributors = g1.getPersons().hasItems(g1.getItems());
+      PersonSet contributors = g1.getPersons().hasItem(g1.getItem());
       
       storyboard.add("Persons that have bought at least one item: " + contributors.toString());
       
       storyboard.dumpHTML();
    }
-
-
-   private static final String MODELING = "modeling";
-   private static final String ACTIVE = "active";
-   private static final String DONE = "done";
-   private static final String IMPLEMENTATION = "implementation";
-   private static final String BACKLOG = "backlog";
-
    
    //==========================================================================
    
@@ -132,6 +125,7 @@ public class GroupAccountTests implements PropertyChangeInterface
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;

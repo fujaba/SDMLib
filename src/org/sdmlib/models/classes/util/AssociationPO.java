@@ -150,7 +150,7 @@ public class AssociationPO extends PatternObject<AssociationPO, Association>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Association) getCurrentMatch()).setName(value);
+         ((Association) getCurrentMatch()).withName(value);
       }
       return this;
    }

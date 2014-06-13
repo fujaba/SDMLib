@@ -615,7 +615,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
                {
                   if (patObject.getCandidates() instanceof Collection)
                   {
-                     for (Object candidate : (Collection) patObject.getCandidates())
+                     for (Object candidate : (Collection<?>) patObject.getCandidates())
                      {
                         matchedObjects.add(candidate);
                         StringBuilder matchEdge = new StringBuilder(

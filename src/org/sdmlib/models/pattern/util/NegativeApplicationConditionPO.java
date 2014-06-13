@@ -337,7 +337,7 @@ public class NegativeApplicationConditionPO extends PatternObject<NegativeApplic
       return this;
    }
    
-   public NegativeApplicationConditionPO hasCurrentSubPattern(Pattern lower, Pattern upper)
+   public NegativeApplicationConditionPO hasCurrentSubPattern(Pattern<?> lower, Pattern<?> upper)
    {
       new AttributeConstraint()
       .withAttrName(NegativeApplicationCondition.PROPERTY_CURRENTSUBPATTERN)

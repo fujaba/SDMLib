@@ -52,12 +52,12 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
             if (tgtRoleName.equals("instanceof"))
             {
                // if the type is correct
-               Class hostGraphScrObjectClass = hostGraphSrcObject.getClass();
+               Class<?> hostGraphScrObjectClass = hostGraphSrcObject.getClass();
                String fullTgtClassName = this.getTgt().getClass().getName();
                fullTgtClassName = CGUtil.baseClassName(fullTgtClassName, "PO");
                try
                {
-                  Class tgtPOClass = hostGraphScrObjectClass.getClassLoader().loadClass(fullTgtClassName);
+                  Class<?> tgtPOClass = hostGraphScrObjectClass.getClassLoader().loadClass(fullTgtClassName);
                   
                   if (tgtPOClass.isAssignableFrom(hostGraphScrObjectClass))
                   {
@@ -77,7 +77,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
                
                SendableEntityCreator creatorClass = null; 
                
-               for (Object src : (Collection<Object>) hostGraphSrcObject)
+               for (Object src : (Collection<?>) hostGraphSrcObject)
                {
                   if (creatorClass == null)
                   {
@@ -88,7 +88,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
                   
                   if (tgt instanceof Collection)
                   {
-                     tgtSet.addAll((Collection) tgt); 
+                     tgtSet.addAll((Collection<?>) tgt); 
                   }
                   else
                   {
@@ -104,7 +104,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
                value = creatorClass.getValue(hostGraphSrcObject, tgtRoleName);
                if (value != null && value instanceof Collection && ! this.getTopPattern().getRiskConcurrentModification())
                {
-                  value = new ArrayList((Collection)value);
+                  value = new ArrayList<Object>((Collection<?>)value);
                }
             }
             
@@ -125,7 +125,7 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
                   
                   getTopPattern().addLogMsg(setVarName + " = " + this.getSrc().getPatternObjectName()
                      + ".get" + StrUtil.upFirstChar(tgtRoleName) +"(); // " + valueSetString(value));
-                  if (((Collection) value).isEmpty())
+                  if (((Collection<?>) value).isEmpty())
                   {
                      getTopPattern().addLogMsg("// No candidates, backtrack!");
                   }

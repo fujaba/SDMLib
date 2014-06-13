@@ -94,7 +94,7 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
    {
       for (SDMLibClass obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

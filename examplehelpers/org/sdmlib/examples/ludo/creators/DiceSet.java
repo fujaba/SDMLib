@@ -150,7 +150,7 @@ public class DiceSet extends SDMSet<Dice>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -198,7 +198,7 @@ public class DiceSet extends SDMSet<Dice>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

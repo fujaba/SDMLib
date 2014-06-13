@@ -70,7 +70,7 @@ public class AssociationCreator extends SDMLibClassCreator
 
       if (Association.PROPERTY_SOURCE.equalsIgnoreCase(attrName))
       {
-         ((Association) target).setSource((Role) value);
+         ((Association) target).withSource((Role) value);
          return true;
       }
 
@@ -82,7 +82,7 @@ public class AssociationCreator extends SDMLibClassCreator
 
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((SDMLibClass) target).setName((String) value);
+         ((SDMLibClass) target).withName((String) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

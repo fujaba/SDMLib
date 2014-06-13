@@ -197,7 +197,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

@@ -333,7 +333,7 @@ public class MatchSet extends SDMSet<Match>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -381,7 +381,7 @@ public class MatchSet extends SDMSet<Match>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -429,7 +429,7 @@ public class MatchSet extends SDMSet<Match>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -511,7 +511,7 @@ public class MatchSet extends SDMSet<Match>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

@@ -24,10 +24,9 @@ package org.sdmlib.examples.groupAccount.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
-import java.util.LinkedHashSet;
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class Person implements PropertyChangeInterface
 {
@@ -51,10 +50,11 @@ public class Person implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       setParent(null);
-      removeAllFromItems();
+       withoutItem(this.getItem().toArray(new Item[this.getItem().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -72,7 +72,7 @@ public class Person implements PropertyChangeInterface
    
    public void setName(String value)
    {
-      if (this.name != value)
+      if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
@@ -127,7 +127,7 @@ public class Person implements PropertyChangeInterface
    } 
 
    
-   public static final PersonSet EMPTY_SET = new PersonSet();
+   public static final PersonSet EMPTY_SET = new PersonSet().withReadonly(true);
 
    
    /********************************************************************
@@ -193,98 +193,71 @@ public class Person implements PropertyChangeInterface
     * <pre>
     *              one                       many
     * Person ----------------------------------- Item
-    *              buyer                   items
+    *              buyer                   item
     * </pre>
     */
    
-   public static final String PROPERTY_ITEMS = "items";
+   public static final String PROPERTY_ITEM = "item";
 
-   private ItemSet items = null;
+   private ItemSet item = null;
    
-   public ItemSet getItems()
+   public ItemSet getItem()
    {
-      if (this.items == null)
+      if (this.item == null)
       {
          return Item.EMPTY_SET;
       }
    
-      return this.items;
+      return this.item;
    }
 
-   public boolean addToItems(Item value)
+   public Person withItem(Item... value)
    {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.items == null)
-         {
-            this.items = new ItemSet();
-         }
-         
-         changed = this.items.add (value);
-         
-         if (changed)
-         {
-            value.withBuyer(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
-         }
+      if(value==null){
+         return this;
       }
-         
-      return changed;   
-   }
-
-   public boolean removeFromItems(Item value)
-   {
-      boolean changed = false;
-      
-      if ((this.items != null) && (value != null))
-      {
-         changed = this.items.remove (value);
-         
-         if (changed)
-         {
-            value.setBuyer(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public Person withItems(Item... value)
-   {
       for (Item item : value)
       {
-         addToItems(item);
+         if (item != null)
+         {
+            if (this.item == null)
+            {
+               this.item = new ItemSet();
+            }
+            
+            boolean changed = this.item.add (item);
+
+            if (changed)
+            {
+               item.withBuyer(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEM, null, item);
+            }
+         }
       }
       return this;
    } 
 
-   public Person withoutItems(Item... value)
+   public Person withoutItem(Item... value)
    {
       for (Item item : value)
       {
-         removeFromItems(item);
+         if ((this.item != null) && (item != null))
+         {
+            if (this.item.remove(item))
+            {
+               item.setBuyer(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEM, item, null);
+            }
+         }
+         withoutItem(item);
       }
       return this;
    }
 
-   public void removeAllFromItems()
-   {
-      LinkedHashSet<Item> tmpSet = new LinkedHashSet<Item>(this.getItems());
-   
-      for (Item value : tmpSet)
-      {
-         this.removeFromItems(value);
-      }
-   }
-
-   public Item createItems()
+   public Item createItem()
    {
       Item value = new Item();
-      withItems(value);
+      withItem(value);
       return value;
    } 
 }
-

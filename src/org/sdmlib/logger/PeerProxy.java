@@ -147,6 +147,7 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
@@ -245,6 +246,7 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
       return this;
    } 
    
+   @Override
    public String toString()
    {
       return "" + ip + ":" + port;

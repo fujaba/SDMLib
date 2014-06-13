@@ -125,7 +125,7 @@ public class AttributeConstraintCreator extends PatternElementCreator
 
       if (AttributeConstraint.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
       {
-         ((AttributeConstraint) target).setPattern((Pattern) value);
+         ((AttributeConstraint) target).setPattern((Pattern<?>) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

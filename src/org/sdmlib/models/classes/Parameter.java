@@ -136,7 +136,7 @@ public class Parameter extends Value
    } 
 
    
-   public static final ParameterSet EMPTY_SET = new ParameterSet();
+   public static final ParameterSet EMPTY_SET = new ParameterSet().withReadonly(true);
 
    Parameter withMethod(Method value)
    {

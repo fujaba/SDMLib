@@ -527,7 +527,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -585,7 +585,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -643,7 +643,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -691,7 +691,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -749,7 +749,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

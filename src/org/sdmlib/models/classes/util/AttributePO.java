@@ -152,7 +152,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Attribute) getCurrentMatch()).setName(value);
+         ((Attribute) getCurrentMatch()).withName(value);
       }
       return this;
    }

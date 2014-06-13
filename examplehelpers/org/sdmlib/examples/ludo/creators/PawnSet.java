@@ -254,7 +254,7 @@ public class PawnSet extends SDMSet<Pawn>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -302,7 +302,7 @@ public class PawnSet extends SDMSet<Pawn>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

@@ -311,7 +311,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
                      // now remove targetObj and its successors from property collection
                      SendableEntityCreator creatorClass = map.getCreatorClass(sourceObject);
 
-                     Collection collection = (Collection) creatorClass.getValue(sourceObject, property);
+                     Collection collection = (Collection<?>) creatorClass.getValue(sourceObject, property);
 
                      LinkedList<Object> higherList = new LinkedList<Object>();
                      boolean found = false;
@@ -1091,7 +1091,7 @@ implements PropertyChangeInterface, PropertyChangeListener, MapUpdateListener
             if (value != null && value instanceof Collection)
             {
                // add all elements to oldObj
-               for (Object elem : (Collection) value)
+               for (Object elem : (Collection<?>) value)
                {
                   creator.setValue(oldObj, prop, elem, "");
                }

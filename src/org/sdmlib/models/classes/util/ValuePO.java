@@ -174,7 +174,7 @@ public class ValuePO extends PatternObject<ValuePO, Value>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Value) getCurrentMatch()).setName(value);
+         ((Value) getCurrentMatch()).withName(value);
       }
       return this;
    }

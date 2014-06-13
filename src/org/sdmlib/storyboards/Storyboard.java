@@ -558,7 +558,7 @@ public class Storyboard implements PropertyChangeInterface
       // and write all attributes
 
       Pattern pattern = null;
-      Class patternClass = null;
+      Class<?> patternClass = null;
 
       for (String key : copyMap.keySet())
       {
@@ -599,7 +599,7 @@ public class Storyboard implements PropertyChangeInterface
             // also the bound method
             method = patternClass.getMethod(hasElemMethod, object.getClass());
             Object patternObject = method.invoke(pattern, object);
-            Class patternObjectClass = patternObject.getClass();
+            Class<?> patternObjectClass = patternObject.getClass();
 
             // loop through attributes
             for (String attrName : creatorClass.getProperties())
@@ -610,7 +610,7 @@ public class Storyboard implements PropertyChangeInterface
                   method = patternObjectClass.getMethod("get" + StrUtil.upFirstChar(attrName));
                   Object value = method.invoke(patternObject);
 
-                  Class valueClass = value.getClass();
+                  Class<?> valueClass = value.getClass();
 
                   if (value instanceof Integer)
                   {
@@ -668,7 +668,7 @@ public class Storyboard implements PropertyChangeInterface
             // // get direct value
             // if (value instanceof Collection)
             // {
-            // value = ((Collection) value).iterator().next();
+            // value = ((Collection<?>) value).iterator().next();
             // }
             //
 
@@ -712,7 +712,7 @@ public class Storyboard implements PropertyChangeInterface
 
          try
          {
-            Class setClass = Class.forName(setClassName);
+            Class<?> setClass = Class.forName(setClassName);
             ModelSet setObject = (ModelSet) setClass.newInstance();
 
             // cover ModelSet methods
@@ -737,10 +737,10 @@ public class Storyboard implements PropertyChangeInterface
                   // get direct value
                   if (value instanceof Collection)
                   {
-                     value = ((Collection) value).iterator().next();
+                     value = ((Collection<?>) value).iterator().next();
                   }
 
-                  Class valueClass = value.getClass();
+                  Class<?> valueClass = value.getClass();
 
                   if (value instanceof Integer)
                   {
@@ -801,7 +801,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addObjectDiagramWith(Object... elems)
    {
-      ArrayList tempElems = new ArrayList(Arrays.asList((Object[]) elems));
+      ArrayList<Object> tempElems = new ArrayList<Object>(Arrays.asList((Object[]) elems));
       tempElems.add(true);
       Object[] moreElems = tempElems.toArray();
       addObjectDiagram(moreElems);
@@ -871,9 +871,9 @@ public class Storyboard implements PropertyChangeInterface
 
          if (object instanceof Collection)
          {
-            explicitElems.addAll((Collection) object);
+            explicitElems.addAll((Collection<?>) object);
             
-            Collection coll = (Collection) object;
+            Collection<?> coll = (Collection<?>) object;
             if (  ! coll.isEmpty())
             {
                object = coll.iterator().next();

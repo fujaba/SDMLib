@@ -290,7 +290,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Method) getCurrentMatch()).setName(value);
+         ((Method) getCurrentMatch()).withName(value);
       }
       return this;
    }

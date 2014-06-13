@@ -180,36 +180,36 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       return null;
    }
 
-   public ItemPO hasItems()
+   public ItemPO hasItem()
    {
       ItemPO result = new ItemPO(new Item[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Person.PROPERTY_ITEMS, result);
+      super.hasLink(Person.PROPERTY_ITEM, result);
       
       return result;
    }
 
-   public ItemPO createItems()
+   public ItemPO createItem()
    {
-      return this.startCreate().hasItems().endCreate();
+      return this.startCreate().hasItem().endCreate();
    }
 
-   public PersonPO hasItems(ItemPO tgt)
+   public PersonPO hasItem(ItemPO tgt)
    {
-      return hasLinkConstraint(tgt, Person.PROPERTY_ITEMS);
+      return hasLinkConstraint(tgt, Person.PROPERTY_ITEM);
    }
 
-   public PersonPO createItems(ItemPO tgt)
+   public PersonPO createItem(ItemPO tgt)
    {
-      return this.startCreate().hasItems(tgt).endCreate();
+      return this.startCreate().hasItem(tgt).endCreate();
    }
 
-   public ItemSet getItems()
+   public ItemSet getItem()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Person) this.getCurrentMatch()).getItems();
+         return ((Person) this.getCurrentMatch()).getItem();
       }
       return null;
    }

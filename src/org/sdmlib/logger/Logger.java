@@ -25,7 +25,6 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.logger.util.LogEntrySet;
 import org.sdmlib.logger.util.LoggerSet;
@@ -99,74 +98,6 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
    private void dumpDiagram() 
    {
 	   new JsonToGraphViz().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
-   }
-
-   private StringBuilder dumpSwimlanes() {
-      StringBuilder swimlanesText = new StringBuilder();
-
-      LinkedHashSet<String> nodeNames = new LinkedHashSet<String>(this.getEntries().getNodeName());
-      for(String nodeName : nodeNames)
-      {
-         // add one lane
-         StringBuilder laneText = new StringBuilder(
-            "    subgraph clusterLaneName {\n" +
-                  "    	rankdir=\"LR\";\n" +
-                  "    	style=filled;\n" + 
-                  "		color=lightgrey;\n" + 
-                  "innerTasks\n" + 
-                  "    	label = \"LaneName\";\n" + 
-                  "    }\n"+
-                  "    \n"
-               );
-
-         StringBuilder innerTasksText = dumpInnerTasks(nodeName);
-
-         CGUtil.replaceAll(laneText, 
-            "LaneName", nodeName, 
-            "innerTasks", innerTasksText.toString());
-
-         swimlanesText.append(laneText.toString());
-      }
-      return swimlanesText;
-   }
-
-   private StringBuilder dumpInnerTasks(String nodeName) {
-      StringBuilder innerTasksText = new StringBuilder();
-
-      LinkedHashSet<String> taskNames = new LinkedHashSet<String>();
-      for (LogEntry entry : this.getEntries())
-      {
-         if (nodeName.equals(entry.getNodeName()))
-         {
-            taskNames.add(entry.getTaskName());
-         }
-      }
-
-      for (String taskName : taskNames)
-      {
-         innerTasksText.append("        " + nodeName+ "_" + taskName + "[label=\"" + taskName + "\"];\n");
-      }
-
-      return innerTasksText;
-   }
-
-   private StringBuilder dumpLinks() {
-      StringBuilder linksText = new StringBuilder();
-
-      for (LogEntry entry : this.getEntries())
-      {
-         LogEntry previousEntry = entry.getParent();
-         if (previousEntry != null)
-         {
-            linksText.append("    " +
-                  previousEntry.getNodeName() + "_" + previousEntry.getTaskName() +
-                  " -> " +
-                  entry.getNodeName() + "_" + entry.getTaskName() +
-                  "; \n");
-         }
-      }
-
-      return linksText;
    }
 
    //==========================================================================

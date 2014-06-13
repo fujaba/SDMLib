@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -191,19 +191,19 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
-   public ItemSet getItems()
+   public ItemSet getItem()
    {
       ItemSet result = new ItemSet();
       
       for (Person obj : this)
       {
-         result.addAll(obj.getItems());
+         result.addAll(obj.getItem());
       }
       
       return result;
    }
 
-   public PersonSet hasItems(Object value)
+   public PersonSet hasItem(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -220,7 +220,7 @@ public class PersonSet extends SDMSet<Person>
       
       for (Person obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getItems()))
+         if ( ! Collections.disjoint(neighbors, obj.getItem()))
          {
             answer.add(obj);
          }
@@ -229,21 +229,21 @@ public class PersonSet extends SDMSet<Person>
       return answer;
    }
 
-   public PersonSet withItems(Item value)
+   public PersonSet withItem(Item value)
    {
       for (Person obj : this)
       {
-         obj.withItems(value);
+         obj.withItem(value);
       }
       
       return this;
    }
 
-   public PersonSet withoutItems(Item value)
+   public PersonSet withoutItem(Item value)
    {
       for (Person obj : this)
       {
-         obj.withoutItems(value);
+         obj.withoutItem(value);
       }
       
       return this;

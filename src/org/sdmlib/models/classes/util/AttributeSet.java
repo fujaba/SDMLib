@@ -147,7 +147,7 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

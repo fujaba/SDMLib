@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -151,19 +151,19 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return this;
    }
 
-   public ItemSet getItems()
+   public ItemSet getItem()
    {
       ItemSet result = new ItemSet();
       
       for (GroupAccount obj : this)
       {
-         result.addAll(obj.getItems());
+         result.addAll(obj.getItem());
       }
       
       return result;
    }
 
-   public GroupAccountSet hasItems(Object value)
+   public GroupAccountSet hasItem(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -180,7 +180,7 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       
       for (GroupAccount obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getItems()))
+         if ( ! Collections.disjoint(neighbors, obj.getItem()))
          {
             answer.add(obj);
          }
@@ -189,21 +189,21 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return answer;
    }
 
-   public GroupAccountSet withItems(Item value)
+   public GroupAccountSet withItem(Item value)
    {
       for (GroupAccount obj : this)
       {
-         obj.withItems(value);
+         obj.withItem(value);
       }
       
       return this;
    }
 
-   public GroupAccountSet withoutItems(Item value)
+   public GroupAccountSet withoutItem(Item value)
    {
       for (GroupAccount obj : this)
       {
-         obj.withoutItems(value);
+         obj.withoutItem(value);
       }
       
       return this;

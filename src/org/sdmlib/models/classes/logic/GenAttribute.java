@@ -899,7 +899,7 @@ public class GenAttribute extends Generator<Attribute>
          }
          
          String name = StrUtil.upFirstChar(model.getName());
-         String attrNameSetter = "set"+name+"((type) value)";
+         String attrNameSetter = "with"+name+"((type) value)";
          if(model.getVisibility().same(Visibility.PUBLIC)){
             attrNameSetter = model.getName() + " = (type) value";
          }

@@ -25,7 +25,6 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public class SymTabEntry implements PropertyChangeInterface 
 {   
@@ -48,14 +47,15 @@ public class SymTabEntry implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
-      _.append(" ").append(this.getKind());
-      _.append(" ").append(this.getMemberName());
-      _.append(" ").append(this.getType());
-      _.append(" ").append(this.getStartPos());
-      _.append(" ").append(this.getBodyStartPos());
-      _.append(" ").append(this.getEndPos());
-      _.append(" ").append(this.getModifiers());
+//      TODO :  don't know
+//      StringBuilder _ = new StringBuilder();
+//      _.append(" ").append(this.getKind());
+//      _.append(" ").append(this.getMemberName());
+//      _.append(" ").append(this.getType());
+//      _.append(" ").append(this.getStartPos());
+//      _.append(" ").append(this.getBodyStartPos());
+//      _.append(" ").append(this.getEndPos());
+//      _.append(" ").append(this.getModifiers());
       return "" + type;
    }   
    //==========================================================================

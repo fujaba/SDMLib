@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.sdmlib.models.pattern.PatternObject;
 
-public class ArrayListPO extends PatternObject<ArrayListPO, ArrayList>
+public class ArrayListPO extends PatternObject<ArrayListPO, ArrayList<?>>
 {
 
     public ArrayListSet allMatches()
@@ -15,7 +15,7 @@ public class ArrayListPO extends PatternObject<ArrayListPO, ArrayList>
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((ArrayList) this.getCurrentMatch());
+         matches.add((ArrayList<?>) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -28,7 +28,7 @@ public class ArrayListPO extends PatternObject<ArrayListPO, ArrayList>
       newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
-   public ArrayListPO(ArrayList... hostGraphObject) {
+   public ArrayListPO(ArrayList<?>... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }

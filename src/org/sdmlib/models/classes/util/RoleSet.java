@@ -47,7 +47,7 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
    {
       for (Role obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

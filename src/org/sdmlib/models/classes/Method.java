@@ -24,7 +24,6 @@ package org.sdmlib.models.classes;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
-import java.util.LinkedHashSet;
 
 public class Method extends SDMLibClass
 {
@@ -41,7 +40,6 @@ public class Method extends SDMLibClass
    private ParameterSet parameter = null;
    private DataType returnType = DataType.VOID;
 
-   //TODO Right so
    public String getSignature(boolean includeName){
       StringBuilder sb=new StringBuilder();
       
@@ -130,17 +128,6 @@ public class Method extends SDMLibClass
       }
       return this;
    }
-//TODO ALEX USE??   public Method withParameter(String... value){
-//      if(value==null){
-//         return this;
-//      }
-//      for(String parameter : value){
-//         
-//         withParameter(new Parameter(DataType.ref(parameter)));
-//      }
-//      return this;
-//   }
-
 
    public Method without(Parameter... value)
    {
@@ -231,7 +218,6 @@ public class Method extends SDMLibClass
       super.removeYou();
       setClazz(null);
       without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
-      removeAllFromParameter();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -310,76 +296,14 @@ public class Method extends SDMLibClass
       return value;
    } 
 
-   boolean addToParameter(Parameter value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.parameter == null)
-         {
-            this.parameter = new ParameterSet();
-         }
-         
-         changed = this.parameter.add (value);
-         
-         if (changed)
-         {
-            value.withMethod(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   boolean removeFromParameter(Parameter value)
-   {
-      boolean changed = false;
-      
-      if ((this.parameter != null) && (value != null))
-      {
-         changed = this.parameter.remove(value);
-         
-         if (changed)
-         {
-            value.setMethod(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARAMETER, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    Method withParameter(Parameter... value)
    {
-      if(value==null){
-         return this;
-      }
-      for (Parameter item : value)
-      {
-         addToParameter(item);
-      }
-      return this;
+      return with(value);
    } 
 
    Method withoutParameter(Parameter... value)
    {
-      for (Parameter item : value)
-      {
-         removeFromParameter(item);
-      }
-      return this;
-   }
-
-   void removeAllFromParameter()
-   {
-      LinkedHashSet<Parameter> tmpSet = new LinkedHashSet<Parameter>(this.getParameter());
-   
-      for (Parameter value : tmpSet)
-      {
-         this.removeFromParameter(value);
-      }
+      return without(value);
    }
 
    Parameter createParameter()

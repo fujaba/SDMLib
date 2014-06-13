@@ -135,7 +135,7 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((ClassModel) getCurrentMatch()).setName(value);
+         ((ClassModel) getCurrentMatch()).withName(value);
       }
       return this;
    }

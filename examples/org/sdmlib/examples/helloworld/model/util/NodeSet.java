@@ -88,7 +88,7 @@ public class NodeSet extends SDMSet<Node>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -163,7 +163,7 @@ public class NodeSet extends SDMSet<Node>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

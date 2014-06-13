@@ -111,7 +111,7 @@ public class ParameterCreator extends EntityFactory
 
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((SDMLibClass) target).setName((String) value);
+         ((SDMLibClass) target).withName((String) value);
          return true;
       }
 

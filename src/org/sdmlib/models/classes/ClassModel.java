@@ -27,7 +27,6 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
-import java.util.LinkedHashSet;
 
 public class ClassModel extends SDMLibClass
 {
@@ -126,8 +125,7 @@ public class ClassModel extends SDMLibClass
    public void removeYou()
 	{
 	   super.removeYou();
-	   withoutClazz(this.getClasses().toArray(new Clazz[this.getClasses().size()]));
-		removeAllFromClasses();
+	   without(this.getClasses().toArray(new Clazz[this.getClasses().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
 		
 	}
@@ -151,7 +149,7 @@ public class ClassModel extends SDMLibClass
       return _.substring(1);
    }
 
-   public ClassModel withClazz(Clazz... value)
+   public ClassModel with(Clazz... value)
    {
       if(value==null){
          return this;
@@ -174,7 +172,7 @@ public class ClassModel extends SDMLibClass
       return this;
    } 
 
-   public ClassModel withoutClazz(Clazz... value)
+   public ClassModel without(Clazz... value)
    {
       if (this.classes == null){
          return this;
@@ -228,76 +226,14 @@ public class ClassModel extends SDMLibClass
       return this;
    }
 
-   boolean addToClasses(Clazz value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.classes == null)
-         {
-            this.classes = new ClazzSet();
-         }
-         
-         changed = this.classes.add (value);
-         
-         if (changed)
-         {
-            value.withClassModel(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   boolean removeFromClasses(Clazz value)
-   {
-      boolean changed = false;
-      
-      if ((this.classes != null) && (value != null))
-      {
-         changed = this.classes.remove(value);
-         
-         if (changed)
-         {
-            value.setClassModel(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    ClassModel withClasses(Clazz... value)
    {
-      if(value==null){
-         return this;
-      }
-      for (Clazz item : value)
-      {
-         addToClasses(item);
-      }
-      return this;
+      return with(value);
    } 
 
    ClassModel withoutClasses(Clazz... value)
    {
-      for (Clazz item : value)
-      {
-         removeFromClasses(item);
-      }
-      return this;
-   }
-
-   void removeAllFromClasses()
-   {
-      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getClasses());
-   
-      for (Clazz value : tmpSet)
-      {
-         this.removeFromClasses(value);
-      }
+      return without(value);
    }
 
    Clazz createClasses()

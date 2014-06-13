@@ -125,7 +125,7 @@ public class LinkConstraint extends PatternLink implements PropertyChangeInterfa
             Object hostGraphTgtObject = this.getTgt().getCurrentMatch();
             
             if (hostGraphTgtObject != null && 
-                  (hostGraphTgtObject == value || (value instanceof Collection && ((Collection) value).contains(hostGraphTgtObject))))
+                  (hostGraphTgtObject == value || (value instanceof Collection && ((Collection<?>) value).contains(hostGraphTgtObject))))
             {
                if (getTopPattern().getDebugMode() >= Kanban.DEBUG_ON)
                {

@@ -86,19 +86,19 @@ public class ClassModelCreator extends EntityFactory
 
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((SDMLibClass) target).setName((String) value);
+         ((SDMLibClass) target).withName((String) value);
          return true;
       }
 
       if (ClassModel.PROPERTY_CLASSES.equalsIgnoreCase(attrName))
       {
-         ((ClassModel) target).withClazz((Clazz) value);
+         ((ClassModel) target).with((Clazz) value);
          return true;
       }
       
       if ((ClassModel.PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ClassModel) target).withoutClazz((Clazz) value);
+         ((ClassModel) target).without((Clazz) value);
          return true;
       }
       
