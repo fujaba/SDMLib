@@ -33,9 +33,13 @@ public class ClazzCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Clazz(null);
+      return new ClassModel().createClazz(null);
    }
    
+   public static JsonIdMap createIdMap(String sessionID) {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+
    @Override
    public Object getValue(Object target, String attrName)
    {

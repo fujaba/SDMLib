@@ -243,4 +243,16 @@ public class Role extends SDMLibClass
       with(value);
       return value;
    } 
+
+   Role withClazz(Clazz value)
+   {
+      setClazz(value);
+      return this;
+   } 
+
+   Role withAssoc(Association value)
+   {
+      setAssoc(value);
+      return this;
+   } 
 }

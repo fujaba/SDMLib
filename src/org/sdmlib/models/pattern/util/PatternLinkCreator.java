@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PatternLinkCreator extends PatternElementCreator
 {
@@ -69,6 +70,11 @@ public class PatternLinkCreator extends PatternElementCreator
       {
          return ((PatternLink)target).getHostGraphSrcObject();
       }
+
+      if (PatternLink.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
+      {
+         return ((PatternLink) target).getPattern();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -102,6 +108,12 @@ public class PatternLinkCreator extends PatternElementCreator
       if (PatternLink.PROPERTY_HOSTGRAPHSRCOBJECT.equalsIgnoreCase(attrName))
       {
          ((PatternLink)target).setHostGraphSrcObject((Object) value);
+         return true;
+      }
+
+      if (PatternLink.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((PatternLink) target).setPattern((Pattern) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

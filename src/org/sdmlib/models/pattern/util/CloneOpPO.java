@@ -166,8 +166,8 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
    public PatternPO hasPattern()
    {
       PatternPO result = new PatternPO();
-      result.setModifier(this.getPattern().getModifier());
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
       
       return result;
@@ -175,16 +175,7 @@ public class CloneOpPO extends PatternObject<CloneOpPO, CloneOp>
 
    public CloneOpPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    public Pattern getPattern()

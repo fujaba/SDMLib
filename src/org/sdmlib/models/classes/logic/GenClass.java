@@ -69,10 +69,10 @@ public class GenClass extends Generator<Clazz>
             insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
-         generateAttributes(rootDir, helpersDir);
+         generateAttributes(rootDir, helpersDir, false);
          printFile();
       }else{
-         generateAttributes(rootDir, helpersDir);
+         generateAttributes(rootDir, helpersDir, false);
       }
 
 
@@ -170,13 +170,13 @@ public class GenClass extends Generator<Clazz>
       return getRepairClassModel();
    }
 
-   private void generateAttributes(String rootDir, String helpersDir) 
+   private void generateAttributes(String rootDir, String helpersDir, boolean fromSuperClass) 
    {
       for (Attribute attr : model.getAttributes()) 
       {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
-         getGenerator(attr).generate(rootDir, helpersDir, false);
+         getGenerator(attr).generate(rootDir, helpersDir, fromSuperClass);
       }
 
       if (model.getSuperClass() != null) 
@@ -197,7 +197,7 @@ public class GenClass extends Generator<Clazz>
             continue;
          GenAttribute generator = getGenerator(attr);
          if(generator!=null){
-            generator.generate(model, rootDir, helpersDir, false);
+            generator.generate(model, rootDir, helpersDir, true);
          }
       }
       if (superClazz.getSuperClass() != null) {
@@ -364,7 +364,7 @@ public class GenClass extends Generator<Clazz>
          }
          String superReplacement="";
          if (model.getSuperClass() != null && !model.getSuperClass().isExternal()) {
-            superReplacement = "      super.removeYou();\n";
+            superReplacement = "\n      super.removeYou();\n";
          }
          parser.replaceAll("\n   " +
                "\n   //==========================================================================" +

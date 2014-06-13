@@ -25,6 +25,7 @@ import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
+import java.util.LinkedHashSet;
 
 public class Clazz extends SDMLibClass
 {
@@ -51,7 +52,7 @@ public class Clazz extends SDMLibClass
    private boolean interfaze = false;
    private boolean external;
    
-   public Clazz(String name){
+   Clazz(String name){
       setName(name);
    }
    
@@ -333,6 +334,11 @@ public class Clazz extends SDMLibClass
       without(this.getRoles().toArray(new Role[this.getRoles().size()]));
       withoutKidClazz(this.getKidClazzes().toArray(new Clazz[this.getKidClazzes().size()]));
       withoutSuperClazz(this.getSuperClazzes().toArray(new Clazz[this.getSuperClazzes().size()]));
+      removeAllFromKidClazzes();
+      removeAllFromSuperClazzes();
+      removeAllFromAttributes();
+      removeAllFromMethods();
+      removeAllFromRoles();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
@@ -619,6 +625,402 @@ public class Clazz extends SDMLibClass
    {
       Clazz value = new Clazz(null);
       withSuperClazz(value);
+      return value;
+   } 
+
+   Clazz withClassModel(ClassModel value)
+   {
+      setClassModel(value);
+      return this;
+   } 
+
+   ClassModel createClassModel()
+   {
+      ClassModel value = new ClassModel();
+      withClassModel(value);
+      return value;
+   } 
+
+   boolean addToKidClazzes(Clazz value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.kidClazzes == null)
+         {
+            this.kidClazzes = new ClazzSet();
+         }
+         
+         changed = this.kidClazzes.add (value);
+         
+         if (changed)
+         {
+            value.withSuperClazzes(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLAZZES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+
+   boolean removeFromKidClazzes(Clazz value)
+   {
+      boolean changed = false;
+      
+      if ((this.kidClazzes != null) && (value != null))
+      {
+         changed = this.kidClazzes.remove(value);
+         
+         if (changed)
+         {
+            value.withoutSuperClazzes(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLAZZES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+
+   Clazz withoutKidClazzes(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         removeFromKidClazzes(item);
+      }
+      return this;
+   }
+
+   void removeAllFromKidClazzes()
+   {
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getKidClazzes());
+   
+      for (Clazz value : tmpSet)
+      {
+         this.removeFromKidClazzes(value);
+      }
+   }
+
+   Clazz createKidClazzes()
+   {
+      Clazz value = new Clazz(null);
+      withKidClazzes(value);
+      return value;
+   } 
+
+   boolean addToSuperClazzes(Clazz value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.superClazzes == null)
+         {
+            this.superClazzes = new ClazzSet();
+         }
+         
+         changed = this.superClazzes.add (value);
+         
+         if (changed)
+         {
+            value.withKidClazzes(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLAZZES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+
+   boolean removeFromSuperClazzes(Clazz value)
+   {
+      boolean changed = false;
+      
+      if ((this.superClazzes != null) && (value != null))
+      {
+         changed = this.superClazzes.remove(value);
+         
+         if (changed)
+         {
+            value.withoutKidClazzes(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLAZZES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+
+   Clazz withSuperClazzes(Clazz... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Clazz item : value)
+      {
+         addToSuperClazzes(item);
+      }
+      return this;
+   } 
+
+   Clazz withoutSuperClazzes(Clazz... value)
+   {
+      for (Clazz item : value)
+      {
+         removeFromSuperClazzes(item);
+      }
+      return this;
+   }
+
+   void removeAllFromSuperClazzes()
+   {
+      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getSuperClazzes());
+   
+      for (Clazz value : tmpSet)
+      {
+         this.removeFromSuperClazzes(value);
+      }
+   }
+
+   Clazz createSuperClazzes()
+   {
+      Clazz value = new Clazz(null);
+      withSuperClazzes(value);
+      return value;
+   } 
+
+   boolean addToAttributes(Attribute value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.attributes == null)
+         {
+            this.attributes = new AttributeSet();
+         }
+         
+         changed = this.attributes.add (value);
+         
+         if (changed)
+         {
+            value.withClazz(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+
+   boolean removeFromAttributes(Attribute value)
+   {
+      boolean changed = false;
+      
+      if ((this.attributes != null) && (value != null))
+      {
+         changed = this.attributes.remove(value);
+         
+         if (changed)
+         {
+            value.setClazz(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+
+   Clazz withAttributes(Attribute... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Attribute item : value)
+      {
+         addToAttributes(item);
+      }
+      return this;
+   } 
+
+   Clazz withoutAttributes(Attribute... value)
+   {
+      for (Attribute item : value)
+      {
+         removeFromAttributes(item);
+      }
+      return this;
+   }
+
+   void removeAllFromAttributes()
+   {
+      LinkedHashSet<Attribute> tmpSet = new LinkedHashSet<Attribute>(this.getAttributes());
+   
+      for (Attribute value : tmpSet)
+      {
+         this.removeFromAttributes(value);
+      }
+   }
+
+   Attribute createAttributes()
+   {
+      Attribute value = new Attribute();
+      withAttributes(value);
+      return value;
+   } 
+
+   boolean addToMethods(Method value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.methods == null)
+         {
+            this.methods = new MethodSet();
+         }
+         
+         changed = this.methods.add (value);
+         
+         if (changed)
+         {
+            value.withClazz(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+
+   boolean removeFromMethods(Method value)
+   {
+      boolean changed = false;
+      
+      if ((this.methods != null) && (value != null))
+      {
+         changed = this.methods.remove(value);
+         
+         if (changed)
+         {
+            value.setClazz(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+
+   Clazz withMethods(Method... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Method item : value)
+      {
+         addToMethods(item);
+      }
+      return this;
+   } 
+
+   Clazz withoutMethods(Method... value)
+   {
+      for (Method item : value)
+      {
+         removeFromMethods(item);
+      }
+      return this;
+   }
+
+   void removeAllFromMethods()
+   {
+      LinkedHashSet<Method> tmpSet = new LinkedHashSet<Method>(this.getMethods());
+   
+      for (Method value : tmpSet)
+      {
+         this.removeFromMethods(value);
+      }
+   }
+
+   Method createMethods()
+   {
+      Method value = new Method();
+      withMethods(value);
+      return value;
+   } 
+
+   boolean addToRoles(Role value)
+   {
+      boolean changed = false;
+      
+      if (value != null)
+      {
+         if (this.roles == null)
+         {
+            this.roles = new RoleSet();
+         }
+         
+         changed = this.roles.add (value);
+         
+         if (changed)
+         {
+            value.withClazz(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, null, value);
+         }
+      }
+         
+      return changed;   
+   }
+
+   boolean removeFromRoles(Role value)
+   {
+      boolean changed = false;
+      
+      if ((this.roles != null) && (value != null))
+      {
+         changed = this.roles.remove(value);
+         
+         if (changed)
+         {
+            value.setClazz(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+
+   Clazz withRoles(Role... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Role item : value)
+      {
+         addToRoles(item);
+      }
+      return this;
+   } 
+
+   Clazz withoutRoles(Role... value)
+   {
+      for (Role item : value)
+      {
+         removeFromRoles(item);
+      }
+      return this;
+   }
+
+   void removeAllFromRoles()
+   {
+      LinkedHashSet<Role> tmpSet = new LinkedHashSet<Role>(this.getRoles());
+   
+      for (Role value : tmpSet)
+      {
+         this.removeFromRoles(value);
+      }
+   }
+
+   Role createRoles()
+   {
+      Role value = new Role();
+      withRoles(value);
       return value;
    } 
 }

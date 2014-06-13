@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.StrUtil;
 
 public class UnifyGraphsOp extends PatternElement implements PropertyChangeInterface
 {
@@ -41,9 +42,10 @@ public class UnifyGraphsOp extends PatternElement implements PropertyChangeInter
    
    public void removeYou()
    {
+      super.removeYou();
+
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    public String toString()

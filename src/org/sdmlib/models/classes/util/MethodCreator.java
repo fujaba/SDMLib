@@ -29,6 +29,10 @@ public class MethodCreator extends SDMLibClassCreator
       return new Method(null);
    }
    
+   public static JsonIdMap createIdMap(String sessionID) {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+
    @Override
    public Object getValue(Object target, String attrName)
    {

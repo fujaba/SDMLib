@@ -65,7 +65,7 @@ public class BanfM2MTransformations
       
       graphClazz = model.createClazz("Graph");
       
-      Clazz graphComponentClazz = new Clazz("GraphComponent")
+      Clazz graphComponentClazz = model.createClazz("GraphComponent")
       .withAttribute("text", DataType.STRING);
       
       Clazz nodeClazz = model.createClazz("Person")
@@ -119,11 +119,11 @@ public class BanfM2MTransformations
       storyboard.add("<hr/>");
       storyboard.add("<h2>Even more evolved class diagram : </h2>");
 
-      model = new ClassModel("org.sdmlib.examples.m2m");
+      model = new ClassModel("org.sdmlib.examples.m2m.model");
       
-      graphClazz = new Clazz("Graph");
+      graphClazz = model.createClazz("Graph");
 
-      nodeClazz = new Clazz("Person")
+      nodeClazz = model.createClazz("Person")
       .withAttribute("text", DataType.STRING);
 
       graphClazz.withAssoc(nodeClazz, "persons", Card.MANY, "graph", Card.ONE);
@@ -176,8 +176,8 @@ public class BanfM2MTransformations
       storyboard.add("_____ forward ______________ backward ___________");
       
       
-      GenericGraphPO genericGraphPO = new GenericGraphPO();
-      GenericAttributeSet renameFirstNameAttrRule = new GenericGraphPO()
+      GenericGraphPO genericGraphPO = new GenericGraphPO().withModifier(Pattern.BOUND);
+      genericGraphPO
       .hasObjects()
       .hasType(Person.class.getName())
       .hasAttrs()
@@ -192,12 +192,12 @@ public class BanfM2MTransformations
       
       storyboard.addPattern(genericGraphPO, false);
       
-      storyboard.add(reverseRenameFirstNameAttrRule.dumpDiagram("banfSimpleMigrationReverseRenameFirstNameAttrRule", false));
+      storyboard.addPattern(reverseRenameFirstNameAttrRule, false);
       
       storyboard.add("<hr/>");
       
       
-      renameKindAttrGraphPO = new GenericGraphPO(genGraph);
+      renameKindAttrGraphPO = new GenericGraphPO().withModifier(Pattern.BOUND);
       renameKindAttrGraphPO
       .hasObjects()
       .hasType(Relation.class.getName())
@@ -218,7 +218,7 @@ public class BanfM2MTransformations
       storyboard.add("<hr/>");
       
       // rename graph--nodes links to parent--gcs links
-      renamePersonsLinkGraphPO = new GenericGraphPO(genGraph);
+      renamePersonsLinkGraphPO = new GenericGraphPO().withModifier(Pattern.BOUND);
       renamePersonsLinkGraphPO
       .hasLinks()
       .hasTgtLabel(Person.PROPERTY_GRAPH)
@@ -240,7 +240,7 @@ public class BanfM2MTransformations
       storyboard.add("<hr/>");
       
       // rename graph--edges links to parent--gcs links
-      renameRelationsLinkGraphPO = new GenericGraphPO(genGraph);
+      renameRelationsLinkGraphPO = new GenericGraphPO().withModifier(Pattern.BOUND);
       renameRelationsLinkGraphPO
       .hasLinks()
       .hasSrcLabel(Relation.PROPERTY_GRAPH)
@@ -261,6 +261,10 @@ public class BanfM2MTransformations
       
       storyboard.add("<hr/>");
       
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      
+      storyboard.add("<hr/>");
+      
       // apply the transformations
       PatternObject boundPO = (PatternObject) reverseRenameRelationsLinkRule.getElements().first();
       reverseRenameRelationsLinkRule.rebind(boundPO, genGraph);
@@ -274,12 +278,16 @@ public class BanfM2MTransformations
       reverseRenameKindAttrRule.rebind(boundPO, genGraph);
       reverseRenameKindAttrRule.allMatches();
       
+
       boundPO = (PatternObject) reverseRenameFirstNameAttrRule.getElements().first();
       reverseRenameFirstNameAttrRule.rebind(boundPO, genGraph);
       reverseRenameFirstNameAttrRule.allMatches();
       
-      // storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
+      
+      storyboard.add("<hr/>");
+
       // make the graph specific again
       Graph srcGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap("s"), null, genGraph);
       
@@ -295,10 +303,14 @@ public class BanfM2MTransformations
       JsonIdMap fwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
 
       JsonArray jsonArray = fwdMap.toJsonArray(forwardRule);
+      Object firstObject = jsonArray.get(0);
+      jsonArray.remove(0);
+      jsonArray.add(firstObject);
       
       JsonIdMap bwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
       
-      Pattern backwardRule = (Pattern) bwdMap.decode(jsonArray);
+      PatternElement decode = (PatternElement) bwdMap.decode(jsonArray);
+      Pattern backwardRule = (Pattern) decode.getPattern();
       backwardRule.setJsonIdMap(origMap);
       
       // look for attribute constraint with modifer create

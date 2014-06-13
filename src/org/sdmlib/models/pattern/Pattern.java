@@ -269,7 +269,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       return this.elements;
    }
    
-   public boolean addToElements(PatternElement<?> value)
+   public boolean addToElements(PatternElement value)
    {
       boolean changed = false;
       
@@ -1106,6 +1106,9 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
    public Pattern withElements(PatternElement... value)
    {
+      if(value==null){
+         return this;
+      }
       for (PatternElement item : value)
       {
          addToElements(item);
@@ -1145,5 +1148,102 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    } 
 
 
+   public PatternElement createElementsPattern()
+   {
+      PatternElement value = new Pattern();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsPatternObject()
+   {
+      PatternElement value = new PatternObject();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsPatternLink()
+   {
+      PatternElement value = new PatternLink();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsAttributeConstraint()
+   {
+      PatternElement value = new AttributeConstraint();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsMatchIsomorphicConstraint()
+   {
+      PatternElement value = new MatchIsomorphicConstraint();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsCloneOp()
+   {
+      PatternElement value = new CloneOp();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsUnifyGraphsOp()
+   {
+      PatternElement value = new UnifyGraphsOp();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsDestroyObjectElem()
+   {
+      PatternElement value = new DestroyObjectElem();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsCardinalityConstraint()
+   {
+      PatternElement value = new CardinalityConstraint();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsMatchOtherThen()
+   {
+      PatternElement value = new MatchOtherThen();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsGenericConstraint()
+   {
+      PatternElement value = new GenericConstraint();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsNegativeApplicationCondition()
+   {
+      PatternElement value = new NegativeApplicationCondition();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsOptionalSubPattern()
+   {
+      PatternElement value = new OptionalSubPattern();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternElement createElementsLinkConstraint()
+   {
+      PatternElement value = new LinkConstraint();
+      withElements(value);
+      return value;
+   } 
 }
 

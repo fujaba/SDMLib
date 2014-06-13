@@ -2460,9 +2460,8 @@ public class GenClassModel
       {
          if (!classExists(filePath))
          {
-            Clazz clazz = new Clazz(filePath);
+            Clazz clazz = model.createClazz(filePath);
             getOrCreate(clazz).withFilePath(rootDir);
-            model.withClazz(clazz);
          }
          return;
       }

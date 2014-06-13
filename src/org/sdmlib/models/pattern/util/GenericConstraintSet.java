@@ -224,9 +224,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
 
       if (value instanceof Collection)
       {
-         for(Object item : (java.util.Collection<?>)value){
-            neighbors.add(item);
-         }
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

@@ -1,20 +1,22 @@
 package org.sdmlib.examples.groupAccount.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.groupAccount.model.GroupAccount;
 
 public class GroupAccountPOCreator extends PatternObjectCreator
 {
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new GroupAccountPO();
+      if(reference) {
+          return new GroupAccountPO(new GroupAccount[]{});
+      } else {
+          return new GroupAccountPO();
+      }
    }
    
-   public static JsonIdMap createIdMap(String sessionID)
-   {
+   public static JsonIdMap createIdMap(String sessionID) {
       return CreatorCreator.createIdMap(sessionID);
    }
 }
-

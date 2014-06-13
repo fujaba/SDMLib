@@ -81,18 +81,12 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
       return result;
    }
    
+   
    public PatternPO hasElements(PatternElementPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Pattern.PROPERTY_ELEMENTS)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_ELEMENTS);
    }
+   
    
    public PatternPO withElements(PatternElementPO tgtPO)
    {
@@ -252,16 +246,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
 
    public PatternPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    public Pattern<PatternElement<?>> getPattern()
@@ -317,16 +302,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
 
    public PatternPO hasRgraph(ReachabilityGraphPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Pattern.PROPERTY_RGRAPH)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, Pattern.PROPERTY_RGRAPH);
    }
 
    public ReachabilityGraph getRgraph()

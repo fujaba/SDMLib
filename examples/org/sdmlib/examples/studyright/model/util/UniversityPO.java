@@ -2,8 +2,6 @@ package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.University;
-import org.sdmlib.examples.studyright.model.util.UniversitySet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.studyright.model.util.RoomPO;
 import org.sdmlib.examples.studyright.model.util.UniversityPO;
@@ -33,23 +31,15 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
 
 
    public UniversityPO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public UniversityPO(University... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    public UniversityPO hasName(String value)
    {
       new AttributeConstraint()
@@ -172,5 +162,3 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
    }
 
 }
-
-

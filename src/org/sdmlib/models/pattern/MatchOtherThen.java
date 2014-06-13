@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.StrUtil;
 
 public class MatchOtherThen extends PatternElement<MatchOtherThen> implements PropertyChangeInterface
 {
@@ -102,11 +103,12 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setPattern(null);
       setSrc(null);
       setForbidden(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    
@@ -268,5 +270,6 @@ public class MatchOtherThen extends PatternElement<MatchOtherThen> implements Pr
       withForbidden(value);
       return value;
    } 
+
 }
 

@@ -76,6 +76,11 @@ public class PatternCreator extends EntityFactory
       {
          return ((Pattern<?>)target).getName();
       }
+
+      if (Pattern.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
+      {
+         return ((Pattern) target).getPattern();
+      }
       return super.getValue(target, attribute);
    }
    
@@ -121,6 +126,12 @@ public class PatternCreator extends EntityFactory
       if (Pattern.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((Pattern<?>)target).setName((String) value);
+         return true;
+      }
+
+      if (Pattern.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((Pattern) target).setPattern((Pattern) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

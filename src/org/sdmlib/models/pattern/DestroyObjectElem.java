@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.StrUtil;
 
 public class DestroyObjectElem extends PatternElement implements PropertyChangeInterface
 {
@@ -81,10 +82,11 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setPatternObject(null);
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    
@@ -155,6 +157,6 @@ public class DestroyObjectElem extends PatternElement implements PropertyChangeI
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
-
+   
 }
 

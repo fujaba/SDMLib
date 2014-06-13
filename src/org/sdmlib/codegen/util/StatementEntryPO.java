@@ -14,6 +14,9 @@ public class StatementEntryPO extends PatternObject<StatementEntryPO, StatementE
    }
 
    public StatementEntryPO(StatementEntry... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override

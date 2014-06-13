@@ -2,8 +2,6 @@ package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.Male;
-import org.sdmlib.examples.studyright.model.util.MaleSet;
-import org.sdmlib.models.pattern.Pattern;
 
 public class MalePO extends PatternObject<MalePO, Male>
 {
@@ -26,23 +24,15 @@ public class MalePO extends PatternObject<MalePO, Male>
 
 
    public MalePO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public MalePO(Male... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    
    //==========================================================================
    
@@ -77,4 +67,3 @@ public class MalePO extends PatternObject<MalePO, Male>
    }
 
 }
-

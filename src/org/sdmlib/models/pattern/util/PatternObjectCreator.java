@@ -10,6 +10,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class PatternObjectCreator extends PatternElementCreator
 {
@@ -29,7 +30,7 @@ public class PatternObjectCreator extends PatternElementCreator
       PatternObject.PROPERTY_DESTROYELEM,
       PatternObject.PROPERTY_CARDCONSTRAINTS,
       PatternObject.PROPERTY_MATCHOTHERTHEN,
-      PatternObject.PROPERTY_EXCLUDERS
+      PatternObject.PROPERTY_EXCLUDERS,
    };
    
    @Override
@@ -97,6 +98,11 @@ public class PatternObjectCreator extends PatternElementCreator
       if (PatternObject.PROPERTY_EXCLUDERS.equalsIgnoreCase(attribute))
       {
          return ((PatternObject<?, ?>)target).getExcluders();
+      }
+
+      if (PatternObject.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
+      {
+         return ((PatternObject) target).getPattern();
       }
 
       return super.getValue(target, attrName);
@@ -191,6 +197,12 @@ public class PatternObjectCreator extends PatternElementCreator
       if ((PatternObject.PROPERTY_EXCLUDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PatternObject<?, ?>)target).removeFromExcluders((MatchOtherThen) value);
+         return true;
+      }
+
+      if (PatternObject.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((PatternObject) target).setPattern((Pattern) value);
          return true;
       }
 

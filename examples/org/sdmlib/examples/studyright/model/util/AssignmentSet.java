@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,21 +26,18 @@ import org.sdmlib.examples.studyright.model.Assignment;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import java.util.Collections;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
 import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.examples.studyright.model.Room;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
 import org.sdmlib.examples.studyright.model.Student;
 
 public class AssignmentSet extends SDMSet<Assignment>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public AssignmentPO hasAssignmentPO()
    {
-      return new AssignmentPO (this.toArray(new Assignment[this.size()]));
+      return new AssignmentPO(this.toArray(new Assignment[this.size()]));
    }
 
 
@@ -51,14 +48,12 @@ public class AssignmentSet extends SDMSet<Assignment>
    }
 
 
+   @SuppressWarnings("unchecked")
    public AssignmentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Assignment) item);
-           }
+         this.addAll((Collection<Assignment>)value);
       }
       else if (value != null)
       {
@@ -154,7 +149,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       for (Assignment obj : this)
       {
-         result.with(obj.getAssignments());
+         result.addAll(obj.getAssignments());
       }
       
       return result;
@@ -212,7 +207,7 @@ public class AssignmentSet extends SDMSet<Assignment>
       
       for (Assignment obj : this)
       {
-         result.with(obj.getStudents());
+         result.add(obj.getStudents());
       }
       
       return result;
@@ -255,4 +250,3 @@ public class AssignmentSet extends SDMSet<Assignment>
    }
 
 }
-

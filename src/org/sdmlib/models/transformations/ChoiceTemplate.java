@@ -181,5 +181,12 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
       withChoices(value);
       return value;
    } 
+
+   public Template createChoicesChoiceTemplate()
+   {
+      Template value = new ChoiceTemplate();
+      withChoices(value);
+      return value;
+   } 
 }
 

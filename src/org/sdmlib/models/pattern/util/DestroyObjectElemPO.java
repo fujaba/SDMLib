@@ -33,6 +33,8 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemSet allMatches()
    {
+      this.setDoAllMatches(true);
+      
       DestroyObjectElemSet matches = new DestroyObjectElemSet();
 
       while (this.getPattern().getHasMatch())
@@ -96,8 +98,8 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    public PatternObjectPO hasPatternObject()
    {
       PatternObjectPO result = new PatternObjectPO();
-      result.setModifier(this.getPattern().getModifier());
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(DestroyObjectElem.PROPERTY_PATTERNOBJECT, result);
       
       return result;
@@ -105,16 +107,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    
    public DestroyObjectElemPO hasPatternObject(PatternObjectPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(DestroyObjectElem.PROPERTY_PATTERNOBJECT)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, DestroyObjectElem.PROPERTY_PATTERNOBJECT);
    }
    
    public PatternObject getPatternObject()
@@ -177,8 +170,8 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
    public PatternPO hasPattern()
    {
       PatternPO result = new PatternPO();
-      result.setModifier(this.getPattern().getModifier());
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(PatternElement.PROPERTY_PATTERN, result);
       
       return result;
@@ -186,16 +179,7 @@ public class DestroyObjectElemPO extends PatternObject<DestroyObjectElemPO, Dest
 
    public DestroyObjectElemPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    @Override

@@ -11,6 +11,9 @@ public class LocalVarTableEntryPO extends PatternObject<LocalVarTableEntryPO, Lo
    }
 
    public LocalVarTableEntryPO(LocalVarTableEntry... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
    @Override

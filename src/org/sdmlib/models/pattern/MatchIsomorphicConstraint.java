@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.StrUtil;
 
 public class MatchIsomorphicConstraint extends PatternElement implements PropertyChangeInterface
 {
@@ -100,9 +101,10 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    @Override
@@ -114,5 +116,6 @@ public class MatchIsomorphicConstraint extends PatternElement implements Propert
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
+
 }
 

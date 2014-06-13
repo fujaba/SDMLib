@@ -23,6 +23,8 @@ package org.sdmlib.models.pattern;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.StrUtil;
 
 public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
 {
@@ -98,11 +100,12 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       removeAllFromElements();
       setPattern(null);
       setRgraph(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    @Override
@@ -113,8 +116,94 @@ public class NegativeApplicationCondition extends Pattern implements PropertyCha
       _.append(" ").append(this.getDebugMode());
       _.append(" ").append(this.getModifier());
       _.append(" ").append(this.getPatternObjectName());
+      _.append(" ").append(this.getName());
       return _.substring(1);
    }
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CURRENTSUBPATTERN = "currentSubPattern";
+   
+   private Pattern currentSubPattern;
+
+   public Pattern getCurrentSubPattern()
+   {
+      return this.currentSubPattern;
+   }
+   
+   public void setCurrentSubPattern(Pattern value)
+   {
+      if (this.currentSubPattern != value)
+      {
+         Pattern oldValue = this.currentSubPattern;
+         this.currentSubPattern = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CURRENTSUBPATTERN, oldValue, value);
+      }
+   }
+   
+   public Pattern withCurrentSubPattern(Pattern value)
+   {
+      setCurrentSubPattern(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_DEBUGMODE = "debugMode";
+   
+   private int debugMode;
+
+   public int getDebugMode()
+   {
+      return this.debugMode;
+   }
+   
+   public void setDebugMode(int value)
+   {
+      if (this.debugMode != value)
+      {
+         int oldValue = this.debugMode;
+         this.debugMode = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_DEBUGMODE, oldValue, value);
+      }
+   }
+   
+   public Pattern withDebugMode(int value)
+   {
+      setDebugMode(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "name";
+   
+   private String name;
+
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.name, value))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Pattern withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
+ 
 }
 

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,25 +26,20 @@ import org.sdmlib.examples.studyright.model.Student;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import java.util.Collections;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
 import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.examples.studyright.model.Lecture;
-import org.sdmlib.examples.studyright.model.util.UniversitySet;
 import org.sdmlib.examples.studyright.model.University;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
 import org.sdmlib.examples.studyright.model.Room;
-import org.sdmlib.examples.studyright.model.util.AssignmentSet;
 import org.sdmlib.examples.studyright.model.Assignment;
 
 public class StudentSet extends SDMSet<Student>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public StudentPO hasStudentPO()
    {
-      return new StudentPO (this.toArray(new Student[this.size()]));
+      return new StudentPO(this.toArray(new Student[this.size()]));
    }
 
 
@@ -55,14 +50,12 @@ public class StudentSet extends SDMSet<Student>
    }
 
 
+   @SuppressWarnings("unchecked")
    public StudentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Student) item);
-           }
+         this.addAll((Collection<Student>)value);
       }
       else if (value != null)
       {
@@ -194,7 +187,7 @@ public class StudentSet extends SDMSet<Student>
       
       for (Student obj : this)
       {
-         result.with(obj.getLecture());
+         result.addAll(obj.getLecture());
       }
       
       return result;
@@ -326,7 +319,7 @@ public class StudentSet extends SDMSet<Student>
       
       for (Student obj : this)
       {
-         result.with(obj.getUni());
+         result.add(obj.getUni());
       }
       
       return result;
@@ -374,7 +367,7 @@ public class StudentSet extends SDMSet<Student>
       
       for (Student obj : this)
       {
-         result.with(obj.getIn());
+         result.add(obj.getIn());
       }
       
       return result;
@@ -422,7 +415,7 @@ public class StudentSet extends SDMSet<Student>
       
       for (Student obj : this)
       {
-         result.with(obj.getDone());
+         result.addAll(obj.getDone());
       }
       
       return result;
@@ -475,5 +468,3 @@ public class StudentSet extends SDMSet<Student>
    }
 
 }
-
-

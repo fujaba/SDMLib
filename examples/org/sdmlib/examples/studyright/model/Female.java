@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,6 +25,7 @@ import org.sdmlib.examples.studyright.model.Person;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 
 public class Female implements Person, PropertyChangeInterface
 {
@@ -72,6 +73,7 @@ public class Female implements Person, PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -91,7 +93,7 @@ public class Female implements Person, PropertyChangeInterface
    
    public void setName(String value)
    {
-      if (this.name != value)
+      if ( ! StrUtil.stringEquals(this.name, value))
       {
          String oldValue = this.name;
          this.name = value;
@@ -116,4 +118,3 @@ public class Female implements Person, PropertyChangeInterface
    }
 
 }
-

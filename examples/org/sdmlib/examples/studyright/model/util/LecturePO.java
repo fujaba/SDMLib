@@ -2,8 +2,6 @@ package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.Lecture;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
-import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.studyright.model.util.RoomPO;
 import org.sdmlib.examples.studyright.model.util.LecturePO;
@@ -34,23 +32,15 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
 
 
    public LecturePO(){
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public LecturePO(Lecture... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
-          return;
+         return ;
       }
-      Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
-      pattern.addToElements(this);
-      if(hostGraphObject.length>1){
-           this.withCandidates(hostGraphObject);
-      } else {
-           this.withCandidates(hostGraphObject[0]);
-      }
-      pattern.findMatch();
-  }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    public LecturePO hasTitle(String value)
    {
       new AttributeConstraint()
@@ -207,4 +197,3 @@ public class LecturePO extends PatternObject<LecturePO, Lecture>
    }
 
 }
-

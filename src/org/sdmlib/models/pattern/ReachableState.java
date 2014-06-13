@@ -37,6 +37,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import java.beans.PropertyChangeListener;
 
 public class ReachableState implements PropertyChangeInterface
 {
@@ -242,9 +243,9 @@ public class ReachableState implements PropertyChangeInterface
    public void removeYou()
    {
       setParent(null);
-      setMaster(null);
       removeAllFromRuleapplications();
       removeAllFromResultOf();
+      setMaster(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -389,7 +390,7 @@ public class ReachableState implements PropertyChangeInterface
    
    public Object getGraphRoot()
    {
-      return graphRoot;
+      return this.graphRoot;
    }
    
    public void setGraphRoot(Object value)
@@ -498,7 +499,7 @@ public class ReachableState implements PropertyChangeInterface
       
       if ((this.ruleapplications != null) && (value != null))
       {
-         changed = this.ruleapplications.remove (value);
+         changed = this.ruleapplications.remove(value);
          
          if (changed)
          {
@@ -591,7 +592,7 @@ public class ReachableState implements PropertyChangeInterface
       
       if ((this.resultOf != null) && (value != null))
       {
-         changed = this.resultOf.remove (value);
+         changed = this.resultOf.remove(value);
          
          if (changed)
          {
@@ -634,12 +635,15 @@ public class ReachableState implements PropertyChangeInterface
 
    public ReachableState withRuleapplications(RuleApplication... value)
    {
+      if(value==null){
+         return this;
+      }
       for (RuleApplication item : value)
       {
          addToRuleapplications(item);
       }
       return this;
-   } 
+   }
 
    public ReachableState withoutRuleapplications(RuleApplication... value)
    {
@@ -652,6 +656,9 @@ public class ReachableState implements PropertyChangeInterface
 
    public ReachableState withResultOf(RuleApplication... value)
    {
+      if(value==null){
+         return this;
+      }
       for (RuleApplication item : value)
       {
          addToResultOf(item);

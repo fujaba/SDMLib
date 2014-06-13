@@ -41,16 +41,6 @@ public class LudoReverseModel
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
 
-      Clazz ludoClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Ludo")
-      .with(new Attribute("style", DataType.ref("String")) )
-      .with(new Attribute("age", DataType.ref("int")) );
-
-      Clazz playerClass = new Clazz("org.sdmlib.examples.ludoreverse.model.Player")
-      .with(new Attribute("name", DataType.ref("String")) )
-      .with(new Attribute("color", DataType.ref("String")) );
-
-      ludoClass.withAssoc(playerClass, "game", Card.ONE, "players", Card.MANY);
-
       model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.ludoreverse.model");
       model.getGenerator().insertModelCreationCodeHere("examples");
    }

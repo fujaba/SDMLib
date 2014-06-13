@@ -36,7 +36,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    {
       if (this.getPattern().getHasMatch())
       {
-         ((LinkConstraint) getCurrentMatch()).withTgtRoleName(value);
+         ((LinkConstraint) getCurrentMatch()).setTgtRoleName(value);
       }
       return this;
    }
@@ -58,7 +58,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    {
       if (this.getPattern().getHasMatch())
       {
-         ((LinkConstraint) getCurrentMatch()).withHostGraphSrcObject(value);
+         ((LinkConstraint) getCurrentMatch()).setHostGraphSrcObject(value);
       }
       return this;
    }
@@ -80,7 +80,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    {
       if (this.getPattern().getHasMatch())
       {
-         ((LinkConstraint) getCurrentMatch()).withModifier(value);
+         ((LinkConstraint) getCurrentMatch()).setModifier(value);
       }
       return this;
    }
@@ -102,7 +102,7 @@ public class LinkConstraintPO extends PatternObject<LinkConstraintPO, LinkConstr
    {
       if (this.getPattern().getHasMatch())
       {
-         ((LinkConstraint) getCurrentMatch()).withHasMatch(value);
+         ((LinkConstraint) getCurrentMatch()).setHasMatch(value);
       }
       return this;
    }

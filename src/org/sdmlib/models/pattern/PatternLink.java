@@ -190,11 +190,12 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setTgt(null);
       setSrc(null);
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    
@@ -398,6 +399,6 @@ public class PatternLink extends PatternElement implements PropertyChangeInterfa
       _.append(" ").append(this.getPatternObjectName());
       return _.substring(1);
    }
-
+   
 }
 

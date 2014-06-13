@@ -148,15 +148,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    
    public AttributeConstraintPO hasSrc(PatternObjectPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(AttributeConstraint.PROPERTY_SRC)
-      .withSrc(this);
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, AttributeConstraint.PROPERTY_SRC);
    }
    
    public AttributeConstraintPO withSrc(PatternObjectPO tgtPO)
@@ -280,16 +272,7 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
 
    public AttributeConstraintPO hasPattern(PatternPO tgt)
    {
-      LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(PatternElement.PROPERTY_PATTERN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
-      this.getPattern().addToElements(patternLink);
-      
-      this.getPattern().findMatch();
-      
-      return this;
+      return hasLinkConstraint(tgt, PatternElement.PROPERTY_PATTERN);
    }
 
    public Pattern getPattern()

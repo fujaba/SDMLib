@@ -2,12 +2,9 @@ package org.sdmlib.examples.groupAccount.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.groupAccount.model.GroupAccount;
-import org.sdmlib.examples.groupAccount.model.util.GroupAccountSet;
-import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.groupAccount.model.util.PersonPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.groupAccount.model.util.GroupAccountPO;
 import org.sdmlib.examples.groupAccount.model.Person;
+import org.sdmlib.examples.groupAccount.model.util.GroupAccountPO;
 import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.util.ItemPO;
 import org.sdmlib.examples.groupAccount.model.Item;
@@ -31,7 +28,18 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
       
       return matches;
    }
-   
+
+
+   public GroupAccountPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public GroupAccountPO(GroupAccount... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    
    //==========================================================================
    
@@ -57,9 +65,9 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
 
    public PersonPO hasPersons()
    {
-      PersonPO result = new PersonPO();
-      result.setModifier(this.getPattern().getModifier());
+      PersonPO result = new PersonPO(new Person[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(GroupAccount.PROPERTY_PERSONS, result);
       
       return result;
@@ -91,9 +99,9 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
 
    public ItemPO hasItems()
    {
-      ItemPO result = new ItemPO();
-      result.setModifier(this.getPattern().getModifier());
+      ItemPO result = new ItemPO(new Item[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(GroupAccount.PROPERTY_ITEMS, result);
       
       return result;
@@ -124,4 +132,3 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
    }
 
 }
-

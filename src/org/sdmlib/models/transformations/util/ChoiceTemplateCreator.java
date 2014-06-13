@@ -4,6 +4,8 @@ import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Template;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.Match;
 
 public class ChoiceTemplateCreator extends TemplateCreator
 {
@@ -44,6 +46,26 @@ public class ChoiceTemplateCreator extends TemplateCreator
       {
          return ((ChoiceTemplate)target).getChoices();
       }
+
+      if (ChoiceTemplate.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
+      {
+         return ((ChoiceTemplate) target).getPlaceholders();
+      }
+
+      if (ChoiceTemplate.PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
+      {
+         return ((ChoiceTemplate) target).getChooser();
+      }
+
+      if (ChoiceTemplate.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         return ((ChoiceTemplate) target).getMatches();
+      }
+
+      if (ChoiceTemplate.PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      {
+         return ((ChoiceTemplate) target).getParents();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -59,6 +81,48 @@ public class ChoiceTemplateCreator extends TemplateCreator
       if ((ChoiceTemplate.PROPERTY_CHOICES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ChoiceTemplate)target).removeFromChoices((Template) value);
+         return true;
+      }
+
+      if (ChoiceTemplate.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).addToPlaceholders((PlaceHolderDescription) value);
+         return true;
+      }
+      
+      if ((ChoiceTemplate.PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).removeFromPlaceholders((PlaceHolderDescription) value);
+         return true;
+      }
+
+      if (ChoiceTemplate.PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).setChooser((ChoiceTemplate) value);
+         return true;
+      }
+
+      if (ChoiceTemplate.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).addToMatches((Match) value);
+         return true;
+      }
+      
+      if ((ChoiceTemplate.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).removeFromMatches((Match) value);
+         return true;
+      }
+
+      if (ChoiceTemplate.PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).addToParents((PlaceHolderDescription) value);
+         return true;
+      }
+      
+      if ((ChoiceTemplate.PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ChoiceTemplate) target).removeFromParents((PlaceHolderDescription) value);
          return true;
       }
 

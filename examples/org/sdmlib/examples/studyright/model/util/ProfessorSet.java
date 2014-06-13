@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,19 +26,18 @@ import org.sdmlib.examples.studyright.model.Professor;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.Collections;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
 import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.examples.studyright.model.Lecture;
+import org.sdmlib.examples.studyright.model.Topic;
 
 public class ProfessorSet extends SDMSet<Professor>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public ProfessorPO hasProfessorPO()
    {
-      return new ProfessorPO (this.toArray(new Professor[this.size()]));
+      return new ProfessorPO(this.toArray(new Professor[this.size()]));
    }
 
 
@@ -49,14 +48,12 @@ public class ProfessorSet extends SDMSet<Professor>
    }
 
 
+   @SuppressWarnings("unchecked")
    public ProfessorSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Professor) item);
-           }
+         this.addAll((Collection<Professor>)value);
       }
       else if (value != null)
       {
@@ -152,7 +149,7 @@ public class ProfessorSet extends SDMSet<Professor>
       
       for (Professor obj : this)
       {
-         result.with(obj.getLecture());
+         result.addAll(obj.getLecture());
       }
       
       return result;
@@ -204,5 +201,52 @@ public class ProfessorSet extends SDMSet<Professor>
       return this;
    }
 
-}
+   public TopicSet getTopic()
+   {
+      TopicSet result = new TopicSet();
+      
+      for (Professor obj : this)
+      {
+         result.add(obj.getTopic());
+      }
+      
+      return result;
+   }
 
+   public ProfessorSet hasTopic(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ProfessorSet answer = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (neighbors.contains(obj.getTopic()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ProfessorSet withTopic(Topic value)
+   {
+      for (Professor obj : this)
+      {
+         obj.withTopic(value);
+      }
+      
+      return this;
+   }
+
+}

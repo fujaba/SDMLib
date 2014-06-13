@@ -17,7 +17,6 @@ public class RoomPOCreator extends PatternObjectCreator
    }
    
    public static JsonIdMap createIdMap(String sessionID) {
-       return CreatorCreator.createIdMap(sessionID);
+      return CreatorCreator.createIdMap(sessionID);
    }
 }
-

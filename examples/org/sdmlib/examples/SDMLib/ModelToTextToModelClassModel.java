@@ -39,17 +39,17 @@ public class ModelToTextToModelClassModel
       
       Clazz template = model.createClazz("Template")
             .withAttribute("templateText", DataType.STRING) 
-             .withAttribute("expandedText", DataType.STRING)
-             .withAttribute("modelObject", DataType.OBJECT) 
-             .withAttribute("modelClassName", DataType.STRING)
-             .withAttribute("listStart", DataType.STRING)
-             .withAttribute("listSeparator", DataType.STRING)
-             .withAttribute("listEnd", DataType.STRING) 
-             .withAttribute("referenceLookup", DataType.BOOLEAN)
-             .withAttribute("name", DataType.STRING);
+            .withAttribute("expandedText", DataType.STRING)
+            .withAttribute("modelObject", DataType.OBJECT) 
+            .withAttribute("modelClassName", DataType.STRING)
+            .withAttribute("listStart", DataType.STRING)
+            .withAttribute("listSeparator", DataType.STRING)
+            .withAttribute("listEnd", DataType.STRING) 
+            .withAttribute("referenceLookup", DataType.BOOLEAN)
+            .withAttribute("name", DataType.STRING);
       
       Clazz placeholderDescription = model.createClazz("PlaceHolderDescription")
-            .withAssoc(template, "placeholders", Card.MANY, "owners", Card.MANY)
+            .withAssoc(template, "owners", Card.MANY, "placeholders", Card.MANY)
             .withAttribute("textFragment", DataType.STRING)
             .withAttribute("value", DataType.STRING)
             .withAttribute("attrName", DataType.STRING)

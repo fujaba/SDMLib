@@ -139,10 +139,11 @@ public class AttributeConstraint extends PatternElement<AttributeConstraint> imp
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setSrc(null);
       setPattern(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
    
@@ -362,5 +363,6 @@ public class AttributeConstraint extends PatternElement<AttributeConstraint> imp
       withSrc(value);
       return value;
    } 
+
 }
 

@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
 
 public class DestroyObjectElemCreator extends PatternElementCreator
 {
@@ -37,6 +38,11 @@ public class DestroyObjectElemCreator extends PatternElementCreator
       {
          return ((DestroyObjectElem)target).getPatternObject();
       }
+
+      if (DestroyObjectElem.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         return ((DestroyObjectElem) target).getPattern();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -46,6 +52,12 @@ public class DestroyObjectElemCreator extends PatternElementCreator
       if (DestroyObjectElem.PROPERTY_PATTERNOBJECT.equalsIgnoreCase(attrName))
       {
          ((DestroyObjectElem)target).setPatternObject((PatternObject<?,?>) value);
+         return true;
+      }
+
+      if (DestroyObjectElem.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((DestroyObjectElem) target).setPattern((Pattern) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

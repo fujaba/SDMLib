@@ -48,6 +48,10 @@ public class SDMLibClassCreator implements SendableEntityCreator
       return null;
    }
 
+   public static JsonIdMap createIdMap(String sessionID) {
+      return CreatorCreator.createIdMap(sessionID);
+   }
+
    @Override
    public String[] getProperties()
    {

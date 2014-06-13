@@ -14,6 +14,18 @@
     
     
     
+    _Player -> _Ludo [headlabel = "game" taillabel = "players *" arrowhead = "none" ];
+    _Player -> _Player [headlabel = "next" taillabel = "prev" arrowhead = "none" ];
+    _Dice -> _Ludo [headlabel = "game" taillabel = "dice" arrowhead = "none" ];
+    _Player -> _Dice [headlabel = "dice" taillabel = "player" arrowhead = "none" ];
+    _Field -> _Ludo [headlabel = "game" taillabel = "fields *" arrowhead = "none" ];
+    _Field -> _Field [headlabel = "next" taillabel = "prev" arrowhead = "none" ];
+    _Field -> _Field [headlabel = "landing" taillabel = "entry" arrowhead = "none" ];
+    _Player -> _Field [headlabel = "start" taillabel = "starter" arrowhead = "none" ];
+    _Player -> _Field [headlabel = "base" taillabel = "baseowner" arrowhead = "none" ];
+    _Player -> _Field [headlabel = "landing" taillabel = "lander" arrowhead = "none" ];
+    _Pawn -> _Player [headlabel = "player" taillabel = "pawns *" arrowhead = "none" ];
+    _Pawn -> _Field [headlabel = "pos" taillabel = "pawns *" arrowhead = "none" ];
     _Player -> _LudoColor [headlabel = "enumColor" taillabel = "" arrowhead = "vee" ];
     _Field -> _Point [headlabel = "point" taillabel = "" arrowhead = "vee" ];
 }

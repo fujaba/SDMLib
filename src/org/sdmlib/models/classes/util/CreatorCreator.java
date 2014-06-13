@@ -28,6 +28,12 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.models.classes.util.SDMLibClassPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ValueCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ValuePOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.util.SymTabEntryCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.util.SymTabEntryPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.util.LocalVarTableEntryCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.util.LocalVarTableEntryPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.util.StatementEntryCreator());
+      jsonIdMap.withCreator(new org.sdmlib.codegen.util.StatementEntryPOCreator());
       return jsonIdMap;
    }
 }

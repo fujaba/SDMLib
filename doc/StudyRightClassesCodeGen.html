@@ -1,12 +1,11 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
-<script src="includes/graph.js"></script>
 <script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
 <p>StudyRightClassesCodeGen</p>
@@ -17,120 +16,19 @@
 <embed type="image/svg+xml" src='StudyRightClassesCodeGenClassDiagram8.svg'><p>add assignments:</p>
 <embed type="image/svg+xml" src='StudyRightClassesCodeGenClassDiagram10.svg'><p>5. generate generic set for attributes and assocs</p>
 <p>Check: found method set(String,Object) in class student</p>
-<p>Check: found symtab entry for method set(String,Object) method:set(String,Object):boolean</p>
-<pre>   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
-      {
-         setMatrNo((Integer) value);
-         return true;
-      }
-
-      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
-      {
-         setUni((University) value);
-         return true;
-      }
-
-      if (PROPERTY_IN.equalsIgnoreCase(attrName))
-      {
-         setIn((Room) value);
-         return true;
-      }
-
-      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
-      {
-         addToDone((Assignment) value);
-         return true;
-      }
-      
-      if ((PROPERTY_DONE + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromDone((Assignment) value);
-         return true;
-      }
-
-      if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
-      {
-         setCredits(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
-      {
-         setMotivation(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      return false;
-   }</pre><p>6. generate generic get for attributes and assocs</p>
-<p>Check: found method get(String) in class student</p>
-<p>Check: found symtab entry for method get(String) method:get(String):Object</p>
-<pre>   public Object get(String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
-      {
-         attribute = attrName.substring(0, pos);
-      }
-
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_MATRNO.equalsIgnoreCase(attrName))
-      {
-         return getMatrNo();
-      }
-
-      if (PROPERTY_UNI.equalsIgnoreCase(attrName))
-      {
-         return getUni();
-      }
-
-      if (PROPERTY_IN.equalsIgnoreCase(attrName))
-      {
-         return getIn();
-      }
-
-      if (PROPERTY_DONE.equalsIgnoreCase(attrName))
-      {
-         return getDone();
-      }
-
-      if (PROPERTY_CREDITS.equalsIgnoreCase(attrName))
-      {
-         return getCredits();
-      }
-
-      if (PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
-      {
-         return getMotivation();
-      }
-      
-      return null;
-   }</pre><p>7. generate creator classes</p>
+<p>6. generate generic get for attributes and assocs</p>
+<p>7. generate creator classes</p>
 <a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><p>8. generate imports</p>
-<p>import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.examples.studyright.creators.AssignmentSet;
-import org.sdmlib.examples.studyright.creators.StudentSet;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
-
+<p>import org.sdmlib.examples.studyright.model.Male;
+import org.sdmlib.examples.studyright.model.Female;
+import org.sdmlib.StrUtil;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
 import java.util.LinkedHashSet;
-
-import org.sdmlib.serialization.json.JsonIdMap;
-import java.beans.PropertyChangeListener;</p>
+import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.examples.studyright.model.util.StudentSet;
+import org.sdmlib.examples.studyright.model.util.AssignmentSet;</p>
 <p>9. generate property change support</p>
 <p>Caution: property change support needs not to be generated if the parent class does this already.</p>
 <p>10. generate removeYou method</p>
@@ -138,6 +36,9 @@ import java.beans.PropertyChangeListener;</p>
 <p>Check: found symtab entry for method removeYou() method:removeYou():void</p>
 <pre>   public void removeYou()
    {
+      super.removeYou();
+
+      removeAllFromLecture();
       setUni(null);
       setIn(null);
       removeAllFromDone();

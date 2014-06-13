@@ -2,13 +2,10 @@ package org.sdmlib.examples.groupAccount.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.groupAccount.model.Person;
-import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.examples.groupAccount.model.util.GroupAccountPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.groupAccount.model.util.PersonPO;
 import org.sdmlib.examples.groupAccount.model.GroupAccount;
+import org.sdmlib.examples.groupAccount.model.util.PersonPO;
 import org.sdmlib.examples.groupAccount.model.util.ItemPO;
 import org.sdmlib.examples.groupAccount.model.Item;
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
@@ -31,10 +28,21 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       
       return matches;
    }
-   
+
+
+   public PersonPO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public PersonPO(Person... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    public PersonPO hasName(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
       .withTgtValue(value)
       .withSrc(this)
@@ -48,7 +56,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    
    public PersonPO hasName(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Person.PROPERTY_NAME)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -87,7 +95,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    
    public PersonPO hasBalance(double value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Person.PROPERTY_BALANCE)
       .withTgtValue(value)
       .withSrc(this)
@@ -101,7 +109,7 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    
    public PersonPO hasBalance(double lower, double upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Person.PROPERTY_BALANCE)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)
@@ -140,9 +148,9 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    
    public GroupAccountPO hasParent()
    {
-      GroupAccountPO result = new GroupAccountPO();
-      result.setModifier(this.getPattern().getModifier());
+      GroupAccountPO result = new GroupAccountPO(new GroupAccount[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Person.PROPERTY_PARENT, result);
       
       return result;
@@ -174,9 +182,9 @@ public class PersonPO extends PatternObject<PersonPO, Person>
 
    public ItemPO hasItems()
    {
-      ItemPO result = new ItemPO();
-      result.setModifier(this.getPattern().getModifier());
+      ItemPO result = new ItemPO(new Item[]{});
       
+      result.setModifier(this.getPattern().getModifier());
       super.hasLink(Person.PROPERTY_ITEMS, result);
       
       return result;
@@ -207,4 +215,3 @@ public class PersonPO extends PatternObject<PersonPO, Person>
    }
 
 }
-

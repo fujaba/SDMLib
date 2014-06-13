@@ -30,44 +30,59 @@ public class RuleApplicationCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (RuleApplication.PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((RuleApplication)target).getDescription();
+         attribute = attrName.substring(0, pos);
       }
 
-      if (RuleApplication.PROPERTY_SRC.equalsIgnoreCase(attrName))
+      if (RuleApplication.PROPERTY_DESCRIPTION.equalsIgnoreCase(attribute))
       {
-         return ((RuleApplication)target).getSrc();
+         return ((RuleApplication) target).getDescription();
       }
 
-      if (RuleApplication.PROPERTY_TGT.equalsIgnoreCase(attrName))
+      if (RuleApplication.PROPERTY_SRC.equalsIgnoreCase(attribute))
       {
-         return ((RuleApplication)target).getTgt();
+         return ((RuleApplication) target).getSrc();
       }
-      return super.getValue(target, attrName);
+
+      if (RuleApplication.PROPERTY_TGT.equalsIgnoreCase(attribute))
+      {
+         return ((RuleApplication) target).getTgt();
+      }
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
       if (RuleApplication.PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
       {
-         ((RuleApplication)target).setDescription((String) value);
+         ((RuleApplication) target).setDescription((String) value);
          return true;
       }
 
       if (RuleApplication.PROPERTY_SRC.equalsIgnoreCase(attrName))
       {
-         ((RuleApplication)target).setSrc((ReachableState) value);
+         ((RuleApplication) target).setSrc((ReachableState) value);
          return true;
       }
 
       if (RuleApplication.PROPERTY_TGT.equalsIgnoreCase(attrName))
       {
-         ((RuleApplication)target).setTgt((ReachableState) value);
+         ((RuleApplication) target).setTgt((ReachableState) value);
          return true;
       }
-      return super.setValue(target, attrName, value, type);
+      
+      return false;
    }
    
    public static JsonIdMap createIdMap(String sessionID)

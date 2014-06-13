@@ -205,6 +205,11 @@ public class CGUtil
 
    public static String packageName(String name)
    {
+      if (name == null)
+      {
+         return "";
+      }
+      
       int pos = name.lastIndexOf('.');
       
       if (pos >= 0)

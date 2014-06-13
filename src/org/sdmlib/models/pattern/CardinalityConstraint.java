@@ -127,10 +127,11 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
    @Override
    public void removeYou()
    {
+      super.removeYou();
+
       setPattern(null);
       setSrc(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-      super.removeYou();
    }
 
 
@@ -318,5 +319,6 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
 
 
    public static final CardinalityConstraintSet EMPTY_SET = new CardinalityConstraintSet();
+
 }
 

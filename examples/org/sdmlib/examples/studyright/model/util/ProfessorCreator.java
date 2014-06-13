@@ -1,3 +1,24 @@
+/*
+   Copyright (c) 2014 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.examples.studyright.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
@@ -5,6 +26,7 @@ import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.studyright.model.Professor;
 import org.sdmlib.examples.studyright.model.Female;
 import org.sdmlib.examples.studyright.model.Lecture;
+import org.sdmlib.examples.studyright.model.Topic;
 
 public class ProfessorCreator extends EntityFactory
 {
@@ -13,6 +35,7 @@ public class ProfessorCreator extends EntityFactory
       Professor.PROPERTY_PERSNR,
       Female.PROPERTY_NAME,
       Professor.PROPERTY_LECTURE,
+      Professor.PROPERTY_TOPIC,
    };
    
    @Override
@@ -30,21 +53,34 @@ public class ProfessorCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (Professor.PROPERTY_PERSNR.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (Professor.PROPERTY_PERSNR.equalsIgnoreCase(attribute))
       {
          return ((Professor) target).getPersNr();
       }
 
-      if (Female.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Female.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((Female) target).getName();
       }
 
-      if (Professor.PROPERTY_LECTURE.equalsIgnoreCase(attrName))
+      if (Professor.PROPERTY_LECTURE.equalsIgnoreCase(attribute))
       {
          return ((Professor) target).getLecture();
       }
 
+      if (Professor.PROPERTY_TOPIC.equalsIgnoreCase(attribute))
+      {
+         return ((Professor) target).getTopic();
+      }
+      
       return null;
    }
    
@@ -79,6 +115,13 @@ public class ProfessorCreator extends EntityFactory
          ((Professor) target).removeFromLecture((Lecture) value);
          return true;
       }
+
+      if (Professor.PROPERTY_TOPIC.equalsIgnoreCase(attrName))
+      {
+         ((Professor) target).setTopic((Topic) value);
+         return true;
+      }
+      
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)
@@ -94,4 +137,3 @@ public class ProfessorCreator extends EntityFactory
       ((Professor) entity).removeYou();
    }
 }
-

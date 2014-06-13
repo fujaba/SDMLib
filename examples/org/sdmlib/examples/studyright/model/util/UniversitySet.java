@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,21 +25,18 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyright.model.University;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
-import java.util.Collections;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
 import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
 import org.sdmlib.examples.studyright.model.Room;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
 import org.sdmlib.examples.studyright.model.Student;
 
 public class UniversitySet extends SDMSet<University>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public UniversityPO hasUniversityPO()
    {
-      return new UniversityPO (this.toArray(new University[this.size()]));
+      return new UniversityPO(this.toArray(new University[this.size()]));
    }
 
 
@@ -50,14 +47,12 @@ public class UniversitySet extends SDMSet<University>
    }
 
 
+   @SuppressWarnings("unchecked")
    public UniversitySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((University) item);
-           }
+         this.addAll((Collection<University>)value);
       }
       else if (value != null)
       {
@@ -116,7 +111,7 @@ public class UniversitySet extends SDMSet<University>
       
       for (University obj : this)
       {
-         result.with(obj.getRooms());
+         result.addAll(obj.getRooms());
       }
       
       return result;
@@ -174,7 +169,7 @@ public class UniversitySet extends SDMSet<University>
       
       for (University obj : this)
       {
-         result.with(obj.getStudents());
+         result.addAll(obj.getStudents());
       }
       
       return result;
@@ -227,5 +222,3 @@ public class UniversitySet extends SDMSet<University>
    }
 
 }
-
-

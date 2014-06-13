@@ -21,6 +21,7 @@
    
 package org.sdmlib.models.pattern.util;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.StringList;
@@ -130,9 +131,7 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
    {
       if (value instanceof java.util.Collection)
       {
-         for(Object item : (java.util.Collection<?>)value){
-            this.add((RuleApplication) item);
-         }
+         this.addAll((Collection<RuleApplication>)value);
       }
       else if (value != null)
       {

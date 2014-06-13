@@ -129,5 +129,18 @@ public class Attribute extends Value
       this.visibility = visibility;
       return this;
    }
+
+   Attribute withClazz(Clazz value)
+   {
+      setClazz(value);
+      return this;
+   } 
+
+   Clazz createClazz()
+   {
+      Clazz value = new Clazz(null);
+      withClazz(value);
+      return value;
+   } 
 }
 

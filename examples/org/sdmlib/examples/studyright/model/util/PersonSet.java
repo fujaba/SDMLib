@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,12 +27,11 @@ import java.util.Collection;
 
 public class PersonSet extends SDMSet<Person>
 {
-        private static final long serialVersionUID = 1L;
 
 
    public PersonPO hasPersonPO()
    {
-      return new PersonPO (this.toArray(new Person[this.size()]));
+      return new PersonPO(this.toArray(new Person[this.size()]));
    }
 
 
@@ -43,14 +42,12 @@ public class PersonSet extends SDMSet<Person>
    }
 
 
+   @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-           Collection<?> collection = (Collection<?>) value;
-           for(Object item : collection){
-               this.add((Person) item);
-           }
+         this.addAll((Collection<Person>)value);
       }
       else if (value != null)
       {
@@ -103,4 +100,3 @@ public class PersonSet extends SDMSet<Person>
    }
 
 }
-
