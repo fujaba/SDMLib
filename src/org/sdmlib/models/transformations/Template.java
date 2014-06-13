@@ -69,6 +69,9 @@ public class Template implements PropertyChangeInterface
       setChooser(null);
       removeAllFromMatches();
       removeAllFromParents();
+       withoutPlaceholders(this.getPlaceholders().toArray(new PlaceHolderDescription[this.getPlaceholders().size()]));
+       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
+       withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

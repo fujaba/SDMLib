@@ -56,6 +56,7 @@ public class Match implements PropertyChangeInterface
       setPlaceholder(null);
       removeAllFromSubMatches();
       setParentMatch(null);
+       withoutSubMatches(this.getSubMatches().toArray(new Match[this.getSubMatches().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
