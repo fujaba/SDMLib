@@ -63,10 +63,10 @@ public class Room implements PropertyChangeInterface
    
    public void removeYou()
    {
-      removeAllFromNeighbors();
-      removeAllFromLecture();
+      withoutNeighbors(this.getNeighbors().toArray(new Room[this.getNeighbors().size()]));
+      withoutLecture(this.getLecture().toArray(new Lecture[this.getLecture().size()]));
       setUni(null);
-      removeAllFromStudents();
+      withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
       setRoom(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }

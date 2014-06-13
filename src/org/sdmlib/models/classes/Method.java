@@ -218,6 +218,7 @@ public class Method extends SDMLibClass
       super.removeYou();
       setClazz(null);
       without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
+      withoutParameter(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

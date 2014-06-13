@@ -758,6 +758,7 @@ public class GenRole extends Generator<Role>
       {
          String name = StrUtil.upFirstChar(partnerRole.getName());
          String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
+         clazzName = CGUtil.shortClassName(clazzName);
          removeCall = "without"+name;
          fullRemoveCall = removeCall + "(this.get"+name+"().toArray(new "+clazzName+"[this.get"+name+"().size()]));\n      ";
       }            

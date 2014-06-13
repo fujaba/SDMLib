@@ -94,6 +94,9 @@ public class ReachabilityGraph implements PropertyChangeInterface
       removeAllFromStates();
       removeAllFromTodo();
       removeAllFromRules();
+      withoutStates(this.getStates().toArray(new ReachableState[this.getStates().size()]));
+      withoutTodo(this.getTodo().toArray(new ReachableState[this.getTodo().size()]));
+      withoutRules(this.getRules().toArray(new Pattern[this.getRules().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

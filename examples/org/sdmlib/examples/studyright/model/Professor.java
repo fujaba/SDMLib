@@ -39,8 +39,7 @@ public class Professor extends Female implements PropertyChangeInterface
    public void removeYou()
    {
       super.removeYou();
-
-      removeAllFromLecture();
+      withoutLecture(this.getLecture().toArray(new Lecture[this.getLecture().size()]));
       setTopic(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }

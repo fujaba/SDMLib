@@ -56,6 +56,7 @@ public class Assignment implements PropertyChangeInterface
    {
       removeAllFromAssignments();
       setStudents(null);
+      withoutAssignments(this.getAssignments().toArray(new Room[this.getAssignments().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

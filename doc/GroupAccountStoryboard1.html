@@ -17,12 +17,12 @@
 <pre>   public void updateBalances(  )
    {
       &#x2F;&#x2F; compute share
-      double totalExpenses = this.getItems().getValue().sum();
-      double share = totalExpenses &#x2F; this.getItems().size();
+      double totalExpenses = this.getItem().getValue().sum();
+      double share = totalExpenses &#x2F; this.getItem().size();
       
       for (Person person : this.getPersons())
       {
-         double personExpenses  = person.getItems().getValue().sum();
+         double personExpenses  = person.getItem().getValue().sum();
          person.setBalance(personExpenses - share);
       }
    }</pre><p>The effects of executing updateBalances() is shown in: </p>

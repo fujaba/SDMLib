@@ -66,11 +66,10 @@ public class Student extends Female implements Male, PropertyChangeInterface
    public void removeYou()
    {
       super.removeYou();
-
-      removeAllFromLecture();
+      withoutLecture(this.getLecture().toArray(new Lecture[this.getLecture().size()]));
       setUni(null);
       setIn(null);
-      removeAllFromDone();
+      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

@@ -1373,6 +1373,7 @@ public class Storyboard implements PropertyChangeInterface
    {
       setWall(null);
       removeAllFromStoryboardSteps();
+      withoutStoryboardSteps(this.getStoryboardSteps().toArray(new StoryboardStep[this.getStoryboardSteps().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

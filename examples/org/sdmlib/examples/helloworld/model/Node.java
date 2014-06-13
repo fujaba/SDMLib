@@ -62,6 +62,10 @@ public class Node extends GraphComponent implements PropertyChangeInterface
       setParent(null);
       removeAllFromLinksTo();
       removeAllFromLinksFrom();
+      withoutOutEdges(this.getOutEdges().toArray(new Edge[this.getOutEdges().size()]));
+      withoutInEdges(this.getInEdges().toArray(new Edge[this.getInEdges().size()]));
+      withoutLinksTo(this.getLinksTo().toArray(new Node[this.getLinksTo().size()]));
+      withoutLinksFrom(this.getLinksFrom().toArray(new Node[this.getLinksFrom().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

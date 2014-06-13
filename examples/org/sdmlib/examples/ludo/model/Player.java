@@ -63,6 +63,7 @@ public class Player implements PropertyChangeInterface
       setBase(null);
       setLanding(null);
       removeAllFromPawns();
+      withoutPawns(this.getPawns().toArray(new Pawn[this.getPawns().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

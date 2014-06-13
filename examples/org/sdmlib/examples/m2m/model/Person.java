@@ -60,6 +60,9 @@ public class Person extends GraphComponent implements PropertyChangeInterface
       removeAllFromInEdges();
       removeAllFromKnows();
       setParent(null);
+      withoutOutEdges(this.getOutEdges().toArray(new Relation[this.getOutEdges().size()]));
+      withoutInEdges(this.getInEdges().toArray(new Relation[this.getInEdges().size()]));
+      withoutKnows(this.getKnows().toArray(new Person[this.getKnows().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

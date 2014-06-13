@@ -49,9 +49,9 @@ public class GenericObject implements PropertyChangeInterface
    public void removeYou()
    {
       setGraph(null);
-      removeAllFromAttrs();
-      removeAllFromOutgoingLinks();
-      removeAllFromIncommingLinks();
+      withoutAttrs(this.getAttrs().toArray(new GenericAttribute[this.getAttrs().size()]));
+      withoutOutgoingLinks(this.getOutgoingLinks().toArray(new GenericLink[this.getOutgoingLinks().size()]));
+      withoutIncommingLinks(this.getIncommingLinks().toArray(new GenericLink[this.getIncommingLinks().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

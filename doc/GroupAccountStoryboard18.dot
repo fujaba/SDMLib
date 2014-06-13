@@ -11,13 +11,13 @@ i5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../e
 p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/groupAccount/model/Person.java"> <u>p6 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>balance = -1.0</td></tr><tr><td align='left'>name = "Artjom"</td></tr></table></td></tr></table>>];
 i7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/groupAccount/model/Item.java"> <u>i7 :Item</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>description = "Meat"</td></tr><tr><td align='left'>value = 6.0</td></tr></table></td></tr></table>>];
 
-g1 -- i3 [headlabel = "items" taillabel = "parent"];
-g1 -- i5 [headlabel = "items" taillabel = "parent"];
-g1 -- i7 [headlabel = "items" taillabel = "parent"];
+g1 -- i3 [headlabel = "item" taillabel = "parent"];
+g1 -- i5 [headlabel = "item" taillabel = "parent"];
+g1 -- i7 [headlabel = "item" taillabel = "parent"];
 g1 -- p2 [headlabel = "persons" taillabel = "parent"];
 g1 -- p4 [headlabel = "persons" taillabel = "parent"];
 g1 -- p6 [headlabel = "persons" taillabel = "parent"];
-p2 -- i3 [headlabel = "items" taillabel = "buyer"];
-p4 -- i5 [headlabel = "items" taillabel = "buyer"];
-p6 -- i7 [headlabel = "items" taillabel = "buyer"];
+p2 -- i3 [headlabel = "item" taillabel = "buyer"];
+p4 -- i5 [headlabel = "item" taillabel = "buyer"];
+p6 -- i7 [headlabel = "item" taillabel = "buyer"];
 }
