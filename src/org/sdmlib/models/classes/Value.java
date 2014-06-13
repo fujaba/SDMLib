@@ -94,4 +94,13 @@ public abstract class Value extends SDMLibClass
       _.append(" ").append(this.getName());
       return _.substring(1);
    }
+
+   
+   //==========================================================================
+   
+   public Value withType(org.sdmlib.models.classes.DataType value)
+   {
+      setType(value);
+      return this;
+   } 
 }

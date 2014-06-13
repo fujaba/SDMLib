@@ -25,6 +25,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.examples.ludo.model.util.PlayerSet;
 import org.sdmlib.examples.ludo.model.util.PawnSet;
 import java.util.LinkedHashSet;
@@ -112,24 +113,24 @@ public class Player implements PropertyChangeInterface
    
    public static final String PROPERTY_ENUMCOLOR = "enumColor";
    
-   private org.sdmlib.examples.ludo.LudoModel.LudoColor enumColor;
+   private LudoColor enumColor;
 
-   public org.sdmlib.examples.ludo.LudoModel.LudoColor getEnumColor()
+   public LudoColor getEnumColor()
    {
       return this.enumColor;
    }
    
-   public void setEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
+   public void setEnumColor(LudoColor value)
    {
       if (this.enumColor != value)
       {
-         org.sdmlib.examples.ludo.LudoModel.LudoColor oldValue = this.enumColor;
+         LudoColor oldValue = this.enumColor;
          this.enumColor = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMCOLOR, oldValue, value);
       }
    }
    
-   public Player withEnumColor(org.sdmlib.examples.ludo.LudoModel.LudoColor value)
+   public Player withEnumColor(LudoColor value)
    {
       setEnumColor(value);
       return this;

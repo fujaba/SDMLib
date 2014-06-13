@@ -50,7 +50,7 @@ public class GenAttribute extends Generator<Attribute>
       CGUtil.replaceAll(text, "valueCompare", valueCompare);
 
       CGUtil.replaceAll(text, 
-         "type", model.getType().getValue(), 
+         "type", CGUtil.shortClassName(model.getType().getValue()), 
          "name", model.getName(),
          "Name", StrUtil.upFirstChar(model.getName()),
          "NAME", model.getName().toUpperCase(),
@@ -299,6 +299,13 @@ public class GenAttribute extends Generator<Attribute>
          if (findClass != null)
          {
             importList.add(findClass.getFullName());
+         }
+         else
+         {
+            if (modelSetType.indexOf('.') >= 0)
+            {
+               importList.add(modelSetType);
+            }
          }
       }
 
