@@ -48,7 +48,8 @@ public class Token
 		return this.kind == c;
 	}
 	
-	public String toString()
+	@Override
+   public String toString()
 	{
       return kind + " " + name();
 	   

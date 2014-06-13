@@ -801,7 +801,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void addObjectDiagramWith(Object... elems)
    {
-      ArrayList tempElems = new ArrayList(Arrays.asList((Object[]) elems));
+      ArrayList<Object> tempElems = new ArrayList<Object>(Arrays.asList((Object[]) elems));
       tempElems.add(true);
       Object[] moreElems = tempElems.toArray();
       addObjectDiagram(moreElems);
@@ -873,7 +873,7 @@ public class Storyboard implements PropertyChangeInterface
          {
             explicitElems.addAll((Collection<?>) object);
             
-            Collection coll = (Collection<?>) object;
+            Collection<?> coll = (Collection<?>) object;
             if (  ! coll.isEmpty())
             {
                object = coll.iterator().next();

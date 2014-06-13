@@ -2120,7 +2120,7 @@ public class GenClassModel
          SymTabEntry addToSymTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + setterPrefix + name + "(" + partnerClassName + ")");
 
          // type is unknown
-         if (partnerClass == null || addToSymTabEntry == null)
+         if (addToSymTabEntry == null)
          {
             new Attribute(memberName, DataType.ref(partnerTypeName))
             .with(clazz);

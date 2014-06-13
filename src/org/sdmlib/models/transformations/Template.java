@@ -718,7 +718,7 @@ public class Template implements PropertyChangeInterface
       
       if (modelObject instanceof Collection)
       {
-         Collection collection = (Collection<?>) modelObject;
+         Collection<?> collection = (Collection<?>) modelObject;
          if ( ! collection.isEmpty())
          {
             Object elem = collection.iterator().next();
@@ -844,7 +844,7 @@ public class Template implements PropertyChangeInterface
          }
          else if (currentObject instanceof ArrayList)
          {
-            ArrayList arrayList = (ArrayList) currentObject;
+            ArrayList<?> arrayList = (ArrayList<?>) currentObject;
             currentObject = arrayList.get(Integer.valueOf(attrName));
          }
          else
