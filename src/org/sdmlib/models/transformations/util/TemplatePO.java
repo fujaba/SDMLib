@@ -1,20 +1,22 @@
 package org.sdmlib.models.transformations.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionPO;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.util.TemplatePO;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.util.ChoiceTemplatePO;
+import org.sdmlib.models.transformations.ChoiceTemplate;
+import org.sdmlib.models.transformations.util.MatchPO;
+import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.transformations.util.MatchSet;
 
 public class TemplatePO extends PatternObject<TemplatePO, Template>
 {
-   public TemplatePO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
-   }
 
-   public TemplatePO(Template... hostGraphObject) {
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
-  }
-   public TemplateSet allMatches()
+    public TemplateSet allMatches()
    {
       this.setDoAllMatches(true);
       
@@ -29,7 +31,18 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       
       return matches;
    }
-   
+
+
+   public TemplatePO(){
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+   }
+
+   public TemplatePO(Template... hostGraphObject) {
+      if(hostGraphObject==null || hostGraphObject.length<1){
+         return ;
+      }
+      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+   }
    public TemplatePO hasTemplateText(String value)
    {
       new AttributeConstraint()
@@ -56,6 +69,12 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       
       this.getPattern().findMatch();
       
+      return this;
+   }
+   
+   public TemplatePO createTemplateText(String value)
+   {
+      this.startCreate().hasTemplateText(value).endCreate();
       return this;
    }
    
@@ -106,6 +125,12 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
+   public TemplatePO createExpandedText(String value)
+   {
+      this.startCreate().hasExpandedText(value).endCreate();
+      return this;
+   }
+   
    public String getExpandedText()
    {
       if (this.getPattern().getHasMatch())
@@ -138,18 +163,9 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
-   public TemplatePO hasModelObject(Object lower, Object upper)
+   public TemplatePO createModelObject(Object value)
    {
-      new AttributeConstraint()
-      .withAttrName(Template.PROPERTY_MODELOBJECT)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
+      this.startCreate().hasModelObject(value).endCreate();
       return this;
    }
    
@@ -200,6 +216,12 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
+   public TemplatePO createModelClassName(String value)
+   {
+      this.startCreate().hasModelClassName(value).endCreate();
+      return this;
+   }
+   
    public String getModelClassName()
    {
       if (this.getPattern().getHasMatch())
@@ -244,6 +266,12 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       
       this.getPattern().findMatch();
       
+      return this;
+   }
+   
+   public TemplatePO createListStart(String value)
+   {
+      this.startCreate().hasListStart(value).endCreate();
       return this;
    }
    
@@ -294,6 +322,12 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
+   public TemplatePO createListSeparator(String value)
+   {
+      this.startCreate().hasListSeparator(value).endCreate();
+      return this;
+   }
+   
    public String getListSeparator()
    {
       if (this.getPattern().getHasMatch())
@@ -341,6 +375,12 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
+   public TemplatePO createListEnd(String value)
+   {
+      this.startCreate().hasListEnd(value).endCreate();
+      return this;
+   }
+   
    public String getListEnd()
    {
       if (this.getPattern().getHasMatch())
@@ -359,102 +399,6 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
-   public PlaceHolderDescriptionPO hasPlaceholders()
-   {
-      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Template.PROPERTY_PLACEHOLDERS, result);
-      
-      return result;
-   }
-
-   public TemplatePO hasPlaceholders(PlaceHolderDescriptionPO tgt)
-   {
-      return hasLinkConstraint(tgt, Template.PROPERTY_PLACEHOLDERS);
-   }
-
-   public PlaceHolderDescriptionSet getPlaceholders()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Template) this.getCurrentMatch()).getPlaceholders();
-      }
-      return null;
-   }
-
-   public ChoiceTemplatePO hasChooser()
-   {
-      ChoiceTemplatePO result = new ChoiceTemplatePO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Template.PROPERTY_CHOOSER, result);
-      
-      return result;
-   }
-
-   public TemplatePO hasChooser(ChoiceTemplatePO tgt)
-   {
-      return hasLinkConstraint(tgt, Template.PROPERTY_CHOOSER);
-   }
-
-   public ChoiceTemplate getChooser()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Template) this.getCurrentMatch()).getChooser();
-      }
-      return null;
-   }
-
-   public MatchPO hasMatches()
-   {
-      MatchPO result = new MatchPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Template.PROPERTY_MATCHES, result);
-      
-      return result;
-   }
-
-   public TemplatePO hasMatches(MatchPO tgt)
-   {
-      return hasLinkConstraint(tgt, Template.PROPERTY_MATCHES);
-   }
-
-   public MatchSet getMatches()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Template) this.getCurrentMatch()).getMatches();
-      }
-      return null;
-   }
-
-   public PlaceHolderDescriptionPO hasParents()
-   {
-      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO();
-      result.setModifier(this.getPattern().getModifier());
-      
-      super.hasLink(Template.PROPERTY_PARENTS, result);
-      
-      return result;
-   }
-
-   public TemplatePO hasParents(PlaceHolderDescriptionPO tgt)
-   {
-      return hasLinkConstraint(tgt, Template.PROPERTY_PARENTS);
-   }
-
-   public PlaceHolderDescriptionSet getParents()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Template) this.getCurrentMatch()).getParents();
-      }
-      return null;
-   }
-
    public TemplatePO hasReferenceLookup(boolean value)
    {
       new AttributeConstraint()
@@ -466,6 +410,12 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       
       this.getPattern().findMatch();
       
+      return this;
+   }
+   
+   public TemplatePO createReferenceLookup(boolean value)
+   {
+      this.startCreate().hasReferenceLookup(value).endCreate();
       return this;
    }
    
@@ -516,6 +466,12 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
+   public TemplatePO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -534,63 +490,24 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this;
    }
    
-   public TemplatePO createTemplateText(String value)
+   public PlaceHolderDescriptionPO hasPlaceholders()
    {
-      this.startCreate().hasTemplateText(value).endCreate();
-      return this;
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Template.PROPERTY_PLACEHOLDERS, result);
+      
+      return result;
    }
-   
-   public TemplatePO createExpandedText(String value)
-   {
-      this.startCreate().hasExpandedText(value).endCreate();
-      return this;
-   }
-   
-   public TemplatePO createModelObject(Object value)
-   {
-      this.startCreate().hasModelObject(value).endCreate();
-      return this;
-   }
-   
-   public TemplatePO createModelClassName(String value)
-   {
-      this.startCreate().hasModelClassName(value).endCreate();
-      return this;
-   }
-   
-   public TemplatePO createListStart(String value)
-   {
-      this.startCreate().hasListStart(value).endCreate();
-      return this;
-   }
-   
-   public TemplatePO createListSeparator(String value)
-   {
-      this.startCreate().hasListSeparator(value).endCreate();
-      return this;
-   }
-   
-   public TemplatePO createListEnd(String value)
-   {
-      this.startCreate().hasListEnd(value).endCreate();
-      return this;
-   }
-   
-   public TemplatePO createReferenceLookup(boolean value)
-   {
-      this.startCreate().hasReferenceLookup(value).endCreate();
-      return this;
-   }
-   
-   public TemplatePO createName(String value)
-   {
-      this.startCreate().hasName(value).endCreate();
-      return this;
-   }
-   
+
    public PlaceHolderDescriptionPO createPlaceholders()
    {
       return this.startCreate().hasPlaceholders().endCreate();
+   }
+
+   public TemplatePO hasPlaceholders(PlaceHolderDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Template.PROPERTY_PLACEHOLDERS);
    }
 
    public TemplatePO createPlaceholders(PlaceHolderDescriptionPO tgt)
@@ -598,9 +515,33 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this.startCreate().hasPlaceholders(tgt).endCreate();
    }
 
+   public PlaceHolderDescriptionSet getPlaceholders()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Template) this.getCurrentMatch()).getPlaceholders();
+      }
+      return null;
+   }
+
+   public ChoiceTemplatePO hasChooser()
+   {
+      ChoiceTemplatePO result = new ChoiceTemplatePO(new ChoiceTemplate[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Template.PROPERTY_CHOOSER, result);
+      
+      return result;
+   }
+
    public ChoiceTemplatePO createChooser()
    {
       return this.startCreate().hasChooser().endCreate();
+   }
+
+   public TemplatePO hasChooser(ChoiceTemplatePO tgt)
+   {
+      return hasLinkConstraint(tgt, Template.PROPERTY_CHOOSER);
    }
 
    public TemplatePO createChooser(ChoiceTemplatePO tgt)
@@ -608,9 +549,33 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this.startCreate().hasChooser(tgt).endCreate();
    }
 
+   public ChoiceTemplate getChooser()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Template) this.getCurrentMatch()).getChooser();
+      }
+      return null;
+   }
+
+   public MatchPO hasMatches()
+   {
+      MatchPO result = new MatchPO(new Match[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Template.PROPERTY_MATCHES, result);
+      
+      return result;
+   }
+
    public MatchPO createMatches()
    {
       return this.startCreate().hasMatches().endCreate();
+   }
+
+   public TemplatePO hasMatches(MatchPO tgt)
+   {
+      return hasLinkConstraint(tgt, Template.PROPERTY_MATCHES);
    }
 
    public TemplatePO createMatches(MatchPO tgt)
@@ -618,9 +583,33 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this.startCreate().hasMatches(tgt).endCreate();
    }
 
+   public MatchSet getMatches()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Template) this.getCurrentMatch()).getMatches();
+      }
+      return null;
+   }
+
+   public PlaceHolderDescriptionPO hasParents()
+   {
+      PlaceHolderDescriptionPO result = new PlaceHolderDescriptionPO(new PlaceHolderDescription[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Template.PROPERTY_PARENTS, result);
+      
+      return result;
+   }
+
    public PlaceHolderDescriptionPO createParents()
    {
       return this.startCreate().hasParents().endCreate();
+   }
+
+   public TemplatePO hasParents(PlaceHolderDescriptionPO tgt)
+   {
+      return hasLinkConstraint(tgt, Template.PROPERTY_PARENTS);
    }
 
    public TemplatePO createParents(PlaceHolderDescriptionPO tgt)
@@ -628,8 +617,13 @@ public class TemplatePO extends PatternObject<TemplatePO, Template>
       return this.startCreate().hasParents(tgt).endCreate();
    }
 
+   public PlaceHolderDescriptionSet getParents()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Template) this.getCurrentMatch()).getParents();
+      }
+      return null;
+   }
+
 }
-
-
-
-

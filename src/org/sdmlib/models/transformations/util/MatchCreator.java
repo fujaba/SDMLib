@@ -1,11 +1,31 @@
+/*
+   Copyright (c) 2014 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.transformations.util;
 
-import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
 
 public class MatchCreator extends EntityFactory
 {
@@ -13,7 +33,7 @@ public class MatchCreator extends EntityFactory
    {
       Match.PROPERTY_STARTPOS,
       Match.PROPERTY_ENDPOS,
-      // Match.PROPERTY_FULLTEXT,
+      Match.PROPERTY_FULLTEXT,
       Match.PROPERTY_MATCHTEXT,
       Match.PROPERTY_MODELOBJECT,
       Match.PROPERTY_TEMPLATE,
@@ -37,123 +57,136 @@ public class MatchCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (Match.PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((Match)target).getStartPos();
+         attribute = attrName.substring(0, pos);
       }
 
-      if (Match.PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
+      if (Match.PROPERTY_STARTPOS.equalsIgnoreCase(attribute))
       {
-         return ((Match)target).getEndPos();
+         return ((Match) target).getStartPos();
       }
 
-      if (Match.PROPERTY_FULLTEXT.equalsIgnoreCase(attrName))
+      if (Match.PROPERTY_ENDPOS.equalsIgnoreCase(attribute))
       {
-         return ((Match)target).getFullText();
+         return ((Match) target).getEndPos();
       }
 
-      if (Match.PROPERTY_MATCHTEXT.equalsIgnoreCase(attrName))
+      if (Match.PROPERTY_FULLTEXT.equalsIgnoreCase(attribute))
       {
-         return ((Match)target).getMatchText();
+         return ((Match) target).getFullText();
       }
 
-      if (Match.PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
+      if (Match.PROPERTY_MATCHTEXT.equalsIgnoreCase(attribute))
       {
-         return ((Match)target).getModelObject();
+         return ((Match) target).getMatchText();
       }
 
-      if (Match.PROPERTY_TEMPLATE.equalsIgnoreCase(attrName))
+      if (Match.PROPERTY_MODELOBJECT.equalsIgnoreCase(attribute))
       {
-         return ((Match)target).getTemplate();
+         return ((Match) target).getModelObject();
       }
 
-      if (Match.PROPERTY_PLACEHOLDER.equalsIgnoreCase(attrName))
+      if (Match.PROPERTY_TEMPLATE.equalsIgnoreCase(attribute))
       {
-         return ((Match)target).getPlaceholder();
+         return ((Match) target).getTemplate();
       }
 
-      if (Match.PROPERTY_SUBMATCHES.equalsIgnoreCase(attrName))
+      if (Match.PROPERTY_PLACEHOLDER.equalsIgnoreCase(attribute))
       {
-         return ((Match)target).getSubMatches();
+         return ((Match) target).getPlaceholder();
       }
 
-      if (Match.PROPERTY_PARENTMATCH.equalsIgnoreCase(attrName))
+      if (Match.PROPERTY_SUBMATCHES.equalsIgnoreCase(attribute))
       {
-         return ((Match)target).getParentMatch();
+         return ((Match) target).getSubMatches();
       }
-      return super.getValue(target, attrName);
+
+      if (Match.PROPERTY_PARENTMATCH.equalsIgnoreCase(attribute))
+      {
+         return ((Match) target).getParentMatch();
+      }
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
       if (Match.PROPERTY_STARTPOS.equalsIgnoreCase(attrName))
       {
-         ((Match)target).setStartPos(Integer.parseInt(value.toString()));
+         ((Match) target).withStartPos(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Match.PROPERTY_ENDPOS.equalsIgnoreCase(attrName))
       {
-         ((Match)target).setEndPos(Integer.parseInt(value.toString()));
+         ((Match) target).withEndPos(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (Match.PROPERTY_FULLTEXT.equalsIgnoreCase(attrName))
       {
-         ((Match)target).setFullText((String) value);
+         ((Match) target).withFullText((String) value);
          return true;
       }
 
       if (Match.PROPERTY_MATCHTEXT.equalsIgnoreCase(attrName))
       {
-         ((Match)target).setMatchText((String) value);
+         ((Match) target).withMatchText((String) value);
          return true;
       }
 
       if (Match.PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
       {
-         ((Match)target).setModelObject((Object) value);
+         ((Match) target).withModelObject((Object) value);
          return true;
       }
 
       if (Match.PROPERTY_TEMPLATE.equalsIgnoreCase(attrName))
       {
-         ((Match)target).setTemplate((Template) value);
+         ((Match) target).setTemplate((Template) value);
          return true;
       }
 
       if (Match.PROPERTY_PLACEHOLDER.equalsIgnoreCase(attrName))
       {
-         ((Match)target).setPlaceholder((PlaceHolderDescription) value);
+         ((Match) target).setPlaceholder((PlaceHolderDescription) value);
          return true;
       }
 
       if (Match.PROPERTY_SUBMATCHES.equalsIgnoreCase(attrName))
       {
-         ((Match)target).addToSubMatches((Match) value);
+         ((Match) target).withSubMatches((Match) value);
          return true;
       }
       
       if ((Match.PROPERTY_SUBMATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Match)target).removeFromSubMatches((Match) value);
+         ((Match) target).withoutSubMatches((Match) value);
          return true;
       }
 
       if (Match.PROPERTY_PARENTMATCH.equalsIgnoreCase(attrName))
       {
-         ((Match)target).setParentMatch((Match) value);
+         ((Match) target).setParentMatch((Match) value);
          return true;
       }
-      return super.setValue(target, attrName, value, type);
+      
+      return false;
    }
-   
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
    
@@ -163,5 +196,3 @@ public class MatchCreator extends EntityFactory
       ((Match) entity).removeYou();
    }
 }
-
-

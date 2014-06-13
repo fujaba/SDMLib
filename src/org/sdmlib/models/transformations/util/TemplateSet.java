@@ -21,23 +21,22 @@
    
 package org.sdmlib.models.transformations.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.transformations.Template;
+import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Template;
 
 public class TemplateSet extends SDMSet<Template>
 {
 
 
-   public TemplatePO startModelPattern()
+   public TemplatePO hasTemplatePO()
    {
       return new TemplatePO(this.toArray(new Template[this.size()]));
    }
@@ -98,21 +97,6 @@ public class TemplateSet extends SDMSet<Template>
       return result;
    }
 
-   public TemplateSet hasTemplateText(String lower, String upper)
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (lower.compareTo(obj.getTemplateText()) <= 0 && obj.getTemplateText().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public TemplateSet withTemplateText(String value)
    {
       for (Template obj : this)
@@ -142,21 +126,6 @@ public class TemplateSet extends SDMSet<Template>
       for (Template obj : this)
       {
          if (value.equals(obj.getExpandedText()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public TemplateSet hasExpandedText(String lower, String upper)
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (lower.compareTo(obj.getExpandedText()) <= 0 && obj.getExpandedText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -239,21 +208,6 @@ public class TemplateSet extends SDMSet<Template>
       return result;
    }
 
-   public TemplateSet hasModelClassName(String lower, String upper)
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (lower.compareTo(obj.getModelClassName()) <= 0 && obj.getModelClassName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public TemplateSet withModelClassName(String value)
    {
       for (Template obj : this)
@@ -283,21 +237,6 @@ public class TemplateSet extends SDMSet<Template>
       for (Template obj : this)
       {
          if (value.equals(obj.getListStart()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public TemplateSet hasListStart(String lower, String upper)
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (lower.compareTo(obj.getListStart()) <= 0 && obj.getListStart().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -343,21 +282,6 @@ public class TemplateSet extends SDMSet<Template>
       return result;
    }
 
-   public TemplateSet hasListSeparator(String lower, String upper)
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (lower.compareTo(obj.getListSeparator()) <= 0 && obj.getListSeparator().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public TemplateSet withListSeparator(String value)
    {
       for (Template obj : this)
@@ -395,248 +319,11 @@ public class TemplateSet extends SDMSet<Template>
       return result;
    }
 
-   public TemplateSet hasListEnd(String lower, String upper)
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (lower.compareTo(obj.getListEnd()) <= 0 && obj.getListEnd().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public TemplateSet withListEnd(String value)
    {
       for (Template obj : this)
       {
          obj.setListEnd(value);
-      }
-      
-      return this;
-   }
-
-   public PlaceHolderDescriptionSet getPlaceholders()
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (Template obj : this)
-      {
-         result.with(obj.getPlaceholders());
-      }
-      
-      return result;
-   }
-
-   public TemplateSet hasPlaceholders(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TemplateSet answer = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getPlaceholders()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public TemplateSet withPlaceholders(PlaceHolderDescription value)
-   {
-      for (Template obj : this)
-      {
-         obj.withPlaceholders(value);
-      }
-      
-      return this;
-   }
-
-   public TemplateSet withoutPlaceholders(PlaceHolderDescription value)
-   {
-      for (Template obj : this)
-      {
-         obj.withoutPlaceholders(value);
-      }
-      
-      return this;
-   }
-
-   public ChoiceTemplateSet getChooser()
-   {
-      ChoiceTemplateSet result = new ChoiceTemplateSet();
-      
-      for (Template obj : this)
-      {
-         result.with(obj.getChooser());
-      }
-      
-      return result;
-   }
-
-   public TemplateSet hasChooser(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TemplateSet answer = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (neighbors.contains(obj.getChooser()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public TemplateSet withChooser(ChoiceTemplate value)
-   {
-      for (Template obj : this)
-      {
-         obj.withChooser(value);
-      }
-      
-      return this;
-   }
-
-   public MatchSet getMatches()
-   {
-      MatchSet result = new MatchSet();
-      
-      for (Template obj : this)
-      {
-         result.with(obj.getMatches());
-      }
-      
-      return result;
-   }
-
-   public TemplateSet hasMatches(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TemplateSet answer = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getMatches()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public TemplateSet withMatches(Match value)
-   {
-      for (Template obj : this)
-      {
-         obj.withMatches(value);
-      }
-      
-      return this;
-   }
-
-   public TemplateSet withoutMatches(Match value)
-   {
-      for (Template obj : this)
-      {
-         obj.withoutMatches(value);
-      }
-      
-      return this;
-   }
-
-   public PlaceHolderDescriptionSet getParents()
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (Template obj : this)
-      {
-         result.with(obj.getParents());
-      }
-      
-      return result;
-   }
-
-   public TemplateSet hasParents(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      TemplateSet answer = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getParents()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public TemplateSet withParents(PlaceHolderDescription value)
-   {
-      for (Template obj : this)
-      {
-         obj.withParents(value);
-      }
-      
-      return this;
-   }
-
-   public TemplateSet withoutParents(PlaceHolderDescription value)
-   {
-      for (Template obj : this)
-      {
-         obj.withoutParents(value);
       }
       
       return this;
@@ -706,21 +393,6 @@ public class TemplateSet extends SDMSet<Template>
       return result;
    }
 
-   public TemplateSet hasName(String lower, String upper)
-   {
-      TemplateSet result = new TemplateSet();
-      
-      for (Template obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public TemplateSet withName(String value)
    {
       for (Template obj : this)
@@ -731,10 +403,226 @@ public class TemplateSet extends SDMSet<Template>
       return this;
    }
 
-
-
-   public TemplatePO hasTemplatePO()
+   public PlaceHolderDescriptionSet getPlaceholders()
    {
-      return new TemplatePO(this.toArray(new Template[this.size()]));
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (Template obj : this)
+      {
+         result.addAll(obj.getPlaceholders());
+      }
+      
+      return result;
    }
+
+   public TemplateSet hasPlaceholders(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TemplateSet answer = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getPlaceholders()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TemplateSet withPlaceholders(PlaceHolderDescription value)
+   {
+      for (Template obj : this)
+      {
+         obj.withPlaceholders(value);
+      }
+      
+      return this;
+   }
+
+   public TemplateSet withoutPlaceholders(PlaceHolderDescription value)
+   {
+      for (Template obj : this)
+      {
+         obj.withoutPlaceholders(value);
+      }
+      
+      return this;
+   }
+
+   public ChoiceTemplateSet getChooser()
+   {
+      ChoiceTemplateSet result = new ChoiceTemplateSet();
+      
+      for (Template obj : this)
+      {
+         result.add(obj.getChooser());
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasChooser(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TemplateSet answer = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if (neighbors.contains(obj.getChooser()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TemplateSet withChooser(ChoiceTemplate value)
+   {
+      for (Template obj : this)
+      {
+         obj.withChooser(value);
+      }
+      
+      return this;
+   }
+
+   public MatchSet getMatches()
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Template obj : this)
+      {
+         result.addAll(obj.getMatches());
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasMatches(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TemplateSet answer = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getMatches()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TemplateSet withMatches(Match value)
+   {
+      for (Template obj : this)
+      {
+         obj.withMatches(value);
+      }
+      
+      return this;
+   }
+
+   public TemplateSet withoutMatches(Match value)
+   {
+      for (Template obj : this)
+      {
+         obj.withoutMatches(value);
+      }
+      
+      return this;
+   }
+
+   public PlaceHolderDescriptionSet getParents()
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (Template obj : this)
+      {
+         result.addAll(obj.getParents());
+      }
+      
+      return result;
+   }
+
+   public TemplateSet hasParents(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      TemplateSet answer = new TemplateSet();
+      
+      for (Template obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getParents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public TemplateSet withParents(PlaceHolderDescription value)
+   {
+      for (Template obj : this)
+      {
+         obj.withParents(value);
+      }
+      
+      return this;
+   }
+
+   public TemplateSet withoutParents(PlaceHolderDescription value)
+   {
+      for (Template obj : this)
+      {
+         obj.withoutParents(value);
+      }
+      
+      return this;
+   }
+
 }

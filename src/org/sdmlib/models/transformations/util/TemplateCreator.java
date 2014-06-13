@@ -1,12 +1,32 @@
+/*
+   Copyright (c) 2014 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.transformations.util;
 
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Template;
-import org.sdmlib.serialization.EntityFactory;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class TemplateCreator extends EntityFactory
 {
@@ -19,12 +39,12 @@ public class TemplateCreator extends EntityFactory
       Template.PROPERTY_LISTSTART,
       Template.PROPERTY_LISTSEPARATOR,
       Template.PROPERTY_LISTEND,
+      Template.PROPERTY_REFERENCELOOKUP,
+      Template.PROPERTY_NAME,
       Template.PROPERTY_PLACEHOLDERS,
       Template.PROPERTY_CHOOSER,
       Template.PROPERTY_MATCHES,
       Template.PROPERTY_PARENTS,
-      Template.PROPERTY_REFERENCELOOKUP,
-      Template.PROPERTY_NAME,
    };
    
    @Override
@@ -42,179 +62,192 @@ public class TemplateCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (Template.PROPERTY_TEMPLATETEXT.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((Template)target).getTemplateText();
+         attribute = attrName.substring(0, pos);
       }
 
-      if (Template.PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_TEMPLATETEXT.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getModelObject();
+         return ((Template) target).getTemplateText();
       }
 
-      if (Template.PROPERTY_MODELCLASSNAME.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getModelClassName();
+         return ((Template) target).getExpandedText();
       }
 
-      if (Template.PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_MODELOBJECT.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getExpandedText();
+         return ((Template) target).getModelObject();
       }
 
-      if (Template.PROPERTY_LISTSTART.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_MODELCLASSNAME.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getListStart();
+         return ((Template) target).getModelClassName();
       }
 
-      if (Template.PROPERTY_LISTSEPARATOR.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_LISTSTART.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getListSeparator();
+         return ((Template) target).getListStart();
       }
 
-      if (Template.PROPERTY_LISTEND.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_LISTSEPARATOR.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getListEnd();
+         return ((Template) target).getListSeparator();
       }
 
-      if (Template.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_LISTEND.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getPlaceholders();
+         return ((Template) target).getListEnd();
       }
 
-      if (Template.PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getChooser();
+         return ((Template) target).getReferenceLookup();
       }
 
-      if (Template.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getMatches();
+         return ((Template) target).getName();
       }
 
-      if (Template.PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getParents();
-      }
-      if (Template.PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
-      {
-         return ((Template)target).getReferenceLookup();
+         return ((Template) target).getPlaceholders();
       }
 
-      if (Template.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Template.PROPERTY_CHOOSER.equalsIgnoreCase(attribute))
       {
-         return ((Template)target).getName();
+         return ((Template) target).getChooser();
       }
-      return super.getValue(target, attrName);
+
+      if (Template.PROPERTY_MATCHES.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getMatches();
+      }
+
+      if (Template.PROPERTY_PARENTS.equalsIgnoreCase(attribute))
+      {
+         return ((Template) target).getParents();
+      }
+      
+      return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
       if (Template.PROPERTY_TEMPLATETEXT.equalsIgnoreCase(attrName))
       {
-         ((Template)target).setTemplateText((String) value);
-         return true;
-      }
-
-      if (Template.PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
-      {
-         ((Template)target).setModelObject((Object) value);
-         return true;
-      }
-
-      if (Template.PROPERTY_MODELCLASSNAME.equalsIgnoreCase(attrName))
-      {
-         ((Template)target).setModelClassName((String) value);
+         ((Template) target).withTemplateText((String) value);
          return true;
       }
 
       if (Template.PROPERTY_EXPANDEDTEXT.equalsIgnoreCase(attrName))
       {
-         ((Template)target).setExpandedText((String) value);
+         ((Template) target).withExpandedText((String) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_MODELOBJECT.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withModelObject((Object) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_MODELCLASSNAME.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withModelClassName((String) value);
          return true;
       }
 
       if (Template.PROPERTY_LISTSTART.equalsIgnoreCase(attrName))
       {
-         ((Template)target).setListStart((String) value);
+         ((Template) target).withListStart((String) value);
          return true;
       }
 
       if (Template.PROPERTY_LISTSEPARATOR.equalsIgnoreCase(attrName))
       {
-         ((Template)target).setListSeparator((String) value);
+         ((Template) target).withListSeparator((String) value);
          return true;
       }
 
       if (Template.PROPERTY_LISTEND.equalsIgnoreCase(attrName))
       {
-         ((Template)target).setListEnd((String) value);
-         return true;
-      }
-
-      if (Template.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
-      {
-         ((Template)target).addToPlaceholders((PlaceHolderDescription) value);
-         return true;
-      }
-      
-      if ((Template.PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Template)target).removeFromPlaceholders((PlaceHolderDescription) value);
-         return true;
-      }
-
-      if (Template.PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
-      {
-         ((Template)target).setChooser((ChoiceTemplate) value);
-         return true;
-      }
-
-      if (Template.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
-      {
-         ((Template)target).addToMatches((Match) value);
-         return true;
-      }
-      
-      if ((Template.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Template)target).removeFromMatches((Match) value);
-         return true;
-      }
-
-      if (Template.PROPERTY_PARENTS.equalsIgnoreCase(attrName))
-      {
-         ((Template)target).addToParents((PlaceHolderDescription) value);
-         return true;
-      }
-      
-      if ((Template.PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Template)target).removeFromParents((PlaceHolderDescription) value);
+         ((Template) target).withListEnd((String) value);
          return true;
       }
 
       if (Template.PROPERTY_REFERENCELOOKUP.equalsIgnoreCase(attrName))
       {
-         ((Template)target).setReferenceLookup((Boolean) value);
+         ((Template) target).withReferenceLookup((Boolean) value);
          return true;
       }
 
       if (Template.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Template)target).setName((String) value);
+         ((Template) target).withName((String) value);
          return true;
       }
 
-     return super.setValue(target, attrName, value, type);
+      if (Template.PROPERTY_PLACEHOLDERS.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withPlaceholders((PlaceHolderDescription) value);
+         return true;
+      }
+      
+      if ((Template.PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withoutPlaceholders((PlaceHolderDescription) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_CHOOSER.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).setChooser((ChoiceTemplate) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withMatches((Match) value);
+         return true;
+      }
+      
+      if ((Template.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withoutMatches((Match) value);
+         return true;
+      }
+
+      if (Template.PROPERTY_PARENTS.equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withParents((PlaceHolderDescription) value);
+         return true;
+      }
+      
+      if ((Template.PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Template) target).withoutParents((PlaceHolderDescription) value);
+         return true;
+      }
+      
+      return false;
    }
-   
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
    
@@ -224,6 +257,3 @@ public class TemplateCreator extends EntityFactory
       ((Template) entity).removeYou();
    }
 }
-
-
-

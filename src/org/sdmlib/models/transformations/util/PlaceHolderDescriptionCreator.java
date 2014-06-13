@@ -1,11 +1,31 @@
+/*
+   Copyright (c) 2014 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.models.transformations.util;
 
-import org.sdmlib.models.transformations.Match;
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.serialization.EntityFactory;
-
-import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.transformations.Match;
 
 public class PlaceHolderDescriptionCreator extends EntityFactory
 {
@@ -15,10 +35,10 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       PlaceHolderDescription.PROPERTY_VALUE,
       PlaceHolderDescription.PROPERTY_ATTRNAME,
       PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE,
+      PlaceHolderDescription.PROPERTY_PREFIX,
       PlaceHolderDescription.PROPERTY_OWNERS,
       PlaceHolderDescription.PROPERTY_MATCHES,
       PlaceHolderDescription.PROPERTY_SUBTEMPLATE,
-      PlaceHolderDescription.PROPERTY_PREFIX,
    };
    
    @Override
@@ -36,118 +56,131 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
    @Override
    public Object getValue(Object target, String attrName)
    {
-      if (PlaceHolderDescription.PROPERTY_TEXTFRAGMENT.equalsIgnoreCase(attrName))
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
       {
-         return ((PlaceHolderDescription)target).getTextFragment();
+         attribute = attrName.substring(0, pos);
       }
 
-      if (PlaceHolderDescription.PROPERTY_VALUE.equalsIgnoreCase(attrName))
+      if (PlaceHolderDescription.PROPERTY_TEXTFRAGMENT.equalsIgnoreCase(attribute))
       {
-         return ((PlaceHolderDescription)target).getValue();
+         return ((PlaceHolderDescription) target).getTextFragment();
       }
 
-      if (PlaceHolderDescription.PROPERTY_ATTRNAME.equalsIgnoreCase(attrName))
+      if (PlaceHolderDescription.PROPERTY_VALUE.equalsIgnoreCase(attribute))
       {
-         return ((PlaceHolderDescription)target).getAttrName();
+         return ((PlaceHolderDescription) target).getValue();
       }
 
-      if (PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
+      if (PlaceHolderDescription.PROPERTY_ATTRNAME.equalsIgnoreCase(attribute))
       {
-         return ((PlaceHolderDescription)target).getIsKeyAttribute();
+         return ((PlaceHolderDescription) target).getAttrName();
       }
 
-      if (PlaceHolderDescription.PROPERTY_OWNERS.equalsIgnoreCase(attrName))
+      if (PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attribute))
       {
-         return ((PlaceHolderDescription)target).getOwners();
+         return ((PlaceHolderDescription) target).getIsKeyAttribute();
       }
 
-      if (PlaceHolderDescription.PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
+      if (PlaceHolderDescription.PROPERTY_PREFIX.equalsIgnoreCase(attribute))
       {
-         return ((PlaceHolderDescription)target).getSubTemplate();
+         return ((PlaceHolderDescription) target).getPrefix();
       }
 
-      if (PlaceHolderDescription.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      if (PlaceHolderDescription.PROPERTY_OWNERS.equalsIgnoreCase(attribute))
       {
-         return ((PlaceHolderDescription)target).getMatches();
+         return ((PlaceHolderDescription) target).getOwners();
       }
 
-      if (PlaceHolderDescription.PROPERTY_PREFIX.equalsIgnoreCase(attrName))
+      if (PlaceHolderDescription.PROPERTY_MATCHES.equalsIgnoreCase(attribute))
       {
-         return ((PlaceHolderDescription)target).getPrefix();
+         return ((PlaceHolderDescription) target).getMatches();
       }
+
+      if (PlaceHolderDescription.PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attribute))
+      {
+         return ((PlaceHolderDescription) target).getSubTemplate();
+      }
+      
       return null;
    }
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
       if (PlaceHolderDescription.PROPERTY_TEXTFRAGMENT.equalsIgnoreCase(attrName))
       {
-         ((PlaceHolderDescription)target).setTextFragment((String) value);
+         ((PlaceHolderDescription) target).withTextFragment((String) value);
          return true;
       }
 
       if (PlaceHolderDescription.PROPERTY_VALUE.equalsIgnoreCase(attrName))
       {
-         ((PlaceHolderDescription)target).setValue((String) value);
+         ((PlaceHolderDescription) target).withValue((String) value);
          return true;
       }
 
       if (PlaceHolderDescription.PROPERTY_ATTRNAME.equalsIgnoreCase(attrName))
       {
-         ((PlaceHolderDescription)target).setAttrName((String) value);
+         ((PlaceHolderDescription) target).withAttrName((String) value);
          return true;
       }
 
-     if (PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
+      if (PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE.equalsIgnoreCase(attrName))
       {
-        ((PlaceHolderDescription)target).setIsKeyAttribute((Boolean) value);
-         return true;
-      }
-
-      if (PlaceHolderDescription.PROPERTY_OWNERS.equalsIgnoreCase(attrName))
-      {
-         ((PlaceHolderDescription)target).addToOwners((Template) value);
-         return true;
-      }
-      
-      if ((PlaceHolderDescription.PROPERTY_OWNERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((PlaceHolderDescription)target).removeFromOwners((Template) value);
-         return true;
-      }
-
-      if (PlaceHolderDescription.PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
-      {
-         ((PlaceHolderDescription)target).setSubTemplate((Template) value);
-         return true;
-      }
-
-      if (PlaceHolderDescription.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
-      {
-         ((PlaceHolderDescription)target).addToMatches((Match) value);
-         return true;
-      }
-      
-      if ((PlaceHolderDescription.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((PlaceHolderDescription)target).removeFromMatches((Match) value);
+         ((PlaceHolderDescription) target).withIsKeyAttribute((Boolean) value);
          return true;
       }
 
       if (PlaceHolderDescription.PROPERTY_PREFIX.equalsIgnoreCase(attrName))
       {
-         ((PlaceHolderDescription)target).setPrefix((String) value);
+         ((PlaceHolderDescription) target).withPrefix((String) value);
          return true;
       }
+
+      if (PlaceHolderDescription.PROPERTY_OWNERS.equalsIgnoreCase(attrName))
+      {
+         ((PlaceHolderDescription) target).withOwners((Template) value);
+         return true;
+      }
+      
+      if ((PlaceHolderDescription.PROPERTY_OWNERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((PlaceHolderDescription) target).withoutOwners((Template) value);
+         return true;
+      }
+
+      if (PlaceHolderDescription.PROPERTY_MATCHES.equalsIgnoreCase(attrName))
+      {
+         ((PlaceHolderDescription) target).withMatches((Match) value);
+         return true;
+      }
+      
+      if ((PlaceHolderDescription.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((PlaceHolderDescription) target).withoutMatches((Match) value);
+         return true;
+      }
+
+      if (PlaceHolderDescription.PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
+      {
+         ((PlaceHolderDescription) target).setSubTemplate((Template) value);
+         return true;
+      }
+      
       return false;
    }
-   
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
-
    
    //==========================================================================
    
@@ -157,5 +190,3 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       ((PlaceHolderDescription) entity).removeYou();
    }
 }
-
-
