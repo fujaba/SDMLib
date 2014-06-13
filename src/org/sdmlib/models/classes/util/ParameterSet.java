@@ -150,7 +150,7 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
    {
       for (Parameter obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

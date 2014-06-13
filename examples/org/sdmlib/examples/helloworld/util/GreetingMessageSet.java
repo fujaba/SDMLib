@@ -128,7 +128,7 @@ public class GreetingMessageSet extends SDMSet<GreetingMessage>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

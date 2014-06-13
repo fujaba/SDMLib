@@ -162,7 +162,7 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
    {
       for (Association obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

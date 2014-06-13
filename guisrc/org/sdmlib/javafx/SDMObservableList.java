@@ -39,7 +39,7 @@ public class SDMObservableList<E> extends ArrayList<E> implements ObservableList
       {
          Method method = parentObject.getClass().getMethod("get" + StrUtil.upFirstChar(propertyName));
          Object invoke = method.invoke(parentObject);
-         this.addAll((Collection)invoke);
+         this.addAll((Collection<?>)invoke);
       }
       catch (Exception e)
       {

@@ -152,7 +152,7 @@ public class LudoSet extends SDMSet<Ludo>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -210,7 +210,7 @@ public class LudoSet extends SDMSet<Ludo>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -258,7 +258,7 @@ public class LudoSet extends SDMSet<Ludo>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

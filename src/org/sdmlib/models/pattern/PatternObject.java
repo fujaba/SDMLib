@@ -35,7 +35,6 @@ import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.StrUtil;
 
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
@@ -179,7 +178,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       }
 
       if (this.getCandidates() == null
-         || this.getCandidates() instanceof Collection && ((Collection) this.getCandidates()).isEmpty())
+         || this.getCandidates() instanceof Collection && ((Collection<?>) this.getCandidates()).isEmpty())
       {
          this.setHasMatch(false);
          return false;
@@ -190,7 +189,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       {
          if (this.candidatesIterator == null)
          {
-            this.candidatesIterator = ((Collection) this.getCandidates()).iterator();
+            this.candidatesIterator = ((Collection<Object>) this.getCandidates()).iterator();
          }
 
          if (this.candidatesIterator.hasNext())

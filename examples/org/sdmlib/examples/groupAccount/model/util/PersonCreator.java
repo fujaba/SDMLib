@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -34,7 +34,7 @@ public class PersonCreator extends EntityFactory
       Person.PROPERTY_NAME,
       Person.PROPERTY_BALANCE,
       Person.PROPERTY_PARENT,
-      Person.PROPERTY_ITEMS,
+      Person.PROPERTY_ITEM,
    };
    
    @Override
@@ -75,9 +75,9 @@ public class PersonCreator extends EntityFactory
          return ((Person) target).getParent();
       }
 
-      if (Person.PROPERTY_ITEMS.equalsIgnoreCase(attribute))
+      if (Person.PROPERTY_ITEM.equalsIgnoreCase(attribute))
       {
-         return ((Person) target).getItems();
+         return ((Person) target).getItem();
       }
       
       return null;
@@ -93,13 +93,13 @@ public class PersonCreator extends EntityFactory
 
       if (Person.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Person) target).setName((String) value);
+         ((Person) target).withName((String) value);
          return true;
       }
 
       if (Person.PROPERTY_BALANCE.equalsIgnoreCase(attrName))
       {
-         ((Person) target).setBalance(Double.parseDouble(value.toString()));
+         ((Person) target).withBalance(Double.parseDouble(value.toString()));
          return true;
       }
 
@@ -109,15 +109,15 @@ public class PersonCreator extends EntityFactory
          return true;
       }
 
-      if (Person.PROPERTY_ITEMS.equalsIgnoreCase(attrName))
+      if (Person.PROPERTY_ITEM.equalsIgnoreCase(attrName))
       {
-         ((Person) target).addToItems((Item) value);
+         ((Person) target).withItem((Item) value);
          return true;
       }
       
-      if ((Person.PROPERTY_ITEMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Person.PROPERTY_ITEM + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Person) target).removeFromItems((Item) value);
+         ((Person) target).withoutItem((Item) value);
          return true;
       }
       

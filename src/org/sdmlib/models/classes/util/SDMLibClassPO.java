@@ -82,7 +82,7 @@ public class SDMLibClassPO extends PatternObject<SDMLibClassPO, SDMLibClass>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((SDMLibClass) getCurrentMatch()).setName(value);
+         ((SDMLibClass) getCurrentMatch()).withName(value);
       }
       return this;
    }

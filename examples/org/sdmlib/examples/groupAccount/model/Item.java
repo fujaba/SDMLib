@@ -24,6 +24,7 @@ package org.sdmlib.examples.groupAccount.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
 
 public class Item implements PropertyChangeInterface
@@ -48,6 +49,7 @@ public class Item implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
       setParent(null);
@@ -69,7 +71,7 @@ public class Item implements PropertyChangeInterface
    
    public void setDescription(String value)
    {
-      if (this.description != value)
+      if ( ! StrUtil.stringEquals(this.description, value))
       {
          String oldValue = this.description;
          this.description = value;
@@ -124,14 +126,14 @@ public class Item implements PropertyChangeInterface
    } 
 
    
-   public static final ItemSet EMPTY_SET = new ItemSet();
+   public static final ItemSet EMPTY_SET = new ItemSet().withReadonly(true);
 
    
    /********************************************************************
     * <pre>
     *              many                       one
     * Item ----------------------------------- GroupAccount
-    *              items                   parent
+    *              item                   parent
     * </pre>
     */
    
@@ -155,14 +157,14 @@ public class Item implements PropertyChangeInterface
          if (this.parent != null)
          {
             this.parent = null;
-            oldValue.withoutItems(this);
+            oldValue.withoutItem(this);
          }
          
          this.parent = value;
          
          if (value != null)
          {
-            value.withItems(this);
+            value.withItem(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
@@ -190,7 +192,7 @@ public class Item implements PropertyChangeInterface
     * <pre>
     *              many                       one
     * Item ----------------------------------- Person
-    *              items                   buyer
+    *              item                   buyer
     * </pre>
     */
    
@@ -214,14 +216,14 @@ public class Item implements PropertyChangeInterface
          if (this.buyer != null)
          {
             this.buyer = null;
-            oldValue.withoutItems(this);
+            oldValue.withoutItem(this);
          }
          
          this.buyer = value;
          
          if (value != null)
          {
-            value.withItems(this);
+            value.withItem(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_BUYER, oldValue, value);
@@ -244,4 +246,3 @@ public class Item implements PropertyChangeInterface
       return value;
    } 
 }
-

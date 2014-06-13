@@ -53,7 +53,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.setName(value);
+         obj.withName(value);
       }
       
       return this;

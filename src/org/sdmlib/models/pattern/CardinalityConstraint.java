@@ -61,7 +61,7 @@ public class CardinalityConstraint extends PatternElement implements PropertyCha
             }
             else if (value instanceof Collection)
             {
-               valueSize = ((Collection) value).size();
+               valueSize = ((Collection<?>) value).size();
             }
             else
             {

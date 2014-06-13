@@ -50,6 +50,7 @@ public class TemplateSet extends SDMSet<Template>
    }
 
 
+   @SuppressWarnings("unchecked")
    public TemplateSet with(Object value)
    {
       if (value instanceof java.util.Collection)
@@ -437,7 +438,7 @@ public class TemplateSet extends SDMSet<Template>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -495,7 +496,7 @@ public class TemplateSet extends SDMSet<Template>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -543,7 +544,7 @@ public class TemplateSet extends SDMSet<Template>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {
@@ -601,7 +602,7 @@ public class TemplateSet extends SDMSet<Template>
 
       if (value instanceof Collection)
       {
-         neighbors.addAll((Collection) value);
+         neighbors.addAll((Collection<?>) value);
       }
       else
       {

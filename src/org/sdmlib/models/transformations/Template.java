@@ -469,7 +469,7 @@ public class Template implements PropertyChangeInterface
                
                if (subTemplate.isList())
                {
-                  for (Object value : (Collection) subTemplate.getModelObject())
+                  for (Object value : (Collection<?>) subTemplate.getModelObject())
                   {
                      creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
                   }
@@ -718,7 +718,7 @@ public class Template implements PropertyChangeInterface
       
       if (modelObject instanceof Collection)
       {
-         Collection collection = (Collection) modelObject;
+         Collection collection = (Collection<?>) modelObject;
          if ( ! collection.isEmpty())
          {
             Object elem = collection.iterator().next();
@@ -729,7 +729,7 @@ public class Template implements PropertyChangeInterface
             }
             else
             {
-               rootObjects.addAll((Collection) modelObject);
+               rootObjects.addAll((Collection<?>) modelObject);
             }
          }
       }
@@ -838,7 +838,7 @@ public class Template implements PropertyChangeInterface
          if (index != null)
          {
             // look up the element with this index
-            Object[] array = ((Collection)currentObject).toArray(new Object[((Collection)currentObject).size()]);
+            Object[] array = ((Collection<?>)currentObject).toArray(new Object[((Collection<?>)currentObject).size()]);
             
             currentObject = array[index];
          }

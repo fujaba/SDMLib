@@ -129,7 +129,7 @@ public class ParameterPO extends PatternObject<ParameterPO, Parameter>
    {
       if (this.getPattern().getHasMatch())
       {
-         ((Parameter) getCurrentMatch()).setName(value);
+         ((Parameter) getCurrentMatch()).withName(value);
       }
       return this;
    }

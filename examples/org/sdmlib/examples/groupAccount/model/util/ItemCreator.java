@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -93,13 +93,13 @@ public class ItemCreator extends EntityFactory
 
       if (Item.PROPERTY_DESCRIPTION.equalsIgnoreCase(attrName))
       {
-         ((Item) target).setDescription((String) value);
+         ((Item) target).withDescription((String) value);
          return true;
       }
 
       if (Item.PROPERTY_VALUE.equalsIgnoreCase(attrName))
       {
-         ((Item) target).setValue(Double.parseDouble(value.toString()));
+         ((Item) target).withValue(Double.parseDouble(value.toString()));
          return true;
       }
 

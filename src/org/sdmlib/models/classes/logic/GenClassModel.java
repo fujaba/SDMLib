@@ -46,7 +46,6 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 
-import de.uniks.networkparser.gui.ItemList;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenClassModel
@@ -610,7 +609,7 @@ public class GenClassModel
       // parse the model creation file
       Clazz modelCreationClass = getOrCreateClazz(className);
 
-      modelCreationClass.getClassModel().withoutClazz(modelCreationClass);
+      modelCreationClass.getClassModel().without(modelCreationClass);
       
       String signature = Parser.METHOD + ":" + methodName + "(";
 

@@ -30,11 +30,6 @@ public class Attribute extends Value
    private Clazz clazz = null;
    private Visibility visibility = Visibility.PRIVATE;
    
-   protected Attribute()
-   {
-      
-   }
-   
    public Attribute(String name, DataType type)
    {
       this.name = name; 

@@ -191,14 +191,14 @@ public class Association extends SDMLibClass
       return this;
    }
 
-   public Role createSource()
+   Role createSource()
    {
       Role value = new Role();
       withSource(value);
       return value;
    } 
 
-   public Role createTarget()
+   Role createTarget()
    {
       Role value = new Role();
       withTarget(value);

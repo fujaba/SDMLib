@@ -25,8 +25,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.examples.groupAccount.model.util.PersonSet;
-import java.util.LinkedHashSet;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
 
 public class GroupAccount implements PropertyChangeInterface
@@ -67,10 +65,11 @@ public class GroupAccount implements PropertyChangeInterface
    
    //==========================================================================
    
+   
    public void removeYou()
    {
-      removeAllFromPersons();
-      removeAllFromItems();
+       withoutPersons(this.getPersons().toArray(new Person[this.getPersons().size()]));
+       withoutItem(this.getItem().toArray(new Item[this.getItem().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -97,52 +96,28 @@ public class GroupAccount implements PropertyChangeInterface
       return this.persons;
    }
 
-   public boolean addToPersons(Person value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.persons == null)
-         {
-            this.persons = new PersonSet();
-         }
-         
-         changed = this.persons.add (value);
-         
-         if (changed)
-         {
-            value.withParent(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public boolean removeFromPersons(Person value)
-   {
-      boolean changed = false;
-      
-      if ((this.persons != null) && (value != null))
-      {
-         changed = this.persons.remove (value);
-         
-         if (changed)
-         {
-            value.setParent(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    public GroupAccount withPersons(Person... value)
    {
+      if(value==null){
+         return this;
+      }
       for (Person item : value)
       {
-         addToPersons(item);
+         if (item != null)
+         {
+            if (this.persons == null)
+            {
+               this.persons = new PersonSet();
+            }
+            
+            boolean changed = this.persons.add (item);
+
+            if (changed)
+            {
+               item.withParent(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, null, item);
+            }
+         }
       }
       return this;
    } 
@@ -151,19 +126,17 @@ public class GroupAccount implements PropertyChangeInterface
    {
       for (Person item : value)
       {
-         removeFromPersons(item);
+         if ((this.persons != null) && (item != null))
+         {
+            if (this.persons.remove(item))
+            {
+               item.setParent(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, item, null);
+            }
+         }
+         withoutPersons(item);
       }
       return this;
-   }
-
-   public void removeAllFromPersons()
-   {
-      LinkedHashSet<Person> tmpSet = new LinkedHashSet<Person>(this.getPersons());
-   
-      for (Person value : tmpSet)
-      {
-         this.removeFromPersons(value);
-      }
    }
 
    public Person createPersons()
@@ -178,98 +151,71 @@ public class GroupAccount implements PropertyChangeInterface
     * <pre>
     *              one                       many
     * GroupAccount ----------------------------------- Item
-    *              parent                   items
+    *              parent                   item
     * </pre>
     */
    
-   public static final String PROPERTY_ITEMS = "items";
+   public static final String PROPERTY_ITEM = "item";
 
-   private ItemSet items = null;
+   private ItemSet item = null;
    
-   public ItemSet getItems()
+   public ItemSet getItem()
    {
-      if (this.items == null)
+      if (this.item == null)
       {
          return Item.EMPTY_SET;
       }
    
-      return this.items;
+      return this.item;
    }
 
-   public boolean addToItems(Item value)
+   public GroupAccount withItem(Item... value)
    {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.items == null)
-         {
-            this.items = new ItemSet();
-         }
-         
-         changed = this.items.add (value);
-         
-         if (changed)
-         {
-            value.withParent(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, null, value);
-         }
+      if(value==null){
+         return this;
       }
-         
-      return changed;   
-   }
-
-   public boolean removeFromItems(Item value)
-   {
-      boolean changed = false;
-      
-      if ((this.items != null) && (value != null))
-      {
-         changed = this.items.remove (value);
-         
-         if (changed)
-         {
-            value.setParent(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEMS, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
-   public GroupAccount withItems(Item... value)
-   {
       for (Item item : value)
       {
-         addToItems(item);
+         if (item != null)
+         {
+            if (this.item == null)
+            {
+               this.item = new ItemSet();
+            }
+            
+            boolean changed = this.item.add (item);
+
+            if (changed)
+            {
+               item.withParent(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEM, null, item);
+            }
+         }
       }
       return this;
    } 
 
-   public GroupAccount withoutItems(Item... value)
+   public GroupAccount withoutItem(Item... value)
    {
       for (Item item : value)
       {
-         removeFromItems(item);
+         if ((this.item != null) && (item != null))
+         {
+            if (this.item.remove(item))
+            {
+               item.setParent(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEM, item, null);
+            }
+         }
+         withoutItem(item);
       }
       return this;
    }
 
-   public void removeAllFromItems()
-   {
-      LinkedHashSet<Item> tmpSet = new LinkedHashSet<Item>(this.getItems());
-   
-      for (Item value : tmpSet)
-      {
-         this.removeFromItems(value);
-      }
-   }
-
-   public Item createItems()
+   public Item createItem()
    {
       Item value = new Item();
-      withItems(value);
+      withItem(value);
       return value;
    } 
 }
-

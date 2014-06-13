@@ -25,7 +25,6 @@ import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
-import java.util.LinkedHashSet;
 
 public class Clazz extends SDMLibClass
 {
@@ -203,14 +202,14 @@ public class Clazz extends SDMLibClass
          if (this.classModel != null)
          {
             this.classModel = null;
-            oldValue.withoutClazz(this);
+            oldValue.without(this);
          }
          
          this.classModel = value;
          
          if (value != null)
          {
-            value.withClazz(this);
+            value.with(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSMODEL, oldValue, value);
@@ -269,6 +268,7 @@ public class Clazz extends SDMLibClass
       {
          this.attributes = new AttributeSet();
       }
+      //TODO MUST be check if the Attribute (Name exist)
       for (Attribute item : value)
       {
          if (item != null)
@@ -312,13 +312,12 @@ public class Clazz extends SDMLibClass
 
    public Clazz withAttribute(String name, DataType type)
    {      
-      this.with(new Attribute().withName(name).with(type));
-      return this;
+      return this.with(new Attribute(name, type));
    }
 
    public Clazz withAttribute(String name, DataType type, String initialization)
    {      
-      this.with(new Attribute().withName(name).with(type).withInitialization(initialization));
+      this.with(new Attribute(name, type).withInitialization(initialization));
       return this;
    }
 
@@ -329,16 +328,10 @@ public class Clazz extends SDMLibClass
       super.removeYou();
       setClassModel(null);
       without(this.getAttributes().toArray(new Attribute[this.getAttributes().size()]));
-      
       without(this.getMethods().toArray(new Method[this.getMethods().size()]));
       without(this.getRoles().toArray(new Role[this.getRoles().size()]));
       withoutKidClazz(this.getKidClazzes().toArray(new Clazz[this.getKidClazzes().size()]));
       withoutSuperClazz(this.getSuperClazzes().toArray(new Clazz[this.getSuperClazzes().size()]));
-      removeAllFromKidClazzes();
-      removeAllFromSuperClazzes();
-      removeAllFromAttributes();
-      removeAllFromMethods();
-      removeAllFromRoles();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
@@ -369,9 +362,7 @@ public class Clazz extends SDMLibClass
             return attrDecl;
          }
       }
-
-      return new Attribute().withName(attrName).with(attrType).with(this);
-
+      return new Attribute(attrName, attrType).with(this);
    }
 
    //==========================================================================
@@ -549,14 +540,7 @@ public class Clazz extends SDMLibClass
       return attribute;
    }
 
-   protected Attribute createAttribute()
-   {
-      Attribute value = new Attribute();
-      with(value);
-      return value;
-   } 
-
-   protected Method createMethod()
+   Method createMethod()
    {
       Method value = new Method();
       with(value);
@@ -582,14 +566,14 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   public  Clazz createKidClazz(String name)
+   public Clazz createKidClazz(String name)
    {
       Clazz value = new Clazz(name);
       withKidClazzes(value);
       return value;
    } 
    
-   protected Clazz createKidClazz()
+   Clazz createKidClazz()
    {
       Clazz value = new Clazz(null);
       withKidClazzes(value);
@@ -621,14 +605,14 @@ public class Clazz extends SDMLibClass
       return this;
    }
 
-   protected Clazz createSuperClazz()
+   Clazz createSuperClazz()
    {
       Clazz value = new Clazz(null);
       withSuperClazz(value);
       return value;
    } 
 
-   Clazz withClassModel(ClassModel value)
+   public Clazz withClassModel(ClassModel value)
    {
       setClassModel(value);
       return this;
@@ -664,41 +648,20 @@ public class Clazz extends SDMLibClass
       return changed;   
    }
 
-   boolean removeFromKidClazzes(Clazz value)
-   {
-      boolean changed = false;
-      
-      if ((this.kidClazzes != null) && (value != null))
-      {
-         changed = this.kidClazzes.remove(value);
-         
-         if (changed)
-         {
-            value.withoutSuperClazzes(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLAZZES, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    Clazz withoutKidClazzes(Clazz... value)
    {
       for (Clazz item : value)
       {
-         removeFromKidClazzes(item);
+            if ((this.kidClazzes != null) && (item != null))
+            {
+               if ( this.kidClazzes.remove(item))
+               {
+                  item.withoutSuperClazzes(this);
+                  getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDCLAZZES, item, null);
+               }
+            }
       }
       return this;
-   }
-
-   void removeAllFromKidClazzes()
-   {
-      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getKidClazzes());
-   
-      for (Clazz value : tmpSet)
-      {
-         this.removeFromKidClazzes(value);
-      }
    }
 
    Clazz createKidClazzes()
@@ -708,76 +671,14 @@ public class Clazz extends SDMLibClass
       return value;
    } 
 
-   boolean addToSuperClazzes(Clazz value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.superClazzes == null)
-         {
-            this.superClazzes = new ClazzSet();
-         }
-         
-         changed = this.superClazzes.add (value);
-         
-         if (changed)
-         {
-            value.withKidClazzes(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLAZZES, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   boolean removeFromSuperClazzes(Clazz value)
-   {
-      boolean changed = false;
-      
-      if ((this.superClazzes != null) && (value != null))
-      {
-         changed = this.superClazzes.remove(value);
-         
-         if (changed)
-         {
-            value.withoutKidClazzes(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_SUPERCLAZZES, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    Clazz withSuperClazzes(Clazz... value)
    {
-      if(value==null){
-         return this;
-      }
-      for (Clazz item : value)
-      {
-         addToSuperClazzes(item);
-      }
-      return this;
+      return withSuperClazz(value);
    } 
 
    Clazz withoutSuperClazzes(Clazz... value)
    {
-      for (Clazz item : value)
-      {
-         removeFromSuperClazzes(item);
-      }
-      return this;
-   }
-
-   void removeAllFromSuperClazzes()
-   {
-      LinkedHashSet<Clazz> tmpSet = new LinkedHashSet<Clazz>(this.getSuperClazzes());
-   
-      for (Clazz value : tmpSet)
-      {
-         this.removeFromSuperClazzes(value);
-      }
+      return withoutSuperClazz(value);
    }
 
    Clazz createSuperClazzes()
@@ -787,155 +688,31 @@ public class Clazz extends SDMLibClass
       return value;
    } 
 
-   boolean addToAttributes(Attribute value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.attributes == null)
-         {
-            this.attributes = new AttributeSet();
-         }
-         
-         changed = this.attributes.add (value);
-         
-         if (changed)
-         {
-            value.withClazz(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   boolean removeFromAttributes(Attribute value)
-   {
-      boolean changed = false;
-      
-      if ((this.attributes != null) && (value != null))
-      {
-         changed = this.attributes.remove(value);
-         
-         if (changed)
-         {
-            value.setClazz(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTES, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    Clazz withAttributes(Attribute... value)
    {
-      if(value==null){
-         return this;
-      }
-      for (Attribute item : value)
-      {
-         addToAttributes(item);
-      }
-      return this;
+      return with(value);
    } 
 
    Clazz withoutAttributes(Attribute... value)
    {
-      for (Attribute item : value)
-      {
-         removeFromAttributes(item);
-      }
-      return this;
-   }
-
-   void removeAllFromAttributes()
-   {
-      LinkedHashSet<Attribute> tmpSet = new LinkedHashSet<Attribute>(this.getAttributes());
-   
-      for (Attribute value : tmpSet)
-      {
-         this.removeFromAttributes(value);
-      }
+      return without(value);
    }
 
    Attribute createAttributes()
    {
-      Attribute value = new Attribute();
+      Attribute value = new Attribute(null, null);
       withAttributes(value);
       return value;
    } 
 
-   boolean addToMethods(Method value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.methods == null)
-         {
-            this.methods = new MethodSet();
-         }
-         
-         changed = this.methods.add (value);
-         
-         if (changed)
-         {
-            value.withClazz(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   boolean removeFromMethods(Method value)
-   {
-      boolean changed = false;
-      
-      if ((this.methods != null) && (value != null))
-      {
-         changed = this.methods.remove(value);
-         
-         if (changed)
-         {
-            value.setClazz(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    Clazz withMethods(Method... value)
    {
-      if(value==null){
-         return this;
-      }
-      for (Method item : value)
-      {
-         addToMethods(item);
-      }
-      return this;
+      return with(value);
    } 
 
    Clazz withoutMethods(Method... value)
    {
-      for (Method item : value)
-      {
-         removeFromMethods(item);
-      }
-      return this;
-   }
-
-   void removeAllFromMethods()
-   {
-      LinkedHashSet<Method> tmpSet = new LinkedHashSet<Method>(this.getMethods());
-   
-      for (Method value : tmpSet)
-      {
-         this.removeFromMethods(value);
-      }
+      return without(value);
    }
 
    Method createMethods()
@@ -945,76 +722,14 @@ public class Clazz extends SDMLibClass
       return value;
    } 
 
-   boolean addToRoles(Role value)
-   {
-      boolean changed = false;
-      
-      if (value != null)
-      {
-         if (this.roles == null)
-         {
-            this.roles = new RoleSet();
-         }
-         
-         changed = this.roles.add (value);
-         
-         if (changed)
-         {
-            value.withClazz(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, null, value);
-         }
-      }
-         
-      return changed;   
-   }
-
-   boolean removeFromRoles(Role value)
-   {
-      boolean changed = false;
-      
-      if ((this.roles != null) && (value != null))
-      {
-         changed = this.roles.remove(value);
-         
-         if (changed)
-         {
-            value.setClazz(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_ROLES, value, null);
-         }
-      }
-         
-      return changed;   
-   }
-
    Clazz withRoles(Role... value)
    {
-      if(value==null){
-         return this;
-      }
-      for (Role item : value)
-      {
-         addToRoles(item);
-      }
-      return this;
+      return with(value);
    } 
 
    Clazz withoutRoles(Role... value)
    {
-      for (Role item : value)
-      {
-         removeFromRoles(item);
-      }
-      return this;
-   }
-
-   void removeAllFromRoles()
-   {
-      LinkedHashSet<Role> tmpSet = new LinkedHashSet<Role>(this.getRoles());
-   
-      for (Role value : tmpSet)
-      {
-         this.removeFromRoles(value);
-      }
+      return without(value);
    }
 
    Role createRoles()
@@ -1027,12 +742,12 @@ public class Clazz extends SDMLibClass
    
    //==========================================================================
    
-   public boolean isInterfaze()
+   boolean isInterfaze()
    {
       return this.interfaze;
    }
    
-   public void setInterfaze(boolean value)
+   void setInterfaze(boolean value)
    {
       if (this.interfaze != value)
       {
@@ -1042,7 +757,7 @@ public class Clazz extends SDMLibClass
       }
    }
    
-   public Clazz withInterfaze(boolean value)
+   Clazz withInterfaze(boolean value)
    {
       setInterfaze(value);
       return this;
