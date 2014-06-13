@@ -65,19 +65,10 @@ public class Template implements PropertyChangeInterface
 
    public void removeYou()
    {
-      removeAllFromPlaceholders();
       setChooser(null);
-      removeAllFromMatches();
-      removeAllFromParents();
-       withoutPlaceholders(this.getPlaceholders().toArray(new PlaceHolderDescription[this.getPlaceholders().size()]));
-       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
-       withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
-       withoutPlaceholders(this.getPlaceholders().toArray(new PlaceHolderDescription[this.getPlaceholders().size()]));
-       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
-       withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
-       withoutPlaceholders(this.getPlaceholders().toArray(new PlaceHolderDescription[this.getPlaceholders().size()]));
-       withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
-       withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
+      withoutPlaceholders(this.getPlaceholders().toArray(new PlaceHolderDescription[this.getPlaceholders().size()]));
+      withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
+      withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -129,23 +120,23 @@ public class Template implements PropertyChangeInterface
    {
       return with("_", "_", propertyName);
    }
-   
+
    public Template withReplacements(String... placeholderAttrNamePairs)
    {
       for (int i = 0; i + 2 <= placeholderAttrNamePairs.length; i += 2)
       {
          this.createPlaceholders().withTextFragment(placeholderAttrNamePairs[i]).withAttrName(placeholderAttrNamePairs[i+1]);
       }
-      
+
       return this;
    }
-   
+
    public Template with(String templateText, String... placeholderAttrNamePairs)
    {
       this.setTemplateText(templateText);
-      
+
       this.withReplacements(placeholderAttrNamePairs);
-      
+
       return this;
    }
 
@@ -254,7 +245,7 @@ public class Template implements PropertyChangeInterface
    protected  int currentPosInExpandedText = 0;
 
    protected String constFragmentFollowingAfterList;
-   
+
    public int getValueStartPos()
    {
       return currentPosInExpandedText;
@@ -265,11 +256,11 @@ public class Template implements PropertyChangeInterface
       this.currentPosInExpandedText = valueStartPos;
       return this;
    }
-   
+
    public Match parseOnceNew()
    {
-	   this.currentPosInExpandedText = 0;
-	   return parseOnce();
+      this.currentPosInExpandedText = 0;
+      return parseOnce();
    }
 
    public MatchSet parse()
@@ -278,7 +269,7 @@ public class Template implements PropertyChangeInterface
       if ( ! isList())
       {
          Match subMatch = parseOnce();
-         
+
          if (subMatch != null)
          {
             result.add(subMatch);
@@ -287,8 +278,8 @@ public class Template implements PropertyChangeInterface
       else
       {
          int oldValueStartPos = 0;
-         
-            // look for list start
+
+         // look for list start
          int listStartPos = this.getExpandedText().indexOf(this.getListStart(), currentPosInExpandedText);
 
          if (listStartPos >= 0)
@@ -310,7 +301,7 @@ public class Template implements PropertyChangeInterface
                int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
                int behindListSeparatorPos = listSeperatorPos + this.getListSeparator().length();
                int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
-               
+
                if (" ".equals(this.getListSeparator()))
                {
                   int length = this.getExpandedText().length();
@@ -337,13 +328,13 @@ public class Template implements PropertyChangeInterface
                      }
                   }
                }
-               
+
                if ("".equals(this.getListEnd()))
                {
                   // there is no good list end symbol use constFragment behind list placeholder instead
                   listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
                }
-               
+
                boolean found = listSeperatorPos == currentPosInExpandedText && listSeperatorPos <= listEndPos;
 
                if (found)
@@ -352,7 +343,7 @@ public class Template implements PropertyChangeInterface
                   oldValueStartPos = currentPosInExpandedText;
 
                   currentPosInExpandedText = behindListSeparatorPos;
-                  
+
                   subMatch = parseOnce();
                }
                else
@@ -361,7 +352,7 @@ public class Template implements PropertyChangeInterface
                   oldValueStartPos = currentPosInExpandedText;
                }
             }
-            
+
             currentPosInExpandedText = oldValueStartPos;
 
             // skip list end
@@ -371,16 +362,16 @@ public class Template implements PropertyChangeInterface
             {
                currentPosInExpandedText = currentPosInExpandedText + getListEnd().length();
             }
-            
+
             this.setModelObject(modelObjectSet);
          }
       }
-      
+
       return result;
    }
 
    public static int logStartPos = 8331;
-   
+
    public Match parseOnce()
    {
       // the templateText contains placeholders and constant text fragments. Match the constant fragments in the expanded text. 
@@ -392,7 +383,7 @@ public class Template implements PropertyChangeInterface
       // int constantStartPosInExpandedText = 0;
 
       int matchStartPos = currentPosInExpandedText;
-      
+
       Match templateMatch = new Match()
       .withFullText(this.getExpandedText())
       .withStartPos(matchStartPos);
@@ -414,7 +405,7 @@ public class Template implements PropertyChangeInterface
 
          // find fragment in expanded text
          int endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
-         
+
          // constantStartPosInExpandedText = this.getExpandedText().indexOf(constfragment, currentPosInExpandedText);
 
          if (startOfMatch != currentPosInExpandedText || endOfMatchInExpandedText < currentPosInExpandedText)
@@ -427,8 +418,8 @@ public class Template implements PropertyChangeInterface
          SendableEntityCreator creator = this.getIdMap().getCreator(this.getModelClassName(), true);
 
          boolean first = true;
-         
-         
+
+
 
          while (true)
          {
@@ -437,7 +428,7 @@ public class Template implements PropertyChangeInterface
                System.out.print("Parsing at " + currentPosInExpandedText + ": " + getExpandedText().substring(currentPosInExpandedText, Math.min(currentPosInExpandedText + 50, getExpandedText().length())));
                System.out.println();
             }
-            
+
             previousPlaceHolder = placeholder;
 
             if (iterator.hasNext())
@@ -448,7 +439,7 @@ public class Template implements PropertyChangeInterface
             {
                placeholder = null;
             }
-            
+
             // find constant fragment before placeholder
             if (placeholder != null)
             {
@@ -458,7 +449,7 @@ public class Template implements PropertyChangeInterface
             {
                placeHolderPosInTemplateText = this.getTemplateText().length();
             }
-            
+
             constfragment = this.getTemplateText().substring(currentPosInTemplateText, placeHolderPosInTemplateText);
 
             if (placeholder != null)
@@ -466,16 +457,16 @@ public class Template implements PropertyChangeInterface
                currentPosInTemplateText = placeHolderPosInTemplateText + placeholder.getTextFragment().length();
             }
 
-            
-            
+
+
             Template subTemplate = previousPlaceHolder.getSubTemplate();
             if (subTemplate != null)
             {
                // ask subtemplate to parse
                MatchSet subMatches = subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(currentPosInExpandedText)
-               .withIdMap(idMap).withConstFragmentFollowingAfterList(constfragment)
-               .parse();
-               
+                     .withIdMap(idMap).withConstFragmentFollowingAfterList(constfragment)
+                     .parse();
+
                if (subTemplate.isList())
                {
                   for (Object value : (Collection<?>) subTemplate.getModelObject())
@@ -487,7 +478,7 @@ public class Template implements PropertyChangeInterface
                {
                   creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), subTemplate.getModelObject(), "update");
                }
-               
+
                if ( ! subMatches.isEmpty())
                {
                   // create placeholderMatch
@@ -502,9 +493,9 @@ public class Template implements PropertyChangeInterface
                   ;
 
                }
-               
+
                this.currentPosInExpandedText = subTemplate.getValueStartPos();
-               
+
                // now the constant fragment should follow
                endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
 
@@ -514,7 +505,7 @@ public class Template implements PropertyChangeInterface
                {
                   return null;
                }
-               
+
                currentPosInExpandedText = endOfMatchInExpandedText;
             }
             else
@@ -533,13 +524,13 @@ public class Template implements PropertyChangeInterface
                   // empty constfragment, look for list separator 
                   int listSeparatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
                   int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
-                  
+
                   if ("".equals(this.getListEnd()))
                   {
                      // there is no good list end symbol use constFragment behind list placeholder instead
                      listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
                   }
-                  
+
 
                   if ( ! "".equals(this.getListSeparator()) && listSeparatorPos >= 0 && listSeparatorPos < listEndPos)
                   {
@@ -556,9 +547,9 @@ public class Template implements PropertyChangeInterface
                      return null;
                   }
                }
-               
+
                String value = this.getExpandedText().substring(currentPosInExpandedText, startOfMatch);
-               
+
                int valueStartPos = currentPosInExpandedText;
 
                currentPosInExpandedText = endOfMatchInExpandedText;
@@ -582,14 +573,14 @@ public class Template implements PropertyChangeInterface
                      // create object and assign attribute
                      object = creator.getSendableInstance(false);
                   }
-                  
+
                   idMap.put(key, object);
-                  
+
                   this.setModelObject(object);
                }
 
                creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
-               
+
                // create placeholderMatch
                Match placeholderMatch = new Match()
                .withPlaceholder(previousPlaceHolder)
@@ -600,7 +591,7 @@ public class Template implements PropertyChangeInterface
                .withParentMatch(templateMatch)
                ;
             }
-            
+
             if (placeholder == null)
             {
                break;
@@ -613,7 +604,7 @@ public class Template implements PropertyChangeInterface
       .withTemplate(this)
       .withModelObject(this.getModelObject())
       ;
-      
+
       return templateMatch;
    } 
 
@@ -622,29 +613,29 @@ public class Template implements PropertyChangeInterface
    private int matchConstantFragmentToExpandedText(String constfragment, int currentPosInExpandedText)
    {
       int currentPosInConstFragment = 0;
-      
+
       int blankPos = constfragment.indexOf(' ');
-      
+
       if (blankPos <= 0)
       {
          // no blank, take it all
          blankPos = constfragment.length();
       }
-         
+
       // search for real prefix in text
       currentPosInExpandedText = this.expandedText.indexOf(constfragment.substring(0, blankPos), currentPosInExpandedText);
-      
+
       if (currentPosInExpandedText < 0)
       {
          return -1;
       }
-      
+
       startOfMatch = currentPosInExpandedText;
-      
+
       while (currentPosInConstFragment < constfragment.length())
       {
          char constFragmentChar = constfragment.charAt(currentPosInConstFragment);
-         
+
          if (constFragmentChar == ' ')
          {
             char nextFragmentChar = Character.MIN_VALUE;
@@ -652,27 +643,27 @@ public class Template implements PropertyChangeInterface
             {
                nextFragmentChar = constfragment.charAt(currentPosInConstFragment +1);
             }
-            
+
             while (currentPosInExpandedText < expandedText.length() 
                   && Character.isWhitespace(expandedText.charAt(currentPosInExpandedText))
                   && expandedText.charAt(currentPosInExpandedText) != nextFragmentChar)
             {
                currentPosInExpandedText++;
             }
-            
+
             currentPosInConstFragment++;
          }
          else
          {
-             if (expandedText.charAt(currentPosInExpandedText) != constFragmentChar)
-             {
-                return -1;
-             }
-             currentPosInConstFragment++;
-             currentPosInExpandedText++;
+            if (expandedText.charAt(currentPosInExpandedText) != constFragmentChar)
+            {
+               return -1;
+            }
+            currentPosInConstFragment++;
+            currentPosInExpandedText++;
          }
       }
-      
+
       return currentPosInExpandedText;
    }
 
@@ -703,12 +694,12 @@ public class Template implements PropertyChangeInterface
    protected Template withIdMap(JsonIdMap idMap2)
    {
       this.idMap = idMap2;
-      
+
       return this;
    }
 
    public static int expansionStep = 0;
-   
+
    public void generate()
    {
       // expand all placeholder descriptions
@@ -723,15 +714,15 @@ public class Template implements PropertyChangeInterface
          this.setExpandedText("");
          return;
       }
-      
-      
+
+
       if (modelObject instanceof Collection)
       {
          Collection<?> collection = (Collection<?>) modelObject;
          if ( ! collection.isEmpty())
          {
             Object elem = collection.iterator().next();
-            
+
             if ("Double Integer String".indexOf(CGUtil.shortClassName(elem.getClass().getName())) >= 0)
             {
                rootObjects.add(modelObject);
@@ -819,7 +810,7 @@ public class Template implements PropertyChangeInterface
 
       this.setExpandedText(result.toString());
    }
-   
+
    public static int logStartStep = 453;
 
 
@@ -834,7 +825,7 @@ public class Template implements PropertyChangeInterface
       for (String attrName : split)
       {
          Integer index = null; 
-         
+
          try
          {
             index = Integer.valueOf(attrName);
@@ -843,12 +834,12 @@ public class Template implements PropertyChangeInterface
          {
             // do nothing
          }
-         
+
          if (index != null)
          {
             // look up the element with this index
             Object[] array = ((Collection<?>)currentObject).toArray(new Object[((Collection<?>)currentObject).size()]);
-            
+
             currentObject = array[index];
          }
          else if (currentObject instanceof ArrayList)
@@ -992,10 +983,10 @@ public class Template implements PropertyChangeInterface
    }
 
 
-   
+
    public static final TemplateSet EMPTY_SET = new TemplateSet();
 
-   
+
    /********************************************************************
     * <pre>
     *              many                       many
@@ -1003,62 +994,62 @@ public class Template implements PropertyChangeInterface
     *              owners                   placeholders
     * </pre>
     */
-   
+
    public static final String PROPERTY_PLACEHOLDERS = "placeholders";
-   
+
    private PlaceHolderDescriptionSet placeholders = null;
-   
+
    public PlaceHolderDescriptionSet getPlaceholders()
    {
       if (this.placeholders == null)
       {
          return PlaceHolderDescription.EMPTY_SET;
       }
-   
+
       return this.placeholders;
    }
-   
+
    public boolean addToPlaceholders(PlaceHolderDescription value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.placeholders == null)
          {
             this.placeholders = new PlaceHolderDescriptionSet();
          }
-         
+
          changed = this.placeholders.add (value);
-         
+
          if (changed)
          {
             value.withOwners(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, null, value);
          }
       }
-         
+
       return changed;   
    }
-   
+
    public boolean removeFromPlaceholders(PlaceHolderDescription value)
    {
       boolean changed = false;
-      
+
       if ((this.placeholders != null) && (value != null))
       {
          changed = this.placeholders.remove (value);
-         
+
          if (changed)
          {
             value.withoutOwners(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, value, null);
          }
       }
-         
+
       return changed;   
    }
-   
+
    public Template withPlaceholders(PlaceHolderDescription... value)
    {
       for (PlaceHolderDescription item : value)
@@ -1067,7 +1058,7 @@ public class Template implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Template withoutPlaceholders(PlaceHolderDescription... value)
    {
       for (PlaceHolderDescription item : value)
@@ -1076,17 +1067,17 @@ public class Template implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromPlaceholders()
    {
       LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getPlaceholders());
-   
+
       for (PlaceHolderDescription value : tmpSet)
       {
          this.removeFromPlaceholders(value);
       }
    }
-   
+
    public PlaceHolderDescription createPlaceholders()
    {
       PlaceHolderDescription value = new PlaceHolderDescription();
@@ -1094,7 +1085,7 @@ public class Template implements PropertyChangeInterface
       return value;
    } 
 
-   
+
    /********************************************************************
     * <pre>
     *              many                       one
@@ -1102,50 +1093,50 @@ public class Template implements PropertyChangeInterface
     *              choices                   chooser
     * </pre>
     */
-   
+
    public static final String PROPERTY_CHOOSER = "chooser";
-   
+
    private ChoiceTemplate chooser = null;
-   
+
    public ChoiceTemplate getChooser()
    {
       return this.chooser;
    }
-   
+
    public boolean setChooser(ChoiceTemplate value)
    {
       boolean changed = false;
-      
+
       if (this.chooser != value)
       {
          ChoiceTemplate oldValue = this.chooser;
-         
+
          if (this.chooser != null)
          {
             this.chooser = null;
             oldValue.withoutChoices(this);
          }
-         
+
          this.chooser = value;
-         
+
          if (value != null)
          {
             value.withChoices(this);
          }
-         
+
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CHOOSER, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public Template withChooser(ChoiceTemplate value)
    {
       setChooser(value);
       return this;
    } 
-   
+
    public ChoiceTemplate createChooser()
    {
       ChoiceTemplate value = new ChoiceTemplate();
@@ -1153,7 +1144,7 @@ public class Template implements PropertyChangeInterface
       return value;
    } 
 
-   
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -1161,62 +1152,62 @@ public class Template implements PropertyChangeInterface
     *              template                   matches
     * </pre>
     */
-   
+
    public static final String PROPERTY_MATCHES = "matches";
-   
+
    private MatchSet matches = null;
-   
+
    public MatchSet getMatches()
    {
       if (this.matches == null)
       {
          return Match.EMPTY_SET;
       }
-   
+
       return this.matches;
    }
-   
+
    public boolean addToMatches(Match value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.matches == null)
          {
             this.matches = new MatchSet();
          }
-         
+
          changed = this.matches.add (value);
-         
+
          if (changed)
          {
             value.withTemplate(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, null, value);
          }
       }
-         
+
       return changed;   
    }
-   
+
    public boolean removeFromMatches(Match value)
    {
       boolean changed = false;
-      
+
       if ((this.matches != null) && (value != null))
       {
          changed = this.matches.remove (value);
-         
+
          if (changed)
          {
             value.setTemplate(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, value, null);
          }
       }
-         
+
       return changed;   
    }
-   
+
    public Template withMatches(Match... value)
    {
       for (Match item : value)
@@ -1225,7 +1216,7 @@ public class Template implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Template withoutMatches(Match... value)
    {
       for (Match item : value)
@@ -1234,17 +1225,17 @@ public class Template implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromMatches()
    {
       LinkedHashSet<Match> tmpSet = new LinkedHashSet<Match>(this.getMatches());
-   
+
       for (Match value : tmpSet)
       {
          this.removeFromMatches(value);
       }
    }
-   
+
    public Match createMatches()
    {
       Match value = new Match();
@@ -1252,9 +1243,9 @@ public class Template implements PropertyChangeInterface
       return value;
    } 
 
-   
 
-   
+
+
    /********************************************************************
     * <pre>
     *              one                       many
@@ -1262,62 +1253,62 @@ public class Template implements PropertyChangeInterface
     *              subTemplate                   parents
     * </pre>
     */
-   
+
    public static final String PROPERTY_PARENTS = "parents";
-   
+
    private PlaceHolderDescriptionSet parents = null;
-   
+
    public PlaceHolderDescriptionSet getParents()
    {
       if (this.parents == null)
       {
          return PlaceHolderDescription.EMPTY_SET;
       }
-   
+
       return this.parents;
    }
-   
+
    public boolean addToParents(PlaceHolderDescription value)
    {
       boolean changed = false;
-      
+
       if (value != null)
       {
          if (this.parents == null)
          {
             this.parents = new PlaceHolderDescriptionSet();
          }
-         
+
          changed = this.parents.add (value);
-         
+
          if (changed)
          {
             value.withSubTemplate(this);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTS, null, value);
          }
       }
-         
+
       return changed;   
    }
-   
+
    public boolean removeFromParents(PlaceHolderDescription value)
    {
       boolean changed = false;
-      
+
       if ((this.parents != null) && (value != null))
       {
          changed = this.parents.remove (value);
-         
+
          if (changed)
          {
             value.setSubTemplate(null);
             getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTS, value, null);
          }
       }
-         
+
       return changed;   
    }
-   
+
    public Template withParents(PlaceHolderDescription... value)
    {
       for (PlaceHolderDescription item : value)
@@ -1326,7 +1317,7 @@ public class Template implements PropertyChangeInterface
       }
       return this;
    } 
-   
+
    public Template withoutParents(PlaceHolderDescription... value)
    {
       for (PlaceHolderDescription item : value)
@@ -1335,17 +1326,17 @@ public class Template implements PropertyChangeInterface
       }
       return this;
    }
-   
+
    public void removeAllFromParents()
    {
       LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getParents());
-   
+
       for (PlaceHolderDescription value : tmpSet)
       {
          this.removeFromParents(value);
       }
    }
-   
+
    public PlaceHolderDescription createParents()
    {
       PlaceHolderDescription value = new PlaceHolderDescription();
@@ -1359,18 +1350,18 @@ public class Template implements PropertyChangeInterface
    {
       Template subTemplate = this.createPlaceHolderAndSubTemplate(textFragment, attrName, templateText)
             .withList(listStart, listSeparator, listEnd);
-      
+
       return subTemplate;
    }
 
-      
+
    public Template createPlaceHolderAndSubTemplate(String textFragment,
          String attrName, String templateText)
    {
       Template subTemplate = this.createPlaceHolderAndSubTemplate()
-      .withParent(textFragment, attrName)
-      .withTemplateText(templateText);
-      
+            .withParent(textFragment, attrName)
+            .withTemplateText(templateText);
+
       return subTemplate;
    }
 
@@ -1378,44 +1369,44 @@ public class Template implements PropertyChangeInterface
    public Template withMultiStep(String textFragment, String... properties)
    {
       Template subTemplate = this.createPlaceHolderAndSubTemplate()
-      .withParent(textFragment, properties[0]);
-      
+            .withParent(textFragment, properties[0]);
+
       for (int i = 1; i < properties.length - 1; i++)
       {
          subTemplate = subTemplate.createPlaceHolderAndSubTemplate("_", properties[i], "_");
       }
-      
+
       subTemplate.withSimple(properties[properties.length - 1]);
-      
+
       return this;
    } 
 
    public Template withSeparatedMultiStep(String textFragment, String listSeperator, String... properties)
    {
       Template subTemplate = this.createPlaceHolderAndSubTemplate()
-      .withParent(textFragment, properties[0]).withListSeparator(listSeperator);
-      
+            .withParent(textFragment, properties[0]).withListSeparator(listSeperator);
+
       for (int i = 1; i < properties.length - 1; i++)
       {
          subTemplate = subTemplate.createPlaceHolderAndSubTemplate("_", properties[i], "_");
       }
-      
+
       subTemplate.withSimple(properties[properties.length - 1]);
-      
+
       return this;
    }
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_REFERENCELOOKUP = "referenceLookup";
-   
+
    private boolean referenceLookup = false;
 
    public boolean getReferenceLookup()
    {
       return this.referenceLookup;
    }
-   
+
    public void setReferenceLookup(boolean value)
    {
       if (this.referenceLookup != value)
@@ -1425,25 +1416,25 @@ public class Template implements PropertyChangeInterface
          getPropertyChangeSupport().firePropertyChange(PROPERTY_REFERENCELOOKUP, oldValue, value);
       }
    }
-   
+
    public Template withReferenceLookup(boolean value)
    {
       setReferenceLookup(value);
       return this;
    } 
 
-   
+
    //==========================================================================
-   
+
    public static final String PROPERTY_NAME = "name";
-   
+
    private String name;
 
    public String getName()
    {
       return this.name;
    }
-   
+
    public void setName(String value)
    {
       if ( ! StrUtil.stringEquals(this.name, value))
@@ -1453,7 +1444,7 @@ public class Template implements PropertyChangeInterface
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
-   
+
    public Template withName(String value)
    {
       setName(value);
