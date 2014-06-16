@@ -41,8 +41,6 @@ import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import javafx.application.Platform;
-import jdk.internal.org.objectweb.asm.commons.TableSwitchGenerator;
-
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.replication.creators.ReplicationRootSet;
