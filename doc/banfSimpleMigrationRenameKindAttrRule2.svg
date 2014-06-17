@@ -35,13 +35,13 @@
 </g>
 <!-- g3 -->
 <g id="node3" class="node"><title>g3</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="55.5,-4.5 55.5,-55.5 174.5,-55.5 174.5,-4.5 55.5,-4.5"/>
-<polygon fill="none" stroke="black" points="56,-38 56,-55 175,-55 175,-38 56,-38"/>
-<text text-anchor="start" x="59.5" y="-44.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="63.5" y="-44.5" font-family="Arial" font-size="10.00"> g3 :GenericAttributePO </text>
-<polygon fill="none" stroke="black" points="56,-4 56,-38 175,-38 175,-4 56,-4"/>
-<text text-anchor="start" x="78.5" y="-26" font-family="Arial" font-size="10.00"> name == &quot;kind&quot; </text>
-<text text-anchor="start" x="80.5" y="-12" font-family="Arial" font-size="10.00" fill="green"> name := &quot;text&quot; </text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="71,-4.5 71,-55.5 159,-55.5 159,-4.5 71,-4.5"/>
+<polygon fill="none" stroke="black" points="71,-38 71,-55 159,-55 159,-38 71,-38"/>
+<text text-anchor="start" x="74.5" y="-44.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="78.5" y="-44.5" font-family="Arial" font-size="10.00"> g3 :GenericAttributePO </text>
+<polygon fill="none" stroke="black" points="71,-4 71,-38 159,-38 159,-4 71,-4"/>
+<text text-anchor="start" x="89" y="-26" font-family="Arial" font-size="10.00"> name == &quot;kind&quot; </text>
+<text text-anchor="start" x="90.5" y="-12" font-family="Arial" font-size="10.00" fill="green"> name := &quot;text&quot; </text>
 </g>
 <!-- g2&#45;&#45;g3 -->
 <g id="edge4" class="edge"><title>g2&#45;&#45;g3</title>

@@ -293,3 +293,4 @@ public class Professor extends Female implements PropertyChangeInterface
       return value;
    } 
 }
+

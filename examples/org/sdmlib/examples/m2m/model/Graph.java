@@ -383,3 +383,4 @@ public class Graph implements PropertyChangeInterface
       return value;
    } 
 }
+

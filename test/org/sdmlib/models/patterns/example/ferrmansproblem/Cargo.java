@@ -251,3 +251,4 @@ public class Cargo implements PropertyChangeInterface
       return value;
    }
 }
+

@@ -178,3 +178,4 @@ public class GenericAttribute implements PropertyChangeInterface
    }
 
 }
+

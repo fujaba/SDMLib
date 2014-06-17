@@ -154,3 +154,4 @@ public class Topic implements PropertyChangeInterface
       return value;
    } 
 }
+

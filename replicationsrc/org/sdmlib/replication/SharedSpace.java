@@ -29,12 +29,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javafx.application.Platform;
 import org.sdmlib.replication.creators.ReplicationChangeSet;
 import org.sdmlib.replication.creators.ReplicationChannelSet;
 import org.sdmlib.replication.creators.ReplicationRootSet;
@@ -47,9 +53,13 @@ import org.sdmlib.serialization.json.JsonObject;
 import org.sdmlib.utils.PropertyChangeInterface;
 import org.sdmlib.utils.StrUtil;
 
+
+
 public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
       MapUpdateListener
 {
+
+   public static final String JLOG = "jlog";
 
    public static final String CURRENT_HISTORY_ID = "currentHistoryId";
 
@@ -65,24 +75,13 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    private LinkedBlockingQueue<ChannelMsg> msgQueue = new LinkedBlockingQueue<ChannelMsg>();
 
-   public class ChannelMsg
-   {
-      public ChannelMsg(ReplicationChannel channel, String msg)
-      {
-         this.channel = channel;
-         this.msg = msg;
-      }
-
-      public ReplicationChannel channel;
-
-      public String msg;
-   }
-
    private boolean firstMessage = true;
 
    private String serverIp;
 
    private int serverPort;
+
+   private boolean javaFx;
 
    public SharedSpace()
    {
@@ -97,7 +96,19 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.map = map;
    }
 
-   public SharedSpace init()
+   public ReplicationRoot plainInit()
+   {
+      map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+      
+      map.withUpdateMsgListener((MapUpdateListener) this);
+      
+      ReplicationRoot replicationRoot = new ReplicationRoot();
+      map.put(SharedSpace.REPLICATION_ROOT, replicationRoot);
+      
+      return replicationRoot;
+   }
+
+   public SharedSpace init(PropertyChangeListener laneListener)
    {
       map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
       setName("Lane" + nodeId);
@@ -111,7 +122,13 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       channel.sendSpaceConnectionRequest(spaceId);
       waitForCurrentHistoryId();
       
-//      map.put(REMOTE_TASK_BOARD, new RemoteTaskBoard());
+      remoteTaskBoard = new RemoteTaskBoard();
+      map.put(REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
+      
+      if (laneListener != null)
+      {
+         remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(laneListener);
+      }
       
       return this;
    }
@@ -120,7 +137,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       try
       {
-         if (firstMessage)
+         if (firstMessage && ! javaFXApplication)
          {
             firstMessage = false;
             JsonObject jsonObject = new JsonObject().withValue(msg);
@@ -140,7 +157,15 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          }
 
          ChannelMsg channelMsg = new ChannelMsg(channel, msg);
-         msgQueue.put(channelMsg);
+         
+         if (javaFXApplication)
+         {
+            Platform.runLater(new JavaFXMsgHandler(channelMsg));
+         }
+         else
+         {
+            msgQueue.put(channelMsg);
+         }
       }
       catch (InterruptedException e)
       {
@@ -195,16 +220,61 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       }
    }
 
+   public static abstract class HookAction
+   {
+      public abstract void run(ReplicationChange change);
+   }
+   
+   private LinkedHashSet<HookAction> beforeHandleMessageActions = new LinkedHashSet<HookAction>();
+   private LinkedHashSet<HookAction> afterHandleMessageActions = new LinkedHashSet<HookAction>();
+   
+   public void addToBeforeHandleMessageActions(HookAction r)
+   {
+      this.beforeHandleMessageActions.add(r);
+   }
+   
+   public void removeFromBeforeHandleMessageActions(HookAction r)
+   {
+      this.beforeHandleMessageActions.remove(r);
+   }
+   
+   
+   public void addToAfterHandleMessageActions(HookAction r) {
+      this.afterHandleMessageActions.add(r);
+   }
+   
+   public void removeFromAfterHandleMessageActions(HookAction r) {
+      this.afterHandleMessageActions.remove(r);
+   }
+   
    private ReplicationChange previousChange = null;
 
    public void handleMessage(ChannelMsg msg)
    {
-      this.isApplyingChangeMsg = true;
-
       try
       {
          // reconstruct change
          JsonObject jsonObject = new JsonObject().withValue(msg.msg);
+//         System.out.println(jsonObject.toString(2));
+//         JsonObject propJson = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
+//         if (propJson != null) {
+//            String id = (String) propJson.get("historyIdPrefix");
+//            if (id == null || !id.equals(nodeId))
+//            {
+//               for (HookAction r : beforeHandleMessageActions)
+//               {
+//                  
+//                  r.run(jsonObject);
+//               }
+//            }
+//         }
+//         else {
+//            System.out.println(msg.msg);
+//         }
+
+
+         this.isApplyingChangeMsg = true;
+
 
          if (previousChange == null)
          {
@@ -249,8 +319,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          {
             // change already known, ignore
             change.withLog("ignore change already known", this.getName());
-
-            // System.out.println(change);
+            
             return;
          }
 
@@ -261,49 +330,49 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
          // is previous change known?
          String previousPrefix = (String) jsonObject.get(LOWER_ID_PREFIX);
-         if (previousPrefix != null)
-         {
-            long previousNumber = jsonObject.getLong(LOWER_ID_NUMBER);
-            previousChange.withHistoryIdNumber(previousNumber).withHistoryIdPrefix(previousPrefix);
-
-            // there is an id for the previous change, do I know that one?
-            ReplicationChange floor = this.getHistory().getChanges().floor(previousChange);
-            if (floor == null || floor.compareTo(previousChange) != 0)
-            {
-               // ups, I do not have the previous change.
-               // this should not happen.
-               // well, ask for the previous change and wait for it
-               // well what is the latest change I have already that is before
-               // the one I have no longer
-               ReplicationChange previousfloor = getHistory().getChanges().floor(previousChange);
-               if (floor != null)
-               {
-                  previousNumber = previousfloor.getHistoryIdNumber();
-                  previousPrefix = previousfloor.getHistoryIdPrefix();
-               }
-               else
-               {
-                  // ups, I do not have the previous Id nor any one before that,
-                  // start from the beginning
-                  previousNumber = 0;
-                  previousPrefix = " ";
-               }
-               JsonObject jsonRequest = new JsonObject();
-               jsonRequest.put(RESEND_ID_HISTORY_NUMBER, previousNumber);
-               jsonRequest.put(RESEND_ID_HISTORY_PREFIX, previousPrefix);
-
-               msg.channel.send(jsonRequest.toString());
-
-               // wait for it
-               return;
-            }
-         }
-         else
-         {
-            // sender does not have an earlier change, use dummy for further
-            // processing
-            previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
-         }
+//         if (false && previousPrefix != null)
+//         {
+//            long previousNumber = jsonObject.getLong(LOWER_ID_NUMBER);
+//            previousChange.withHistoryIdNumber(previousNumber).withHistoryIdPrefix(previousPrefix);
+//
+//            // there is an id for the previous change, do I know that one?
+//            ReplicationChange floor = this.getHistory().getChanges().floor(previousChange);
+//            if (floor == null || floor.compareTo(previousChange) != 0)
+//            {
+//               // ups, I do not have the previous change.
+//               // this should not happen.
+//               // well, ask for the previous change and wait for it
+//               // well what is the latest change I have already that is before
+//               // the one I have no longer
+//               ReplicationChange previousfloor = getHistory().getChanges().floor(previousChange);
+//               if (floor != null)
+//               {
+//                  previousNumber = previousfloor.getHistoryIdNumber();
+//                  previousPrefix = previousfloor.getHistoryIdPrefix();
+//               }
+//               else
+//               {
+//                  // ups, I do not have the previous Id nor any one before that,
+//                  // start from the beginning
+//                  previousNumber = 0;
+//                  previousPrefix = " ";
+//               }
+//               JsonObject jsonRequest = new JsonObject();
+//               jsonRequest.put(RESEND_ID_HISTORY_NUMBER, previousNumber);
+//               jsonRequest.put(RESEND_ID_HISTORY_PREFIX, previousPrefix);
+//
+//               msg.channel.send(jsonRequest.toString());
+//
+//               // wait for it
+//               return;
+//            }
+//         }
+//         else
+//         {
+//            // sender does not have an earlier change, use dummy for further
+//            // processing
+//            previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
+//         }
 
          // try to apply change
          // is it a conflict?
@@ -411,6 +480,20 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       finally
       {
          this.isApplyingChangeMsg = false;
+         
+//         JsonObject jsonObject = new JsonObject().withValue(msg.msg);
+//         System.out.println(jsonObject.toString(2));
+//         JsonObject propJson = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
+//         if (propJson != null) {
+//            String id = (String) propJson.get("historyIdPrefix");
+//            if (id == null || !id.equals(nodeId))
+//            {
+//               for (HookAction r : afterHandleMessageActions)
+//               {
+//                  r.run(jsonObject);
+//               }
+//            }
+//         }
       }
 
    }
@@ -461,9 +544,49 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    private void applyChange(ReplicationChange change, ReplicationChannel sender)
    {
+      applyChangeLocally(change);
+
+      sendNewChange(change);
+
+      // if the change is not the last, the sender might not have got some
+      // changes
+      for (ReplicationChange newerChange : getHistory().getChanges().tailSet(change, false))
+      {
+         sendChangeTo(sender, newerChange);
+      }
+   }
+
+   
+   public void applyNoConflictChange(ReplicationChange change)
+   {
+      String key = change.getTargetObjectId() + "|" + change.getTargetProperty();
+
+      Object oldChange = this.getHistory().getChangeMap().get(key);
+
+      if (change.getIsToManyProperty())
+      {
+         // no conflict, apply
+         applyChangeLocally(change);
+      }
+      else
+      {
+         if (oldChange == null || ((ReplicationChange) oldChange).compareTo(change) < 0)
+         {
+            applyChangeLocally(change);
+         }
+      }
+   }
+   
+   public void applyChangeLocally(ReplicationChange change)
+   {
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject().withValue(change.getChangeMsg());
-
+      
+      for (HookAction r : beforeHandleMessageActions)
+      {
+         r.run(change);
+      }
+   
       try
       {
          this.setReadMessages(true);
@@ -481,21 +604,37 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.lastChangeId = Math.max(lastChangeId, change.getHistoryIdNumber());
 
       change.withLog("change applied", this.getName());
-
-      sendNewChange(change);
-
-      // if the change is not the last, the sender might not have got some
-      // changes
-      for (ReplicationChange newerChange : getHistory().getChanges().tailSet(change, false))
+      
+      for (HookAction r : afterHandleMessageActions)
       {
-         sendChangeTo(sender, newerChange);
+         r.run(change);
       }
    }
 
    private File logFile = null;
 
+   public void setLogFile(File logFile)
+   {
+      this.logFile = logFile;
+      try
+      {
+         logFileWriter = new FileWriter(logFile, true);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+   }
+   
+   private boolean loadingHistory = false; 
+   
    private void writeChange(ReplicationChange change)
    {
+      if (loadingHistory)
+      {
+         return;
+      }
+      
       try
       {
          if (logFile == null)
@@ -504,14 +643,15 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
             logFile = new File("./SharedSpace/" + getSpaceId() + "_" + getNodeId() + ".json");
 
             result = logFile.createNewFile();
-
-            logFileWriter = new FileWriter(logFile, true);
          }
+         
+         logFileWriter = new FileWriter(logFile, true);
 
          JsonObject jsonObject = getChangeMap().toJsonObject(change);
-
          logFileWriter.write(jsonObject.toString() + "\n");
          logFileWriter.flush();
+         logFileWriter.close();
+         
       }
       catch (IOException e)
       {
@@ -559,6 +699,147 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          }
       }
    }
+   
+   public void loadHistoryFromFile(File file)
+   {
+      if (file.exists())
+      {
+         try
+         {
+            this.loadingHistory = true;
+            
+            BufferedReader in = new BufferedReader(new FileReader(file));
+
+            String line = in.readLine();
+            while (line != null)
+            {
+               ChannelMsg msg = new ChannelMsg(null, line);
+
+               handleMessage(msg);
+
+               line = in.readLine();
+            }
+            
+            in.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+         finally
+         {
+            this.loadingHistory = false;
+         }
+      }
+   }
+   
+   public void storeMyHistoryCompressed()
+   {
+      String loginName = logFile.getName(); 
+      loginName = loginName.split("\\.")[0];
+      
+      // create backup log
+      File backupFile = new File(logFile.getAbsolutePath() + ".backup");
+      try
+      {
+         Files.copy(logFile.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+      
+      // clear log file
+      try
+      {
+         new RandomAccessFile(logFile, "rw").setLength(0);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+
+      // loop through history
+      for (ReplicationChange change : getHistory().getChanges())
+      {
+         // if my change
+         if (change.getHistoryIdPrefix().equals(loginName))
+         {
+            // add to xy.jlog file   
+            writeChange(change);
+         }
+         
+      }
+   }
+   
+   public void loadHistoryFromDir(File logDir)
+   {
+      // loop through logDir and load all .jlog files
+      if (logDir.exists() && logDir.isDirectory())
+      {
+         ArrayList<ReplicationChange> changeList = new ArrayList<ReplicationChange>();
+         
+         for (File file : logDir.listFiles())
+         {
+            String fileName = file.getName();
+            
+            if (fileName.endsWith(JLOG))
+            {
+               // load all changes in list
+               try
+               {
+                  BufferedReader in = new BufferedReader(new FileReader(file));
+
+                  String line = in.readLine();
+                  while (line != null)
+                  {
+                     JsonObject jsonObject = new JsonObject().withValue(line);
+                     
+                     ReplicationChange change = (ReplicationChange) getChangeMap().decode(jsonObject);
+                     change.setChangeMsg(EntityUtil.unquote(change.getChangeMsg()));
+
+                     changeList.add(change);
+
+                     line = in.readLine();
+                  }
+                  
+                  in.close();
+               }
+               catch (Exception e)
+               {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+               }
+            }
+         }
+         
+         // sort by history id and prefix
+         Collections.sort(changeList);
+         
+         // apply in order
+         try
+         {
+            this.isApplyingChangeMsg = true;
+            this.loadingHistory = true;
+            
+            for (ReplicationChange change : changeList)
+            {
+               applyChangeLocally(change);
+            }
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+         finally
+         {
+            this.isApplyingChangeMsg = false;
+            this.loadingHistory = false;
+         }
+      }
+      
+   }
+
 
    private boolean isApplyingChangeMsg = false;
 
@@ -572,7 +853,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       this.isApplyingChangeMsg = isApplyingChangeMsg;
    }
 
-   private int logLevel = 1;
+   private int logLevel = 0;
    
    static public int msgNo = 0;
 
@@ -590,7 +871,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       .withHistoryIdPrefix(nodeId)
       .withHistoryIdNumber(getNewHistoryIdNumber())
       .withTargetObjectId(jsonObject.getString(JsonIdMap.ID))
-      .withChangeMsg(jsonObject.toString(3));
+      .withChangeMsg(jsonObject.toString());
 
       Object object = jsonObject.get(JsonIdMap.UPDATE);
 
@@ -667,7 +948,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    }
 
    // ==========================================================================
-   private JsonIdMap getChangeMap()
+   public JsonIdMap getChangeMap()
    {
       if (changeMap == null)
       {
@@ -706,6 +987,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       if (PROPERTY_NODEID.equalsIgnoreCase(attrName))
       {
          return getNodeId();
+      }
+
+      if (PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
+      {
+         return getJavaFXApplication();
       }
 
       return null;
@@ -754,6 +1040,12 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       if (PROPERTY_NODEID.equalsIgnoreCase(attrName))
       {
          setNodeId((String) value);
+         return true;
+      }
+
+      if (PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
+      {
+         setJavaFXApplication((Boolean) value);
          return true;
       }
 
@@ -1139,6 +1431,13 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public static final String REPLICATION_ROOT = "replicationRoot";
 
+   private RemoteTaskBoard remoteTaskBoard;
+   
+   public RemoteTaskBoard getRemoteTaskBoard()
+   {
+      return remoteTaskBoard;
+   }
+
    public void setReadMessages(boolean readMessages)
    {
       this.readMessages = readMessages;
@@ -1188,6 +1487,72 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       }
       return null;
    }
+
+   public boolean isLoadingHistory()
+   {
+      return loadingHistory;
+   }
+
+   public void setLoadingHistory(boolean loadingHistory)
+   {
+      this.loadingHistory = loadingHistory;
+   }
+
+   //==========================================================================
    
+   public static final String PROPERTY_JAVAFXAPPLICATION = "javaFXApplication";
+   
+   private boolean javaFXApplication;
+
+   public boolean getJavaFXApplication()
+   {
+      return this.javaFXApplication;
+   }
+   
+   public void setJavaFXApplication(boolean value)
+   {
+      if (this.javaFXApplication != value)
+      {
+         boolean oldValue = this.javaFXApplication;
+         this.javaFXApplication = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_JAVAFXAPPLICATION, oldValue, value);
+      }
+   }
+   
+   public SharedSpace withJavaFXApplication(boolean value)
+   {
+      setJavaFXApplication(value);
+      return this;
+   } 
+   
+   private class JavaFXMsgHandler implements Runnable
+   {
+      private ChannelMsg channelMsg;
+
+      public JavaFXMsgHandler(ChannelMsg channelMsg)
+      {
+         this.channelMsg = channelMsg;
+         // TODO Auto-generated constructor stub
+      }
+
+      @Override
+      public void run()
+      {
+         handleMessage(channelMsg);
+      }
+   }
+
+   public class ChannelMsg
+   {
+      public ChannelMsg(ReplicationChannel channel, String msg)
+      {
+         this.channel = channel;
+         this.msg = msg;
+      }
+
+      public ReplicationChannel channel;
+
+      public String msg;
+   }
 }
 

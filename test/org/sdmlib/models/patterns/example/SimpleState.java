@@ -192,3 +192,4 @@ public class SimpleState implements PropertyChangeInterface
       return this;
    }
 }
+

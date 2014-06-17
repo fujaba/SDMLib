@@ -1,18 +1,144 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../test/org/sdmlib/models/patterns/ReachbilityGraphFerrymansProblemExample.java' type='text/x-java'>FerrymansProblemExample</a></p>
 <p>FerrymansProblemExample</p>
 <p>initial situation:</p>
-<embed type="image/svg+xml" src='FerrymansProblemExample3.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"R1 : River",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"B2 : Bank",
+            "attributes":[
+            "name=left",
+               "age=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"B7 : Bank",
+            "attributes":[
+            "name=right",
+               "age=0",
+               "boat="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"B3 : Boat",
+            "attributes":[
+            "cargo="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"C4 : Cargo",
+            "attributes":[
+            "name=cabbage",
+               "boat="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"C5 : Cargo",
+            "attributes":[
+            "name=goat",
+               "boat="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"C6 : Cargo",
+            "attributes":[
+            "name=wolf",
+               "boat="
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"river",
+            "targetproperty":"banks",
+            "source":"R1 : River",
+            "target":"B2 : Bank"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"river",
+            "targetproperty":"banks",
+            "source":"R1 : River",
+            "target":"B7 : Bank"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"river",
+            "targetproperty":"boat",
+            "source":"R1 : River",
+            "target":"B3 : Boat"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"1",
+            "sourceproperty":"bank",
+            "targetproperty":"boat",
+            "source":"B2 : Bank",
+            "target":"B3 : Boat"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"bank",
+            "targetproperty":"cargos",
+            "source":"B2 : Bank",
+            "target":"C4 : Cargo"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"bank",
+            "targetproperty":"cargos",
+            "source":"B2 : Bank",
+            "target":"C5 : Cargo"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"bank",
+            "targetproperty":"cargos",
+            "source":"B2 : Bank",
+            "target":"C6 : Cargo"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>compute certificates</p>
 <p>{
   "class":"org.sdmlib.models.patterns.example.ferrmansproblem.Bank",

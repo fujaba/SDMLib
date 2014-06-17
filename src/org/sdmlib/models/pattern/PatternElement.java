@@ -266,3 +266,4 @@ public class PatternElement<PEC> implements PropertyChangeInterface
    } 
 
 }
+

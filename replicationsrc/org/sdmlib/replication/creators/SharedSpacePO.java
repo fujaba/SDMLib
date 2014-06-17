@@ -299,4 +299,43 @@ public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
       return this.startCreate().hasChannels(tgt).endCreate();
    }
 
+   public SharedSpacePO hasJavaFXApplication(boolean value)
+   {
+      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      .withAttrName(SharedSpace.PROPERTY_JAVAFXAPPLICATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SharedSpacePO createJavaFXApplication(boolean value)
+   {
+      this.startCreate().hasJavaFXApplication(value).endCreate();
+      return this;
+   }
+   
+   public boolean getJavaFXApplication()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((SharedSpace) getCurrentMatch()).getJavaFXApplication();
+      }
+      return false;
+   }
+   
+   public SharedSpacePO withJavaFXApplication(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((SharedSpace) getCurrentMatch()).setJavaFXApplication(value);
+      }
+      return this;
+   }
+   
 }
+

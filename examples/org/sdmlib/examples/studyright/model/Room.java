@@ -581,3 +581,4 @@ public class Room implements PropertyChangeInterface
       return value;
    } 
 }
+

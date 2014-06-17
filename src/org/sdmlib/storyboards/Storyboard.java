@@ -1683,3 +1683,4 @@ public class Storyboard implements PropertyChangeInterface
       po.getPattern().dumpDiagram(name);
    }
 }
+

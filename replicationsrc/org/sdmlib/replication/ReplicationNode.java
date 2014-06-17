@@ -21,13 +21,17 @@
 
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.replication.creators.SharedSpaceSet;
 import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.utils.PropertyChangeInterface;
+
 import java.beans.PropertyChangeListener;
+
+import javax.swing.event.ChangeEvent;
 
 public class ReplicationNode implements PropertyChangeInterface
 {
@@ -101,6 +105,34 @@ public class ReplicationNode implements PropertyChangeInterface
          sharedSpace = new SharedSpace().withSpaceId(spaceId);
          this.addToSharedSpaces(sharedSpace);
          sharedSpace.setName("SharedSpace" + getSharedSpaces().size());
+         
+         // add replication root 
+         JsonIdMap map = org.sdmlib.replication.creators.CreatorCreator.createIdMap("s42");
+         
+         sharedSpace.withMap(map);
+         
+         ChangeHistory history = new ChangeHistory();
+         sharedSpace.setHistory(history);
+
+         ReplicationRoot replicationRoot = new ReplicationRoot();
+         map.put(SharedSpace.REPLICATION_ROOT, replicationRoot);
+         
+         if (this.remoteTaskListener != null)
+         {
+            replicationRoot.addPropertyChangeListener(this.remoteTaskListener);
+         }
+         
+         RemoteTaskBoard remoteTaskBoard = new RemoteTaskBoard();
+         
+         map.put(SharedSpace.REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
+
+         if (this.remoteTaskListener != null)
+         {
+            remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(this.remoteTaskListener);
+            
+            this.remoteTaskListener.propertyChange(new PropertyChangeEvent(sharedSpace, "new", null, remoteTaskBoard));
+         }
+         
          sharedSpace.start();
       }
 
@@ -205,6 +237,14 @@ public class ReplicationNode implements PropertyChangeInterface
       {
          removeFromSharedSpaces(item);
       }
+      return this;
+   }
+   
+   private PropertyChangeListener remoteTaskListener; 
+
+   public ReplicationNode withRemoteTaskListener(PropertyChangeListener remoteTaskListener)
+   {
+      this.remoteTaskListener = remoteTaskListener;
       return this;
    }
 }

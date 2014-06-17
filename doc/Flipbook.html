@@ -12,9 +12,351 @@
 <p>adding flipbook to protocol changes.</p>
 <p>Start situation: use University class to build object structure</p>
 <p>step 1: dump object diagram</p>
-<embed type="image/svg+xml" src='Flipbook5.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"ajz.U1 : University",
+            "attributes":[
+            "name=StudyRight"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.S2 : Student",
+            "attributes":[
+            "name=Albert",
+               "matrNo=4242",
+               "credits=0",
+               "motivation=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.S3 : Student",
+            "attributes":[
+            "name=Nina",
+               "matrNo=2323",
+               "credits=0",
+               "motivation=0",
+               "in="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.R4 : Room",
+            "attributes":[
+            "roomNo=math",
+               "credits=42"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.R5 : Room",
+            "attributes":[
+            "roomNo=arts",
+               "credits=23"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.R6 : Room",
+            "attributes":[
+            "roomNo=sports",
+               "credits=23"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.R7 : Room",
+            "attributes":[
+            "roomNo=exam",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.R8 : Room",
+            "attributes":[
+            "roomNo=ProgMeth",
+               "credits=42"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"students",
+            "source":"ajz.U1 : University",
+            "target":"ajz.S2 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"students",
+            "source":"ajz.U1 : University",
+            "target":"ajz.S3 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"ajz.U1 : University",
+            "target":"ajz.R4 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"ajz.U1 : University",
+            "target":"ajz.R5 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"ajz.U1 : University",
+            "target":"ajz.R6 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"ajz.U1 : University",
+            "target":"ajz.R7 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"ajz.U1 : University",
+            "target":"ajz.R8 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"students",
+            "targetproperty":"in",
+            "source":"ajz.S2 : Student",
+            "target":"ajz.R4 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"ajz.R4 : Room",
+            "target":"ajz.R5 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"ajz.R4 : Room",
+            "target":"ajz.R6 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"ajz.R5 : Room",
+            "target":"ajz.R6 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"ajz.R5 : Room",
+            "target":"ajz.R7 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"ajz.R5 : Room",
+            "target":"ajz.R8 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"ajz.R6 : Room",
+            "target":"ajz.R7 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"ajz.R7 : Room",
+            "target":"ajz.R8 : Room"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Test flipbook, undo last step: </p>
-<embed type="image/svg+xml" src='Flipbook7.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"ajz.U1 : University",
+            "attributes":[
+            "name=StudyRight"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.S2 : Student",
+            "attributes":[
+            "name=Albert",
+               "matrNo=4242",
+               "credits=0",
+               "motivation=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.S3 : Student",
+            "attributes":[
+            "name=Nina",
+               "matrNo=2323",
+               "credits=0",
+               "motivation=0",
+               "in="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.R4 : Room",
+            "attributes":[
+            "roomNo=math",
+               "credits=42"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.R5 : Room",
+            "attributes":[
+            "roomNo=arts",
+               "credits=23"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ajz.R6 : Room",
+            "attributes":[
+            "roomNo=sports",
+               "credits=0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"students",
+            "source":"ajz.U1 : University",
+            "target":"ajz.S2 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"students",
+            "source":"ajz.U1 : University",
+            "target":"ajz.S3 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"ajz.U1 : University",
+            "target":"ajz.R4 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"ajz.U1 : University",
+            "target":"ajz.R5 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"ajz.U1 : University",
+            "target":"ajz.R6 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"students",
+            "targetproperty":"in",
+            "source":"ajz.S2 : Student",
+            "target":"ajz.R4 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"ajz.R4 : Room",
+            "target":"ajz.R5 : Room"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvas6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Check: Number of students: 2</p>
 <p>step 2: add support for path navigation
       call </p>

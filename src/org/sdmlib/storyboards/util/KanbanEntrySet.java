@@ -195,3 +195,7 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
       return new KanbanEntryPO (this.toArray(new KanbanEntry[this.size()]));
    }
 }
+
+
+
+

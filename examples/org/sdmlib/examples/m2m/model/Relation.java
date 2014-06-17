@@ -308,3 +308,4 @@ public class Relation extends GraphComponent implements PropertyChangeInterface
       return this;
    } 
 }
+

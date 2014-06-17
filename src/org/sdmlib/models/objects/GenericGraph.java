@@ -272,3 +272,4 @@ public class GenericGraph implements PropertyChangeInterface
       return this;
    }
 }
+

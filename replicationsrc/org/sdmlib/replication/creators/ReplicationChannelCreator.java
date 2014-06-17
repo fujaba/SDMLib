@@ -9,7 +9,8 @@ public class ReplicationChannelCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    { ReplicationChannel.PROPERTY_SOCKET,
-         ReplicationChannel.PROPERTY_SHAREDSPACE, };
+         ReplicationChannel.PROPERTY_SHAREDSPACE,    ReplicationChannel.PROPERTY_TARGETNODEID,
+   };
 
    public String[] getProperties()
    {
@@ -49,3 +50,4 @@ public class ReplicationChannelCreator extends EntityFactory
       ((ReplicationChannel) entity).removeYou();
    }
 }
+

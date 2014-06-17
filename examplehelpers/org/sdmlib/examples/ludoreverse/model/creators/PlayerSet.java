@@ -166,3 +166,7 @@ public class PlayerSet extends LinkedHashSet<Player> implements ModelSet
       return patternObject;
    }
 }
+
+
+
+

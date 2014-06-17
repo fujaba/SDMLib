@@ -592,3 +592,4 @@ public class GenericObject implements PropertyChangeInterface
       return this;
    }
 }
+
