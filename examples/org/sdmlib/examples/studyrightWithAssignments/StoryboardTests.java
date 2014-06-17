@@ -34,10 +34,13 @@ import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentPO;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantPO;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversityCreator;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.pattern.GenericConstraint.Condition;
 import org.sdmlib.models.pattern.Match;
+import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.json.JsonArray;
@@ -120,7 +123,7 @@ public class StoryboardTests {
             +"Karli's motivation is reduced by 5 points to now 209.\n"); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
-      karli.addToDone(a1);
+      karli.withDone(a1);
 
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
@@ -129,7 +132,7 @@ public class StoryboardTests {
             +"Thus Karli has 11 points now. Motivation is reduced to 203.\n");
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
-      karli.addToDone(a2);
+      karli.withDone(a2);
 
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
@@ -138,7 +141,7 @@ public class StoryboardTests {
             +"another 8 points and thus Karli has now 19 points and a motivation of 195.\n"); 
 
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-      karli.addToDone(a3);
+      karli.withDone(a3);
 
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
@@ -277,7 +280,7 @@ public class StoryboardTests {
       
       storyboard.addObjectDiagram(rootObject);
       
-      storyboard.addLogEntry(R.DONE, "stefan", "11.11.2012 12:00:00 EST", 80, 0, "Serialisation via JSON works great.");
+      storyboard.addLogEntry(Kanban.DONE, "stefan", "11.11.2012 12:00:00 EST", 80, 0, "Serialisation via JSON works great.");
       
       storyboard.dumpHTML();
    }
@@ -293,11 +296,13 @@ public class StoryboardTests {
       
       Clazz studentClass = model.createClazz(Student.class.getName());
  
-      studentClass.withAssoc(studentClass, "friends", R.MANY, "friends", R.MANY);
+      studentClass.withAssoc(studentClass, "friends", Card.MANY, "friends", Card.MANY);
       
       Clazz roomClass = model.createClazz(Room.class.getName());
       
-      roomClass.createClassAndAssoc("TeachingAssistant", "tas", R.MANY, "room", R.ONE);
+      Clazz taClass = model.createClazz("TeachingAssistant");
+      
+      roomClass.withAssoc(taClass, "tas", Card.MANY, "room", Card.ONE);
       
       story.addClassDiagram(model);
       
@@ -412,7 +417,7 @@ public class StoryboardTests {
       story.addPreformatted(text);
       
       story.assertEquals("Assignment points: ", 23, assignmentPoints);
-      story.assertEquals("donePoints: ", 15, donePoints);
+      story.assertEquals("donePoints: ", 11, donePoints);
       
       //=====================================================
       story.addStep("Rooms with assignments not yet done by Karli:");
@@ -622,8 +627,8 @@ public class StoryboardTests {
       
       story.addObjectDiagramWith(university.getStudents(), university.getStudents().getIn());
       
-      story.addLogEntry(R.DONE, "zuendorf", "24.02.2014 20:03:42 EST", 2, 0, "added createXY shortcuts for patterns");
-      story.addLogEntry(R.DONE, "zuendorf", "25.02.2014 22:11:42 EST", 2, 0, "switched to roomSet.hasRoomPO()");
+      story.addLogEntry(Kanban.DONE, "zuendorf", "24.02.2014 20:03:42 EST", 2, 0, "added createXY shortcuts for patterns");
+      story.addLogEntry(Kanban.DONE, "zuendorf", "25.02.2014 22:11:42 EST", 2, 0, "switched to roomSet.hasRoomPO()");
 
 
       story.dumpHTML();

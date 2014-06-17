@@ -28,7 +28,7 @@ public class SDMSetBase<T> extends ItemList<T>
       return "(" + stringList.concat(", ") + ")";
    }
    
-   public <ST extends SDMSet<T>> ST instanceOf(ST target)
+   public <ST extends SDMSet> ST instanceOf(ST target)
    {
       String className = target.getClass().getName();
       className = CGUtil.baseClassName(className, "Set");
@@ -74,7 +74,8 @@ public class SDMSetBase<T> extends ItemList<T>
    public <ST extends SDMSetBase<T>> ST minus(Object other)
    {
       ST result = (ST) this.getNewInstance();
-      result.with(this);
+      result.addAll(this);
+      
       if (other instanceof Collection)
       {
          result.removeAll((Collection<?>) other);
@@ -115,9 +116,20 @@ public class SDMSetBase<T> extends ItemList<T>
    {
       public abstract boolean check(T elem);
    }
+   
    @Override
-   public SDMSetBase<T> getNewInstance() {
-      return new SDMSetBase<T>();
+   public SDMSetBase<T> getNewInstance() 
+   {
+      SDMSetBase<T> result = null;
+      try
+      {
+         result = this.getClass().newInstance();
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return result;
    }
 
    @SuppressWarnings("unchecked")

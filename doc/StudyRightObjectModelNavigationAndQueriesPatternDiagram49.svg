@@ -20,11 +20,11 @@
 </g>
 <!-- s2 -->
 <g id="node2" class="node"><title>s2</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="37,-158.5 37,-195.5 105,-195.5 105,-158.5 37,-158.5"/>
-<polygon fill="none" stroke="black" points="37,-178 37,-195 105,-195 105,-178 37,-178"/>
-<text text-anchor="start" x="40.5" y="-184.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="44.5" y="-184.5" font-family="Arial" font-size="10.00"> s2 :StudentPO </text>
-<polygon fill="none" stroke="black" points="37,-158 37,-178 105,-178 105,-158 37,-158"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="30,-158.5 30,-195.5 112,-195.5 112,-158.5 30,-158.5"/>
+<polygon fill="none" stroke="black" points="30,-178 30,-195 112,-195 112,-178 30,-178"/>
+<text text-anchor="start" x="33.5" y="-184.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="37.5" y="-184.5" font-family="Arial" font-size="10.00"> s2 :StudentPO </text>
+<polygon fill="none" stroke="black" points="30,-158 30,-178 112,-178 112,-158 30,-158"/>
 <text text-anchor="start" x="67.5" y="-166" font-family="Arial" font-size="10.00"> &#160;</text>
 </g>
 <!-- r1&#45;&#45;s2 -->
