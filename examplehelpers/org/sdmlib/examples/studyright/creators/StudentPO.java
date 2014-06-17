@@ -20,33 +20,31 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    public StudentSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       StudentSet matches = new StudentSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Student) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public StudentPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Student.PROPERTY_NAME).withTgtValue(value).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -55,7 +53,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       }
       return null;
    }
-   
+
    public StudentPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -64,21 +62,19 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       }
       return this;
    }
-   
+
    public StudentPO hasMatrNo(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_MATRNO)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Student.PROPERTY_MATRNO).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getMatrNo()
    {
       if (this.getPattern().getHasMatch())
@@ -87,7 +83,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       }
       return 0;
    }
-   
+
    public StudentPO withMatrNo(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -96,21 +92,19 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       }
       return this;
    }
-   
+
    public StudentPO hasCredits(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_CREDITS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Student.PROPERTY_CREDITS).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getCredits()
    {
       if (this.getPattern().getHasMatch())
@@ -119,7 +113,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       }
       return 0;
    }
-   
+
    public StudentPO withCredits(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -128,21 +122,19 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       }
       return this;
    }
-   
+
    public StudentPO hasMotivation(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_MOTIVATION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Student.PROPERTY_MOTIVATION).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getMotivation()
    {
       if (this.getPattern().getHasMatch())
@@ -151,7 +143,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       }
       return 0;
    }
-   
+
    public StudentPO withMotivation(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -160,28 +152,27 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       }
       return this;
    }
-   
+
    public UniversityPO hasUni()
    {
       UniversityPO result = new UniversityPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Student.PROPERTY_UNI, result);
-      
+
       return result;
    }
 
    public StudentPO hasUni(UniversityPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_UNI)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Student.PROPERTY_UNI).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -198,23 +189,22 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    {
       RoomPO result = new RoomPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Student.PROPERTY_IN, result);
-      
+
       return result;
    }
 
    public StudentPO hasIn(RoomPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_IN)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Student.PROPERTY_IN).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -231,23 +221,22 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    {
       AssignmentPO result = new AssignmentPO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Student.PROPERTY_DONE, result);
-      
+
       return result;
    }
 
    public StudentPO hasDone(AssignmentPO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Student.PROPERTY_DONE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Student.PROPERTY_DONE).withSrc(this)
+         .withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -263,63 +252,55 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    public StudentPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Student.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public StudentPO hasMatrNo(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_MATRNO)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Student.PROPERTY_MATRNO).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public StudentPO hasCredits(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_CREDITS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Student.PROPERTY_CREDITS).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public StudentPO hasMotivation(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_MOTIVATION)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Student.PROPERTY_MOTIVATION).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public UniversityPO createUni()
    {
       return this.startCreate().hasUni().endCreate();
@@ -340,25 +321,25 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public StudentPO createMatrNo(int value)
    {
       this.startCreate().hasMatrNo(value).endCreate();
       return this;
    }
-   
+
    public StudentPO createCredits(int value)
    {
       this.startCreate().hasCredits(value).endCreate();
       return this;
    }
-   
+
    public StudentPO createMotivation(int value)
    {
       this.startCreate().hasMotivation(value).endCreate();
       return this;
    }
-   
+
    public StudentPO createUni(UniversityPO tgt)
    {
       return this.startCreate().hasUni(tgt).endCreate();
@@ -375,7 +356,3 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    }
 
 }
-
-
-
-

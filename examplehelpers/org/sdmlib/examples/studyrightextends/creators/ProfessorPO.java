@@ -16,33 +16,31 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
    public ProfessorSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       ProfessorSet matches = new ProfessorSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Professor) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
+
    public ProfessorPO hasPersNr(int value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Professor.PROPERTY_PERSNR)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Professor.PROPERTY_PERSNR).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public int getPersNr()
    {
       if (this.getPattern().getHasMatch())
@@ -51,7 +49,7 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
       }
       return 0;
    }
-   
+
    public ProfessorPO withPersNr(int value)
    {
       if (this.getPattern().getHasMatch())
@@ -60,21 +58,19 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
       }
       return this;
    }
-   
+
    public ProfessorPO hasName(String value)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Professor.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Professor.PROPERTY_NAME).withTgtValue(value)
+         .withSrc(this).withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public String getName()
    {
       if (this.getPattern().getHasMatch())
@@ -83,7 +79,7 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
       }
       return null;
    }
-   
+
    public ProfessorPO withName(String value)
    {
       if (this.getPattern().getHasMatch())
@@ -92,28 +88,27 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
       }
       return this;
    }
-   
+
    public LecturePO hasLecture()
    {
       LecturePO result = new LecturePO();
       result.setModifier(this.getPattern().getModifier());
-      
+
       super.hasLink(Professor.PROPERTY_LECTURE, result);
-      
+
       return result;
    }
 
    public ProfessorPO hasLecture(LecturePO tgt)
    {
       LinkConstraint patternLink = (LinkConstraint) new LinkConstraint()
-      .withTgt(tgt).withTgtRoleName(Professor.PROPERTY_LECTURE)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier());
-      
+         .withTgt(tgt).withTgtRoleName(Professor.PROPERTY_LECTURE)
+         .withSrc(this).withModifier(this.getPattern().getModifier());
+
       this.getPattern().addToElements(patternLink);
-      
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
 
@@ -129,33 +124,29 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
    public ProfessorPO hasPersNr(int lower, int upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Professor.PROPERTY_PERSNR)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Professor.PROPERTY_PERSNR).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public ProfessorPO hasName(String lower, String upper)
    {
       AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
-      .withAttrName(Professor.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
+         .withAttrName(Professor.PROPERTY_NAME).withTgtValue(lower)
+         .withUpperTgtValue(upper).withSrc(this)
+         .withModifier(this.getPattern().getModifier())
+         .withPattern(this.getPattern());
+
       this.getPattern().findMatch();
-      
+
       return this;
    }
-   
+
    public LecturePO createLecture()
    {
       return this.startCreate().hasLecture().endCreate();
@@ -166,20 +157,16 @@ public class ProfessorPO extends PatternObject<ProfessorPO, Professor>
       this.startCreate().hasPersNr(value).endCreate();
       return this;
    }
-   
+
    public ProfessorPO createName(String value)
    {
       this.startCreate().hasName(value).endCreate();
       return this;
    }
-   
+
    public ProfessorPO createLecture(LecturePO tgt)
    {
       return this.startCreate().hasLecture(tgt).endCreate();
    }
 
 }
-
-
-
-

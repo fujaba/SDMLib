@@ -8,15 +8,15 @@ public class FieldPOCreator extends PatternObjectCreator
    {
       return new FieldPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((FieldPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((FieldPO) target).set(attrName, value);
    }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication;
 
 import org.sdmlib.serialization.util.PropertyChangeInterface;
@@ -28,9 +28,8 @@ import java.beans.PropertyChangeListener;
 public class SharedModelRoot implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_CONTENT.equalsIgnoreCase(attrName))
@@ -41,9 +40,8 @@ public class SharedModelRoot implements PropertyChangeInterface
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_CONTENT.equalsIgnoreCase(attrName))
@@ -55,55 +53,52 @@ public class SharedModelRoot implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+
+   public void addPropertyChangeListener(PropertyChangeListener listener)
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_CONTENT = "content";
-   
+
    private java.lang.Object content;
 
    public java.lang.Object getContent()
    {
       return this.content;
    }
-   
+
    public void setContent(java.lang.Object value)
    {
       if (this.content != value)
       {
          java.lang.Object oldValue = this.content;
          this.content = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CONTENT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CONTENT,
+            oldValue, value);
       }
    }
-   
+
    public SharedModelRoot withContent(java.lang.Object value)
    {
       setContent(value);
       return this;
-   } 
+   }
 }
-

@@ -24,7 +24,7 @@ public class ModelPattern extends Pattern
    {
       super(CreatorCreator.createIdMap("hg"));
    }
-   
+
    public ModelPattern startCreate()
    {
       super.startCreate();
@@ -36,193 +36,191 @@ public class ModelPattern extends Pattern
       LudoPO value = new LudoPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public LudoPO hasElementLudoPO(Ludo hostGraphObject)
    {
       LudoPO value = new LudoPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PointPO hasElementPointPO()
    {
       PointPO value = new PointPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PointPO hasElementPointPO(Point hostGraphObject)
    {
       PointPO value = new PointPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PlayerPO hasElementPlayerPO()
    {
       PlayerPO value = new PlayerPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PlayerPO hasElementPlayerPO(Player hostGraphObject)
    {
       PlayerPO value = new PlayerPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public DicePO hasElementDicePO()
    {
       DicePO value = new DicePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public DicePO hasElementDicePO(Dice hostGraphObject)
    {
       DicePO value = new DicePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public FieldPO hasElementFieldPO()
    {
       FieldPO value = new FieldPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public FieldPO hasElementFieldPO(Field hostGraphObject)
    {
       FieldPO value = new FieldPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public PawnPO hasElementPawnPO()
    {
       PawnPO value = new PawnPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public PawnPO hasElementPawnPO(Pawn hostGraphObject)
    {
       PawnPO value = new PawnPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public DatePO hasElementDatePO()
    {
       DatePO value = new DatePO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public DatePO hasElementDatePO(Date hostGraphObject)
    {
       DatePO value = new DatePO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
    public LudoColorPO hasElementLudoColorPO()
    {
       LudoColorPO value = new LudoColorPO();
       this.addToElements(value);
       value.setModifier(this.getModifier());
-      
+
       this.findMatch();
-      
+
       return value;
    }
-   
+
    public LudoColorPO hasElementLudoColorPO(LudoColor hostGraphObject)
    {
       LudoColorPO value = new LudoColorPO();
       this.addToElements(value);
       value.setModifier(Pattern.BOUND);
-      
+
       value.setCurrentMatch(hostGraphObject);
-      
+
       this.findMatch();
-      
+
       return value;
-   } 
+   }
 
 }
-
-

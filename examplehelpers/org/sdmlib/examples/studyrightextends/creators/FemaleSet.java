@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.Collection;
@@ -27,31 +27,29 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyrightextends.Female;
 import org.sdmlib.models.modelsets.StringList;
 
-public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.models.modelsets.ModelSet
+public class FemaleSet extends LinkedHashSet<Female> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Female elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightextends.Female";
    }
 
+   // ==========================================================================
 
-   //==========================================================================
-   
    public FemaleSet findMyPosition()
    {
       for (Female obj : this)
@@ -61,26 +59,24 @@ public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.model
       return this;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public FemaleSet findMyPosition(String p0)
    {
       for (Female obj : this)
       {
-         obj.findMyPosition( p0);
+         obj.findMyPosition(p0);
       }
       return this;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public FemaleSet findMyPosition(String p0, int p1)
    {
       for (Female obj : this)
       {
-         obj.findMyPosition( p0,  p1);
+         obj.findMyPosition(p0, p1);
       }
       return this;
    }
@@ -88,12 +84,12 @@ public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.model
    public StringList getName()
    {
       StringList result = new StringList();
-      
+
       for (Female obj : this)
       {
          result.add(obj.getName());
       }
-      
+
       return result;
    }
 
@@ -103,63 +99,55 @@ public class FemaleSet extends LinkedHashSet<Female> implements org.sdmlib.model
       {
          obj.setName(value);
       }
-      
+
       return this;
    }
-
-
 
    public FemalePO startModelPattern()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       FemalePO patternObject = pattern.hasElementFemalePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public FemaleSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Female>)value);
+         this.addAll((Collection<Female>) value);
       }
       else if (value != null)
       {
          this.add((Female) value);
       }
-      
+
       return this;
    }
-   
+
    public FemaleSet without(Female value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public FemalePO hasFemalePO()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       FemalePO patternObject = pattern.hasElementFemalePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

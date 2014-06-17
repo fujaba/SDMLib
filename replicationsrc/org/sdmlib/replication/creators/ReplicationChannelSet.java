@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
@@ -32,38 +32,36 @@ import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> implements org.sdmlib.models.modelsets.ModelSet
+public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel>
+      implements org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (ReplicationChannel elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.replication.ReplicationChannel";
    }
 
-
    public SharedSpaceSet getSharedSpace()
    {
       SharedSpaceSet result = new SharedSpaceSet();
-      
+
       for (ReplicationChannel obj : this)
       {
          result.add(obj.getSharedSpace());
       }
-      
+
       return result;
    }
 
@@ -73,21 +71,21 @@ public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> imp
       {
          obj.withSharedSpace(value);
       }
-      
+
       return this;
    }
 
-//   public SocketSet getSocket()
-//   {
-//      SocketSet result = new SocketSet();
-//      
-//      for (ReplicationChannel obj : this)
-//      {
-//         result.add(obj.getSocket());
-//      }
-//      
-//      return result;
-//   }
+   // public SocketSet getSocket()
+   // {
+   // SocketSet result = new SocketSet();
+   //
+   // for (ReplicationChannel obj : this)
+   // {
+   // result.add(obj.getSocket());
+   // }
+   //
+   // return result;
+   // }
 
    public ReplicationChannelSet withSocket(Socket value)
    {
@@ -95,22 +93,21 @@ public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> imp
       {
          obj.setSocket(value);
       }
-      
+
       return this;
    }
 
    public SocketSet getSocket()
    {
       SocketSet result = new SocketSet();
-      
+
       for (ReplicationChannel obj : this)
       {
          result.add(obj.getSocket());
       }
-      
+
       return result;
    }
-
 
    public ReplicationChannel first()
    {
@@ -121,37 +118,35 @@ public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> imp
       return null;
    }
 
-
-
    public ReplicationChannelPO hasReplicationChannelPO()
    {
       org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
-      
-      ReplicationChannelPO patternObject = pattern.hasElementReplicationChannelPO();
-      
+
+      ReplicationChannelPO patternObject = pattern
+         .hasElementReplicationChannelPO();
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ReplicationChannelSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ReplicationChannel>)value);
+         this.addAll((Collection<ReplicationChannel>) value);
       }
       else if (value != null)
       {
          this.add((ReplicationChannel) value);
       }
-      
+
       return this;
    }
-   
+
    public ReplicationChannelSet without(ReplicationChannel value)
    {
       this.remove(value);
@@ -159,10 +154,4 @@ public class ReplicationChannelSet extends LinkedHashSet<ReplicationChannel> imp
    }
 
 }
-
-
-
-
-
-
 

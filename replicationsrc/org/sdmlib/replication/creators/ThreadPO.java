@@ -9,18 +9,17 @@ public class ThreadPO extends PatternObject<ThreadPO, Thread>
    public ThreadSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       ThreadSet matches = new ThreadSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Thread) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
-}
 
+}

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication;
 
 import java.beans.PropertyChangeSupport;
@@ -26,11 +26,11 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.json.JsonIdMap;
 import org.sdmlib.serialization.util.PropertyChangeInterface;
 
-public class ReplicationServer extends ReplicationNode implements PropertyChangeInterface
+public class ReplicationServer extends ReplicationNode implements
+      PropertyChangeInterface
 {
    public static final int REPLICATION_SERVER_PORT = 11142;
 
-   
    /**
     * @param args
     */
@@ -38,14 +38,13 @@ public class ReplicationServer extends ReplicationNode implements PropertyChange
    {
       // as a server, I provide a serverSocket.accept thread
       ReplicationServer replicationServer = new ReplicationServer();
-      
-      new ServerSocketAcceptThread(replicationServer, REPLICATION_SERVER_PORT).start();
+
+      new ServerSocketAcceptThread(replicationServer, REPLICATION_SERVER_PORT)
+         .start();
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public Object get(String attrName)
    {
       if (PROPERTY_SHAREDSPACES.equalsIgnoreCase(attrName))
@@ -56,9 +55,8 @@ public class ReplicationServer extends ReplicationNode implements PropertyChange
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_SHAREDSPACES.equalsIgnoreCase(attrName))
@@ -66,7 +64,7 @@ public class ReplicationServer extends ReplicationNode implements PropertyChange
          addToSharedSpaces((SharedSpace) value);
          return true;
       }
-      
+
       if ((PROPERTY_SHAREDSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromSharedSpaces((SharedSpace) value);
@@ -76,19 +74,17 @@ public class ReplicationServer extends ReplicationNode implements PropertyChange
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       removeAllFromSharedSpaces();
@@ -96,4 +92,3 @@ public class ReplicationServer extends ReplicationNode implements PropertyChange
       super.removeYou();
    }
 }
-

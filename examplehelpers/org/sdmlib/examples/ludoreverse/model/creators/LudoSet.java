@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludoreverse.model.creators;
 
 import java.util.Collection;
@@ -36,35 +36,32 @@ import org.sdmlib.models.modelsets.ObjectSet;
 public class LudoSet extends LinkedHashSet<Ludo> implements ModelSet
 {
 
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Ludo elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.ludoreverse.model.Ludo";
    }
 
-
    public StringList getStyle()
    {
       StringList result = new StringList();
-      
+
       for (Ludo obj : this)
       {
          result.add(obj.getStyle());
       }
-      
+
       return result;
    }
 
@@ -74,19 +71,19 @@ public class LudoSet extends LinkedHashSet<Ludo> implements ModelSet
       {
          obj.withStyle(value);
       }
-      
+
       return this;
    }
 
    public intList getAge()
    {
       intList result = new intList();
-      
+
       for (Ludo obj : this)
       {
          result.add(obj.getAge());
       }
-      
+
       return result;
    }
 
@@ -96,28 +93,29 @@ public class LudoSet extends LinkedHashSet<Ludo> implements ModelSet
       {
          obj.withAge(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getPlayers()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Ludo obj : this)
       {
          result.addAll(obj.getPlayers());
       }
-      
+
       return result;
    }
+
    public LudoSet withPlayers(Player value)
    {
       for (Ludo obj : this)
       {
          obj.withPlayers(value);
       }
-      
+
       return this;
    }
 
@@ -127,69 +125,55 @@ public class LudoSet extends LinkedHashSet<Ludo> implements ModelSet
       {
          obj.withoutPlayers(value);
       }
-      
+
       return this;
    }
-
-
 
    public LudoPO startModelPattern()
    {
       org.sdmlib.examples.ludoreverse.model.creators.ModelPattern pattern = new org.sdmlib.examples.ludoreverse.model.creators.ModelPattern();
-      
+
       LudoPO patternObject = pattern.hasElementLudoPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public LudoSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Ludo>)value);
+         this.addAll((Collection<Ludo>) value);
       }
       else if (value != null)
       {
          this.add((Ludo) value);
       }
-      
+
       return this;
    }
-   
+
    public LudoSet without(Ludo value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public LudoPO hasLudoPO()
    {
       org.sdmlib.examples.ludoreverse.model.creators.ModelPattern pattern = new org.sdmlib.examples.ludoreverse.model.creators.ModelPattern();
-      
+
       LudoPO patternObject = pattern.hasElementLudoPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-
-
-
-
-
-

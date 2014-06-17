@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import java.awt.Point;
@@ -32,19 +32,17 @@ import org.sdmlib.models.modelsets.intList;
 public class PointSet extends LinkedHashSet<Point> implements ModelSet
 {
 
-
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Point elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
@@ -54,12 +52,12 @@ public class PointSet extends LinkedHashSet<Point> implements ModelSet
    public intList getX()
    {
       intList result = new intList();
-      
+
       for (Point obj : this)
       {
          result.add(obj.x);
       }
-      
+
       return result;
    }
 
@@ -69,19 +67,19 @@ public class PointSet extends LinkedHashSet<Point> implements ModelSet
       {
          obj.x = value;
       }
-      
+
       return this;
    }
 
    public intList getY()
    {
       intList result = new intList();
-      
+
       for (Point obj : this)
       {
          result.add(obj.y);
       }
-      
+
       return result;
    }
 
@@ -91,64 +89,55 @@ public class PointSet extends LinkedHashSet<Point> implements ModelSet
       {
          obj.y = value;
       }
-      
+
       return this;
    }
-
-
 
    public PointPO startModelPattern()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       PointPO patternObject = pattern.hasElementPointPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PointSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Point>)value);
+         this.addAll((Collection<Point>) value);
       }
       else if (value != null)
       {
          this.add((Point) value);
       }
-      
+
       return this;
    }
-   
+
    public PointSet without(Point value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PointPO hasPointPO()
    {
       ModelPattern pattern = new ModelPattern();
-      
+
       PointPO patternObject = pattern.hasElementPointPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-
-

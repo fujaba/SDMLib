@@ -15,12 +15,12 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
    public StringList getIp()
    {
       StringList result = new StringList();
-      
+
       for (SocketThread obj : this)
       {
          result.add(obj.getIp());
       }
-      
+
       return result;
    }
 
@@ -30,19 +30,19 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
       {
          obj.withIp(value);
       }
-      
+
       return this;
    }
 
    public intList getPort()
    {
       intList result = new intList();
-      
+
       for (SocketThread obj : this)
       {
          result.add(obj.getPort());
       }
-      
+
       return result;
    }
 
@@ -52,7 +52,7 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
       {
          obj.withPort(value);
       }
-      
+
       return this;
    }
 
@@ -62,31 +62,31 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
       {
          obj.withIdMap(value);
       }
-      
+
       return this;
    }
 
    public JsonIdMapSet getIdMap()
    {
       JsonIdMapSet result = new JsonIdMapSet();
-      
+
       for (SocketThread obj : this)
       {
          result.add(obj.getIdMap());
       }
-      
+
       return result;
    }
 
    public ObjectSet getDefaultTargetThread()
    {
       ObjectSet result = new ObjectSet();
-      
+
       for (SocketThread obj : this)
       {
          result.add(obj.getDefaultTargetThread());
       }
-      
+
       return result;
    }
 
@@ -96,7 +96,7 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
       {
          obj.withDefaultTargetThread(value);
       }
-      
+
       return this;
    }
 
@@ -106,45 +106,36 @@ public class SocketThreadSet extends LinkedHashSet<SocketThread>
       {
          obj.withIdMap(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (SocketThread elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.taskflows.SocketThread";
    }
 
-
    public SocketThreadSet with(SocketThread value)
    {
       this.add(value);
       return this;
    }
-   
+
    public SocketThreadSet without(SocketThread value)
    {
       this.remove(value);
       return this;
    }
 }
-
-
-
-
-

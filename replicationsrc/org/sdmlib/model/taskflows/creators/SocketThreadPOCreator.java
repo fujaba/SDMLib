@@ -8,15 +8,15 @@ public class SocketThreadPOCreator extends PatternObjectCreator
    {
       return new SocketThreadPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((SocketThreadPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((SocketThreadPO) target).set(attrName, value);
    }
 }
-

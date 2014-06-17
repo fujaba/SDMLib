@@ -8,28 +8,25 @@ import org.sdmlib.examples.ludo.Dice;
 public class DiceCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-   {
-      Dice.PROPERTY_VALUE,
-      Dice.PROPERTY_GAME,
-      Dice.PROPERTY_PLAYER,
-   };
-   
+   { Dice.PROPERTY_VALUE, Dice.PROPERTY_GAME, Dice.PROPERTY_PLAYER, };
+
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    public Object getSendableInstance(boolean reference)
    {
       return new Dice();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((Dice) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       if (JsonIdMap.REMOVE.equals(type))
       {
@@ -37,19 +34,17 @@ public class DiceCreator extends EntityFactory
       }
       return ((Dice) target).set(attrName, value);
    }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {
       ((Dice) entity).removeYou();
    }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
@@ -30,38 +30,36 @@ import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class TaskSet extends LinkedHashSet<Task> implements org.sdmlib.models.modelsets.ModelSet
+public class TaskSet extends LinkedHashSet<Task> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Task elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.replication.Task";
    }
 
-
    public LogEntrySet getLogEntries()
    {
       LogEntrySet result = new LogEntrySet();
-      
+
       for (Task obj : this)
       {
          result.addAll(obj.getLogEntries());
       }
-      
+
       return result;
    }
 
@@ -71,7 +69,7 @@ public class TaskSet extends LinkedHashSet<Task> implements org.sdmlib.models.mo
       {
          obj.withLogEntries(value);
       }
-      
+
       return this;
    }
 
@@ -81,41 +79,38 @@ public class TaskSet extends LinkedHashSet<Task> implements org.sdmlib.models.mo
       {
          obj.withoutLogEntries(value);
       }
-      
+
       return this;
    }
-
-
 
    public TaskPO hasTaskPO()
    {
       org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
-      
+
       TaskPO patternObject = pattern.hasElementTaskPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public TaskSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Task>)value);
+         this.addAll((Collection<Task>) value);
       }
       else if (value != null)
       {
          this.add((Task) value);
       }
-      
+
       return this;
    }
-   
+
    public TaskSet without(Task value)
    {
       this.remove(value);
@@ -123,8 +118,4 @@ public class TaskSet extends LinkedHashSet<Task> implements org.sdmlib.models.mo
    }
 
 }
-
-
-
-
 

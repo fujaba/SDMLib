@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -37,21 +37,19 @@ import org.sdmlib.examples.ludo.Field;
 public class PawnSet extends SDMSet<Pawn>
 {
 
-
    public PawnPO hasPawnPO()
    {
       org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
+
       PawnPO patternObject = pattern.hasElementPawnPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -59,21 +57,20 @@ public class PawnSet extends SDMSet<Pawn>
       return "org.sdmlib.examples.ludo.Pawn";
    }
 
-
    public PawnSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Pawn>)value);
+         this.addAll((Collection<Pawn>) value);
       }
       else if (value != null)
       {
          this.add((Pawn) value);
       }
-      
+
       return this;
    }
-   
+
    public PawnSet without(Pawn value)
    {
       this.remove(value);
@@ -83,19 +80,19 @@ public class PawnSet extends SDMSet<Pawn>
    public StringList getColor()
    {
       StringList result = new StringList();
-      
+
       for (Pawn obj : this)
       {
          result.add(obj.getColor());
       }
-      
+
       return result;
    }
 
    public PawnSet hasColor(String value)
    {
       PawnSet result = new PawnSet();
-      
+
       for (Pawn obj : this)
       {
          if (value.equals(obj.getColor()))
@@ -103,22 +100,23 @@ public class PawnSet extends SDMSet<Pawn>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public PawnSet hasColor(String lower, String upper)
    {
       PawnSet result = new PawnSet();
-      
+
       for (Pawn obj : this)
       {
-         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getColor()) <= 0
+            && obj.getColor().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -128,26 +126,26 @@ public class PawnSet extends SDMSet<Pawn>
       {
          obj.setColor(value);
       }
-      
+
       return this;
    }
 
    public intList getX()
    {
       intList result = new intList();
-      
+
       for (Pawn obj : this)
       {
          result.add(obj.getX());
       }
-      
+
       return result;
    }
 
    public PawnSet hasX(int value)
    {
       PawnSet result = new PawnSet();
-      
+
       for (Pawn obj : this)
       {
          if (value == obj.getX())
@@ -155,14 +153,14 @@ public class PawnSet extends SDMSet<Pawn>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public PawnSet hasX(int lower, int upper)
    {
       PawnSet result = new PawnSet();
-      
+
       for (Pawn obj : this)
       {
          if (lower <= obj.getX() && obj.getX() <= upper)
@@ -170,7 +168,7 @@ public class PawnSet extends SDMSet<Pawn>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -180,26 +178,26 @@ public class PawnSet extends SDMSet<Pawn>
       {
          obj.setX(value);
       }
-      
+
       return this;
    }
 
    public intList getY()
    {
       intList result = new intList();
-      
+
       for (Pawn obj : this)
       {
          result.add(obj.getY());
       }
-      
+
       return result;
    }
 
    public PawnSet hasY(int value)
    {
       PawnSet result = new PawnSet();
-      
+
       for (Pawn obj : this)
       {
          if (value == obj.getY())
@@ -207,14 +205,14 @@ public class PawnSet extends SDMSet<Pawn>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public PawnSet hasY(int lower, int upper)
    {
       PawnSet result = new PawnSet();
-      
+
       for (Pawn obj : this)
       {
          if (lower <= obj.getY() && obj.getY() <= upper)
@@ -222,7 +220,7 @@ public class PawnSet extends SDMSet<Pawn>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -232,19 +230,19 @@ public class PawnSet extends SDMSet<Pawn>
       {
          obj.setY(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getPlayer()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Pawn obj : this)
       {
          result.with(obj.getPlayer());
       }
-      
+
       return result;
    }
 
@@ -260,9 +258,9 @@ public class PawnSet extends SDMSet<Pawn>
       {
          neighbors.add(value);
       }
-      
+
       PawnSet answer = new PawnSet();
-      
+
       for (Pawn obj : this)
       {
          if (neighbors.contains(obj.getPlayer()))
@@ -270,7 +268,7 @@ public class PawnSet extends SDMSet<Pawn>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -280,19 +278,19 @@ public class PawnSet extends SDMSet<Pawn>
       {
          obj.withPlayer(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getPos()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Pawn obj : this)
       {
          result.with(obj.getPos());
       }
-      
+
       return result;
    }
 
@@ -308,9 +306,9 @@ public class PawnSet extends SDMSet<Pawn>
       {
          neighbors.add(value);
       }
-      
+
       PawnSet answer = new PawnSet();
-      
+
       for (Pawn obj : this)
       {
          if (neighbors.contains(obj.getPos()))
@@ -318,7 +316,7 @@ public class PawnSet extends SDMSet<Pawn>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -328,14 +326,8 @@ public class PawnSet extends SDMSet<Pawn>
       {
          obj.withPos(value);
       }
-      
+
       return this;
    }
 
 }
-
-
-
-
-
-

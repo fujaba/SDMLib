@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -37,21 +37,19 @@ import org.sdmlib.examples.ludo.Player;
 public class DiceSet extends SDMSet<Dice>
 {
 
-
    public DicePO hasDicePO()
    {
       org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
+
       DicePO patternObject = pattern.hasElementDicePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -59,21 +57,20 @@ public class DiceSet extends SDMSet<Dice>
       return "org.sdmlib.examples.ludo.Dice";
    }
 
-
    public DiceSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Dice>)value);
+         this.addAll((Collection<Dice>) value);
       }
       else if (value != null)
       {
          this.add((Dice) value);
       }
-      
+
       return this;
    }
-   
+
    public DiceSet without(Dice value)
    {
       this.remove(value);
@@ -83,19 +80,19 @@ public class DiceSet extends SDMSet<Dice>
    public intList getValue()
    {
       intList result = new intList();
-      
+
       for (Dice obj : this)
       {
          result.add(obj.getValue());
       }
-      
+
       return result;
    }
 
    public DiceSet hasValue(int value)
    {
       DiceSet result = new DiceSet();
-      
+
       for (Dice obj : this)
       {
          if (value == obj.getValue())
@@ -103,14 +100,14 @@ public class DiceSet extends SDMSet<Dice>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public DiceSet hasValue(int lower, int upper)
    {
       DiceSet result = new DiceSet();
-      
+
       for (Dice obj : this)
       {
          if (lower <= obj.getValue() && obj.getValue() <= upper)
@@ -118,7 +115,7 @@ public class DiceSet extends SDMSet<Dice>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -128,19 +125,19 @@ public class DiceSet extends SDMSet<Dice>
       {
          obj.setValue(value);
       }
-      
+
       return this;
    }
 
    public LudoSet getGame()
    {
       LudoSet result = new LudoSet();
-      
+
       for (Dice obj : this)
       {
          result.with(obj.getGame());
       }
-      
+
       return result;
    }
 
@@ -156,9 +153,9 @@ public class DiceSet extends SDMSet<Dice>
       {
          neighbors.add(value);
       }
-      
+
       DiceSet answer = new DiceSet();
-      
+
       for (Dice obj : this)
       {
          if (neighbors.contains(obj.getGame()))
@@ -166,7 +163,7 @@ public class DiceSet extends SDMSet<Dice>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -176,19 +173,19 @@ public class DiceSet extends SDMSet<Dice>
       {
          obj.withGame(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getPlayer()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Dice obj : this)
       {
          result.with(obj.getPlayer());
       }
-      
+
       return result;
    }
 
@@ -204,9 +201,9 @@ public class DiceSet extends SDMSet<Dice>
       {
          neighbors.add(value);
       }
-      
+
       DiceSet answer = new DiceSet();
-      
+
       for (Dice obj : this)
       {
          if (neighbors.contains(obj.getPlayer()))
@@ -214,7 +211,7 @@ public class DiceSet extends SDMSet<Dice>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -224,14 +221,8 @@ public class DiceSet extends SDMSet<Dice>
       {
          obj.withPlayer(value);
       }
-      
+
       return this;
    }
 
 }
-
-
-
-
-
-

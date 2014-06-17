@@ -9,18 +9,17 @@ public class MalePO extends PatternObject<MalePO, Male>
    public MaleSet allMatches()
    {
       this.setDoAllMatches(true);
-      
+
       MaleSet matches = new MaleSet();
 
       while (this.getPattern().getHasMatch())
       {
          matches.add((Male) this.getCurrentMatch());
-         
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
-}
 
+}

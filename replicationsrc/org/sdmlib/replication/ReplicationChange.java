@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication;
 
 import org.sdmlib.StrUtil;
@@ -32,10 +32,11 @@ import org.sdmlib.serialization.json.JsonIdMap;
 
 import java.beans.PropertyChangeListener;
 
-public class ReplicationChange extends Task implements PropertyChangeInterface, Comparable<ReplicationChange>
+public class ReplicationChange extends Task implements PropertyChangeInterface,
+      Comparable<ReplicationChange>
 {
-   //==========================================================================
-   
+   // ==========================================================================
+
    public Object get(String attrName)
    {
       if (PROPERTY_TARGETOBJECTID.equalsIgnoreCase(attrName))
@@ -81,9 +82,8 @@ public class ReplicationChange extends Task implements PropertyChangeInterface, 
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_TARGETOBJECTID.equalsIgnoreCase(attrName))
@@ -133,7 +133,7 @@ public class ReplicationChange extends Task implements PropertyChangeInterface, 
          addToLogEntries((LogEntry) value);
          return true;
       }
-      
+
       if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromLogEntries((LogEntry) value);
@@ -143,19 +143,17 @@ public class ReplicationChange extends Task implements PropertyChangeInterface, 
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       setHistory(null);
@@ -163,114 +161,110 @@ public class ReplicationChange extends Task implements PropertyChangeInterface, 
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
    public String toString()
    {
       StringBuilder _ = new StringBuilder();
-      
+
       _.append(" ").append(this.getHistoryIdPrefix());
       _.append(" ").append(this.getHistoryIdNumber());
       _.append(" ").append(this.getTargetObjectId());
       _.append(" ").append(this.getTargetProperty());
       _.append(" ").append(this.getChangeMsg());
-      
+
       for (LogEntry entry : this.getLogEntries())
       {
          _.append("\n").append(entry);
       }
-      
+
       return _.substring(1);
    }
 
+   // ==========================================================================
 
-   
-   //==========================================================================
-   
    public static final String PROPERTY_TARGETOBJECTID = "targetObjectId";
-   
+
    private String targetObjectId;
 
    public String getTargetObjectId()
    {
       return this.targetObjectId;
    }
-   
+
    public void setTargetObjectId(String value)
    {
-      if ( ! StrUtil.stringEquals(this.targetObjectId, value))
+      if (!StrUtil.stringEquals(this.targetObjectId, value))
       {
          String oldValue = this.targetObjectId;
          this.targetObjectId = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETOBJECTID, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETOBJECTID,
+            oldValue, value);
       }
    }
-   
+
    public ReplicationChange withTargetObjectId(String value)
    {
       setTargetObjectId(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_TARGETPROPERTY = "targetProperty";
-   
+
    private String targetProperty;
 
    public String getTargetProperty()
    {
       return this.targetProperty;
    }
-   
+
    public void setTargetProperty(String value)
    {
-      if ( ! StrUtil.stringEquals(this.targetProperty, value))
+      if (!StrUtil.stringEquals(this.targetProperty, value))
       {
          String oldValue = this.targetProperty;
          this.targetProperty = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETPROPERTY, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETPROPERTY,
+            oldValue, value);
       }
    }
-   
+
    public ReplicationChange withTargetProperty(String value)
    {
       setTargetProperty(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_CHANGEMSG = "changeMsg";
-   
+
    private String changeMsg;
 
    public String getChangeMsg()
    {
       return this.changeMsg;
    }
-   
+
    public void setChangeMsg(String value)
    {
-      if ( ! StrUtil.stringEquals(this.changeMsg, value))
+      if (!StrUtil.stringEquals(this.changeMsg, value))
       {
          String oldValue = this.changeMsg;
          this.changeMsg = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CHANGEMSG, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CHANGEMSG,
+            oldValue, value);
       }
    }
-   
+
    public ReplicationChange withChangeMsg(String value)
    {
       setChangeMsg(value);
       return this;
-   } 
+   }
 
-   
    public static final ReplicationChangeSet EMPTY_SET = new ReplicationChangeSet();
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -278,57 +272,57 @@ public class ReplicationChange extends Task implements PropertyChangeInterface, 
     *              changes                   history
     * </pre>
     */
-   
+
    public static final String PROPERTY_HISTORY = "history";
-   
+
    private ChangeHistory history = null;
-   
+
    public ChangeHistory getHistory()
    {
       return this.history;
    }
-   
+
    public boolean setHistory(ChangeHistory value)
    {
       boolean changed = false;
-      
+
       if (this.history != value)
       {
          ChangeHistory oldValue = this.history;
-         
+
          if (this.history != null)
          {
             this.history = null;
             oldValue.withoutChanges(this);
          }
-         
+
          this.history = value;
-         
+
          if (value != null)
          {
             value.withChanges(this);
          }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HISTORY, oldValue, value);
+
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HISTORY,
+            oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
-   
+
    public ReplicationChange withHistory(ChangeHistory value)
    {
       setHistory(value);
       return this;
-   } 
-   
+   }
+
    public ChangeHistory createHistory()
    {
       ChangeHistory value = new ChangeHistory();
       withHistory(value);
       return value;
    }
-
 
    @Override
    public int compareTo(ReplicationChange o)
@@ -341,99 +335,98 @@ public class ReplicationChange extends Task implements PropertyChangeInterface, 
       {
          return 1;
       }
-      
-      return this.getHistoryIdPrefix().compareTo(o.getHistoryIdPrefix());
-   } 
 
-   
-   //==========================================================================
-   
+      return this.getHistoryIdPrefix().compareTo(o.getHistoryIdPrefix());
+   }
+
+   // ==========================================================================
+
    public static final String PROPERTY_ISTOMANYPROPERTY = "isToManyProperty";
-   
+
    private boolean isToManyProperty = false;
 
    public boolean getIsToManyProperty()
    {
       return this.isToManyProperty;
    }
-   
+
    public void setIsToManyProperty(boolean value)
    {
       if (this.isToManyProperty != value)
       {
          boolean oldValue = this.isToManyProperty;
          this.isToManyProperty = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ISTOMANYPROPERTY, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_ISTOMANYPROPERTY, oldValue, value);
       }
    }
-   
+
    public ReplicationChange withIsToManyProperty(boolean value)
    {
       setIsToManyProperty(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_HISTORYIDPREFIX = "historyIdPrefix";
-   
+
    private String historyIdPrefix;
 
    public String getHistoryIdPrefix()
    {
       return this.historyIdPrefix;
    }
-   
+
    public void setHistoryIdPrefix(String value)
    {
-      if ( ! StrUtil.stringEquals(this.historyIdPrefix, value))
+      if (!StrUtil.stringEquals(this.historyIdPrefix, value))
       {
          String oldValue = this.historyIdPrefix;
          this.historyIdPrefix = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HISTORYIDPREFIX, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_HISTORYIDPREFIX, oldValue, value);
       }
    }
-   
+
    public ReplicationChange withHistoryIdPrefix(String value)
    {
       setHistoryIdPrefix(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_HISTORYIDNUMBER = "historyIdNumber";
-   
+
    private long historyIdNumber;
 
    public long getHistoryIdNumber()
    {
       return this.historyIdNumber;
    }
-   
+
    public void setHistoryIdNumber(long value)
    {
       if (this.historyIdNumber != value)
       {
          long oldValue = this.historyIdNumber;
          this.historyIdNumber = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_HISTORYIDNUMBER, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_HISTORYIDNUMBER, oldValue, value);
       }
    }
-   
+
    public ReplicationChange withHistoryIdNumber(long value)
    {
       setHistoryIdNumber(value);
       return this;
    }
 
-
    public void withLog(String string, String name)
    {
-      this.createLogEntries()
-      .withStepName(string).withExecutedBy(name).withTimeStamp(System.currentTimeMillis());
-   } 
+      this.createLogEntries().withStepName(string).withExecutedBy(name)
+         .withTimeStamp(System.currentTimeMillis());
+   }
 }
 

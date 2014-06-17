@@ -8,15 +8,15 @@ public class PeerProxyPOCreator extends PatternObjectCreator
    {
       return new PeerProxyPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((PeerProxyPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((PeerProxyPO) target).set(attrName, value);
    }
 }
-

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.utils.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -29,14 +29,11 @@ import java.util.Collection;
 public class PropertyChangeInterfaceSet extends SDMSet<PropertyChangeInterface>
 {
 
-
    public PropertyChangeInterfacePO hasPropertyChangeInterfacePO()
    {
-      
-      
+
       return null;
    }
-
 
    @Override
    public String getEntryType()
@@ -44,21 +41,20 @@ public class PropertyChangeInterfaceSet extends SDMSet<PropertyChangeInterface>
       return "org.sdmlib.utils.PropertyChangeInterface";
    }
 
-
    public PropertyChangeInterfaceSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<PropertyChangeInterface>)value);
+         this.addAll((Collection<PropertyChangeInterface>) value);
       }
       else if (value != null)
       {
          this.add((PropertyChangeInterface) value);
       }
-      
+
       return this;
    }
-   
+
    public PropertyChangeInterfaceSet without(PropertyChangeInterface value)
    {
       this.remove(value);
@@ -66,4 +62,3 @@ public class PropertyChangeInterfaceSet extends SDMSet<PropertyChangeInterface>
    }
 
 }
-

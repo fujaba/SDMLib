@@ -7,11 +7,12 @@ public class EntityFactory implements SendableEntityCreator
    /**
     * Calls entity.removeYou().
     *
-    * @param entity the entity to be deleted
+    * @param entity
+    *           the entity to be deleted
     */
    public void removeObject(Object entity)
    {
-      
+
    }
 
    public Object call(Object entity, String method, Object... args)
@@ -22,7 +23,8 @@ public class EntityFactory implements SendableEntityCreator
    @Override
    public String[] getProperties()
    {
-      return new String[] {};
+      return new String[]
+      {};
    }
 
    @Override
@@ -35,7 +37,7 @@ public class EntityFactory implements SendableEntityCreator
    {
       return getSendableInstance(false);
    }
-   
+
    @Override
    public Object getValue(Object entity, String attribute)
    {
@@ -47,5 +49,5 @@ public class EntityFactory implements SendableEntityCreator
          String type)
    {
       return false;
-   }   
+   }
 }

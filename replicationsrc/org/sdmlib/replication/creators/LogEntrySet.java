@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.replication.creators;
 
 import java.util.LinkedHashSet;
@@ -32,38 +32,36 @@ import java.util.Collection;
 import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.models.modelsets.ModelSet
+public class LogEntrySet extends LinkedHashSet<LogEntry> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (LogEntry elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.replication.LogEntry";
    }
 
-
    public StringList getStepName()
    {
       StringList result = new StringList();
-      
+
       for (LogEntry obj : this)
       {
          result.add(obj.getStepName());
       }
-      
+
       return result;
    }
 
@@ -73,19 +71,19 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       {
          obj.setStepName(value);
       }
-      
+
       return this;
    }
 
    public StringList getExecutedBy()
    {
       StringList result = new StringList();
-      
+
       for (LogEntry obj : this)
       {
          result.add(obj.getExecutedBy());
       }
-      
+
       return result;
    }
 
@@ -95,19 +93,19 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       {
          obj.setExecutedBy(value);
       }
-      
+
       return this;
    }
 
    public longList getTimeStamp()
    {
       longList result = new longList();
-      
+
       for (LogEntry obj : this)
       {
          result.add(obj.getTimeStamp());
       }
-      
+
       return result;
    }
 
@@ -117,19 +115,19 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       {
          obj.setTimeStamp(value);
       }
-      
+
       return this;
    }
 
    public TaskSet getTask()
    {
       TaskSet result = new TaskSet();
-      
+
       for (LogEntry obj : this)
       {
          result.add(obj.getTask());
       }
-      
+
       return result;
    }
 
@@ -139,41 +137,38 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
       {
          obj.withTask(value);
       }
-      
+
       return this;
    }
-
-
 
    public LogEntryPO hasLogEntryPO()
    {
       org.sdmlib.replication.creators.ModelPattern pattern = new org.sdmlib.replication.creators.ModelPattern();
-      
+
       LogEntryPO patternObject = pattern.hasElementLogEntryPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public LogEntrySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<LogEntry>)value);
+         this.addAll((Collection<LogEntry>) value);
       }
       else if (value != null)
       {
          this.add((LogEntry) value);
       }
-      
+
       return this;
    }
-   
+
    public LogEntrySet without(LogEntry value)
    {
       this.remove(value);
@@ -181,8 +176,4 @@ public class LogEntrySet extends LinkedHashSet<LogEntry> implements org.sdmlib.m
    }
 
 }
-
-
-
-
 

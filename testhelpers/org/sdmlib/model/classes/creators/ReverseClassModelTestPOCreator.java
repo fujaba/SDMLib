@@ -8,15 +8,14 @@ public class ReverseClassModelTestPOCreator extends PatternObjectCreator
    {
       return new ReverseClassModelTestPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ReverseClassModelTestPO) target).get(attrName);
    }
-   
+
    public boolean setValue(Object target, String attrName, Object value)
    {
       return ((ReverseClassModelTestPO) target).set(attrName, value);
    }
 }
-

@@ -8,15 +8,15 @@ public class LudoColorPOCreator extends PatternObjectCreator
    {
       return new LudoColorPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((LudoColorPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((LudoColorPO) target).set(attrName, value);
    }
 }
-

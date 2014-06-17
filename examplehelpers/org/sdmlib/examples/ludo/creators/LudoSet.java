@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.ludo.creators;
 
 import org.sdmlib.models.modelsets.SDMSet;
@@ -39,21 +39,19 @@ import org.sdmlib.examples.ludo.Field;
 public class LudoSet extends SDMSet<Ludo>
 {
 
-
    public LudoPO hasLudoPO()
    {
       org.sdmlib.examples.ludo.creators.ModelPattern pattern = new org.sdmlib.examples.ludo.creators.ModelPattern();
-      
+
       LudoPO patternObject = pattern.hasElementLudoPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    @Override
    public String getEntryType()
@@ -61,21 +59,20 @@ public class LudoSet extends SDMSet<Ludo>
       return "org.sdmlib.examples.ludo.Ludo";
    }
 
-
    public LudoSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Ludo>)value);
+         this.addAll((Collection<Ludo>) value);
       }
       else if (value != null)
       {
          this.add((Ludo) value);
       }
-      
+
       return this;
    }
-   
+
    public LudoSet without(Ludo value)
    {
       this.remove(value);
@@ -85,19 +82,19 @@ public class LudoSet extends SDMSet<Ludo>
    public DateSet getDate()
    {
       DateSet result = new DateSet();
-      
+
       for (Ludo obj : this)
       {
          result.add(obj.getDate());
       }
-      
+
       return result;
    }
 
    public LudoSet hasDate(java.util.Date value)
    {
       LudoSet result = new LudoSet();
-      
+
       for (Ludo obj : this)
       {
          if (value == obj.getDate())
@@ -105,22 +102,23 @@ public class LudoSet extends SDMSet<Ludo>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
    public LudoSet hasDate(java.util.Date lower, java.util.Date upper)
    {
       LudoSet result = new LudoSet();
-      
+
       for (Ludo obj : this)
       {
-         if (lower.getTime() <= obj.getDate().getTime() && obj.getDate().getTime() <= upper.getTime())
+         if (lower.getTime() <= obj.getDate().getTime()
+            && obj.getDate().getTime() <= upper.getTime())
          {
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -130,19 +128,19 @@ public class LudoSet extends SDMSet<Ludo>
       {
          obj.setDate(value);
       }
-      
+
       return this;
    }
 
    public PlayerSet getPlayers()
    {
       PlayerSet result = new PlayerSet();
-      
+
       for (Ludo obj : this)
       {
          result.with(obj.getPlayers());
       }
-      
+
       return result;
    }
 
@@ -158,17 +156,17 @@ public class LudoSet extends SDMSet<Ludo>
       {
          neighbors.add(value);
       }
-      
+
       LudoSet answer = new LudoSet();
-      
+
       for (Ludo obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getPlayers()))
+         if (!Collections.disjoint(neighbors, obj.getPlayers()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -178,7 +176,7 @@ public class LudoSet extends SDMSet<Ludo>
       {
          obj.withPlayers(value);
       }
-      
+
       return this;
    }
 
@@ -188,19 +186,19 @@ public class LudoSet extends SDMSet<Ludo>
       {
          obj.withoutPlayers(value);
       }
-      
+
       return this;
    }
 
    public DiceSet getDice()
    {
       DiceSet result = new DiceSet();
-      
+
       for (Ludo obj : this)
       {
          result.with(obj.getDice());
       }
-      
+
       return result;
    }
 
@@ -216,9 +214,9 @@ public class LudoSet extends SDMSet<Ludo>
       {
          neighbors.add(value);
       }
-      
+
       LudoSet answer = new LudoSet();
-      
+
       for (Ludo obj : this)
       {
          if (neighbors.contains(obj.getDice()))
@@ -226,7 +224,7 @@ public class LudoSet extends SDMSet<Ludo>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -236,19 +234,19 @@ public class LudoSet extends SDMSet<Ludo>
       {
          obj.withDice(value);
       }
-      
+
       return this;
    }
 
    public FieldSet getFields()
    {
       FieldSet result = new FieldSet();
-      
+
       for (Ludo obj : this)
       {
          result.with(obj.getFields());
       }
-      
+
       return result;
    }
 
@@ -264,17 +262,17 @@ public class LudoSet extends SDMSet<Ludo>
       {
          neighbors.add(value);
       }
-      
+
       LudoSet answer = new LudoSet();
-      
+
       for (Ludo obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getFields()))
+         if (!Collections.disjoint(neighbors, obj.getFields()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -284,7 +282,7 @@ public class LudoSet extends SDMSet<Ludo>
       {
          obj.withFields(value);
       }
-      
+
       return this;
    }
 
@@ -294,14 +292,8 @@ public class LudoSet extends SDMSet<Ludo>
       {
          obj.withoutFields(value);
       }
-      
+
       return this;
    }
 
 }
-
-
-
-
-
-

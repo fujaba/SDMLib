@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.test.superclasses.creators;
 
 import java.util.LinkedHashSet;
@@ -32,12 +32,12 @@ public class TownSet extends LinkedHashSet<Town>
    public StringList getTest()
    {
       StringList result = new StringList();
-      
+
       for (Town obj : this)
       {
          result.add(obj.getTest());
       }
-      
+
       return result;
    }
 
@@ -47,60 +47,55 @@ public class TownSet extends LinkedHashSet<Town>
       {
          obj.withTest(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Town elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.test.superclasses.Town";
    }
 
-
    public TownPO hasTownPO()
    {
       org.sdmlib.model.test.superclasses.creators.ModelPattern pattern = new org.sdmlib.model.test.superclasses.creators.ModelPattern();
-      
+
       TownPO patternObject = pattern.hasElementTownPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public TownSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Town>)value);
+         this.addAll((Collection<Town>) value);
       }
       else if (value != null)
       {
          this.add((Town) value);
       }
-      
+
       return this;
    }
-   
+
    public TownSet without(Town value)
    {
       this.remove(value);
@@ -108,8 +103,3 @@ public class TownSet extends LinkedHashSet<Town>
    }
 
 }
-
-
-
-
-

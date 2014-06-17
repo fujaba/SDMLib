@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.test.superclasses.creators;
 
 import java.util.LinkedHashSet;
@@ -32,12 +32,12 @@ public class ContinentSet extends LinkedHashSet<Continent>
    public StringList getTest()
    {
       StringList result = new StringList();
-      
+
       for (Continent obj : this)
       {
          result.add(obj.getTest());
       }
-      
+
       return result;
    }
 
@@ -47,60 +47,55 @@ public class ContinentSet extends LinkedHashSet<Continent>
       {
          obj.withTest(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Continent elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.test.superclasses.Continent";
    }
 
-
    public ContinentPO hasContinentPO()
    {
       org.sdmlib.model.test.superclasses.creators.ModelPattern pattern = new org.sdmlib.model.test.superclasses.creators.ModelPattern();
-      
+
       ContinentPO patternObject = pattern.hasElementContinentPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public ContinentSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Continent>)value);
+         this.addAll((Collection<Continent>) value);
       }
       else if (value != null)
       {
          this.add((Continent) value);
       }
-      
+
       return this;
    }
-   
+
    public ContinentSet without(Continent value)
    {
       this.remove(value);
@@ -108,8 +103,3 @@ public class ContinentSet extends LinkedHashSet<Continent>
    }
 
 }
-
-
-
-
-

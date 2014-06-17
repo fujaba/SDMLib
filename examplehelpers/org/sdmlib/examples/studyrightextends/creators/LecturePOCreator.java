@@ -8,15 +8,15 @@ public class LecturePOCreator extends PatternObjectCreator
    {
       return new LecturePO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((LecturePO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((LecturePO) target).set(attrName, value);
    }
 }
-

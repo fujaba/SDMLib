@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.examples.studyrightextends.creators;
 
 import java.util.Collection;
@@ -27,31 +27,29 @@ import java.util.LinkedHashSet;
 import org.sdmlib.examples.studyrightextends.Person;
 import org.sdmlib.models.modelsets.StringList;
 
-public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.models.modelsets.ModelSet
+public class PersonSet extends LinkedHashSet<Person> implements
+      org.sdmlib.models.modelsets.ModelSet
 {
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (Person elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.examples.studyrightextends.Person";
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public PersonSet findMyPosition()
    {
       for (Person obj : this)
@@ -61,83 +59,73 @@ public class PersonSet extends LinkedHashSet<Person> implements org.sdmlib.model
       return this;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public PersonSet findMyPosition(String p0)
    {
       for (Person obj : this)
       {
-         obj.findMyPosition( p0);
+         obj.findMyPosition(p0);
       }
       return this;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public PersonSet findMyPosition(String p0, int p1)
    {
       for (Person obj : this)
       {
-         obj.findMyPosition( p0,  p1);
+         obj.findMyPosition(p0, p1);
       }
       return this;
    }
 
-
-
    public PersonPO startModelPattern()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       PersonPO patternObject = pattern.hasElementPersonPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public PersonSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Person>)value);
+         this.addAll((Collection<Person>) value);
       }
       else if (value != null)
       {
          this.add((Person) value);
       }
-      
+
       return this;
    }
-   
+
    public PersonSet without(Person value)
    {
       this.remove(value);
       return this;
    }
 
-
-
    public PersonPO hasPersonPO()
    {
       org.sdmlib.examples.studyrightextends.creators.ModelPattern pattern = new org.sdmlib.examples.studyrightextends.creators.ModelPattern();
-      
+
       PersonPO patternObject = pattern.hasElementPersonPO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
 }
-
-
-

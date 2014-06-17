@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.test.superclasses.creators;
 
 import java.util.LinkedHashSet;
@@ -32,12 +32,12 @@ public class StateSet extends LinkedHashSet<State>
    public StringList getTest()
    {
       StringList result = new StringList();
-      
+
       for (State obj : this)
       {
          result.add(obj.getTest());
       }
-      
+
       return result;
    }
 
@@ -47,60 +47,55 @@ public class StateSet extends LinkedHashSet<State>
       {
          obj.withTest(value);
       }
-      
+
       return this;
    }
-
-
 
    public String toString()
    {
       StringList stringList = new StringList();
-      
+
       for (State elem : this)
       {
          stringList.add(elem.toString());
       }
-      
+
       return "(" + stringList.concat(", ") + ")";
    }
-
 
    public String getEntryType()
    {
       return "org.sdmlib.model.test.superclasses.State";
    }
 
-
    public StatePO hasStatePO()
    {
       org.sdmlib.model.test.superclasses.creators.ModelPattern pattern = new org.sdmlib.model.test.superclasses.creators.ModelPattern();
-      
+
       StatePO patternObject = pattern.hasElementStatePO();
-      
+
       patternObject.withCandidates(this.clone());
-      
+
       pattern.setHasMatch(true);
       pattern.findMatch();
-      
+
       return patternObject;
    }
-
 
    public StateSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<State>)value);
+         this.addAll((Collection<State>) value);
       }
       else if (value != null)
       {
          this.add((State) value);
       }
-      
+
       return this;
    }
-   
+
    public StateSet without(State value)
    {
       this.remove(value);
@@ -108,8 +103,3 @@ public class StateSet extends LinkedHashSet<State>
    }
 
 }
-
-
-
-
-

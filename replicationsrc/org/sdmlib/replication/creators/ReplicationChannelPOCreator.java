@@ -8,15 +8,15 @@ public class ReplicationChannelPOCreator extends PatternObjectCreator
    {
       return new ReplicationChannelPO();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((ReplicationChannelPO) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       return ((ReplicationChannelPO) target).set(attrName, value);
    }
 }
-

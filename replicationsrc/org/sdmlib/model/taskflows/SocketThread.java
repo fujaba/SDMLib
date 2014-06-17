@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.model.taskflows;
 
 import java.beans.PropertyChangeSupport;
@@ -32,9 +32,8 @@ import org.sdmlib.serialization.util.PropertyChangeInterface;
 public class SocketThread extends Thread implements PropertyChangeInterface
 {
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void run()
    {
@@ -43,13 +42,13 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       try
       {
          ServerSocket serverSocket = new ServerSocket(port);
-         
+
          int i = 1;
-         
+
          while (true)
          {
             Socket connection = serverSocket.accept();
-            
+
             SocketReader socketReader = new SocketReader(this, connection);
             socketReader.setName("SocketReader_" + i++);
             socketReader.start();
@@ -60,14 +59,14 @@ public class SocketThread extends Thread implements PropertyChangeInterface
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-     
+
    }
-   
+
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -92,13 +91,12 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       {
          return getDefaultTargetThread();
       }
-      
+
       return null;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_IP.equalsIgnoreCase(attrName))
@@ -128,134 +126,131 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       return false;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
+
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_IP = "ip";
-   
+
    private String ip;
 
    public String getIp()
    {
       return this.ip;
    }
-   
+
    public void setIp(String value)
    {
-      if ( ! StrUtil.stringEquals(this.ip, value))
+      if (!StrUtil.stringEquals(this.ip, value))
       {
          String oldValue = this.ip;
          this.ip = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IP, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IP, oldValue,
+            value);
       }
    }
-   
+
    public SocketThread withIp(String value)
    {
       setIp(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_PORT = "port";
-   
+
    private int port;
 
    public int getPort()
    {
       return this.port;
    }
-   
+
    public void setPort(int value)
    {
       if (this.port != value)
       {
          int oldValue = this.port;
          this.port = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PORT, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PORT, oldValue,
+            value);
       }
    }
-   
+
    public SocketThread withPort(int value)
    {
       setPort(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_IDMAP = "idMap";
-   
+
    org.sdmlib.serialization.json.JsonIdMap idMap;
 
    public org.sdmlib.serialization.json.JsonIdMap getIdMap()
    {
       return this.idMap;
    }
-   
+
    public void setIdMap(org.sdmlib.serialization.json.JsonIdMap value)
    {
       if (this.idMap != value)
       {
          org.sdmlib.serialization.json.JsonIdMap oldValue = this.idMap;
          this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP,
+            oldValue, value);
       }
    }
-   
+
    public SocketThread withIdMap(org.sdmlib.serialization.json.JsonIdMap value)
    {
       setIdMap(value);
       return this;
-   } 
+   }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    public static final String PROPERTY_DEFAULTTARGETTHREAD = "defaultTargetThread";
-   
+
    Object defaultTargetThread;
 
    public Object getDefaultTargetThread()
    {
       return this.defaultTargetThread;
    }
-   
+
    public void setDefaultTargetThread(Object value)
    {
       if (this.defaultTargetThread != value)
       {
          Object oldValue = this.defaultTargetThread;
          this.defaultTargetThread = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_DEFAULTTARGETTHREAD, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(
+            PROPERTY_DEFAULTTARGETTHREAD, oldValue, value);
       }
    }
-   
+
    public SocketThread withDefaultTargetThread(Object value)
    {
       setDefaultTargetThread(value);
       return this;
-   } 
+   }
 }
-

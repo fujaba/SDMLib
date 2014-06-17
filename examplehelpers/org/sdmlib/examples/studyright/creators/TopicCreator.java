@@ -8,27 +8,25 @@ import org.sdmlib.examples.studyright.Topic;
 public class TopicCreator extends EntityFactory
 {
    private final String[] properties = new String[]
-   {
-      Topic.PROPERTY_TITLE,
-      Topic.PROPERTY_PROF,
-   };
-   
+   { Topic.PROPERTY_TITLE, Topic.PROPERTY_PROF, };
+
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    public Object getSendableInstance(boolean reference)
    {
       return new Topic();
    }
-   
+
    public Object getValue(Object target, String attrName)
    {
       return ((Topic) target).get(attrName);
    }
-   
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+   public boolean setValue(Object target, String attrName, Object value,
+         String type)
    {
       if (JsonIdMap.REMOVE.equals(type))
       {
@@ -36,19 +34,17 @@ public class TopicCreator extends EntityFactory
       }
       return ((Topic) target).set(attrName, value);
    }
-   
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return CreatorCreator.createIdMap(sessionID);
    }
 
-   
-   //==========================================================================
-   
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {
       ((Topic) entity).removeYou();
    }
 }
-
