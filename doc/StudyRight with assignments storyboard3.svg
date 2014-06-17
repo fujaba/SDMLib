@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-872 692.695,-872 692.695,5 -4,5"/>
 <!-- studyRight -->
 <g id="node1" class="node"><title>studyRight</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/University.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/University.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="528,-846 528,-863 634,-863 634,-846 528,-846"/>
 <text text-anchor="start" x="531.5" y="-852.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="535.5" y="-852.5" font-family="Arial" font-size="10.00">studyRight :University</text>
@@ -22,14 +22,14 @@
 <!-- karli -->
 <g id="node2" class="node"><title>karli</title>
 <image xlink:href="icons/karli.png" width="61px" height="46px" preserveAspectRatio="xMinYMin meet" x="411" y="-780"/>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Student.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Student.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="388,-716 388,-732 495,-732 495,-716 388,-716"/>
 <text text-anchor="start" x="410.5" y="-722" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="414.5" y="-722" font-family="Arial" font-size="10.00">karli :Student</text>
 </a>
 <polygon fill="none" stroke="black" points="388,-654 388,-716 495,-716 495,-654 388,-654"/>
-<text text-anchor="start" x="393" y="-704" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="393" y="-690" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
+<text text-anchor="start" x="393" y="-704" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
+<text text-anchor="start" x="393" y="-690" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
 <text text-anchor="start" x="393" y="-676" font-family="Arial" font-size="10.00">motivation = 0</text>
 <text text-anchor="start" x="393" y="-662" font-family="Arial" font-size="10.00">credits = 0</text>
 </g>
@@ -42,14 +42,14 @@
 <!-- mathRoom -->
 <g id="node3" class="node"><title>mathRoom</title>
 <image xlink:href="icons/mathroom.png" width="86px" height="63px" preserveAspectRatio="xMinYMin meet" x="352" y="-607"/>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="350,-526 350,-542 440,-542 440,-526 350,-526"/>
 <text text-anchor="start" x="353.5" y="-532" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="357.5" y="-532" font-family="Arial" font-size="10.00">mathRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="350,-478 350,-526 440,-526 440,-478 350,-478"/>
-<text text-anchor="start" x="355" y="-514" font-family="Arial" font-size="10.00">name = &quot;senate&quot;</text>
-<text text-anchor="start" x="355" y="-500" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
+<text text-anchor="start" x="355" y="-514" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
+<text text-anchor="start" x="355" y="-500" font-family="Arial" font-size="10.00">name = &quot;senate&quot;</text>
 <text text-anchor="start" x="355" y="-486" font-family="Arial" font-size="10.00">credits = 17</text>
 </g>
 <!-- studyRight&#45;&#45;mathRoom -->
@@ -60,14 +60,14 @@
 </g>
 <!-- artsRoom -->
 <g id="node4" class="node"><title>artsRoom</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-399 8,-416 93,-416 93,-399 8,-399"/>
 <text text-anchor="start" x="11.5" y="-405.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="15.5" y="-405.5" font-family="Arial" font-size="10.00">artsRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-351 8,-399 93,-399 93,-351 8,-351"/>
-<text text-anchor="start" x="13" y="-387" font-family="Arial" font-size="10.00">name = &quot;7522&quot;</text>
-<text text-anchor="start" x="13" y="-373" font-family="Arial" font-size="10.00">topic = &quot;arts&quot;</text>
+<text text-anchor="start" x="13" y="-387" font-family="Arial" font-size="10.00">topic = &quot;arts&quot;</text>
+<text text-anchor="start" x="13" y="-373" font-family="Arial" font-size="10.00">name = &quot;7522&quot;</text>
 <text text-anchor="start" x="13" y="-359" font-family="Arial" font-size="10.00">credits = 16</text>
 </g>
 <!-- studyRight&#45;&#45;artsRoom -->
@@ -78,14 +78,14 @@
 </g>
 <!-- sportsRoom -->
 <g id="node5" class="node"><title>sportsRoom</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="125,-272 125,-289 230,-289 230,-272 125,-272"/>
 <text text-anchor="start" x="133" y="-278.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="137" y="-278.5" font-family="Arial" font-size="10.00">sportsRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="125,-224 125,-272 230,-272 230,-224 125,-224"/>
-<text text-anchor="start" x="130" y="-260" font-family="Arial" font-size="10.00">name = &quot;gymnasium&quot;</text>
-<text text-anchor="start" x="130" y="-246" font-family="Arial" font-size="10.00">topic = &quot;sports&quot;</text>
+<text text-anchor="start" x="130" y="-260" font-family="Arial" font-size="10.00">topic = &quot;sports&quot;</text>
+<text text-anchor="start" x="130" y="-246" font-family="Arial" font-size="10.00">name = &quot;gymnasium&quot;</text>
 <text text-anchor="start" x="130" y="-232" font-family="Arial" font-size="10.00">credits = 25</text>
 </g>
 <!-- studyRight&#45;&#45;sportsRoom -->
@@ -96,14 +96,14 @@
 </g>
 <!-- examRoom -->
 <g id="node6" class="node"><title>examRoom</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="131,-162 131,-179 224,-179 224,-162 131,-162"/>
 <text text-anchor="start" x="134.5" y="-168.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="138.5" y="-168.5" font-family="Arial" font-size="10.00">examRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="131,-114 131,-162 224,-162 224,-114 131,-114"/>
-<text text-anchor="start" x="136" y="-150" font-family="Arial" font-size="10.00">name = &quot;The End&quot;</text>
-<text text-anchor="start" x="136" y="-136" font-family="Arial" font-size="10.00">topic = &quot;exam&quot;</text>
+<text text-anchor="start" x="136" y="-150" font-family="Arial" font-size="10.00">topic = &quot;exam&quot;</text>
+<text text-anchor="start" x="136" y="-136" font-family="Arial" font-size="10.00">name = &quot;The End&quot;</text>
 <text text-anchor="start" x="136" y="-122" font-family="Arial" font-size="10.00">credits = 0</text>
 </g>
 <!-- studyRight&#45;&#45;examRoom -->
@@ -114,14 +114,14 @@
 </g>
 <!-- placeToBe -->
 <g id="node7" class="node"><title>placeToBe</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="105,-52 105,-69 249,-69 249,-52 105,-52"/>
 <text text-anchor="start" x="136" y="-58.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="140" y="-58.5" font-family="Arial" font-size="10.00">placeToBe :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="105,-4 105,-52 249,-52 249,-4 105,-4"/>
-<text text-anchor="start" x="110" y="-40" font-family="Arial" font-size="10.00">name = &quot;7422&quot;</text>
-<text text-anchor="start" x="110" y="-26" font-family="Arial" font-size="10.00">topic = &quot;Software Engineering&quot;</text>
+<text text-anchor="start" x="110" y="-40" font-family="Arial" font-size="10.00">topic = &quot;Software Engineering&quot;</text>
+<text text-anchor="start" x="110" y="-26" font-family="Arial" font-size="10.00">name = &quot;7422&quot;</text>
 <text text-anchor="start" x="110" y="-12" font-family="Arial" font-size="10.00">credits = 42</text>
 </g>
 <!-- studyRight&#45;&#45;placeToBe -->
@@ -151,7 +151,7 @@
 <!-- a1 -->
 <g id="node8" class="node"><title>a1</title>
 <image xlink:href="icons/matrix.png" width="121px" height="46px" preserveAspectRatio="xMinYMin meet" x="179.5" y="-432"/>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Assignment.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="165,-368 165,-384 315,-384 315,-368 165,-368"/>
 <text text-anchor="start" x="203.5" y="-374" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="207.5" y="-374" font-family="Arial" font-size="10.00">a1 :Assignment</text>
@@ -169,7 +169,7 @@
 <!-- a2 -->
 <g id="node9" class="node"><title>a2</title>
 <image xlink:href="icons/limes.png" width="74px" height="35px" preserveAspectRatio="xMinYMin meet" x="358.5" y="-426"/>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Assignment.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="350,-373 350,-389 441,-389 441,-373 350,-373"/>
 <text text-anchor="start" x="359" y="-379" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="363" y="-379" font-family="Arial" font-size="10.00">a2 :Assignment</text>
@@ -187,7 +187,7 @@
 <!-- a3 -->
 <g id="node10" class="node"><title>a3</title>
 <image xlink:href="icons/integralAssignment.png" width="83px" height="36px" preserveAspectRatio="xMinYMin meet" x="483.5" y="-427"/>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Assignment.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/Assignment.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="475,-373 475,-389 575,-389 575,-373 475,-373"/>
 <text text-anchor="start" x="488.5" y="-379" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="492.5" y="-379" font-family="Arial" font-size="10.00">a3 :Assignment</text>

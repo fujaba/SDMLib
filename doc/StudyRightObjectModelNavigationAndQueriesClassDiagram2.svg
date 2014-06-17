@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-172 173,-172 173,5 -4,5"/>
 <!-- _Student -->
 <g id="node1" class="node"><title>_Student</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Student.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/org/sdmlib/examples/studyrightWithAssignments/model/Student.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-146 8,-163 47,-163 47,-146 8,-146"/>
 <text text-anchor="start" x="11.5" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Student</text>
 </a>
@@ -28,7 +28,7 @@
 </g>
 <!-- _Room -->
 <g id="node2" class="node"><title>_Room</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/Room.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/org/sdmlib/examples/studyrightWithAssignments/model/Room.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="103,-146 103,-163 134,-163 134,-146 103,-146"/>
 <text text-anchor="start" x="106.5" y="-152.5" font-family="Times New Roman,serif" font-size="10.00">Room</text>
 </a>
@@ -39,7 +39,7 @@
 </g>
 <!-- _TeachingAssistant -->
 <g id="node3" class="node"><title>_TeachingAssistant</title>
-<a xlink:href="../examples/org/sdmlib/examples/studyrightWithAssignments/TeachingAssistant.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../src/TeachingAssistant.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="76,-44 76,-61 160,-61 160,-44 76,-44"/>
 <text text-anchor="start" x="79.5" y="-50.5" font-family="Times New Roman,serif" font-size="10.00">TeachingAssistant</text>
 </a>

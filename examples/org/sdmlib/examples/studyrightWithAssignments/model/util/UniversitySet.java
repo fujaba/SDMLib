@@ -95,6 +95,21 @@ public class UniversitySet extends SDMSet<University>
       return result;
    }
 
+   public UniversitySet hasName(String lower, String upper)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public UniversitySet withName(String value)
    {
       for (University obj : this)

@@ -589,7 +589,7 @@ public class GenAttribute extends Generator<Attribute>
                   "   }\n" + 
                   "\n" );
          
-         if ( " int long float double String ".indexOf( " " + model.getType() + " " ) >= 0)
+         if ( " int long float double String ".indexOf( " " + model.getType().getValue() + " " ) >= 0)
          {
           text.append(
                   "   public ObjectSetType hasName(AttrType lower, AttrType upper)\n" + 
