@@ -28,7 +28,7 @@
 </a>
 <polygon fill="none" stroke="black" points="8,-24 8,-72 71,-72 71,-24 8,-24"/>
 <text text-anchor="start" x="13" y="-60" font-family="Times New Roman,serif" font-size="10.00">name :String</text>
-<text text-anchor="start" x="13" y="-46" font-family="Times New Roman,serif" font-size="10.00">level :String</text>
+<text text-anchor="start" x="13" y="-46" font-family="Times New Roman,serif" font-size="10.00">level :int</text>
 <text text-anchor="start" x="13" y="-32" font-family="Times New Roman,serif" font-size="10.00">guest :String</text>
 <polygon fill="none" stroke="black" points="8,-4 8,-24 71,-24 71,-4 8,-4"/>
 <text text-anchor="start" x="38" y="-12" font-family="Times New Roman,serif" font-size="10.00"> </text>
@@ -37,7 +37,7 @@
 <g id="edge2" class="edge"><title>_Building&#45;&gt;_Floor</title>
 <path fill="none" stroke="black" d="M39,-130.245C39,-118.913 39,-105.913 39,-93.6447"/>
 <text text-anchor="middle" x="43.2262" y="-100.208" font-family="Times New Roman,serif" font-size="10.00">has *</text>
-<text text-anchor="middle" x="34.7738" y="-118.682" font-family="Times New Roman,serif" font-size="10.00">buildings *</text>
+<text text-anchor="middle" x="34.7738" y="-118.682" font-family="Times New Roman,serif" font-size="10.00">buildings</text>
 </g>
 </g>
 </svg>

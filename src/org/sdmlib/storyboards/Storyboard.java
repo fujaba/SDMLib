@@ -878,6 +878,10 @@ public class Storyboard implements PropertyChangeInterface
             {
                object = coll.iterator().next();
             }
+            else
+            {
+               continue;
+            }
          }
          else
          {

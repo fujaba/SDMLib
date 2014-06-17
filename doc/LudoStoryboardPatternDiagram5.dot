@@ -1,0 +1,59 @@
+graph ObjectDiagram {
+   node [shape = none, fontsize = 10, fontname = "Arial"];
+   edge [fontsize = 10, fontname = "Arial"];
+
+p1 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'> <tr> <td border='0' align='right'><font color='black'>&#171;bound&#187;</font></td></tr> <tr> <td align='center'> <font color='black'> p1 :PawnPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+p3 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> p3 :PlayerPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+d5 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> d5 :DicePO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> value == 6 </font></td></tr></table></td></tr></table>>];
+f7 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> f7 :FieldPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr><td><font color='black'> kind == "base" </font></td></tr></table></td></tr></table>>];
+f9 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> f9 :FieldPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+subgraph cluster_n11 
+{
+   label=<<table border='0' cellborder='0'><tr><td><img src='../../SDMLib.net/doc/forbiddensign.svg'/></td><td>NAC n11</td></tr></table>>;
+   color=grey;
+
+p12 [label=<<table border='0' cellborder='1' cellspacing='0' color='black' bgcolor='deepskyblue'>  <tr> <td align='center'> <font color='black'> p12 :PawnPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='black'> <tr> <td>  </td></tr></table></td></tr></table>>];
+}
+
+p2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Pawn.java"> <u>p2 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr></table></td></tr></table>>];
+p4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Player.java"> <u>p4 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>enumColor = blue</td></tr><tr><td align='left'>name = "Tom"</td></tr></table></td></tr></table>>];
+l14 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Ludo.java"> <u>l14 :Ludo</u></td></tr></table>>];
+p15 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Player.java"> <u>p15 :Player</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr><tr><td align='left'>enumColor = red</td></tr><tr><td align='left'>name = "Sabine"</td></tr></table></td></tr></table>>];
+f16 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Field.java"> <u>f16 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr><tr><td align='left'>kind = "start"</td></tr></table></td></tr></table>>];
+p13 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Pawn.java"> <u>p13 :Pawn</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "red"</td></tr></table></td></tr></table>>];
+f10 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Field.java"> <u>f10 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>kind = "start"</td></tr></table></td></tr></table>>];
+f17 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Field.java"> <u>f17 :Field</u></td></tr></table>>];
+f18 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Field.java"> <u>f18 :Field</u></td></tr></table>>];
+f19 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Field.java"> <u>f19 :Field</u></td></tr></table>>];
+f20 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Field.java"> <u>f20 :Field</u></td></tr></table>>];
+d6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Dice.java"> <u>d6 :Dice</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>value = 6</td></tr></table></td></tr></table>>];
+f8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../../SDMLib/src/org/sdmlib/examples/ludo/model/Field.java"> <u>f8 :Field</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>color = "blue"</td></tr><tr><td align='left'>kind = "base"</td></tr></table></td></tr></table>>];
+
+p1 -- p2 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
+p3 -- p4 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
+d5 -- d6 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
+f7 -- f8 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
+f9 -- f10 [headlabel = "match" style="dotted" color="black" fontcolor="black"];
+p12 -- p13 [headlabel = "candidate" style="dotted" color="black" fontcolor="black"];
+p1 -- p3 [headlabel = "player" taillabel = "" color="black" fontcolor="black"];
+p3 -- d5 [headlabel = "dice" taillabel = "" color="black" fontcolor="black"];
+p1 -- f7 [headlabel = "pos" taillabel = "" color="black" fontcolor="black"];
+p3 -- f7 [headlabel = "base" taillabel = "" color="black" fontcolor="black"];
+p3 -- f9 [headlabel = "start" taillabel = "" color="black" fontcolor="black"];
+f9 -- p12 [headlabel = "pawns" taillabel = "" color="black" fontcolor="black"];
+p12 -- p3 [headlabel = "player" taillabel = "" color="black" fontcolor="black"];
+p2 -- p4 [headlabel = "player" taillabel = "pawns"];
+p2 -- f8 [headlabel = "pos" taillabel = "pawns"];
+p4 -- d6 [headlabel = "dice" taillabel = "player"];
+p4 -- f10 [headlabel = "start" taillabel = "starter"];
+p4 -- f8 [headlabel = "base" taillabel = "baseowner"];
+p4 -- l14 [headlabel = "game" taillabel = "players"];
+l14 -- p15 [headlabel = "players" taillabel = "game"];
+p15 -- f16 [headlabel = "start" taillabel = "starter"];
+p15 -- p13 [headlabel = "pawns" taillabel = "player"];
+p13 -- f10 [headlabel = "pos" taillabel = "pawns"];
+f10 -- f17 [headlabel = "next" taillabel = "prev"];
+f17 -- f18 [headlabel = "next" taillabel = "prev"];
+f18 -- f19 [headlabel = "next" taillabel = "prev"];
+f19 -- f20 [headlabel = "next" taillabel = "prev"];
+}

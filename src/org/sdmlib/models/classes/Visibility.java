@@ -49,6 +49,11 @@ public class Visibility
       return this.getValue().equalsIgnoreCase(other.getValue());
    }
    
+   public boolean has(Visibility other)
+   {
+      return this.getValue().contains(other.getValue());
+   }
+   
    @Override
    public String toString(){
       return this.value;

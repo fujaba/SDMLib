@@ -21,6 +21,8 @@
 
 package org.sdmlib.models.pattern;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -68,7 +70,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       Pattern<Object> pattern = new Pattern<Object>(map);
       pattern.addToElements(this);
       if(hostGraphObject.length>1){
-         this.withCandidates(hostGraphObject);
+         this.withCandidates(Arrays.asList(hostGraphObject));
       } else {
          this.withCurrentMatch(hostGraphObject[0]);
          this.withModifier(Pattern.BOUND);

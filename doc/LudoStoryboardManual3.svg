@@ -11,25 +11,25 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-1314 331,-1314 331,5 -4,5"/>
 <!-- p1 -->
 <g id="node1" class="node"><title>p1</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Player.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Player.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="154,-1288 154,-1305 232,-1305 232,-1288 154,-1288"/>
 <text text-anchor="start" x="168.5" y="-1294.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="172.5" y="-1294.5" font-family="Arial" font-size="10.00">p1 :Player</text>
 </a>
 <polygon fill="none" stroke="black" points="154,-1156 154,-1288 232,-1288 232,-1156 154,-1156"/>
-<text text-anchor="start" x="159" y="-1276" font-family="Arial" font-size="10.00">color = &quot;blue&quot;</text>
-<text text-anchor="start" x="159" y="-1262" font-family="Arial" font-size="10.00">enumColor = &quot;&quot;</text>
-<text text-anchor="start" x="159" y="-1248" font-family="Arial" font-size="10.00">name = &quot;Tom&quot;</text>
-<text text-anchor="start" x="159" y="-1234" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="159" y="-1220" font-family="Arial" font-size="10.00">y = 0</text>
-<text text-anchor="start" x="159" y="-1206" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
-<text text-anchor="start" x="159" y="-1192" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
-<text text-anchor="start" x="159" y="-1178" font-family="Arial" font-size="10.00">prev = &quot;&quot;</text>
-<text text-anchor="start" x="159" y="-1164" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="159" y="-1276" font-family="Arial" font-size="10.00">enumColor = &quot;&quot;</text>
+<text text-anchor="start" x="159" y="-1262" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
+<text text-anchor="start" x="159" y="-1248" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
+<text text-anchor="start" x="159" y="-1234" font-family="Arial" font-size="10.00">prev = &quot;&quot;</text>
+<text text-anchor="start" x="159" y="-1220" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="159" y="-1206" font-family="Arial" font-size="10.00">color = &quot;blue&quot;</text>
+<text text-anchor="start" x="159" y="-1192" font-family="Arial" font-size="10.00">name = &quot;Tom&quot;</text>
+<text text-anchor="start" x="159" y="-1178" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="159" y="-1164" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- d2 -->
 <g id="node2" class="node"><title>d2</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Dice.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Dice.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="11,-1024 11,-1041 66,-1041 66,-1024 11,-1024"/>
 <text text-anchor="start" x="18" y="-1030.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="22" y="-1030.5" font-family="Arial" font-size="10.00">d2 :Dice</text>
@@ -39,101 +39,101 @@
 <text text-anchor="start" x="16" y="-998" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
 </g>
 <!-- p1&#45;&#45;d2 -->
-<g id="edge2" class="edge"><title>p1&#45;&#45;d2</title>
+<g id="edge4" class="edge"><title>p1&#45;&#45;d2</title>
 <path fill="none" stroke="black" d="M145.833,-1188.15C124.786,-1167.82 100.783,-1142.16 83,-1116 68.0331,-1093.99 55.9019,-1066.19 48.0232,-1045.66"/>
 <text text-anchor="middle" x="55.2608" y="-1050.06" font-family="Arial" font-size="10.00">dice</text>
 <text text-anchor="middle" x="136.4" y="-1182.33" font-family="Arial" font-size="10.00">player</text>
 </g>
 <!-- f3 -->
 <g id="node3" class="node"><title>f3</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="100,-1087 100,-1104 178,-1104 178,-1087 100,-1087"/>
 <text text-anchor="start" x="119.5" y="-1093.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="123.5" y="-1093.5" font-family="Arial" font-size="10.00">f3 :Field</text>
 </a>
 <polygon fill="none" stroke="black" points="100,-927 100,-1087 178,-1087 178,-927 100,-927"/>
-<text text-anchor="start" x="105" y="-1075" font-family="Arial" font-size="10.00">color = &quot;blue&quot;</text>
-<text text-anchor="start" x="105" y="-1061" font-family="Arial" font-size="10.00">kind = &quot;start&quot;</text>
-<text text-anchor="start" x="105" y="-1047" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="105" y="-1033" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="105" y="-1075" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
+<text text-anchor="start" x="105" y="-1061" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
+<text text-anchor="start" x="105" y="-1047" font-family="Arial" font-size="10.00">kind = &quot;start&quot;</text>
+<text text-anchor="start" x="105" y="-1033" font-family="Arial" font-size="10.00">prev = &quot;&quot;</text>
 <text text-anchor="start" x="105" y="-1019" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
-<text text-anchor="start" x="105" y="-1005" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
-<text text-anchor="start" x="105" y="-991" font-family="Arial" font-size="10.00">prev = &quot;&quot;</text>
-<text text-anchor="start" x="105" y="-977" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
-<text text-anchor="start" x="105" y="-963" font-family="Arial" font-size="10.00">entry = &quot;&quot;</text>
-<text text-anchor="start" x="105" y="-949" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
-<text text-anchor="start" x="105" y="-935" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="105" y="-1005" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="105" y="-991" font-family="Arial" font-size="10.00">color = &quot;blue&quot;</text>
+<text text-anchor="start" x="105" y="-977" font-family="Arial" font-size="10.00">entry = &quot;&quot;</text>
+<text text-anchor="start" x="105" y="-963" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="105" y="-949" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="105" y="-935" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- p1&#45;&#45;f3 -->
-<g id="edge4" class="edge"><title>p1&#45;&#45;f3</title>
+<g id="edge6" class="edge"><title>p1&#45;&#45;f3</title>
 <path fill="none" stroke="black" d="M173.352,-1152.5C169.733,-1138.23 165.924,-1123.2 162.212,-1108.56"/>
 <text text-anchor="middle" x="168.536" y="-1113.8" font-family="Arial" font-size="10.00">start</text>
 <text text-anchor="middle" x="167.028" y="-1142.25" font-family="Arial" font-size="10.00">starter</text>
 </g>
 <!-- f10 -->
 <g id="node10" class="node"><title>f10</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="212,-1094 212,-1111 282,-1111 282,-1094 212,-1094"/>
 <text text-anchor="start" x="225" y="-1100.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="229" y="-1100.5" font-family="Arial" font-size="10.00">f10 :Field</text>
 </a>
 <polygon fill="none" stroke="black" points="212,-920 212,-1094 282,-1094 282,-920 212,-920"/>
-<text text-anchor="start" x="217" y="-1082" font-family="Arial" font-size="10.00">color = &quot;blue&quot;</text>
-<text text-anchor="start" x="217" y="-1068" font-family="Arial" font-size="10.00">kind = &quot;base&quot;</text>
-<text text-anchor="start" x="217" y="-1054" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="217" y="-1040" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="217" y="-1082" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
+<text text-anchor="start" x="217" y="-1068" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
+<text text-anchor="start" x="217" y="-1054" font-family="Arial" font-size="10.00">kind = &quot;base&quot;</text>
+<text text-anchor="start" x="217" y="-1040" font-family="Arial" font-size="10.00">prev = &quot;&quot;</text>
 <text text-anchor="start" x="217" y="-1026" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
-<text text-anchor="start" x="217" y="-1012" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
-<text text-anchor="start" x="217" y="-998" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
-<text text-anchor="start" x="217" y="-984" font-family="Arial" font-size="10.00">prev = &quot;&quot;</text>
-<text text-anchor="start" x="217" y="-970" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
-<text text-anchor="start" x="217" y="-956" font-family="Arial" font-size="10.00">entry = &quot;&quot;</text>
-<text text-anchor="start" x="217" y="-942" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
-<text text-anchor="start" x="217" y="-928" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="217" y="-1012" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="217" y="-998" font-family="Arial" font-size="10.00">color = &quot;blue&quot;</text>
+<text text-anchor="start" x="217" y="-984" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
+<text text-anchor="start" x="217" y="-970" font-family="Arial" font-size="10.00">entry = &quot;&quot;</text>
+<text text-anchor="start" x="217" y="-956" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="217" y="-942" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="217" y="-928" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- p1&#45;&#45;f10 -->
-<g id="edge6" class="edge"><title>p1&#45;&#45;f10</title>
+<g id="edge8" class="edge"><title>p1&#45;&#45;f10</title>
 <path fill="none" stroke="black" d="M212.648,-1152.5C215.694,-1140.49 218.875,-1127.94 222.019,-1115.54"/>
 <text text-anchor="middle" x="223.888" y="-1122.86" font-family="Arial" font-size="10.00">base</text>
 <text text-anchor="middle" x="210.779" y="-1140.18" font-family="Arial" font-size="10.00">baseowner</text>
 </g>
 <!-- p11 -->
 <g id="node11" class="node"><title>p11</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Pawn.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Pawn.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="248,-802 248,-819 318,-819 318,-802 248,-802"/>
 <text text-anchor="start" x="258" y="-808.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="262" y="-808.5" font-family="Arial" font-size="10.00">p11 :Pawn</text>
 </a>
 <polygon fill="none" stroke="black" points="248,-754 248,-802 318,-802 318,-754 248,-754"/>
 <text text-anchor="start" x="253" y="-790" font-family="Arial" font-size="10.00">color = &quot;blue&quot;</text>
-<text text-anchor="start" x="253" y="-776" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="253" y="-762" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="253" y="-776" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="253" y="-762" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- p1&#45;&#45;p11 -->
-<g id="edge8" class="edge"><title>p1&#45;&#45;p11</title>
+<g id="edge2" class="edge"><title>p1&#45;&#45;p11</title>
 <path fill="none" stroke="black" d="M240.086,-1193.97C262.501,-1173.79 286.988,-1146.56 299,-1116 338.315,-1015.98 311.058,-885.421 293.95,-823.525"/>
 <text text-anchor="middle" x="300.329" y="-828.726" font-family="Arial" font-size="10.00">pawns</text>
 <text text-anchor="middle" x="243.872" y="-1182.21" font-family="Arial" font-size="10.00">player</text>
 </g>
 <!-- f4 -->
 <g id="node4" class="node"><title>f4</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="10,-858 10,-875 88,-875 88,-858 10,-858"/>
 <text text-anchor="start" x="29.5" y="-864.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="33.5" y="-864.5" font-family="Arial" font-size="10.00">f4 :Field</text>
 </a>
 <polygon fill="none" stroke="black" points="10,-698 10,-858 88,-858 88,-698 10,-698"/>
-<text text-anchor="start" x="15" y="-846" font-family="Arial" font-size="10.00">color = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-832" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-818" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="15" y="-804" font-family="Arial" font-size="10.00">y = 0</text>
-<text text-anchor="start" x="15" y="-790" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-776" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-762" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-846" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-832" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-818" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-804" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-790" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-776" font-family="Arial" font-size="10.00">color = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-762" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
 <text text-anchor="start" x="15" y="-748" font-family="Arial" font-size="10.00">entry = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-734" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-720" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
-<text text-anchor="start" x="15" y="-706" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-734" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="15" y="-720" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="15" y="-706" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- f3&#45;&#45;f4 -->
 <g id="edge10" class="edge"><title>f3&#45;&#45;f4</title>
@@ -143,15 +143,15 @@
 </g>
 <!-- p8 -->
 <g id="node8" class="node"><title>p8</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Pawn.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Pawn.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="127,-802 127,-819 193,-819 193,-802 127,-802"/>
 <text text-anchor="start" x="137.5" y="-808.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="141.5" y="-808.5" font-family="Arial" font-size="10.00">p8 :Pawn</text>
 </a>
 <polygon fill="none" stroke="black" points="127,-754 127,-802 193,-802 193,-754 127,-754"/>
 <text text-anchor="start" x="132" y="-790" font-family="Arial" font-size="10.00">color = &quot;red&quot;</text>
-<text text-anchor="start" x="132" y="-776" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="132" y="-762" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="132" y="-776" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="132" y="-762" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- f3&#45;&#45;p8 -->
 <g id="edge12" class="edge"><title>f3&#45;&#45;p8</title>
@@ -161,23 +161,23 @@
 </g>
 <!-- f5 -->
 <g id="node5" class="node"><title>f5</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-629 8,-646 86,-646 86,-629 8,-629"/>
 <text text-anchor="start" x="27.5" y="-635.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="31.5" y="-635.5" font-family="Arial" font-size="10.00">f5 :Field</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-469 8,-629 86,-629 86,-469 8,-469"/>
-<text text-anchor="start" x="13" y="-617" font-family="Arial" font-size="10.00">color = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-603" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-589" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="13" y="-575" font-family="Arial" font-size="10.00">y = 0</text>
-<text text-anchor="start" x="13" y="-561" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-547" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-533" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-617" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-603" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-589" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-575" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-561" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-547" font-family="Arial" font-size="10.00">color = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-533" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
 <text text-anchor="start" x="13" y="-519" font-family="Arial" font-size="10.00">entry = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-505" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-491" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-477" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-505" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-491" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="13" y="-477" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- f4&#45;&#45;f5 -->
 <g id="edge14" class="edge"><title>f4&#45;&#45;f5</title>
@@ -187,23 +187,23 @@
 </g>
 <!-- f6 -->
 <g id="node6" class="node"><title>f6</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-400 8,-417 86,-417 86,-400 8,-400"/>
 <text text-anchor="start" x="27.5" y="-406.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="31.5" y="-406.5" font-family="Arial" font-size="10.00">f6 :Field</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-240 8,-400 86,-400 86,-240 8,-240"/>
-<text text-anchor="start" x="13" y="-388" font-family="Arial" font-size="10.00">color = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-374" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-360" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="13" y="-346" font-family="Arial" font-size="10.00">y = 0</text>
-<text text-anchor="start" x="13" y="-332" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-318" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-304" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-388" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-374" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-360" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-346" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-332" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-318" font-family="Arial" font-size="10.00">color = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-304" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
 <text text-anchor="start" x="13" y="-290" font-family="Arial" font-size="10.00">entry = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-276" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-262" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-248" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-276" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-262" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="13" y="-248" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- f5&#45;&#45;f6 -->
 <g id="edge16" class="edge"><title>f5&#45;&#45;f6</title>
@@ -213,24 +213,24 @@
 </g>
 <!-- f7 -->
 <g id="node7" class="node"><title>f7</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Field.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Field.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-178 8,-195 86,-195 86,-178 8,-178"/>
 <text text-anchor="start" x="27.5" y="-184.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="31.5" y="-184.5" font-family="Arial" font-size="10.00">f7 :Field</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-4 8,-178 86,-178 86,-4 8,-4"/>
-<text text-anchor="start" x="13" y="-166" font-family="Arial" font-size="10.00">color = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-152" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-138" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="13" y="-124" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="13" y="-166" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-152" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-138" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-124" font-family="Arial" font-size="10.00">kind = &quot;&quot;</text>
 <text text-anchor="start" x="13" y="-110" font-family="Arial" font-size="10.00">point = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-96" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-82" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-68" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-96" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-82" font-family="Arial" font-size="10.00">color = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-68" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
 <text text-anchor="start" x="13" y="-54" font-family="Arial" font-size="10.00">entry = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-40" font-family="Arial" font-size="10.00">starter = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">baseowner = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-40" font-family="Arial" font-size="10.00">lander = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- f6&#45;&#45;f7 -->
 <g id="edge18" class="edge"><title>f6&#45;&#45;f7</title>
@@ -240,24 +240,24 @@
 </g>
 <!-- p9 -->
 <g id="node9" class="node"><title>p9</title>
-<a xlink:href="../examples/org/sdmlib/examples/ludo/Player.java" xlink:title="&lt;TABLE&gt;">
+<a xlink:href="../examples/org/sdmlib/examples/ludo/model/Player.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="121,-636 121,-653 206,-653 206,-636 121,-636"/>
 <text text-anchor="start" x="139" y="-642.5" font-family="Arial" font-size="10.00"> </text>
 <text text-anchor="start" x="143" y="-642.5" font-family="Arial" font-size="10.00">p9 :Player</text>
 </a>
 <polygon fill="none" stroke="black" points="121,-462 121,-636 206,-636 206,-462 121,-462"/>
-<text text-anchor="start" x="126" y="-624" font-family="Arial" font-size="10.00">color = &quot;red&quot;</text>
-<text text-anchor="start" x="126" y="-610" font-family="Arial" font-size="10.00">enumColor = &quot;&quot;</text>
-<text text-anchor="start" x="126" y="-596" font-family="Arial" font-size="10.00">name = &quot;Sabine&quot;</text>
-<text text-anchor="start" x="126" y="-582" font-family="Arial" font-size="10.00">x = 0</text>
-<text text-anchor="start" x="126" y="-568" font-family="Arial" font-size="10.00">y = 0</text>
-<text text-anchor="start" x="126" y="-554" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
-<text text-anchor="start" x="126" y="-540" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
-<text text-anchor="start" x="126" y="-526" font-family="Arial" font-size="10.00">prev = &quot;&quot;</text>
-<text text-anchor="start" x="126" y="-512" font-family="Arial" font-size="10.00">dice = &quot;&quot;</text>
-<text text-anchor="start" x="126" y="-498" font-family="Arial" font-size="10.00">start = &quot;&quot;</text>
-<text text-anchor="start" x="126" y="-484" font-family="Arial" font-size="10.00">base = &quot;&quot;</text>
-<text text-anchor="start" x="126" y="-470" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-624" font-family="Arial" font-size="10.00">enumColor = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-610" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-596" font-family="Arial" font-size="10.00">game = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-582" font-family="Arial" font-size="10.00">prev = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-568" font-family="Arial" font-size="10.00">dice = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-554" font-family="Arial" font-size="10.00">landing = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-540" font-family="Arial" font-size="10.00">color = &quot;red&quot;</text>
+<text text-anchor="start" x="126" y="-526" font-family="Arial" font-size="10.00">start = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-512" font-family="Arial" font-size="10.00">name = &quot;Sabine&quot;</text>
+<text text-anchor="start" x="126" y="-498" font-family="Arial" font-size="10.00">base = &quot;&quot;</text>
+<text text-anchor="start" x="126" y="-484" font-family="Arial" font-size="10.00">y = 0</text>
+<text text-anchor="start" x="126" y="-470" font-family="Arial" font-size="10.00">x = 0</text>
 </g>
 <!-- p8&#45;&#45;p9 -->
 <g id="edge20" class="edge"><title>p8&#45;&#45;p9</title>

@@ -51,6 +51,7 @@ public class GenAttribute extends Generator<Attribute>
 
       CGUtil.replaceAll(text, 
          "type", CGUtil.shortClassName(model.getType().getValue()), 
+         "modifier", model.getVisibility().getValue(),
          "name", model.getName(),
          "Name", StrUtil.upFirstChar(model.getName()),
          "NAME", model.getName().toUpperCase(),
@@ -78,7 +79,7 @@ public class GenAttribute extends Generator<Attribute>
             );
       
       if (!entryExist(Parser.ATTRIBUTE+":PROPERTY_" + model.getName().toUpperCase(), parser)
-            && ! model.getClazz().isInterface())
+            && ! model.getClazz().isInterface() && !model.getVisibility().has(Visibility.STATIC) )
       {
          text.append("" +
                "\n   public static final String PROPERTY_NAME = \"name\";" +
@@ -88,11 +89,11 @@ public class GenAttribute extends Generator<Attribute>
       
       if (!entryExist(Parser.ATTRIBUTE+":" + model.getName(), parser))
       {
-         text.append("\n   private type name init;\n");
+         text.append("\n   modifier type name init;\n");
          hasNewContent = true;
       }
       
-      if(model.getVisibility().same(Visibility.PRIVATE)){
+      if(model.getVisibility().same(Visibility.PRIVATE) ){
          if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName())+ "()", parser) && !entryExist(Parser.METHOD + ":is" + StrUtil.upFirstChar(model.getName())+ "()", parser))
          {
             text.append("\n   public type getName()" +
@@ -589,7 +590,7 @@ public class GenAttribute extends Generator<Attribute>
                   "   }\n" + 
                   "\n" );
          
-         if ( " int long float double String ".indexOf( " " + model.getType() + " " ) >= 0)
+         if ( " int long float double String ".indexOf( " " + model.getType().getValue() + " " ) >= 0)
          {
           text.append(
                   "   public ObjectSetType hasName(AttrType lower, AttrType upper)\n" + 
@@ -839,8 +840,10 @@ public class GenAttribute extends Generator<Attribute>
    private void insertGenericGetSetForWrapperInCreatorClass(Parser parser,
          Clazz ownerClazz)
    {
-      insertCaseInGenericGetForWrapperInCreatorClass(parser, ownerClazz);
-      insertCaseInGenericSetForWrapperInCreatorClass(parser, ownerClazz);
+      if(model.getVisibility().same(Visibility.PRIVATE)){
+         insertCaseInGenericGetForWrapperInCreatorClass(parser, ownerClazz);
+         insertCaseInGenericSetForWrapperInCreatorClass(parser, ownerClazz);
+      }
    }
 
    private void insertCaseInGenericSetForWrapperInCreatorClass(Parser parser,
@@ -980,23 +983,24 @@ public class GenAttribute extends Generator<Attribute>
          getGenerator( clazz).printFile();
       }
 
-      if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization))
-      {
-         Parser creatorParser = getGenerator( clazz).getOrCreateParserForCreatorClass(helpersDir);
+      if(model.getVisibility().same(Visibility.PRIVATE)){
+         if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization))
+         {
+            Parser creatorParser = getGenerator( clazz).getOrCreateParserForCreatorClass(helpersDir);
 
-         insertPropertyInCreatorClass(creatorParser, clazz );
-         
-         getGenerator( clazz).printFile(creatorParser);
+            insertPropertyInCreatorClass(creatorParser, clazz );
+            
+            getGenerator( clazz).printFile(creatorParser);
+         }
+         Parser modelSetParser = getGenerator( clazz).getOrCreateParserForModelSetFile(helpersDir);
+         insertGetterInModelSetClass(modelSetParser, clazz);
+         insertSetterInModelSetClass(modelSetParser, clazz);
+         getGenerator( clazz).printFile(modelSetParser);
+
+         Parser patternObjectParser = getGenerator( clazz).getOrCreateParserForPatternObjectFile(helpersDir);
+         insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
+         insertGetterInPatternObjectClass(patternObjectParser, clazz);
       }
-
-      Parser modelSetParser = getGenerator( clazz).getOrCreateParserForModelSetFile(helpersDir);
-      insertGetterInModelSetClass(modelSetParser, clazz);
-      insertSetterInModelSetClass(modelSetParser, clazz);
-      getGenerator( clazz).printFile(modelSetParser);
-
-      Parser patternObjectParser = getGenerator( clazz).getOrCreateParserForPatternObjectFile(helpersDir);
-      insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
-      insertGetterInPatternObjectClass(patternObjectParser, clazz);
 
       return this;
    }

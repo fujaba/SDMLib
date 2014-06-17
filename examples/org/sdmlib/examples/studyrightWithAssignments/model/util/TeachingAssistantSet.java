@@ -136,6 +136,21 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+   public TeachingAssistantSet hasName(String lower, String upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public TeachingAssistantSet withName(String value)
    {
       for (TeachingAssistant obj : this)
@@ -165,6 +180,21 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       for (TeachingAssistant obj : this)
       {
          if (value.equals(obj.getId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasId(String lower, String upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower.compareTo(obj.getId()) <= 0 && obj.getId().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -210,6 +240,21 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+   public TeachingAssistantSet hasAssignmentPoints(int lower, int upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower <= obj.getAssignmentPoints() && obj.getAssignmentPoints() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public TeachingAssistantSet withAssignmentPoints(int value)
    {
       for (TeachingAssistant obj : this)
@@ -247,6 +292,21 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       return result;
    }
 
+   public TeachingAssistantSet hasMotivation(int lower, int upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower <= obj.getMotivation() && obj.getMotivation() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public TeachingAssistantSet withMotivation(int value)
    {
       for (TeachingAssistant obj : this)
@@ -276,6 +336,21 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
       for (TeachingAssistant obj : this)
       {
          if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public TeachingAssistantSet hasCredits(int lower, int upper)
+   {
+      TeachingAssistantSet result = new TeachingAssistantSet();
+      
+      for (TeachingAssistant obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
          {
             result.add(obj);
          }

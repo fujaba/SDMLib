@@ -5,7 +5,7 @@
     "name":"SDMLibProject",
     "phase":"active",
     "hoursRemaining":24,
-    "hoursSpend":310,
+    "hoursSpend":475,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -59,7 +59,7 @@
   "prop":{
     "name":"Sprint.002.Examples",
     "phase":"active",
-    "hoursSpend":21,
+    "hoursSpend":62,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K3"},
@@ -75,7 +75,11 @@
   "prop":{
     "name":"LudoStoryboardManual",
     "phase":"done",
+    "hoursSpend":1,
     "parent":{"id":"KE.K2"},
+    "logEntries":[
+    {"id":"KE.L177"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -84,7 +88,11 @@
   "prop":{
     "name":"LudoStoryboard",
     "phase":"done",
+    "hoursSpend":40,
     "parent":{"id":"KE.K2"},
+    "logEntries":[
+    {"id":"KE.L178"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -487,7 +495,11 @@
   "prop":{
     "name":"StudyRightObjectModelSerialisation",
     "phase":"done",
+    "hoursSpend":80,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L173"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -496,7 +508,13 @@
   "prop":{
     "name":"StudyRightObjectModelNavigationAndQueries",
     "phase":"done",
+    "hoursSpend":44,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L174"},
+      {"id":"KE.L175"},
+      {"id":"KE.L176"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -1254,5 +1272,71 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"should be published in paper"
+  }
+},  {
+  "id":"KE.L173",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"11.11.2012 12:00:00 EST",
+    "hoursSpend":80,
+    "kanbanEntry":{"id":"KE.K80"},
+    "developer":"stefan",
+    "phase":"done",
+    "comment":"Serialisation via JSON works great."
+  }
+},  {
+  "id":"KE.L174",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"17.01.2014 16:35:42",
+    "hoursSpend":40,
+    "kanbanEntry":{"id":"KE.K82"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Extend the class model:"
+  }
+},  {
+  "id":"KE.L175",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"24.02.2014 20:03:42 EST",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K82"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"added createXY shortcuts for patterns"
+  }
+},  {
+  "id":"KE.L176",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"25.02.2014 22:11:42 EST",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K82"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"switched to roomSet.hasRoomPO()"
+  }
+},  {
+  "id":"KE.L177",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.07.2012 14:41:05",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K3"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: "
+  }
+},  {
+  "id":"KE.L178",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.08.2012 22:59:05",
+    "hoursSpend":40,
+    "kanbanEntry":{"id":"KE.K5"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: "
   }
 }]

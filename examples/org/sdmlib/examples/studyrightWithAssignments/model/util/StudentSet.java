@@ -97,6 +97,21 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
+   public StudentSet hasName(String lower, String upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public StudentSet withName(String value)
    {
       for (Student obj : this)
@@ -126,6 +141,21 @@ public class StudentSet extends SDMSet<Student>
       for (Student obj : this)
       {
          if (value.equals(obj.getId()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasId(String lower, String upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower.compareTo(obj.getId()) <= 0 && obj.getId().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -171,6 +201,21 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
+   public StudentSet hasAssignmentPoints(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getAssignmentPoints() && obj.getAssignmentPoints() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public StudentSet withAssignmentPoints(int value)
    {
       for (Student obj : this)
@@ -208,6 +253,21 @@ public class StudentSet extends SDMSet<Student>
       return result;
    }
 
+   public StudentSet hasMotivation(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getMotivation() && obj.getMotivation() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public StudentSet withMotivation(int value)
    {
       for (Student obj : this)
@@ -237,6 +297,21 @@ public class StudentSet extends SDMSet<Student>
       for (Student obj : this)
       {
          if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasCredits(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
          {
             result.add(obj);
          }
