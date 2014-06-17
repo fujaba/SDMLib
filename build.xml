@@ -18,7 +18,6 @@
 	<path id="SDMLib.libs">
 		<pathelement location="lib/jcommon-1.0.17.jar" />
 		<pathelement location="lib/jfreechart-1.0.14.jar" />
-		<pathelement location="lib/gwtx-1.5.2.jar" />
 		<pathelement location="${env.JAVA_HOME}/jre/lib/jfxrt.jar" />
 		<pathelement location="lib/junit.jar" />
 		<pathelement location="lib/org.hamcrest.core_1.3.0.v201303031735.jar" />
@@ -55,10 +54,10 @@
 						<fileset dir="examples" includes="**/*.java">
 							<contains text="@Test"/>
 						</fileset>
-						<fileset dir="test" includes="**/*.java">
+<!--						<fileset dir="test" includes="**/*.java">
 							<contains text="@Test"/>
 							<exclude name="**/ReverseClassModelTest.java"/>
-						</fileset>
+						</fileset>-->
 					</batchtest>
 					<jvmarg value="-Demma.coverage.out.file=${coverage.meta.dir}/coverage.ec" />
 					<jvmarg value="-Demma.coverage.out.merge=true" />
@@ -69,10 +68,10 @@
 				<sourcepath>
 					<pathelement path="${basedir}/examples"/>
 					<pathelement path="${basedir}/src"/>
-					<pathelement path="${basedir}/test"/>
-					<pathelement path="${basedir}/srchelpers"/>
-					<pathelement path="${basedir}/testhelpers"/>
-					<pathelement path="${basedir}/examplehelpers"/>
+					<!--<pathelement path="${basedir}/test"/>-->
+					<!--<pathelement path="${basedir}/srchelpers"/>-->
+					<!--<pathelement path="${basedir}/testhelpers"/>-->
+					<!--<pathelement path="${basedir}/examplehelpers"/>-->
 				</sourcepath>
 				<fileset dir="${coverage.meta.dir}">
 					<include name="*.emma" />
@@ -93,13 +92,13 @@
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
-		<copy includeemptydirs="false" todir="bin">
+<!--		<copy includeemptydirs="false" todir="bin">
 			<fileset dir="test">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.xtend" />
 				<exclude name="**/*.java" />
 			</fileset>
-		</copy>
+		</copy>-->
 		<copy includeemptydirs="false" todir="bin">
 			<fileset dir="examples">
 				<exclude name="**/*.launch" />
@@ -107,14 +106,7 @@
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
-		<copy includeemptydirs="false" todir="bin">
-			<fileset dir="srchelpers">
-				<exclude name="**/*.launch" />
-				<exclude name="**/*.xtend" />
-				<exclude name="**/*.java" />
-			</fileset>
-		</copy>
-		<copy includeemptydirs="false" todir="bin">
+		<!--<copy includeemptydirs="false" todir="bin">
 			<fileset dir="examplehelpers">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.xtend" />
@@ -127,7 +119,7 @@
 				<exclude name="**/*.xtend" />
 				<exclude name="**/*.java" />
 			</fileset>
-		</copy>
+		</copy>-->
 	</target>
 	<target name="clean">
 		<delete dir="bin" />
@@ -139,11 +131,10 @@
 		<echo message="${ant.project.name}: ${ant.file}" />
 		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
 			<src path="src" />
-			<src path="test" />
 			<src path="examples" />
-			<src path="srchelpers" />
+			<!--<src path="test" />
 			<src path="examplehelpers" />
-			<src path="testhelpers" />
+			<src path="testhelpers" />-->
 			<classpath refid="SDMLib.classpath" />
 		</javac>
 	</target>
