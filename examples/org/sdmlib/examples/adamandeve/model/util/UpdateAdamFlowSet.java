@@ -21,16 +21,15 @@
    
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.adamandeve.model.UpdateAdamFlow;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import org.sdmlib.examples.adamandeve.model.util.PeerProxySet;
+
+import org.sdmlib.examples.adamandeve.model.UpdateAdamFlow;
 import org.sdmlib.logger.PeerProxy;
-import org.sdmlib.examples.adamandeve.model.util.SDMLibJsonIdMapSet;
-import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.models.modelsets.longList;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.modelsets.longList;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class UpdateAdamFlowSet extends SDMSet<UpdateAdamFlow>
 {

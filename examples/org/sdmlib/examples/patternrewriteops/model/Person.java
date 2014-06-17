@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.patternrewriteops.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.examples.patternrewriteops.model.util.PersonSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Person implements PropertyChangeInterface
 {

@@ -21,14 +21,13 @@
    
 package org.sdmlib.examples.patternrewriteops.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.patternrewriteops.model.Person;
 import java.util.Collection;
-import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
-import org.sdmlib.models.modelsets.ObjectSet;
+
+import org.sdmlib.examples.patternrewriteops.model.Person;
 import org.sdmlib.examples.patternrewriteops.model.Station;
-import org.sdmlib.examples.patternrewriteops.model.util.TrainSet;
 import org.sdmlib.examples.patternrewriteops.model.Train;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class PersonSet extends SDMSet<Person>
 {

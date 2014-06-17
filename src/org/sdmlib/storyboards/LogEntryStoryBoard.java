@@ -30,8 +30,6 @@ import java.util.Date;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
 
 // should have a creator class

@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.adamandeve.model.Eve;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class EveCreator extends EntityFactory
 {

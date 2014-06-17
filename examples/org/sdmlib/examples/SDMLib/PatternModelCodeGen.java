@@ -27,8 +27,6 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
-import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;

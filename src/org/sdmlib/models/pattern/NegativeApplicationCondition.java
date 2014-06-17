@@ -21,10 +21,9 @@
    
 package org.sdmlib.models.pattern;
 
+import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.StrUtil;
 
 public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
 {

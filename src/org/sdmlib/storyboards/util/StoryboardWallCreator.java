@@ -1,9 +1,10 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.storyboards.StoryboardWall;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardWall;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class StoryboardWallCreator extends EntityFactory
 {

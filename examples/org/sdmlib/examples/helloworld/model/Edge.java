@@ -21,12 +21,12 @@
    
 package org.sdmlib.examples.helloworld.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.examples.helloworld.model.util.EdgeSet;
-import org.sdmlib.examples.helloworld.model.GraphComponent;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
+import org.sdmlib.examples.helloworld.model.util.EdgeSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Edge extends GraphComponent implements PropertyChangeInterface
 {

@@ -1,15 +1,9 @@
 package org.sdmlib.examples.helloworld.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.helloworld.GreetingMessage;
-import org.sdmlib.examples.helloworld.util.GreetingMessageSet;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.examples.helloworld.util.GreetingPO;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
 import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GreetingMessagePO extends PatternObject<GreetingMessagePO, GreetingMessage>
 {
@@ -43,7 +37,7 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
    
    public GreetingMessagePO hasText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GreetingMessage.PROPERTY_TEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -57,7 +51,7 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
    
    public GreetingMessagePO hasText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(GreetingMessage.PROPERTY_TEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

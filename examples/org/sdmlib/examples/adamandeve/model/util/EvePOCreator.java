@@ -1,8 +1,9 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.adamandeve.model.Eve;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class EvePOCreator extends PatternObjectCreator
 {

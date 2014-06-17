@@ -1,18 +1,13 @@
 package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.ludo.model.Ludo;
 import java.util.Date;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.ludo.model.util.PlayerPO;
-import org.sdmlib.examples.ludo.model.Player;
-import org.sdmlib.examples.ludo.model.util.LudoPO;
-import org.sdmlib.examples.ludo.model.util.PlayerSet;
-import org.sdmlib.examples.ludo.model.util.DicePO;
+
 import org.sdmlib.examples.ludo.model.Dice;
-import org.sdmlib.examples.ludo.model.util.FieldPO;
 import org.sdmlib.examples.ludo.model.Field;
-import org.sdmlib.examples.ludo.model.util.FieldSet;
+import org.sdmlib.examples.ludo.model.Ludo;
+import org.sdmlib.examples.ludo.model.Player;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {

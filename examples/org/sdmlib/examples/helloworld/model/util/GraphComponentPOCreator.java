@@ -1,8 +1,9 @@
 package org.sdmlib.examples.helloworld.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.helloworld.model.GraphComponent;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GraphComponentPOCreator extends PatternObjectCreator
 {

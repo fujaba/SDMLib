@@ -1,7 +1,7 @@
 package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.LudoModel.LudoColor;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LudoColorPO extends PatternObject<LudoColorPO, LudoColor>
 {

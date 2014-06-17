@@ -38,7 +38,6 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.Equals;
-import java.beans.PropertyChangeListener;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {

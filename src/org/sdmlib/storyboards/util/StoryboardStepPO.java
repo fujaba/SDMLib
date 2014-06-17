@@ -4,8 +4,6 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
-import org.sdmlib.storyboards.util.StoryboardStepSet;
-import org.sdmlib.storyboards.util.StoryboardPO;
 
 public class StoryboardStepPO extends PatternObject<StoryboardStepPO, StoryboardStep>
 {

@@ -1,6 +1,5 @@
 package org.sdmlib.examples.helloworld.util;
 
-import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 

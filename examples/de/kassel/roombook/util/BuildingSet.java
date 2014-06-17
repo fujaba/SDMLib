@@ -22,19 +22,23 @@
 package de.kassel.roombook.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
+
 import de.kassel.roombook.Building;
+
 import java.util.Collection;
+
 import org.sdmlib.models.modelsets.StringList;
+
 import java.util.Collections;
+
 import de.kassel.roombook.util.FloorSet;
+
 import org.sdmlib.models.modelsets.ObjectSet;
+
 import de.kassel.roombook.Floor;
 
 public class BuildingSet extends SDMSet<Building>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public BuildingPO hasBuildingPO()
    {
       return new BuildingPO(this.toArray(new Building[this.size()]));
@@ -48,6 +52,7 @@ public class BuildingSet extends SDMSet<Building>
    }
 
 
+   @SuppressWarnings("unchecked")
    public BuildingSet with(Object value)
    {
       if (value instanceof java.util.Collection)

@@ -1,9 +1,10 @@
 package org.sdmlib.examples.patternrewriteops.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.examples.patternrewriteops.model.Station;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class SignalFlagCreator extends EntityFactory
 {

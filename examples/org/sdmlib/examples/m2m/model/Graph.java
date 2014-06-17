@@ -21,13 +21,14 @@
    
 package org.sdmlib.examples.m2m.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.examples.m2m.model.util.GraphComponentSet;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.examples.m2m.model.util.GraphComponentSet;
 import org.sdmlib.examples.m2m.model.util.PersonSet;
 import org.sdmlib.examples.m2m.model.util.RelationSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Graph implements PropertyChangeInterface
 {

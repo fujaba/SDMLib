@@ -1,7 +1,7 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.adamandeve.model.Eve;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class EvePO extends PatternObject<EvePO, Eve>
 {

@@ -1,6 +1,5 @@
 package org.sdmlib.models.pattern.util;
 
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;

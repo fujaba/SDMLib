@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.adamandeve.model.UpdateAdamFlow;
 import org.sdmlib.logger.TaskFlow;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class UpdateAdamFlowCreator extends EntityFactory
 {

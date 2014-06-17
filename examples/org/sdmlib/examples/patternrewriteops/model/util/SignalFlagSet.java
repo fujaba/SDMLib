@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.patternrewriteops.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.patternrewriteops.model.SignalFlag;
 import java.util.Collection;
 import java.util.Collections;
-import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
-import org.sdmlib.models.modelsets.ObjectSet;
+
+import org.sdmlib.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.examples.patternrewriteops.model.Station;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class SignalFlagSet extends SDMSet<SignalFlag>
 {

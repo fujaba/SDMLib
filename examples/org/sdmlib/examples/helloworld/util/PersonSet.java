@@ -28,12 +28,9 @@ import org.sdmlib.examples.helloworld.Person;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.helloworld.util.GreetingSet;
 
 public class PersonSet extends SDMSet<Person>
 {
-   private static final long serialVersionUID = 1L;
-
    public PersonPO hasPersonPO()
    {
       return new PersonPO(this.toArray(new Person[this.size()]));

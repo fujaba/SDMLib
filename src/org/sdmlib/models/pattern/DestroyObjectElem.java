@@ -24,7 +24,6 @@ package org.sdmlib.models.pattern;
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.StrUtil;
 
 public class DestroyObjectElem extends PatternElement implements PropertyChangeInterface
 {

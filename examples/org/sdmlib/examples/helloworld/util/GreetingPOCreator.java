@@ -1,8 +1,6 @@
 package org.sdmlib.examples.helloworld.util;
 
 import org.sdmlib.examples.helloworld.Greeting;
-import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.util.GenericGraphPO;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
 import de.uniks.networkparser.json.JsonIdMap;

@@ -1,7 +1,6 @@
 package org.sdmlib.models.pattern.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;

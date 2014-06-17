@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.logger.TaskFlow;
 import java.util.Collection;
+
+import org.sdmlib.logger.TaskFlow;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 
 public class TaskFlowSet extends SDMSet<TaskFlow>

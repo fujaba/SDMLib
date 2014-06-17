@@ -3,13 +3,8 @@ package org.sdmlib.examples.helloworld.util;
 import org.sdmlib.examples.helloworld.Greeting;
 import org.sdmlib.examples.helloworld.GreetingMessage;
 import org.sdmlib.examples.helloworld.Person;
-import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.helloworld.util.GreetingSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.helloworld.util.GreetingMessagePO;
-import org.sdmlib.examples.helloworld.util.PersonPO;
 
 public class GreetingPO extends PatternObject<GreetingPO, Greeting>
 {
@@ -43,7 +38,7 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
    
    public GreetingPO hasText(String value)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Greeting.PROPERTY_TEXT)
       .withTgtValue(value)
       .withSrc(this)
@@ -57,7 +52,7 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
    
    public GreetingPO hasText(String lower, String upper)
    {
-      AttributeConstraint constr = (AttributeConstraint) new AttributeConstraint()
+      new AttributeConstraint()
       .withAttrName(Greeting.PROPERTY_TEXT)
       .withTgtValue(lower)
       .withUpperTgtValue(upper)

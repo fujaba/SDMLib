@@ -503,7 +503,7 @@ public class Storyboard implements PropertyChangeInterface
 
       // derive creator class from root and create idMap
       String className = root.getClass().getName();
-      String packageName = CGUtil.packageName(className) + ".creators";
+      String packageName = CGUtil.packageName(className) + ".util";
       className = packageName + ".CreatorCreator";
 
       Object idMap = null;
@@ -567,7 +567,7 @@ public class Storyboard implements PropertyChangeInterface
          SendableEntityCreator creatorClass = copyMap.getCreatorClass(object);
 
          String className = object.getClass().getName();
-         String packageName = CGUtil.packageName(className) + ".creators";
+         String packageName = CGUtil.packageName(className) + ".util";
 
          if (pattern == null)
          {
@@ -707,7 +707,7 @@ public class Storyboard implements PropertyChangeInterface
          SendableEntityCreator creatorClass = copyMap.getCreatorClass(object);
 
          String className = object.getClass().getName();
-         String packageName = CGUtil.packageName(className) + ".creators";
+         String packageName = CGUtil.packageName(className) + ".util";
          String setClassName = packageName + "." + CGUtil.shortClassName(className) + "Set";
 
          try

@@ -21,11 +21,12 @@
    
 package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.ludo.model.Field;
 import org.sdmlib.examples.ludo.model.Pawn;
 import org.sdmlib.examples.ludo.model.Player;
-import org.sdmlib.examples.ludo.model.Field;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PawnCreator extends EntityFactory
 {

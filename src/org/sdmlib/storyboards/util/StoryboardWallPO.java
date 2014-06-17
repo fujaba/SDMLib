@@ -1,11 +1,8 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.storyboards.StoryboardWall;
-import org.sdmlib.storyboards.util.StoryboardWallSet;
-import org.sdmlib.storyboards.util.StoryboardPO;
-import org.sdmlib.storyboards.util.StoryboardWallPO;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryboardWall;
 
 public class StoryboardWallPO extends PatternObject<StoryboardWallPO, StoryboardWall>
 {

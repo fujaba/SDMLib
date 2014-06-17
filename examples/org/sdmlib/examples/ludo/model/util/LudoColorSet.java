@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.ludo.LudoModel.LudoColor;
 import java.util.Collection;
+
+import org.sdmlib.examples.ludo.LudoModel.LudoColor;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class LudoColorSet extends SDMSet<LudoColor>
 {

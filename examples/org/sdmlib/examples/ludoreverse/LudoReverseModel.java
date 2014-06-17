@@ -9,7 +9,6 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Visibility;
-import org.sdmlib.models.classes.Association;
 
 public class LudoReverseModel
 {  

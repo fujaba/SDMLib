@@ -21,12 +21,13 @@
    
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.logger.PeerProxy;
 import java.util.Collection;
+
+import org.sdmlib.logger.PeerProxy;
+import org.sdmlib.logger.util.SDMLibJsonIdMapSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.logger.util.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class PeerProxySet extends SDMSet<PeerProxy>

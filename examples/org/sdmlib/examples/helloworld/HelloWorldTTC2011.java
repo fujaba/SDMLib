@@ -26,7 +26,6 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
-import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.models.objects.util.GenericGraphPO;
 import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.util.GenericLinkSet;
@@ -66,7 +65,7 @@ public class HelloWorldTTC2011
 
       ClassModel model = new ClassModel();
 
-      Clazz greetingClazz = model.createClazz("org.sdmlib.examples.helloworld.Greeting")
+      model.createClazz("org.sdmlib.examples.helloworld.Greeting")
             .withAttribute("text", DataType.STRING);
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");

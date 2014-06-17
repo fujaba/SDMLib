@@ -21,13 +21,14 @@
    
 package org.sdmlib.examples.ludo.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Date;
-import org.sdmlib.examples.ludo.model.util.PlayerSet;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.ludo.model.util.FieldSet;
+import org.sdmlib.examples.ludo.model.util.PlayerSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Ludo implements PropertyChangeInterface
 {

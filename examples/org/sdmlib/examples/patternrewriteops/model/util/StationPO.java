@@ -1,18 +1,11 @@
 package org.sdmlib.examples.patternrewriteops.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.patternrewriteops.model.Station;
-import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.patternrewriteops.model.util.TrainPO;
-import org.sdmlib.examples.patternrewriteops.model.Train;
-import org.sdmlib.examples.patternrewriteops.model.util.StationPO;
-import org.sdmlib.examples.patternrewriteops.model.util.TrainSet;
-import org.sdmlib.examples.patternrewriteops.model.util.PersonPO;
 import org.sdmlib.examples.patternrewriteops.model.Person;
-import org.sdmlib.examples.patternrewriteops.model.util.PersonSet;
-import org.sdmlib.examples.patternrewriteops.model.util.SignalFlagPO;
 import org.sdmlib.examples.patternrewriteops.model.SignalFlag;
+import org.sdmlib.examples.patternrewriteops.model.Station;
+import org.sdmlib.examples.patternrewriteops.model.Train;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class StationPO extends PatternObject<StationPO, Station>
 {

@@ -1,13 +1,10 @@
 package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.ludo.model.Pawn;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.ludo.model.util.PlayerPO;
-import org.sdmlib.examples.ludo.model.Player;
-import org.sdmlib.examples.ludo.model.util.PawnPO;
-import org.sdmlib.examples.ludo.model.util.FieldPO;
 import org.sdmlib.examples.ludo.model.Field;
+import org.sdmlib.examples.ludo.model.Pawn;
+import org.sdmlib.examples.ludo.model.Player;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PawnPO extends PatternObject<PawnPO, Pawn>
 {

@@ -1,11 +1,12 @@
 package org.sdmlib.examples.helloworld.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.helloworld.model.Graph;
-import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.examples.helloworld.model.Edge;
+import org.sdmlib.examples.helloworld.model.Graph;
 import org.sdmlib.examples.helloworld.model.GraphComponent;
+import org.sdmlib.examples.helloworld.model.Node;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GraphCreator extends EntityFactory
 {

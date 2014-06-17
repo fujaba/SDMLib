@@ -37,8 +37,6 @@ import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversityCreato
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.pattern.GenericConstraint.Condition;
 import org.sdmlib.models.pattern.Match;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;

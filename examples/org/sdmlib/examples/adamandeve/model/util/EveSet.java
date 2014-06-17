@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.adamandeve.model.Eve;
 import java.util.Collection;
+
+import org.sdmlib.examples.adamandeve.model.Eve;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class EveSet extends SDMSet<Eve>
 {

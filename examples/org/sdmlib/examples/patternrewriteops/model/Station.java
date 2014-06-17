@@ -21,13 +21,14 @@
    
 package org.sdmlib.examples.patternrewriteops.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.examples.patternrewriteops.model.util.TrainSet;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
+
 import org.sdmlib.examples.patternrewriteops.model.util.PersonSet;
 import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
+import org.sdmlib.examples.patternrewriteops.model.util.TrainSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Station implements PropertyChangeInterface
 {

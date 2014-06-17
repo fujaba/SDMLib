@@ -21,18 +21,18 @@
    
 package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.ludo.model.Field;
+import java.awt.Point;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.examples.ludo.model.Field;
+import org.sdmlib.examples.ludo.model.Ludo;
+import org.sdmlib.examples.ludo.model.Pawn;
+import org.sdmlib.examples.ludo.model.Player;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.ludo.model.util.PointSet;
-import java.awt.Point;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.ludo.model.Ludo;
-import org.sdmlib.examples.ludo.model.Player;
-import java.util.Collections;
-import org.sdmlib.examples.ludo.model.Pawn;
 
 public class FieldSet extends SDMSet<Field>
 {

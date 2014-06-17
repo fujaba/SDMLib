@@ -21,11 +21,12 @@
    
 package org.sdmlib.examples.adamandeve.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class UpdateAdamFlow extends TaskFlow implements PropertyChangeInterface

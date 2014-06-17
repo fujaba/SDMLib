@@ -1,13 +1,10 @@
 package org.sdmlib.examples.helloworld.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.helloworld.model.GraphComponent;
-import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.helloworld.model.util.GraphPO;
 import org.sdmlib.examples.helloworld.model.Graph;
-import org.sdmlib.examples.helloworld.model.util.GraphComponentPO;
+import org.sdmlib.examples.helloworld.model.GraphComponent;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphComponent>
 {

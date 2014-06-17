@@ -1,7 +1,7 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.adamandeve.model.Adam;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class AdamPO extends PatternObject<AdamPO, Adam>
 {

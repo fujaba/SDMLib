@@ -1,8 +1,8 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
 {

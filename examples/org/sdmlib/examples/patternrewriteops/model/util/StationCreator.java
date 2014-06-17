@@ -1,11 +1,12 @@
 package org.sdmlib.examples.patternrewriteops.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.patternrewriteops.model.Station;
-import org.sdmlib.examples.patternrewriteops.model.Train;
 import org.sdmlib.examples.patternrewriteops.model.Person;
 import org.sdmlib.examples.patternrewriteops.model.SignalFlag;
+import org.sdmlib.examples.patternrewriteops.model.Station;
+import org.sdmlib.examples.patternrewriteops.model.Train;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class StationCreator extends EntityFactory
 {

@@ -21,17 +21,15 @@
    
 package org.sdmlib.examples.helloworld.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.helloworld.model.Graph;
 import java.util.Collection;
 import java.util.Collections;
-import org.sdmlib.examples.helloworld.model.util.NodeSet;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.helloworld.model.Node;
-import org.sdmlib.examples.helloworld.model.util.EdgeSet;
+
 import org.sdmlib.examples.helloworld.model.Edge;
-import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
+import org.sdmlib.examples.helloworld.model.Graph;
 import org.sdmlib.examples.helloworld.model.GraphComponent;
+import org.sdmlib.examples.helloworld.model.Node;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class GraphSet extends SDMSet<Graph>
 {

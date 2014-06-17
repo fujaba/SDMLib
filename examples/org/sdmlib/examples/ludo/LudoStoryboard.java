@@ -33,7 +33,6 @@ import org.sdmlib.examples.ludo.model.util.FieldPO;
 import org.sdmlib.examples.ludo.model.util.LudoCreator;
 import org.sdmlib.examples.ludo.model.util.PawnPO;
 import org.sdmlib.examples.ludo.model.util.PlayerPO;
-import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;

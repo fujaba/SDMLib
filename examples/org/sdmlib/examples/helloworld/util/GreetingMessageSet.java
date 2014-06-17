@@ -21,20 +21,13 @@
    
 package org.sdmlib.examples.helloworld.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.helloworld.GreetingMessage;
-import org.sdmlib.examples.helloworld.Person;
-import org.sdmlib.models.modelsets.StringList;
-
 import java.util.Collection;
-import java.util.List;
 
-import org.sdmlib.examples.helloworld.util.GreetingSet;
-
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.helloworld.Greeting;
+import org.sdmlib.examples.helloworld.GreetingMessage;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class GreetingMessageSet extends SDMSet<GreetingMessage>
 {
@@ -53,6 +46,7 @@ public class GreetingMessageSet extends SDMSet<GreetingMessage>
    }
 
 
+   @SuppressWarnings("unchecked")
    public GreetingMessageSet with(Object value)
    {
       if (value instanceof java.util.Collection)

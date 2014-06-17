@@ -1,7 +1,6 @@
 package org.sdmlib.examples.m2m;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;

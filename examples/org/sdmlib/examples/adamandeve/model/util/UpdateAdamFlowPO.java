@@ -1,9 +1,9 @@
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.adamandeve.model.UpdateAdamFlow;
 import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class UpdateAdamFlowPO extends PatternObject<UpdateAdamFlowPO, UpdateAdamFlow>

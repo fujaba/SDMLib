@@ -1,19 +1,11 @@
 package org.sdmlib.examples.helloworld.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.helloworld.model.Graph;
-import org.sdmlib.examples.helloworld.model.util.GraphSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.examples.helloworld.model.util.NodePO;
-import org.sdmlib.examples.helloworld.model.Node;
-import org.sdmlib.examples.helloworld.model.util.GraphPO;
-import org.sdmlib.examples.helloworld.model.util.NodeSet;
-import org.sdmlib.examples.helloworld.model.util.EdgePO;
 import org.sdmlib.examples.helloworld.model.Edge;
-import org.sdmlib.examples.helloworld.model.util.EdgeSet;
-import org.sdmlib.examples.helloworld.model.util.GraphComponentPO;
+import org.sdmlib.examples.helloworld.model.Graph;
 import org.sdmlib.examples.helloworld.model.GraphComponent;
-import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
+import org.sdmlib.examples.helloworld.model.Node;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GraphPO extends PatternObject<GraphPO, Graph>
 {

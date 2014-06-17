@@ -22,6 +22,7 @@
 package org.sdmlib.examples.ludo.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
+
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class LudoColorCreator extends EntityFactory

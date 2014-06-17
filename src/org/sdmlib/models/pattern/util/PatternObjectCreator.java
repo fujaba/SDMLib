@@ -4,13 +4,12 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.pattern.Pattern;
 
 public class PatternObjectCreator extends PatternElementCreator
 {

@@ -24,12 +24,10 @@ package org.sdmlib.models.objects;
 import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;

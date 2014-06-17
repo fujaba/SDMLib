@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.adamandeve.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.adamandeve.model.Adam;
 import java.util.Collection;
+
+import org.sdmlib.examples.adamandeve.model.Adam;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class AdamSet extends SDMSet<Adam>
 {

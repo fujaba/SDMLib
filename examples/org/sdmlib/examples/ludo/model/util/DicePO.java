@@ -1,13 +1,10 @@
 package org.sdmlib.examples.ludo.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.ludo.model.Dice;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.ludo.model.util.LudoPO;
 import org.sdmlib.examples.ludo.model.Ludo;
-import org.sdmlib.examples.ludo.model.util.DicePO;
-import org.sdmlib.examples.ludo.model.util.PlayerPO;
 import org.sdmlib.examples.ludo.model.Player;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class DicePO extends PatternObject<DicePO, Dice>
 {
