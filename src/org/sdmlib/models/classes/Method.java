@@ -90,6 +90,7 @@ public class Method extends SDMLibClass
    
    public Method(String name, DataType returnType, Parameter... parameters)
    {
+      this.setName(name);
       this.with(parameters);
       this.setReturnType(returnType);
    }

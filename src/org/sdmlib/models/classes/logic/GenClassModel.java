@@ -653,14 +653,15 @@ public class GenClassModel
    private int completeCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
          int currentInsertPos, String rootDir)
    {
-      refreshMethodScan(signature, modelCreationClass, rootDir);
       
+      refreshMethodScan(signature, modelCreationClass, rootDir);
       for (Clazz clazz : model.getClasses())
       {
          String modelClassName = clazz.getFullName();
+         Parser parser = getOrCreate(modelCreationClass)
+         .getParser();
          LocalVarTableEntry entry = findInLocalVarTable(
-            getOrCreate(modelCreationClass)
-            .getParser()
+            parser
             .getLocalVarTable(), 
             modelClassName);
 
@@ -1169,6 +1170,7 @@ public class GenClassModel
 
    private int tryToInsertMethod(SymTabEntry symTabEntry, Method method, int currentInsertPos, Clazz modelCreationClass)
    {
+      
       getOrCreate(modelCreationClass).getParser().parseMethodBody(symTabEntry);
       boolean methodIsNew = true;
       LinkedHashMap<String, LocalVarTableEntry> localVarTable = getOrCreate(modelCreationClass).getParser().getLocalVarTable();
@@ -1197,7 +1199,7 @@ public class GenClassModel
             return currentInsertPos;
          int insertPos = localVarTableEntry.getEndPos() + 3;
          currentInsertPos = insertCreationCode("      /* add method */", insertPos, modelCreationClass);
-         currentInsertPos = insertCreationMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);
+         currentInsertPos = insertCreationMethodCode(method, currentInsertPos, modelCreationClass, symTabEntry);
          writeToFile(modelCreationClass);
       }
 
@@ -1280,7 +1282,7 @@ public class GenClassModel
       MethodSet methods = clazz.getMethods();
       for (Method method : methods)
       {
-         currentInsertPos = insertCreationMethodeCode(method, currentInsertPos, modelCreationClass, symTabEntry);
+         currentInsertPos = insertCreationMethodCode(method, currentInsertPos, modelCreationClass, symTabEntry);
       }
 
       // insert code for new Assoc
@@ -1313,6 +1315,8 @@ public class GenClassModel
    private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
    {
       ArrayList<Association> handledAssocs = new ArrayList<Association>();
+      ArrayList<Role> handledRoles = new ArrayList<Role>();
+      
       for (Role firstRole : roles)
       {
          Association assoc = firstRole.getAssoc();
@@ -1332,8 +1336,9 @@ public class GenClassModel
 
          String secondClassName = secondRole.getClazz().getFullName();
 
-         if (handledClazzes.containsKey(secondClassName))
+         if (handledClazzes.containsKey(secondClassName) && !handledRoles.contains(secondRole) )
          {
+            handledRoles.add(firstRole);
             currentInsertPos = insertCreationAssociationCode(assoc, currentInsertPos, modelCreationClass, symTabEntry);
          }
 
@@ -1502,8 +1507,21 @@ public class GenClassModel
       imports.put(className, genCreationClass);
    }
 
-   private int insertCreationMethodeCode(Method method, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
+   private int insertCreationMethodCode(Method method, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
    {
+      String methodName = method.getName();
+      if (  methodName.startsWith("get") &&  methodName.endsWith("Transitive") ) {
+         
+         String part = methodName.substring("get".length(), methodName.length() - "Transitive".length());
+         
+         Clazz clazz = method.getClazz();
+         for (Role role  : clazz.getRoles())
+         {     
+           if (role.getName().toLowerCase().equals(part.toLowerCase()))
+              return currentInsertPos;
+         }
+      }
+      
       Parser parser = getOrCreate(modelCreationClass).getParser();
 
       String clazzName = method.getClazz().getFullName();
@@ -1520,7 +1538,7 @@ public class GenClassModel
                   "\n        .with(clazzName);\n",
                   "clazzName", clazzName, 
                   "PARAMETERS", paString.toString(),
-                  "METHODNAME", method.getName());
+                  "METHODNAME", methodName);
       currentInsertPos = checkImport("Method", currentInsertPos, modelCreationClass, symTabEntry);
 
       currentInsertPos += result.length();
@@ -2102,11 +2120,14 @@ public class GenClassModel
          }
         
          String name = StrUtil.upFirstChar(memberName);
-         Parser parser = getOrCreate(clazz).getParser();
-         parser.parse();
+         Parser parser = getOrCreate(clazz).getParser().parse();
 
          SymTabEntry addToSymTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + setterPrefix + name + "(" + partnerClassName + ")");
 
+         if (addToSymTabEntry == null && "addTo".equals(setterPrefix)) {
+            addToSymTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + "with" + name + "(" + partnerClassName + "...)");
+         }
+         
          // type is unknown
          if (addToSymTabEntry == null)
          {
@@ -2121,28 +2142,24 @@ public class GenClassModel
          {
             methodBodyQualifiedNames.add(key);
          }
-         System.out.println("---------------------");
 
          boolean done = false;
          for (String qualifiedName : methodBodyQualifiedNames)
          {
             if (qualifiedName.startsWith("value.set"))
             {
-               System.out.println("set : "+ qualifiedName+ " ONE");
                
                handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass,
                   qualifiedName.substring("value.set".length()));
                done = true;
             }
-            else if (qualifiedName.startsWith("value.with"))
+            else if (qualifiedName.startsWith("value.with") || qualifiedName.startsWith("item.with"))
             {
-               System.out.println("with : "+ qualifiedName + " MANY/ONE");
                handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName.substring("value.with".length()));
                done = true;
             }
             else if (qualifiedName.startsWith("value.addTo"))
             {
-               System.out.println("addTo : "+ qualifiedName+ " MANY");
 
                handleAssoc(clazz, rootDir, memberName, card, partnerClassName, partnerClass, qualifiedName.substring("value.addTo".length()));
                done = true;
@@ -2361,7 +2378,7 @@ public class GenClassModel
             " addPropertyChangeListener(String,PropertyChangeListener) removePropertyChangeListener(String,PropertyChangeListener)"
             + "toString()";    
       
-      if (filterString.indexOf(signature) < 0 && !isGetterSetter(signature, parser) && isNewMethod(signature, clazz))
+      if (filterString.indexOf(signature) < 0 && !isGetterSetter(signature, parser, clazz) && isNewMethod(signature, clazz))
       {
          int part=signature.indexOf("(");
          String[] params = signature.substring(part+1, signature.length() - 1).split(",");
@@ -2377,7 +2394,7 @@ public class GenClassModel
       }
    }
 
-   private boolean isGetterSetter(String signature, Parser parser)
+   private boolean isGetterSetter(String signature, Parser parser, Clazz clazz)
    {
       LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
       List<String> attributeKeys = new ArrayList<>();      
@@ -2387,6 +2404,7 @@ public class GenClassModel
          if (key.startsWith("attribute:")) { 
             attributeKeys.add(key);
          }
+         // TODO: check type hierarchy
       }
       
       // method starts with: with set get ...
@@ -2404,7 +2422,7 @@ public class GenClassModel
             String attrName = symTabEntry.getMemberName();
             String signName = signature.substring(0, signature.indexOf("("));
             
-            if (signName.toLowerCase().endsWith(attrName)) {
+            if (signName.toLowerCase().endsWith(attrName.toLowerCase())) {
                return true;
             }
          }              
