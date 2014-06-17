@@ -366,7 +366,7 @@ public class GenRole extends Generator<Role>
       for (Clazz kid : kidClasses)
       {
          String kidClassName = CGUtil.shortClassName(kid.getName());
-         pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + kidClassName + "()");
+         pos = myParser.indexOf(Parser.METHOD + ":create" + kidClassName + "()");
          
          
          if (pos < 0 && ! kid.isInterface())
@@ -374,9 +374,9 @@ public class GenRole extends Generator<Role>
             if (! genClazz.isInterface())
             {
                text.append 
-               (     "\n   public partnerClassName createPartnerRoleName" + kidClassName + "()" +
+               (     "\n   public KidClassName createKidClassName()" +
                      "\n   {" +
-                     "\n      partnerClassName value = new " + kidClassName + "();" +
+                     "\n      KidClassName value = new KidClassName();" +
                      "\n      withPartnerRoleName(value);" +
                      "\n      return value;" +
                      "\n   } " +
@@ -385,10 +385,12 @@ public class GenRole extends Generator<Role>
             else
             {
                text.append
-               (     "\n   public partnerClassName createPartnerRoleName" + kidClassName + "();" +
+               (     "\n   public KidClassName createKidClassName();" +
                      "\n");
             }
          }
+         
+         CGUtil.replaceAll(text, "KidClassName", kidClassName);
       }
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
