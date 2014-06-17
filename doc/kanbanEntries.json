@@ -5,7 +5,7 @@
     "name":"SDMLibProject",
     "phase":"active",
     "hoursRemaining":24,
-    "hoursSpend":434,
+    "hoursSpend":475,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -59,7 +59,7 @@
   "prop":{
     "name":"Sprint.002.Examples",
     "phase":"active",
-    "hoursSpend":21,
+    "hoursSpend":62,
     "parent":{"id":"KE.K1"},
     "subentries":[
     {"id":"KE.K3"},
@@ -75,7 +75,11 @@
   "prop":{
     "name":"LudoStoryboardManual",
     "phase":"done",
+    "hoursSpend":1,
     "parent":{"id":"KE.K2"},
+    "logEntries":[
+    {"id":"KE.L177"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -84,7 +88,11 @@
   "prop":{
     "name":"LudoStoryboard",
     "phase":"done",
+    "hoursSpend":40,
     "parent":{"id":"KE.K2"},
+    "logEntries":[
+    {"id":"KE.L178"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -1308,5 +1316,27 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"switched to roomSet.hasRoomPO()"
+  }
+},  {
+  "id":"KE.L177",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.07.2012 14:41:05",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K3"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: "
+  }
+},  {
+  "id":"KE.L178",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"19.08.2012 22:59:05",
+    "hoursSpend":40,
+    "kanbanEntry":{"id":"KE.K5"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"Achieved: Start situation: "
   }
 }]

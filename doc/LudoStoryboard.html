@@ -1,13 +1,11 @@
 <html>
-<head><meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
 <script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-<script src="includes/layout_dagre.js"></script>
-<script src="includes/lines.js"></script>
 </head><body onload="init();">
 <p>Storyboard <a href='../examples/org/sdmlib/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
 <p>LudoStoryboard</p>
@@ -15,9 +13,7 @@
 <embed type="image/svg+xml" src='LudoStoryboard3.svg'>
 <p>now the pawn may move to Tom's start field</p>
 <pre>      &#x2F;&#x2F; build move operation with SDM model transformations
-      ModelPattern p = new ModelPattern();
-      
-      PawnPO pawnPO = (PawnPO) p.hasElementPawnPO(p2);
+      PawnPO pawnPO = new PawnPO(p2);
       
       PlayerPO playerPO = pawnPO.hasPlayer();
       
@@ -30,13 +26,13 @@
       FieldPO startFieldPO = playerPO.hasStart();
       
       startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
-</pre><embed type="image/svg+xml"src='LudoMoveWithMatch01.svg'>
-<pre>      p.startDestroy();
+</pre><embed type="image/svg+xml"src='LudoStoryboardPatternDiagram5.svg'>
+<pre>      pawnPO.startDestroy();
       pawnPO.hasPos(baseField);
       
-      p.startCreate();
+      pawnPO.startCreate();
       pawnPO.hasPos(startFieldPO);
-</pre><embed type="image/svg+xml"src='LudoMoveAfterSetPos02.svg'>
+</pre><embed type="image/svg+xml"src='LudoStoryboardPatternDiagram7.svg'>
 
 </body>
 </html>
