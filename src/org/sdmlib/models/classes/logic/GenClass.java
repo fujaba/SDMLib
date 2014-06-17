@@ -354,7 +354,7 @@ public class GenClass extends Generator<Clazz>
             if(clazz.isInterface()){
                continue;
             }
-            if ( ! model.isExternal()){
+            if ( ! clazz.isExternal()){
                overrideText = "@Override";
             }
             if(getGenerator(clazz).getOrCreateParser(rootDir).indexOf(searchString)>=0){

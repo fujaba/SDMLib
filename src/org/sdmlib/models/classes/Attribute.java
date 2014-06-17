@@ -119,9 +119,16 @@ public class Attribute extends Value
       return visibility;
    }
 
-   public Attribute with(Visibility visibility)
+   public Attribute with(Visibility... visibility)
    {
-      this.visibility = visibility;
+      if(visibility==null){
+         return this;
+      }
+      
+      if(visibility.length==1){
+         this.visibility = visibility[0];
+      }
+      this.visibility = Visibility.ref(visibility);
       return this;
    }
 
