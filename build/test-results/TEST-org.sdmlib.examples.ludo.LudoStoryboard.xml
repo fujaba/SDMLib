@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.sdmlib.examples.ludo.LudoStoryboard" tests="2" skipped="0" failures="0" errors="0" timestamp="2014-06-18T15:29:38" hostname="ZNOTE" time="0.165">
+  <properties/>
+  <testcase name="testLudoStoryboardManual" classname="org.sdmlib.examples.ludo.LudoStoryboard" time="0.08"/>
+  <testcase name="testLudoStoryboard" classname="org.sdmlib.examples.ludo.LudoStoryboard" time="0.085"/>
+  <system-out><![CDATA[[{
+   "id":"l1.P1",
+   "class":"org.sdmlib.examples.ludo.model.Player",
+   "prop":{
+      "color":"blue",
+      "enumColor":"blue",
+      "name":"Tom",
+      "game":{"id":"l1.L2"}
+   }
+},   {
+   "id":"l1.L2",
+   "class":"org.sdmlib.examples.ludo.model.Ludo",
+   "prop":{"players":[
+      {"id":"l1.P1"}
+      ]}
+}]
+pattern has match is true
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

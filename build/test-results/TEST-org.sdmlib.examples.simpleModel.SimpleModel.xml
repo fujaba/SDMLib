@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.sdmlib.examples.simpleModel.SimpleModel" tests="1" skipped="0" failures="0" errors="0" timestamp="2014-06-18T15:29:34" hostname="ZNOTE" time="0.021">
+  <properties/>
+  <testcase name="testSimpleModel" classname="org.sdmlib.examples.simpleModel.SimpleModel" time="0.021"/>
+  <system-out><![CDATA[Totalchanges of all Files: 2
+]]></system-out>
+  <system-err><![CDATA[examples/org/sdmlib/examples/simpleModel/model/util/AlexCreator.java;method:setValue(Object,String,Object,String);Body different:375!=376;
+in line:67-81;
+(org.sdmlib.examples.simpleModel.model.util.AlexCreator.java:67)
+public boolean setValue(Object target, String attrName, Object value, String type)
+   {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
+      if (Alex.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Alex) target).withName((String) value);
+         return true;
+      }
+      
+      return false;
+   }
+diff token: target).setName((String) != target).withName((String)
+/home/zasch/IdeaProjects/SDMLib/SDMLib.net/examples/org/sdmlib/examples/simpleModel/model/util/AlexSet.java;method:hasName(String,String);Method not found
+examples/org/sdmlib/examples/simpleModel/model/util/MacCreator.java;method:setValue(Object,String,Object,String);Body different:373!=374;
+in line:67-81;
+(org.sdmlib.examples.simpleModel.model.util.MacCreator.java:67)
+public boolean setValue(Object target, String attrName, Object value, String type)
+   {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+
+      if (Mac.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Mac) target).withName((String) value);
+         return true;
+      }
+      
+      return false;
+   }
+diff token: target).setName((String) != target).withName((String)
+/home/zasch/IdeaProjects/SDMLib/SDMLib.net/examples/org/sdmlib/examples/simpleModel/model/util/MacSet.java;method:hasName(String,String);Method not found
+]]></system-err>
+</testsuite>

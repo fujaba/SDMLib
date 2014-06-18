@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.sdmlib.examples.m2m.BanfM2MModelGen" tests="1" skipped="0" failures="0" errors="0" timestamp="2014-06-18T15:29:36" hostname="ZNOTE" time="0.094">
+  <properties/>
+  <testcase name="testBanGenModel" classname="org.sdmlib.examples.m2m.BanfM2MModelGen" time="0.094"/>
+  <system-out><![CDATA[GraphComponent ->Graph
+Person ->Graph
+Relation ->Graph
+Relation ->Person
+Relation ->Person
+Person ->Person
+Person ->Person
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.sdmlib.examples.patternrewriteops.TrainStoryboards" tests="1" skipped="0" failures="0" errors="0" timestamp="2014-06-18T15:29:38" hostname="ZNOTE" time="0.088">
+  <properties/>
+  <testcase name="trainCollectPassengers" classname="org.sdmlib.examples.patternrewriteops.TrainStoryboards" time="0.088"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

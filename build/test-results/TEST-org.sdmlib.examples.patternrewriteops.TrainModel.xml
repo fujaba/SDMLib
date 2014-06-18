@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.sdmlib.examples.patternrewriteops.TrainModel" tests="1" skipped="0" failures="0" errors="0" timestamp="2014-06-18T15:29:38" hostname="ZNOTE" time="0.107">
+  <properties/>
+  <testcase name="makeModel" classname="org.sdmlib.examples.patternrewriteops.TrainModel" time="0.107"/>
+  <system-out><![CDATA[Train ->Station
+Person ->Station
+Person ->Train
+Station ->SignalFlag
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
