@@ -170,9 +170,9 @@ public class University implements PropertyChangeInterface
       return value;
    } 
 
-   public Student createStudentsTeachingAssistant()
+   public TeachingAssistant createTeachingAssistant()
    {
-      Student value = new TeachingAssistant();
+      TeachingAssistant value = new TeachingAssistant();
       withStudents(value);
       return value;
    } 

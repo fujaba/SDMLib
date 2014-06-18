@@ -38,6 +38,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.Equals;
+import java.beans.PropertyChangeListener;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {
@@ -781,6 +782,20 @@ public class ReachabilityGraph implements PropertyChangeInterface
    public Pattern createRulesOptionalSubPattern()
    {
       Pattern value = new OptionalSubPattern();
+      withRules(value);
+      return value;
+   } 
+
+   public NegativeApplicationCondition createNegativeApplicationCondition()
+   {
+      NegativeApplicationCondition value = new NegativeApplicationCondition();
+      withRules(value);
+      return value;
+   } 
+
+   public OptionalSubPattern createOptionalSubPattern()
+   {
+      OptionalSubPattern value = new OptionalSubPattern();
       withRules(value);
       return value;
    } 

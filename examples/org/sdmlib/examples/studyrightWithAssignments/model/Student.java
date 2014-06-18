@@ -488,9 +488,9 @@ public class Student implements PropertyChangeInterface
       return value;
    } 
 
-   public Student createFriendsTeachingAssistant()
+   public TeachingAssistant createTeachingAssistant()
    {
-      Student value = new TeachingAssistant();
+      TeachingAssistant value = new TeachingAssistant();
       withFriends(value);
       return value;
    } 

@@ -34,7 +34,7 @@ public class ProjectBoard
       Storyboard storyboard = new Storyboard("test", "ExtendStoryboardByAddToDoMethod");
       
       storyboard.add("Start situation: ",
-         BACKLOG, "zuendorf", "12.06.14 13:05", 0, 0);
+         BACKLOG, "zuendorf", "18.06.14 15:05", 0, 0);
       
       storyboard.dumpHTML();
    }

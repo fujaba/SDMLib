@@ -1246,5 +1246,103 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       withElements(value);
       return value;
    } 
+
+   public Pattern createPattern()
+   {
+      Pattern value = new Pattern();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternObject createPatternObject()
+   {
+      PatternObject value = new PatternObject();
+      withElements(value);
+      return value;
+   } 
+
+   public PatternLink createPatternLink()
+   {
+      PatternLink value = new PatternLink();
+      withElements(value);
+      return value;
+   } 
+
+   public AttributeConstraint createAttributeConstraint()
+   {
+      AttributeConstraint value = new AttributeConstraint();
+      withElements(value);
+      return value;
+   } 
+
+   public MatchIsomorphicConstraint createMatchIsomorphicConstraint()
+   {
+      MatchIsomorphicConstraint value = new MatchIsomorphicConstraint();
+      withElements(value);
+      return value;
+   } 
+
+   public CloneOp createCloneOp()
+   {
+      CloneOp value = new CloneOp();
+      withElements(value);
+      return value;
+   } 
+
+   public UnifyGraphsOp createUnifyGraphsOp()
+   {
+      UnifyGraphsOp value = new UnifyGraphsOp();
+      withElements(value);
+      return value;
+   } 
+
+   public DestroyObjectElem createDestroyObjectElem()
+   {
+      DestroyObjectElem value = new DestroyObjectElem();
+      withElements(value);
+      return value;
+   } 
+
+   public CardinalityConstraint createCardinalityConstraint()
+   {
+      CardinalityConstraint value = new CardinalityConstraint();
+      withElements(value);
+      return value;
+   } 
+
+   public MatchOtherThen createMatchOtherThen()
+   {
+      MatchOtherThen value = new MatchOtherThen();
+      withElements(value);
+      return value;
+   } 
+
+   public GenericConstraint createGenericConstraint()
+   {
+      GenericConstraint value = new GenericConstraint();
+      withElements(value);
+      return value;
+   } 
+
+   public NegativeApplicationCondition createNegativeApplicationCondition()
+   {
+      NegativeApplicationCondition value = new NegativeApplicationCondition();
+      withElements(value);
+      return value;
+   } 
+
+   public OptionalSubPattern createOptionalSubPattern()
+   {
+      OptionalSubPattern value = new OptionalSubPattern();
+      withElements(value);
+      return value;
+   } 
+
+   public LinkConstraint createLinkConstraint()
+   {
+      LinkConstraint value = new LinkConstraint();
+      withElements(value);
+      return value;
+   } 
 }
 

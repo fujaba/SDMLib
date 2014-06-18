@@ -117,7 +117,7 @@
     "hoursSpend":20,
     "parent":{"id":"KE.K1"},
     "logEntries":[
-    {"id":"KE.L172"}
+    {"id":"KE.L179"}
     ],
     "phases":"active, backlog, implementation, done"
   }
@@ -1263,17 +1263,6 @@
     "comment":"The famous ludo example."
   }
 },  {
-  "id":"KE.L172",
-  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
-  "prop":{
-    "date":"10.10.2013 10:10:42",
-    "hoursSpend":20,
-    "kanbanEntry":{"id":"KE.K9"},
-    "developer":"zuendorf",
-    "phase":"done",
-    "comment":"should be published in paper"
-  }
-},  {
   "id":"KE.L173",
   "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
   "prop":{
@@ -1338,5 +1327,16 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"Achieved: Start situation: "
+  }
+},  {
+  "id":"KE.L179",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"10.10.2013 10:10:42",
+    "hoursSpend":20,
+    "kanbanEntry":{"id":"KE.K9"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"should be published in paper"
   }
 }]

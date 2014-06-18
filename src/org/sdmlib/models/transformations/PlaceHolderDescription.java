@@ -488,5 +488,12 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       withOwners(value);
       return value;
    } 
+
+   public ChoiceTemplate createChoiceTemplate()
+   {
+      ChoiceTemplate value = new ChoiceTemplate();
+      withOwners(value);
+      return value;
+   } 
 }
 

@@ -383,5 +383,19 @@ public class Graph implements PropertyChangeInterface
       withGcs(value);
       return value;
    } 
+
+   public Person createPerson()
+   {
+      Person value = new Person();
+      withGcs(value);
+      return value;
+   } 
+
+   public Relation createRelation()
+   {
+      Relation value = new Relation();
+      withGcs(value);
+      return value;
+   } 
 }
 

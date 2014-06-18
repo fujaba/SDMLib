@@ -372,5 +372,19 @@ public class Graph implements PropertyChangeInterface
       withGcs(value);
       return value;
    } 
+
+   public Edge createEdge()
+   {
+      Edge value = new Edge();
+      withGcs(value);
+      return value;
+   } 
+
+   public Node createNode()
+   {
+      Node value = new Node();
+      withGcs(value);
+      return value;
+   } 
 }
 

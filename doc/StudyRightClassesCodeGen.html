@@ -19,16 +19,15 @@
 <p>6. generate generic get for attributes and assocs</p>
 <p>7. generate creator classes</p>
 <a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><p>8. generate imports</p>
-<p>import org.sdmlib.examples.studyright.model.Male;
-import org.sdmlib.examples.studyright.model.Female;
-import org.sdmlib.StrUtil;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
-import java.util.LinkedHashSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
+<p>import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.examples.studyright.model.util.AssignmentSet;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
 import org.sdmlib.examples.studyright.model.util.StudentSet;
-import org.sdmlib.examples.studyright.model.util.AssignmentSet;</p>
+import org.sdmlib.serialization.PropertyChangeInterface;</p>
 <p>9. generate property change support</p>
 <p>Caution: property change support needs not to be generated if the parent class does this already.</p>
 <p>10. generate removeYou method</p>
