@@ -1,4 +1,4 @@
-package org.sdmlib.doc.GraphViz;
+package org.sdmlib.doc;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.Association;

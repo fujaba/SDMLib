@@ -25,7 +25,7 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.doc.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.logger.util.LogEntrySet;
 import org.sdmlib.logger.util.LoggerSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
@@ -97,7 +97,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
 
    private void dumpDiagram() 
    {
-	   new JsonToGraphViz().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
+      GraphFactory.getAdapter().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
    }
 
    //==========================================================================

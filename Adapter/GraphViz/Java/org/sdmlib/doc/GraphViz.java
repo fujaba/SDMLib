@@ -19,7 +19,7 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.sdmlib.doc.GraphViz;
+package org.sdmlib.doc;
 
 import java.io.File;
 import java.util.Arrays;
@@ -48,13 +48,13 @@ import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.xml.HTMLEntities;
 
-public class JsonToGraphViz implements GuiAdapter {
+public class GraphViz implements GuiAdapter {
 	private String rootDir = "src";
 	private JsonIdMap lastIdMap = null;
 	private static LinkedHashMap<String, String> iconMap;
 
 	@Override
-   public JsonToGraphViz withRootDir(String rootDir) {
+   public GraphViz withRootDir(String rootDir) {
 		this.rootDir = rootDir;
 		return this;
 	}
@@ -437,7 +437,7 @@ public class JsonToGraphViz implements GuiAdapter {
 		return dottedName;
 	}
 
-	public JsonToGraphViz withIconMap(LinkedHashMap<String, String> iconMap) {
+	public GraphViz withIconMap(LinkedHashMap<String, String> iconMap) {
 		this.iconMap = iconMap;
 		return this;
 	}

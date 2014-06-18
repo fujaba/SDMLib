@@ -28,8 +28,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
+import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.GuiAdapter;
-import org.sdmlib.doc.GraphViz.JsonToGraphViz;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
@@ -50,7 +50,7 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
 	public GuiAdapter getAdapter() {
 		if (adapter == null) {
-			adapter = new JsonToGraphViz();
+			adapter = GraphFactory.getAdapter();
 		}
 		return adapter;
 	}
