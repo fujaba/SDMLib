@@ -46,6 +46,7 @@
 				<include name="**/*.html"/>
 				<include name="**/*.css"/>
 			</fileset>
+			<fileset dir="./NetworkParser" />
 		</jar>
 		
 		<jar destfile="build/SDMLib-source.jar">
@@ -57,6 +58,7 @@
 			</manifest>
 			<fileset dir="build/temp/" />
 			<fileset dir="./src"/>
+			<fileset dir="./NetworkParser" />
 		</jar>
 		<javadoc destdir="build/javadoc/" sourcepath="src">
 		</javadoc>
