@@ -33,10 +33,9 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
-import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.SendableEntity;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public abstract class ModelListenerProperty<T> implements
       javafx.beans.property.Property<T>, PropertyChangeListener,

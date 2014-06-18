@@ -1,8 +1,7 @@
 package org.sdmlib.javafx;
 
 import javafx.beans.Observable;
-
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 /*
  NetworkParser

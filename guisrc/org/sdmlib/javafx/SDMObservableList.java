@@ -11,8 +11,8 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 import com.sun.javafx.collections.NonIterableChange;
 import com.sun.javafx.collections.NonIterableChange.SimpleAddChange;
@@ -20,6 +20,7 @@ import com.sun.javafx.collections.NonIterableChange.SimpleRemovedChange;
 
 public class SDMObservableList<E> extends ArrayList<E> implements ObservableList<E>, PropertyChangeListener
 {
+   private static final long serialVersionUID = 1L;
    private PropertyChangeInterface parentObject;
    private String propertyName;
    
@@ -39,7 +40,7 @@ public class SDMObservableList<E> extends ArrayList<E> implements ObservableList
       {
          Method method = parentObject.getClass().getMethod("get" + StrUtil.upFirstChar(propertyName));
          Object invoke = method.invoke(parentObject);
-         this.addAll((Collection<?>)invoke);
+         this.addAll((Collection<E>)invoke);
       }
       catch (Exception e)
       {
