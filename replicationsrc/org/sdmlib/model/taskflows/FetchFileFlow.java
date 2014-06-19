@@ -294,5 +294,4 @@ public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
       _.append(" ").append(this.getTaskNo());
       return _.substring(1);
    }
-
 }

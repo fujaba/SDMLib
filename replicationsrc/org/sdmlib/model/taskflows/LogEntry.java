@@ -30,6 +30,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class LogEntry implements PropertyChangeInterface
 {
@@ -138,6 +139,7 @@ public class LogEntry implements PropertyChangeInterface
       setLogger(null);
       removeAllFromChildren();
       setParent(null);
+      withoutChildren(this.getChildren().toArray(new LogEntry[this.getChildren().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -410,5 +412,72 @@ public class LogEntry implements PropertyChangeInterface
       withParent(value);
       return value;
    } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getNodeName());
+      _.append(" ").append(this.getTaskName());
+      return _.substring(1);
+   }
+
+   public LogEntrySet getChildrenTransitive()
+   {
+      LogEntrySet result = new LogEntrySet().with(this);
+      return result.getChildrenTransitive();
+   }
+
+
+   public LogEntry withChildren(LogEntry... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (LogEntry item : value)
+      {
+         if (item != null)
+         {
+            if (this.children == null)
+            {
+               this.children = new LogEntrySet();
+            }
+            
+            boolean changed = this.children.add (item);
+
+            if (changed)
+            {
+               item.withParent(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public LogEntry withoutChildren(LogEntry... value)
+   {
+      for (LogEntry item : value)
+      {
+         if ((this.children != null) && (item != null))
+         {
+            if (this.children.remove(item))
+            {
+               item.setParent(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, item, null);
+            }
+         }
+         withoutChildren(item);
+      }
+      return this;
+   }
+   public LogEntrySet getParentTransitive()
+   {
+      LogEntrySet result = new LogEntrySet().with(this);
+      return result.getParentTransitive();
+   }
+
 }
 

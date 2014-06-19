@@ -43,7 +43,6 @@ public class TaskFlowModel
 
       model.createClazz("FetchFileFlow")
       .withAttribute("fileServer", DataType.ref(PeerProxy.class))
-      .withAttribute("idMap", DataType.ref(SDMLibJsonIdMap.class))
       .withAttribute("fileName", DataType.STRING)
       .withSuperClazz(taskFlowClass)
       .withMethod("run", DataType.VOID);
@@ -64,8 +63,8 @@ public class TaskFlowModel
             .withExternal(true);
 
       model.createClazz("SDMTimer")
-      .withSuperClazz(timerClass)
-      .withMethod("schedule", DataType.VOID, new Parameter(DataType.ref(TimerTask.class)));
+      .withSuperClazz(timerClass);
+      // .withMethod("schedule", DataType.VOID, new Parameter(DataType.ref(TimerTask.class)));
 
       storyboard.addClassDiagram(model, "replicationsrc");
 

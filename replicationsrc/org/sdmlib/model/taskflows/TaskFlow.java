@@ -27,8 +27,11 @@ import java.util.TimerTask;
 import java.util.TreeSet;
 
 import org.sdmlib.model.taskflows.util.PeerProxySet;
+import org.sdmlib.model.taskflows.util.TaskFlowSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import java.beans.PropertyChangeListener;
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface
 {
@@ -333,4 +336,27 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
       // TODO Auto-generated method stub
       return false;
    } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
+
+   public TaskFlowSet getSubFlowTransitive()
+   {
+      TaskFlowSet result = new TaskFlowSet().with(this);
+      return result.getSubFlowTransitive();
+   }
+
+   public TaskFlowSet getParentTransitive()
+   {
+      TaskFlowSet result = new TaskFlowSet().with(this);
+      return result.getParentTransitive();
+   }
+
 }

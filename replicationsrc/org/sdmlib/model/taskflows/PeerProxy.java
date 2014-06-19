@@ -33,6 +33,7 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 {
@@ -223,14 +224,14 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
    
    public static final String PROPERTY_IDMAP = "idMap";
    
-   private org.sdmlib.serialization.SDMLibJsonIdMap idMap;
+   private SDMLibJsonIdMap idMap;
 
-   public org.sdmlib.serialization.SDMLibJsonIdMap getIdMap()
+   public SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
    
-   public void setIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public void setIdMap(SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
@@ -240,7 +241,7 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
       }
    }
    
-   public PeerProxy withIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public PeerProxy withIdMap(SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;
@@ -249,6 +250,10 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
    @Override
    public String toString()
    {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getIp());
+      _.append(" ").append(this.getPort());
       return "" + ip + ":" + port;
    }
 
@@ -272,5 +277,6 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
       }
       return result;
    }
+
 }
 

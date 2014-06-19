@@ -106,6 +106,9 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromEntries();
+      setSubFlow(null);
+      setParent(null);
+      withoutEntries(this.getEntries().toArray(new LogEntry[this.getEntries().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -232,4 +235,58 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       setStartPeer(value);
       return this;
    } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
+   }
+
+
+   public Logger withEntries(LogEntry... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (LogEntry item : value)
+      {
+         if (item != null)
+         {
+            if (this.entries == null)
+            {
+               this.entries = new LogEntrySet();
+            }
+            
+            boolean changed = this.entries.add (item);
+
+            if (changed)
+            {
+               item.withLogger(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENTRIES, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Logger withoutEntries(LogEntry... value)
+   {
+      for (LogEntry item : value)
+      {
+         if ((this.entries != null) && (item != null))
+         {
+            if (this.entries.remove(item))
+            {
+               item.setLogger(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENTRIES, item, null);
+            }
+         }
+         withoutEntries(item);
+      }
+      return this;
+   }
 }
