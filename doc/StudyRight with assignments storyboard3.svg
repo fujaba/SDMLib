@@ -28,13 +28,13 @@
 <text text-anchor="start" x="414.5" y="-722" font-family="Arial" font-size="10.00">karli :Student</text>
 </a>
 <polygon fill="none" stroke="black" points="388,-654 388,-716 495,-716 495,-654 388,-654"/>
-<text text-anchor="start" x="393" y="-704" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="393" y="-690" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="393" y="-676" font-family="Arial" font-size="10.00">motivation = 0</text>
-<text text-anchor="start" x="393" y="-662" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="393" y="-704" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="393" y="-690" font-family="Arial" font-size="10.00">motivation = 0</text>
+<text text-anchor="start" x="393" y="-676" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
+<text text-anchor="start" x="393" y="-662" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
 </g>
 <!-- studyRight&#45;&#45;karli -->
-<g id="edge2" class="edge"><title>studyRight&#45;&#45;karli</title>
+<g id="edge12" class="edge"><title>studyRight&#45;&#45;karli</title>
 <path fill="none" stroke="black" d="M556.614,-822.227C541.572,-808.797 521.554,-790.923 502.406,-773.827"/>
 <text text-anchor="middle" x="511.981" y="-774.211" font-family="Arial" font-size="10.00">students</text>
 <text text-anchor="middle" x="547.039" y="-816.843" font-family="Arial" font-size="10.00">university</text>
@@ -48,12 +48,12 @@
 <text text-anchor="start" x="357.5" y="-532" font-family="Arial" font-size="10.00">mathRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="350,-478 350,-526 440,-526 440,-478 350,-478"/>
-<text text-anchor="start" x="355" y="-514" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
+<text text-anchor="start" x="355" y="-514" font-family="Arial" font-size="10.00">credits = 17</text>
 <text text-anchor="start" x="355" y="-500" font-family="Arial" font-size="10.00">name = &quot;senate&quot;</text>
-<text text-anchor="start" x="355" y="-486" font-family="Arial" font-size="10.00">credits = 17</text>
+<text text-anchor="start" x="355" y="-486" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
 </g>
 <!-- studyRight&#45;&#45;mathRoom -->
-<g id="edge4" class="edge"><title>studyRight&#45;&#45;mathRoom</title>
+<g id="edge2" class="edge"><title>studyRight&#45;&#45;mathRoom</title>
 <path fill="none" stroke="black" d="M576.807,-822.342C568.776,-784.744 548.591,-706.057 511,-650 494.131,-624.845 469.951,-601.683 448.029,-583.551"/>
 <text text-anchor="middle" x="457.684" y="-583.657" font-family="Arial" font-size="10.00">rooms</text>
 <text text-anchor="middle" x="570.707" y="-811.918" font-family="Arial" font-size="10.00">university</text>
@@ -66,12 +66,12 @@
 <text text-anchor="start" x="15.5" y="-405.5" font-family="Arial" font-size="10.00">artsRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-351 8,-399 93,-399 93,-351 8,-351"/>
-<text text-anchor="start" x="13" y="-387" font-family="Arial" font-size="10.00">topic = &quot;arts&quot;</text>
+<text text-anchor="start" x="13" y="-387" font-family="Arial" font-size="10.00">credits = 16</text>
 <text text-anchor="start" x="13" y="-373" font-family="Arial" font-size="10.00">name = &quot;7522&quot;</text>
-<text text-anchor="start" x="13" y="-359" font-family="Arial" font-size="10.00">credits = 16</text>
+<text text-anchor="start" x="13" y="-359" font-family="Arial" font-size="10.00">topic = &quot;arts&quot;</text>
 </g>
 <!-- studyRight&#45;&#45;artsRoom -->
-<g id="edge6" class="edge"><title>studyRight&#45;&#45;artsRoom</title>
+<g id="edge4" class="edge"><title>studyRight&#45;&#45;artsRoom</title>
 <path fill="none" stroke="black" d="M519.536,-837.401C475.036,-830.287 415.043,-815.689 370,-786 221.638,-688.211 110.175,-499.306 68.2012,-420.686"/>
 <text text-anchor="middle" x="76.2656" y="-424.099" font-family="Arial" font-size="10.00">rooms</text>
 <text text-anchor="middle" x="509.888" y="-837.533" font-family="Arial" font-size="10.00">university</text>
@@ -84,12 +84,12 @@
 <text text-anchor="start" x="137" y="-278.5" font-family="Arial" font-size="10.00">sportsRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="125,-224 125,-272 230,-272 230,-224 125,-224"/>
-<text text-anchor="start" x="130" y="-260" font-family="Arial" font-size="10.00">topic = &quot;sports&quot;</text>
+<text text-anchor="start" x="130" y="-260" font-family="Arial" font-size="10.00">credits = 25</text>
 <text text-anchor="start" x="130" y="-246" font-family="Arial" font-size="10.00">name = &quot;gymnasium&quot;</text>
-<text text-anchor="start" x="130" y="-232" font-family="Arial" font-size="10.00">credits = 25</text>
+<text text-anchor="start" x="130" y="-232" font-family="Arial" font-size="10.00">topic = &quot;sports&quot;</text>
 </g>
 <!-- studyRight&#45;&#45;sportsRoom -->
-<g id="edge8" class="edge"><title>studyRight&#45;&#45;sportsRoom</title>
+<g id="edge6" class="edge"><title>studyRight&#45;&#45;sportsRoom</title>
 <path fill="none" stroke="black" d="M585.067,-822.335C601.043,-734.439 655.573,-405.552 592,-330 547.391,-276.985 341.426,-263.005 237.431,-259.319"/>
 <text text-anchor="middle" x="246.665" y="-252.981" font-family="Arial" font-size="10.00">rooms</text>
 <text text-anchor="middle" x="582.466" y="-810.179" font-family="Arial" font-size="10.00">university</text>
@@ -102,12 +102,12 @@
 <text text-anchor="start" x="138.5" y="-168.5" font-family="Arial" font-size="10.00">examRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="131,-114 131,-162 224,-162 224,-114 131,-114"/>
-<text text-anchor="start" x="136" y="-150" font-family="Arial" font-size="10.00">topic = &quot;exam&quot;</text>
+<text text-anchor="start" x="136" y="-150" font-family="Arial" font-size="10.00">credits = 0</text>
 <text text-anchor="start" x="136" y="-136" font-family="Arial" font-size="10.00">name = &quot;The End&quot;</text>
-<text text-anchor="start" x="136" y="-122" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="136" y="-122" font-family="Arial" font-size="10.00">topic = &quot;exam&quot;</text>
 </g>
 <!-- studyRight&#45;&#45;examRoom -->
-<g id="edge10" class="edge"><title>studyRight&#45;&#45;examRoom</title>
+<g id="edge8" class="edge"><title>studyRight&#45;&#45;examRoom</title>
 <path fill="none" stroke="black" d="M596.388,-822.406C603.148,-811.893 610.546,-798.786 615,-786 650.582,-683.848 649,-653.172 649,-545 649,-545 649,-545 649,-383 649,-198.32 355.851,-158.774 231.605,-150.306"/>
 <text text-anchor="middle" x="240.996" y="-144.369" font-family="Arial" font-size="10.00">rooms</text>
 <text text-anchor="middle" x="597.664" y="-809.987" font-family="Arial" font-size="10.00">university</text>
@@ -120,12 +120,12 @@
 <text text-anchor="start" x="140" y="-58.5" font-family="Arial" font-size="10.00">placeToBe :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="105,-4 105,-52 249,-52 249,-4 105,-4"/>
-<text text-anchor="start" x="110" y="-40" font-family="Arial" font-size="10.00">topic = &quot;Software Engineering&quot;</text>
+<text text-anchor="start" x="110" y="-40" font-family="Arial" font-size="10.00">credits = 42</text>
 <text text-anchor="start" x="110" y="-26" font-family="Arial" font-size="10.00">name = &quot;7422&quot;</text>
-<text text-anchor="start" x="110" y="-12" font-family="Arial" font-size="10.00">credits = 42</text>
+<text text-anchor="start" x="110" y="-12" font-family="Arial" font-size="10.00">topic = &quot;Software Engineering&quot;</text>
 </g>
 <!-- studyRight&#45;&#45;placeToBe -->
-<g id="edge12" class="edge"><title>studyRight&#45;&#45;placeToBe</title>
+<g id="edge10" class="edge"><title>studyRight&#45;&#45;placeToBe</title>
 <path fill="none" stroke="black" d="M612.081,-822.374C623.86,-812.6 636.279,-800.078 644,-786 696.318,-690.602 687,-653.803 687,-545 687,-545 687,-545 687,-256 687,-163.681 400.872,-87.3541 257.249,-54.8569"/>
 <text text-anchor="middle" x="267.038" y="-50.3175" font-family="Arial" font-size="10.00">rooms</text>
 <text text-anchor="middle" x="616.253" y="-810.786" font-family="Arial" font-size="10.00">university</text>

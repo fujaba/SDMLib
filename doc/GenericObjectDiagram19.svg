@@ -25,12 +25,12 @@
 <text text-anchor="start" x="142" y="-360.5" font-family="Arial" font-size="10.00">g14 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="95,-306 95,-354 270,-354 270,-306 95,-306"/>
-<text text-anchor="start" x="100" y="-342" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="100" y="-328" font-family="Arial" font-size="10.00">name = &quot;spec2gen.B1&quot;</text>
+<text text-anchor="start" x="100" y="-342" font-family="Arial" font-size="10.00">name = &quot;spec2gen.B1&quot;</text>
+<text text-anchor="start" x="100" y="-328" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="100" y="-314" font-family="Arial" font-size="10.00">type = &quot;de.kassel.roombook.Building&quot;</text>
 </g>
 <!-- g13&#45;&#45;g14 -->
-<g id="edge6" class="edge"><title>g13&#45;&#45;g14</title>
+<g id="edge2" class="edge"><title>g13&#45;&#45;g14</title>
 <path fill="none" stroke="black" d="M282.092,-411.84C267.735,-401.535 248.929,-388.037 231.498,-375.527"/>
 <text text-anchor="middle" x="241.325" y="-374.878" font-family="Arial" font-size="10.00">objects</text>
 <text text-anchor="middle" x="272.264" y="-407.489" font-family="Arial" font-size="10.00">graph</text>
@@ -43,11 +43,11 @@
 <text text-anchor="start" x="33" y="-250.5" font-family="Arial" font-size="10.00">g16 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="15,-210 15,-244 121,-244 121,-210 15,-210"/>
-<text text-anchor="start" x="20" y="-232" font-family="Arial" font-size="10.00">tgtLabel = &quot;has&quot;</text>
-<text text-anchor="start" x="20" y="-218" font-family="Arial" font-size="10.00">srcLabel = &quot;buildings&quot;</text>
+<text text-anchor="start" x="20" y="-232" font-family="Arial" font-size="10.00">srcLabel = &quot;buildings&quot;</text>
+<text text-anchor="start" x="20" y="-218" font-family="Arial" font-size="10.00">tgtLabel = &quot;has&quot;</text>
 </g>
 <!-- g13&#45;&#45;g16 -->
-<g id="edge2" class="edge"><title>g13&#45;&#45;g16</title>
+<g id="edge8" class="edge"><title>g13&#45;&#45;g16</title>
 <path fill="none" stroke="black" d="M251.56,-423.811C191.149,-416.832 99.2208,-402.168 77,-376 51.1729,-345.585 54.8997,-296.634 60.8128,-265.675"/>
 <text text-anchor="middle" x="63.4444" y="-272.823" font-family="Arial" font-size="10.00">links</text>
 <text text-anchor="middle" x="242.049" y="-424.402" font-family="Arial" font-size="10.00">graph</text>
@@ -60,12 +60,12 @@
 <text text-anchor="start" x="81.5" y="-154.5" font-family="Arial" font-size="10.00">g17 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="41,-100 41,-148 203,-148 203,-100 41,-100"/>
-<text text-anchor="start" x="46" y="-136" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="46" y="-122" font-family="Arial" font-size="10.00">name = &quot;spec2gen.F2&quot;</text>
+<text text-anchor="start" x="46" y="-136" font-family="Arial" font-size="10.00">name = &quot;spec2gen.F2&quot;</text>
+<text text-anchor="start" x="46" y="-122" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="46" y="-108" font-family="Arial" font-size="10.00">type = &quot;de.kassel.roombook.Floor&quot;</text>
 </g>
 <!-- g13&#45;&#45;g17 -->
-<g id="edge8" class="edge"><title>g13&#45;&#45;g17</title>
+<g id="edge4" class="edge"><title>g13&#45;&#45;g17</title>
 <path fill="none" stroke="black" d="M308.795,-411.908C314.388,-371.673 322.718,-269.594 276,-206 260.012,-184.236 235.779,-168.832 211.238,-158.022"/>
 <text text-anchor="middle" x="221.238" y="-155.474" font-family="Arial" font-size="10.00">objects</text>
 <text text-anchor="middle" x="305.708" y="-399.896" font-family="Arial" font-size="10.00">graph</text>
@@ -78,11 +78,11 @@
 <text text-anchor="start" x="354" y="-250.5" font-family="Arial" font-size="10.00">g20 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="336,-210 336,-244 442,-244 442,-210 336,-210"/>
-<text text-anchor="start" x="341" y="-232" font-family="Arial" font-size="10.00">tgtLabel = &quot;has&quot;</text>
-<text text-anchor="start" x="341" y="-218" font-family="Arial" font-size="10.00">srcLabel = &quot;buildings&quot;</text>
+<text text-anchor="start" x="341" y="-232" font-family="Arial" font-size="10.00">srcLabel = &quot;buildings&quot;</text>
+<text text-anchor="start" x="341" y="-218" font-family="Arial" font-size="10.00">tgtLabel = &quot;has&quot;</text>
 </g>
 <!-- g13&#45;&#45;g20 -->
-<g id="edge4" class="edge"><title>g13&#45;&#45;g20</title>
+<g id="edge10" class="edge"><title>g13&#45;&#45;g20</title>
 <path fill="none" stroke="black" d="M313.366,-411.961C327.609,-379.013 359.063,-306.252 376.59,-265.707"/>
 <text text-anchor="middle" x="376.873" y="-273.203" font-family="Arial" font-size="10.00">links</text>
 <text text-anchor="middle" x="313.083" y="-399.465" font-family="Arial" font-size="10.00">graph</text>
@@ -95,12 +95,12 @@
 <text text-anchor="start" x="392.5" y="-154.5" font-family="Arial" font-size="10.00">g21 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="352,-100 352,-148 514,-148 514,-100 352,-100"/>
-<text text-anchor="start" x="357" y="-136" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="357" y="-122" font-family="Arial" font-size="10.00">name = &quot;spec2gen.F3&quot;</text>
+<text text-anchor="start" x="357" y="-136" font-family="Arial" font-size="10.00">name = &quot;spec2gen.F3&quot;</text>
+<text text-anchor="start" x="357" y="-122" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="357" y="-108" font-family="Arial" font-size="10.00">type = &quot;de.kassel.roombook.Floor&quot;</text>
 </g>
 <!-- g13&#45;&#45;g21 -->
-<g id="edge10" class="edge"><title>g13&#45;&#45;g21</title>
+<g id="edge6" class="edge"><title>g13&#45;&#45;g21</title>
 <path fill="none" stroke="black" d="M331.525,-411.897C368.134,-385.612 433.902,-331.406 459,-266 471.05,-234.599 461.317,-196.758 450.494,-169.658"/>
 <text text-anchor="middle" x="457.656" y="-174.138" font-family="Arial" font-size="10.00">objects</text>
 <text text-anchor="middle" x="336.304" y="-400.613" font-family="Arial" font-size="10.00">graph</text>

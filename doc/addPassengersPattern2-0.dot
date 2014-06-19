@@ -36,8 +36,8 @@ t2 -- p16 [headlabel = "passengers" taillabel = "train"];
 t2 -- s4 [headlabel = "station" taillabel = "trains"];
 s4 -- s8 [headlabel = "next" taillabel = "prev"];
 s4 -- s13 [headlabel = "prev" taillabel = "next"];
-s8 -- s12 [headlabel = "flag" taillabel = "station"];
 s8 -- s9 [headlabel = "next" taillabel = "prev"];
+s8 -- s12 [headlabel = "flag" taillabel = "station"];
 s8 -- p10 [headlabel = "people" taillabel = "station"];
 s8 -- p11 [headlabel = "people" taillabel = "station"];
 }

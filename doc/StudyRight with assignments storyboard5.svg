@@ -18,10 +18,10 @@
 <text text-anchor="start" x="142.5" y="-392" font-family="Arial" font-size="10.00">karli :Student</text>
 </a>
 <polygon fill="none" stroke="black" points="116,-324 116,-386 223,-386 223,-324 116,-324"/>
-<text text-anchor="start" x="121" y="-374" font-family="Arial" font-size="10.00">assignmentPoints = 5</text>
-<text text-anchor="start" x="121" y="-360" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="121" y="-346" font-family="Arial" font-size="10.00">motivation = 0</text>
-<text text-anchor="start" x="121" y="-332" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="121" y="-374" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="121" y="-360" font-family="Arial" font-size="10.00">motivation = 0</text>
+<text text-anchor="start" x="121" y="-346" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
+<text text-anchor="start" x="121" y="-332" font-family="Arial" font-size="10.00">assignmentPoints = 5</text>
 </g>
 <!-- mathRoom -->
 <g id="node2" class="node"><title>mathRoom</title>
@@ -32,12 +32,12 @@
 <text text-anchor="start" x="181.5" y="-202" font-family="Arial" font-size="10.00">mathRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="174,-148 174,-196 264,-196 264,-148 174,-148"/>
-<text text-anchor="start" x="179" y="-184" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
+<text text-anchor="start" x="179" y="-184" font-family="Arial" font-size="10.00">credits = 17</text>
 <text text-anchor="start" x="179" y="-170" font-family="Arial" font-size="10.00">name = &quot;senate&quot;</text>
-<text text-anchor="start" x="179" y="-156" font-family="Arial" font-size="10.00">credits = 17</text>
+<text text-anchor="start" x="179" y="-156" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
 </g>
 <!-- karli&#45;&#45;mathRoom -->
-<g id="edge4" class="edge"><title>karli&#45;&#45;mathRoom</title>
+<g id="edge2" class="edge"><title>karli&#45;&#45;mathRoom</title>
 <path fill="none" stroke="black" d="M188.618,-319.515C192.038,-307.75 195.599,-295.501 199.028,-283.704"/>
 <text text-anchor="middle" x="200.556" y="-291.087" font-family="Arial" font-size="10.00">in</text>
 <text text-anchor="middle" x="187.09" y="-307.132" font-family="Arial" font-size="10.00">students</text>
@@ -55,7 +55,7 @@
 <text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">points = 5</text>
 </g>
 <!-- karli&#45;&#45;a1 -->
-<g id="edge2" class="edge"><title>karli&#45;&#45;a1</title>
+<g id="edge4" class="edge"><title>karli&#45;&#45;a1</title>
 <path fill="none" stroke="black" d="M151.597,-319.815C135.424,-257.383 111.657,-165.631 96.7689,-108.155"/>
 <text text-anchor="middle" x="103.133" y="-113.368" font-family="Arial" font-size="10.00">done</text>
 <text text-anchor="middle" x="145.233" y="-309.601" font-family="Arial" font-size="10.00">students</text>

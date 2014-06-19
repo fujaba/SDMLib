@@ -10,85 +10,85 @@
 <title>ObjectDiagram</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-441 657,-441 657,5 -4,5"/>
 <g id="graph2" class="cluster"><title>cluster_o8</title>
-<polygon fill="none" stroke="grey" points="177,-208 177,-301 293,-301 293,-208 177,-208"/>
-<text text-anchor="start" x="203.5" y="-281.8" font-family="Times New Roman,serif" font-size="14.00">optional o8</text>
+<polygon fill="none" stroke="grey" points="180,-208 180,-301 276,-301 276,-208 180,-208"/>
+<text text-anchor="start" x="196.5" y="-281.8" font-family="Times New Roman,serif" font-size="14.00">optional o8</text>
 </g>
 <!-- t1 -->
 <g id="node1" class="node"><title>t1</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="253.5,-395.5 253.5,-432.5 320.5,-432.5 320.5,-395.5 253.5,-395.5"/>
-<polygon fill="none" stroke="black" points="254,-415 254,-432 321,-432 321,-415 254,-415"/>
-<text text-anchor="start" x="257.5" y="-421.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="261.5" y="-421.5" font-family="Arial" font-size="10.00"> t1 :TrainPO </text>
-<polygon fill="none" stroke="black" points="254,-395 254,-415 321,-415 321,-395 254,-395"/>
-<text text-anchor="start" x="284" y="-403" font-family="Arial" font-size="10.00"> &#160;</text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="249.5,-395.5 249.5,-432.5 300.5,-432.5 300.5,-395.5 249.5,-395.5"/>
+<polygon fill="none" stroke="black" points="250,-415 250,-432 301,-432 301,-415 250,-415"/>
+<text text-anchor="start" x="253.5" y="-421.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="257.5" y="-421.5" font-family="Arial" font-size="10.00"> t1 :TrainPO </text>
+<polygon fill="none" stroke="black" points="250,-395 250,-415 301,-415 301,-395 250,-395"/>
+<text text-anchor="start" x="272" y="-403" font-family="Arial" font-size="10.00"> &#160;</text>
 </g>
 <!-- s3 -->
 <g id="node2" class="node"><title>s3</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="197.5,-313.5 197.5,-350.5 276.5,-350.5 276.5,-313.5 197.5,-313.5"/>
-<polygon fill="none" stroke="black" points="198,-333 198,-350 277,-350 277,-333 198,-333"/>
-<text text-anchor="start" x="201.5" y="-339.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="205.5" y="-339.5" font-family="Arial" font-size="10.00"> s3 :StationPO </text>
-<polygon fill="none" stroke="black" points="198,-313 198,-333 277,-333 277,-313 198,-313"/>
-<text text-anchor="start" x="234" y="-321" font-family="Arial" font-size="10.00"> &#160;</text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="200,-313.5 200,-350.5 260,-350.5 260,-313.5 200,-313.5"/>
+<polygon fill="none" stroke="black" points="200,-333 200,-350 260,-350 260,-333 200,-333"/>
+<text text-anchor="start" x="203.5" y="-339.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="207.5" y="-339.5" font-family="Arial" font-size="10.00"> s3 :StationPO </text>
+<polygon fill="none" stroke="black" points="200,-313 200,-333 260,-333 260,-313 200,-313"/>
+<text text-anchor="start" x="226.5" y="-321" font-family="Arial" font-size="10.00"> &#160;</text>
 </g>
 <!-- t1&#45;&#45;s3 -->
 <g id="edge19" class="edge"><title>t1&#45;&#45;s3</title>
-<path fill="none" stroke="black" d="M273.337,-391.14C266.224,-379.759 257.558,-365.893 250.473,-354.557"/>
-<text text-anchor="middle" x="258.86" y="-357.503" font-family="Arial" font-size="10.00">station</text>
+<path fill="none" stroke="black" d="M262.704,-391.14C256.302,-379.759 248.502,-365.893 242.126,-354.557"/>
+<text text-anchor="middle" x="250.252" y="-357.884" font-family="Arial" font-size="10.00">station</text>
 </g>
 <!-- t2 -->
 <g id="node7" class="node"><title>t2</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/examples/patternrewriteops/model/Train.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="315,-323 315,-340 362,-340 362,-323 315,-323"/>
-<text text-anchor="start" x="318.5" y="-329.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="322.5" y="-329.5" font-family="Arial" font-size="10.00">t2 :Train</text>
+<polygon fill="none" stroke="black" points="298,-323 298,-340 345,-340 345,-323 298,-323"/>
+<text text-anchor="start" x="301.5" y="-329.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="305.5" y="-329.5" font-family="Arial" font-size="10.00">t2 :Train</text>
 </a>
 </g>
 <!-- t1&#45;&#45;t2 -->
 <g id="edge3" class="edge"><title>t1&#45;&#45;t2</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M300.936,-391.14C309.194,-378.186 319.505,-362.013 327.153,-350.015"/>
-<text text-anchor="middle" x="325.845" y="-357.429" font-family="Arial" font-size="10.00">match</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M287.57,-391.14C295.018,-378.186 304.318,-362.013 311.216,-350.015"/>
+<text text-anchor="middle" x="310.362" y="-357.478" font-family="Arial" font-size="10.00">match</text>
 </g>
 <!-- s5 -->
 <g id="node3" class="node"><title>s5</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="52,-220.5 52,-257.5 146,-257.5 146,-220.5 52,-220.5"/>
-<polygon fill="none" stroke="black" points="52,-240 52,-257 146,-257 146,-240 52,-240"/>
-<text text-anchor="start" x="55.5" y="-246.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="59.5" y="-246.5" font-family="Arial" font-size="10.00"> s5 :SignalFlagPO </text>
-<polygon fill="none" stroke="black" points="52,-220 52,-240 146,-240 146,-220 52,-220"/>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="64,-220.5 64,-257.5 134,-257.5 134,-220.5 64,-220.5"/>
+<polygon fill="none" stroke="black" points="64,-240 64,-257 134,-257 134,-240 64,-240"/>
+<text text-anchor="start" x="67.5" y="-246.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="71.5" y="-246.5" font-family="Arial" font-size="10.00"> s5 :SignalFlagPO </text>
+<polygon fill="none" stroke="black" points="64,-220 64,-240 134,-240 134,-220 64,-220"/>
 <text text-anchor="start" x="95.5" y="-228" font-family="Arial" font-size="10.00"> &#160;</text>
 </g>
 <!-- s3&#45;&#45;s5 -->
 <g id="edge21" class="edge"><title>s3&#45;&#45;s5</title>
-<path fill="none" stroke="black" d="M189.444,-310.356C183.787,-307.422 178.186,-304.279 173,-301 154.847,-289.521 136.199,-274.121 122.164,-261.667"/>
-<text text-anchor="middle" x="131.761" y="-261.976" font-family="Arial" font-size="10.00">flag</text>
+<path fill="none" stroke="black" d="M191.768,-310.783C186.389,-307.645 180.995,-304.334 176,-301 157.985,-288.976 138.894,-273.869 124.228,-261.698"/>
+<text text-anchor="middle" x="133.909" y="-261.704" font-family="Arial" font-size="10.00">flag</text>
 </g>
 <!-- p18 -->
 <g id="node6" class="node"><title>p18</title>
-<polygon fill="deepskyblue" stroke="deepskyblue" points="193,-220.5 193,-257.5 277,-257.5 277,-220.5 193,-220.5"/>
-<polygon fill="none" stroke="black" points="193,-240 193,-257 277,-257 277,-240 193,-240"/>
-<text text-anchor="start" x="196.5" y="-246.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="200.5" y="-246.5" font-family="Arial" font-size="10.00"> p18 :PersonPO </text>
-<polygon fill="none" stroke="black" points="193,-220 193,-240 277,-240 277,-220 193,-220"/>
-<text text-anchor="start" x="231.5" y="-228" font-family="Arial" font-size="10.00"> &#160;</text>
+<polygon fill="deepskyblue" stroke="deepskyblue" points="196.5,-220.5 196.5,-257.5 259.5,-257.5 259.5,-220.5 196.5,-220.5"/>
+<polygon fill="none" stroke="black" points="197,-240 197,-257 260,-257 260,-240 197,-240"/>
+<text text-anchor="start" x="200.5" y="-246.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="204.5" y="-246.5" font-family="Arial" font-size="10.00"> p18 :PersonPO </text>
+<polygon fill="none" stroke="black" points="197,-220 197,-240 260,-240 260,-220 197,-220"/>
+<text text-anchor="start" x="225" y="-228" font-family="Arial" font-size="10.00"> &#160;</text>
 </g>
 <!-- s3&#45;&#45;p18 -->
 <g id="edge23" class="edge"><title>s3&#45;&#45;p18</title>
-<path fill="none" stroke="red" d="M236.526,-309.434C236.21,-295.033 235.795,-276.16 235.478,-261.726"/>
-<text text-anchor="middle" x="239.902" y="-268.194" font-family="Arial" font-size="10.00" fill="red">people</text>
+<path fill="none" stroke="red" d="M229.526,-309.434C229.21,-295.033 228.795,-276.16 228.478,-261.726"/>
+<text text-anchor="middle" x="232.902" y="-268.194" font-family="Arial" font-size="10.00" fill="red">people</text>
 </g>
 <!-- s4 -->
 <g id="node8" class="node"><title>s4</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/examples/patternrewriteops/model/Station.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="312,-230 312,-247 371,-247 371,-230 312,-230"/>
-<text text-anchor="start" x="315.5" y="-236.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="319.5" y="-236.5" font-family="Arial" font-size="10.00">s4 :Station</text>
+<polygon fill="none" stroke="black" points="294,-230 294,-247 353,-247 353,-230 294,-230"/>
+<text text-anchor="start" x="297.5" y="-236.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="301.5" y="-236.5" font-family="Arial" font-size="10.00">s4 :Station</text>
 </a>
 </g>
 <!-- s3&#45;&#45;s4 -->
 <g id="edge5" class="edge"><title>s3&#45;&#45;s4</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M284.261,-310.184C288.762,-307.385 293.097,-304.32 297,-301 311.522,-288.649 323.791,-270.545 331.654,-257.268"/>
-<text text-anchor="middle" x="330.582" y="-264.71" font-family="Arial" font-size="10.00">match</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M268.077,-310.499C272.291,-307.559 276.366,-304.376 280,-301 293.765,-288.213 305.732,-270.341 313.521,-257.247"/>
+<text text-anchor="middle" x="312.441" y="-264.689" font-family="Arial" font-size="10.00">match</text>
 </g>
 <!-- d7 -->
 <g id="node4" class="node"><title>d7</title>
@@ -117,8 +117,8 @@
 </g>
 <!-- p18&#45;&#45;p16 -->
 <g id="edge15" class="edge"><title>p18&#45;&#45;p16</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M269.42,-216.307C287.679,-204.799 309.795,-190.86 326.832,-180.123"/>
-<text text-anchor="middle" x="321.418" y="-186.03" font-family="Arial" font-size="10.00">candidate</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M258.254,-216.264C262.486,-213.409 266.817,-210.582 271,-208 286.901,-198.185 305.099,-188.188 320.396,-180.118"/>
+<text text-anchor="middle" x="314.369" y="-185.597" font-family="Arial" font-size="10.00">candidate</text>
 </g>
 <!-- p17 -->
 <g id="node16" class="node"><title>p17</title>
@@ -130,8 +130,8 @@
 </g>
 <!-- p18&#45;&#45;p17 -->
 <g id="edge17" class="edge"><title>p18&#45;&#45;p17</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M241.074,-216.307C244.272,-204.886 248.14,-191.07 251.138,-180.366"/>
-<text text-anchor="middle" x="252.764" y="-187.732" font-family="Arial" font-size="10.00">candidate</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M236.099,-216.307C240.363,-204.886 245.521,-191.07 249.517,-180.366"/>
+<text text-anchor="middle" x="250.306" y="-187.834" font-family="Arial" font-size="10.00">candidate</text>
 </g>
 <!-- p15 -->
 <g id="node23" class="node"><title>p15</title>
@@ -139,19 +139,19 @@
 </g>
 <!-- p18&#45;&#45;p15 -->
 <g id="edge11" class="edge"><title>p18&#45;&#45;p15</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M210.303,-216.307C199.692,-204.886 188.032,-191.07 180.021,-180.366"/>
-<text text-anchor="middle" x="188.87" y="-182.523" font-family="Arial" font-size="10.00">match</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M205.327,-216.307C195.782,-204.886 185.412,-191.07 178.4,-180.366"/>
+<text text-anchor="middle" x="186.945" y="-183.061" font-family="Arial" font-size="10.00">match</text>
 </g>
 <!-- p18&#45;&#45;p15 -->
 <g id="edge13" class="edge"><title>p18&#45;&#45;p15</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M222.675,-216.307C213.793,-204.886 201.874,-191.07 191.616,-180.366"/>
-<text text-anchor="middle" x="200.916" y="-181.543" font-family="Arial" font-size="10.00">candidate</text>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M217.699,-216.307C209.884,-204.886 199.254,-191.07 189.995,-180.366"/>
+<text text-anchor="middle" x="199.093" y="-182.018" font-family="Arial" font-size="10.00">candidate</text>
 </g>
 <!-- t2&#45;&#45;s4 -->
 <g id="edge25" class="edge"><title>t2&#45;&#45;s4</title>
-<path fill="none" stroke="black" d="M338.564,-313.884C339.101,-297.614 339.903,-273.284 340.438,-257.04"/>
-<text text-anchor="middle" x="344.364" y="-263.737" font-family="Arial" font-size="10.00">station</text>
-<text text-anchor="middle" x="334.639" y="-302.186" font-family="Arial" font-size="10.00">trains</text>
+<path fill="none" stroke="black" d="M321.376,-313.884C321.734,-297.614 322.268,-273.284 322.626,-257.04"/>
+<text text-anchor="middle" x="326.652" y="-263.693" font-family="Arial" font-size="10.00">station</text>
+<text text-anchor="middle" x="317.35" y="-302.23" font-family="Arial" font-size="10.00">trains</text>
 </g>
 <!-- s9 -->
 <g id="node9" class="node"><title>s9</title>
@@ -163,21 +163,21 @@
 </g>
 <!-- s4&#45;&#45;s9 -->
 <g id="edge27" class="edge"><title>s4&#45;&#45;s9</title>
-<path fill="none" stroke="black" d="M365.734,-220.981C383.447,-208.794 407.211,-192.442 424.987,-180.211"/>
-<text text-anchor="middle" x="419.916" y="-186.33" font-family="Arial" font-size="10.00">next</text>
-<text text-anchor="middle" x="370.805" y="-209.862" font-family="Arial" font-size="10.00">prev</text>
+<path fill="none" stroke="black" d="M351.818,-220.981C372.456,-208.794 400.145,-192.442 420.856,-180.211"/>
+<text text-anchor="middle" x="415.201" y="-185.959" font-family="Arial" font-size="10.00">next</text>
+<text text-anchor="middle" x="357.473" y="-210.234" font-family="Arial" font-size="10.00">prev</text>
 </g>
 <!-- s4&#45;&#45;p16 -->
 <g id="edge29" class="edge"><title>s4&#45;&#45;p16</title>
-<path fill="none" stroke="black" d="M343.95,-220.981C346.062,-208.794 348.897,-192.442 351.017,-180.211"/>
-<text text-anchor="middle" x="353.633" y="-187.363" font-family="Arial" font-size="10.00">people</text>
-<text text-anchor="middle" x="341.334" y="-208.83" font-family="Arial" font-size="10.00">station</text>
+<path fill="none" stroke="black" d="M330.034,-220.981C335.072,-208.794 341.831,-192.442 346.886,-180.211"/>
+<text text-anchor="middle" x="347.33" y="-187.701" font-family="Arial" font-size="10.00">people</text>
+<text text-anchor="middle" x="329.591" y="-208.491" font-family="Arial" font-size="10.00">station</text>
 </g>
 <!-- s4&#45;&#45;p17 -->
 <g id="edge31" class="edge"><title>s4&#45;&#45;p17</title>
-<path fill="none" stroke="black" d="M321.712,-220.981C307.899,-208.794 289.368,-192.442 275.506,-180.211"/>
-<text text-anchor="middle" x="285.098" y="-180.538" font-family="Arial" font-size="10.00">people</text>
-<text text-anchor="middle" x="312.12" y="-215.654" font-family="Arial" font-size="10.00">station</text>
+<path fill="none" stroke="black" d="M307.797,-220.981C296.909,-208.794 282.302,-192.442 271.375,-180.211"/>
+<text text-anchor="middle" x="280.565" y="-181.654" font-family="Arial" font-size="10.00">people</text>
+<text text-anchor="middle" x="298.607" y="-214.538" font-family="Arial" font-size="10.00">station</text>
 </g>
 <!-- s10 -->
 <g id="node10" class="node"><title>s10</title>
@@ -202,7 +202,7 @@
 </a>
 </g>
 <!-- s10&#45;&#45;s11 -->
-<g id="edge37" class="edge"><title>s10&#45;&#45;s11</title>
+<g id="edge35" class="edge"><title>s10&#45;&#45;s11</title>
 <path fill="none" stroke="black" d="M414.04,-71.8761C391.175,-60.9882 361.685,-46.9454 338.843,-36.0683"/>
 <text text-anchor="middle" x="348.843" y="-33.6492" font-family="Arial" font-size="10.00">next</text>
 <text text-anchor="middle" x="404.04" y="-69.2952" font-family="Arial" font-size="10.00">prev</text>
@@ -244,7 +244,7 @@
 </a>
 </g>
 <!-- s10&#45;&#45;s14 -->
-<g id="edge35" class="edge"><title>s10&#45;&#45;s14</title>
+<g id="edge37" class="edge"><title>s10&#45;&#45;s14</title>
 <path fill="none" stroke="black" d="M487.917,-71.8761C512.026,-60.9882 543.121,-46.9454 567.206,-36.0683"/>
 <text text-anchor="middle" x="560.685" y="-41.1502" font-family="Arial" font-size="10.00">flag</text>
 <text text-anchor="middle" x="494.438" y="-61.7942" font-family="Arial" font-size="10.00">station</text>

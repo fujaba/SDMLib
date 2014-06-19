@@ -18,10 +18,10 @@
 <text text-anchor="start" x="209" y="-392" font-family="Arial" font-size="10.00">karli :Student</text>
 </a>
 <polygon fill="none" stroke="black" points="180,-324 180,-386 292,-386 292,-324 180,-324"/>
-<text text-anchor="start" x="185" y="-374" font-family="Arial" font-size="10.00">assignmentPoints = 19</text>
-<text text-anchor="start" x="185" y="-360" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="185" y="-346" font-family="Arial" font-size="10.00">motivation = 0</text>
-<text text-anchor="start" x="185" y="-332" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="185" y="-374" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="185" y="-360" font-family="Arial" font-size="10.00">motivation = 0</text>
+<text text-anchor="start" x="185" y="-346" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
+<text text-anchor="start" x="185" y="-332" font-family="Arial" font-size="10.00">assignmentPoints = 19</text>
 </g>
 <!-- mathRoom -->
 <g id="node2" class="node"><title>mathRoom</title>
@@ -32,12 +32,12 @@
 <text text-anchor="start" x="158.5" y="-202" font-family="Arial" font-size="10.00">mathRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="151,-148 151,-196 241,-196 241,-148 151,-148"/>
-<text text-anchor="start" x="156" y="-184" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
+<text text-anchor="start" x="156" y="-184" font-family="Arial" font-size="10.00">credits = 17</text>
 <text text-anchor="start" x="156" y="-170" font-family="Arial" font-size="10.00">name = &quot;senate&quot;</text>
-<text text-anchor="start" x="156" y="-156" font-family="Arial" font-size="10.00">credits = 17</text>
+<text text-anchor="start" x="156" y="-156" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
 </g>
 <!-- karli&#45;&#45;mathRoom -->
-<g id="edge8" class="edge"><title>karli&#45;&#45;mathRoom</title>
+<g id="edge2" class="edge"><title>karli&#45;&#45;mathRoom</title>
 <path fill="none" stroke="black" d="M220.306,-319.515C217.57,-307.75 214.721,-295.501 211.978,-283.704"/>
 <text text-anchor="middle" x="218.147" y="-289.074" font-family="Arial" font-size="10.00">in</text>
 <text text-anchor="middle" x="214.137" y="-309.144" font-family="Arial" font-size="10.00">students</text>
@@ -55,7 +55,7 @@
 <text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">points = 5</text>
 </g>
 <!-- karli&#45;&#45;a1 -->
-<g id="edge2" class="edge"><title>karli&#45;&#45;a1</title>
+<g id="edge4" class="edge"><title>karli&#45;&#45;a1</title>
 <path fill="none" stroke="black" d="M171.869,-333.491C157.569,-318.772 143.77,-301.891 134,-284 103.84,-228.769 91.508,-156.795 86.4706,-108.404"/>
 <text text-anchor="middle" x="91.7014" y="-114.426" font-family="Arial" font-size="10.00">done</text>
 <text text-anchor="middle" x="162.556" y="-327.349" font-family="Arial" font-size="10.00">students</text>
@@ -73,7 +73,7 @@
 <text text-anchor="start" x="198" y="-17" font-family="Arial" font-size="10.00">points = 6</text>
 </g>
 <!-- karli&#45;&#45;a2 -->
-<g id="edge4" class="edge"><title>karli&#45;&#45;a2</title>
+<g id="edge6" class="edge"><title>karli&#45;&#45;a2</title>
 <path fill="none" stroke="black" d="M252.489,-319.733C254.781,-307.894 256.771,-295.638 258,-284 264.535,-222.122 264.863,-205.843 258,-144 256.498,-130.464 253.748,-115.978 250.758,-102.708"/>
 <text text-anchor="middle" x="256.843" y="-108.144" font-family="Arial" font-size="10.00">done</text>
 <text text-anchor="middle" x="250.032" y="-307.539" font-family="Arial" font-size="10.00">students</text>
@@ -91,7 +91,7 @@
 <text text-anchor="start" x="323" y="-17" font-family="Arial" font-size="10.00">points = 8</text>
 </g>
 <!-- karli&#45;&#45;a3 -->
-<g id="edge6" class="edge"><title>karli&#45;&#45;a3</title>
+<g id="edge8" class="edge"><title>karli&#45;&#45;a3</title>
 <path fill="none" stroke="black" d="M262.712,-319.815C288.288,-255.488 326.239,-160.035 348.909,-103.018"/>
 <text text-anchor="middle" x="349.487" y="-110.501" font-family="Arial" font-size="10.00">done</text>
 <text text-anchor="middle" x="262.133" y="-307.332" font-family="Arial" font-size="10.00">students</text>

@@ -4,8 +4,8 @@
     edge [fontsize = 10];
     
     
-    _KanbanEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/KanbanEntry.java">KanbanEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>oldNoOfLogEntries :int</td></tr> <tr><td align='left'>phases :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
-    _LogEntryStoryBoard [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/LogEntryStoryBoard.java">LogEntryStoryBoard</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _KanbanEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/storyboards/KanbanEntry.java">KanbanEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>oldNoOfLogEntries :int</td></tr> <tr><td align='left'>phases :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _LogEntryStoryBoard [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/storyboards/LogEntryStoryBoard.java">LogEntryStoryBoard</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _StoryboardWall [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/StoryboardWall.java">StoryboardWall</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _Storyboard [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/storyboards/Storyboard.java">Storyboard</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>rootDir :String</td></tr> <tr><td align='left'>stepCounter :int</td></tr> <tr><td align='left'>stepDoneCounter :int</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
     _StoryboardStep [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/StoryboardStep.java">StoryboardStep</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>text :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
@@ -14,5 +14,5 @@
     
     _KanbanEntry -> _LogEntryStoryBoard [headlabel = "logEntries *" taillabel = "kanbanEntry" arrowhead = "none" ];
     _StoryboardWall -> _Storyboard [headlabel = "storyboard" taillabel = "wall" arrowhead = "none" ];
-    _Storyboard -> _StoryboardStep [headlabel = "storyboardSteps *" taillabel = "storyboard" arrowhead = "none" ];
+    _StoryboardStep -> _Storyboard [headlabel = "storyboard" taillabel = "storyboardSteps *" arrowhead = "none" ];
 }

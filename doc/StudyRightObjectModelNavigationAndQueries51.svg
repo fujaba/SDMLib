@@ -18,11 +18,11 @@
 <text text-anchor="start" x="15.5" y="-100" font-family="Arial" font-size="10.00">karli :TeachingAssistant</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-4 8,-94 124,-94 124,-4 8,-4"/>
-<text text-anchor="start" x="13" y="-82" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="13" y="-68" font-family="Arial" font-size="10.00">certified = &quot;false&quot;</text>
+<text text-anchor="start" x="13" y="-82" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="13" y="-68" font-family="Arial" font-size="10.00">motivation = 42</text>
 <text text-anchor="start" x="13" y="-54" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="13" y="-40" font-family="Arial" font-size="10.00">motivation = 42</text>
-<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="13" y="-40" font-family="Arial" font-size="10.00">certified = &quot;false&quot;</text>
+<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
 <text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">room = &quot;&quot;</text>
 </g>
 </g>

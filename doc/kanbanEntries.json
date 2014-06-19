@@ -117,7 +117,7 @@
     "hoursSpend":20,
     "parent":{"id":"KE.K1"},
     "logEntries":[
-    {"id":"KE.L179"}
+    {"id":"KE.L182"}
     ],
     "phases":"active, backlog, implementation, done"
   }
@@ -1337,17 +1337,6 @@
     "comment":"Achieved: Start situation: "
   }
 },  {
-  "id":"KE.L179",
-  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
-  "prop":{
-    "date":"10.10.2013 10:10:42",
-    "hoursSpend":20,
-    "kanbanEntry":{"id":"KE.K9"},
-    "developer":"zuendorf",
-    "phase":"done",
-    "comment":"should be published in paper"
-  }
-},  {
   "id":"KE.L180",
   "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
   "prop":{
@@ -1366,5 +1355,16 @@
     "kanbanEntry":{"id":"KE.K89"},
     "developer":"zuendorf",
     "phase":"done"
+  }
+},  {
+  "id":"KE.L182",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"10.10.2013 10:10:42",
+    "hoursSpend":20,
+    "kanbanEntry":{"id":"KE.K9"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"should be published in paper"
   }
 }]

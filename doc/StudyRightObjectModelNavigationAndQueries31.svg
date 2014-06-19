@@ -18,11 +18,11 @@
 <text text-anchor="start" x="15.5" y="-272" font-family="Arial" font-size="10.00">karli :TeachingAssistant</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-176 8,-266 124,-266 124,-176 8,-176"/>
-<text text-anchor="start" x="13" y="-254" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="13" y="-240" font-family="Arial" font-size="10.00">certified = &quot;false&quot;</text>
+<text text-anchor="start" x="13" y="-254" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="13" y="-240" font-family="Arial" font-size="10.00">motivation = 42</text>
 <text text-anchor="start" x="13" y="-226" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="13" y="-212" font-family="Arial" font-size="10.00">motivation = 42</text>
-<text text-anchor="start" x="13" y="-198" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="13" y="-212" font-family="Arial" font-size="10.00">certified = &quot;false&quot;</text>
+<text text-anchor="start" x="13" y="-198" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
 <text text-anchor="start" x="13" y="-184" font-family="Arial" font-size="10.00">room = &quot;&quot;</text>
 </g>
 <!-- abu -->
@@ -34,10 +34,10 @@
 <text text-anchor="start" x="186.5" y="-258" font-family="Arial" font-size="10.00">abu :Student</text>
 </a>
 <polygon fill="none" stroke="black" points="159,-190 159,-252 266,-252 266,-190 159,-190"/>
-<text text-anchor="start" x="164" y="-240" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="164" y="-226" font-family="Arial" font-size="10.00">name = &quot;Abu&quot;</text>
-<text text-anchor="start" x="164" y="-212" font-family="Arial" font-size="10.00">motivation = 42</text>
-<text text-anchor="start" x="164" y="-198" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="164" y="-240" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="164" y="-226" font-family="Arial" font-size="10.00">motivation = 42</text>
+<text text-anchor="start" x="164" y="-212" font-family="Arial" font-size="10.00">name = &quot;Abu&quot;</text>
+<text text-anchor="start" x="164" y="-198" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
 </g>
 <!-- alice -->
 <g id="node3" class="node"><title>alice</title>
@@ -48,10 +48,10 @@
 <text text-anchor="start" x="184" y="-72" font-family="Arial" font-size="10.00">alice :Student</text>
 </a>
 <polygon fill="none" stroke="black" points="159,-4 159,-66 266,-66 266,-4 159,-4"/>
-<text text-anchor="start" x="164" y="-54" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="164" y="-40" font-family="Arial" font-size="10.00">name = &quot;Alice&quot;</text>
-<text text-anchor="start" x="164" y="-26" font-family="Arial" font-size="10.00">motivation = 42</text>
-<text text-anchor="start" x="164" y="-12" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="164" y="-54" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="164" y="-40" font-family="Arial" font-size="10.00">motivation = 42</text>
+<text text-anchor="start" x="164" y="-26" font-family="Arial" font-size="10.00">name = &quot;Alice&quot;</text>
+<text text-anchor="start" x="164" y="-12" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
 </g>
 <!-- abu&#45;&#45;alice -->
 <g id="edge2" class="edge"><title>abu&#45;&#45;alice</title>
