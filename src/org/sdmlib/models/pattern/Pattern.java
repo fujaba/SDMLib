@@ -29,7 +29,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GraphFactory;
-import org.sdmlib.doc.GuiAdapter;
+import org.sdmlib.doc.interfaze.GuiAdapter;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.serialization.PropertyChangeInterface;

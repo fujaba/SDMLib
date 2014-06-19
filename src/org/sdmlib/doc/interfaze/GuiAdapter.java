@@ -1,4 +1,4 @@
-package org.sdmlib.doc;
+package org.sdmlib.doc.interfaze;
 
 import java.util.LinkedHashMap;
 
@@ -12,6 +12,8 @@ import de.uniks.networkparser.json.JsonArray;
 public interface GuiAdapter
 {
    public GuiAdapter withRootDir(String rootDir);
+   
+   public String getName();
 
    public GuiAdapter withIconMap(LinkedHashMap<String, String> iconMap);
 

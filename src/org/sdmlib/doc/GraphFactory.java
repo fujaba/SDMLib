@@ -6,9 +6,12 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.sdmlib.doc.interfaze.GuiAdapter;
+
 public class GraphFactory
 {
    public static GraphFactory instance;
+   private ArrayList<GuiAdapter> adapters=new ArrayList<GuiAdapter>();
    
    public static GraphFactory getInstance(){
       if(instance==null){
@@ -23,14 +26,25 @@ public class GraphFactory
 
    public static GuiAdapter getAdapter()
    {
+      GraphFactory factory = getInstance();
+      ArrayList<GuiAdapter> adapters = factory.getAdapters();
+      if(adapters.size()>0){
+         return adapters.get(0);
+      }
       return null;
    }
    
    public static GuiAdapter getAdapter(String name)
    {
+      GraphFactory factory = getInstance();
+      ArrayList<GuiAdapter> adapters = factory.getAdapters();
+      for(GuiAdapter item : adapters){
+         if(item.getName().equalsIgnoreCase(name)){
+            return item;
+         }
+      }
       return null;
    }
-   
    
    public void generate(String path){
       File dir  = new File(path);
@@ -55,10 +69,10 @@ public class GraphFactory
             if (plugin.startsWith("path")) {
                classUrl = new File(plugin).toURI().toURL();
             } else {
-               Class<?> c = ucl.loadClass("de.uks.dp.plugins." + plugin);
+               Class<?> c = ucl.loadClass("org.sdmlib.doc." + plugin);
                GuiAdapter p = (GuiAdapter) c.newInstance();
 
-               this.add(p);
+               this.with(p);
             }
 
          }
@@ -69,10 +83,22 @@ public class GraphFactory
       }
    }
 
-   private void add(GuiAdapter p)
+   public ArrayList<GuiAdapter> getAdapters()
    {
-      // TODO Auto-generated method stub
-      
+      return adapters;
+   }
+
+   public GraphFactory with(GuiAdapter... adapters)
+   {
+      if(adapters==null){
+         return this;
+      }
+      for(GuiAdapter item : adapters){
+         if(item!=null){
+            this.adapters.add(item);
+         }
+      }
+      return this;
    }
 
 }

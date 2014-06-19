@@ -31,7 +31,7 @@ import java.util.regex.Matcher;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
-import org.sdmlib.doc.GuiAdapter;
+import org.sdmlib.doc.interfaze.GuiAdapter;
 import org.sdmlib.logger.LogEntry;
 import org.sdmlib.logger.util.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;
@@ -49,7 +49,8 @@ import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.xml.HTMLEntities;
 
 public class GraphViz implements GuiAdapter {
-	private String rootDir = "src";
+   public static final String NAME="GraphViz";
+   private String rootDir = "src";
 	private JsonIdMap lastIdMap = null;
 	private static LinkedHashMap<String, String> iconMap;
 
@@ -662,4 +663,10 @@ public class GraphViz implements GuiAdapter {
 		CallDot.callDot(diagramName, fileText);
 		return diagramName;
 	}
+
+   @Override
+   public String getName()
+   {
+      return NAME;
+   }
 }

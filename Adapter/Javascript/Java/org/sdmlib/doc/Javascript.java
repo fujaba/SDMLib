@@ -2,6 +2,7 @@ package org.sdmlib.doc;
 
 import java.util.LinkedHashMap;
 
+import org.sdmlib.doc.interfaze.GuiAdapter;
 import org.sdmlib.logger.util.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericGraph;
@@ -12,9 +13,10 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class Javascript implements GuiAdapter
 {
+   public static final String NAME="Javascript";
    private String rootDir = "src";
    private JsonIdMap lastIdMap = null;
-   private static LinkedHashMap<String, String> iconMap;
+   private LinkedHashMap<String, String> iconMap;
 
    @Override
    public Javascript withRootDir(String rootDir) {
@@ -22,11 +24,19 @@ public class Javascript implements GuiAdapter
       return this;
    }
 
+   @Override
    public Javascript withIconMap(LinkedHashMap<String, String> iconMap) {
       this.iconMap = iconMap;
       return this;
    }
 
+
+   @Override
+   public String getName()
+   {
+      return NAME;
+   }
+   
    @Override
    public String toImg(String imgName, JsonArray objects)
    {
@@ -76,5 +86,4 @@ public class Javascript implements GuiAdapter
       // TODO Auto-generated method stub
       return null;
    }
-
 }

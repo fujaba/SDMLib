@@ -25,7 +25,7 @@ import java.util.Set;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphFactory;
-import org.sdmlib.doc.GuiAdapter;
+import org.sdmlib.doc.interfaze.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
 
