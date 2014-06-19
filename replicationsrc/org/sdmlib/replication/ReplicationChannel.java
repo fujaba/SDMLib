@@ -29,15 +29,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import org.sdmlib.replication.creators.ReplicationChannelSet;
-import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.utils.PropertyChangeInterface;
-
-import java.beans.PropertyChangeListener;
-
-import org.sdmlib.utils.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ReplicationChannelSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonObject;
 
 public class ReplicationChannel extends Thread implements
       PropertyChangeInterface

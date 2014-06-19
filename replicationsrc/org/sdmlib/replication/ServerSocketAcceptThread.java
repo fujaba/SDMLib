@@ -21,14 +21,12 @@
 
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
-import org.sdmlib.replication.ReplicationNode;
+
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public class ServerSocketAcceptThread extends Thread implements
       PropertyChangeInterface

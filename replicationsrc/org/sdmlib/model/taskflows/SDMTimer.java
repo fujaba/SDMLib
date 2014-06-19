@@ -25,7 +25,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeListener;
 
 public class SDMTimer extends Timer implements PropertyChangeInterface
 {
@@ -102,5 +103,4 @@ public class SDMTimer extends Timer implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       // super.removeYou();
    }
-
 }

@@ -21,16 +21,14 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.replication.creators.ReplicationChangeSet;
-
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import org.sdmlib.serialization.json.JsonIdMap;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.serialization.PropertyChangeInterface;
+
 import org.sdmlib.replication.util.ReplicationChangeSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ChangeHistory implements PropertyChangeInterface
 {

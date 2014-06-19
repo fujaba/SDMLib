@@ -275,7 +275,7 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
          {
             result.add(current);
             
-            todo.with(current.getBodyStats().minus(result));
+            todo.addAll(current.getBodyStats().minus(result));
          }
       }
       

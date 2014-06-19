@@ -21,18 +21,14 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.replication.Task;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
 import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.replication.creators.BoardTaskSet;
-
-import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.BoardTaskSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class BoardTask extends Task implements PropertyChangeInterface
 {

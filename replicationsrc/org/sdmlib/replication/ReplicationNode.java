@@ -129,7 +129,9 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
             this.sharedSpaces = new SharedSpaceSet();
          }
 
-         oldContent = this.sharedSpaces.put("" + value.getSpaceId(), value);
+         oldContent = this.getSharedSpaces().hasSpaceId(value.getSpaceId()).first();
+               
+         this.sharedSpaces.add(value);
 
          if (oldContent != value)
          {
@@ -144,13 +146,13 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
 
    public boolean removeFromSharedSpaces(SharedSpace value)
    {
-      SharedSpace oldContent = null;
-
+      boolean flag = false;
+      
       if ((this.sharedSpaces != null) && (value != null))
       {
-         oldContent = this.sharedSpaces.remove("" + value.getSpaceId());
+         flag = this.sharedSpaces.remove(value);
 
-         if (oldContent == value)
+         if (flag)
          {
             value.setNode(null);
             getPropertyChangeSupport().firePropertyChange(
@@ -158,7 +160,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
          }
       }
 
-      return oldContent == value;
+      return flag;
    }
 
    public ReplicationNode withSharedSpaces(SharedSpace value)

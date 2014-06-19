@@ -23,8 +23,9 @@ package org.sdmlib.replication;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ReplicationServer extends ReplicationNode implements
       PropertyChangeInterface

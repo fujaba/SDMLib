@@ -2,7 +2,7 @@ package org.sdmlib.model.taskflows;
 
 import java.io.IOException;
 
-import org.sdmlib.serialization.json.JsonArray;
+import de.uniks.networkparser.json.JsonArray;
 
 class SDMTaskWrap implements Runnable
 {

@@ -33,11 +33,11 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
 {
 	public abstract Object[] getTaskNames();
 	
-	public void switchTo(PeerProxy peer)
+	public void switchTo(PeerProxy fileServer)
    {
       taskNo++;
       
-      peer.transferTaskFlow(getRootParent());
+      fileServer.transferTaskFlow(getRootParent());
    }
    
    public void switchToThisAnd(PeerProxy peer)
