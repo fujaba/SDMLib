@@ -1,0 +1,44 @@
+
+ digraph ClassDiagram {
+    node [shape = none, fontsize = 10]; 
+    edge [fontsize = 10];
+    
+    
+    _Thread [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/java/lang/Thread.java">Thread</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Socket [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/java/net/Socket.java">Socket</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ReplicationNode [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/ReplicationNode.java">ReplicationNode</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _SharedSpace [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/SharedSpace.java">SharedSpace</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>spaceId :String</td></tr> <tr><td align='left'>history :ChangeHistory</td></tr> <tr><td align='left'>lastChangeId :long</td></tr> <tr><td align='left'>nodeId :String</td></tr> <tr><td align='left'>javaFXApplication :boolean</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ReplicationChannel [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/ReplicationChannel.java">ReplicationChannel</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>socket :Socket</td></tr> <tr><td align='left'>targetNodeId :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ReplicationServer [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/ReplicationServer.java">ReplicationServer</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ServerSocketAcceptThread [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/ServerSocketAcceptThread.java">ServerSocketAcceptThread</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>port :int</td></tr> <tr><td align='left'>replicationNode :ReplicationNode</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Task [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/Task.java">Task</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _LogEntry [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/LogEntry.java">LogEntry</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>stepName :String</td></tr> <tr><td align='left'>executedBy :String</td></tr> <tr><td align='left'>timeStamp :long</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ChangeHistory [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/ChangeHistory.java">ChangeHistory</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ReplicationChange [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/ReplicationChange.java">ReplicationChange</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>historyIdPrefix :String</td></tr> <tr><td align='left'>historyIdNumber :long</td></tr> <tr><td align='left'>targetObjectId :String</td></tr> <tr><td align='left'>targetProperty :String</td></tr> <tr><td align='left'>isToManyProperty :boolean</td></tr> <tr><td align='left'>changeMsg :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _RemoteTaskBoard [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/RemoteTaskBoard.java">RemoteTaskBoard</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _Lane [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/Lane.java">Lane</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _BoardTask [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/BoardTask.java">BoardTask</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>status :String</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ReplicationRoot [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/ReplicationRoot.java">ReplicationRoot</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td align='left'>name :String</td></tr> <tr><td align='left'>applicationObject :Object</td></tr>  </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    _ReplicationNode [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td HREF="../src/org/sdmlib/replication/ReplicationNode.java">ReplicationNode</td> </tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> <tr><td><table border='0' cellborder='0' cellspacing='0'> <tr><td> </td></tr> </table></td></tr> </table>>];
+    
+    
+    
+    _Thread ->  _SharedSpace [dir = "back" arrowtail = "empty"];
+    _Thread ->  _ReplicationChannel [dir = "back" arrowtail = "empty"];
+    _ReplicationNode ->  _ReplicationServer [dir = "back" arrowtail = "empty"];
+    _Thread ->  _ServerSocketAcceptThread [dir = "back" arrowtail = "empty"];
+    _Task ->  _ReplicationChange [dir = "back" arrowtail = "empty"];
+    _Task ->  _BoardTask [dir = "back" arrowtail = "empty"];
+    _ReplicationNode -> _SharedSpace [headlabel = "sharedSpaces *" taillabel = "node" arrowhead = "none" ];
+    _SharedSpace -> _ReplicationChannel [headlabel = "channels *" taillabel = "sharedSpace" arrowhead = "none" ];
+    _Task -> _LogEntry [headlabel = "logEntries *" taillabel = "task" arrowhead = "none" ];
+    _ChangeHistory -> _ReplicationChange [headlabel = "changes *" taillabel = "history" arrowhead = "none" ];
+    _RemoteTaskBoard -> _Lane [headlabel = "lanes *" taillabel = "board" arrowhead = "none" ];
+    _Lane -> _BoardTask [headlabel = "tasks *" taillabel = "lane" arrowhead = "none" ];
+    _BoardTask -> _BoardTask [headlabel = "next *" taillabel = "prev *" arrowhead = "none" ];
+    _ReplicationRoot -> _ReplicationRoot [headlabel = "kids *" taillabel = "parent" arrowhead = "none" ];
+    _SharedSpace -> _ChangeHistory [headlabel = "history" taillabel = "" arrowhead = "vee" ];
+    _ReplicationChannel -> _Socket [headlabel = "socket" taillabel = "" arrowhead = "vee" ];
+    _ServerSocketAcceptThread -> _ReplicationNode [headlabel = "replicationNode" taillabel = "" arrowhead = "vee" ];
+    _ReplicationRoot -> _Object [headlabel = "applicationObject" taillabel = "" arrowhead = "vee" ];
+}

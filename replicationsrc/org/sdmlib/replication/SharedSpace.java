@@ -30,6 +30,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -41,17 +42,20 @@ import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import javafx.application.Platform;
-import org.sdmlib.replication.creators.ReplicationChangeSet;
-import org.sdmlib.replication.creators.ReplicationChannelSet;
-import org.sdmlib.replication.creators.ReplicationRootSet;
-import org.sdmlib.replication.creators.SharedSpaceSet;
-import org.sdmlib.serialization.EntityUtil;
-import org.sdmlib.serialization.interfaces.MapUpdateListener;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.ReplicationChangeSet;
+import org.sdmlib.replication.util.ReplicationChannelSet;
+import org.sdmlib.replication.util.ReplicationNodeCreator;
+import org.sdmlib.replication.util.ReplicationRootSet;
+import org.sdmlib.replication.util.SharedSpaceSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.MapUpdateListener;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
 
 
 
@@ -98,7 +102,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public ReplicationRoot plainInit()
    {
-      map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+      map.withCreator(ReplicationNodeCreator.createIdMap("i").getCreators());
       
       map.withUpdateMsgListener((MapUpdateListener) this);
       
@@ -110,7 +114,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public SharedSpace init(PropertyChangeListener laneListener)
    {
-      map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+      map.withCreator(ReplicationNodeCreator.createIdMap("i").getCreators());
       setName("Lane" + nodeId);
       ReplicationChannel channel = createChannels().withConnect(serverIp, serverPort);
       channel.setName("ReplicationChannel" + nodeId);
@@ -143,7 +147,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
             JsonObject jsonObject = new JsonObject().withValue(msg);
             if (jsonObject.get(CURRENT_HISTORY_ID) != null)
             {
-               long receivedId = jsonObject.getLong(CURRENT_HISTORY_ID);
+               long receivedId = (long) jsonObject.get(CURRENT_HISTORY_ID);
                if (receivedId > this.lastChangeId)
                {
                   this.lastChangeId = receivedId;
@@ -300,7 +304,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          // handle resend request
          if (jsonObject.get(RESEND_ID_HISTORY_NUMBER) != null)
          {
-            previousChange.setHistoryIdNumber(jsonObject.getLong(RESEND_ID_HISTORY_NUMBER));
+            previousChange.setHistoryIdNumber((long) jsonObject.get(RESEND_ID_HISTORY_NUMBER));
             previousChange.setHistoryIdPrefix(jsonObject.getString(RESEND_ID_HISTORY_PREFIX));
 
             sendAllChangesSince(previousChange, msg.channel);
@@ -312,7 +316,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
          ReplicationChange change = (ReplicationChange) cmap.decode(jsonObject);
          
-         change.setChangeMsg(EntityUtil.unquote(change.getChangeMsg()));
+         change.setChangeMsg(EntityUtil.unQuote(change.getChangeMsg()));
 
          // is change already known?
          if (getHistory().getChanges().contains(change))
@@ -796,7 +800,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
                      JsonObject jsonObject = new JsonObject().withValue(line);
                      
                      ReplicationChange change = (ReplicationChange) getChangeMap().decode(jsonObject);
-                     change.setChangeMsg(EntityUtil.unquote(change.getChangeMsg()));
+                     change.setChangeMsg(EntityUtil.unQuote(change.getChangeMsg()));
 
                      changeList.add(change);
 
@@ -952,7 +956,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       if (changeMap == null)
       {
-         changeMap = org.sdmlib.replication.creators.CreatorCreator.createIdMap(nodeId);
+         changeMap = ReplicationNodeCreator.createIdMap(nodeId);
       }
       return changeMap;
    }
@@ -1067,6 +1071,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       setNode(null);
       removeAllFromChannels();
+      withoutChannels(this.getChannels().toArray(new ReplicationChannel[this.getChannels().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -1549,10 +1554,64 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          this.channel = channel;
          this.msg = msg;
       }
-
+   
       public ReplicationChannel channel;
 
       public String msg;
    }
+   //==========================================================================
+   
+   public static final String PROPERTY_SOCKET = "socket";
+   
+   private Socket socket;
+
+   public Socket getSocket()
+   {
+      return this.socket;
+   }
+   
+   public void setSocket(Socket value)
+   {
+      if (this.socket != value)
+      {
+         Socket oldValue = this.socket;
+         this.socket = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SOCKET, oldValue, value);
+      }
+   }
+   
+   public SharedSpace withSocket(Socket value)
+   {
+      setSocket(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TARGETNODEID = "targetNodeId";
+   
+   private String targetNodeId;
+
+   public String getTargetNodeId()
+   {
+      return this.targetNodeId;
+   }
+   
+   public void setTargetNodeId(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.targetNodeId, value))
+      {
+         String oldValue = this.targetNodeId;
+         this.targetNodeId = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETNODEID, oldValue, value);
+      }
+   }
+   
+   public SharedSpace withTargetNodeId(String value)
+   {
+      setTargetNodeId(value);
+      return this;
+   } 
 }
 

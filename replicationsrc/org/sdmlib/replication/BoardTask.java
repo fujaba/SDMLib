@@ -32,6 +32,7 @@ import org.sdmlib.replication.creators.BoardTaskSet;
 
 import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
+import org.sdmlib.replication.util.BoardTaskSet;
 
 public class BoardTask extends Task implements PropertyChangeInterface
 {
@@ -151,6 +152,9 @@ public class BoardTask extends Task implements PropertyChangeInterface
       setLane(null);
       removeAllFromNext();
       removeAllFromPrev();
+      withoutLogEntries(this.getLogEntries().toArray(new LogEntry[this.getLogEntries().size()]));
+      withoutNext(this.getNext().toArray(new BoardTask[this.getNext().size()]));
+      withoutPrev(this.getPrev().toArray(new BoardTask[this.getPrev().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }

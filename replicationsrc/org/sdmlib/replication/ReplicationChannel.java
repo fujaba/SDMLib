@@ -36,6 +36,8 @@ import org.sdmlib.utils.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
 import org.sdmlib.utils.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.replication.util.ReplicationChannelSet;
 
 public class ReplicationChannel extends Thread implements
       PropertyChangeInterface

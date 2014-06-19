@@ -28,6 +28,8 @@ import org.sdmlib.utils.StrUtil;
 import org.sdmlib.replication.creators.ReplicationRootSet;
 import java.util.LinkedHashSet;
 import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.replication.util.ReplicationRootSet;
 
 public class ReplicationRoot implements PropertyChangeInterface
 {
@@ -120,6 +122,7 @@ public class ReplicationRoot implements PropertyChangeInterface
    {
       removeAllFromKids();
       setParent(null);
+      withoutKids(this.getKids().toArray(new ReplicationRoot[this.getKids().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

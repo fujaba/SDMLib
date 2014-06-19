@@ -31,6 +31,7 @@ import org.sdmlib.replication.Task;
 import org.sdmlib.serialization.json.JsonIdMap;
 
 import java.beans.PropertyChangeListener;
+import org.sdmlib.replication.util.ReplicationChangeSet;
 
 public class ReplicationChange extends Task implements PropertyChangeInterface,
       Comparable<ReplicationChange>
@@ -158,6 +159,7 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
    {
       setHistory(null);
       removeAllFromLogEntries();
+      withoutLogEntries(this.getLogEntries().toArray(new LogEntry[this.getLogEntries().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

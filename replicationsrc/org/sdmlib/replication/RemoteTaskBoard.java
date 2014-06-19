@@ -31,6 +31,8 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.replication.util.LaneSet;
 
 public class RemoteTaskBoard implements PropertyChangeInterface
 {
@@ -80,6 +82,7 @@ public class RemoteTaskBoard implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromLanes();
+      withoutLanes(this.getLanes().toArray(new Lane[this.getLanes().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

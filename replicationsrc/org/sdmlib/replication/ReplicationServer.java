@@ -88,7 +88,20 @@ public class ReplicationServer extends ReplicationNode implements
    public void removeYou()
    {
       removeAllFromSharedSpaces();
+      withoutSharedSpaces(this.getSharedSpaces().toArray(new SharedSpace[this.getSharedSpaces().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getSpaceId());
+      _.append(" ").append(this.getNodeId());
+      return _.substring(1);
+   }
+
 }
