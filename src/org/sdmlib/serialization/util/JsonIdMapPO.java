@@ -1,35 +1,35 @@
-package org.sdmlib.logger.util;
+package org.sdmlib.serialization.util;
 
-import org.sdmlib.logger.PeerProxy;
 import org.sdmlib.models.pattern.PatternObject;
 
-public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
+import de.uniks.networkparser.json.JsonIdMap;
+
+public class JsonIdMapPO extends PatternObject<JsonIdMapPO, JsonIdMap>
 {
-   public PeerProxyPO(){
+   public JsonIdMapPO(){
       newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
-   public PeerProxyPO(PeerProxy... hostGraphObject) {
+   public JsonIdMapPO(JsonIdMap... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
       newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
   }
-    public PeerProxySet allMatches()
+   public JsonIdMapSet allMatches()
    {
       this.setDoAllMatches(true);
-      
-      PeerProxySet matches = new PeerProxySet();
+
+      JsonIdMapSet matches = new JsonIdMapSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((PeerProxy) this.getCurrentMatch());
-         
+         matches.add((JsonIdMap) this.getCurrentMatch());
+
          this.getPattern().findMatch();
       }
-      
+
       return matches;
    }
-   
-}
 
+}

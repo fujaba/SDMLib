@@ -1,26 +1,22 @@
-package org.sdmlib.logger.util;
+package org.sdmlib.serialization.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class JsonIdMapCreator extends EntityFactory
+public class SDMLibJsonIdMapCreator extends EntityFactory
 {
-   private final String[] properties = new String[]
-   {
-   };
-   
    @Override
    public String[] getProperties()
    {
-      return properties;
+      return new String[]{};
    }
    
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new JsonIdMap();
+      return new SDMLibJsonIdMap();
    }
    
    @Override
@@ -49,4 +45,3 @@ public class JsonIdMapCreator extends EntityFactory
       ((SDMLibJsonIdMap) entity).removeYou();
    }
 }
-

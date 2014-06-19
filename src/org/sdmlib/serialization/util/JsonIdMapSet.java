@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,65 +19,64 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.adamandeve.model.util;
+package org.sdmlib.serialization.util;
 
-import org.sdmlib.examples.adamandeve.model.Adam;
-import org.sdmlib.serialization.EntityFactory;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.models.modelsets.StringList;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class AdamCreator extends EntityFactory
+public class JsonIdMapSet extends LinkedHashSet<JsonIdMap>
 {
-   private final String[] properties = new String[]
-   {
-   };
-   
+   private static final long serialVersionUID = 1L;
+
    @Override
-   public String[] getProperties()
+   public String toString()
    {
-      return properties;
-   }
-   
-   @Override
-   public Object getSendableInstance(boolean reference)
-   {
-      return new Adam();
-   }
-   
-   @Override
-   public Object getValue(Object target, String attrName)
-   {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
+      StringList stringList = new StringList();
       
-      if (pos > 0)
+      for (JsonIdMap elem : this)
       {
-         attribute = attrName.substring(0, pos);
+         stringList.add(elem.toString());
       }
       
-      return null;
+      return "(" + stringList.concat(", ") + ")";
    }
-   
-   @Override
-   public boolean setValue(Object target, String attrName, Object value, String type)
+
+
+   public String getEntryType()
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      return "org.sdmlib.serialization.json.JsonIdMap";
+   }
+
+
+
+   public JsonIdMapSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
       {
-         attrName = attrName + type;
+         this.addAll((Collection<JsonIdMap>)value);
+      }
+      else if (value != null)
+      {
+         this.add((JsonIdMap) value);
       }
       
-      return false;
-   }
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+      return this;
    }
    
-   //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+   public JsonIdMapSet without(JsonIdMap value)
    {
-      ((Adam) entity).removeYou();
+      this.remove(value);
+      return this;
+   }
+
+
+
+   public JsonIdMapPO hasJsonIdMapPO()
+   {
+      return new JsonIdMapPO(this.toArray(new JsonIdMap[this.size()]));
    }
 }

@@ -1,10 +1,11 @@
-package org.sdmlib.logger.util;
+package org.sdmlib.serialization.util;
 
 import org.sdmlib.serialization.EntityFactory;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class PeerProxyCreator extends EntityFactory
+public class JsonIdMapCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
@@ -19,7 +20,7 @@ public class PeerProxyCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return null;
+      return new JsonIdMap();
    }
    
    @Override
@@ -31,23 +32,21 @@ public class PeerProxyCreator extends EntityFactory
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
-      {
-         attrName = attrName + type;
-      }
       return false;
    }
+   
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.pattern.util.PatternCreator.createIdMap(sessionID);
    }
+
    
    //==========================================================================
    
    @Override
    public void removeObject(Object entity)
    {
-      // wrapped object has no removeYou method
+      ((SDMLibJsonIdMap) entity).removeYou();
    }
 }
 

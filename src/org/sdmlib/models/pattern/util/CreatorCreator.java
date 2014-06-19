@@ -29,10 +29,9 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.models.pattern.util.DestroyObjectElemPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.pattern.util.OptionalSubPatternCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.pattern.util.OptionalSubPatternPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.logger.util.JsonIdMapCreator());
-      jsonIdMap.withCreator(new org.sdmlib.logger.util.JsonIdMapPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.logger.util.SDMLibJsonIdMapCreator());
-      jsonIdMap.withCreator(new org.sdmlib.logger.util.SDMLibJsonIdMapPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.serialization.util.JsonIdMapCreator());
+      jsonIdMap.withCreator(new org.sdmlib.serialization.util.JsonIdMapPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.serialization.util.SDMLibJsonIdMapPOCreator());
       jsonIdMap.withCreator(new StringBuilderPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.pattern.util.StringBuilderCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.pattern.util.StringBuilderPOCreator());

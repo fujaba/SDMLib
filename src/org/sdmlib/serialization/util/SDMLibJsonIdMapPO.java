@@ -1,4 +1,4 @@
-package org.sdmlib.logger.util;
+package org.sdmlib.serialization.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.SDMLibJsonIdMap;

@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.model.taskflows;
 
 import java.beans.PropertyChangeSupport;
@@ -28,22 +28,20 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.logger.TaskFlow;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class PeerProxy implements PropertyChangeInterface,
-      Comparable<PeerProxy>
+public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 {
-   public PeerProxy()
+   public PeerProxy ()
    {
       // blank
    }
-
-   public PeerProxy(String ip, int port, JsonIdMap map)
+   
+   public PeerProxy(String ip, int port, SDMLibJsonIdMap map)
    {
       this.withIp(ip).withPort(port).withIdMap(map);
       map.put(ip + "." + port, this);
@@ -53,18 +51,19 @@ public class PeerProxy implements PropertyChangeInterface,
    {
       try
       {
-         if (socket == null || !socket.isConnected())
+         if (socket == null || ! socket.isConnected())
          {
             socket = new Socket(ip, port);
-
+            
             out = new OutputStreamWriter(socket.getOutputStream());
          }
-
-         JsonArray jsonArray = idMap.toJsonArray(taskFlow);
-
-         out.write(jsonArray.toString() + "\n");
+         
+         JsonArray jsonArray = idMap.toJsonArray(taskFlow); 
+                  
+         out.write(jsonArray.toString()+"\n");
          out.flush();
-
+         
+         
       }
       catch (UnknownHostException e)
       {
@@ -77,23 +76,23 @@ public class PeerProxy implements PropertyChangeInterface,
          e.printStackTrace();
       }
    }
-
+   
    private Socket socket = null;
-
+   
    public Socket getSocket()
    {
       return socket;
    }
-
+   
    private OutputStreamWriter out = null;
-
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public Object get(String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-
+      
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -113,12 +112,13 @@ public class PeerProxy implements PropertyChangeInterface,
       {
          return getIdMap();
       }
-
+      
       return null;
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_IP.equalsIgnoreCase(attrName))
@@ -135,119 +135,120 @@ public class PeerProxy implements PropertyChangeInterface,
 
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         setIdMap((JsonIdMap) value);
+         setIdMap((org.sdmlib.serialization.SDMLibJsonIdMap) value);
          return true;
       }
 
       return false;
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
+   
+   @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_IP = "ip";
-
+   
    private String ip;
 
    public String getIp()
    {
       return this.ip;
    }
-
+   
    public void setIp(String value)
    {
-      if (!StrUtil.stringEquals(this.ip, value))
+      if ( ! StrUtil.stringEquals(this.ip, value))
       {
          String oldValue = this.ip;
          this.ip = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IP, oldValue,
-            value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IP, oldValue, value);
       }
    }
-
+   
    public PeerProxy withIp(String value)
    {
       setIp(value);
       return this;
-   }
+   } 
 
-   // ==========================================================================
-
+   
+   //==========================================================================
+   
    public static final String PROPERTY_PORT = "port";
-
+   
    private int port;
 
    public int getPort()
    {
       return this.port;
    }
-
+   
    public void setPort(int value)
    {
       if (this.port != value)
       {
          int oldValue = this.port;
          this.port = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PORT, oldValue,
-            value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PORT, oldValue, value);
       }
    }
-
+   
    public PeerProxy withPort(int value)
    {
       setPort(value);
       return this;
-   }
+   } 
 
-   // ==========================================================================
 
+   
+   //==========================================================================
+   
    public static final String PROPERTY_IDMAP = "idMap";
+   
+   private org.sdmlib.serialization.SDMLibJsonIdMap idMap;
 
-   private JsonIdMap idMap;
-
-   public JsonIdMap getIdMap()
+   public org.sdmlib.serialization.SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
-
-   public void setIdMap(JsonIdMap value)
+   
+   public void setIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
          JsonIdMap oldValue = this.idMap;
          this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP,
-            oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
       }
    }
-
-   public PeerProxy withIdMap(JsonIdMap value)
+   
+   public PeerProxy withIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;
-   }
-
+   } 
+   
+   @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getIp());
-      _.append(" ").append(this.getPort());
       return "" + ip + ":" + port;
    }
 
@@ -261,33 +262,15 @@ public class PeerProxy implements PropertyChangeInterface,
          {
             return 1;
          }
-
+         
          if (this.getPort() < o.getPort())
          {
             return -1;
          }
-
+         
          return 0;
       }
       return result;
    }
-
-   
-   //==========================================================================
-   
-   public void setIdMap(SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         SDMLibJsonIdMap oldValue = (SDMLibJsonIdMap) this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public PeerProxy withIdMap(SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
 }
+

@@ -28,9 +28,6 @@ import java.net.Socket;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeListener;
-
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonIdMap;
@@ -119,7 +116,7 @@ public class SocketThread extends Thread implements PropertyChangeInterface
 
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         setIdMap((JsonIdMap) value);
+         setIdMap((SDMLibJsonIdMap) value);
          return true;
       }
 
@@ -208,14 +205,14 @@ public class SocketThread extends Thread implements PropertyChangeInterface
 
    public static final String PROPERTY_IDMAP = "idMap";
 
-   JsonIdMap idMap;
+   SDMLibJsonIdMap idMap;
 
-   public JsonIdMap getIdMap()
+   public SDMLibJsonIdMap getIdMap()
    {
       return this.idMap;
    }
 
-   public void setIdMap(JsonIdMap value)
+   public void setIdMap(SDMLibJsonIdMap value)
    {
       if (this.idMap != value)
       {
@@ -226,7 +223,7 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       }
    }
 
-   public SocketThread withIdMap(JsonIdMap value)
+   public SocketThread withIdMap(SDMLibJsonIdMap value)
    {
       setIdMap(value);
       return this;
@@ -270,24 +267,4 @@ public class SocketThread extends Thread implements PropertyChangeInterface
       _.append(" ").append(this.getPort());
       return _.substring(1);
    }
-
-
-   
-   //==========================================================================
-   
-   public void setIdMap(SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         SDMLibJsonIdMap oldValue = (SDMLibJsonIdMap) this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP, oldValue, value);
-      }
-   }
-   
-   public SocketThread withIdMap(SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   } 
 }

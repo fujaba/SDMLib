@@ -1,4 +1,4 @@
-package org.sdmlib.examples.adamandeve.model.util;
+package org.sdmlib.serialization.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
@@ -11,13 +11,15 @@ public class SDMLibJsonIdMapPOCreator extends PatternObjectCreator
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-          return new SDMLibJsonIdMapPO(new SDMLibJsonIdMap[]{});
+         return new SDMLibJsonIdMapPO(new SDMLibJsonIdMap[]{});
       } else {
-          return new SDMLibJsonIdMapPO();
+         return new SDMLibJsonIdMapPO();
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static JsonIdMap createIdMap(String sessionID)
+   {
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+

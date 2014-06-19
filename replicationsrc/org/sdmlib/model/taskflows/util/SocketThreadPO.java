@@ -165,7 +165,7 @@ public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((SocketThread) getCurrentMatch()).getIdMap();
+         return (SDMLibJsonIdMap) ((SocketThread) getCurrentMatch()).getIdMap();
       }
       return null;
    }

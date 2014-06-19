@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2013 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,49 +19,72 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.logger.util;
+package org.sdmlib.serialization.util;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
-import org.sdmlib.logger.PeerProxy;
-import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-public class PeerProxySet extends SDMSet<PeerProxy>
+public class SDMLibJsonIdMapSet extends LinkedHashSet<SDMLibJsonIdMap>
 {
 
 
-   public PeerProxyPO hasPeerProxyPO()
-   {
-      return new PeerProxyPO(this.toArray(new PeerProxy[this.size()]));
-   }
+   private static final long serialVersionUID = 1L;
+
 
 
    @Override
-   public String getEntryType()
+   public String toString()
    {
-      return "org.sdmlib.examples.adamandeve.model.PeerProxy";
+      StringList stringList = new StringList();
+      
+      for (SDMLibJsonIdMap elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return "(" + stringList.concat(", ") + ")";
    }
 
 
-   public PeerProxySet with(Object value)
+   public String getEntryType()
+   {
+      return "org.sdmlib.serialization.json.SDMLibJsonIdMap";
+   }
+
+
+   public SDMLibJsonIdMapPO startModelPattern()
+   {
+      return null;
+   }
+
+
+   public SDMLibJsonIdMapSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<PeerProxy>)value);
+         this.addAll((Collection<SDMLibJsonIdMap>)value);
       }
       else if (value != null)
       {
-         this.add((PeerProxy) value);
+         this.add((SDMLibJsonIdMap) value);
       }
       
       return this;
    }
    
-   public PeerProxySet without(PeerProxy value)
+   public SDMLibJsonIdMapSet without(SDMLibJsonIdMap value)
    {
       this.remove(value);
       return this;
    }
 
-}
 
+
+   public SDMLibJsonIdMapPO hasSDMLibJsonIdMapPO()
+   {
+      return new SDMLibJsonIdMapPO(this.toArray(new SDMLibJsonIdMap[this.size()]));
+   }
+}

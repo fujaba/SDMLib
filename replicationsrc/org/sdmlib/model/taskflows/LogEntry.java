@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2012 deeptought 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,103 @@
    
 package org.sdmlib.model.taskflows;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
+import java.util.LinkedHashSet;
+
 import org.sdmlib.StrUtil;
 import org.sdmlib.model.taskflows.util.LogEntrySet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class LogEntry implements PropertyChangeInterface
 {
+
+   
+   //==========================================================================
+   
+   public Object get(String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+
+      if (PROPERTY_NODENAME.equalsIgnoreCase(attribute))
+      {
+         return getNodeName();
+      }
+
+      if (PROPERTY_TASKNAME.equalsIgnoreCase(attribute))
+      {
+         return getTaskName();
+      }
+
+      if (PROPERTY_LOGGER.equalsIgnoreCase(attrName))
+      {
+         return getLogger();
+      }
+
+      if (PROPERTY_CHILDREN.equalsIgnoreCase(attrName))
+      {
+         return getChildren();
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         return getParent();
+      }
+      
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public boolean set(String attrName, Object value)
+   {
+      if (PROPERTY_NODENAME.equalsIgnoreCase(attrName))
+      {
+         setNodeName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_TASKNAME.equalsIgnoreCase(attrName))
+      {
+         setTaskName((String) value);
+         return true;
+      }
+
+      if (PROPERTY_LOGGER.equalsIgnoreCase(attrName))
+      {
+         setLogger((Logger) value);
+         return true;
+      }
+
+      if (PROPERTY_CHILDREN.equalsIgnoreCase(attrName))
+      {
+         addToChildren((LogEntry) value);
+         return true;
+      }
+      
+      if ((PROPERTY_CHILDREN + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         removeFromChildren((LogEntry) value);
+         return true;
+      }
+
+      if (PROPERTY_PARENT.equalsIgnoreCase(attrName))
+      {
+         setParent((LogEntry) value);
+         return true;
+      }
+
+      return false;
+   }
 
    
    //==========================================================================
@@ -40,20 +129,14 @@ public class LogEntry implements PropertyChangeInterface
    {
       return listeners;
    }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
 
    
    //==========================================================================
    
-   
    public void removeYou()
    {
       setLogger(null);
-      withoutChildren(this.getChildren().toArray(new LogEntry[this.getChildren().size()]));
+      removeAllFromChildren();
       setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -86,18 +169,6 @@ public class LogEntry implements PropertyChangeInterface
       return this;
    } 
 
-
-   @Override
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getNodeName());
-      _.append(" ").append(this.getTaskName());
-      return _.substring(1);
-   }
-
-
    
    //==========================================================================
    
@@ -127,7 +198,7 @@ public class LogEntry implements PropertyChangeInterface
    } 
 
    
-   public static final LogEntrySet EMPTY_SET = new LogEntrySet().withReadonly(true);
+   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet();
 
    
    /********************************************************************
@@ -139,14 +210,14 @@ public class LogEntry implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_LOGGER = "logger";
-
+   
    private Logger logger = null;
-
+   
    public Logger getLogger()
    {
       return this.logger;
    }
-
+   
    public boolean setLogger(Logger value)
    {
       boolean changed = false;
@@ -174,13 +245,13 @@ public class LogEntry implements PropertyChangeInterface
       
       return changed;
    }
-
+   
    public LogEntry withLogger(Logger value)
    {
       setLogger(value);
       return this;
    } 
-
+   
    public Logger createLogger()
    {
       Logger value = new Logger();
@@ -198,68 +269,82 @@ public class LogEntry implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_CHILDREN = "children";
-
+   
    private LogEntrySet children = null;
    
    public LogEntrySet getChildren()
    {
       if (this.children == null)
       {
-         return LogEntry.EMPTY_SET;
+         return new LogEntrySet();
       }
    
       return this.children;
    }
-   public LogEntrySet getChildrenTransitive()
+   
+   public boolean addToChildren(LogEntry value)
    {
-      LogEntrySet result = new LogEntrySet().with(this);
-      return result.getChildrenTransitive();
-   }
-
-
-   public LogEntry withChildren(LogEntry... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (LogEntry item : value)
+      boolean changed = false;
+      
+      if (value != null)
       {
-         if (item != null)
+         if (this.children == null)
          {
-            if (this.children == null)
-            {
-               this.children = new LogEntrySet();
-            }
-            
-            boolean changed = this.children.add (item);
-
-            if (changed)
-            {
-               item.withParent(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, null, item);
-            }
+            this.children = new LogEntrySet();
+         }
+         
+         changed = this.children.add (value);
+         
+         if (changed)
+         {
+            value.withParent(this);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, null, value);
          }
       }
+         
+      return changed;   
+   }
+   
+   public boolean removeFromChildren(LogEntry value)
+   {
+      boolean changed = false;
+      
+      if ((this.children != null) && (value != null))
+      {
+         changed = this.children.remove (value);
+         
+         if (changed)
+         {
+            value.setParent(null);
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, value, null);
+         }
+      }
+         
+      return changed;   
+   }
+   
+   public LogEntry withChildren(LogEntry value)
+   {
+      addToChildren(value);
       return this;
    } 
-
-   public LogEntry withoutChildren(LogEntry... value)
+   
+   public LogEntry withoutChildren(LogEntry value)
    {
-      for (LogEntry item : value)
-      {
-         if ((this.children != null) && (item != null))
-         {
-            if (this.children.remove(item))
-            {
-               item.setParent(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, item, null);
-            }
-         }
-         withoutChildren(item);
-      }
+      removeFromChildren(value);
       return this;
+   } 
+   
+   public void removeAllFromChildren()
+   {
+      LinkedHashSet<LogEntry> tmpSet = new LinkedHashSet<LogEntry>(this.getChildren());
+   
+      for (LogEntry value : tmpSet)
+      {
+         this.removeFromChildren(value);
+      }
    }
-
+   
    public LogEntry createChildren()
    {
       LogEntry value = new LogEntry();
@@ -277,20 +362,14 @@ public class LogEntry implements PropertyChangeInterface
     */
    
    public static final String PROPERTY_PARENT = "parent";
-
+   
    private LogEntry parent = null;
-
+   
    public LogEntry getParent()
    {
       return this.parent;
    }
-   public LogEntrySet getParentTransitive()
-   {
-      LogEntrySet result = new LogEntrySet().with(this);
-      return result.getParentTransitive();
-   }
-
-
+   
    public boolean setParent(LogEntry value)
    {
       boolean changed = false;
@@ -318,13 +397,13 @@ public class LogEntry implements PropertyChangeInterface
       
       return changed;
    }
-
+   
    public LogEntry withParent(LogEntry value)
    {
       setParent(value);
       return this;
    } 
-
+   
    public LogEntry createParent()
    {
       LogEntry value = new LogEntry();
@@ -332,3 +411,4 @@ public class LogEntry implements PropertyChangeInterface
       return value;
    } 
 }
+

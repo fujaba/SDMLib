@@ -1,23 +1,24 @@
-package org.sdmlib.examples.adamandeve.model.util;
+package org.sdmlib.serialization.util;
 
-import org.sdmlib.examples.adamandeve.model.Eve;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class EvePOCreator extends PatternObjectCreator
+public class JsonIdMapPOCreator extends PatternObjectCreator
 {
    @Override
    public Object getSendableInstance(boolean reference)
    {
       if(reference) {
-          return new EvePO(new Eve[]{});
+         return new JsonIdMapPO(new JsonIdMap[]{});
       } else {
-          return new EvePO();
+         return new JsonIdMapPO();
       }
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
+   public static JsonIdMap createIdMap(String sessionID)
+   {
       return CreatorCreator.createIdMap(sessionID);
    }
 }
+

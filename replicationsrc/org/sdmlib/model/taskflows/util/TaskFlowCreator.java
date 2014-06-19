@@ -21,9 +21,10 @@
    
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class TaskFlowCreator extends EntityFactory
 {
@@ -44,7 +45,7 @@ public class TaskFlowCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new TaskFlow();
+      return null;
    }
    
    @Override
