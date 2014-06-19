@@ -2,9 +2,8 @@ package org.sdmlib.javafx;
 
 import javafx.beans.Observable;
 import javafx.scene.paint.Color;
-
-import org.sdmlib.serialization.IdMap;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 /*
  NetworkParser

@@ -1,0 +1,63 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'jacoco'
+//apply from file: 'artifactory.gradle'
+
+version = '1.1-SNAPSHOT' //getCheckedOutGitCommitHash() + '-SNAPSHOT'
+group = 'org.sdmlib'
+
+sourceSets {
+	main.java.srcDirs = ['src', 'NetworkParser']
+	main.resources.srcDir 'src/resources'
+	test.java.srcDir 'examples'
+	test.resources.srcDir 'test/resources'
+}
+
+def getCheckedOutGitCommitHash() {
+    def gitFolder = "$projectDir/.git/"
+    def takeFromHash = 12
+    /*
+     * '.git/HEAD' contains either
+     *      in case of detached head: the currently checked out commit hash
+     *      otherwise: a reference to a file containing the current commit hash
+     */
+    def head = new File(gitFolder + "HEAD").text.split(":") // .git/HEAD
+    def isCommit = head.length == 1 // e5a7c79edabbf7dd39888442df081b1c9d8e88fd
+    // def isRef = head.length > 1     // ref: refs/heads/master
+ 
+    if(isCommit) return head[0].trim().take(takeFromHash) // e5a7c79edabb
+ 
+    def refHead = new File(gitFolder + head[1].trim()) // .git/refs/heads/master
+    refHead.text.trim().take takeFromHash
+}
+
+repositories {
+    maven {
+	    url 'http://141.51.167.92/nexus/content/repositories/snapshots'
+    }
+
+    maven {
+        url 'http://141.51.167.92/nexus/content/repositories/central'
+    }
+}
+
+dependencies {
+    compile group: "junit", name: "junit", version: "4.11"
+}
+
+test {
+    testLogging {
+        showStandardStreams = true
+        showStackTraces = true
+        exceptionFormat = "full"
+    }
+}
+
+// Java Compiler Args
+tasks.withType(JavaCompile) {
+    //Suppress underscore warnings
+    options.compilerArgs << '-Xlint:none'
+    //Fix java.lang.ClassNotFoundException: org.apache.juli.ClassLoaderLogManager on Jenkins
+    // options.compilerArgs << '-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager'
+}
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.sdmlib.examples.groupAccount.GroupAccountClassModel" tests="1" skipped="0" failures="0" errors="0" timestamp="2014-06-18T15:29:36" hostname="ZNOTE" time="0.091">
+  <properties/>
+  <testcase name="testGroupAccountCodegen" classname="org.sdmlib.examples.groupAccount.GroupAccountClassModel" time="0.091"/>
+  <system-out><![CDATA[Person ->GroupAccount
+Item ->GroupAccount
+Item ->Person
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

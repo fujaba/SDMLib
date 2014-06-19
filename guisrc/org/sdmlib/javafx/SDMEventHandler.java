@@ -1,10 +1,11 @@
 package org.sdmlib.javafx;
 
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.storyboards.GenericIdMap;
-
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn.CellEditEvent;
+
+import org.sdmlib.storyboards.GenericIdMap;
+
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class SDMEventHandler<ObjType, ValueType> implements
       EventHandler<CellEditEvent<ObjType, ValueType>>

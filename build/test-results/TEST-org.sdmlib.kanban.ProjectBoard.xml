@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.sdmlib.kanban.ProjectBoard" tests="6" skipped="0" failures="1" errors="0" timestamp="2014-06-18T15:29:31" hostname="ZNOTE" time="1.482">
+  <properties/>
+  <testcase name="testExtendStoryboardByAddToDoMethod" classname="org.sdmlib.kanban.ProjectBoard" time="0.38"/>
+  <testcase name="testStoryboardInfrastructureInternals" classname="org.sdmlib.kanban.ProjectBoard" time="0.177"/>
+  <testcase name="testFeatures" classname="org.sdmlib.kanban.ProjectBoard" time="0.143"/>
+  <testcase name="testStoryboardInfrastructure" classname="org.sdmlib.kanban.ProjectBoard" time="0.409">
+    <failure message="java.lang.RuntimeException: Property duplicate:target(org.sdmlib.models.classes.Association)" type="java.lang.RuntimeException">java.lang.RuntimeException: Property duplicate:target(org.sdmlib.models.classes.Association)
+	at de.uniks.networkparser.NetworkParserLog.error(NetworkParserLog.java:102)
+	at de.uniks.networkparser.json.JsonIdMap.toJsonArray(JsonIdMap.java:688)
+	at de.uniks.networkparser.json.JsonIdMap.parseItem(JsonIdMap.java:257)
+	at de.uniks.networkparser.json.JsonIdMap.parseProperty(JsonIdMap.java:226)
+	at de.uniks.networkparser.json.JsonIdMap.toJsonArray(JsonIdMap.java:690)
+	at de.uniks.networkparser.json.JsonIdMap.parseItem(JsonIdMap.java:257)
+	at de.uniks.networkparser.json.JsonIdMap.parseProperty(JsonIdMap.java:199)
+	at de.uniks.networkparser.json.JsonIdMap.toJsonArray(JsonIdMap.java:690)
+	at de.uniks.networkparser.json.JsonIdMap.parseItem(JsonIdMap.java:257)
+	at de.uniks.networkparser.json.JsonIdMap.parseProperty(JsonIdMap.java:199)
+	at de.uniks.networkparser.json.JsonIdMap.toJsonArray(JsonIdMap.java:690)
+	at de.uniks.networkparser.json.JsonIdMap.toJsonArray(JsonIdMap.java:612)
+	at org.sdmlib.storyboards.Storyboard.addObjectDiagram(Storyboard.java:982)
+	at org.sdmlib.storyboards.Storyboard.addObjectDiagram(Storyboard.java:954)
+	at org.sdmlib.kanban.ProjectBoard.testStoryboardInfrastructure(ProjectBoard.java:171)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.runTestClass(JUnitTestClassExecuter.java:86)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.execute(JUnitTestClassExecuter.java:49)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassProcessor.processTestClass(JUnitTestClassProcessor.java:69)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:48)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.messaging.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
+	at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
+	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:105)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.messaging.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:355)
+	at org.gradle.internal.concurrent.DefaultExecutorFactory$StoppableExecutorImpl$1.run(DefaultExecutorFactory.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+</failure>
+  </testcase>
+  <testcase name="testTodoEntries" classname="org.sdmlib.kanban.ProjectBoard" time="0.179"/>
+  <testcase name="testProjectManagement" classname="org.sdmlib.kanban.ProjectBoard" time="0.188"/>
+  <system-out><![CDATA[LogEntryStoryBoard ->KanbanEntry
+StoryboardStep ->org.sdmlib.storyboards.Storyboard
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

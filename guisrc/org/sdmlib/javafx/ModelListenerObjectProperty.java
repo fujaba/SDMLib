@@ -22,8 +22,7 @@ package org.sdmlib.javafx;
  permissions and limitations under the Licence.
  */
 import javafx.beans.Observable;
-
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class ModelListenerObjectProperty extends ModelListenerProperty<Object>
 {
