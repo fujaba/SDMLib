@@ -28,6 +28,7 @@ import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
 
 public class ReplicationChange extends Task implements PropertyChangeInterface,
       Comparable<ReplicationChange>
@@ -161,13 +162,15 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
 
    public String toString()
    {
+      String changeMsg = new JsonObject().withValue(this.getChangeMsg()).toString(3);
       StringBuilder _ = new StringBuilder();
 
       _.append(" ").append(this.getHistoryIdPrefix());
       _.append(" ").append(this.getHistoryIdNumber());
       _.append(" ").append(this.getTargetObjectId());
       _.append(" ").append(this.getTargetProperty());
-      _.append(" ").append(this.getChangeMsg());
+      _.append("\n").append(changeMsg);
+      // _.append(" ").append(this.getChangeMsg());
 
       for (LogEntry entry : this.getLogEntries())
       {

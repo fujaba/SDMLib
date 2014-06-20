@@ -40,7 +40,7 @@ public class ReplicationChangeCreator extends EntityFactory
       ReplicationChange.PROPERTY_ISTOMANYPROPERTY,
       ReplicationChange.PROPERTY_CHANGEMSG,
       Task.PROPERTY_LOGENTRIES,
-      ReplicationChange.PROPERTY_HISTORY,
+      // ReplicationChange.PROPERTY_HISTORY,
    };
    
    @Override

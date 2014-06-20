@@ -259,23 +259,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       {
          // reconstruct change
          JsonObject jsonObject = new JsonObject().withValue(msg.msg);
-//         System.out.println(jsonObject.toString(2));
-//         JsonObject propJson = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
-//         if (propJson != null) {
-//            String id = (String) propJson.get("historyIdPrefix");
-//            if (id == null || !id.equals(nodeId))
-//            {
-//               for (HookAction r : beforeHandleMessageActions)
-//               {
-//                  
-//                  r.run(jsonObject);
-//               }
-//            }
-//         }
-//         else {
-//            System.out.println(msg.msg);
-//         }
-
 
          this.isApplyingChangeMsg = true;
 
@@ -332,51 +315,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
             System.out.println("Handling change\n" + change.toString());
          }
 
-         // is previous change known?
-         String previousPrefix = (String) jsonObject.get(LOWER_ID_PREFIX);
-//         if (false && previousPrefix != null)
-//         {
-//            long previousNumber = jsonObject.getLong(LOWER_ID_NUMBER);
-//            previousChange.withHistoryIdNumber(previousNumber).withHistoryIdPrefix(previousPrefix);
-//
-//            // there is an id for the previous change, do I know that one?
-//            ReplicationChange floor = this.getHistory().getChanges().floor(previousChange);
-//            if (floor == null || floor.compareTo(previousChange) != 0)
-//            {
-//               // ups, I do not have the previous change.
-//               // this should not happen.
-//               // well, ask for the previous change and wait for it
-//               // well what is the latest change I have already that is before
-//               // the one I have no longer
-//               ReplicationChange previousfloor = getHistory().getChanges().floor(previousChange);
-//               if (floor != null)
-//               {
-//                  previousNumber = previousfloor.getHistoryIdNumber();
-//                  previousPrefix = previousfloor.getHistoryIdPrefix();
-//               }
-//               else
-//               {
-//                  // ups, I do not have the previous Id nor any one before that,
-//                  // start from the beginning
-//                  previousNumber = 0;
-//                  previousPrefix = " ";
-//               }
-//               JsonObject jsonRequest = new JsonObject();
-//               jsonRequest.put(RESEND_ID_HISTORY_NUMBER, previousNumber);
-//               jsonRequest.put(RESEND_ID_HISTORY_PREFIX, previousPrefix);
-//
-//               msg.channel.send(jsonRequest.toString());
-//
-//               // wait for it
-//               return;
-//            }
-//         }
-//         else
-//         {
-//            // sender does not have an earlier change, use dummy for further
-//            // processing
-//            previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
-//         }
 
          // try to apply change
          // is it a conflict?
@@ -412,6 +350,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
                   String sourceId = higherJson.getString(JsonIdMap.ID);
                   Object sourceObject = map.getObject(sourceId);
                   JsonObject updateJson = (JsonObject) higherJson.get(JsonIdMap.UPDATE);
+                  
+                  if (updateJson == null)
+                  {
+                     updateJson = (JsonObject) higherJson.get(JsonIdMap.REMOVE);
+                  }
 
                   for (Iterator<String> keyIter = updateJson.keys(); keyIter.hasNext();)
                   {
@@ -484,20 +427,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       finally
       {
          this.isApplyingChangeMsg = false;
-         
-//         JsonObject jsonObject = new JsonObject().withValue(msg.msg);
-//         System.out.println(jsonObject.toString(2));
-//         JsonObject propJson = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
-//         if (propJson != null) {
-//            String id = (String) propJson.get("historyIdPrefix");
-//            if (id == null || !id.equals(nodeId))
-//            {
-//               for (HookAction r : afterHandleMessageActions)
-//               {
-//                  r.run(jsonObject);
-//               }
-//            }
-//         }
       }
 
    }
@@ -878,6 +807,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       .withChangeMsg(jsonObject.toString());
 
       Object object = jsonObject.get(JsonIdMap.UPDATE);
+      
+      if (object == null)
+      {
+         object = jsonObject.get(JsonIdMap.REMOVE);
+      }
 
       if (object != null)
       {
