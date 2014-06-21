@@ -6,7 +6,10 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sdmlib.doc.interfaze.GuiAdapter;
+import org.sdmlib.doc.GraphVizAdapter.GraphViz;
+import org.sdmlib.doc.JavascriptAdapter.Javascript;
+import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
+import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
 
 public class GraphFactory
 {
@@ -21,7 +24,9 @@ public class GraphFactory
    }
    
    private GraphFactory(){
-      
+      // Add Defaults
+      this.adapters.add(new GraphViz());
+      this.adapters.add(new Javascript());
    }
 
    public static GuiAdapter getAdapter()
@@ -70,13 +75,19 @@ public class GraphFactory
                classUrl = new File(plugin).toURI().toURL();
             } else {
                Class<?> c = ucl.loadClass("org.sdmlib.doc." + plugin);
-               GuiAdapter p = (GuiAdapter) c.newInstance();
-
-               this.with(p);
+               Object p =c.newInstance();
+               if( p instanceof GuiAdapter){
+                  this.with((GuiAdapter)p);
+               }else{
+                  ArrayList<GuiAdapter> adapters = getAdapters();
+                  for(GuiAdapter item : adapters){
+                     if(item.getName().equalsIgnoreCase(plugin)){
+                        item.withDrawer((GuiFileDrawer) p);
+                     }
+                  }
+               }
             }
-
          }
-
          ucl.close();
       } catch (Exception e) {
          e.printStackTrace();

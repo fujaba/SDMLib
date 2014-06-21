@@ -4,7 +4,8 @@
 		<delete dir="build/temp"></delete>
 		<mkdir dir="build/temp/" />
 		<!--<javac srcdir="Adapter/GraphViz/Java:src/org/sdmlib/doc/interfaze/" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true">-->
-		<javac srcdir="Adapter/GraphViz/Java:src:NetworkParser" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true">
+		<!--<javac srcdir="Adapter/GraphViz/Java:src:NetworkParser" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true">-->
+		<javac srcdir="Adapter/GraphViz/Java:src/org/sdmlib/doc/interfaze/Drawer" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true">
 			<classpath>
 				<pathelement location="lib/junit.jar"/>
 			</classpath>			
@@ -19,6 +20,7 @@
 			</manifest>
 			<fileset dir="build/temp/" />
 			<zipfileset casesensitive="false" dir="Adapter/GraphViz/Resources" />
+			<!--Add Test for Version like COnfNet-->
 		</jar>
 	</target>
 </project>
