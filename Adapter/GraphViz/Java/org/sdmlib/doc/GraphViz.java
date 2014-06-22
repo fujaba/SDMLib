@@ -17,7 +17,7 @@ import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
 public class GraphViz implements GuiFileDrawer
 {
    @Override
-   public GraphViz withPlugin(String pluginName)
+   public GraphViz withPlugin(File path, String pluginName)
    {
       try
       {
@@ -36,6 +36,9 @@ public class GraphViz implements GuiFileDrawer
       Enumeration<JarEntry> enumEntries = jar.entries();
       while (enumEntries.hasMoreElements()) {
           java.util.jar.JarEntry file = (java.util.jar.JarEntry) enumEntries.nextElement();
+          if(file.getName().startsWith("META-INF") || file.getName().startsWith("org")){
+             continue;
+          }
           java.io.File f = new java.io.File(file.getName());
           if (file.isDirectory()) { // if its a directory, create it
               f.mkdir();
@@ -148,5 +151,17 @@ public class GraphViz implements GuiFileDrawer
          e.printStackTrace();
       }
       return true;
+   }
+
+
+   @Override
+   public String getVersion()
+   {
+      String result = GraphViz.class.getPackage()
+            .getImplementationVersion();
+      if (result == null) {
+         return "0.42.DEBUG";
+      }
+      return result;
    }
 }

@@ -27,6 +27,8 @@ public class GraphFactory
       // Add Defaults
       this.adapters.add(new GraphViz());
       this.adapters.add(new Javascript());
+      
+      generate(".");
    }
 
    public static GuiAdapter getAdapter()
@@ -65,25 +67,31 @@ public class GraphFactory
    
    public void loadPlugins(String path, List<String> plugins) {
       try {
-         URL classUrl = new File(path).toURI()
+         File pathFile = new File(path);
+         URL classUrl = pathFile.toURI()
                .toURL();
          URL[] classUrls = { classUrl };
          URLClassLoader ucl = new URLClassLoader(classUrls);
 
          for (String plugin : plugins) {
-            if (plugin.startsWith("path")) {
-               classUrl = new File(plugin).toURI().toURL();
-            } else {
-               Class<?> c = ucl.loadClass("org.sdmlib.doc." + plugin);
-               Object p =c.newInstance();
-               if( p instanceof GuiAdapter){
-                  this.with((GuiAdapter)p);
-               }else{
-                  ArrayList<GuiAdapter> adapters = getAdapters();
-                  for(GuiAdapter item : adapters){
-                     if(item.getName().equalsIgnoreCase(plugin)){
-                        item.withDrawer((GuiFileDrawer) p);
-                     }
+            String name = plugin;
+            if (name.indexOf(".")>0) {
+               name = name.substring(0, plugin.indexOf("."));
+            }
+            if (name.indexOf("_")>0) {
+               name = name.substring(0, plugin.indexOf("_"));
+            }
+            Class<?> c = ucl.loadClass("org.sdmlib.doc." + name);
+            Object p =c.newInstance();
+            if( p instanceof GuiAdapter){
+               this.with((GuiAdapter)p);
+            }else if(p instanceof GuiFileDrawer){
+               GuiFileDrawer drawer = (GuiFileDrawer) p;
+               ArrayList<GuiAdapter> adapters = getAdapters();
+               for(GuiAdapter item : adapters){
+                  if(item.getName().equalsIgnoreCase(name)){
+                     item.withDrawer(drawer);
+                     drawer.withPlugin(pathFile, plugin);
                   }
                }
             }
