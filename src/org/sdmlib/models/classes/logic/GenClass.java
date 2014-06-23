@@ -238,12 +238,12 @@ public class GenClass extends Generator<Clazz>
          {
             for (Attribute attr : interfaze.getAttributes())
             {
-               getGenerator(attr).generate(clazz, rootDir, helpersDir);
+               getGenerator(attr).generate(model, rootDir, helpersDir);
             }
 
             for (Method method : interfaze.getMethods())
             {
-               getGenerator(method).generate(clazz, rootDir, helpersDir, true);
+               getGenerator(method).generate(model, rootDir, helpersDir, true);
             }
 
          }

@@ -15,9 +15,15 @@ public class GenAssociation extends Generator<Association>
       // also for subclasses
       for (Clazz kidClass : model.getSource().getClazz().getKidClazzes())
       {
+         if (kidClass.isInterface())
+         {
+            continue;
+         }
+         
          boolean needsImplementation = kidClass.getInterfaces().contains(model.getSource().getClazz());
          sourceGenRole.generate(kidClass, rootDir, helperDir, model.getTarget(), ! needsImplementation);
       }
+      
       GenRole targetGenRole = generator.getOrCreate(model.getTarget());
       // open target class and get or insert role implementation
       targetGenRole.generate(rootDir, helperDir, model.getSource());
@@ -25,6 +31,11 @@ public class GenAssociation extends Generator<Association>
       // also for subclasses
       for (Clazz kidClass : model.getTarget().getClazz().getKidClazzes())
       {
+         if (kidClass.isInterface())
+         {
+            continue;
+         }
+         
          boolean needsImplementation = kidClass.getInterfaces().contains(model.getTarget().getClazz());
          targetGenRole.generate(kidClass, rootDir, helperDir, model.getSource(), ! needsImplementation);
       }

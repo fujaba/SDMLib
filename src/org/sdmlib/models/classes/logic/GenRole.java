@@ -128,7 +128,7 @@ public class GenRole extends Generator<Role>
       
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_" + partnerRole.getName().toUpperCase());
 
-      if (pos < 0 && ! model.getClazz().isInterface())
+      if (pos < 0)
       {
          text.append
          (  "\n   " +
@@ -360,13 +360,15 @@ public class GenRole extends Generator<Role>
          }
       }
       
+      GenClass generator = getGenerator(model.getClazz());
+      
       // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
       ClazzSet kidClasses = partnerRole.getClazz().getKidClazzesTransitive().without(partnerRole.getClazz());
       
       for (Clazz kid : kidClasses)
       {
          String kidClassName = CGUtil.shortClassName(kid.getName());
-         pos = myParser.indexOf(Parser.METHOD + ":create" + kidClassName + "()");
+         pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + kidClassName + "()");
          
          
          if (pos < 0 && ! kid.isInterface())
@@ -374,7 +376,7 @@ public class GenRole extends Generator<Role>
             if (! genClazz.isInterface())
             {
                text.append 
-               (     "\n   public KidClassName createKidClassName()" +
+               (     "\n   public KidClassName createPartnerRoleNameSubClassName()" +
                      "\n   {" +
                      "\n      KidClassName value = new KidClassName();" +
                      "\n      withPartnerRoleName(value);" +
@@ -385,12 +387,19 @@ public class GenRole extends Generator<Role>
             else
             {
                text.append
-               (     "\n   public KidClassName createKidClassName();" +
+               (     "\n   public KidClassName createPartnerRoleNameSubClassName();" +
                      "\n");
             }
          }
          
-         CGUtil.replaceAll(text, "KidClassName", kidClassName);
+         CGUtil.replaceAll(text, 
+            "KidClassName", kidClassName, 
+            "PartnerRoleNameSubClassName", partnerRoleUpFirstChar + kidClassName);
+         
+         if(generator!=null)
+         {
+            generator.insertImport(myParser, kid.getFullName());
+         }
       }
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
@@ -414,7 +423,6 @@ public class GenRole extends Generator<Role>
          "PartnerRoleName", partnerRoleUpFirstChar,
          "reverseWithoutCall(this)", reverseWithoutCall
          );
-      GenClass generator = getGenerator(model.getClazz());
       if(generator!=null){
          generator.insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
       }
@@ -432,7 +440,7 @@ public class GenRole extends Generator<Role>
       
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_" + partnerRole.getName().toUpperCase());
 
-      if (pos < 0  && ! model.getClazz().isInterface())
+      if (pos < 0)
       {
          text.append
          (  "\n   " +
@@ -1357,5 +1365,10 @@ public class GenRole extends Generator<Role>
          
          getGenerator(clazz).insertImport(parser, partnerRole.getClazz().getFullName());
       }
+   }
+   
+   public String toString()
+   {
+      return "gen " + model.toString();
    }
 }

@@ -173,13 +173,13 @@ public class GenAttribute extends Generator<Attribute>
          hasNewContent = true;
       }
 
-      if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType() + ")", parser))
+      if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType().getValue() + ")", parser))
       {
          text.append("\n   public void setName(type value);\n");
          hasNewContent = true;
       }
 
-      if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType() + ")", parser))
+      if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName())+ "(" + model.getType().getValue() + ")", parser))
       {
          text.append("\n   public ownerClass withName(type value);\n");
          hasNewContent = true;
