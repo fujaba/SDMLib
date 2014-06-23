@@ -1,9 +1,11 @@
 package org.sdmlib.models.classes.logic;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
@@ -86,9 +88,12 @@ public class GenMethod extends Generator<Method>
             overrideText="@Override";      
          }
          
+         String returnType = model.getReturnType().getValue();
+         if (returnType.contains("."))
+            returnType = returnType.substring(returnType.lastIndexOf(".")+1);
          CGUtil.replaceAll(text, 
             "modifiers", model.getModifier().getValue(), 
-            "returnType", model.getReturnType().getValue(),
+            "returnType", returnType,
             "mehodName", methodName,
             "parameter", parameter, 
             "returnClause", returnClause,
@@ -108,7 +113,19 @@ public class GenMethod extends Generator<Method>
       // in case of a method body, remove old method
       if (pos >= 0 && model.getBody() != null)
       {
-        parser.replace(symTabEntry.getBodyStartPos()+1, symTabEntry.getEndPos(), "\n" + model.getBody() + "   ");
+        parser.parseMethodBody(symTabEntry);
+        int startPos = symTabEntry.getEndPos();
+        
+// TODO: override return statement ??
+//        HashMap<StatementEntry, Integer> returnStatements = parser.getReturnStatements();
+//
+//        if (returnStatements.size() == 1) {
+//         Object[] array = returnStatements.keySet().toArray();
+//         StatementEntry entry = (StatementEntry) array[0];
+//           startPos = returnStatements.get(entry);
+//        }
+        
+        parser.replace(symTabEntry.getBodyStartPos()+1, startPos, "\n" + model.getBody() + "   ");
         pos = -1;
       }
    }
@@ -205,10 +222,12 @@ public class GenMethod extends Generator<Method>
                type = type + "Set";
                importType = model.getClazz().getFullName();
                int dotpos = importType.lastIndexOf('.');
-               importType = importType.substring(0, dotpos + 1) + GenClassModel.UTILPATH+"." + type ;
+               int typePos = type.lastIndexOf('.');
+               type = type.substring(typePos +1);
+               importType = importType.substring(0, dotpos ) + GenClassModel.UTILPATH+"." + type ;
             }
             
-            generator.insertImport(parser, importType);  // TODO: import might not be correct for user defined classes
+            generator.insertImport(parser, importType);
             
             returnSetCreate = type + " result = new " + type + "();\n      ";
             
