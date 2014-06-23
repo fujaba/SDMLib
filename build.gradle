@@ -7,7 +7,7 @@ version = '1.1-SNAPSHOT' //getCheckedOutGitCommitHash() + '-SNAPSHOT'
 group = 'org.sdmlib'
 
 sourceSets {
-	main.java.srcDirs = ['src', 'NetworkParser']
+	main.java.srcDirs = ['src', 'NetworkParser', 'replicationsrc']
 	main.resources.srcDir 'src/resources'
 	test.java.srcDir 'examples'
 	test.resources.srcDir 'test/resources'
