@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.sdmlib.examples.helloworld.HelloWorldTmp" tests="1" skipped="0" failures="0" errors="0" timestamp="2014-06-18T15:29:38" hostname="ZNOTE" time="0.007">
-  <properties/>
-  <testcase name="testTmp" classname="org.sdmlib.examples.helloworld.HelloWorldTmp" time="0.007"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -248,7 +248,7 @@ public class HelloWorldTTC2011
             );
       storyboard.addCode("examples");
 
-      storyboard.addObjectDiagram(greetingPO.getPattern().getJsonIdMap(), greetingPO.getCurrentMatch());
+      storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
 
       //==========================================================================
 
@@ -529,7 +529,7 @@ public class HelloWorldTTC2011
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagram(GraphCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(graph);
 
       storyboard.add(systemout);
 

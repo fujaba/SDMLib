@@ -207,7 +207,7 @@ public class LudoStoryboard
       }
       storyboard.addCode("examples");
       
-      storyboard.addObjectDiagram(jsonIdMap, tom);
+      storyboard.addObjectDiagram(tom);
       
       StoryboardManager.get()
       .add(storyboard)

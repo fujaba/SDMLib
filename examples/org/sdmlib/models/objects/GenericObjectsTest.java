@@ -143,7 +143,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
       Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.roombook", graph);
 
-      storyboard.addObjectDiagram(createIdMap, specificBuilding);
+      storyboard.addObjectDiagram(specificBuilding);
 
       storyboard.add("BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram ",
          BUG, "zuendorf", "31.05.2012 15:22:42", 0, 0);
