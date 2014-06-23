@@ -35,7 +35,7 @@ Options = function(){
 	this.canvasid = null;
 	this.rootElement = null;
 	this.parent = null;
-	this.fontsize=12;
+	this.fontsize=10;
 }
 
 /* Node */

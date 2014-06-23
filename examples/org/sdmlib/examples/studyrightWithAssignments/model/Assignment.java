@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class Assignment implements PropertyChangeInterface
@@ -261,7 +262,7 @@ public class Assignment implements PropertyChangeInterface
       return value;
    } 
 
-   public TeachingAssistant createTeachingAssistant()
+   public TeachingAssistant createStudentsTeachingAssistant()
    {
       TeachingAssistant value = new TeachingAssistant();
       withStudents(value);

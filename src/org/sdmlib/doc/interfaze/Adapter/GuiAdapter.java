@@ -22,9 +22,6 @@ public interface GuiAdapter
 
    public String toImg(String imgName, JsonArray objects);
 
-   public String toImg(String imgName, JsonArray objects, boolean omitRoot,
-         String[] aggregationRoles);
-
    public String addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects);
 
    public String dumpSwimlanes(String name, LogEntrySet entries);

@@ -31,7 +31,7 @@ public class TrainModel
       
       model.createClazz("SignalFlag").withAssoc(stationClass, "station", Card.MANY, "flag", Card.ONE);
       
-      storyboard.addSVGImage(model.dumpClassDiagram("TrainModelClassDiag"));
+      storyboard.addClassDiagram(model);
       
       model.generate("examples");
       

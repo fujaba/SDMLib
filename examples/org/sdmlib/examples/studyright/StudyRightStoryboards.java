@@ -110,6 +110,7 @@ public class StudyRightStoryboards
 
       //=============================================================
       storyboard.add("adding flipbook to protocol changes.");
+      
       SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) UniversityCreator.createIdMap("ajz");
       FlipBook flipBook = idMap.createFlipBook();
 
@@ -156,7 +157,7 @@ public class StudyRightStoryboards
 
       storyboard.add("step 1: dump object diagram");
 
-      storyboard.addObjectDiagram(idMap, uni);
+      storyboard.addObjectDiagram(uni);
 
 
       //===============================================================================================
@@ -172,7 +173,7 @@ public class StudyRightStoryboards
       .back()
       .forward();
 
-      storyboard.addObjectDiagram(idMap, uni);
+      storyboard.addObjectDiagram(uni);
 
       //===============================================================================================
       storyboard.assertEquals("Number of students: " , 2, uni.getStudents().size()); 

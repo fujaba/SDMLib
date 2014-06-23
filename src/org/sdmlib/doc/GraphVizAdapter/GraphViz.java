@@ -655,7 +655,9 @@ public class GraphViz implements GuiAdapter {
 		// write dot file
 		draw(diagName, dotFileText.toString());
 
-		return diagName + ".svg";
+      String text = "<embed type=\"image/svg+xml\" src='" + diagName + ".svg'>";
+
+      return text;
 	}
 
 

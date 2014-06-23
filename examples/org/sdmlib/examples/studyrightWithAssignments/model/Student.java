@@ -27,6 +27,7 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 
 public class Student implements PropertyChangeInterface
 {
@@ -488,7 +489,7 @@ public class Student implements PropertyChangeInterface
       return value;
    } 
 
-   public TeachingAssistant createTeachingAssistant()
+   public TeachingAssistant createFriendsTeachingAssistant()
    {
       TeachingAssistant value = new TeachingAssistant();
       withFriends(value);
