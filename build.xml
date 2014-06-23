@@ -69,6 +69,7 @@
 					<pathelement path="${basedir}/examples"/>
 					<pathelement path="${basedir}/src"/>
 					<pathelement path="${basedir}/NetworkParser"/>
+					<pathelement path="${basedir}/replicationsrc/"/>
 					<!--<pathelement path="${basedir}/test"/>-->
 					<!--<pathelement path="${basedir}/srchelpers"/>-->
 					<!--<pathelement path="${basedir}/testhelpers"/>-->
@@ -114,6 +115,13 @@
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="replicationsrc/">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.xtend" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
 		<!--<copy includeemptydirs="false" todir="bin">
 			<fileset dir="examplehelpers">
 				<exclude name="**/*.launch" />
@@ -141,6 +149,7 @@
 			<src path="src" />
 			<src path="examples" />
 			<src path="NetworkParser" />
+			<src path="replicationsrc" />
 			<!--<src path="test" />
 			<src path="examplehelpers" />
 			<src path="testhelpers" />-->
