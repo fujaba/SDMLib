@@ -56,6 +56,8 @@ public class GenClass extends Generator<Clazz>
 
          insertConstants();
          
+         insertImports();
+         
          for (Method method : model.getMethods()) {
             getGenerator(method).generate(rootDir, helpersDir, false);
          }
@@ -103,6 +105,11 @@ public class GenClass extends Generator<Clazz>
       return this;
    }
    
+   private void insertImports(){
+      for(String importClazz : model.getImports()){
+         insertImport(importClazz);
+      }
+   }
    
    private void insertConstants()
    {

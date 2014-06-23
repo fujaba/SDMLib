@@ -1,20 +1,20 @@
 package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import java.util.ArrayList;
+import org.sdmlib.examples.simpleModel.model.Item;
 
-public class ArrayListPO extends PatternObject<ArrayListPO, ArrayList>
+public class ItemPO extends PatternObject<ItemPO, Item>
 {
 
-    public ArrayListSet allMatches()
+    public ItemSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      ArrayListSet matches = new ArrayListSet();
+      ItemSet matches = new ItemSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((ArrayList) this.getCurrentMatch());
+         matches.add((Item) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -23,11 +23,11 @@ public class ArrayListPO extends PatternObject<ArrayListPO, ArrayList>
    }
 
 
-   public ArrayListPO(){
+   public ItemPO(){
       newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
 
-   public ArrayListPO(ArrayList... hostGraphObject) {
+   public ItemPO(Item... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }

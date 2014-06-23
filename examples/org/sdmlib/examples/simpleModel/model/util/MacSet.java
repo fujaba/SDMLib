@@ -91,6 +91,21 @@ public class MacSet extends SDMSet<Mac>
       return result;
    }
 
+   public MacSet hasName(String lower, String upper)
+   {
+      MacSet result = new MacSet();
+      
+      for (Mac obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public MacSet withName(String value)
    {
       for (Mac obj : this)

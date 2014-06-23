@@ -73,7 +73,7 @@ public class MacCreator extends EntityFactory
 
       if (Mac.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Mac) target).setName((String) value);
+         ((Mac) target).withName((String) value);
          return true;
       }
       

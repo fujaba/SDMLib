@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,48 +19,45 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.simpleModel.model.util;
+package org.sdmlib.examples.simpleModel.model;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
-public class ArrayListSet extends SDMSet<ArrayList>
+public class Item implements PropertyChangeInterface
 {
 
-
-   public ArrayListPO hasArrayListPO()
+   
+   //==========================================================================
+   
+    static void init(  )
    {
-      return new ArrayListPO(this.toArray(new ArrayList[this.size()]));
-   }
+System.out.println(new Date());   }
 
-
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
    @Override
-   public String getEntryType()
+   public PropertyChangeSupport getPropertyChangeSupport()
    {
-      return "java.util.ArrayList";
-   }
-
-
-   @SuppressWarnings("unchecked")
-   public ArrayListSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<ArrayList>)value);
-      }
-      else if (value != null)
-      {
-         this.add((ArrayList) value);
-      }
-      
-      return this;
+      return listeners;
    }
    
-   public ArrayListSet without(ArrayList value)
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      this.remove(value);
-      return this;
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
+   
+   //==========================================================================
+   
+   
+   public void removeYou()
+   {
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }
 }

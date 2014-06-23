@@ -7,6 +7,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Visibility;
 
 public class GenMethod extends Generator<Method>
 {
@@ -122,7 +123,7 @@ public class GenMethod extends Generator<Method>
       String signature = model.getSignature(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
-      if (pos < 0)
+      if (pos < 0 && model.getModifier().has(Visibility.PUBLIC))
       {
          signature = model.getSignature(true);
          StringBuilder text = new StringBuilder
@@ -215,6 +216,10 @@ public class GenMethod extends Generator<Method>
             returnSetAddEnd =")";
             returnStat = "return result;";
          }
+         
+         if(model.getModifier().has(Visibility.STATIC)){
+            returnStat = "";
+         }
 
          CGUtil.replaceAll(text, 
             "returnSetCreate\n      ", returnSetCreate,
@@ -244,7 +249,7 @@ public class GenMethod extends Generator<Method>
 
       int pos = parser.indexOf(key);
 
-      if (pos < 0)
+      if (pos < 0 && model.getModifier().has(Visibility.PUBLIC))
       {
          signature = model.getSignature(true);
          StringBuilder text = new StringBuilder

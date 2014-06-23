@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,97 +22,44 @@
 package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleModel.model.MacList;
+import org.sdmlib.examples.simpleModel.model.Item;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
 
-public class MacListSet extends SDMSet<MacList>
+public class ItemSet extends SDMSet<Item>
 {
 
 
-   public MacListPO hasMacListPO()
+   public ItemPO hasItemPO()
    {
-      return new MacListPO(this.toArray(new MacList[this.size()]));
+      return new ItemPO(this.toArray(new Item[this.size()]));
    }
 
 
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.simpleModel.model.MacList";
+      return "org.sdmlib.examples.simpleModel.model.Item";
    }
 
 
    @SuppressWarnings("unchecked")
-   public MacListSet with(Object value)
+   public ItemSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<MacList>)value);
+         this.addAll((Collection<Item>)value);
       }
       else if (value != null)
       {
-         this.add((MacList) value);
+         this.add((Item) value);
       }
       
       return this;
    }
    
-   public MacListSet without(MacList value)
+   public ItemSet without(Item value)
    {
       this.remove(value);
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (MacList obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public MacListSet hasName(String value)
-   {
-      MacListSet result = new MacListSet();
-      
-      for (MacList obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MacListSet hasName(String lower, String upper)
-   {
-      MacListSet result = new MacListSet();
-      
-      for (MacList obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MacListSet withName(String value)
-   {
-      for (MacList obj : this)
-      {
-         obj.setName(value);
-      }
-      
       return this;
    }
 

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,8 +23,9 @@ package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.simpleModel.model.Item;
 
-public class ArrayListCreator extends EntityFactory
+public class ItemCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
@@ -39,7 +40,7 @@ public class ArrayListCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return null;
+      return new Item();
    }
    
    @Override
@@ -76,6 +77,6 @@ public class ArrayListCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      // wrapped object has no removeYou method
+      ((Item) entity).removeYou();
    }
 }

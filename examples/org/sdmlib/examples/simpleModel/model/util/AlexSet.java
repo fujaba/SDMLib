@@ -91,6 +91,21 @@ public class AlexSet extends SDMSet<Alex>
       return result;
    }
 
+   public AlexSet hasName(String lower, String upper)
+   {
+      AlexSet result = new AlexSet();
+      
+      for (Alex obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public AlexSet withName(String value)
    {
       for (Alex obj : this)

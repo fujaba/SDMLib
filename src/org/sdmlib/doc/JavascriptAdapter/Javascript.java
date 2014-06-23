@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
-import org.sdmlib.logger.util.LogEntrySet;
+import org.sdmlib.model.taskflows.util.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
