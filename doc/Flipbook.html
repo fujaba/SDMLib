@@ -12,9 +12,359 @@
 <p>adding flipbook to protocol changes.</p>
 <p>Start situation: use University class to build object structure</p>
 <p>step 1: dump object diagram</p>
-<embed type="image/svg+xml" src='Flipbook5.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"U1 : University",
+            "attributes":[
+            "name=StudyRight"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R2 : Room",
+            "attributes":[
+            "roomNo=math",
+               "credits=42",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R3 : Room",
+            "attributes":[
+            "roomNo=arts",
+               "credits=23",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R4 : Room",
+            "attributes":[
+            "roomNo=sports",
+               "credits=23",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R5 : Room",
+            "attributes":[
+            "roomNo=exam",
+               "credits=0",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R6 : Room",
+            "attributes":[
+            "roomNo=ProgMeth",
+               "credits=42",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S7 : Student",
+            "attributes":[
+            "name=Albert",
+               "matrNo=4242",
+               "credits=0",
+               "motivation=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S8 : Student",
+            "attributes":[
+            "name=Nina",
+               "matrNo=2323",
+               "credits=0",
+               "motivation=0",
+               "in="
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"U1 : University",
+            "target":"R2 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"U1 : University",
+            "target":"R3 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"U1 : University",
+            "target":"R4 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"U1 : University",
+            "target":"R5 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"U1 : University",
+            "target":"R6 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"students",
+            "source":"U1 : University",
+            "target":"S7 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"students",
+            "source":"U1 : University",
+            "target":"S8 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"R2 : Room",
+            "target":"R3 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"R2 : Room",
+            "target":"R4 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"R2 : Room",
+            "target":"S7 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"R3 : Room",
+            "target":"R4 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"R3 : Room",
+            "target":"R5 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"R3 : Room",
+            "target":"R6 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"R4 : Room",
+            "target":"R5 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"R5 : Room",
+            "target":"R6 : Room"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasFlipbook5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Test flipbook, undo last step: </p>
-<embed type="image/svg+xml" src='Flipbook7.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"U1 : University",
+            "attributes":[
+            "name=StudyRight"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R2 : Room",
+            "attributes":[
+            "roomNo=math",
+               "credits=42",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R3 : Room",
+            "attributes":[
+            "roomNo=arts",
+               "credits=23",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R4 : Room",
+            "attributes":[
+            "roomNo=",
+               "credits=0",
+               "room="
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S7 : Student",
+            "attributes":[
+            "name=Albert",
+               "matrNo=4242",
+               "credits=0",
+               "motivation=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S8 : Student",
+            "attributes":[
+            "name=Nina",
+               "matrNo=2323",
+               "credits=0",
+               "motivation=0",
+               "in="
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"U1 : University",
+            "target":"R2 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"U1 : University",
+            "target":"R3 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"rooms",
+            "source":"U1 : University",
+            "target":"R4 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"students",
+            "source":"U1 : University",
+            "target":"S7 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"uni",
+            "targetproperty":"students",
+            "source":"U1 : University",
+            "target":"S8 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"R2 : Room",
+            "target":"R3 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"R2 : Room",
+            "target":"S7 : Student"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasFlipbook7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Check: Number of students: 2</p>
 <p>step 2: add support for path navigation
       call </p>

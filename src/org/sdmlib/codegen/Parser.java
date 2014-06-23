@@ -22,6 +22,7 @@
 package org.sdmlib.codegen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
@@ -113,6 +114,11 @@ public class Parser
    public LinkedHashMap<String, LocalVarTableEntry> getLocalVarTable()
    {
       return localVarTable;
+   }
+   
+   public HashMap<StatementEntry, Integer> getReturnStatements()
+   {
+      return returnStatements;
    }
 
    private boolean verbose = false;
@@ -221,6 +227,15 @@ public class Parser
       else
       {
          localVarTable.clear();
+      }
+      
+      if (returnStatements == null)
+      {
+         returnStatements = new HashMap<>();
+      }
+      else
+      {
+         returnStatements.clear();
       }
 
       currentParentStatement = new StatementEntry();
@@ -938,6 +953,8 @@ public class Parser
 
    private LinkedHashMap<String, Integer > methodBodyQualifiedNames = new LinkedHashMap<String, Integer >();
 
+   private HashMap<StatementEntry, Integer> returnStatements = new HashMap<>();
+
    public LinkedHashMap<String, Integer> getMethodBodyQualifiedNamesMap() {
       return methodBodyQualifiedNames;
    }
@@ -1437,6 +1454,8 @@ public class Parser
             readToken("return");
 
             parseExpressionDetails();
+            
+            returnStatements.put(currentStatement, lastReturnStart);
 
             skip(';');
          }

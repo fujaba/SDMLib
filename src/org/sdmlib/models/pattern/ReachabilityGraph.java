@@ -37,20 +37,38 @@ import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.logic.ConditionMap;
 import de.uniks.networkparser.logic.Equals;
+import de.uniks.networkparser.logic.ValuesMap;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {
    //==========================================================================
+   private final class OmitRootCondition extends ConditionMap
+   {
+      private Object root;
+
+      public OmitRootCondition(Object root)
+      {
+         this.root = root;
+      }
+
+      @Override
+      public boolean matches(ValuesMap values)
+      {
+         return values.value != root;
+      }
+   }
+
    public String dumpDiagram(String name)
    {
-//      JsonFilter jsonFilter = new JsonFilter("@graphRoot", "-parent");
-	   Filter filter = new Filter()
-	   			.withPropertyRegard(new Equals().withValue("graphRoot"))
-			   .withConvertable(new Equals().withValue("parent"));
+      OmitRootCondition conditionMap = new OmitRootCondition(this);
+
+      Filter filter = new Filter().withFull(true).withPropertyRegard(conditionMap);
+      
       JsonArray jsonArray = masterMap.toJsonArray(this, filter);
       
-      String imgLink = getAdapter().toImg(name, jsonArray, true, null);
+      String imgLink = getAdapter().toImg(name, jsonArray);
       
       // also add images for all graph roots
       for (Object graphRoot : getStates().getGraphRoot())

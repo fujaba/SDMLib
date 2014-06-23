@@ -1,6 +1,7 @@
 package org.sdmlib.doc;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public class GraphFactory
    
    private GraphFactory(){
       // Add Defaults
-      this.adapters.add(new GraphViz());
       this.adapters.add(new Javascript());
+      this.adapters.add(new GraphViz());
       
       generate(".");
    }
@@ -55,31 +56,35 @@ public class GraphFactory
    
    public void generate(String path){
       File dir  = new File(path);
-      ArrayList<String> plugins=new ArrayList<String>();
+      ArrayList<URL> plugins=new ArrayList<URL>();
       for(File item : dir.listFiles()){
          if(item.getName().toLowerCase().endsWith(".jar")){
-            plugins.add(item.getName());
+            try
+            {
+               
+               plugins.add(new URL("file", "", item.getName()));
+            }
+            catch (MalformedURLException e)
+            {
+               e.printStackTrace();
+            }
          }
       }
-      loadPlugins(path, plugins);
+      loadPlugins(plugins);
    }
    
    
-   public void loadPlugins(String path, List<String> plugins) {
+   public void loadPlugins(List<URL> plugins) {
       try {
-         File pathFile = new File(path);
-         URL classUrl = pathFile.toURI()
-               .toURL();
-         URL[] classUrls = { classUrl };
-         URLClassLoader ucl = new URLClassLoader(classUrls);
+         URLClassLoader ucl = new URLClassLoader(plugins.toArray(new URL[plugins.size()]), this.getClass().getClassLoader());
 
-         for (String plugin : plugins) {
-            String name = plugin;
+         for (URL plugin : plugins) {
+            String name = plugin.getPath();
             if (name.indexOf(".")>0) {
-               name = name.substring(0, plugin.indexOf("."));
+               name = name.substring(0, name.indexOf("."));
             }
             if (name.indexOf("_")>0) {
-               name = name.substring(0, plugin.indexOf("_"));
+               name = name.substring(0, name.indexOf("_"));
             }
             Class<?> c = ucl.loadClass("org.sdmlib.doc." + name);
             Object p =c.newInstance();
@@ -91,7 +96,7 @@ public class GraphFactory
                for(GuiAdapter item : adapters){
                   if(item.getName().equalsIgnoreCase(name)){
                      item.withDrawer(drawer);
-                     drawer.withPlugin(pathFile, plugin);
+                     drawer.withPlugin(new File("."), plugin.getPath());
                   }
                }
             }

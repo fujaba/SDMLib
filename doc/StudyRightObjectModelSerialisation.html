@@ -11,7 +11,264 @@
 <p>StudyRightObjectModelSerialisation</p>
 <p>How to serialize an object model to json and how to read json into an object model</p>
 <p>Start: Example object structure:</p>
-<embed type="image/svg+xml" src='StudyRightObjectModelSerialisation4.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"studyRight : University",
+            "attributes":[
+            "name=StudyRight"
+            ]
+         },
+         {
+            "typ":"node",
+            "headimage":"icons/karli.png",
+            "id":"karli : Student",
+            "attributes":[
+            "name=Karli",
+               "id=4242",
+               "assignmentPoints=0",
+               "motivation=0",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "headimage":"icons/mathroom.png",
+            "id":"mathRoom : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"artsRoom : Room",
+            "attributes":[
+            "name=7522",
+               "topic=arts",
+               "credits=16"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"sportsRoom : Room",
+            "attributes":[
+            "name=gymnasium",
+               "topic=sports",
+               "credits=25"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"examRoom : Room",
+            "attributes":[
+            "name=The End",
+               "topic=exam",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"placeToBe : Room",
+            "attributes":[
+            "name=7422",
+               "topic=Software Engineering",
+               "credits=42"
+            ]
+         },
+         {
+            "typ":"node",
+            "headimage":"icons/matrix.png",
+            "id":"A1 : Assignment",
+            "attributes":[
+            "content=Matrix Multiplication",
+               "points=5"
+            ]
+         },
+         {
+            "typ":"node",
+            "headimage":"icons/limes.png",
+            "id":"A2 : Assignment",
+            "attributes":[
+            "content=Series",
+               "points=6"
+            ]
+         },
+         {
+            "typ":"node",
+            "headimage":"icons/integralAssignment.png",
+            "id":"A3 : Assignment",
+            "attributes":[
+            "content=Integrals",
+               "points=8"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"students",
+            "source":"studyRight : University",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"placeToBe : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"students",
+            "targetproperty":"in",
+            "source":"karli : Student",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"mathRoom : Room",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"mathRoom : Room",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"placeToBe : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"sportsRoom : Room",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"examRoom : Room",
+            "target":"placeToBe : Room"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelSerialisation4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p><a name = 'step_1'>Step 1: Serialize to json:</a></p><pre>      
       JsonIdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
       
@@ -155,7 +412,259 @@
       
       Object rootObject = readerMap.decode(readJsonArray);
       
-</pre><embed type="image/svg+xml" src='StudyRightObjectModelSerialisation11.svg'>
+</pre><script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"U4 : University",
+            "attributes":[
+            "name=StudyRight"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"S5 : Student",
+            "attributes":[
+            "name=Karli",
+               "id=4242",
+               "assignmentPoints=0",
+               "motivation=0",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R6 : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R7 : Room",
+            "attributes":[
+            "name=7522",
+               "topic=arts",
+               "credits=16"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R8 : Room",
+            "attributes":[
+            "name=gymnasium",
+               "topic=sports",
+               "credits=25"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R9 : Room",
+            "attributes":[
+            "name=The End",
+               "topic=exam",
+               "credits=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"R10 : Room",
+            "attributes":[
+            "name=7422",
+               "topic=Software Engineering",
+               "credits=42"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A11 : Assignment",
+            "attributes":[
+            "content=Matrix Multiplication",
+               "points=5"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A12 : Assignment",
+            "attributes":[
+            "content=Series",
+               "points=6"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"A13 : Assignment",
+            "attributes":[
+            "content=Integrals",
+               "points=8"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"students",
+            "source":"U4 : University",
+            "target":"S5 : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"U4 : University",
+            "target":"R6 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"U4 : University",
+            "target":"R7 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"U4 : University",
+            "target":"R8 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"U4 : University",
+            "target":"R9 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"university",
+            "targetproperty":"rooms",
+            "source":"U4 : University",
+            "target":"R10 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"1",
+            "sourceproperty":"students",
+            "targetproperty":"in",
+            "source":"S5 : Student",
+            "target":"R6 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"R6 : Room",
+            "target":"R7 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"R6 : Room",
+            "target":"R8 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"R6 : Room",
+            "target":"A11 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"R6 : Room",
+            "target":"A12 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"1",
+            "targetcardinality":"n",
+            "sourceproperty":"room",
+            "targetproperty":"assignments",
+            "source":"R6 : Room",
+            "target":"A13 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"R7 : Room",
+            "target":"R8 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"R7 : Room",
+            "target":"R9 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"R7 : Room",
+            "target":"R10 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"R8 : Room",
+            "target":"R9 : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"n",
+            "targetcardinality":"n",
+            "sourceproperty":"doors",
+            "targetproperty":"doors",
+            "source":"R9 : Room",
+            "target":"R10 : Room"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelSerialisation11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

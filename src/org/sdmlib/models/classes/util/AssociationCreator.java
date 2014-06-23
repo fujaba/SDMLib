@@ -13,7 +13,6 @@ public class AssociationCreator extends SDMLibClassCreator
       Association.PROPERTY_SOURCE,
       Association.PROPERTY_TARGET,
       SDMLibClass.PROPERTY_NAME,
-      Association.PROPERTY_TARGET,
    };
    
    @Override

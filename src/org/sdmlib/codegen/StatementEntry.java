@@ -39,7 +39,7 @@ public class StatementEntry implements PropertyChangeInterface
       StringBuilder text = new StringBuilder();
       for (String word : getTokenList())
       {
-         text.append(word);
+         text.append(" ").append(word);
       }
       
       /*
