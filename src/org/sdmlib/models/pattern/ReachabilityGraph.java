@@ -27,8 +27,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.TreeMap;
 
-import org.sdmlib.doc.GuiAdapter;
-import org.sdmlib.doc.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.GraphFactory;
+import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
@@ -38,7 +38,6 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.Equals;
-import java.beans.PropertyChangeListener;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {
@@ -71,7 +70,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
    
    public GuiAdapter getAdapter(){
 	   if(adapter==null){
-		   adapter = new JsonToGraphViz();
+		   adapter = GraphFactory.getAdapter();
 	   }
 	   return adapter;
    }
