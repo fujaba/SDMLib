@@ -21,18 +21,15 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
 import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.replication.creators.LaneSet;
-import org.sdmlib.replication.creators.BoardTaskSet;
-
 import java.util.LinkedHashSet;
 
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.BoardTaskSet;
+import org.sdmlib.replication.util.LaneSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
+import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
 
 public class Lane implements PropertyChangeInterface
@@ -106,6 +103,7 @@ public class Lane implements PropertyChangeInterface
    {
       setBoard(null);
       removeAllFromTasks();
+      withoutTasks(this.getTasks().toArray(new BoardTask[this.getTasks().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

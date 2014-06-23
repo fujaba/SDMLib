@@ -41,8 +41,8 @@ s4 -- s9 [headlabel = "next" taillabel = "prev"];
 s4 -- p16 [headlabel = "people" taillabel = "station"];
 s4 -- p17 [headlabel = "people" taillabel = "station"];
 s9 -- s10 [headlabel = "next" taillabel = "prev"];
-s10 -- s14 [headlabel = "flag" taillabel = "station"];
 s10 -- s11 [headlabel = "next" taillabel = "prev"];
+s10 -- s14 [headlabel = "flag" taillabel = "station"];
 s10 -- p12 [headlabel = "people" taillabel = "station"];
 s10 -- p13 [headlabel = "people" taillabel = "station"];
 }

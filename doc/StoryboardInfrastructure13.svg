@@ -27,9 +27,9 @@
 <text text-anchor="start" x="207" y="-1116.5" font-family="Arial" font-size="10.00">c2 :Clazz</text>
 </a>
 <polygon fill="none" stroke="black" points="181,-1048 181,-1110 271,-1110 271,-1048 181,-1048"/>
-<text text-anchor="start" x="186" y="-1098" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
-<text text-anchor="start" x="186" y="-1084" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
-<text text-anchor="start" x="186" y="-1070" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="186" y="-1098" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
+<text text-anchor="start" x="186" y="-1084" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="186" y="-1070" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
 <text text-anchor="start" x="186" y="-1056" font-family="Arial" font-size="10.00">interface = &quot;false&quot;</text>
 </g>
 <!-- c1&#45;&#45;c2 -->
@@ -46,9 +46,9 @@
 <text text-anchor="start" x="296.5" y="-676.5" font-family="Arial" font-size="10.00">c10 :Clazz</text>
 </a>
 <polygon fill="none" stroke="black" points="273,-608 273,-670 363,-670 363,-608 273,-608"/>
-<text text-anchor="start" x="278" y="-658" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
-<text text-anchor="start" x="278" y="-644" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
-<text text-anchor="start" x="278" y="-630" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="278" y="-658" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
+<text text-anchor="start" x="278" y="-644" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="278" y="-630" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
 <text text-anchor="start" x="278" y="-616" font-family="Arial" font-size="10.00">interface = &quot;false&quot;</text>
 </g>
 <!-- c1&#45;&#45;c10 -->
@@ -65,9 +65,9 @@
 <text text-anchor="start" x="427.5" y="-1116.5" font-family="Arial" font-size="10.00">c11 :Clazz</text>
 </a>
 <polygon fill="none" stroke="black" points="404,-1048 404,-1110 494,-1110 494,-1048 404,-1048"/>
-<text text-anchor="start" x="409" y="-1098" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
-<text text-anchor="start" x="409" y="-1084" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
-<text text-anchor="start" x="409" y="-1070" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="409" y="-1098" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
+<text text-anchor="start" x="409" y="-1084" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="409" y="-1070" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
 <text text-anchor="start" x="409" y="-1056" font-family="Arial" font-size="10.00">interface = &quot;false&quot;</text>
 </g>
 <!-- c1&#45;&#45;c11 -->
@@ -84,9 +84,9 @@
 <text text-anchor="start" x="464.5" y="-676.5" font-family="Arial" font-size="10.00">c15 :Clazz</text>
 </a>
 <polygon fill="none" stroke="black" points="441,-608 441,-670 531,-670 531,-608 441,-608"/>
-<text text-anchor="start" x="446" y="-658" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
-<text text-anchor="start" x="446" y="-644" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
-<text text-anchor="start" x="446" y="-630" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="446" y="-658" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
+<text text-anchor="start" x="446" y="-644" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="446" y="-630" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
 <text text-anchor="start" x="446" y="-616" font-family="Arial" font-size="10.00">interface = &quot;false&quot;</text>
 </g>
 <!-- c1&#45;&#45;c15 -->
@@ -103,9 +103,9 @@
 <text text-anchor="start" x="583.5" y="-250.5" font-family="Arial" font-size="10.00">c22 :Clazz</text>
 </a>
 <polygon fill="none" stroke="black" points="560,-182 560,-244 650,-244 650,-182 560,-182"/>
-<text text-anchor="start" x="565" y="-232" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
-<text text-anchor="start" x="565" y="-218" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
-<text text-anchor="start" x="565" y="-204" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="565" y="-232" font-family="Arial" font-size="10.00">external = &quot;false&quot;</text>
+<text text-anchor="start" x="565" y="-218" font-family="Arial" font-size="10.00">name = &quot;&quot;</text>
+<text text-anchor="start" x="565" y="-204" font-family="Arial" font-size="10.00">superClazzes = &quot;&quot;</text>
 <text text-anchor="start" x="565" y="-190" font-family="Arial" font-size="10.00">interface = &quot;false&quot;</text>
 </g>
 <!-- c1&#45;&#45;c22 -->
@@ -122,8 +122,8 @@
 <text text-anchor="start" x="51" y="-882.5" font-family="Arial" font-size="10.00">a3 :Attribute</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-842 8,-876 144,-876 144,-842 8,-842"/>
-<text text-anchor="start" x="13" y="-864" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-850" font-family="Arial" font-size="10.00">name = &quot;oldNoOfLogEntries&quot;</text>
+<text text-anchor="start" x="13" y="-864" font-family="Arial" font-size="10.00">name = &quot;oldNoOfLogEntries&quot;</text>
+<text text-anchor="start" x="13" y="-850" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
 </g>
 <!-- c2&#45;&#45;a3 -->
 <g id="edge14" class="edge"><title>c2&#45;&#45;a3</title>
@@ -139,8 +139,8 @@
 <text text-anchor="start" x="258.5" y="-236.5" font-family="Arial" font-size="10.00">a5 :Attribute</text>
 </a>
 <polygon fill="none" stroke="black" points="240,-196 240,-230 327,-230 327,-196 240,-196"/>
-<text text-anchor="start" x="245" y="-218" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
-<text text-anchor="start" x="245" y="-204" font-family="Arial" font-size="10.00">name = &quot;phases&quot;</text>
+<text text-anchor="start" x="245" y="-218" font-family="Arial" font-size="10.00">name = &quot;phases&quot;</text>
+<text text-anchor="start" x="245" y="-204" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
 </g>
 <!-- c2&#45;&#45;a5 -->
 <g id="edge16" class="edge"><title>c2&#45;&#45;a5</title>
@@ -156,9 +156,9 @@
 <text text-anchor="start" x="256" y="-992.5" font-family="Arial" font-size="10.00">r7 :Role</text>
 </a>
 <polygon fill="none" stroke="black" points="216,-938 216,-986 326,-986 326,-938 216,-938"/>
-<text text-anchor="start" x="221" y="-974" font-family="Arial" font-size="10.00">name = &quot;kanbanEntry&quot;</text>
-<text text-anchor="start" x="221" y="-960" font-family="Arial" font-size="10.00">card = &quot;one&quot;</text>
-<text text-anchor="start" x="221" y="-946" font-family="Arial" font-size="10.00">kind = &quot;aggregation&quot;</text>
+<text text-anchor="start" x="221" y="-974" font-family="Arial" font-size="10.00">kind = &quot;aggregation&quot;</text>
+<text text-anchor="start" x="221" y="-960" font-family="Arial" font-size="10.00">name = &quot;kanbanEntry&quot;</text>
+<text text-anchor="start" x="221" y="-946" font-family="Arial" font-size="10.00">card = &quot;one&quot;</text>
 </g>
 <!-- c2&#45;&#45;r7 -->
 <g id="edge12" class="edge"><title>c2&#45;&#45;r7</title>
@@ -220,9 +220,9 @@
 <text text-anchor="start" x="259.5" y="-786.5" font-family="Arial" font-size="10.00">r9 :Role</text>
 </a>
 <polygon fill="none" stroke="black" points="225,-732 225,-780 324,-780 324,-732 225,-732"/>
-<text text-anchor="start" x="230" y="-768" font-family="Arial" font-size="10.00">name = &quot;logEntries&quot;</text>
-<text text-anchor="start" x="230" y="-754" font-family="Arial" font-size="10.00">card = &quot;many&quot;</text>
-<text text-anchor="start" x="230" y="-740" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="230" y="-768" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="230" y="-754" font-family="Arial" font-size="10.00">name = &quot;logEntries&quot;</text>
+<text text-anchor="start" x="230" y="-740" font-family="Arial" font-size="10.00">card = &quot;many&quot;</text>
 </g>
 <!-- a8&#45;&#45;r9 -->
 <g id="edge24" class="edge"><title>a8&#45;&#45;r9</title>
@@ -244,9 +244,9 @@
 <text text-anchor="start" x="431.5" y="-992.5" font-family="Arial" font-size="10.00">r12 :Role</text>
 </a>
 <polygon fill="none" stroke="black" points="412,-938 412,-986 487,-986 487,-938 412,-938"/>
-<text text-anchor="start" x="417" y="-974" font-family="Arial" font-size="10.00">name = &quot;wall&quot;</text>
-<text text-anchor="start" x="417" y="-960" font-family="Arial" font-size="10.00">card = &quot;one&quot;</text>
-<text text-anchor="start" x="417" y="-946" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="417" y="-974" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="417" y="-960" font-family="Arial" font-size="10.00">name = &quot;wall&quot;</text>
+<text text-anchor="start" x="417" y="-946" font-family="Arial" font-size="10.00">card = &quot;one&quot;</text>
 </g>
 <!-- c11&#45;&#45;r12 -->
 <g id="edge28" class="edge"><title>c11&#45;&#45;r12</title>
@@ -278,9 +278,9 @@
 <text text-anchor="start" x="431.5" y="-786.5" font-family="Arial" font-size="10.00">r14 :Role</text>
 </a>
 <polygon fill="none" stroke="black" points="399,-732 399,-780 500,-780 500,-732 399,-732"/>
-<text text-anchor="start" x="404" y="-768" font-family="Arial" font-size="10.00">name = &quot;storyboard&quot;</text>
-<text text-anchor="start" x="404" y="-754" font-family="Arial" font-size="10.00">card = &quot;one&quot;</text>
-<text text-anchor="start" x="404" y="-740" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="404" y="-768" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="404" y="-754" font-family="Arial" font-size="10.00">name = &quot;storyboard&quot;</text>
+<text text-anchor="start" x="404" y="-740" font-family="Arial" font-size="10.00">card = &quot;one&quot;</text>
 </g>
 <!-- a13&#45;&#45;r14 -->
 <g id="edge32" class="edge"><title>a13&#45;&#45;r14</title>
@@ -302,8 +302,8 @@
 <text text-anchor="start" x="438.5" y="-353.5" font-family="Arial" font-size="10.00">a16 :Attribute</text>
 </a>
 <polygon fill="none" stroke="black" points="424,-313 424,-347 508,-347 508,-313 424,-313"/>
-<text text-anchor="start" x="429" y="-335" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
-<text text-anchor="start" x="429" y="-321" font-family="Arial" font-size="10.00">name = &quot;rootDir&quot;</text>
+<text text-anchor="start" x="429" y="-335" font-family="Arial" font-size="10.00">name = &quot;rootDir&quot;</text>
+<text text-anchor="start" x="429" y="-321" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
 </g>
 <!-- c15&#45;&#45;a16 -->
 <g id="edge38" class="edge"><title>c15&#45;&#45;a16</title>
@@ -319,8 +319,8 @@
 <text text-anchor="start" x="242.5" y="-545.5" font-family="Arial" font-size="10.00">a17 :Attribute</text>
 </a>
 <polygon fill="none" stroke="black" points="216,-505 216,-539 324,-539 324,-505 216,-505"/>
-<text text-anchor="start" x="221" y="-527" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
-<text text-anchor="start" x="221" y="-513" font-family="Arial" font-size="10.00">name = &quot;stepCounter&quot;</text>
+<text text-anchor="start" x="221" y="-527" font-family="Arial" font-size="10.00">name = &quot;stepCounter&quot;</text>
+<text text-anchor="start" x="221" y="-513" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
 </g>
 <!-- c15&#45;&#45;a17 -->
 <g id="edge40" class="edge"><title>c15&#45;&#45;a17</title>
@@ -336,8 +336,8 @@
 <text text-anchor="start" x="395.5" y="-545.5" font-family="Arial" font-size="10.00">a18 :Attribute</text>
 </a>
 <polygon fill="none" stroke="black" points="358,-505 358,-539 488,-539 488,-505 358,-505"/>
-<text text-anchor="start" x="363" y="-527" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
-<text text-anchor="start" x="363" y="-513" font-family="Arial" font-size="10.00">name = &quot;stepDoneCounter&quot;</text>
+<text text-anchor="start" x="363" y="-527" font-family="Arial" font-size="10.00">name = &quot;stepDoneCounter&quot;</text>
+<text text-anchor="start" x="363" y="-513" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
 </g>
 <!-- c15&#45;&#45;a18 -->
 <g id="edge42" class="edge"><title>c15&#45;&#45;a18</title>
@@ -353,9 +353,9 @@
 <text text-anchor="start" x="593.5" y="-552.5" font-family="Arial" font-size="10.00">r19 :Role</text>
 </a>
 <polygon fill="none" stroke="black" points="561,-498 561,-546 662,-546 662,-498 561,-498"/>
-<text text-anchor="start" x="566" y="-534" font-family="Arial" font-size="10.00">name = &quot;storyboard&quot;</text>
-<text text-anchor="start" x="566" y="-520" font-family="Arial" font-size="10.00">card = &quot;one&quot;</text>
-<text text-anchor="start" x="566" y="-506" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="566" y="-534" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="566" y="-520" font-family="Arial" font-size="10.00">name = &quot;storyboard&quot;</text>
+<text text-anchor="start" x="566" y="-506" font-family="Arial" font-size="10.00">card = &quot;one&quot;</text>
 </g>
 <!-- c15&#45;&#45;r19 -->
 <g id="edge36" class="edge"><title>c15&#45;&#45;r19</title>
@@ -402,9 +402,9 @@
 <text text-anchor="start" x="587" y="-360.5" font-family="Arial" font-size="10.00">r21 :Role</text>
 </a>
 <polygon fill="none" stroke="black" points="542,-306 542,-354 668,-354 668,-306 542,-306"/>
-<text text-anchor="start" x="547" y="-342" font-family="Arial" font-size="10.00">name = &quot;storyboardSteps&quot;</text>
-<text text-anchor="start" x="547" y="-328" font-family="Arial" font-size="10.00">card = &quot;many&quot;</text>
-<text text-anchor="start" x="547" y="-314" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="547" y="-342" font-family="Arial" font-size="10.00">kind = &quot;vanilla&quot;</text>
+<text text-anchor="start" x="547" y="-328" font-family="Arial" font-size="10.00">name = &quot;storyboardSteps&quot;</text>
+<text text-anchor="start" x="547" y="-314" font-family="Arial" font-size="10.00">card = &quot;many&quot;</text>
 </g>
 <!-- a20&#45;&#45;r21 -->
 <g id="edge52" class="edge"><title>a20&#45;&#45;r21</title>
@@ -426,8 +426,8 @@
 <text text-anchor="start" x="546.5" y="-126.5" font-family="Arial" font-size="10.00">a23 :Attribute</text>
 </a>
 <polygon fill="none" stroke="black" points="533,-86 533,-120 615,-120 615,-86 533,-86"/>
-<text text-anchor="start" x="538" y="-108" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
-<text text-anchor="start" x="538" y="-94" font-family="Arial" font-size="10.00">name = &quot;text&quot;</text>
+<text text-anchor="start" x="538" y="-108" font-family="Arial" font-size="10.00">name = &quot;text&quot;</text>
+<text text-anchor="start" x="538" y="-94" font-family="Arial" font-size="10.00">initialization = &quot;&quot;</text>
 </g>
 <!-- c22&#45;&#45;a23 -->
 <g id="edge56" class="edge"><title>c22&#45;&#45;a23</title>

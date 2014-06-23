@@ -30,6 +30,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -41,17 +42,20 @@ import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import javafx.application.Platform;
-import org.sdmlib.replication.creators.ReplicationChangeSet;
-import org.sdmlib.replication.creators.ReplicationChannelSet;
-import org.sdmlib.replication.creators.ReplicationRootSet;
-import org.sdmlib.replication.creators.SharedSpaceSet;
-import org.sdmlib.serialization.EntityUtil;
-import org.sdmlib.serialization.interfaces.MapUpdateListener;
-import org.sdmlib.serialization.interfaces.SendableEntityCreator;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.json.JsonObject;
-import org.sdmlib.utils.PropertyChangeInterface;
-import org.sdmlib.utils.StrUtil;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.ReplicationChangeSet;
+import org.sdmlib.replication.util.ReplicationChannelSet;
+import org.sdmlib.replication.util.ReplicationNodeCreator;
+import org.sdmlib.replication.util.ReplicationRootSet;
+import org.sdmlib.replication.util.SharedSpaceSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.MapUpdateListener;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
 
 
 
@@ -98,7 +102,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public ReplicationRoot plainInit()
    {
-      map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+      map.withCreator(ReplicationNodeCreator.createIdMap("i").getCreators());
       
       map.withUpdateMsgListener((MapUpdateListener) this);
       
@@ -110,7 +114,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public SharedSpace init(PropertyChangeListener laneListener)
    {
-      map.withCreator(org.sdmlib.replication.creators.CreatorCreator.getCreatorSet());
+      map.withCreator(ReplicationNodeCreator.createIdMap("i").getCreators());
       setName("Lane" + nodeId);
       ReplicationChannel channel = createChannels().withConnect(serverIp, serverPort);
       channel.setName("ReplicationChannel" + nodeId);
@@ -143,7 +147,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
             JsonObject jsonObject = new JsonObject().withValue(msg);
             if (jsonObject.get(CURRENT_HISTORY_ID) != null)
             {
-               long receivedId = jsonObject.getLong(CURRENT_HISTORY_ID);
+               long receivedId = (long) jsonObject.get(CURRENT_HISTORY_ID);
                if (receivedId > this.lastChangeId)
                {
                   this.lastChangeId = receivedId;
@@ -255,23 +259,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       {
          // reconstruct change
          JsonObject jsonObject = new JsonObject().withValue(msg.msg);
-//         System.out.println(jsonObject.toString(2));
-//         JsonObject propJson = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
-//         if (propJson != null) {
-//            String id = (String) propJson.get("historyIdPrefix");
-//            if (id == null || !id.equals(nodeId))
-//            {
-//               for (HookAction r : beforeHandleMessageActions)
-//               {
-//                  
-//                  r.run(jsonObject);
-//               }
-//            }
-//         }
-//         else {
-//            System.out.println(msg.msg);
-//         }
-
 
          this.isApplyingChangeMsg = true;
 
@@ -300,7 +287,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          // handle resend request
          if (jsonObject.get(RESEND_ID_HISTORY_NUMBER) != null)
          {
-            previousChange.setHistoryIdNumber(jsonObject.getLong(RESEND_ID_HISTORY_NUMBER));
+            previousChange.setHistoryIdNumber((long) jsonObject.get(RESEND_ID_HISTORY_NUMBER));
             previousChange.setHistoryIdPrefix(jsonObject.getString(RESEND_ID_HISTORY_PREFIX));
 
             sendAllChangesSince(previousChange, msg.channel);
@@ -312,7 +299,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
          ReplicationChange change = (ReplicationChange) cmap.decode(jsonObject);
          
-         change.setChangeMsg(EntityUtil.unquote(change.getChangeMsg()));
+         change.setChangeMsg(EntityUtil.unQuote(change.getChangeMsg()));
 
          // is change already known?
          if (getHistory().getChanges().contains(change))
@@ -328,51 +315,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
             System.out.println("Handling change\n" + change.toString());
          }
 
-         // is previous change known?
-         String previousPrefix = (String) jsonObject.get(LOWER_ID_PREFIX);
-//         if (false && previousPrefix != null)
-//         {
-//            long previousNumber = jsonObject.getLong(LOWER_ID_NUMBER);
-//            previousChange.withHistoryIdNumber(previousNumber).withHistoryIdPrefix(previousPrefix);
-//
-//            // there is an id for the previous change, do I know that one?
-//            ReplicationChange floor = this.getHistory().getChanges().floor(previousChange);
-//            if (floor == null || floor.compareTo(previousChange) != 0)
-//            {
-//               // ups, I do not have the previous change.
-//               // this should not happen.
-//               // well, ask for the previous change and wait for it
-//               // well what is the latest change I have already that is before
-//               // the one I have no longer
-//               ReplicationChange previousfloor = getHistory().getChanges().floor(previousChange);
-//               if (floor != null)
-//               {
-//                  previousNumber = previousfloor.getHistoryIdNumber();
-//                  previousPrefix = previousfloor.getHistoryIdPrefix();
-//               }
-//               else
-//               {
-//                  // ups, I do not have the previous Id nor any one before that,
-//                  // start from the beginning
-//                  previousNumber = 0;
-//                  previousPrefix = " ";
-//               }
-//               JsonObject jsonRequest = new JsonObject();
-//               jsonRequest.put(RESEND_ID_HISTORY_NUMBER, previousNumber);
-//               jsonRequest.put(RESEND_ID_HISTORY_PREFIX, previousPrefix);
-//
-//               msg.channel.send(jsonRequest.toString());
-//
-//               // wait for it
-//               return;
-//            }
-//         }
-//         else
-//         {
-//            // sender does not have an earlier change, use dummy for further
-//            // processing
-//            previousChange.withHistoryIdNumber(0).withHistoryIdPrefix(" ");
-//         }
 
          // try to apply change
          // is it a conflict?
@@ -408,6 +350,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
                   String sourceId = higherJson.getString(JsonIdMap.ID);
                   Object sourceObject = map.getObject(sourceId);
                   JsonObject updateJson = (JsonObject) higherJson.get(JsonIdMap.UPDATE);
+                  
+                  if (updateJson == null)
+                  {
+                     updateJson = (JsonObject) higherJson.get(JsonIdMap.REMOVE);
+                  }
 
                   for (Iterator<String> keyIter = updateJson.keys(); keyIter.hasNext();)
                   {
@@ -480,20 +427,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       finally
       {
          this.isApplyingChangeMsg = false;
-         
-//         JsonObject jsonObject = new JsonObject().withValue(msg.msg);
-//         System.out.println(jsonObject.toString(2));
-//         JsonObject propJson = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
-//         if (propJson != null) {
-//            String id = (String) propJson.get("historyIdPrefix");
-//            if (id == null || !id.equals(nodeId))
-//            {
-//               for (HookAction r : afterHandleMessageActions)
-//               {
-//                  r.run(jsonObject);
-//               }
-//            }
-//         }
       }
 
    }
@@ -796,7 +729,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
                      JsonObject jsonObject = new JsonObject().withValue(line);
                      
                      ReplicationChange change = (ReplicationChange) getChangeMap().decode(jsonObject);
-                     change.setChangeMsg(EntityUtil.unquote(change.getChangeMsg()));
+                     change.setChangeMsg(EntityUtil.unQuote(change.getChangeMsg()));
 
                      changeList.add(change);
 
@@ -874,6 +807,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       .withChangeMsg(jsonObject.toString());
 
       Object object = jsonObject.get(JsonIdMap.UPDATE);
+      
+      if (object == null)
+      {
+         object = jsonObject.get(JsonIdMap.REMOVE);
+      }
 
       if (object != null)
       {
@@ -952,7 +890,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       if (changeMap == null)
       {
-         changeMap = org.sdmlib.replication.creators.CreatorCreator.createIdMap(nodeId);
+         changeMap = ReplicationNodeCreator.createIdMap(nodeId);
       }
       return changeMap;
    }
@@ -1067,6 +1005,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       setNode(null);
       removeAllFromChannels();
+      withoutChannels(this.getChannels().toArray(new ReplicationChannel[this.getChannels().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -1549,10 +1488,64 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          this.channel = channel;
          this.msg = msg;
       }
-
+   
       public ReplicationChannel channel;
 
       public String msg;
    }
+   //==========================================================================
+   
+   public static final String PROPERTY_SOCKET = "socket";
+   
+   private Socket socket;
+
+   public Socket getSocket()
+   {
+      return this.socket;
+   }
+   
+   public void setSocket(Socket value)
+   {
+      if (this.socket != value)
+      {
+         Socket oldValue = this.socket;
+         this.socket = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SOCKET, oldValue, value);
+      }
+   }
+   
+   public SharedSpace withSocket(Socket value)
+   {
+      setSocket(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TARGETNODEID = "targetNodeId";
+   
+   private String targetNodeId;
+
+   public String getTargetNodeId()
+   {
+      return this.targetNodeId;
+   }
+   
+   public void setTargetNodeId(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.targetNodeId, value))
+      {
+         String oldValue = this.targetNodeId;
+         this.targetNodeId = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TARGETNODEID, oldValue, value);
+      }
+   }
+   
+   public SharedSpace withTargetNodeId(String value)
+   {
+      setTargetNodeId(value);
+      return this;
+   } 
 }
 

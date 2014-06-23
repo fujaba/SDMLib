@@ -17,9 +17,9 @@
 <text text-anchor="start" x="115" y="-608.5" font-family="Arial" font-size="10.00">p1 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="88,-554 88,-602 186,-602 186,-554 88,-554"/>
-<text text-anchor="start" x="93" y="-590" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
+<text text-anchor="start" x="93" y="-590" font-family="Arial" font-size="10.00">firstName = &quot;Albert&quot;</text>
 <text text-anchor="start" x="93" y="-576" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="93" y="-562" font-family="Arial" font-size="10.00">firstName = &quot;Albert&quot;</text>
+<text text-anchor="start" x="93" y="-562" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- r2 -->
 <g id="node2" class="node"><title>r2</title>
@@ -29,9 +29,9 @@
 <text text-anchor="start" x="35.5" y="-498.5" font-family="Arial" font-size="10.00">r2 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="20,-444 20,-492 97,-492 97,-444 20,-444"/>
-<text text-anchor="start" x="25" y="-480" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
-<text text-anchor="start" x="25" y="-466" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="25" y="-452" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="25" y="-480" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
+<text text-anchor="start" x="25" y="-466" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="25" y="-452" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- p1&#45;&#45;r2 -->
 <g id="edge2" class="edge"><title>p1&#45;&#45;r2</title>
@@ -47,9 +47,9 @@
 <text text-anchor="start" x="72.5" y="-58.5" font-family="Arial" font-size="10.00">r6 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="57,-4 57,-52 134,-52 134,-4 57,-4"/>
-<text text-anchor="start" x="62" y="-40" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
-<text text-anchor="start" x="62" y="-26" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="62" y="-12" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="62" y="-40" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
+<text text-anchor="start" x="62" y="-26" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="62" y="-12" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- p1&#45;&#45;r6 -->
 <g id="edge6" class="edge"><title>p1&#45;&#45;r6</title>
@@ -65,9 +65,9 @@
 <text text-anchor="start" x="192.5" y="-498.5" font-family="Arial" font-size="10.00">r7 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="177,-444 177,-492 254,-492 254,-444 177,-444"/>
-<text text-anchor="start" x="182" y="-480" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
-<text text-anchor="start" x="182" y="-466" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="182" y="-452" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="182" y="-480" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
+<text text-anchor="start" x="182" y="-466" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="182" y="-452" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- p1&#45;&#45;r7 -->
 <g id="edge4" class="edge"><title>p1&#45;&#45;r7</title>
@@ -83,9 +83,9 @@
 <text text-anchor="start" x="32.5" y="-388.5" font-family="Arial" font-size="10.00">p3 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-334 8,-382 101,-382 101,-334 8,-334"/>
-<text text-anchor="start" x="13" y="-370" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-370" font-family="Arial" font-size="10.00">firstName = &quot;Gabi&quot;</text>
 <text text-anchor="start" x="13" y="-356" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-342" font-family="Arial" font-size="10.00">firstName = &quot;Gabi&quot;</text>
+<text text-anchor="start" x="13" y="-342" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- r2&#45;&#45;p3 -->
 <g id="edge8" class="edge"><title>r2&#45;&#45;p3</title>
@@ -101,9 +101,9 @@
 <text text-anchor="start" x="31.5" y="-278.5" font-family="Arial" font-size="10.00">r4 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="16,-224 16,-272 93,-272 93,-224 16,-224"/>
-<text text-anchor="start" x="21" y="-260" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
-<text text-anchor="start" x="21" y="-246" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="21" y="-232" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="21" y="-260" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
+<text text-anchor="start" x="21" y="-246" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="21" y="-232" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- p3&#45;&#45;r4 -->
 <g id="edge10" class="edge"><title>p3&#45;&#45;r4</title>
@@ -119,9 +119,9 @@
 <text text-anchor="start" x="32.5" y="-168.5" font-family="Arial" font-size="10.00">p5 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-114 8,-162 101,-162 101,-114 8,-114"/>
-<text text-anchor="start" x="13" y="-150" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-150" font-family="Arial" font-size="10.00">firstName = &quot;Jens&quot;</text>
 <text text-anchor="start" x="13" y="-136" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-122" font-family="Arial" font-size="10.00">firstName = &quot;Jens&quot;</text>
+<text text-anchor="start" x="13" y="-122" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- r4&#45;&#45;p5 -->
 <g id="edge12" class="edge"><title>r4&#45;&#45;p5</title>
@@ -143,9 +143,9 @@
 <text text-anchor="start" x="197" y="-388.5" font-family="Arial" font-size="10.00">p8 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="173,-334 173,-382 265,-382 265,-334 173,-334"/>
-<text text-anchor="start" x="178" y="-370" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
+<text text-anchor="start" x="178" y="-370" font-family="Arial" font-size="10.00">firstName = &quot;Nina&quot;</text>
 <text text-anchor="start" x="178" y="-356" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="178" y="-342" font-family="Arial" font-size="10.00">firstName = &quot;Nina&quot;</text>
+<text text-anchor="start" x="178" y="-342" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- r7&#45;&#45;p8 -->
 <g id="edge16" class="edge"><title>r7&#45;&#45;p8</title>
@@ -161,9 +161,9 @@
 <text text-anchor="start" x="304.5" y="-608.5" font-family="Arial" font-size="10.00">p9 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="279,-554 279,-602 374,-602 374,-554 279,-554"/>
-<text text-anchor="start" x="284" y="-590" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
+<text text-anchor="start" x="284" y="-590" font-family="Arial" font-size="10.00">firstName = &quot;Nerdi&quot;</text>
 <text text-anchor="start" x="284" y="-576" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="284" y="-562" font-family="Arial" font-size="10.00">firstName = &quot;Nerdi&quot;</text>
+<text text-anchor="start" x="284" y="-562" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- r10 -->
 <g id="node10" class="node"><title>r10</title>
@@ -173,14 +173,14 @@
 <text text-anchor="start" x="301" y="-498.5" font-family="Arial" font-size="10.00">r10 :Relation</text>
 </a>
 <polygon fill="none" stroke="black" points="288,-444 288,-492 365,-492 365,-444 288,-444"/>
-<text text-anchor="start" x="293" y="-480" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
-<text text-anchor="start" x="293" y="-466" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="293" y="-452" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="293" y="-480" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
+<text text-anchor="start" x="293" y="-466" font-family="Arial" font-size="10.00">kind = &quot;knows&quot;</text>
+<text text-anchor="start" x="293" y="-452" font-family="Arial" font-size="10.00">text = &quot;&quot;</text>
 </g>
 <!-- p9&#45;&#45;r10 -->
 <g id="edge18" class="edge"><title>p9&#45;&#45;r10</title>
 <path fill="none" stroke="black" d="M326,-550.337C326,-538.541 326,-525.419 326,-513.625"/>
-<text text-anchor="middle" x="330.226" y="-520.188" font-family="Arial" font-size="10.00">inEdges_outEdges</text>
+<text text-anchor="middle" x="330.226" y="-520.188" font-family="Arial" font-size="10.00">outEdges_inEdges</text>
 <text text-anchor="middle" x="321.774" y="-538.774" font-family="Arial" font-size="10.00">tgt_src</text>
 </g>
 </g>

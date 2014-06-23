@@ -1,13 +1,12 @@
 package org.sdmlib.replication;
 
-import java.beans.PropertyChangeSupport;
 import java.net.Socket;
 
 import org.junit.Test;
+import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Role.R;
-import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.Storyboard;
 
 // 
@@ -25,81 +24,91 @@ public class ReplicationModel
    public static void main(String[] args)
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/ReplicationModel.html
-      Storyboard storyboard = new Storyboard("replicationsrc",
-            "ReplicationModel");
+      Storyboard storyboard = new Storyboard("replicationsrc", "ReplicationModel");
 
       ClassModel model = new ClassModel("org.sdmlib.replication");
 
-      Clazz thread = model.createClazz(Thread.class.getName()).withExternal(
-         true);
+      Clazz thread = model.createClazz(Thread.class.getName()).withExternal(true);
 
-      Clazz socket = model.createClazz(Socket.class.getName()).withExternal(
-         true);
+      Clazz socket = model.createClazz(Socket.class.getName()).withExternal(true);
 
       Clazz replicationNode = model.createClazz(REPLICATION_NODE);
 
-      Clazz sharedSpace = replicationNode
-         .createClassAndAssoc("SharedSpace", "sharedSpaces", R.MANY, "node",
-            R.ONE)
-         .withAttributes(
-            "spaceId", R.STRING, 
-            "history", CHANGE_HISTORY,
-            "lastChangeId", R.LONG, 
-            "nodeId", R.STRING, 
-            "javaFXApplication", R.BOOLEAN)
-            .withSuperClass(thread);
+      Clazz sharedSpace = model.createClazz("SharedSpace")
+            .withAttribute("spaceId", DataType.STRING) 
+      .withAttribute("history", DataType.ref(CHANGE_HISTORY))
+      .withAttribute("lastChangeId", DataType.LONG) 
+      .withAttribute("nodeId", DataType.STRING) 
+      .withAttribute("javaFXApplication", DataType.BOOLEAN)
+      .withSuperClazz(thread);
 
-      Clazz replicationChannel = sharedSpace
-         .createClassAndAssoc("ReplicationChannel", "channels", R.MANY,
-            "sharedSpace", R.ONE).withSuperClass(thread)
-         .withAttributes(
-            "socket", Socket.class.getSimpleName(), 
-            "targetNodeId", R.STRING);
+      replicationNode.withAssoc(sharedSpace, "sharedSpaces", Card.MANY, "node", Card.ONE);
+      
+      
+      Clazz replicationChannel = model.createClazz("ReplicationChannel")
+      .withSuperClazz(thread)
+      .withAttribute("socket", DataType.ref(Socket.class)) 
+      .withAttribute("targetNodeId", DataType.STRING); 
+      
+      sharedSpace.withAssoc(replicationChannel, "channels", Card.MANY, "sharedSpace", Card.ONE);
 
       Clazz replicationServer = model.createClazz("ReplicationServer")
-         .withSuperClass(replicationNode);
+         .withSuperClazz(replicationNode);
 
-      Clazz serverSocketAcceptThread = model
-         .createClazz("ServerSocketAcceptThread").withSuperClass(thread)
-         .withAttributes("port", R.INT, "replicationNode", REPLICATION_NODE);
+      Clazz serverSocketAcceptThread = model.createClazz("ServerSocketAcceptThread")
+            .withSuperClazz(thread)
+            .withAttribute("port", DataType.INT)
+            .withAttribute("replicationNode", DataType.ref(replicationNode));
 
       Clazz task = model.createClazz("Task");
 
-      task.createClassAndAssoc("LogEntry", "logEntries", R.MANY, "task", R.ONE)
-         .withAttributes("stepName", R.STRING, "executedBy", R.STRING,
-            "timeStamp", R.LONG);
+      Clazz logEntry = model.createClazz("LogEntry")
+            .withAttribute("stepName", DataType.STRING)
+            .withAttribute("executedBy", DataType.STRING)
+            .withAttribute("timeStamp", DataType.LONG);
+
+      
+      task.withAssoc(logEntry, "logEntries", Card.MANY, "task", Card.ONE);
 
       Clazz changeHistory = model.createClazz(CHANGE_HISTORY);
 
-      Clazz change = changeHistory
-         .createClassAndAssoc("ReplicationChange", "changes", R.MANY,
-            "history", R.ONE)
-         .withSuperClass(task)
-         .withAttributes("historyIdPrefix", R.STRING, "historyIdNumber",
-            R.LONG, "targetObjectId", R.STRING, "targetProperty", R.STRING,
-            "isToManyProperty", R.BOOLEAN, "changeMsg", R.STRING);
-
+      Clazz change = model.createClazz("ReplicationChange")
+            .withSuperClazz(task)
+            .withAttribute("historyIdPrefix", DataType.STRING)
+            .withAttribute("historyIdNumber", DataType.LONG)
+            .withAttribute("targetObjectId", DataType.STRING)
+            .withAttribute("targetProperty", DataType.STRING)
+            .withAttribute("isToManyProperty", DataType.BOOLEAN)
+            .withAttribute("changeMsg", DataType.STRING);
+   
+      changeHistory.withAssoc(change, "changes", Card.MANY, "history", Card.ONE);
+         
       // replicated task flow model
       Clazz remoteTaskBoard = model.createClazz("RemoteTaskBoard");
 
-      Clazz lane = remoteTaskBoard.createClassAndAssoc("Lane", "lanes", R.MANY,
-         "board", R.ONE).withAttributes("name", R.STRING);
+      Clazz lane = model.createClazz("Lane")
+            .withAttribute("name", DataType.STRING);
+            
+      remoteTaskBoard.withAssoc(lane, "lanes", Card.MANY, "board", Card.ONE);
 
-      Clazz boardTask = lane
-         .createClassAndAssoc("BoardTask", "tasks", R.MANY, "lane", R.ONE)
-         .withSuperClass(task)
-         .withAttributes("name", R.STRING, "status", R.STRING);
+      Clazz boardTask = model.createClazz("BoardTask")
+            .withSuperClazz(task)
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("status", DataType.STRING);
+            
+      lane.withAssoc(boardTask, "tasks", Card.MANY, "lane", Card.ONE);
+         
+      boardTask.withAssoc(boardTask, "next", Card.MANY, "prev", Card.MANY);
 
-      boardTask.withAssoc(boardTask, "next", R.MANY, "prev", R.MANY);
-
-      Clazz replicationRoot = model.createClazz("ReplicationRoot", "name", R.STRING, "applicationObject", R.OBJECT);
+      Clazz replicationRoot = model.createClazz("ReplicationRoot")
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("applicationObject", DataType.OBJECT);
       
-      replicationRoot.withAssoc(replicationRoot, "kids", R.MANY, "parent", R.ONE);
+      replicationRoot.withAssoc(replicationRoot, "kids", Card.MANY, "parent", Card.ONE);
       
       model.generate("replicationsrc");
 
-      storyboard.addSVGImage(model
-         .dumpClassDiagram("src", "ReplicationModel01"));
+      storyboard.addClassDiagram(model, "src");
 
       storyboard.dumpHTML();
    }

@@ -21,11 +21,13 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.replication.creators.LogEntrySet;
 import java.util.LinkedHashSet;
-import org.sdmlib.serialization.json.JsonIdMap;
+
+import org.sdmlib.replication.util.LogEntrySet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
 
 public class Task implements PropertyChangeInterface
@@ -76,6 +78,7 @@ public class Task implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromLogEntries();
+      withoutLogEntries(this.getLogEntries().toArray(new LogEntry[this.getLogEntries().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

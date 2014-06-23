@@ -21,15 +21,13 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
 import java.beans.PropertyChangeSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.sdmlib.replication.creators.LogEntrySet;
-
+import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.LogEntrySet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 
 public class LogEntry implements PropertyChangeInterface

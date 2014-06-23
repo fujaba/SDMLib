@@ -23,8 +23,9 @@ package org.sdmlib.replication;
 
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ReplicationServer extends ReplicationNode implements
       PropertyChangeInterface
@@ -88,7 +89,20 @@ public class ReplicationServer extends ReplicationNode implements
    public void removeYou()
    {
       removeAllFromSharedSpaces();
+      withoutSharedSpaces(this.getSharedSpaces().toArray(new SharedSpace[this.getSharedSpaces().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getSpaceId());
+      _.append(" ").append(this.getNodeId());
+      return _.substring(1);
+   }
+
 }

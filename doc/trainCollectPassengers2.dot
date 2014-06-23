@@ -7,7 +7,7 @@ t1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../e
 s2 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/Station.java"> <u>s2 :Station</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>prev = ""</td></tr></table></td></tr></table>>];
 s3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/Station.java"> <u>s3 :Station</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>flag = ""</td></tr></table></td></tr></table>>];
 s4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/Station.java"> <u>s4 :Station</u></td></tr></table>>];
-s5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/Station.java"> <u>s5 :Station</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>flag = ""</td></tr><tr><td align='left'>next = ""</td></tr></table></td></tr></table>>];
+s5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/Station.java"> <u>s5 :Station</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>next = ""</td></tr><tr><td align='left'>flag = ""</td></tr></table></td></tr></table>>];
 p6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/Person.java"> <u>p6 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>train = ""</td></tr></table></td></tr></table>>];
 p7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/Person.java"> <u>p7 :Person</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>train = ""</td></tr></table></td></tr></table>>];
 s8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/SignalFlag.java"> <u>s8 :SignalFlag</u></td></tr></table>>];
@@ -17,14 +17,14 @@ p11 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../
 s12 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/patternrewriteops/model/SignalFlag.java"> <u>s12 :SignalFlag</u></td></tr></table>>];
 
 t1 -- s2 [headlabel = "station" taillabel = "trains"];
-s2 -- s12 [headlabel = "flag" taillabel = "station"];
 s2 -- s3 [headlabel = "next" taillabel = "prev"];
+s2 -- s12 [headlabel = "flag" taillabel = "station"];
 s2 -- p9 [headlabel = "people" taillabel = "station"];
 s2 -- p10 [headlabel = "people" taillabel = "station"];
 s2 -- p11 [headlabel = "people" taillabel = "station"];
 s3 -- s4 [headlabel = "next" taillabel = "prev"];
-s4 -- s8 [headlabel = "flag" taillabel = "station"];
 s4 -- s5 [headlabel = "next" taillabel = "prev"];
+s4 -- s8 [headlabel = "flag" taillabel = "station"];
 s4 -- p6 [headlabel = "people" taillabel = "station"];
 s4 -- p7 [headlabel = "people" taillabel = "station"];
 }

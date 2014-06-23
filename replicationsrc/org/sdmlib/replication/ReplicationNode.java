@@ -22,51 +22,19 @@
 package org.sdmlib.replication;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.replication.creators.SharedSpaceSet;
-import org.sdmlib.serialization.json.JsonIdMap;
-import org.sdmlib.utils.PropertyChangeInterface;
+import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.ReplicationNodeCreator;
+import org.sdmlib.replication.util.SharedSpaceSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
-import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.json.JsonIdMap;
 
-import javax.swing.event.ChangeEvent;
-
-public class ReplicationNode implements PropertyChangeInterface
+public class ReplicationNode extends Thread implements PropertyChangeInterface
 {
-
-   // ==========================================================================
-
-   public Object get(String attrName)
-   {
-      if (PROPERTY_SHAREDSPACES.equalsIgnoreCase(attrName))
-      {
-         return getSharedSpaces();
-      }
-
-      return null;
-   }
-
-   // ==========================================================================
-
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_SHAREDSPACES.equalsIgnoreCase(attrName))
-      {
-         addToSharedSpaces((SharedSpace) value);
-         return true;
-      }
-
-      if ((PROPERTY_SHAREDSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromSharedSpaces((SharedSpace) value);
-         return true;
-      }
-
-      return false;
-   }
-
    // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -81,6 +49,7 @@ public class ReplicationNode implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromSharedSpaces();
+      withoutSharedSpaces(this.getSharedSpaces().toArray(new SharedSpace[this.getSharedSpaces().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -98,7 +67,7 @@ public class ReplicationNode implements PropertyChangeInterface
 
    public synchronized SharedSpace getOrCreateSharedSpace(String spaceId)
    {
-      SharedSpace sharedSpace = this.getSharedSpaces().get(spaceId);
+      SharedSpace sharedSpace = this.getSharedSpaces().hasSpaceId(spaceId).first();
 
       if (sharedSpace == null)
       {
@@ -107,7 +76,7 @@ public class ReplicationNode implements PropertyChangeInterface
          sharedSpace.setName("SharedSpace" + getSharedSpaces().size());
          
          // add replication root 
-         JsonIdMap map = org.sdmlib.replication.creators.CreatorCreator.createIdMap("s42");
+         JsonIdMap map = ReplicationNodeCreator.createIdMap("s42");
          
          sharedSpace.withMap(map);
          
@@ -160,7 +129,9 @@ public class ReplicationNode implements PropertyChangeInterface
             this.sharedSpaces = new SharedSpaceSet();
          }
 
-         oldContent = this.sharedSpaces.put("" + value.getSpaceId(), value);
+         oldContent = this.getSharedSpaces().hasSpaceId(value.getSpaceId()).first();
+               
+         this.sharedSpaces.add(value);
 
          if (oldContent != value)
          {
@@ -175,13 +146,13 @@ public class ReplicationNode implements PropertyChangeInterface
 
    public boolean removeFromSharedSpaces(SharedSpace value)
    {
-      SharedSpace oldContent = null;
-
+      boolean flag = false;
+      
       if ((this.sharedSpaces != null) && (value != null))
       {
-         oldContent = this.sharedSpaces.remove("" + value.getSpaceId());
+         flag = this.sharedSpaces.remove(value);
 
-         if (oldContent == value)
+         if (flag)
          {
             value.setNode(null);
             getPropertyChangeSupport().firePropertyChange(
@@ -189,7 +160,7 @@ public class ReplicationNode implements PropertyChangeInterface
          }
       }
 
-      return oldContent == value;
+      return flag;
    }
 
    public ReplicationNode withSharedSpaces(SharedSpace value)
@@ -247,5 +218,157 @@ public class ReplicationNode implements PropertyChangeInterface
       this.remoteTaskListener = remoteTaskListener;
       return this;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_SPACEID = "spaceId";
+   
+   private String spaceId;
+
+   public String getSpaceId()
+   {
+      return this.spaceId;
+   }
+   
+   public void setSpaceId(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.spaceId, value))
+      {
+         String oldValue = this.spaceId;
+         this.spaceId = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SPACEID, oldValue, value);
+      }
+   }
+   
+   public ReplicationNode withSpaceId(String value)
+   {
+      setSpaceId(value);
+      return this;
+   } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getSpaceId());
+      _.append(" ").append(this.getNodeId());
+      return _.substring(1);
+   }
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_HISTORY = "history";
+   
+   private ChangeHistory history;
+
+   public ChangeHistory getHistory()
+   {
+      return this.history;
+   }
+   
+   public void setHistory(ChangeHistory value)
+   {
+      if (this.history != value)
+      {
+         ChangeHistory oldValue = this.history;
+         this.history = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HISTORY, oldValue, value);
+      }
+   }
+   
+   public ReplicationNode withHistory(ChangeHistory value)
+   {
+      setHistory(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_LASTCHANGEID = "lastChangeId";
+   
+   private long lastChangeId;
+
+   public long getLastChangeId()
+   {
+      return this.lastChangeId;
+   }
+   
+   public void setLastChangeId(long value)
+   {
+      if (this.lastChangeId != value)
+      {
+         long oldValue = this.lastChangeId;
+         this.lastChangeId = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LASTCHANGEID, oldValue, value);
+      }
+   }
+   
+   public ReplicationNode withLastChangeId(long value)
+   {
+      setLastChangeId(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NODEID = "nodeId";
+   
+   private String nodeId;
+
+   public String getNodeId()
+   {
+      return this.nodeId;
+   }
+   
+   public void setNodeId(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.nodeId, value))
+      {
+         String oldValue = this.nodeId;
+         this.nodeId = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NODEID, oldValue, value);
+      }
+   }
+   
+   public ReplicationNode withNodeId(String value)
+   {
+      setNodeId(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_JAVAFXAPPLICATION = "javaFXApplication";
+   
+   private boolean javaFXApplication;
+
+   public boolean isJavaFXApplication()
+   {
+      return this.javaFXApplication;
+   }
+   
+   public void setJavaFXApplication(boolean value)
+   {
+      if (this.javaFXApplication != value)
+      {
+         boolean oldValue = this.javaFXApplication;
+         this.javaFXApplication = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_JAVAFXAPPLICATION, oldValue, value);
+      }
+   }
+   
+   public ReplicationNode withJavaFXApplication(boolean value)
+   {
+      setJavaFXApplication(value);
+      return this;
+   } 
 }
 

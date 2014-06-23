@@ -18,11 +18,11 @@
 <text text-anchor="start" x="55.5" y="-730" font-family="Arial" font-size="10.00">karli :TeachingAssistant</text>
 </a>
 <polygon fill="none" stroke="black" points="48,-634 48,-724 164,-724 164,-634 48,-634"/>
-<text text-anchor="start" x="53" y="-712" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="53" y="-698" font-family="Arial" font-size="10.00">certified = &quot;false&quot;</text>
+<text text-anchor="start" x="53" y="-712" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="53" y="-698" font-family="Arial" font-size="10.00">motivation = 168</text>
 <text text-anchor="start" x="53" y="-684" font-family="Arial" font-size="10.00">name = &quot;Karli&quot;</text>
-<text text-anchor="start" x="53" y="-670" font-family="Arial" font-size="10.00">motivation = 168</text>
-<text text-anchor="start" x="53" y="-656" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="53" y="-670" font-family="Arial" font-size="10.00">certified = &quot;false&quot;</text>
+<text text-anchor="start" x="53" y="-656" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
 <text text-anchor="start" x="53" y="-642" font-family="Arial" font-size="10.00">room = &quot;&quot;</text>
 </g>
 <!-- mathRoom -->
@@ -34,9 +34,9 @@
 <text text-anchor="start" x="68.5" y="-512" font-family="Arial" font-size="10.00">mathRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="61,-458 61,-506 151,-506 151,-458 61,-458"/>
-<text text-anchor="start" x="66" y="-494" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
+<text text-anchor="start" x="66" y="-494" font-family="Arial" font-size="10.00">credits = 17</text>
 <text text-anchor="start" x="66" y="-480" font-family="Arial" font-size="10.00">name = &quot;senate&quot;</text>
-<text text-anchor="start" x="66" y="-466" font-family="Arial" font-size="10.00">credits = 17</text>
+<text text-anchor="start" x="66" y="-466" font-family="Arial" font-size="10.00">topic = &quot;math&quot;</text>
 </g>
 <!-- karli&#45;&#45;mathRoom -->
 <g id="edge2" class="edge"><title>karli&#45;&#45;mathRoom</title>
@@ -52,9 +52,9 @@
 <text text-anchor="start" x="66" y="-402.5" font-family="Arial" font-size="10.00">sportsRoom :Room</text>
 </a>
 <polygon fill="none" stroke="black" points="54,-348 54,-396 159,-396 159,-348 54,-348"/>
-<text text-anchor="start" x="59" y="-384" font-family="Arial" font-size="10.00">topic = &quot;sports&quot;</text>
+<text text-anchor="start" x="59" y="-384" font-family="Arial" font-size="10.00">credits = 25</text>
 <text text-anchor="start" x="59" y="-370" font-family="Arial" font-size="10.00">name = &quot;gymnasium&quot;</text>
-<text text-anchor="start" x="59" y="-356" font-family="Arial" font-size="10.00">credits = 25</text>
+<text text-anchor="start" x="59" y="-356" font-family="Arial" font-size="10.00">topic = &quot;sports&quot;</text>
 </g>
 <!-- mathRoom&#45;&#45;sportsRoom -->
 <g id="edge4" class="edge"><title>mathRoom&#45;&#45;sportsRoom</title>
@@ -71,10 +71,10 @@
 <text text-anchor="start" x="35.5" y="-244" font-family="Arial" font-size="10.00">abu :Student</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-176 8,-238 115,-238 115,-176 8,-176"/>
-<text text-anchor="start" x="13" y="-226" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="13" y="-212" font-family="Arial" font-size="10.00">name = &quot;Abu&quot;</text>
-<text text-anchor="start" x="13" y="-198" font-family="Arial" font-size="10.00">motivation = 168</text>
-<text text-anchor="start" x="13" y="-184" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="13" y="-226" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="13" y="-212" font-family="Arial" font-size="10.00">motivation = 168</text>
+<text text-anchor="start" x="13" y="-198" font-family="Arial" font-size="10.00">name = &quot;Abu&quot;</text>
+<text text-anchor="start" x="13" y="-184" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
 </g>
 <!-- sportsRoom&#45;&#45;abu -->
 <g id="edge6" class="edge"><title>sportsRoom&#45;&#45;abu</title>
@@ -91,10 +91,10 @@
 <text text-anchor="start" x="78" y="-72" font-family="Arial" font-size="10.00">alice :Student</text>
 </a>
 <polygon fill="none" stroke="black" points="53,-4 53,-66 160,-66 160,-4 53,-4"/>
-<text text-anchor="start" x="58" y="-54" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
-<text text-anchor="start" x="58" y="-40" font-family="Arial" font-size="10.00">name = &quot;Alice&quot;</text>
-<text text-anchor="start" x="58" y="-26" font-family="Arial" font-size="10.00">motivation = 168</text>
-<text text-anchor="start" x="58" y="-12" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="58" y="-54" font-family="Arial" font-size="10.00">credits = 0</text>
+<text text-anchor="start" x="58" y="-40" font-family="Arial" font-size="10.00">motivation = 168</text>
+<text text-anchor="start" x="58" y="-26" font-family="Arial" font-size="10.00">name = &quot;Alice&quot;</text>
+<text text-anchor="start" x="58" y="-12" font-family="Arial" font-size="10.00">assignmentPoints = 0</text>
 </g>
 <!-- sportsRoom&#45;&#45;alice -->
 <g id="edge8" class="edge"><title>sportsRoom&#45;&#45;alice</title>

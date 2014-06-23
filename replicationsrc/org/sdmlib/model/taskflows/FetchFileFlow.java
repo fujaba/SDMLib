@@ -29,8 +29,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.logger.TaskFlow;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 {
@@ -189,7 +189,7 @@ public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 
       if (PROPERTY_IDMAP.equalsIgnoreCase(attrName))
       {
-         setIdMap((org.sdmlib.serialization.json.SDMLibJsonIdMap) value);
+         setIdMap((SDMLibJsonIdMap) value);
          return true;
       }
 
@@ -221,6 +221,8 @@ public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 
    public void removeYou()
    {
+      setSubFlow(null);
+      setParent(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -229,59 +231,30 @@ public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 
    public static final String PROPERTY_FILESERVER = "fileServer";
 
-   private org.sdmlib.model.taskflows.PeerProxy fileServer;
+   private PeerProxy fileServer;
 
-   public org.sdmlib.model.taskflows.PeerProxy getFileServer()
+   public PeerProxy getFileServer()
    {
       return this.fileServer;
    }
 
-   public void setFileServer(org.sdmlib.model.taskflows.PeerProxy value)
+   public void setFileServer(PeerProxy value)
    {
       if (this.fileServer != value)
       {
-         org.sdmlib.model.taskflows.PeerProxy oldValue = this.fileServer;
+         PeerProxy oldValue = this.fileServer;
          this.fileServer = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_FILESERVER,
             oldValue, value);
       }
    }
 
-   public FetchFileFlow withFileServer(
-         org.sdmlib.model.taskflows.PeerProxy value)
+   public FetchFileFlow withFileServer(PeerProxy value)
    {
       setFileServer(value);
       return this;
    }
 
-   // ==========================================================================
-
-   public static final String PROPERTY_IDMAP = "idMap";
-
-   private org.sdmlib.serialization.json.SDMLibJsonIdMap idMap;
-
-   public org.sdmlib.serialization.json.SDMLibJsonIdMap getIdMap()
-   {
-      return this.idMap;
-   }
-
-   public void setIdMap(org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      if (this.idMap != value)
-      {
-         org.sdmlib.serialization.json.SDMLibJsonIdMap oldValue = this.idMap;
-         this.idMap = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_IDMAP,
-            oldValue, value);
-      }
-   }
-
-   public FetchFileFlow withIdMap(
-         org.sdmlib.serialization.json.SDMLibJsonIdMap value)
-   {
-      setIdMap(value);
-      return this;
-   }
 
    // ==========================================================================
 
@@ -309,5 +282,16 @@ public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
    {
       setFileName(value);
       return this;
+   }
+
+   
+   @Override
+   public String toString()
+   {
+      StringBuilder _ = new StringBuilder();
+      
+      _.append(" ").append(this.getFileName());
+      _.append(" ").append(this.getTaskNo());
+      return _.substring(1);
    }
 }

@@ -21,16 +21,14 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
 import java.beans.PropertyChangeSupport;
 
-import org.sdmlib.replication.creators.ReplicationChangeSet;
-import org.sdmlib.replication.Task;
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.ReplicationChangeSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
-import java.beans.PropertyChangeListener;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
 
 public class ReplicationChange extends Task implements PropertyChangeInterface,
       Comparable<ReplicationChange>
@@ -158,18 +156,21 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
    {
       setHistory(null);
       removeAllFromLogEntries();
+      withoutLogEntries(this.getLogEntries().toArray(new LogEntry[this.getLogEntries().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    public String toString()
    {
+      String changeMsg = new JsonObject().withValue(this.getChangeMsg()).toString(3);
       StringBuilder _ = new StringBuilder();
 
       _.append(" ").append(this.getHistoryIdPrefix());
       _.append(" ").append(this.getHistoryIdNumber());
       _.append(" ").append(this.getTargetObjectId());
       _.append(" ").append(this.getTargetProperty());
-      _.append(" ").append(this.getChangeMsg());
+      _.append("\n").append(changeMsg);
+      // _.append(" ").append(this.getChangeMsg());
 
       for (LogEntry entry : this.getLogEntries())
       {

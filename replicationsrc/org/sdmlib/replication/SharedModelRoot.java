@@ -21,9 +21,10 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class SharedModelRoot implements PropertyChangeInterface
 {

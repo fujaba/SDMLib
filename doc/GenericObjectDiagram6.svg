@@ -25,12 +25,12 @@
 <text text-anchor="start" x="220.5" y="-360.5" font-family="Arial" font-size="10.00">g2 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="210,-306 210,-354 306,-354 306,-306 210,-306"/>
-<text text-anchor="start" x="215" y="-342" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="215" y="-328" font-family="Arial" font-size="10.00">name = &quot;WilliAllee&quot;</text>
+<text text-anchor="start" x="215" y="-342" font-family="Arial" font-size="10.00">name = &quot;WilliAllee&quot;</text>
+<text text-anchor="start" x="215" y="-328" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="215" y="-314" font-family="Arial" font-size="10.00">type = &quot;Building&quot;</text>
 </g>
 <!-- g1&#45;&#45;g2 -->
-<g id="edge6" class="edge"><title>g1&#45;&#45;g2</title>
+<g id="edge2" class="edge"><title>g1&#45;&#45;g2</title>
 <path fill="none" stroke="black" d="M326.611,-411.84C316.77,-401.535 303.879,-388.037 291.93,-375.527"/>
 <text text-anchor="middle" x="301.246" y="-376.662" font-family="Arial" font-size="10.00">objects</text>
 <text text-anchor="middle" x="317.295" y="-405.705" font-family="Arial" font-size="10.00">graph</text>
@@ -43,11 +43,11 @@
 <text text-anchor="start" x="101" y="-250.5" font-family="Arial" font-size="10.00">g4 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="93,-210 93,-244 174,-244 174,-210 93,-210"/>
-<text text-anchor="start" x="98" y="-232" font-family="Arial" font-size="10.00">tgtLabel = &quot;has&quot;</text>
-<text text-anchor="start" x="98" y="-218" font-family="Arial" font-size="10.00">srcLabel = &quot;&quot;</text>
+<text text-anchor="start" x="98" y="-232" font-family="Arial" font-size="10.00">srcLabel = &quot;&quot;</text>
+<text text-anchor="start" x="98" y="-218" font-family="Arial" font-size="10.00">tgtLabel = &quot;has&quot;</text>
 </g>
 <!-- g1&#45;&#45;g4 -->
-<g id="edge2" class="edge"><title>g1&#45;&#45;g4</title>
+<g id="edge8" class="edge"><title>g1&#45;&#45;g4</title>
 <path fill="none" stroke="black" d="M290.981,-421.42C259.279,-414.404 219.841,-401.079 193,-376 161.215,-346.302 145.45,-296.908 138.277,-265.697"/>
 <text text-anchor="middle" x="144.537" y="-270.995" font-family="Arial" font-size="10.00">links</text>
 <text text-anchor="middle" x="281.188" y="-420.947" font-family="Arial" font-size="10.00">graph</text>
@@ -60,12 +60,12 @@
 <text text-anchor="start" x="140.5" y="-154.5" font-family="Arial" font-size="10.00">g5 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="133,-100 133,-148 223,-148 223,-100 133,-100"/>
-<text text-anchor="start" x="138" y="-136" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="138" y="-122" font-family="Arial" font-size="10.00">name = &quot;seFloor&quot;</text>
+<text text-anchor="start" x="138" y="-136" font-family="Arial" font-size="10.00">name = &quot;seFloor&quot;</text>
+<text text-anchor="start" x="138" y="-122" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="138" y="-108" font-family="Arial" font-size="10.00">type = &quot;Floor&quot;</text>
 </g>
 <!-- g1&#45;&#45;g5 -->
-<g id="edge8" class="edge"><title>g1&#45;&#45;g5</title>
+<g id="edge4" class="edge"><title>g1&#45;&#45;g5</title>
 <path fill="none" stroke="black" d="M346.677,-411.774C354.212,-371.688 367.205,-270.658 323,-206 301.824,-175.025 263.301,-156.776 231.283,-146.403"/>
 <text text-anchor="middle" x="241.227" y="-142.846" font-family="Arial" font-size="10.00">objects</text>
 <text text-anchor="middle" x="344.045" y="-399.627" font-family="Arial" font-size="10.00">graph</text>
@@ -78,11 +78,11 @@
 <text text-anchor="start" x="388" y="-250.5" font-family="Arial" font-size="10.00">g8 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="380,-210 380,-244 461,-244 461,-210 380,-210"/>
-<text text-anchor="start" x="385" y="-232" font-family="Arial" font-size="10.00">tgtLabel = &quot;has&quot;</text>
-<text text-anchor="start" x="385" y="-218" font-family="Arial" font-size="10.00">srcLabel = &quot;&quot;</text>
+<text text-anchor="start" x="385" y="-232" font-family="Arial" font-size="10.00">srcLabel = &quot;&quot;</text>
+<text text-anchor="start" x="385" y="-218" font-family="Arial" font-size="10.00">tgtLabel = &quot;has&quot;</text>
 </g>
 <!-- g1&#45;&#45;g8 -->
-<g id="edge4" class="edge"><title>g1&#45;&#45;g8</title>
+<g id="edge10" class="edge"><title>g1&#45;&#45;g8</title>
 <path fill="none" stroke="black" d="M349.833,-411.961C363.047,-379.013 392.227,-306.252 408.487,-265.707"/>
 <text text-anchor="middle" x="409.036" y="-273.192" font-family="Arial" font-size="10.00">links</text>
 <text text-anchor="middle" x="349.284" y="-399.476" font-family="Arial" font-size="10.00">graph</text>
@@ -95,12 +95,12 @@
 <text text-anchor="start" x="437.5" y="-154.5" font-family="Arial" font-size="10.00">g9 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="424,-100 424,-148 526,-148 526,-100 424,-100"/>
-<text text-anchor="start" x="429" y="-136" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="429" y="-122" font-family="Arial" font-size="10.00">name = &quot;digitalFloor&quot;</text>
+<text text-anchor="start" x="429" y="-136" font-family="Arial" font-size="10.00">name = &quot;digitalFloor&quot;</text>
+<text text-anchor="start" x="429" y="-122" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="429" y="-108" font-family="Arial" font-size="10.00">type = &quot;Floor&quot;</text>
 </g>
 <!-- g1&#45;&#45;g9 -->
-<g id="edge10" class="edge"><title>g1&#45;&#45;g9</title>
+<g id="edge6" class="edge"><title>g1&#45;&#45;g9</title>
 <path fill="none" stroke="black" d="M364.809,-411.862C397.03,-384.935 455.824,-329.221 477,-266 487.482,-234.705 485.539,-196.851 481.833,-169.719"/>
 <text text-anchor="middle" x="487.143" y="-175.693" font-family="Arial" font-size="10.00">objects</text>
 <text text-anchor="middle" x="368.936" y="-400.254" font-family="Arial" font-size="10.00">graph</text>

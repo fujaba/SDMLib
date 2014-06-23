@@ -21,15 +21,13 @@
 
 package org.sdmlib.replication;
 
-import org.sdmlib.serialization.util.PropertyChangeInterface;
-
 import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.replication.creators.LaneSet;
-
 import java.util.LinkedHashSet;
 
-import org.sdmlib.serialization.json.JsonIdMap;
+import org.sdmlib.replication.util.LaneSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
 
 public class RemoteTaskBoard implements PropertyChangeInterface
@@ -80,6 +78,7 @@ public class RemoteTaskBoard implements PropertyChangeInterface
    public void removeYou()
    {
       removeAllFromLanes();
+      withoutLanes(this.getLanes().toArray(new Lane[this.getLanes().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

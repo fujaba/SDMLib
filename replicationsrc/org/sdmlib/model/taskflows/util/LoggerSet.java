@@ -1,0 +1,409 @@
+/*
+   Copyright (c) 2014 zuendorf 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
+package org.sdmlib.model.taskflows.util;
+
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.model.taskflows.Logger;
+import java.util.Collection;
+import org.sdmlib.model.taskflows.util.PeerProxySet;
+import org.sdmlib.model.taskflows.PeerProxy;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.model.taskflows.util.SDMLibJsonIdMapSet;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.model.taskflows.TaskFlow;
+import java.util.Collections;
+import org.sdmlib.model.taskflows.LogEntry;
+
+public class LoggerSet extends SDMSet<Logger>
+{
+
+
+   public LoggerPO hasLoggerPO()
+   {
+      return new LoggerPO(this.toArray(new Logger[this.size()]));
+   }
+
+
+   @Override
+   public String getEntryType()
+   {
+      return "org.sdmlib.model.taskflows.Logger";
+   }
+
+
+   @SuppressWarnings("unchecked")
+   public LoggerSet with(Object value)
+   {
+      if (value instanceof java.util.Collection)
+      {
+         this.addAll((Collection<Logger>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Logger) value);
+      }
+      
+      return this;
+   }
+   
+   public LoggerSet without(Logger value)
+   {
+      this.remove(value);
+      return this;
+   }
+
+   public PeerProxySet getStartPeer()
+   {
+      PeerProxySet result = new PeerProxySet();
+      
+      for (Logger obj : this)
+      {
+         result.add(obj.getStartPeer());
+      }
+      
+      return result;
+   }
+
+   public LoggerSet hasStartPeer(org.sdmlib.model.taskflows.PeerProxy value)
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (value == obj.getStartPeer())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LoggerSet withStartPeer(PeerProxy value)
+   {
+      for (Logger obj : this)
+      {
+         obj.setStartPeer(value);
+      }
+      
+      return this;
+   }
+
+   public intList getTaskNo()
+   {
+      intList result = new intList();
+      
+      for (Logger obj : this)
+      {
+         result.add(obj.getTaskNo());
+      }
+      
+      return result;
+   }
+
+   public LoggerSet hasTaskNo(int value)
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (value == obj.getTaskNo())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LoggerSet hasTaskNo(int lower, int upper)
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (lower <= obj.getTaskNo() && obj.getTaskNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LoggerSet withTaskNo(int value)
+   {
+      for (Logger obj : this)
+      {
+         obj.setTaskNo(value);
+      }
+      
+      return this;
+   }
+
+   public SDMLibJsonIdMapSet getIdMap()
+   {
+      SDMLibJsonIdMapSet result = new SDMLibJsonIdMapSet();
+      
+      for (Logger obj : this)
+      {
+         result.add(obj.getIdMap());
+      }
+      
+      return result;
+   }
+
+   public LoggerSet hasIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   {
+      LoggerSet result = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (value == obj.getIdMap())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LoggerSet withIdMap(SDMLibJsonIdMap value)
+   {
+      for (Logger obj : this)
+      {
+         obj.setIdMap(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getSubFlow()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (Logger obj : this)
+      {
+         result.add(obj.getSubFlow());
+      }
+      
+      return result;
+   }
+
+   public LoggerSet hasSubFlow(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      LoggerSet answer = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (neighbors.contains(obj.getSubFlow()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+
+   public TaskFlowSet getSubFlowTransitive()
+   {
+      TaskFlowSet todo = new TaskFlowSet().with(this);
+      
+      TaskFlowSet result = new TaskFlowSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         TaskFlow current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getSubFlow()))
+            {
+               todo.with(current.getSubFlow());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   public LoggerSet withSubFlow(TaskFlow value)
+   {
+      for (Logger obj : this)
+      {
+         obj.withSubFlow(value);
+      }
+      
+      return this;
+   }
+
+   public TaskFlowSet getParent()
+   {
+      TaskFlowSet result = new TaskFlowSet();
+      
+      for (Logger obj : this)
+      {
+         result.add(obj.getParent());
+      }
+      
+      return result;
+   }
+
+   public LoggerSet hasParent(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      LoggerSet answer = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if (neighbors.contains(obj.getParent()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+
+   public TaskFlowSet getParentTransitive()
+   {
+      TaskFlowSet todo = new TaskFlowSet().with(this);
+      
+      TaskFlowSet result = new TaskFlowSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         TaskFlow current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getParent()))
+            {
+               todo.with(current.getParent());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   public LoggerSet withParent(TaskFlow value)
+   {
+      for (Logger obj : this)
+      {
+         obj.withParent(value);
+      }
+      
+      return this;
+   }
+
+   public LogEntrySet getEntries()
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (Logger obj : this)
+      {
+         result.addAll(obj.getEntries());
+      }
+      
+      return result;
+   }
+
+   public LoggerSet hasEntries(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      LoggerSet answer = new LoggerSet();
+      
+      for (Logger obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getEntries()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public LoggerSet withEntries(LogEntry value)
+   {
+      for (Logger obj : this)
+      {
+         obj.withEntries(value);
+      }
+      
+      return this;
+   }
+
+   public LoggerSet withoutEntries(LogEntry value)
+   {
+      for (Logger obj : this)
+      {
+         obj.withoutEntries(value);
+      }
+      
+      return this;
+   }
+
+}

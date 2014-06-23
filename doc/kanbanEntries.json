@@ -5,7 +5,7 @@
     "name":"SDMLibProject",
     "phase":"active",
     "hoursRemaining":24,
-    "hoursSpend":475,
+    "hoursSpend":481,
     "subentries":[
     {"id":"KE.K2"},
       {"id":"KE.K7"},
@@ -117,7 +117,7 @@
     "hoursSpend":20,
     "parent":{"id":"KE.K1"},
     "logEntries":[
-    {"id":"KE.L179"}
+    {"id":"KE.L182"}
     ],
     "phases":"active, backlog, implementation, done"
   }
@@ -533,7 +533,11 @@
     "name":"WrapExistingClasses",
     "phase":"backlog",
     "lastDeveloper":"zuendorf",
+    "hoursSpend":5,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L180"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -543,7 +547,11 @@
     "name":"SortIndex",
     "phase":"done",
     "lastDeveloper":"zuendorf",
+    "hoursSpend":1,
     "parent":{"id":"KE.K1"},
+    "logEntries":[
+    {"id":"KE.L181"}
+    ],
     "phases":"active, backlog, implementation, done"
   }
 },  {
@@ -1329,7 +1337,27 @@
     "comment":"Achieved: Start situation: "
   }
 },  {
-  "id":"KE.L179",
+  "id":"KE.L180",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"02.11.2012 13:42:42",
+    "hoursSpend":5,
+    "kanbanEntry":{"id":"KE.K87"},
+    "developer":"zuendorf",
+    "phase":"backlog"
+  }
+},  {
+  "id":"KE.L181",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"01.11.2012 14:43:42",
+    "hoursSpend":1,
+    "kanbanEntry":{"id":"KE.K89"},
+    "developer":"zuendorf",
+    "phase":"done"
+  }
+},  {
+  "id":"KE.L182",
   "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
   "prop":{
     "date":"10.10.2013 10:10:42",

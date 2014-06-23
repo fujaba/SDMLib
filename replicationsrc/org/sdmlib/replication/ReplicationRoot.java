@@ -21,13 +21,15 @@
    
 package org.sdmlib.replication;
 
-import org.sdmlib.utils.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.utils.StrUtil;
-import org.sdmlib.replication.creators.ReplicationRootSet;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
-import org.sdmlib.serialization.json.JsonIdMap;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.ReplicationRootSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ReplicationRoot implements PropertyChangeInterface
 {
@@ -120,6 +122,7 @@ public class ReplicationRoot implements PropertyChangeInterface
    {
       removeAllFromKids();
       setParent(null);
+      withoutKids(this.getKids().toArray(new ReplicationRoot[this.getKids().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

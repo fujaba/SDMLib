@@ -44,7 +44,7 @@
 <text text-anchor="start" x="152" y="-180" font-family="Arial" font-size="10.00">flag = &quot;&quot;</text>
 </g>
 <!-- s2&#45;&#45;s3 -->
-<g id="edge6" class="edge"><title>s2&#45;&#45;s3</title>
+<g id="edge4" class="edge"><title>s2&#45;&#45;s3</title>
 <path fill="none" stroke="black" d="M327.712,-257.361C298.947,-245.926 258.248,-229.437 223,-214 219.864,-212.627 216.623,-211.176 213.378,-209.702"/>
 <text text-anchor="middle" x="223.378" y="-207.097" font-family="Arial" font-size="10.00">next</text>
 <text text-anchor="middle" x="317.729" y="-255.431" font-family="Arial" font-size="10.00">prev</text>
@@ -106,7 +106,7 @@
 </a>
 </g>
 <!-- s2&#45;&#45;s12 -->
-<g id="edge4" class="edge"><title>s2&#45;&#45;s12</title>
+<g id="edge6" class="edge"><title>s2&#45;&#45;s12</title>
 <path fill="none" stroke="black" d="M402.417,-257.327C437.154,-243.704 488.869,-223.424 525.448,-209.079"/>
 <text text-anchor="middle" x="518.553" y="-213.822" font-family="Arial" font-size="10.00">flag</text>
 <text text-anchor="middle" x="409.311" y="-247.583" font-family="Arial" font-size="10.00">station</text>
@@ -133,11 +133,11 @@
 <text text-anchor="start" x="15.5" y="-44.5" font-family="Arial" font-size="10.00">s5 :Station</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-4 8,-38 67,-38 67,-4 8,-4"/>
-<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">flag = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">next = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">flag = &quot;&quot;</text>
 </g>
 <!-- s4&#45;&#45;s5 -->
-<g id="edge18" class="edge"><title>s4&#45;&#45;s5</title>
+<g id="edge16" class="edge"><title>s4&#45;&#45;s5</title>
 <path fill="none" stroke="black" d="M145.224,-95.9144C127.013,-85.6919 103.559,-72.3303 83,-60 80.1663,-58.3005 77.2477,-56.5236 74.3202,-54.7223"/>
 <text text-anchor="middle" x="84.2544" y="-53.3677" font-family="Arial" font-size="10.00">next</text>
 <text text-anchor="middle" x="135.253" y="-92.6549" font-family="Arial" font-size="10.00">prev</text>
@@ -183,7 +183,7 @@
 </a>
 </g>
 <!-- s4&#45;&#45;s8 -->
-<g id="edge16" class="edge"><title>s4&#45;&#45;s8</title>
+<g id="edge18" class="edge"><title>s4&#45;&#45;s8</title>
 <path fill="none" stroke="black" d="M207.026,-95.8101C232.37,-81.7682 268.005,-62.0241 293.269,-48.0266"/>
 <text text-anchor="middle" x="287.39" y="-53.6156" font-family="Arial" font-size="10.00">flag</text>
 <text text-anchor="middle" x="212.905" y="-85.2211" font-family="Arial" font-size="10.00">station</text>

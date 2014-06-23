@@ -17,26 +17,26 @@
 <text text-anchor="start" x="906.5" y="-2214.5" font-family="Arial" font-size="10.00">g96 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="825,-2160 825,-2208 1069,-2208 1069,-2160 825,-2160"/>
-<text text-anchor="start" x="830" y="-2196" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="830" y="-2182" font-family="Arial" font-size="10.00">name = &quot;g1.G1&quot;</text>
+<text text-anchor="start" x="830" y="-2196" font-family="Arial" font-size="10.00">name = &quot;g1.G1&quot;</text>
+<text text-anchor="start" x="830" y="-2182" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="830" y="-2168" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Graph&quot;</text>
 </g>
 <!-- g97 -->
 <g id="node2" class="node"><title>g97</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="517,-2098 517,-2115 609,-2115 609,-2098 517,-2098"/>
-<text text-anchor="start" x="524" y="-2104.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="528" y="-2104.5" font-family="Arial" font-size="10.00">g97 :GenericLink</text>
+<polygon fill="none" stroke="black" points="473,-2098 473,-2115 565,-2115 565,-2098 473,-2098"/>
+<text text-anchor="start" x="480" y="-2104.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="484" y="-2104.5" font-family="Arial" font-size="10.00">g97 :GenericLink</text>
 </a>
-<polygon fill="none" stroke="black" points="517,-2064 517,-2098 609,-2098 609,-2064 517,-2064"/>
-<text text-anchor="start" x="522" y="-2086" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
-<text text-anchor="start" x="522" y="-2072" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<polygon fill="none" stroke="black" points="473,-2064 473,-2098 565,-2098 565,-2064 473,-2064"/>
+<text text-anchor="start" x="478" y="-2086" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="478" y="-2072" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
 </g>
 <!-- g96&#45;&#45;g97 -->
 <g id="edge2" class="edge"><title>g96&#45;&#45;g97</title>
-<path fill="none" stroke="black" d="M816.995,-2157.81C748.892,-2139.89 669.132,-2118.91 617.419,-2105.31"/>
-<text text-anchor="middle" x="627.259" y="-2101.03" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="807.155" y="-2157.09" font-family="Arial" font-size="10.00">src</text>
+<path fill="none" stroke="black" d="M816.843,-2161.29C735.068,-2141.99 633.893,-2118.11 573.003,-2103.74"/>
+<text text-anchor="middle" x="582.794" y="-2099.21" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="807.051" y="-2160.82" font-family="Arial" font-size="10.00">src</text>
 </g>
 <!-- g103 -->
 <g id="node8" class="node"><title>g103</title>
@@ -46,8 +46,8 @@
 <text text-anchor="start" x="636.5" y="-1692.5" font-family="Arial" font-size="10.00">g103 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="627,-1652 627,-1686 721,-1686 721,-1652 627,-1652"/>
-<text text-anchor="start" x="632" y="-1674" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="632" y="-1660" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="632" y="-1674" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="632" y="-1660" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
 <!-- g96&#45;&#45;g103 -->
 <g id="edge18" class="edge"><title>g96&#45;&#45;g103</title>
@@ -63,8 +63,8 @@
 <text text-anchor="start" x="694.5" y="-1486.5" font-family="Arial" font-size="10.00">g107 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="686,-1446 686,-1480 778,-1480 778,-1446 686,-1446"/>
-<text text-anchor="start" x="691" y="-1468" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
-<text text-anchor="start" x="691" y="-1454" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="691" y="-1468" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="691" y="-1454" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
 </g>
 <!-- g96&#45;&#45;g107 -->
 <g id="edge4" class="edge"><title>g96&#45;&#45;g107</title>
@@ -80,8 +80,8 @@
 <text text-anchor="start" x="678.5" y="-1280.5" font-family="Arial" font-size="10.00">g111 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="669,-1240 669,-1274 763,-1274 763,-1240 669,-1240"/>
-<text text-anchor="start" x="674" y="-1262" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="674" y="-1248" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="674" y="-1262" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="674" y="-1248" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
 <!-- g96&#45;&#45;g111 -->
 <g id="edge20" class="edge"><title>g96&#45;&#45;g111</title>
@@ -97,8 +97,8 @@
 <text text-anchor="start" x="759.5" y="-1074.5" font-family="Arial" font-size="10.00">g115 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="751,-1034 751,-1068 843,-1068 843,-1034 751,-1034"/>
-<text text-anchor="start" x="756" y="-1056" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
-<text text-anchor="start" x="756" y="-1042" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="756" y="-1056" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="756" y="-1042" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
 </g>
 <!-- g96&#45;&#45;g115 -->
 <g id="edge6" class="edge"><title>g96&#45;&#45;g115</title>
@@ -106,19 +106,19 @@
 <text text-anchor="middle" x="819.671" y="-1093.6" font-family="Arial" font-size="10.00">outgoingLinks</text>
 <text text-anchor="middle" x="920.932" y="-2147.48" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- g119 -->
-<g id="node24" class="node"><title>g119</title>
+<!-- g120 -->
+<g id="node25" class="node"><title>g120</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="389,-862 389,-879 483,-879 483,-862 389,-862"/>
 <text text-anchor="start" x="394.5" y="-868.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="398.5" y="-868.5" font-family="Arial" font-size="10.00">g119 :GenericLink</text>
+<text text-anchor="start" x="398.5" y="-868.5" font-family="Arial" font-size="10.00">g120 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="389,-828 389,-862 483,-862 483,-828 389,-828"/>
-<text text-anchor="start" x="394" y="-850" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="394" y="-836" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="394" y="-850" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="394" y="-836" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
-<!-- g96&#45;&#45;g119 -->
-<g id="edge22" class="edge"><title>g96&#45;&#45;g119</title>
+<!-- g96&#45;&#45;g120 -->
+<g id="edge22" class="edge"><title>g96&#45;&#45;g120</title>
 <path fill="none" stroke="black" d="M886.615,-2156.2C873.32,-2145.94 860.415,-2133.75 851,-2120 816.583,-2069.72 814,-2048.93 814,-1988 814,-1988 814,-1988 814,-1574 814,-1452.68 940.251,-1120.99 860,-1030 817.628,-981.96 631.48,-1022.27 574,-994 522.584,-968.711 479.066,-916.493 455.325,-883.752"/>
 <text text-anchor="middle" x="464.124" y="-886.003" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="876.883" y="-2151.4" font-family="Arial" font-size="10.00">tgt</text>
@@ -131,8 +131,8 @@
 <text text-anchor="start" x="845.5" y="-868.5" font-family="Arial" font-size="10.00">g124 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="836,-828 836,-862 930,-862 930,-828 836,-828"/>
-<text text-anchor="start" x="841" y="-850" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="841" y="-836" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="841" y="-850" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="841" y="-836" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
 <!-- g96&#45;&#45;g124 -->
 <g id="edge24" class="edge"><title>g96&#45;&#45;g124</title>
@@ -143,35 +143,35 @@
 <!-- g128 -->
 <g id="node33" class="node"><title>g128</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="797,-656 797,-673 889,-673 889,-656 797,-656"/>
-<text text-anchor="start" x="801.5" y="-662.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="805.5" y="-662.5" font-family="Arial" font-size="10.00">g128 :GenericLink</text>
+<polygon fill="none" stroke="black" points="808,-656 808,-673 900,-673 900,-656 808,-656"/>
+<text text-anchor="start" x="812.5" y="-662.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="816.5" y="-662.5" font-family="Arial" font-size="10.00">g128 :GenericLink</text>
 </a>
-<polygon fill="none" stroke="black" points="797,-622 797,-656 889,-656 889,-622 797,-622"/>
-<text text-anchor="start" x="802" y="-644" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
-<text text-anchor="start" x="802" y="-630" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<polygon fill="none" stroke="black" points="808,-622 808,-656 900,-656 900,-622 808,-622"/>
+<text text-anchor="start" x="813" y="-644" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="813" y="-630" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
 </g>
 <!-- g96&#45;&#45;g128 -->
 <g id="edge8" class="edge"><title>g96&#45;&#45;g128</title>
-<path fill="none" stroke="black" d="M952.343,-2156.35C957.963,-2115.7 966,-2047.22 966,-1988 966,-1988 966,-1988 966,-853 966,-781.867 910.476,-714.23 874.038,-677.502"/>
-<text text-anchor="middle" x="883.361" y="-678.618" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<path fill="none" stroke="black" d="M952.343,-2156.35C957.963,-2115.7 966,-2047.22 966,-1988 966,-1988 966,-1988 966,-853 966,-783.304 915.147,-714.909 881.973,-677.707"/>
+<text text-anchor="middle" x="891.094" y="-679.307" font-family="Arial" font-size="10.00">outgoingLinks</text>
 <text text-anchor="middle" x="949.363" y="-2144.3" font-family="Arial" font-size="10.00">src</text>
 </g>
 <!-- g132 -->
 <g id="node37" class="node"><title>g132</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="342,-450 342,-467 436,-467 436,-450 342,-450"/>
-<text text-anchor="start" x="347.5" y="-456.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="351.5" y="-456.5" font-family="Arial" font-size="10.00">g132 :GenericLink</text>
+<polygon fill="none" stroke="black" points="347,-450 347,-467 441,-467 441,-450 347,-450"/>
+<text text-anchor="start" x="352.5" y="-456.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="356.5" y="-456.5" font-family="Arial" font-size="10.00">g132 :GenericLink</text>
 </a>
-<polygon fill="none" stroke="black" points="342,-416 342,-450 436,-450 436,-416 342,-416"/>
-<text text-anchor="start" x="347" y="-438" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="347" y="-424" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<polygon fill="none" stroke="black" points="347,-416 347,-450 441,-450 441,-416 347,-416"/>
+<text text-anchor="start" x="352" y="-438" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="352" y="-424" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
 <!-- g96&#45;&#45;g132 -->
 <g id="edge26" class="edge"><title>g96&#45;&#45;g132</title>
-<path fill="none" stroke="black" d="M816.948,-2188.48C573.201,-2178.34 72,-2139.11 72,-1988 72,-1988 72,-1988 72,-956 72,-896.729 67.7354,-878.515 91,-824 155.275,-673.389 294.535,-531.162 357.252,-471.934"/>
-<text text-anchor="middle" x="353.655" y="-478.765" font-family="Arial" font-size="10.00">incommingLinks</text>
+<path fill="none" stroke="black" d="M816.948,-2188.48C573.201,-2178.34 72,-2139.11 72,-1988 72,-1988 72,-1988 72,-956 72,-896.729 67.515,-878.42 91,-824 156.299,-672.688 297.924,-530.828 361.71,-471.814"/>
+<text text-anchor="middle" x="358.019" y="-478.608" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="807.686" y="-2189.75" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g136 -->
@@ -182,8 +182,8 @@
 <text text-anchor="start" x="884.5" y="-250.5" font-family="Arial" font-size="10.00">g136 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="876,-210 876,-244 968,-244 968,-210 876,-210"/>
-<text text-anchor="start" x="881" y="-232" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
-<text text-anchor="start" x="881" y="-218" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="881" y="-232" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="881" y="-218" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
 </g>
 <!-- g96&#45;&#45;g136 -->
 <g id="edge10" class="edge"><title>g96&#45;&#45;g136</title>
@@ -199,8 +199,8 @@
 <text text-anchor="start" x="752.5" y="-44.5" font-family="Arial" font-size="10.00">g140 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="743,-4 743,-38 837,-38 837,-4 743,-4"/>
-<text text-anchor="start" x="748" y="-26" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="748" y="-12" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="748" y="-26" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="748" y="-12" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
 <!-- g96&#45;&#45;g140 -->
 <g id="edge28" class="edge"><title>g96&#45;&#45;g140</title>
@@ -208,19 +208,19 @@
 <text text-anchor="middle" x="791.643" y="-66.3111" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="962.849" y="-2143.87" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- g144 -->
-<g id="node49" class="node"><title>g144</title>
+<!-- g145 -->
+<g id="node50" class="node"><title>g145</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="8,-38 8,-55 102,-55 102,-38 8,-38"/>
 <text text-anchor="start" x="13.5" y="-44.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="17.5" y="-44.5" font-family="Arial" font-size="10.00">g144 :GenericLink</text>
+<text text-anchor="start" x="17.5" y="-44.5" font-family="Arial" font-size="10.00">g145 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-4 8,-38 102,-38 102,-4 8,-4"/>
-<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="13" y="-26" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
-<!-- g96&#45;&#45;g144 -->
-<g id="edge30" class="edge"><title>g96&#45;&#45;g144</title>
+<!-- g96&#45;&#45;g145 -->
+<g id="edge30" class="edge"><title>g96&#45;&#45;g145</title>
 <path fill="none" stroke="black" d="M816.969,-2187.15C597.87,-2178.03 173.204,-2155.96 115,-2120 56.4409,-2083.83 34,-2056.83 34,-1988 34,-1988 34,-1988 34,-235 34,-172.159 43.9823,-98.9995 50.1822,-59.6208"/>
 <text text-anchor="middle" x="52.9862" y="-66.7196" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="807.73" y="-2188.47" font-family="Arial" font-size="10.00">tgt</text>
@@ -233,13 +233,13 @@
 <text text-anchor="start" x="1064.5" y="-44.5" font-family="Arial" font-size="10.00">g149 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="1055,-4 1055,-38 1149,-38 1149,-4 1055,-4"/>
-<text text-anchor="start" x="1060" y="-26" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="1060" y="-12" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="1060" y="-26" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="1060" y="-12" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
 <!-- g96&#45;&#45;g149 -->
 <g id="edge32" class="edge"><title>g96&#45;&#45;g149</title>
-<path fill="none" stroke="black" d="M1009.66,-2156.24C1022.55,-2146.11 1034.7,-2133.97 1043,-2120 1065.02,-2082.93 1052.95,-2066.93 1057,-2024 1110.12,-1460.64 1112,-1317.86 1112,-752 1112,-752 1112,-752 1112,-235 1112,-172.415 1107.25,-99.158 1104.29,-59.6946"/>
-<text text-anchor="middle" x="1109.17" y="-65.9266" font-family="Arial" font-size="10.00">incommingLinks</text>
+<path fill="none" stroke="black" d="M1009.66,-2156.24C1022.55,-2146.11 1034.7,-2133.97 1043,-2120 1064.37,-2084.03 1103,-1936.88 1103,-1473 1103,-1473 1103,-1473 1103,-853 1103,-716.553 1105,-682.447 1105,-546 1105,-546 1105,-546 1105,-338 1105,-235.662 1103.31,-114.143 1102.47,-59.7803"/>
+<text text-anchor="middle" x="1106.83" y="-66.2784" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="1014.06" y="-2144.76" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g150 -->
@@ -250,8 +250,8 @@
 <text text-anchor="start" x="1161.5" y="-2104.5" font-family="Arial" font-size="10.00">g150 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="1153,-2064 1153,-2098 1245,-2098 1245,-2064 1153,-2064"/>
-<text text-anchor="start" x="1158" y="-2086" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
-<text text-anchor="start" x="1158" y="-2072" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="1158" y="-2086" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="1158" y="-2072" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
 </g>
 <!-- g96&#45;&#45;g150 -->
 <g id="edge12" class="edge"><title>g96&#45;&#45;g150</title>
@@ -262,88 +262,88 @@
 <!-- g153 -->
 <g id="node58" class="node"><title>g153</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="1372,-2098 1372,-2115 1464,-2115 1464,-2098 1372,-2098"/>
-<text text-anchor="start" x="1376.5" y="-2104.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="1380.5" y="-2104.5" font-family="Arial" font-size="10.00">g153 :GenericLink</text>
+<polygon fill="none" stroke="black" points="1390,-2098 1390,-2115 1482,-2115 1482,-2098 1390,-2098"/>
+<text text-anchor="start" x="1394.5" y="-2104.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="1398.5" y="-2104.5" font-family="Arial" font-size="10.00">g153 :GenericLink</text>
 </a>
-<polygon fill="none" stroke="black" points="1372,-2064 1372,-2098 1464,-2098 1464,-2064 1372,-2064"/>
-<text text-anchor="start" x="1377" y="-2086" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
-<text text-anchor="start" x="1377" y="-2072" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<polygon fill="none" stroke="black" points="1390,-2064 1390,-2098 1482,-2098 1482,-2064 1390,-2064"/>
+<text text-anchor="start" x="1395" y="-2086" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="1395" y="-2072" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
 </g>
 <!-- g96&#45;&#45;g153 -->
 <g id="edge14" class="edge"><title>g96&#45;&#45;g153</title>
-<path fill="none" stroke="black" d="M1077.26,-2164.07C1171.6,-2143.84 1294.31,-2117.52 1363.78,-2102.63"/>
-<text text-anchor="middle" x="1355.81" y="-2106.16" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="1085.24" y="-2155.53" font-family="Arial" font-size="10.00">src</text>
+<path fill="none" stroke="black" d="M1077.08,-2165.13C1176.67,-2144.56 1308.97,-2117.24 1381.93,-2102.17"/>
+<text text-anchor="middle" x="1373.91" y="-2105.64" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="1085.1" y="-2156.66" font-family="Arial" font-size="10.00">src</text>
 </g>
 <!-- g156 -->
 <g id="node61" class="node"><title>g156</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="1798,-2098 1798,-2115 1890,-2115 1890,-2098 1798,-2098"/>
-<text text-anchor="start" x="1802.5" y="-2104.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="1806.5" y="-2104.5" font-family="Arial" font-size="10.00">g156 :GenericLink</text>
+<polygon fill="none" stroke="black" points="1820,-2098 1820,-2115 1912,-2115 1912,-2098 1820,-2098"/>
+<text text-anchor="start" x="1824.5" y="-2104.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="1828.5" y="-2104.5" font-family="Arial" font-size="10.00">g156 :GenericLink</text>
 </a>
-<polygon fill="none" stroke="black" points="1798,-2064 1798,-2098 1890,-2098 1890,-2064 1798,-2064"/>
-<text text-anchor="start" x="1803" y="-2086" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
-<text text-anchor="start" x="1803" y="-2072" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<polygon fill="none" stroke="black" points="1820,-2064 1820,-2098 1912,-2098 1912,-2064 1820,-2064"/>
+<text text-anchor="start" x="1825" y="-2086" font-family="Arial" font-size="10.00">srcLabel = &quot;graph&quot;</text>
+<text text-anchor="start" x="1825" y="-2072" font-family="Arial" font-size="10.00">tgtLabel = &quot;nodes&quot;</text>
 </g>
 <!-- g96&#45;&#45;g156 -->
 <g id="edge16" class="edge"><title>g96&#45;&#45;g156</title>
-<path fill="none" stroke="black" d="M1077.11,-2182.27C1223.93,-2170.58 1469.71,-2148.88 1680,-2120 1716.81,-2114.95 1757.99,-2107.66 1789.87,-2101.65"/>
-<text text-anchor="middle" x="1781.74" y="-2104.97" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="1085.81" y="-2174.82" font-family="Arial" font-size="10.00">src</text>
+<path fill="none" stroke="black" d="M1077.01,-2181.47C1223.74,-2169.07 1469.43,-2146.74 1680,-2120 1724.58,-2114.34 1774.93,-2106.39 1811.99,-2100.25"/>
+<text text-anchor="middle" x="1803.73" y="-2103.39" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="1085.68" y="-2173.99" font-family="Arial" font-size="10.00">src</text>
 </g>
-<!-- g162 -->
-<g id="node67" class="node"><title>g162</title>
+<!-- g163 -->
+<g id="node68" class="node"><title>g163</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="1624,-1686 1624,-1703 1718,-1703 1718,-1686 1624,-1686"/>
-<text text-anchor="start" x="1629.5" y="-1692.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="1633.5" y="-1692.5" font-family="Arial" font-size="10.00">g162 :GenericLink</text>
+<polygon fill="none" stroke="black" points="1629,-1686 1629,-1703 1723,-1703 1723,-1686 1629,-1686"/>
+<text text-anchor="start" x="1634.5" y="-1692.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="1638.5" y="-1692.5" font-family="Arial" font-size="10.00">g163 :GenericLink</text>
 </a>
-<polygon fill="none" stroke="black" points="1624,-1652 1624,-1686 1718,-1686 1718,-1652 1624,-1652"/>
-<text text-anchor="start" x="1629" y="-1674" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="1629" y="-1660" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<polygon fill="none" stroke="black" points="1629,-1652 1629,-1686 1723,-1686 1723,-1652 1629,-1652"/>
+<text text-anchor="start" x="1634" y="-1674" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="1634" y="-1660" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
-<!-- g96&#45;&#45;g162 -->
-<g id="edge34" class="edge"><title>g96&#45;&#45;g162</title>
-<path fill="none" stroke="black" d="M1077.27,-2188.54C1187.43,-2182.31 1348.1,-2165.4 1481,-2120 1576.58,-2087.35 1666,-2089.01 1666,-1988 1666,-1988 1666,-1988 1666,-1883 1666,-1820.47 1668.38,-1747.19 1669.85,-1707.71"/>
-<text text-anchor="middle" x="1673.75" y="-1714.42" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="1086.04" y="-2181.24" font-family="Arial" font-size="10.00">tgt</text>
+<!-- g96&#45;&#45;g163 -->
+<g id="edge34" class="edge"><title>g96&#45;&#45;g163</title>
+<path fill="none" stroke="black" d="M1077.18,-2191.15C1191.55,-2186.68 1360.8,-2170.85 1499,-2120 1587.79,-2087.33 1666,-2082.61 1666,-1988 1666,-1988 1666,-1988 1666,-1883 1666,-1820.41 1670.75,-1747.16 1673.71,-1707.69"/>
+<text text-anchor="middle" x="1677.26" y="-1714.54" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="1086.03" y="-2184" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- g167 -->
-<g id="node72" class="node"><title>g167</title>
+<!-- g168 -->
+<g id="node73" class="node"><title>g168</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="2335,-1686 2335,-1703 2429,-1703 2429,-1686 2335,-1686"/>
 <text text-anchor="start" x="2340.5" y="-1692.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="2344.5" y="-1692.5" font-family="Arial" font-size="10.00">g167 :GenericLink</text>
+<text text-anchor="start" x="2344.5" y="-1692.5" font-family="Arial" font-size="10.00">g168 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="2335,-1652 2335,-1686 2429,-1686 2429,-1652 2335,-1652"/>
-<text text-anchor="start" x="2340" y="-1674" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
-<text text-anchor="start" x="2340" y="-1660" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="2340" y="-1674" font-family="Arial" font-size="10.00">srcLabel = &quot;edges&quot;</text>
+<text text-anchor="start" x="2340" y="-1660" font-family="Arial" font-size="10.00">tgtLabel = &quot;graph&quot;</text>
 </g>
-<!-- g96&#45;&#45;g167 -->
-<g id="edge36" class="edge"><title>g96&#45;&#45;g167</title>
-<path fill="none" stroke="black" d="M1077.03,-2186.73C1425.84,-2170.87 2356,-2116.53 2356,-1988 2356,-1988 2356,-1988 2356,-1883 2356,-1819.98 2368.36,-1746.89 2376.04,-1707.57"/>
-<text text-anchor="middle" x="2378.49" y="-1714.76" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="1085.87" y="-2179.56" font-family="Arial" font-size="10.00">tgt</text>
+<!-- g96&#45;&#45;g168 -->
+<g id="edge36" class="edge"><title>g96&#45;&#45;g168</title>
+<path fill="none" stroke="black" d="M1077.31,-2191.93C1266.56,-2189.69 1627.78,-2177.36 1929,-2120 2122.05,-2083.24 2351,-2184.52 2351,-1988 2351,-1988 2351,-1988 2351,-1883 2351,-1819.77 2365.74,-1746.76 2374.89,-1707.51"/>
+<text text-anchor="middle" x="2377" y="-1714.78" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="1086.3" y="-2185.05" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g99 -->
 <g id="node3" class="node"><title>g99</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="350,-2002 350,-2019 590,-2019 590,-2002 350,-2002"/>
-<text text-anchor="start" x="425.5" y="-2008.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="429.5" y="-2008.5" font-family="Arial" font-size="10.00">g99 :GenericObject</text>
+<polygon fill="none" stroke="black" points="351,-2002 351,-2019 591,-2019 591,-2002 351,-2002"/>
+<text text-anchor="start" x="426.5" y="-2008.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="430.5" y="-2008.5" font-family="Arial" font-size="10.00">g99 :GenericObject</text>
 </a>
-<polygon fill="none" stroke="black" points="350,-1954 350,-2002 590,-2002 590,-1954 350,-1954"/>
-<text text-anchor="start" x="355" y="-1990" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="355" y="-1976" font-family="Arial" font-size="10.00">name = &quot;g1.N2&quot;</text>
-<text text-anchor="start" x="355" y="-1962" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
+<polygon fill="none" stroke="black" points="351,-1954 351,-2002 591,-2002 591,-1954 351,-1954"/>
+<text text-anchor="start" x="356" y="-1990" font-family="Arial" font-size="10.00">name = &quot;g1.N2&quot;</text>
+<text text-anchor="start" x="356" y="-1976" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
+<text text-anchor="start" x="356" y="-1962" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
 </g>
 <!-- g97&#45;&#45;g99 -->
 <g id="edge38" class="edge"><title>g97&#45;&#45;g99</title>
-<path fill="none" stroke="black" d="M536.599,-2060.33C526.073,-2048.9 513.847,-2035.62 502.764,-2023.58"/>
-<text text-anchor="middle" x="512.012" y="-2024.89" font-family="Arial" font-size="10.00">tgt</text>
-<text text-anchor="middle" x="527.351" y="-2054.02" font-family="Arial" font-size="10.00">incommingLinks</text>
+<path fill="none" stroke="black" d="M505.374,-2060.33C499.941,-2048.9 493.631,-2035.62 487.91,-2023.58"/>
+<text text-anchor="middle" x="495.618" y="-2027.45" font-family="Arial" font-size="10.00">tgt</text>
+<text text-anchor="middle" x="497.666" y="-2051.46" font-family="Arial" font-size="10.00">incommingLinks</text>
 </g>
 <!-- g98 -->
 <g id="node4" class="node"><title>g98</title>
@@ -357,10 +357,10 @@
 <text text-anchor="start" x="353" y="-1866" font-family="Arial" font-size="10.00">value = &quot;n1&quot;</text>
 </g>
 <!-- g99&#45;&#45;g98 -->
-<g id="edge40" class="edge"><title>g99&#45;&#45;g98</title>
-<path fill="none" stroke="black" d="M445.321,-1950.39C436.976,-1938.35 427.771,-1925.07 419.85,-1913.64"/>
-<text text-anchor="middle" x="428.486" y="-1916.18" font-family="Arial" font-size="10.00">attrs</text>
-<text text-anchor="middle" x="436.684" y="-1942.85" font-family="Arial" font-size="10.00">owner</text>
+<g id="edge44" class="edge"><title>g99&#45;&#45;g98</title>
+<path fill="none" stroke="black" d="M445.968,-1950.39C437.504,-1938.35 428.168,-1925.07 420.134,-1913.64"/>
+<text text-anchor="middle" x="428.803" y="-1916.12" font-family="Arial" font-size="10.00">attrs</text>
+<text text-anchor="middle" x="437.299" y="-1942.91" font-family="Arial" font-size="10.00">owner</text>
 </g>
 <!-- g100 -->
 <g id="node5" class="node"><title>g100</title>
@@ -370,31 +370,31 @@
 <text text-anchor="start" x="504" y="-1898.5" font-family="Arial" font-size="10.00">g100 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="487,-1858 487,-1892 596,-1892 596,-1858 487,-1858"/>
-<text text-anchor="start" x="492" y="-1880" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="492" y="-1866" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="492" y="-1880" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="492" y="-1866" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
 <!-- g99&#45;&#45;g100 -->
-<g id="edge42" class="edge"><title>g99&#45;&#45;g100</title>
-<path fill="none" stroke="black" d="M495.032,-1950.39C503.496,-1938.35 512.832,-1925.07 520.866,-1913.64"/>
-<text text-anchor="middle" x="519.112" y="-1920.99" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="496.787" y="-1938.05" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge40" class="edge"><title>g99&#45;&#45;g100</title>
+<path fill="none" stroke="black" d="M495.679,-1950.39C504.024,-1938.35 513.229,-1925.07 521.15,-1913.64"/>
+<text text-anchor="middle" x="519.461" y="-1921" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="497.369" y="-1938.03" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- g120 -->
-<g id="node25" class="node"><title>g120</title>
+<!-- g119 -->
+<g id="node24" class="node"><title>g119</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="109,-862 109,-879 212,-879 212,-862 109,-862"/>
 <text text-anchor="start" x="119" y="-868.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="123" y="-868.5" font-family="Arial" font-size="10.00">g120 :GenericLink</text>
+<text text-anchor="start" x="123" y="-868.5" font-family="Arial" font-size="10.00">g119 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="109,-828 109,-862 212,-862 212,-828 109,-828"/>
-<text text-anchor="start" x="114" y="-850" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="114" y="-836" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="114" y="-850" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="114" y="-836" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
-<!-- g99&#45;&#45;g120 -->
-<g id="edge44" class="edge"><title>g99&#45;&#45;g120</title>
-<path fill="none" stroke="black" d="M341.583,-1954.73C257.457,-1925.7 163,-1872.87 163,-1782 163,-1782 163,-1782 163,-1059 163,-996.483 161.574,-923.2 160.688,-883.714"/>
+<!-- g99&#45;&#45;g119 -->
+<g id="edge42" class="edge"><title>g99&#45;&#45;g119</title>
+<path fill="none" stroke="black" d="M342.611,-1955C258.099,-1926.07 163,-1873.24 163,-1782 163,-1782 163,-1782 163,-1059 163,-996.483 161.574,-923.2 160.688,-883.714"/>
 <text text-anchor="middle" x="165.111" y="-890.183" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="331.616" y="-1953.04" font-family="Arial" font-size="10.00">tgt</text>
+<text text-anchor="middle" x="332.645" y="-1953.34" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g101 -->
 <g id="node6" class="node"><title>g101</title>
@@ -404,8 +404,8 @@
 <text text-anchor="start" x="498" y="-1802.5" font-family="Arial" font-size="10.00">g101 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="421,-1748 421,-1796 661,-1796 661,-1748 421,-1748"/>
-<text text-anchor="start" x="426" y="-1784" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="426" y="-1770" font-family="Arial" font-size="10.00">name = &quot;g1.E3&quot;</text>
+<text text-anchor="start" x="426" y="-1784" font-family="Arial" font-size="10.00">name = &quot;g1.E3&quot;</text>
+<text text-anchor="start" x="426" y="-1770" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="426" y="-1756" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g100&#45;&#45;g101 -->
@@ -445,8 +445,8 @@
 <text text-anchor="start" x="504" y="-1692.5" font-family="Arial" font-size="10.00">g104 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="490,-1652 490,-1686 593,-1686 593,-1652 490,-1652"/>
-<text text-anchor="start" x="495" y="-1674" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="495" y="-1660" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="495" y="-1674" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="495" y="-1660" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
 <!-- g101&#45;&#45;g104 -->
 <g id="edge50" class="edge"><title>g101&#45;&#45;g104</title>
@@ -462,8 +462,8 @@
 <text text-anchor="start" x="526" y="-1596.5" font-family="Arial" font-size="10.00">g105 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="449,-1542 449,-1590 689,-1590 689,-1542 449,-1542"/>
-<text text-anchor="start" x="454" y="-1578" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="454" y="-1564" font-family="Arial" font-size="10.00">name = &quot;g1.N4&quot;</text>
+<text text-anchor="start" x="454" y="-1578" font-family="Arial" font-size="10.00">name = &quot;g1.N4&quot;</text>
+<text text-anchor="start" x="454" y="-1564" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="454" y="-1550" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
 </g>
 <!-- g104&#45;&#45;g105 -->
@@ -484,13 +484,13 @@
 <text text-anchor="start" x="548" y="-1454" font-family="Arial" font-size="10.00">value = &quot;n2&quot;</text>
 </g>
 <!-- g105&#45;&#45;g106 -->
-<g id="edge56" class="edge"><title>g105&#45;&#45;g106</title>
+<g id="edge60" class="edge"><title>g105&#45;&#45;g106</title>
 <path fill="none" stroke="black" d="M578.872,-1538.39C582.21,-1526.35 585.891,-1513.07 589.06,-1501.64"/>
 <text text-anchor="middle" x="590.711" y="-1509" font-family="Arial" font-size="10.00">attrs</text>
 <text text-anchor="middle" x="577.22" y="-1526.03" font-family="Arial" font-size="10.00">owner</text>
 </g>
 <!-- g105&#45;&#45;g107 -->
-<g id="edge58" class="edge"><title>g105&#45;&#45;g107</title>
+<g id="edge56" class="edge"><title>g105&#45;&#45;g107</title>
 <path fill="none" stroke="black" d="M626.468,-1538.39C645.899,-1526.35 667.332,-1513.07 685.778,-1501.64"/>
 <text text-anchor="middle" x="680.3" y="-1507.51" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="631.946" y="-1527.53" font-family="Arial" font-size="10.00">tgt</text>
@@ -503,11 +503,11 @@
 <text text-anchor="start" x="417" y="-1486.5" font-family="Arial" font-size="10.00">g108 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="400,-1446 400,-1480 509,-1480 509,-1446 400,-1446"/>
-<text text-anchor="start" x="405" y="-1468" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="405" y="-1454" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="405" y="-1468" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="405" y="-1454" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
 <!-- g105&#45;&#45;g108 -->
-<g id="edge60" class="edge"><title>g105&#45;&#45;g108</title>
+<g id="edge58" class="edge"><title>g105&#45;&#45;g108</title>
 <path fill="none" stroke="black" d="M528.455,-1538.39C514.746,-1526.35 499.625,-1513.07 486.611,-1501.64"/>
 <text text-anchor="middle" x="496.209" y="-1501.95" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="518.857" y="-1533.09" font-family="Arial" font-size="10.00">tgt</text>
@@ -520,8 +520,8 @@
 <text text-anchor="start" x="438" y="-1390.5" font-family="Arial" font-size="10.00">g109 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="361,-1336 361,-1384 601,-1384 601,-1336 361,-1336"/>
-<text text-anchor="start" x="366" y="-1372" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="366" y="-1358" font-family="Arial" font-size="10.00">name = &quot;g1.E5&quot;</text>
+<text text-anchor="start" x="366" y="-1372" font-family="Arial" font-size="10.00">name = &quot;g1.E5&quot;</text>
+<text text-anchor="start" x="366" y="-1358" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="366" y="-1344" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g108&#45;&#45;g109 -->
@@ -561,8 +561,8 @@
 <text text-anchor="start" x="482" y="-1280.5" font-family="Arial" font-size="10.00">g112 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="468,-1240 468,-1274 571,-1274 571,-1240 468,-1240"/>
-<text text-anchor="start" x="473" y="-1262" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="473" y="-1248" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="473" y="-1262" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="473" y="-1248" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
 <!-- g109&#45;&#45;g112 -->
 <g id="edge66" class="edge"><title>g109&#45;&#45;g112</title>
@@ -578,8 +578,8 @@
 <text text-anchor="start" x="476" y="-1184.5" font-family="Arial" font-size="10.00">g113 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="399,-1130 399,-1178 639,-1178 639,-1130 399,-1130"/>
-<text text-anchor="start" x="404" y="-1166" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="404" y="-1152" font-family="Arial" font-size="10.00">name = &quot;g1.N6&quot;</text>
+<text text-anchor="start" x="404" y="-1166" font-family="Arial" font-size="10.00">name = &quot;g1.N6&quot;</text>
+<text text-anchor="start" x="404" y="-1152" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="404" y="-1138" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
 </g>
 <!-- g112&#45;&#45;g113 -->
@@ -600,13 +600,13 @@
 <text text-anchor="start" x="470" y="-1042" font-family="Arial" font-size="10.00">value = &quot;n3&quot;</text>
 </g>
 <!-- g113&#45;&#45;g114 -->
-<g id="edge72" class="edge"><title>g113&#45;&#45;g114</title>
+<g id="edge80" class="edge"><title>g113&#45;&#45;g114</title>
 <path fill="none" stroke="black" d="M519,-1126.39C519,-1114.35 519,-1101.07 519,-1089.64"/>
 <text text-anchor="middle" x="523.226" y="-1096.2" font-family="Arial" font-size="10.00">attrs</text>
 <text text-anchor="middle" x="514.774" y="-1114.83" font-family="Arial" font-size="10.00">owner</text>
 </g>
 <!-- g113&#45;&#45;g115 -->
-<g id="edge74" class="edge"><title>g113&#45;&#45;g115</title>
+<g id="edge72" class="edge"><title>g113&#45;&#45;g115</title>
 <path fill="none" stroke="black" d="M631.668,-1126.46C664.58,-1115.44 700.446,-1102.81 733,-1090 736.178,-1088.75 739.427,-1087.42 742.692,-1086.06"/>
 <text text-anchor="middle" x="735.957" y="-1090.95" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="638.909" y="-1117.06" font-family="Arial" font-size="10.00">tgt</text>
@@ -619,11 +619,11 @@
 <text text-anchor="start" x="292" y="-1074.5" font-family="Arial" font-size="10.00">g116 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="275,-1034 275,-1068 384,-1068 384,-1034 275,-1034"/>
-<text text-anchor="start" x="280" y="-1056" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="280" y="-1042" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="280" y="-1056" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="280" y="-1042" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
 <!-- g113&#45;&#45;g116 -->
-<g id="edge76" class="edge"><title>g113&#45;&#45;g116</title>
+<g id="edge74" class="edge"><title>g113&#45;&#45;g116</title>
 <path fill="none" stroke="black" d="M452.013,-1126.39C429.363,-1114.35 404.38,-1101.07 382.879,-1089.64"/>
 <text text-anchor="middle" x="392.865" y="-1087.66" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="442.027" y="-1123.37" font-family="Arial" font-size="10.00">tgt</text>
@@ -636,29 +636,29 @@
 <text text-anchor="start" x="625" y="-1074.5" font-family="Arial" font-size="10.00">g121 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="608,-1034 608,-1068 717,-1068 717,-1034 608,-1034"/>
-<text text-anchor="start" x="613" y="-1056" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="613" y="-1042" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="613" y="-1056" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="613" y="-1042" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
 <!-- g113&#45;&#45;g121 -->
-<g id="edge78" class="edge"><title>g113&#45;&#45;g121</title>
+<g id="edge76" class="edge"><title>g113&#45;&#45;g121</title>
 <path fill="none" stroke="black" d="M569.416,-1126.39C586.464,-1114.35 605.267,-1101.07 621.449,-1089.64"/>
 <text text-anchor="middle" x="616.485" y="-1095.82" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="574.381" y="-1115.21" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- g145 -->
-<g id="node50" class="node"><title>g145</title>
+<!-- g144 -->
+<g id="node49" class="node"><title>g144</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="165,-38 165,-55 268,-55 268,-38 165,-38"/>
 <text text-anchor="start" x="175" y="-44.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="179" y="-44.5" font-family="Arial" font-size="10.00">g145 :GenericLink</text>
+<text text-anchor="start" x="179" y="-44.5" font-family="Arial" font-size="10.00">g144 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="165,-4 165,-38 268,-38 268,-4 165,-4"/>
-<text text-anchor="start" x="170" y="-26" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="170" y="-12" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="170" y="-26" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="170" y="-12" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
-<!-- g113&#45;&#45;g145 -->
-<g id="edge80" class="edge"><title>g113&#45;&#45;g145</title>
-<path fill="none" stroke="black" d="M472.49,-1126.37C462.157,-1115.89 452.615,-1103.56 447,-1090 436.795,-1065.36 442.38,-1056.26 447,-1030 447.187,-1028.94 499.813,-885.062 500,-884 504.62,-857.737 508.564,-849.254 500,-824 482.87,-773.489 208,-496.336 208,-443 208,-443 208,-443 208,-235 208,-172.442 211.803,-99.1748 214.165,-59.7024"/>
+<!-- g113&#45;&#45;g144 -->
+<g id="edge78" class="edge"><title>g113&#45;&#45;g144</title>
+<path fill="none" stroke="black" d="M472.49,-1126.37C462.157,-1115.89 452.615,-1103.56 447,-1090 436.795,-1065.36 442.38,-1056.26 447,-1030 447.187,-1028.94 499.813,-885.062 500,-884 504.62,-857.737 508.564,-849.254 500,-824 491.435,-798.745 208,-469.668 208,-443 208,-443 208,-443 208,-235 208,-172.442 211.803,-99.1748 214.165,-59.7024"/>
 <text text-anchor="middle" x="217.856" y="-66.496" font-family="Arial" font-size="10.00">incommingLinks</text>
 <text text-anchor="middle" x="463.164" y="-1120.26" font-family="Arial" font-size="10.00">tgt</text>
 </g>
@@ -670,8 +670,8 @@
 <text text-anchor="start" x="280" y="-978.5" font-family="Arial" font-size="10.00">g117 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="203,-924 203,-972 443,-972 443,-924 203,-924"/>
-<text text-anchor="start" x="208" y="-960" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="208" y="-946" font-family="Arial" font-size="10.00">name = &quot;g1.E7&quot;</text>
+<text text-anchor="start" x="208" y="-960" font-family="Arial" font-size="10.00">name = &quot;g1.E7&quot;</text>
+<text text-anchor="start" x="208" y="-946" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="208" y="-932" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g116&#45;&#45;g117 -->
@@ -699,15 +699,15 @@
 </g>
 <!-- g117&#45;&#45;g119 -->
 <g id="edge84" class="edge"><title>g117&#45;&#45;g119</title>
-<path fill="none" stroke="black" d="M362.84,-920.391C376.31,-908.351 391.169,-895.07 403.956,-883.641"/>
-<text text-anchor="middle" x="400.015" y="-890.331" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="366.781" y="-908.7" font-family="Arial" font-size="10.00">src</text>
-</g>
-<!-- g117&#45;&#45;g120 -->
-<g id="edge86" class="edge"><title>g117&#45;&#45;g120</title>
 <path fill="none" stroke="black" d="M265.532,-920.391C246.101,-908.351 224.668,-895.07 206.222,-883.641"/>
 <text text-anchor="middle" x="216.152" y="-882.322" font-family="Arial" font-size="10.00">outgoingLinks</text>
 <text text-anchor="middle" x="255.602" y="-916.71" font-family="Arial" font-size="10.00">src</text>
+</g>
+<!-- g117&#45;&#45;g120 -->
+<g id="edge86" class="edge"><title>g117&#45;&#45;g120</title>
+<path fill="none" stroke="black" d="M362.84,-920.391C376.31,-908.351 391.169,-895.07 403.956,-883.641"/>
+<text text-anchor="middle" x="400.015" y="-890.331" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="366.781" y="-908.7" font-family="Arial" font-size="10.00">src</text>
 </g>
 <!-- g122 -->
 <g id="node27" class="node"><title>g122</title>
@@ -717,8 +717,8 @@
 <text text-anchor="start" x="668" y="-978.5" font-family="Arial" font-size="10.00">g122 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="591,-924 591,-972 831,-972 831,-924 591,-924"/>
-<text text-anchor="start" x="596" y="-960" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="596" y="-946" font-family="Arial" font-size="10.00">name = &quot;g1.E8&quot;</text>
+<text text-anchor="start" x="596" y="-960" font-family="Arial" font-size="10.00">name = &quot;g1.E8&quot;</text>
+<text text-anchor="start" x="596" y="-946" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="596" y="-932" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g121&#45;&#45;g122 -->
@@ -758,8 +758,8 @@
 <text text-anchor="start" x="570" y="-868.5" font-family="Arial" font-size="10.00">g125 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="556,-828 556,-862 659,-862 659,-828 556,-828"/>
-<text text-anchor="start" x="561" y="-850" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="561" y="-836" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="561" y="-850" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="561" y="-836" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
 <!-- g122&#45;&#45;g125 -->
 <g id="edge94" class="edge"><title>g122&#45;&#45;g125</title>
@@ -770,136 +770,136 @@
 <!-- g126 -->
 <g id="node31" class="node"><title>g126</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="498,-766 498,-783 738,-783 738,-766 498,-766"/>
-<text text-anchor="start" x="571" y="-772.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="575" y="-772.5" font-family="Arial" font-size="10.00">g126 :GenericObject</text>
+<polygon fill="none" stroke="black" points="493,-766 493,-783 733,-783 733,-766 493,-766"/>
+<text text-anchor="start" x="566" y="-772.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="570" y="-772.5" font-family="Arial" font-size="10.00">g126 :GenericObject</text>
 </a>
-<polygon fill="none" stroke="black" points="498,-718 498,-766 738,-766 738,-718 498,-718"/>
-<text text-anchor="start" x="503" y="-754" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="503" y="-740" font-family="Arial" font-size="10.00">name = &quot;g1.N9&quot;</text>
-<text text-anchor="start" x="503" y="-726" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
+<polygon fill="none" stroke="black" points="493,-718 493,-766 733,-766 733,-718 493,-718"/>
+<text text-anchor="start" x="498" y="-754" font-family="Arial" font-size="10.00">name = &quot;g1.N9&quot;</text>
+<text text-anchor="start" x="498" y="-740" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
+<text text-anchor="start" x="498" y="-726" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
 </g>
 <!-- g125&#45;&#45;g126 -->
 <g id="edge98" class="edge"><title>g125&#45;&#45;g126</title>
-<path fill="none" stroke="black" d="M610.123,-824.328C611.368,-812.897 612.814,-799.618 614.125,-787.582"/>
-<text text-anchor="middle" x="617.345" y="-794.55" font-family="Arial" font-size="10.00">tgt</text>
-<text text-anchor="middle" x="606.903" y="-812.36" font-family="Arial" font-size="10.00">incommingLinks</text>
+<path fill="none" stroke="black" d="M608.703,-824.328C609.382,-812.897 610.171,-799.618 610.886,-787.582"/>
+<text text-anchor="middle" x="614.567" y="-794.38" font-family="Arial" font-size="10.00">tgt</text>
+<text text-anchor="middle" x="605.022" y="-812.53" font-family="Arial" font-size="10.00">incommingLinks</text>
 </g>
 <!-- g127 -->
 <g id="node32" class="node"><title>g127</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericAttribute.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="427,-656 427,-673 536,-673 536,-656 427,-656"/>
-<text text-anchor="start" x="430.5" y="-662.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="434.5" y="-662.5" font-family="Arial" font-size="10.00">g127 :GenericAttribute</text>
+<polygon fill="none" stroke="black" points="437,-656 437,-673 546,-673 546,-656 437,-656"/>
+<text text-anchor="start" x="440.5" y="-662.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="444.5" y="-662.5" font-family="Arial" font-size="10.00">g127 :GenericAttribute</text>
 </a>
-<polygon fill="none" stroke="black" points="427,-622 427,-656 536,-656 536,-622 427,-622"/>
-<text text-anchor="start" x="432" y="-644" font-family="Arial" font-size="10.00">name = &quot;name&quot;</text>
-<text text-anchor="start" x="432" y="-630" font-family="Arial" font-size="10.00">value = &quot;n4&quot;</text>
+<polygon fill="none" stroke="black" points="437,-622 437,-656 546,-656 546,-622 437,-622"/>
+<text text-anchor="start" x="442" y="-644" font-family="Arial" font-size="10.00">name = &quot;name&quot;</text>
+<text text-anchor="start" x="442" y="-630" font-family="Arial" font-size="10.00">value = &quot;n4&quot;</text>
 </g>
 <!-- g126&#45;&#45;g127 -->
-<g id="edge100" class="edge"><title>g126&#45;&#45;g127</title>
-<path fill="none" stroke="black" d="M569.699,-714.391C553.367,-702.351 535.353,-689.07 519.849,-677.641"/>
-<text text-anchor="middle" x="529.652" y="-677.117" font-family="Arial" font-size="10.00">attrs</text>
-<text text-anchor="middle" x="559.896" y="-709.915" font-family="Arial" font-size="10.00">owner</text>
+<g id="edge104" class="edge"><title>g126&#45;&#45;g127</title>
+<path fill="none" stroke="black" d="M569.987,-714.391C555.444,-702.351 539.402,-689.07 525.596,-677.641"/>
+<text text-anchor="middle" x="535.272" y="-677.665" font-family="Arial" font-size="10.00">attrs</text>
+<text text-anchor="middle" x="560.311" y="-709.367" font-family="Arial" font-size="10.00">owner</text>
 </g>
 <!-- g126&#45;&#45;g128 -->
-<g id="edge102" class="edge"><title>g126&#45;&#45;g128</title>
-<path fill="none" stroke="black" d="M697.327,-714.391C727.565,-700.817 761.315,-685.667 788.71,-673.37"/>
-<text text-anchor="middle" x="782.172" y="-678.437" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="703.864" y="-704.324" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge100" class="edge"><title>g126&#45;&#45;g128</title>
+<path fill="none" stroke="black" d="M697.968,-714.391C731.847,-700.193 769.842,-684.269 799.856,-671.691"/>
+<text text-anchor="middle" x="793.131" y="-676.592" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="704.693" y="-704.49" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g129 -->
 <g id="node34" class="node"><title>g129</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="570,-656 570,-673 679,-673 679,-656 570,-656"/>
-<text text-anchor="start" x="583" y="-662.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="587" y="-662.5" font-family="Arial" font-size="10.00">g129 :GenericLink</text>
+<polygon fill="none" stroke="black" points="580,-656 580,-673 689,-673 689,-656 580,-656"/>
+<text text-anchor="start" x="593" y="-662.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="597" y="-662.5" font-family="Arial" font-size="10.00">g129 :GenericLink</text>
 </a>
-<polygon fill="none" stroke="black" points="570,-622 570,-656 679,-656 679,-622 570,-622"/>
-<text text-anchor="start" x="575" y="-644" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="575" y="-630" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<polygon fill="none" stroke="black" points="580,-622 580,-656 689,-656 689,-622 580,-622"/>
+<text text-anchor="start" x="585" y="-644" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="585" y="-630" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
 <!-- g126&#45;&#45;g129 -->
-<g id="edge104" class="edge"><title>g126&#45;&#45;g129</title>
-<path fill="none" stroke="black" d="M620.115,-714.391C620.831,-702.351 621.62,-689.07 622.299,-677.641"/>
-<text text-anchor="middle" x="625.98" y="-684.439" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="616.434" y="-702.593" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge102" class="edge"><title>g126&#45;&#45;g129</title>
+<path fill="none" stroke="black" d="M620.404,-714.391C622.907,-702.351 625.669,-689.07 628.045,-677.641"/>
+<text text-anchor="middle" x="630.338" y="-684.874" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="618.111" y="-702.158" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g130 -->
 <g id="node35" class="node"><title>g130</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="504,-560 504,-577 744,-577 744,-560 504,-560"/>
-<text text-anchor="start" x="577" y="-566.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="581" y="-566.5" font-family="Arial" font-size="10.00">g130 :GenericObject</text>
+<polygon fill="none" stroke="black" points="514,-560 514,-577 754,-577 754,-560 514,-560"/>
+<text text-anchor="start" x="587" y="-566.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="591" y="-566.5" font-family="Arial" font-size="10.00">g130 :GenericObject</text>
 </a>
-<polygon fill="none" stroke="black" points="504,-512 504,-560 744,-560 744,-512 504,-512"/>
-<text text-anchor="start" x="509" y="-548" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="509" y="-534" font-family="Arial" font-size="10.00">name = &quot;g1.E10&quot;</text>
-<text text-anchor="start" x="509" y="-520" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
+<polygon fill="none" stroke="black" points="514,-512 514,-560 754,-560 754,-512 514,-512"/>
+<text text-anchor="start" x="519" y="-548" font-family="Arial" font-size="10.00">name = &quot;g1.E10&quot;</text>
+<text text-anchor="start" x="519" y="-534" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
+<text text-anchor="start" x="519" y="-520" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g129&#45;&#45;g130 -->
 <g id="edge106" class="edge"><title>g129&#45;&#45;g130</title>
-<path fill="none" stroke="black" d="M624,-618.328C624,-606.897 624,-593.618 624,-581.582"/>
-<text text-anchor="middle" x="628.226" y="-588.145" font-family="Arial" font-size="10.00">src</text>
-<text text-anchor="middle" x="619.774" y="-606.765" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<path fill="none" stroke="black" d="M634,-618.328C634,-606.897 634,-593.618 634,-581.582"/>
+<text text-anchor="middle" x="638.226" y="-588.145" font-family="Arial" font-size="10.00">src</text>
+<text text-anchor="middle" x="629.774" y="-606.765" font-family="Arial" font-size="10.00">outgoingLinks</text>
 </g>
 <!-- g131 -->
 <g id="node36" class="node"><title>g131</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericAttribute.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="710,-450 710,-467 819,-467 819,-450 710,-450"/>
-<text text-anchor="start" x="713.5" y="-456.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="717.5" y="-456.5" font-family="Arial" font-size="10.00">g131 :GenericAttribute</text>
+<polygon fill="none" stroke="black" points="720,-450 720,-467 829,-467 829,-450 720,-450"/>
+<text text-anchor="start" x="723.5" y="-456.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="727.5" y="-456.5" font-family="Arial" font-size="10.00">g131 :GenericAttribute</text>
 </a>
-<polygon fill="none" stroke="black" points="710,-416 710,-450 819,-450 819,-416 710,-416"/>
-<text text-anchor="start" x="715" y="-438" font-family="Arial" font-size="10.00">name = &quot;name&quot;</text>
-<text text-anchor="start" x="715" y="-424" font-family="Arial" font-size="10.00">value = &quot;e14&quot;</text>
+<polygon fill="none" stroke="black" points="720,-416 720,-450 829,-450 829,-416 720,-416"/>
+<text text-anchor="start" x="725" y="-438" font-family="Arial" font-size="10.00">name = &quot;name&quot;</text>
+<text text-anchor="start" x="725" y="-424" font-family="Arial" font-size="10.00">value = &quot;e14&quot;</text>
 </g>
 <!-- g130&#45;&#45;g131 -->
 <g id="edge112" class="edge"><title>g130&#45;&#45;g131</title>
-<path fill="none" stroke="black" d="M673.359,-508.391C690.048,-496.351 708.457,-483.07 724.3,-471.641"/>
-<text text-anchor="middle" x="719.423" y="-477.871" font-family="Arial" font-size="10.00">attrs</text>
-<text text-anchor="middle" x="678.236" y="-497.161" font-family="Arial" font-size="10.00">owner</text>
+<path fill="none" stroke="black" d="M683.359,-508.391C700.048,-496.351 718.457,-483.07 734.3,-471.641"/>
+<text text-anchor="middle" x="729.423" y="-477.871" font-family="Arial" font-size="10.00">attrs</text>
+<text text-anchor="middle" x="688.236" y="-497.161" font-family="Arial" font-size="10.00">owner</text>
 </g>
 <!-- g130&#45;&#45;g132 -->
 <g id="edge108" class="edge"><title>g130&#45;&#45;g132</title>
-<path fill="none" stroke="black" d="M541.148,-508.391C509.037,-494.59 473.134,-479.16 444.272,-466.755"/>
-<text text-anchor="middle" x="454.268" y="-463.951" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="531.152" y="-506.195" font-family="Arial" font-size="10.00">src</text>
+<path fill="none" stroke="black" d="M549.385,-508.391C516.186,-494.42 479.018,-478.779 449.36,-466.297"/>
+<text text-anchor="middle" x="459.353" y="-463.417" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="539.392" y="-506.271" font-family="Arial" font-size="10.00">src</text>
 </g>
 <!-- g133 -->
 <g id="node38" class="node"><title>g133</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="573,-450 573,-467 676,-467 676,-450 573,-450"/>
-<text text-anchor="start" x="583" y="-456.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="587" y="-456.5" font-family="Arial" font-size="10.00">g133 :GenericLink</text>
+<polygon fill="none" stroke="black" points="583,-450 583,-467 686,-467 686,-450 583,-450"/>
+<text text-anchor="start" x="593" y="-456.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="597" y="-456.5" font-family="Arial" font-size="10.00">g133 :GenericLink</text>
 </a>
-<polygon fill="none" stroke="black" points="573,-416 573,-450 676,-450 676,-416 573,-416"/>
-<text text-anchor="start" x="578" y="-438" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="578" y="-424" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<polygon fill="none" stroke="black" points="583,-416 583,-450 686,-450 686,-416 583,-416"/>
+<text text-anchor="start" x="588" y="-438" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="588" y="-424" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
 <!-- g130&#45;&#45;g133 -->
 <g id="edge110" class="edge"><title>g130&#45;&#45;g133</title>
-<path fill="none" stroke="black" d="M624,-508.391C624,-496.351 624,-483.07 624,-471.641"/>
-<text text-anchor="middle" x="628.226" y="-478.204" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="619.774" y="-496.828" font-family="Arial" font-size="10.00">src</text>
+<path fill="none" stroke="black" d="M634,-508.391C634,-496.351 634,-483.07 634,-471.641"/>
+<text text-anchor="middle" x="638.226" y="-478.204" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="629.774" y="-496.828" font-family="Arial" font-size="10.00">src</text>
 </g>
 <!-- g134 -->
 <g id="node39" class="node"><title>g134</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="509,-354 509,-371 749,-371 749,-354 509,-354"/>
-<text text-anchor="start" x="582" y="-360.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="586" y="-360.5" font-family="Arial" font-size="10.00">g134 :GenericObject</text>
+<polygon fill="none" stroke="black" points="519,-354 519,-371 759,-371 759,-354 519,-354"/>
+<text text-anchor="start" x="592" y="-360.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="596" y="-360.5" font-family="Arial" font-size="10.00">g134 :GenericObject</text>
 </a>
-<polygon fill="none" stroke="black" points="509,-306 509,-354 749,-354 749,-306 509,-306"/>
-<text text-anchor="start" x="514" y="-342" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="514" y="-328" font-family="Arial" font-size="10.00">name = &quot;g1.N11&quot;</text>
-<text text-anchor="start" x="514" y="-314" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
+<polygon fill="none" stroke="black" points="519,-306 519,-354 759,-354 759,-306 519,-306"/>
+<text text-anchor="start" x="524" y="-342" font-family="Arial" font-size="10.00">name = &quot;g1.N11&quot;</text>
+<text text-anchor="start" x="524" y="-328" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
+<text text-anchor="start" x="524" y="-314" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
 </g>
 <!-- g133&#45;&#45;g134 -->
 <g id="edge114" class="edge"><title>g133&#45;&#45;g134</title>
-<path fill="none" stroke="black" d="M625.419,-412.328C625.985,-400.897 626.643,-387.618 627.239,-375.582"/>
-<text text-anchor="middle" x="631.011" y="-382.343" font-family="Arial" font-size="10.00">tgt</text>
-<text text-anchor="middle" x="621.647" y="-400.567" font-family="Arial" font-size="10.00">incommingLinks</text>
+<path fill="none" stroke="black" d="M635.419,-412.328C635.985,-400.897 636.643,-387.618 637.239,-375.582"/>
+<text text-anchor="middle" x="641.011" y="-382.343" font-family="Arial" font-size="10.00">tgt</text>
+<text text-anchor="middle" x="631.647" y="-400.567" font-family="Arial" font-size="10.00">incommingLinks</text>
 </g>
 <!-- g135 -->
 <g id="node40" class="node"><title>g135</title>
@@ -913,16 +913,16 @@
 <text text-anchor="start" x="458" y="-218" font-family="Arial" font-size="10.00">value = &quot;n5&quot;</text>
 </g>
 <!-- g134&#45;&#45;g135 -->
-<g id="edge116" class="edge"><title>g134&#45;&#45;g135</title>
-<path fill="none" stroke="black" d="M585.987,-302.391C571.444,-290.351 555.402,-277.07 541.596,-265.641"/>
-<text text-anchor="middle" x="551.272" y="-265.665" font-family="Arial" font-size="10.00">attrs</text>
-<text text-anchor="middle" x="576.311" y="-297.367" font-family="Arial" font-size="10.00">owner</text>
+<g id="edge124" class="edge"><title>g134&#45;&#45;g135</title>
+<path fill="none" stroke="black" d="M592.462,-302.391C576.726,-290.351 559.369,-277.07 544.432,-265.641"/>
+<text text-anchor="middle" x="554.197" y="-265.292" font-family="Arial" font-size="10.00">attrs</text>
+<text text-anchor="middle" x="582.696" y="-297.74" font-family="Arial" font-size="10.00">owner</text>
 </g>
 <!-- g134&#45;&#45;g136 -->
-<g id="edge118" class="edge"><title>g134&#45;&#45;g136</title>
-<path fill="none" stroke="black" d="M751.46,-302.496C786.191,-291.62 823.839,-279.055 858,-266 861.191,-264.781 864.449,-263.481 867.722,-262.134"/>
-<text text-anchor="middle" x="860.942" y="-266.985" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="758.832" y="-293.239" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge116" class="edge"><title>g134&#45;&#45;g136</title>
+<path fill="none" stroke="black" d="M754.907,-302.473C788.434,-291.504 824.903,-278.896 858,-266 861.183,-264.76 864.435,-263.444 867.703,-262.084"/>
+<text text-anchor="middle" x="860.952" y="-266.961" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="762.194" y="-293.125" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g137 -->
 <g id="node42" class="node"><title>g137</title>
@@ -932,14 +932,14 @@
 <text text-anchor="start" x="613" y="-250.5" font-family="Arial" font-size="10.00">g137 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="596,-210 596,-244 705,-244 705,-210 596,-210"/>
-<text text-anchor="start" x="601" y="-232" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="601" y="-218" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="601" y="-232" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="601" y="-218" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
 <!-- g134&#45;&#45;g137 -->
-<g id="edge120" class="edge"><title>g134&#45;&#45;g137</title>
-<path fill="none" stroke="black" d="M636.404,-302.391C638.907,-290.351 641.669,-277.07 644.045,-265.641"/>
-<text text-anchor="middle" x="646.338" y="-272.874" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="634.111" y="-290.158" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge118" class="edge"><title>g134&#45;&#45;g137</title>
+<path fill="none" stroke="black" d="M642.878,-302.391C644.19,-290.351 645.636,-277.07 646.881,-265.641"/>
+<text text-anchor="middle" x="650.101" y="-272.608" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="639.658" y="-290.424" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g141 -->
 <g id="node46" class="node"><title>g141</title>
@@ -949,14 +949,14 @@
 <text text-anchor="start" x="327" y="-250.5" font-family="Arial" font-size="10.00">g141 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="310,-210 310,-244 419,-244 419,-210 310,-210"/>
-<text text-anchor="start" x="315" y="-232" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="315" y="-218" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="315" y="-232" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="315" y="-218" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
 <!-- g134&#45;&#45;g141 -->
-<g id="edge122" class="edge"><title>g134&#45;&#45;g141</title>
-<path fill="none" stroke="black" d="M531.068,-302.356C500.246,-290.95 466.131,-278.131 435,-266 432.147,-264.888 429.233,-263.742 426.292,-262.577"/>
-<text text-anchor="middle" x="436.275" y="-259.484" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="521.101" y="-300.669" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge120" class="edge"><title>g134&#45;&#45;g141</title>
+<path fill="none" stroke="black" d="M535.127,-302.432C502.917,-291.11 467.383,-278.32 435,-266 432.138,-264.911 429.217,-263.784 426.27,-262.634"/>
+<text text-anchor="middle" x="436.25" y="-259.489" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="525.174" y="-300.905" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g146 -->
 <g id="node51" class="node"><title>g146</title>
@@ -966,14 +966,14 @@
 <text text-anchor="start" x="753" y="-250.5" font-family="Arial" font-size="10.00">g146 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="739,-210 739,-244 842,-244 842,-210 739,-210"/>
-<text text-anchor="start" x="744" y="-232" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="744" y="-218" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="744" y="-232" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="744" y="-218" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
 <!-- g134&#45;&#45;g146 -->
-<g id="edge124" class="edge"><title>g134&#45;&#45;g146</title>
-<path fill="none" stroke="black" d="M685.763,-302.391C704.956,-290.351 726.126,-277.07 744.345,-265.641"/>
-<text text-anchor="middle" x="738.913" y="-271.537" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="691.194" y="-291.495" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge122" class="edge"><title>g134&#45;&#45;g146</title>
+<path fill="none" stroke="black" d="M692.237,-302.391C710.238,-290.351 730.093,-277.07 747.181,-265.641"/>
+<text text-anchor="middle" x="741.997" y="-271.692" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="697.421" y="-291.34" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g138 -->
 <g id="node43" class="node"><title>g138</title>
@@ -983,8 +983,8 @@
 <text text-anchor="start" x="601" y="-154.5" font-family="Arial" font-size="10.00">g138 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="524,-100 524,-148 764,-148 764,-100 524,-100"/>
-<text text-anchor="start" x="529" y="-136" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="529" y="-122" font-family="Arial" font-size="10.00">name = &quot;g1.E12&quot;</text>
+<text text-anchor="start" x="529" y="-136" font-family="Arial" font-size="10.00">name = &quot;g1.E12&quot;</text>
+<text text-anchor="start" x="529" y="-122" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="529" y="-108" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g137&#45;&#45;g138 -->
@@ -1024,8 +1024,8 @@
 <text text-anchor="start" x="321" y="-154.5" font-family="Arial" font-size="10.00">g142 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="244,-100 244,-148 484,-148 484,-100 244,-100"/>
-<text text-anchor="start" x="249" y="-136" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="249" y="-122" font-family="Arial" font-size="10.00">name = &quot;g1.E13&quot;</text>
+<text text-anchor="start" x="249" y="-136" font-family="Arial" font-size="10.00">name = &quot;g1.E13&quot;</text>
+<text text-anchor="start" x="249" y="-122" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="249" y="-108" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g141&#45;&#45;g142 -->
@@ -1053,15 +1053,15 @@
 </g>
 <!-- g142&#45;&#45;g144 -->
 <g id="edge134" class="edge"><title>g142&#45;&#45;g144</title>
-<path fill="none" stroke="black" d="M255.058,-96.3912C206.059,-80.3753 150.346,-62.1648 110.179,-49.0358"/>
-<text text-anchor="middle" x="120.107" y="-45.3346" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="245.131" y="-95.0925" font-family="Arial" font-size="10.00">src</text>
-</g>
-<!-- g142&#45;&#45;g145 -->
-<g id="edge136" class="edge"><title>g142&#45;&#45;g145</title>
 <path fill="none" stroke="black" d="M311.821,-96.3912C294.177,-84.3509 274.717,-71.0703 257.969,-59.6408"/>
 <text text-anchor="middle" x="267.837" y="-58.7587" font-family="Arial" font-size="10.00">outgoingLinks</text>
 <text text-anchor="middle" x="301.952" y="-92.2733" font-family="Arial" font-size="10.00">src</text>
+</g>
+<!-- g142&#45;&#45;g145 -->
+<g id="edge136" class="edge"><title>g142&#45;&#45;g145</title>
+<path fill="none" stroke="black" d="M255.058,-96.3912C206.059,-80.3753 150.346,-62.1648 110.179,-49.0358"/>
+<text text-anchor="middle" x="120.107" y="-45.3346" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="245.131" y="-95.0925" font-family="Arial" font-size="10.00">src</text>
 </g>
 <!-- g147 -->
 <g id="node52" class="node"><title>g147</title>
@@ -1071,8 +1071,8 @@
 <text text-anchor="start" x="913" y="-154.5" font-family="Arial" font-size="10.00">g147 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="836,-100 836,-148 1076,-148 1076,-100 836,-100"/>
-<text text-anchor="start" x="841" y="-136" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="841" y="-122" font-family="Arial" font-size="10.00">name = &quot;g1.E14&quot;</text>
+<text text-anchor="start" x="841" y="-136" font-family="Arial" font-size="10.00">name = &quot;g1.E14&quot;</text>
+<text text-anchor="start" x="841" y="-122" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="841" y="-108" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g146&#45;&#45;g147 -->
@@ -1112,8 +1112,8 @@
 <text text-anchor="start" x="1193" y="-2008.5" font-family="Arial" font-size="10.00">g151 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="1116,-1954 1116,-2002 1356,-2002 1356,-1954 1116,-1954"/>
-<text text-anchor="start" x="1121" y="-1990" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="1121" y="-1976" font-family="Arial" font-size="10.00">name = &quot;g1.N15&quot;</text>
+<text text-anchor="start" x="1121" y="-1990" font-family="Arial" font-size="10.00">name = &quot;g1.N15&quot;</text>
+<text text-anchor="start" x="1121" y="-1976" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="1121" y="-1962" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
 </g>
 <!-- g150&#45;&#45;g151 -->
@@ -1147,15 +1147,15 @@
 <text text-anchor="start" x="1467" y="-2008.5" font-family="Arial" font-size="10.00">g154 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="1390,-1954 1390,-2002 1630,-2002 1630,-1954 1390,-1954"/>
-<text text-anchor="start" x="1395" y="-1990" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="1395" y="-1976" font-family="Arial" font-size="10.00">name = &quot;g1.N16&quot;</text>
+<text text-anchor="start" x="1395" y="-1990" font-family="Arial" font-size="10.00">name = &quot;g1.N16&quot;</text>
+<text text-anchor="start" x="1395" y="-1976" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="1395" y="-1962" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
 </g>
 <!-- g153&#45;&#45;g154 -->
 <g id="edge150" class="edge"><title>g153&#45;&#45;g154</title>
-<path fill="none" stroke="black" d="M1444.12,-2060.33C1454.53,-2048.9 1466.62,-2035.62 1477.59,-2023.58"/>
-<text text-anchor="middle" x="1474.61" y="-2030.63" font-family="Arial" font-size="10.00">tgt</text>
-<text text-anchor="middle" x="1447.1" y="-2048.28" font-family="Arial" font-size="10.00">incommingLinks</text>
+<path fill="none" stroke="black" d="M1457.01,-2060.33C1465.38,-2048.9 1475.11,-2035.62 1483.93,-2023.58"/>
+<text text-anchor="middle" x="1481.98" y="-2030.89" font-family="Arial" font-size="10.00">tgt</text>
+<text text-anchor="middle" x="1458.95" y="-2048.02" font-family="Arial" font-size="10.00">incommingLinks</text>
 </g>
 <!-- g155 -->
 <g id="node60" class="node"><title>g155</title>
@@ -1177,20 +1177,20 @@
 <!-- g157 -->
 <g id="node62" class="node"><title>g157</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericObject.java" xlink:title="&lt;TABLE&gt;">
-<polygon fill="none" stroke="black" points="1819,-2002 1819,-2019 2059,-2019 2059,-2002 1819,-2002"/>
-<text text-anchor="start" x="1892" y="-2008.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="1896" y="-2008.5" font-family="Arial" font-size="10.00">g157 :GenericObject</text>
+<polygon fill="none" stroke="black" points="1820,-2002 1820,-2019 2060,-2019 2060,-2002 1820,-2002"/>
+<text text-anchor="start" x="1893" y="-2008.5" font-family="Arial" font-size="10.00"> </text>
+<text text-anchor="start" x="1897" y="-2008.5" font-family="Arial" font-size="10.00">g157 :GenericObject</text>
 </a>
-<polygon fill="none" stroke="black" points="1819,-1954 1819,-2002 2059,-2002 2059,-1954 1819,-1954"/>
-<text text-anchor="start" x="1824" y="-1990" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="1824" y="-1976" font-family="Arial" font-size="10.00">name = &quot;g1.N17&quot;</text>
-<text text-anchor="start" x="1824" y="-1962" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
+<polygon fill="none" stroke="black" points="1820,-1954 1820,-2002 2060,-2002 2060,-1954 1820,-1954"/>
+<text text-anchor="start" x="1825" y="-1990" font-family="Arial" font-size="10.00">name = &quot;g1.N17&quot;</text>
+<text text-anchor="start" x="1825" y="-1976" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
+<text text-anchor="start" x="1825" y="-1962" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Node&quot;</text>
 </g>
 <!-- g156&#45;&#45;g157 -->
 <g id="edge154" class="edge"><title>g156&#45;&#45;g157</title>
-<path fill="none" stroke="black" d="M1870.97,-2060.33C1881.72,-2048.9 1894.21,-2035.62 1905.53,-2023.58"/>
-<text text-anchor="middle" x="1902.4" y="-2030.58" font-family="Arial" font-size="10.00">tgt</text>
-<text text-anchor="middle" x="1874.1" y="-2048.33" font-family="Arial" font-size="10.00">incommingLinks</text>
+<path fill="none" stroke="black" d="M1887.01,-2060.33C1895.38,-2048.9 1905.11,-2035.62 1913.93,-2023.58"/>
+<text text-anchor="middle" x="1911.98" y="-2030.89" font-family="Arial" font-size="10.00">tgt</text>
+<text text-anchor="middle" x="1888.95" y="-2048.02" font-family="Arial" font-size="10.00">incommingLinks</text>
 </g>
 <!-- g158 -->
 <g id="node63" class="node"><title>g158</title>
@@ -1204,10 +1204,10 @@
 <text text-anchor="start" x="1845" y="-1866" font-family="Arial" font-size="10.00">value = &quot;n8&quot;</text>
 </g>
 <!-- g157&#45;&#45;g158 -->
-<g id="edge156" class="edge"><title>g157&#45;&#45;g158</title>
-<path fill="none" stroke="black" d="M1923.13,-1950.39C1917.77,-1938.35 1911.85,-1925.07 1906.76,-1913.64"/>
-<text text-anchor="middle" x="1914.31" y="-1917.7" font-family="Arial" font-size="10.00">attrs</text>
-<text text-anchor="middle" x="1915.59" y="-1941.33" font-family="Arial" font-size="10.00">owner</text>
+<g id="edge164" class="edge"><title>g157&#45;&#45;g158</title>
+<path fill="none" stroke="black" d="M1923.78,-1950.39C1918.3,-1938.35 1912.25,-1925.07 1907.04,-1913.64"/>
+<text text-anchor="middle" x="1914.65" y="-1917.64" font-family="Arial" font-size="10.00">attrs</text>
+<text text-anchor="middle" x="1916.18" y="-1941.39" font-family="Arial" font-size="10.00">owner</text>
 </g>
 <!-- g159 -->
 <g id="node64" class="node"><title>g159</title>
@@ -1217,31 +1217,31 @@
 <text text-anchor="start" x="1717" y="-1898.5" font-family="Arial" font-size="10.00">g159 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="1703,-1858 1703,-1892 1806,-1892 1806,-1858 1703,-1858"/>
-<text text-anchor="start" x="1708" y="-1880" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="1708" y="-1866" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="1708" y="-1880" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="1708" y="-1866" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
 <!-- g157&#45;&#45;g159 -->
-<g id="edge158" class="edge"><title>g157&#45;&#45;g159</title>
-<path fill="none" stroke="black" d="M1873.78,-1950.39C1851.72,-1938.35 1827.4,-1925.07 1806.46,-1913.64"/>
-<text text-anchor="middle" x="1816.44" y="-1911.77" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="1863.8" y="-1947.26" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge156" class="edge"><title>g157&#45;&#45;g159</title>
+<path fill="none" stroke="black" d="M1874.42,-1950.39C1852.25,-1938.35 1827.79,-1925.07 1806.74,-1913.64"/>
+<text text-anchor="middle" x="1816.73" y="-1911.75" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="1864.44" y="-1947.28" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- g163 -->
-<g id="node68" class="node"><title>g163</title>
+<!-- g162 -->
+<g id="node67" class="node"><title>g162</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="1906,-1686 1906,-1703 2015,-1703 2015,-1686 1906,-1686"/>
 <text text-anchor="start" x="1919" y="-1692.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="1923" y="-1692.5" font-family="Arial" font-size="10.00">g163 :GenericLink</text>
+<text text-anchor="start" x="1923" y="-1692.5" font-family="Arial" font-size="10.00">g162 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="1906,-1652 1906,-1686 2015,-1686 2015,-1652 1906,-1652"/>
-<text text-anchor="start" x="1911" y="-1674" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="1911" y="-1660" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="1911" y="-1674" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="1911" y="-1660" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
-<!-- g157&#45;&#45;g163 -->
-<g id="edge160" class="edge"><title>g157&#45;&#45;g163</title>
-<path fill="none" stroke="black" d="M1954.61,-1950.41C1958.86,-1939.01 1962.87,-1926.17 1965,-1914 1977.84,-1840.64 1969.83,-1752.45 1964.17,-1707.85"/>
-<text text-anchor="middle" x="1969.44" y="-1713.85" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="1953.75" y="-1937.95" font-family="Arial" font-size="10.00">tgt</text>
+<!-- g157&#45;&#45;g162 -->
+<g id="edge158" class="edge"><title>g157&#45;&#45;g162</title>
+<path fill="none" stroke="black" d="M1955.01,-1950.36C1959.09,-1938.95 1962.95,-1926.13 1965,-1914 1977.39,-1840.56 1969.57,-1752.4 1964.06,-1707.83"/>
+<text text-anchor="middle" x="1969.31" y="-1713.84" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="1954.03" y="-1937.91" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g164 -->
 <g id="node69" class="node"><title>g164</title>
@@ -1251,31 +1251,31 @@
 <text text-anchor="start" x="2070" y="-1898.5" font-family="Arial" font-size="10.00">g164 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="2056,-1858 2056,-1892 2159,-1892 2159,-1858 2056,-1858"/>
-<text text-anchor="start" x="2061" y="-1880" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
-<text text-anchor="start" x="2061" y="-1866" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="2061" y="-1880" font-family="Arial" font-size="10.00">srcLabel = &quot;inEdges&quot;</text>
+<text text-anchor="start" x="2061" y="-1866" font-family="Arial" font-size="10.00">tgtLabel = &quot;tgt&quot;</text>
 </g>
 <!-- g157&#45;&#45;g164 -->
-<g id="edge162" class="edge"><title>g157&#45;&#45;g164</title>
-<path fill="none" stroke="black" d="M1998.23,-1950.39C2018.26,-1938.35 2040.35,-1925.07 2059.36,-1913.64"/>
-<text text-anchor="middle" x="2053.77" y="-1919.43" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="2003.82" y="-1939.6" font-family="Arial" font-size="10.00">tgt</text>
+<g id="edge160" class="edge"><title>g157&#45;&#45;g164</title>
+<path fill="none" stroke="black" d="M1998.88,-1950.39C2018.79,-1938.35 2040.75,-1925.07 2059.64,-1913.64"/>
+<text text-anchor="middle" x="2054.08" y="-1919.45" font-family="Arial" font-size="10.00">incommingLinks</text>
+<text text-anchor="middle" x="2004.45" y="-1939.58" font-family="Arial" font-size="10.00">tgt</text>
 </g>
-<!-- g168 -->
-<g id="node73" class="node"><title>g168</title>
+<!-- g167 -->
+<g id="node72" class="node"><title>g167</title>
 <a xlink:href="../../SDMLib/src/org/sdmlib/models/objects/GenericLink.java" xlink:title="&lt;TABLE&gt;">
 <polygon fill="none" stroke="black" points="2192,-1686 2192,-1703 2301,-1703 2301,-1686 2192,-1686"/>
 <text text-anchor="start" x="2205" y="-1692.5" font-family="Arial" font-size="10.00"> </text>
-<text text-anchor="start" x="2209" y="-1692.5" font-family="Arial" font-size="10.00">g168 :GenericLink</text>
+<text text-anchor="start" x="2209" y="-1692.5" font-family="Arial" font-size="10.00">g167 :GenericLink</text>
 </a>
 <polygon fill="none" stroke="black" points="2192,-1652 2192,-1686 2301,-1686 2301,-1652 2192,-1652"/>
-<text text-anchor="start" x="2197" y="-1674" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
-<text text-anchor="start" x="2197" y="-1660" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="2197" y="-1674" font-family="Arial" font-size="10.00">srcLabel = &quot;outEdges&quot;</text>
+<text text-anchor="start" x="2197" y="-1660" font-family="Arial" font-size="10.00">tgtLabel = &quot;src&quot;</text>
 </g>
-<!-- g157&#45;&#45;g168 -->
-<g id="edge164" class="edge"><title>g157&#45;&#45;g168</title>
-<path fill="none" stroke="black" d="M2067.39,-1964.34C2147.54,-1942.83 2242.11,-1900.52 2278,-1818 2291.12,-1787.84 2285.46,-1776.03 2278,-1744 2275.09,-1731.5 2269.42,-1718.65 2263.65,-1707.7"/>
+<!-- g157&#45;&#45;g167 -->
+<g id="edge162" class="edge"><title>g157&#45;&#45;g167</title>
+<path fill="none" stroke="black" d="M2068.43,-1964.09C2148.25,-1942.5 2242.26,-1900.17 2278,-1818 2291.12,-1787.84 2285.46,-1776.03 2278,-1744 2275.09,-1731.5 2269.42,-1718.65 2263.65,-1707.7"/>
 <text text-anchor="middle" x="2271.56" y="-1711.31" font-family="Arial" font-size="10.00">incommingLinks</text>
-<text text-anchor="middle" x="2074.91" y="-1955.25" font-family="Arial" font-size="10.00">tgt</text>
+<text text-anchor="middle" x="2075.94" y="-1954.99" font-family="Arial" font-size="10.00">tgt</text>
 </g>
 <!-- g160 -->
 <g id="node65" class="node"><title>g160</title>
@@ -1285,8 +1285,8 @@
 <text text-anchor="start" x="1779" y="-1802.5" font-family="Arial" font-size="10.00">g160 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="1702,-1748 1702,-1796 1942,-1796 1942,-1748 1702,-1748"/>
-<text text-anchor="start" x="1707" y="-1784" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="1707" y="-1770" font-family="Arial" font-size="10.00">name = &quot;g1.E18&quot;</text>
+<text text-anchor="start" x="1707" y="-1784" font-family="Arial" font-size="10.00">name = &quot;g1.E18&quot;</text>
+<text text-anchor="start" x="1707" y="-1770" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="1707" y="-1756" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g159&#45;&#45;g160 -->
@@ -1314,15 +1314,15 @@
 </g>
 <!-- g160&#45;&#45;g162 -->
 <g id="edge168" class="edge"><title>g160&#45;&#45;g162</title>
-<path fill="none" stroke="black" d="M1768.76,-1744.39C1750.76,-1732.35 1730.91,-1719.07 1713.82,-1707.64"/>
-<text text-anchor="middle" x="1723.7" y="-1706.67" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="1758.88" y="-1740.37" font-family="Arial" font-size="10.00">src</text>
-</g>
-<!-- g160&#45;&#45;g163 -->
-<g id="edge170" class="edge"><title>g160&#45;&#45;g163</title>
 <path fill="none" stroke="black" d="M1870.65,-1744.39C1887.1,-1732.35 1905.25,-1719.07 1920.87,-1707.64"/>
 <text text-anchor="middle" x="1916.05" y="-1713.9" font-family="Arial" font-size="10.00">outgoingLinks</text>
 <text text-anchor="middle" x="1875.47" y="-1733.13" font-family="Arial" font-size="10.00">src</text>
+</g>
+<!-- g160&#45;&#45;g163 -->
+<g id="edge170" class="edge"><title>g160&#45;&#45;g163</title>
+<path fill="none" stroke="black" d="M1770.53,-1744.39C1753.12,-1732.35 1733.92,-1719.07 1717.4,-1707.64"/>
+<text text-anchor="middle" x="1727.26" y="-1706.82" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="1760.67" y="-1740.21" font-family="Arial" font-size="10.00">src</text>
 </g>
 <!-- g165 -->
 <g id="node70" class="node"><title>g165</title>
@@ -1332,8 +1332,8 @@
 <text text-anchor="start" x="2098" y="-1802.5" font-family="Arial" font-size="10.00">g165 :GenericObject</text>
 </a>
 <polygon fill="none" stroke="black" points="2021,-1748 2021,-1796 2261,-1796 2261,-1748 2021,-1748"/>
-<text text-anchor="start" x="2026" y="-1784" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
-<text text-anchor="start" x="2026" y="-1770" font-family="Arial" font-size="10.00">name = &quot;g1.E19&quot;</text>
+<text text-anchor="start" x="2026" y="-1784" font-family="Arial" font-size="10.00">name = &quot;g1.E19&quot;</text>
+<text text-anchor="start" x="2026" y="-1770" font-family="Arial" font-size="10.00">icon = &quot;&quot;</text>
 <text text-anchor="start" x="2026" y="-1756" font-family="Arial" font-size="10.00">type = &quot;org.sdmlib.examples.helloworld.model.Edge&quot;</text>
 </g>
 <!-- g164&#45;&#45;g165 -->
@@ -1361,15 +1361,15 @@
 </g>
 <!-- g165&#45;&#45;g167 -->
 <g id="edge176" class="edge"><title>g165&#45;&#45;g167</title>
-<path fill="none" stroke="black" d="M2229.41,-1744.46C2257.49,-1733.01 2288.62,-1720.13 2317,-1708 2320.18,-1706.64 2323.44,-1705.23 2326.73,-1703.8"/>
-<text text-anchor="middle" x="2320.11" y="-1708.79" font-family="Arial" font-size="10.00">outgoingLinks</text>
-<text text-anchor="middle" x="2236.2" y="-1734.62" font-family="Arial" font-size="10.00">src</text>
-</g>
-<!-- g165&#45;&#45;g168 -->
-<g id="edge178" class="edge"><title>g165&#45;&#45;g168</title>
 <path fill="none" stroke="black" d="M2178.02,-1744.39C2190.54,-1732.35 2204.34,-1719.07 2216.22,-1707.64"/>
 <text text-anchor="middle" x="2212.62" y="-1714.47" font-family="Arial" font-size="10.00">outgoingLinks</text>
 <text text-anchor="middle" x="2181.62" y="-1732.56" font-family="Arial" font-size="10.00">src</text>
+</g>
+<!-- g165&#45;&#45;g168 -->
+<g id="edge178" class="edge"><title>g165&#45;&#45;g168</title>
+<path fill="none" stroke="black" d="M2229.41,-1744.46C2257.49,-1733.01 2288.62,-1720.13 2317,-1708 2320.18,-1706.64 2323.44,-1705.23 2326.73,-1703.8"/>
+<text text-anchor="middle" x="2320.11" y="-1708.79" font-family="Arial" font-size="10.00">outgoingLinks</text>
+<text text-anchor="middle" x="2236.2" y="-1734.62" font-family="Arial" font-size="10.00">src</text>
 </g>
 </g>
 </svg>

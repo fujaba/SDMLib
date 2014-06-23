@@ -9,19 +9,19 @@ r3 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../e
 r4 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/model/Room.java"> <u>r4 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "sports"</td></tr><tr><td align='left'>credits = 23</td></tr><tr><td align='left'>room = ""</td></tr></table></td></tr></table>>];
 r5 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/model/Room.java"> <u>r5 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "exam"</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>room = ""</td></tr></table></td></tr></table>>];
 r6 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/model/Room.java"> <u>r6 :Room</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>roomNo = "ProgMeth"</td></tr><tr><td align='left'>credits = 42</td></tr><tr><td align='left'>room = ""</td></tr></table></td></tr></table>>];
-s7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/model/Student.java"> <u>s7 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Albert"</td></tr><tr><td align='left'>motivation = 0</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>matrNo = 4242</td></tr></table></td></tr></table>>];
-s8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/model/Student.java"> <u>s8 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>name = "Nina"</td></tr><tr><td align='left'>motivation = 0</td></tr><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>matrNo = 2323</td></tr><tr><td align='left'>in = ""</td></tr></table></td></tr></table>>];
+s7 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/model/Student.java"> <u>s7 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>motivation = 0</td></tr><tr><td align='left'>name = "Albert"</td></tr><tr><td align='left'>matrNo = 4242</td></tr></table></td></tr></table>>];
+s8 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyright/model/Student.java"> <u>s8 :Student</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>in = ""</td></tr><tr><td align='left'>motivation = 0</td></tr><tr><td align='left'>name = "Nina"</td></tr><tr><td align='left'>matrNo = 2323</td></tr></table></td></tr></table>>];
 
-u1 -- s7 [headlabel = "students" taillabel = "uni"];
-u1 -- s8 [headlabel = "students" taillabel = "uni"];
 u1 -- r2 [headlabel = "rooms" taillabel = "uni"];
 u1 -- r3 [headlabel = "rooms" taillabel = "uni"];
 u1 -- r4 [headlabel = "rooms" taillabel = "uni"];
 u1 -- r5 [headlabel = "rooms" taillabel = "uni"];
 u1 -- r6 [headlabel = "rooms" taillabel = "uni"];
-r2 -- s7 [headlabel = "students" taillabel = "in"];
+u1 -- s7 [headlabel = "students" taillabel = "uni"];
+u1 -- s8 [headlabel = "students" taillabel = "uni"];
 r2 -- r3 [headlabel = "neighbors" taillabel = "neighbors"];
 r2 -- r4 [headlabel = "neighbors" taillabel = "neighbors"];
+r2 -- s7 [headlabel = "students" taillabel = "in"];
 r3 -- r4 [headlabel = "neighbors" taillabel = "neighbors"];
 r3 -- r5 [headlabel = "neighbors" taillabel = "neighbors"];
 r3 -- r6 [headlabel = "neighbors" taillabel = "neighbors"];

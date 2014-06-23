@@ -17,9 +17,9 @@
 <text text-anchor="start" x="92" y="-278.5" font-family="Arial" font-size="10.00">p73 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="80,-224 80,-272 153,-272 153,-224 80,-224"/>
-<text text-anchor="start" x="85" y="-260" font-family="Arial" font-size="10.00">text = &quot;Albert&quot;</text>
+<text text-anchor="start" x="85" y="-260" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 <text text-anchor="start" x="85" y="-246" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="85" y="-232" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="85" y="-232" font-family="Arial" font-size="10.00">text = &quot;Albert&quot;</text>
 </g>
 <!-- p74 -->
 <g id="node2" class="node"><title>p74</title>
@@ -29,9 +29,9 @@
 <text text-anchor="start" x="19.5" y="-168.5" font-family="Arial" font-size="10.00">p74 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="8,-114 8,-162 80,-162 80,-114 8,-114"/>
-<text text-anchor="start" x="13" y="-150" font-family="Arial" font-size="10.00">text = &quot;Gabi&quot;</text>
+<text text-anchor="start" x="13" y="-150" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 <text text-anchor="start" x="13" y="-136" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="13" y="-122" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="13" y="-122" font-family="Arial" font-size="10.00">text = &quot;Gabi&quot;</text>
 </g>
 <!-- p73&#45;&#45;p74 -->
 <g id="edge2" class="edge"><title>p73&#45;&#45;p74</title>
@@ -47,9 +47,9 @@
 <text text-anchor="start" x="55.5" y="-58.5" font-family="Arial" font-size="10.00">p75 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="44,-4 44,-52 116,-52 116,-4 44,-4"/>
-<text text-anchor="start" x="49" y="-40" font-family="Arial" font-size="10.00">text = &quot;Jens&quot;</text>
+<text text-anchor="start" x="49" y="-40" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 <text text-anchor="start" x="49" y="-26" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="49" y="-12" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="49" y="-12" font-family="Arial" font-size="10.00">text = &quot;Jens&quot;</text>
 </g>
 <!-- p73&#45;&#45;p75 -->
 <g id="edge4" class="edge"><title>p73&#45;&#45;p75</title>
@@ -65,9 +65,9 @@
 <text text-anchor="start" x="163.5" y="-168.5" font-family="Arial" font-size="10.00">p76 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="152,-114 152,-162 224,-162 224,-114 152,-114"/>
-<text text-anchor="start" x="157" y="-150" font-family="Arial" font-size="10.00">text = &quot;Nina&quot;</text>
+<text text-anchor="start" x="157" y="-150" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 <text text-anchor="start" x="157" y="-136" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="157" y="-122" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="157" y="-122" font-family="Arial" font-size="10.00">text = &quot;Nina&quot;</text>
 </g>
 <!-- p73&#45;&#45;p76 -->
 <g id="edge6" class="edge"><title>p73&#45;&#45;p76</title>
@@ -89,9 +89,9 @@
 <text text-anchor="start" x="198.5" y="-278.5" font-family="Arial" font-size="10.00">p77 :Person</text>
 </a>
 <polygon fill="none" stroke="black" points="187,-224 187,-272 259,-272 259,-224 187,-224"/>
-<text text-anchor="start" x="192" y="-260" font-family="Arial" font-size="10.00">text = &quot;Nerdi&quot;</text>
+<text text-anchor="start" x="192" y="-260" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
 <text text-anchor="start" x="192" y="-246" font-family="Arial" font-size="10.00">parent = &quot;&quot;</text>
-<text text-anchor="start" x="192" y="-232" font-family="Arial" font-size="10.00">firstName = &quot;&quot;</text>
+<text text-anchor="start" x="192" y="-232" font-family="Arial" font-size="10.00">text = &quot;Nerdi&quot;</text>
 </g>
 <!-- p77&#45;&#45;p77 -->
 <g id="edge10" class="edge"><title>p77&#45;&#45;p77</title>

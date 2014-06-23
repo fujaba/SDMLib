@@ -30,7 +30,7 @@
 <text text-anchor="start" x="13" y="-12" font-family="Arial" font-size="10.00">text = &quot;Hi&quot;</text>
 </g>
 <!-- g1&#45;&#45;g2 -->
-<g id="edge4" class="edge"><title>g1&#45;&#45;g2</title>
+<g id="edge2" class="edge"><title>g1&#45;&#45;g2</title>
 <path fill="none" stroke="black" d="M105.785,-82.1396C96.8227,-70.759 85.9032,-56.8929 76.9761,-45.5569"/>
 <text text-anchor="middle" x="85.9036" y="-47.5625" font-family="Arial" font-size="10.00">greetingMessage</text>
 <text text-anchor="middle" x="96.8575" y="-75.1341" font-family="Arial" font-size="10.00">greeting</text>
@@ -46,7 +46,7 @@
 <text text-anchor="start" x="152" y="-12" font-family="Arial" font-size="10.00">name = &quot;dudes&quot;</text>
 </g>
 <!-- g1&#45;&#45;p3 -->
-<g id="edge2" class="edge"><title>g1&#45;&#45;p3</title>
+<g id="edge4" class="edge"><title>g1&#45;&#45;p3</title>
 <path fill="none" stroke="black" d="M140.488,-82.1396C149.593,-70.759 160.686,-56.8929 169.754,-45.5569"/>
 <text text-anchor="middle" x="167.393" y="-52.7741" font-family="Arial" font-size="10.00">person</text>
 <text text-anchor="middle" x="142.85" y="-69.9225" font-family="Arial" font-size="10.00">greeting</text>
