@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -13,6 +14,7 @@ import java.util.Map.Entry;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
+import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Attribute;
@@ -22,6 +24,7 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
@@ -60,6 +63,28 @@ public class GenClass extends Generator<Clazz>
          
          for (Method method : model.getMethods()) {
             getGenerator(method).generate(rootDir, helpersDir, false);
+            
+            String signature = method.getSignature(false);
+            parser.parse();
+            ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(signature);
+
+            if(symTabEntries.size() > 0) {
+               SymTabEntry symTabEntry = symTabEntries.get(0);
+               parser.parseMethodBody(symTabEntry);
+               LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
+               for (String key : localVarTable.keySet())
+               {
+                  LocalVarTableEntry localVarTableEntry = localVarTable.get(key);
+                  String type = localVarTableEntry.getType();
+                  ClazzSet classes = this.getModel().getClassModel().getClasses();
+                  for (Clazz clazz : classes)
+                  {
+                     if(clazz.getName().equals(type) || clazz.getName().endsWith("."+type)) {
+                       insertImport(clazz.getFullName());
+                     }
+                  }
+               }
+            }
          }
          
          if ( !model.isInterface())
