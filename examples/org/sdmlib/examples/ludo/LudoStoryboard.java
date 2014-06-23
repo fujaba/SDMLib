@@ -176,7 +176,7 @@ public class LudoStoryboard
       
       JsonIdMap jsonIdMap = LudoCreator.createIdMap("l1");
       
-      storyboard.addObjectDiagram(jsonIdMap, tom);
+      storyboard.addObjectDiagram(tom);
       
       storyboard.add("now the pawn may move to Tom's start field");
       

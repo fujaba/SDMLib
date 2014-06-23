@@ -11,13 +11,11 @@ import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.util.ClassModelCreator;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 
 import de.uniks.networkparser.graph.GraphConverter;
 import de.uniks.networkparser.graph.GraphIdMap;
-import de.uniks.networkparser.graph.GraphNode;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
@@ -85,14 +83,14 @@ public class Javascript implements GuiAdapter
    public String addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
    {
       // TODO Auto-generated method stub
-      return null;
+      return "";
    }
 
    @Override
    public String dumpSwimlanes(String name, LogEntrySet entries)
    {
       // TODO Auto-generated method stub
-      return null;
+      return "";
    }
 
    @Override
@@ -107,7 +105,7 @@ public class Javascript implements GuiAdapter
    public String dumpDiagram(String diagramName, String fileText)
    {
       // TODO Auto-generated method stub
-      return null;
+      return "";
    }
 
    @Override
