@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="GraphViz" name="Create Runnable Jar for Project SDMLib">
+	<target name="GraphViz">
+		<tstamp><format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" /></tstamp>
+		<echo file="build/MANIFEST.MF">Manifest-Version: 1.0
+Specification-Version: 4.2.23.${TODAY}
+Implementation-Title: GraphViz-Adapter
+Specification-Title: GraphViz-Adapter
+Built-Time: ${TODAY}
+Created-By: 4.2.23.${TODAY} ${user.name}
+Built-By: ${user.name}
+Location: ${user.language}
+Author: Stefan Lindel
+Implementation-Version: 4.2.23.${TODAY}
+Ant-Version: ${ant.version}
+Class-Path: .
+</echo>
+
+		<delete dir="build/temp"></delete>
+		<mkdir dir="build/temp/" />
+		<javac srcdir="Adapter/GraphViz/Java:src/org/sdmlib/doc/interfaze/Drawer" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true"/>
+		<delete file="build/GraphViz_win.jar" />
+		<jar destfile="build/GraphViz_win.jar" manifest="build/MANIFEST.MF">
+			<fileset dir="build/temp/" />
+			<fileset dir="Adapter/GraphViz/Java" />
+			<zipfileset casesensitive="false" dir="Adapter/GraphViz/Resources" />
+		</jar>
+		<delete dir="build/temp"></delete>
+		
+		<!-- Source-graphViz -->
+		<mkdir dir="build/temp/" />
+		<javac srcdir="Adapter/GraphVizSource/Java:src/org/sdmlib/doc/interfaze/Drawer" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true" />
+		<jar destfile="GraphViz_source.jar" manifest="build/MANIFEST.MF">
+			<fileset dir="Adapter/GraphViz/Java" />
+			<fileset dir="build/temp/" />
+		</jar>
+		<jar destfile="build/GraphViz_source.jar" manifest="build/MANIFEST.MF">
+			<fileset dir="Adapter/GraphViz/Java" />
+			<fileset dir="build/temp/" />
+		</jar>
+		<delete dir="build/temp"></delete>
+		<delete file="build/MANIFEST.MF" />
+	</target>
+</project>

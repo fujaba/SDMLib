@@ -23,13 +23,12 @@ package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.simpleModel.model.Mac;
+import org.sdmlib.examples.simpleModel.model.Item;
 
-public class MacCreator extends EntityFactory
+public class ItemCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Mac.PROPERTY_NAME,
    };
    
    @Override
@@ -41,7 +40,7 @@ public class MacCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Mac();
+      return new Item();
    }
    
    @Override
@@ -54,11 +53,6 @@ public class MacCreator extends EntityFactory
       {
          attribute = attrName.substring(0, pos);
       }
-
-      if (Mac.PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return ((Mac) target).getName();
-      }
       
       return null;
    }
@@ -69,12 +63,6 @@ public class MacCreator extends EntityFactory
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (Mac.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Mac) target).withName((String) value);
-         return true;
       }
       
       return false;
@@ -89,6 +77,6 @@ public class MacCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Mac) entity).removeYou();
+      ((Item) entity).removeYou();
    }
 }

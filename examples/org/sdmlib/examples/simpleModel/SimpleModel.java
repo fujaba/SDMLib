@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Visibility;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 
 public class SimpleModel
@@ -20,6 +21,16 @@ public class SimpleModel
       
       // Enable Special Thinks
       model.getGenerator().withShowDiff(DIFF.FULL);
+      model.generate("examples");
+   }
+   
+   @Test
+   public void testMethodModel(){
+      ClassModel model = new ClassModel("org.sdmlib.examples.simpleModel.model");
+      Clazz helperClazz = model.createClazz("Item");
+      helperClazz.createMethod("init").withBody("System.out.println(new Date());").with(Visibility.STATIC);
+      helperClazz.withImport("java.util.Date");
+      
       model.generate("examples");
    }
 }

@@ -73,7 +73,7 @@ public class AlexCreator extends EntityFactory
 
       if (Alex.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Alex) target).setName((String) value);
+         ((Alex) target).withName((String) value);
          return true;
       }
       

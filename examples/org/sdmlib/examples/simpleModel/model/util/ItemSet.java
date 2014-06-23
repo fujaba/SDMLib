@@ -22,97 +22,44 @@
 package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleModel.model.Mac;
+import org.sdmlib.examples.simpleModel.model.Item;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
 
-public class MacSet extends SDMSet<Mac>
+public class ItemSet extends SDMSet<Item>
 {
 
 
-   public MacPO hasMacPO()
+   public ItemPO hasItemPO()
    {
-      return new MacPO(this.toArray(new Mac[this.size()]));
+      return new ItemPO(this.toArray(new Item[this.size()]));
    }
 
 
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.simpleModel.model.Mac";
+      return "org.sdmlib.examples.simpleModel.model.Item";
    }
 
 
    @SuppressWarnings("unchecked")
-   public MacSet with(Object value)
+   public ItemSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Mac>)value);
+         this.addAll((Collection<Item>)value);
       }
       else if (value != null)
       {
-         this.add((Mac) value);
+         this.add((Item) value);
       }
       
       return this;
    }
    
-   public MacSet without(Mac value)
+   public ItemSet without(Item value)
    {
       this.remove(value);
-      return this;
-   }
-
-   public StringList getName()
-   {
-      StringList result = new StringList();
-      
-      for (Mac obj : this)
-      {
-         result.add(obj.getName());
-      }
-      
-      return result;
-   }
-
-   public MacSet hasName(String value)
-   {
-      MacSet result = new MacSet();
-      
-      for (Mac obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MacSet hasName(String lower, String upper)
-   {
-      MacSet result = new MacSet();
-      
-      for (Mac obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public MacSet withName(String value)
-   {
-      for (Mac obj : this)
-      {
-         obj.setName(value);
-      }
-      
       return this;
    }
 

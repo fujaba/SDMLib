@@ -48,8 +48,8 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.doc.GuiAdapter;
-import org.sdmlib.doc.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.GraphFactory;
+import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.logic.GenClass;
@@ -116,7 +116,7 @@ public class Storyboard implements PropertyChangeInterface
    {
       if (adapter == null)
       {
-         adapter = new JsonToGraphViz();
+         adapter = GraphFactory.getAdapter();
       }
       return adapter;
    }

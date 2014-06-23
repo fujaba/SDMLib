@@ -24,7 +24,8 @@ package org.sdmlib.models.classes;
 import java.util.Set;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.doc.GraphViz.JsonToGraphViz;
+import org.sdmlib.doc.GraphFactory;
+import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
 
@@ -114,7 +115,7 @@ public class ClassModel extends SDMLibClass
 
 	 public String dumpClassDiagram(String diagName)
 	{
-		JsonToGraphViz graphViz = new JsonToGraphViz();
+		GuiAdapter graphViz = GraphFactory.getAdapter();
 		
 		return graphViz.dumpClassDiagram(diagName, this);
 	}

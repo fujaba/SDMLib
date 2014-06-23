@@ -37,7 +37,6 @@ Export-Package: de.uniks.networkparser,
  org.sdmlib.codegen;uses:="org.sdmlib.utils,org.sdmlib.codegen.creators",
  org.sdmlib.codegen.util,
  org.sdmlib.doc,
- org.sdmlib.doc.GraphViz,
  org.sdmlib.examples.SDMLib,
  org.sdmlib.examples.groupAccount,
  org.sdmlib.examples.groupAccount.model,
@@ -90,7 +89,6 @@ Export-Package: de.uniks.networkparser,
  org.sdmlib.serialization,
  org.sdmlib.storyboards,
  org.sdmlib.storyboards.util
-Import-Package: javafx.application;version="2.2.0",
- org.junit
+Import-Package: org.junit
 Require-Bundle: SDMLib
 

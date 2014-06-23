@@ -21,6 +21,8 @@
 
 package org.sdmlib.models.classes;
 
+import java.util.ArrayList;
+
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
@@ -44,6 +46,7 @@ public class Clazz extends SDMLibClass
    private ClassModel classModel = null;  
    private ClazzSet superClazzes = null;
    private ClazzSet kidClazzes = null;
+   private ArrayList<String> imports=new ArrayList<String>(); 
    
    private MethodSet methods = null;
    private RoleSet roles = null;
@@ -766,5 +769,15 @@ public class Clazz extends SDMLibClass
    {
       setInterfaze(value);
       return this;
+   }
+
+
+   public Clazz withImport(String value)
+   {
+      this.imports.add(value);
+      return this;
    } 
+   public ArrayList<String> getImports(){
+      return imports;
+   }
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 Stefan 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,60 +18,46 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
+   
+package org.sdmlib.examples.simpleModel.model;
 
-package org.sdmlib.models.classes;
-
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.StrUtil;
+import java.util.Date;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
-public abstract class SDMLibClass implements PropertyChangeInterface
-{  
-   public static final String PROPERTY_NAME = "name";
+public class Item implements PropertyChangeInterface
+{
 
-   protected String name = null;
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   //==========================================================================
+   
+    static void init(  )
+   {
+System.out.println(new Date());   }
 
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
    @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
    
-   
-   boolean setName(String value)
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-         return true;
-      }
-      return false;
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
-  
-   public String getName()
-   {
-      return name;
-   }
+
    
-   public abstract SDMLibClass withName(String value);
-
-
+   //==========================================================================
+   
+   
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
-
-
-   @Override
-   public String toString()
-   {
-      StringBuilder _ = new StringBuilder();
-      
-      _.append(" ").append(this.getName());
-      return _.substring(1);
    }
 }
