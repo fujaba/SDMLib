@@ -41,8 +41,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import javafx.application.Platform;
-
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.replication.util.ReplicationChannelSet;
@@ -164,7 +162,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          
          if (javaFXApplication)
          {
-            Platform.runLater(new JavaFXMsgHandler(channelMsg));
+//FIXME STEFAN            Platform.runLater(new JavaFXMsgHandler(channelMsg));
          }
          else
          {

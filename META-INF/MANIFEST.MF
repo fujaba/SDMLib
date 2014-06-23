@@ -90,7 +90,6 @@ Export-Package: de.uniks.networkparser,
  org.sdmlib.serialization,
  org.sdmlib.storyboards,
  org.sdmlib.storyboards.util
-Import-Package: javafx.application;version="2.2.0",
- org.junit
+Import-Package: org.junit
 Require-Bundle: SDMLib
 
