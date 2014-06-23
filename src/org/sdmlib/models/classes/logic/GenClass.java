@@ -76,6 +76,9 @@ public class GenClass extends Generator<Clazz>
                for (String key : array)
                {
                   LocalVarTableEntry localVarTableEntry = localVarTable.get(key);
+                  if(localVarTableEntry == null){
+                     continue;
+                  }
                   String type = localVarTableEntry.getType();
                   ClazzSet classes = this.getModel().getClassModel().getClasses();
                   for (Clazz clazz : classes)
