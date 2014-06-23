@@ -86,6 +86,7 @@
 	</target>
 
 	<target name="init">
+		<delete dir="bin" />
 		<mkdir dir="bin" />
 		<copy includeemptydirs="false" todir="bin">
 			<fileset dir="src">
