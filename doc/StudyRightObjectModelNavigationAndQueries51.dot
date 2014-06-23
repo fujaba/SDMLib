@@ -3,6 +3,6 @@ graph ObjectDiagram {
    edge [fontsize = 10, fontname = "Arial"];
    compound=true;
 
-karli [label=<<table border='0' cellborder='1' cellspacing='0'> <tr><td border='0'><IMG src="icons/karli.png" /></td></tr><tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/TeachingAssistant.java"> <u>karli :TeachingAssistant</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>motivation = 42</td></tr><tr><td align='left'>name = "Karli"</td></tr><tr><td align='left'>certified = "false"</td></tr><tr><td align='left'>assignmentPoints = 0</td></tr><tr><td align='left'>room = ""</td></tr></table></td></tr></table>>];
+karli [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/studyrightWithAssignments/model/TeachingAssistant.java"> <u>karli :TeachingAssistant</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>credits = 0</td></tr><tr><td align='left'>motivation = 42</td></tr><tr><td align='left'>name = "Karli"</td></tr><tr><td align='left'>certified = "false"</td></tr><tr><td align='left'>assignmentPoints = 0</td></tr><tr><td align='left'>room = ""</td></tr></table></td></tr></table>>];
 
 }

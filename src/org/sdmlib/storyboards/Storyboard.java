@@ -789,7 +789,7 @@ public class Storyboard implements PropertyChangeInterface
    {
       String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
       diagName = model.dumpClassDiagram(diagName);
-      this.addSVGImage(diagName);
+      this.add(diagName);
    }
 
    public void addClassDiagram(ClassModel model, String rootDir)
@@ -952,7 +952,18 @@ public class Storyboard implements PropertyChangeInterface
       }
       else
       {
-         addObjectDiagram(jsonIdMap, explicitElems);
+         ConditionMap conditionMap = new AlwaysTrueCondition();
+         addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
+      }
+   }
+
+   private class AlwaysTrueCondition extends ConditionMap
+   {
+      @Override
+      public boolean matches(ValuesMap values)
+      {
+         // TODO Auto-generated method stub
+         return true;
       }
    }
 
@@ -978,45 +989,8 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root)
-   {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true));
 
-      if (largestJsonArray == null || largestJsonArray.size() <=
-            jsonArray.size())
-      {
-         largestJsonArray = jsonArray;
-         largestRoot = root;
-      }
-
-      String imgLink =
-            getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
-            .toImg(
-               this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
-
-      this.addToSteps(imgLink);
-
-      // new diagram
-      // this.addObjectDiagramFromJsonArray(root, jsonArray);
-   }
-
-   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, boolean omitRoot)
-   {
-      JsonArray jsonArray = jsonIdMap.toJsonArray(root);
-
-      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
-      {
-         largestJsonArray = jsonArray;
-         largestRoot = root;
-      }
-
-      String imgLink = getAdapter().withRootDir(getModelRootDir()).toImg(
-         this.getName() + (this.getStoryboardSteps().size() + 1), jsonArray, omitRoot, null);
-
-      this.addToSteps(imgLink);
-   }
-
-   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, RestrictToFilter filter, String... aggregationRoles)
+   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, ConditionMap filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
@@ -1028,53 +1002,14 @@ public class Storyboard implements PropertyChangeInterface
       }
 
       String imgLink =
-            getAdapter().withRootDir(getModelRootDir()).toImg(this.getName() +
-               (this.getStoryboardSteps().size()+1), jsonArray, false,
-               aggregationRoles);
+            getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
+            .toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
 
       this.addToSteps(imgLink);
 
       // this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
-
-   private void addObjectDiagramFromJsonArray(Object root, JsonArray jsonArray)
-   {
-      if (largestJsonArray == null || largestJsonArray.size() <= jsonArray.size())
-      {
-         largestJsonArray = jsonArray;
-         largestRoot = root;
-      }
-
-      // add icons
-      for (Entry<String, String> entry : iconMap.entrySet())
-      {
-         JsonObject jsonObject = jsonArray.get(entry.getKey());
-
-         if (jsonObject != null)
-         {
-            jsonObject.put("headimage", entry.getValue());
-         }
-      }
-
-      // new diagram
-      GraphConverter graphConverter = new GraphConverter();
-      JsonObject objectModel = graphConverter.convertToJson(GraphIdMap.OBJECT, jsonArray, true);
-
-      String text =
-            "<script>\n" +
-               "   var json = " +
-               objectModel.toString(3) +
-               "   ;\n" +
-               "   json[\"options\"]={\"canvasid\":\"canvas" + this.getStoryboardSteps().size() + "\", "
-               + "\"display\":\"html\", "
-               + "\"fontsize\":10,"
-               + "\"bar\":true};" +
-               "   var g = new Graph(json);\n" +
-               "   g.layout(100,100);\n" +
-               "</script>\n";
-
-      this.add(text);
-   }
+   
 
    public void setKanbanPhase(String string)
    {
@@ -1115,8 +1050,8 @@ public class Storyboard implements PropertyChangeInterface
     * 
     * @param image
     */
-   @Deprecated // use addClassDiagram(model) instead
-   public void addSVGImage(String imageFile)
+   
+   void addSVGImage(String imageFile)
    {
       this.addToSteps("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");
    }
