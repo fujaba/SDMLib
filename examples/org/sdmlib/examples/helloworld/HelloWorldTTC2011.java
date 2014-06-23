@@ -498,7 +498,7 @@ public class HelloWorldTTC2011
 
       Graph graph = createExampleGraph();
 
-      storyboard.addObjectDiagram(GraphCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(graph);
 
       //==========================================================================
 
@@ -515,7 +515,7 @@ public class HelloWorldTTC2011
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagram(GraphCreator.createIdMap("hg"), graph);
+      storyboard.addObjectDiagram(graph);
 
       storyboard.add(systemout);
 

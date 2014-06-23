@@ -72,7 +72,8 @@ public class GenClass extends Generator<Clazz>
                SymTabEntry symTabEntry = symTabEntries.get(0);
                parser.parseMethodBody(symTabEntry);
                LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
-               for (String key : localVarTable.keySet())
+               String[] array = localVarTable.keySet().toArray(new String[0]);
+               for (String key : array)
                {
                   LocalVarTableEntry localVarTableEntry = localVarTable.get(key);
                   String type = localVarTableEntry.getType();
