@@ -83,8 +83,7 @@ public class GenMethod extends Generator<Method>
          }
          String overrideText="";
          if(overrideFlag){
-            overrideText="@Override";
-            
+            overrideText="@Override";      
          }
          
          CGUtil.replaceAll(text, 
@@ -101,7 +100,8 @@ public class GenMethod extends Generator<Method>
          parser.insert(pos, text.toString());
       }
       
-      pos = parser.indexOf(Parser.METHOD + ":" + signature);
+      String signatureSimple = model.getSignature(false);
+      pos = parser.indexOf(Parser.METHOD + ":" + signatureSimple);
 
       symTabEntry = parser.getSymTab().get(string);
 
