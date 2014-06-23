@@ -30,7 +30,7 @@ Class-Path: .
 		<!-- Source-graphViz -->
 		<mkdir dir="build/temp/" />
 		<javac srcdir="Adapter/GraphVizSource/Java:src/org/sdmlib/doc/interfaze/Drawer" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true" />
-		<jar destfile="GraphViz_source.jar" manifest="build/MANIFEST.MF">
+		<jar destfile="GraphViz.jar" manifest="build/MANIFEST.MF">
 			<fileset dir="Adapter/GraphViz/Java" />
 			<fileset dir="build/temp/" />
 		</jar>

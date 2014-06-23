@@ -20,6 +20,9 @@
  permissions and limitations under the Licence.
 */
 Object_create = Object.create || function (o) { var F = function() {};F.prototype = o; return new F();};
+IE = document.all&&!window.opera;
+DOM = document.getElementById&&!IE;
+
 /* Pos */
 Pos = function(x, y, id) {this.x = x; this.y = y; if(id){this.id = id;} }
 /* Item */
@@ -36,6 +39,8 @@ Options = function(){
 	this.rootElement = null;
 	this.parent = null;
 	this.fontsize=12;
+	this.rank = "LR";	// Dagre TB, LR
+	this.nodeSep = 20;
 }
 
 /* Node */
@@ -61,8 +66,10 @@ Graph = function(json, options) {
 	this.layouter = new DagreLayout();
 	this.options = this.merge(new Options(), json.options, options);
 	this.parent = this.options.parent;
+	this.loader = new Loader(this);
 	if((""+this.options.display).toLowerCase()=="html"){
 		this.drawer = new HTMLDrawer();
+		this.loader.init(true);
 	}else{
 		this.drawer = new SVGDrawer();
 		this.options.display = "svg";
@@ -79,7 +86,7 @@ Graph = function(json, options) {
 		node.height = node.height || 0;
 		node.edges = [];
 		node.RIGHT = node.LEFT = node.UP = node.DOWN=0;
-		this.insertNode(node);
+		this.insertNode(node, i);
 	}
 	for (var i in json.value.edges){
 		var e = json.value.edges[i];
@@ -123,7 +130,6 @@ Graph = function(json, options) {
 		this.optionbar.appendChild(this.getButton("PNG-Export"));
 		this.optionbar.appendChild(document.createElement("br"));
 	}
-
 	this.initGraph();
 };
 
@@ -144,10 +150,12 @@ Graph.prototype.merge = function(ref, sourceA, sourceB){
 Graph.prototype.initGraph = function(){
 	this.clearBoard();
 	this.board = this.drawer.createContainer(this);
+	this.initDragAndDrop();
 	this.root.appendChild(this.board);
+	
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
-		var html = this.drawer.getHTMLNode(node, this, true);
+		var html = this.drawer.getHTMLNode(node, true);
 		if(html){
 			var pos = this.getDimension(html);
 			if(!node.startWidth){
@@ -158,6 +166,7 @@ Graph.prototype.initGraph = function(){
 			}
 		}
 	}
+
 	for (var i in this.edges) {
 		var edge = this.edges[i];
 		edge.sourceinfo = new Item(new Pos(0,0), new Pos(0,0) );
@@ -175,7 +184,7 @@ Graph.prototype.initGraph = function(){
 			}
 		}
 	}
-	this.drawer.clearBoard(this);
+	this.drawer.clearBoard();
 };
 Graph.prototype.clearBoard = function(){
 	if(this.board){
@@ -192,6 +201,7 @@ Graph.prototype.clearBoard = function(){
 		this.board.removeChild(this.infoBox);
 		this.infoBox=null;
 	}
+	this.drawer.clearBoard();
 };
 Graph.prototype.getDimension = function(html){
 	if(this.parent){
@@ -208,7 +218,8 @@ Graph.prototype.getButton = function(label){
 	button.innerHTML = label;
 	button.className="ToolButton";
 	button.graph = this;
-	button.addEventListener("click", optionButton, false);
+	var that = this;
+	button.addEventListener("click", function(e){that.optionButton(e);}, false);
 	return button;
 }
 
@@ -236,8 +247,11 @@ Graph.prototype.getNode = function(id) {
 	}
 	return this.nodes[id];
 };
-Graph.prototype.insertNode = function(node) {
+Graph.prototype.insertNode = function(node, pos) {
 	/* testing if node is already existing in the graph */
+	if(!(node.id)){
+		node.id = node.typ+"_"+pos;
+	}
 	if(this.nodes[node.id] == undefined) {
 		this.nodes[node.id] = node;
 		node.parent = this;
@@ -346,13 +360,18 @@ Graph.prototype.drawRaster = function(){
 };
 Graph.prototype.drawGraph = function(width, height){
 	this.minSize = new Pos(width, height);
+	if(this.loader.abort && this.loader.images.length>0){
+		return;
+	}
+
 	if(this.drawer.showInfoBox()){
 		this.infoBox = document.createElement("div");
 	}
 	this.resize();
 
+
 	for(var i in this.nodes) {
-		this.nodes[i].htmlNode = this.drawer.getHTMLNode(this.nodes[i], this, false);
+		this.nodes[i].htmlNode = this.drawer.getHTMLNode(this.nodes[i], false);
 		if(this.nodes[i].htmlNode){
 			this.board.appendChild( this.nodes[i].htmlNode );
 		}
@@ -368,8 +387,9 @@ Graph.prototype.drawGraph = function(width, height){
 		this.infoBox.className = "infoBox";
 		this.infoBox.style.display="none";
 		this.infoBox.fader=false;
-		this.infoBox.onmouseout = function (evt) {fadeout();};
-		this.infoBox.onmouseover= function (evt) {fadein();};
+		var that = this;
+		this.infoBox.onmouseout = function (evt) {that.fadeout(evt);};
+		this.infoBox.onmouseover= function (evt) {that.fadein(evt);};
 
 		this.board.appendChild(this.infoBox);
 	}
@@ -399,14 +419,173 @@ Graph.prototype.layout = function(minwidth, minHeight){
 		this.layouter.layout(minwidth || 0, minHeight || 0);
 	}
 }
+Graph.prototype.layouting = function(){
+	if(this.layouter){
+		this.initGraph();
+		this.layouter.layout(this.minSize.x, this.minSize.y);
+	}
+}
 
-/* GraphLayout with Default Dagre */
+//					######################################################### DRAG AND DROP #########################################################
+Graph.prototype.initDragAndDrop = function(){
+	this.objDrag = null;
+	this.mouse = new Pos(0,0);
+	this.offset= new Pos(0,0);
+	var that = this;
+	// its Root = this.board
+	this.board.onmousemove = function(e){that.doDrag(e);};
+	this.board.onmouseup = function(e){that.stopDrag(e);};
+};
+Graph.prototype.addNodeLister = function(htmlElement){
+	var that = this;
+	htmlElement.addEventListener("mousedown", function(e){that.startDrag(e);}, false);
+	htmlElement.addEventListener("mouseover", function(e){that.showinfo(e);}, false);
+	htmlElement.addEventListener("mouseout", function(e){that.fadeout(e);}, false);
+};
+Graph.prototype.showinfo = function(event){
+	var objElem = event.currentTarget;
+	var node=this.getGraphNode(objElem);
+	if(node){
+		var x = Math.round( objElem.style.left.substring(0,objElem.style.left.length-2) * 100)/100;
+		var y = Math.round( objElem.style.top.substring(0,objElem.style.top.length-2) * 100)/100;
+		node.parent.showInfoText("Box-Position: " + x + ":" + y);
+	}
+};
+Graph.prototype.startDrag = function(event) {
+	this.objDrag = event.currentTarget;
+	this.offset.x = this.mouse.x - this.objDrag.offsetLeft;
+	this.offset.y = this.mouse.y - this.objDrag.offsetTop;
+};
+
+Graph.prototype.doDrag = function(event) {
+	this.mouse.x = (IE) ? window.event.clientX : event.pageX;
+	this.mouse.y = (IE) ? window.event.clientY : event.pageY;
+
+	if (this.objDrag != null) {
+		this.objDrag.style.left = (this.mouse.x - this.offset.x) + "px";
+		this.objDrag.style.top = (this.mouse.y - this.offset.y) + "px";
+
+		window.status = "Box-Position: " + this.objDrag.style.left + ", " + this.objDrag.style.top;
+		var model = this.savePosition();
+		if(model){
+			model.parent.drawLines();
+		}
+	}
+}
+
+Graph.prototype.getGraphNode = function(objElement){
+	var obj=objElement;
+	while(obj&&!obj.node){
+		if(!obj.node){
+			obj=obj.parentNode;
+		}else{
+			break;
+		}
+	}
+	if(obj&&obj.node){
+		return obj.node;
+	}
+	return null;
+};
+
+Graph.prototype.savePosition = function(){
+	var node=this.getGraphNode(this.objDrag);
+	if(node){
+		node.x = this.objDrag.offsetLeft;
+		node.y = this.objDrag.offsetTop;
+		return node;
+	}
+	return null;
+};
+Graph.prototype.fadein = function(evt){
+	if(this.infoBox){this.infoBox.fader=false;}
+}
+Graph.prototype.fadeout = function(evt){
+	if(this.infoBox&&!this.infoBox.fader){
+		this.infoBox.fader=100;
+		var that = this;
+		setTimeout(function(){that.fadeOutTimer();}, 2000);
+	}
+};
+Graph.prototype.stopDrag = function(evt) {
+	var model = this.savePosition();
+	this.objDrag = null;
+	if(model){
+		model.parent.drawLines();
+		model.parent.resize();
+	}
+}
+
+Graph.prototype.fadeOutTimer= function(){
+	var item=this.infoBox;
+	if(item && item.fader>0.00){
+			item.style.opacity = (item.fader / 100);
+			item.style.MozOpacity = (item.fader / 100);
+			item.style.KhtmlOpacity = (item.fader / 100);
+			item.fader-=5;
+			var that = this;
+			setTimeout(function(){that.fadeOutTimer()}, 20);
+	}else{
+		item.fader=0;
+		item.style.display="none";
+	}
+}
+
+Graph.prototype.optionButton = function(event){
+	var btn = event.currentTarget;
+	if(btn.innerHTML=="HTML"){
+		btn.graph.drawer = new HTMLDrawer();
+		btn.graph.options.display = "html";
+		btn.graph.loader.init(true);
+		btn.graph.initGraph();
+		btn.graph.drawGraph(0,0);
+	}else if(btn.innerHTML=="SVG"){
+		btn.graph.drawer = new SVGDrawer();
+		btn.graph.options.display = "svg";
+		btn.graph.initGraph();
+		btn.graph.drawGraph(0,0);
+	}else if(btn.innerHTML=="SVG-Export"){
+		btn.graph.drawer = new SVGDrawer();
+		btn.graph.initGraph();
+		btn.graph.drawGraph(0,0);
+		var size = btn.graph.resize();
+		var img = document.createElement("img");
+		img.src = "data:image/svg+xml;base64," + this.utf8_to_b64(this.serializeXmlNode(btn.graph.board));
+		btn.graph.clearBoard();
+		btn.graph.board = img;
+		btn.graph.board.width = size.x;
+		btn.graph.board.height = size.y;
+		btn.graph.root.appendChild(img);
+		//window.open("data:image/svg+xml," + escape(btn.graph.board.outerHTML));
+	}else if(btn.innerHTML=="PNG-Export"){
+		var oldDrawer = this.drawer;
+		this.drawer = new CanvasDrawer();
+		this.loader.init(false);
+		this.loader.oldDrawer = oldDrawer;
+		this.initGraph();
+		this.drawGraph(0,0);
+		this.loader.resetDrawer();
+	}
+}
+
+Graph.prototype.serializeXmlNode = function(xmlNode) {
+	if (typeof window.XMLSerializer != "undefined") {
+		return (new window.XMLSerializer()).serializeToString(xmlNode);
+	} else if (typeof xmlNode.xml != "undefined") {
+		return xmlNode.xml;
+	}
+	return xmlNode.outerHTML;
+}
+Graph.prototype.utf8_to_b64 = function( str ) {
+	return window.btoa(unescape(encodeURIComponent( str )));
+}
+//					######################################################### GraphLayout-Dagre #########################################################
 DagreLayout = function() {};
 DagreLayout.prototype.layout = function(width, height) {
 	this.g = new dagre.Digraph();
 	for (var i in this.graph.nodes) {
 		var node = this.graph.nodes[i];
-		this.g.addNode(node.id, {"label": node.id, "width":node.width+10, "height":node.height+20, "x":node.x, "y":node.y});
+		this.g.addNode(node.id, {label: node.id, width:node.width+10, height:node.height+20, x:node.x, y:node.y});
 	}
 	for (var i in this.graph.edges) {
 		var edges = this.graph.edges[i];
@@ -414,7 +593,10 @@ DagreLayout.prototype.layout = function(width, height) {
 		this.g.addEdge(i, edges.source.id, edges.target.id);
 	}
 
-	var layout = dagre.layout().run(this.g);
+	var layout = dagre.layout()
+					.nodeSep(this.graph.options.nodeSep)
+					.rankDir(this.graph.options.rank)
+					.run(this.g);
 	// Set the layouting back
 	for (var i in this.graph.nodes) {
 		var node = this.graph.nodes[i];
@@ -424,6 +606,38 @@ DagreLayout.prototype.layout = function(width, height) {
 	}
 	this.graph.drawGraph(width, height);
 };
+
+Loader = function(graph) {this.init(false);this.graph=graph;};
+Loader.prototype.init = function(abort){
+	this.images = [];
+	this.abort=abort;
+}
+Loader.prototype.resetDrawer = function(){
+	if(this.images.length==0){
+		this.graph.drawer.onFinishImage();
+	}else{
+		var img = this.images.pop();
+		this.graph.root.appendChild(img);
+	}
+};
+Loader.prototype.remove = function(img){
+	this.images.remove(img);
+}
+Loader.prototype.onLoad = function(img){
+	var idx = this.images.indexOf(img);
+	if (idx != -1) {
+		this.images.splice(idx, 1);
+	}
+	if(this.images.length==0){
+		this.graph.drawer.onFinishImage();
+	}
+};
+Loader.prototype.appendImg = function(img){
+	img.crossOrigin = 'anonymous';
+	var that = this.graph.drawer;
+	img.onload = function(e){that.onLoadImage(e);};
+	this.images.push(img);
+}
 
 //					######################################################### LINES #########################################################
 Edge = function() {this.init();}
@@ -453,7 +667,7 @@ Edge.prototype.calculate = function(board, drawer){
 }
 Edge.prototype.draw = function(board, drawer){
 	for(var i=0;i<this.path.length;i++){
-		this.addElement(board, this.htmlElement, drawer.createLine(this.path[i].source.x, this.path[i].source.y, this.path[i].target.x, this.path[i].target.y, board.graph, this.path[i].style));
+		this.addElement(board, this.htmlElement, drawer.createLine(this.path[i].source.x, this.path[i].source.y, this.path[i].target.x, this.path[i].target.y, this.path[i].style));
 	}
 	if(this.sourceproperty){
 		this.addElement(board, this.htmlElement, drawer.createInfo(this.sourceinfo.pos.x, this.sourceinfo.pos.y, this.sourceproperty, false));
@@ -701,8 +915,8 @@ Generalisation.prototype.calculate = function(board, drawer){
 		return false;
 	}
 
-	var startArrow  = this.endPos().source;
-	var targetArrow = this.endPos().target;
+	var startArrow	= this.endPos().source;
+	var targetArrow	= this.endPos().target;
 	// calculate the angle of the line
 	var lineangle=Math.atan2(targetArrow.y-startArrow.y,targetArrow.x-startArrow.x);
 	// h is the line length of a side of the arrow head
@@ -719,9 +933,9 @@ Generalisation.prototype.calculate = function(board, drawer){
 Generalisation.prototype.drawSuper = Generalisation.prototype.draw;
 Generalisation.prototype.draw = function(board, drawer){
 	this.drawSuper(board, drawer);
-	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.end.x, this.end.y, board.graph, this.lineStyle));
-	this.addElement(board, this.htmlElement, drawer.createLine(this.bot.x, this.bot.y, this.end.x, this.end.y, board.graph, this.lineStyle));
-	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y, board.graph, this.lineStyle));
+	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.end.x, this.end.y, this.lineStyle));
+	this.addElement(board, this.htmlElement, drawer.createLine(this.bot.x, this.bot.y, this.end.x, this.end.y, this.lineStyle));
+	this.addElement(board, this.htmlElement, drawer.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y, this.lineStyle));
 };
 
 Implements = function() { this.init(); }
@@ -731,156 +945,6 @@ Implements.prototype.initGeneralisation = Implements.prototype.init;
 Implements.prototype.init =function(){
 	this.initGeneralisation();
 	this.lineStyle = Line.Format.DOTTED;
-}
-
-//					######################################################### DRAG AND DROP #########################################################
-
-var objDrag = null;
-var mouse = new Pos(0,0);
-var offset= new Pos(0,0);
-
-IE = document.all&&!window.opera;
-DOM = document.getElementById&&!IE;
-
-function init(){
-	document.onmousemove = doDrag;
-	document.onmouseup = stopDrag;
-}
-function showinfo(event){
-	var objElem = event.currentTarget;
-	var node=getNode(objElem);
-	if(node){
-		var x = Math.round( objElem.style.left.substring(0,objElem.style.left.length-2) * 100)/100;
-		var y = Math.round( objElem.style.top.substring(0,objElem.style.top.length-2) * 100)/100;
-		node.parent.showInfoText("Box-Position: " + x + ":" + y);
-	}
-}
-function startDrag(event) {
-	objDrag = event.currentTarget;
-	offset.x = mouse.x - objDrag.offsetLeft;
-	offset.y = mouse.y - objDrag.offsetTop;
-}
-function doDrag(event) {
-	mouse.x = (IE) ? window.event.clientX : event.pageX;
-	mouse.y = (IE) ? window.event.clientY : event.pageY;
-
-	if (objDrag != null) {
-		objDrag.style.left = (mouse.x - offset.x) + "px";
-		objDrag.style.top = (mouse.y - offset.y) + "px";
-
-		window.status = "Box-Position: " + objDrag.style.left + ", " + objDrag.style.top;
-		var model = savePosition(objDrag);
-		if(model){
-			model.parent.drawLines();
-		}
-	}
-}
-function getNode(objElement){
-	var obj=objElement;
-	while(obj&&!obj.node){
-		if(!obj.node){
-			obj=obj.parentNode;
-		}else{
-			break;
-		}
-	}
-	if(obj&&obj.node){
-		return obj.node;
-	}
-	return null;
-}
-function savePosition(objElem){
-	var node=getNode(objElem);
-	if(node){
-		node.x = objElem.offsetLeft;
-		node.y = objElem.offsetTop;
-		return node;
-	}
-	return null;
-}
-function fadein(){
-	var item=document.getElementById("infobox");
-	if(item){item.fader=false;}
-}
-function fadeout(){
-	var item=document.getElementById("infobox");
-	if(item&&!item.fader){
-		item.fader=true;
-		setTimeout("fadeOutTimer('infobox', 100)", 2000);
-	}
-}
-function stopDrag(ereignis) {
-	var model = savePosition(objDrag);
-	objDrag = null;
-	if(model){
-		model.parent.drawLines();
-		model.parent.resize();
-	}
-}
-
-function fadeOutTimer(id, value) {
-	var item=document.getElementById(id);
-	if(item && item.fader){
-		if(value>0.00){
-			item.style.opacity = (value / 100);
-			item.style.MozOpacity = (value / 100);
-			item.style.KhtmlOpacity = (value / 100);
-			value=value-5;
-			setTimeout("fadeOutTimer('"+id+"',"+value+");", 20);
-		}else{
-			item.style.display="none";
-		}
-	}
-}
-
-function optionButton(event){
-	var btn = event.currentTarget;
-	if(btn.innerHTML=="HTML"){
-		btn.graph.drawer = new HTMLDrawer();
-		btn.graph.options.display = "html";
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-	}else if(btn.innerHTML=="SVG"){
-		btn.graph.drawer = new SVGDrawer();
-		btn.graph.options.display = "svg";
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-	}else if(btn.innerHTML=="SVG-Export"){
-		btn.graph.drawer = new SVGDrawer();
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-		var size = btn.graph.resize();
-		var img = document.createElement("img");
-		img.src =  "data:image/svg+xml;base64," + utf8_to_b64(serializeXmlNode(btn.graph.board));
-		btn.graph.clearBoard();
-		btn.graph.board = img;
-		btn.graph.board.width = size.x;
-		btn.graph.board.height = size.y;
-		btn.graph.root.appendChild(img);
-		//window.open("data:image/svg+xml," + escape(btn.graph.board.outerHTML));
-	}else if(btn.innerHTML=="PNG-Export"){
-		var oldDrawer = btn.graph.drawer;
-		btn.graph.drawer = new CanvasDrawer();
-		var loader = new Loader();
-		btn.graph.drawer.loader = loader;
-		loader.graph = btn.graph;
-		loader.oldDrawer = oldDrawer;
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-		loader.resetDrawer();
-	}
-}
-
-function serializeXmlNode(xmlNode) {
-    if (typeof window.XMLSerializer != "undefined") {
-        return (new window.XMLSerializer()).serializeToString(xmlNode);
-    } else if (typeof xmlNode.xml != "undefined") {
-        return xmlNode.xml;
-    }
-    return xmlNode.outerHTML;
-}
-function utf8_to_b64( str ) {
-  return window.btoa(unescape(encodeURIComponent( str )));
 }
 
 String.prototype.endsWith = function(suffix) {return this.indexOf(suffix, this.length - suffix.length) !== -1;};
