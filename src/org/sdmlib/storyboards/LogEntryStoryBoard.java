@@ -31,6 +31,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 import java.beans.PropertyChangeListener;
+import java.util.Locale;
 
 
 // should have a creator class
@@ -62,7 +63,7 @@ public class LogEntryStoryBoard implements PropertyChangeInterface, Comparable<L
          String oldValue = this.date;
          this.date = value;
          
-         DateFormat dateFormat = DateFormat.getInstance();
+         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY);
          try
          {
             this.parsedDate = dateFormat.parse(this.date);
