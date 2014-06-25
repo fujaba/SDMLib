@@ -51,9 +51,8 @@ task copyTask(type: Copy) {
     println "Running copy task"
     from 'src/org/sdmlib/doc/JavascriptAdapter'
     println "Copying from src/org/sdmlib/doc/JavascriptAdapter "
-    println "To: " + getDestDir() + '/org/sdmlib/doc/JavascriptAdapter'
-    println "Maybe ${buildDir}/org/sdmlib/doc/JavascriptAdapter would be better?"
-    into getDestDir() + '/org/sdmlib/doc/JavascriptAdapter'
+    println "To: ${buildDir}/org/sdmlib/doc/JavascriptAdapter would be better?"
+    into "${buildDir}/org/sdmlib/doc/JavascriptAdapter"
 }
 
 repositories {
