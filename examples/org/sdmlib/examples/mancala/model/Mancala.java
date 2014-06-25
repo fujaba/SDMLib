@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.examples.mancala.model.util.PlayerSet;
 import org.sdmlib.examples.mancala.model.util.PitSet;
+import org.sdmlib.examples.mancala.model.Kalah;
 
 public class Mancala implements PropertyChangeInterface
 {
@@ -280,6 +281,13 @@ public class Mancala implements PropertyChangeInterface
    } 
 
    public Kalah createKalah()
+   {
+      Kalah value = new Kalah();
+      withPits(value);
+      return value;
+   } 
+
+   public Kalah createPitsKalah()
    {
       Kalah value = new Kalah();
       withPits(value);
