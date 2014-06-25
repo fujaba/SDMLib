@@ -28,7 +28,7 @@ sourceSets {
         resources {
             srcDir 'src/org/sdmlib/doc/JavascriptAdapter'
         }
-        output.resourcesDir = output.classesDir
+        output.resourcesDir = "${buildDir}/org/sdmlib/doc/JavascriptAdapter"
     }
     test {
         java {
