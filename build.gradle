@@ -5,7 +5,7 @@ apply plugin: 'idea'
 
 // apply plugins/external files only on jenkins build
 // jenkins needs -Pjenkins switch
-if(project.hasProperty('jenkins')) {
+if (project.hasProperty('jenkins')) {
     //apply plugin: 'jacoco'
     apply from: 'artifactory.gradle'
     apply from: 'version.gradle'
@@ -21,14 +21,14 @@ buildscript {
 }
 
 sourceSets {
-	main {
+    main {
         java {
             srcDirs = ['src', 'replicationsrc']
         }
         resources {
             srcDir 'src/org/sdmlib/doc/JavascriptAdapter'
         }
-        output.resourcesDir = "${buildDir}/org/sdmlib/doc/JavascriptAdapter"
+        //output.resourcesDir = "${buildDir}/org/sdmlib/doc/JavascriptAdapter"
     }
     test {
         java {
@@ -40,13 +40,25 @@ sourceSets {
     }
 }
 
+test {
+    if (project.hasProperty('maxParallelForks'))
+        maxParallelForks = project.maxParallelForks as int
+    if (project.hasProperty('forkEvery'))
+        forkEvery = project.forkEvery as int
+}
+
+task copyTask(type: Copy) {
+    from 'src/org/sdmlib/doc/JavascriptAdapter'
+    into 'build/org/sdmlib/doc/JavascriptAdapter'
+}
+
 repositories {
     jcenter()
     mavenLocal()
-	mavenCentral()
+    mavenCentral()
 
     // NetworkParser
-	maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
+    maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
 }
 
 dependencies {
