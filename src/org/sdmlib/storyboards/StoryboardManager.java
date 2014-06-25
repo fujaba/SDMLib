@@ -44,6 +44,7 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.JsonIdComparator;
@@ -140,7 +141,7 @@ public class StoryboardManager
    {
       File target=new File("doc/includes/" + file);
 
-      InputStream is = GuiAdapter.class.getResourceAsStream("js/" + dir + "/" + file);
+      InputStream is = Javascript.class.getResourceAsStream("" + dir + "/" + file);
 
       if(is!=null)
       {
