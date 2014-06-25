@@ -14,3 +14,9 @@
 /junitvmwatcher7015473125784659852.properties
 /junitvmwatcher7720677413329481740.properties
 /doc
+.idea
+atlassian-ide-plugin.xml
+*.iml
+*.ipr
+*.iws
+*.*~

@@ -1,10 +1,24 @@
 apply plugin: 'java'
 apply plugin: 'maven'
-//apply plugin: 'jacoco'
-//apply from file: 'artifactory.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
 
-version = '1.1-SNAPSHOT' //getCheckedOutGitCommitHash() + '-SNAPSHOT'
-group = 'org.sdmlib'
+// apply plugins/external files only on jenkins build
+// jenkins needs -Pjenkins switch
+if(project.hasProperty('jenkins')) {
+    apply plugin: 'jacoco'
+    apply from: 'artifactory.gradle'
+    apply from: 'version.gradle'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '2.2.4')
+    }
+}
 
 sourceSets {
 	main.java.srcDirs = ['src', 'NetworkParser', 'replicationsrc']
@@ -13,36 +27,18 @@ sourceSets {
 	test.resources.srcDir 'test/resources'
 }
 
-def getCheckedOutGitCommitHash() {
-    def gitFolder = "$projectDir/.git/"
-    def takeFromHash = 12
-    /*
-     * '.git/HEAD' contains either
-     *      in case of detached head: the currently checked out commit hash
-     *      otherwise: a reference to a file containing the current commit hash
-     */
-    def head = new File(gitFolder + "HEAD").text.split(":") // .git/HEAD
-    def isCommit = head.length == 1 // e5a7c79edabbf7dd39888442df081b1c9d8e88fd
-    // def isRef = head.length > 1     // ref: refs/heads/master
- 
-    if(isCommit) return head[0].trim().take(takeFromHash) // e5a7c79edabb
- 
-    def refHead = new File(gitFolder + head[1].trim()) // .git/refs/heads/master
-    refHead.text.trim().take takeFromHash
-}
-
 repositories {
-    maven {
-	    url 'http://141.51.167.92/nexus/content/repositories/snapshots'
-    }
+    jcenter()
+    mavenLocal()
+	mavenCentral()
 
-    maven {
-        url 'http://141.51.167.92/nexus/content/repositories/central'
-    }
+    // NetworkParser
+	maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
 }
 
 dependencies {
-    compile group: "junit", name: "junit", version: "4.11"
+    compile group: "junit", name: "junit", version: "4.+"
+    compile 'de.uniks:Networkparser:0+'
 }
 
 test {
@@ -57,7 +53,5 @@ test {
 tasks.withType(JavaCompile) {
     //Suppress underscore warnings
     options.compilerArgs << '-Xlint:none'
-    //Fix java.lang.ClassNotFoundException: org.apache.juli.ClassLoaderLogManager on Jenkins
-    // options.compilerArgs << '-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager'
 }
 
