@@ -6,7 +6,7 @@ apply plugin: 'idea'
 // apply plugins/external files only on jenkins build
 // jenkins needs -Pjenkins switch
 if(project.hasProperty('jenkins')) {
-    apply plugin: 'jacoco'
+    //apply plugin: 'jacoco'
     apply from: 'artifactory.gradle'
     apply from: 'version.gradle'
 }

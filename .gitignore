@@ -15,6 +15,7 @@
 /junitvmwatcher7720677413329481740.properties
 /doc
 .idea
+.gradle
 atlassian-ide-plugin.xml
 *.iml
 *.ipr
