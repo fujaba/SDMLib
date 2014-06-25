@@ -28,7 +28,7 @@ sourceSets {
         resources {
             srcDir 'src/org/sdmlib/doc/JavascriptAdapter'
         }
-        output.resourcesDir = sourceSets.main.output.classesDir
+        output.resourcesDir = output.classesDir
     }
     test {
         java {
@@ -38,13 +38,6 @@ sourceSets {
             srcDir 'src/org/sdmlib/doc/JavascriptAdapter'
         }
     }
-}
-
-jar.doFirst {
-    sourceSets.main.output.resourcesDir = "/does/not/exist"
-}
-jar.doLast {
-    sourceSets.main.output.resourcesDir = sourceSets.main.output.classesDir
 }
 
 repositories {
