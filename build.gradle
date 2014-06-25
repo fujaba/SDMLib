@@ -21,10 +21,22 @@ buildscript {
 }
 
 sourceSets {
-	main.java.srcDirs = ['src', 'NetworkParser', 'replicationsrc']
-	main.resources.srcDir 'src/resources'
-	test.java.srcDir 'examples'
-	test.resources.srcDir 'test/resources'
+	main {
+        java {
+            srcDirs = ['src', 'replicationsrc']
+        }
+        resources {
+            srcDirs = ['src/org/sdmlib/doc/JavascriptAdapter/burndown', 'src/org/sdmlib/doc/JavascriptAdapter/classmodel']
+        }
+    }
+    test {
+        java {
+            srcDir 'examples'
+        }
+        resources {
+            srcDirs = ['src/org/sdmlib/doc/JavascriptAdapter/burndown', 'src/org/sdmlib/doc/JavascriptAdapter/classmodel']
+        }
+    }
 }
 
 repositories {
