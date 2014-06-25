@@ -26,15 +26,16 @@ sourceSets {
             srcDirs = ['src', 'replicationsrc']
         }
         resources {
-            srcDirs = ['src/org/sdmlib/doc/JavascriptAdapter/burndown', 'src/org/sdmlib/doc/JavascriptAdapter/classmodel']
+            srcDir 'src/org/sdmlib/doc/JavascriptAdapter'
         }
+        output.resourcesDir = 'org/sdmlib/doc/JavascriptAdapter'
     }
     test {
         java {
             srcDir 'examples'
         }
         resources {
-            srcDirs = ['src/org/sdmlib/doc/JavascriptAdapter/burndown', 'src/org/sdmlib/doc/JavascriptAdapter/classmodel']
+            srcDir 'src/org/sdmlib/doc/JavascriptAdapter'
         }
     }
 }
@@ -50,7 +51,7 @@ repositories {
 
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
-    compile 'de.uniks:Networkparser:0+'
+    compile 'de.uniks:Networkparser:4.2+'
 }
 
 test {
