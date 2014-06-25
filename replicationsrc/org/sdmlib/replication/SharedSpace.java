@@ -41,8 +41,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import javafx.application.Platform;
-
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.replication.util.ReplicationChannelSet;
@@ -84,8 +82,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    private String serverIp;
 
    private int serverPort;
-
-   private boolean javaFx;
+   
+   private GUIListener listener = null;
 
    public SharedSpace()
    {
@@ -141,7 +139,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       try
       {
-         if (firstMessage && ! javaFXApplication)
+         if (firstMessage && this.listener==null)
          {
             firstMessage = false;
             JsonObject jsonObject = new JsonObject().withValue(msg);
@@ -162,9 +160,9 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
          ChannelMsg channelMsg = new ChannelMsg(channel, msg);
          
-         if (javaFXApplication)
+         if (this.listener!=null)
          {
-            Platform.runLater(new JavaFXMsgHandler(channelMsg));
+            this.listener.enqueueMsg(this, channelMsg);
          }
          else
          {
@@ -927,11 +925,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          return getNodeId();
       }
 
-      if (PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
-      {
-         return getJavaFXApplication();
-      }
-
       return null;
    }
 
@@ -978,12 +971,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       if (PROPERTY_NODEID.equalsIgnoreCase(attrName))
       {
          setNodeId((String) value);
-         return true;
-      }
-
-      if (PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
-      {
-         setJavaFXApplication((Boolean) value);
          return true;
       }
 
@@ -1436,51 +1423,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       this.loadingHistory = loadingHistory;
    }
-
-   //==========================================================================
    
-   public static final String PROPERTY_JAVAFXAPPLICATION = "javaFXApplication";
-   
-   private boolean javaFXApplication;
-
-   public boolean getJavaFXApplication()
-   {
-      return this.javaFXApplication;
-   }
-   
-   public void setJavaFXApplication(boolean value)
-   {
-      if (this.javaFXApplication != value)
-      {
-         boolean oldValue = this.javaFXApplication;
-         this.javaFXApplication = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_JAVAFXAPPLICATION, oldValue, value);
-      }
-   }
-   
-   public SharedSpace withJavaFXApplication(boolean value)
-   {
-      setJavaFXApplication(value);
-      return this;
-   } 
-   
-   private class JavaFXMsgHandler implements Runnable
-   {
-      private ChannelMsg channelMsg;
-
-      public JavaFXMsgHandler(ChannelMsg channelMsg)
-      {
-         this.channelMsg = channelMsg;
-         // TODO Auto-generated constructor stub
-      }
-
-      @Override
-      public void run()
-      {
-         handleMessage(channelMsg);
-      }
-   }
-
    public class ChannelMsg
    {
       public ChannelMsg(ReplicationChannel channel, String msg)
@@ -1546,6 +1489,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       setTargetNodeId(value);
       return this;
-   } 
+   }
+   
+   public SharedSpace withGUIListener(GUIListener listener){
+      this.listener = listener;
+      return this;
+   }
 }
 

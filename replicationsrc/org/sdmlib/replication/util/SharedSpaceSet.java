@@ -28,12 +28,11 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.models.modelsets.longList;
-import org.sdmlib.models.modelsets.booleanList;
 
 public class SharedSpaceSet extends SDMSet<SharedSpace>
 {
@@ -460,42 +459,4 @@ public class SharedSpaceSet extends SDMSet<SharedSpace>
       
       return this;
    }
-
-   public booleanList getJavaFXApplication()
-   {
-      booleanList result = new booleanList();
-      
-      for (SharedSpace obj : this)
-      {
-         result.add(obj.getJavaFXApplication());
-      }
-      
-      return result;
-   }
-
-   public SharedSpaceSet hasJavaFXApplication(boolean value)
-   {
-      SharedSpaceSet result = new SharedSpaceSet();
-      
-      for (SharedSpace obj : this)
-      {
-         if (value == obj.getJavaFXApplication())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public SharedSpaceSet withJavaFXApplication(boolean value)
-   {
-      for (SharedSpace obj : this)
-      {
-         obj.setJavaFXApplication(value);
-      }
-      
-      return this;
-   }
-
 }

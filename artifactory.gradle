@@ -1,3 +1,6 @@
+apply plugin: 'artifactory'
+apply plugin: 'maven'
+
 buildscript {
     repositories {
         maven {
@@ -7,17 +10,9 @@ buildscript {
                 password = "${artifactory_password}"
             }
         }
-         
-    }
-    dependencies {
-        classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '2.0.9')
     }
 }
- 
-allprojects {
-    apply plugin: 'artifactory'
-}
- 
+
 artifactory {
     contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
@@ -26,7 +21,7 @@ artifactory {
             username = "${artifactory_user}"
             password = "${artifactory_password}"
             maven = true
-             
+
         }
     }
     resolve {
@@ -35,7 +30,7 @@ artifactory {
             username = "${artifactory_user}"
             password = "${artifactory_password}"
             maven = true
-             
+
         }
     }
 }

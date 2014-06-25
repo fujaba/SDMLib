@@ -41,7 +41,6 @@ public class SharedSpaceCreator extends EntityFactory
       SharedSpace.PROPERTY_HISTORY,
       SharedSpace.PROPERTY_LASTCHANGEID,
       SharedSpace.PROPERTY_NODEID,
-      SharedSpace.PROPERTY_JAVAFXAPPLICATION,
    };
    
    @Override
@@ -107,11 +106,6 @@ public class SharedSpaceCreator extends EntityFactory
          return ((SharedSpace) target).getNodeId();
       }
 
-      if (SharedSpace.PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attribute))
-      {
-         return ((SharedSpace) target).getJavaFXApplication();
-      }
-      
       return null;
    }
    
@@ -177,12 +171,6 @@ public class SharedSpaceCreator extends EntityFactory
          return true;
       }
 
-      if (SharedSpace.PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
-      {
-         ((SharedSpace) target).withJavaFXApplication((Boolean) value);
-         return true;
-      }
-      
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)

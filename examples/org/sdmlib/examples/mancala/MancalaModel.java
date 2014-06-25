@@ -99,7 +99,7 @@ public class MancalaModel
       kalahClass.withAssoc(playerClass, "kalahPlayer", Card.ONE, "kalah", Card.ONE);
 
       model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.mancala.model");
-      model.getGenerator().insertModelCreationCodeHere("examples");
+//      model.getGenerator().insertModelCreationCodeHere("examples");
    }
    
 }

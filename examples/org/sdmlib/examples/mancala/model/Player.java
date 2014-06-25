@@ -27,6 +27,7 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.mancala.model.util.PlayerSet;
 import org.sdmlib.examples.mancala.model.util.PitSet;
+import org.sdmlib.examples.mancala.model.Kalah;
 
 public class Player implements PropertyChangeInterface
 {
@@ -349,6 +350,13 @@ public class Player implements PropertyChangeInterface
    {
       Stone value = new Stone();
       withStone(value);
+      return value;
+   } 
+
+   public Kalah createPitsKalah()
+   {
+      Kalah value = new Kalah();
+      withPits(value);
       return value;
    } 
 }
