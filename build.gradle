@@ -47,13 +47,15 @@ test {
         forkEvery = project.forkEvery as int
 }
 
-task copyTask(type: Copy) {
+task copyResources(type: Copy) {
     println "Running copy task"
     from 'src/org/sdmlib/doc/JavascriptAdapter'
     println "Copying from src/org/sdmlib/doc/JavascriptAdapter "
     println "To: ${buildDir}/org/sdmlib/doc/JavascriptAdapter would be better?"
     into "${buildDir}/org/sdmlib/doc/JavascriptAdapter"
 }
+
+jar.dependsOn()
 
 repositories {
     jcenter()
