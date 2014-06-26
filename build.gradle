@@ -10,6 +10,7 @@ targetCompatibility = 1.7
 // jenkins needs -Pjenkins switch
 if (project.hasProperty('jenkins')) {
     //apply plugin: 'jacoco'
+    //apply plugin: 'checkstyle'
     apply from: 'artifactory.gradle'
     apply from: 'version.gradle'
 }
@@ -23,24 +24,10 @@ buildscript {
     }
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src', 'replicationsrc']
-        }
-        resources {
-            srcDir 'src'
-        }
-    }
-    test {
-        java {
-            srcDir 'examples'
-        }
-        resources {
-            srcDir 'src'
-        }
-    }
-}
+sourceSets.main.java.srcDirs = ['src', 'replicationsrc']
+sourceSets.main.resources.srcDir 'src'
+sourceSets.test.java.srcDir 'examples'
+sourceSets.test.resources.srcDir 'src'
 
 test {
     if (project.hasProperty('maxParallelForks'))
