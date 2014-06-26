@@ -870,8 +870,8 @@ public class Template implements PropertyChangeInterface
          if (idMap == null)
          {
             String className = modelObject.getClass().getName();
-            String packageName = CGUtil.packageName(className) + ".creators";
-            className = packageName + ".CreatorCreator";
+            String packageName = CGUtil.packageName(className) + ".util";
+            className = packageName + "." + CGUtil.shortClassName(className) + "Creator";
 
             idMap = new GenericIdMap();
 

@@ -94,7 +94,7 @@ public class Match implements PropertyChangeInterface
       
       _.append(" ").append(this.getStartPos());
       _.append(" ").append(this.getEndPos());
-      _.append(" ").append(this.getFullText());
+      // _.append(" ").append(this.getFullText());
       _.append(" ").append(this.getMatchText());
       return _.substring(1);
    }
