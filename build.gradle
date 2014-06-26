@@ -51,7 +51,6 @@ jar {
     from ("${projectDir}/src/org/sdmlib/doc/JavascriptAdapter") {
         exclude '**/*.java'
     }
-    into 'org/sdmlib/doc/JavascriptAdapter'
 }
 
 repositories {
