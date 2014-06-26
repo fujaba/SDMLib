@@ -3,6 +3,9 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 // apply plugins/external files only on jenkins build
 // jenkins needs -Pjenkins switch
 if (project.hasProperty('jenkins')) {
@@ -26,16 +29,15 @@ sourceSets {
             srcDirs = ['src', 'replicationsrc']
         }
         resources {
-            srcDir 'src/org/sdmlib/doc/JavascriptAdapter'
+            srcDir 'src'
         }
-        //output.resourcesDir = "${buildDir}/org/sdmlib/doc/JavascriptAdapter"
     }
     test {
         java {
             srcDir 'examples'
         }
         resources {
-            srcDir 'src/org/sdmlib/doc/JavascriptAdapter'
+            srcDir 'src'
         }
     }
 }
@@ -45,12 +47,6 @@ test {
         maxParallelForks = project.maxParallelForks as int
     if (project.hasProperty('forkEvery'))
         forkEvery = project.forkEvery as int
-}
-
-jar {
-    from ("${projectDir}/src/org/sdmlib/doc/JavascriptAdapter") {
-        exclude '**/*.java'
-    }
 }
 
 repositories {
