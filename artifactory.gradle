@@ -35,10 +35,6 @@ artifactory {
     }
 }
 
-task sourcesJar(type: Jar, dependsOn:classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-artifacts {
-    archives sourcesJar
-}
+task sourceJar(type: Jar) { from sourceSets.main.allSource; classifier = 'sources' }
+task javadocJar(type: Jar) { from javadoc.outputs.files; classifier = 'javadoc' }
+artifacts { archives sourceJar, javadocJar }

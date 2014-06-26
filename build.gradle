@@ -47,13 +47,11 @@ test {
         forkEvery = project.forkEvery as int
 }
 
-task copyResources(type: Copy) {
-    from 'src/org/sdmlib/doc/JavascriptAdapter'
-    into "${buildDir}/org/sdmlib/doc/JavascriptAdapter"
-    exclude { details -> details.file.name.endsWith('java')}
+jar {
+    from ("${projectDir}/src/org/sdmlib/doc/JavascriptAdapter") {
+        exclude '**/*.java'
+    }
 }
-
-jar { dependsOn: 'copyResources' }
 
 repositories {
     jcenter()
