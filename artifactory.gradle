@@ -34,3 +34,7 @@ artifactory {
         }
     }
 }
+
+task sourceJar(type: Jar) { from sourceSets.main.allSource; classifier = 'sources' }
+task javadocJar(type: Jar) { from javadoc.outputs.files; classifier = 'javadoc' }
+artifacts { archives sourceJar, javadocJar }
