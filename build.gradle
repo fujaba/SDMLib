@@ -48,14 +48,12 @@ test {
 }
 
 task copyResources(type: Copy) {
-    println "Running copy task"
     from 'src/org/sdmlib/doc/JavascriptAdapter'
-    println "Copying from src/org/sdmlib/doc/JavascriptAdapter "
-    println "To: ${buildDir}/org/sdmlib/doc/JavascriptAdapter would be better?"
     into "${buildDir}/org/sdmlib/doc/JavascriptAdapter"
+    exclude { details -> details.file.name.endsWith('java')}
 }
 
-jar.dependsOn()
+jar { dependsOn: 'copyResources' }
 
 repositories {
     jcenter()
