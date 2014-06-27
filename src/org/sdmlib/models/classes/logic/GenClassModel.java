@@ -41,6 +41,7 @@ import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.util.ParameterSet;
 import org.sdmlib.models.classes.util.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
@@ -706,16 +707,16 @@ public class GenClassModel
    private int checkCodeForClazz(LocalVarTableEntry entry, String signature, String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz,
          LinkedHashMap<String, Clazz> handledClazzes, int currentInsertPos, String rootDir)
    {
-      rescanCode(modelCreationClass, rootDir);
-      Parser creatorCreatorParser = getOrCreate(modelCreationClass).getParser();
+      //rescanCode(modelCreationClass, rootDir);
+      Parser modelCreationClassParser = getOrCreate(modelCreationClass).getParser();
 
       // check has superclass
       if (clazz.getSuperClass() != null && !checkSuper(clazz, entry, "withSuperClazz")) 
       {
          String token = Parser.NAME_TOKEN + ":" + entry.getName();
-         int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+         int methodCallStartPos = modelCreationClassParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
          token = Parser.NAME_TOKEN + ":;";
-         currentInsertPos = creatorCreatorParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+         currentInsertPos = modelCreationClassParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
          // set interface
          currentInsertPos = insertCreationCode("\n       /*set superclass*/", currentInsertPos, modelCreationClass);
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass); 
@@ -732,9 +733,9 @@ public class GenClassModel
       else if (clazz.isInterface() && !isInterface(entry))
       {
          String token = Parser.NAME_TOKEN + ":" + entry.getName();
-         int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+         int methodCallStartPos = modelCreationClassParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
          token = Parser.NAME_TOKEN + ":;";
-         currentInsertPos = creatorCreatorParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+         currentInsertPos = modelCreationClassParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
          // set interface
          currentInsertPos = insertCreationCode("\n       /*set interface*/", currentInsertPos, modelCreationClass);
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass); 
@@ -754,9 +755,9 @@ public class GenClassModel
             //          writeToFile(modelCreationClass);
             // find insert position
             String token = Parser.NAME_TOKEN + ":" + entry.getName();
-            int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+            int methodCallStartPos = modelCreationClassParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
             token = Parser.NAME_TOKEN + ":;";
-            currentInsertPos = creatorCreatorParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+            currentInsertPos = modelCreationClassParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
             // add attribut
             currentInsertPos = insertCreationCode("\n       /*add interface*/", currentInsertPos, modelCreationClass);
             currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
@@ -786,7 +787,7 @@ public class GenClassModel
             {
                boolean found = false;
                // attributes belong to a separate playerClass.withAttributes(...) statement
-               for (StatementEntry stat : creatorCreatorParser.getCurrentStatement().getParent().getBodyStats())
+               for (StatementEntry stat : modelCreationClassParser.getCurrentStatement().getParent().getBodyStats())
                {
                   String token = stat.getTokenList().get(0);
                   if (token.equals(entry.getName() + ".withAttribute") ||
@@ -824,10 +825,10 @@ public class GenClassModel
             else 
             {
                String token = Parser.NAME_TOKEN + ":" + entry.getName();
-               int methodCallStartPos = creatorCreatorParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+               int methodCallStartPos = modelCreationClassParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
 
                token = Parser.NAME_TOKEN + ":;";
-               currentInsertPos = creatorCreatorParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
+               currentInsertPos = modelCreationClassParser.indexOfInMethodBody(token, methodCallStartPos, symTabEntry.getEndPos());
             }
 
             // add attribute
@@ -1182,15 +1183,15 @@ public class GenClassModel
          {
             LocalVarTableEntry localVarTableEntry = localVarTable.get(string);
 
-            if (compareMethodDecl(method, localVarTableEntry))
+            if (compareMethodDecl(method, localVarTableEntry, modelCreationClass))
             {
                methodIsNew = false;
                break;
             }
          }
       }
-
-      if (methodIsNew)
+      
+      if (methodIsNew && !isSDMLibMethod(method))
       {
          String name = CGUtil.shortClassName(method.getClazz().getFullName()) + "Class";
          name = StrUtil.downFirstChar(name);
@@ -1206,7 +1207,12 @@ public class GenClassModel
       return currentInsertPos;
    }
 
-   private boolean compareMethodDecl(Method method, LocalVarTableEntry localVarTableEntry)
+   private boolean isSDMLibMethod(Method method)
+   {
+      return (method.getName().startsWith("get") && method.getName().endsWith("Transitive"));
+   }
+
+   private boolean compareMethodDecl(Method method, LocalVarTableEntry localVarTableEntry, Clazz modelCreationClass)
    {
       String shortClassName = CGUtil.shortClassName(method.getClazz().getFullName()) + "Class";
       shortClassName = StrUtil.downFirstChar(shortClassName);
@@ -1216,16 +1222,60 @@ public class GenClassModel
       String methodSignature = "";
       ArrayList<ArrayList<String>> initSequence = localVarTableEntry.getInitSequence();
 
-      for (ArrayList<String> arrayList : initSequence)
+      for (int i = 0; i < initSequence.size(); i++)
       {
+         ArrayList<String> init = initSequence.get(i);
 
-         if (".".equals(arrayList.get(0)) && "withClazz".equals(arrayList.get(1)))
+         if (".".equals(init.get(0)) && "withClazz".equals(init.get(1)))
          {
-            methodClass = arrayList.get(3);
+            methodClass = init.get(3);
          }
-         else if (".".equals(arrayList.get(0)) && "withSignature".equals(arrayList.get(1)))
+         else if (".".equals(init.get(0)) && "withSignature".equals(init.get(1)))
          {
-            methodSignature = arrayList.get(3).replace("\"", "");
+            methodSignature = init.get(3).replace("\"", "");
+         }
+         else
+         {
+            String methodName = method.getName();
+            String methodInitName = init.get(0).replace("\"", "");
+            
+            if (methodName.equals(methodInitName) ) {
+               int j;
+               
+               StringBuilder parameters = new StringBuilder();
+               
+               for( j = i+1; j < initSequence.size(); j++) {
+                  String parameter = initSequence.get(j).get(0);   
+                  
+                  if (parameter.startsWith("new Parameter(")) {
+                     String substring = parameter.substring(parameter.indexOf("(")+1, parameter.lastIndexOf(")"));                    
+                     String type = parseDataType(substring, modelCreationClass);                   
+                     parameters.append(type + ",");                              
+                  }
+                  else {
+                     int lastIndex = parameters.lastIndexOf(",");
+                     if (lastIndex > -1)
+                        parameters.replace(lastIndex, parameters.length(), "");
+                     break;
+                  }
+               }
+               
+               String creationCodeMethodParameters = "("+parameters.toString() +")";               
+               String classMethodParameters = method.getParameter().toString().replaceAll(" ", "");
+               
+               if(!classMethodParameters.equals(creationCodeMethodParameters)) {
+                  return false;
+               }
+               
+               ArrayList<String> initMethod = initSequence.get(j);
+               
+               if (".".equals(initMethod.get(0)) && "with".equals(initMethod.get(1))) {
+                  String className = initMethod.get(3);
+                  if (shortClassName.equals(className)) {
+                     return true;
+                  }
+               }
+            }
          }
       }
 
@@ -1236,6 +1286,40 @@ public class GenClassModel
       return false;
    }
 
+   private String parseDataType(String typeString, Clazz modelCreationClass) {
+      
+      String type = "";
+      
+      if (typeString.startsWith("DataType.ref") ) {
+      
+         String typeSplit = typeString.substring("DataType.ref".length()+1, typeString.length()-1);
+         
+         //DataType.ref("String")
+         if (typeSplit.startsWith("\"")) {
+            typeSplit = typeSplit.replaceAll("\"", "");
+            typeSplit = typeSplit.toUpperCase();
+            return "DataType." + typeSplit;
+         }
+         
+         //DataType.ref(objectname)
+         else {
+            LocalVarTableEntry tableEntry = getOrCreate(modelCreationClass).getParser().getLocalVarEntriesFor(typeSplit);         
+            if (tableEntry != null) {
+               String className = tableEntry.getInitSequence().get(0).get(1).replaceAll("\"", "");
+               className = className.toUpperCase();
+               return "DataType." + className;
+            }
+         }   
+      }
+      //DataType.STRING
+      else if (typeString.startsWith("DataType.") ) {
+         //TODO : parse primitive types
+      }
+
+      return type;
+   }
+   
+   
    private int createAndInsertCodeForNewClazz(String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz, LinkedHashMap<String, Clazz> handledClazzes,
          int currentInsertPos)
    {

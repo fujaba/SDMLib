@@ -70,6 +70,9 @@ public class MancalaModel
       new Method("createKalah")
         .with(mancalaClass);
 
+      new Method("createPitsKalah")
+        .with(mancalaClass);
+
       Clazz pitClass = model.createClazz("org.sdmlib.examples.mancala.model.Pit")
       .with(new Attribute("nr", DataType.ref("int")) );
 
@@ -99,7 +102,7 @@ public class MancalaModel
       kalahClass.withAssoc(playerClass, "kalahPlayer", Card.ONE, "kalah", Card.ONE);
 
       model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.mancala.model");
-//      model.getGenerator().insertModelCreationCodeHere("examples");
+      model.getGenerator().insertModelCreationCodeHere("examples");
    }
    
 }
