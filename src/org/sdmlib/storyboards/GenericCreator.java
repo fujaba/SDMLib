@@ -1,5 +1,6 @@
 package org.sdmlib.storyboards;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
 
@@ -174,7 +175,6 @@ public class GenericCreator extends EntityFactory
       }
       catch (Exception e)
       {
-         // TODO Auto-generated catch block
          // e.printStackTrace();
       }
       
@@ -190,7 +190,6 @@ public class GenericCreator extends EntityFactory
       }
       catch (Exception e)
       {
-         // TODO Auto-generated catch block
          // e.printStackTrace();
       }
       
@@ -208,7 +207,6 @@ public class GenericCreator extends EntityFactory
       }
       catch (Exception e)
       {
-         // TODO Auto-generated catch block
          // e.printStackTrace();
       }
       
@@ -224,8 +222,35 @@ public class GenericCreator extends EntityFactory
       }
       catch (Exception e)
       {
-         // TODO Auto-generated catch block
          // e.printStackTrace();
+      }
+      
+      try
+      {
+         Class<?> clazz = Class.forName(className);
+         
+         Method[] methods = clazz.getMethods();
+         
+         for (Method method : methods)
+         {
+            String name = method.getName();
+            
+            if (name.startsWith("with" + StrUtil.upFirstChar(attribute)))
+            {
+               Object param = Array.newInstance(value.getClass(), 1);
+               Array.set(param, 0, value);
+               method.invoke(entity, param);
+               
+               return true;
+            }
+         }
+         
+         
+         return true;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
       }
       
       return super.setValue(entity, attribute, value, type);
