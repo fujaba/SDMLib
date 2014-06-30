@@ -24,7 +24,7 @@ buildscript {
     }
 }
 
-sourceSets.main.java.srcDirs = ['src', 'replicationsrc']
+sourceSets.main.java.srcDirs = ['src', 'replicationsrc', 'NetworkParser']
 sourceSets.main.resources.srcDir 'src'
 sourceSets.test.java.srcDir 'examples'
 sourceSets.test.resources.srcDir 'src'
