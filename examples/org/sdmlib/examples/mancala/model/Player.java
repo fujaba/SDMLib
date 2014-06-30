@@ -223,7 +223,7 @@ public class Player implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_PITS, item, null);
             }
          }
-         withoutPits(item);
+         
       }
       return this;
    }

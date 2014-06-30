@@ -142,7 +142,7 @@ public class GroupAccount implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_PERSONS, item, null);
             }
          }
-         withoutPersons(item);
+         
       }
       return this;
    }
@@ -215,7 +215,7 @@ public class GroupAccount implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEM, item, null);
             }
          }
-         withoutItem(item);
+         
       }
       return this;
    }

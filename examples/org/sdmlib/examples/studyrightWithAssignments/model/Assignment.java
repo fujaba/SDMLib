@@ -250,7 +250,7 @@ public class Assignment implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
-         withoutStudents(item);
+         
       }
       return this;
    }

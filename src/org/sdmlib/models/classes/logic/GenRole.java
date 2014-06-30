@@ -311,7 +311,6 @@ public class GenRole extends Generator<Role>
                   "\n               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);" +
                   "\n            }" +
                   "\n         }" +
-                  "\n         withoutPartnerRoleName(item);" +
                   "\n      }" +
                   "\n      return this;" +
                   "\n   }" +

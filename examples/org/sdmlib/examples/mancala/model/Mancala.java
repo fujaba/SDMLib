@@ -195,7 +195,7 @@ public class Mancala implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS, item, null);
             }
          }
-         withoutPlayers(item);
+         
       }
       return this;
    }
@@ -268,7 +268,7 @@ public class Mancala implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_PITS, item, null);
             }
          }
-         withoutPits(item);
+         
       }
       return this;
    }
