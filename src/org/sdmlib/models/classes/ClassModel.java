@@ -21,10 +21,17 @@
 
 package org.sdmlib.models.classes;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Set;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphFactory;
+import org.sdmlib.doc.GraphVizAdapter.GraphViz;
+import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
@@ -119,6 +126,13 @@ public class ClassModel extends SDMLibClass
 		
 		return graphViz.dumpClassDiagram(diagName, this);
 	}
+	 
+	 private String dumpClassDiagram(String diagName, String outputType)
+	 {
+	    GuiAdapter graphViz = GraphFactory.getAdapter(outputType);
+	    
+	    return graphViz.dumpClassDiagram(diagName, this);
+	 }
 
 	// ==========================================================================
 
@@ -243,5 +257,92 @@ public class ClassModel extends SDMLibClass
       Clazz value = new Clazz(null);
       withClasses(value);
       return value;
+   }
+   
+   /**
+    * dump classdiagram
+    * 
+    * @param diagramName  
+    * @param folder       target folder
+    * @param outputType   GuiAdapter name  (Javascript.NAME or GraphViz.NAME)
+    */
+   
+   public void dumpHTML(String diagramName, String folder, String outputType)
+   {
+      new File(folder).mkdirs();
+      
+      String dumpClassDiagram = dumpClassDiagram(diagramName ,outputType);
+      
+      // build index 
+      String htmlTemplate = "<html>\n" +
+            "<head>\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"includes/diagramstyle.css\">\n" +
+            "<script src=\"includes/graph.js\"></script>\n"+
+            "<script src=\"includes/dagre.js\"></script>\n"+
+            "<script src=\"includes/drawer.js\"></script>\n"+
+            "</head>\n" +
+            "<body onload=\"init();\">\n" +
+            "bodytext\n" + 
+            "</body>\n" + 
+            "</html>\n";
+
+      htmlTemplate = htmlTemplate.replaceFirst("bodytext", dumpClassDiagram);
+      
+      File file = new File (folder+"/"+diagramName+".html");
+      try {
+         PrintStream out = new PrintStream(file);
+         out.println(htmlTemplate);
+         out.close();
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+      
+      copyJSBib(folder);
+      
+      
+   }
+   private void copyJSBib(String folder)
+   {
+      new File(folder+"/includes").mkdirs();
+
+      // add javascript files
+      copyDocFile(folder, "classmodel", "dagre.js");
+      copyDocFile(folder, "classmodel", "drawer.js");
+      copyDocFile(folder, "classmodel", "graph.js");
+      copyDocFile(folder, "classmodel", "diagramstyle.css");
    } 
+   
+   private void copyDocFile(String targetFolder, String dir, String file)
+   {
+      File target=new File(targetFolder+ "/includes/" + file);
+
+      InputStream is = Javascript.class.getResourceAsStream("" + dir + "/" + file);
+
+      if(is!=null)
+      {
+         final int BUFF_SIZE = 5 * 1024; // 5KB
+         final byte[] buffer = new byte[BUFF_SIZE];
+
+         try
+         {
+            if(!target.exists()){
+               target.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(target);
+
+            while (true) {
+               int count = is.read(buffer);
+               if (count == -1)
+                  break;
+               out.write(buffer, 0, count);
+            }
+            out.close();
+            is.close();
+         }
+         catch (Exception e)
+         {
+            // e.printStackTrace();
+         }
+      }
+   }
 }

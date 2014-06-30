@@ -12,10 +12,13 @@ import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
 
+import com.sun.org.apache.xerces.internal.impl.xs.opti.DefaultNode;
+
 public class GraphFactory
 {
    public static GraphFactory instance;
    private ArrayList<GuiAdapter> adapters=new ArrayList<GuiAdapter>();
+   private String defaultName = Javascript.NAME;
    
    public static GraphFactory getInstance(){
       if(instance==null){
@@ -34,18 +37,18 @@ public class GraphFactory
 
    public static GuiAdapter getAdapter()
    {
-      GraphFactory factory = getInstance();
-      ArrayList<GuiAdapter> adapters = factory.getAdapters();
-      if(adapters.size()>0){
-         return adapters.get(0);
-      }
-      return null;
+      return getInstance().getInternAdapter(null);
    }
    
    public static GuiAdapter getAdapter(String name)
    {
-      GraphFactory factory = getInstance();
-      ArrayList<GuiAdapter> adapters = factory.getAdapters();
+      return getInstance().getInternAdapter(name);
+   }
+   public GuiAdapter getInternAdapter(String name){
+      if(name==null){
+         name = defaultName;
+      }
+      ArrayList<GuiAdapter> adapters = this.getAdapters();
       for(GuiAdapter item : adapters){
          if(item.getName().equalsIgnoreCase(name)){
             return item;
@@ -53,6 +56,12 @@ public class GraphFactory
       }
       return null;
    }
+   
+   public GraphFactory withAdapterName(String name){
+      this.defaultName = name;
+      return this;
+   }
+   
    
    public void generate(String path){
       File dir  = new File(path);

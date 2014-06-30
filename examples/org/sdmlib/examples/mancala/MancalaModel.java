@@ -3,6 +3,8 @@ package org.sdmlib.examples.mancala;
 import java.awt.Point;
 
 import org.junit.Test;
+import org.sdmlib.doc.GraphVizAdapter.GraphViz;
+import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
@@ -12,6 +14,7 @@ import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Visibility;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.storyboards.Storyboard;
 
 public class MancalaModel
 {
@@ -52,14 +55,17 @@ public class MancalaModel
             .withAssoc(player, "player", Card.ONE, "stone", Card.ONE);
 
       model.generate("examples");
+//      model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);
    }
    
    @Test
    public void MancalaModelReverse()
    {
       ClassModel model = new ClassModel("org.sdmlib.examples.mancala.model");
+
       model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.mancala.model");
-      model.getGenerator().insertModelCreationCodeHere("examples");
+      // FIXME: ALEX fix assoc creationcode competion
+      //model.getGenerator().insertModelCreationCodeHere("examples");
    }
    
 }
