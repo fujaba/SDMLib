@@ -12,8 +12,6 @@ import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
 
-import com.sun.org.apache.xerces.internal.impl.xs.opti.DefaultNode;
-
 public class GraphFactory
 {
    public static GraphFactory instance;
@@ -29,8 +27,8 @@ public class GraphFactory
    
    private GraphFactory(){
       // Add Defaults
-      this.adapters.add(new Javascript());
-      this.adapters.add(new GraphViz());
+      this.with(new Javascript());
+      this.with(new GraphViz());
       
       generate(".");
    }
