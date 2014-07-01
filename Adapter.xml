@@ -23,6 +23,7 @@ Class-Path: .
 		<jar destfile="build/GraphViz_win.jar" manifest="build/MANIFEST.MF">
 			<fileset dir="build/temp/" />
 			<fileset dir="Adapter/GraphViz/Java" />
+			<fileset dir="src/org/sdmlib/doc/interfaze/"/>
 			<zipfileset casesensitive="false" dir="Adapter/GraphViz/Resources" />
 		</jar>
 		<delete dir="build/temp"></delete>
@@ -33,10 +34,12 @@ Class-Path: .
 		<jar destfile="GraphViz.jar" manifest="build/MANIFEST.MF">
 			<fileset dir="Adapter/GraphViz/Java" />
 			<fileset dir="build/temp/" />
+			<fileset dir="src/org/sdmlib/doc/interfaze/"/>
 		</jar>
 		<jar destfile="build/GraphViz_source.jar" manifest="build/MANIFEST.MF">
 			<fileset dir="Adapter/GraphViz/Java" />
 			<fileset dir="build/temp/" />
+			<fileset dir="src/org/sdmlib/doc/interfaze/"/>
 		</jar>
 		<delete dir="build/temp"></delete>
 		<delete file="build/MANIFEST.MF" />

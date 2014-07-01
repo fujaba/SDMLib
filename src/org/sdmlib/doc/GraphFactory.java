@@ -110,7 +110,7 @@ public class GraphFactory
          }
          ucl.close();
       } catch (Exception e) {
-         e.printStackTrace();
+         //e.printStackTrace();
       }
    }
 
