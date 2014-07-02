@@ -289,6 +289,11 @@ public class GenRole extends Generator<Role>
             (     "\n   public myClassName withPartnerRoleName(partnerClassName... value);" +
                   "\n");
          }
+         
+         if (elistPos >= 0)
+         {
+            CGUtil.replaceAll(text, "new type()", "this.getPartnerRoleName()");
+         }
       }
       
       
