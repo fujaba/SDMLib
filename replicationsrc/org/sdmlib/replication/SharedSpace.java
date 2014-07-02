@@ -36,9 +36,11 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.StrUtil;
@@ -1494,6 +1496,56 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    public SharedSpace withGUIListener(GUIListener listener){
       this.listener = listener;
       return this;
+   }
+   
+   public static class MousePositionInfo
+   {
+      private double xPos;
+      private double yPos;
+      private String windowId;
+      
+      public double getXPos()
+      {
+         return xPos;
+      }
+      
+      public double getYPos()
+      {
+         return yPos;
+      }
+      
+      public String getWindowId()
+      {
+         return windowId;
+      }
+   }
+   
+   private Map<String, MousePositionInfo> mousePositions = new HashMap<String, MousePositionInfo>();
+   
+   public void setMousePositionAndWindowIdForUser(String userId, double x, double y, String windowId)
+   {
+      MousePositionInfo info = mousePositions.get(userId);
+      if (info == null) 
+      {
+         info = new MousePositionInfo();
+         mousePositions.put(userId, info);
+      }
+      info.xPos = x;
+      info.yPos = y;
+      info.windowId = windowId;
+   }
+   
+   public SharedSpace.MousePositionInfo getMousePositionForUser(String userId, String windowId)
+   {
+      MousePositionInfo info = mousePositions.get(userId);
+      if (info != null && info.windowId.equals(windowId))
+      {
+         return info;
+      }
+      else 
+      {
+         return null;
+      }
    }
 }
 

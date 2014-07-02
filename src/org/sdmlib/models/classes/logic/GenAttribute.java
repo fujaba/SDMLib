@@ -687,7 +687,7 @@ public class GenAttribute extends Generator<Attribute>
          String valueComparison = "value.equals(obj.get" + StrUtil.upFirstChar(model.getName()) + "())";
          String rangeCheck = "lower.compareTo(obj.get" + StrUtil.upFirstChar(model.getName()) + "()) <= 0 && obj.get" + StrUtil.upFirstChar(model.getName()) + "().compareTo(upper) <= 0";
          
-         if ( ! DataType.STRING.equals(model.getType()))
+         if ( ! DataType.STRING.getValue().equals(model.getType().getValue()))
          {
             valueComparison = "value == obj.get" + StrUtil.upFirstChar(model.getName()) + "()";
             if ("boolean".equalsIgnoreCase(model.getType().getValue()))

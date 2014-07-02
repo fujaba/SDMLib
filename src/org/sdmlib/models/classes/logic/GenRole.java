@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.hamcrest.core.IsAnything;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
@@ -63,9 +64,11 @@ public class GenRole extends Generator<Role>
                "\n" 
                );
 
+         String partnerRoleNameUpFirst = StrUtil.upFirstChar(partnerRole.getName());
+         
          CGUtil.replaceAll(text, 
             "ClassName", CGUtil.shortClassName(clazz.getName()),
-            "PropertyName", StrUtil.upFirstChar(partnerRole.getName()),
+            "PropertyName", partnerRoleNameUpFirst,
             "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
             );
 
@@ -308,7 +311,6 @@ public class GenRole extends Generator<Role>
                   "\n               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);" +
                   "\n            }" +
                   "\n         }" +
-                  "\n         withoutPartnerRoleName(item);" +
                   "\n      }" +
                   "\n      return this;" +
                   "\n   }" +
@@ -728,7 +730,7 @@ public class GenRole extends Generator<Role>
       // generate property in model set class
       Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
       
-      insertGetterInModelSetFile(clazz, modelSetParser, partnerRole);
+      insertGetterInModelSetFile(clazz, modelSetParser, myParser, partnerRole);
       insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
       
       getGenerator(clazz).printFile(modelSetParser);
@@ -795,7 +797,7 @@ public class GenRole extends Generator<Role>
       }
    }
 
-   private void insertGetterInModelSetFile(Clazz tgtClass, Parser parser, Role partnerRole)
+   private void insertGetterInModelSetFile(Clazz tgtClass, Parser parser, Parser modelClassParser, Role partnerRole)
    {
       String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
       int pos = parser.indexOf(key);
@@ -858,8 +860,8 @@ public class GenRole extends Generator<Role>
       }
        
       
-      key = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "Transitive()";
-      int pos2 = parser.indexOf(key);
+      String key2 = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "Transitive()";
+      int pos2 = parser.indexOf(key2);
       
       if (pos2 < 0)
       {
@@ -879,14 +881,14 @@ public class GenRole extends Generator<Role>
                   + "         if ( ! result.contains(current))\n"
                   + "         {\n" + "            result.add(current);\n"
                   + "            \n"
-                  + "            todo.with(current.getName().minus(result));\n"
+                  + "            todo.with(current.getPartnerrolenameupfirst().minus(result));\n"
                   + "         }\n" + "      }\n" + "      \n"
                   + "      return result;\n" + "   }\n" + "\n" + "");
             
             if (partnerRole.getCard().equals(Card.ONE.toString()))
             {
                CGUtil.replaceAll(text, 
-                  "todo.with(current.getName().minus(result));", 
+                  "todo.with(current.getPartnerrolenameupfirst().minus(result));", 
                   "if ( ! result.contains(current.getName()))\n"
                   + "            {\n"
                   + "               todo.with(current.getName());\n"
@@ -903,13 +905,32 @@ public class GenRole extends Generator<Role>
             add = "addAll";
          }
          
+         String partnerRoleNameUpFirst = StrUtil.upFirstChar(partnerRole.getName());
+         String partnerGetterName = partnerRoleNameUpFirst;
+         
+         modelClassParser.indexOf(key);
+         ArrayList<SymTabEntry> symTabEntries = modelClassParser.getSymTabEntriesFor(Parser.METHOD + ":get" + partnerRoleNameUpFirst + "()");
+         
+         elistPos = -1;
+         
+         if (symTabEntries.size() > 0)
+         {
+            String type = symTabEntries.get(0).getType();
+            elistPos = type.indexOf(":EList<");
+         }
+         
+         if (elistPos >= 0)
+         {
+            partnerGetterName += "Set";
+         }
          
          CGUtil.replaceAll(text, 
             "ContentType", CGUtil.shortClassName(tgtClass.getFullName()),
             "ModelType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()),
             "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()) + "Set",
-            "Name", StrUtil.upFirstChar(partnerRole.getName()),
-            "addOneOrMore", add
+            "Name", partnerRoleNameUpFirst,
+            "addOneOrMore", add,
+            "Partnerrolenameupfirst", partnerGetterName
             );
 
          int classEnd = parser.indexOf(Parser.CLASS_END);

@@ -78,6 +78,11 @@ public class ReplicationChannel extends Thread implements
                String senderNodeId = line.split(" ")[2];
                this.setTargetNodeId(senderNodeId);
             }
+            else if (line.startsWith("mouse"))
+            {
+               String[] data = line.split(" ");
+               sharedSpace.setMousePositionAndWindowIdForUser(data[1], Double.parseDouble(data[2]), Double.parseDouble(data[3]), data[4]);
+            }
             else
             {
                sharedSpace.enqueueMsg(this, line);

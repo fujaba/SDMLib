@@ -159,7 +159,6 @@ public class University implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
-         withoutStudents(item);
       }
       return this;
    }
@@ -239,7 +238,7 @@ public class University implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, item, null);
             }
          }
-         withoutRooms(item);
+         
       }
       return this;
    }

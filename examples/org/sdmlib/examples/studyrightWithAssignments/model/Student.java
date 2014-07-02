@@ -398,7 +398,7 @@ public class Student implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, item, null);
             }
          }
-         withoutDone(item);
+         
       }
       return this;
    }
@@ -477,7 +477,7 @@ public class Student implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS, item, null);
             }
          }
-         withoutFriends(item);
+         
       }
       return this;
    }

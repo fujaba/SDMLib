@@ -469,7 +469,7 @@ public class LogEntry implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_CHILDREN, item, null);
             }
          }
-         withoutChildren(item);
+         
       }
       return this;
    }

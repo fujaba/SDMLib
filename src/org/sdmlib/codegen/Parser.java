@@ -1615,7 +1615,7 @@ public class Parser
 
          LocalVarTableEntry initSequence = 
                new LocalVarTableEntry()
-         .withName("")
+         .withName(initElements.get(0).get(0))
          .withType(varName)
          .withInitSequence(initElements)
          .withStartPos(startPos)
@@ -1970,5 +1970,20 @@ public class Parser
          }
       }
       return text;
+   }
+
+   public LocalVarTableEntry getLocalVarEntriesFor(String name)
+   {
+      for (String key : localVarTable.keySet())
+      {
+         if (name.equals(key)) {
+            LocalVarTableEntry tableEntry = localVarTable.get(key);
+            if ("Clazz".equals(tableEntry.getType())) {
+                
+                return tableEntry;
+            }
+         }
+      }    
+      return null;
    }
 }

@@ -285,7 +285,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ENTRIES, item, null);
             }
          }
-         withoutEntries(item);
+         
       }
       return this;
    }

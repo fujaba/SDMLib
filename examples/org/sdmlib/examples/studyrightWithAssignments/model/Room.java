@@ -298,7 +298,7 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, item, null);
             }
          }
-         withoutDoors(item);
+         
       }
       return this;
    }
@@ -371,7 +371,7 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
-         withoutStudents(item);
+         
       }
       return this;
    }
@@ -451,7 +451,7 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, item, null);
             }
          }
-         withoutAssignments(item);
+         
       }
       return this;
    }
@@ -524,7 +524,7 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, item, null);
             }
          }
-         withoutTas(item);
+         
       }
       return this;
    }
