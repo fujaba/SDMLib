@@ -1,0 +1,3 @@
+[submodule "NetworkParser"]
+	path = NetworkParser
+	url = https://github.com/fujaba/NetworkParser-Core.git
