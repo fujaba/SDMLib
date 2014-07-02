@@ -242,7 +242,7 @@ public class GenRole extends Generator<Role>
             else
             {
                text.append
-               (     "\n   public partnerClassName getPartnerRoleNameTransitive();" +
+               (     "\n   public partnerClassNameSet getPartnerRoleNameTransitive();" +
                      "\n");
             }      
          
@@ -267,7 +267,7 @@ public class GenRole extends Generator<Role>
                   "\n         {" +
                   "\n            if (this.partnerRoleName == null)" +
                   "\n            {" +
-                  "\n               this.partnerRoleName = new type();" +
+                  "\n               this.partnerRoleName = initRoleVar;" +
                   "\n            }" +
                   "\n            " +
                   "\n            boolean changed = this.partnerRoleName.add (item);" +
@@ -292,7 +292,7 @@ public class GenRole extends Generator<Role>
          
          if (elistPos >= 0)
          {
-            CGUtil.replaceAll(text, "new type()", "this.getPartnerRoleName()");
+            CGUtil.replaceAll(text, "initRoleVar", "this.getPartnerRoleName()");
          }
       }
       
@@ -334,19 +334,19 @@ public class GenRole extends Generator<Role>
       //TODO UEBERPRUEFEN
       System.out.println(partnerClassName +" ->" +genClazz.getName());
       String realPartnerClassName = partnerClassName;
-      ClazzSet kindClasses = partnerRole.getClazz().getKidClazzes();
-      ClazzSet kindClassesInterfaces =new ClazzSet();
-      for(Clazz clazz : kindClasses){
+      ClazzSet kidClasses = partnerRole.getClazz().getKidClazzes();
+      ClazzSet kidClassesInterfaces =new ClazzSet();
+      for(Clazz clazz : kidClasses){
          if(clazz.isInterface()){
-            kindClassesInterfaces.add(clazz);
+            kidClassesInterfaces.add(clazz);
          }
       }
-      if (partnerRole.getClazz().isInterface() && kindClassesInterfaces.size() == 1)
+      if (partnerRole.getClazz().isInterface() && kidClassesInterfaces.size() == 1)
       {
-         realPartnerClassName = CGUtil.shortClassName(kindClassesInterfaces.first().getFullName());
+         realPartnerClassName = CGUtil.shortClassName(kidClassesInterfaces.first().getFullName());
       }
       
-      if (pos < 0 && ! (partnerRole.getClazz().isInterface() && kindClassesInterfaces.size() != 1))
+      if (pos < 0 && ! partnerRole.getClazz().isInterface() && kidClassesInterfaces.size() != 1)
       {
          if (! genClazz.isInterface())
          {
@@ -370,7 +370,7 @@ public class GenRole extends Generator<Role>
       GenClass generator = getGenerator(model.getClazz());
       
       // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
-      ClazzSet kidClasses = partnerRole.getClazz().getKidClazzesTransitive().without(partnerRole.getClazz());
+      kidClasses = partnerRole.getClazz().getKidClazzesTransitive().without(partnerRole.getClazz());
       
       for (Clazz kid : kidClasses)
       {
@@ -420,6 +420,7 @@ public class GenRole extends Generator<Role>
          "myCard", model.getCard(),
          "partnerCard", partnerRole.getCard(),
          "type", partnerClassName + "Set", 
+         "initRoleVar", "new " + partnerClassName + "Set()", 
          "myClassName", myClassName,
          "partnerClassName", partnerClassName,
          "realPartnerClassName", realPartnerClassName,

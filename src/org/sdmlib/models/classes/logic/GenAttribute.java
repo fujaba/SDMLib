@@ -56,7 +56,7 @@ public class GenAttribute extends Generator<Attribute>
          "Name", StrUtil.upFirstChar(model.getName()),
          "NAME", model.getName().toUpperCase(),
          " init", model.getInitialization() == null ? "" : " = " +model.getInitialization(),
-               "ownerClass", CGUtil.shortClassName(model.getClazz().getFullName())
+               "ownerClass", CGUtil.shortClassName(clazz.getFullName())
             );
 
       int pos = parser.indexOf(Parser.CLASS_END);
@@ -220,9 +220,9 @@ public class GenAttribute extends Generator<Attribute>
             "\n   @Override" +
             "\n   public String toString()\n" + 
             "   {\n" + 
-            "      StringBuilder _ = new StringBuilder();\n" + 
+            "      StringBuilder result = new StringBuilder();\n" + 
             "      \n" + 
-            "      return _.substring(1);\n" + 
+            "      return result.substring(1);\n" + 
             "   }\n\n" 
                );
          
@@ -253,8 +253,21 @@ public class GenAttribute extends Generator<Attribute>
          // need to add attr to text
          int returnPos = parser.search("return", methodBodyStartPos);
          
+         // maybe there are multiple returns, search for the last one
+         int secondReturnPos = returnPos;
+         while (secondReturnPos >= 0 && secondReturnPos < pos)
+         {
+            secondReturnPos = parser.search("return", secondReturnPos + 4);
+
+            if (secondReturnPos >= 0 && secondReturnPos < pos)
+            {
+               returnPos = secondReturnPos;
+            }
+         }
+         
+         
          StringBuilder text = new StringBuilder(  
-            "_.append(\" \").append(this.getName());\n      " 
+            "result.append(\" \").append(this.getName());\n      " 
                );
 
          CGUtil.replaceAll(text, 
