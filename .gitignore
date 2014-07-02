@@ -21,3 +21,5 @@ atlassian-ide-plugin.xml
 *.ipr
 *.iws
 *.*~
+.settings
+

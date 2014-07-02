@@ -11,8 +11,8 @@ targetCompatibility = 1.7
 if (project.hasProperty('jenkins')) {
     //apply plugin: 'jacoco'
     //apply plugin: 'checkstyle'
-    apply from: 'artifactory.gradle'
-    apply from: 'version.gradle'
+    apply from: 'gradle/artifactory.gradle'
+    apply from: 'gradle/version.gradle'
 }
 
 buildscript {
