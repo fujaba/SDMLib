@@ -482,15 +482,16 @@ public class GenClassModel
             
             if(object instanceof Attribute) {
                Attribute attribute = (Attribute)object;
-               String position = defPosition(parser, localVarTable, attribute.getName(), attribute.getType(), attribute.getClazz().getFullName() );
+               String position = defPositionAsString(parser, localVarTable, attribute.getName(), attribute.getType(), attribute.getClazz().getFullName() );
                
-               System.err.println("in " + fileName + ":  duplicate name found in definition for " + attribute.getClazz() +"\n    "+ position+ "\n     Attribute " + attribute );
+               System.out.println("in " + fileName + ":  duplicate name found in definition for attribute" + attribute.getClazz() +"\n    "+ position+ "\n     Attribute " + attribute );
                attribute.removeYou();
             }
             else if(object instanceof Role) {
                Role role = (Role)object;
-               String position = defPosition(parser, localVarTable, role.getName(), DataType.ref("NONE") ,role.getClazz().getFullName() );
-               System.err.println("in " + fileName + "  duplicate name found in definition for "+ role.getClazz() + "\n    " + position + "\n      Role " + role );
+               String position = defPositionAsString(parser, localVarTable, role.getName(), DataType.ref("NONE") ,role.getClazz().getFullName() );
+               System.out.println("in " + fileName + "  duplicate name found in definition for "+ role.getClazz() + "\n    " + position + "\n      Role " + role );
+               System.out.println(parser.getLineForPos((int)defPosition(parser, localVarTable, role.getName(), DataType.ref("NONE") ,role.getClazz().getFullName())));
                Association assoc = role.getAssoc();
                
                if(assoc != null)
@@ -502,7 +503,7 @@ public class GenClassModel
       }        
    }
    
-   private String defPosition(Parser parser, LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name, DataType attrType , String clazzType) {
+   private String defPositionAsString(Parser parser, LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name, DataType attrType , String clazzType) {
        String position = "";
        
       if ( localVarTable != null ) {
@@ -525,6 +526,36 @@ public class GenClassModel
                      indexOf = subSequenceString.indexOf(group);
                   }
                   position =  "at line " + parser.getLineIndexOf(entry.getStartPos() + indexOf) + "    ";
+               }
+            }
+         }
+      }
+      return position;
+   }
+   
+   private long defPosition(Parser parser, LinkedHashMap<String, LocalVarTableEntry> localVarTable, String name, DataType attrType , String clazzType) {
+       long position = 0;
+       
+      if ( localVarTable != null ) {
+         
+         for (LocalVarTableEntry entry : localVarTable.values()) {
+         
+            if (entry.getType() != null && entry.getType().equals("Clazz")) {
+               String type = entry.getInitSequence().get(0).get(1).replace("\"", "");
+               
+               if (clazzType.endsWith(type)) {
+                  CharSequence subSequence = parser.getText().subSequence(entry.getStartPos(), entry.getEndPos()+1);
+                  String subSequenceString = subSequence.toString();
+                  
+                  Pattern fileName = Pattern.compile("\""+name+"\"\\s*,\\s*\""+attrType+"\"");
+                  Matcher matcher = fileName.matcher(subSequenceString);
+                  
+                  int indexOf = 0;
+                  while (matcher.find()) {
+                     String group = matcher.group(0);
+                     indexOf = subSequenceString.indexOf(group);
+                  }
+                  position =  entry.getStartPos() + indexOf;
                }
             }
          }
@@ -724,7 +755,6 @@ public class GenClassModel
          CGUtil.replaceAll(text, "superClassName", StrUtil.downFirstChar(CGUtil.shortClassName(clazz.getSuperClass().getFullName())) + "Class" );
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass); 
          currentInsertPos++;
-         //       currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
          //FIXME ALEX NICHT NOTWENDIG ODER getOrCreate(clazz).isFileHasChanged();
       }
@@ -742,7 +772,6 @@ public class GenClassModel
          StringBuilder text = new StringBuilder("      .withInterface(true)");
          currentInsertPos = insertCreationCode(text, currentInsertPos, modelCreationClass); 
          currentInsertPos++;
-         //       currentInsertPos++;
          symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
        //FIXME ALEX NICHT NOTWENDIG ODER  getOrCreate(clazz).isFileHasChanged();
       }
@@ -978,10 +1007,10 @@ public class GenClassModel
 
       for (StatementEntry stat : getOrCreate(modelCreationClass).getParser().getStatementList().getBodyStats())
       {
-         if (stat.getTokenList().get(0).endsWith(".withAssoc"))
+         if (   stat.getTokenList().get(0).endsWith(".withAssoc")
+             || stat.getTokenList().get(0).endsWith(".createClassAndAssoc"))
          {
             // looks like sourceClass.withAssoc(targetClass, "targetRole", targetCard, "sourceRole", sourceCard);
-
             // ensure source class name
             String classVar = CGUtil.packageName(stat.getTokenList().get(0));
             LocalVarTableEntry localVarTableEntry = localVarTable.get(classVar);
@@ -993,68 +1022,32 @@ public class GenClassModel
                // ensure target class name
                classVar = stat.getTokenList().get(2);
                localVarTableEntry = localVarTable.get(classVar);
-               classNameFromText = localVarTableEntry.getInitSequence().get(0).get(1).replaceAll("\"", "");
+               
+               if (stat.getTokenList().get(0).endsWith(".withAssoc"))
+                  classNameFromText = localVarTableEntry.getInitSequence().get(0).get(1).replaceAll("\"", "");
+               else
+                  classNameFromText = stat.getTokenList().get(2).replaceAll("\"", ""); //
+               
                classNameFromAssoc = assoc.getTarget().getClazz().getFullName();
 
                if (StrUtil.stringEquals(classNameFromText, classNameFromAssoc) || classNameFromAssoc.endsWith("." + classNameFromText))
                {
                   // ensure target role name
-                  String roleNameFromText = stat.getTokenList().get(4).replaceAll("\"", "");
+                  String tokenRoleName1 = stat.getTokenList().get(4).replaceAll("\"", "");
+                  String assocRoleName1 = assoc.getTarget().getName();
+                  String tokenRoleName2 = stat.getTokenList().get(8).replaceAll("\"", "");
+                  String assocRoleName2 = assoc.getSource().getName();
 
-                  if (StrUtil.stringEquals(roleNameFromText, assoc.getTarget().getName()))
+                  if (stringsPairwiseEquals(tokenRoleName1, assocRoleName1, tokenRoleName2, assocRoleName2))
                   {
-                     // ensure source role name
-                     roleNameFromText = stat.getTokenList().get(8).replaceAll("\"", "");
-                     if (StrUtil.stringEquals(roleNameFromText, assoc.getSource().getName()))
-                     {
                         // found it
                         assocIsNew = false;
                         break;
-                     }
                   }
-                  System.out.println("found assoc");
                }
             }            
-         } 
-         else if (stat.getTokenList().get(0).endsWith(".createClassAndAssoc"))
-         {
-            // looks like sourceClass.withAssoc(targetClass, "targetRole", targetCard, "sourceRole", sourceCard);
-
-            // ensure source class name
-            String classVar = CGUtil.packageName(stat.getTokenList().get(0));
-            LocalVarTableEntry localVarTableEntry = localVarTable.get(classVar);
-            String classNameFromText = localVarTableEntry.getInitSequence().get(0).get(1).replaceAll("\"", "");
-            String classNameFromAssoc = assoc.getSource().getClazz().getFullName();
-
-            if (StrUtil.stringEquals(classNameFromText, classNameFromAssoc) || classNameFromAssoc.endsWith("." + classNameFromText))
-            {
-               // ensure target class name
-               classNameFromText = stat.getTokenList().get(2).replaceAll("\"", "");
-               classNameFromAssoc = assoc.getTarget().getClazz().getFullName();
-
-               if (StrUtil.stringEquals(classNameFromText, classNameFromAssoc) || classNameFromAssoc.endsWith("." + classNameFromText))
-               {
-                  // ensure target role name
-                  String roleNameFromText = stat.getTokenList().get(4).replaceAll("\"", "");
-
-                  if (StrUtil.stringEquals(roleNameFromText, assoc.getTarget().getName()))
-                  {
-                     // ensure source role name
-                     roleNameFromText = stat.getTokenList().get(8).replaceAll("\"", "");
-                     if (StrUtil.stringEquals(roleNameFromText, assoc.getSource().getName()))
-                     {
-                        // found it
-                        assocIsNew = false;
-                        break;
-                     }
-                  }
-                  System.out.println("found assoc");
-               }
-            }            
-         } 
-
+         }  
       }
-
 
       if (assocIsNew)
       {
@@ -1067,6 +1060,18 @@ public class GenClassModel
          currentInsertPos = insertCreationAssociationCode(assoc, currentInsertPos, modelCreationClass, symTabEntry);
       }
       return currentInsertPos;
+   }
+
+   private boolean stringsPairwiseEquals(String string1, String string2, String string3,
+         String string4)
+   {
+      if (StrUtil.stringEquals(string1,string2) && StrUtil.stringEquals(string3,string4)
+         ||   StrUtil.stringEquals(string1,string3) && StrUtil.stringEquals(string2,string4)
+         || StrUtil.stringEquals(string1,string4) && StrUtil.stringEquals(string2,string3)
+            )
+         return true;
+     
+      return false;
    }
 
    private boolean compareAssocDecl(Association assoc, ArrayList<String> subSequence, String className, LinkedHashMap<String, LocalVarTableEntry> localVarTable)
@@ -1185,6 +1190,12 @@ public class GenClassModel
 
             if (compareMethodDecl(method, localVarTableEntry, modelCreationClass))
             {
+               currentInsertPos = localVarTableEntry.getEndPos()+2;
+               
+//               Parser parser = getOrCreate(modelCreationClass).getParser();
+//               System.out.println("line: "+parser.getLineIndexOf(currentInsertPos));
+//               System.out.println(parser.getLineForPos(currentInsertPos));
+               
                methodIsNew = false;
                break;
             }
@@ -1435,6 +1446,9 @@ public class GenClassModel
          int currentInsertPos, String rootDir)
    {
 
+      // find last creation code position
+      
+      
       Queue<Clazz> clazzQueue = new LinkedList<Clazz>(); 
 
       for (Clazz clazz : model.getClasses())
@@ -1472,6 +1486,7 @@ public class GenClassModel
                handledClazzes.put(modelClassName, clazz);
                currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass, refreshMethodScan(signature, modelCreationClass, rootDir), clazz, handledClazzes, currentInsertPos);
             }
+            writeToFile(modelCreationClass);
          }
       }
       return currentInsertPos;

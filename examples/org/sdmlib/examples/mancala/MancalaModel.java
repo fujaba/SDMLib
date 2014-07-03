@@ -3,8 +3,6 @@ package org.sdmlib.examples.mancala;
 import java.awt.Point;
 
 import org.junit.Test;
-import org.sdmlib.doc.GraphVizAdapter.GraphViz;
-import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
@@ -14,7 +12,6 @@ import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Visibility;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Association;
-import org.sdmlib.storyboards.Storyboard;
 
 public class MancalaModel {
 
@@ -61,11 +58,55 @@ public class MancalaModel {
 
     @Test
     public void MancalaModelReverse() {
-        ClassModel model = new ClassModel("org.sdmlib.examples.mancala.model");
+      ClassModel model = new ClassModel("org.sdmlib.examples.mancala.model");
 
-        model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.mancala.model");
-        // FIXME: ALEX fix assoc creationcode competion
-        //model.getGenerator().insertModelCreationCodeHere("examples");
+      Clazz mancalaClass = model.createClazz("org.sdmlib.examples.mancala.model.Mancala");
+
+      new Method("checkEnd")
+        .with(mancalaClass);
+
+      new Method("initGame", new Parameter(DataType.ref("String")), new Parameter(DataType.ref("String")))
+        .with(mancalaClass);
+
+      new Method("createKalah")
+        .with(mancalaClass);
+
+      new Method("createPitsKalah")
+        .with(mancalaClass);
+
+      Clazz pitClass = model.createClazz("org.sdmlib.examples.mancala.model.Pit")
+      .with(new Attribute("nr", DataType.ref("int")) );
+      /* add method */
+      new Method("moveStones")
+        .with(pitClass);
+
+      Clazz kalahClass = model.createClazz("org.sdmlib.examples.mancala.model.Kalah")
+      .withSuperClazz(pitClass);
+
+      Clazz playerClass = model.createClazz("org.sdmlib.examples.mancala.model.Player")
+      .with(new Attribute("name", DataType.ref("String")) );
+
+      mancalaClass.withAssoc(playerClass, "activePlayer", Card.ONE, "game", Card.ONE);
+
+      pitClass.withAssoc(playerClass, "player", Card.ONE, "pits", Card.MANY);
+
+      kalahClass.withAssoc(playerClass, "kalahPlayer", Card.ONE, "kalah", Card.ONE);
+
+      Clazz stoneClass = model.createClazz("org.sdmlib.examples.mancala.model.Stone");
+
+      playerClass.withAssoc(stoneClass, "stone", Card.ONE, "player", Card.ONE);
+
+
+      pitClass.withAssoc(mancalaClass, "game", Card.ONE, "pits", Card.MANY);
+
+      pitClass.withAssoc(pitClass, "next", Card.ONE, "previous", Card.ONE);
+
+      pitClass.withAssoc(pitClass, "counterpart", Card.ONE, "counterpart", Card.ONE);
+
+
+
+      model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.mancala.model");
+      model.getGenerator().insertModelCreationCodeHere("examples");
     }
 
 }
