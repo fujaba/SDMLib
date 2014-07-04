@@ -15,7 +15,7 @@ if (project.hasProperty('jenkins')) {
     apply from: 'gradle/version.gradle'
 
 	jacoco {
-		toolVersion = '0.7.1'
+		toolVersion = '0.7.1.201405082137'
 		//reportsDir = file("${buildDir}/jacoco")
 	}
 
