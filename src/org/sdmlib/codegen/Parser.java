@@ -1918,8 +1918,11 @@ public class Parser
          {
             insertPos = indexOf(Parser.CLASS_END); 
          }
-         
-         this.fileBody.insert(insertPos, text.toString());
+         if(insertPos>=0){
+        	 this.fileBody.insert(insertPos, text.toString());
+         }else{
+        	 System.out.println("ERROR WHILE PARSING");
+         }
       }
       
       this.fileBodyHasChanged = true;
