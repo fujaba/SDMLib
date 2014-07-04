@@ -81,15 +81,15 @@ public class Parameter extends Value
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
-      _.append(" ").append(this.getType());
+      StringBuilder result = new StringBuilder();
+      result.append(" ").append(this.getType());
       if(this.name!=null){
-         _.append(" ").append(this.getName());
+    	  result.append(" ").append(this.getName());
       }
       if(this.initialization!=null){
-         _.append(":").append(this.getInitialization());
+    	  result.append(":").append(this.getInitialization());
       }
-      return _.substring(1);
+      return result.substring(1);
    }
    
    //==========================================================================

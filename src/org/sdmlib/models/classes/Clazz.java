@@ -401,10 +401,10 @@ public class Clazz extends SDMLibClass
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder result = new StringBuilder();
 
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
    
    public Clazz withInterface(boolean value)

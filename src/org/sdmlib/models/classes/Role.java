@@ -50,11 +50,11 @@ public class Role extends SDMLibClass
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
-      _.append(" ").append(this.getCard());
-      _.append(" ").append(this.getKind());
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      StringBuilder result = new StringBuilder();
+      result.append(" ").append(this.getCard());
+      result.append(" ").append(this.getKind());
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
  
    public String labelForRole()

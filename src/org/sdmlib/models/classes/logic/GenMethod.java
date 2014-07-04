@@ -1,11 +1,9 @@
 package org.sdmlib.models.classes.logic;
 
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Parser;
-import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
