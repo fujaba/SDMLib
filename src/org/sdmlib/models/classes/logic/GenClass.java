@@ -750,7 +750,7 @@ public class GenClass extends Generator<Clazz>
                      "   }\n" +
                      "   public static JsonIdMap createIdMap(String sessionID)\n" +
                      "   {\n" +
-                     "      return CreatorCreator.createIdMap(sessionID);\n" +
+                     "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
                      "   }"+
                   "}\n");
             
@@ -795,12 +795,15 @@ public class GenClass extends Generator<Clazz>
                instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName+ "()";
             }
             
+            String classModelPackage = model.getClassModel().getName() + ".util.";
+            
             CGUtil.replaceAll(text, 
                "creatorClassName", creatorClassName, 
                "entitiyClassName", entitiyClassName, 
                "fullEntityClassName", "import "+fullEntityClassName+";\n",
                "packageName", packageName,
-               "instanceCreationClause", instanceCreationClause);
+               "instanceCreationClause", instanceCreationClause,
+               "ClassModelPackage", classModelPackage);
             
             creatorParser.withFileBody(text).withFileChanged(true);
             
@@ -1018,13 +1021,13 @@ public class GenClass extends Generator<Clazz>
                      + "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n"
                      + "{\nALLMATCHES\n\n"
                      + "   public patternObjectClassName(){\n"
-                     + "      newInstance(CreatorCreator.createIdMap(\"PatternObjectType\"));\n"
+                     + "      newInstance(ClassModelPackageCreatorCreator.createIdMap(\"PatternObjectType\"));\n"
                      + "   }\n\n"
                      + "   public patternObjectClassName(ModelClass... hostGraphObject) {\n"
                      + "      if(hostGraphObject==null || hostGraphObject.length<1){\n" 
                      + "         return ;\n" 
                      + "      }\n" 
-                     + "      newInstance(CreatorCreator.createIdMap(\"PatternObjectType\"), hostGraphObject);\n"
+                     + "      newInstance(ClassModelPackageCreatorCreator.createIdMap(\"PatternObjectType\"), hostGraphObject);\n"
                      + "   }\n"
                      + "}\n");
 
@@ -1054,7 +1057,8 @@ public class GenClass extends Generator<Clazz>
                "entitiyClassName", entitiyClassName, 
                "fullEntityClassName", fullEntityClassName,
                "ModelClass", entitiyClassName,
-               "packageName", packageName);
+               "packageName", packageName, 
+               "ClassModelPackage", model.getClassModel().getName() + ".util.");
             
             patternObjectParser.withFileBody( text ).withFileChanged(true);
          }
@@ -1160,7 +1164,7 @@ public class GenClass extends Generator<Clazz>
                      "   }\n" + 
                      "   \n" + 
                      "   public static JsonIdMap createIdMap(String sessionID) {\n" +
-                     "      return CreatorCreator.createIdMap(sessionID);\n" +
+                     "      return ClassModelPackageCreatorCreator.createIdMap(sessionID);\n" +
                      "   }\n"+
                   "}\n");
 
@@ -1168,7 +1172,8 @@ public class GenClass extends Generator<Clazz>
                "patternObjectCreatorClassName", patternObjectCreatorClassName, 
                "entitiyPOClassName", entitiyClassName + "PO",
                "entitiyClassName", entitiyClassName,
-               "packageName", packageName);
+               "packageName", packageName, 
+               "ClassModelPackage", model.getClassModel().getName() + ".util.");
 
             patternObjectCreatorParser.withFileBody( text ).withFileChanged(true);
             addImport=true;

@@ -271,6 +271,7 @@ public class GenClassModel
                            "}\n");
 
             StringBuilder creators = new StringBuilder();
+            boolean publicCreatorCreator = false;
             for (Clazz clazz : model.getClasses())
             {
                if (!clazz.isInterface() )
@@ -284,9 +285,16 @@ public class GenClassModel
 
                   creators.append("      jsonIdMap.withCreator(new "+creatorName+"Creator());\n" +
                         "      jsonIdMap.withCreator(new "+creatorName+"POCreator());\n");
+                  
+                  // if there are multiple packages, the CreatorCreator must be public
+                  if (!model.getName().equals(CGUtil.packageName(clazz.getFullName())))
+                  {
+                     publicCreatorCreator = true;
+                  }
                }
             }
 
+            CGUtil.replaceAll(text, "class className", "public class className");
             
             CGUtil.replaceAll(text, 
                   "className", CGUtil.shortClassName(creatorCreatorClassName), 

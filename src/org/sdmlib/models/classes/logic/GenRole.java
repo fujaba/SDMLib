@@ -853,6 +853,7 @@ public class GenRole extends Generator<Role>
             "\n");
             getGenerator(tgtClass).insertImport(parser, Collection.class.getName());
             getGenerator(tgtClass).insertImport(parser, ObjectSet.class.getName());
+            
             String containsClause = "neighbors.contains(obj.get"
                   + StrUtil.upFirstChar(partnerRole.getName()) + "())";
             
@@ -863,6 +864,7 @@ public class GenRole extends Generator<Role>
                getGenerator(tgtClass).insertImport(parser, Collections.class.getName());
             }
             CGUtil.replaceAll(text, "containsClause", containsClause);
+            
       }
        
       
@@ -943,7 +945,7 @@ public class GenRole extends Generator<Role>
          
          parser.insert(classEnd, text.toString());
          
-//FIXME STEFAN         getGenerator(tgtClass).insertImport(parser, fullModelSetType);
+         getGenerator(tgtClass).insertImport(parser, CGUtil.helperClassName(partnerRole.getClazz().getFullName(),"Set"));
       }
    }
 

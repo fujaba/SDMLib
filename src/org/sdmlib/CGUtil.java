@@ -224,7 +224,7 @@ public class CGUtil
 
    public static String helperClassName(String modelClassName, String suffix)
    {
-      return packageName(modelClassName) + GenClassModel.UTILPATH+"." + shortClassName(modelClassName) + suffix;
+      return packageName(modelClassName) + GenClassModel.UTILPATH + "." + shortClassName(modelClassName) + suffix;
    }
    
    public static String encodeJavaName(String text)
