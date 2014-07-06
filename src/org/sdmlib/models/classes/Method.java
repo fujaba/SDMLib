@@ -253,15 +253,15 @@ public class Method extends SDMLibClass
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
-      _.append(" ").append(this.getModifier());
-      _.append(" ").append(this.getReturnType());
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getParameter());
+      StringBuilder result = new StringBuilder();
+      result.append(" ").append(this.getModifier());
+      result.append(" ").append(this.getReturnType());
+      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getParameter());
       if(this.body!=null){
-         _.append(" ").append(this.getBody());
+    	  result.append(" ").append(this.getBody());
       }
-      return _.substring(1);
+      return result.substring(1);
    }
 
    public String getBody()

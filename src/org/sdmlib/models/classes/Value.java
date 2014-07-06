@@ -21,7 +21,6 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.DataType;
 
 public abstract class Value extends SDMLibClass
 {
@@ -89,11 +88,11 @@ public abstract class Value extends SDMLibClass
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      _.append(" ").append(this.getInitialization());
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      result.append(" ").append(this.getInitialization());
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
 
    

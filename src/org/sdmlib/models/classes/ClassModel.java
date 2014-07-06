@@ -30,7 +30,6 @@ import java.util.Set;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphFactory;
-import org.sdmlib.doc.GraphVizAdapter.GraphViz;
 import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
@@ -159,10 +158,10 @@ public class ClassModel extends SDMLibClass
 	@Override
 	public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
 
    public ClassModel with(Clazz... value)

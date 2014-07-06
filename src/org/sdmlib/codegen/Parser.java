@@ -22,6 +22,7 @@
 package org.sdmlib.codegen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -879,10 +880,11 @@ public class Parser
       }
       else
       { 
-         System.err.println( "Parser Error: \'" + currentRealToken.kind + "\' :"  
+         System.out.println( "Parser Problem: \'" + currentRealToken.kind + "\' :"  
                +  " but \'" + c + "\' expected in " + className + ".java  at line " 
-               + getLineIndexOf(currentRealToken.startPos));
-         throw new RuntimeException("parse error");
+               + getLineIndexOf(currentRealToken.startPos)
+               + "\n"+getLineForPos(currentRealToken.startPos));
+//         throw new RuntimeException("parse error");
       }
    }
 
@@ -1916,8 +1918,11 @@ public class Parser
          {
             insertPos = indexOf(Parser.CLASS_END); 
          }
-         
-         this.fileBody.insert(insertPos, text.toString());
+         if(insertPos>=0){
+        	 this.fileBody.insert(insertPos, text.toString());
+         }else{
+        	 System.out.println("ERROR WHILE PARSING");
+         }
       }
       
       this.fileBodyHasChanged = true;
@@ -1985,5 +1990,28 @@ public class Parser
          }
       }    
       return null;
+   }
+   
+   public StringBuilder getFileBody()
+   {
+      return fileBody;
+   }
+
+   public String getLineForPos(int currentInsertPos)
+   {
+      String part1 = fileBody.substring(0, currentInsertPos);
+      String part2 = fileBody.substring(currentInsertPos);
+      int startPos = 1 + part1.lastIndexOf("\n");
+      int endPos = currentInsertPos + part2.indexOf("\n");
+    
+      String lineString = "\""+fileBody.substring(startPos, endPos ).toString()+"\"";
+      
+      int index = currentInsertPos - startPos;
+      char[] chars1 = new char[index];
+      Arrays.fill(chars1, ' ');
+      String string1 = new String(chars1);
+      
+      String posString = "\n"+string1+"^";
+      return lineString + posString;
    }
 }

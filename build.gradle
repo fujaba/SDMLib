@@ -9,10 +9,23 @@ targetCompatibility = 1.7
 // apply plugins/external files only on jenkins build
 // jenkins needs -Pjenkins switch
 if (project.hasProperty('jenkins')) {
-    //apply plugin: 'jacoco'
+    apply plugin: 'jacoco'
     //apply plugin: 'checkstyle'
     apply from: 'gradle/artifactory.gradle'
     apply from: 'gradle/version.gradle'
+
+	jacoco {
+		toolVersion = '0.7.1.201405082137'
+		//reportsDir = file("${buildDir}/jacoco")
+	}
+
+	jacocoTestReport {
+	    reports {
+	        xml.enabled true
+	        csv.enabled false
+	        html.destination "${buildDir}/jacoco/html"
+	    }
+	}
 }
 
 buildscript {
