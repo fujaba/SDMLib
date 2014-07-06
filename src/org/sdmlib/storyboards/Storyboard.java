@@ -899,6 +899,22 @@ public class Storyboard implements PropertyChangeInterface
          {
             jsonIdMap = (JsonIdMap) new GenericIdMap().withSessionId(null);
             jsonIdMap.getLogger().withError(false);
+
+            // try to infer creator class
+            String className = object.getClass().getName();
+            String creatorClassName = CGUtil.helperClassName(className, "Creator");
+            try 
+            {
+               Class<?> creatorClass = this.getClass().getClassLoader().loadClass(creatorClassName);
+               Method createIdMapMethod = creatorClass.getDeclaredMethod("createIdMap", String.class);
+               jsonIdMap = (JsonIdMap) createIdMapMethod.invoke(null, "d");
+               jsonIdMap.getLogger().withError(false);
+            }
+            catch (Exception e)
+            {
+               // did not work, thus generic must be enough
+            }
+            
          }
 
          SendableEntityCreator objectCreator = jsonIdMap.getCreatorClass(object);

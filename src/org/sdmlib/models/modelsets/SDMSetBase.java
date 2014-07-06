@@ -92,6 +92,7 @@ public class SDMSetBase<T> extends ItemList<T>
    public <ST extends SDMSet<T>> ST has(Condition condition)
    {
       ST result = (ST) this.getNewInstance();
+      result.addAll(this);
       
       for (T elem : this)
       {

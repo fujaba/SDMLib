@@ -18,7 +18,7 @@ public class GenericIdMap extends SDMLibJsonIdMap
       {
          return null;
       }
-      else if (className.endsWith("Set"))
+      else if (className.endsWith("Set") || className.endsWith("EList"))
       {
          String packageName = CGUtil.packageName(className);
          

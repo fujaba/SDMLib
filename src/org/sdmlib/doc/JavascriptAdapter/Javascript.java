@@ -3,6 +3,7 @@ package org.sdmlib.doc.JavascriptAdapter;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import org.sdmlib.CGUtil;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
 import org.sdmlib.model.taskflows.util.LogEntrySet;
@@ -124,7 +125,7 @@ public class Javascript implements GuiAdapter
       {
          JsonObject jsonClazz = new JsonObject();
          jsonClazz.put("typ", "node");
-         jsonClazz.put("id", clazz.getName());
+         jsonClazz.put("id", CGUtil.shortClassName(clazz.getName()));
          
          JsonArray jsonAttrs = new JsonArray();
          for (Attribute attr : clazz.getAttributes())
@@ -149,12 +150,24 @@ public class Javascript implements GuiAdapter
          jsonAssoc.put("targetcardinality", target.getCard());
          jsonAssoc.put("sourceproperty", source.getName());
          jsonAssoc.put("targetproperty",target.getName());
-         jsonAssoc.put("source",source.getClazz().getName());
-         jsonAssoc.put("target",target.getClazz().getName());
+         jsonAssoc.put("source",CGUtil.shortClassName(source.getClazz().getName()));
+         jsonAssoc.put("target",CGUtil.shortClassName(target.getClazz().getName()));
 
          jsonEdges.add(jsonAssoc);
       }
       
+      for (Clazz kidClazz : model.getClasses())
+      {
+         for (Clazz superClazz : kidClazz.getSuperClazzes())
+         {
+            JsonObject jsonAssoc = new JsonObject();
+            jsonAssoc.put("typ","generalisation");
+            jsonAssoc.put("source",CGUtil.shortClassName(kidClazz.getName()));
+            jsonAssoc.put("target",CGUtil.shortClassName(superClazz.getName()));
+
+            jsonEdges.add(jsonAssoc);
+         }
+      }
       
       
       jsonGraph.put("edges", jsonEdges);
