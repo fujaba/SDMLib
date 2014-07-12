@@ -36,7 +36,7 @@ public class Specific2Generic
          {
             JsonObject remObj = (JsonObject) tmp;
             
-            String propName = (String) remObj.iterator().next().getKey();
+            String propName = remObj.first();
             
             firstPropName = secondPropName;
             

@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.sdmlib.CGUtil;
 
+import de.uniks.networkparser.AbstractList;
 import de.uniks.networkparser.gui.ItemList;
 
 
@@ -141,4 +142,8 @@ public class SDMSetBase<T> extends ItemList<T>
       }
       return this;
    }
+	@Override
+	public boolean remove(Object value) {
+		return removeItemByObject(value) >= 0;
+	}
 }
