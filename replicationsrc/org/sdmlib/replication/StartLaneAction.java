@@ -49,7 +49,7 @@ public class StartLaneAction
                { rootPath, 
                "java", 
                "-Xdebug", 
-               "-Xrunjdwp:transport=dt_socket,address=" + debugSocket + ",server=y,suspend=n", 
+               "-Xrunjdwp:transport=dt_socket,address=" + debugSocket + ",server=y,suspend=y", 
                "-Dfile.encoding=UTF-8",
                "-classpath",
                System.getProperty("java.class.path") , 
@@ -82,6 +82,7 @@ public class StartLaneAction
                      String text = buf.readLine();
                      if (text == null)
                      {
+                    	 System.out.println("couldn't read buf");
                         return;
                      }
                      System.out.println(text);
@@ -112,6 +113,7 @@ public class StartLaneAction
                      String text = errbuf.readLine();
                      if (text == null)
                      {
+                    	 System.out.println("couldn't read buf");
                         return;
                      }
                      System.out.println(text);

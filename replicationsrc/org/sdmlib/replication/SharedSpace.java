@@ -114,14 +114,14 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public SharedSpace init(PropertyChangeListener laneListener)
    {
-      map.withCreator(ReplicationNodeCreator.createIdMap("i").getCreators());
+
+	   plainInit();
+	   
       setName("Lane" + nodeId);
       ReplicationChannel channel = createChannels().withConnect(serverIp, serverPort);
       channel.setName("ReplicationChannel" + nodeId);
       channel.start();
 
-      ReplicationRoot replicationRoot = new ReplicationRoot();
-      map.put(SharedSpace.REPLICATION_ROOT, replicationRoot);
       
       channel.sendSpaceConnectionRequest(spaceId);
       waitForCurrentHistoryId();
@@ -141,13 +141,13 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       try
       {
-         if (firstMessage && this.listener==null)
+         if (firstMessage)
          {
             firstMessage = false;
             JsonObject jsonObject = new JsonObject().withValue(msg);
             if (jsonObject.get(CURRENT_HISTORY_ID) != null)
             {
-               long receivedId = (long) jsonObject.get(CURRENT_HISTORY_ID);
+               long receivedId = Long.parseLong(jsonObject.getString(CURRENT_HISTORY_ID));
                if (receivedId > this.lastChangeId)
                {
                   this.lastChangeId = receivedId;
@@ -1027,11 +1027,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
-
-      _.append(" ").append(this.getSpaceId());
-      _.append(" ").append(this.getNodeId());
-      return _.substring(1);
+      StringBuilder sb = new StringBuilder();
+      sb.append(" SharedSpace");
+      sb.append(" ").append(this.getSpaceId());
+      sb.append(" ").append(this.getNodeId());
+      return sb.substring(1);
    }
 
    public static final SharedSpaceSet EMPTY_SET = new SharedSpaceSet();
