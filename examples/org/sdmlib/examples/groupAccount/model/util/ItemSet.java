@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,7 +27,9 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.groupAccount.model.util.GroupAccountSet;
 import org.sdmlib.examples.groupAccount.model.GroupAccount;
+import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.Person;
 
 public class ItemSet extends SDMSet<Item>
@@ -95,6 +97,21 @@ public class ItemSet extends SDMSet<Item>
       return result;
    }
 
+   public ItemSet hasDescription(String lower, String upper)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (lower.compareTo(obj.getDescription()) <= 0 && obj.getDescription().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public ItemSet withDescription(String value)
    {
       for (Item obj : this)
@@ -124,6 +141,21 @@ public class ItemSet extends SDMSet<Item>
       for (Item obj : this)
       {
          if (value == obj.getValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ItemSet hasValue(double lower, double upper)
+   {
+      ItemSet result = new ItemSet();
+      
+      for (Item obj : this)
+      {
+         if (lower <= obj.getValue() && obj.getValue() <= upper)
          {
             result.add(obj);
          }
@@ -239,7 +271,3 @@ public class ItemSet extends SDMSet<Item>
    }
 
 }
-
-
-
-

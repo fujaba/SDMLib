@@ -10,6 +10,67 @@
 <p>Storyboard <a href='../examples/org/sdmlib/examples/groupAccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
 <p>GroupAccountCodegen</p>
 <p>Start situation: Nothing here yet. Generate classes</p>
-<embed type="image/svg+xml" src='GroupAccountCodegenClassDiagram2.svg'>
+<script>
+   var json = {
+   "typ":"class",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"GroupAccount",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"Person",
+            "attributes":[
+            "name : String",
+               "balance : double"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Item",
+            "attributes":[
+            "description : String",
+               "value : double"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"parent",
+            "targetproperty":"persons",
+            "source":"GroupAccount",
+            "target":"Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"parent",
+            "targetproperty":"item",
+            "source":"GroupAccount",
+            "target":"Item"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"buyer",
+            "targetproperty":"item",
+            "source":"Person",
+            "target":"Item"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasGroupAccountCodegenClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
 </body>
 </html>

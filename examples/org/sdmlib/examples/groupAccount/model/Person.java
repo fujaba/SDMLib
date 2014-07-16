@@ -22,15 +22,23 @@
 package org.sdmlib.examples.groupAccount.model;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
 
-public class Person implements PropertyChangeInterface
+public class Person implements PropertyChangeInterface, PropertyChangeListener
 {
 
+   public Person()
+   {
+      this.getPropertyChangeSupport().addPropertyChangeListener(PROPERTY_ITEM, this);
+   }
+   
    
    //==========================================================================
    
@@ -63,7 +71,7 @@ public class Person implements PropertyChangeInterface
    
    public static final String PROPERTY_NAME = "name";
    
-   private String name;
+   private String name = "Name?";
 
    public String getName()
    {
@@ -260,5 +268,42 @@ public class Person implements PropertyChangeInterface
       withItem(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TOTALPURCHASE = "totalPurchase";
+
+   private double totalPurchase;
+   
+   public double getTotalPurchase()
+   {
+      return totalPurchase;
+   }
+   
+   public void setTotalPurchase(double totalPurchase)
+   {
+      // this.totalPurchase = totalPurchase;
+   }
+
+   @Override
+   public void propertyChange(PropertyChangeEvent evt)
+   {
+      if (evt.getPropertyName().equals(PROPERTY_ITEM) && evt.getNewValue() != null)
+      {
+         Item newItem = (Item) evt.getNewValue();
+         newItem.getPropertyChangeSupport().addPropertyChangeListener(Item.PROPERTY_VALUE, this);
+      }
+      
+      double oldValue = totalPurchase;
+      totalPurchase = getItem().getValue().sum();
+      
+      if (oldValue != totalPurchase)
+      {
+         this.getPropertyChangeSupport().firePropertyChange(PROPERTY_TOTALPURCHASE, oldValue, totalPurchase);
+      }
+   }
+   
+   
 }
 
