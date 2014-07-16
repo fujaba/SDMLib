@@ -1,7 +1,0 @@
-graph ObjectDiagram {
-   node [shape = none, fontsize = 10, fontname = "Arial"];
-   edge [fontsize = 10, fontname = "Arial"];
-
-g1 [label=<<table border='0' cellborder='1' cellspacing='0' color='green' bgcolor='deepskyblue'> <tr> <td border='0' align='right'><font color='green'>&#171;create&#187;</font></td></tr> <tr> <td align='center'> <font color='green'> g1 :GreetingPO </font></td></tr> <tr> <td align='left'> <table border='0' cellborder='0' cellspacing='0' color='green'> <tr><td><font color='green'> text := "Hello World" </font></td></tr></table></td></tr></table>>];
-
-}

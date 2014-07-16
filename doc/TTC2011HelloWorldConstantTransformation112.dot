@@ -1,8 +1,0 @@
-graph ObjectDiagram {
-   node [shape = none, fontsize = 10, fontname = "Arial"];
-   edge [fontsize = 10, fontname = "Arial"];
-   compound=true;
-
-g1 [label=<<table border='0' cellborder='1' cellspacing='0'> <tr> <td href="../examples/org/sdmlib/examples/helloworld/Greeting.java"> <u>g1 :Greeting</u></td></tr><tr><td><table border='0' cellborder='0' cellspacing='0'><tr><td align='left'>greetingMessage = ""</td></tr><tr><td align='left'>person = ""</td></tr><tr><td align='left'>text = "Hello World"</td></tr></table></td></tr></table>>];
-
-}

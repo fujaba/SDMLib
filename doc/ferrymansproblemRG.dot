@@ -1,7 +1,0 @@
-graph ObjectDiagram {
-   node [shape = none, fontsize = 10, fontname = "Arial"];
-   edge [fontsize = 10, fontname = "Arial"];
-   compound=true;
-
-
-}
