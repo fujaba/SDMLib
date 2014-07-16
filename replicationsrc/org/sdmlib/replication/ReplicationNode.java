@@ -84,6 +84,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
          sharedSpace.setHistory(history);
 
          ReplicationRoot replicationRoot = new ReplicationRoot();
+         sharedSpace.setReplicationRoot(replicationRoot);
          map.put(SharedSpace.REPLICATION_ROOT, replicationRoot);
          
          if (this.remoteTaskListener != null)
@@ -92,7 +93,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
          }
          
          RemoteTaskBoard remoteTaskBoard = new RemoteTaskBoard();
-         
+         sharedSpace.setRemoteTaskBoard(remoteTaskBoard);
          map.put(SharedSpace.REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
 
          if (this.remoteTaskListener != null)
