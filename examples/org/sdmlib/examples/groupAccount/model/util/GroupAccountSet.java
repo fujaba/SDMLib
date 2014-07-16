@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,7 +27,9 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
+import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.Person;
+import org.sdmlib.examples.groupAccount.model.util.ItemSet;
 import org.sdmlib.examples.groupAccount.model.Item;
 
 public class GroupAccountSet extends SDMSet<GroupAccount>
@@ -210,7 +212,3 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
    }
 
 }
-
-
-
-

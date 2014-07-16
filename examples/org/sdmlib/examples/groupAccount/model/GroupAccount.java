@@ -22,14 +22,21 @@
 package org.sdmlib.examples.groupAccount.model;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
 import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
+import org.sdmlib.examples.groupAccount.model.Person;
 
-public class GroupAccount implements PropertyChangeInterface
+public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {
-
+   public GroupAccount()
+   {
+      this.getPropertyChangeSupport().addPropertyChangeListener(PROPERTY_PERSONS, this);
+   }
    
    //==========================================================================
    
@@ -44,8 +51,7 @@ public class GroupAccount implements PropertyChangeInterface
    public void updateBalances(  )
    {
       // compute share
-      double totalExpenses = this.getItem().getValue().sum();
-      double share = totalExpenses / this.getItem().size();
+      double share = totalPurchase / this.getPersons().size();
       
       for (Person person : this.getPersons())
       {
@@ -226,4 +232,64 @@ public class GroupAccount implements PropertyChangeInterface
       withItem(value);
       return value;
    } 
+   
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TOTALPURCHASE = "totalPurchase";
+
+   private double totalPurchase;
+   
+   public double getTotalPurchase()
+   {
+      return totalPurchase;
+   }
+   
+   public void setTotalPurchase(double totalPurchase)
+   {
+      // this.totalPurchase = totalPurchase;
+   }
+
+   @Override
+   public void propertyChange(PropertyChangeEvent evt)
+   {
+      if (evt.getPropertyName().equals(PROPERTY_PERSONS) && evt.getNewValue() != null)
+      {
+         Person newPerson = (Person) evt.getNewValue();
+         newPerson.getPropertyChangeSupport().addPropertyChangeListener(Person.PROPERTY_TOTALPURCHASE, this);
+      }
+      
+      double oldValue = totalPurchase;
+      totalPurchase = getPersons().getTotalPurchase().sum();
+      
+      if (oldValue != totalPurchase)
+      {
+         this.getPropertyChangeSupport().firePropertyChange(PROPERTY_TOTALPURCHASE, oldValue, totalPurchase);
+      }
+      
+      oldValue = averagePurchase;
+      averagePurchase = totalPurchase / getPersons().size();
+      if (oldValue != averagePurchase)
+      {
+         this.getPropertyChangeSupport().firePropertyChange(PROPERTY_AVERAGEPURCHASE, oldValue, averagePurchase);
+      }
+      
+      updateBalances();
+   }
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_AVERAGEPURCHASE = "averagePurchase";
+
+   private double averagePurchase;
+   
+   public double getAveragePurchase()
+   {
+      return averagePurchase;
+   }
+   
+   public void setAveragePurchase(double averagePurchase)
+   {
+      // this.totalPurchase = totalPurchase;
+   }
 }

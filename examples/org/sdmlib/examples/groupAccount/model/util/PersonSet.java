@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2014 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,8 +27,10 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.groupAccount.model.util.GroupAccountSet;
 import org.sdmlib.examples.groupAccount.model.GroupAccount;
 import java.util.Collections;
+import org.sdmlib.examples.groupAccount.model.util.ItemSet;
 import org.sdmlib.examples.groupAccount.model.Item;
 
 public class PersonSet extends SDMSet<Person>
@@ -96,6 +98,21 @@ public class PersonSet extends SDMSet<Person>
       return result;
    }
 
+   public PersonSet hasName(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public PersonSet withName(String value)
    {
       for (Person obj : this)
@@ -125,6 +142,21 @@ public class PersonSet extends SDMSet<Person>
       for (Person obj : this)
       {
          if (value == obj.getBalance())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PersonSet hasBalance(double lower, double upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower <= obj.getBalance() && obj.getBalance() <= upper)
          {
             result.add(obj);
          }
@@ -249,8 +281,14 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
+
+   public doubleList getTotalPurchase()
+   {
+      doubleList result = new doubleList();
+      for (Person p : this)
+      {
+         result.add(p.getTotalPurchase());
+      }
+      return result;
+   }
 }
-
-
-
-

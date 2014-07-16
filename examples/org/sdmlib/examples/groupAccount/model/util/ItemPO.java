@@ -30,14 +30,14 @@ public class ItemPO extends PatternObject<ItemPO, Item>
 
 
    public ItemPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.groupAccount.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public ItemPO(Item... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.groupAccount.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    public ItemPO hasDescription(String value)
    {

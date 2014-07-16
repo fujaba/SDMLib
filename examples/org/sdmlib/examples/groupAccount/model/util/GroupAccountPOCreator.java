@@ -17,6 +17,6 @@ public class GroupAccountPOCreator extends PatternObjectCreator
    }
    
    public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.examples.groupAccount.model.util.CreatorCreator.createIdMap(sessionID);
    }
 }
