@@ -21,15 +21,13 @@
    
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.model.taskflows.SocketThread;
-
 import java.util.Collection;
 
+import org.sdmlib.model.taskflows.SocketThread;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.model.taskflows.util.SDMLibJsonIdMapSet;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class SocketThreadSet extends SDMSet<SocketThread>

@@ -1,16 +1,12 @@
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.model.taskflows.LogEntry;
 import org.sdmlib.model.taskflows.Logger;
 import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.model.taskflows.util.TaskFlowPO;
 import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.model.taskflows.util.LoggerPO;
-import org.sdmlib.model.taskflows.util.LogEntryPO;
-import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.model.taskflows.util.LogEntrySet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class LoggerPO extends PatternObject<LoggerPO, Logger>
 {

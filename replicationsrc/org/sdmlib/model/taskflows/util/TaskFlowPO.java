@@ -1,10 +1,9 @@
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.taskflows.TaskFlow;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.model.taskflows.util.TaskFlowPO;
 
 public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
 {

@@ -21,17 +21,16 @@
    
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.model.taskflows.FetchFileFlow;
 import java.util.Collection;
-import org.sdmlib.model.taskflows.util.PeerProxySet;
+
+import org.sdmlib.model.taskflows.FetchFileFlow;
 import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.model.taskflows.util.SDMLibJsonIdMapSet;
-import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.model.taskflows.TaskFlow;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class FetchFileFlowSet extends SDMSet<FetchFileFlow>
 {

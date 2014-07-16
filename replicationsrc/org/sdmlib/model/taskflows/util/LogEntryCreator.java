@@ -21,10 +21,11 @@
    
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.model.taskflows.LogEntry;
 import org.sdmlib.model.taskflows.Logger;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class LogEntryCreator extends EntityFactory
 {

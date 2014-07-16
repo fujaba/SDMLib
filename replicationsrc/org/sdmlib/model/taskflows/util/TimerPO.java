@@ -1,7 +1,8 @@
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import java.util.Timer;
+
+import org.sdmlib.models.pattern.PatternObject;
 
 public class TimerPO extends PatternObject<TimerPO, Timer>
 {

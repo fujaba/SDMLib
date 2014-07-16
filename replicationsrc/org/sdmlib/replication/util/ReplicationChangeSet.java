@@ -27,7 +27,6 @@ import java.util.TreeSet;
 
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;

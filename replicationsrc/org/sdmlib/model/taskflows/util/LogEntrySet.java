@@ -21,13 +21,14 @@
    
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.model.taskflows.LogEntry;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.model.taskflows.Logger;
 import java.util.Collections;
+
+import org.sdmlib.model.taskflows.LogEntry;
+import org.sdmlib.model.taskflows.Logger;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class LogEntrySet extends SDMSet<LogEntry>
 {
