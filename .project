@@ -3,6 +3,7 @@
 	<name>SDMLib</name>
 	<comment></comment>
 	<projects>
+		<project>NetworkParser</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

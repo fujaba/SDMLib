@@ -1,0 +1,7 @@
+eclipse {
+	project {
+		name = 'SDMLib'
+		
+		referencedProjects 'NetworkParser'
+	}
+}
