@@ -31,14 +31,14 @@ public class PersonPO extends PatternObject<PersonPO, Person>
 
 
    public PersonPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.groupAccount.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public PersonPO(Person... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.groupAccount.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    public PersonPO hasName(String value)
    {

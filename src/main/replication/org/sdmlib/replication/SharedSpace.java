@@ -52,6 +52,7 @@ import org.sdmlib.replication.util.SharedSpaceSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.SimpleIdCounter;
 import de.uniks.networkparser.interfaces.MapUpdateListener;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
@@ -86,6 +87,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    private int serverPort;
    
    private GUIListener listener = null;
+   
+   private ReplicationRoot replicationRoot;
 
    public SharedSpace()
    {
@@ -106,10 +109,10 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       
       map.withUpdateMsgListener((MapUpdateListener) this);
       
-      ReplicationRoot replicationRoot = new ReplicationRoot();
-      map.put(SharedSpace.REPLICATION_ROOT, replicationRoot);
+      setReplicationRoot(new ReplicationRoot());
+      map.put(SharedSpace.REPLICATION_ROOT, getReplicationRoot());
       
-      return replicationRoot;
+      return getReplicationRoot();
    }
 
    public SharedSpace init(PropertyChangeListener laneListener)
@@ -125,6 +128,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       
       channel.sendSpaceConnectionRequest(spaceId);
       waitForCurrentHistoryId();
+      
+      if (map.getCounter() instanceof SimpleIdCounter)
+      {
+         ((SimpleIdCounter) map.getCounter()).setNumber(this.lastChangeId);
+      }
       
       remoteTaskBoard = new RemoteTaskBoard();
       map.put(REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
@@ -1365,6 +1373,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       return remoteTaskBoard;
    }
+   
+   public void setRemoteTaskBoard(RemoteTaskBoard remoteTaskBoard) 
+   {
+	   this.remoteTaskBoard = remoteTaskBoard;
+   }
 
    public void setReadMessages(boolean readMessages)
    {
@@ -1521,7 +1534,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    }
    
    private Map<String, MousePositionInfo> mousePositions = new HashMap<String, MousePositionInfo>();
-   
+
    public void setMousePositionAndWindowIdForUser(String userId, double x, double y, String windowId)
    {
       MousePositionInfo info = mousePositions.get(userId);
@@ -1546,6 +1559,16 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       {
          return null;
       }
+   }
+
+   public ReplicationRoot getReplicationRoot()
+   {
+      return replicationRoot;
+   }
+
+   public void setReplicationRoot(ReplicationRoot replicationRoot)
+   {
+      this.replicationRoot = replicationRoot;
    }
 }
 

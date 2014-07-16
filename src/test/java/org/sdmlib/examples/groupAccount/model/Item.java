@@ -62,7 +62,7 @@ public class Item implements PropertyChangeInterface
    
    public static final String PROPERTY_DESCRIPTION = "description";
    
-   private String description;
+   private String description = "Item?";
 
    public String getDescription()
    {

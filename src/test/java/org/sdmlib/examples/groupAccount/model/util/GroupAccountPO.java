@@ -31,14 +31,14 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
 
 
    public GroupAccountPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.groupAccount.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public GroupAccountPO(GroupAccount... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.groupAccount.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    
    //==========================================================================
