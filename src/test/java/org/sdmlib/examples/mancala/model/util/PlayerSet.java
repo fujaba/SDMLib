@@ -31,6 +31,10 @@ import java.util.Collections;
 import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Kalah;
 import org.sdmlib.examples.mancala.model.Stone;
+import org.sdmlib.examples.mancala.model.util.MancalaSet;
+import org.sdmlib.examples.mancala.model.util.PitSet;
+import org.sdmlib.examples.mancala.model.util.KalahSet;
+import org.sdmlib.examples.mancala.model.util.StoneSet;
 
 public class PlayerSet extends SDMSet<Player>
 {

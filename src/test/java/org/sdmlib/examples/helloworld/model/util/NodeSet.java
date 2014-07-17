@@ -30,6 +30,8 @@ import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.helloworld.model.util.GraphSet;
+import org.sdmlib.examples.helloworld.model.util.EdgeSet;
 
 public class NodeSet extends SDMSet<Node>
 {

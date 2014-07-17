@@ -38,6 +38,20 @@ import org.sdmlib.storyboards.Kanban;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.PatternLink;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
+import org.sdmlib.models.pattern.CloneOp;
+import org.sdmlib.models.pattern.UnifyGraphsOp;
+import org.sdmlib.models.pattern.DestroyObjectElem;
+import org.sdmlib.models.pattern.CardinalityConstraint;
+import org.sdmlib.models.pattern.MatchOtherThen;
+import org.sdmlib.models.pattern.GenericConstraint;
+import org.sdmlib.models.pattern.NegativeApplicationCondition;
+import org.sdmlib.models.pattern.OptionalSubPattern;
+import org.sdmlib.models.pattern.LinkConstraint;
 
 public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
 {

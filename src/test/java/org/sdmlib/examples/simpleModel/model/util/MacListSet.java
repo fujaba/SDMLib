@@ -19,104 +19,101 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.storyboards.util;
+package org.sdmlib.examples.simpleModel.model.util;
 
-import java.util.Collection;
-
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardWall;
-import org.sdmlib.storyboards.util.StoryboardSet;
+import org.sdmlib.examples.simpleModel.model.MacList;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.StringList;
 
-public class StoryboardWallSet extends SDMSet<StoryboardWall>
+public class MacListSet extends SDMSet<MacList>
 {
-        private static final long serialVersionUID = 1L;
 
 
-   public StoryboardWallPO hasStoryboardWallPO()
+   public MacListPO hasMacListPO()
    {
-      return new StoryboardWallPO (this.toArray(new StoryboardWall[this.size()]));
+      return new MacListPO(this.toArray(new MacList[this.size()]));
    }
 
 
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.storyboards.StoryboardWall";
+      return "org.sdmlib.examples.simpleModel.model.MacList";
    }
 
 
-   public StoryboardWallSet with(Object value)
+   @SuppressWarnings("unchecked")
+   public MacListSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<StoryboardWall>)value);
+         this.addAll((Collection<MacList>)value);
       }
       else if (value != null)
       {
-         this.add((StoryboardWall) value);
+         this.add((MacList) value);
       }
       
       return this;
    }
    
-   public StoryboardWallSet without(StoryboardWall value)
+   public MacListSet without(MacList value)
    {
       this.remove(value);
       return this;
    }
 
-   public StoryboardSet getStoryboard()
+   public StringList getName()
    {
-      StoryboardSet result = new StoryboardSet();
+      StringList result = new StringList();
       
-      for (StoryboardWall obj : this)
+      for (MacList obj : this)
       {
-         result.with(obj.getStoryboard());
+         result.add(obj.getName());
       }
       
       return result;
    }
 
-   public StoryboardWallSet hasStoryboard(Object value)
+   public MacListSet hasName(String value)
    {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
+      MacListSet result = new MacListSet();
       
-      StoryboardWallSet answer = new StoryboardWallSet();
-      
-      for (StoryboardWall obj : this)
+      for (MacList obj : this)
       {
-         if (neighbors.contains(obj.getStoryboard()))
+         if (value.equals(obj.getName()))
          {
-            answer.add(obj);
+            result.add(obj);
          }
       }
       
-      return answer;
+      return result;
    }
 
-   public StoryboardWallSet withStoryboard(Storyboard value)
+   public MacListSet hasName(String lower, String upper)
    {
-      for (StoryboardWall obj : this)
+      MacListSet result = new MacListSet();
+      
+      for (MacList obj : this)
       {
-         obj.withStoryboard(value);
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MacListSet withName(String value)
+   {
+      for (MacList obj : this)
+      {
+         obj.setName(value);
       }
       
       return this;
    }
 
 }
-
-
-
-

@@ -43,17 +43,17 @@ public class ProjectBoard
       {
          Storyboard story;
    
-         story = new Storyboard("examples", "MiniTutorials");
+         story = new Storyboard("src/main/java", "MiniTutorials");
          story.setSprint("ToDo");
          story.addLogEntry(Kanban.BACKLOG, "zuendorf", "06.03.2014 14:13:42", 0, 12, "high priority");
          story.dumpHTML();
          
-         story = new Storyboard("examples", "FeatureList");
+         story = new Storyboard("src/main/java", "FeatureList");
          story.setSprint("ToDo");
          story.addLogEntry(Kanban.BACKLOG, "zuendorf", "06.03.2014 14:25:42", 0, 6, "medium priority");
          story.dumpHTML();
          
-         story = new Storyboard("examples", "POJO Code enhancer");
+         story = new Storyboard("src/main/java", "POJO Code enhancer");
          story.setSprint("ToDo");
          story.addLogEntry(Kanban.BACKLOG, "zuendorf", "06.03.2014 22:25:42", 0, 6, "high priority");
          
@@ -66,7 +66,7 @@ public class ProjectBoard
       {
          Storyboard story = new Storyboard();
 
-         story = new Storyboard("examples", "GenerateTransitiveClosureGetter");
+         story = new Storyboard("src/main/java", "GenerateTransitiveClosureGetter");
          story.setSprint("Features");
          story.add("This feature has been tested within <a href='StudyRight%20with%20assignments%20class%20generation.html'>StudyRight with assignments class generation</a> ");
          story.addLogEntry(Kanban.BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");

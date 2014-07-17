@@ -28,6 +28,8 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.mancala.model.Mancala;
 import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.examples.mancala.model.util.MancalaSet;
+import org.sdmlib.examples.mancala.model.util.PlayerSet;
 
 public class PitSet extends SDMSet<Pit>
 {

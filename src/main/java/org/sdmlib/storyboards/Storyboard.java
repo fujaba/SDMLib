@@ -990,6 +990,7 @@ public class Storyboard implements PropertyChangeInterface
       public RestrictToFilter(LinkedHashSet<Object> explicitElems)
       {
          this.explicitElems = explicitElems;
+  
       }
 
       @Override

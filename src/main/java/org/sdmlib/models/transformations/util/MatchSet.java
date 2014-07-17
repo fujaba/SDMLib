@@ -30,6 +30,8 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import java.util.Collections;
+import org.sdmlib.models.transformations.util.TemplateSet;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 
 public class MatchSet extends SDMSet<Match>
 {
