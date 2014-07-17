@@ -106,9 +106,9 @@ public class ReplicationModel
       
       replicationRoot.withAssoc(replicationRoot, "kids", Card.MANY, "parent", Card.ONE);
       
-      model.generate("replicationsrc");
+      model.generate("src/main/replication");
 
-      storyboard.addClassDiagram(model, "src");
+      storyboard.addClassDiagram(model, "src/main/replication");
 
       storyboard.dumpHTML();
    }

@@ -29,6 +29,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.util.SharedSpaceSet;
 
 public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
 {

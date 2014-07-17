@@ -34,6 +34,7 @@ import org.sdmlib.replication.util.ReplicationChannelSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
+import java.beans.PropertyChangeListener;
 
 public class ReplicationChannel extends Thread implements
       PropertyChangeInterface

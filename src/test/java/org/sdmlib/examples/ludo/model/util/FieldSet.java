@@ -33,6 +33,9 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.ludo.model.util.LudoSet;
+import org.sdmlib.examples.ludo.model.util.PlayerSet;
+import org.sdmlib.examples.ludo.model.util.PawnSet;
 
 public class FieldSet extends SDMSet<Field>
 {

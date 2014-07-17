@@ -31,6 +31,9 @@ import org.sdmlib.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.examples.studyrightWithAssignments.model.Room;
 import java.util.Collections;
 import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
 
 public class StudentSet extends SDMSet<Student>
 {

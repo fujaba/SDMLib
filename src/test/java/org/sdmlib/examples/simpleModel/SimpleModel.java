@@ -21,7 +21,7 @@ public class SimpleModel
       
       // Enable Special Thinks
       model.getGenerator().withShowDiff(DIFF.FULL);
-      model.generate("examples");
+      model.generate("src/test/java");
    }
    
    @Test
@@ -31,6 +31,6 @@ public class SimpleModel
       helperClazz.createMethod("init").withBody("System.out.println(new Date());").with(Visibility.STATIC);
       helperClazz.withImport("java.util.Date");
       
-      model.generate("examples");
+      model.generate("src/test/java");
    }
 }

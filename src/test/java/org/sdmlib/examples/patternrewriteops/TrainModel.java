@@ -33,7 +33,7 @@ public class TrainModel
       
       storyboard.addClassDiagram(model);
       
-      model.generate("examples");
+      model.generate("src/test/java");
       
       storyboard.dumpHTML();
 	}

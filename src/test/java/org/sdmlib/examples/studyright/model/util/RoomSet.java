@@ -32,6 +32,10 @@ import org.sdmlib.examples.studyright.model.Lecture;
 import org.sdmlib.examples.studyright.model.University;
 import org.sdmlib.examples.studyright.model.Student;
 import org.sdmlib.examples.studyright.model.Assignment;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
+import org.sdmlib.examples.studyright.model.util.UniversitySet;
+import org.sdmlib.examples.studyright.model.util.StudentSet;
+import org.sdmlib.examples.studyright.model.util.AssignmentSet;
 
 public class RoomSet extends SDMSet<Room>
 {

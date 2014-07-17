@@ -27,6 +27,7 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.m2m.model.Graph;
+import org.sdmlib.examples.m2m.model.util.GraphSet;
 
 public class GraphComponentSet extends SDMSet<GraphComponent>
 {

@@ -70,7 +70,7 @@ public class HelloWorldTTC2011
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model, "examples");
 
@@ -149,7 +149,7 @@ public class HelloWorldTTC2011
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 
@@ -301,7 +301,7 @@ public class HelloWorldTTC2011
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model, "examples");
 
@@ -576,7 +576,7 @@ public class HelloWorldTTC2011
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 
@@ -613,7 +613,7 @@ public class HelloWorldTTC2011
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 
@@ -631,7 +631,7 @@ public class HelloWorldTTC2011
       .withTarget(nodeClazz, "copy", Card.ONE)
       .withSource(nodeClazz, "orig", Card.ONE);
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 
@@ -748,7 +748,7 @@ public class HelloWorldTTC2011
 
       nodeClazz.withAssoc(nodeClazz, "linksTo", Card.MANY, "linksFrom", Card.MANY);
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 
@@ -805,7 +805,7 @@ public class HelloWorldTTC2011
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 
@@ -842,7 +842,7 @@ public class HelloWorldTTC2011
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 
@@ -890,7 +890,7 @@ public class HelloWorldTTC2011
 
       nodeClazz.withAssoc(nodeClazz, "linksTo", Card.MANY, "linksFrom", Card.MANY);
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 

@@ -20,6 +20,6 @@ public class testGenModel
       createClazz.withSuperClazz(arrayListClazz);
       
       // Enable Special Thinks
-      model.generate("examples");
+      model.generate("src/test/java");
    }
 }

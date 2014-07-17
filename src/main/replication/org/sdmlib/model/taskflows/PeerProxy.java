@@ -33,6 +33,7 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import java.beans.PropertyChangeListener;
 
 public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 {

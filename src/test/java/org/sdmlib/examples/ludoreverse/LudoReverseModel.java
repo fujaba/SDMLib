@@ -32,7 +32,7 @@ public class LudoReverseModel
             .withAttribute("color", DataType.STRING)
             .withAssoc(ludo, "players", Card.MANY, "game", Card.ONE);
 
-      model.generate("examples");
+      model.generate("src/test/java");
    }
 
    @Test

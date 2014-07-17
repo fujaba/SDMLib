@@ -58,7 +58,7 @@ public class GroupAccountClassModel
       
       // model.removeAllGeneratedCode("examples");
       
-      model.generate("examples");
+      model.generate("src/test/java");
       
       storyboard.addClassDiagram(model);
       

@@ -41,6 +41,7 @@ public class SharedSpaceCreator extends EntityFactory
       SharedSpace.PROPERTY_HISTORY,
       SharedSpace.PROPERTY_LASTCHANGEID,
       SharedSpace.PROPERTY_NODEID,
+      SharedSpace.PROPERTY_JAVAFXAPPLICATION,
    };
    
    @Override
@@ -106,6 +107,11 @@ public class SharedSpaceCreator extends EntityFactory
          return ((SharedSpace) target).getNodeId();
       }
 
+      if (SharedSpace.PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attribute))
+      {
+         return ((SharedSpace) target).isJavaFXApplication();
+      }
+
       return null;
    }
    
@@ -168,6 +174,12 @@ public class SharedSpaceCreator extends EntityFactory
       if (SharedSpace.PROPERTY_NODEID.equalsIgnoreCase(attrName))
       {
          ((SharedSpace) target).withNodeId((String) value);
+         return true;
+      }
+
+      if (SharedSpace.PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
+      {
+         ((SharedSpace) target).withJavaFXApplication((Boolean) value);
          return true;
       }
 

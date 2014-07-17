@@ -1571,5 +1571,33 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       this.replicationRoot = replicationRoot;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_JAVAFXAPPLICATION = "javaFXApplication";
+   
+   private boolean javaFXApplication;
+
+   public boolean isJavaFXApplication()
+   {
+      return this.javaFXApplication;
+   }
+   
+   public void setJavaFXApplication(boolean value)
+   {
+      if (this.javaFXApplication != value)
+      {
+         boolean oldValue = this.javaFXApplication;
+         this.javaFXApplication = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_JAVAFXAPPLICATION, oldValue, value);
+      }
+   }
+   
+   public SharedSpace withJavaFXApplication(boolean value)
+   {
+      setJavaFXApplication(value);
+      return this;
+   } 
 }
 

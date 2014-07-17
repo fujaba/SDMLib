@@ -30,6 +30,8 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.examples.studyright.model.Room;
 import org.sdmlib.examples.studyright.model.Student;
+import org.sdmlib.examples.studyright.model.util.RoomSet;
+import org.sdmlib.examples.studyright.model.util.StudentSet;
 
 public class AssignmentSet extends SDMSet<Assignment>
 {

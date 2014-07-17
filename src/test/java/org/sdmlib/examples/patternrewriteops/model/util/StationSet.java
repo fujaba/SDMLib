@@ -30,6 +30,9 @@ import org.sdmlib.examples.patternrewriteops.model.Station;
 import org.sdmlib.examples.patternrewriteops.model.Train;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.patternrewriteops.model.util.TrainSet;
+import org.sdmlib.examples.patternrewriteops.model.util.PersonSet;
+import org.sdmlib.examples.patternrewriteops.model.util.SignalFlagSet;
 
 public class StationSet extends SDMSet<Station>
 {

@@ -27,6 +27,7 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardWall;
+import org.sdmlib.storyboards.util.StoryboardSet;
 
 public class StoryboardWallSet extends SDMSet<StoryboardWall>
 {

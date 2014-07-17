@@ -27,6 +27,7 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyright.model.Professor;
+import org.sdmlib.examples.studyright.model.util.ProfessorSet;
 
 public class TopicSet extends SDMSet<Topic>
 {

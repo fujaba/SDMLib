@@ -30,6 +30,8 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.examples.studyright.model.Lecture;
 import org.sdmlib.examples.studyright.model.Topic;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
+import org.sdmlib.examples.studyright.model.util.TopicSet;
 
 public class ProfessorSet extends SDMSet<Professor>
 {

@@ -80,7 +80,7 @@ public class BanfM2MTransformations
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
-      model.generate("examples");
+      model.generate("src/test/java");
       
       storyboard.addClassDiagram(model);
       
@@ -128,7 +128,7 @@ public class BanfM2MTransformations
       
       nodeClazz.withAssoc(nodeClazz, "knows", Card.MANY, "knows", Card.MANY);
       
-      model.generate("examples");
+      model.generate("src/test/java");
       
       storyboard.addClassDiagram(model);
       

@@ -56,7 +56,7 @@ public class GenericGraphModel
       
       // genericModel.removeAllGeneratedCode("test", "src", "srchelpers");
      
-      genericModel.generate("src");
+      genericModel.generate("src/main/java");
       
       storyboard.dumpHTML();
 

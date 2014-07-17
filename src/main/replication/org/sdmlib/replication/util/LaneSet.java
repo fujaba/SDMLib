@@ -30,6 +30,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
+import org.sdmlib.replication.util.RemoteTaskBoardSet;
+import org.sdmlib.replication.util.BoardTaskSet;
 
 public class LaneSet extends SDMSet<Lane>
 {

@@ -28,6 +28,8 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.mancala.model.Player;
 import java.util.Collections;
 import org.sdmlib.examples.mancala.model.Pit;
+import org.sdmlib.examples.mancala.model.util.PlayerSet;
+import org.sdmlib.examples.mancala.model.util.PitSet;
 
 public class MancalaSet extends SDMSet<Mancala>
 {

@@ -157,7 +157,7 @@ public class PatternModelCodeGen
       
       // model.getGenerator().withShowDiff(DIFF.FULL);
       
-      model.generate("src");
+      model.generate("src/main/java");
       
       storyboard.addClassDiagram(model);
            

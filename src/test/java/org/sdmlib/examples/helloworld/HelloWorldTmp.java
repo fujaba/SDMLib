@@ -16,7 +16,7 @@ public class HelloWorldTmp
 
       nodeClazz.withAssoc(nodeClazz, "copy", Card.ONE, "orig", Card.ONE);
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
    }
 }

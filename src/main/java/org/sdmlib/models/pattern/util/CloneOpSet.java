@@ -28,6 +28,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
 {

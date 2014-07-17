@@ -983,29 +983,6 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   class RestrictToFilter extends ConditionMap
-   {
-      private LinkedHashSet<Object> explicitElems;
-
-      public RestrictToFilter(LinkedHashSet<Object> explicitElems)
-      {
-         this.explicitElems = explicitElems;
-      }
-
-      @Override
-      public boolean matches(ValuesMap values)
-      {
-         if (values.value != null
-            && ("Integer Float Double Long Boolean String"
-               .indexOf(values.value.getClass().getSimpleName()) >= 0))
-         {
-            return true;
-         }
-         return explicitElems.contains(values.value);
-      }
-   }
-
-
    public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, ConditionMap filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
@@ -1634,5 +1611,29 @@ public class Storyboard implements PropertyChangeInterface
    public void dumpDiagram(PatternObject<?, ?> po, String name) {
       po.getPattern().dumpDiagram(name);
    }
+   
+   class RestrictToFilter extends ConditionMap
+   {
+      private LinkedHashSet<Object> explicitElems;
+
+      public RestrictToFilter(LinkedHashSet<Object> explicitElems)
+      {
+         this.explicitElems = explicitElems;
+  
+      }
+
+      @Override
+      public boolean matches(ValuesMap values)
+      {
+         if (values.value != null
+            && ("Integer Float Double Long Boolean String"
+               .indexOf(values.value.getClass().getSimpleName()) >= 0))
+         {
+            return true;
+         }
+         return explicitElems.contains(values.value);
+      }
+   }
+
 }
 

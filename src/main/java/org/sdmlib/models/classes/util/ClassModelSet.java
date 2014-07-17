@@ -27,6 +27,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.ClazzSet;
 
 public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
 {

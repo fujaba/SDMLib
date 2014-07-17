@@ -29,6 +29,8 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.m2m.model.Graph;
 import java.util.Collections;
 import org.sdmlib.examples.m2m.model.Relation;
+import org.sdmlib.examples.m2m.model.util.GraphSet;
+import org.sdmlib.examples.m2m.model.util.RelationSet;
 
 public class PersonSet extends SDMSet<Person>
 {

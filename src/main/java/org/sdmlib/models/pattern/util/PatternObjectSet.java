@@ -33,6 +33,11 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.util.AttributeConstraintSet;
+import org.sdmlib.models.pattern.util.DestroyObjectElemSet;
+import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
+import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 
 public class PatternObjectSet extends LinkedHashSet<PatternObject>
 {

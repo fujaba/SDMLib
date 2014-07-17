@@ -29,6 +29,9 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.studyright.model.Room;
 import org.sdmlib.examples.studyright.model.Professor;
 import org.sdmlib.examples.studyright.model.Student;
+import org.sdmlib.examples.studyright.model.util.RoomSet;
+import org.sdmlib.examples.studyright.model.util.ProfessorSet;
+import org.sdmlib.examples.studyright.model.util.StudentSet;
 
 public class LectureSet extends SDMSet<Lecture>
 {

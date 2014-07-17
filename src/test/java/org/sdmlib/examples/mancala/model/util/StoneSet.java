@@ -26,6 +26,7 @@ import org.sdmlib.examples.mancala.model.Stone;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.examples.mancala.model.util.PlayerSet;
 
 public class StoneSet extends SDMSet<Stone>
 {
