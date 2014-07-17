@@ -683,6 +683,10 @@ public class Parser
       {
          typeString.append("[]");
          skip("[");
+         while (! "]".equals(currentRealWord()) && ! currentRealKindEquals(EOF))
+         {
+            nextRealToken();
+         }
          skip("]");
       }
 
@@ -1461,6 +1465,10 @@ public class Parser
 
             skip(';');
          }
+         else if (currentRealTokenEquals("new"))
+         {
+            parseSimpleStatementDetails();
+         }
          else if (currentRealKindEquals('v')
                && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '=' || lookAheadRealToken.kind == '<'))
          {
@@ -1658,24 +1666,27 @@ public class Parser
          methodCallElements.add("new " + type);
          currentStatement.withToken(type, currentRealToken.endPos);
 
-         readToken('(');
-
-         while (! currentRealKindEquals(Parser.EOF)
-               && ! currentRealKindEquals(')'))
+         if ( currentRealKindEquals('('))
          {
-            int paramStartPos = currentRealToken.startPos;
-            parseExpressionDetails();
-            int paramEndPos = previousRealToken.endPos;
+            readToken('(');
 
-            methodCallElements.add(fileBody.substring(paramStartPos, paramEndPos + 1));
-
-            if (currentRealKindEquals(','))
+            while (! currentRealKindEquals(Parser.EOF)
+                  && ! currentRealKindEquals(')'))
             {
-               readToken (',');
-            }
-         }
+               int paramStartPos = currentRealToken.startPos;
+               parseExpressionDetails();
+               int paramEndPos = previousRealToken.endPos;
 
-         readToken (')');
+               methodCallElements.add(fileBody.substring(paramStartPos, paramEndPos + 1));
+
+               if (currentRealKindEquals(','))
+               {
+                  readToken (',');
+               }
+            }
+
+            readToken (')');
+         }
       }
       else if (currentRealKindEquals('v'))
       {
