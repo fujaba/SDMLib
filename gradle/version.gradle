@@ -30,8 +30,16 @@ class Version {
 def getGitTag() {
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine 'git', 'describe', '--abbrev=0', '--tags'
+        commandLine 'git', 'tag'
         standardOutput = stdout
     }
-    stdout.toString().trim() as int
+    int max = 0;
+	for(String line : stdout.split("\n")){
+		try{
+			int val = Integer.parseInt(line.trim());
+			if(val > max) max = val;
+		}catch(NumberFormatException e){				
+		}			
+	}
+	return max;
 }
