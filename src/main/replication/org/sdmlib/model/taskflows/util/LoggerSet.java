@@ -32,6 +32,7 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.model.taskflows.util.LogEntrySet;
 
 public class LoggerSet extends SDMSet<Logger>
 {
