@@ -1,13 +1,11 @@
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.taskflows.FetchFileFlow;
 import org.sdmlib.model.taskflows.PeerProxy;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.model.taskflows.util.TaskFlowPO;
 import org.sdmlib.model.taskflows.TaskFlow;
-import org.sdmlib.model.taskflows.util.FetchFileFlowPO;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class FetchFileFlowPO extends PatternObject<FetchFileFlowPO, FetchFileFlow>
 {

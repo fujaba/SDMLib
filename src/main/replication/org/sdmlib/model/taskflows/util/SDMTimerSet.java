@@ -21,9 +21,10 @@
    
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.model.taskflows.SDMTimer;
 import java.util.Collection;
+
+import org.sdmlib.model.taskflows.SDMTimer;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class SDMTimerSet extends SDMSet<SDMTimer>
 {

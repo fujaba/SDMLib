@@ -21,9 +21,10 @@
    
 package org.sdmlib.model.taskflows.util;
 
+import java.util.Collection;
+
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import java.util.Collection;
 
 public class SDMLibJsonIdMapSet extends SDMSet<SDMLibJsonIdMap>
 {

@@ -140,6 +140,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       if (laneListener != null)
       {
          remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(laneListener);
+         replicationRoot.addPropertyChangeListener(laneListener);
       }
       
       return this;

@@ -1,12 +1,9 @@
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.model.taskflows.util.LoggerPO;
 import org.sdmlib.model.taskflows.Logger;
-import org.sdmlib.model.taskflows.util.LogEntryPO;
-import org.sdmlib.model.taskflows.util.LogEntrySet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LogEntryPO extends PatternObject<LogEntryPO, LogEntry>
 {

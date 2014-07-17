@@ -24,6 +24,7 @@ package org.sdmlib.replication;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.StrUtil;
@@ -31,10 +32,13 @@ import org.sdmlib.replication.util.ReplicationNodeCreator;
 import org.sdmlib.replication.util.SharedSpaceSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class ReplicationNode extends Thread implements PropertyChangeInterface
 {
+   private Collection<SendableEntityCreator> modelCreators = new LinkedHashSet<SendableEntityCreator>();
+   
    // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -78,6 +82,13 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
          // add replication root 
          JsonIdMap map = ReplicationNodeCreator.createIdMap("s42");
          
+         map.withCreator(modelCreators);
+         
+         for (SendableEntityCreator sendableEntityCreator : map.getCreators())
+         {
+            System.out.println(sendableEntityCreator.toString());
+         }
+         
          sharedSpace.withMap(map);
          
          ChangeHistory history = new ChangeHistory();
@@ -87,17 +98,13 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
          sharedSpace.setReplicationRoot(replicationRoot);
          map.put(SharedSpace.REPLICATION_ROOT, replicationRoot);
          
-         if (this.remoteTaskListener != null)
-         {
-            replicationRoot.addPropertyChangeListener(this.remoteTaskListener);
-         }
-         
          RemoteTaskBoard remoteTaskBoard = new RemoteTaskBoard();
          sharedSpace.setRemoteTaskBoard(remoteTaskBoard);
          map.put(SharedSpace.REMOTE_TASK_BOARD_ROOT, remoteTaskBoard);
 
          if (this.remoteTaskListener != null)
          {
+            replicationRoot.addPropertyChangeListener(this.remoteTaskListener);
             remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(this.remoteTaskListener);
             
             this.remoteTaskListener.propertyChange(new PropertyChangeEvent(sharedSpace, "new", null, remoteTaskBoard));
@@ -370,6 +377,12 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
    {
       setJavaFXApplication(value);
       return this;
-   } 
+   }
+
+   public Collection<SendableEntityCreator> getModelCreators()
+   {
+      return modelCreators;
+   }
+
 }
 

@@ -1,7 +1,7 @@
 package org.sdmlib.model.taskflows.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.model.taskflows.SDMTimer;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class SDMTimerPO extends PatternObject<SDMTimerPO, SDMTimer>
 {

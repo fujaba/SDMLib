@@ -21,15 +21,14 @@
    
 package org.sdmlib.replication.util;
 
+import java.net.Socket;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.SocketSet;
-import java.net.Socket;
-import org.sdmlib.models.modelsets.StringList;
 
 public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
 {
