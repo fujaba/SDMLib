@@ -52,7 +52,7 @@ public class ClassModel extends SDMLibClass
    
 	public ClassModel generate()
 	{
-		return generate("src");
+		return generate("src/main/java");
 	}
 
 	public ClassModel generate(String rootDir)

@@ -65,7 +65,7 @@ public class TaskFlowModel
 
       storyboard.addClassDiagram(model, "replicationsrc");
 
-      model.generate("replicationsrc");
+      model.generate("src/main/replication");
 
       storyboard.addToDo("WrapExistingClasses", "backlog", "zuendorf",
          "02.11.2012 13:42:42", 5, 0);

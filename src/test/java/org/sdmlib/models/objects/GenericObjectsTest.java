@@ -133,7 +133,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
       //====================================================================================================
       storyboard.add("Step 6: generate code from the learned class diagram ");
-      model.generate("examples");
+      model.generate("src/test/java");
 
       //====================================================================================================
       storyboard.add("Step 7: derive non-generic objects from the generic objects ",

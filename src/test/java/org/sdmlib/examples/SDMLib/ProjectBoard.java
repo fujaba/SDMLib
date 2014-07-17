@@ -157,7 +157,7 @@ public class ProjectBoard
       
       storyboard.addClassDiagram(model);
       
-      model.generate("src");
+      model.generate("src/main/java");
 
       storyboard.add(" Editing the log entries works now fine as part of the add method. " , 
             DONE, "zuendorf", "07.05.2012 23:36:42", 0, 0);

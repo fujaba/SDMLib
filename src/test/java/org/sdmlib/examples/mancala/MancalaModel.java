@@ -50,7 +50,7 @@ public class MancalaModel {
         Clazz stone = model.createClazz("Stone")
                 .withAssoc(player, "player", Card.ONE, "stone", Card.ONE);
 
-        model.generate("examples"); //<11>
+        model.generate("src/test/java"); //<11>
         //model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);
 
         //end::mancala[]

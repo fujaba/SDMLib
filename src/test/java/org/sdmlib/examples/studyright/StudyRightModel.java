@@ -203,7 +203,7 @@ public class StudyRightModel implements PropertyChangeInterface
       
       // model.removeAllGeneratedCode("examples", "examples", "examplehelpers");
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.addClassDiagram(model);
 
@@ -294,7 +294,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       
       //============================================================
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.add("5. generate generic set for attributes and assocs", 
          IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
@@ -425,7 +425,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.addClassDiagram(model);
 
-      model.generate("examples");
+      model.generate("src/test/java");
 
       storyboard.add("One to one assocs now work. ", DONE, "zuendorf", "20.05.2012 15:19:42", 1, 0);
 

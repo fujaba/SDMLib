@@ -36,7 +36,7 @@ public class BanfM2MModelGen
       
       nodeClazz.withAssoc(nodeClazz, "knows", Card.MANY, "knows", Card.MANY);
 
-      model.generate("examples");
+      model.generate("src/test/java");
       
       return model;
    }

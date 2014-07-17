@@ -158,7 +158,7 @@ public class ClassModelTest
 //         .withIgnoreClazz("org.sdmlib.models.classes.Attribute")
 //         .withShowDiff(DIFF.DIFF);
       
-      model.generate("src");
+      model.generate("src/main/java");
       
 //      StoryboardManager.get()
 //      .add(storyboard)

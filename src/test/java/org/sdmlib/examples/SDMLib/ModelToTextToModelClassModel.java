@@ -75,7 +75,7 @@ public class ModelToTextToModelClassModel
       
       story.addClassDiagram(model);
       
-      model.generate("src");
+      model.generate("src/main/java");
       
       story.addLogEntry(Kanban.DONE, "zuendorf", "23.02.2014 17:50:42", 50, 0, "Solving tricky parsing issue. Enabling reference lookup on demand");
       

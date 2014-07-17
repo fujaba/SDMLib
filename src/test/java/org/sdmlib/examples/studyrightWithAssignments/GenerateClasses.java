@@ -138,7 +138,7 @@ public class GenerateClasses {
 
       model.removeAllGeneratedCode("examples");
 
-      model.generate("examples"); // usually don't specify anything here, then it goes into src
+      model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
 
 
       StoryboardManager.get()
