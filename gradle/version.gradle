@@ -37,7 +37,11 @@ def getGitTag() {
     def test = []
     
     stdout.toString().eachLine {
+	try {
 	    test << (it.trim() as int)
+	} catch (Exception e) {
+	    // no ex
+	}
     }
     test.max()
  }
