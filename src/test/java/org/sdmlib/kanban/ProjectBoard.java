@@ -100,7 +100,7 @@ public class ProjectBoard
             , Kanban.DONE, "zuendorf", "08.10.2013 13:30:42", 1, 0);
          
          story.addToDo("ExtendStoryboardByAddToDoMethod", Kanban.DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
-         .linkToTest("test", this.getClass().getName());
+         .linkToTest("src/test/java", this.getClass().getName());
          
          story.dumpHTML();
          
