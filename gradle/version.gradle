@@ -33,13 +33,12 @@ def getGitTag() {
         commandLine 'git', 'tag'
         standardOutput = stdout
     }
-    int max = 0;
-	for(String line : stdout.toString().split("\n")){
-		try{
-			int val = Integer.parseInt(line.trim());
-			if(val > max) max = val;
-		}catch(NumberFormatException e){				
-		}			
-	}
-	return max;
-}
+
+    def test = []
+    
+    stdout.toString().eachLine {
+	    test << (it.trim() as int)
+    }
+    test.max()
+ }
+
