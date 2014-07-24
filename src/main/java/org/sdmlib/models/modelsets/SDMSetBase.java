@@ -66,6 +66,7 @@ public class SDMSetBase<T> extends ItemList<T>
    {
       @SuppressWarnings("unchecked")
       ST result = (ST) this.getNewInstance();
+      result.addAll(this);
       result.retainAll(other);
       return result;
    }

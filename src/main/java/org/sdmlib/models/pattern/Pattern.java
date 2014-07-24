@@ -29,6 +29,7 @@ import java.util.LinkedHashSet;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GraphFactory;
+import org.sdmlib.doc.GraphVizAdapter.GraphViz;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
@@ -38,6 +39,7 @@ import org.sdmlib.storyboards.Kanban;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.PatternLink;
@@ -64,7 +66,8 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
 
 	public GuiAdapter getAdapter() {
 		if (adapter == null) {
-			adapter = GraphFactory.getAdapter();
+			// adapter = GraphFactory.getAdapter();
+		   adapter = new GraphViz().withDrawer(new org.sdmlib.doc.GraphViz());
 		}
 		return adapter;
 	}

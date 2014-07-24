@@ -99,7 +99,7 @@ public class GraphViz implements GuiFileDrawer
          docDir.mkdirs();
       }
 
-      URL absolutePath = GraphViz.class.getResource("../../../SDMLib.gwt.xml");
+      URL absolutePath = GraphViz.class.getResource("../../..");
       if (absolutePath == null)
       {
          return false;
@@ -109,9 +109,10 @@ public class GraphViz implements GuiFileDrawer
          File root = new File("" + absolutePath).getParentFile()
             .getParentFile().getParentFile();
          String rootPath = root.getPath().replace("file:\\", "");
-         String makeimageFile = rootPath + "/tools/makeimage.bat";
+         rootPath = rootPath + "\\SDMLib";
+         String makeimageFile = rootPath + "\\Adapter\\GraphViz\\Resources\\win32\\makeimage.bat";
          command = new String[]
-         { makeimageFile, imgName, rootPath };
+         { makeimageFile, "doc\\" + imgName, rootPath };
       }
       else if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
       {
