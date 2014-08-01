@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 christian 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,24 +18,22 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
+   
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.EnumerationValue;
+import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.classes.Enumeration;
 
-public class ClassModelCreator extends EntityFactory
+public class EnumerationValueCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      ClassModel.PROPERTY_CLASSES,
-      ClassModel.PROPERTY_NAME,
-      ClassModel.PROPERTY_ENUMERATIONS
+      EnumerationValue.PROPERTY_VALUENAME,
+      SDMLibClass.PROPERTY_NAME,
+      EnumerationValue.PROPERTY_ENUMERATION,
    };
    
    @Override
@@ -44,14 +42,10 @@ public class ClassModelCreator extends EntityFactory
       return properties;
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ClassModel();
+      return new EnumerationValue();
    }
    
    @Override
@@ -65,19 +59,19 @@ public class ClassModelCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
+      if (EnumerationValue.PROPERTY_VALUENAME.equalsIgnoreCase(attribute))
+      {
+         return ((EnumerationValue) target).getValueName();
+      }
+
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((SDMLibClass) target).getName();
       }
 
-      if (ClassModel.PROPERTY_CLASSES.equalsIgnoreCase(attribute))
+      if (EnumerationValue.PROPERTY_ENUMERATION.equalsIgnoreCase(attribute))
       {
-         return ((ClassModel) target).getClasses();
-      }
-
-      if (ClassModel.PROPERTY_ENUMERATIONS.equalsIgnoreCase(attribute))
-      {
-         return ((ClassModel) target).getEnumerations();
+         return ((EnumerationValue) target).getEnumeration();
       }
       
       return null;
@@ -91,37 +85,29 @@ public class ClassModelCreator extends EntityFactory
          attrName = attrName + type;
       }
 
+      if (EnumerationValue.PROPERTY_VALUENAME.equalsIgnoreCase(attrName))
+      {
+         ((EnumerationValue) target).withValueName((String) value);
+         return true;
+      }
+
       if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((SDMLibClass) target).withName((String) value);
          return true;
       }
 
-      if (ClassModel.PROPERTY_CLASSES.equalsIgnoreCase(attrName))
+      if (EnumerationValue.PROPERTY_ENUMERATION.equalsIgnoreCase(attrName))
       {
-         ((ClassModel) target).with((Clazz) value);
-         return true;
-      }
-      
-      if ((ClassModel.PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).without((Clazz) value);
-         return true;
-      }
-
-      if (ClassModel.PROPERTY_ENUMERATIONS.equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).withEnumerations((Enumeration) value);
-         return true;
-      }
-      
-      if ((ClassModel.PROPERTY_ENUMERATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).withoutEnumerations((Enumeration) value);
+         ((EnumerationValue) target).setEnumeration((Enumeration) value);
          return true;
       }
       
       return false;
+   }
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
@@ -129,6 +115,6 @@ public class ClassModelCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((ClassModel) entity).removeYou();
+      ((EnumerationValue) entity).removeYou();
    }
 }

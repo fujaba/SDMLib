@@ -34,6 +34,10 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.codegen.util.LocalVarTableEntryPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.codegen.util.StatementEntryCreator());
       jsonIdMap.withCreator(new org.sdmlib.codegen.util.StatementEntryPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.EnumerationValueCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.EnumerationValuePOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.EnumerationCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.EnumerationPOCreator());
       return jsonIdMap;
    }
 }

@@ -34,6 +34,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
@@ -99,6 +100,15 @@ public class GenClassModel
 
        return this.associations;
    }
+ 
+   public GenEnumeration getOrCreate(Enumeration enumeration){
+      if(generators.containsKey(enumeration)){
+         return (GenEnumeration) generators.get(enumeration);
+      }
+      Generator<Enumeration> gen = new GenEnumeration().withModel(enumeration);
+      generators.put(enumeration, gen);
+      return (GenEnumeration) gen;
+   }
    
    public GenClass getOrCreate(Clazz clazz){
       if(generators.containsKey(clazz)){
@@ -154,6 +164,10 @@ public class GenClassModel
       addHelperClassesForUnknownAttributeTypes();
       getOrCreateCreatorCreatorParser(rootDir);
      
+      for(Enumeration enumeration :  model.getEnumerations()){
+         getOrCreate(enumeration).generate(rootDir, rootDir);
+      }
+      
       for(Clazz clazz :  model.getClasses()){
          getOrCreate(clazz).generate(rootDir, rootDir);
       }

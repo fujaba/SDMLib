@@ -226,6 +226,7 @@ public class Method extends SDMLibClass
       setClazz(null);
       without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       withoutParameter(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
+      setEnumeration(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -331,6 +332,65 @@ public class Method extends SDMLibClass
    {
       Clazz value = new Clazz(null);
       withClazz(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Method ----------------------------------- Enumeration
+    *              methods                   enumeration
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ENUMERATION = "enumeration";
+
+   private Enumeration enumeration = null;
+
+   public Enumeration getEnumeration()
+   {
+      return this.enumeration;
+   }
+
+   public boolean setEnumeration(Enumeration value)
+   {
+      boolean changed = false;
+      
+      if (this.enumeration != value)
+      {
+         Enumeration oldValue = this.enumeration;
+         
+         if (this.enumeration != null)
+         {
+            this.enumeration = null;
+            oldValue.withoutMethods(this);
+         }
+         
+         this.enumeration = value;
+         
+         if (value != null)
+         {
+            value.withMethods(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMERATION, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Method withEnumeration(Enumeration value)
+   {
+      setEnumeration(value);
+      return this;
+   } 
+
+   public Enumeration createEnumeration()
+   {
+      Enumeration value = new Enumeration();
+      withEnumeration(value);
       return value;
    } 
 }

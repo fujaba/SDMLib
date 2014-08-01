@@ -77,6 +77,24 @@ public class ClassModelTest
             .withAttribute("returnType", DataType.ref(DataType.class))
             .withAttribute("body", DataType.STRING);
       
+      
+      Clazz enumValueClass = model.createClazz("EnumerationValue").withSuperClazz(sdmLibClazz)
+            .withAttribute("valueName", DataType.STRING);
+      
+      Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz);
+      
+      new Association()
+      .withSource(new Role(modelClass, "classModel", Card.ONE).withKind(Role.AGGREGATION))
+      .withTarget(enumClass, "enumerations", Card.MANY);
+      
+      new Association()
+      .withSource(new Role(enumClass, "enumeration", Card.ONE).withKind(Role.AGGREGATION))
+      .withTarget(methodClass, "methods", Card.MANY);
+      
+      new Association()
+      .withSource(new Role(enumClass, "enumeration", Card.ONE).withKind(Role.AGGREGATION))
+      .withTarget(enumValueClass, "values", Card.MANY);
+      
       model.createClazz("Parameter").withSuperClazz(valueClass).withAssoc(methodClass, "method", Card.ONE, "parameter", Card.MANY);
       
       new Association()

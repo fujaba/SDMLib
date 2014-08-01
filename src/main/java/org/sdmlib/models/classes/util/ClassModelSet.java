@@ -28,6 +28,10 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.models.classes.util.EnumerationSet;
+import org.sdmlib.models.classes.Enumeration;
 
 public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -144,6 +148,64 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
    {
       return new ClassModelSet();
    }
+   public EnumerationSet getEnumerations()
+   {
+      EnumerationSet result = new EnumerationSet();
+      
+      for (ClassModel obj : this)
+      {
+         result.addAll(obj.getEnumerations());
+      }
+      
+      return result;
+   }
+
+   public ClassModelSet hasEnumerations(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ClassModelSet answer = new ClassModelSet();
+      
+      for (ClassModel obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getEnumerations()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ClassModelSet withEnumerations(Enumeration value)
+   {
+      for (ClassModel obj : this)
+      {
+         obj.withEnumerations(value);
+      }
+      
+      return this;
+   }
+
+   public ClassModelSet withoutEnumerations(Enumeration value)
+   {
+      for (ClassModel obj : this)
+      {
+         obj.withoutEnumerations(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

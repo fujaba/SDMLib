@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 christian 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,24 +18,18 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
+   
+package org.sdmlib.examples.simpleEnumModel.model.util;
 
-package org.sdmlib.models.classes.util;
-
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.Enumeration;
+import org.sdmlib.examples.simpleEnumModel.model.Mac;
 
-public class ClassModelCreator extends EntityFactory
+public class MacCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      ClassModel.PROPERTY_CLASSES,
-      ClassModel.PROPERTY_NAME,
-      ClassModel.PROPERTY_ENUMERATIONS
+      Mac.PROPERTY_NAME,
    };
    
    @Override
@@ -44,14 +38,10 @@ public class ClassModelCreator extends EntityFactory
       return properties;
    }
    
-   public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
-   }
-
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ClassModel();
+      return new Mac();
    }
    
    @Override
@@ -65,19 +55,9 @@ public class ClassModelCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (Mac.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((SDMLibClass) target).getName();
-      }
-
-      if (ClassModel.PROPERTY_CLASSES.equalsIgnoreCase(attribute))
-      {
-         return ((ClassModel) target).getClasses();
-      }
-
-      if (ClassModel.PROPERTY_ENUMERATIONS.equalsIgnoreCase(attribute))
-      {
-         return ((ClassModel) target).getEnumerations();
+         return ((Mac) target).getName();
       }
       
       return null;
@@ -91,37 +71,17 @@ public class ClassModelCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (SDMLibClass.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Mac.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((SDMLibClass) target).withName((String) value);
-         return true;
-      }
-
-      if (ClassModel.PROPERTY_CLASSES.equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).with((Clazz) value);
-         return true;
-      }
-      
-      if ((ClassModel.PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).without((Clazz) value);
-         return true;
-      }
-
-      if (ClassModel.PROPERTY_ENUMERATIONS.equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).withEnumerations((Enumeration) value);
-         return true;
-      }
-      
-      if ((ClassModel.PROPERTY_ENUMERATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).withoutEnumerations((Enumeration) value);
+         ((Mac) target).withName((String) value);
          return true;
       }
       
       return false;
+   }
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.examples.simpleEnumModel.model.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
@@ -129,6 +89,6 @@ public class ClassModelCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((ClassModel) entity).removeYou();
+      ((Mac) entity).removeYou();
    }
 }
