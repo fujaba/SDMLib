@@ -620,12 +620,13 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder buf = new StringBuilder();
       
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getOldNoOfLogEntries());
-      _.append(" ").append(this.getPhases());
-      return _.substring(1);
+      buf.append(" ").append(this.getName());
+      buf.append(" ").append(this.getPhase());
+      buf.append(" ").append(this.getOldNoOfLogEntries());
+      // _.append(" ").append(this.getPhases());
+      return buf.substring(1);
    }
 
    public ArrayList<LogEntryStoryBoard> getAllLogEntries()

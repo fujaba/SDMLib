@@ -53,8 +53,9 @@ public class CGUtil
    }
    
    public static void printFile(Parser parser){
-      if(parser.isFileBodyChanged()){
-         printFile(new File(parser.getFileName()), parser.getText().toString());
+      File file = new File(parser.getFileName());
+      if(parser.isFileBodyChanged() || ! file.exists()){
+         printFile(file, parser.getText().toString());
       }
    }
    public static void printFile(File file, String text)
@@ -266,7 +267,7 @@ public class CGUtil
          }
          
       }
-      return null;
+      return typeName;
    }
 
    public static LinkedHashMap<String, String> find(String newText, int searchPos, String pattern, Object... objects)

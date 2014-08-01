@@ -25,11 +25,13 @@ package org.sdmlib.storyboards;
 import java.beans.PropertyChangeSupport;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
+
 import java.beans.PropertyChangeListener;
 import java.util.Locale;
 
@@ -63,7 +65,7 @@ public class LogEntryStoryBoard implements PropertyChangeInterface, Comparable<L
          String oldValue = this.date;
          this.date = value;
          
-         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY);
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
          try
          {
             this.parsedDate = dateFormat.parse(this.date);
@@ -284,5 +286,18 @@ public class LogEntryStoryBoard implements PropertyChangeInterface, Comparable<L
       withKanbanEntry(value);
       return value;
    } 
+   
+   public String toString()
+   {
+      StringBuilder buf = new StringBuilder();
+      
+      buf.append(" ").append(this.getDate());
+      buf.append(" ").append(this.getPhase());
+      buf.append(" ").append(this.getDeveloper());
+      buf.append(" ").append(this.getHoursSpend());
+      buf.append(" ").append(this.getHoursRemainingInTotal());
+      // _.append(" ").append(this.getPhases());
+      return buf.substring(1);
+   }
 }
 
