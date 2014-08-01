@@ -483,13 +483,14 @@ public class StoryboardManager
 
          for (LogEntryStoryBoard logEntry : allLogEntries)
          {
-            String logLine = "<p>time developer hours spend: hoursspend hours remaining: hoursremaining comment</p>\n";
-            logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
-            logLine = logLine.replaceFirst("developer", ""+logEntry.getDeveloper());
-            logLine = logLine.replaceFirst("hoursspend", ""+logEntry.getHoursSpend());
-            logLine = logLine.replaceFirst("hoursremaining", ""+logEntry.getHoursRemainingInTotal());
-            logLine = logLine.replaceFirst("time", ""+logEntry.getDate());
-            logLine = logLine.replaceFirst("comment", ""+logEntry.getComment());
+            String logLine = "<p>time entry: developer hours spend: hoursspend hours remaining: hoursremaining comment</p>\n";
+            logLine = CGUtil.replaceAll(logLine, 
+               "time", ""+logEntry.getDate(),
+               "entry", "" + logEntry.getKanbanEntry().getName(),
+               "developer", ""+logEntry.getDeveloper(),
+               "hoursspend", ""+logEntry.getHoursSpend(),
+               "hoursremaining", ""+logEntry.getHoursRemainingInTotal(),
+               "comment", ""+logEntry.getComment());
 
 
             timeLogText.insert(0, logLine);
@@ -650,7 +651,7 @@ public class StoryboardManager
       {
          logHoursSpend += logEntry.getHoursSpend();
 
-         if (latestLogEntryDate == null || latestLogEntryDate.compareTo(logEntry.getParsedDate()) < 0)
+         if (latestLogEntryDate == null || latestLogEntryDate.compareTo(logEntry.getParsedDate()) <= 0)
          {
             latestLogEntryDate = logEntry.getParsedDate();
             logHoursRemaining = logEntry.getHoursRemainingInTotal();
