@@ -78,10 +78,11 @@ public class ClassModelTest
             .withAttribute("body", DataType.STRING);
       
       
-      Clazz enumValueClass = model.createClazz("EnumerationValue").withSuperClazz(sdmLibClazz)
-            .withAttribute("valueName", DataType.STRING);
+      // ---- Enumeration ----
       
-      Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz);
+      Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz)
+    		  .withImport("java.util.TreeSet")
+    		  .withAttribute("valueNames", DataType.ref("ArrayListSet"), "new ArrayListSet()");
       
       new Association()
       .withSource(new Role(modelClass, "classModel", Card.ONE).withKind(Role.AGGREGATION))
@@ -91,9 +92,7 @@ public class ClassModelTest
       .withSource(new Role(enumClass, "enumeration", Card.ONE).withKind(Role.AGGREGATION))
       .withTarget(methodClass, "methods", Card.MANY);
       
-      new Association()
-      .withSource(new Role(enumClass, "enumeration", Card.ONE).withKind(Role.AGGREGATION))
-      .withTarget(enumValueClass, "values", Card.MANY);
+      // ---- Enumeration END ----
       
       model.createClazz("Parameter").withSuperClazz(valueClass).withAssoc(methodClass, "method", Card.ONE, "parameter", Card.MANY);
       

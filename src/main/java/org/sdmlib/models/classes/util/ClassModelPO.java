@@ -4,10 +4,6 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.util.EnumerationPO;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.util.ClassModelPO;
-import org.sdmlib.models.classes.util.EnumerationSet;
 
 public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
 {
@@ -143,39 +139,4 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       }
       return this;
    }
-   
-   public EnumerationPO hasEnumerations()
-   {
-      EnumerationPO result = new EnumerationPO(new Enumeration[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ClassModel.PROPERTY_ENUMERATIONS, result);
-      
-      return result;
-   }
-
-   public EnumerationPO createEnumerations()
-   {
-      return this.startCreate().hasEnumerations().endCreate();
-   }
-
-   public ClassModelPO hasEnumerations(EnumerationPO tgt)
-   {
-      return hasLinkConstraint(tgt, ClassModel.PROPERTY_ENUMERATIONS);
-   }
-
-   public ClassModelPO createEnumerations(EnumerationPO tgt)
-   {
-      return this.startCreate().hasEnumerations(tgt).endCreate();
-   }
-
-   public EnumerationSet getEnumerations()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ClassModel) this.getCurrentMatch()).getEnumerations();
-      }
-      return null;
-   }
-
 }

@@ -21,13 +21,14 @@
 
 package org.sdmlib.models.classes.util;
 
+import java.util.Enumeration;
+
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.Enumeration;
 
 public class ClassModelCreator extends EntityFactory
 {
@@ -35,7 +36,6 @@ public class ClassModelCreator extends EntityFactory
    {
       ClassModel.PROPERTY_CLASSES,
       ClassModel.PROPERTY_NAME,
-      ClassModel.PROPERTY_ENUMERATIONS
    };
    
    @Override
@@ -74,11 +74,6 @@ public class ClassModelCreator extends EntityFactory
       {
          return ((ClassModel) target).getClasses();
       }
-
-      if (ClassModel.PROPERTY_ENUMERATIONS.equalsIgnoreCase(attribute))
-      {
-         return ((ClassModel) target).getEnumerations();
-      }
       
       return null;
    }
@@ -106,18 +101,6 @@ public class ClassModelCreator extends EntityFactory
       if ((ClassModel.PROPERTY_CLASSES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ClassModel) target).without((Clazz) value);
-         return true;
-      }
-
-      if (ClassModel.PROPERTY_ENUMERATIONS.equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).withEnumerations((Enumeration) value);
-         return true;
-      }
-      
-      if ((ClassModel.PROPERTY_ENUMERATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ClassModel) target).withoutEnumerations((Enumeration) value);
          return true;
       }
       

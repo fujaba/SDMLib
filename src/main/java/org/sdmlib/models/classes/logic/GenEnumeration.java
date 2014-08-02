@@ -1,6 +1,6 @@
 package org.sdmlib.models.classes.logic;
 
-import org.sdmlib.models.classes.Enumeration;
+import java.util.Enumeration;
 
 public class GenEnumeration extends Generator<Enumeration>
 {
