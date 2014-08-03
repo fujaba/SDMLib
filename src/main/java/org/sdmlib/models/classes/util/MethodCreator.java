@@ -1,8 +1,7 @@
 package org.sdmlib.models.classes.util;
 
-import java.util.Enumeration;
-
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 
@@ -17,6 +16,7 @@ public class MethodCreator extends SDMLibClassCreator
       Method.PROPERTY_RETURNTYPE,
       Method.PROPERTY_CLAZZ,
       Method.PROPERTY_BODY,
+      Method.PROPERTY_ENUMERATION,
    };
    
    @Override
@@ -65,6 +65,11 @@ public class MethodCreator extends SDMLibClassCreator
       {
          return ((Method) target).getParameter();
       }
+
+      if (Method.PROPERTY_ENUMERATION.equalsIgnoreCase(attribute))
+      {
+         return ((Method) target).getEnumeration();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -103,6 +108,12 @@ public class MethodCreator extends SDMLibClassCreator
       if ((Method.PROPERTY_PARAMETER + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Method) target).without((Parameter) value);
+         return true;
+      }
+
+      if (Method.PROPERTY_ENUMERATION.equalsIgnoreCase(attrName))
+      {
+         ((Method) target).setEnumeration((Enumeration) value);
          return true;
       }
 

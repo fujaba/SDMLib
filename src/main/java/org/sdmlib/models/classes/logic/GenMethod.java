@@ -6,12 +6,13 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Visibility;
 
 public class GenMethod extends Generator<Method>
 {
-   public GenMethod generate(Clazz clazz,  String rootDir, String helpersDir, boolean overrideFlag)
+   public GenMethod generate(Clazz clazz, String rootDir, String helpersDir, boolean overrideFlag)
    {
       // get parser from class
       GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
@@ -30,6 +31,85 @@ public class GenMethod extends Generator<Method>
       generator.printFile(patternObjectParser);
 
       return this;
+   }
+   
+   public GenMethod generate(Enumeration enumeration, String rootDir, String helpersDir, boolean overrideFlag)
+   {
+	   // get parser from class
+	   GenEnumeration genEnumeration = enumeration.getClassModel().getGenerator().getOrCreate(enumeration);
+	   Parser parser = genEnumeration.getOrCreateParser(rootDir);
+	   
+	   insertMethodDecl(enumeration, parser, overrideFlag);
+	   
+	   return this;
+   }
+   
+   private void insertMethodDecl(Enumeration enumeration, Parser parser, boolean overrideFlag) {
+	   String signature = model.getSignature(false);
+	      int pos = parser.indexOf(Parser.METHOD + ":" + signature);
+	      String string = Parser.METHOD + ":" + signature;
+	      SymTabEntry symTabEntry = parser.getSymTab().get(string);
+	      enumeration.getClassModel().getGenerator().getOrCreate(enumeration);
+	      if (pos < 0)
+	      {
+	         signature = model.getSignature(true);
+	         StringBuilder text = new StringBuilder
+	               (  "\n   " +
+	                     "\n   //==========================================================================" +
+	                     "\n   OVERRIDE" +
+	                     "\n   modifiers returnType mehodName( parameter )");
+	         text.append(
+	                     "\n   {" +
+	                     "\n      returnClause" +
+	                     "\n   }" +
+	                     "\n"
+	                  );
+	         String methodName = signature.substring(0, signature.indexOf("("));
+	         String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")") );
+	         String returnClause = "";
+	         
+	         if ("int float double".indexOf(model.getReturnType().getValue()) >= 0)
+	         {
+	            returnClause = "return 0;";
+	         }
+	         else if ("void".indexOf(model.getReturnType().getValue() ) >= 0)
+	         {
+	            returnClause = "";
+	         }
+	         else 
+	         {
+	            returnClause = "return null;";
+	         }
+	         String overrideText="";
+	         if(overrideFlag){
+	            overrideText="@Override";      
+	         }
+	         String returnType = model.getReturnType().getValue();
+
+	         if (returnType.contains("."))
+	            returnType = returnType.substring(returnType.lastIndexOf(".")+1);
+	         CGUtil.replaceAll(text, 
+	            "modifiers", model.getModifier().getValue(), 
+	            "returnType", returnType,
+	            "mehodName", methodName,
+	            "parameter", parameter, 
+	            "returnClause", returnClause,
+	            "OVERRIDE", overrideText
+	               );
+	         pos = parser.indexOf(Parser.CLASS_END);
+	         parser.insert(pos, text.toString());
+	      }
+	      String signatureSimple = model.getSignature(false);
+	      pos = parser.indexOf(Parser.METHOD + ":" + signatureSimple);
+	      symTabEntry = parser.getSymTab().get(string);
+	      // in case of a method body, remove old method
+	      if (pos >= 0 && model.getBody() != null)
+	      {
+	        parser.parseMethodBody(symTabEntry);
+	        int startPos = symTabEntry.getEndPos();
+	        parser.replace(symTabEntry.getBodyStartPos()+1, startPos, "\n" + model.getBody() + "   ");
+	        pos = -1;
+	      }
    }
    
    private void insertMethodDecl(Clazz clazz, Parser parser, boolean overrideFlag)
@@ -130,7 +210,10 @@ public class GenMethod extends Generator<Method>
 
    public void generate(String rootDir, String helpersDir,  boolean overrideFlag)
    {
-      generate(model.getClazz(),  rootDir, helpersDir, overrideFlag);
+	  if (model.getClazz() != null)
+		  generate(model.getClazz(),  rootDir, helpersDir, overrideFlag);
+	  if (model.getEnumeration() != null)
+		  generate(model.getEnumeration(),  rootDir, helpersDir, overrideFlag);
    }
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)

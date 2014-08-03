@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 christian 
+   Copyright (c) 2014 NeTH 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,17 +19,15 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.simpleEnumModel.model.util;
+package org.sdmlib.models.classes.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.simpleEnumModel.model.Alex;
 
-public class AlexCreator extends EntityFactory
+public class ArrayListSetCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Alex.PROPERTY_NAME,
    };
    
    @Override
@@ -41,7 +39,7 @@ public class AlexCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Alex();
+      return null;
    }
    
    @Override
@@ -54,11 +52,6 @@ public class AlexCreator extends EntityFactory
       {
          attribute = attrName.substring(0, pos);
       }
-
-      if (Alex.PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return ((Alex) target).getName();
-      }
       
       return null;
    }
@@ -70,18 +63,12 @@ public class AlexCreator extends EntityFactory
       {
          attrName = attrName + type;
       }
-
-      if (Alex.PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         ((Alex) target).withName((String) value);
-         return true;
-      }
       
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.examples.simpleEnumModel.model.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.classes.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
@@ -89,6 +76,6 @@ public class AlexCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Alex) entity).removeYou();
+      // wrapped object has no removeYou method
    }
 }

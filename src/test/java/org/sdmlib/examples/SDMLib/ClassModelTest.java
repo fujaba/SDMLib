@@ -140,7 +140,7 @@ public class ClassModelTest
        .withAttribute("tokenList", DataType.ref("ArrayList<String>")) 
        .withAttribute("assignTargetVarName", DataType.STRING) 
        .withAttribute("startPos", DataType.INT) 
-          .withAttribute("endPos", DataType.INT);
+       .withAttribute("endPos", DataType.INT);
       
       new Association()
       .withSource(statementEntry, "parent", Card.ONE)
@@ -181,6 +181,5 @@ public class ClassModelTest
 //      .add(storyboard)
 //      .dumpHTML();      
    }
-
 }
 

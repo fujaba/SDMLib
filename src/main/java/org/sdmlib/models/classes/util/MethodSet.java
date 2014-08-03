@@ -23,10 +23,10 @@ package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
@@ -256,6 +256,54 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       return new MethodSet();
    }
+   public EnumerationSet getEnumeration()
+   {
+      EnumerationSet result = new EnumerationSet();
+      
+      for (Method obj : this)
+      {
+         result.add(obj.getEnumeration());
+      }
+      
+      return result;
+   }
+
+   public MethodSet hasEnumeration(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      MethodSet answer = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (neighbors.contains(obj.getEnumeration()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public MethodSet withEnumeration(Enumeration value)
+   {
+      for (Method obj : this)
+      {
+         obj.withEnumeration(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

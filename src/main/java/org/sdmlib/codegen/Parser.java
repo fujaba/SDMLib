@@ -51,6 +51,8 @@ public class Parser
    public static final String CONSTRUCTOR = "constructor";
    
    public static final String ATTRIBUTE = "attribute";
+   
+   public static final String ENUMVALUE = "enumvalue";
 
    public static final String METHOD = "method";
 
@@ -331,7 +333,7 @@ public class Parser
       // skip keyword
       //      skip ("class");
 
-      //class or interface
+      //class or interface or enum
       parseClassType();
 
       className = currentRealWord();
@@ -418,6 +420,11 @@ public class Parser
          skip("interface");
          classType = "interface";
       }
+      
+      else if ("enum".equals(currentRealWord()) ) {
+    	  skip("enum");
+    	  classType = "enum";
+      }
 
       return classType;
    }
@@ -435,7 +442,9 @@ public class Parser
       {
          checkSearchStringFound(CLASS_END, currentRealToken.startPos);
       }
-      skip("}");      
+      
+      if (!currentRealKindEquals(EOF))
+    	  skip("}");      
    }
 
    private void parseMemberDecl()
@@ -535,7 +544,7 @@ public class Parser
 
             checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
          }
-         else if (currentRealKindEquals(';'))
+         else if (currentRealKindEquals(';') && !",".equals(memberName))
          {
             // field declaration
             checkSearchStringFound(NAME_TOKEN + ":" + searchString, startPos);
@@ -589,6 +598,24 @@ public class Parser
 
             checkSearchStringFound(methodSignature, startPos);
             //System.out.println(className + " :  " +  methodSignature);
+         }
+         else if (ENUM.equals(classType)) {
+
+        	 if (",".equalsIgnoreCase(memberName) || ";".equalsIgnoreCase(memberName) || currentRealKindEquals(EOF)) {
+        		 
+        		 String enumSignature = Parser.ENUMVALUE + ":" + type;
+                 symTab.put(enumSignature, 
+                    new SymTabEntry()
+                 .withMemberName(type)
+                 .withKind(ENUMVALUE)
+                 .withType(enumSignature + ":" + className)
+                 .withStartPos(startPos)
+                 .withEndPos(previousRealToken.startPos)
+                 .withBodyStartPos(methodBodyStartPos)
+                 .withModifiers(modifiers)
+                       );
+        		 
+        	 }
          }
       }
    }

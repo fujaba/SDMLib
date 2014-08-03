@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -35,6 +34,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
@@ -102,13 +102,12 @@ public class GenClassModel
    }
  
    public GenEnumeration getOrCreate(Enumeration enumeration){
-	return null;
-//      if(generators.containsKey(enumeration)){
-//         return (GenEnumeration) generators.get(enumeration);
-//      }
-//      Generator<Enumeration> gen = new GenEnumeration().withModel(enumeration);
-//      generators.put(enumeration, gen);
-//      return (GenEnumeration) gen;
+      if(generators.containsKey(enumeration)){
+         return (GenEnumeration) generators.get(enumeration);
+      }
+      Generator<Enumeration> gen = new GenEnumeration().withModel(enumeration);
+      generators.put(enumeration, gen);
+      return (GenEnumeration) gen;
    }
    
    public GenClass getOrCreate(Clazz clazz){
@@ -158,38 +157,38 @@ public class GenClassModel
    
    public boolean generate(String rootDir)
    {
-//      resetParsers();
-//      
-//      fixClassModel();
-//
-//      addHelperClassesForUnknownAttributeTypes();
-//      getOrCreateCreatorCreatorParser(rootDir);
-//     
-//      for(Enumeration enumeration :  model.getEnumerations()){
-//         getOrCreate(enumeration).generate(rootDir, rootDir);
-//      }
-//      
-//      for(Clazz clazz :  model.getClasses()){
-//         getOrCreate(clazz).generate(rootDir, rootDir);
-//      }
-//
-//      for (Association assoc : getAssociations())
-//      {
-//         getOrCreate(assoc).generate(rootDir, rootDir);
-//      }
-//
-//      Exception e = new RuntimeException();
-//
-//      attributNameConsistenceCheck(e, rootDir);
-//      
-//      // Write all
-//      if(getShowDiff()!=DIFF.NONE){
-//         int count = 0;
-//         for(Clazz clazz :  model.getClasses()){
-//            count += getOrCreate(clazz).printAll(getShowDiff(), this.ignoreDiff);
-//         }
-//         System.out.println("Totalchanges of all Files: "+count);
-//      }
+      resetParsers();
+      
+      fixClassModel();
+
+      addHelperClassesForUnknownAttributeTypes();
+      getOrCreateCreatorCreatorParser(rootDir);
+     
+      for(Enumeration enumeration :  model.getEnumerations()){
+         getOrCreate(enumeration).generate(rootDir, rootDir);
+      }
+      
+      for(Clazz clazz :  model.getClasses()){
+         getOrCreate(clazz).generate(rootDir, rootDir);
+      }
+
+      for (Association assoc : getAssociations())
+      {
+         getOrCreate(assoc).generate(rootDir, rootDir);
+      }
+
+      Exception e = new RuntimeException();
+
+      attributNameConsistenceCheck(e, rootDir);
+      
+      // Write all
+      if(getShowDiff()!=DIFF.NONE){
+         int count = 0;
+         for(Clazz clazz :  model.getClasses()){
+            count += getOrCreate(clazz).printAll(getShowDiff(), this.ignoreDiff);
+         }
+         System.out.println("Totalchanges of all Files: "+count);
+      }
       return true;
    }
    
@@ -2172,7 +2171,8 @@ public class GenClassModel
          String[] split = memberName.split(":");
          String attrName = split[1];
          SymTabEntry symTabEntry = parser.getSymTab().get(memberName);
-         addMemberAsAttribut(clazz, attrName, symTabEntry, rootDir);
+         if (symTabEntry != null)
+        	 addMemberAsAttribut(clazz, attrName, symTabEntry, rootDir);
       }
 
       // add super classes     
@@ -2593,8 +2593,12 @@ public class GenClassModel
 
    private void addClassToClasses(String filePath, String[] packages) 
    {
+	   int pos = filePath.indexOf('.');
       // split off source folder
-      int pos = filePath.indexOf('.');
+	   for (String packageName : packages) {
+		   pos = filePath.indexOf(packageName) -1;
+		   break;
+		}
       String rootDir = filePath.substring(0, pos);
       filePath = filePath.substring(pos + 1);
       if (commonPrefix(filePath, packages))

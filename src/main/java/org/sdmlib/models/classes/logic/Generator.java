@@ -46,7 +46,13 @@ public abstract class Generator<M>
    
    public GenMethod getGenerator(Method method)
    {
-      return method.getClazz().getClassModel().getGenerator().getOrCreate( method );
+	   if (method.getClazz() != null) {
+		   return method.getClazz().getClassModel().getGenerator().getOrCreate( method );
+	   }
+	   else if (method.getEnumeration() != null) {
+		   return method.getEnumeration().getClassModel().getGenerator().getOrCreate( method );
+	   }	   
+	   return null;
    }
    
    public GenAttribute getGenerator(Attribute attribute)

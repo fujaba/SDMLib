@@ -5,7 +5,6 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.EnumerationValue;
 
 public class SimpleClassModelWithEnumeration
 {
@@ -13,12 +12,10 @@ public class SimpleClassModelWithEnumeration
    public void testSimpleModel(){
       ClassModel model = new ClassModel("org.sdmlib.examples.simpleEnumModel.model");
       
-      Enumeration enumeration = model.createEnumeration("TestEnum")
-            .withValues(new EnumerationValue().withName("T1"),
-                        new EnumerationValue().withName("T2"), 
-                        new EnumerationValue().withName("T1000")
-             );
-      
+      Enumeration enumeration = model.createEnumeration("TEnum");
+      enumeration.withValueNames("T1", "T2", "T1000");
+//      enumeration.withMethod("toString", DataType.STRING);
+     
       Clazz createClazz = model.createClazz("Alex");
       createClazz.withAttribute("Name", DataType.STRING);
       

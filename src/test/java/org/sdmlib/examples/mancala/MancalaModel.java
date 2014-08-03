@@ -8,10 +8,9 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Visibility;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Association;
 
 public class MancalaModel {
 
@@ -96,17 +95,14 @@ public class MancalaModel {
 
       playerClass.withAssoc(stoneClass, "stone", Card.ONE, "player", Card.ONE);
 
-
       pitClass.withAssoc(mancalaClass, "game", Card.ONE, "pits", Card.MANY);
 
       pitClass.withAssoc(pitClass, "next", Card.ONE, "previous", Card.ONE);
 
       pitClass.withAssoc(pitClass, "counterpart", Card.ONE, "counterpart", Card.ONE);
 
-
-
-      model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.mancala.model");
-      model.getGenerator().insertModelCreationCodeHere("examples");
+//      model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.mancala.model");
+//      model.getGenerator().insertModelCreationCodeHere("examples");
     }
 
 }

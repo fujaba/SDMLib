@@ -1,9 +1,8 @@
 package org.sdmlib.models.classes.util;
 
-import java.util.Enumeration;
-
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.pattern.AttributeConstraint;
@@ -330,6 +329,40 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       }
       return null;
    }
+   public EnumerationPO hasEnumeration()
+   {
+      EnumerationPO result = new EnumerationPO(new Enumeration[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Method.PROPERTY_ENUMERATION, result);
+      
+      return result;
+   }
+
+   public EnumerationPO createEnumeration()
+   {
+      return this.startCreate().hasEnumeration().endCreate();
+   }
+
+   public MethodPO hasEnumeration(EnumerationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Method.PROPERTY_ENUMERATION);
+   }
+
+   public MethodPO createEnumeration(EnumerationPO tgt)
+   {
+      return this.startCreate().hasEnumeration(tgt).endCreate();
+   }
+
+   public Enumeration getEnumeration()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Method) this.getCurrentMatch()).getEnumeration();
+      }
+      return null;
+   }
+
 }
 
 
