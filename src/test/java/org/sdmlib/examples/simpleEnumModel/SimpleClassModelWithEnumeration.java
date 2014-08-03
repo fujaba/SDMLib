@@ -13,13 +13,12 @@ public class SimpleClassModelWithEnumeration
       ClassModel model = new ClassModel("org.sdmlib.examples.simpleEnumModel.model");
       
       Enumeration enumeration = model.createEnumeration("TEnum");
-      enumeration.withValueNames("T1", "T2", "T1000");
-//      enumeration.withMethod("toString", DataType.STRING);
+      enumeration.withValueNames("T1", "T2","12", "T1000");
+      enumeration.withMethod("toString", DataType.STRING);
      
       Clazz createClazz = model.createClazz("Alex");
       createClazz.withAttribute("Name", DataType.STRING);
-      
-      
+          
       Clazz macClazz = model.createClazz("Mac");
       macClazz.withAttribute("Name", DataType.STRING);
       

@@ -162,7 +162,7 @@ public class Enumeration extends SDMLibClass {
 	}
 	
 	public Enumeration withMethod(String name, DataType returnType) {
-		return with(new Method(name));
+		return with(new Method(name, returnType, new Parameter[0]));
 	}
 
 	public Enumeration withMethod(String name, DataType returnType,

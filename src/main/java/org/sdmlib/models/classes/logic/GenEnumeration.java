@@ -1,3 +1,24 @@
+/*
+   Copyright (c) 2014 NeTH 
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+
 package org.sdmlib.models.classes.logic;
 
 import java.io.File;
@@ -94,24 +115,34 @@ public class GenEnumeration extends Generator<Enumeration> {
 		
 		for (SymTabEntry symTabEnumEntry : enumEntriesInSymTab) {
 			int endPos = symTabEnumEntry.getEndPos();
-			if (endPos > enumCurrentPos)
+			if (endPos > -1 && endPos < enumCurrentPos)
 				enumCurrentPos = endPos;
 		}
 		
+		boolean isNew = false;
+		if (enumCurrentPos < 0)
+			isNew  = true;
+		
 		for (ArrayList<?> valueNames : model.getValueNames()) {
 			
-			for (Object value : valueNames) {
+			for (int i = 0; i < valueNames.size(); i++) {
 				
-				if (symTabContains(enumEntriesInSymTab, value))
+				Object value = valueNames.get(i);
+				if (symTabContains(enumEntriesInSymTab, value ))
 					continue;
-				enumCurrentPos = insertValue((String) value, enumCurrentPos);
+				enumCurrentPos = insertValue((String) value, enumCurrentPos, (i == valueNames.size()-1 && isNew) ? true : false);
 			}
 		}	
-//		int result = parser.search(";", enumCurrentPos);
+		
 	}
 
 	private boolean symTabContains(ArrayList<SymTabEntry> enumEntriesInSymTab,
 			Object value) {
+		String valueString = String.valueOf(value);
+		
+		if (valueString.matches("-?\\d+(.\\d+)?")) {
+			value = "_" + value;
+		}
 		
 		for (SymTabEntry symTabEnumEntry : enumEntriesInSymTab) {
 			
@@ -122,7 +153,7 @@ public class GenEnumeration extends Generator<Enumeration> {
 		return false;
 	}
 
-	private int insertValue(String value, int enumCurrentPos) {
+	private int insertValue(String value, int enumCurrentPos, boolean end) {
 
 		if (value.matches("-?\\d+(.\\d+)?")) {
 			value = "_" + value;
@@ -136,8 +167,9 @@ public class GenEnumeration extends Generator<Enumeration> {
 			}
 		}
 
-		String text = "\n		" + value + ",";
-		parser.insert(enumCurrentPos + 1, text);
+		String text = (end) ? "\n		" + value + ";" : "\n		" + value + ",";
+
+		parser.insert(enumCurrentPos+1, text);
 		return enumCurrentPos+ text.length();
 	}
 

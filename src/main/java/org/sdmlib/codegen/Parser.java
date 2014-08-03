@@ -443,8 +443,12 @@ public class Parser
          checkSearchStringFound(CLASS_END, currentRealToken.startPos);
       }
       
-      if (!currentRealKindEquals(EOF))
-    	  skip("}");      
+      if (!currentRealKindEquals(EOF)) {
+    	  skip("}"); 
+      }
+      else {
+    	  checkSearchStringFound(CLASS_END, currentRealToken.startPos);
+      }
    }
 
    private void parseMemberDecl()
@@ -601,7 +605,7 @@ public class Parser
          }
          else if (ENUM.equals(classType)) {
 
-        	 if (",".equalsIgnoreCase(memberName) || ";".equalsIgnoreCase(memberName) || currentRealKindEquals(EOF)) {
+        	 if (  ",".equalsIgnoreCase(memberName) || ";".equalsIgnoreCase(memberName) || !";".equals(type) && currentRealKindEquals(EOF)) {
         		 
         		 String enumSignature = Parser.ENUMVALUE + ":" + type;
                  symTab.put(enumSignature, 
