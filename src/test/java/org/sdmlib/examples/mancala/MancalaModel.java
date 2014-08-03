@@ -48,6 +48,9 @@ public class MancalaModel {
 
         Clazz stone = model.createClazz("Stone")
                 .withAssoc(player, "player", Card.ONE, "stone", Card.ONE);
+        
+        model.createEnumeration("PlayerState")
+        .withValueNames("WAIT","WIN","LOSE","ACTIVE");
 
         model.generate("src/test/java"); //<11>
         //model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);
