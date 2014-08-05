@@ -9,6 +9,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Visibility;
 import org.sdmlib.models.pattern.AttributeConstraint;
@@ -997,28 +998,44 @@ public class GenAttribute extends Generator<Attribute>
       }
 
       if(model.getVisibility().same(Visibility.PRIVATE)){
-         if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization))
-         {
-            Parser creatorParser = getGenerator( clazz).getOrCreateParserForCreatorClass(helpersDir);
-
-            insertPropertyInCreatorClass(creatorParser, clazz );
-            
-            getGenerator( clazz).printFile(creatorParser);
-         }
-         Parser modelSetParser = getGenerator( clazz).getOrCreateParserForModelSetFile(helpersDir);
-         insertGetterInModelSetClass(modelSetParser, clazz);
-         insertSetterInModelSetClass(modelSetParser, clazz);
-         getGenerator( clazz).printFile(modelSetParser);
-
-         Parser patternObjectParser = getGenerator( clazz).getOrCreateParserForPatternObjectFile(helpersDir);
-         insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
-         insertGetterInPatternObjectClass(patternObjectParser, clazz);
+    	  
+    	  if (!isEnumType(model, clazz)) {
+    		  if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization) )
+    		  {
+    			  Parser creatorParser = getGenerator( clazz).getOrCreateParserForCreatorClass(helpersDir);
+    			  
+    			  insertPropertyInCreatorClass(creatorParser, clazz );
+    			  
+    			  getGenerator( clazz).printFile(creatorParser);
+    		  }
+    		  
+    		  Parser modelSetParser = getGenerator( clazz).getOrCreateParserForModelSetFile(helpersDir);
+    		  insertGetterInModelSetClass(modelSetParser, clazz);
+    		  insertSetterInModelSetClass(modelSetParser, clazz);
+    		  getGenerator( clazz).printFile(modelSetParser);
+    		  
+    		  Parser patternObjectParser = getGenerator( clazz).getOrCreateParserForPatternObjectFile(helpersDir);
+    		  insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
+    		  insertGetterInPatternObjectClass(patternObjectParser, clazz);
+    	  }
       }
 
       return this;
    }
 
-   public void insertPropertyInCreatorClass(String className, Parser creatorParser, String helpersDir, boolean doGenerate) 
+   public boolean isEnumType(Attribute model, Clazz clazz) {
+ 	  DataType dataType = model.getType();
+ 	  String value = dataType.getValue();
+ 	  for (Enumeration enumeration : clazz.getClassModel().getEnumerations()) {
+			String fullName = enumeration.getFullName();
+			if (value.equals(fullName)) {
+				return true;
+			}
+		 }
+	return false;
+}
+
+public void insertPropertyInCreatorClass(String className, Parser creatorParser, String helpersDir, boolean doGenerate) 
    {
       insertPropertyInCreatorClass(creatorParser, model.getClazz());
 

@@ -780,4 +780,14 @@ public class Clazz extends SDMLibClass
    public ArrayList<String> getImports(){
       return imports;
    }
+
+   public boolean isEnumeration() {
+      for (Enumeration enumeration : getClassModel().getEnumerations()) {
+	     String enumName = enumeration.getFullName();
+		 String clazzName = this.getFullName();
+		 if (enumName.equals(clazzName))
+		    return true;
+	  }
+      return false;
+   }
 }

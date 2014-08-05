@@ -8,6 +8,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Visibility;
@@ -19,6 +20,9 @@ public class MancalaModel {
         //tag::mancala[]
         ClassModel model = new ClassModel("org.sdmlib.examples.mancala.model"); //<1>
 
+        Enumeration stateEnum = model.createEnumeration("PlayerState")
+        .withValueNames("WAIT","WIN","LOSE","ACTIVE");
+
         Clazz mancala = model.createClazz("Mancala") //<2>
                 .withMethod("checkEnd") //<3>
                 .withMethod("initGame", DataType.VOID, new Parameter("firstPlayerName", DataType.STRING), new Parameter("secondPlayerName", DataType.STRING)); //<4>
@@ -26,7 +30,8 @@ public class MancalaModel {
         Clazz player = model.createClazz("Player")
                 .withAttribute("name", DataType.STRING) //<5>
                 .withAssoc(mancala, "game", Card.ONE, "activePlayer", Card.ONE) //<6>
-                .withAssoc(mancala, "game", Card.ONE, "players", Card.MANY);
+                .withAssoc(mancala, "game", Card.ONE, "players", Card.MANY)
+                .withAttribute("state", DataType.ref(stateEnum));
 
         Clazz point = model.createClazz(Point.class.getName()) //<7>
                 .with(new Attribute("x", DataType.INT).with(Visibility.PUBLIC)) //<8>
@@ -49,8 +54,6 @@ public class MancalaModel {
         Clazz stone = model.createClazz("Stone")
                 .withAssoc(player, "player", Card.ONE, "stone", Card.ONE);
         
-        model.createEnumeration("PlayerState")
-        .withValueNames("WAIT","WIN","LOSE","ACTIVE");
 
         model.generate("src/test/java"); //<11>
         //model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);
@@ -63,6 +66,24 @@ public class MancalaModel {
       ClassModel model = new ClassModel("org.sdmlib.examples.mancala.model");
 
       Clazz mancalaClass = model.createClazz("org.sdmlib.examples.mancala.model.Mancala");
+      /* add method */
+      new Method("initGame", new Parameter(DataType.ref("String")), new Parameter(DataType.ref("String")))
+        .with(mancalaClass);
+
+
+      Clazz playerStateClass = model.createClazz("org.sdmlib.examples.mancala.model.PlayerState");
+      /* add method */
+      new Method("createPitsKalah")
+        .with(mancalaClass);
+      /* add method */
+      new Method("createKalah")
+        .with(mancalaClass);
+      /* add method */
+      new Method("initGame", new Parameter(DataType.ref("String")), new Parameter(DataType.ref("String")))
+        .with(mancalaClass);
+      /* add method */
+      new Method("checkEnd")
+        .with(mancalaClass);
 
       new Method("checkEnd")
         .with(mancalaClass);
@@ -104,8 +125,8 @@ public class MancalaModel {
 
       pitClass.withAssoc(pitClass, "counterpart", Card.ONE, "counterpart", Card.ONE);
 
-//      model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.mancala.model");
-//      model.getGenerator().insertModelCreationCodeHere("examples");
+      model.getGenerator().updateFromCode("src/test/java", "org.sdmlib.examples.mancala.model");
+      model.getGenerator().insertModelCreationCodeHere("src/test/java");
     }
 
 }

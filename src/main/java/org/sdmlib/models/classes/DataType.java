@@ -51,6 +51,10 @@ public class DataType implements PropertyChangeInterface
       return new DataType(value.getFullName());
    }
    
+   public static DataType ref(Enumeration value) {
+	   return new DataType(value.getFullName());
+   }
+
    @Override
    public String toString()
    {
