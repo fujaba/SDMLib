@@ -20,6 +20,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
@@ -107,6 +108,7 @@ public class GenClass extends Generator<Clazz>
       }
 
 
+      if ( !model.isEnumeration()) {
       if ( !model.isInterface() )
       {
          // now generate the corresponding creator class
@@ -129,6 +131,7 @@ public class GenClass extends Generator<Clazz>
          // now generate the corresponding PatterObjectCreator class
          getOrCreateParserForPatternObjectCreatorFile(helpersDir);
          printFile(patternObjectCreatorParser);
+      }
       }
 
       return this;

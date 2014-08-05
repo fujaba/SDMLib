@@ -287,7 +287,7 @@ public class GenClassModel
             boolean publicCreatorCreator = false;
             for (Clazz clazz : model.getClasses())
             {
-               if (!clazz.isInterface() )
+               if (!clazz.isInterface()  && !clazz.isEnumeration())
                {
                   String creatorName = "";
                   if(clazz.isExternal()){
