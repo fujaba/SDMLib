@@ -131,7 +131,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       
       if (map.getCounter() instanceof SimpleIdCounter)
       {
-         ((SimpleIdCounter) map.getCounter()).setNumber(this.lastChangeId);
+         ((SimpleIdCounter) map.getCounter()).withNumber(this.lastChangeId);
       }
       
       remoteTaskBoard = new RemoteTaskBoard();
