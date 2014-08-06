@@ -524,7 +524,7 @@ public class Storyboard implements PropertyChangeInterface
             largestJsonArray = jsonIdMap.toJsonArray(root);
          }
 
-         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap.getCreators());
+         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap);
 
          copyMap.decode(largestJsonArray);
 
@@ -933,7 +933,7 @@ public class Storyboard implements PropertyChangeInterface
 
                idMap = method.invoke(null, "debug");
 
-               jsonIdMap.withCreator((((JsonIdMap) idMap).getCreators()));
+               jsonIdMap.withCreator((((JsonIdMap) idMap)));
             }
             catch (Exception e)
             {

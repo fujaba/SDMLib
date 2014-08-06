@@ -105,7 +105,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public ReplicationRoot plainInit()
    {
-      map.withCreator(ReplicationNodeCreator.createIdMap("i").getCreators());
+      map.withCreator(ReplicationNodeCreator.createIdMap("i"));
       
       map.withUpdateMsgListener((MapUpdateListener) this);
       

@@ -84,7 +84,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
          
          map.withCreator(modelCreators);
          
-         for (SendableEntityCreator sendableEntityCreator : map.getCreators())
+         for (SendableEntityCreator sendableEntityCreator : map)
          {
             System.out.println(sendableEntityCreator.toString());
          }

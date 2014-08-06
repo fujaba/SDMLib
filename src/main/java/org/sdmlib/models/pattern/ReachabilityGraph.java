@@ -493,7 +493,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
                ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
 
                // is the new graph already known?
-               JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap().withCreator(rule.getJsonIdMap().getCreators());
+               JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap().withCreator(rule.getJsonIdMap());
                newJsonIdMap.withSessionId("s");
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
                
@@ -530,8 +530,8 @@ public class ReachabilityGraph implements PropertyChangeInterface
    public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
    {
       
-      JsonIdMap map1 = (JsonIdMap) new JsonIdMap().withCreator(masterMap.getCreators());
-      JsonIdMap map2 = (JsonIdMap) new JsonIdMap().withCreator(masterMap.getCreators());
+      JsonIdMap map1 = (JsonIdMap) new JsonIdMap().withCreator(masterMap);
+      JsonIdMap map2 = (JsonIdMap) new JsonIdMap().withCreator(masterMap);
       
       map1.withSessionId("s");
       map2.withSessionId("s");
