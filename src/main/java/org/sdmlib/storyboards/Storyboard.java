@@ -582,7 +582,7 @@ public class Storyboard implements PropertyChangeInterface
          for (Method m : objectClass.getMethods())
          {
             String methodName = m.getName();
-            if (methodName.startsWith("create") && m.getParameterCount() == 0)
+            if (methodName.startsWith("create") && m.getParameters().length == 0)
             {
                m.invoke(object);
             }
