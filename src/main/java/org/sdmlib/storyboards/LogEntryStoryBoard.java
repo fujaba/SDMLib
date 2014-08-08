@@ -65,15 +65,23 @@ public class LogEntryStoryBoard implements PropertyChangeInterface, Comparable<L
          String oldValue = this.date;
          this.date = value;
          
-         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss z");
          try
          {
             this.parsedDate = dateFormat.parse(this.date);
          }
          catch (ParseException e)
          {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+            try
+            {
+               this.parsedDate = dateFormat.parse(this.date);
+            }
+            catch (ParseException e2)
+            {
+               // TODO Auto-generated catch block
+               e2.printStackTrace();
+            }
          }
          getPropertyChangeSupport().firePropertyChange(PROPERTY_DATE, oldValue, value);
       }

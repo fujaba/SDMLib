@@ -18,53 +18,69 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
+   
+package org.sdmlib.examples.simpleEnumModel.model;
 
-package org.sdmlib.models.classes;
-
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
 
-public abstract class SDMLibClass implements PropertyChangeInterface
-{  
-   public static final String PROPERTY_NAME = "name";
+public class Alex implements PropertyChangeInterface
+{
 
-   protected String name = null;
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
    @Override
    public PropertyChangeSupport getPropertyChangeSupport()
    {
       return listeners;
    }
    
-   
-   boolean setName(String value)
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-         return true;
-      }
-      return false;
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
-  
-   public String getName()
-   {
-      return name;
-   }
+
    
-   public abstract SDMLibClass withName(String value);
-
-
+   //==========================================================================
+   
+   
    public void removeYou()
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_NAME = "Name";
+   
+   private String Name;
+
+   public String getName()
+   {
+      return this.Name;
+   }
+   
+   public void setName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.Name, value))
+      {
+         String oldValue = this.Name;
+         this.Name = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+      }
+   }
+   
+   public Alex withName(String value)
+   {
+      setName(value);
+      return this;
+   } 
 
 
    @Override
@@ -75,4 +91,5 @@ public abstract class SDMLibClass implements PropertyChangeInterface
       result.append(" ").append(this.getName());
       return result.substring(1);
    }
+
 }

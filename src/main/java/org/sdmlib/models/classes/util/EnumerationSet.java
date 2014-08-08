@@ -30,6 +30,8 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.ClassModelSet;
+import org.sdmlib.models.classes.util.MethodSet;
 
 public class EnumerationSet extends SDMSet<Enumeration>
 {

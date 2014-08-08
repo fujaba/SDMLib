@@ -6,7 +6,6 @@
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="Adapter/GraphViz/Java"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/NetworkParser"/>
-	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/NetworkParser"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

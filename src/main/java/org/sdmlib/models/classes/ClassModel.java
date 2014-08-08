@@ -421,4 +421,11 @@ public class ClassModel extends SDMLibClass
       }
       return this;
    }
+
+   public Enumeration createEnumerations()
+   {
+      Enumeration value = new Enumeration();
+      withEnumerations(value);
+      return value;
+   } 
 }

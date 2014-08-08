@@ -31,6 +31,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -531,24 +532,70 @@ public class Storyboard implements PropertyChangeInterface
          coverPOClasses(copyMap);
          coverSetClasses(copyMap);
 
-         for (String key : copyMap.keySet())
-         {
-            Object object = copyMap.getObject(key);
-
-            object.toString();
-
-            Class<? extends Object> objectClass = object.getClass();
-
-            Method removeMethod = objectClass.getMethod("removeYou");
-
-            removeMethod.invoke(object);
-         }
+         coverSeldomModelMethods(copyMap);
 
       }
       catch (Exception e)
       {
          // cannot find creator creator class, sorry.
-         // e.printStackTrace();
+         e.printStackTrace();
+      }
+   }
+
+   private void coverSeldomModelMethods(JsonIdMap copyMap) throws NoSuchMethodException, IllegalAccessException,
+         InvocationTargetException
+   {
+      LinkedHashSet<String> handledClassesNames = new LinkedHashSet<String>();
+      
+      
+      // loop through objects
+      for (String key : copyMap.keySet())
+      {
+         Object object = copyMap.getObject(key);
+
+         // that class is already handled?
+         String className = object.getClass().getName();
+         
+         if (handledClassesNames.contains(className))
+         {
+            continue;
+         }
+         
+         handledClassesNames.add(className);
+         
+         // call toString
+         object.toString();
+         
+         Class<? extends Object> objectClass = object.getClass();
+
+         try
+         {
+            Method addPropertyChangeListenerMetod = objectClass.getMethod("addPropertyChangeListener", PropertyChangeListener.class);
+            addPropertyChangeListenerMetod.invoke(object, new Object[] {null});
+         }
+         catch (Exception e)
+         {
+            // dont worry
+         }
+         
+         // call createXY methods (some of them are not used in practice, e.g student.createUniversity)
+         for (Method m : objectClass.getMethods())
+         {
+            String methodName = m.getName();
+            if (methodName.startsWith("create") && m.getParameterCount() == 0)
+            {
+               m.invoke(object);
+            }
+            
+            if (methodName.startsWith("get") && methodName.endsWith("Transitive"))
+            {
+               m.invoke(object);
+            }
+         }
+         
+         Method removeMethod = objectClass.getMethod("removeYou");
+
+         removeMethod.invoke(object);
       }
    }
 
@@ -719,8 +766,14 @@ public class Storyboard implements PropertyChangeInterface
             String entryType = setObject.getEntryType();
 
             // add entry
-            Method withMethod = setClass.getMethod("with", object.getClass());
+            Method withMethod = setClass.getMethod("with", new Class[] {Object.class});
             withMethod.invoke(setObject, object);
+            withMethod.invoke(setObject, setObject);
+            
+            try {
+               Method hasPOMethod = setClass.getMethod("has" + CGUtil.shortClassName(className) + "PO");
+               hasPOMethod.invoke(setObject);
+            } catch (Exception e) {}
 
             // toString
             String text = setObject.toString();
@@ -732,11 +785,13 @@ public class Storyboard implements PropertyChangeInterface
                {
                   // call getter
                   Method getMethod = setClass.getMethod("get" + StrUtil.upFirstChar(attrName));
+                  
                   Object value = getMethod.invoke(setObject);
-
+                  Object setValue = null;
                   // get direct value
                   if (value instanceof Collection)
                   {
+                     setValue = value;
                      value = ((Collection<?>) value).iterator().next();
                   }
 
@@ -758,17 +813,40 @@ public class Storyboard implements PropertyChangeInterface
                   {
                      valueClass = float.class;
                   }
+                  else if (value instanceof Boolean)
+                  {
+                     valueClass = boolean.class;
+                  }
 
                   // call setter
                   Method setMethod = setClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
                   setMethod.invoke(setObject, value);
 
-                  Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
-                  unsetMethod.invoke(setObject, value);
+                  try {
+                     Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
+                     unsetMethod.invoke(setObject, value);
+                  } catch (Exception e) {}
+                  
+                  try {
+                     Method hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
+                     hasMethod.invoke(setObject, value);
+
+                     hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass, valueClass);
+                     hasMethod.invoke(setObject, value, value);
+                  } catch (Exception e) {}
+
+                  try {
+                     Method hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), Object.class);
+                     hasMethod.invoke(setObject, value);
+                     if (setValue != null) {
+                        hasMethod.invoke(setObject, setValue);
+                     }
+                  } catch (Exception e) {}
+
                }
                catch (Exception e)
                {
-                  // no prolem, go on with next attr
+                  // no problem, go on with next attr
                }
             }
 

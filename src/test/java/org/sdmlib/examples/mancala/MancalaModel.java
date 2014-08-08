@@ -69,7 +69,13 @@ public class MancalaModel {
       /* add method */
       new Method("initGame", new Parameter(DataType.ref("String")), new Parameter(DataType.ref("String")))
         .with(mancalaClass);
-
+      /* add method */
+      new Method("createPitsKalah")
+        .with(mancalaClass);
+      /* add method */
+      new Method("createKalah")
+        .with(mancalaClass);
+      
 
       Clazz playerStateClass = model.createClazz("org.sdmlib.examples.mancala.model.PlayerState");
       /* add method */
@@ -85,18 +91,7 @@ public class MancalaModel {
       new Method("checkEnd")
         .with(mancalaClass);
 
-      new Method("checkEnd")
-        .with(mancalaClass);
-
-      new Method("initGame", new Parameter(DataType.ref("String")), new Parameter(DataType.ref("String")))
-        .with(mancalaClass);
-
-      new Method("createKalah")
-        .with(mancalaClass);
-
-      new Method("createPitsKalah")
-        .with(mancalaClass);
-
+      
       Clazz pitClass = model.createClazz("org.sdmlib.examples.mancala.model.Pit")
       .with(new Attribute("nr", DataType.ref("int")) );
       /* add method */
@@ -126,7 +121,7 @@ public class MancalaModel {
       pitClass.withAssoc(pitClass, "counterpart", Card.ONE, "counterpart", Card.ONE);
 
       model.getGenerator().updateFromCode("src/test/java", "org.sdmlib.examples.mancala.model");
-      model.getGenerator().insertModelCreationCodeHere("src/test/java");
+      // model.getGenerator().insertModelCreationCodeHere("src/test/java");
     }
 
 }
