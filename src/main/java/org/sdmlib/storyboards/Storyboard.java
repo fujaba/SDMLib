@@ -60,6 +60,7 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
@@ -578,7 +579,7 @@ public class Storyboard implements PropertyChangeInterface
             // dont worry
          }
          
-         // call createXY methods (some of them are not used in practice, e.g student.createUniversity)
+         // call createXY methods (some of them are not used in practice, e.g student.createUniversity())
          for (Method m : objectClass.getMethods())
          {
             String methodName = m.getName();
@@ -842,6 +843,10 @@ public class Storyboard implements PropertyChangeInterface
                         hasMethod.invoke(setObject, setValue);
                      }
                   } catch (Exception e) {}
+                  
+                  // also cover creatorclass set method
+                  creatorClass.setValue(object, attrName, value, "");
+                  creatorClass.setValue(object, attrName, value, JsonIdMap.REMOVE);
 
                }
                catch (Exception e)
@@ -853,6 +858,10 @@ public class Storyboard implements PropertyChangeInterface
             // del entry
             Method withoutMethod = setClass.getMethod("without", object.getClass());
             withoutMethod.invoke(setObject, object);
+            
+            creatorClass.getValue(object, "foo.bar");
+            
+            ((EntityFactory) creatorClass).removeObject(object);
          }
          catch (Exception e)
          {
