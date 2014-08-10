@@ -530,8 +530,7 @@ public class Storyboard implements PropertyChangeInterface
 
          copyMap.decode(largestJsonArray);
 
-         coverPOClasses(copyMap);
-         coverSetClasses(copyMap);
+         coverSetAndPOClasses(copyMap);
 
          coverSeldomModelMethods(copyMap);
 
@@ -600,151 +599,9 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   private void coverPOClasses(JsonIdMap copyMap)
-   {
-      // loop through objects in jsonIdMap, pack them into pattern object, read
-      // and write all attributes
 
-      Pattern pattern = null;
-      Class<?> patternClass = null;
 
-      for (String key : copyMap.keySet())
-      {
-         Object object = copyMap.getObject(key);
-
-         SendableEntityCreator creatorClass = copyMap.getCreatorClass(object);
-
-         String className = object.getClass().getName();
-         String packageName = CGUtil.packageName(className) + ".util";
-
-         if (pattern == null)
-         {
-            String modelPatternClassName = packageName + ".ModelPattern";
-
-            try
-            {
-               patternClass = Class.forName(modelPatternClassName);
-               pattern = (Pattern) patternClass.newInstance();
-            }
-            catch (Exception e)
-            {
-
-            }
-         }
-
-         try
-         {
-            // cover hasElement methods
-            String hasElemMethod = "hasElement" + CGUtil.shortClassName(className) + "PO";
-
-            // add entry
-            Method method = patternClass.getMethod(hasElemMethod);
-            method.invoke(pattern);
-
-            pattern.removeAllFromElements();
-            pattern.setHasMatch(true);
-
-            // also the bound method
-            method = patternClass.getMethod(hasElemMethod, object.getClass());
-            Object patternObject = method.invoke(pattern, object);
-            Class<?> patternObjectClass = patternObject.getClass();
-
-            // loop through attributes
-            for (String attrName : creatorClass.getProperties())
-            {
-               try
-               {
-                  // call getter
-                  method = patternObjectClass.getMethod("get" + StrUtil.upFirstChar(attrName));
-                  Object value = method.invoke(patternObject);
-
-                  Class<?> valueClass = value.getClass();
-
-                  if (value instanceof Integer)
-                  {
-                     valueClass = int.class;
-                  }
-                  else if (value instanceof Double)
-                  {
-                     valueClass = double.class;
-                  }
-                  else if (value instanceof Long)
-                  {
-                     valueClass = long.class;
-                  }
-                  else if (value instanceof Float)
-                  {
-                     valueClass = float.class;
-                  }
-
-                  if (valueClass.isPrimitive() || valueClass == String.class)
-                  {
-                     // call with
-                     method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
-                     method.invoke(patternObject, value);
-
-                     // call has
-                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
-                     method.invoke(patternObject, value);
-                  }
-                  else
-                  {
-                     // model elem,
-                     // call has
-                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
-                     value = method.invoke(patternObject);
-
-                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), value.getClass());
-                     value = method.invoke(patternObject, value);
-                  }
-
-               }
-               catch (Exception e)
-               {
-                  // no problem, go on with next attr
-               }
-            }
-
-            // allMatches
-            method = patternObjectClass.getMethod("allMatches");
-            method.invoke(patternObject);
-
-            pattern.removeAllFromElements();
-            pattern.setHasMatch(true);
-
-            //
-            // // get direct value
-            // if (value instanceof Collection)
-            // {
-            // value = ((Collection<?>) value).iterator().next();
-            // }
-            //
-
-            //
-            // // call setter
-            // Method setMethod = setClass.getMethod("with" +
-            // StrUtil.upFirstChar(attrName), valueClass);
-            // setMethod.invoke(setObject, value);
-            //
-            // Method unsetMethod = setClass.getMethod("without" +
-            // StrUtil.upFirstChar(attrName), valueClass);
-            // unsetMethod.invoke(setObject, value);
-
-            //
-            // // del entry
-            // Method withoutMethod = setClass.getMethod("without",
-            // object.getClass());
-            // withoutMethod.invoke(setObject, object);
-         }
-         catch (Exception e)
-         {
-            // no prolem, just lower coverage
-         }
-      }
-
-   }
-
-   private void coverSetClasses(JsonIdMap copyMap)
+   private void coverSetAndPOClasses(JsonIdMap copyMap)
    {
       // loop through objects in jsonIdMap, pack them into set, read and write
       // all attributes
@@ -771,10 +628,25 @@ public class Storyboard implements PropertyChangeInterface
             withMethod.invoke(setObject, object);
             withMethod.invoke(setObject, setObject);
             
-            try {
-               Method hasPOMethod = setClass.getMethod("has" + CGUtil.shortClassName(className) + "PO");
-               hasPOMethod.invoke(setObject);
-            } catch (Exception e) {}
+            PatternObject patternObject = null;
+            Class patternObjectClass = null;
+            Method hasPOMethod = null;
+            try { 
+               hasPOMethod = setClass.getMethod("has" + CGUtil.shortClassName(className) + "PO");
+               patternObject = (PatternObject) hasPOMethod.invoke(setObject);
+
+               patternObjectClass = patternObject.getClass();
+               
+               // call allMatches
+               Method allMatchesMethod = patternObjectClass.getMethod("allMatches");
+               allMatchesMethod.invoke(patternObject);
+               
+               //               Method poConstructor = patternObjectClass.getMethod(CGUtil.shortClassName(patternObjectClass.getName()));
+               //               poConstructor.invoke(null);
+            
+            } catch (Exception e) {
+               // e.printStackTrace();
+            }
 
             // toString
             String text = setObject.toString();
@@ -847,6 +719,55 @@ public class Storyboard implements PropertyChangeInterface
                   // also cover creatorclass set method
                   creatorClass.setValue(object, attrName, value, "");
                   creatorClass.setValue(object, attrName, value, JsonIdMap.REMOVE);
+                  
+                  patternObject = (PatternObject) hasPOMethod.invoke(setObject);
+
+                  if (patternObject != null)
+                  {
+                     // cover attr methods for pattern object
+                     try {
+                        //getName
+                        getMethod = patternObjectClass.getMethod("get" + StrUtil.upFirstChar(attrName));
+                        getMethod.invoke(patternObject);
+                     } catch (Exception e) {}
+                     try {
+                           // createName
+                        withMethod = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
+                        withMethod.invoke(patternObject, value);
+                     } catch (Exception e) {}
+                     try {
+                        // createName
+                        Method createMethod = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName), valueClass);
+                        createMethod.invoke(patternObject, value);
+                     } catch (Exception e) {}
+                     try {
+                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
+                        hasMethod.invoke(patternObject, value);
+                     } catch (Exception e) {}
+                     try {
+                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass, valueClass);
+                        hasMethod.invoke(patternObject, value, value);
+                     } catch (Exception e) {}
+                     try {
+                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
+                        hasMethod.invoke(patternObject);
+                     } catch (Exception e) {}
+                     try {
+                        Method method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName));
+                        method.invoke(patternObject);
+                     } catch (Exception e) {}
+                     try {
+                        String poClassName = CGUtil.helperClassName(valueClass.getName(), "PO");
+                        SendableEntityCreator poCreator = copyMap.getCreator(poClassName, true);
+                        Object po = poCreator.getSendableInstance(false);
+                        Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), po.getClass());
+                        method.invoke(patternObject, po);
+                        
+                        method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName), po.getClass());
+                        method.invoke(patternObject, po);
+                     } catch (Exception e) {}
+                     
+                  }
 
                }
                catch (Exception e)
