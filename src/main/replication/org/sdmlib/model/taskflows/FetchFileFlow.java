@@ -127,7 +127,7 @@ public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 
       default:
          break;
-      }
+      };
    }
 
    private OutputStream out = null;

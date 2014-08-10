@@ -163,21 +163,21 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
    public String toString()
    {
       String changeMsg = new JsonObject().withValue(this.getChangeMsg()).toString(3);
-      StringBuilder _ = new StringBuilder();
+      StringBuilder buf = new StringBuilder();
 
-      _.append(" ").append(this.getHistoryIdPrefix());
-      _.append(" ").append(this.getHistoryIdNumber());
-      _.append(" ").append(this.getTargetObjectId());
-      _.append(" ").append(this.getTargetProperty());
-      _.append("\n").append(changeMsg);
+      buf.append(" ").append(this.getHistoryIdPrefix());
+      buf.append(" ").append(this.getHistoryIdNumber());
+      buf.append(" ").append(this.getTargetObjectId());
+      buf.append(" ").append(this.getTargetProperty());
+      buf.append("\n").append(changeMsg);
       // _.append(" ").append(this.getChangeMsg());
 
       for (LogEntry entry : this.getLogEntries())
       {
-         _.append("\n").append(entry);
+         buf.append("\n").append(entry);
       }
 
-      return _.substring(1);
+      return buf.substring(1);
    }
 
    // ==========================================================================
@@ -240,7 +240,7 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
 
    public static final String PROPERTY_CHANGEMSG = "changeMsg";
 
-   private String changeMsg;
+   private String changeMsg = "{}";
 
    public String getChangeMsg()
    {
@@ -372,7 +372,7 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
 
    public static final String PROPERTY_HISTORYIDPREFIX = "historyIdPrefix";
 
-   private String historyIdPrefix;
+   private String historyIdPrefix = "42";
 
    public String getHistoryIdPrefix()
    {

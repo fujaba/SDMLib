@@ -34,6 +34,7 @@ import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -278,7 +279,9 @@ public class Storyboard implements PropertyChangeInterface
       if (kanbanEntry == null)
       {
          Date today = new Date(System.currentTimeMillis());
-         String todayString = DateFormat.getInstance().format(today);
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss z");
+         
+         String todayString = dateFormat.format(today);
          kanbanEntry = new KanbanEntry()
             .withName(this.getName())
             .withPhase(BACKLOG)
@@ -584,12 +587,16 @@ public class Storyboard implements PropertyChangeInterface
             String methodName = m.getName();
             if (methodName.startsWith("create") && m.getParameterTypes().length == 0)
             {
-               m.invoke(object);
+               try {
+                  m.invoke(object);
+               } catch (Exception e) {}
             }
             
             if (methodName.startsWith("get") && methodName.endsWith("Transitive"))
             {
-               m.invoke(object);
+               try {
+                  m.invoke(object);
+               } catch (Exception e) {}
             }
          }
          
