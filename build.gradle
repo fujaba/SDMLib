@@ -17,6 +17,11 @@ if (project.hasProperty('jenkins')) {
     apply from: 'gradle/version.gradle'
 }
 
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 sourceSets.main.java.srcDirs += ['src/main/replication']
 
 buildscript { 
