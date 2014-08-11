@@ -255,7 +255,7 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
 
    public StatementEntryPO hasStatementEntryPO()
    {
-      return null;
+      return new StatementEntryPO(this.toArray(new StatementEntry[this.size()]));
 
    }
 

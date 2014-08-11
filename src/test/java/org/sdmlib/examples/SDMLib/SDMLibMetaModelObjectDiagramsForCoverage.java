@@ -1,6 +1,13 @@
 package org.sdmlib.examples.SDMLib;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
+import org.sdmlib.codegen.LocalVarTableEntry;
+import org.sdmlib.codegen.StatementEntry;
+import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.codegen.Token;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
@@ -70,4 +77,60 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
       
       story.dumpHTML();
    }
+
+   @Test
+   public void testSDMLibCodeGenObjectsForCoverage()
+   {
+      Storyboard story = new Storyboard("src/test/java");
+      
+      story.add("Create some objects just for coverage. This does not serve as an usage example.");
+      
+      ClassModel model = new ClassModel("org.sdmlib");
+      
+      SymTabEntry symTabEntry = new SymTabEntry()
+      .withBodyStartPos(42)
+      .withEndPos(84)
+      .withKind("cool")
+      .withMemberName("me")
+      .withModifiers("grow")
+      .withStartPos(43);
+      
+      ArrayList<String> arrayList = new ArrayList<String>();
+      arrayList.add("a");
+      arrayList.add("bc");
+      
+      ArrayList<ArrayList<String>> arrayArrayList = new ArrayList<ArrayList<String>>();
+      arrayArrayList.add(arrayList);
+      
+      LocalVarTableEntry localVarTableEntry = new LocalVarTableEntry()
+      .withEndPos(84)
+      .withInitSequence(arrayArrayList)
+      .withName("me")
+      .withStartPos(42)
+      .withType("int");
+      
+      StatementEntry stat2 = new StatementEntry();
+      
+      StatementEntry statementEntry = new StatementEntry()
+      .withAssignTargetVarName("x")
+      .withBodyStats(stat2)
+      .withEndPos(84)
+      .withKind("polite")
+      .withStartPos(42);
+      
+      Token token = new Token();
+      token.endPos = 77;
+      token.kind = 'v';
+      token.startPos = 70;
+      token.value = 42.23;
+      
+      statementEntry.withToken(token);
+      
+      
+      
+      story.addObjectDiagram(model, statementEntry, localVarTableEntry, symTabEntry);
+      
+      story.dumpHTML();
+   }
+
 }

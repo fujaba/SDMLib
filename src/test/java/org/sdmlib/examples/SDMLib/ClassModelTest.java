@@ -28,21 +28,23 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.storyboards.Storyboard;
 
 public class ClassModelTest
 {
    @Test
    public void testClassModelCodeGen()
    {
-//      Storyboard storyboard = new Storyboard("test", "ClassModelCodeGen");
-//      storyboard.setSprint("Sprint.001.Booting");
+      Storyboard storyboard = new Storyboard("src/test/java", "ClassModelCodeGen");
+      storyboard.setSprint("Sprint.001.Booting");
       
       //=======================================================================
 //      storyboard.add("This test generates some classes with some elements. ");
 
 
       //=======================================================================
-//      storyboard.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
+      storyboard.add("We start by bootstrapping org.sdmlib.model.classes.ClassModel. ");
 
       ClassModel model = new ClassModel("org.sdmlib.models.classes");
       Clazz sdmLibClazz = model.createClazz("SDMLibClass").withAttribute("name", DataType.STRING);
@@ -147,19 +149,19 @@ public class ClassModelTest
       .withTarget(statementEntry, "bodyStats", Card.MANY);
       
       
-//      storyboard.add("Basic bootstrap done.", 
-//         ProjectBoard.IMPLEMENTATION, "zuendorf", "18.03.2012 23:35:42", 1, 0);
-//      
-//      storyboard.addSVGImage(model.dumpClassDiagram("src", "ClassModelClasses01"));
-//      
-//      storyboard.add("Generate generic get and set and removeYou.", 
-//         ProjectBoard.IMPLEMENTATION, "zuendorf", "19.03.2012 00:19:42", 1, 0);
-//
-//      storyboard.add("Generate creator classes.", 
-//         ProjectBoard.IMPLEMENTATION, "zuendorf", "26.03.2012 22:54:42", 1, 0);
-//
-//      storyboard.add("Generate PatternObject classes.", 
-//         ProjectBoard.IMPLEMENTATION, "zuendorf", "19.08.2012 19:08:42", 8, 0);
+      storyboard.add("Basic bootstrap done.", 
+         Kanban.DONE, "zuendorf", "18.03.2012 23:35:42 CEST", 1, 0);
+      
+      storyboard.addClassDiagram(model);
+
+      storyboard.add("Generate generic get and set and removeYou.", 
+         Kanban.DONE, "zuendorf", "19.03.2012 00:19:42 CEST", 1, 0);
+
+      storyboard.add("Generate creator classes.", 
+         Kanban.DONE, "zuendorf", "26.03.2012 22:54:42 CEST", 1, 0);
+
+      storyboard.add("Generate PatternObject classes.", 
+         Kanban.DONE, "zuendorf", "19.08.2012 19:08:42 CEST", 8, 0);
 
       
 
@@ -177,9 +179,7 @@ public class ClassModelTest
       
       model.generate("src/main/java");
       
-//      StoryboardManager.get()
-//      .add(storyboard)
-//      .dumpHTML();      
+      storyboard.dumpHTML();
    }
 }
 

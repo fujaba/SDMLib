@@ -176,7 +176,7 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
 
    public LocalVarTableEntryPO hasLocalVarTableEntryPO()
    {
-      return null;
+      return new LocalVarTableEntryPO(this.toArray(new LocalVarTableEntry[this.size()]));
 
    }
 }
