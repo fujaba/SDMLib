@@ -179,12 +179,13 @@ public class GenericConstraintPO extends PatternObject<GenericConstraintPO, Gene
 
    public Pattern getPattern()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getPattern().getHasMatch())
       {
          return ((PatternElement) this.getCurrentMatch()).getPattern();
       }
-      return null;
+      return super.getPattern();
    }
+
 
    public GenericConstraintPO hasModifier(String lower, String upper)
    {

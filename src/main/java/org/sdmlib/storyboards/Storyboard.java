@@ -625,10 +625,13 @@ public class Storyboard implements PropertyChangeInterface
          try
          {
             Class<?> setClass = Class.forName(setClassName);
-            ModelSet setObject = (ModelSet) setClass.newInstance();
+            Object setObject = setClass.newInstance();
 
-            // cover ModelSet methods
-            String entryType = setObject.getEntryType();
+            if (setObject instanceof ModelSet)
+            {
+               // cover ModelSet methods
+               String entryType = ((ModelSet) setObject).getEntryType();
+            }
 
             // add entry
             Method withMethod = setClass.getMethod("with", new Class[] {Object.class});
@@ -767,11 +770,22 @@ public class Storyboard implements PropertyChangeInterface
                         String poClassName = CGUtil.helperClassName(valueClass.getName(), "PO");
                         SendableEntityCreator poCreator = copyMap.getCreator(poClassName, true);
                         Object po = poCreator.getSendableInstance(false);
-                        Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), po.getClass());
-                        method.invoke(patternObject, po);
-                        
-                        method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName), po.getClass());
-                        method.invoke(patternObject, po);
+                        try {
+                           Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), po.getClass());
+                           method.invoke(patternObject, po);
+                        } catch (Exception e) {}
+                        try {                           
+                           Method method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), po.getClass());
+                           method.invoke(patternObject, po);
+                        } catch (Exception e) {}
+                        try {
+                           Method method = patternObjectClass.getMethod("without" + StrUtil.upFirstChar(attrName), po.getClass());
+                           method.invoke(patternObject, po);
+                        } catch (Exception e) {}
+                        try {
+                           Method method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName), po.getClass());
+                           method.invoke(patternObject, po);
+                        } catch (Exception e) {}
                      } catch (Exception e) {}
                      
                   }

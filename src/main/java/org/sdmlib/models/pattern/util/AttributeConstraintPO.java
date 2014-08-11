@@ -277,11 +277,11 @@ public class AttributeConstraintPO extends PatternObject<AttributeConstraintPO, 
    @Override
    public Pattern getPattern()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getPattern().getHasMatch())
       {
          return ((PatternElement) this.getCurrentMatch()).getPattern();
       }
-      return null;
+      return super.getPattern();
    }
 
    public AttributeConstraintPO hasCmpOp(String value)
