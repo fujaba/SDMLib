@@ -46,7 +46,9 @@ import org.sdmlib.models.classes.util.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.storyboards.Storyboard;
 
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenClassModel
@@ -189,6 +191,10 @@ public class GenClassModel
          }
          System.out.println("Totalchanges of all Files: "+count);
       }
+      
+      // perhabs there is already generated and compiled code from previous run. Try to do coverage of model code
+      this.doCoverageOfModelCode();
+      
       return true;
    }
    
@@ -2906,5 +2912,69 @@ public class GenClassModel
       }
       this.ignoreDiff.add(name);
       return this;
+   }
+
+   public void doCoverageOfModelCode()
+   {
+      // try to create example object structure and use storyboard to do coverage
+      Clazz firstClazz = this.getModel().getClasses().first();
+      
+      try {
+         // try to load creator class
+         String creatorClassName = CGUtil.helperClassName(firstClazz.getFullName(), "Creator");
+         Class<?> creatorClass = Class.forName(creatorClassName);
+         java.lang.reflect.Method method = creatorClass.getMethod("createIdMap", String.class);
+         JsonIdMap map = (JsonIdMap) method.invoke(null, "t");
+         
+         // now loop through model classes and create two objects for each class using the corresponding creator class
+         for (Clazz clazz : model.getClasses())
+         {
+            try {
+               SendableEntityCreator creator = map.getCreator(clazz.getFullName(), true);
+
+               Object object1 = creator.getSendableInstance(false);
+               map.getId(object1);
+
+               // try to add some attribute values
+               for (Attribute attr : clazz.getAttributes())
+               {
+                  // for number and string attributes "42" might work.
+                  try {
+                     creator.setValue(object1, attr.getName(), "42", "");
+                  } catch (Exception g) {}
+               }
+               
+               // try to add role values
+               for(Role role : clazz.getRoles())
+               {
+                  role = role.getPartnerRole();
+                  
+                  Clazz partnerClazz = role.getClazz();
+                  
+                  SendableEntityCreator partnerCreator = map.getCreator(partnerClazz.getFullName(), true);
+
+                  Object partnerObject = partnerCreator.getSendableInstance(false);
+                  map.getId(partnerObject);
+                  
+                  creator.setValue(object1, role.getName(), partnerObject, "");
+                  
+                  try {
+                     java.lang.reflect.Method createMethod = object1.getClass().getMethod("create" + StrUtil.upFirstChar(role.getName()));
+                     createMethod.invoke(object1);
+                  } catch (Exception g) {}
+               }
+               
+            } catch (Exception f) {}
+         }
+         
+         // now ask the storyboad to do the coverage things
+         Storyboard story = new Storyboard("coverage");
+         story.coverSetAndPOClasses(map);
+         story.coverSeldomModelMethods(map);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
    }
 }

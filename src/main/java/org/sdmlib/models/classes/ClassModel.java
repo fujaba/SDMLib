@@ -58,7 +58,6 @@ public class ClassModel extends SDMLibClass
 
 	public ClassModel generate(String rootDir)
 	{
-	  
 	   getGenerator().generate(rootDir);
 	   return this;
 	}
