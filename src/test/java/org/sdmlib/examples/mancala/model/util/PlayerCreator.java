@@ -38,6 +38,7 @@ public class PlayerCreator extends EntityFactory
       Player.PROPERTY_PITS,
       Player.PROPERTY_KALAH,
       Player.PROPERTY_STONE,
+      Player.PROPERTY_ACTIVEGAME,
    };
    
    @Override
@@ -87,6 +88,11 @@ public class PlayerCreator extends EntityFactory
       {
          return ((Player) target).getStone();
       }
+
+      if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attribute))
+      {
+         return ((Player) target).getActiveGame();
+      }
       
       return null;
    }
@@ -132,6 +138,12 @@ public class PlayerCreator extends EntityFactory
       if (Player.PROPERTY_STONE.equalsIgnoreCase(attrName))
       {
          ((Player) target).setStone((Stone) value);
+         return true;
+      }
+
+      if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attrName))
+      {
+         ((Player) target).setActiveGame((Mancala) value);
          return true;
       }
       

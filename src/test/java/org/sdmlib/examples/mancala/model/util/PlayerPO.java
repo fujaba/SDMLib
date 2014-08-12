@@ -233,4 +233,38 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return null;
    }
 
+   public MancalaPO hasActiveGame()
+   {
+      MancalaPO result = new MancalaPO(new Mancala[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_ACTIVEGAME, result);
+      
+      return result;
+   }
+
+   public MancalaPO createActiveGame()
+   {
+      return this.startCreate().hasActiveGame().endCreate();
+   }
+
+   public PlayerPO hasActiveGame(MancalaPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_ACTIVEGAME);
+   }
+
+   public PlayerPO createActiveGame(MancalaPO tgt)
+   {
+      return this.startCreate().hasActiveGame(tgt).endCreate();
+   }
+
+   public Mancala getActiveGame()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Player) this.getCurrentMatch()).getActiveGame();
+      }
+      return null;
+   }
+
 }

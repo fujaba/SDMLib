@@ -328,4 +328,52 @@ public class PlayerSet extends SDMSet<Player>
       return this;
    }
 
+   public MancalaSet getActiveGame()
+   {
+      MancalaSet result = new MancalaSet();
+      
+      for (Player obj : this)
+      {
+         result.add(obj.getActiveGame());
+      }
+      
+      return result;
+   }
+
+   public PlayerSet hasActiveGame(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PlayerSet answer = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (neighbors.contains(obj.getActiveGame()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public PlayerSet withActiveGame(Mancala value)
+   {
+      for (Player obj : this)
+      {
+         obj.withActiveGame(value);
+      }
+      
+      return this;
+   }
+
 }
