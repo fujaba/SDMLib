@@ -57,6 +57,7 @@ import de.uniks.networkparser.interfaces.MapUpdateListener;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.json.JsonTokener;
 
 
 
@@ -522,7 +523,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    public void applyChangeLocally(ReplicationChange change)
    {
       // no conflict, apply change
-      JsonObject jsonUpdate = new JsonObject().withValue(change.getChangeMsg());
+      JsonObject jsonUpdate = new JsonObject(); 
+      
+      new JsonTokener().withAllowCRLF(true).withText(change.getChangeMsg()).parseToEntity(jsonUpdate);
+      
+
       
       for (HookAction r : beforeHandleMessageActions)
       {
