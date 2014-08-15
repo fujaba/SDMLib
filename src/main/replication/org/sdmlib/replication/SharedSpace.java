@@ -57,6 +57,7 @@ import de.uniks.networkparser.interfaces.MapUpdateListener;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.json.JsonTokener;
 
 
 
@@ -105,7 +106,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public ReplicationRoot plainInit()
    {
-      map.withCreator(ReplicationNodeCreator.createIdMap("i").getCreators());
+      map.withCreator(ReplicationNodeCreator.createIdMap("i"));
       
       map.withUpdateMsgListener((MapUpdateListener) this);
       
@@ -131,7 +132,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       
       if (map.getCounter() instanceof SimpleIdCounter)
       {
-         ((SimpleIdCounter) map.getCounter()).setNumber(this.lastChangeId);
+         ((SimpleIdCounter) map.getCounter()).withNumber(this.lastChangeId);
       }
       
       remoteTaskBoard = new RemoteTaskBoard();
@@ -522,7 +523,11 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    public void applyChangeLocally(ReplicationChange change)
    {
       // no conflict, apply change
-      JsonObject jsonUpdate = new JsonObject().withValue(change.getChangeMsg());
+      JsonObject jsonUpdate = new JsonObject(); 
+      
+      new JsonTokener().withAllowCRLF(true).withText(change.getChangeMsg()).parseToEntity(jsonUpdate);
+      
+
       
       for (HookAction r : beforeHandleMessageActions)
       {

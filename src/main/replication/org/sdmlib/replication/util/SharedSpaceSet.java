@@ -288,7 +288,7 @@ public class SharedSpaceSet extends SDMSet<SharedSpace>
       
       for (SharedSpace obj : this)
       {
-         if (value.equals(obj.getSpaceId()))
+         if (value == null && obj.getSpaceId() == null || value != null && value.equals(obj.getSpaceId()))
          {
             result.add(obj);
          }

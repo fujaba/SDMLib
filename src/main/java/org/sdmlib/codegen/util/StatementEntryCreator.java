@@ -84,7 +84,10 @@ public class StatementEntryCreator extends EntityFactory
 
       if (StatementEntry.PROPERTY_TOKENLIST.equalsIgnoreCase(attrName))
       {
-         ((StatementEntry)target).setTokenList((ArrayList<String>) value);
+         if (value instanceof ArrayList)
+         {
+            ((StatementEntry)target).setTokenList((ArrayList<String>) value);
+         }
          return true;
       }
 

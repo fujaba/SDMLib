@@ -296,16 +296,16 @@ public class BanfM2MTransformations
    private Pattern<?> revertRule(Pattern<?> forwardRule)
    {
       JsonIdMap origMap = forwardRule.getJsonIdMap();
-      origMap.withCreator(PatternCreator.createIdMap("x").getCreators());
+      origMap.withCreator(PatternCreator.createIdMap("x"));
       
-      JsonIdMap fwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
+      JsonIdMap fwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
 
       JsonArray jsonArray = fwdMap.toJsonArray(forwardRule);
       Object firstObject = jsonArray.get(0);
       jsonArray.remove(0);
       jsonArray.add(firstObject);
       
-      JsonIdMap bwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
+      JsonIdMap bwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
       
       PatternElement<?> decode = (PatternElement<?>) bwdMap.decode(jsonArray);
       Pattern<?> backwardRule = (Pattern<?>) decode.getPattern();

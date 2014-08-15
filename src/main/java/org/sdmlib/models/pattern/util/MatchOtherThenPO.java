@@ -211,12 +211,13 @@ public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOther
 
    public Pattern getPattern()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getPattern().getHasMatch())
       {
          return ((PatternElement) this.getCurrentMatch()).getPattern();
       }
-      return null;
+      return super.getPattern();
    }
+
 
    public PatternObjectPO hasSrc()
    {

@@ -31,8 +31,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -59,6 +61,7 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
@@ -86,7 +89,7 @@ public class Storyboard implements PropertyChangeInterface
    public static final String DONE = "done";
    public static final String IMPLEMENTATION = "implementation";
    public static final String BACKLOG = "backlog";
-  
+
    private String name;
    private GuiAdapter adapter;
    private String javaTestFileName;
@@ -111,7 +114,7 @@ public class Storyboard implements PropertyChangeInterface
       this.jsonIdMap = jsonIdMap;
       return this;
    }
-   
+
    public GuiAdapter getAdapter()
    {
       if (adapter == null)
@@ -232,7 +235,7 @@ public class Storyboard implements PropertyChangeInterface
          // do nothing just for getSendableInstance
          return;
       }
-      
+
       this.rootDir = rootDir;
 
       Exception e = new RuntimeException();
@@ -276,17 +279,19 @@ public class Storyboard implements PropertyChangeInterface
       if (kanbanEntry == null)
       {
          Date today = new Date(System.currentTimeMillis());
-         String todayString = DateFormat.getInstance().format(today);
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss z");
+
+         String todayString = dateFormat.format(today);
          kanbanEntry = new KanbanEntry()
-            .withName(this.getName())
+         .withName(this.getName())
+         .withPhase(BACKLOG)
+         .withParent(kanbanBoard)
+         .withLogEntries(
+            new LogEntryStoryBoard()
+            .withDate(todayString)
             .withPhase(BACKLOG)
-            .withParent(kanbanBoard)
-            .withLogEntries(
-               new LogEntryStoryBoard()
-                  .withDate(todayString)
-                  .withPhase(BACKLOG)
-                  .withDeveloper(System.getProperty("user.name"))
-                  .withHoursRemainingInTotal(0.0));
+            .withDeveloper(System.getProperty("user.name"))
+            .withHoursRemainingInTotal(0.0));
       }
 
       if (kanbanEntry.getPhase() == null)
@@ -353,10 +358,10 @@ public class Storyboard implements PropertyChangeInterface
          {
             LogEntryStoryBoard oldEntry = oldLogEntriesIter.next();
             oldEntry.withDeveloper(newEntry.getDeveloper())
-               .withDate(newEntry.getDate())
-               .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
-               .withHoursSpend(newEntry.getHoursSpend())
-               .withPhase(newEntry.getPhase());
+            .withDate(newEntry.getDate())
+            .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
+            .withHoursSpend(newEntry.getHoursSpend())
+            .withPhase(newEntry.getPhase());
          }
          else
          {
@@ -376,20 +381,20 @@ public class Storyboard implements PropertyChangeInterface
 
       // generate the html text
       String htmlText = "<html>\n" +
-         "<head>" +
-         "<meta charset=\"utf-8\">\n" +
-         "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-         "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
-         "\r\n" +
-         "<script src=\"includes/dagre.js\"></script>\r\n" +
-         "<script src=\"includes/drawer.js\"></script>\r\n" +
-         "<script src=\"includes/graph.js\"></script>\r\n" +
-         "</head>" +
-         "<body onload=\"init();\">\n" +
-         "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
-         "$text\n" +
-         "</body>\n" +
-         "</html>\n";
+            "<head>" +
+            "<meta charset=\"utf-8\">\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
+            "\r\n" +
+            "<script src=\"includes/dagre.js\"></script>\r\n" +
+            "<script src=\"includes/drawer.js\"></script>\r\n" +
+            "<script src=\"includes/graph.js\"></script>\r\n" +
+            "</head>" +
+            "<body onload=\"init();\">\n" +
+            "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
+            "$text\n" +
+            "</body>\n" +
+            "</html>\n";
 
       String storyboardName = this.getName();
 
@@ -428,8 +433,8 @@ public class Storyboard implements PropertyChangeInterface
       int pos = htmlText.indexOf("$text");
 
       htmlText = htmlText.substring(0, pos)
-         + text.toString()
-         + htmlText.substring(pos + "$text".length());
+            + text.toString()
+            + htmlText.substring(pos + "$text".length());
 
       writeToFile(shortFileName, htmlText);
 
@@ -488,7 +493,7 @@ public class Storyboard implements PropertyChangeInterface
    {
       this.add(string);
    }
-   
+
    public Storyboard withMap(JsonIdMap map){
       this.jsonIdMap = map;
       return this;
@@ -524,183 +529,101 @@ public class Storyboard implements PropertyChangeInterface
             largestJsonArray = jsonIdMap.toJsonArray(root);
          }
 
-         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap.getCreators());
+         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap);
 
          copyMap.decode(largestJsonArray);
 
-         coverPOClasses(copyMap);
-         coverSetClasses(copyMap);
+         coverSetAndPOClasses(copyMap);
 
-         for (String key : copyMap.keySet())
-         {
-            Object object = copyMap.getObject(key);
-
-            object.toString();
-
-            Class<? extends Object> objectClass = object.getClass();
-
-            Method removeMethod = objectClass.getMethod("removeYou");
-
-            removeMethod.invoke(object);
-         }
+         coverSeldomModelMethods(copyMap);
 
       }
       catch (Exception e)
       {
          // cannot find creator creator class, sorry.
-         // e.printStackTrace();
+         e.printStackTrace();
       }
    }
 
-   private void coverPOClasses(JsonIdMap copyMap)
+   public void coverSeldomModelMethods(JsonIdMap copyMap) throws NoSuchMethodException, IllegalAccessException,
+   InvocationTargetException
    {
-      // loop through objects in jsonIdMap, pack them into pattern object, read
-      // and write all attributes
+      LinkedHashSet<String> handledClassesNames = new LinkedHashSet<String>();
 
-      Pattern pattern = null;
-      Class<?> patternClass = null;
-
-      for (String key : copyMap.keySet())
+      LinkedHashSet<String> keySet = new LinkedHashSet<String>();
+      keySet.addAll(copyMap.keySet());
+      // loop through objects
+      for (String key : keySet)
       {
-         Object object = copyMap.getObject(key);
-
-         SendableEntityCreator creatorClass = copyMap.getCreatorClass(object);
-
-         String className = object.getClass().getName();
-         String packageName = CGUtil.packageName(className) + ".util";
-
-         if (pattern == null)
+         try
          {
-            String modelPatternClassName = packageName + ".ModelPattern";
+            Object object = keySet;
+
+            // that class is already handled?
+            String className = object.getClass().getName();
+
+            if (handledClassesNames.contains(className))
+            {
+               continue;
+            }
+
+            handledClassesNames.add(className);
+
+            // call toString
+            object.toString();
+
+            Class<? extends Object> objectClass = object.getClass();
 
             try
             {
-               patternClass = Class.forName(modelPatternClassName);
-               pattern = (Pattern) patternClass.newInstance();
+               Method addPropertyChangeListenerMetod = objectClass.getMethod("addPropertyChangeListener", PropertyChangeListener.class);
+               addPropertyChangeListenerMetod.invoke(object, new Object[] {null});
             }
             catch (Exception e)
             {
-
+               // dont worry
             }
-         }
 
-         try
-         {
-            // cover hasElement methods
-            String hasElemMethod = "hasElement" + CGUtil.shortClassName(className) + "PO";
-
-            // add entry
-            Method method = patternClass.getMethod(hasElemMethod);
-            method.invoke(pattern);
-
-            pattern.removeAllFromElements();
-            pattern.setHasMatch(true);
-
-            // also the bound method
-            method = patternClass.getMethod(hasElemMethod, object.getClass());
-            Object patternObject = method.invoke(pattern, object);
-            Class<?> patternObjectClass = patternObject.getClass();
-
-            // loop through attributes
-            for (String attrName : creatorClass.getProperties())
+            // call createXY methods (some of them are not used in practice, e.g student.createUniversity())
+            for (Method m : objectClass.getMethods())
             {
-               try
+               String methodName = m.getName();
+               if (methodName.startsWith("create") && m.getParameterTypes().length == 0)
                {
-                  // call getter
-                  method = patternObjectClass.getMethod("get" + StrUtil.upFirstChar(attrName));
-                  Object value = method.invoke(patternObject);
-
-                  Class<?> valueClass = value.getClass();
-
-                  if (value instanceof Integer)
-                  {
-                     valueClass = int.class;
-                  }
-                  else if (value instanceof Double)
-                  {
-                     valueClass = double.class;
-                  }
-                  else if (value instanceof Long)
-                  {
-                     valueClass = long.class;
-                  }
-                  else if (value instanceof Float)
-                  {
-                     valueClass = float.class;
-                  }
-
-                  if (valueClass.isPrimitive() || valueClass == String.class)
-                  {
-                     // call with
-                     method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
-                     method.invoke(patternObject, value);
-
-                     // call has
-                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
-                     method.invoke(patternObject, value);
-                  }
-                  else
-                  {
-                     // model elem,
-                     // call has
-                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
-                     value = method.invoke(patternObject);
-
-                     method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), value.getClass());
-                     value = method.invoke(patternObject, value);
-                  }
-
+                  try {
+                     m.invoke(object);
+                  } catch (Exception e) {}
                }
-               catch (Exception e)
+
+               if (methodName.startsWith("get") && methodName.endsWith("Transitive"))
                {
-                  // no problem, go on with next attr
+                  try {
+                     m.invoke(object);
+                  } catch (Exception e) {}
                }
             }
 
-            // allMatches
-            method = patternObjectClass.getMethod("allMatches");
-            method.invoke(patternObject);
+            Method removeMethod = objectClass.getMethod("removeYou");
 
-            pattern.removeAllFromElements();
-            pattern.setHasMatch(true);
-
-            //
-            // // get direct value
-            // if (value instanceof Collection)
-            // {
-            // value = ((Collection<?>) value).iterator().next();
-            // }
-            //
-
-            //
-            // // call setter
-            // Method setMethod = setClass.getMethod("with" +
-            // StrUtil.upFirstChar(attrName), valueClass);
-            // setMethod.invoke(setObject, value);
-            //
-            // Method unsetMethod = setClass.getMethod("without" +
-            // StrUtil.upFirstChar(attrName), valueClass);
-            // unsetMethod.invoke(setObject, value);
-
-            //
-            // // del entry
-            // Method withoutMethod = setClass.getMethod("without",
-            // object.getClass());
-            // withoutMethod.invoke(setObject, object);
+            removeMethod.invoke(object);
          }
-         catch (Exception e)
+         catch (Exception x)
          {
-            // no prolem, just lower coverage
+            // dont worry
          }
-      }
 
+      }
    }
 
-   private void coverSetClasses(JsonIdMap copyMap)
+
+
+   public void coverSetAndPOClasses(JsonIdMap copyMap)
    {
       // loop through objects in jsonIdMap, pack them into set, read and write
       // all attributes
-      for (String key : copyMap.keySet())
+      LinkedHashSet<String> keySet = new LinkedHashSet<String>();
+      keySet.addAll(copyMap.keySet());
+      for (String key : keySet)
       {
          Object object = copyMap.getObject(key);
 
@@ -713,14 +636,38 @@ public class Storyboard implements PropertyChangeInterface
          try
          {
             Class<?> setClass = Class.forName(setClassName);
-            ModelSet setObject = (ModelSet) setClass.newInstance();
+            Object setObject = setClass.newInstance();
 
-            // cover ModelSet methods
-            String entryType = setObject.getEntryType();
+            if (setObject instanceof ModelSet)
+            {
+               // cover ModelSet methods
+               String entryType = ((ModelSet) setObject).getEntryType();
+            }
 
             // add entry
-            Method withMethod = setClass.getMethod("with", object.getClass());
+            Method withMethod = setClass.getMethod("with", new Class[] {Object.class});
             withMethod.invoke(setObject, object);
+            withMethod.invoke(setObject, setObject);
+
+            PatternObject patternObject = null;
+            Class patternObjectClass = null;
+            Method hasPOMethod = null;
+            try { 
+               hasPOMethod = setClass.getMethod("has" + CGUtil.shortClassName(className) + "PO");
+               patternObject = (PatternObject) hasPOMethod.invoke(setObject);
+
+               patternObjectClass = patternObject.getClass();
+
+               // call allMatches
+               Method allMatchesMethod = patternObjectClass.getMethod("allMatches");
+               allMatchesMethod.invoke(patternObject);
+
+               //               Method poConstructor = patternObjectClass.getMethod(CGUtil.shortClassName(patternObjectClass.getName()));
+               //               poConstructor.invoke(null);
+
+            } catch (Exception e) {
+               // e.printStackTrace();
+            }
 
             // toString
             String text = setObject.toString();
@@ -732,11 +679,13 @@ public class Storyboard implements PropertyChangeInterface
                {
                   // call getter
                   Method getMethod = setClass.getMethod("get" + StrUtil.upFirstChar(attrName));
-                  Object value = getMethod.invoke(setObject);
 
+                  Object value = getMethod.invoke(setObject);
+                  Object setValue = null;
                   // get direct value
                   if (value instanceof Collection)
                   {
+                     setValue = value;
                      value = ((Collection<?>) value).iterator().next();
                   }
 
@@ -758,23 +707,114 @@ public class Storyboard implements PropertyChangeInterface
                   {
                      valueClass = float.class;
                   }
+                  else if (value instanceof Boolean)
+                  {
+                     valueClass = boolean.class;
+                  }
 
                   // call setter
                   Method setMethod = setClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
                   setMethod.invoke(setObject, value);
 
-                  Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
-                  unsetMethod.invoke(setObject, value);
+                  try {
+                     Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
+                     unsetMethod.invoke(setObject, value);
+                  } catch (Exception e) {}
+
+                  try {
+                     Method hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
+                     hasMethod.invoke(setObject, value);
+
+                     hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass, valueClass);
+                     hasMethod.invoke(setObject, value, value);
+                  } catch (Exception e) {}
+
+                  try {
+                     Method hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), Object.class);
+                     hasMethod.invoke(setObject, value);
+                     if (setValue != null) {
+                        hasMethod.invoke(setObject, setValue);
+                     }
+                  } catch (Exception e) {}
+
+                  // also cover creatorclass set method
+                  creatorClass.setValue(object, attrName, value, "");
+                  creatorClass.setValue(object, attrName, value, JsonIdMap.REMOVE);
+
+                  patternObject = (PatternObject) hasPOMethod.invoke(setObject);
+
+                  if (patternObject != null)
+                  {
+                     // cover attr methods for pattern object
+                     try {
+                        //getName
+                        getMethod = patternObjectClass.getMethod("get" + StrUtil.upFirstChar(attrName));
+                        getMethod.invoke(patternObject);
+                     } catch (Exception e) {}
+                     try {
+                        // createName
+                        withMethod = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
+                        withMethod.invoke(patternObject, value);
+                     } catch (Exception e) {}
+                     try {
+                        // createName
+                        Method createMethod = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName), valueClass);
+                        createMethod.invoke(patternObject, value);
+                     } catch (Exception e) {}
+                     try {
+                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
+                        hasMethod.invoke(patternObject, value);
+                     } catch (Exception e) {}
+                     try {
+                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass, valueClass);
+                        hasMethod.invoke(patternObject, value, value);
+                     } catch (Exception e) {}
+                     try {
+                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
+                        hasMethod.invoke(patternObject);
+                     } catch (Exception e) {}
+                     try {
+                        Method method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName));
+                        method.invoke(patternObject);
+                     } catch (Exception e) {}
+                     try {
+                        String poClassName = CGUtil.helperClassName(valueClass.getName(), "PO");
+                        SendableEntityCreator poCreator = copyMap.getCreator(poClassName, true);
+                        Object po = poCreator.getSendableInstance(false);
+                        try {
+                           Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), po.getClass());
+                           method.invoke(patternObject, po);
+                        } catch (Exception e) {}
+                        try {                           
+                           Method method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), po.getClass());
+                           method.invoke(patternObject, po);
+                        } catch (Exception e) {}
+                        try {
+                           Method method = patternObjectClass.getMethod("without" + StrUtil.upFirstChar(attrName), po.getClass());
+                           method.invoke(patternObject, po);
+                        } catch (Exception e) {}
+                        try {
+                           Method method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName), po.getClass());
+                           method.invoke(patternObject, po);
+                        } catch (Exception e) {}
+                     } catch (Exception e) {}
+
+                  }
+
                }
                catch (Exception e)
                {
-                  // no prolem, go on with next attr
+                  // no problem, go on with next attr
                }
             }
 
             // del entry
             Method withoutMethod = setClass.getMethod("without", object.getClass());
             withoutMethod.invoke(setObject, object);
+
+            creatorClass.getValue(object, "foo.bar");
+
+            ((EntityFactory) creatorClass).removeObject(object);
          }
          catch (Exception e)
          {
@@ -872,7 +912,7 @@ public class Storyboard implements PropertyChangeInterface
          if (object instanceof Collection)
          {
             explicitElems.addAll((Collection<?>) object);
-            
+
             Collection<?> coll = (Collection<?>) object;
             if (  ! coll.isEmpty())
             {
@@ -914,7 +954,7 @@ public class Storyboard implements PropertyChangeInterface
             {
                // did not work, thus generic must be enough
             }
-            
+
          }
 
          SendableEntityCreator objectCreator = jsonIdMap.getCreatorClass(object);
@@ -933,7 +973,7 @@ public class Storyboard implements PropertyChangeInterface
 
                idMap = method.invoke(null, "debug");
 
-               jsonIdMap.withCreator((((JsonIdMap) idMap).getCreators()));
+               jsonIdMap.withCreator((((JsonIdMap) idMap)));
             }
             catch (Exception e)
             {
@@ -1002,7 +1042,7 @@ public class Storyboard implements PropertyChangeInterface
 
       // this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
-   
+
 
    public void setKanbanPhase(String string)
    {
@@ -1021,12 +1061,12 @@ public class Storyboard implements PropertyChangeInterface
          String comment)
    {
       LogEntryStoryBoard logEntry = new LogEntryStoryBoard()
-         .withDate(date)
-         .withPhase(phase)
-         .withDeveloper(developer)
-         .withHoursSpend(hoursSpend)
-         .withHoursRemainingInTotal(hoursRemaining)
-         .withComment(comment);
+      .withDate(date)
+      .withPhase(phase)
+      .withDeveloper(developer)
+      .withHoursSpend(hoursSpend)
+      .withHoursRemainingInTotal(hoursRemaining)
+      .withComment(comment);
 
       this.addLogEntry(logEntry);
    }
@@ -1043,7 +1083,7 @@ public class Storyboard implements PropertyChangeInterface
     * 
     * @param image
     */
-   
+
    void addSVGImage(String imageFile)
    {
       this.addToSteps("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");
@@ -1071,12 +1111,12 @@ public class Storyboard implements PropertyChangeInterface
    {
       add(string);
       addLogEntry(new LogEntryStoryBoard()
-         .withDate(date)
-         .withPhase(phase)
-         .withDeveloper(developer)
-         .withHoursSpend(hoursSpend)
-         .withHoursRemainingInTotal(hoursRemaining)
-         .withComment("Achieved: " + string));
+      .withDate(date)
+      .withPhase(phase)
+      .withDeveloper(developer)
+      .withHoursSpend(hoursSpend)
+      .withHoursRemainingInTotal(hoursRemaining)
+      .withComment("Achieved: " + string));
    }
 
    public KanbanEntry addToDo(String entryName, String phase, String developer,
@@ -1087,14 +1127,14 @@ public class Storyboard implements PropertyChangeInterface
       KanbanEntry kanbanBoard = man.loadOldKanbanEntries();
 
       KanbanEntry todoEntry = kanbanBoard.findOrCreate(entryName)
-         .withLastDeveloper(developer)
-         .withPhase(phase)
-         .withParent(kanbanBoard);
+            .withLastDeveloper(developer)
+            .withPhase(phase)
+            .withParent(kanbanBoard);
 
       LogEntryStoryBoard logEntry = todoEntry.findOrCreateLogEntry(date, phase)
-         .withPhase(phase)
-         .withHoursRemainingInTotal(hoursRemaining)
-         .withHoursSpend(hoursSpend);
+            .withPhase(phase)
+            .withHoursRemainingInTotal(hoursRemaining)
+            .withHoursSpend(hoursSpend);
 
       man.dumpKanban();
 
@@ -1194,13 +1234,13 @@ public class Storyboard implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz clazz = model.createClazz(className);
-      
+
       GenClass generator = clazz.getClassModel().getGenerator().getOrCreate( clazz);
 
       Parser parser = generator.getOrCreateParser(rootDir);
 
       int pos = parser.indexOf(Parser.METHOD + ":" + methodSignature);
-      
+
       if (pos < 0)
       {
          return "did not find method " + methodSignature + " in class " + className;
@@ -1209,8 +1249,8 @@ public class Storyboard implements PropertyChangeInterface
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
 
       String methodText = "<pre>   " +
-         StrUtil.htmlEncode(parser.getText().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
-         + "</pre>";
+            StrUtil.htmlEncode(parser.getText().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
+            + "</pre>";
 
       return methodText;
    }
@@ -1246,8 +1286,8 @@ public class Storyboard implements PropertyChangeInterface
    public void dumpHTML()
    {
       StoryboardManager.get()
-         .add(this)
-         .dumpHTML();
+      .add(this)
+      .dumpHTML();
    }
 
    public void assertEquals(String message, double expected, double actual, double delta)
@@ -1261,7 +1301,7 @@ public class Storyboard implements PropertyChangeInterface
       this.add("Check: " + message);
       Assert.assertTrue("FAILED: " + message, condition);
    }
-   
+
    public void assertFalse(String message, boolean condition)
    {
       this.add("Check: " + message);
@@ -1279,7 +1319,7 @@ public class Storyboard implements PropertyChangeInterface
       this.add("Check: " + message + obj);
       Assert.assertNotNull("FAILED: " + message, obj);
    }
-   
+
    public void assertNull(String message, Object obj)
    {
       this.add("Check: " + message + obj);
@@ -1594,8 +1634,8 @@ public class Storyboard implements PropertyChangeInterface
    {
       // load the kanban board and remove entry and logs and generate and store
       StoryboardManager.get()
-         .remove(this)
-         .dumpHTML();
+      .remove(this)
+      .dumpHTML();
    }
 
    public void setKanbanWorkFlow(String string)
@@ -1607,11 +1647,11 @@ public class Storyboard implements PropertyChangeInterface
    {
       this.projectName = string;
    }
-   
+
    public void dumpDiagram(PatternObject<?, ?> po, String name) {
       po.getPattern().dumpDiagram(name);
    }
-   
+
    class RestrictToFilter extends ConditionMap
    {
       private LinkedHashSet<Object> explicitElems;
@@ -1619,15 +1659,15 @@ public class Storyboard implements PropertyChangeInterface
       public RestrictToFilter(LinkedHashSet<Object> explicitElems)
       {
          this.explicitElems = explicitElems;
-  
+
       }
 
       @Override
       public boolean matches(ValuesMap values)
       {
          if (values.value != null
-            && ("Integer Float Double Long Boolean String"
-               .indexOf(values.value.getClass().getSimpleName()) >= 0))
+               && ("Integer Float Double Long Boolean String"
+                     .indexOf(values.value.getClass().getSimpleName()) >= 0))
          {
             return true;
          }

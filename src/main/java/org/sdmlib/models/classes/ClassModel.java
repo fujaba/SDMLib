@@ -58,7 +58,6 @@ public class ClassModel extends SDMLibClass
 
 	public ClassModel generate(String rootDir)
 	{
-	  
 	   getGenerator().generate(rootDir);
 	   return this;
 	}
@@ -421,4 +420,11 @@ public class ClassModel extends SDMLibClass
       }
       return this;
    }
+
+   public Enumeration createEnumerations()
+   {
+      Enumeration value = new Enumeration();
+      withEnumerations(value);
+      return value;
+   } 
 }

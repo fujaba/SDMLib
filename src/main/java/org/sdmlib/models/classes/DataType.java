@@ -58,7 +58,14 @@ public class DataType implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      return "DataType." + value.toUpperCase();
+      if ("void int long double String boolean Object".indexOf(this.value) >= 0)
+      {
+         return "DataType." + value.toUpperCase();
+      }
+      else
+      {
+         return "DataType.ref(\"" + value + "\")";
+      }
    }
    
    protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);

@@ -331,7 +331,7 @@ public class GenRole extends Generator<Role>
       pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + "()");
       
       //TODO UEBERPRUEFEN
-      System.out.println(partnerClassName +" ->" +genClazz.getName());
+      // System.out.println(partnerClassName +" ->" +genClazz.getName());
       String realPartnerClassName = partnerClassName;
       ClazzSet kidClasses = partnerRole.getClazz().getKidClazzes();
       ClazzSet kidClassesInterfaces =new ClazzSet();
