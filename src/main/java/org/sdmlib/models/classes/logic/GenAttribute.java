@@ -999,7 +999,7 @@ public class GenAttribute extends Generator<Attribute>
 
       if(model.getVisibility().same(Visibility.PRIVATE)){
     	  
-    	  if (!isEnumType(model, clazz)) {
+//    	  if (!isEnumType(model, clazz)) {
     		  if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization) )
     		  {
     			  Parser creatorParser = getGenerator( clazz).getOrCreateParserForCreatorClass(helpersDir);
@@ -1018,7 +1018,7 @@ public class GenAttribute extends Generator<Attribute>
     		  insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
     		  insertGetterInPatternObjectClass(patternObjectParser, clazz);
     	  }
-      }
+//      }
 
       return this;
    }
@@ -1121,3 +1121,4 @@ public void insertPropertyInCreatorClass(String className, Parser creatorParser,
       }
    }
 }
+
