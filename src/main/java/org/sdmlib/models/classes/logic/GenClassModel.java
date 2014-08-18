@@ -46,7 +46,9 @@ import org.sdmlib.models.classes.util.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.storyboards.Storyboard;
 
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenClassModel
@@ -189,6 +191,10 @@ public class GenClassModel
          }
          System.out.println("Totalchanges of all Files: "+count);
       }
+      
+      // perhabs there is already generated and compiled code from previous run. Try to do coverage of model code
+      this.doCoverageOfModelCode();
+      
       return true;
    }
    
@@ -910,6 +916,7 @@ public class GenClassModel
       for (Method method : methods)
       {
          currentInsertPos = tryToInsertMethod(symTabEntry, method, currentInsertPos, modelCreationClass);
+         symTabEntry = refreshMethodScan(signature, modelCreationClass, rootDir);
       }
 
       // check code for assoc
@@ -1198,28 +1205,26 @@ public class GenClassModel
    private int tryToInsertMethod(SymTabEntry symTabEntry, Method method, int currentInsertPos, Clazz modelCreationClass)
    {
       
-      getOrCreate(modelCreationClass).getParser().parseMethodBody(symTabEntry);
+      Parser parser = getOrCreate(modelCreationClass).getParser();
+      
+      parser.parseMethodBody(symTabEntry);
+      
       boolean methodIsNew = true;
-      LinkedHashMap<String, LocalVarTableEntry> localVarTable = getOrCreate(modelCreationClass).getParser().getLocalVarTable();
+      LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
 
-      for (String string : localVarTable.keySet())
+      for (LocalVarTableEntry localVarTableEntry : localVarTable.values())
       {
 
-         if (string.startsWith("Method_"))
+         if (compareMethodDecl(method, localVarTableEntry, modelCreationClass))
          {
-            LocalVarTableEntry localVarTableEntry = localVarTable.get(string);
+            currentInsertPos = localVarTableEntry.getEndPos()+2;
 
-            if (compareMethodDecl(method, localVarTableEntry, modelCreationClass))
-            {
-               currentInsertPos = localVarTableEntry.getEndPos()+2;
-               
-//               Parser parser = getOrCreate(modelCreationClass).getParser();
-//               System.out.println("line: "+parser.getLineIndexOf(currentInsertPos));
-//               System.out.println(parser.getLineForPos(currentInsertPos));
-               
-               methodIsNew = false;
-               break;
-            }
+            //               Parser parser = getOrCreate(modelCreationClass).getParser(); 
+            //               System.out.println("line: "+parser.getLineIndexOf(currentInsertPos));
+            //               System.out.println(parser.getLineForPos(currentInsertPos));
+
+            methodIsNew = false;
+            break;
          }
       }
       
@@ -1230,8 +1235,8 @@ public class GenClassModel
          LocalVarTableEntry localVarTableEntry = localVarTable.get(name);
          if (localVarTableEntry == null)
             return currentInsertPos;
-         int insertPos = localVarTableEntry.getEndPos() + 3;
-         currentInsertPos = insertCreationCode("      /* add method */", insertPos, modelCreationClass);
+         int insertPos = localVarTableEntry.getEndPos() + 1 ;
+         currentInsertPos = insertCreationCode("\n      /* add method */", insertPos, modelCreationClass);
          currentInsertPos = insertCreationMethodCode(method, currentInsertPos, modelCreationClass, symTabEntry);
          writeToFile(modelCreationClass);
       }
@@ -1246,75 +1251,92 @@ public class GenClassModel
 
    private boolean compareMethodDecl(Method method, LocalVarTableEntry localVarTableEntry, Clazz modelCreationClass)
    {
-      String shortClassName = CGUtil.shortClassName(method.getClazz().getFullName()) + "Class";
-      shortClassName = StrUtil.downFirstChar(shortClassName);
+      String shortClassName = CGUtil.shortClassName(method.getClazz().getFullName());
+
       String signature = method.getSignature(true);
 
       String methodClass = "";
       String methodSignature = "";
       ArrayList<ArrayList<String>> initSequence = localVarTableEntry.getInitSequence();
+      
+      // the first method call should be model.createClazz(<className>)
+      ArrayList<String> init = initSequence.get(0);
+      
+      if (init.size() != 2) return false;
+      
+      if ( ! init.get(0).endsWith(".createClazz")) return false;
+      
+      String initClassName = init.get(1);
+      initClassName = initClassName.substring(1, initClassName.length()-1);
+      
+      if ( ! shortClassName.equals(CGUtil.shortClassName(initClassName))) return false;
+      
 
-      for (int i = 0; i < initSequence.size(); i++)
+      for (int i = 1; i < initSequence.size(); i++)
       {
-         ArrayList<String> init = initSequence.get(i);
-
-         if (".".equals(init.get(0)) && "withClazz".equals(init.get(1)))
+         init = initSequence.get(i);
+         
+         if ("withMethod".equals(init.get(0)) && ("\"" + method.getName() + "\"").equals(init.get(1)))
          {
-            methodClass = init.get(3);
-         }
-         else if (".".equals(init.get(0)) && "withSignature".equals(init.get(1)))
-         {
-            methodSignature = init.get(3).replace("\"", "");
-         }
-         else
-         {
-            String methodName = method.getName();
-            String methodInitName = init.get(0).replace("\"", "");
+            // looks good, do we need to check more?
+            if (init.size() <= 7 && method.getParameter().size() == 0) return true;
             
-            if (methodName.equals(methodInitName) ) {
-               int j;
+            // there should be more: 
+            if (init.size() >= 4)
+            {
+               String dataType = init.get(3);
+               String searchType = method.getReturnType().toString();
                
-               StringBuilder parameters = new StringBuilder();
+               if ( ! dataType.equals(searchType)) return false;
                
-               for( j = i+1; j < initSequence.size(); j++) {
-                  String parameter = initSequence.get(j).get(0);   
+               boolean found = false;
+               try {
+                  int j = 6;
+                  Iterator<Parameter> paramIter = method.getParameter().iterator();
+                  while (j < init.size() && paramIter.hasNext())
+                  {
+                     Parameter searchParam = paramIter.next();
+                     String token = init.get(j);
+                     
+                     if ( ! token.equals("[")) return false;
+                     
+                     j++;
+                     token = init.get(j);
+                     if ( ! token.equals("new")) return false;
+               
+                     j++;
+                     token = init.get(j);
+                     if ( ! token.equals("Parameter")) return false;
+
+                     j++;
+                     token = init.get(j);
+                     if ( ! token.equals(searchParam.getType().toString())) 
+                     {
+                        if ( ! token.equals("DataType.ref" ) || ! init.get(j+1).equals(("\"" + searchParam.getType().getValue() + "\"")) )
+                           return false;
+                        else
+                        {
+                           j++;
+                        }
+                     }
+                     
+                     // this parameter matches
+                     j = j + 3;
+                     
+                     if (j == init.size() && ! paramIter.hasNext())
+                     {
+                        return true;
+                     }
+                  }
                   
-                  if (parameter.startsWith("new Parameter(")) {
-                     String substring = parameter.substring(parameter.indexOf("(")+1, parameter.lastIndexOf(")"));                    
-                     String type = parseDataType(substring, modelCreationClass);                   
-                     parameters.append(type + ",");                              
-                  }
-                  else {
-                     int lastIndex = parameters.lastIndexOf(",");
-                     if (lastIndex > -1)
-                        parameters.replace(lastIndex, parameters.length(), "");
-                     break;
-                  }
-               }
-               
-               String creationCodeMethodParameters = "("+parameters.toString() +")";               
-               String classMethodParameters = method.getParameter().toString().replaceAll(" ", "");
-               
-               if(!classMethodParameters.equals(creationCodeMethodParameters)) {
-                  return false;
-               }
-               
-               ArrayList<String> initMethod = initSequence.get(j);
-               
-               if (".".equals(initMethod.get(0)) && "with".equals(initMethod.get(1))) {
-                  String className = initMethod.get(3);
-                  if (shortClassName.equals(className)) {
-                     return true;
-                  }
+               } catch (Exception e) {
+                  
                }
             }
          }
+         
       }
 
-      if (StrUtil.stringEquals(shortClassName, methodClass) && StrUtil.stringEquals(signature, methodSignature))
-      {
-         return true;
-      }
       return false;
    }
 
@@ -1649,14 +1671,13 @@ public class GenClassModel
 
       StringBuilder paString = new StringBuilder();
       for(Parameter parameter : method.getParameter()) {
-         paString.append(", new Parameter(DataType.ref(\""+parameter.getType().getValue()+"\"))");
+         paString.append(", new Parameter("+parameter.getType().toString()+")");
       }
       
       
-      StringBuilder result = parser.replaceAll(currentInsertPos, "\n"+
-                  "      new Method(\"METHODNAME\"PARAMETERS)" +
-                  "\n        .with(clazzName);\n",
-                  "clazzName", clazzName, 
+      StringBuilder result = parser.replaceAll(currentInsertPos, "\n" +
+                  "      .withMethod(\"METHODNAME\", Return_TypePARAMETERS)",
+                  "Return_Type", method.getReturnType().toString(),
                   "PARAMETERS", paString.toString(),
                   "METHODNAME", methodName);
       currentInsertPos = checkImport("Method", currentInsertPos, modelCreationClass, symTabEntry);
@@ -2891,5 +2912,69 @@ public class GenClassModel
       }
       this.ignoreDiff.add(name);
       return this;
+   }
+
+   public void doCoverageOfModelCode()
+   {
+      // try to create example object structure and use storyboard to do coverage
+      Clazz firstClazz = this.getModel().getClasses().first();
+      
+      try {
+         // try to load creator class
+         String creatorClassName = CGUtil.helperClassName(firstClazz.getFullName(), "Creator");
+         Class<?> creatorClass = Class.forName(creatorClassName);
+         java.lang.reflect.Method method = creatorClass.getMethod("createIdMap", String.class);
+         JsonIdMap map = (JsonIdMap) method.invoke(null, "t");
+         
+         // now loop through model classes and create two objects for each class using the corresponding creator class
+         for (Clazz clazz : model.getClasses())
+         {
+            try {
+               SendableEntityCreator creator = map.getCreator(clazz.getFullName(), true);
+
+               Object object1 = creator.getSendableInstance(false);
+               map.getId(object1);
+
+               // try to add some attribute values
+               for (Attribute attr : clazz.getAttributes())
+               {
+                  // for number and string attributes "42" might work.
+                  try {
+                     creator.setValue(object1, attr.getName(), "42", "");
+                  } catch (Exception g) {}
+               }
+               
+               // try to add role values
+               for(Role role : clazz.getRoles())
+               {
+                  role = role.getPartnerRole();
+                  
+                  Clazz partnerClazz = role.getClazz();
+                  
+                  SendableEntityCreator partnerCreator = map.getCreator(partnerClazz.getFullName(), true);
+
+                  Object partnerObject = partnerCreator.getSendableInstance(false);
+                  map.getId(partnerObject);
+                  
+                  creator.setValue(object1, role.getName(), partnerObject, "");
+                  
+                  try {
+                     java.lang.reflect.Method createMethod = object1.getClass().getMethod("create" + StrUtil.upFirstChar(role.getName()));
+                     createMethod.invoke(object1);
+                  } catch (Exception g) {}
+               }
+               
+            } catch (Exception f) {}
+         }
+         
+         // now ask the storyboad to do the coverage things
+         Storyboard story = new Storyboard("coverage");
+         story.coverSetAndPOClasses(map);
+         story.coverSeldomModelMethods(map);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
    }
 }

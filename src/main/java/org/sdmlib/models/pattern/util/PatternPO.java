@@ -34,7 +34,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withModifier(String value)
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          ((Pattern) getCurrentMatch()).withModifier(value);
       }
@@ -56,7 +56,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withHasMatch(boolean value)
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          ((Pattern) getCurrentMatch()).withHasMatch(value);
       }
@@ -89,7 +89,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withElements(PatternElementPO tgtPO)
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          ((Pattern) this.getCurrentMatch()).withElements((PatternElement) tgtPO.getCurrentMatch());
       }
@@ -98,7 +98,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withoutElements(PatternElementPO tgtPO)
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          ((Pattern) this.getCurrentMatch()).withoutElements((PatternElement) tgtPO.getCurrentMatch());
       }
@@ -107,7 +107,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public String getModifier()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) getCurrentMatch()).getModifier();
       }
@@ -116,7 +116,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public boolean getHasMatch()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) getCurrentMatch()).getHasMatch();
       }
@@ -125,7 +125,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternElementSet getElements()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) this.getCurrentMatch()).getElements();
       }
@@ -148,7 +148,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public boolean getDoAllMatches()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) getCurrentMatch()).getDoAllMatches();
       }
@@ -171,7 +171,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public String getPatternObjectName()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) getCurrentMatch()).getPatternObjectName();
       }
@@ -194,7 +194,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public Pattern getCurrentSubPattern()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) getCurrentMatch()).getCurrentSubPattern();
       }
@@ -217,7 +217,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public int getDebugMode()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) getCurrentMatch()).getDebugMode();
       }
@@ -226,7 +226,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withDebugMode(int value)
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          ((Pattern) getCurrentMatch()).setDebugMode(value);
       }
@@ -250,11 +250,11 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
 
    public Pattern<PatternElement<?>> getPattern()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((PatternElement) this.getCurrentMatch()).getPattern();
       }
-      return null;
+      return super.getPattern();
    }
 
    public PatternPO hasTrace(StringBuilder value)
@@ -273,7 +273,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public StringBuilder getTrace()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) getCurrentMatch()).getTrace();
       }
@@ -282,7 +282,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withTrace(StringBuilder value)
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          ((Pattern) getCurrentMatch()).setTrace(value);
       }
@@ -306,7 +306,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
 
    public ReachabilityGraph getRgraph()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) this.getCurrentMatch()).getRgraph();
       }
@@ -329,7 +329,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public String getName()
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          return ((Pattern) getCurrentMatch()).getName();
       }
@@ -338,7 +338,7 @@ public class PatternPO extends PatternObject<PatternPO, Pattern<Object>>
    
    public PatternPO withName(String value)
    {
-      if (this.getPattern().getHasMatch())
+      if (super.getCurrentMatch() != null)
       {
          ((Pattern) getCurrentMatch()).setName(value);
       }

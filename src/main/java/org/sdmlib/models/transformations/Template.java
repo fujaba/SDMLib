@@ -879,7 +879,7 @@ public class Template implements PropertyChangeInterface
 
             JsonIdMap newIdMap = (JsonIdMap) method.invoke(null, "debug");
 
-            idMap.getCreators().addAll(newIdMap.getCreators());
+            idMap.withCreator(newIdMap);
          }
       }
       catch (Exception e)

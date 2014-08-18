@@ -17,7 +17,7 @@ public class TaskFlowModel
    @Test
    public void taskFlowModel()
    {
-      Storyboard storyboard = new Storyboard("test");
+      Storyboard storyboard = new Storyboard("src/main/replication");
 
       ClassModel model = new ClassModel("org.sdmlib.model.taskflows");
 
@@ -63,7 +63,7 @@ public class TaskFlowModel
       .withSuperClazz(timerClass);
       // .withMethod("schedule", DataType.VOID, new Parameter(DataType.ref(TimerTask.class)));
 
-      storyboard.addClassDiagram(model, "replicationsrc");
+      storyboard.addClassDiagram(model);
 
       model.generate("src/main/replication");
 

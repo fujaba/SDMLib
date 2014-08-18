@@ -244,7 +244,7 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
    
    public SymTabEntryPO hasSymTabEntryPO()
    {
-      return null;
+      return new SymTabEntryPO(this.toArray(new SymTabEntry[this.size()]));
 
    }
 }

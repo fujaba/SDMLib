@@ -49,8 +49,8 @@ public class CloneOp extends PatternElement implements PropertyChangeInterface
             this.setHasMatch(true);
             
             origMap = this.getPattern().getJsonIdMap();
-            origMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
-            cloneMap = (JsonIdMap) new JsonIdMap().withCreator(origMap.getCreators());
+            origMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
+            cloneMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
             
             firstPO = (PatternObject) this.getPattern().getElements().first();
             

@@ -24,7 +24,7 @@ public class ReplicationModel
    public static void main(String[] args)
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/ReplicationModel.html
-      Storyboard storyboard = new Storyboard("replicationsrc", "ReplicationModel");
+      Storyboard storyboard = new Storyboard("src/main/replication", "ReplicationModel");
 
       ClassModel model = new ClassModel("org.sdmlib.replication");
 
@@ -108,7 +108,7 @@ public class ReplicationModel
       
       model.generate("src/main/replication");
 
-      storyboard.addClassDiagram(model, "src/main/replication");
+      storyboard.addClassDiagram(model);
 
       storyboard.dumpHTML();
    }

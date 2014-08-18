@@ -1,0 +1,23 @@
+package org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util;
+
+import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+public class CreatorCreator{
+
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
+      
+      jsonIdMap.withCreator(new org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BoatCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BoatPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoPOCreator());
+
+      return jsonIdMap;
+   }
+}

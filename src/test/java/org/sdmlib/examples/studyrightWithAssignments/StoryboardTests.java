@@ -313,14 +313,15 @@ public class StoryboardTests {
       University university = new University()
       .withName("StudyRight");
 
-      Student karli = new TeachingAssistant();
-      university.withStudents(karli
-            .withId("4242")
-            .withName("Karli"));
-      
       Student abu = university.createStudents()
             .withId("1337")
             .withName("Abu");
+      
+      Student karli = new TeachingAssistant().withCertified(true);
+      university.withStudents(karli
+            .withId("4242")
+            .withName("Karli")
+            );
       
       Student alice = university.createStudents()
             .withId("2323")
@@ -415,7 +416,7 @@ public class StoryboardTests {
       story.addPreformatted(text);
       
       story.assertEquals("Assignment points: ", 23, assignmentPoints);
-      story.assertEquals("donePoints: ", 11, donePoints);
+      story.assertEquals("donePoints: ", 9, donePoints);
       
       //=====================================================
       story.addStep("Rooms with assignments not yet done by Karli:");

@@ -28,21 +28,27 @@ class Version {
 }
 
 def getGitTag() {
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'tag'
-        standardOutput = stdout
-    }
-
-    def test = []
-    
-    stdout.toString().eachLine {
 	try {
-	    test << (it.trim() as int)
+	    def stdout = new ByteArrayOutputStream()
+    	exec {
+    	    commandLine 'git', 'tag'
+    	    standardOutput = stdout
+    	}
+
+    	def test = []
+    
+    	stdout.toString().eachLine {
+			try {
+			    test << (it.trim() as int)
+			} catch (Exception ex) {
+			    // no problem as long as there's another tag with a number
+				ex.printStackTrace()
+			}
+    	}
+    	test.max()
 	} catch (Exception e) {
-	    // no ex
+		e.printStackTrace()
+		-1
 	}
-    }
-    test.max()
  }
 
