@@ -19,12 +19,12 @@ public class TestTemplateBeanShell {
 
 		PlaceHolderDescription phd = new PlaceHolderDescription();
 		phd.with("value", "value");
-		phd.withCodeSnippet("value = value *100");
+		phd.withCodeSnippet("value = value *100"); // <<== new voodoo
 		
 		template.addToPlaceholders(phd);
 		template.setExpandedText("Item 1234 cons");
 		template.parseOnce();
-		assertEquals(1234d, ((Item)template.getModelObject()).getValue(),0.1);
+		assertEquals(1234d *100d, ((Item)template.getModelObject()).getValue(),0.1);
 		
 		
 	}

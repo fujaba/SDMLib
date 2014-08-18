@@ -471,12 +471,21 @@ public class Template implements PropertyChangeInterface
                {
                   for (Object value : (Collection<?>) subTemplate.getModelObject())
                   {
+                     if (previousPlaceHolder.getCodeSnippet() != null)
+                     {
+                        value = previousPlaceHolder.enhanceValue(this.getModelObject(), value);
+                     }
                      creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
                   }
                }
                else
                {
-                  creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), subTemplate.getModelObject(), "update");
+                  Object value = subTemplate.getModelObject();
+                  if (previousPlaceHolder.getCodeSnippet() != null)
+                  {
+                     value = previousPlaceHolder.enhanceValue(this.getModelObject(), value);
+                  }
+                  creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
                }
 
                if ( ! subMatches.isEmpty())
@@ -578,8 +587,12 @@ public class Template implements PropertyChangeInterface
 
                   this.setModelObject(object);
                }
-
                creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
+               if (previousPlaceHolder.getCodeSnippet() != null)
+               {
+                  value = previousPlaceHolder.enhanceValue(this.getModelObject(), creator.getValue(this.getModelObject(), previousPlaceHolder.getAttrName())).toString();
+                  creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
+               }
 
                // create placeholderMatch
                Match placeholderMatch = new Match()
