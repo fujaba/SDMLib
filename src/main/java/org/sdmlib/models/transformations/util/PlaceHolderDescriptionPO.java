@@ -393,4 +393,57 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
       return null;
    }
 
+   public PlaceHolderDescriptionPO hasCodeSnippet(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_CODESNIPPET)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO hasCodeSnippet(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(PlaceHolderDescription.PROPERTY_CODESNIPPET)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlaceHolderDescriptionPO createCodeSnippet(String value)
+   {
+      this.startCreate().hasCodeSnippet(value).endCreate();
+      return this;
+   }
+   
+   public String getCodeSnippet()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((PlaceHolderDescription) getCurrentMatch()).getCodeSnippet();
+      }
+      return null;
+   }
+   
+   public PlaceHolderDescriptionPO withCodeSnippet(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((PlaceHolderDescription) getCurrentMatch()).setCodeSnippet(value);
+      }
+      return this;
+   }
+   
 }

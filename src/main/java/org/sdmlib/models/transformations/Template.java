@@ -602,8 +602,7 @@ public class Template implements PropertyChangeInterface
       // found a match, protocol it
       templateMatch.withEndPos(currentPosInExpandedText-1)
       .withTemplate(this)
-      .withModelObject(this.getModelObject())
-      ;
+      .withModelObject(this.getModelObject());
 
       return templateMatch;
    } 

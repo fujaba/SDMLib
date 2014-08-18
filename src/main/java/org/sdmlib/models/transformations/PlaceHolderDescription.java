@@ -91,13 +91,14 @@ public class PlaceHolderDescription implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      _.append(" ").append(this.getTextFragment());
-      _.append(" ").append(this.getValue());
-      _.append(" ").append(this.getAttrName());
-      _.append(" ").append(this.getPrefix());
-      return _.substring(1);
+      result.append(" ").append(this.getTextFragment());
+      result.append(" ").append(this.getValue());
+      result.append(" ").append(this.getAttrName());
+      result.append(" ").append(this.getPrefix());
+      result.append(" ").append(this.getCodeSnippet());
+      return result.substring(1);
    }
 
 
@@ -495,6 +496,34 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       ChoiceTemplate value = new ChoiceTemplate();
       withOwners(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CODESNIPPET = "codeSnippet";
+   
+   private String codeSnippet;
+
+   public String getCodeSnippet()
+   {
+      return this.codeSnippet;
+   }
+   
+   public void setCodeSnippet(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.codeSnippet, value))
+      {
+         String oldValue = this.codeSnippet;
+         this.codeSnippet = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CODESNIPPET, oldValue, value);
+      }
+   }
+   
+   public PlaceHolderDescription withCodeSnippet(String value)
+   {
+      setCodeSnippet(value);
+      return this;
    } 
 }
 
