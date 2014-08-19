@@ -781,7 +781,10 @@ public class Template implements PropertyChangeInterface
 
                // read attribute and append to result
                Object attrValue = getValue(placeholder, root);
-
+               if (placeholder.getCodeSnippet() != null)
+               {
+                  attrValue = placeholder.enhanceValue(root, attrValue);
+               }
                Template subTemplate = placeholder.getSubTemplate();
                if (subTemplate == null)
                {
