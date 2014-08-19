@@ -209,6 +209,22 @@ public class GenericCreator extends EntityFactory
       {
          // e.printStackTrace();
       }
+      // maybe a double
+      try
+      {
+         double doubleValue = Double.parseDouble((String) value);
+         Class<?> clazz = Class.forName(className);
+         
+         Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), double.class);
+         
+         method.invoke(entity, doubleValue);
+         
+         return true;
+      }
+      catch (Exception e)
+      {
+         // e.printStackTrace();
+      }
       
       try
       {

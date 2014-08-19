@@ -420,6 +420,58 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       return this;
    }
 
+   public StringList getCodeSnippet()
+   {
+      StringList result = new StringList();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         result.add(obj.getCodeSnippet());
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasCodeSnippet(String value)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (value.equals(obj.getCodeSnippet()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasCodeSnippet(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+      
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getCodeSnippet()) <= 0 && obj.getCodeSnippet().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet withCodeSnippet(String value)
+   {
+      for (PlaceHolderDescription obj : this)
+      {
+         obj.setCodeSnippet(value);
+      }
+      
+      return this;
+   }
+
 }
 
 
