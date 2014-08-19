@@ -27,10 +27,6 @@ public class SimpleClassModelWithEnumeration
 //      model.getGenerator().withShowDiff(DIFF.FULL);
       model.generate("src/test/java");
       
-      Assert.assertEquals(1, model.getEnumerations().size());
-      
-      // Test: "test failure"
-      Assert.assertEquals(9, model.getEnumerations().size());
-
+      Assert.assertEquals(1, model.getEnumerations().size());      
    }
 }
