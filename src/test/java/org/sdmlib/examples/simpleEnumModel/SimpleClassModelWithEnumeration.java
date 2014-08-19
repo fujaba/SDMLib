@@ -1,5 +1,7 @@
 package org.sdmlib.examples.simpleEnumModel;
 
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -24,5 +26,11 @@ public class SimpleClassModelWithEnumeration
       
 //      model.getGenerator().withShowDiff(DIFF.FULL);
       model.generate("src/test/java");
+      
+      Assert.assertEquals(1, model.getEnumerations().size());
+      
+      // Test: "test failure"
+      Assert.assertEquals(9, model.getEnumerations().size());
+
    }
 }
