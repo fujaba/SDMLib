@@ -2,6 +2,7 @@ package org.sdmlib.examples.mancala;
 
 import java.awt.Point;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Card;
@@ -60,6 +61,9 @@ public class MancalaModel {
         //model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);
 
         //end::mancala[]
+        
+        Assert.assertEquals(1, model.getEnumerations().size());      
+
     }
 
     @Test
@@ -90,6 +94,8 @@ public class MancalaModel {
       Clazz playerClass = model.createClazz("org.sdmlib.examples.mancala.model.Player")
       .with(new Attribute("name", DataType.ref("String")) )
       .with(new Attribute("state", DataType.ref("PlayerState")) );
+      /* add assoc */
+      playerClass.withAssoc(mancalaClass, "game", Card.ONE, "players", Card.MANY);
 
       mancalaClass.withAssoc(playerClass, "activePlayer", Card.ONE, "game", Card.ONE);
 
@@ -110,9 +116,9 @@ public class MancalaModel {
 
 
 
-      model.getGenerator().updateFromCode("src/test/java", "org.sdmlib.examples.mancala.model");
+//      model.getGenerator().updateFromCode("src/test/java", "org.sdmlib.examples.mancala.model");
       
-      model.getGenerator().insertModelCreationCodeHere("src/test/java");
+//      model.getGenerator().insertModelCreationCodeHere("src/test/java");
     }
 
 }

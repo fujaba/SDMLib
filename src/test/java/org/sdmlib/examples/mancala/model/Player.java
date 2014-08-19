@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 NeTH 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -55,11 +55,11 @@ public class Player implements PropertyChangeInterface
    
    public void removeYou()
    {
+      setActiveGame(null);
       setGame(null);
       withoutPits(this.getPits().toArray(new Pit[this.getPits().size()]));
       setKalah(null);
       setStone(null);
-      setActiveGame(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -135,7 +135,66 @@ public class Player implements PropertyChangeInterface
     * <pre>
     *              one                       one
     * Player ----------------------------------- Mancala
-    *              activePlayer                   game
+    *              activePlayer                   activeGame
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ACTIVEGAME = "activeGame";
+
+   private Mancala activeGame = null;
+
+   public Mancala getActiveGame()
+   {
+      return this.activeGame;
+   }
+
+   public boolean setActiveGame(Mancala value)
+   {
+      boolean changed = false;
+      
+      if (this.activeGame != value)
+      {
+         Mancala oldValue = this.activeGame;
+         
+         if (this.activeGame != null)
+         {
+            this.activeGame = null;
+            oldValue.setActivePlayer(null);
+         }
+         
+         this.activeGame = value;
+         
+         if (value != null)
+         {
+            value.withActivePlayer(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ACTIVEGAME, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Player withActiveGame(Mancala value)
+   {
+      setActiveGame(value);
+      return this;
+   } 
+
+   public Mancala createActiveGame()
+   {
+      Mancala value = new Mancala();
+      withActiveGame(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Player ----------------------------------- Mancala
+    *              players                   game
     * </pre>
     */
    
@@ -159,14 +218,14 @@ public class Player implements PropertyChangeInterface
          if (this.game != null)
          {
             this.game = null;
-            oldValue.setActivePlayer(null);
+            oldValue.withoutPlayers(this);
          }
          
          this.game = value;
          
          if (value != null)
          {
-            value.withActivePlayer(this);
+            value.withPlayers(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_GAME, oldValue, value);
@@ -386,65 +445,6 @@ public class Player implements PropertyChangeInterface
    {
       Stone value = new Stone();
       withStone(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * Player ----------------------------------- Mancala
-    *              activePlayer                   activeGame
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ACTIVEGAME = "activeGame";
-
-   private Mancala activeGame = null;
-
-   public Mancala getActiveGame()
-   {
-      return this.activeGame;
-   }
-
-   public boolean setActiveGame(Mancala value)
-   {
-      boolean changed = false;
-      
-      if (this.activeGame != value)
-      {
-         Mancala oldValue = this.activeGame;
-         
-         if (this.activeGame != null)
-         {
-            this.activeGame = null;
-            oldValue.setActivePlayer(null);
-         }
-         
-         this.activeGame = value;
-         
-         if (value != null)
-         {
-            value.withActivePlayer(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ACTIVEGAME, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Player withActiveGame(Mancala value)
-   {
-      setActiveGame(value);
-      return this;
-   } 
-
-   public Mancala createActiveGame()
-   {
-      Mancala value = new Mancala();
-      withActiveGame(value);
       return value;
    } 
 }

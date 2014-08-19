@@ -107,8 +107,7 @@ public class GenClass extends Generator<Clazz>
       }
 
 
-      if ( !model.isEnumeration()) {
-      if ( !model.isInterface() )
+      if ( !model.isEnumeration() && !model.isInterface() )
       {
          // now generate the corresponding creator class
          if(getRepairClassModel().hasFeature(Feature.Serialization)){
@@ -119,20 +118,22 @@ public class GenClass extends Generator<Clazz>
       }
 
       // now generate the corresponding ModelSet class
-      getOrCreateParserForModelSetFile(helpersDir);
-      printFile(modelSetParser);
-      if(getRepairClassModel().hasFeature(Feature.PatternObject)){
-   
-         // now generate the corresponding PatterObject class
-         getOrCreateParserForPatternObjectFile(helpersDir);
-         printFile(patternObjectParser);
-   
-         // now generate the corresponding PatterObjectCreator class
-         getOrCreateParserForPatternObjectCreatorFile(helpersDir);
-         printFile(patternObjectCreatorParser);
-      }
-      }
+      if (!model.isEnumeration()) {
+		getOrCreateParserForModelSetFile(helpersDir);
+		printFile(modelSetParser);
+			
+			if (getRepairClassModel().hasFeature(Feature.PatternObject)) {
 
+				// now generate the corresponding PatterObject class
+				getOrCreateParserForPatternObjectFile(helpersDir);
+				printFile(patternObjectParser);
+
+				// now generate the corresponding PatterObjectCreator class
+				getOrCreateParserForPatternObjectCreatorFile(helpersDir);
+				printFile(patternObjectCreatorParser);
+			}
+
+		}
       return this;
    }
    

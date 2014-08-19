@@ -21,10 +21,12 @@ public class DataType implements PropertyChangeInterface
    DataType(String value){
       this.setValue(value);
    }
+   
    public String getValue()
    {
       return value;
    }
+   
    public boolean setValue(String value)
    {
       if ( ! StrUtil.stringEquals(this.value, value))
