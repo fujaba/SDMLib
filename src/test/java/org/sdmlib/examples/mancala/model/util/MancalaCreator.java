@@ -23,20 +23,17 @@ package org.sdmlib.examples.mancala.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Mancala;
 import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.examples.mancala.model.Pit;
 
-public class PitCreator extends EntityFactory
+public class MancalaCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Pit.PROPERTY_NR,
-      Pit.PROPERTY_GAME,
-      Pit.PROPERTY_PLAYER,
-      Pit.PROPERTY_NEXT,
-      Pit.PROPERTY_PREVIOUS,
-      Pit.PROPERTY_COUNTERPART,
+      Mancala.PROPERTY_ACTIVEPLAYER,
+      Mancala.PROPERTY_PLAYERS,
+      Mancala.PROPERTY_PITS,
    };
    
    @Override
@@ -48,7 +45,7 @@ public class PitCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Pit();
+      return new Mancala();
    }
    
    @Override
@@ -62,34 +59,19 @@ public class PitCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Pit.PROPERTY_NR.equalsIgnoreCase(attribute))
+      if (Mancala.PROPERTY_ACTIVEPLAYER.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getNr();
+         return ((Mancala) target).getActivePlayer();
       }
 
-      if (Pit.PROPERTY_GAME.equalsIgnoreCase(attribute))
+      if (Mancala.PROPERTY_PLAYERS.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getGame();
+         return ((Mancala) target).getPlayers();
       }
 
-      if (Pit.PROPERTY_PLAYER.equalsIgnoreCase(attribute))
+      if (Mancala.PROPERTY_PITS.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getPlayer();
-      }
-
-      if (Pit.PROPERTY_NEXT.equalsIgnoreCase(attribute))
-      {
-         return ((Pit) target).getNext();
-      }
-
-      if (Pit.PROPERTY_PREVIOUS.equalsIgnoreCase(attribute))
-      {
-         return ((Pit) target).getPrevious();
-      }
-
-      if (Pit.PROPERTY_COUNTERPART.equalsIgnoreCase(attribute))
-      {
-         return ((Pit) target).getCounterpart();
+         return ((Mancala) target).getPits();
       }
       
       return null;
@@ -103,39 +85,33 @@ public class PitCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (Pit.PROPERTY_NR.equalsIgnoreCase(attrName))
+      if (Mancala.PROPERTY_ACTIVEPLAYER.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).withNr(Integer.parseInt(value.toString()));
+         ((Mancala) target).setActivePlayer((Player) value);
          return true;
       }
 
-      if (Pit.PROPERTY_GAME.equalsIgnoreCase(attrName))
+      if (Mancala.PROPERTY_PLAYERS.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).setGame((Mancala) value);
+         ((Mancala) target).withPlayers((Player) value);
+         return true;
+      }
+      
+      if ((Mancala.PROPERTY_PLAYERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Mancala) target).withoutPlayers((Player) value);
          return true;
       }
 
-      if (Pit.PROPERTY_PLAYER.equalsIgnoreCase(attrName))
+      if (Mancala.PROPERTY_PITS.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).setPlayer((Player) value);
+         ((Mancala) target).withPits((Pit) value);
          return true;
       }
-
-      if (Pit.PROPERTY_NEXT.equalsIgnoreCase(attrName))
+      
+      if ((Mancala.PROPERTY_PITS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Pit) target).setNext((Pit) value);
-         return true;
-      }
-
-      if (Pit.PROPERTY_PREVIOUS.equalsIgnoreCase(attrName))
-      {
-         ((Pit) target).setPrevious((Pit) value);
-         return true;
-      }
-
-      if (Pit.PROPERTY_COUNTERPART.equalsIgnoreCase(attrName))
-      {
-         ((Pit) target).setCounterpart((Pit) value);
+         ((Mancala) target).withoutPits((Pit) value);
          return true;
       }
       
@@ -151,6 +127,6 @@ public class PitCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Pit) entity).removeYou();
+      ((Mancala) entity).removeYou();
    }
 }

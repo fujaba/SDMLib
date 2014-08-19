@@ -23,20 +23,24 @@ package org.sdmlib.examples.mancala.model.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.mancala.model.Pit;
-import org.sdmlib.examples.mancala.model.Mancala;
 import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.examples.mancala.model.PlayerState;
+import org.sdmlib.examples.mancala.model.Mancala;
+import org.sdmlib.examples.mancala.model.Pit;
+import org.sdmlib.examples.mancala.model.Kalah;
+import org.sdmlib.examples.mancala.model.Stone;
 
-public class PitCreator extends EntityFactory
+public class PlayerCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Pit.PROPERTY_NR,
-      Pit.PROPERTY_GAME,
-      Pit.PROPERTY_PLAYER,
-      Pit.PROPERTY_NEXT,
-      Pit.PROPERTY_PREVIOUS,
-      Pit.PROPERTY_COUNTERPART,
+      Player.PROPERTY_NAME,
+      Player.PROPERTY_STATE,
+      Player.PROPERTY_ACTIVEGAME,
+      Player.PROPERTY_GAME,
+      Player.PROPERTY_PITS,
+      Player.PROPERTY_KALAH,
+      Player.PROPERTY_STONE,
    };
    
    @Override
@@ -48,7 +52,7 @@ public class PitCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Pit();
+      return new Player();
    }
    
    @Override
@@ -62,34 +66,39 @@ public class PitCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Pit.PROPERTY_NR.equalsIgnoreCase(attribute))
+      if (Player.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getNr();
+         return ((Player) target).getName();
       }
 
-      if (Pit.PROPERTY_GAME.equalsIgnoreCase(attribute))
+      if (Player.PROPERTY_STATE.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getGame();
+         return ((Player) target).getState();
       }
 
-      if (Pit.PROPERTY_PLAYER.equalsIgnoreCase(attribute))
+      if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getPlayer();
+         return ((Player) target).getActiveGame();
       }
 
-      if (Pit.PROPERTY_NEXT.equalsIgnoreCase(attribute))
+      if (Player.PROPERTY_GAME.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getNext();
+         return ((Player) target).getGame();
       }
 
-      if (Pit.PROPERTY_PREVIOUS.equalsIgnoreCase(attribute))
+      if (Player.PROPERTY_PITS.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getPrevious();
+         return ((Player) target).getPits();
       }
 
-      if (Pit.PROPERTY_COUNTERPART.equalsIgnoreCase(attribute))
+      if (Player.PROPERTY_KALAH.equalsIgnoreCase(attribute))
       {
-         return ((Pit) target).getCounterpart();
+         return ((Player) target).getKalah();
+      }
+
+      if (Player.PROPERTY_STONE.equalsIgnoreCase(attribute))
+      {
+         return ((Player) target).getStone();
       }
       
       return null;
@@ -103,39 +112,51 @@ public class PitCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (Pit.PROPERTY_NR.equalsIgnoreCase(attrName))
+      if (Player.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).withNr(Integer.parseInt(value.toString()));
+         ((Player) target).withName((String) value);
          return true;
       }
 
-      if (Pit.PROPERTY_GAME.equalsIgnoreCase(attrName))
+      if (Player.PROPERTY_STATE.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).setGame((Mancala) value);
+         ((Player) target).withState(PlayerState.valueOf((String) value));
          return true;
       }
 
-      if (Pit.PROPERTY_PLAYER.equalsIgnoreCase(attrName))
+      if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).setPlayer((Player) value);
+         ((Player) target).setActiveGame((Mancala) value);
          return true;
       }
 
-      if (Pit.PROPERTY_NEXT.equalsIgnoreCase(attrName))
+      if (Player.PROPERTY_GAME.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).setNext((Pit) value);
+         ((Player) target).setGame((Mancala) value);
          return true;
       }
 
-      if (Pit.PROPERTY_PREVIOUS.equalsIgnoreCase(attrName))
+      if (Player.PROPERTY_PITS.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).setPrevious((Pit) value);
+         ((Player) target).withPits((Pit) value);
+         return true;
+      }
+      
+      if ((Player.PROPERTY_PITS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Player) target).withoutPits((Pit) value);
          return true;
       }
 
-      if (Pit.PROPERTY_COUNTERPART.equalsIgnoreCase(attrName))
+      if (Player.PROPERTY_KALAH.equalsIgnoreCase(attrName))
       {
-         ((Pit) target).setCounterpart((Pit) value);
+         ((Player) target).setKalah((Kalah) value);
+         return true;
+      }
+
+      if (Player.PROPERTY_STONE.equalsIgnoreCase(attrName))
+      {
+         ((Player) target).setStone((Stone) value);
          return true;
       }
       
@@ -151,6 +172,6 @@ public class PitCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Pit) entity).removeYou();
+      ((Player) entity).removeYou();
    }
 }

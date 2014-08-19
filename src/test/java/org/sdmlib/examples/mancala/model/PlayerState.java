@@ -19,48 +19,12 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.mancala.model.util;
+package org.sdmlib.examples.mancala.model;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import java.awt.Point;
-import java.util.Collection;
-
-public class PointSet extends SDMSet<Point>
+public enum PlayerState
 {
-
-
-   public PointPO hasPointPO()
-   {
-      return new PointPO(this.toArray(new Point[this.size()]));
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.awt.Point";
-   }
-
-
-   @SuppressWarnings("unchecked")
-   public PointSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<Point>)value);
-      }
-      else if (value != null)
-      {
-         this.add((Point) value);
-      }
-      
-      return this;
-   }
-   
-   public PointSet without(Point value)
-   {
-      this.remove(value);
-      return this;
-   }
-
+		WAIT,
+		WIN,
+		LOSE,
+		ACTIVE;
 }
