@@ -1,8 +1,6 @@
 SDMLib
 ======
 
-<script type="text/javascript" src="http://www.openhub.net/p/718496/widgets/project_thin_badge.js"></script>
-
 Welcome to SDMLib
 
 SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor. 
