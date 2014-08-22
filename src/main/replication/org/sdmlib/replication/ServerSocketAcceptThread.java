@@ -27,7 +27,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public class ServerSocketAcceptThread extends Thread implements
       PropertyChangeInterface
@@ -61,9 +60,10 @@ public class ServerSocketAcceptThread extends Thread implements
    {
       this.setName("SocketAcceptThread");
       // open server socket
+      ServerSocket serverSocket = null;
       try
       {
-         ServerSocket serverSocket = new ServerSocket(port);
+         serverSocket = new ServerSocket(port);
 
          int i = 1;
 
@@ -80,8 +80,18 @@ public class ServerSocketAcceptThread extends Thread implements
       }
       catch (IOException e)
       {
-         // TODO Auto-generated catch block
          e.printStackTrace();
+      } finally {
+         if(serverSocket != null) {
+            try
+            {
+               serverSocket.close();
+            }
+            catch (IOException e)
+            {
+               e.printStackTrace();
+            }
+         }
       }
 
    }
