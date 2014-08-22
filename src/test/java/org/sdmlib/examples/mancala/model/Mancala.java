@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 NeTH 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -80,7 +80,7 @@ public class Mancala implements PropertyChangeInterface
     * <pre>
     *              one                       one
     * Mancala ----------------------------------- Player
-    *              game                   activePlayer
+    *              activeGame                   activePlayer
     * </pre>
     */
    
@@ -104,14 +104,14 @@ public class Mancala implements PropertyChangeInterface
          if (this.activePlayer != null)
          {
             this.activePlayer = null;
-            oldValue.setGame(null);
+            oldValue.setActiveGame(null);
          }
          
          this.activePlayer = value;
          
          if (value != null)
          {
-            value.withGame(this);
+            value.withActiveGame(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_ACTIVEPLAYER, oldValue, value);

@@ -10,23 +10,23 @@ import org.sdmlib.serialization.EntityFactory;
 public class GenericCreator extends EntityFactory
 {
    private String className = "";
-   
+
    public String getClassName()
    {
       return className;
    }
-   
+
    public void setClassName(String className)
    {
       this.className = className;
    }
-   
+
    public GenericCreator withClassName(String className)
    {
       setClassName(className);
       return this;
    }
-   
+
    @Override
    public void removeObject(Object entity)
    {
@@ -40,7 +40,7 @@ public class GenericCreator extends EntityFactory
       // TODO Auto-generated method stub
       return super.call(entity, method, args);
    }
-   
+
    private String[] properties = null;
 
    @Override
@@ -50,36 +50,37 @@ public class GenericCreator extends EntityFactory
       {
          return properties;
       }
-      
+
       try
       {
          Class<?> clazz = Class.forName(className);
-         
+
          Method[] methods = clazz.getMethods();
-         
+
          LinkedHashSet<String> fieldNames = new LinkedHashSet<String>();
          for (Method method : methods)
          {
             String methodName = method.getName();
-            
-            if (methodName.startsWith("get") 
-                  && ! methodName.equals("getClass")
-                  && ! methodName.equals("getPropertyChangeSupport"))
+
+            if (methodName.startsWith("get")
+               && !methodName.equals("getClass")
+               && !methodName.equals("getPropertyChangeSupport"))
             {
                methodName = methodName.substring(3);
 
                methodName = StrUtil.downFirstChar(methodName);
-               
-               if ( ! "".equals(methodName.trim()))
+
+               if (!"".equals(methodName.trim()))
                {
                   fieldNames.add(methodName);
                }
             }
-            
+
          }
-         
-         properties = fieldNames.toArray(new String[]{});
-         
+
+         properties = fieldNames.toArray(new String[]
+         {});
+
          return properties;
       }
       catch (ClassNotFoundException e)
@@ -92,6 +93,7 @@ public class GenericCreator extends EntityFactory
    }
 
    private Object protoType = null;
+
    @Override
    public Object getSendableInstance(boolean usePrototype)
    {
@@ -108,10 +110,9 @@ public class GenericCreator extends EntityFactory
             // e.printStackTrace();
          }
       }
-      
+
       return protoType;
    }
-
 
    @Override
    public Object getValue(Object entity, String attribute)
@@ -124,11 +125,11 @@ public class GenericCreator extends EntityFactory
       try
       {
          Class<?> clazz = Class.forName(className);
-         
+
          Method method = clazz.getMethod("get" + StrUtil.upFirstChar(attribute));
-         
+
          Object invoke = method.invoke(entity);
-         
+
          return invoke;
       }
       catch (Exception e)
@@ -136,11 +137,11 @@ public class GenericCreator extends EntityFactory
          try
          {
             Class<?> clazz = Class.forName(className);
-            
+
             Method method = clazz.getMethod(attribute);
-            
+
             Object invoke = method.invoke(entity);
-            
+
             return invoke;
          }
          catch (Exception e2)
@@ -148,9 +149,9 @@ public class GenericCreator extends EntityFactory
             // TODO Auto-generated catch block
             // e.printStackTrace();
          }
-         
+
       }
-      
+
       return super.getValue(entity, attribute);
    }
 
@@ -162,98 +163,130 @@ public class GenericCreator extends EntityFactory
       {
          return false;
       }
-      
+
       try
       {
          Class<?> clazz = Class.forName(className);
-         
+
          Method method = clazz.getMethod("set", String.class, Object.class);
-         
+
          method.invoke(entity, attribute, value);
-         
+
          return true;
       }
       catch (Exception e)
       {
          // e.printStackTrace();
       }
-      
+
       try
       {
          Class<?> clazz = Class.forName(className);
-         
+
          Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), value.getClass());
-         
+
          method.invoke(entity, value);
-         
+
          return true;
       }
       catch (Exception e)
       {
          // e.printStackTrace();
       }
-      
+
       // maybe a number
       try
       {
          int intValue = Integer.parseInt((String) value);
          Class<?> clazz = Class.forName(className);
-         
+
          Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), int.class);
-         
+
          method.invoke(entity, intValue);
-         
+
          return true;
       }
       catch (Exception e)
       {
          // e.printStackTrace();
       }
-      
+      // maybe a double
+      try
+      {
+         double doubleValue = Double.parseDouble((String) value);
+         Class<?> clazz = Class.forName(className);
+
+         Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), double.class);
+
+         method.invoke(entity, doubleValue);
+
+         return true;
+      }
+      catch (Exception e)
+      {
+         // e.printStackTrace();
+      }
+
+      // maybe a float
+      try
+      {
+         float floatValue = Float.parseFloat((String) value);
+         Class<?> clazz = Class.forName(className);
+
+         Method method = clazz.getMethod("set" + StrUtil.upFirstChar(attribute), float.class);
+
+         method.invoke(entity, floatValue);
+
+         return true;
+      }
+      catch (Exception e)
+      {
+         // e.printStackTrace();
+      }
+
       try
       {
          Class<?> clazz = Class.forName(className);
-         
+
          Method method = clazz.getMethod("with" + StrUtil.upFirstChar(attribute), value.getClass());
-         
+
          method.invoke(entity, value);
-         
+
          return true;
       }
       catch (Exception e)
       {
          // e.printStackTrace();
       }
-      
+
       try
       {
          Class<?> clazz = Class.forName(className);
-         
+
          Method[] methods = clazz.getMethods();
-         
+
          for (Method method : methods)
          {
             String name = method.getName();
-            
+
             if (name.startsWith("with" + StrUtil.upFirstChar(attribute)))
             {
                Object param = Array.newInstance(value.getClass(), 1);
                Array.set(param, 0, value);
                method.invoke(entity, param);
-               
+
                return true;
             }
          }
-         
-         
+
          return true;
       }
       catch (Exception e)
       {
          e.printStackTrace();
       }
-      
+
       return super.setValue(entity, attribute, value, type);
    }
-   
+
 }

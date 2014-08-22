@@ -3,6 +3,7 @@ package org.sdmlib.examples.mancala.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.mancala.model.Player;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.examples.mancala.model.PlayerState;
 import org.sdmlib.examples.mancala.model.util.MancalaPO;
 import org.sdmlib.examples.mancala.model.Mancala;
 import org.sdmlib.examples.mancala.model.util.PlayerPO;
@@ -97,6 +98,78 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return this;
    }
    
+   public PlayerPO hasState(PlayerState value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_STATE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlayerPO createState(PlayerState value)
+   {
+      this.startCreate().hasState(value).endCreate();
+      return this;
+   }
+   
+   public PlayerState getState()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Player) getCurrentMatch()).getState();
+      }
+      return null;
+   }
+   
+   public PlayerPO withState(PlayerState value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Player) getCurrentMatch()).setState(value);
+      }
+      return this;
+   }
+   
+   public MancalaPO hasActiveGame()
+   {
+      MancalaPO result = new MancalaPO(new Mancala[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Player.PROPERTY_ACTIVEGAME, result);
+      
+      return result;
+   }
+
+   public MancalaPO createActiveGame()
+   {
+      return this.startCreate().hasActiveGame().endCreate();
+   }
+
+   public PlayerPO hasActiveGame(MancalaPO tgt)
+   {
+      return hasLinkConstraint(tgt, Player.PROPERTY_ACTIVEGAME);
+   }
+
+   public PlayerPO createActiveGame(MancalaPO tgt)
+   {
+      return this.startCreate().hasActiveGame(tgt).endCreate();
+   }
+
+   public Mancala getActiveGame()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Player) this.getCurrentMatch()).getActiveGame();
+      }
+      return null;
+   }
+
    public MancalaPO hasGame()
    {
       MancalaPO result = new MancalaPO(new Mancala[]{});
@@ -229,40 +302,6 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       if (this.getPattern().getHasMatch())
       {
          return ((Player) this.getCurrentMatch()).getStone();
-      }
-      return null;
-   }
-
-   public MancalaPO hasActiveGame()
-   {
-      MancalaPO result = new MancalaPO(new Mancala[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Player.PROPERTY_ACTIVEGAME, result);
-      
-      return result;
-   }
-
-   public MancalaPO createActiveGame()
-   {
-      return this.startCreate().hasActiveGame().endCreate();
-   }
-
-   public PlayerPO hasActiveGame(MancalaPO tgt)
-   {
-      return hasLinkConstraint(tgt, Player.PROPERTY_ACTIVEGAME);
-   }
-
-   public PlayerPO createActiveGame(MancalaPO tgt)
-   {
-      return this.startCreate().hasActiveGame(tgt).endCreate();
-   }
-
-   public Mancala getActiveGame()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Player) this.getCurrentMatch()).getActiveGame();
       }
       return null;
    }

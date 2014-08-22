@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 NeTH 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,6 +24,7 @@ package org.sdmlib.examples.mancala.model.util;
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.examples.mancala.model.PlayerState;
 import org.sdmlib.examples.mancala.model.Mancala;
 import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Kalah;
@@ -34,11 +35,12 @@ public class PlayerCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       Player.PROPERTY_NAME,
+      Player.PROPERTY_STATE,
+      Player.PROPERTY_ACTIVEGAME,
       Player.PROPERTY_GAME,
       Player.PROPERTY_PITS,
       Player.PROPERTY_KALAH,
       Player.PROPERTY_STONE,
-      Player.PROPERTY_ACTIVEGAME,
    };
    
    @Override
@@ -69,6 +71,16 @@ public class PlayerCreator extends EntityFactory
          return ((Player) target).getName();
       }
 
+      if (Player.PROPERTY_STATE.equalsIgnoreCase(attribute))
+      {
+         return ((Player) target).getState();
+      }
+
+      if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attribute))
+      {
+         return ((Player) target).getActiveGame();
+      }
+
       if (Player.PROPERTY_GAME.equalsIgnoreCase(attribute))
       {
          return ((Player) target).getGame();
@@ -88,11 +100,6 @@ public class PlayerCreator extends EntityFactory
       {
          return ((Player) target).getStone();
       }
-
-      if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attribute))
-      {
-         return ((Player) target).getActiveGame();
-      }
       
       return null;
    }
@@ -108,6 +115,18 @@ public class PlayerCreator extends EntityFactory
       if (Player.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((Player) target).withName((String) value);
+         return true;
+      }
+
+      if (Player.PROPERTY_STATE.equalsIgnoreCase(attrName))
+      {
+         ((Player) target).withState(PlayerState.valueOf((String) value));
+         return true;
+      }
+
+      if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attrName))
+      {
+         ((Player) target).setActiveGame((Mancala) value);
          return true;
       }
 
@@ -138,12 +157,6 @@ public class PlayerCreator extends EntityFactory
       if (Player.PROPERTY_STONE.equalsIgnoreCase(attrName))
       {
          ((Player) target).setStone((Stone) value);
-         return true;
-      }
-
-      if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attrName))
-      {
-         ((Player) target).setActiveGame((Mancala) value);
          return true;
       }
       

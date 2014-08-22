@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2014 NeTH 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,6 +25,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.mancala.model.Player;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.mancala.model.PlayerState;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.mancala.model.util.MancalaSet;
 import org.sdmlib.examples.mancala.model.Mancala;
@@ -121,6 +122,79 @@ public class PlayerSet extends SDMSet<Player>
       for (Player obj : this)
       {
          obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public PlayerSet hasState(PlayerState value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value == obj.getState())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlayerSet withState(PlayerState value)
+   {
+      for (Player obj : this)
+      {
+         obj.setState(value);
+      }
+      
+      return this;
+   }
+
+   public MancalaSet getActiveGame()
+   {
+      MancalaSet result = new MancalaSet();
+      
+      for (Player obj : this)
+      {
+         result.add(obj.getActiveGame());
+      }
+      
+      return result;
+   }
+
+   public PlayerSet hasActiveGame(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      PlayerSet answer = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (neighbors.contains(obj.getActiveGame()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public PlayerSet withActiveGame(Mancala value)
+   {
+      for (Player obj : this)
+      {
+         obj.withActiveGame(value);
       }
       
       return this;
@@ -323,54 +397,6 @@ public class PlayerSet extends SDMSet<Player>
       for (Player obj : this)
       {
          obj.withStone(value);
-      }
-      
-      return this;
-   }
-
-   public MancalaSet getActiveGame()
-   {
-      MancalaSet result = new MancalaSet();
-      
-      for (Player obj : this)
-      {
-         result.add(obj.getActiveGame());
-      }
-      
-      return result;
-   }
-
-   public PlayerSet hasActiveGame(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      PlayerSet answer = new PlayerSet();
-      
-      for (Player obj : this)
-      {
-         if (neighbors.contains(obj.getActiveGame()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public PlayerSet withActiveGame(Mancala value)
-   {
-      for (Player obj : this)
-      {
-         obj.withActiveGame(value);
       }
       
       return this;

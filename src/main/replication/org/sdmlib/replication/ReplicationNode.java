@@ -83,12 +83,6 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
          JsonIdMap map = ReplicationNodeCreator.createIdMap("s42");
          
          map.withCreator(modelCreators);
-         
-         for (SendableEntityCreator sendableEntityCreator : map)
-         {
-            System.out.println(sendableEntityCreator.toString());
-         }
-         
          sharedSpace.withMap(map);
          
          ChangeHistory history = new ChangeHistory();
@@ -107,7 +101,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
             replicationRoot.addPropertyChangeListener(this.remoteTaskListener);
             remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(this.remoteTaskListener);
             
-            this.remoteTaskListener.propertyChange(new PropertyChangeEvent(sharedSpace, "new", null, remoteTaskBoard));
+            this.remoteTaskListener.propertyChange(new PropertyChangeEvent(sharedSpace, ReplicationNodeListener.NEW, null, remoteTaskBoard));
          }
          
          sharedSpace.start();

@@ -39,6 +39,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       PlaceHolderDescription.PROPERTY_OWNERS,
       PlaceHolderDescription.PROPERTY_MATCHES,
       PlaceHolderDescription.PROPERTY_SUBTEMPLATE,
+      PlaceHolderDescription.PROPERTY_CODESNIPPET,
    };
    
    @Override
@@ -102,6 +103,11 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       if (PlaceHolderDescription.PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attribute))
       {
          return ((PlaceHolderDescription) target).getSubTemplate();
+      }
+
+      if (PlaceHolderDescription.PROPERTY_CODESNIPPET.equalsIgnoreCase(attribute))
+      {
+         return ((PlaceHolderDescription) target).getCodeSnippet();
       }
       
       return null;
@@ -172,6 +178,12 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
       if (PlaceHolderDescription.PROPERTY_SUBTEMPLATE.equalsIgnoreCase(attrName))
       {
          ((PlaceHolderDescription) target).setSubTemplate((Template) value);
+         return true;
+      }
+
+      if (PlaceHolderDescription.PROPERTY_CODESNIPPET.equalsIgnoreCase(attrName))
+      {
+         ((PlaceHolderDescription) target).withCodeSnippet((String) value);
          return true;
       }
       

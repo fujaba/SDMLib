@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 
 public abstract class ReplicationNodeListener implements PropertyChangeListener
 {
-
+   public static final String NEW = "NEW";
    protected SharedSpace sharedSpace;
    private boolean isInit;
 
@@ -31,18 +31,24 @@ public abstract class ReplicationNodeListener implements PropertyChangeListener
 
    private void wrapEvent(PropertyChangeEvent evt)
    {
-      boolean oldIsApplyingChangeFlag = sharedSpace.isApplyingChangeMsg();
-      sharedSpace.setApplyingChangeMsg(false);
+      boolean oldIsApplyingChangeFlag = getSharedSpace().isApplyingChangeMsg();
+      getSharedSpace().setApplyingChangeMsg(false);
       try
       {
          handleEvent(evt);
       }
       finally
       {
-         sharedSpace.setApplyingChangeMsg(oldIsApplyingChangeFlag);
+         getSharedSpace().setApplyingChangeMsg(oldIsApplyingChangeFlag);
       }
    }
 
+   
+   public SharedSpace getSharedSpace()
+   {
+      return sharedSpace;
+   }
+   
    protected abstract boolean init(PropertyChangeEvent evt);
 
    protected abstract void handleEvent(PropertyChangeEvent evt);
