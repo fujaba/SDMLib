@@ -3,7 +3,7 @@ package org.sdmlib.replication;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public abstract class ReplicationNodeListener implements PropertyChangeListener
+public abstract class RemoteTaskListener implements PropertyChangeListener
 {
    public static final String NEW = "NEW";
    protected SharedSpace sharedSpace;

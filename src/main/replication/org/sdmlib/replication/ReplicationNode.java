@@ -101,7 +101,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
             replicationRoot.addPropertyChangeListener(this.remoteTaskListener);
             remoteTaskBoard.getPropertyChangeSupport().addPropertyChangeListener(this.remoteTaskListener);
             
-            this.remoteTaskListener.propertyChange(new PropertyChangeEvent(sharedSpace, ReplicationNodeListener.NEW, null, remoteTaskBoard));
+            this.remoteTaskListener.propertyChange(new PropertyChangeEvent(sharedSpace, RemoteTaskListener.NEW, null, remoteTaskBoard));
          }
          
          sharedSpace.start();
