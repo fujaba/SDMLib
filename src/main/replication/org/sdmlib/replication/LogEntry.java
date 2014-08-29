@@ -140,12 +140,12 @@ public class LogEntry implements PropertyChangeInterface
 
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
 
-      _.append(" ").append(formater.format(new Date(this.getTimeStamp())));
-      _.append(" ").append(this.getStepName());
-      _.append(" ").append(this.getExecutedBy());
-      return _.substring(1);
+      s.append(" ").append(formater.format(new Date(this.getTimeStamp())));
+      s.append(" ").append(this.getStepName());
+      s.append(" ").append(this.getExecutedBy());
+      return s.substring(1);
    }
 
    // ==========================================================================

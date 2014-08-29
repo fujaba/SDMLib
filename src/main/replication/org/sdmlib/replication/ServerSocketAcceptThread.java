@@ -177,10 +177,10 @@ public class ServerSocketAcceptThread extends Thread implements
 
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
 
-      _.append(" ").append(this.getPort());
-      return _.substring(1);
+      s.append(" ").append(this.getPort());
+      return s.substring(1);
    }
 
    // ==========================================================================

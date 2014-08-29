@@ -104,13 +104,13 @@ public class Student extends Female implements Male, PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getMatrNo());
-      _.append(" ").append(this.getCredits());
-      _.append(" ").append(this.getMotivation());
-      return _.substring(1);
+      s.append(" ").append(this.getName());
+      s.append(" ").append(this.getMatrNo());
+      s.append(" ").append(this.getCredits());
+      s.append(" ").append(this.getMotivation());
+      return s.substring(1);
    }
 
 

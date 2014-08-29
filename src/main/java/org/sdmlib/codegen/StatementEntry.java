@@ -43,10 +43,10 @@ public class StatementEntry implements PropertyChangeInterface
       }
       
       /*
-      _.append(" ").append(this.getKind());
-      _.append(" ").append(this.getAssignTargetVarName());
-      _.append(" ").append(this.getStartPos());
-      _.append(" ").append(this.getEndPos());
+      s.append(" ").append(this.getKind());
+      s.append(" ").append(this.getAssignTargetVarName());
+      s.append(" ").append(this.getStartPos());
+      s.append(" ").append(this.getEndPos());
       
       */
       

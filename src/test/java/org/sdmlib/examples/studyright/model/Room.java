@@ -104,11 +104,11 @@ public class Room implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getRoomNo());
-      _.append(" ").append(this.getCredits());
-      return _.substring(1);
+      s.append(" ").append(this.getRoomNo());
+      s.append(" ").append(this.getCredits());
+      return s.substring(1);
    }
 
 

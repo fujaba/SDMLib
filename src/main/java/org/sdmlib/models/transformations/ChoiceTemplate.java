@@ -71,16 +71,16 @@ public class ChoiceTemplate extends Template implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getTemplateText());
-      _.append(" ").append(this.getExpandedText());
-      _.append(" ").append(this.getModelClassName());
-      _.append(" ").append(this.getListStart());
-      _.append(" ").append(this.getListSeparator());
-      _.append(" ").append(this.getListEnd());
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      s.append(" ").append(this.getTemplateText());
+      s.append(" ").append(this.getExpandedText());
+      s.append(" ").append(this.getModelClassName());
+      s.append(" ").append(this.getListStart());
+      s.append(" ").append(this.getListSeparator());
+      s.append(" ").append(this.getListEnd());
+      s.append(" ").append(this.getName());
+      return s.substring(1);
    }
 
 

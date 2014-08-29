@@ -88,10 +88,10 @@ public class Dice implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getValue());
-      return _.substring(1);
+      s.append(" ").append(this.getValue());
+      return s.substring(1);
    }
 
 

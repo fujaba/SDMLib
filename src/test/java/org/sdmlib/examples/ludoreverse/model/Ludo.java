@@ -88,11 +88,11 @@ public class Ludo implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getStyle());
-      _.append(" ").append(this.getAge());
-      return _.substring(1);
+      s.append(" ").append(this.getStyle());
+      s.append(" ").append(this.getAge());
+      return s.substring(1);
    }
 
 

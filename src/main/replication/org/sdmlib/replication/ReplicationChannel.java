@@ -349,10 +349,10 @@ public class ReplicationChannel extends Thread implements
 
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getTargetNodeId());
-      return _.substring(1);
+      s.append(" ").append(this.getTargetNodeId());
+      return s.substring(1);
    }
 
 }

@@ -304,7 +304,7 @@ public class LogEntryStoryBoard implements PropertyChangeInterface, Comparable<L
       buf.append(" ").append(this.getDeveloper());
       buf.append(" ").append(this.getHoursSpend());
       buf.append(" ").append(this.getHoursRemainingInTotal());
-      // _.append(" ").append(this.getPhases());
+      // buf.append(" ").append(this.getPhases());
       return buf.substring(1);
    }
 }

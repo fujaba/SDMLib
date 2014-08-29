@@ -34,10 +34,10 @@ public class LocalVarTableEntry implements PropertyChangeInterface
    public String toString()
    {
    	//   	StringBuilder _ = new StringBuilder();
-   	//   	_.append(" ").append(this.getName());
-   	//      _.append(" ").append(this.getType());
-   	//      _.append(" ").append(this.getStartPos());
-   	//      _.append(" ").append(this.getEndPos());
+   	//   	s.append(" ").append(this.getName());
+   	//      s.append(" ").append(this.getType());
+   	//      s.append(" ").append(this.getStartPos());
+   	//      s.append(" ").append(this.getEndPos());
       return "" + name + " : " + type;
    }
    

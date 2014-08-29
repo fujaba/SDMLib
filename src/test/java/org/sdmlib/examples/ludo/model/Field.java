@@ -101,13 +101,13 @@ public class Field implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getColor());
-      _.append(" ").append(this.getKind());
-      _.append(" ").append(this.getX());
-      _.append(" ").append(this.getY());
-      return _.substring(1);
+      s.append(" ").append(this.getColor());
+      s.append(" ").append(this.getKind());
+      s.append(" ").append(this.getX());
+      s.append(" ").append(this.getY());
+      return s.substring(1);
    }
 
 

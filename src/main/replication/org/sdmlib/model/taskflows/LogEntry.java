@@ -417,11 +417,11 @@ public class LogEntry implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getNodeName());
-      _.append(" ").append(this.getTaskName());
-      return _.substring(1);
+      s.append(" ").append(this.getNodeName());
+      s.append(" ").append(this.getTaskName());
+      return s.substring(1);
    }
 
    public LogEntrySet getChildrenTransitive()

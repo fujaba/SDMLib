@@ -296,11 +296,11 @@ public class GenericLink implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getTgtLabel());
-      _.append(" ").append(this.getSrcLabel());
-      return _.substring(1);
+      s.append(" ").append(this.getTgtLabel());
+      s.append(" ").append(this.getSrcLabel());
+      return s.substring(1);
    }
 }
 

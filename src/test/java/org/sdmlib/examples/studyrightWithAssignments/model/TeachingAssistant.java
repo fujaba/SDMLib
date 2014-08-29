@@ -75,14 +75,14 @@ public class TeachingAssistant extends Student
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getId());
-      _.append(" ").append(this.getAssignmentPoints());
-      _.append(" ").append(this.getMotivation());
-      _.append(" ").append(this.getCredits());
-      return _.substring(1);
+      s.append(" ").append(this.getName());
+      s.append(" ").append(this.getId());
+      s.append(" ").append(this.getAssignmentPoints());
+      s.append(" ").append(this.getMotivation());
+      s.append(" ").append(this.getCredits());
+      return s.substring(1);
    }
 
 

@@ -78,8 +78,8 @@ public class Attribute extends Value
    public String toString()
    {
       //      StringBuilder _ = new StringBuilder();
-      //      _.append(" ").append(this.getInitialization());
-      //      _.append(" ").append(this.getName());
+      //      s.append(" ").append(this.getInitialization());
+      //      s.append(" ").append(this.getName());
       return "" + name + " : " + type;
    }
    

@@ -1353,13 +1353,13 @@ public class Storyboard implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
 
-      _.append(" ").append("Storyboard" + this.getStoryboardSteps().getFirst());
-      _.append(" ").append(this.getRootDir());
-      _.append(" ").append(this.getStepCounter());
-      _.append(" ").append(this.getStepDoneCounter());
-      return _.substring(1);
+      s.append(" ").append("Storyboard" + this.getStoryboardSteps().getFirst());
+      s.append(" ").append(this.getRootDir());
+      s.append(" ").append(this.getStepCounter());
+      s.append(" ").append(this.getStepDoneCounter());
+      return s.substring(1);
    }
 
    /********************************************************************

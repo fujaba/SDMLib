@@ -91,11 +91,11 @@ public class Assignment implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getContent());
-      _.append(" ").append(this.getPoints());
-      return _.substring(1);
+      s.append(" ").append(this.getContent());
+      s.append(" ").append(this.getPoints());
+      return s.substring(1);
    }
 
 

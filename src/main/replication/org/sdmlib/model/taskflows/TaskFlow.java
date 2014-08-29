@@ -340,10 +340,10 @@ public abstract class TaskFlow extends TimerTask implements PropertyChangeInterf
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getTaskNo());
-      return _.substring(1);
+      s.append(" ").append(this.getTaskNo());
+      return s.substring(1);
    }
 
    public TaskFlowSet getSubFlowTransitive()

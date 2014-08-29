@@ -24,9 +24,10 @@
 		<mkdir dir="build/temp/" />
 		<mkdir dir="build/lib/" />
 		<mkdir dir="build/javadoc/" />
-		<javac srcdir="src:NetworkParser" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
+		<javac srcdir="src/main/:../NetworkParser/src/main" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
 			<classpath>
 				<pathelement location="lib/junit.jar"/>
+				<pathelement location="lib/bsh-2.0b5.jar"/>
 			</classpath>			
 		</javac>
 	</target>
@@ -46,7 +47,7 @@
 				<include name="**/*.html"/>
 				<include name="**/*.css"/>
 			</fileset>
-			<fileset dir="./NetworkParser" />
+			<fileset dir="../NetworkParser/src/main/java" />
 		</jar>
 		
 		<jar destfile="build/SDMLib-source.jar">
@@ -58,9 +59,13 @@
 			</manifest>
 			<fileset dir="build/temp/" />
 			<fileset dir="./src"/>
-			<fileset dir="./NetworkParser" />
+			<fileset dir="../NetworkParser/src/main/java" />
 		</jar>
-		<javadoc destdir="build/javadoc/" sourcepath="src">
+		<javadoc destdir="build/javadoc/" sourcepath="src/main/:../NetworkParser/src/main/java">
+			<classpath>
+				<pathelement location="lib/junit.jar"/>
+				<pathelement location="lib/bsh-2.0b5.jar"/>
+			</classpath>
 		</javadoc>
 		<jar destfile="build/SDMLib-javadoc.jar">
 			<manifest>

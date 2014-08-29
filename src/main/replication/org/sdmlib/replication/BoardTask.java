@@ -185,11 +185,11 @@ public class BoardTask extends Task implements PropertyChangeInterface
 
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
 
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getStatus());
-      return _.substring(1);
+      s.append(" ").append(this.getName());
+      s.append(" ").append(this.getStatus());
+      return s.substring(1);
    }
 
    public static final BoardTaskSet EMPTY_SET = new BoardTaskSet();

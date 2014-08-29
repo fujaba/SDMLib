@@ -76,11 +76,11 @@ public class Professor extends Female implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getPersNr());
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      s.append(" ").append(this.getPersNr());
+      s.append(" ").append(this.getName());
+      return s.substring(1);
    }
 
 

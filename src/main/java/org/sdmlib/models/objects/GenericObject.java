@@ -529,12 +529,12 @@ public class GenericObject implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getName());
-      _.append(" ").append(this.getType());
-      _.append(" ").append(this.getIcon());
-      return _.substring(1);
+      s.append(" ").append(this.getName());
+      s.append(" ").append(this.getType());
+      s.append(" ").append(this.getIcon());
+      return s.substring(1);
    }
 
 

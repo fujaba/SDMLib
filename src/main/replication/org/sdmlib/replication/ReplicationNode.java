@@ -253,11 +253,11 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getSpaceId());
-      _.append(" ").append(this.getNodeId());
-      return _.substring(1);
+      s.append(" ").append(this.getSpaceId());
+      s.append(" ").append(this.getNodeId());
+      return s.substring(1);
    }
 
 

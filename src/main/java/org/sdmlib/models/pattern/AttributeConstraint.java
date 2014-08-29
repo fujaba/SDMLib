@@ -289,15 +289,15 @@ public class AttributeConstraint extends PatternElement<AttributeConstraint> imp
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getPatternObjectName());
-      _.append(" ").append(this.getAttrName());
-      _.append(" ").append(this.getModifier());
-      _.append(" ").append(this.getCmpOp());
-      _.append(" ").append(this.getTgtValue());
+      s.append(" ").append(this.getPatternObjectName());
+      s.append(" ").append(this.getAttrName());
+      s.append(" ").append(this.getModifier());
+      s.append(" ").append(this.getCmpOp());
+      s.append(" ").append(this.getTgtValue());
       
-      return _.substring(1);
+      return s.substring(1);
    }
 
 

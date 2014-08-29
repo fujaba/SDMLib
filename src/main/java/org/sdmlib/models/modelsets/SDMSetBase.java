@@ -5,17 +5,16 @@ import java.util.Iterator;
 
 import org.sdmlib.CGUtil;
 
-import de.uniks.networkparser.AbstractList;
 import de.uniks.networkparser.gui.ItemList;
 
 
 public class SDMSetBase<T> extends ItemList<T>
 {
-   @Override
-   protected boolean initAllowDuplicate()
+   public SDMSetBase()
    {
-      return false;
+      this.allowDuplicate = false;
    }
+  
    @Override
    public String toString()
    {

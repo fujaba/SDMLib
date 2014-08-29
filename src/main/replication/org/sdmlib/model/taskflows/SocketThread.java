@@ -262,10 +262,10 @@ public class SocketThread extends Thread implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getIp());
-      _.append(" ").append(this.getPort());
-      return _.substring(1);
+      s.append(" ").append(this.getIp());
+      s.append(" ").append(this.getPort());
+      return s.substring(1);
    }
 }

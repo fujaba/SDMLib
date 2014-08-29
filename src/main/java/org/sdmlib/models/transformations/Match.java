@@ -90,13 +90,13 @@ public class Match implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getStartPos());
-      _.append(" ").append(this.getEndPos());
-      // _.append(" ").append(this.getFullText());
-      _.append(" ").append(this.getMatchText());
-      return _.substring(1);
+      s.append(" ").append(this.getStartPos());
+      s.append(" ").append(this.getEndPos());
+      // s.append(" ").append(this.getFullText());
+      s.append(" ").append(this.getMatchText());
+      return s.substring(1);
    }
 
 

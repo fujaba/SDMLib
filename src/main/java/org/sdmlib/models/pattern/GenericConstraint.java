@@ -95,12 +95,12 @@ public class GenericConstraint extends PatternElement<GenericConstraint> impleme
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getText());
-      _.append(" ").append(this.getModifier());
-      _.append(" ").append(this.getPatternObjectName());
-      return _.substring(1);
+      s.append(" ").append(this.getText());
+      s.append(" ").append(this.getModifier());
+      s.append(" ").append(this.getPatternObjectName());
+      return s.substring(1);
    }
 
 

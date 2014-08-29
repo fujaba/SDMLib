@@ -81,10 +81,10 @@ public class RuleApplication implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getDescription());
-      return _.substring(1);
+      s.append(" ").append(this.getDescription());
+      return s.substring(1);
    }
 
 

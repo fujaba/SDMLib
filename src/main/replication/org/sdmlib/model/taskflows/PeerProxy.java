@@ -250,10 +250,10 @@ public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getIp());
-      _.append(" ").append(this.getPort());
+      s.append(" ").append(this.getIp());
+      s.append(" ").append(this.getPort());
       return "" + ip + ":" + port;
    }
 

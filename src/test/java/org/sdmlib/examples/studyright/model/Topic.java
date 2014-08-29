@@ -88,10 +88,10 @@ public class Topic implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getTitle());
-      return _.substring(1);
+      s.append(" ").append(this.getTitle());
+      return s.substring(1);
    }
 
 

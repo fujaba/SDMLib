@@ -50,13 +50,13 @@ public class SymTabEntry implements PropertyChangeInterface
    {
 //      TODO :  don't know
 //      StringBuilder _ = new StringBuilder();
-//      _.append(" ").append(this.getKind());
-//      _.append(" ").append(this.getMemberName());
-//      _.append(" ").append(this.getType());
-//      _.append(" ").append(this.getStartPos());
-//      _.append(" ").append(this.getBodyStartPos());
-//      _.append(" ").append(this.getEndPos());
-//      _.append(" ").append(this.getModifiers());
+//      s.append(" ").append(this.getKind());
+//      s.append(" ").append(this.getMemberName());
+//      s.append(" ").append(this.getType());
+//      s.append(" ").append(this.getStartPos());
+//      s.append(" ").append(this.getBodyStartPos());
+//      s.append(" ").append(this.getEndPos());
+//      s.append(" ").append(this.getModifiers());
       return "" + type;
    }   
    //==========================================================================

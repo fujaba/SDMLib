@@ -170,7 +170,7 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
       buf.append(" ").append(this.getTargetObjectId());
       buf.append(" ").append(this.getTargetProperty());
       buf.append("\n").append(changeMsg);
-      // _.append(" ").append(this.getChangeMsg());
+      // s.append(" ").append(this.getChangeMsg());
 
       for (LogEntry entry : this.getLogEntries())
       {

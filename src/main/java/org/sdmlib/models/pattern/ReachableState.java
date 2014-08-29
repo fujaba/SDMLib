@@ -442,10 +442,10 @@ public class ReachableState implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getNumber());
-      return _.substring(1);
+      s.append(" ").append(this.getNumber());
+      return s.substring(1);
    }
 
 

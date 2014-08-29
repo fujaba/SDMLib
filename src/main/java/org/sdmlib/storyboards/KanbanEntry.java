@@ -625,7 +625,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       buf.append(" ").append(this.getName());
       buf.append(" ").append(this.getPhase());
       buf.append(" ").append(this.getOldNoOfLogEntries());
-      // _.append(" ").append(this.getPhases());
+      // buf.append(" ").append(this.getPhases());
       return buf.substring(1);
    }
 

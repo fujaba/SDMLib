@@ -151,13 +151,13 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getDebugMode());
-      _.append(" ").append(this.getModifier());
-      _.append(" ").append(this.getPatternObjectName());
-      _.append(" ").append(this.getName());
-      return _.substring(1);
+      s.append(" ").append(this.getDebugMode());
+      s.append(" ").append(this.getModifier());
+      s.append(" ").append(this.getPatternObjectName());
+      s.append(" ").append(this.getName());
+      return s.substring(1);
    }
 
 }

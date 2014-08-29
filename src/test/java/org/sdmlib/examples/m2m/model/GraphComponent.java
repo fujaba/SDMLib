@@ -89,10 +89,10 @@ public class GraphComponent implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getText());
-      return _.substring(1);
+      s.append(" ").append(this.getText());
+      return s.substring(1);
    }
 
 

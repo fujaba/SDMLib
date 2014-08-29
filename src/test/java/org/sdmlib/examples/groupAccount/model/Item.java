@@ -89,11 +89,11 @@ public class Item implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder _ = new StringBuilder();
+      StringBuilder s = new StringBuilder();
       
-      _.append(" ").append(this.getDescription());
-      _.append(" ").append(this.getValue());
-      return _.substring(1);
+      s.append(" ").append(this.getDescription());
+      s.append(" ").append(this.getValue());
+      return s.substring(1);
    }
 
 
