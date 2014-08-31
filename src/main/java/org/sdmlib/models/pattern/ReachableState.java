@@ -114,7 +114,7 @@ public class ReachableState implements PropertyChangeInterface
                   JsonObject ref = (JsonObject) value;
                   if (ref.get(JsonIdMap.ID) != null)
                   {
-                     ref.setValue(JsonIdMap.ID, oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
+                     ref.withValue(JsonIdMap.ID, oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
                   }
                }
                else if (value instanceof JsonArray)
@@ -125,7 +125,7 @@ public class ReachableState implements PropertyChangeInterface
                      JsonObject ref = (JsonObject) ao;
                      if (ref.get(JsonIdMap.ID) != null)
                      {
-                        ref.setValue(JsonIdMap.ID, oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
+                        ref.withValue(JsonIdMap.ID, oldnode2certificates.get(ref.getString(JsonIdMap.ID)));
                      }
                   }
                   
