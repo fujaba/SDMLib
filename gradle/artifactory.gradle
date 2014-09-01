@@ -17,7 +17,11 @@ artifactory {
     contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
-            repoKey = 'libs-snapshot-local'
+            if(project.hasProperty('lectureBuild')) {
+	            repoKey = 'lecture'
+	        }else{
+	            repoKey = 'libs-snapshot-local'
+	        }
             username = "${artifactory_user}"
             password = "${artifactory_password}"
             maven = true
@@ -26,7 +30,11 @@ artifactory {
     }
     resolve {
         repository {
-            repoKey = 'libs-release'
+            if(project.hasProperty('lectureBuild')) {
+	            repoKey = 'lecture'
+	        }else{
+	            repoKey = 'libs-release'
+	        }
             username = "${artifactory_user}"
             password = "${artifactory_password}"
             maven = true
