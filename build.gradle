@@ -47,7 +47,11 @@ repositories {
     mavenCentral()
 
     // NetworkParser
-     maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
+    if(project.hasProperty('lectureBuild')) {
+        maven { url "https://se.cs.uni-kassel.de/artifactory/lecture" }
+    }else{
+        maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
+    }
 }
 
 dependencies {
