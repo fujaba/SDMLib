@@ -45,4 +45,9 @@ artifactory {
 
 task sourceJar(type: Jar) { from sourceSets.main.allSource; classifier = 'sources' }
 task javadocJar(type: Jar) { from javadoc.outputs.files; classifier = 'javadoc' }
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 artifacts { archives sourceJar, javadocJar }
