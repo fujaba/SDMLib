@@ -1,3 +1,5 @@
+import java.lang.ClassValue.Version;
+
 apply plugin: 'artifactory'
 apply plugin: 'maven'
 
@@ -46,8 +48,31 @@ artifactory {
 task sourceJar(type: Jar) { from sourceSets.main.allSource; classifier = 'sources' }
 task javadocJar(type: Jar) { from javadoc.outputs.files; classifier = 'javadoc' }
 task fatJar(type: Jar) {
-    baseName = project.name + '-all'
+	manifest {
+	   attributes 'Specification-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
+			'Implementation-Title': 'SDMLib',
+			'Specification-Title': 'SDMLib',
+			'Built-Time': gitVersion.buildTime,
+			'Created-By': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision+" "+System.properties['user.name'],
+			'Built-By': "${System.properties['user.name']}",
+			'Location': "${System.properties['user.language']}",
+			'Version': gitVersion.revision,
+			'Implementation-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
+			'GIT-Revision': gitVersion.revision,
+			'Java-Version': "${System.properties['java.version']}",
+			'Bundle-Description': 'SDMLib',
+			'Bundle-ClassPath': '.'
+	}
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+    with sourceJar
+    with javadocJar
+    exclude('junit/**') 
+    exclude('org/hamcrest/**')
+    exclude('org/junit/**')
+	exclude('META-INF/MANIFEST.MF')
+    classifier = 'all'
 }
-artifacts { archives sourceJar, javadocJar }
+
+
+artifacts { archives sourceJar, javadocJar, fatJar }

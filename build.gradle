@@ -4,7 +4,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply from: 'gradle/ide.gradle'
-
+apply from: 'gradle/version.gradle'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -13,8 +13,8 @@ targetCompatibility = 1.7
 // jenkins needs -Pjenkins switch
 if (project.hasProperty('jenkins')) {
     //apply plugin: 'checkstyle'
+    //apply from: 'gradle/version.gradle'
     apply from: 'gradle/artifactory.gradle'
-    apply from: 'gradle/version.gradle'
 }
 
 configurations.all {
@@ -24,9 +24,10 @@ configurations.all {
 
 sourceSets.main.java.srcDirs += ['src/main/replication']
 
-buildscript { 
+buildscript {
     repositories {
         jcenter()
+
     }
     dependencies {
         classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '2.2.4')
