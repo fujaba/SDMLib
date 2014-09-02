@@ -35,6 +35,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
@@ -293,11 +294,20 @@ public class GenClassModel
             boolean publicCreatorCreator = false;
             for (Clazz clazz : model.getClasses())
             {
-               if (!clazz.isInterface()  && !clazz.isEnumeration())
+               if (!clazz.isInterface()  && !clazz.isEnumeration() && includeCreators(clazz))
                {
                   String creatorName = "";
                   if(clazz.isExternal()){
                      creatorName = model.getName()+UTILPATH+"."+CGUtil.shortClassName(clazz.getFullName());
+                     
+                     GenClass genClass = getOrCreate(clazz);
+                     Parser creatorClassParser = genClass.getOrCreateParserForCreatorClass(rootDir);
+                     String string = creatorClassParser.getFileName();
+                     String alternativeFilePath = string.substring(rootDir.length()+1, string.length()-"Creator.java".length()).replaceAll("/", ".");
+                     
+                     if (!creatorName.equals(alternativeFilePath))
+                    	 creatorName = alternativeFilePath;
+                     
                   }else{
                      creatorName = CGUtil.packageName(clazz.getFullName())+UTILPATH+"."+CGUtil.shortClassName(clazz.getFullName());
                   }
@@ -326,7 +336,7 @@ public class GenClassModel
          
          for (Clazz clazz : this.getModel().getClasses())
          {
-            if (!clazz.isInterface() && !clazz.isExternal())
+            if (!clazz.isInterface() && !clazz.isExternal() && includeCreators(clazz))
             {
                insertCreatorClassInCreatorCreator(creatorCreatorParser, clazz);
             }
@@ -338,6 +348,20 @@ public class GenClassModel
 
       return creatorCreatorParser;
    }
+   
+	private boolean includeCreators(Clazz clazz) {
+
+		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
+			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
+
+			for (String featureValue : feature) {
+
+				if (clazz.getFullName().equals(featureValue))
+					return false;
+			}
+		}
+		return true;
+	}
    
    public void insertCreatorClassInCreatorCreator(Parser ccParser, Clazz clazz)
    {

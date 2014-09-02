@@ -12,6 +12,7 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class GenAttribute extends Generator<Attribute>
@@ -445,13 +446,43 @@ public class GenAttribute extends Generator<Attribute>
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
       if (findClass.isExternal())
       {
-         return packageNameFromOwnerClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
+         return packageNameFromFindClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
       }
       else if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
       {
-         return packageNameFromFindClass + GenClassModel.UTILPATH+"." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
+         return packageNameFromOwnerClass + GenClassModel.UTILPATH+"." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
       }
       return null;
+   }
+   
+   private String checkImportFor(String type) {
+	   Clazz findClass = model.getClazz().getClassModel().getGenerator().findClass(type);
+	   if (findClass == null)
+		   return null;
+	   Clazz attributClass = model.getClazz();
+	   String packageNameFromFindClass = CGUtil.packageName(findClass.getFullName());
+	   String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
+	   if (findClass.isExternal())
+	   {
+		   return packageNameFromFindClass + "." + CGUtil.shortClassName(findClass.getFullName());
+	   }
+	   else if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
+	   {
+		   return packageNameFromOwnerClass + "." + CGUtil.shortClassName(findClass.getFullName());
+	   }
+	   return null;
+   }
+   
+   private boolean checkIsExternalFor(String type) {
+	   Clazz findClass = model.getClazz().getClassModel().getGenerator().findClass(type);
+	   if (findClass == null)
+		   return false;
+	   else if (findClass.isExternal()){
+		   return true;
+	   }
+	   else {
+		   return false;
+	   }
    }
    
    private void insertHasMethodInPatternObjectClass(Parser parser, Clazz ownerClazz) 
@@ -983,6 +1014,13 @@ public class GenAttribute extends Generator<Attribute>
 
          parser.insert(lastIfEndPos, text.toString());
 
+         if (checkIsExternalFor(type)) {
+        	 String iMport = checkImportFor(type);
+        	 
+        	 if (iMport != null)		 
+        		 getGenerator(ownerClazz).insertImport(parser, iMport);
+         }
+         
          if (isEnumType(model, ownerClazz)){
         	 getGenerator(ownerClazz).insertImport(parser, model.getType().getValue());
          }
@@ -1035,7 +1073,7 @@ public class GenAttribute extends Generator<Attribute>
       if(model.getVisibility().same(Visibility.PRIVATE)){
     	  
 //    	  if (!isEnumType(model, clazz)) {
-    		  if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization) )
+    		  if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization) && includeCreators(clazz))
     		  {
     			  Parser creatorParser = getGenerator( clazz).getOrCreateParserForCreatorClass(helpersDir);
     			  
@@ -1058,19 +1096,33 @@ public class GenAttribute extends Generator<Attribute>
       return this;
    }
 
-   public boolean isEnumType(Attribute model, Clazz clazz) {
- 	  DataType dataType = model.getType();
- 	  String value = dataType.getValue();
- 	  for (Enumeration enumeration : clazz.getClassModel().getEnumerations()) {
+	private boolean includeCreators(Clazz clazz) {
+
+		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
+			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
+
+			for (String featureValue : feature) {
+
+				if (clazz.getFullName().equals(featureValue))
+					return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean isEnumType(Attribute model, Clazz clazz) {
+		DataType dataType = model.getType();
+		String value = dataType.getValue();
+		for (Enumeration enumeration : clazz.getClassModel().getEnumerations()) {
 			String fullName = enumeration.getFullName();
 			if (value.equals(fullName)) {
 				return true;
 			}
-		 }
-	return false;
-}
+		}
+		return false;
+	}
 
-public void insertPropertyInCreatorClass(String className, Parser creatorParser, String helpersDir, boolean doGenerate) 
+	public void insertPropertyInCreatorClass(String className, Parser creatorParser, String helpersDir, boolean doGenerate) 
    {
       insertPropertyInCreatorClass(creatorParser, model.getClazz());
 

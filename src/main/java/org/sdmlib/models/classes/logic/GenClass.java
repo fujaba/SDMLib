@@ -97,7 +97,9 @@ public class GenClass extends Generator<Clazz>
             insertPropertyChangeSupport(rootDir);
             insertInterfaceMethods(model, rootDir, helpersDir);
             insertRemoveYouMethod(rootDir);
-            insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
+            
+            if ( includeCreators(model))
+            	insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
          generateAttributes(rootDir, helpersDir, false);
@@ -107,7 +109,7 @@ public class GenClass extends Generator<Clazz>
       }
 
 
-      if ( !model.isEnumeration() && !model.isInterface() )
+      if ( !model.isEnumeration() && !model.isInterface() && includeCreators(model))
       {
          // now generate the corresponding creator class
          if(getRepairClassModel().hasFeature(Feature.Serialization)){
@@ -118,7 +120,7 @@ public class GenClass extends Generator<Clazz>
       }
 
       // now generate the corresponding ModelSet class
-      if (!model.isEnumeration()) {
+      if (!model.isEnumeration() && includeCreators(model)) {
 		getOrCreateParserForModelSetFile(helpersDir);
 		printFile(modelSetParser);
 			
@@ -136,6 +138,20 @@ public class GenClass extends Generator<Clazz>
 		}
       return this;
    }
+   
+	private boolean includeCreators(Clazz clazz) {
+
+		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
+			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
+
+			for (String featureValue : feature) {
+
+				if (clazz.getFullName().equals(featureValue))
+					return false;
+			}
+		}
+		return true;
+	}
    
    private void insertImports(){
       for(String importClazz : model.getImports()){
@@ -691,7 +707,27 @@ public class GenClass extends Generator<Clazz>
 
          fileName = rootDir + "/" + fileName + ".java";
 
+
          File creatorJavaFile = new File(fileName);
+         
+         if (!creatorJavaFile.exists() && model.getClassModel().hasFeature(Feature.WithExistingCreators)) {
+        	 String[] featureSet = Feature.getFeatureSet(Feature.WithExistingCreators);
+        	 
+        	 for (String featureValue : featureSet) {
+        		 String alternativePackageName = featureValue;
+                 String alternativeFileName = alternativePackageName + "." + creatorClassName;
+                 alternativeFileName = alternativeFileName.replaceAll("\\.", "/");
+                 alternativeFileName = rootDir + "/" + alternativeFileName + ".java";
+        		 File alternativeJavaFile = new File(alternativeFileName);
+        		 
+        		 if (alternativeJavaFile.exists()) {
+        			 fileName = alternativeFileName;
+        			 creatorJavaFile = alternativeJavaFile;
+        			 break;
+        		 }
+			}
+         }
+         
          creatorParser = new Parser()
          .withFileName(fileName);
 
@@ -873,6 +909,25 @@ public class GenClass extends Generator<Clazz>
          fileName = rootDir + "/" + fileName + ".java";
 
          File modelSetJavaFile = new File(fileName);
+         
+         if (!modelSetJavaFile.exists() && model.getClassModel().hasFeature(Feature.WithExistingCreators)) {
+        	 String[] featureSet = Feature.getFeatureSet(Feature.WithExistingCreators);
+        	 
+        	 for (String featureValue : featureSet) {
+        		 String alternativePackageName = featureValue;
+                 String alternativeFileName = alternativePackageName + "." + modelSetClassName;
+                 alternativeFileName = alternativeFileName.replaceAll("\\.", "/");
+                 alternativeFileName = rootDir + "/" + alternativeFileName + ".java";
+        		 File alternativeJavaFile = new File(alternativeFileName);
+        		 
+        		 if (alternativeJavaFile.exists()) {
+        			 fileName = alternativeFileName;
+        			 modelSetJavaFile = alternativeJavaFile;
+        			 break;
+        		 }
+			}
+         }
+         
          modelSetParser = new Parser()
          .withFileName(fileName);
 
@@ -1007,6 +1062,25 @@ public class GenClass extends Generator<Clazz>
          fileName = rootDir + "/" + fileName + ".java";
 
          File patternObjectJavaFile = new File(fileName);
+         
+         if (!patternObjectJavaFile.exists() && model.getClassModel().hasFeature(Feature.WithExistingCreators)) {
+        	 String[] featureSet = Feature.getFeatureSet(Feature.WithExistingCreators);
+        	 
+        	 for (String featureValue : featureSet) {
+        		 String alternativePackageName = featureValue;
+                 String alternativeFileName = alternativePackageName + "." + patternObjectClassName;
+                 alternativeFileName = alternativeFileName.replaceAll("\\.", "/");
+                 alternativeFileName = rootDir + "/" + alternativeFileName + ".java";
+        		 File alternativeJavaFile = new File(alternativeFileName);
+        		 
+        		 if (alternativeJavaFile.exists()) {
+        			 fileName = alternativeFileName;
+        			 patternObjectJavaFile = alternativeJavaFile;
+        			 break;
+        		 }
+			}
+         }
+         
          patternObjectParser = new Parser()
          .withFileName(fileName);
          // found old one?
@@ -1138,6 +1212,25 @@ public class GenClass extends Generator<Clazz>
          fileName = rootDir + "/" + fileName + ".java";
 
          File patternObjectCreatorJavaFile = new File(fileName);
+         
+         if (!patternObjectCreatorJavaFile.exists() && model.getClassModel().hasFeature(Feature.WithExistingCreators) ) {
+        	 String[] featureSet = Feature.getFeatureSet(Feature.WithExistingCreators);
+        	 
+        	 for (String featureValue : featureSet) {
+        		 String alternativePackageName = featureValue;
+                 String alternativeFileName = alternativePackageName + "." + patternObjectCreatorClassName;
+                 alternativeFileName = alternativeFileName.replaceAll("\\.", "/");
+                 alternativeFileName = rootDir + "/" + alternativeFileName + ".java";
+        		 File alternativeJavaFile = new File(alternativeFileName);
+        		 
+        		 if (alternativeJavaFile.exists()) {
+        			 fileName = alternativeFileName;
+        			 patternObjectCreatorJavaFile = alternativeJavaFile;
+        			 break;
+        		 }
+			}
+         }
+         
          patternObjectCreatorParser = new Parser()
          .withFileName(fileName);
          // found old one?
@@ -1189,7 +1282,7 @@ public class GenClass extends Generator<Clazz>
 
       return modelSetParser;
    }
-
+   
    public void insertCreatorClassInCreatorCreator(Parser ccParser)
    {
       int pos = ccParser.indexOf(Parser.METHOD + ":getCreatorSet()");
