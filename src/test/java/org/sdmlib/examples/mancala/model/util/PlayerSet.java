@@ -26,6 +26,8 @@ import org.sdmlib.examples.mancala.model.Player;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.examples.mancala.model.PlayerState;
+import org.sdmlib.examples.mancala.referencemodel.util.ColorSet;
+import org.sdmlib.examples.mancala.referencemodel.Color;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.examples.mancala.model.util.MancalaSet;
 import org.sdmlib.examples.mancala.model.Mancala;
@@ -34,8 +36,6 @@ import org.sdmlib.examples.mancala.model.util.PitSet;
 import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.util.KalahSet;
 import org.sdmlib.examples.mancala.model.Kalah;
-import org.sdmlib.examples.mancala.model.util.StoneSet;
-import org.sdmlib.examples.mancala.model.Stone;
 
 public class PlayerSet extends SDMSet<Player>
 {
@@ -147,6 +147,43 @@ public class PlayerSet extends SDMSet<Player>
       for (Player obj : this)
       {
          obj.setState(value);
+      }
+      
+      return this;
+   }
+
+   public ColorSet getColor()
+   {
+      ColorSet result = new ColorSet();
+      
+      for (Player obj : this)
+      {
+         result.add(obj.getColor());
+      }
+      
+      return result;
+   }
+
+   public PlayerSet hasColor(Color value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value == obj.getColor())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlayerSet withColor(Color value)
+   {
+      for (Player obj : this)
+      {
+         obj.setColor(value);
       }
       
       return this;
@@ -349,54 +386,6 @@ public class PlayerSet extends SDMSet<Player>
       for (Player obj : this)
       {
          obj.withKalah(value);
-      }
-      
-      return this;
-   }
-
-   public StoneSet getStone()
-   {
-      StoneSet result = new StoneSet();
-      
-      for (Player obj : this)
-      {
-         result.add(obj.getStone());
-      }
-      
-      return result;
-   }
-
-   public PlayerSet hasStone(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      PlayerSet answer = new PlayerSet();
-      
-      for (Player obj : this)
-      {
-         if (neighbors.contains(obj.getStone()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public PlayerSet withStone(Stone value)
-   {
-      for (Player obj : this)
-      {
-         obj.withStone(value);
       }
       
       return this;

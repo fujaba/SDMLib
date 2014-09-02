@@ -19,98 +19,47 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.mancala.model.util;
+package org.sdmlib.examples.mancala.referencemodel.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.mancala.model.Stone;
+import org.sdmlib.examples.mancala.referencemodel.Color;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.mancala.model.util.PlayerSet;
-import org.sdmlib.examples.mancala.model.Player;
 
-public class StoneSet extends SDMSet<Stone>
+public class ColorSet extends SDMSet<Color>
 {
 
 
-   public StonePO hasStonePO()
+   public ColorPO hasColorPO()
    {
-      return new StonePO(this.toArray(new Stone[this.size()]));
+      return new ColorPO(this.toArray(new Color[this.size()]));
    }
 
 
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.mancala.model.Stone";
+      return "org.sdmlib.examples.mancala.referencemodel.Color";
    }
 
 
    @SuppressWarnings("unchecked")
-   public StoneSet with(Object value)
+   public ColorSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Stone>)value);
+         this.addAll((Collection<Color>)value);
       }
       else if (value != null)
       {
-         this.add((Stone) value);
+         this.add((Color) value);
       }
       
       return this;
    }
    
-   public StoneSet without(Stone value)
+   public ColorSet without(Color value)
    {
       this.remove(value);
-      return this;
-   }
-
-   public PlayerSet getPlayer()
-   {
-      PlayerSet result = new PlayerSet();
-      
-      for (Stone obj : this)
-      {
-         result.add(obj.getPlayer());
-      }
-      
-      return result;
-   }
-
-   public StoneSet hasPlayer(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      StoneSet answer = new StoneSet();
-      
-      for (Stone obj : this)
-      {
-         if (neighbors.contains(obj.getPlayer()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public StoneSet withPlayer(Player value)
-   {
-      for (Stone obj : this)
-      {
-         obj.withPlayer(value);
-      }
-      
       return this;
    }
 

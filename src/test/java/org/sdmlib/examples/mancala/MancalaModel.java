@@ -4,19 +4,26 @@ import java.awt.Point;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.sdmlib.examples.mancala.referencemodel.Color;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Visibility;
-import org.sdmlib.models.classes.Association;
 
 public class MancalaModel {
 
+	 @Test
+	 public void MancalaAttributeTypeCreation() {
+		 ClassModel model = new ClassModel("org.sdmlib.examples.mancala.referencemodel");
+		 model.createClazz("Color");
+		 model.generate("src/test/java");
+	 }
+	
     @Test
     public void MancalaModelCreation() {
         //tag::mancala[]
@@ -33,7 +40,8 @@ public class MancalaModel {
                 .withAttribute("name", DataType.STRING) //<5>
                 .withAssoc(mancala, "activeGame", Card.ONE, "activePlayer", Card.ONE) //<6>
                 .withAssoc(mancala, "game", Card.ONE, "players", Card.MANY)
-                .withAttribute("state", DataType.ref(stateEnum));
+                .withAttribute("state", DataType.ref(stateEnum))
+                .withAttribute("color", DataType.ref(Color.class));
 
         Clazz point = model.createClazz(Point.class.getName()) //<7>
                 .with(new Attribute("x", DataType.INT).with(Visibility.PUBLIC)) //<8>
@@ -56,7 +64,12 @@ public class MancalaModel {
         Clazz stone = model.createClazz("Stone")
                 .withAssoc(player, "player", Card.ONE, "stone", Card.ONE);
         
-
+        Feature.with(Feature.WithExistingCreators, "org.sdmlib.examples.mancala.referencemodel.util");        
+		model.withFeature(Feature.WithExistingCreators);
+		
+		Feature.with(Feature.WithoutCreators, stone.getFullName());
+		model.withFeature(Feature.WithoutCreators);
+		
         model.generate("src/test/java"); //<11>
         //model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);
 

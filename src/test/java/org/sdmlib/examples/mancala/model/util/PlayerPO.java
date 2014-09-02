@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.mancala.model.Player;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.examples.mancala.model.PlayerState;
+import org.sdmlib.examples.mancala.referencemodel.Color;
 import org.sdmlib.examples.mancala.model.util.MancalaPO;
 import org.sdmlib.examples.mancala.model.Mancala;
 import org.sdmlib.examples.mancala.model.util.PlayerPO;
@@ -12,8 +13,6 @@ import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.util.PitSet;
 import org.sdmlib.examples.mancala.model.util.KalahPO;
 import org.sdmlib.examples.mancala.model.Kalah;
-import org.sdmlib.examples.mancala.model.util.StonePO;
-import org.sdmlib.examples.mancala.model.Stone;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
@@ -132,6 +131,44 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       if (this.getPattern().getHasMatch())
       {
          ((Player) getCurrentMatch()).setState(value);
+      }
+      return this;
+   }
+   
+   public PlayerPO hasColor(Color value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Player.PROPERTY_COLOR)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PlayerPO createColor(Color value)
+   {
+      this.startCreate().hasColor(value).endCreate();
+      return this;
+   }
+   
+   public Color getColor()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Player) getCurrentMatch()).getColor();
+      }
+      return null;
+   }
+   
+   public PlayerPO withColor(Color value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Player) getCurrentMatch()).setColor(value);
       }
       return this;
    }
@@ -268,40 +305,6 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       if (this.getPattern().getHasMatch())
       {
          return ((Player) this.getCurrentMatch()).getKalah();
-      }
-      return null;
-   }
-
-   public StonePO hasStone()
-   {
-      StonePO result = new StonePO(new Stone[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Player.PROPERTY_STONE, result);
-      
-      return result;
-   }
-
-   public StonePO createStone()
-   {
-      return this.startCreate().hasStone().endCreate();
-   }
-
-   public PlayerPO hasStone(StonePO tgt)
-   {
-      return hasLinkConstraint(tgt, Player.PROPERTY_STONE);
-   }
-
-   public PlayerPO createStone(StonePO tgt)
-   {
-      return this.startCreate().hasStone(tgt).endCreate();
-   }
-
-   public Stone getStone()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Player) this.getCurrentMatch()).getStone();
       }
       return null;
    }

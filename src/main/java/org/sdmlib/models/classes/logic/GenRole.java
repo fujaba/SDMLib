@@ -10,6 +10,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
@@ -706,6 +707,12 @@ public class GenRole extends Generator<Role>
          getGenerator(clazz).insertImport(partnerRole.getClazz().getFullName());
       }
       
+      if(!includeCreators(clazz)) {
+    	  insertRemovalInRemoveYou(clazz, myParser, partnerRole);
+    	  getGenerator(clazz).printFile();
+    	  return;
+      }
+      
       Parser creatorParser = getGenerator(clazz).getOrCreateParserForCreatorClass(helperDir);
       
       insertCaseInGenericGet(clazz, creatorParser, partnerRole, rootDir);
@@ -725,29 +732,44 @@ public class GenRole extends Generator<Role>
       
       
       // generate property in creator class
-      if (!clazz.isInterface())
+      if (!clazz.isInterface() && includeCreators(partnerRole.getClazz()))
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
          getGenerator(clazz).printFile(creatorParser);
       }
       
-      // generate property in model set class
-      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
-      
-      insertGetterInModelSetFile(clazz, modelSetParser, myParser, partnerRole);
-      insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
-      
-      getGenerator(clazz).printFile(modelSetParser);
-
-      // generate property in pattern object class
-      Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
-      
-      insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
-      
-      getGenerator(clazz).printFile(patternObjectParser);
-
+      if (includeCreators(partnerRole.getClazz())) {
+	      // generate property in model set class
+	      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
+	      
+	      insertGetterInModelSetFile(clazz, modelSetParser, myParser, partnerRole);
+	      insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
+	      
+	      getGenerator(clazz).printFile(modelSetParser);
+	
+	      // generate property in pattern object class
+	      Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
+	      
+	      insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
+	      
+	      getGenerator(clazz).printFile(patternObjectParser);
+      }
    }
+   
+	private boolean includeCreators(Clazz clazz) {
+
+		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
+			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
+
+			for (String featureValue : feature) {
+
+				if (clazz.getFullName().equals(featureValue))
+					return false;
+			}
+		}
+		return true;
+	}
    
    private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Role partnerRole)
    {
@@ -944,7 +966,8 @@ public class GenRole extends Generator<Role>
          
          parser.insert(classEnd, text.toString());
          
-         getGenerator(tgtClass).insertImport(parser, CGUtil.helperClassName(partnerRole.getClazz().getFullName(),"Set"));
+         String helperClassName = CGUtil.helperClassName(partnerRole.getClazz().getFullName(),"Set");
+		getGenerator(tgtClass).insertImport(parser, helperClassName);
       }
    }
 
