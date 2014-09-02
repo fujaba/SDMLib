@@ -7,9 +7,11 @@ import java.text.SimpleDateFormat
 
 task printVersion {
     doFirst {
-        println "$gitVersion"
+        println "$version"
     }
 }
+
+version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime() )
 
 ext{
 	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime() )
