@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.mancala.model.PlayerState;
+import org.sdmlib.examples.mancala.referencemodel.Color;
 import org.sdmlib.examples.mancala.model.util.PlayerSet;
 import org.sdmlib.examples.mancala.model.Kalah;
 import org.sdmlib.examples.mancala.model.util.PitSet;
@@ -127,6 +128,34 @@ public class Player implements PropertyChangeInterface
    public Player withState(PlayerState value)
    {
       setState(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_COLOR = "color";
+   
+   private Color color;
+
+   public Color getColor()
+   {
+      return this.color;
+   }
+   
+   public void setColor(Color value)
+   {
+      if (this.color != value)
+      {
+         Color oldValue = this.color;
+         this.color = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_COLOR, oldValue, value);
+      }
+   }
+   
+   public Player withColor(Color value)
+   {
+      setColor(value);
       return this;
    } 
 

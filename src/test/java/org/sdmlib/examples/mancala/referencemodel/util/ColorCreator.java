@@ -19,18 +19,16 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.mancala.model.util;
+package org.sdmlib.examples.mancala.referencemodel.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.mancala.model.Stone;
-import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.examples.mancala.referencemodel.Color;
 
-public class StoneCreator extends EntityFactory
+public class ColorCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Stone.PROPERTY_PLAYER,
    };
    
    @Override
@@ -42,7 +40,7 @@ public class StoneCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Stone();
+      return new Color();
    }
    
    @Override
@@ -55,11 +53,6 @@ public class StoneCreator extends EntityFactory
       {
          attribute = attrName.substring(0, pos);
       }
-
-      if (Stone.PROPERTY_PLAYER.equalsIgnoreCase(attribute))
-      {
-         return ((Stone) target).getPlayer();
-      }
       
       return null;
    }
@@ -71,18 +64,12 @@ public class StoneCreator extends EntityFactory
       {
          attrName = attrName + type;
       }
-
-      if (Stone.PROPERTY_PLAYER.equalsIgnoreCase(attrName))
-      {
-         ((Stone) target).setPlayer((Player) value);
-         return true;
-      }
       
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.examples.mancala.model.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.examples.mancala.referencemodel.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
@@ -90,6 +77,6 @@ public class StoneCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Stone) entity).removeYou();
+      ((Color) entity).removeYou();
    }
 }

@@ -25,10 +25,10 @@ import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.mancala.model.Player;
 import org.sdmlib.examples.mancala.model.PlayerState;
+import org.sdmlib.examples.mancala.referencemodel.Color;
 import org.sdmlib.examples.mancala.model.Mancala;
 import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Kalah;
-import org.sdmlib.examples.mancala.model.Stone;
 
 public class PlayerCreator extends EntityFactory
 {
@@ -36,11 +36,11 @@ public class PlayerCreator extends EntityFactory
    {
       Player.PROPERTY_NAME,
       Player.PROPERTY_STATE,
+      Player.PROPERTY_COLOR,
       Player.PROPERTY_ACTIVEGAME,
       Player.PROPERTY_GAME,
       Player.PROPERTY_PITS,
       Player.PROPERTY_KALAH,
-      Player.PROPERTY_STONE,
    };
    
    @Override
@@ -76,6 +76,11 @@ public class PlayerCreator extends EntityFactory
          return ((Player) target).getState();
       }
 
+      if (Player.PROPERTY_COLOR.equalsIgnoreCase(attribute))
+      {
+         return ((Player) target).getColor();
+      }
+
       if (Player.PROPERTY_ACTIVEGAME.equalsIgnoreCase(attribute))
       {
          return ((Player) target).getActiveGame();
@@ -94,11 +99,6 @@ public class PlayerCreator extends EntityFactory
       if (Player.PROPERTY_KALAH.equalsIgnoreCase(attribute))
       {
          return ((Player) target).getKalah();
-      }
-
-      if (Player.PROPERTY_STONE.equalsIgnoreCase(attribute))
-      {
-         return ((Player) target).getStone();
       }
       
       return null;
@@ -121,6 +121,12 @@ public class PlayerCreator extends EntityFactory
       if (Player.PROPERTY_STATE.equalsIgnoreCase(attrName))
       {
          ((Player) target).withState(PlayerState.valueOf((String) value));
+         return true;
+      }
+
+      if (Player.PROPERTY_COLOR.equalsIgnoreCase(attrName))
+      {
+         ((Player) target).withColor((Color) value);
          return true;
       }
 
@@ -151,12 +157,6 @@ public class PlayerCreator extends EntityFactory
       if (Player.PROPERTY_KALAH.equalsIgnoreCase(attrName))
       {
          ((Player) target).setKalah((Kalah) value);
-         return true;
-      }
-
-      if (Player.PROPERTY_STONE.equalsIgnoreCase(attrName))
-      {
-         ((Player) target).setStone((Stone) value);
          return true;
       }
       

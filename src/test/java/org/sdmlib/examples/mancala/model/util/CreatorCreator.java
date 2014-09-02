@@ -19,8 +19,8 @@ public class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.examples.mancala.model.util.PitPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.mancala.model.util.KalahCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.mancala.model.util.KalahPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.examples.mancala.model.util.StoneCreator());
-      jsonIdMap.withCreator(new org.sdmlib.examples.mancala.model.util.StonePOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.mancala.referencemodel.util.ColorCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.mancala.referencemodel.util.ColorPOCreator());
 
       return jsonIdMap;
    }
