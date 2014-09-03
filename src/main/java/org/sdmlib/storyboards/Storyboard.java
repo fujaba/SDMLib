@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +42,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.Map.Entry;
 
 import org.junit.Assert;
 import org.sdmlib.CGUtil;
@@ -66,12 +64,9 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 import de.uniks.networkparser.Filter;
-import de.uniks.networkparser.graph.GraphConverter;
-import de.uniks.networkparser.graph.GraphIdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.ConditionMap;
 import de.uniks.networkparser.logic.ValuesMap;
 

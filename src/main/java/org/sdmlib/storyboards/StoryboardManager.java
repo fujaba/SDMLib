@@ -45,7 +45,6 @@ import java.util.Vector;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.JavascriptAdapter.Javascript;
-import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.JsonIdComparator;
 import org.sdmlib.storyboards.util.KanbanEntryCreator;

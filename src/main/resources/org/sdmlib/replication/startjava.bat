@@ -1,5 +1,0 @@
-@echo on
-
-echo %*
-
-%*

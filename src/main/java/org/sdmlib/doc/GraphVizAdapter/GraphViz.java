@@ -33,8 +33,6 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
-import org.sdmlib.model.taskflows.LogEntry;
-import org.sdmlib.model.taskflows.util.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
@@ -42,6 +40,8 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.util.GenericObjectSet;
+import org.sdmlib.models.taskflows.LogEntry;
+import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonArray;

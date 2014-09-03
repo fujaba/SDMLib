@@ -23,7 +23,6 @@ package org.sdmlib.storyboards;
 
 
 import java.beans.PropertyChangeSupport;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,9 +30,6 @@ import java.util.Date;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
-
-import java.beans.PropertyChangeListener;
-import java.util.Locale;
 
 
 // should have a creator class
