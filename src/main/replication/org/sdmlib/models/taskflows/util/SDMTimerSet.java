@@ -39,7 +39,7 @@ public class SDMTimerSet extends SDMSet<SDMTimer>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.model.taskflows.SDMTimer";
+      return "org.sdmlib.models.taskflows.SDMTimer";
    }
 
 

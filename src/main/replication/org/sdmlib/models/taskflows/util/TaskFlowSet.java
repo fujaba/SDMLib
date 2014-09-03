@@ -42,7 +42,7 @@ public class TaskFlowSet extends SDMSet<TaskFlow>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.model.taskflows.TaskFlow";
+      return "org.sdmlib.models.taskflows.TaskFlow";
    }
 
 

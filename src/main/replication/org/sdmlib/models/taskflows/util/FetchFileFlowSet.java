@@ -45,7 +45,7 @@ public class FetchFileFlowSet extends SDMSet<FetchFileFlow>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.model.taskflows.FetchFileFlow";
+      return "org.sdmlib.models.taskflows.FetchFileFlow";
    }
 
 

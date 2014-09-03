@@ -44,7 +44,7 @@ public class LogEntrySet extends SDMSet<LogEntry>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.model.taskflows.LogEntry";
+      return "org.sdmlib.models.taskflows.LogEntry";
    }
 
 

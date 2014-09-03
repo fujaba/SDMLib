@@ -42,7 +42,7 @@ public class PeerProxySet extends SDMSet<PeerProxy>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.model.taskflows.PeerProxy";
+      return "org.sdmlib.models.taskflows.PeerProxy";
    }
 
 

@@ -47,7 +47,7 @@ public class LoggerSet extends SDMSet<Logger>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.model.taskflows.Logger";
+      return "org.sdmlib.models.taskflows.Logger";
    }
 
 

@@ -43,7 +43,7 @@ public class SocketThreadSet extends SDMSet<SocketThread>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.model.taskflows.SocketThread";
+      return "org.sdmlib.models.taskflows.SocketThread";
    }
 
 

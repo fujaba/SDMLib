@@ -19,7 +19,7 @@ public class TaskFlowModel
    {
       Storyboard storyboard = new Storyboard("src/main/replication");
 
-      ClassModel model = new ClassModel("org.sdmlib.model.taskflows");
+      ClassModel model = new ClassModel("org.sdmlib.models.taskflows");
 
       Clazz taskFlowClass = model.createClazz("TaskFlow")
             .withAttribute("taskNo", DataType.INT)
