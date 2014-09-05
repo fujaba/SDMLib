@@ -58,7 +58,7 @@ repositories {
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
     compile group: "org.beanshell", name: "bsh", version: "2.+"
-    compile 'de.uniks:Networkparser:4.2+'
+    compile 'de.uniks:Networkparser:4.2+:sources'
 }
 
 jacoco {
@@ -87,4 +87,20 @@ tasks.withType(JavaCompile) {
     //Suppress underscore warnings
     options.compilerArgs << '-Xlint:none'
 }
+task pmJar(type: Jar) {
+	from {(
+			sourceSets.main.output +
+			sourceSets.main.allSource +
+			javadoc.outputs.files +
+					configurations.compile.filter({it.name.indexOf("Networkparser")>=0}).collect({it.isDirectory() ? it : zipTree(it)})
+		)}
+	exclude('META-INF/MANIFEST.MF')
+	exclude('org/sdmlib/models/transformations/**')
+	exclude('org/sdmlib/replication/**')
 
+	// REMOVE not nessessary Files NetworkParser
+	exclude('de/uniks/networkparser/bytes/**')
+	exclude('de/uniks/networkparser/date/**')
+	
+	classifier = 'pm'
+}

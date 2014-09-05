@@ -49,6 +49,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.JsonIdComparator;
 import org.sdmlib.storyboards.util.KanbanEntryCreator;
 
+import de.uniks.networkparser.graph.GraphList;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
@@ -128,10 +129,10 @@ public class StoryboardManager
       copyDocFile("burndown", "d3.v3.js");
       copyDocFile("burndown", "nv.d3.css");
       copyDocFile("burndown", "nv.d3.js");
-      copyDocFile("classmodel", "dagre.js");
-      copyDocFile("classmodel", "drawer.js");
-      copyDocFile("classmodel", "graph.js");
-      copyDocFile("classmodel", "diagramstyle.css");
+      copyDocFile("", "dagre.js");
+      copyDocFile("", "drawer.js");
+      copyDocFile("", "graph.js");
+      copyDocFile("", "diagramstyle.css");
 
       dumpKanban();
    }
@@ -140,7 +141,7 @@ public class StoryboardManager
    {
       File target=new File("doc/includes/" + file);
 
-      InputStream is = Javascript.class.getResourceAsStream("" + dir + "/" + file);
+      InputStream is = GraphList.class.getResourceAsStream("" + dir + "/" + file);
 
       if(is!=null)
       {
