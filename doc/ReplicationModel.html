@@ -1,0 +1,240 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../src/main/replication/org/sdmlib/replication/ReplicationModel.java' type='text/x-java'>ReplicationModel</a></p>
+<p>ReplicationModel</p>
+<script>
+   var json = {
+   "typ":"class",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"Thread",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"Socket",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"ReplicationNode",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"SharedSpace",
+            "attributes":[
+            "spaceId : String",
+               "history : ChangeHistory",
+               "lastChangeId : long",
+               "nodeId : String",
+               "javaFXApplication : boolean"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ReplicationChannel",
+            "attributes":[
+            "socket : java.net.Socket",
+               "targetNodeId : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ReplicationServer",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"ServerSocketAcceptThread",
+            "attributes":[
+            "port : int",
+               "replicationNode : org.sdmlib.replication.ReplicationNode"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Task",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"LogEntry",
+            "attributes":[
+            "stepName : String",
+               "executedBy : String",
+               "timeStamp : long"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ChangeHistory",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"ReplicationChange",
+            "attributes":[
+            "historyIdPrefix : String",
+               "historyIdNumber : long",
+               "targetObjectId : String",
+               "targetProperty : String",
+               "isToManyProperty : boolean",
+               "changeMsg : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"RemoteTaskBoard",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"Lane",
+            "attributes":[
+            "name : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"BoardTask",
+            "attributes":[
+            "name : String",
+               "status : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ReplicationRoot",
+            "attributes":[
+            "name : String",
+               "applicationObject : Object"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ReplicationNode",
+            "attributes":[]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"node",
+            "targetproperty":"sharedSpaces",
+            "source":"ReplicationNode",
+            "target":"SharedSpace"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"sharedSpace",
+            "targetproperty":"channels",
+            "source":"SharedSpace",
+            "target":"ReplicationChannel"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"task",
+            "targetproperty":"logEntries",
+            "source":"Task",
+            "target":"LogEntry"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"history",
+            "targetproperty":"changes",
+            "source":"ChangeHistory",
+            "target":"ReplicationChange"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"board",
+            "targetproperty":"lanes",
+            "source":"RemoteTaskBoard",
+            "target":"Lane"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"lane",
+            "targetproperty":"tasks",
+            "source":"Lane",
+            "target":"BoardTask"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"many",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"BoardTask",
+            "target":"BoardTask"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"parent",
+            "targetproperty":"kids",
+            "source":"ReplicationRoot",
+            "target":"ReplicationRoot"
+         },
+         {
+            "typ":"generalisation",
+            "source":"SharedSpace",
+            "target":"Thread"
+         },
+         {
+            "typ":"generalisation",
+            "source":"ReplicationChannel",
+            "target":"Thread"
+         },
+         {
+            "typ":"generalisation",
+            "source":"ReplicationServer",
+            "target":"ReplicationNode"
+         },
+         {
+            "typ":"generalisation",
+            "source":"ServerSocketAcceptThread",
+            "target":"Thread"
+         },
+         {
+            "typ":"generalisation",
+            "source":"ReplicationChange",
+            "target":"Task"
+         },
+         {
+            "typ":"generalisation",
+            "source":"BoardTask",
+            "target":"Task"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasReplicationModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

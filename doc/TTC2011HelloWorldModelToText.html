@@ -1,0 +1,162 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldModelToText</a></p>
+<p>TTC2011HelloWorldModelToText</p>
+<p>For model to text transformation we provide a simple template mechanism. </p>
+<p>The model transformation that builds our object model looks like: </p>
+<p>The created object model looks like: </p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"d.G1 : Greeting",
+            "attributes":[
+            "text=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.G2 : GreetingMessage",
+            "attributes":[
+            "text=Hello"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.P3 : Person",
+            "attributes":[
+            "name=TTC Participants"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"greetingMessage",
+            "source":"d.G1 : Greeting",
+            "target":"d.G2 : GreetingMessage"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"person",
+            "source":"d.G1 : Greeting",
+            "target":"d.P3 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"greeting",
+            "source":"d.G2 : GreetingMessage",
+            "target":"d.G1 : Greeting"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"greeting",
+            "source":"d.P3 : Person",
+            "target":"d.G1 : Greeting"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldModelToText5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>The model to text transfromation template mechanism is used like this: </p>
+<p>systemout: 
+Hello TTC Participants</p>
+<p>Assume we change the text manually to: Hi dudes</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"d.G1 : Greeting",
+            "attributes":[
+            "text=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.G2 : GreetingMessage",
+            "attributes":[
+            "text=Hi"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.P3 : Person",
+            "attributes":[
+            "name=dudes"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"greetingMessage",
+            "source":"d.G1 : Greeting",
+            "target":"d.G2 : GreetingMessage"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"person",
+            "source":"d.G1 : Greeting",
+            "target":"d.P3 : Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"greeting",
+            "source":"d.G2 : GreetingMessage",
+            "target":"d.G1 : Greeting"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"greeting",
+            "source":"d.P3 : Person",
+            "target":"d.G1 : Greeting"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldModelToText9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Alternatively, plain java code that does the model to text transformation looks like: </p>
+
+</body>
+</html>

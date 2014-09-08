@@ -1,0 +1,178 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../src/main/replication/org/sdmlib/model/taskflows/TaskFlowObjectScenarioForCoverage.java' type='text/x-java'>TaskFlowObjectScenarioForCoverage</a></p>
+<p>TaskFlowObjectScenarioForCoverage</p>
+<p>Create some objects just for coverage. This does not serve as an usage example.</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"d.F1 : FetchFileFlow",
+            "attributes":[
+            "idMap=null",
+               "fileName=null",
+               "taskNo=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.P4 : PeerProxy",
+            "attributes":[
+            "ip=null",
+               "port=0",
+               "idMap=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.L5 : Logger",
+            "attributes":[
+            "startPeer=null",
+               "taskNo=0",
+               "idMap=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.L6 : LogEntry",
+            "attributes":[
+            "nodeName=null",
+               "taskName=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.L8 : LogEntry",
+            "attributes":[
+            "nodeName=null",
+               "taskName=null",
+               "children=null",
+               "parent=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.L7 : LogEntry",
+            "attributes":[
+            "nodeName=null",
+               "taskName=null",
+               "logger=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.S2 : SocketThread",
+            "attributes":[
+            "ip=null",
+               "port=0",
+               "idMap=null",
+               "defaultTargetThread=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.S3 : SDMTimer",
+            "attributes":[]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"fileServer",
+            "source":"d.F1 : FetchFileFlow",
+            "target":"d.P4 : PeerProxy"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"subFlow",
+            "source":"d.F1 : FetchFileFlow",
+            "target":"d.L5 : Logger"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"d.L5 : Logger",
+            "target":"d.F1 : FetchFileFlow"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"entries",
+            "source":"d.L5 : Logger",
+            "target":"d.L6 : LogEntry"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"entries",
+            "source":"d.L5 : Logger",
+            "target":"d.L8 : LogEntry"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"logger",
+            "source":"d.L6 : LogEntry",
+            "target":"d.L5 : Logger"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"children",
+            "source":"d.L6 : LogEntry",
+            "target":"d.L7 : LogEntry"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"d.L7 : LogEntry",
+            "target":"d.L6 : LogEntry"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"logger",
+            "source":"d.L8 : LogEntry",
+            "target":"d.L5 : Logger"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasTaskFlowObjectScenarioForCoverage3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

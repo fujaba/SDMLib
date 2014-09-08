@@ -1,0 +1,97 @@
+.Board{
+	position: relative;
+	overflow: hidden;
+	width: 800px; height: 800px;
+	border: 1px solid rgb(204, 204, 204);
+}
+
+.classElement{
+	border: 1px solid rgb(187, 187, 187);
+	/*background-color: rgb(221, 221, 221);*/
+	position: absolute; 
+	background:#ffffff;
+}
+.classElement table{
+	border-spacing:0;
+	cursor: hand;
+}
+.ToolButton{
+}
+
+.EdgeInfo{
+	position: absolute;
+}
+
+.classElement th{
+	background-image: linear-gradient(left, white 0%, #9FBFD2 50%);
+	background-image: linear-gradient(top, white 0%, #9FBFD2 50%);
+	background-image: linear-gradient(45deg, white 0%, #9FBFD2 50%);
+}
+
+.objectElement{
+	border: 1px solid rgb(187, 187, 187);
+	/*background-color: rgb(221, 221, 221);*/
+	position: absolute; 
+	background:#ffffff;
+}
+.objectElement table{
+	border-spacing:0;
+	cursor: hand;
+}
+.objectElement th{
+	background-image: linear-gradient(left, white 0%, #BCA9F5 50%);
+	background-image: linear-gradient(top, white 0%, #BCA9F5 50%);
+	background-image: linear-gradient(45deg, white 0%, #BCA9F5 50%);
+}
+
+.patternElement{
+	border: 1px solid rgb(187, 187, 187);
+	/*background-color: rgb(221, 221, 221);*/
+	position: absolute; 
+	background:blue;
+}
+.patternElement table{
+	border-spacing:0;
+	
+	cursor: hand;
+}
+.patternElement .head{
+	text-align:center;
+}
+.patternElement th{
+	border-top: 1px solid black;
+	padding-left:10px;
+	padding-right:10px;
+	color:white;
+}
+
+.lineElement {
+	z-index : 42;
+	border-bottom: 1px solid black;
+}
+.lineRaster{
+	border-right: 1px dotted rgba(0,0,0,0.3);
+	border-bottom: 1px dotted rgba(0,0,0,0.3);
+	width: 1px;
+	height: 1px;
+	position:absolute;
+}
+.attributes_first{
+	border-top: 1px solid black;
+}
+.classElement .methods{
+	margin-left:10px;
+	padding-left:10px;
+	padding-right:10px;
+	text-align:left;
+}
+.classElement .attributes{
+	margin-left:10px;
+	padding-left:10px;
+	padding-right:10px;
+	text-align:left;
+}
+.infoBox{
+	border: 1px solid rgb(187, 187, 187);
+	position: absolute; 
+}

@@ -1,0 +1,111 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightReverseClassModel</a></p>
+<p>StudyRightReverseClassModel</p>
+<p>Start situation: There are some java files. We parse them and generate a class model: </p>
+<script>
+   var json = {
+   "typ":"class",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"Professor",
+            "attributes":[
+            "name : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Topic",
+            "attributes":[
+            "title : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Room",
+            "attributes":[
+            "roomNo : String",
+               "credits : int"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Student",
+            "attributes":[
+            "name : String",
+               "matrNo : int"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"University",
+            "attributes":[
+            "name : String"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"one",
+            "sourceproperty":"prof",
+            "targetproperty":"topic",
+            "source":"Professor",
+            "target":"Topic"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"many",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"Room",
+            "target":"Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"in",
+            "targetproperty":"students",
+            "source":"Room",
+            "target":"Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"rooms",
+            "targetproperty":"uni",
+            "source":"Room",
+            "target":"University"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"students",
+            "targetproperty":"uni",
+            "source":"Student",
+            "target":"University"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightReverseClassModelClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Bug: running the test multiple times inserts the code multiple times <br>Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>Hm, might be added to future work. </p>
+
+</body>
+</html>

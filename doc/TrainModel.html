@@ -1,0 +1,93 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../examples/org/sdmlib/examples/patternrewriteops/TrainModel.java' type='text/x-java'>TrainModel</a></p>
+<p>TrainModel</p>
+<p>Example model for testing destroy with model patterns: </p>
+<script>
+   var json = {
+   "typ":"class",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"Train",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"Station",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"Person",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"SignalFlag",
+            "attributes":[]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"station",
+            "targetproperty":"trains",
+            "source":"Station",
+            "target":"Train"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"train",
+            "targetproperty":"passengers",
+            "source":"Train",
+            "target":"Person"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"one",
+            "sourceproperty":"prev",
+            "targetproperty":"next",
+            "source":"Station",
+            "target":"Station"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"people",
+            "targetproperty":"station",
+            "source":"Person",
+            "target":"Station"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"flag",
+            "targetproperty":"station",
+            "source":"SignalFlag",
+            "target":"Station"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasTrainModelClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

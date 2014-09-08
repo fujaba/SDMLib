@@ -1,0 +1,891 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../src/test/java/org/sdmlib/examples/SDMLib/SDMLibMetaModelObjectDiagramsForCoverage.java' type='text/x-java'>PatternModelObjectsForCoverage</a></p>
+<p>PatternModelObjectsForCoverage</p>
+<p>Create some objects just for coverage. This does not serve as an usage example.</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"d.P1 : PatternObject",
+            "attributes":[
+            "modifier=bound",
+               "hasMatch=false",
+               "doAllMatches=false",
+               "patternObjectName=null",
+               "currentMatch=match",
+               "incomming=null",
+               "candidates=null",
+               "destroyElem=null",
+               "cardConstraints=null",
+               "matchOtherThen=null",
+               "excluders=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.P4 : Pattern",
+            "attributes":[
+            "hasMatch=null",
+               "modifier=null",
+               "patternObjectName=null",
+               "doAllMatches=null",
+               "currentSubPattern=null",
+               "debugMode=0",
+               "trace=null",
+               "name=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.P5 : PatternLink",
+            "attributes":[
+            "srcRoleName=null",
+               "tgtRoleName=null",
+               "hostGraphSrcObject=null",
+               "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A7 : AttributeConstraint",
+            "attributes":[
+            "attrName=attr1",
+               "tgtValue=null",
+               "hostGraphSrcObject=null",
+               "modifier=null",
+               "patternObjectName=null",
+               "hasMatch=false",
+               "doAllMatches=false",
+               "cmpOp=null",
+               "upperTgtValue=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.P6 : PatternObject",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=false",
+               "doAllMatches=false",
+               "patternObjectName=null",
+               "currentMatch=null",
+               "outgoing=null",
+               "candidates=null",
+               "attrConstraints=null",
+               "destroyElem=null",
+               "cardConstraints=null",
+               "matchOtherThen=null",
+               "excluders=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.R2 : ReachabilityGraph",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"d.R8 : ReachableState",
+            "attributes":[
+            "master=null",
+               "graphRoot=null",
+               "number=0",
+               "resultOf=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.R11 : ReachableState",
+            "attributes":[
+            "parent=null",
+               "graphRoot=null",
+               "number=0",
+               "ruleapplications=null",
+               "resultOf=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.R9 : RuleApplication",
+            "attributes":[
+            "description=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.R10 : ReachableState",
+            "attributes":[
+            "parent=null",
+               "master=null",
+               "graphRoot=null",
+               "number=0",
+               "ruleapplications=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.P3 : Pattern",
+            "attributes":[
+            "hasMatch=null",
+               "modifier=null",
+               "patternObjectName=null",
+               "doAllMatches=null",
+               "debugMode=0",
+               "trace=null",
+               "name=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A12 : AttributeConstraint",
+            "attributes":[
+            "attrName=null",
+               "tgtValue=null",
+               "hostGraphSrcObject=null",
+               "src=null",
+               "modifier=null",
+               "patternObjectName=null",
+               "hasMatch=false",
+               "doAllMatches=false",
+               "cmpOp=null",
+               "upperTgtValue=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.C13 : CardinalityConstraint",
+            "attributes":[
+            "tgtRoleName=null",
+               "hostGraphSrcObject=null",
+               "minCard=0",
+               "maxCard=0",
+               "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false",
+               "src=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.C14 : CloneOp",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.D15 : DestroyObjectElem",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "patternObject=null",
+               "doAllMatches=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A16 : AttributeConstraint",
+            "attributes":[
+            "attrName=null",
+               "tgtValue=null",
+               "hostGraphSrcObject=null",
+               "src=null",
+               "modifier=null",
+               "patternObjectName=null",
+               "hasMatch=false",
+               "doAllMatches=false",
+               "cmpOp=null",
+               "upperTgtValue=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.C17 : CardinalityConstraint",
+            "attributes":[
+            "tgtRoleName=null",
+               "hostGraphSrcObject=null",
+               "minCard=0",
+               "maxCard=0",
+               "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false",
+               "src=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.C18 : CloneOp",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.D19 : DestroyObjectElem",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "patternObject=null",
+               "doAllMatches=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.G20 : GenericConstraint",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false",
+               "text=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.L21 : LinkConstraint",
+            "attributes":[
+            "srcRoleName=null",
+               "tgtRoleName=null",
+               "tgt=null",
+               "src=null",
+               "hostGraphSrcObject=null",
+               "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.M22 : MatchIsomorphicConstraint",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.M23 : MatchOtherThen",
+            "attributes":[
+            "hostGraphSrcObject=null",
+               "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false",
+               "src=null",
+               "forbidden=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.N24 : NegativeApplicationCondition",
+            "attributes":[
+            "hasMatch=null",
+               "modifier=null",
+               "patternObjectName=null",
+               "doAllMatches=null",
+               "debugMode=0",
+               "trace=null",
+               "rgraph=null",
+               "name=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.O25 : OptionalSubPattern",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=null",
+               "patternObjectName=null",
+               "doAllMatches=null",
+               "matchForward=true",
+               "debugMode=0",
+               "trace=null",
+               "rgraph=null",
+               "name=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.P26 : PatternLink",
+            "attributes":[
+            "srcRoleName=null",
+               "tgtRoleName=null",
+               "tgt=null",
+               "src=null",
+               "hostGraphSrcObject=null",
+               "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.U27 : UnifyGraphsOp",
+            "attributes":[
+            "modifier=null",
+               "hasMatch=false",
+               "patternObjectName=null",
+               "doAllMatches=false"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.P1 : PatternObject",
+            "target":"d.P4 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"outgoing",
+            "source":"d.P1 : PatternObject",
+            "target":"d.P5 : PatternLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"attrConstraints",
+            "source":"d.P1 : PatternObject",
+            "target":"d.A7 : AttributeConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P4 : Pattern",
+            "target":"d.P1 : PatternObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P4 : Pattern",
+            "target":"d.P5 : PatternLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P4 : Pattern",
+            "target":"d.P6 : PatternObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P4 : Pattern",
+            "target":"d.A7 : AttributeConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"rgraph",
+            "source":"d.P4 : Pattern",
+            "target":"d.R2 : ReachabilityGraph"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"d.P5 : PatternLink",
+            "target":"d.P6 : PatternObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"src",
+            "source":"d.P5 : PatternLink",
+            "target":"d.P1 : PatternObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.P5 : PatternLink",
+            "target":"d.P4 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.P6 : PatternObject",
+            "target":"d.P4 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"incomming",
+            "source":"d.P6 : PatternObject",
+            "target":"d.P5 : PatternLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"src",
+            "source":"d.A7 : AttributeConstraint",
+            "target":"d.P1 : PatternObject"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.A7 : AttributeConstraint",
+            "target":"d.P4 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"states",
+            "source":"d.R2 : ReachabilityGraph",
+            "target":"d.R8 : ReachableState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"todo",
+            "source":"d.R2 : ReachabilityGraph",
+            "target":"d.R11 : ReachableState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"d.R8 : ReachableState",
+            "target":"d.R2 : ReachabilityGraph"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"ruleapplications",
+            "source":"d.R8 : ReachableState",
+            "target":"d.R9 : RuleApplication"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"src",
+            "source":"d.R9 : RuleApplication",
+            "target":"d.R8 : ReachableState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"tgt",
+            "source":"d.R9 : RuleApplication",
+            "target":"d.R10 : ReachableState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"resultOf",
+            "source":"d.R10 : ReachableState",
+            "target":"d.R9 : RuleApplication"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"master",
+            "source":"d.R11 : ReachableState",
+            "target":"d.R2 : ReachabilityGraph"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.A12 : AttributeConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.C13 : CardinalityConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.C14 : CloneOp"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.D15 : DestroyObjectElem"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.A16 : AttributeConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.C17 : CardinalityConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.C18 : CloneOp"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.D19 : DestroyObjectElem"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.G20 : GenericConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.L21 : LinkConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.M22 : MatchIsomorphicConstraint"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.M23 : MatchOtherThen"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.P3 : Pattern",
+            "target":"d.N24 : NegativeApplicationCondition"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"currentSubPattern",
+            "source":"d.P3 : Pattern",
+            "target":"d.N24 : NegativeApplicationCondition"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"rgraph",
+            "source":"d.P3 : Pattern",
+            "target":"d.R2 : ReachabilityGraph"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.A12 : AttributeConstraint",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.C13 : CardinalityConstraint",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.C14 : CloneOp",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.D15 : DestroyObjectElem",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.A16 : AttributeConstraint",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.C17 : CardinalityConstraint",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.C18 : CloneOp",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.D19 : DestroyObjectElem",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.G20 : GenericConstraint",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.L21 : LinkConstraint",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.M22 : MatchIsomorphicConstraint",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.M23 : MatchOtherThen",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.N24 : NegativeApplicationCondition",
+            "target":"d.O25 : OptionalSubPattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.N24 : NegativeApplicationCondition",
+            "target":"d.P26 : PatternLink"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"elements",
+            "source":"d.N24 : NegativeApplicationCondition",
+            "target":"d.U27 : UnifyGraphsOp"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"currentSubPattern",
+            "source":"d.N24 : NegativeApplicationCondition",
+            "target":"d.O25 : OptionalSubPattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.N24 : NegativeApplicationCondition",
+            "target":"d.P3 : Pattern"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.O25 : OptionalSubPattern",
+            "target":"d.N24 : NegativeApplicationCondition"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.P26 : PatternLink",
+            "target":"d.N24 : NegativeApplicationCondition"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"pattern",
+            "source":"d.U27 : UnifyGraphsOp",
+            "target":"d.N24 : NegativeApplicationCondition"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasPatternModelObjectsForCoverage3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

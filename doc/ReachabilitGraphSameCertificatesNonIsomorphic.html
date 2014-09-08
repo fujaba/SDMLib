@@ -1,0 +1,422 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../test/org/sdmlib/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java' type='text/x-java'>ReachabilitGraphSameCertificatesNonIsomorphic</a></p>
+<p>ReachabilitGraphSameCertificatesNonIsomorphic</p>
+<p>graph 1 two rings of two nodes</p>
+<p>graph 2 one ring of four nodes</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"d.S1 : SimpleState",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"d.N2 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.N3 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.N4 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.N5 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"d.S1 : SimpleState",
+            "target":"d.N2 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"d.S1 : SimpleState",
+            "target":"d.N3 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"d.S1 : SimpleState",
+            "target":"d.N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"d.S1 : SimpleState",
+            "target":"d.N5 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"d.N2 : Node",
+            "target":"d.S1 : SimpleState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.N2 : Node",
+            "target":"d.N3 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.N2 : Node",
+            "target":"d.N3 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"d.N3 : Node",
+            "target":"d.S1 : SimpleState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.N3 : Node",
+            "target":"d.N2 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.N3 : Node",
+            "target":"d.N2 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"d.N4 : Node",
+            "target":"d.S1 : SimpleState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.N4 : Node",
+            "target":"d.N5 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.N4 : Node",
+            "target":"d.N5 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"d.N5 : Node",
+            "target":"d.S1 : SimpleState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.N5 : Node",
+            "target":"d.N4 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.N5 : Node",
+            "target":"d.N4 : Node"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasReachabilitGraphSameCertificatesNonIsomorphic4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"d.S6 : SimpleState",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"d.N7 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.N8 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.N9 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.N10 : Node",
+            "attributes":[
+            "num=0"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"d.S6 : SimpleState",
+            "target":"d.N7 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"d.S6 : SimpleState",
+            "target":"d.N8 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"d.S6 : SimpleState",
+            "target":"d.N9 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"nodes",
+            "source":"d.S6 : SimpleState",
+            "target":"d.N10 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"d.N7 : Node",
+            "target":"d.S6 : SimpleState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.N7 : Node",
+            "target":"d.N8 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.N7 : Node",
+            "target":"d.N10 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"d.N8 : Node",
+            "target":"d.S6 : SimpleState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.N8 : Node",
+            "target":"d.N9 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.N8 : Node",
+            "target":"d.N7 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"d.N9 : Node",
+            "target":"d.S6 : SimpleState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.N9 : Node",
+            "target":"d.N10 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.N9 : Node",
+            "target":"d.N8 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"graph",
+            "source":"d.N10 : Node",
+            "target":"d.S6 : SimpleState"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.N10 : Node",
+            "target":"d.N7 : Node"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.N10 : Node",
+            "target":"d.N9 : Node"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasReachabilitGraphSameCertificatesNonIsomorphic5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>compute certificates</p>
+<p>Both certificates are equal: true</p>
+<p>{
+  "class":"org.sdmlib.examples.reachabilitygraphs.simplestates.Node",
+  "prop":{
+    "graph":{"id":"#4"},
+    "next":[
+    {"id":"#3"}
+    ],
+    "prev":[
+    {"id":"#3"}
+    ]
+  }
+}*4
+{
+  "class":"org.sdmlib.examples.reachabilitygraphs.simplestates.SimpleState",
+  "prop":{"nodes":[
+    {"id":"#3"},
+      {"id":"#3"},
+      {"id":"#3"},
+      {"id":"#3"}
+    ]}
+}*1
+</p>
+<p>Graphs are not isomorphic:</p>
+<p>null</p>
+
+</body>
+</html>
