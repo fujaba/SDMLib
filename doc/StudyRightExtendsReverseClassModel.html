@@ -1,0 +1,152 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightExtendsReverseClassModel</a></p>
+<p>StudyRightExtendsReverseClassModel</p>
+<p>Start situation: There are some java files. We parse them and generate a class model: </p>
+<script>
+   var json = {
+   "typ":"class",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"Lecture",
+            "attributes":[
+            "Title : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Person",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"Room",
+            "attributes":[
+            "roomNo : String",
+               "credits : int"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"University",
+            "attributes":[
+            "name : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Female",
+            "attributes":[
+            "name : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Male",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"Professor",
+            "attributes":[
+            "PersNr : int"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"Student",
+            "attributes":[
+            "name : String",
+               "matrNo : int"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"lecture",
+            "targetproperty":"in",
+            "source":"Lecture",
+            "target":"Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"lecture",
+            "targetproperty":"has",
+            "source":"Lecture",
+            "target":"Professor"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"lecture",
+            "targetproperty":"listen",
+            "source":"Lecture",
+            "target":"Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"many",
+            "sourceproperty":"neighbors",
+            "targetproperty":"neighbors",
+            "source":"Room",
+            "target":"Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"rooms",
+            "targetproperty":"uni",
+            "source":"Room",
+            "target":"University"
+         },
+         {
+            "typ":"generalisation",
+            "source":"Female",
+            "target":"Person"
+         },
+         {
+            "typ":"generalisation",
+            "source":"Male",
+            "target":"Person"
+         },
+         {
+            "typ":"generalisation",
+            "source":"Professor",
+            "target":"Female"
+         },
+         {
+            "typ":"generalisation",
+            "source":"Student",
+            "target":"Male"
+         },
+         {
+            "typ":"generalisation",
+            "source":"Student",
+            "target":"Female"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightExtendsReverseClassModelClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

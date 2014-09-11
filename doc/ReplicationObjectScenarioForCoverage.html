@@ -1,0 +1,296 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java' type='text/x-java'>ReplicationObjectScenarioForCoverage</a></p>
+<p>ReplicationObjectScenarioForCoverage</p>
+<p>Create some objects just for coverage. This does not serve as an usage example.</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"d.R1 : ReplicationNode",
+            "attributes":[
+            "spaceId=coverage",
+               "history=null",
+               "lastChangeId=0",
+               "nodeId=null",
+               "javaFXApplication=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.S7 : SharedSpace",
+            "attributes":[
+            "socket=null",
+               "targetNodeId=null",
+               "spaceId=null",
+               "lastChangeId=0",
+               "nodeId=null",
+               "javaFXApplication=false"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.R8 : ReplicationChannel",
+            "attributes":[
+            "socket=null",
+               "targetNodeId=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.C9 : ChangeHistory",
+            "attributes":[
+            "changes=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.R2 : ReplicationServer",
+            "attributes":[
+            "spaceId=null",
+               "history=null",
+               "lastChangeId=0",
+               "nodeId=null",
+               "javaFXApplication=false",
+               "sharedSpaces=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.S3 : ServerSocketAcceptThread",
+            "attributes":[
+            "port=0",
+               "replicationNode=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.R4 : RemoteTaskBoard",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"d.L10 : Lane",
+            "attributes":[
+            "name=todo"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.B11 : BoardTask",
+            "attributes":[
+            "name=firstTask",
+               "status=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.B13 : BoardTask",
+            "attributes":[
+            "name=secondTask",
+               "status=null",
+               "logEntries=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.L12 : LogEntry",
+            "attributes":[
+            "stepName=null",
+               "executedBy=null",
+               "timeStamp=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.R5 : ReplicationRoot",
+            "attributes":[
+            "name=null",
+               "applicationObject=null",
+               "kids=null",
+               "parent=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.C6 : ChangeHistory",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"d.R14 : ReplicationChange",
+            "attributes":[
+            "historyIdPrefix=42",
+               "historyIdNumber=0",
+               "targetObjectId=null",
+               "targetProperty=null",
+               "isToManyProperty=false",
+               "changeMsg={}",
+               "logEntries=null"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"sharedSpaces",
+            "source":"d.R1 : ReplicationNode",
+            "target":"d.S7 : SharedSpace"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"node",
+            "source":"d.S7 : SharedSpace",
+            "target":"d.R1 : ReplicationNode"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"channels",
+            "source":"d.S7 : SharedSpace",
+            "target":"d.R8 : ReplicationChannel"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"history",
+            "source":"d.S7 : SharedSpace",
+            "target":"d.C9 : ChangeHistory"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"sharedSpace",
+            "source":"d.R8 : ReplicationChannel",
+            "target":"d.S7 : SharedSpace"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"lanes",
+            "source":"d.R4 : RemoteTaskBoard",
+            "target":"d.L10 : Lane"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"board",
+            "source":"d.L10 : Lane",
+            "target":"d.R4 : RemoteTaskBoard"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"tasks",
+            "source":"d.L10 : Lane",
+            "target":"d.B11 : BoardTask"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"tasks",
+            "source":"d.L10 : Lane",
+            "target":"d.B13 : BoardTask"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"logEntries",
+            "source":"d.B11 : BoardTask",
+            "target":"d.L12 : LogEntry"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"lane",
+            "source":"d.B11 : BoardTask",
+            "target":"d.L10 : Lane"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"next",
+            "source":"d.B11 : BoardTask",
+            "target":"d.B13 : BoardTask"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"task",
+            "source":"d.L12 : LogEntry",
+            "target":"d.B11 : BoardTask"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"lane",
+            "source":"d.B13 : BoardTask",
+            "target":"d.L10 : Lane"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"prev",
+            "source":"d.B13 : BoardTask",
+            "target":"d.B11 : BoardTask"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"changes",
+            "source":"d.C6 : ChangeHistory",
+            "target":"d.R14 : ReplicationChange"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasReplicationObjectScenarioForCoverage3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

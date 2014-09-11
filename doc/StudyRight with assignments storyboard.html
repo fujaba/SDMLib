@@ -1,0 +1,1160 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='../examples/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRight with assignments storyboard</a></p>
+<p>StudyRight with assignments storyboard</p>
+<p>1. (start situation/pre-condition) Karli enters the Study-Right University 
+in the math room. Karli has no credits yet and still a motivation of 214. </p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"studyRight : University",
+            "attributes":[
+            "name=StudyRight"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"karli : Student",
+            "attributes":[
+            "name=Karli",
+               "id=4242",
+               "assignmentPoints=0",
+               "motivation=0",
+               "credits=0",
+               "done=null",
+               "friends=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"mathRoom : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"artsRoom : Room",
+            "attributes":[
+            "name=7522",
+               "topic=arts",
+               "credits=16",
+               "students=null",
+               "assignments=null",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"sportsRoom : Room",
+            "attributes":[
+            "name=gymnasium",
+               "topic=sports",
+               "credits=25",
+               "students=null",
+               "assignments=null",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"examRoom : Room",
+            "attributes":[
+            "name=The End",
+               "topic=exam",
+               "credits=0",
+               "students=null",
+               "assignments=null",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"placeToBe : Room",
+            "attributes":[
+            "name=7422",
+               "topic=Software Engineering",
+               "credits=42",
+               "students=null",
+               "assignments=null",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A1 : Assignment",
+            "attributes":[
+            "content=Matrix Multiplication",
+               "points=5",
+               "students=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A2 : Assignment",
+            "attributes":[
+            "content=Series",
+               "points=6",
+               "students=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A3 : Assignment",
+            "attributes":[
+            "content=Integrals",
+               "points=8",
+               "students=null"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"studyRight : University",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"rooms",
+            "source":"studyRight : University",
+            "target":"placeToBe : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"university",
+            "source":"karli : Student",
+            "target":"studyRight : University"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"in",
+            "source":"karli : Student",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"university",
+            "source":"mathRoom : Room",
+            "target":"studyRight : University"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"mathRoom : Room",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"mathRoom : Room",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"mathRoom : Room",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"university",
+            "source":"artsRoom : Room",
+            "target":"studyRight : University"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"artsRoom : Room",
+            "target":"placeToBe : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"university",
+            "source":"sportsRoom : Room",
+            "target":"studyRight : University"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"sportsRoom : Room",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"sportsRoom : Room",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"sportsRoom : Room",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"university",
+            "source":"examRoom : Room",
+            "target":"studyRight : University"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"examRoom : Room",
+            "target":"sportsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"examRoom : Room",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"examRoom : Room",
+            "target":"placeToBe : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"university",
+            "source":"placeToBe : Room",
+            "target":"studyRight : University"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"placeToBe : Room",
+            "target":"artsRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"doors",
+            "source":"placeToBe : Room",
+            "target":"examRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A1 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A2 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A3 : Assignment",
+            "target":"mathRoom : Room"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
+(general rule: the student earns always full points for doing an assignment). <br>
+Karli's motivation is reduced by 5 points to now 209.
+</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"karli : Student",
+            "attributes":[
+            "name=Karli",
+               "id=4242",
+               "assignmentPoints=5",
+               "motivation=0",
+               "credits=0",
+               "university=null",
+               "friends=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"mathRoom : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17",
+               "university=null",
+               "doors=null",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A1 : Assignment",
+            "attributes":[
+            "content=Matrix Multiplication",
+               "points=5"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A2 : Assignment",
+            "attributes":[
+            "content=Series",
+               "points=6",
+               "students=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A3 : Assignment",
+            "attributes":[
+            "content=Integrals",
+               "points=8",
+               "students=null"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"in",
+            "source":"karli : Student",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"mathRoom : Room",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A1 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A1 : Assignment",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A2 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A3 : Assignment",
+            "target":"mathRoom : Room"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
+Thus Karli has 11 points now. Motivation is reduced to 203.
+</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"karli : Student",
+            "attributes":[
+            "name=Karli",
+               "id=4242",
+               "assignmentPoints=11",
+               "motivation=0",
+               "credits=0",
+               "university=null",
+               "friends=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"mathRoom : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17",
+               "university=null",
+               "doors=null",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A1 : Assignment",
+            "attributes":[
+            "content=Matrix Multiplication",
+               "points=5"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A2 : Assignment",
+            "attributes":[
+            "content=Series",
+               "points=6"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A3 : Assignment",
+            "attributes":[
+            "content=Integrals",
+               "points=8",
+               "students=null"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"in",
+            "source":"karli : Student",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"mathRoom : Room",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A1 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A1 : Assignment",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A2 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A2 : Assignment",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A3 : Assignment",
+            "target":"mathRoom : Room"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>4. Karli does the third assignment on Integrals, earns <br>
+another 8 points and thus Karli has now 19 points and a motivation of 195.
+</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"karli : Student",
+            "attributes":[
+            "name=Karli",
+               "id=4242",
+               "assignmentPoints=19",
+               "motivation=0",
+               "credits=0",
+               "university=null",
+               "friends=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"mathRoom : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17",
+               "university=null",
+               "doors=null",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A1 : Assignment",
+            "attributes":[
+            "content=Matrix Multiplication",
+               "points=5"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A2 : Assignment",
+            "attributes":[
+            "content=Series",
+               "points=6"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A3 : Assignment",
+            "attributes":[
+            "content=Integrals",
+               "points=8"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"in",
+            "source":"karli : Student",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"mathRoom : Room",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A1 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A1 : Assignment",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A2 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A2 : Assignment",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A3 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A3 : Assignment",
+            "target":"karli : Student"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>5. Since 19 points are more than the 17 points required 
+for the 17 math credits, Karli hands the points in and earns the credits 
+and has his assignmnet points reset to 0. <br>
+(General rule: if the points earned by the assignments are higher or equal than 
+the credit points, the credit points will be awarded to the student.)</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"karli : Student",
+            "attributes":[
+            "name=Karli",
+               "id=4242",
+               "assignmentPoints=0",
+               "motivation=0",
+               "credits=17",
+               "university=null",
+               "friends=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"mathRoom : Room",
+            "attributes":[
+            "name=senate",
+               "topic=math",
+               "credits=17",
+               "university=null",
+               "doors=null",
+               "tas=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A1 : Assignment",
+            "attributes":[
+            "content=Matrix Multiplication",
+               "points=5"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A2 : Assignment",
+            "attributes":[
+            "content=Series",
+               "points=6"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.A3 : Assignment",
+            "attributes":[
+            "content=Integrals",
+               "points=8"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"in",
+            "source":"karli : Student",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"done",
+            "source":"karli : Student",
+            "target":"d.A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"mathRoom : Room",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A1 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A2 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"assignments",
+            "source":"mathRoom : Room",
+            "target":"d.A3 : Assignment"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A1 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A1 : Assignment",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A2 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A2 : Assignment",
+            "target":"karli : Student"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"room",
+            "source":"d.A3 : Assignment",
+            "target":"mathRoom : Room"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"students",
+            "source":"d.A3 : Assignment",
+            "target":"karli : Student"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>
+<p>Check: Karli's credits: 17</p>
+<p>Check: Karli's assignment points: 0</p>
+<p>Check: Number of students: 1</p>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='org/sdmlib/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructureInternals</a></p>
+<p>StoryboardInfrastructureInternals</p>
+<p>Internals.</p>
+<p>Object diagram for storyboard and KanbanEntry:</p>
+<script>
+   var json = {
+   "typ":"object",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"d.S1 : StoryboardWall",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"d.S3 : Storyboard",
+            "attributes":[
+            "rootDir=src",
+               "stepCounter=0",
+               "stepDoneCounter=0"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.S4 : StoryboardStep",
+            "attributes":[
+            "text=StoryboardInfrastructureInternals"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.S5 : StoryboardStep",
+            "attributes":[
+            "text=Internals."
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.S6 : StoryboardStep",
+            "attributes":[
+            "text=Object diagram for storyboard and KanbanEntry:"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.K2 : KanbanEntry",
+            "attributes":[
+            "name=name",
+               "phase=done",
+               "lastDeveloper=zuendorf",
+               "hoursRemaining=1.0",
+               "hoursSpend=2.0",
+               "files=null",
+               "oldNoOfLogEntries=0",
+               "phases=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.K7 : KanbanEntry",
+            "attributes":[
+            "name=null",
+               "phase=null",
+               "lastDeveloper=null",
+               "hoursRemaining=0.0",
+               "hoursSpend=0.0",
+               "logEntries=null",
+               "files=null",
+               "oldNoOfLogEntries=0",
+               "phases=null"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"d.L8 : LogEntryStoryBoard",
+            "attributes":[
+            "date=08.10.2013 13:22:42",
+               "hoursSpend=1.0",
+               "hoursRemainingInTotal=0.0",
+               "developer=zuendorf",
+               "phase=done",
+               "comment=Achieved: Object diagram for storyboard and KanbanEntry:"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"storyboard",
+            "source":"d.S1 : StoryboardWall",
+            "target":"d.S3 : Storyboard"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"storyboardSteps",
+            "source":"d.S3 : Storyboard",
+            "target":"d.S4 : StoryboardStep"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"storyboardSteps",
+            "source":"d.S3 : Storyboard",
+            "target":"d.S5 : StoryboardStep"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"storyboardSteps",
+            "source":"d.S3 : Storyboard",
+            "target":"d.S6 : StoryboardStep"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"wall",
+            "source":"d.S3 : Storyboard",
+            "target":"d.S1 : StoryboardWall"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"storyboard",
+            "source":"d.S4 : StoryboardStep",
+            "target":"d.S3 : Storyboard"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"storyboard",
+            "source":"d.S5 : StoryboardStep",
+            "target":"d.S3 : Storyboard"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"storyboard",
+            "source":"d.S6 : StoryboardStep",
+            "target":"d.S3 : Storyboard"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"parent",
+            "source":"d.K2 : KanbanEntry",
+            "target":"d.K7 : KanbanEntry"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"logEntries",
+            "source":"d.K2 : KanbanEntry",
+            "target":"d.L8 : LogEntryStoryBoard"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"many",
+            "sourceproperty":null,
+            "targetproperty":"subentries",
+            "source":"d.K7 : KanbanEntry",
+            "target":"d.K2 : KanbanEntry"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":null,
+            "targetcardinality":"one",
+            "sourceproperty":null,
+            "targetproperty":"kanbanEntry",
+            "source":"d.L8 : LogEntryStoryBoard",
+            "target":"d.K2 : KanbanEntry"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasStoryboardInfrastructureInternals4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

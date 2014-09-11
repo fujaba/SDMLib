@@ -1,0 +1,128 @@
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body onload="init();">
+<p>Storyboard <a href='org/sdmlib/examples/SDMLib/ModelToTextToModelClassModel.java' type='text/x-java'>modelToTextToModelClassModel</a></p>
+<p>modelToTextToModelClassModel</p>
+<script>
+   var json = {
+   "typ":"class",
+   "value":{
+      "nodes":[
+      {
+            "typ":"node",
+            "id":"Template",
+            "attributes":[
+            "templateText : String",
+               "expandedText : String",
+               "modelObject : Object",
+               "modelClassName : String",
+               "listStart : String",
+               "listSeparator : String",
+               "listEnd : String",
+               "referenceLookup : boolean",
+               "name : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"PlaceHolderDescription",
+            "attributes":[
+            "textFragment : String",
+               "value : String",
+               "attrName : String",
+               "isKeyAttribute : boolean",
+               "prefix : String"
+            ]
+         },
+         {
+            "typ":"node",
+            "id":"ChoiceTemplate",
+            "attributes":[]
+         },
+         {
+            "typ":"node",
+            "id":"Match",
+            "attributes":[
+            "startPos : int",
+               "endPos : int",
+               "fullText : String",
+               "matchText : String",
+               "modelObject : Object"
+            ]
+         }
+      ],
+      "edges":[
+      {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"many",
+            "sourceproperty":"placeholders",
+            "targetproperty":"owners",
+            "source":"PlaceHolderDescription",
+            "target":"Template"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"chooser",
+            "targetproperty":"choices",
+            "source":"ChoiceTemplate",
+            "target":"Template"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"matches",
+            "targetproperty":"template",
+            "source":"Match",
+            "target":"Template"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"parents",
+            "targetproperty":"subTemplate",
+            "source":"PlaceHolderDescription",
+            "target":"Template"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"many",
+            "targetcardinality":"one",
+            "sourceproperty":"matches",
+            "targetproperty":"placeholder",
+            "source":"Match",
+            "target":"PlaceHolderDescription"
+         },
+         {
+            "typ":"edge",
+            "sourcecardinality":"one",
+            "targetcardinality":"many",
+            "sourceproperty":"parentMatch",
+            "targetproperty":"subMatches",
+            "source":"Match",
+            "target":"Match"
+         },
+         {
+            "typ":"generalisation",
+            "source":"ChoiceTemplate",
+            "target":"Template"
+         }
+      ]
+   }
+}   ;
+   json["options"]={"canvasid":"canvasmodelToTextToModelClassModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>
