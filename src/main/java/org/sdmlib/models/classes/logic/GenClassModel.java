@@ -54,7 +54,7 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenClassModel
 {
-   public static final String UTILPATH=".util";
+   public static final String UTILPATH = ".util";
    private ClassModel model;
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
    private AssociationSet associations = null;
