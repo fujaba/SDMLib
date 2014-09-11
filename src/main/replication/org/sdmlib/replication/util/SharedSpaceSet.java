@@ -28,12 +28,12 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.util.ReplicationNodeSet;
 import org.sdmlib.replication.util.ReplicationChannelSet;
 

@@ -96,6 +96,15 @@ public class ReplicationModel
             .withAttribute("name", DataType.STRING)
             .withAttribute("status", DataType.STRING);
             
+      Clazz runnable = model.createClazz("java.lang.Runnable")
+            .withExternal(true)
+            .withInterface(true);
+      
+      Clazz remoteTask = model.createClazz("RemoteTask")
+            .withSuperClazz(task)
+            .withSuperClazz(runnable)
+            .withAttribute("boardTask", DataType.ref(boardTask));
+      
       lane.withAssoc(boardTask, "tasks", Card.MANY, "lane", Card.ONE);
          
       boardTask.withAssoc(boardTask, "next", Card.MANY, "prev", Card.MANY);

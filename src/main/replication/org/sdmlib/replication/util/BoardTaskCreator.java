@@ -21,12 +21,16 @@
    
 package org.sdmlib.replication.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
 import org.sdmlib.serialization.EntityFactory;
 
+import de.uniks.networkparser.event.ObjectMapEntry;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class BoardTaskCreator extends EntityFactory
@@ -36,9 +40,10 @@ public class BoardTaskCreator extends EntityFactory
       BoardTask.PROPERTY_NAME,
       BoardTask.PROPERTY_STATUS,
       Task.PROPERTY_LOGENTRIES,
-      BoardTask.PROPERTY_LANE,
       BoardTask.PROPERTY_NEXT,
       BoardTask.PROPERTY_PREV,
+      BoardTask.PROPERTY_TASKOBJECTS,
+      BoardTask.PROPERTY_LANE,
    };
    
    @Override
@@ -93,10 +98,16 @@ public class BoardTaskCreator extends EntityFactory
       {
          return ((BoardTask) target).getPrev();
       }
+
+      if (BoardTask.PROPERTY_TASKOBJECTS.equalsIgnoreCase(attribute))
+      {
+         return ((BoardTask) target).getTaskObjects();
+      }
       
       return null;
    }
    
+   @SuppressWarnings("unchecked")
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
@@ -152,13 +163,26 @@ public class BoardTaskCreator extends EntityFactory
          ((BoardTask) target).withPrev((BoardTask) value);
          return true;
       }
-      
+
       if ((BoardTask.PROPERTY_PREV + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((BoardTask) target).withoutPrev((BoardTask) value);
          return true;
       }
       
+      if (BoardTask.PROPERTY_TASKOBJECTS.equalsIgnoreCase(attrName))
+      {
+         if(value instanceof ObjectMapEntry) {
+            ObjectMapEntry item = (ObjectMapEntry) value;
+            ((BoardTask) target).getTaskObjects().put(""+item.getKey(), item.getValue());
+            return true;
+         }
+         if(value instanceof Map<?,?>) {
+            ((BoardTask) target).withTaskObjects((HashMap<String, Object>) value);
+            return true;
+         }  
+      }
+
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)

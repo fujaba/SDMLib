@@ -538,6 +538,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       {
          this.setReadMessages(true);
          map.executeUpdateMsg(jsonUpdate);
+      } catch (Exception e) {
+         e.printStackTrace();
       }
       finally
       {

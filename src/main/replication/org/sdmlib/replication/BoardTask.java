@@ -22,6 +22,7 @@
 package org.sdmlib.replication;
 
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.StrUtil;
@@ -67,11 +68,17 @@ public class BoardTask extends Task implements PropertyChangeInterface
          return getPrev();
       }
 
+      if (PROPERTY_TASKOBJECTS.equalsIgnoreCase(attrName))
+      {
+         return getTaskObjects();
+      }
+
       return null;
    }
 
    // ==========================================================================
 
+   @SuppressWarnings("unchecked")
    public boolean set(String attrName, Object value)
    {
       if (PROPERTY_NAME.equalsIgnoreCase(attrName))
@@ -125,6 +132,12 @@ public class BoardTask extends Task implements PropertyChangeInterface
       if ((PROPERTY_PREV + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          removeFromPrev((BoardTask) value);
+         return true;
+      }
+
+      if ((PROPERTY_TASKOBJECTS).equalsIgnoreCase(attrName))
+      {
+         withTaskObjects((HashMap<String, Object>) value);
          return true;
       }
 
@@ -500,6 +513,30 @@ public class BoardTask extends Task implements PropertyChangeInterface
    {
       BoardTaskSet result = new BoardTaskSet().with(this);
       return result.getPrevTransitive();
+   }
+   
+   public static final String PROPERTY_TASKOBJECTS = "taskObjects";
+   
+   private HashMap<String, Object> taskObjects = new HashMap<String, Object>();
+   
+   public Object putTaskObject(String name, Object o) {
+      return getTaskObjects().put(name, o);
+   }
+
+   public HashMap<String, Object> getTaskObjects()
+   {
+      return taskObjects;
+   }
+
+   public void setTaskObjects(HashMap<String, Object> taskObjects)
+   {
+      this.taskObjects = taskObjects;
+   }
+
+   public BoardTask withTaskObjects(HashMap<String, Object> taskObjects)
+   {
+      setTaskObjects(taskObjects);
+      return this;
    }
 
 }

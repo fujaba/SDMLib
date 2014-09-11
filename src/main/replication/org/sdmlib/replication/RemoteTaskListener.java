@@ -8,12 +8,12 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
 {
    public static final String NEW = "NEW";
    protected SharedSpace sharedSpace;
-   private HashMap<String, Runnable> tasks;
+   private HashMap<String, RemoteTask> tasks;
    private boolean isInit;
 
    public RemoteTaskListener()
    {
-      tasks = new HashMap<String, Runnable>();
+      tasks = new HashMap<String, RemoteTask>();
    }
    
    @Override
@@ -23,7 +23,7 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
       {
          if (isInit = init(evt))
          {
-            wrapEvent(evt);
+            handleEvent(evt);
          }
          else
          {
@@ -32,21 +32,34 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
       }
       else
       {
-         wrapEvent(evt);
+         handleEvent(evt);
       }
    }
 
-   private void wrapEvent(PropertyChangeEvent evt)
+   private void handleEvent(PropertyChangeEvent evt)
    {
       boolean oldIsApplyingChangeFlag = getSharedSpace().isApplyingChangeMsg();
-      getSharedSpace().setApplyingChangeMsg(false);
+      sharedSpace.setApplyingChangeMsg(false);
       try
       {
-         handleEvent(evt);
+         String propertyName = evt.getPropertyName();
+         switch (propertyName)
+         {
+         case ReplicationRoot.PROPERTY_APPLICATIONOBJECT:
+            handleReplicationChange(evt);
+            break;
+         case RemoteTaskListener.NEW:
+            createLane();
+            break;
+         case Lane.PROPERTY_TASKS:
+            handleTasks(evt);
+            break;
+         default:
+         }
       }
       finally
       {
-         getSharedSpace().setApplyingChangeMsg(oldIsApplyingChangeFlag);
+         sharedSpace.setApplyingChangeMsg(oldIsApplyingChangeFlag);
       }
    }
 
@@ -55,22 +68,22 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
       if (evt.getNewValue() != null)
       {
          BoardTask task = (BoardTask) evt.getNewValue();
-         String name = task.getName();
-         runTask(name);
+         runTask(task);
       }
    }
    
-   public RemoteTaskListener withTask(String name, Runnable task) {
+   public RemoteTaskListener withTask(String name, RemoteTask task) {
       tasks.put(name, task);
       return this;
    }
    
-   public void runTask(String name) {
-      Runnable task = tasks.get(name);
+   public void runTask(BoardTask boardTask) {
+      RemoteTask task = tasks.get(boardTask.getName());
       if(task != null) {
+         task.withBoardTask(boardTask);
          task.run();
       } else {
-         throw new RuntimeException("No such task: " + name);
+         throw new RuntimeException("No such task: " + boardTask.getName());
       }
    }
    
@@ -79,8 +92,10 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
       return sharedSpace;
    }
    
+   protected abstract void createLane();
+   
    protected abstract boolean init(PropertyChangeEvent evt);
 
-   protected abstract void handleEvent(PropertyChangeEvent evt);
+   protected abstract void handleReplicationChange(PropertyChangeEvent evt);
 
 }

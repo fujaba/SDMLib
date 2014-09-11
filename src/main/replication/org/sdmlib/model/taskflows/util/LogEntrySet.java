@@ -29,7 +29,6 @@ import org.sdmlib.model.taskflows.Logger;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.model.taskflows.util.LoggerSet;
 
 public class LogEntrySet extends SDMSet<LogEntry>
 {
