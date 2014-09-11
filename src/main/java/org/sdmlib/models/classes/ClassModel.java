@@ -45,8 +45,9 @@ public class ClassModel extends SDMLibClass
    private GenClassModel generator;
 
    public ClassModel(){
-      
+	   withName("defaultpackage");
    }
+   
    public ClassModel(String packageName){
       withName(packageName);
    }
