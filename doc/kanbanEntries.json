@@ -1,0 +1,21 @@
+[{
+  "id":"KE.K1",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"Project",
+    "phase":"active",
+    "subentries":[
+    {"id":"KE.K2"}
+    ],
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K2",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"ReplicationModel",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+}]
