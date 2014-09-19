@@ -46,7 +46,7 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
          switch (propertyName)
          {
          case ReplicationRoot.PROPERTY_APPLICATIONOBJECT:
-            handleReplicationChange(evt);
+            handleReplicationRootChange(evt);
             break;
          case RemoteTaskListener.NEW:
             createLane();
@@ -96,6 +96,6 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
    
    protected abstract boolean init(PropertyChangeEvent evt);
 
-   protected abstract void handleReplicationChange(PropertyChangeEvent evt);
+   protected abstract void handleReplicationRootChange(PropertyChangeEvent evt);
 
 }
