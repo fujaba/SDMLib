@@ -21,6 +21,7 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.models.classes.util.AttributeSet;
+import java.util.LinkedHashSet;
 
 public class Attribute extends Value
 {

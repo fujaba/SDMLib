@@ -30,6 +30,7 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
 import org.sdmlib.examples.groupAccount.model.Person;
+import java.util.LinkedHashSet;
 
 public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {

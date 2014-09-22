@@ -38,6 +38,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
 
 import de.uniks.networkparser.graph.GraphList;
+import java.util.LinkedHashSet;
 
 public class ClassModel extends SDMLibClass
 {

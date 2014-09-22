@@ -82,25 +82,22 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.S1 : SDMLibJsonIdMap"
+      },
       {
-            "typ":"node",
-            "id":"d.S1 : SDMLibJsonIdMap",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"d.G2 : Graph",
-            "attributes":[
-            "nodes=null",
-               "edges=null",
-               "gcs=null"
-            ]
-         }
-      ],
-      "edges":[]
-   }
+         "typ":"node",
+         "id":"d.G2 : Graph",
+         "attributes":[
+         "nodes=null",
+            "edges=null",
+            "gcs=null"
+         ]
+      }
+   ],
+   "edges":[]
 }   ;
    json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodes7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

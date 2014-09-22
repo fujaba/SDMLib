@@ -70,69 +70,83 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.G1 : Greeting",
+         "attributes":[
+         "text=null"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"d.G1 : Greeting",
-            "attributes":[
-            "text=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.G2 : GreetingMessage",
-            "attributes":[
-            "text=Hello"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.P3 : Person",
-            "attributes":[
-            "name=TTC Participants"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.G2 : GreetingMessage",
+         "attributes":[
+         "text=Hello"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"greetingMessage",
-            "source":"d.G1 : Greeting",
-            "target":"d.G2 : GreetingMessage"
+         "typ":"node",
+         "id":"d.P3 : Person",
+         "attributes":[
+         "name=TTC Participants"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.helloworld.greeting",
+            "id":"d.G1 : Greeting"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"person",
-            "source":"d.G1 : Greeting",
-            "target":"d.P3 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"greeting",
-            "source":"d.G2 : GreetingMessage",
-            "target":"d.G1 : Greeting"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"greeting",
-            "source":"d.P3 : Person",
-            "target":"d.G1 : Greeting"
+         "target":{
+            "cardinality":"one",
+            "property":"greetingMessage",
+            "id":"d.G2 : GreetingMessage"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.helloworld.greeting",
+            "id":"d.G1 : Greeting"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"d.P3 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.helloworld.greetingmessage",
+            "id":"d.G2 : GreetingMessage"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"d.G1 : Greeting"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.helloworld.person",
+            "id":"d.P3 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"d.G1 : Greeting"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferences11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

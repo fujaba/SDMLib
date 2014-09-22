@@ -23,6 +23,7 @@ package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.RoleSet;
+import java.util.LinkedHashSet;
 
 public class Role extends SDMLibClass
 {

@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import de.kassel.roombook.util.FloorSet;
+import java.util.LinkedHashSet;
 
 public class Floor implements PropertyChangeInterface
 {

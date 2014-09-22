@@ -39,20 +39,18 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
-      {
-            "typ":"node",
-            "id":"d.G1 : Greeting",
-            "attributes":[
-            "text=Hello World",
-               "greetingMessage=null",
-               "person=null"
-            ]
-         }
-      ],
-      "edges":[]
-   }
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.G1 : Greeting",
+         "attributes":[
+         "text=Hello World",
+            "greetingMessage=null",
+            "person=null"
+         ]
+      }
+   ],
+   "edges":[]
 }   ;
    json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation111", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

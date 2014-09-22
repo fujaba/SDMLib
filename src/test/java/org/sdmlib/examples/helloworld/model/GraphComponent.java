@@ -27,6 +27,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
 import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
+import java.util.LinkedHashSet;
 
 public class GraphComponent implements PropertyChangeInterface
 {

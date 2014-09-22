@@ -27,6 +27,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.helloworld.model.util.EdgeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.util.LinkedHashSet;
 
 public class Edge extends GraphComponent implements PropertyChangeInterface
 {

@@ -12,227 +12,296 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.G1 : GroupAccount"
+      },
       {
-            "typ":"node",
-            "id":"d.G1 : GroupAccount",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"d.P2 : Person",
-            "attributes":[
-            "name=Albert",
-               "balance=5.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.P4 : Person",
-            "attributes":[
-            "name=Nina",
-               "balance=-4.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.P6 : Person",
-            "attributes":[
-            "name=Artjom",
-               "balance=-1.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.I3 : Item",
-            "attributes":[
-            "description=Beer",
-               "value=12.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.I5 : Item",
-            "attributes":[
-            "description=Bread",
-               "value=3.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.I7 : Item",
-            "attributes":[
-            "description=Meat",
-               "value=6.0"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.P2 : Person",
+         "attributes":[
+         "name=Albert",
+            "balance=5.0"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"persons",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.P2 : Person"
+         "typ":"node",
+         "id":"d.P4 : Person",
+         "attributes":[
+         "name=Nina",
+            "balance=-4.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.P6 : Person",
+         "attributes":[
+         "name=Artjom",
+            "balance=-1.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.I3 : Item",
+         "attributes":[
+         "description=Beer",
+            "value=12.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.I5 : Item",
+         "attributes":[
+         "description=Bread",
+            "value=3.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.I7 : Item",
+         "attributes":[
+         "description=Meat",
+            "value=6.0"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"persons",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.P4 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"persons",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.P6 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.I3 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.I5 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.I7 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.P2 : Person",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.P2 : Person",
-            "target":"d.I3 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.I3 : Item",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"buyer",
-            "source":"d.I3 : Item",
-            "target":"d.P2 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.P4 : Person",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.P4 : Person",
-            "target":"d.I5 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.I5 : Item",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"buyer",
-            "source":"d.I5 : Item",
-            "target":"d.P4 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.P6 : Person",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.P6 : Person",
-            "target":"d.I7 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.I7 : Item",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"buyer",
-            "source":"d.I7 : Item",
-            "target":"d.P6 : Person"
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"d.P2 : Person"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"d.P4 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"d.P6 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I3 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I5 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I7 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P2 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I3 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I3 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I3 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"d.P2 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P4 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I5 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I5 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I5 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"d.P4 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P6 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I7 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I7 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I7 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"d.P6 : Person"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasGroupAccountStoryboard12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -245,227 +314,296 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.G1 : GroupAccount"
+      },
       {
-            "typ":"node",
-            "id":"d.G1 : GroupAccount",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"d.P2 : Person",
-            "attributes":[
-            "name=Albert",
-               "balance=5.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.P4 : Person",
-            "attributes":[
-            "name=Nina",
-               "balance=-4.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.P6 : Person",
-            "attributes":[
-            "name=Artjom",
-               "balance=-1.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.I3 : Item",
-            "attributes":[
-            "description=Beer",
-               "value=12.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.I5 : Item",
-            "attributes":[
-            "description=Bread",
-               "value=3.0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.I7 : Item",
-            "attributes":[
-            "description=Meat",
-               "value=6.0"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.P2 : Person",
+         "attributes":[
+         "name=Albert",
+            "balance=5.0"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"persons",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.P2 : Person"
+         "typ":"node",
+         "id":"d.P4 : Person",
+         "attributes":[
+         "name=Nina",
+            "balance=-4.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.P6 : Person",
+         "attributes":[
+         "name=Artjom",
+            "balance=-1.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.I3 : Item",
+         "attributes":[
+         "description=Beer",
+            "value=12.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.I5 : Item",
+         "attributes":[
+         "description=Bread",
+            "value=3.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.I7 : Item",
+         "attributes":[
+         "description=Meat",
+            "value=6.0"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"persons",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.P4 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"persons",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.P6 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.I3 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.I5 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.G1 : GroupAccount",
-            "target":"d.I7 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.P2 : Person",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.P2 : Person",
-            "target":"d.I3 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.I3 : Item",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"buyer",
-            "source":"d.I3 : Item",
-            "target":"d.P2 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.P4 : Person",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.P4 : Person",
-            "target":"d.I5 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.I5 : Item",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"buyer",
-            "source":"d.I5 : Item",
-            "target":"d.P4 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.P6 : Person",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"item",
-            "source":"d.P6 : Person",
-            "target":"d.I7 : Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.I7 : Item",
-            "target":"d.G1 : GroupAccount"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"buyer",
-            "source":"d.I7 : Item",
-            "target":"d.P6 : Person"
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"d.P2 : Person"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"d.P4 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"d.P6 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I3 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I5 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.groupaccount",
+            "id":"d.G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I7 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P2 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I3 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I3 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I3 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"d.P2 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P4 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P4 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I5 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I5 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I5 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"d.P4 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.person",
+            "id":"d.P6 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"d.I7 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I7 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.G1 : GroupAccount"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.groupaccount.model.item",
+            "id":"d.I7 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"d.P6 : Person"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasGroupAccountStoryboard17", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

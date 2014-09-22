@@ -28,6 +28,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
+import java.util.LinkedHashSet;
 
 public class Assignment implements PropertyChangeInterface
 {
