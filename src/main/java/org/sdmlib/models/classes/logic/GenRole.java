@@ -743,8 +743,10 @@ public class GenRole extends Generator<Role>
 	      // generate property in model set class
 	      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
 	      
-	      insertGetterInModelSetFile(clazz, modelSetParser, myParser, partnerRole);
-	      insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
+	      if(getModel().getClazz().getClassModel().hasFeature(Feature.PatternObject)){
+		      insertGetterInModelSetFile(clazz, modelSetParser, myParser, partnerRole);
+		      insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
+	      }
 	      
 	      getGenerator(clazz).printFile(modelSetParser);
 	

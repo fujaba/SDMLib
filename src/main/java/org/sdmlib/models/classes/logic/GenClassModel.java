@@ -291,7 +291,7 @@ public class GenClassModel
                            "}\n");
 
             StringBuilder creators = new StringBuilder();
-            boolean publicCreatorCreator = false;
+//            boolean publicCreatorCreator = false;
             for (Clazz clazz : model.getClasses())
             {
                if (!clazz.isInterface()  && !clazz.isEnumeration() && includeCreators(clazz))
@@ -318,7 +318,7 @@ public class GenClassModel
                   // if there are multiple packages, the CreatorCreator must be public
                   if (!model.getName().equals(CGUtil.packageName(clazz.getFullName())))
                   {
-                     publicCreatorCreator = true;
+//                     publicCreatorCreator = true;
                   }
                }
             }
@@ -1277,10 +1277,10 @@ public class GenClassModel
    {
       String shortClassName = CGUtil.shortClassName(method.getClazz().getFullName());
 
-      String signature = method.getSignature(true);
+//      String signature = method.getSignature(true);
 
-      String methodClass = "";
-      String methodSignature = "";
+//      String methodClass = "";
+//      String methodSignature = "";
       ArrayList<ArrayList<String>> initSequence = localVarTableEntry.getInitSequence();
       
       // the first method call should be model.createClazz(<className>)
@@ -1313,7 +1313,7 @@ public class GenClassModel
                
                if ( ! dataType.equals(searchType)) return false;
                
-               boolean found = false;
+//               boolean found = false;
                try {
                   int j = 6;
                   Iterator<Parameter> paramIter = method.getParameter().iterator();
@@ -1364,7 +1364,7 @@ public class GenClassModel
       return false;
    }
 
-   private String parseDataType(String typeString, Clazz modelCreationClass) {
+   protected String parseDataType(String typeString, Clazz modelCreationClass) {
       
       String type = "";
       

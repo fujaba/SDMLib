@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.sdmlib.CGUtil;
@@ -240,6 +241,22 @@ public class ClassModel extends SDMLibClass
          }
       }
       return this;
+   }
+   public ClassModel withFeatures(HashSet<Feature> value)
+   {
+		if (value == null) {
+			this.features.clear();
+			return this;
+		}
+		for (Feature item : value) {
+			if (item != null) {
+				if (this.features.add(item)) {
+					getPropertyChangeSupport().firePropertyChange(
+							PROPERTY_FEATURE, null, item);
+				}
+			}
+		}
+		return this;
    }
 
    public boolean hasFeature(Feature value)

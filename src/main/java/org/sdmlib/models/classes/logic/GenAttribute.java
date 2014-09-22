@@ -12,7 +12,6 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Visibility;
-import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class GenAttribute extends Generator<Attribute>
