@@ -30,11 +30,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
 import de.uniks.networkparser.json.JsonIdMap;
-<<<<<<< HEAD:src/main/replication/org/sdmlib/model/taskflows/LogEntry.java
-=======
-
-import java.beans.PropertyChangeListener;
->>>>>>> Lecture:src/main/replication/org/sdmlib/models/taskflows/LogEntry.java
 
 public class LogEntry implements PropertyChangeInterface
 {

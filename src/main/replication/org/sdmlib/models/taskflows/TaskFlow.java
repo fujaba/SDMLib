@@ -30,11 +30,6 @@ import org.sdmlib.models.taskflows.util.PeerProxySet;
 import org.sdmlib.models.taskflows.util.TaskFlowSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-<<<<<<< HEAD:src/main/replication/org/sdmlib/model/taskflows/TaskFlow.java
-=======
-
-import java.beans.PropertyChangeListener;
->>>>>>> Lecture:src/main/replication/org/sdmlib/models/taskflows/TaskFlow.java
 
 public abstract class TaskFlow extends TimerTask implements PropertyChangeInterface
 {

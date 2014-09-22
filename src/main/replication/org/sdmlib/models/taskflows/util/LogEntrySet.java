@@ -27,12 +27,9 @@ import java.util.Collections;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-<<<<<<< HEAD:src/main/replication/org/sdmlib/model/taskflows/util/LogEntrySet.java
-=======
 import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
 import org.sdmlib.models.taskflows.util.LoggerSet;
->>>>>>> Lecture:src/main/replication/org/sdmlib/models/taskflows/util/LogEntrySet.java
 
 public class LogEntrySet extends SDMSet<LogEntry>
 {
