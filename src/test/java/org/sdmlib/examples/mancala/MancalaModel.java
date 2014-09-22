@@ -64,11 +64,8 @@ public class MancalaModel {
         Clazz stone = model.createClazz("Stone")
                 .withAssoc(player, "player", Card.ONE, "stone", Card.ONE);
         
-        Feature.with(Feature.WithExistingCreators, "org.sdmlib.examples.mancala.referencemodel.util");        
-		model.withFeature(Feature.WithExistingCreators);
-		
-		Feature.with(Feature.WithoutCreators, stone.getFullName());
-		model.withFeature(Feature.WithoutCreators);
+        Feature.Serialization.withPath("org.sdmlib.examples.mancala.referencemodel.util");
+        Feature.Serialization.withExcludeClazz(stone);
 		
         model.generate("src/test/java"); //<11>
         //model.dumpHTML("MancalaClassDiagram", "mancaladoc", Javascript.NAME);

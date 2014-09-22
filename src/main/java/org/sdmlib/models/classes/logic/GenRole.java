@@ -707,7 +707,7 @@ public class GenRole extends Generator<Role>
          getGenerator(clazz).insertImport(partnerRole.getClazz().getFullName());
       }
       
-      if(!includeCreators(clazz)) {
+      if(!clazz.hasFeature(Feature.Serialization)) {
     	  insertRemovalInRemoveYou(clazz, myParser, partnerRole);
     	  getGenerator(clazz).printFile();
     	  return;
@@ -732,14 +732,14 @@ public class GenRole extends Generator<Role>
       
       
       // generate property in creator class
-      if (!clazz.isInterface() && includeCreators(partnerRole.getClazz()))
+      if (!clazz.isInterface() && partnerRole.getClazz().hasFeature(Feature.Serialization))
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
          getGenerator(clazz).printFile(creatorParser);
       }
       
-      if (includeCreators(partnerRole.getClazz())) {
+      if (partnerRole.getClazz().hasFeature(Feature.Serialization)) {
 	      // generate property in model set class
 	      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
 	      
@@ -758,20 +758,6 @@ public class GenRole extends Generator<Role>
 	      getGenerator(clazz).printFile(patternObjectParser);
       }
    }
-   
-	private boolean includeCreators(Clazz clazz) {
-
-		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
-			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
-
-			for (String featureValue : feature) {
-
-				if (clazz.getFullName().equals(featureValue))
-					return false;
-			}
-		}
-		return true;
-	}
    
    private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Role partnerRole)
    {

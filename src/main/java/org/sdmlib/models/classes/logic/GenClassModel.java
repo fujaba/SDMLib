@@ -294,7 +294,7 @@ public class GenClassModel
 //            boolean publicCreatorCreator = false;
             for (Clazz clazz : model.getClasses())
             {
-               if (!clazz.isInterface()  && !clazz.isEnumeration() && includeCreators(clazz))
+               if (!clazz.isInterface()  && !clazz.isEnumeration() && clazz.hasFeature(Feature.Serialization))
                {
                   String creatorName = "";
                   if(clazz.isExternal()){
@@ -336,7 +336,7 @@ public class GenClassModel
          
          for (Clazz clazz : this.getModel().getClasses())
          {
-            if (!clazz.isInterface() && !clazz.isExternal() && includeCreators(clazz))
+            if (!clazz.isInterface() && !clazz.isExternal() && clazz.hasFeature(Feature.Serialization))
             {
                insertCreatorClassInCreatorCreator(creatorCreatorParser, clazz);
             }
@@ -348,20 +348,6 @@ public class GenClassModel
 
       return creatorCreatorParser;
    }
-   
-	private boolean includeCreators(Clazz clazz) {
-
-		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
-			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
-
-			for (String featureValue : feature) {
-
-				if (clazz.getFullName().equals(featureValue))
-					return false;
-			}
-		}
-		return true;
-	}
    
    public void insertCreatorClassInCreatorCreator(Parser ccParser, Clazz clazz)
    {
