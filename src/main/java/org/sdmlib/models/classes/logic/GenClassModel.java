@@ -248,7 +248,7 @@ public class GenClassModel
    
    public Parser getOrCreateCreatorCreatorParser(String rootDir)
    {
-      if (!model.getClasses().isEmpty() && creatorCreatorParser == null && model.getName() != null)
+      if (!model.getClasses().isEmpty() && creatorCreatorParser == null && model.getName() != null && model.hasFeature(Feature.Serialization))
       {
          String packageName = model.getName();
          

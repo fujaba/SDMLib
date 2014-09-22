@@ -523,6 +523,9 @@ public class GenClass extends Generator<Clazz>
 
    public void insertImport(Parser myParser, String className)
    {
+	   if(className.indexOf("<") > 0){
+		   className = className.substring(0, className.indexOf("<"));
+	   }
       if ("String int double float boolean void".indexOf(className) >= 0)
       {
          return;
@@ -845,6 +848,11 @@ public class GenClass extends Generator<Clazz>
    {
       String name=model.getFullName();
       int pos = name.lastIndexOf('.');
+      String entitiyClassName = model.getFullName().substring(pos + 1);
+      
+      if(!getModel().hasFeature(Feature.ALBERTsSets)){
+    	  return "java.util.LinkedHashSet<"+entitiyClassName+">";
+	  }
 
       String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
 
@@ -852,15 +860,26 @@ public class GenClass extends Generator<Clazz>
       {
          packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
       }
-
-      String entitiyClassName = model.getFullName().substring(pos + 1);
-
+      
       String modelSetClassName = entitiyClassName + "Set";
 
       String fullModelSetClassName = packageName + "." + modelSetClassName;
 
       return fullModelSetClassName;
    }
+   public String getModelSetClassNameShort() {
+	   String result = getModelSetClassName();
+	   int pos = result.lastIndexOf(".");
+	   if(pos>0) {
+		   result = result.substring(pos+1);
+	   }
+//	   pos = result.lastIndexOf("<");
+//	   if(pos>0) {
+//		   result = result.substring(0, pos);
+//	   }
+	   return result;
+   }
+   
 
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
