@@ -790,4 +790,8 @@ public class Clazz extends SDMLibClass
 	  }
       return false;
    }
+   
+   public boolean hasFeature(Feature feature) {
+	   return getClassModel().hasFeature(feature, this);
+   }
 }

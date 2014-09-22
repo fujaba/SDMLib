@@ -7,6 +7,7 @@ import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -98,7 +99,7 @@ public class GenClass extends Generator<Clazz>
             insertInterfaceMethods(model, rootDir, helpersDir);
             insertRemoveYouMethod(rootDir);
             
-            if ( includeCreators(model))
+            if ( model.hasFeature(Feature.Serialization))
             	insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
@@ -109,7 +110,7 @@ public class GenClass extends Generator<Clazz>
       }
 
 
-      if ( !model.isEnumeration() && !model.isInterface() && includeCreators(model))
+      if ( !model.isEnumeration() && !model.isInterface() && model.hasFeature(Feature.Serialization))
       {
          // now generate the corresponding creator class
          if(getRepairClassModel().hasFeature(Feature.Serialization)){
@@ -120,7 +121,7 @@ public class GenClass extends Generator<Clazz>
       }
 
       // now generate the corresponding ModelSet class
-      if (!model.isEnumeration() && includeCreators(model)) {
+      if (!model.isEnumeration() && model.hasFeature(Feature.Serialization)) {
 		getOrCreateParserForModelSetFile(helpersDir);
 		printFile(modelSetParser);
 			
@@ -138,20 +139,6 @@ public class GenClass extends Generator<Clazz>
 		}
       return this;
    }
-   
-	private boolean includeCreators(Clazz clazz) {
-
-		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
-			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
-
-			for (String featureValue : feature) {
-
-				if (clazz.getFullName().equals(featureValue))
-					return false;
-			}
-		}
-		return true;
-	}
    
    private void insertImports(){
       for(String importClazz : model.getImports()){
@@ -536,6 +523,9 @@ public class GenClass extends Generator<Clazz>
 
    public void insertImport(Parser myParser, String className)
    {
+	   if(className.indexOf("<") > 0){
+		   className = className.substring(0, className.indexOf("<"));
+	   }
       if ("String int double float boolean void".indexOf(className) >= 0)
       {
          return;
@@ -713,9 +703,8 @@ public class GenClass extends Generator<Clazz>
 
          File creatorJavaFile = new File(fileName);
          
-         if (!creatorJavaFile.exists() && model.getClassModel().hasFeature(Feature.WithExistingCreators)) {
-        	 String[] featureSet = Feature.getFeatureSet(Feature.WithExistingCreators);
-        	 
+         if (!creatorJavaFile.exists() && model.hasFeature(Feature.Serialization)) {
+        	 HashSet<String> featureSet = Feature.Serialization.getPath();
         	 for (String featureValue : featureSet) {
         		 String alternativePackageName = featureValue;
                  String alternativeFileName = alternativePackageName + "." + creatorClassName;
@@ -859,6 +848,11 @@ public class GenClass extends Generator<Clazz>
    {
       String name=model.getFullName();
       int pos = name.lastIndexOf('.');
+      String entitiyClassName = model.getFullName().substring(pos + 1);
+      
+      if(!getModel().hasFeature(Feature.ALBERTsSets)){
+    	  return "java.util.LinkedHashSet<"+entitiyClassName+">";
+	  }
 
       String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
 
@@ -866,15 +860,26 @@ public class GenClass extends Generator<Clazz>
       {
          packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
       }
-
-      String entitiyClassName = model.getFullName().substring(pos + 1);
-
+      
       String modelSetClassName = entitiyClassName + "Set";
 
       String fullModelSetClassName = packageName + "." + modelSetClassName;
 
       return fullModelSetClassName;
    }
+   public String getModelSetClassNameShort() {
+	   String result = getModelSetClassName();
+	   int pos = result.lastIndexOf(".");
+	   if(pos>0) {
+		   result = result.substring(pos+1);
+	   }
+//	   pos = result.lastIndexOf("<");
+//	   if(pos>0) {
+//		   result = result.substring(0, pos);
+//	   }
+	   return result;
+   }
+   
 
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
@@ -913,8 +918,8 @@ public class GenClass extends Generator<Clazz>
 
          File modelSetJavaFile = new File(fileName);
          
-         if (!modelSetJavaFile.exists() && model.getClassModel().hasFeature(Feature.WithExistingCreators)) {
-        	 String[] featureSet = Feature.getFeatureSet(Feature.WithExistingCreators);
+         if (!modelSetJavaFile.exists() && model.hasFeature(Feature.Serialization)) {
+        	 HashSet<String> featureSet = Feature.Serialization.getPath();
         	 
         	 for (String featureValue : featureSet) {
         		 String alternativePackageName = featureValue;
@@ -1066,8 +1071,8 @@ public class GenClass extends Generator<Clazz>
 
          File patternObjectJavaFile = new File(fileName);
          
-         if (!patternObjectJavaFile.exists() && model.getClassModel().hasFeature(Feature.WithExistingCreators)) {
-        	 String[] featureSet = Feature.getFeatureSet(Feature.WithExistingCreators);
+         if (!patternObjectJavaFile.exists() && model.hasFeature(Feature.Serialization)) {
+        	 HashSet<String> featureSet = Feature.Serialization.getPath();
         	 
         	 for (String featureValue : featureSet) {
         		 String alternativePackageName = featureValue;
@@ -1216,8 +1221,9 @@ public class GenClass extends Generator<Clazz>
 
          File patternObjectCreatorJavaFile = new File(fileName);
          
-         if (!patternObjectCreatorJavaFile.exists() && model.getClassModel().hasFeature(Feature.WithExistingCreators) ) {
-        	 String[] featureSet = Feature.getFeatureSet(Feature.WithExistingCreators);
+
+         if (!patternObjectCreatorJavaFile.exists() && model.hasFeature(Feature.Serialization) ) {
+        	 HashSet<String> featureSet = Feature.Serialization.getPath();
         	 
         	 for (String featureValue : featureSet) {
         		 String alternativePackageName = featureValue;

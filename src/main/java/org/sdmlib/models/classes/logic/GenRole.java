@@ -81,12 +81,11 @@ public class GenRole extends Generator<Role>
    {
       // generate EMPTY_SET in partner class
       Clazz partnerClass = partnerRole.getClazz();
-      Parser partnerParser = getGenerator(partnerClass).getOrCreateParser(rootDir);
+      GenClass partnerClazz = getGenerator(partnerClass);
+      Parser partnerParser = partnerClazz.getOrCreateParser(rootDir);
       
       int partnerPos = partnerParser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
       
-      String partnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getFullName());
-
       if (partnerPos < 0)
       {
          // add attribute declaration in class file
@@ -94,22 +93,27 @@ public class GenRole extends Generator<Role>
 
          StringBuilder partnerText = new StringBuilder
             (  "\n   " +
-               "\n   public static final type EMPTY_SET = new type().withReadonly(true);" +
+               "\n   public static final type EMPTY_SET = new type()READONLY;" +
                "\n"
                );
+
+         String replaceReadOnly = ".withReadonly(true)";
+         if(!(partnerClass.hasFeature(Feature.ALBERTsSets))){
+        	 replaceReadOnly = "";
+         }
          
-         String setClass = partnerClassName + "Set";
-      CGUtil.replaceAll(partnerText, 
-            "type", setClass
+         CGUtil.replaceAll(partnerText, 
+            "type", partnerClazz.getModelSetClassNameShort(),
+            "READONLY", replaceReadOnly
             );
          
          partnerParser.insert(partnerPos, partnerText.toString());
          
          // insert import 
-         String ownerClassName = partnerClass.getFullName();
-         String packageName = CGUtil.packageName(ownerClassName);
-         String shortClassName = CGUtil.shortClassName(ownerClassName);
-         getGenerator(partnerClass).insertImport(packageName + GenClassModel.UTILPATH+"." + shortClassName + "Set");
+//         String ownerClassName = partnerClass.getFullName();
+//         String packageName = CGUtil.packageName(ownerClassName);
+//         String shortClassName = CGUtil.shortClassName(ownerClassName);
+         getGenerator(partnerClass).insertImport(partnerClazz.getModelSetClassName());
          
          getGenerator(partnerRole.getClazz()).printFile();
 
@@ -123,9 +127,12 @@ public class GenRole extends Generator<Role>
    {
       String myClassName = CGUtil.shortClassName(model.getClazz().getFullName());
       
+      GenClass partnerClazz = getGenerator(partnerRole.getClazz());
       String partnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getFullName());
       
+      
       String partnerRoleName = partnerRole.getName();
+      String partnerClassNameSet = partnerClazz.getModelSetClassNameShort();
       
       String partnerRoleUpFirstChar = StrUtil.upFirstChar(partnerRoleName);
       
@@ -275,13 +282,14 @@ public class GenRole extends Generator<Role>
                   "\n            if (changed)" +
                   "\n            {" +
                   "\n               item.withMyRoleName(this);" +
-                  "\n               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);" +
+                  "\n               PROPERTYCHANGEADD" +
                   "\n            }" +
                   "\n         }" +
                   "\n      }" +
                   "\n      return this;" +
                   "\n   } " +
                   "\n");
+           
          }
          else
          {
@@ -313,7 +321,7 @@ public class GenRole extends Generator<Role>
                   "\n            if (this.partnerRoleName.remove(item))" +
                   "\n            {" +
                   "\n               item.reverseWithoutCall(this);" +
-                  "\n               getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);" +
+                  "\n               PROPERTYCHANGEREMOVE" +
                   "\n            }" +
                   "\n         }" +
                   "\n      }" +
@@ -401,7 +409,8 @@ public class GenRole extends Generator<Role>
          
          CGUtil.replaceAll(text, 
             "KidClassName", kidClassName, 
-            "PartnerRoleNameSubClassName", partnerRoleUpFirstChar + kidClassName);
+            "PartnerRoleNameSubClassName", partnerRoleUpFirstChar + kidClassName
+        	);
          
          if(generator!=null)
          {
@@ -416,11 +425,18 @@ public class GenRole extends Generator<Role>
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
       
+      String propertyChangeAdd = "";
+      String propertyChangeRemove = "";
+      if(model.getClazz().hasFeature(Feature.PropertyChangeSupport)){
+     	 propertyChangeAdd = "getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);";
+     	 propertyChangeRemove = "getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);"; 
+      }
+      
       CGUtil.replaceAll(text, 
          "myCard", model.getCard(),
          "partnerCard", partnerRole.getCard(),
-         "type", partnerClassName + "Set", 
-         "initRoleVar", "new " + partnerClassName + "Set()", 
+         "type", partnerClassNameSet, 
+         "initRoleVar", "new " + partnerClassNameSet + "()", 
          "myClassName", myClassName,
          "partnerClassName", partnerClassName,
          "realPartnerClassName", realPartnerClassName,
@@ -429,7 +445,9 @@ public class GenRole extends Generator<Role>
          "partnerRoleName", partnerRoleName,
          "PARTNER_ROLE_NAME", partnerRoleName.toUpperCase(),
          "PartnerRoleName", partnerRoleUpFirstChar,
-         "reverseWithoutCall(this)", reverseWithoutCall
+         "reverseWithoutCall(this)", reverseWithoutCall,
+         "PROPERTYCHANGEADD", propertyChangeAdd,
+         "PROPERTYCHANGEREMOVE", propertyChangeRemove
          );
       if(generator!=null){
          generator.insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
@@ -555,7 +573,7 @@ public class GenRole extends Generator<Role>
                   "\n            value.withMyRoleName(this);" +
                   "\n         }" +
                   "\n         " +
-                  "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, oldValue, value);" +
+                  "\n         PROPERTYCHANGEADD" +
                   "\n         changed = true;" +
                   "\n      }" +
                   "\n      " +
@@ -642,6 +660,11 @@ public class GenRole extends Generator<Role>
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
       
+      String propertyChangeAdd = "";
+      if(model.getClazz().hasFeature(Feature.PropertyChangeSupport)){
+     	 propertyChangeAdd = "getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, oldValue, value);";
+      }
+      
       CGUtil.replaceAll(text, 
          "myCard", model.getCard(),
          "partnerCard", partnerRole.getCard(),
@@ -653,7 +676,8 @@ public class GenRole extends Generator<Role>
          "partnerRoleName", partnerRoleName,
          "PARTNER_ROLE_NAME", partnerRoleName.toUpperCase(),
          "PartnerRoleName", partnerRoleUpFirstChar,
-         "withoutMethodCall(this)", reverseWithoutCall
+         "withoutMethodCall(this)", reverseWithoutCall,
+         "PROPERTYCHANGEADD", propertyChangeAdd
          );
       
       GenClass generator = getGenerator(model.getClazz());
@@ -707,7 +731,7 @@ public class GenRole extends Generator<Role>
          getGenerator(clazz).insertImport(partnerRole.getClazz().getFullName());
       }
       
-      if(!includeCreators(clazz)) {
+      if(!clazz.hasFeature(Feature.Serialization)) {
     	  insertRemovalInRemoveYou(clazz, myParser, partnerRole);
     	  getGenerator(clazz).printFile();
     	  return;
@@ -732,14 +756,14 @@ public class GenRole extends Generator<Role>
       
       
       // generate property in creator class
-      if (!clazz.isInterface() && includeCreators(partnerRole.getClazz()))
+      if (!clazz.isInterface() && partnerRole.getClazz().hasFeature(Feature.Serialization))
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
          getGenerator(clazz).printFile(creatorParser);
       }
       
-      if (includeCreators(partnerRole.getClazz())) {
+      if (partnerRole.getClazz().hasFeature(Feature.Serialization)) {
 	      // generate property in model set class
 	      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
 	      
@@ -758,20 +782,6 @@ public class GenRole extends Generator<Role>
 	      getGenerator(clazz).printFile(patternObjectParser);
       }
    }
-   
-	private boolean includeCreators(Clazz clazz) {
-
-		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
-			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
-
-			for (String featureValue : feature) {
-
-				if (clazz.getFullName().equals(featureValue))
-					return false;
-			}
-		}
-		return true;
-	}
    
    private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Role partnerRole)
    {

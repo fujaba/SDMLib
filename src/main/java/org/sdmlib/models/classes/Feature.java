@@ -1,18 +1,21 @@
 package org.sdmlib.models.classes;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 public enum Feature
 {
-   PropertyChangeSupport,
-   PatternObject,
-   Serialization,
-   ALBERTsSets,
-   WithExistingCreators,
-   WithoutCreators;
+   PropertyChangeSupport(new FeatureProperty()),
+   PatternObject(new FeatureProperty()),
+   Serialization(new FeatureProperty()),
+   ALBERTsSets(new FeatureProperty());
    
-
+   private FeatureProperty feature;
+   
+   Feature(FeatureProperty value) {
+	   this.feature = value;
+   }
+   
+   
    public static final HashSet<Feature> getNone(){
       return new HashSet<Feature>();
    }
@@ -26,20 +29,38 @@ public enum Feature
       return result;
    }
    
-   static HashMap<Feature, String[]> featureSets = new HashMap<Feature, String[]>();
-   
-   public static final void with(Feature feature, String... values) {
-	   featureSets.put(feature, values);
+   public FeatureProperty getFeature() {
+	   return feature;
    }
-   
-   public static final String[] getFeatureSet(Feature feature) {
-	   return featureSets.get(feature);
-   }   
-   
-   
-   public static final void withOut(Feature feature) {
-	   featureSets.remove(feature);
-   }
+
+
+	public Feature withIncludeClazz(String... value) {
+		getFeature().withInclude(value);
+		return this;
+	}
+	public Feature withExcludeClazz(String... value) {
+		getFeature().withExclude(value);
+		return this;
+	}
+	public Feature withExcludeClazz(Clazz... value) {
+		getFeature().withExclude(value);
+		return this;
+	}
+	
+	public Feature withPath(String... value) {
+		getFeature().withPath(value);
+		return this;
+	}
+
+
+	public boolean match(Clazz clazz) {
+		return getFeature().match(clazz.getFullName());
+	}
+
+
+	public HashSet<String> getPath() {
+		return getFeature().getPath();
+	}
 }
 
 

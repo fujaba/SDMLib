@@ -1072,7 +1072,7 @@ public class GenAttribute extends Generator<Attribute>
       if(model.getVisibility().same(Visibility.PRIVATE)){
     	  
 //    	  if (!isEnumType(model, clazz)) {
-    		  if ( !clazz.isInterface() && clazz.getClassModel().hasFeature(Feature.Serialization) && includeCreators(clazz))
+   		  if ( !clazz.isInterface() && clazz.hasFeature(Feature.Serialization) )
     		  {
     			  Parser creatorParser = getGenerator( clazz).getOrCreateParserForCreatorClass(helpersDir);
     			  
@@ -1094,20 +1094,6 @@ public class GenAttribute extends Generator<Attribute>
 
       return this;
    }
-
-	private boolean includeCreators(Clazz clazz) {
-
-		if (clazz.getClassModel().hasFeature(Feature.WithoutCreators)) {
-			String[] feature = Feature.getFeatureSet(Feature.WithoutCreators);
-
-			for (String featureValue : feature) {
-
-				if (clazz.getFullName().equals(featureValue))
-					return false;
-			}
-		}
-		return true;
-	}
 
 	public boolean isEnumType(Attribute model, Clazz clazz) {
 		DataType dataType = model.getType();

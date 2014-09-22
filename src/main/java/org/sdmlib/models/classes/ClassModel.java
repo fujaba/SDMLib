@@ -221,11 +221,6 @@ public class ClassModel extends SDMLibClass
       return this;
    }
 
-   public Set<Feature> getFeatures()
-   {
-      return features;
-   }
-
    public ClassModel withFeature(Feature... value)
    {
       if(value==null){
@@ -263,6 +258,13 @@ public class ClassModel extends SDMLibClass
    public boolean hasFeature(Feature value)
    {
       return features.contains(value);
+   }
+   
+   public boolean hasFeature(Feature feature, Clazz value) {
+	  if(hasFeature(feature)) {
+		  return feature.match(value);
+	  }
+	  return false;
    }
    
    @Override
