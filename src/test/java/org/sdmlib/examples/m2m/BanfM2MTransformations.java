@@ -84,7 +84,7 @@ public class BanfM2MTransformations
       
       storyboard.addClassDiagram(model);
       
-      storyboard.dumpHTML();
+      // storyboard.dumpHTML();
       
       
       //==========================================================================
