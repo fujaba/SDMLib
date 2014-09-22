@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.sdmlib.CGUtil;
@@ -35,6 +36,8 @@ import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
+
+import de.uniks.networkparser.graph.GraphList;
 
 public class ClassModel extends SDMLibClass
 {
@@ -240,6 +243,22 @@ public class ClassModel extends SDMLibClass
       }
       return this;
    }
+   public ClassModel withFeatures(HashSet<Feature> value)
+   {
+		if (value == null) {
+			this.features.clear();
+			return this;
+		}
+		for (Feature item : value) {
+			if (item != null) {
+				if (this.features.add(item)) {
+					getPropertyChangeSupport().firePropertyChange(
+							PROPERTY_FEATURE, null, item);
+				}
+			}
+		}
+		return this;
+   }
 
    public boolean hasFeature(Feature value)
    {
@@ -269,11 +288,20 @@ public class ClassModel extends SDMLibClass
       withClasses(value);
       return value;
    }
+
+   /**
+    * dump classdiagram
+    * 
+    * @param diagramName  Diagrammname
+    */
+   public void dumpHTML(String diagramName) {
+	   dumpHTML(diagramName, "doc", Javascript.NAME);
+	}
    
    /**
     * dump classdiagram
     * 
-    * @param diagramName  
+    * @param diagramName  Diagrammname
     * @param folder       target folder
     * @param outputType   GuiAdapter name  (Javascript.NAME or GraphViz.NAME)
     */
@@ -292,7 +320,7 @@ public class ClassModel extends SDMLibClass
             "<script src=\"includes/dagre.js\"></script>\n"+
             "<script src=\"includes/drawer.js\"></script>\n"+
             "</head>\n" +
-            "<body onload=\"init();\">\n" +
+            "<body>\n" +
             "bodytext\n" + 
             "</body>\n" + 
             "</html>\n";
@@ -317,17 +345,24 @@ public class ClassModel extends SDMLibClass
       new File(folder+"/includes").mkdirs();
 
       // add javascript files
-      copyDocFile(folder, "classmodel", "dagre.js");
-      copyDocFile(folder, "classmodel", "drawer.js");
-      copyDocFile(folder, "classmodel", "graph.js");
-      copyDocFile(folder, "classmodel", "diagramstyle.css");
+      copyDocFile(folder, "", "dagre.js");
+      copyDocFile(folder, "", "drawer.js");
+      copyDocFile(folder, "", "graph.js");
+      copyDocFile(folder, "", "diagramstyle.css");
    } 
    
    private void copyDocFile(String targetFolder, String dir, String file)
    {
       File target=new File(targetFolder+ "/includes/" + file);
 
-      InputStream is = Javascript.class.getResourceAsStream("" + dir + "/" + file);
+      if(dir == null){
+    	  dir="";
+    	  
+      }
+      if(dir.length()>0 && !dir.endsWith("/")) {
+    	  dir += "/";
+      }
+      InputStream is = GraphList.class.getResourceAsStream(dir + file);
 
       if(is!=null)
       {

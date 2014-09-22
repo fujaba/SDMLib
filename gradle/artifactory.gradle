@@ -73,6 +73,22 @@ task fatJar(type: Jar) {
 	exclude('META-INF/MANIFEST.MF')
     classifier = 'all'
 }
+task pmJar(type: Jar) {
+	from {(
+			sourceSets.main.output +
+			sourceSets.main.allSource +
+			javadoc.outputs.files +
+					configurations.compile.filter({it.name.indexOf("Networkparser")>=0}).collect({it.isDirectory() ? it : zipTree(it)})
+		)}
+	exclude('META-INF/MANIFEST.MF')
+	exclude('org/sdmlib/models/transformations/**')
+	exclude('org/sdmlib/replication/**')
 
+	// REMOVE not nessessary Files NetworkParser
+	exclude('de/uniks/networkparser/bytes/**')
+	exclude('de/uniks/networkparser/date/**')
+	
+	classifier = 'pm'
+}
 
-artifacts { archives sourceJar, javadocJar, fatJar }
+artifacts { archives sourceJar, javadocJar, fatJar, pmJar}

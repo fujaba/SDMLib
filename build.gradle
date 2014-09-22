@@ -58,7 +58,7 @@ repositories {
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
     compile group: "org.beanshell", name: "bsh", version: "2.+"
-    compile 'de.uniks:Networkparser:4.2+'
+    compile 'de.uniks:Networkparser:4.2+:sources'
 }
 
 jacoco {
@@ -87,4 +87,3 @@ tasks.withType(JavaCompile) {
     //Suppress underscore warnings
     options.compilerArgs << '-Xlint:none'
 }
-

@@ -3,10 +3,10 @@ package org.sdmlib.doc.interfaze.Adapter;
 import java.util.LinkedHashMap;
 
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
-import org.sdmlib.model.taskflows.util.LogEntrySet;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
+import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 import de.uniks.networkparser.json.JsonArray;
 

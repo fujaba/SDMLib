@@ -18,60 +18,50 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
+   
+package org.sdmlib.models.taskflows.util;
 
-package org.sdmlib.models.classes;
+import java.util.Collection;
+import java.util.Timer;
 
-import java.beans.PropertyChangeSupport;
+import org.sdmlib.models.modelsets.SDMSet;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
+public class TimerSet extends SDMSet<Timer>
+{
 
-public abstract class SDMLibClass implements PropertyChangeInterface
-{  
-   public static final String PROPERTY_NAME = "name";
 
-   protected String name = null;
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   public TimerPO hasTimerPO()
+   {
+      return new TimerPO(this.toArray(new Timer[this.size()]));
+   }
+
 
    @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public String getEntryType()
    {
-      return listeners;
+      return "java.util.Timer";
    }
-   
-   
-   boolean setName(String value)
+
+
+   @SuppressWarnings("unchecked")
+   public TimerSet with(Object value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if (value instanceof java.util.Collection)
       {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-         return true;
+         this.addAll((Collection<Timer>)value);
       }
-      return false;
-   }
-  
-   public String getName()
-   {
-      return name;
+      else if (value != null)
+      {
+         this.add((Timer) value);
+      }
+      
+      return this;
    }
    
-   public abstract SDMLibClass withName(String value);
-
-
-   public void removeYou()
+   public TimerSet without(Timer value)
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      this.remove(value);
+      return this;
    }
 
-
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
-      
-      result.append(" ").append(this.getName());
-      return result.substring(1);
-   }
 }

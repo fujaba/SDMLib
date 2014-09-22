@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
-import org.sdmlib.model.taskflows.util.LogEntrySet;
 import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
@@ -14,6 +13,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
+import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 import de.uniks.networkparser.graph.GraphConverter;
 import de.uniks.networkparser.graph.GraphIdMap;

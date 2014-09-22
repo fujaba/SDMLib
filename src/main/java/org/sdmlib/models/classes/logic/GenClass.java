@@ -577,6 +577,9 @@ public class GenClass extends Generator<Clazz>
 
    public void printFile(Parser parser)
    {
+	   if(parser==null){
+		   return;
+	   }
       if(!isShowDiff()){
          CGUtil.printFile(parser);
       }
