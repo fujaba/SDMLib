@@ -59,6 +59,9 @@ dependencies {
     compile group: "junit", name: "junit", version: "4.+"
     compile group: "org.beanshell", name: "bsh", version: "2.+"
     compile 'de.uniks:Networkparser:4.2+:sources'
+     if(project.hasProperty('lectureBuild')) {
+     	 compile 'de.uniks:NetworkparserFX:4.2+:sources'
+     }
 }
 
 jacoco {
