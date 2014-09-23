@@ -76,7 +76,7 @@ task fatJar(type: Jar) {
 task pmJar(type: Jar) {
 		from (
 		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
-		configurations.compile.filter({it.name.indexOf("Networkparser")>=0 && it.name.indexOf("source")>=0}).collect({it.isDirectory() ? it : zipTree(it)}) +
+		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("source")>=0}).collect({it.isDirectory() ? it : zipTree(it)}) +
 		configurations.compile.filter({it.name.indexOf("NetworkParserFX")>=0 && it.name.indexOf("source")>=0}).collect({it.isDirectory() ? it : zipTree(it)})
 		)
 
