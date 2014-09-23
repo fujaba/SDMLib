@@ -78,7 +78,7 @@ task pmJar(type: Jar) {
 			sourceSets.main.output +
 			sourceSets.main.allSource +
 			javadoc.outputs.files +
-			configurations.compile.filter({it.name.indexOf("Networkparser-")>=0}).collect({it.isDirectory() ? it : zipTree(it)})
+			configurations.compile.filter({it.name.indexOf("Networkparser-")>=0}).collect({it.isDirectory() ? it : zipTree(it)}) +
 			configurations.compile.filter({it.name.indexOf("NetworkparserFX-")>=0}).collect({it.isDirectory() ? it : zipTree(it)})
 		)}
 	exclude('META-INF/MANIFEST.MF')
