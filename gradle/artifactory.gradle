@@ -74,7 +74,6 @@ task fatJar(type: Jar) {
     classifier = 'all'
 }
 task pmJar(type: Jar) {
-	configurations.compile.collect({println it.name})
 	from {(
 			sourceSets.main.output +
 			sourceSets.main.allSource +
