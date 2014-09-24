@@ -25,6 +25,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.examples.reachabilitygraphs.simplestates.util.NodeSet;
+import java.util.LinkedHashSet;
 
 public class Node implements PropertyChangeInterface
 {

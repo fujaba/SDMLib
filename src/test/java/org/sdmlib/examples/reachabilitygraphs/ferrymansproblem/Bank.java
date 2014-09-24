@@ -27,6 +27,7 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
+import java.util.LinkedHashSet;
 
 public class Bank implements PropertyChangeInterface
 {

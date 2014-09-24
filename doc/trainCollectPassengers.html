@@ -12,292 +12,375 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Train.T1 : Train",
+         "attributes":[
+         "passengers=null"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"Train.T1 : Train",
-            "attributes":[
-            "passengers=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.S2 : Station",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Train.S3 : Station",
-            "attributes":[
-            "trains=null",
-               "people=null",
-               "flag=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.P9 : Person",
-            "attributes":[
-            "train=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.P10 : Person",
-            "attributes":[
-            "train=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.P11 : Person",
-            "attributes":[
-            "train=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.S12 : SignalFlag",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Train.S4 : Station",
-            "attributes":[
-            "trains=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.S5 : Station",
-            "attributes":[
-            "trains=null",
-               "people=null",
-               "flag=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.P6 : Person",
-            "attributes":[
-            "train=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.P7 : Person",
-            "attributes":[
-            "train=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Train.S8 : SignalFlag",
-            "attributes":[]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"Train.S2 : Station"
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"station",
-            "source":"Train.T1 : Train",
-            "target":"Train.S2 : Station"
+         "typ":"node",
+         "id":"Train.S3 : Station",
+         "attributes":[
+         "trains=null",
+            "people=null",
+            "flag=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Train.P9 : Person",
+         "attributes":[
+         "train=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Train.P10 : Person",
+         "attributes":[
+         "train=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Train.P11 : Person",
+         "attributes":[
+         "train=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Train.S12 : SignalFlag"
+      },
+      {
+         "typ":"node",
+         "id":"Train.S4 : Station",
+         "attributes":[
+         "trains=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Train.S5 : Station",
+         "attributes":[
+         "trains=null",
+            "people=null",
+            "flag=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Train.P6 : Person",
+         "attributes":[
+         "train=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Train.P7 : Person",
+         "attributes":[
+         "train=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Train.S8 : SignalFlag"
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.train",
+            "id":"Train.T1 : Train"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"trains",
-            "source":"Train.S2 : Station",
-            "target":"Train.T1 : Train"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"Train.S2 : Station",
-            "target":"Train.S3 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"people",
-            "source":"Train.S2 : Station",
-            "target":"Train.P9 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"people",
-            "source":"Train.S2 : Station",
-            "target":"Train.P10 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"people",
-            "source":"Train.S2 : Station",
-            "target":"Train.P11 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"flag",
-            "source":"Train.S2 : Station",
-            "target":"Train.S12 : SignalFlag"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"Train.S3 : Station",
-            "target":"Train.S4 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"Train.S3 : Station",
-            "target":"Train.S2 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"Train.S4 : Station",
-            "target":"Train.S5 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"Train.S4 : Station",
-            "target":"Train.S3 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"people",
-            "source":"Train.S4 : Station",
-            "target":"Train.P6 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"people",
-            "source":"Train.S4 : Station",
-            "target":"Train.P7 : Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"flag",
-            "source":"Train.S4 : Station",
-            "target":"Train.S8 : SignalFlag"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"Train.S5 : Station",
-            "target":"Train.S4 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"station",
-            "source":"Train.P6 : Person",
-            "target":"Train.S4 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"station",
-            "source":"Train.P7 : Person",
-            "target":"Train.S4 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"station",
-            "source":"Train.S8 : SignalFlag",
-            "target":"Train.S4 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"station",
-            "source":"Train.P9 : Person",
-            "target":"Train.S2 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"station",
-            "source":"Train.P10 : Person",
-            "target":"Train.S2 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"station",
-            "source":"Train.P11 : Person",
-            "target":"Train.S2 : Station"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"station",
-            "source":"Train.S12 : SignalFlag",
-            "target":"Train.S2 : Station"
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"Train.S2 : Station"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S2 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"trains",
+            "id":"Train.T1 : Train"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S2 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"Train.S3 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S2 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"Train.P9 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S2 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"Train.P10 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S2 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"Train.P11 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S2 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"flag",
+            "id":"Train.S12 : SignalFlag"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S3 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"Train.S4 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S3 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"Train.S2 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S4 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"Train.S5 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S4 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"Train.S3 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S4 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"Train.P6 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S4 : Station"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"people",
+            "id":"Train.P7 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S4 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"flag",
+            "id":"Train.S8 : SignalFlag"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.station",
+            "id":"Train.S5 : Station"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"Train.S4 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.person",
+            "id":"Train.P6 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"Train.S4 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.person",
+            "id":"Train.P7 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"Train.S4 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.signalflag",
+            "id":"Train.S8 : SignalFlag"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"station",
+            "id":"Train.S4 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.person",
+            "id":"Train.P9 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"Train.S2 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.person",
+            "id":"Train.P10 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"Train.S2 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.person",
+            "id":"Train.P11 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"Train.S2 : Station"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.patternrewriteops.model.signalflag",
+            "id":"Train.S12 : SignalFlag"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"station",
+            "id":"Train.S2 : Station"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvastrainCollectPassengers2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

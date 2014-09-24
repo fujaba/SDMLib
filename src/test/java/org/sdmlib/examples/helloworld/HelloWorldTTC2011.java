@@ -647,7 +647,7 @@ public class HelloWorldTTC2011
 
       storyboard.addObjectDiagram(graph);
 
-      storyboard.dumpHTML();
+      // storyboard.dumpHTML();
 
       //==========================================================================
 
@@ -856,7 +856,7 @@ public class HelloWorldTTC2011
 
       storyboard.addObjectDiagramWith(graph.getNodes(), graph.getEdges());;
 
-      storyboard.dumpHTML();
+      // storyboard.dumpHTML();
 
       //==========================================================================
 

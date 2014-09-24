@@ -14,196 +14,241 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.S1 : StoryboardWall"
+      },
       {
-            "typ":"node",
-            "id":"d.S1 : StoryboardWall",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"d.S3 : Storyboard",
-            "attributes":[
-            "rootDir=src",
-               "stepCounter=0",
-               "stepDoneCounter=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.S4 : StoryboardStep",
-            "attributes":[
-            "text=StoryboardInfrastructureInternals"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.S5 : StoryboardStep",
-            "attributes":[
-            "text=Internals."
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.S6 : StoryboardStep",
-            "attributes":[
-            "text=Object diagram for storyboard and KanbanEntry:"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.K2 : KanbanEntry",
-            "attributes":[
-            "name=name",
-               "phase=done",
-               "lastDeveloper=zuendorf",
-               "hoursRemaining=1.0",
-               "hoursSpend=2.0",
-               "files=null",
-               "oldNoOfLogEntries=0",
-               "phases=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.K7 : KanbanEntry",
-            "attributes":[
-            "name=null",
-               "phase=null",
-               "lastDeveloper=null",
-               "hoursRemaining=0.0",
-               "hoursSpend=0.0",
-               "logEntries=null",
-               "files=null",
-               "oldNoOfLogEntries=0",
-               "phases=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.L8 : LogEntryStoryBoard",
-            "attributes":[
-            "date=08.10.2013 13:22:42",
-               "hoursSpend=1.0",
-               "hoursRemainingInTotal=0.0",
-               "developer=zuendorf",
-               "phase=done",
-               "comment=Achieved: Object diagram for storyboard and KanbanEntry:"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.S3 : Storyboard",
+         "attributes":[
+         "rootDir=src",
+            "stepCounter=0",
+            "stepDoneCounter=0"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"storyboard",
-            "source":"d.S1 : StoryboardWall",
-            "target":"d.S3 : Storyboard"
+         "typ":"node",
+         "id":"d.S4 : StoryboardStep",
+         "attributes":[
+         "text=StoryboardInfrastructureInternals"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.S5 : StoryboardStep",
+         "attributes":[
+         "text=Internals."
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.S6 : StoryboardStep",
+         "attributes":[
+         "text=Object diagram for storyboard and KanbanEntry:"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.K2 : KanbanEntry",
+         "attributes":[
+         "name=name",
+            "phase=done",
+            "lastDeveloper=zuendorf",
+            "hoursRemaining=1.0",
+            "hoursSpend=2.0",
+            "files=null",
+            "oldNoOfLogEntries=0",
+            "phases=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.K7 : KanbanEntry",
+         "attributes":[
+         "name=null",
+            "phase=null",
+            "lastDeveloper=null",
+            "hoursRemaining=0.0",
+            "hoursSpend=0.0",
+            "logEntries=null",
+            "files=null",
+            "oldNoOfLogEntries=0",
+            "phases=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.L8 : LogEntryStoryBoard",
+         "attributes":[
+         "date=08.10.2013 13:22:42",
+            "hoursSpend=1.0",
+            "hoursRemainingInTotal=0.0",
+            "developer=zuendorf",
+            "phase=done",
+            "comment=Achieved: Object diagram for storyboard and KanbanEntry:"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.storyboardwall",
+            "id":"d.S1 : StoryboardWall"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"storyboardSteps",
-            "source":"d.S3 : Storyboard",
-            "target":"d.S4 : StoryboardStep"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"storyboardSteps",
-            "source":"d.S3 : Storyboard",
-            "target":"d.S5 : StoryboardStep"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"storyboardSteps",
-            "source":"d.S3 : Storyboard",
-            "target":"d.S6 : StoryboardStep"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"wall",
-            "source":"d.S3 : Storyboard",
-            "target":"d.S1 : StoryboardWall"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"storyboard",
-            "source":"d.S4 : StoryboardStep",
-            "target":"d.S3 : Storyboard"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"storyboard",
-            "source":"d.S5 : StoryboardStep",
-            "target":"d.S3 : Storyboard"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"storyboard",
-            "source":"d.S6 : StoryboardStep",
-            "target":"d.S3 : Storyboard"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.K2 : KanbanEntry",
-            "target":"d.K7 : KanbanEntry"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"logEntries",
-            "source":"d.K2 : KanbanEntry",
-            "target":"d.L8 : LogEntryStoryBoard"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"subentries",
-            "source":"d.K7 : KanbanEntry",
-            "target":"d.K2 : KanbanEntry"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"kanbanEntry",
-            "source":"d.L8 : LogEntryStoryBoard",
-            "target":"d.K2 : KanbanEntry"
+         "target":{
+            "cardinality":"one",
+            "property":"storyboard",
+            "id":"d.S3 : Storyboard"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.storyboard",
+            "id":"d.S3 : Storyboard"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"storyboardSteps",
+            "id":"d.S4 : StoryboardStep"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.storyboard",
+            "id":"d.S3 : Storyboard"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"storyboardSteps",
+            "id":"d.S5 : StoryboardStep"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.storyboard",
+            "id":"d.S3 : Storyboard"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"storyboardSteps",
+            "id":"d.S6 : StoryboardStep"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.storyboard",
+            "id":"d.S3 : Storyboard"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"wall",
+            "id":"d.S1 : StoryboardWall"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.storyboardstep",
+            "id":"d.S4 : StoryboardStep"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"storyboard",
+            "id":"d.S3 : Storyboard"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.storyboardstep",
+            "id":"d.S5 : StoryboardStep"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"storyboard",
+            "id":"d.S3 : Storyboard"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.storyboardstep",
+            "id":"d.S6 : StoryboardStep"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"storyboard",
+            "id":"d.S3 : Storyboard"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.kanbanentry",
+            "id":"d.K2 : KanbanEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.K7 : KanbanEntry"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.kanbanentry",
+            "id":"d.K2 : KanbanEntry"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"logEntries",
+            "id":"d.L8 : LogEntryStoryBoard"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.kanbanentry",
+            "id":"d.K7 : KanbanEntry"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"subentries",
+            "id":"d.K2 : KanbanEntry"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.storyboards.logentrystoryboard",
+            "id":"d.L8 : LogEntryStoryBoard"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"kanbanEntry",
+            "id":"d.K2 : KanbanEntry"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStoryboardInfrastructureInternals4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

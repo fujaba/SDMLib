@@ -30,6 +30,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
+import java.util.LinkedHashSet;
 
 public class Room implements PropertyChangeInterface
 {

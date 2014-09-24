@@ -94,625 +94,807 @@ phase entries will be used for planning, in future</p>
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.C1 : ClassModel",
+         "attributes":[
+         "name=org.sdmlib.storyboards",
+            "enumerations=null"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"d.C1 : ClassModel",
-            "attributes":[
-            "name=org.sdmlib.storyboards",
-               "enumerations=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.C2 : Clazz",
-            "attributes":[
-            "name=null",
-               "external=false",
-               "superClazzes=null",
-               "methods=null",
-               "kidClazzes=null",
-               "interface=false"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.C8 : Clazz",
-            "attributes":[
-            "name=null",
-               "external=false",
-               "superClazzes=null",
-               "attributes=null",
-               "methods=null",
-               "kidClazzes=null",
-               "interface=false"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.C9 : Clazz",
-            "attributes":[
-            "name=null",
-               "external=false",
-               "superClazzes=null",
-               "attributes=null",
-               "methods=null",
-               "kidClazzes=null",
-               "interface=false"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.C13 : Clazz",
-            "attributes":[
-            "name=null",
-               "external=false",
-               "superClazzes=null",
-               "methods=null",
-               "kidClazzes=null",
-               "interface=false"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.C20 : Clazz",
-            "attributes":[
-            "name=null",
-               "external=false",
-               "superClazzes=null",
-               "methods=null",
-               "kidClazzes=null",
-               "interface=false"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A3 : Attribute",
-            "attributes":[
-            "initialization=null",
-               "type=DataType.INT",
-               "name=oldNoOfLogEntries"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A4 : Attribute",
-            "attributes":[
-            "initialization=null",
-               "type=DataType.STRING",
-               "name=phases"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.R5 : Role",
-            "attributes":[
-            "name=kanbanEntry",
-               "card=one",
-               "kind=aggregation"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A6 : Association",
-            "attributes":[
-            "name=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.R7 : Role",
-            "attributes":[
-            "name=logEntries",
-               "card=many",
-               "kind=vanilla"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.R10 : Role",
-            "attributes":[
-            "name=wall",
-               "card=one",
-               "kind=vanilla"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A11 : Association",
-            "attributes":[
-            "name=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.R12 : Role",
-            "attributes":[
-            "name=storyboard",
-               "card=one",
-               "kind=vanilla"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A14 : Attribute",
-            "attributes":[
-            "initialization=null",
-               "type=DataType.STRING",
-               "name=rootDir"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A15 : Attribute",
-            "attributes":[
-            "initialization=null",
-               "type=DataType.INT",
-               "name=stepCounter"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A16 : Attribute",
-            "attributes":[
-            "initialization=null",
-               "type=DataType.INT",
-               "name=stepDoneCounter"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.R17 : Role",
-            "attributes":[
-            "name=storyboard",
-               "card=one",
-               "kind=vanilla"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A18 : Association",
-            "attributes":[
-            "name=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.R19 : Role",
-            "attributes":[
-            "name=storyboardSteps",
-               "card=many",
-               "kind=vanilla"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.A21 : Attribute",
-            "attributes":[
-            "initialization=null",
-               "type=DataType.STRING",
-               "name=text"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.C2 : Clazz",
+         "attributes":[
+         "name=null",
+            "external=false",
+            "superClazzes=null",
+            "methods=null",
+            "kidClazzes=null",
+            "interface=false"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"classes",
-            "source":"d.C1 : ClassModel",
-            "target":"d.C2 : Clazz"
+         "typ":"node",
+         "id":"d.C8 : Clazz",
+         "attributes":[
+         "name=null",
+            "external=false",
+            "superClazzes=null",
+            "attributes=null",
+            "methods=null",
+            "kidClazzes=null",
+            "interface=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.C9 : Clazz",
+         "attributes":[
+         "name=null",
+            "external=false",
+            "superClazzes=null",
+            "attributes=null",
+            "methods=null",
+            "kidClazzes=null",
+            "interface=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.C13 : Clazz",
+         "attributes":[
+         "name=null",
+            "external=false",
+            "superClazzes=null",
+            "methods=null",
+            "kidClazzes=null",
+            "interface=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.C20 : Clazz",
+         "attributes":[
+         "name=null",
+            "external=false",
+            "superClazzes=null",
+            "methods=null",
+            "kidClazzes=null",
+            "interface=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A3 : Attribute",
+         "attributes":[
+         "initialization=null",
+            "type=DataType.INT",
+            "name=oldNoOfLogEntries"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A4 : Attribute",
+         "attributes":[
+         "initialization=null",
+            "type=DataType.STRING",
+            "name=phases"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.R5 : Role",
+         "attributes":[
+         "name=kanbanEntry",
+            "card=one",
+            "kind=aggregation"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A6 : Association",
+         "attributes":[
+         "name=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.R7 : Role",
+         "attributes":[
+         "name=logEntries",
+            "card=many",
+            "kind=vanilla"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.R10 : Role",
+         "attributes":[
+         "name=wall",
+            "card=one",
+            "kind=vanilla"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A11 : Association",
+         "attributes":[
+         "name=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.R12 : Role",
+         "attributes":[
+         "name=storyboard",
+            "card=one",
+            "kind=vanilla"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A14 : Attribute",
+         "attributes":[
+         "initialization=null",
+            "type=DataType.STRING",
+            "name=rootDir"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A15 : Attribute",
+         "attributes":[
+         "initialization=null",
+            "type=DataType.INT",
+            "name=stepCounter"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A16 : Attribute",
+         "attributes":[
+         "initialization=null",
+            "type=DataType.INT",
+            "name=stepDoneCounter"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.R17 : Role",
+         "attributes":[
+         "name=storyboard",
+            "card=one",
+            "kind=vanilla"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A18 : Association",
+         "attributes":[
+         "name=null"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.R19 : Role",
+         "attributes":[
+         "name=storyboardSteps",
+            "card=many",
+            "kind=vanilla"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.A21 : Attribute",
+         "attributes":[
+         "initialization=null",
+            "type=DataType.STRING",
+            "name=text"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.classmodel",
+            "id":"d.C1 : ClassModel"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"classes",
-            "source":"d.C1 : ClassModel",
-            "target":"d.C8 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"classes",
-            "source":"d.C1 : ClassModel",
-            "target":"d.C9 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"classes",
-            "source":"d.C1 : ClassModel",
-            "target":"d.C13 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"classes",
-            "source":"d.C1 : ClassModel",
-            "target":"d.C20 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"classModel",
-            "source":"d.C2 : Clazz",
-            "target":"d.C1 : ClassModel"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"attributes",
-            "source":"d.C2 : Clazz",
-            "target":"d.A3 : Attribute"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"attributes",
-            "source":"d.C2 : Clazz",
-            "target":"d.A4 : Attribute"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"roles",
-            "source":"d.C2 : Clazz",
-            "target":"d.R5 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.A3 : Attribute",
-            "target":"d.C2 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.A4 : Attribute",
-            "target":"d.C2 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.R5 : Role",
-            "target":"d.C2 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"assoc",
-            "source":"d.R5 : Role",
-            "target":"d.A6 : Association"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"source",
-            "source":"d.A6 : Association",
-            "target":"d.R5 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"target",
-            "source":"d.A6 : Association",
-            "target":"d.R7 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.R7 : Role",
-            "target":"d.C8 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"assoc",
-            "source":"d.R7 : Role",
-            "target":"d.A6 : Association"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"classModel",
-            "source":"d.C8 : Clazz",
-            "target":"d.C1 : ClassModel"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"roles",
-            "source":"d.C8 : Clazz",
-            "target":"d.R7 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"classModel",
-            "source":"d.C9 : Clazz",
-            "target":"d.C1 : ClassModel"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"roles",
-            "source":"d.C9 : Clazz",
-            "target":"d.R10 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.R10 : Role",
-            "target":"d.C9 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"assoc",
-            "source":"d.R10 : Role",
-            "target":"d.A11 : Association"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"source",
-            "source":"d.A11 : Association",
-            "target":"d.R10 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"target",
-            "source":"d.A11 : Association",
-            "target":"d.R12 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.R12 : Role",
-            "target":"d.C13 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"assoc",
-            "source":"d.R12 : Role",
-            "target":"d.A11 : Association"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"classModel",
-            "source":"d.C13 : Clazz",
-            "target":"d.C1 : ClassModel"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"attributes",
-            "source":"d.C13 : Clazz",
-            "target":"d.A14 : Attribute"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"attributes",
-            "source":"d.C13 : Clazz",
-            "target":"d.A15 : Attribute"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"attributes",
-            "source":"d.C13 : Clazz",
-            "target":"d.A16 : Attribute"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"roles",
-            "source":"d.C13 : Clazz",
-            "target":"d.R12 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"roles",
-            "source":"d.C13 : Clazz",
-            "target":"d.R17 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.A14 : Attribute",
-            "target":"d.C13 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.A15 : Attribute",
-            "target":"d.C13 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.A16 : Attribute",
-            "target":"d.C13 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.R17 : Role",
-            "target":"d.C13 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"assoc",
-            "source":"d.R17 : Role",
-            "target":"d.A18 : Association"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"source",
-            "source":"d.A18 : Association",
-            "target":"d.R17 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"target",
-            "source":"d.A18 : Association",
-            "target":"d.R19 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.R19 : Role",
-            "target":"d.C20 : Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"assoc",
-            "source":"d.R19 : Role",
-            "target":"d.A18 : Association"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"classModel",
-            "source":"d.C20 : Clazz",
-            "target":"d.C1 : ClassModel"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"attributes",
-            "source":"d.C20 : Clazz",
-            "target":"d.A21 : Attribute"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"roles",
-            "source":"d.C20 : Clazz",
-            "target":"d.R19 : Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"clazz",
-            "source":"d.A21 : Attribute",
-            "target":"d.C20 : Clazz"
+         "target":{
+            "cardinality":"many",
+            "property":"classes",
+            "id":"d.C2 : Clazz"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.classmodel",
+            "id":"d.C1 : ClassModel"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"classes",
+            "id":"d.C8 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.classmodel",
+            "id":"d.C1 : ClassModel"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"classes",
+            "id":"d.C9 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.classmodel",
+            "id":"d.C1 : ClassModel"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"classes",
+            "id":"d.C13 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.classmodel",
+            "id":"d.C1 : ClassModel"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"classes",
+            "id":"d.C20 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C2 : Clazz"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"classModel",
+            "id":"d.C1 : ClassModel"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C2 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"attributes",
+            "id":"d.A3 : Attribute"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C2 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"attributes",
+            "id":"d.A4 : Attribute"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C2 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"roles",
+            "id":"d.R5 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.attribute",
+            "id":"d.A3 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C2 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.attribute",
+            "id":"d.A4 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C2 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R5 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C2 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R5 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assoc",
+            "id":"d.A6 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.association",
+            "id":"d.A6 : Association"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"source",
+            "id":"d.R5 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.association",
+            "id":"d.A6 : Association"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"target",
+            "id":"d.R7 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R7 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C8 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R7 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assoc",
+            "id":"d.A6 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C8 : Clazz"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"classModel",
+            "id":"d.C1 : ClassModel"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C8 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"roles",
+            "id":"d.R7 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C9 : Clazz"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"classModel",
+            "id":"d.C1 : ClassModel"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C9 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"roles",
+            "id":"d.R10 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R10 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C9 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R10 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assoc",
+            "id":"d.A11 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.association",
+            "id":"d.A11 : Association"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"source",
+            "id":"d.R10 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.association",
+            "id":"d.A11 : Association"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"target",
+            "id":"d.R12 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R12 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C13 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R12 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assoc",
+            "id":"d.A11 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C13 : Clazz"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"classModel",
+            "id":"d.C1 : ClassModel"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C13 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"attributes",
+            "id":"d.A14 : Attribute"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C13 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"attributes",
+            "id":"d.A15 : Attribute"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C13 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"attributes",
+            "id":"d.A16 : Attribute"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C13 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"roles",
+            "id":"d.R12 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C13 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"roles",
+            "id":"d.R17 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.attribute",
+            "id":"d.A14 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C13 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.attribute",
+            "id":"d.A15 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C13 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.attribute",
+            "id":"d.A16 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C13 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R17 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C13 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R17 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assoc",
+            "id":"d.A18 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.association",
+            "id":"d.A18 : Association"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"source",
+            "id":"d.R17 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.association",
+            "id":"d.A18 : Association"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"target",
+            "id":"d.R19 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R19 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C20 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.role",
+            "id":"d.R19 : Role"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"assoc",
+            "id":"d.A18 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C20 : Clazz"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"classModel",
+            "id":"d.C1 : ClassModel"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C20 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"attributes",
+            "id":"d.A21 : Attribute"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.clazz",
+            "id":"d.C20 : Clazz"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"roles",
+            "id":"d.R19 : Role"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.models.classes.attribute",
+            "id":"d.A21 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"d.C20 : Clazz"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStoryboardInfrastructure13", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

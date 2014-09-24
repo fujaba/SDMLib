@@ -13,84 +13,90 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.C1 : ClassModel",
+         "attributes":[
+         "classes=null",
+            "name=org.sdmlib",
+            "enumerations=null"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"d.C1 : ClassModel",
-            "attributes":[
-            "classes=null",
-               "name=org.sdmlib",
-               "enumerations=null"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.S2 : StatementEntry",
-            "attributes":[
-            "kind=polite",
-               "assignTargetVarName=x",
-               "startPos=42",
-               "endPos=77"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.S5 : StatementEntry",
-            "attributes":[
-            "kind=null",
-               "tokenList=null",
-               "assignTargetVarName=null",
-               "startPos=0",
-               "endPos=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.L3 : LocalVarTableEntry",
-            "attributes":[
-            "name=me",
-               "type=int",
-               "startPos=42",
-               "endPos=84",
-               "de.uniks.networkparser.json.JsonArray=[a, bc]"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.S4 : SymTabEntry",
-            "attributes":[
-            "kind=cool",
-               "memberName=me",
-               "type=null",
-               "startPos=43",
-               "bodyStartPos=42",
-               "endPos=84",
-               "modifiers=grow"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.S2 : StatementEntry",
+         "attributes":[
+         "kind=polite",
+            "assignTargetVarName=x",
+            "startPos=42",
+            "endPos=77"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"bodyStats",
-            "source":"d.S2 : StatementEntry",
-            "target":"d.S5 : StatementEntry"
+         "typ":"node",
+         "id":"d.S5 : StatementEntry",
+         "attributes":[
+         "kind=null",
+            "tokenList=null",
+            "assignTargetVarName=null",
+            "startPos=0",
+            "endPos=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.L3 : LocalVarTableEntry",
+         "attributes":[
+         "name=me",
+            "type=int",
+            "startPos=42",
+            "endPos=84",
+            "de.uniks.networkparser.json.JsonArray=[a, bc]"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.S4 : SymTabEntry",
+         "attributes":[
+         "kind=cool",
+            "memberName=me",
+            "type=null",
+            "startPos=43",
+            "bodyStartPos=42",
+            "endPos=84",
+            "modifiers=grow"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.codegen.statemententry",
+            "id":"d.S2 : StatementEntry"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"parent",
-            "source":"d.S5 : StatementEntry",
-            "target":"d.S2 : StatementEntry"
+         "target":{
+            "cardinality":"many",
+            "property":"bodyStats",
+            "id":"d.S5 : StatementEntry"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.codegen.statemententry",
+            "id":"d.S5 : StatementEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"d.S2 : StatementEntry"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasSDMLibCodeGenObjectsForCoverage3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

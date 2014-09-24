@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.ludoreverse.model.util.LudoSet;
+import java.util.LinkedHashSet;
 
 public class Ludo implements PropertyChangeInterface
 {

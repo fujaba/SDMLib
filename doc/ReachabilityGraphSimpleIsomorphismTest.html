@@ -13,146 +13,191 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.S1 : SimpleState"
+      },
       {
-            "typ":"node",
-            "id":"d.S1 : SimpleState",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"d.N2 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.N3 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.N4 : Node",
-            "attributes":[
-            "num=42"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.N2 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S1 : SimpleState",
-            "target":"d.N2 : Node"
+         "typ":"node",
+         "id":"d.N3 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.N4 : Node",
+         "attributes":[
+         "num=42"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S1 : SimpleState"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S1 : SimpleState",
-            "target":"d.N3 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S1 : SimpleState",
-            "target":"d.N4 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N2 : Node",
-            "target":"d.S1 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N2 : Node",
-            "target":"d.N3 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N2 : Node",
-            "target":"d.N4 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N3 : Node",
-            "target":"d.S1 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N3 : Node",
-            "target":"d.N4 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N3 : Node",
-            "target":"d.N2 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N4 : Node",
-            "target":"d.S1 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N4 : Node",
-            "target":"d.N2 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N4 : Node",
-            "target":"d.N3 : Node"
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N2 : Node"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S1 : SimpleState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N3 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S1 : SimpleState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N4 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N2 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S1 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N2 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N3 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N2 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N4 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N3 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S1 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N3 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N4 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N3 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N2 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N4 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S1 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N4 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N2 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N4 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N3 : Node"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -160,146 +205,191 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.S5 : SimpleState"
+      },
       {
-            "typ":"node",
-            "id":"d.S5 : SimpleState",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"d.N6 : Node",
-            "attributes":[
-            "num=42"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.N7 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.N8 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.N6 : Node",
+         "attributes":[
+         "num=42"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S5 : SimpleState",
-            "target":"d.N6 : Node"
+         "typ":"node",
+         "id":"d.N7 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.N8 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S5 : SimpleState"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S5 : SimpleState",
-            "target":"d.N7 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S5 : SimpleState",
-            "target":"d.N8 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N6 : Node",
-            "target":"d.S5 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N6 : Node",
-            "target":"d.N7 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N6 : Node",
-            "target":"d.N8 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N7 : Node",
-            "target":"d.S5 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N7 : Node",
-            "target":"d.N8 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N7 : Node",
-            "target":"d.N6 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N8 : Node",
-            "target":"d.S5 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N8 : Node",
-            "target":"d.N6 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N8 : Node",
-            "target":"d.N7 : Node"
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N6 : Node"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S5 : SimpleState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N7 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S5 : SimpleState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N8 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N6 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S5 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N6 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N7 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N6 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N8 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N7 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S5 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N7 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N8 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N7 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N6 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N8 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S5 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N8 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N6 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N8 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N7 : Node"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -358,146 +448,191 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.S1 : SimpleState"
+      },
       {
-            "typ":"node",
-            "id":"d.S1 : SimpleState",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"d.N2 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.N3 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.N4 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.N2 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S1 : SimpleState",
-            "target":"d.N2 : Node"
+         "typ":"node",
+         "id":"d.N3 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.N4 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S1 : SimpleState"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S1 : SimpleState",
-            "target":"d.N3 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S1 : SimpleState",
-            "target":"d.N4 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N2 : Node",
-            "target":"d.S1 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N2 : Node",
-            "target":"d.N3 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N2 : Node",
-            "target":"d.N4 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N3 : Node",
-            "target":"d.S1 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N3 : Node",
-            "target":"d.N4 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N3 : Node",
-            "target":"d.N2 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N4 : Node",
-            "target":"d.S1 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N4 : Node",
-            "target":"d.N2 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N4 : Node",
-            "target":"d.N3 : Node"
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N2 : Node"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S1 : SimpleState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N3 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S1 : SimpleState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N4 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N2 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S1 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N2 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N3 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N2 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N4 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N3 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S1 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N3 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N4 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N3 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N2 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N4 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S1 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N4 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N2 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N4 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N3 : Node"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -505,146 +640,191 @@
 <script>
    var json = {
    "typ":"object",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"d.S5 : SimpleState"
+      },
       {
-            "typ":"node",
-            "id":"d.S5 : SimpleState",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"d.N6 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.N7 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"d.N8 : Node",
-            "attributes":[
-            "num=0"
-            ]
-         }
-      ],
-      "edges":[
+         "typ":"node",
+         "id":"d.N6 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S5 : SimpleState",
-            "target":"d.N6 : Node"
+         "typ":"node",
+         "id":"d.N7 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"d.N8 : Node",
+         "attributes":[
+         "num=0"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S5 : SimpleState"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S5 : SimpleState",
-            "target":"d.N7 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"nodes",
-            "source":"d.S5 : SimpleState",
-            "target":"d.N8 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N6 : Node",
-            "target":"d.S5 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N6 : Node",
-            "target":"d.N7 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N6 : Node",
-            "target":"d.N8 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N7 : Node",
-            "target":"d.S5 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N7 : Node",
-            "target":"d.N8 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N7 : Node",
-            "target":"d.N6 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"one",
-            "sourceproperty":null,
-            "targetproperty":"graph",
-            "source":"d.N8 : Node",
-            "target":"d.S5 : SimpleState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"next",
-            "source":"d.N8 : Node",
-            "target":"d.N6 : Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":null,
-            "targetcardinality":"many",
-            "sourceproperty":null,
-            "targetproperty":"prev",
-            "source":"d.N8 : Node",
-            "target":"d.N7 : Node"
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N6 : Node"
          }
-      ]
-   }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S5 : SimpleState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N7 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.simplestate",
+            "id":"d.S5 : SimpleState"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"d.N8 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N6 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S5 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N6 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N7 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N6 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N8 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N7 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S5 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N7 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N8 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N7 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N6 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N8 : Node"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"d.S5 : SimpleState"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N8 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"next",
+            "id":"d.N6 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"org.sdmlib.examples.reachabilitygraphs.simplestates.node",
+            "id":"d.N8 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"d.N7 : Node"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasReachabilityGraphSimpleIsomorphismTest12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

@@ -27,6 +27,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.m2m.model.util.GraphComponentSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.util.LinkedHashSet;
 
 public class GraphComponent implements PropertyChangeInterface
 {

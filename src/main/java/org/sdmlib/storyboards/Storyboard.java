@@ -379,11 +379,11 @@ public class Storyboard implements PropertyChangeInterface
             "<head>" +
             "<meta charset=\"utf-8\">\n" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\r\n" +
-            "\r\n" +
-            "<script src=\"includes/dagre.js\"></script>\r\n" +
-            "<script src=\"includes/drawer.js\"></script>\r\n" +
-            "<script src=\"includes/graph.js\"></script>\r\n" +
+            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+            "\n" +
+            "<script src=\"includes/dagre.js\"></script>\n" +
+            "<script src=\"includes/drawer.js\"></script>\n" +
+            "<script src=\"includes/graph.js\"></script>\n" +
             "</head>" +
             "<body onload=\"init();\">\n" +
             "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
@@ -442,8 +442,48 @@ public class Storyboard implements PropertyChangeInterface
       {
          if (imgName.startsWith("<"))
          {
-            System.out.println("Ups");
+            System.out.println("Ups, invalid file name: " + imgName);
+            return;
          }
+
+         File oldFile = new File ("doc/" + imgName);
+         
+         if (oldFile.exists())
+         {
+            // load old file content and compare with new fileText, if no change, do not write
+            
+            BufferedReader in = new BufferedReader(new FileReader(oldFile));
+            StringBuilder oldFileText = new StringBuilder();
+            
+            String line = in.readLine();
+            while (line != null)
+            {
+               oldFileText.append(line).append("\n");
+               line = in.readLine();
+            }
+            
+            String oldFileString = oldFileText.toString().trim();
+            
+            fileText = fileText.replaceAll("\\r", "");
+            
+            int oldStringLength = oldFileString.length();
+            int newStringLength = fileText.length();
+            
+            for (int i = 0; i < Math.min(oldStringLength, newStringLength); i++)
+            {
+               if (oldFileString.charAt(i) != fileText.charAt(i))
+               {
+                  System.out.println("Found diff");
+               }
+            }
+            
+            if (oldFileString.equals(fileText.trim()))
+            {
+               // do not write file, no change
+               return;
+            }
+         }
+         
          BufferedWriter out = new BufferedWriter(new FileWriter("doc/" + imgName));
 
          out.write(fileText);

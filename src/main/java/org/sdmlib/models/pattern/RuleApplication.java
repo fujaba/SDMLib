@@ -27,6 +27,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
+import java.util.LinkedHashSet;
 
 public class RuleApplication implements PropertyChangeInterface
 {

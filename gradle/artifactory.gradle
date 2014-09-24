@@ -1,4 +1,4 @@
-import java.lang.ClassValue.Version;
+ import java.lang.ClassValue.Version;
 
 apply plugin: 'artifactory'
 apply plugin: 'maven'
@@ -74,12 +74,12 @@ task fatJar(type: Jar) {
     classifier = 'all'
 }
 task pmJar(type: Jar) {
-	from {(
-			sourceSets.main.output +
-			sourceSets.main.allSource +
-			javadoc.outputs.files +
-					configurations.compile.filter({it.name.indexOf("Networkparser")>=0}).collect({it.isDirectory() ? it : zipTree(it)})
+		from {(
+		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
+		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("NetworkParserFX")<0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}) +
+		configurations.compile.filter({it.name.indexOf("NetworkParserFX")>=0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)})
 		)}
+
 	exclude('META-INF/MANIFEST.MF')
 	exclude('org/sdmlib/models/transformations/**')
 	exclude('org/sdmlib/replication/**')

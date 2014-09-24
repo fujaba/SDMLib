@@ -28,6 +28,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import java.util.LinkedHashSet;
 
 public class University implements PropertyChangeInterface
 {

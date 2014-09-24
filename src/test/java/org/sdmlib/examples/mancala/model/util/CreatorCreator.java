@@ -22,6 +22,8 @@ public class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.examples.mancala.referencemodel.util.ColorCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.mancala.referencemodel.util.ColorPOCreator());
 
+      jsonIdMap.withCreator(new org.sdmlib.examples.mancala.model.util.StoneCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.mancala.model.util.StonePOCreator());
       return jsonIdMap;
    }
 }

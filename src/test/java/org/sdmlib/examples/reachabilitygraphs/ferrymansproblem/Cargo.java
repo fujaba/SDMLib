@@ -26,6 +26,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
+import java.util.LinkedHashSet;
 
 public class Cargo implements PropertyChangeInterface
 {
