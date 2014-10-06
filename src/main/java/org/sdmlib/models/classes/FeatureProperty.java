@@ -19,7 +19,7 @@ public class FeatureProperty {
 			if(item == null) {
 				continue;
 			}
-			if(ALL.getFullName().equals(item)) {
+			if(ALL.getFullName().equals(item.getFullName())) {
 				result = true;
 				break;
 			} else if(item.getFullName().equals(clazzName)) {
@@ -32,7 +32,7 @@ public class FeatureProperty {
 			if(item == null) {
 				continue;
 			}
-			if(ALL.equals(item)) {
+			if(ALL.getFullName().equals(item.getFullName())) {
 				result = false;
 				break;
 			} else if(item.getFullName().equals(clazzName)) {

@@ -24,7 +24,6 @@ package org.sdmlib.models.classes;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
-import java.util.LinkedHashSet;
 
 public class Method extends SDMLibClass
 {

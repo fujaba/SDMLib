@@ -7,8 +7,10 @@ import java.util.HashMap;
 public abstract class RemoteTaskListener implements PropertyChangeListener
 {
    public static final String NEW = "NEW";
-   protected SharedSpace sharedSpace;
+   private SharedSpace sharedSpace;
+   private RemoteTaskBoard remoteTaskBoard;
    private HashMap<String, RemoteTask> tasks;
+   private Lane lane;
    private boolean isInit;
 
    public RemoteTaskListener()
@@ -39,7 +41,7 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
    private void handleEvent(PropertyChangeEvent evt)
    {
       boolean oldIsApplyingChangeFlag = getSharedSpace().isApplyingChangeMsg();
-      sharedSpace.setApplyingChangeMsg(false);
+      getSharedSpace().setApplyingChangeMsg(false);
       try
       {
          String propertyName = evt.getPropertyName();
@@ -59,7 +61,7 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
       }
       finally
       {
-         sharedSpace.setApplyingChangeMsg(oldIsApplyingChangeFlag);
+         getSharedSpace().setApplyingChangeMsg(oldIsApplyingChangeFlag);
       }
    }
 
@@ -97,5 +99,30 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
    protected abstract boolean init(PropertyChangeEvent evt);
 
    protected abstract void handleReplicationRootChange(PropertyChangeEvent evt);
+
+   public RemoteTaskBoard getRemoteTaskBoard()
+   {
+      return remoteTaskBoard;
+   }
+
+   public void setRemoteTaskBoard(RemoteTaskBoard remoteTaskBoard)
+   {
+      this.remoteTaskBoard = remoteTaskBoard;
+   }
+
+   public Lane getLane()
+   {
+      return lane;
+   }
+
+   public void setLane(Lane lane)
+   {
+      this.lane = lane;
+   }
+
+   protected void setSharedSpace(SharedSpace sharedSpace)
+   {
+      this.sharedSpace = sharedSpace;
+   }
 
 }

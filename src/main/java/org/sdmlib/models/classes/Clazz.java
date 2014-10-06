@@ -27,7 +27,6 @@ import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
-import java.util.LinkedHashSet;
 
 public class Clazz extends SDMLibClass
 {
