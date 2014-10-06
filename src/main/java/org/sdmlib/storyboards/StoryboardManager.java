@@ -129,10 +129,10 @@ public class StoryboardManager
       copyDocFile("burndown", "d3.v3.js");
       copyDocFile("burndown", "nv.d3.css");
       copyDocFile("burndown", "nv.d3.js");
-      copyDocFile("", "dagre.js");
-      copyDocFile("", "drawer.js");
-      copyDocFile("", "graph.js");
-      copyDocFile("", "diagramstyle.css");
+      copyDocFile("graph", "dagre.js");
+      copyDocFile("graph", "drawer.js");
+      copyDocFile("graph", "graph.js");
+      copyDocFile("graph", "diagramstyle.css");
 
       dumpKanban();
    }
@@ -140,10 +140,12 @@ public class StoryboardManager
    private void copyDocFile(String dir, String file)
    {
       File target=new File("doc/includes/" + file);
+      
+      // graphlist is in de.uniks.networkparser.graph
 
-      InputStream is = GraphList.class.getResourceAsStream("" + dir + "/" + file);
+      InputStream is = GraphList.class.getResourceAsStream("../" + dir + "/" + file);
 
-      if(is!=null)
+      if (is != null)
       {
          final int BUFF_SIZE = 5 * 1024; // 5KB
          final byte[] buffer = new byte[BUFF_SIZE];

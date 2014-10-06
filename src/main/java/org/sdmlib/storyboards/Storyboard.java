@@ -175,24 +175,37 @@ public class Storyboard implements PropertyChangeInterface
          // search for a subdirectory containing the javaTestFile of the
          // execution directory and search for the subdi
          File projectDir = new File(".");
-         for (File subDir : projectDir.listFiles())
-         {
-            if (subDir.isDirectory())
-            {
-               if (new File(subDir.getName() + "/" + javaTestFileName).exists())
-               {
-                  // got it
-                  this.rootDir = subDir.getName();
-                  javaTestFileName = "../" + rootDir + "/" + javaTestFileName;
-
-                  break;
-               }
-            }
-         }
+         searchDirectoryTree(projectDir);
 
       }
 
       return this.rootDir;
+   }
+
+   private boolean searchDirectoryTree(File projectDir)
+   {
+      for (File subDir : projectDir.listFiles())
+      {
+         if (subDir.isDirectory())
+         {
+            String subPath = subDir.getPath();
+            if (new File(subPath + "/" + javaTestFileName).exists())
+            {
+               // got it
+               this.rootDir = subDir.getPath();
+               javaTestFileName = "../" + rootDir + "/" + javaTestFileName;
+
+               return true;
+            }
+            else
+            {
+               boolean done = searchDirectoryTree(subDir);
+               if (done) return true;
+            }
+         }
+      }
+      
+      return false;
    }
 
    public Storyboard()
@@ -469,13 +482,13 @@ public class Storyboard implements PropertyChangeInterface
             int oldStringLength = oldFileString.length();
             int newStringLength = fileText.length();
             
-            for (int i = 0; i < Math.min(oldStringLength, newStringLength); i++)
-            {
-               if (oldFileString.charAt(i) != fileText.charAt(i))
-               {
-                  System.out.println("Found diff");
-               }
-            }
+            //            for (int i = 0; i < Math.min(oldStringLength, newStringLength); i++)
+            //            {
+            //               if (oldFileString.charAt(i) != fileText.charAt(i))
+            //               {
+            //                  System.out.println("Found diff");
+            //               }
+            //            }
             
             if (oldFileString.equals(fileText.trim()))
             {

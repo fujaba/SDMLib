@@ -49,8 +49,62 @@ exports.Digraph = require("graphlib").Digraph;
 exports.Graph = require("graphlib").Graph;
 exports.layout = require("./lib/layout");
 exports.version = require("./lib/version");
+exports.debug = require("./lib/debug");
 
-},{"./lib/layout":3,"./lib/version":18,"graphlib":24}],3:[function(require,module,exports){
+},{"./lib/debug":3,"./lib/layout":4,"./lib/version":19,"graphlib":25}],3:[function(require,module,exports){
+'use strict';
+
+var util = require('./util');
+
+/**
+ * Renders a graph in a stringified DOT format that indicates the ordering of
+ * nodes by layer. Circles represent normal nodes. Diamons represent dummy
+ * nodes. While we try to put nodes in clusters, it appears that graphviz
+ * does not respect this because we're later using subgraphs for ordering nodes
+ * in each layer.
+ */
+exports.dotOrdering = function(g) {
+  var ordering = util.ordering(g.filterNodes(util.filterNonSubgraphs(g)));
+  var result = 'digraph {';
+
+  function dfs(u) {
+    var children = g.children(u);
+    if (children.length) {
+      result += 'subgraph cluster_' + u + ' {';
+      result += 'label="' + u + '";';
+      children.forEach(function(v) {
+        dfs(v);
+      });
+      result += '}';
+    } else {
+      result += u;
+      if (g.node(u).dummy) {
+        result += ' [shape=diamond]';
+      }
+      result += ';';
+    }
+  }
+
+  g.children(null).forEach(dfs);
+
+  ordering.forEach(function(layer) {
+    result += 'subgraph { rank=same; edge [style="invis"];';
+    result += layer.join('->');
+    result += '}';
+  });
+
+  g.eachEdge(function(e, u, v) {
+    result += u + '->' + v + ';';
+  });
+
+  result += '}';
+
+  return result;
+};
+
+},{"./util":18}],4:[function(require,module,exports){
+'use strict';
+
 var util = require('./util'),
     rank = require('./rank'),
     order = require('./order'),
@@ -319,7 +373,9 @@ module.exports = function() {
 };
 
 
-},{"./order":4,"./position":9,"./rank":10,"./util":17,"graphlib":24}],4:[function(require,module,exports){
+},{"./order":5,"./position":10,"./rank":11,"./util":18,"graphlib":25}],5:[function(require,module,exports){
+'use strict';
+
 var util = require('./util'),
     crossCount = require('./order/crossCount'),
     initLayerGraphs = require('./order/initLayerGraphs'),
@@ -422,19 +478,21 @@ function sweep(g, layerGraphs, iter) {
 
 function sweepDown(g, layerGraphs) {
   var cg;
-  for (i = 1; i < layerGraphs.length; ++i) {
+  for (var i = 1; i < layerGraphs.length; ++i) {
     cg = sortLayer(layerGraphs[i], cg, predecessorWeights(g, layerGraphs[i].nodes()));
   }
 }
 
 function sweepUp(g, layerGraphs) {
   var cg;
-  for (i = layerGraphs.length - 2; i >= 0; --i) {
+  for (var i = layerGraphs.length - 2; i >= 0; --i) {
     sortLayer(layerGraphs[i], cg, successorWeights(g, layerGraphs[i].nodes()));
   }
 }
 
-},{"./order/crossCount":5,"./order/initLayerGraphs":6,"./order/initOrder":7,"./order/sortLayer":8,"./util":17}],5:[function(require,module,exports){
+},{"./order/crossCount":6,"./order/initLayerGraphs":7,"./order/initOrder":8,"./order/sortLayer":9,"./util":18}],6:[function(require,module,exports){
+'use strict';
+
 var util = require('../util');
 
 module.exports = crossCount;
@@ -491,7 +549,9 @@ function twoLayerCrossCount(g, layer1, layer2) {
   return cc;
 }
 
-},{"../util":17}],6:[function(require,module,exports){
+},{"../util":18}],7:[function(require,module,exports){
+'use strict';
+
 var nodesFromList = require('graphlib').filter.nodesFromList,
     /* jshint -W079 */
     Set = require('cp-data').Set;
@@ -542,7 +602,9 @@ function initLayerGraphs(g) {
   return layerGraphs;
 }
 
-},{"cp-data":19,"graphlib":24}],7:[function(require,module,exports){
+},{"cp-data":20,"graphlib":25}],8:[function(require,module,exports){
+'use strict';
+
 var crossCount = require('./crossCount'),
     util = require('../util');
 
@@ -580,52 +642,26 @@ function initOrder(g, random) {
   g.graph().orderCC = Number.MAX_VALUE;
 }
 
-},{"../util":17,"./crossCount":5}],8:[function(require,module,exports){
-var util = require('../util');
-/*
+},{"../util":18,"./crossCount":6}],9:[function(require,module,exports){
+'use strict';
+
+var util = require('../util'),
     Digraph = require('graphlib').Digraph,
     topsort = require('graphlib').alg.topsort,
     nodesFromList = require('graphlib').filter.nodesFromList;
-*/
 
 module.exports = sortLayer;
 
-/*
 function sortLayer(g, cg, weights) {
+  weights = adjustWeights(g, weights);
   var result = sortLayerSubgraph(g, null, cg, weights);
+
   result.list.forEach(function(u, i) {
     g.node(u).order = i;
   });
   return result.constraintGraph;
 }
-*/
 
-function sortLayer(g, cg, weights) {
-  var ordering = [];
-  var bs = {};
-  g.eachNode(function(u, value) {
-    ordering[value.order] = u;
-    var ws = weights[u];
-    if (ws.length) {
-      bs[u] = util.sum(ws) / ws.length;
-    }
-  });
-
-  var toSort = g.nodes().filter(function(u) { return bs[u] !== undefined; });
-  toSort.sort(function(x, y) {
-    return bs[x] - bs[y] || g.node(x).order - g.node(y).order;
-  });
-
-  for (var i = 0, j = 0, jl = toSort.length; j < jl; ++i) {
-    if (bs[ordering[i]] !== undefined) {
-      g.node(toSort[j++]).order = i;
-    }
-  }
-}
-
-// TOOD: re-enable constrained sorting once we have a strategy for handling
-// undefined barycenters.
-/*
 function sortLayerSubgraph(g, sg, cg, weights) {
   cg = cg ? cg.filterNodes(nodesFromList(g.children(sg))) : new Digraph();
 
@@ -639,7 +675,9 @@ function sortLayerSubgraph(g, sg, cg, weights) {
       var ws = weights[u];
       nodeData[u] = {
         degree: ws.length,
-        barycenter: ws.length > 0 ? util.sum(ws) / ws.length : 0,
+        barycenter: util.sum(ws) / ws.length,
+        order: g.node(u).order,
+        orderCount: 1,
         list: [u]
       };
     }
@@ -649,7 +687,8 @@ function sortLayerSubgraph(g, sg, cg, weights) {
 
   var keys = Object.keys(nodeData);
   keys.sort(function(x, y) {
-    return nodeData[x].barycenter - nodeData[y].barycenter;
+    return nodeData[x].barycenter - nodeData[y].barycenter ||
+           nodeData[x].order - nodeData[y].order;
   });
 
   var result =  keys.map(function(u) { return nodeData[u]; })
@@ -657,7 +696,6 @@ function sortLayerSubgraph(g, sg, cg, weights) {
   return result;
 }
 
-/*
 function mergeNodeData(g, lhs, rhs) {
   var cg = mergeDigraphs(lhs.constraintGraph, rhs.constraintGraph);
 
@@ -674,6 +712,9 @@ function mergeNodeData(g, lhs, rhs) {
     degree: lhs.degree + rhs.degree,
     barycenter: (lhs.barycenter * lhs.degree + rhs.barycenter * rhs.degree) /
                 (lhs.degree + rhs.degree),
+    order: (lhs.order * lhs.orderCount + rhs.order * rhs.orderCount) /
+           (lhs.orderCount + rhs.orderCount),
+    orderCount: lhs.orderCount + rhs.orderCount,
     list: lhs.list.concat(rhs.list),
     firstSG: lhs.firstSG !== undefined ? lhs.firstSG : rhs.firstSG,
     lastSG: rhs.lastSG !== undefined ? rhs.lastSG : lhs.lastSG,
@@ -743,9 +784,48 @@ function findViolatedConstraint(cg, nodeData) {
     }
   }
 }
-*/
 
-},{"../util":17}],9:[function(require,module,exports){
+// Adjust weights so that they fall in the range of 0..|N|-1. If a node has no
+// weight assigned then set its adjusted weight to its current position. This
+// allows us to better retain the origiinal position of nodes without neighbors.
+function adjustWeights(g, weights) {
+  var minW = Number.MAX_VALUE,
+      maxW = 0,
+      adjusted = {};
+  g.eachNode(function(u) {
+    if (g.children(u).length) return;
+
+    var ws = weights[u];
+    if (ws.length) {
+      minW = Math.min(minW, util.min(ws));
+      maxW = Math.max(maxW, util.max(ws));
+    }
+  });
+
+  var rangeW = (maxW - minW);
+  g.eachNode(function(u) {
+    if (g.children(u).length) return;
+
+    var ws = weights[u];
+    if (!ws.length) {
+      adjusted[u] = [g.node(u).order];
+    } else {
+      adjusted[u] = ws.map(function(w) {
+        if (rangeW) {
+          return (w - minW) * (g.order() - 1) / rangeW;
+        } else {
+          return g.order() - 1 / 2;
+        }
+      });
+    }
+  });
+
+  return adjusted;
+}
+
+},{"../util":18,"graphlib":25}],10:[function(require,module,exports){
+'use strict';
+
 var util = require('./util');
 
 /*
@@ -1185,7 +1265,9 @@ module.exports = function() {
   }
 };
 
-},{"./util":17}],10:[function(require,module,exports){
+},{"./util":18}],11:[function(require,module,exports){
+'use strict';
+
 var util = require('./util'),
     acyclic = require('./rank/acyclic'),
     initRank = require('./rank/initRank'),
@@ -1323,7 +1405,9 @@ function normalize(g) {
   g.eachNode(function(u, node) { node.rank -= m; });
 }
 
-},{"./rank/acyclic":11,"./rank/constraints":12,"./rank/feasibleTree":13,"./rank/initRank":14,"./rank/simplex":16,"./util":17,"graphlib":24}],11:[function(require,module,exports){
+},{"./rank/acyclic":12,"./rank/constraints":13,"./rank/feasibleTree":14,"./rank/initRank":15,"./rank/simplex":17,"./util":18,"graphlib":25}],12:[function(require,module,exports){
+'use strict';
+
 var util = require('../util');
 
 module.exports = acyclic;
@@ -1386,7 +1470,9 @@ function undo(g) {
   });
 }
 
-},{"../util":17}],12:[function(require,module,exports){
+},{"../util":18}],13:[function(require,module,exports){
+'use strict';
+
 exports.apply = function(g) {
   function dfs(sg) {
     var rankSets = {};
@@ -1555,7 +1641,9 @@ exports.relax = function(g) {
   });
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
+'use strict';
+
 /* jshint -W079 */
 var Set = require('cp-data').Set,
 /* jshint +W079 */
@@ -1680,7 +1768,9 @@ function slack(g, u, v) {
   return rankDiff - maxMinLen;
 }
 
-},{"../util":17,"cp-data":19,"graphlib":24}],14:[function(require,module,exports){
+},{"../util":18,"cp-data":20,"graphlib":25}],15:[function(require,module,exports){
+'use strict';
+
 var util = require('../util'),
     topsort = require('graphlib').alg.topsort;
 
@@ -1712,7 +1802,9 @@ function initRank(g) {
   });
 }
 
-},{"../util":17,"graphlib":24}],15:[function(require,module,exports){
+},{"../util":18,"graphlib":25}],16:[function(require,module,exports){
+'use strict';
+
 module.exports = {
   slack: slack
 };
@@ -1730,7 +1822,9 @@ function slack(graph, u, v, minLen) {
   return Math.abs(graph.node(u).rank - graph.node(v).rank) - minLen;
 }
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
+'use strict';
+
 var util = require('../util'),
     rankUtil = require('./rankUtil');
 
@@ -2040,7 +2134,9 @@ function minimumLength(graph, u, v) {
   }
 }
 
-},{"../util":17,"./rankUtil":15}],17:[function(require,module,exports){
+},{"../util":18,"./rankUtil":16}],18:[function(require,module,exports){
+'use strict';
+
 /*
  * Returns the smallest value in the array.
  */
@@ -2084,7 +2180,7 @@ exports.values = function(obj) {
 };
 
 exports.shuffle = function(array) {
-  for (i = array.length - 1; i > 0; --i) {
+  for (var i = array.length - 1; i > 0; --i) {
     var j = Math.floor(Math.random() * (i + 1));
     var aj = array[j];
     array[j] = array[i];
@@ -2159,15 +2255,15 @@ log.level = 0;
 
 exports.log = log;
 
-},{}],18:[function(require,module,exports){
-module.exports = '0.4.5';
-
 },{}],19:[function(require,module,exports){
+module.exports = '0.4.6';
+
+},{}],20:[function(require,module,exports){
 exports.Set = require('./lib/Set');
 exports.PriorityQueue = require('./lib/PriorityQueue');
 exports.version = require('./lib/version');
 
-},{"./lib/PriorityQueue":20,"./lib/Set":21,"./lib/version":23}],20:[function(require,module,exports){
+},{"./lib/PriorityQueue":21,"./lib/Set":22,"./lib/version":24}],21:[function(require,module,exports){
 module.exports = PriorityQueue;
 
 /**
@@ -2318,7 +2414,7 @@ PriorityQueue.prototype._swap = function(i, j) {
   keyIndices[origArrI.key] = j;
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 var util = require('./util');
 
 module.exports = Set;
@@ -2456,7 +2552,7 @@ function values(o) {
   return result;
 }
 
-},{"./util":22}],22:[function(require,module,exports){
+},{"./util":23}],23:[function(require,module,exports){
 /*
  * This polyfill comes from
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
@@ -2515,10 +2611,10 @@ if ('function' !== typeof Array.prototype.reduce) {
   };
 }
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = '1.1.3';
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 exports.Graph = require("./lib/Graph");
 exports.Digraph = require("./lib/Digraph");
 exports.CGraph = require("./lib/CGraph");
@@ -2551,7 +2647,7 @@ exports.filter = {
 
 exports.version = require("./lib/version");
 
-},{"./lib/CDigraph":26,"./lib/CGraph":27,"./lib/Digraph":28,"./lib/Graph":29,"./lib/alg/components":30,"./lib/alg/dijkstra":31,"./lib/alg/dijkstraAll":32,"./lib/alg/findCycles":33,"./lib/alg/floydWarshall":34,"./lib/alg/isAcyclic":35,"./lib/alg/postorder":36,"./lib/alg/preorder":37,"./lib/alg/prim":38,"./lib/alg/tarjan":39,"./lib/alg/topsort":40,"./lib/converter/json.js":42,"./lib/filter":43,"./lib/graph-converters":44,"./lib/version":46}],25:[function(require,module,exports){
+},{"./lib/CDigraph":27,"./lib/CGraph":28,"./lib/Digraph":29,"./lib/Graph":30,"./lib/alg/components":31,"./lib/alg/dijkstra":32,"./lib/alg/dijkstraAll":33,"./lib/alg/findCycles":34,"./lib/alg/floydWarshall":35,"./lib/alg/isAcyclic":36,"./lib/alg/postorder":37,"./lib/alg/preorder":38,"./lib/alg/prim":39,"./lib/alg/tarjan":40,"./lib/alg/topsort":41,"./lib/converter/json.js":43,"./lib/filter":44,"./lib/graph-converters":45,"./lib/version":47}],26:[function(require,module,exports){
 /* jshint -W079 */
 var Set = require("cp-data").Set;
 /* jshint +W079 */
@@ -2748,7 +2844,7 @@ function delEdgeFromMap(map, v, e) {
 }
 
 
-},{"cp-data":19}],26:[function(require,module,exports){
+},{"cp-data":20}],27:[function(require,module,exports){
 var Digraph = require("./Digraph"),
     compoundify = require("./compoundify");
 
@@ -2785,7 +2881,7 @@ CDigraph.prototype.toString = function() {
   return "CDigraph " + JSON.stringify(this, null, 2);
 };
 
-},{"./Digraph":28,"./compoundify":41}],27:[function(require,module,exports){
+},{"./Digraph":29,"./compoundify":42}],28:[function(require,module,exports){
 var Graph = require("./Graph"),
     compoundify = require("./compoundify");
 
@@ -2822,7 +2918,7 @@ CGraph.prototype.toString = function() {
   return "CGraph " + JSON.stringify(this, null, 2);
 };
 
-},{"./Graph":29,"./compoundify":41}],28:[function(require,module,exports){
+},{"./Graph":30,"./compoundify":42}],29:[function(require,module,exports){
 /*
  * This file is organized with in the following order:
  *
@@ -3090,7 +3186,7 @@ Digraph.prototype._filterNodes = function(pred) {
 };
 
 
-},{"./BaseGraph":25,"./util":45,"cp-data":19}],29:[function(require,module,exports){
+},{"./BaseGraph":26,"./util":46,"cp-data":20}],30:[function(require,module,exports){
 /*
  * This file is organized with in the following order:
  *
@@ -3225,7 +3321,7 @@ Graph.prototype.delEdge = function(e) {
 };
 
 
-},{"./BaseGraph":25,"./util":45,"cp-data":19}],30:[function(require,module,exports){
+},{"./BaseGraph":26,"./util":46,"cp-data":20}],31:[function(require,module,exports){
 /* jshint -W079 */
 var Set = require("cp-data").Set;
 /* jshint +W079 */
@@ -3268,7 +3364,7 @@ function components(g) {
   return results;
 }
 
-},{"cp-data":19}],31:[function(require,module,exports){
+},{"cp-data":20}],32:[function(require,module,exports){
 var PriorityQueue = require("cp-data").PriorityQueue;
 
 module.exports = dijkstra;
@@ -3348,7 +3444,7 @@ function dijkstra(g, source, weightFunc, incidentFunc) {
   return results;
 }
 
-},{"cp-data":19}],32:[function(require,module,exports){
+},{"cp-data":20}],33:[function(require,module,exports){
 var dijkstra = require("./dijkstra");
 
 module.exports = dijkstraAll;
@@ -3385,7 +3481,7 @@ function dijkstraAll(g, weightFunc, incidentFunc) {
   return results;
 }
 
-},{"./dijkstra":31}],33:[function(require,module,exports){
+},{"./dijkstra":32}],34:[function(require,module,exports){
 var tarjan = require("./tarjan");
 
 module.exports = findCycles;
@@ -3407,7 +3503,7 @@ function findCycles(g) {
   return tarjan(g).filter(function(cmpt) { return cmpt.length > 1; });
 }
 
-},{"./tarjan":39}],34:[function(require,module,exports){
+},{"./tarjan":40}],35:[function(require,module,exports){
 module.exports = floydWarshall;
 
 /**
@@ -3486,7 +3582,7 @@ function floydWarshall(g, weightFunc, incidentFunc) {
   return results;
 }
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 var topsort = require("./topsort");
 
 module.exports = isAcyclic;
@@ -3512,7 +3608,7 @@ function isAcyclic(g) {
   return true;
 }
 
-},{"./topsort":40}],36:[function(require,module,exports){
+},{"./topsort":41}],37:[function(require,module,exports){
 /* jshint -W079 */
 var Set = require("cp-data").Set;
 /* jshint +W079 */
@@ -3539,7 +3635,7 @@ function postorder(g, root, f) {
   dfs(root);
 }
 
-},{"cp-data":19}],37:[function(require,module,exports){
+},{"cp-data":20}],38:[function(require,module,exports){
 /* jshint -W079 */
 var Set = require("cp-data").Set;
 /* jshint +W079 */
@@ -3566,7 +3662,7 @@ function preorder(g, root, f) {
   dfs(root);
 }
 
-},{"cp-data":19}],38:[function(require,module,exports){
+},{"cp-data":20}],39:[function(require,module,exports){
 var Graph = require("../Graph"),
     PriorityQueue = require("cp-data").PriorityQueue;
 
@@ -3637,7 +3733,7 @@ function prim(g, weightFunc) {
   return result;
 }
 
-},{"../Graph":29,"cp-data":19}],39:[function(require,module,exports){
+},{"../Graph":30,"cp-data":20}],40:[function(require,module,exports){
 module.exports = tarjan;
 
 /**
@@ -3705,7 +3801,7 @@ function tarjan(g) {
   return results;
 }
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 module.exports = topsort;
 topsort.CycleException = CycleException;
 
@@ -3763,7 +3859,7 @@ CycleException.prototype.toString = function() {
   return "Graph has at least one cycle";
 };
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 // This file provides a helper function that mixes-in Dot behavior to an
 // existing graph prototype.
 
@@ -3871,7 +3967,7 @@ function compoundify(SuperConstructor) {
   return Constructor;
 }
 
-},{"cp-data":19}],42:[function(require,module,exports){
+},{"cp-data":20}],43:[function(require,module,exports){
 var Graph = require("../Graph"),
     Digraph = require("../Digraph"),
     CGraph = require("../CGraph"),
@@ -3961,7 +4057,7 @@ function typeOf(obj) {
   return Object.prototype.toString.call(obj).slice(8, -1);
 }
 
-},{"../CDigraph":26,"../CGraph":27,"../Digraph":28,"../Graph":29}],43:[function(require,module,exports){
+},{"../CDigraph":27,"../CGraph":28,"../Digraph":29,"../Graph":30}],44:[function(require,module,exports){
 /* jshint -W079 */
 var Set = require("cp-data").Set;
 /* jshint +W079 */
@@ -3977,7 +4073,7 @@ exports.nodesFromList = function(nodes) {
   };
 };
 
-},{"cp-data":19}],44:[function(require,module,exports){
+},{"cp-data":20}],45:[function(require,module,exports){
 var Graph = require("./Graph"),
     Digraph = require("./Digraph");
 
@@ -4016,7 +4112,7 @@ Digraph.prototype.asUndirected = function() {
   return g;
 };
 
-},{"./Digraph":28,"./Graph":29}],45:[function(require,module,exports){
+},{"./Digraph":29,"./Graph":30}],46:[function(require,module,exports){
 // Returns an array of all values for properties of **o**.
 exports.values = function(o) {
   var ks = Object.keys(o),
@@ -4029,7 +4125,7 @@ exports.values = function(o) {
   return result;
 };
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 module.exports = '0.7.4';
 
 },{}]},{},[1])

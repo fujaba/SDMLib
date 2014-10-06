@@ -15,17 +15,27 @@
 	border-spacing:0;
 	cursor: hand;
 }
-.ToolButton{
-}
-
-.EdgeInfo{
-	position: absolute;
-}
 
 .classElement th{
-	background-image: linear-gradient(left, white 0%, #9FBFD2 50%);
-	background-image: linear-gradient(top, white 0%, #9FBFD2 50%);
-	background-image: linear-gradient(45deg, white 0%, #9FBFD2 50%);
+	background-image: linear-gradient(left, white 0%, lightgray 50%);
+	background-image: linear-gradient(top, white 0%, lightgray 50%);
+	background-image: linear-gradient(45deg, white 0%, lightgray 50%);
+}
+
+.classElement .first{
+	border-top: 1px solid black;
+}
+.classElement .methods{
+	margin-left:10px;
+	padding-left:10px;
+	padding-right:10px;
+	text-align:left;
+}
+.classElement .attributes{
+	margin-left:10px;
+	padding-left:10px;
+	padding-right:10px;
+	text-align:left;
 }
 
 .objectElement{
@@ -39,9 +49,31 @@
 	cursor: hand;
 }
 .objectElement th{
-	background-image: linear-gradient(left, white 0%, #BCA9F5 50%);
-	background-image: linear-gradient(top, white 0%, #BCA9F5 50%);
-	background-image: linear-gradient(45deg, white 0%, #BCA9F5 50%);
+	background-image: linear-gradient(left, white 0%, lightgray 50%);
+	background-image: linear-gradient(top, white 0%, lightgray 50%);
+	background-image: linear-gradient(45deg, white 0%, lightgray 50%);
+}
+.objectElement .first{
+	border-top: 1px solid black;
+}
+
+.ToolButton{
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top,  #eeeeee 0%, #aaaaaa 50%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(50%,#aaaaaa), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* W3C */
+	border-radius: 20px;
+	-webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+	cursor:pointer;
+}
+
+.EdgeInfo{
+	position: absolute;
 }
 
 .patternElement{
@@ -76,22 +108,35 @@
 	height: 1px;
 	position:absolute;
 }
-.attributes_first{
-	border-top: 1px solid black;
-}
-.classElement .methods{
-	margin-left:10px;
-	padding-left:10px;
-	padding-right:10px;
-	text-align:left;
-}
-.classElement .attributes{
-	margin-left:10px;
-	padding-left:10px;
-	padding-right:10px;
-	text-align:left;
-}
+
 .infoBox{
 	border: 1px solid rgb(187, 187, 187);
 	position: absolute; 
+}
+.draggable {
+	cursor: move;
+	
+}
+.saveBtn:hover{
+	opacity:0.75;
+	cursor: hand;
+}
+
+.hand{
+	cursor: hand;
+}
+.saveBtn{
+	fill:url(#reflect);
+	filter: drop-shadow(5px 5px 2px black);
+}
+
+.draggable{
+}
+
+.draggable:hover{
+	border:1px dashed black;
+	-moz-border-radius: 8px;-webkit-border-radius: 8px;border-radius: 8px;
+	cursor: move;
+	opacity:0.50;
+	fill:#ddd;
 }
