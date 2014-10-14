@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
@@ -38,6 +39,8 @@ import org.sdmlib.storyboards.Kanban;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
+
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.PatternLink;
@@ -394,6 +397,123 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
    }
 
    public String dumpDiagram(String diagramName, boolean showMatch)
+   {
+      JsonObject result = new JsonObject();
+      
+      result.put("typ", "object");
+      
+      JsonArray nodes = new JsonArray();
+      
+      result.put("nodes", nodes);
+      
+      JsonArray edges = new JsonArray();
+      
+      result.put("edges", edges);
+      
+      int num = 1;
+      
+      LinkedHashMap<PatternObject, String> nameMap = new LinkedHashMap<PatternObject, String>();
+      
+      for (PatternElement elem : this.elements)
+      {
+         if (elem instanceof PatternObject)
+         {
+            PatternObject po = (PatternObject) elem;
+            
+            JsonObject node = new JsonObject();
+            node.put("typ", "patternObject");
+            
+            String shortClassName = CGUtil.shortClassName(po.getClass().getName());
+            String firstChar = shortClassName.substring(0, 1).toLowerCase();
+            
+            String jsonId = firstChar + num + " : " + shortClassName;
+            
+            
+            node.put("id", jsonId);
+            num++;
+            
+            nameMap.put(po, jsonId);
+            
+            JsonArray attrs = new JsonArray();
+            
+            if (num == 2)
+            {
+               attrs.add("<< start >>");
+            }
+            
+            if (po.getModifier() != null)
+            {
+               attrs.add("<< " + po.getModifier() + ">>");
+            }
+            
+            for (AttributeConstraint attr : po.getAttrConstraints())
+            {
+               if (attr.getUpperTgtValue() != null)
+               {
+                  attrs.add("" + attr.getAttrName() + " in [" + attr.getTgtValue() + ".." + attr.getUpperTgtValue() + "]");
+               }
+               else
+               {
+                  attrs.add("" + attr.getAttrName() + " == " + attr.getTgtValue());
+               }
+            }
+            
+            
+            node.put("attributes", attrs);
+            
+            nodes.add(node);
+         }
+         
+      }
+
+      for (PatternElement elem : this.elements)
+      {
+         if (elem instanceof PatternLink)
+         {
+            PatternLink link = (PatternLink) elem;
+            
+            PatternObject src = link.getSrc();
+            PatternObject tgt = link.getTgt();
+            
+            JsonObject edge = new JsonObject();
+            edges.add(edge);
+            
+            edge.put("typ", "EDGE");
+            
+            JsonObject role = new JsonObject();
+            edge.put("source", role);
+            
+            // role.put("cardinality", "one");
+            role.put("property", " ");
+            role.put("id", nameMap.get(src));
+            
+            role = new JsonObject();
+            edge.put("target", role);
+
+            // role.put("cardinality", "one");
+            role.put("property", link.getTgtRoleName());
+            role.put("id", nameMap.get(tgt));
+            
+         }
+      }
+
+      
+      String text =
+            "<script>\n" +
+               "   var json = " +
+               result.toString(3) +
+               "   ;\n" +
+               "   json[\"options\"]={\"canvasid\":\"canvas" + diagramName + "\", "
+               + "\"display\":\"html\", "
+               + "\"fontsize\":10,"
+               + "\"bar\":true};" +
+               "   var g = new Graph(json);\n" +
+               "   g.layout(100,100);\n" +
+               "</script>\n";      
+      return text;
+   }
+   
+   public String dumpDiagramOld(String diagramName, boolean showMatch)
    {
       objNo = 0;
 

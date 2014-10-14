@@ -80,7 +80,7 @@
 	border: 1px solid rgb(187, 187, 187);
 	/*background-color: rgb(221, 221, 221);*/
 	position: absolute; 
-	background:blue;
+	background:lightblue;
 }
 .patternElement table{
 	border-spacing:0;
@@ -91,10 +91,8 @@
 	text-align:center;
 }
 .patternElement th{
-	border-top: 1px solid black;
 	padding-left:10px;
 	padding-right:10px;
-	color:white;
 }
 
 .lineElement {

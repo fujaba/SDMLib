@@ -1038,7 +1038,69 @@
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram33.svg'>
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s3 : StudentPO",
+         "attributes":[
+         "motivation == 42"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s3 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s3 : StudentPO"
+         },
+         "target":{
+            "property":"friends",
+            "id":"s2 : StudentPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram33", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Results in:</p>
 <pre>      (gymnasium sports 25)</pre><p><a name = 'step_8'>Step 8: Rooms with two students with low motivation that are friends (and need supervision): </a></p><pre>      
       roomPO = university.getRooms().hasRoomPO();
@@ -1063,7 +1125,69 @@
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram38.svg'>
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s3 : StudentPO",
+         "attributes":[
+         "motivation in [0..50]"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s3 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s3 : StudentPO"
+         },
+         "target":{
+            "property":"friends",
+            "id":"s2 : StudentPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram38", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Results in:</p>
 <pre>      (gymnasium sports 25)</pre><p><a name = 'step_9'>Step 9: Rooms with two students without supervision that are friends and add teaching assistance: </a></p><pre>      
       roomPO = university.getRooms().hasRoomPO();
@@ -1078,7 +1202,85 @@
       
       rooms = roomPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram43.svg'>
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s3 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"t4 : TeachingAssistantPO",
+         "attributes":[
+         "<< create>>"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s3 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s3 : StudentPO"
+         },
+         "target":{
+            "property":"friends",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"tas",
+            "id":"t4 : TeachingAssistantPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram43", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Results in:</p>
 <script>
    var json = {
@@ -1258,7 +1460,56 @@
       
       TeachingAssistantSet taSet = taPO.allMatches();
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram49.svg'>
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"t3 : TeachingAssistantPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StudentPO"
+         },
+         "target":{
+            "property":"instanceof",
+            "id":"t3 : TeachingAssistantPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram49", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <script>
    var json = {
    "typ":"object",
@@ -1303,7 +1554,40 @@
          System.out.println(&quot;match &quot; + match.number + &quot;: &quot; + currentMatch + &quot; in room &quot; + roomPO.getCurrentMatch());
       }
       
-</pre><embed type="image/svg+xml"src='StudyRightObjectModelNavigationAndQueriesPatternDiagram53.svg'>
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"r1 : RoomPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StudentPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"students",
+            "id":"s2 : StudentPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesPatternDiagram53", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <script>
    var json = {
    "typ":"object",
