@@ -716,7 +716,13 @@ public class GenRole extends Generator<Role>
             }
 
             int pos = myParser.indexOf(Parser.CLASS_END);
-            myParser.insert(pos, text.toString());
+            try{
+            	myParser.insert(pos, text.toString());
+            }catch(Exception e){
+            	System.out.println("FILE: "+myParser.getFileName());
+            	System.out.println("FILEBODY: " +myParser.getFileBody());
+            	throw e;
+            }
 
          if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
          {
