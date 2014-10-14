@@ -31,6 +31,7 @@ buildscript {
     }
     dependencies {
         classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '2.2.4')
+        classpath 'org.ajoberstar:gradle-git:0.2.3'
     }
 }
 
