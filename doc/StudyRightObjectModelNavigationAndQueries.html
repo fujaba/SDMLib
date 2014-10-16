@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,52 +7,58 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../.srctestjava/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelNavigationAndQueries</a></p>
 <p>StudyRightObjectModelNavigationAndQueries</p>
 <p>Extend the class model:</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Student",
+         "attributes":[]
+      },
       {
-            "typ":"node",
+         "typ":"node",
+         "id":"Room",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"TeachingAssistant",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"Student"
+         },
+         "target":{
             "id":"Student",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Room",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"TeachingAssistant",
-            "attributes":[]
+            "cardinality":"many",
+            "property":"friends"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"friends",
-            "targetproperty":"friends",
-            "source":"Student",
-            "target":"Student"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"Room"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"room",
-            "targetproperty":"tas",
-            "source":"Room",
-            "target":"TeachingAssistant"
+         "target":{
+            "id":"TeachingAssistant",
+            "cardinality":"many",
+            "property":"tas"
          }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -1224,8 +1231,23 @@
          "attributes":[]
       },
       {
+         "typ":"subgraph",
+         "info":"NegativeApplicationCondition",
+         "graph":{
+            "typ":"object",
+            "nodes":[
+            {
+                  "typ":"patternObject",
+                  "id":"p4 : PatternObject",
+                  "attributes":[]
+               }
+            ],
+            "edges":[]
+         }
+      },
+      {
          "typ":"patternObject",
-         "id":"t4 : TeachingAssistantPO",
+         "id":"t5 : TeachingAssistantPO",
          "attributes":[
          "<< create>>"
          ]
@@ -1273,7 +1295,18 @@
          },
          "target":{
             "property":"tas",
-            "id":"t4 : TeachingAssistantPO"
+            "id":"p4 : PatternObject"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RoomPO"
+         },
+         "target":{
+            "property":"tas",
+            "id":"t5 : TeachingAssistantPO"
          }
       }
    ]

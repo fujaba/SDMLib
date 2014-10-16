@@ -116,8 +116,6 @@ public class Javascript implements GuiAdapter
       
       json.put("typ", "class");
       
-      JsonObject jsonGraph = new JsonObject();
-      
       JsonArray jsonNodes = new JsonArray();
       JsonArray jsonEdges = new JsonArray();
       
@@ -138,21 +136,31 @@ public class Javascript implements GuiAdapter
          jsonNodes.add(jsonClazz);
       }
       
-      jsonGraph.put("nodes", jsonNodes);
+      json.put("nodes", jsonNodes);
 
       for (Association assoc : model.getClasses().getRoles().getAssoc())
       {
          JsonObject jsonAssoc = new JsonObject();
          jsonAssoc.put("typ","edge");
+         
+         JsonObject jsonRole = new JsonObject();
+         
+         jsonAssoc.put("source", jsonRole);
+         
          Role source = assoc.getSource();
          Role target = assoc.getTarget();
-         jsonAssoc.put("sourcecardinality", source.getCard());
-         jsonAssoc.put("targetcardinality", target.getCard());
-         jsonAssoc.put("sourceproperty", source.getName());
-         jsonAssoc.put("targetproperty",target.getName());
-         jsonAssoc.put("source",CGUtil.shortClassName(source.getClazz().getName()));
-         jsonAssoc.put("target",CGUtil.shortClassName(target.getClazz().getName()));
+         
+         jsonRole.put("cardinality", source.getCard());
+         jsonRole.put("property", source.getName());
+         jsonRole.put("id",CGUtil.shortClassName(source.getClazz().getName()));
 
+         jsonRole = new JsonObject();
+         jsonAssoc.put("target", jsonRole);
+         
+         jsonRole.put("id",CGUtil.shortClassName(target.getClazz().getName()));
+         jsonRole.put("cardinality", target.getCard());
+         jsonRole.put("property",target.getName());
+         
          jsonEdges.add(jsonAssoc);
       }
       
@@ -170,9 +178,8 @@ public class Javascript implements GuiAdapter
       }
       
       
-      jsonGraph.put("edges", jsonEdges);
+      json.put("edges", jsonEdges);
       
-      json.put("value", jsonGraph);
       
       String text =
             "<script>\n" +
