@@ -60,43 +60,44 @@ public class GraphFactory
    }
    
    
-   public void generate(String path){
-      File dir  = new File(path);
-      ArrayList<URL> plugins=new ArrayList<URL>();
-      for(File item : dir.listFiles()){
-         if(item.getName().toLowerCase().endsWith(".jar")){
-            try
-            {
-               
-               plugins.add(new URL("file", "", item.getName()));
-            }
-            catch (MalformedURLException e)
-            {
-               e.printStackTrace();
-            }
-         }
-      }
-      loadPlugins(plugins);
-      if(".".equals(path)){
-    	  URL resource = GraphFactory.class.getResource("/org/SDMLib.gwt.xml");
+	public void generate(String path) {
+		File dir = new File(path);
+		ArrayList<URL> plugins = new ArrayList<URL>();
+		for (File item : dir.listFiles()) {
+			if (item.getName().toLowerCase().endsWith(".jar")) {
+				try {
+
+					plugins.add(new URL("file", "", item.getName()));
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		loadPlugins(plugins);
+		if (".".equals(path)) {
+			URL resource = GraphFactory.class
+					.getResource("/org/SDMLib.gwt.xml");
+			if (resource == null) {
+				return;
+			}
 			File test = new File(".");
 			File lib = new File(resource.getPath());
 			lib = lib.getParentFile().getParentFile().getParentFile();
 			String rootPath = test.getAbsolutePath();
-			rootPath = rootPath.substring(0, rootPath.length()-1);
+			rootPath = rootPath.substring(0, rootPath.length() - 1);
 			String libPath = lib.getPath();
-			if(libPath.startsWith("file:\\")){
+			if (libPath.startsWith("file:\\")) {
 				libPath = libPath.substring(6);
 			}
-			if(!(libPath.endsWith("\\")||libPath.endsWith("/"))){
+			if (!(libPath.endsWith("\\") || libPath.endsWith("/"))) {
 				libPath += "/";
 			}
-			
-			if(libPath.startsWith(rootPath)){
+
+			if (libPath.startsWith(rootPath)) {
 				generate(libPath.substring(rootPath.length()));
 			}
-      }
-   }
+		}
+	}
    
    
    public void loadPlugins(List<URL> plugins) {
