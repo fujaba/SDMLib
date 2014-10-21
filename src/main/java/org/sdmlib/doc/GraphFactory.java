@@ -29,7 +29,6 @@ public class GraphFactory
       // Add Defaults
       this.with(new Javascript());
       this.with(new GraphViz());
-      
       generate(".");
    }
 
@@ -61,24 +60,49 @@ public class GraphFactory
    }
    
    
-   public void generate(String path){
-      File dir  = new File(path);
-      ArrayList<URL> plugins=new ArrayList<URL>();
-      for(File item : dir.listFiles()){
-         if(item.getName().toLowerCase().endsWith(".jar")){
-            try
-            {
-               
-               plugins.add(new URL("file", "", item.getName()));
-            }
-            catch (MalformedURLException e)
-            {
-               e.printStackTrace();
-            }
-         }
-      }
-      loadPlugins(plugins);
-   }
+	public void generate(String path) {
+		File dir = new File(path);
+		String rootPath = dir.getPath();
+		if (".".equals(path)) {
+			rootPath = rootPath.substring(0, rootPath.length() - 1);
+		}
+		if (rootPath.length()>0 && !(rootPath.endsWith("\\") || rootPath.endsWith("/"))) {
+			rootPath += "/";
+		}
+		ArrayList<URL> plugins = new ArrayList<URL>();
+		for (File item : dir.listFiles()) {
+			if (item.getName().toLowerCase().endsWith(".jar")) {
+				try {
+
+					plugins.add(new URL("file", "", rootPath+item.getName()));
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		loadPlugins(plugins);
+		if (".".equals(path)) {
+			URL resource = GraphFactory.class
+					.getResource("/org/SDMLib.gwt.xml");
+			if (resource == null) {
+				return;
+			}
+			File lib = new File(resource.getPath());
+			lib = lib.getParentFile().getParentFile().getParentFile();
+
+			String libPath = lib.getPath();
+			if (libPath.startsWith("file:\\")) {
+				libPath = libPath.substring(6);
+			}
+			if (!(libPath.endsWith("\\") || libPath.endsWith("/"))) {
+				libPath += "/";
+			}
+
+			if (libPath.startsWith(rootPath)) {
+				generate(libPath.substring(rootPath.length()));
+			}
+		}
+	}
    
    
    public void loadPlugins(List<URL> plugins) {
@@ -87,6 +111,17 @@ public class GraphFactory
 
          for (URL plugin : plugins) {
             String name = plugin.getPath();
+            int pos =name.lastIndexOf("/"); 
+            String path=".";
+            if (pos>0) {
+            	path = name.substring(0, pos);
+            	name = name.substring(pos+1);
+            }
+            pos = name.lastIndexOf("\\"); 
+            if (pos>0) {
+            	path = name.substring(0, pos);
+            	name = name.substring(name.lastIndexOf("\\")+1);
+            }
             if (name.indexOf(".")>0) {
                name = name.substring(0, name.indexOf("."));
             }
@@ -103,7 +138,7 @@ public class GraphFactory
                for(GuiAdapter item : adapters){
                   if(item.getName().equalsIgnoreCase(name)){
                      item.withDrawer(drawer);
-                     drawer.withPlugin(new File("."), plugin.getPath());
+                     drawer.withPlugin(new File(path), plugin.getPath());
                   }
                }
             }

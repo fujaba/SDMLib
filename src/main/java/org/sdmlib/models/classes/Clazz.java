@@ -228,7 +228,9 @@ public class Clazz extends SDMLibClass
       return this;
    }
    
-   
+   /**
+    * get All Attributes
+    * @return all Attributes of a Clazz
    /********************************************************************
     * <pre>
     *              one                       many
@@ -246,6 +248,9 @@ public class Clazz extends SDMLibClass
       return this.attributes;
    }
 
+   /**
+    * get All Roles
+    * @return all Roles of a Clazz
    /********************************************************************
     * <pre>
     *              one                       many
@@ -286,6 +291,9 @@ public class Clazz extends SDMLibClass
       return this;
    }
    
+   /**
+    * get All Methods
+    * @return all Methods of a Clazz
    /********************************************************************
     * <pre>
     *              one                       many

@@ -34,15 +34,35 @@ public class GraphViz implements GuiFileDrawer
    public void unpack(String pluginName) throws IOException{
       JarFile jar = new JarFile(pluginName);
       Enumeration<JarEntry> enumEntries = jar.entries();
+      int count = jar.size();
+      int i=0;
       while (enumEntries.hasMoreElements()) {
-          java.util.jar.JarEntry file = (java.util.jar.JarEntry) enumEntries.nextElement();
+    	  java.util.jar.JarEntry file = (java.util.jar.JarEntry) enumEntries.nextElement();
+    	  System.out.println("Unpack "+file.getName()+": "+(++i)+" / "+count);
+
+          if(file.getName().startsWith("Adapter\\") 
+        		  || file.getName().startsWith("Adapter/")
+        		  || file.getName().startsWith("Drawer\\")
+        		  || file.getName().startsWith("Drawer/")
+        		  ){
+        	  continue;
+          }
           if(file.getName().startsWith("META-INF") || file.getName().startsWith("org")){
              continue;
           }
           java.io.File f = new java.io.File(file.getName());
           if (file.isDirectory()) { // if its a directory, create it
+        	  if(file.getName().startsWith("Adapter")){
+        		  continue;
+        	  }
+        	  if(file.getName().startsWith("Drawer")){
+        		  continue;
+        	  }
               f.mkdir();
               continue;
+          }
+          if(f.exists()) {
+        	  continue;
           }
           java.io.InputStream is = jar.getInputStream(file); // get the input stream
           java.io.FileOutputStream fos = new java.io.FileOutputStream(f);
@@ -99,33 +119,29 @@ public class GraphViz implements GuiFileDrawer
          docDir.mkdirs();
       }
 
-      URL absolutePath = GraphViz.class.getResource("../../..");
-      if (absolutePath == null)
-      {
-         return false;
-      }
+//      URL absolutePath = GraphViz.class.getResource("../../..");
+//      if (absolutePath == null)
+//      {
+//         return false;
+//      }
       if ((System.getProperty("os.name").toLowerCase()).contains("windows"))
       {
-         File root = new File("" + absolutePath).getParentFile()
-            .getParentFile().getParentFile();
+    	  File root = new File(".");
          String rootPath = root.getPath().replace("file:\\", "");
-         rootPath = rootPath + "\\SDMLib";
-         String makeimageFile = rootPath + "\\Adapter\\GraphViz\\Resources\\win32\\makeimage.bat";
+         String makeimageFile = rootPath + "\\win32\\makeimage.bat";
          command = new String[]
          { makeimageFile, "doc\\" + imgName, rootPath };
       }
-      else if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
-      {
-
-         File root = new File("" + absolutePath).getParentFile()
-            .getParentFile().getParentFile();
-         String rootPath = root.getPath().replace("file:", "");
-         String makeimageFile = rootPath
-            + "/tools/Graphviz/osx_lion/makeimage.command";
-
-         command = new String[]
-         { makeimageFile, imgName, rootPath };
-      }
+//      else if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
+//      {
+//    	  File root = new File(".");
+//         String rootPath = root.getPath().replace("file:", "");
+//         String makeimageFile = rootPath
+//            + "/osx_lion/makeimage.command";
+//
+//         command = new String[]
+//         { makeimageFile, imgName, rootPath };
+//      }
       else
       { // let's assume it's linux'ish (works also for mac)
          command = new String[]

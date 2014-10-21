@@ -172,6 +172,9 @@ public class Method extends SDMLibClass
    }
 
 
+   /**
+    * get The Clazz of a Method
+    * @return Clazz of a Method
    /********************************************************************
     * <pre>
     *              many                       one
