@@ -62,12 +62,19 @@ public class GraphFactory
    
 	public void generate(String path) {
 		File dir = new File(path);
+		String rootPath = dir.getAbsolutePath();
+		if (".".equals(path)) {
+			rootPath = rootPath.substring(0, rootPath.length() - 1);
+		}
+		if (!(rootPath.endsWith("\\") || rootPath.endsWith("/"))) {
+			rootPath += "/";
+		}
 		ArrayList<URL> plugins = new ArrayList<URL>();
 		for (File item : dir.listFiles()) {
 			if (item.getName().toLowerCase().endsWith(".jar")) {
 				try {
 
-					plugins.add(new URL("file", "", item.getName()));
+					plugins.add(new URL("file", "", rootPath+item.getName()));
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				}
@@ -80,11 +87,9 @@ public class GraphFactory
 			if (resource == null) {
 				return;
 			}
-			File test = new File(".");
 			File lib = new File(resource.getPath());
 			lib = lib.getParentFile().getParentFile().getParentFile();
-			String rootPath = test.getAbsolutePath();
-			rootPath = rootPath.substring(0, rootPath.length() - 1);
+
 			String libPath = lib.getPath();
 			if (libPath.startsWith("file:\\")) {
 				libPath = libPath.substring(6);
