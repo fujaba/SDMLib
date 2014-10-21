@@ -388,7 +388,8 @@ public class Storyboard implements PropertyChangeInterface
       }
 
       // generate the html text
-      String htmlText = "<html>\n" +
+      String htmlText = "<!DOCTYPE html>\n"
+         + "<html>\n" +
             "<head>" +
             "<meta charset=\"utf-8\">\n" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
@@ -398,7 +399,7 @@ public class Storyboard implements PropertyChangeInterface
             "<script src=\"includes/drawer.js\"></script>\n" +
             "<script src=\"includes/graph.js\"></script>\n" +
             "</head>" +
-            "<body onload=\"init();\">\n" +
+            "<body>\n" +
             "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
             "$text\n" +
             "</body>\n" +

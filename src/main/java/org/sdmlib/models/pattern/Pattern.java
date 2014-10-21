@@ -410,63 +410,31 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
       
       result.put("edges", edges);
       
-      int num = 1;
-      
       LinkedHashMap<PatternObject, String> nameMap = new LinkedHashMap<PatternObject, String>();
       
-      for (PatternElement elem : this.elements)
-      {
-         if (elem instanceof PatternObject)
-         {
-            PatternObject po = (PatternObject) elem;
-            
-            JsonObject node = new JsonObject();
-            node.put("typ", "patternObject");
-            
-            String shortClassName = CGUtil.shortClassName(po.getClass().getName());
-            String firstChar = shortClassName.substring(0, 1).toLowerCase();
-            
-            String jsonId = firstChar + num + " : " + shortClassName;
-            
-            
-            node.put("id", jsonId);
-            num++;
-            
-            nameMap.put(po, jsonId);
-            
-            JsonArray attrs = new JsonArray();
-            
-            if (num == 2)
-            {
-               attrs.add("<< start >>");
-            }
-            
-            if (po.getModifier() != null)
-            {
-               attrs.add("<< " + po.getModifier() + ">>");
-            }
-            
-            for (AttributeConstraint attr : po.getAttrConstraints())
-            {
-               if (attr.getUpperTgtValue() != null)
-               {
-                  attrs.add("" + attr.getAttrName() + " in [" + attr.getTgtValue() + ".." + attr.getUpperTgtValue() + "]");
-               }
-               else
-               {
-                  attrs.add("" + attr.getAttrName() + " == " + attr.getTgtValue());
-               }
-            }
-            
-            
-            node.put("attributes", attrs);
-            
-            nodes.add(node);
-         }
-         
-      }
+      addNodesToDiagram(this.elements, nodes, nameMap);
 
-      for (PatternElement elem : this.elements)
+      addEdgesToDiagram(this.elements, edges, nameMap);
+
+      
+      String text =
+            "<script>\n" +
+               "   var json = " +
+               result.toString(3) +
+               "   ;\n" +
+               "   json[\"options\"]={\"canvasid\":\"canvas" + diagramName + "\", "
+               + "\"display\":\"html\", "
+               + "\"fontsize\":10,"
+               + "\"bar\":true};" +
+               "   var g = new Graph(json);\n" +
+               "   g.layout(100,100);\n" +
+               "</script>\n";      
+      return text;
+   }
+
+   private void addEdgesToDiagram(PatternElementSet elements, JsonArray edges, LinkedHashMap<PatternObject, String> nameMap)
+   {
+      for (PatternElement elem : elements)
       {
          if (elem instanceof PatternLink)
          {
@@ -494,23 +462,98 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             role.put("property", link.getTgtRoleName());
             role.put("id", nameMap.get(tgt));
             
+         } 
+         else if (elem instanceof Pattern)
+         {
+            Pattern subPattern = (Pattern) elem;
+            addEdgesToDiagram(subPattern.getElements(), edges, nameMap);
          }
+         
       }
+   }
 
-      
-      String text =
-            "<script>\n" +
-               "   var json = " +
-               result.toString(3) +
-               "   ;\n" +
-               "   json[\"options\"]={\"canvasid\":\"canvas" + diagramName + "\", "
-               + "\"display\":\"html\", "
-               + "\"fontsize\":10,"
-               + "\"bar\":true};" +
-               "   var g = new Graph(json);\n" +
-               "   g.layout(100,100);\n" +
-               "</script>\n";      
-      return text;
+   private void addNodesToDiagram(PatternElementSet elements, JsonArray nodes, LinkedHashMap<PatternObject, String> nameMap)
+   {
+      for (PatternElement elem : elements)
+      {
+         if (elem instanceof PatternObject)
+         {
+            PatternObject po = (PatternObject) elem;
+            
+            JsonObject node = new JsonObject();
+            node.put("typ", "patternObject");
+            
+            String shortClassName = CGUtil.shortClassName(po.getClass().getName());
+            String firstChar = shortClassName.substring(0, 1).toLowerCase();
+            
+            int num = nameMap.size() + 1;
+            
+            String jsonId = firstChar + num + " : " + shortClassName;
+            
+            
+            node.put("id", jsonId);
+            
+            
+            nameMap.put(po, jsonId);
+            
+            JsonArray attrs = new JsonArray();
+            
+            if (num == 1)
+            {
+               attrs.add("<< start >>");
+            }
+            
+            if (po.getModifier() != null)
+            {
+               attrs.add("<< " + po.getModifier() + ">>");
+            }
+            
+            for (AttributeConstraint attr : po.getAttrConstraints())
+            {
+               if (attr.getUpperTgtValue() != null)
+               {
+                  attrs.add("" + attr.getAttrName() + " in [" + attr.getTgtValue() + ".." + attr.getUpperTgtValue() + "]");
+               }
+               else
+               {
+                  attrs.add("" + attr.getAttrName() + " == " + attr.getTgtValue());
+               }
+            }
+            
+            
+            node.put("attributes", attrs);
+            
+            nodes.add(node);
+         } 
+         else if (elem instanceof Pattern)
+         {
+            Pattern subPattern = (Pattern) elem;
+            
+            // add subgraph
+            JsonObject node = new JsonObject();
+            node.put("typ", "subgraph");
+            node.put("info", CGUtil.shortClassName(subPattern.getClass().getName()));
+            nodes.add(node);
+            
+            JsonObject graph = new JsonObject();
+            node.put("graph", graph);
+            
+            graph.put("typ", "object");
+            
+            JsonArray subNodes = new JsonArray();
+            
+            graph.put("nodes", subNodes);
+            
+            JsonArray edges = new JsonArray();
+            graph.put("edges", edges);
+            
+            
+            addNodesToDiagram(subPattern.getElements(), subNodes, nameMap);
+            
+            System.out.println("");
+         }
+         
+      }
    }
    
    public String dumpDiagramOld(String diagramName, boolean showMatch)
