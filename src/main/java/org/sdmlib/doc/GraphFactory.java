@@ -66,7 +66,7 @@ public class GraphFactory
 		if (".".equals(path)) {
 			rootPath = rootPath.substring(0, rootPath.length() - 1);
 		}
-		if (!(rootPath.endsWith("\\") || rootPath.endsWith("/"))) {
+		if (rootPath.length()>0 && !(rootPath.endsWith("\\") || rootPath.endsWith("/"))) {
 			rootPath += "/";
 		}
 		ArrayList<URL> plugins = new ArrayList<URL>();
@@ -111,10 +111,15 @@ public class GraphFactory
 
          for (URL plugin : plugins) {
             String name = plugin.getPath();
-            if (name.lastIndexOf("/")>0) {
-            	name = name.substring(name.lastIndexOf("/")+1);
+            int pos =name.lastIndexOf("/"); 
+            String path=".";
+            if (pos>0) {
+            	path = name.substring(0, pos);
+            	name = name.substring(pos+1);
             }
-            if (name.lastIndexOf("\\")>0) {
+            pos = name.lastIndexOf("\\"); 
+            if (pos>0) {
+            	path = name.substring(0, pos);
             	name = name.substring(name.lastIndexOf("\\")+1);
             }
             if (name.indexOf(".")>0) {
@@ -133,7 +138,7 @@ public class GraphFactory
                for(GuiAdapter item : adapters){
                   if(item.getName().equalsIgnoreCase(name)){
                      item.withDrawer(drawer);
-                     drawer.withPlugin(new File("."), plugin.getPath());
+                     drawer.withPlugin(new File(path), plugin.getPath());
                   }
                }
             }
