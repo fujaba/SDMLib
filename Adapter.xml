@@ -26,6 +26,19 @@ Class-Path: .
 			<fileset dir="src/main/java/org/sdmlib/doc/interfaze/"/>
 			<zipfileset casesensitive="false" dir="Adapter/GraphViz/Resources" />
 		</jar>
+		<jar destfile="build/GraphViz_mac.jar" manifest="build/MANIFEST.MF">
+			<fileset dir="build/temp/" />
+			<fileset dir="Adapter/GraphViz/Java" />
+			<fileset dir="src/main/java/org/sdmlib/doc/interfaze/"/>
+		</jar>
+		<jar destfile="build/GraphViz_linux.jar" manifest="build/MANIFEST.MF">
+			<fileset dir="build/temp/" />
+			<fileset dir="Adapter/GraphViz/Java" />
+			<fileset dir="src/main/java/org/sdmlib/doc/interfaze/"/>
+		</jar>
+		
+		
+		
 		<delete dir="build/temp"></delete>
 		
 		<!-- Source-graphViz -->

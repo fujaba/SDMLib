@@ -129,20 +129,19 @@ public class GraphViz implements GuiFileDrawer
     	  File root = new File(".");
          String rootPath = root.getPath().replace("file:\\", "");
          String makeimageFile = rootPath + "\\win32\\makeimage.bat";
-//         String makeimageFile = rootPath + "\\Adapter\\GraphViz\\Resources\\win32\\makeimage.bat";
          command = new String[]
          { makeimageFile, "doc\\" + imgName, rootPath };
       }
-      else if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
-      {
-    	  File root = new File(".");
-         String rootPath = root.getPath().replace("file:", "");
-         String makeimageFile = rootPath
-            + "/osx_lion/makeimage.command";
-
-         command = new String[]
-         { makeimageFile, imgName, rootPath };
-      }
+//      else if ((System.getProperty("os.name").toLowerCase()).contains("mac"))
+//      {
+//    	  File root = new File(".");
+//         String rootPath = root.getPath().replace("file:", "");
+//         String makeimageFile = rootPath
+//            + "/osx_lion/makeimage.command";
+//
+//         command = new String[]
+//         { makeimageFile, imgName, rootPath };
+//      }
       else
       { // let's assume it's linux'ish (works also for mac)
          command = new String[]
