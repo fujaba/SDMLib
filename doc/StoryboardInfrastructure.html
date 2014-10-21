@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,7 +7,7 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../.srctestjava/org/sdmlib/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructure</a></p>
 <p>StoryboardInfrastructure</p>
 <p>This storyboard tests the storyboard infrastructure. </p>
@@ -17,73 +18,83 @@ phase entries will be used for planning, in future</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"KanbanEntry",
+         "attributes":[
+         "oldNoOfLogEntries : int",
+            "phases : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"KanbanEntry",
-            "attributes":[
-            "oldNoOfLogEntries : int",
-               "phases : String"
-            ]
+         "typ":"node",
+         "id":"LogEntryStoryBoard",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"StoryboardWall",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Storyboard",
+         "attributes":[
+         "rootDir : String",
+            "stepCounter : int",
+            "stepDoneCounter : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"StoryboardStep",
+         "attributes":[
+         "text : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"kanbanEntry",
+            "id":"KanbanEntry"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"LogEntryStoryBoard",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"StoryboardWall",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Storyboard",
-            "attributes":[
-            "rootDir : String",
-               "stepCounter : int",
-               "stepDoneCounter : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"StoryboardStep",
-            "attributes":[
-            "text : String"
-            ]
+            "cardinality":"many",
+            "property":"logEntries"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"kanbanEntry",
-            "targetproperty":"logEntries",
-            "source":"KanbanEntry",
-            "target":"LogEntryStoryBoard"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"wall",
+            "id":"StoryboardWall"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"wall",
-            "targetproperty":"storyboard",
-            "source":"StoryboardWall",
-            "target":"Storyboard"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"storyboard",
-            "targetproperty":"storyboardSteps",
-            "source":"Storyboard",
-            "target":"StoryboardStep"
+         "target":{
+            "id":"Storyboard",
+            "cardinality":"one",
+            "property":"storyboard"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"storyboard",
+            "id":"Storyboard"
+         },
+         "target":{
+            "id":"StoryboardStep",
+            "cardinality":"many",
+            "property":"storyboardSteps"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStoryboardInfrastructureClassDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -93,7 +104,7 @@ phase entries will be used for planning, in future</p>
 <p><a name = 'step_4'>Step 4: Show some internals</a></p><p>Internally, the class model looks like:</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",

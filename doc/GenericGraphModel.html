@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,93 +7,111 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../.srctestjava/org/sdmlib/models/objects/GenericGraphModel.java' type='text/x-java'>GenericGraphModel</a></p>
 <p>GenericGraphModel</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"GenericGraph",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"GenericGraph",
-            "attributes":[]
+         "typ":"node",
+         "id":"GenericObject",
+         "attributes":[
+         "name : String",
+            "type : String",
+            "icon : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"GenericAttribute",
+         "attributes":[
+         "name : String",
+            "value : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"GenericLink",
+         "attributes":[
+         "tgtLabel : String",
+            "srcLabel : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"GenericGraph"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"GenericObject",
-            "attributes":[
-            "name : String",
-               "type : String",
-               "icon : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"GenericAttribute",
-            "attributes":[
-            "name : String",
-               "value : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"GenericLink",
-            "attributes":[
-            "tgtLabel : String",
-               "srcLabel : String"
-            ]
+            "cardinality":"many",
+            "property":"objects"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"objects",
-            "source":"GenericGraph",
-            "target":"GenericObject"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"GenericGraph"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"links",
-            "source":"GenericGraph",
-            "target":"GenericLink"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"owner",
-            "targetproperty":"attrs",
-            "source":"GenericObject",
-            "target":"GenericAttribute"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"src",
-            "targetproperty":"outgoingLinks",
-            "source":"GenericObject",
-            "target":"GenericLink"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"tgt",
-            "targetproperty":"incommingLinks",
-            "source":"GenericObject",
-            "target":"GenericLink"
+         "target":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"links"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"owner",
+            "id":"GenericObject"
+         },
+         "target":{
+            "id":"GenericAttribute",
+            "cardinality":"many",
+            "property":"attrs"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"GenericObject"
+         },
+         "target":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"outgoingLinks"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"GenericObject"
+         },
+         "target":{
+            "id":"GenericLink",
+            "cardinality":"many",
+            "property":"incommingLinks"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasGenericGraphModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

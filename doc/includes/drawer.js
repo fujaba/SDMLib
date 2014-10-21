@@ -27,21 +27,12 @@ Drawer.prototype.clearBoard = function(){};
 Drawer.prototype.onLoadImage = function(){};
 Drawer.prototype.onFinishImage = function(){};
 Drawer.prototype.setPos = function(item, x, y){item.x = x;item.y = y;};
-Drawer.prototype.getX = function(node){return node.x;};
-Drawer.prototype.getY = function(node){return node.y;};
 Drawer.prototype.createText = function(text){return document.createTextNode(text);}
-Drawer.prototype.createSubGraph = function(node, element){
-	var options = new Options();
-	options.rootElement = element;
-	if(this.graph.options) {
-		options.display = this.graph.options.display;
-	}
-	options.buttons = [];
-	options.parent = this.graph;
-	node.g = new Graph(node.graph, options);
-	node.g.layout();
-};
 Drawer.prototype.setSize = function(item, x, y){item.width = x;item.height = y;};
+Drawer.prototype.createSubGraph = function(node, element){
+	node.board = element;
+	node.layoutCalculate();
+};
 Drawer.prototype.createObject= function(ns, tag){
 	if(document.createElementNS){
 		return document.createElementNS(ns, tag);
@@ -50,13 +41,18 @@ Drawer.prototype.createObject= function(ns, tag){
 	e.setAttribute('xmlns', ns);
 	return e;
 };
+Drawer.prototype.getBoard = function(graph){
+	if(graph.parent){
+		return this.getBoard(graph.parent);
+	}
+	return graph.board;
+};
+Drawer.prototype.getNumber = function(num) {return Number(num.toString().replace("px",''));}
 
 HTMLDrawer = function() {};
 HTMLDrawer.prototype = Object_create(Drawer.prototype);
 HTMLDrawer.prototype.showInfoBox = function(){return true;}
 HTMLDrawer.prototype.isShowRaster = function(){return true;}
-HTMLDrawer.prototype.getX = function(node){return node.offsetLeft;};
-HTMLDrawer.prototype.getY = function(node){return node.offsetTop;};
 HTMLDrawer.prototype.setPos = function(item, x, y){item.style.left = x+"px";item.style.top = y+"px";};
 HTMLDrawer.prototype.setSize = function(item, x, y){item.style.width = x+"px";item.style.height = y+"px";};
 HTMLDrawer.prototype.createContainer = function(graph){
@@ -67,7 +63,6 @@ HTMLDrawer.prototype.createContainer = function(graph){
 	board.rasterElements=[];
 	return board;
 };
-
 HTMLDrawer.prototype.createImage = function(model){
 	var img = new Image();
 	img.src = model.src;
@@ -97,27 +92,30 @@ HTMLDrawer.prototype.createCell = function(parent, tag){
 };
 HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 	var htmlElement = document.createElement("div");
+	htmlElement["isdraggable"]=true;
 	var symbolLib = new SymbolLibary();
-	var typ = node.typ.toLowerCase();
-	if(typ=="patternobject") {
+	if(node.typ=="patternobject") {
 		htmlElement.className="patternElement";
 	} else if(symbolLib.isSymbol(node)) {
 		return symbolLib.draw(null, node, calculate);
-	} else if(this.graph.typ=="object") {
+	} else if(node.typ=="classdiagram") {
+		htmlElement.className="classdiagram";
+	} else if(node.typ=="objectdiagram") {
+		htmlElement.className="objectdiagram";
+	} else if(this.graph.typ.toLowerCase()=="objectdiagram") {
 		htmlElement.className="objectElement";
 	} else {
 		htmlElement.className="classElement";
 	}
 	this.setPos(htmlElement, node.x, node.y);
 	htmlElement.style.zIndex=5000;
-	this.graph.addNodeLister(htmlElement, node);
 
-	if(typ=="subgraph"){
+	if(node.typ=="objectdiagram" || node.typ=="classdiagram"){
 		this.createSubGraph(node, htmlElement);
-		htmlElement.style.width = node.g.board.style.width;
-		htmlElement.style.height = node.g.board.style.height;
+		this.setSize(htmlElement, node.board.style.width, node.board.style.height);
 		return htmlElement;
 	}
+	this.graph.addNodeLister(htmlElement, node);
 	if(node.content_src){
 		if(!node.content_img){
 			node.content_img = {};
@@ -153,7 +151,7 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 		cell.className="head";
 		cell.innerHTML = node.headinfo;
 	}
-	if(this.graph.typ=="object"){
+	if(this.graph.typ.toLowerCase()=="objectdiagram"){
 		info = "<u>"+ node.id.charAt(0).toLowerCase() + node.id.slice(1) + "</u>";
 	}else{
 		info = node.id;
@@ -199,13 +197,13 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 
 HTMLDrawer.prototype.createInfo = function(item, calculate, text) {
 	var info = document.createElement("div");
+	info["isdraggable"]=true;
 	info.className="EdgeInfo";
 	info.style.fontSize = this.graph.options.font["font-size"];
 	this.setPos(info, item.x, item.y);
 	info.innerHTML = text;
 	return info;
 };
-
 
 HTMLDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle, style){
 	if (x2 < x1 ){
@@ -250,7 +248,7 @@ HTMLDrawer.prototype.onFinishImage = function(event){
 SVGDrawer = function() {};
 SVGDrawer.prototype = Object_create(Drawer.prototype);
 SVGDrawer.prototype.addFontAttributes = function(node){
-	if(this.graph.options.font){
+	if(this.graph && this.graph.options.font){
 		for (var key in this.graph.options.font) {
 			if(this.graph.options.font[key]){
 				node.setAttribute(key, this.graph.options.font[key]);
@@ -315,20 +313,24 @@ SVGDrawer.prototype.createContainer = function(graph){
 	return board;
 };
 SVGDrawer.prototype.setSize = function(item, x, y){
+	x = this.getNumber(x);
+	y = this.getNumber(y);
 	item.setAttribute("width", Math.ceil(x));
 	item.setAttribute("height", Math.ceil(y));
 	item.style.width=Math.ceil(x);
 	item.style.height=Math.ceil(y);
 };
+
 SVGDrawer.prototype.getWidth = function(label, calculate){
 	var text = this.createObject("http://www.w3.org/2000/svg", "text");
 	text.appendChild(document.createTextNode(label));
 	this.addFontAttributes(text);
 
 	text.setAttribute("width", "5px");
-	this.graph.board.appendChild(text);
+	var board = this.getBoard(this.graph);
+	board.appendChild(text);
 	var width = text.getBoundingClientRect().width;
-	this.graph.board.removeChild(text);
+	board.removeChild(text);
 	return width;
 }
 SVGDrawer.prototype.getHTMLNode = function(node, calculate){
@@ -337,12 +339,27 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 		return symbolLib.draw(this, node, calculate);
 	}
 	if(node.content_src){
-		return this.createElement({tag:"image", height: node.height, width: node.width, content_src: node.content_src});
+		return this.createElement({tag:"image", height: node.height, width: node.width, content_src: node.content_src, isdraggable:true});
 	}
+	var group = this.createElement({tag:"g", "class":"draggable", isdraggable:true});
 	if(node.content_svg){
-		var group = this.createObject("http://www.w3.org/2000/svg", "g");
 		group.setAttribute('transform', "translate("+node.x+" "+node.y+")");
 		group.innerHTML = node.content_svg;return group;
+	}
+	group.model = node;
+	if(node.typ=="objectdiagram" || node.typ=="classdiagram"){
+		this.createSubGraph(node, group);
+		
+		var width = this.getNumber(node.board.style.width);
+		var height = this.getNumber(node.board.style.height);
+		if(node.style && node.style.toLowerCase()=="nac"){
+			group.appendChild(this.createGroup(node, symbolLib.drawStop(node)));
+		}
+		
+		this.graph.addNodeLister(group, node);
+		group.appendChild( this.createElement({tag:"rect", "width":width, "height":height, "fill":"none", "strokeWidth":"1px", "stroke":this.getColor(node.style, "#CCC"), "x":node.getX(), "y":node.getY()}));
+		this.setSize(group, width, height);
+		return group;
 	}
 
 	if(node.content_plain){
@@ -356,14 +373,14 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 	var height=40;
 	var textWidth;
 
-	if(this.graph.typ=="object"){
+	if(this.graph.typ.toLowerCase()=="objectdiagram"){
 		textWidth = this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1));
 	}else{
 		textWidth = this.getWidth(node.id);
 	}
 	width = Math.max(width, textWidth);
 	if(node.attributes && node.attributes.length > 0 ){
-		height = height + node.attributes.length*20;
+		height = height + node.attributes.length*25;
 		for(var a=0; a<node.attributes.length;a++){
 			var attribute = node.attributes[a];
 			width = Math.max(width, this.getWidth(attribute));
@@ -373,7 +390,7 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 	}
 	
 	if(node.methods && node.methods.length > 0){
-		height = height + node.methods.length*20;
+		height = height + node.methods.length*25;
 		for(var m=0; m<node.methods.length;m++){
 			var method = node.methods[m];
 			width = Math.max(width, this.getWidth(method));
@@ -381,11 +398,11 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 	} 
 	width += 20;
 
-	var y = node.y;
-	var group = this.createElement({tag:"g"});
-	group.model = node;
+	var y = node.getY();
+	var x = node.getX();
+
 	this.graph.addNodeLister(group, node);
-	var rect = {tag:"rect", "width":width, "height":height, "x":node.x, "y":y, "fill":"none", class:"draggable"};
+	var rect = {tag:"rect", "width":width, "height":height, "x":x, "y":y, "fill":"none", class:"draggable"};
 	var typ = node.typ.toLowerCase();
 	if(typ=="patternobject") {
 		rect["fill"] = "lightblue";
@@ -394,9 +411,9 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 	rect["stroke"] = strokeColor;
 	group.appendChild( this.createElement(rect) );
 
-	var text = this.createElement({tag:"text", "text-anchor":"right", "x":node.x+width/2-textWidth/2, "y":y+20, "width":textWidth});
+	var text = this.createElement({tag:"text", "text-anchor":"right", "x":x+width/2-textWidth/2, "y":y+20, "width":textWidth});
 
-	if(this.graph.typ=="object"){
+	if(this.graph.typ.toLowerCase()=="objectdiagram"){
 		text.setAttribute("text-decoration", "underline");
 		text.appendChild(document.createTextNode(node.id.charAt(0).toLowerCase() + node.id.slice(1)));
 	}else{
@@ -404,13 +421,13 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 	}
 
 	group.appendChild(text);
-	group.appendChild( this.createElement({tag:"line", x1:node.x, y1:y + 30, x2: node.x + width, y2: y + 30, stroke:strokeColor}) );
+	group.appendChild( this.createElement({tag:"line", x1:x, y1:y + 30, x2: x + width, y2: y + 30, stroke:strokeColor}) );
 	y += 50;
 
 	if(node.attributes){
 		for(var a=0;a<node.attributes.length;a++){
 			var attribute = node.attributes[a];
-			group.appendChild(this.createElement({tag:"text", "text-anchor":"left", "width": width, "x":(node.x+10), "y": y, value:attribute}));
+			group.appendChild(this.createElement({tag:"text", "text-anchor":"left", "width": width, "x":(x+10), "y": y, value:attribute}));
 			y += 20;
 		}
 		if(node.attributes.length>0) {
@@ -418,11 +435,11 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 		}
 	}
 	if(node.methods && node.methods.length > 0){
-		group.appendChild( this.createElement({tag:"line", x1:node.x, y1: y, x2: node.x + width, y2: y, stroke:"#000"}) );
+		group.appendChild( this.createElement({tag:"line", x1:x, y1: y, x2: x + width, y2: y, stroke:"#000"}) );
 		y+=20;
 		for(var m=0;m<node.methods.length;m++){
 			var method = node.methods[m];
-			group.appendChild(this.createElement({tag:"text", "text-anchor":"left", "width": width, x:node.x + 10, "y": y, value:method}));
+			group.appendChild(this.createElement({tag:"text", "text-anchor":"left", "width": width, "x": x + 10, "y": y, value:method}));
 			y += 20;
 		}
 	}
@@ -431,24 +448,28 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 
 SVGDrawer.prototype.createElement = function(node){
 	var element = this.createObject("http://www.w3.org/2000/svg", node.tag);
-	if(node.tag=="path"){
+	if(node.tag.toLowerCase()=="path"){
 		element.setAttribute('fill', "rgb(255, 255, 255)");
 		//element.setAttribute('style', "stroke:#000;");
 	}
 	this.addFontAttributes(element);
 
 	for (var key in node) {
+		key = key.toLowerCase();
 		if(key=='tag')continue;
-		if(key=='content_src'&& node.tag=="image") continue;
-		if(key=='value'&& node.tag=="text") continue;
-		if(node[key] != null) {
+		if(key=='content_src'&& node.tag.toLowerCase()=="image") continue;
+		if(key=='value'&& node.tag.toLowerCase()=="text") continue;
+		if(key.indexOf("-")>=0){
+			element.style[key] = node[key];
+		}else if(node[key] != null) {
 			element.setAttribute(key, node[key]);
+			element[key] = node[key];
 		}
 	}
-	if(node.tag=="text" && node.value){
+	if(node.tag.toLowerCase()=="text" && node.value){
 		element.appendChild(document.createTextNode(node.value));
 	}
-	if(node.tag=="image"){
+	if(node.tag.toLowerCase()=="image"){
 		element.setAttribute('xmlns:xlink', "http://www.w3.org/1999/xlink");
 		element.setAttributeNS("http://www.w3.org/1999/xlink", 'href',node["content_src"]);
 	}
@@ -458,7 +479,7 @@ SVGDrawer.prototype.createElement = function(node){
 SVGDrawer.prototype.createInfo = function(item, calculate, text) {
 	var items = text.split("\n");
 	if(!calculate && items.length>1){
-		var group = this.createElement({tag:"g", class:"draggable"});
+		var group = this.createElement({tag:"g", class:"draggable", isdraggable:true});
 		for(var i = 0;i<items.length;i++) {
 			var child = this.createElement({tag:"text", "text-anchor":"left", "x": item.x, "y": item.y+(item.size.y*i)});
 			child.appendChild(document.createTextNode(items[i]));
@@ -467,16 +488,19 @@ SVGDrawer.prototype.createInfo = function(item, calculate, text) {
 		this.graph.addNodeLister(group, item);
 		return group;
 	}
-	return this.createElement({tag:"text", "text-anchor":"left", "x": item.x, "y": item.y, value:text});
+	return this.createElement({tag:"text", "text-anchor":"left", "x": item.x, "y": item.y, value:text, isdraggable:true});
 };
-SVGDrawer.prototype.getColor =  function(style) {
-	if(style ) {
+SVGDrawer.prototype.getColor = function(style, defaultColor) {
+	if(style) {
 		if(style.toLowerCase()=="create") {
 			return "#008000";
 		}
-		if(style.toLowerCase()=="delete") {
+		if(style.toLowerCase()=="nac") {
 			return "#FE3E3E";
 		}
+	}
+	if(defaultColor) {
+		return defaultColor;
 	}
 	return "#000";
 }
@@ -484,7 +508,7 @@ SVGDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle, style){
 	var line = this.createElement({tag:"line", 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2});
 	line.setAttribute("stroke",this.getColor(style));
 
-	if(style=="DOTTED"){
+	if(style && style.toLowerCase()=="dotted"){
 		line.setAttribute("stroke-miterlimit",4);
 		line.setAttribute("stroke-dasharray","1,1");
 	}
@@ -503,18 +527,6 @@ SVGDrawer.prototype.createGroup = function(node, group){
 		entity.appendChild( this.createElement( group.items[i] ) );
 	}
 	return entity;
-};
-SVGDrawer.prototype.getX = function(node){
-	if(node.x!=null){
-		return node.x;
-	}
-	return 0;
-};
-SVGDrawer.prototype.getY = function(node){
-	if(node.y!=null){
-		return node.y;
-	}
-	return 0;
 };
 
 // ######################################################           CANVAS           ####################################################################################
@@ -548,7 +560,7 @@ CanvasDrawer.prototype.getHTMLNode = function(node, calculate){
 	// Calculate Height
 	var width=0;
 	var height=20;
-	if(this.graph.typ=="object"){
+	if(this.graph.typ=="objectdiagram"){
 		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1)));
 	}else{
 		width = Math.max(width, this.getWidth(node.id));
@@ -576,7 +588,7 @@ CanvasDrawer.prototype.getHTMLNode = function(node, calculate){
 	var context = canvas.getContext('2d');
 	if(node.content_src){
 		var img = document.createElement("img");
-		img.src =  node.content_src;
+		img.src = node.content_src;
 		img.node = node;
 		this.graph.loader.appendImg(img);
 		return null;
@@ -598,7 +610,7 @@ CanvasDrawer.prototype.getHTMLNode = function(node, calculate){
 	var context = canvas.getContext('2d');
 	context.font = this.graph.options.fontSize+"px Arial";
 	var text="";
-	if(this.graph.typ=="object"){
+	if(this.graph.typ=="objectdiagram"){
 		text = node.id.charAt(0).toLowerCase() + node.id.slice(1);
 		var start = node.x + (node.width - this.getWidth(text))/2;
 		this.createLine(start, node.y+16, start + this.getWidth(text), node.y+16);
@@ -625,7 +637,7 @@ CanvasDrawer.prototype.createInfo = function(item, calculate, text) {
 CanvasDrawer.prototype.createLine = function(x1, y1, x2, y2, style){
 	var canvas = this.graph.board;
 	var context = canvas.getContext('2d');
-	if(style=="DOTTED"){
+	if(style.toLowerCase()=="dotted"){
 		context.setLineDash([1,2]);
 	}
 	context.moveTo(x1, y1);
@@ -647,7 +659,7 @@ CanvasDrawer.prototype.onLoadImage = function(event){
 CanvasDrawer.prototype.onFinishImage = function(event){
 	try{
 		var img = document.createElement("img");
-		img.src =  this.graph.board.toDataURL();
+		img.src = this.graph.board.toDataURL();
 		this.graph.clearBoard();
 		this.graph.board = img;
 		this.graph.root.appendChild(img);
@@ -670,15 +682,15 @@ CanvasDrawer.prototype.onFinishImage = function(event){
 SymbolLibary = function(){};
 SymbolLibary.prototype.upFirstChar = function(txt)
 {
-    return txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase();
+	return txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase();
 };
 
 SymbolLibary.prototype.isSymbol = function(node){
-	var fn  = this["draw" + this.upFirstChar(node.typ)];
+	var fn = this["draw" + this.upFirstChar(node.typ)];
 	return typeof fn === "function";
 };
 SymbolLibary.prototype.draw = function(drawer, node, calculate){
-	var fn  = this["draw" + this.upFirstChar(node.typ)];
+	var fn = this["draw" + this.upFirstChar(node.typ)];
 	if(typeof fn === "function"){
 		var group = fn.apply(this, [node, calculate]);
 		if( !drawer){
@@ -803,7 +815,6 @@ SymbolLibary.prototype.drawStop = function(node, calculte){
 		width:30,
 		height:30,
 		items:[
-			{tag:"path", fill:"#FFF", strokeWidth:"37", stroke:"#B00", d:"M86,88a230,230 0 1,0 1-1zL412,412"}
-		
+			{tag:"path", fill:"#FFF", "stroke-width":"2", stroke:"#B00", d:"m "+node.getX()+","+node.getY()+" a 14,14 0 1 0 0.0636,-0.065 z m 0,0 20.73215,21.0846"}		
 		]};
 };

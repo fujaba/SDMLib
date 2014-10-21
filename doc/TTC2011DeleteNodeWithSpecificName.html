@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,14 +7,14 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011DeleteNodeWithSpecificName</a></p>
 <p>TTC2011DeleteNodeWithSpecificName</p>
 <hr/><p>Delete node with name n1 and its incidemnt edges.</p>
 <p>Start graph:</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -1167,11 +1168,93 @@
 </script>
 <p>Transformation:</p>
 <p>did not find method deleteNodeWithNameN1(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
-<embed type="image/svg+xml"src='TTC2011DeleteNodeWithSpecificNamePatternDiagram7.svg'>
-<p>Result graph:</p>
 <script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[
+         "name == n1"
+         ]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"e3 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"e4 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"inEdges",
+            "id":"e4 : EdgePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011DeleteNodeWithSpecificNamePatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Result graph:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",

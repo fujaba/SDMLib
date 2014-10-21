@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,74 +7,88 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigration</a></p>
 <p>TTC2011SimpleMigration</p>
 <hr/><p>Source model:</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Graph",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"Graph",
-            "attributes":[]
+         "typ":"node",
+         "id":"Edge",
+         "attributes":[
+         "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Node",
+         "attributes":[
+         "name : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"Graph"
          },
-         {
-            "typ":"node",
-            "id":"Edge",
-            "attributes":[
-            "name : String"
-            ]
-         },
-         {
-            "typ":"node",
+         "target":{
             "id":"Node",
-            "attributes":[
-            "name : String"
-            ]
+            "cardinality":"many",
+            "property":"nodes"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"nodes",
-            "source":"Graph",
-            "target":"Node"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"Graph"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"edges",
-            "source":"Graph",
-            "target":"Edge"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"outEdges",
-            "targetproperty":"src",
-            "source":"Edge",
-            "target":"Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"inEdges",
-            "targetproperty":"tgt",
-            "source":"Edge",
-            "target":"Node"
+         "target":{
+            "id":"Edge",
+            "cardinality":"many",
+            "property":"edges"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"Edge"
+         },
+         "target":{
+            "id":"Node",
+            "cardinality":"one",
+            "property":"src"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"Edge"
+         },
+         "target":{
+            "id":"Node",
+            "cardinality":"one",
+            "property":"tgt"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasTTC2011SimpleMigrationClassDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -82,71 +97,81 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Graph",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"Graph",
-            "attributes":[]
+         "typ":"node",
+         "id":"GraphComponent",
+         "attributes":[
+         "text : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Edge",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Node",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"Graph"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"GraphComponent",
-            "attributes":[
-            "text : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Edge",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Node",
-            "attributes":[]
+            "cardinality":"many",
+            "property":"gcs"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parent",
-            "targetproperty":"gcs",
-            "source":"Graph",
-            "target":"GraphComponent"
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"Edge"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"outEdges",
-            "targetproperty":"src",
-            "source":"Edge",
-            "target":"Node"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"inEdges",
-            "targetproperty":"tgt",
-            "source":"Edge",
-            "target":"Node"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Edge",
-            "target":"GraphComponent"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Node",
-            "target":"GraphComponent"
+         "target":{
+            "id":"Node",
+            "cardinality":"one",
+            "property":"src"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"Edge"
+         },
+         "target":{
+            "id":"Node",
+            "cardinality":"one",
+            "property":"tgt"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Edge"},
+         "target":{"id":"GraphComponent"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Node"},
+         "target":{"id":"GraphComponent"}
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasTTC2011SimpleMigrationClassDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -155,26 +180,28 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
-      {
-            "typ":"node",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Node",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"orig",
+            "id":"Node"
+         },
+         "target":{
             "id":"Node",
-            "attributes":[]
+            "cardinality":"one",
+            "property":"copy"
          }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"orig",
-            "targetproperty":"copy",
-            "source":"Node",
-            "target":"Node"
-         }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasTTC2011SimpleMigrationClassDiagram9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -182,7 +209,7 @@
 <hr/><p>Create example source graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -1335,15 +1362,304 @@
    g.layout(100,100);
 </script>
 <hr/><h2>Migrate per pattern: </h2><p>did not find method simpleMigrationPerPattern(Graph,Storyboard) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram16.svg'>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram17.svg'>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram18.svg'>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram19.svg'>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram20.svg'>
-<p>Result graph: </p>
 <script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GraphPO",
+         "attributes":[
+         "<< create>>"
+         ]
+      }
+   ],
+   "edges":[]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram16", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GraphPO",
+         "attributes":[
+         "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[
+         "<< create>>"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"nodes",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g3 : GraphPO"
+         },
+         "target":{
+            "property":"gcs",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n4 : NodePO"
+         },
+         "target":{
+            "property":"orig",
+            "id":"n2 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram17", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GraphPO",
+         "attributes":[
+         "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e4 : EdgePO",
+         "attributes":[
+         "<< create>>"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g3 : GraphPO"
+         },
+         "target":{
+            "property":"gcs",
+            "id":"e4 : EdgePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram18", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"e1 : EdgePO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n3 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e4 : EdgePO",
+         "attributes":[
+         "<< bound>>"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e1 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"copy",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e4 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n3 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram19", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"e1 : EdgePO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n3 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e4 : EdgePO",
+         "attributes":[
+         "<< bound>>"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e1 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"copy",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e4 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n3 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram20", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Result graph: </p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -2502,7 +2818,7 @@ Number of migrated Edges: 10</p>
 <p>Result graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -3660,7 +3976,7 @@ Number of migrated Edges: 10</p>
 <p>Result graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -4817,7 +5133,7 @@ Number of migrated Edges: 10</p>
 <p>Result graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -5973,7 +6289,7 @@ Number of migrated Edges: 10</p>
 <hr/><h2>Migrate using Generic Graph representation : </h2><p>did not find method simpleMigrationByGenericGraph(Graph,Storyboard) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -8999,12 +9315,141 @@ Number of migrated Edges: 10</p>
    json["options"]={"canvasid":"canvasTTC2011SimpleMigration44", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram44.svg'>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram45.svg'>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram46.svg'>
 <script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == name",
+            "name == text"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram44", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericLinkPO",
+         "attributes":[
+         "tgtLabel == graph",
+            "tgtLabel == parent",
+            "srcLabel == gcs"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"links",
+            "id":"g2 : GenericLinkPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram45", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericLinkPO",
+         "attributes":[
+         "srcLabel == graph",
+            "srcLabel == parent",
+            "tgtLabel == gcs"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"links",
+            "id":"g2 : GenericLinkPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram46", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -12033,7 +12478,7 @@ Number of migrated Edges: 10</p>
 <p>Result graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -13189,49 +13634,55 @@ Number of migrated Edges: 10</p>
 <hr/><h2>Even more evolved graph model : </h2><script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Graph",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"Graph",
-            "attributes":[]
+         "typ":"node",
+         "id":"Node",
+         "attributes":[
+         "text : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"Graph"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Node",
-            "attributes":[
-            "text : String"
-            ]
+            "cardinality":"many",
+            "property":"nodes"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"nodes",
-            "source":"Graph",
-            "target":"Node"
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"linksFrom",
+            "id":"Node"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"linksFrom",
-            "targetproperty":"linksTo",
-            "source":"Node",
-            "target":"Node"
+         "target":{
+            "id":"Node",
+            "cardinality":"many",
+            "property":"linksTo"
          }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasTTC2011SimpleMigrationClassDiagram52", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -14384,13 +14835,219 @@ Number of migrated Edges: 10</p>
    g.layout(100,100);
 </script>
 <p>did not find method simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram55.svg'>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram56.svg'>
-<embed type="image/svg+xml"src='TTC2011SimpleMigrationPatternDiagram57.svg'>
-<p>Result graph: </p>
 <script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == name",
+            "name == text"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram55", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[
+         "type == org.sdmlib.examples.helloworld.model.Edge"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericLinkPO",
+         "attributes":[
+         "tgtLabel == src"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g4 : GenericLinkPO",
+         "attributes":[
+         "tgtLabel == tgt",
+            "srcLabel == linksFrom",
+            "tgtLabel == linksTo"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g5 : GenericObjectPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g6 : GenericObjectPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"outgoingLinks",
+            "id":"g3 : GenericLinkPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"outgoingLinks",
+            "id":"g4 : GenericLinkPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g3 : GenericLinkPO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"g5 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g4 : GenericLinkPO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"g6 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g4 : GenericLinkPO"
+         },
+         "target":{
+            "property":"src",
+            "id":"g5 : GenericObjectPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram56", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[
+         "type == org.sdmlib.examples.helloworld.model.Edge"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram57", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Result graph: </p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",

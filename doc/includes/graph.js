@@ -40,8 +40,8 @@ Line.Format={SOLID:"SOLID", DOTTED:"DOTTED"};
 /* Options */
 Options = function(){
 	this.canvasid = null;
-	this.rootElement = null;
 	this.parent = null;
+	this.subgraphs = [];
 	
 	// Options
 	this.raster = false;
@@ -59,9 +59,15 @@ Options = function(){
 }
 
 /* Node */
-GraphNode = function(id, content){
+GraphNode = function(id, content) {
+	this.init();
 	this.typ = "node";
 	this.id = id;
+	if(content){
+		this.content = content;
+	}
+}
+GraphNode.prototype.init = function() {
 	this.x = 0;
 	this.y = 0;
 	this.width = 0;
@@ -69,15 +75,53 @@ GraphNode = function(id, content){
 	this.edges = [];
 	this.attributes = [];
 	this.methods = [];
-	this.content = content;
+	this.RIGHT = this.LEFT = this.UP = this.DOWN=0;
+};
+
+GraphNode.prototype.removeFromBoard = function(board){
+	if(this.htmlNode){
+		board.removeChild(this.htmlNode);
+		this.htmlNode = null;
+	}
+};
+GraphNode.prototype.getX = function(){
+	if(this.parent){
+		return this.x + this.parent.getX();
+	}
+	if(this.x!=null){
+		return this.x;
+	}
+	return 0;
+};
+GraphNode.prototype.getY = function(){
+	if(this.parent){
+		return this.y + this.parent.getY();
+	}
+	if(this.y!=null){
+		return this.y;
+	}
+	return 0;
+};
+GraphNode.prototype.getRoot = function() {
+	if(this.parent){
+		return this.parent.getRoot();
+	}
+	return this;
 }
 
 /* Graph */
 Graph = function(json, options) {
+	this.init();
 	this.nodeCount=0;
 	this.nodes = {};
 	this.edges = [];
 	this.typ = json.typ;
+	if(json.info){
+		this.info = json.info;
+	}
+	if(json.style){
+		this.style = json.style;
+	}
 	this.layouter = new DagreLayout();
 	this.options = this.merge(new Options(), json.options, options);
 	this.parent = this.options.parent;
@@ -91,64 +135,104 @@ Graph = function(json, options) {
 	}
 	this.minSize = new Pos(0, 0);
 
-	for (var i = 0; i < json.nodes.length; i++) {
-		var node = json.nodes[i];
-		node.x = node.x || 0;
-		node.y = node.y || 0;
-		node.startWidth = node.width;
-		node.startHeight = node.height;
-		node.width = node.width || 0;
-		node.height = node.height || 0;
-		node.edges = [];
-		node.RIGHT = node.LEFT = node.UP = node.DOWN=0;
-		this.insertNode(node, i);
-	}
-	for (var i = 0; i < json.edges.length; i++){
-		var e = json.edges[i];
-		var edge;
-		if(e.typ.toLowerCase()=="generalisation"){
-			edge = new Generalisation();
-		}else if(e.typ.toLowerCase()=="implements"){
-			edge = new Implements();
-		}else{
-			edge = new Edge();
+	if(json.nodes) {
+		for (var i = 0; i < json.nodes.length; i++) {
+			this.insertNode(json.nodes[i], i);
 		}
-		edge.source = this.getNode(e.source.id);
-		edge.info = e.info;
-		edge.style = e.style;
-		edge.sourceInfo = new Info(e.source, this, edge);
-		edge.targetInfo = new Info(e.target, this, edge);
-		edge.source.edges.push(edge);
+	}
+	if(json.edges) {
+		for (var i = 0; i < json.edges.length; i++){
+			var e = json.edges[i];
+			var edge;
+			if(e.typ.toLowerCase()=="generalisation"){
+				edge = new Generalisation();
+			}else if(e.typ.toLowerCase()=="implements"){
+				edge = new Implements();
+			}else{
+				edge = new Edge();
+			}
+			edge.source = this.getNode(e.source.id);
+			edge.info = e.info;
+			edge.style = e.style;
+			edge.sourceInfo = new Info(e.source, this, edge);
+			edge.targetInfo = new Info(e.target, this, edge);
+			edge.source.edges.push(edge);
 
-		edge.target = this.getNode(e.target.id);
-		edge.target.edges.push(edge);
-		this.edges.push(edge);
+			edge.target = this.getNode(e.target.id);
+			edge.target.edges.push(edge);
+			this.edges.push(edge);
+		}
 	}
-	if(this.options.canvasid){
-		this.root = document.getElementById(this.options.canvasid);
-	}else if(this.options.rootElement){
-		this.root = this.options.rootElement;
-	}
-	if(!this.root){
-		this.root = document.createElement("div");
+	if(!this.options.parent){
 		if(this.options.canvasid){
-			this.root.id = this.options.canvasid;
+			this.root = document.getElementById(this.options.canvasid);
 		}
-		document.body.appendChild(this.root);
-	}
-	if(this.options.buttons.length>0){
-		this.optionbar = document.createElement("div");
-		this.optionbar.className = "Options";
-		this.root.appendChild(this.optionbar);
-		for(var i=0; i< this.options.buttons.length; i++){
-			this.optionbar.appendChild(this.getButton(this.options.buttons[i]));
+		if(!this.root){
+			this.root = document.createElement("div");
+			if(this.options.canvasid){
+				this.root.id = this.options.canvasid;
+			}
+			document.body.appendChild(this.root);document.body.appendChild(this.root);
 		}
-		this.optionbar.appendChild(document.createElement("br"));
+		if(this.options.buttons.length>0){
+			this.optionbar = document.createElement("div");
+			this.optionbar.className = "Options";
+			this.root.appendChild(this.optionbar);
+			for(var i=0; i< this.options.buttons.length; i++){
+				this.optionbar.appendChild(this.getButton(this.options.buttons[i]));
+			}
+			this.optionbar.appendChild(document.createElement("br"));
+		}
+		this.initGraph();
 	}
-	this.initGraph();
+};
+Graph.prototype.getX = function(){
+	if(this.parent){
+		return this.x + this.parent.getX();
+	}
+	if(this.x!=null){
+		return this.x;
+	}
+	return 0;
+};
+Graph.prototype.getY = function(){
+	if(this.parent){
+		return this.y + this.parent.getY();
+	}
+	if(this.y!=null){
+		return this.y;
+	}
+	return 0;
+};
+Graph.prototype.getRoot = function() {
+	if(this.parent){
+		return this.parent.getRoot();
+	}
+	return this;
+}
+Graph.prototype = Object_create(GraphNode.prototype);
+Graph.prototype.copy = function(source, target){
+	for (var key in source) {
+		target[key] = source[key];
+	}
+	if(source.width){
+		target.startWidth = source.width;
+	}
+	if(source.height){
+		node.startHeight = node.height;
+	}
+	return target;
 };
 
-Graph.prototype.merge = function(ref, sourceA, sourceB){
+Graph.prototype.removeFromBoard = function(board){
+	if(this.htmlNode){
+		board.removeChild(this.htmlNode);
+		this.htmlNode = null;
+	}
+	this.board = null;
+};
+
+Graph.prototype.merge = function(ref, sourceA, sourceB) {
 	if(sourceA){
 		for(var i in sourceA){
 			ref[i] = sourceA[i];
@@ -163,13 +247,21 @@ Graph.prototype.merge = function(ref, sourceA, sourceB){
 }
 
 Graph.prototype.initGraph = function(){
-	this.clearBoard();
-	this.board = this.drawer.createContainer(this);
-	this.initDragAndDrop();
-	this.root.appendChild(this.board);
+	if(this.root){
+		this.clearBoard();
+		this.board = this.drawer.createContainer(this);
+		this.initDragAndDrop();
+		this.root.appendChild(this.board);
+	}
 
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
+		if(node.typ=="objectdiagram" || node.typ=="classdiagram"){
+			node.root = this.board;
+			node.initDrawer(this.options.display);
+			node.drawer.graph = node;
+			node.initGraph();
+		}
 		var html = this.drawer.getHTMLNode(node, true);
 		if(html){
 			var pos = this.getDimension(html);
@@ -209,10 +301,7 @@ Graph.prototype.clearBoard = function(){
 	if(this.board){
 		this.clearLines();
 		for(var i in this.nodes) {
-			if(this.nodes[i].htmlNode){
-				this.board.removeChild(this.nodes[i].htmlNode);
-				this.nodes[i].htmlNode = null;
-			}
+			this.nodes[i].removeFromBoard(this.board);
 		}
 		this.root.removeChild(this.board);
 	}
@@ -225,6 +314,9 @@ Graph.prototype.clearBoard = function(){
 Graph.prototype.getDimension = function(html){
 	if(this.parent){
 		return this.parent.getDimension(html);
+	}
+	if(!this.board){
+		return new Pos();
 	}
 	this.board.appendChild(html);
 	var rect = html.getBoundingClientRect();
@@ -258,16 +350,48 @@ Graph.prototype.addNode = function(id, content) {
 	}
 	return this.nodes[id];
 };
-Graph.prototype.getNode = function(id) {
-	if(this.nodes[id] == undefined) {
-		this.nodes[id] = new GraphNode(id, "");
+Graph.prototype.getNode = function(id, isSub) {
+	if(this.nodes[id]) {
+		return this.nodes[id];
+	}
+	for(var i = 0;i < this.options.subgraphs.length;i++){
+		var r = this.options.subgraphs[i].getNode(id, true);
+		if(r) {
+			return r;
+		}
+	}
+	if(!isSub){
+		this.nodes[id] = new GraphNode(id);
 		this.nodes[id].parent = this;
 		this.nodeCount++;
+		return this.nodes[id];
 	}
-	return this.nodes[id];
+	return null;
+}
+
+Graph.prototype.addSubGraph = function(subgraph) {
+	this.options.subgraphs.push(subgraph);
+	if(this.parent) {
+		this.parent.addSubGraph(subgraph);
+	}
 };
+
 Graph.prototype.insertNode = function(node, pos) {
 	/* testing if node is already existing in the graph */
+	node.typ = node.typ.toLowerCase();
+	if(node.typ=="objectdiagram" || node.typ=="classdiagram") {
+		if(!this.options) {
+			return;
+		}
+		var options = new Options();
+		options.parent = this;
+		options = this.merge(options, node.options);
+		node = new Graph(node, options);
+		options.rootElement = node;
+		this.addSubGraph(node);
+	}else {
+		node = this.copy(node, new GraphNode());
+	}
 	if(!(node.id)){
 		node.id = node.typ+"_"+pos;
 	}
@@ -341,7 +465,7 @@ Graph.prototype.resize = function(){
 	for (var i in this.nodes) {
 		var node = this.nodes[i];
 
-		this.NodeMoveRaster(node);
+		this.moveToRaster(node);
 
 		maxx=Math.max(maxx,node.x+node.width);
 		maxy=Math.max(maxy,node.y+node.height);
@@ -391,14 +515,18 @@ Graph.prototype.drawGraph = function(width, height){
 	if(this.drawer.showInfoBox() && this.options.infobox){
 		this.infoBox = document.createElement("div");
 	}
+	if(!this.board) {
+		this.initGraph();
+	}
 	this.resize();
 
 	this.drawLines();
 	
 	for(var i in this.nodes) {
-		this.nodes[i].htmlNode = this.drawer.getHTMLNode(this.nodes[i], false);
-		if(this.nodes[i].htmlNode){
-			this.board.appendChild( this.nodes[i].htmlNode );
+		var node = this.nodes[i];
+		node.htmlNode = this.drawer.getHTMLNode(node, false);
+		if(node.htmlNode){
+			this.board.appendChild( node.htmlNode );
 		}
 	}
 	
@@ -429,7 +557,7 @@ Graph.prototype.showInfoText = function(text){
 	this.infoBox.style.KhtmlOpacity = 100;
 	this.infoBox.style.display="";
 };
-Graph.prototype.NodeMoveRaster = function(node){
+Graph.prototype.moveToRaster = function(node){
 	if(this.options.raster){
 		node.x = parseInt(node.x / 10) * 10;
 		node.y = parseInt(node.y / 10) * 10;
@@ -449,15 +577,22 @@ Graph.prototype.layout = function(minwidth, minHeight){
 Graph.prototype.layouting = function(){
 	if(this.layouter){
 		this.initGraph();
+		this.layouter.graph = this;
 		this.layouter.layout(this.minSize.x, this.minSize.y);
 	}
 }
-
+Graph.prototype.layoutCalculate = function(){
+	if(this.layouter){
+		this.layouter.graph = this;
+		this.layouter.layout(this.minSize.x || 0, this.minSize.y || 0);
+	}
+}
 //					######################################################### DRAG AND DROP #########################################################
 Graph.prototype.initDragAndDrop = function(){
 	this.objDrag = null;
 	this.mouse = new Pos(0,0);
 	this.offset= new Pos(0,0);
+	this.startObj= new Pos(0,0);
 	var that = this;
 	// its Root = this.board
 	this.board.onmousemove = function(e){that.doDrag(e);};
@@ -480,16 +615,35 @@ Graph.prototype.showinfo = function(event){
 		node.parent.showInfoText("Box-Position: " + x + ":" + y);
 	}
 };
+Graph.prototype.setSelectable = function(node, value) {
+    if (node.nodeType == 1) {
+        node.setAttribute("unselectable", value);
+    }
+    var child = node.firstChild;
+    while (child) {
+        this.setSelectable(child, value);
+        child = child.nextSibling;
+    }
+};
+
 Graph.prototype.startDrag = function(event) {
+	if(!event.currentTarget.isdraggable){
+		return;
+	}
+	if(this.objDrag){
+		return;
+	}
 	this.objDrag = event.currentTarget;
 	var graph = this.objDrag.parentElement;
 	if(graph) {
 		for(var i=0;i<graph.children.length;i++) {
-			graph.children[i].setAttribute("unselectable", "on");
+			this.setSelectable(graph.children[i], "on");
 		}
 	}
-	this.offset.x = this.mouse.x - this.drawer.getX(this.objDrag);
-	this.offset.y = this.mouse.y - this.drawer.getY(this.objDrag);
+	this.offset.x = (IE) ? window.event.clientX : event.pageX;
+	this.offset.y = (IE) ? window.event.clientY : event.pageY;
+	this.startObj.x = this.objDrag.node.x;
+	this.startObj.y = this.objDrag.node.y;
 };
 
 Graph.prototype.doDrag = function(event) {
@@ -497,10 +651,12 @@ Graph.prototype.doDrag = function(event) {
 	this.mouse.y = (IE) ? window.event.clientY : event.pageY;
 
 	if (this.objDrag != null) {
-		var x =(this.mouse.x - this.offset.x);
-		var y =(this.mouse.y - this.offset.y);
+		var x =(this.mouse.x - this.offset.x) + this.startObj.x;
+		var y =(this.mouse.y - this.offset.y) + this.startObj.y;
 
 		if(this.options.display=="svg"){
+			x = x - this.startObj.x;
+			y = y - this.startObj.y;
 			this.objDrag.setAttribute('transform', "translate("+x+" "+y+")");
 		} else {
 			this.drawer.setPos(this.objDrag, x, y);
@@ -512,37 +668,11 @@ Graph.prototype.doDrag = function(event) {
 		}
 	}
 }
-
-Graph.prototype.getGraphNode = function(objElement){
-	var obj=objElement;
-	while(obj&&!obj.node){
-		if(!obj.node){
-			obj=obj.parentNode;
-		}else{
-			break;
-		}
-	}
-	if(obj&&obj.node){
-		return obj.node;
-	}
-	return null;
-};
-
-Graph.prototype.fadein = function(evt){
-	if(this.infoBox){this.infoBox.fader=false;}
-}
-Graph.prototype.fadeout = function(evt){
-	if(this.infoBox&&!this.infoBox.fader){
-		this.infoBox.fader=100;
-		var that = this;
-		setTimeout(function(){that.fadeOutTimer();}, 2000);
-	}
-};
-Graph.prototype.stopDrag = function(evt) {
+Graph.prototype.stopDrag = function(event) {
 	if(!this.objDrag){
 		return;
 	}
-	if(evt.ctrlKey) {
+	if(!(event.type=="mouseup"||event.type=="mouseout")&&!event.currentTarget.isdraggable){
 		return;
 	}
 	var item = this.objDrag;
@@ -550,7 +680,7 @@ Graph.prototype.stopDrag = function(evt) {
 	var graph = item.parentElement;
 	if(graph) {
 		for(var i=0;i<graph.children.length;i++) {
-			graph.children[i].setAttribute("unselectable", "off");
+			this.setSelectable(graph.children[i], "");
 		}
 	}
 	if(item.node){
@@ -586,6 +716,32 @@ Graph.prototype.stopDrag = function(evt) {
 	}
 }
 
+Graph.prototype.getGraphNode = function(objElement){
+	var obj=objElement;
+	while(obj&&!obj.node){
+		if(!obj.node){
+			obj=obj.parentNode;
+		}else{
+			break;
+		}
+	}
+	if(obj&&obj.node){
+		return obj.node;
+	}
+	return null;
+};
+
+Graph.prototype.fadein = function(evt){
+	if(this.infoBox){this.infoBox.fader=false;}
+}
+Graph.prototype.fadeout = function(evt){
+	if(this.infoBox&&!this.infoBox.fader){
+		this.infoBox.fader=100;
+		var that = this;
+		setTimeout(function(){that.fadeOutTimer();}, 2000);
+	}
+};
+
 Graph.prototype.fadeOutTimer= function(){
 	var item=this.infoBox;
 	if(item && item.fader>0.00){
@@ -600,18 +756,28 @@ Graph.prototype.fadeOutTimer= function(){
 		item.style.display="none";
 	}
 }
+Graph.prototype.initDrawer = function(typ){
+	typ = typ.toLowerCase();
+	this.options.display = typ;
+	if(typ=="html"){
+		this.drawer = new HTMLDrawer();
+	}else if(typ=="svg"){
+		this.drawer = new SVGDrawer();
+	}else if(typ=="canvas"){
+		this.drawer = new CanvasDrawer();
+	}
+};
+
 
 Graph.prototype.optionButton = function(event){
 	var btn = event.currentTarget;
 	if(btn.innerHTML=="HTML"){
-		btn.graph.drawer = new HTMLDrawer();
-		btn.graph.options.display = "html";
+		btn.graph.initDrawer(btn.innerHTML);
 		btn.graph.loader.init(true);
 		btn.graph.initGraph();
 		btn.graph.drawGraph(0,0);
 	}else if(btn.innerHTML=="SVG"){
-		btn.graph.drawer = new SVGDrawer();
-		btn.graph.options.display = "svg";
+		btn.graph.initDrawer(btn.innerHTML);
 		btn.graph.initGraph();
 		btn.graph.drawGraph(0,0);
 	}else if(btn.innerHTML=="SVG-Export"){
@@ -628,8 +794,7 @@ Graph.prototype.optionButton = function(event){
 		btn.graph.root.appendChild(img);
 		//window.open("data:image/svg+xml," + escape(btn.graph.board.outerHTML));
 	}else if(btn.innerHTML=="CANVAS"){
-		this.drawer = new CanvasDrawer();
-		btn.graph.options.display = "canvas";
+		btn.graph.initDrawer(btn.innerHTML);
 		btn.graph.initGraph();
 		btn.graph.drawGraph(0,0)
 	}else if(btn.innerHTML=="PNG"){
@@ -763,7 +928,7 @@ DagreLayout.prototype.layout = function(width, height) {
 	for (var i = 0; i < this.graph.edges.length; i++) {
 		var edges = this.graph.edges[i];
 		edges.id = i;
-		this.g.addEdge(i, edges.source.id, edges.target.id);
+		this.g.addEdge(i, this.getRootNode(edges.source).id, this.getRootNode(edges.target).id);
 	}
 
 	var layout = dagre.layout()
@@ -778,6 +943,15 @@ DagreLayout.prototype.layout = function(width, height) {
 		node.y = layoutNode.value.y;
 	}
 	this.graph.drawGraph(width, height);
+}
+DagreLayout.prototype.getRootNode = function(node, child) {
+	if(node.parent){
+		return this.getRootNode(node.parent, node);
+	}
+	if(!child){
+		return node;
+	}
+	return child;
 };
 
 Loader = function(graph) {this.init(false);this.graph=graph;};
@@ -845,8 +1019,8 @@ Edge.prototype.removeElement = function(element){
 };
 
 Edge.prototype.calculate = function(board, drawer){
-	this.source.center = new Pos(this.source.x + (this.source.width / 2), this.source.y + (this.source.height / 2));
-	this.target.center = new Pos(this.target.x + (this.target.width / 2), this.target.y + (this.target.height / 2));
+	this.source.center = new Pos(this.source.getX() + (this.source.width / 2), this.source.getY() + (this.source.height / 2));
+	this.target.center = new Pos(this.target.getX() + (this.target.width / 2), this.target.getY() + (this.target.height / 2));
 	return this.calcCenterLine();
 }
 Edge.prototype.draw = function(board, drawer){
@@ -1124,27 +1298,27 @@ Edge.prototype.getPosition= function(m , n, entity, refCenter, offset){
 	var x,y;
 	var pos=new Array();
 	var distance=new Array();
-	x = entity.x+entity.width;
+	x = entity.getX()+entity.width;
 	y = m*x+n;
-	if(y>=entity.y && y<=(entity.y+entity.height)){
+	if(y>=entity.getY() && y<=(entity.getY()+entity.height)){
 		pos.push(new Pos(x , y + offset, Edge.Position.RIGHT));
 		distance.push(Math.sqrt((refCenter.x-x)*(refCenter.x-x)+(refCenter.y-y)*(refCenter.y-y)));
 	}
-	y = entity.y;
+	y = entity.getY();
 	x = (y-n)/m;
-	if(x>=entity.x && x<=(entity.x+entity.width)){
+	if(x>=entity.getX() && x<=(entity.getX()+entity.width)){
 		pos.push(new Pos(x  + offset, y, Edge.Position.UP));
 		distance.push(Math.sqrt((refCenter.x-x)*(refCenter.x-x)+(refCenter.y-y)*(refCenter.y-y)));
 	}
-	x = entity.x;
+	x = entity.getX();
 	y = m*x+n;
-	if(y>=entity.y && y<=(entity.y+entity.height)){
+	if(y>=entity.getY() && y<=(entity.getY()+entity.height)){
 		pos.push(new Pos(x , y + offset, Edge.Position.LEFT));
 		distance.push(Math.sqrt((refCenter.x-x)*(refCenter.x-x)+(refCenter.y-y)*(refCenter.y-y)));
 	}
-	y = entity.y+entity.height;
+	y = entity.getY()+entity.height;
 	x = (y-n)/m;
-	if(x>=entity.x && x<=(entity.x+entity.width)){
+	if(x>=entity.getX() && x<=(entity.getX()+entity.width)){
 		pos.push(new Pos(x + offset, y, Edge.Position.DOWN));
 		distance.push(Math.sqrt((refCenter.x-x)*(refCenter.x-x)+(refCenter.y-y)*(refCenter.y-y)));
 	}

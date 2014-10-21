@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,7 +7,7 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../src/test/java/org/sdmlib/examples/SDMLib/ClassModelTest.java' type='text/x-java'>ClassModelCodeGen</a></p>
 <p>ClassModelCodeGen</p>
 <p>We start by bootstrapping org.sdmlib.model.classes.ClassModel. </p>
@@ -14,256 +15,298 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"SDMLibClass",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"SDMLibClass",
-            "attributes":[
-            "name : String"
-            ]
+         "typ":"node",
+         "id":"ClassModel",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Clazz",
+         "attributes":[
+         "interfaze : boolean",
+            "external : boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Value",
+         "attributes":[
+         "initialization : String",
+            "type : org.sdmlib.models.classes.DataType"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Attribute",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Method",
+         "attributes":[
+         "returnType : org.sdmlib.models.classes.DataType",
+            "body : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Enumeration",
+         "attributes":[
+         "valueNames : ArrayListSet"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Parameter",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Association",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Role",
+         "attributes":[
+         "card : String",
+            "kind : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"SymTabEntry",
+         "attributes":[
+         "kind : String",
+            "memberName : String",
+            "type : String",
+            "startPos : int",
+            "bodyStartPos : int",
+            "endPos : int",
+            "modifiers : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"LocalVarTableEntry",
+         "attributes":[
+         "name : String",
+            "type : String",
+            "startPos : int",
+            "endPos : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"StatementEntry",
+         "attributes":[
+         "kind : String",
+            "tokenList : ArrayList<String>",
+            "assignTargetVarName : String",
+            "startPos : int",
+            "endPos : int"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"classModel",
+            "id":"ClassModel"
          },
-         {
-            "typ":"node",
-            "id":"ClassModel",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
+         "target":{
             "id":"Clazz",
-            "attributes":[
-            "interfaze : boolean",
-               "external : boolean"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Value",
-            "attributes":[
-            "initialization : String",
-               "type : org.sdmlib.models.classes.DataType"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Attribute",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Method",
-            "attributes":[
-            "returnType : org.sdmlib.models.classes.DataType",
-               "body : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Enumeration",
-            "attributes":[
-            "valueNames : ArrayListSet"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Parameter",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Association",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Role",
-            "attributes":[
-            "card : String",
-               "kind : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"SymTabEntry",
-            "attributes":[
-            "kind : String",
-               "memberName : String",
-               "type : String",
-               "startPos : int",
-               "bodyStartPos : int",
-               "endPos : int",
-               "modifiers : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"LocalVarTableEntry",
-            "attributes":[
-            "name : String",
-               "type : String",
-               "startPos : int",
-               "endPos : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"StatementEntry",
-            "attributes":[
-            "kind : String",
-               "tokenList : ArrayList<String>",
-               "assignTargetVarName : String",
-               "startPos : int",
-               "endPos : int"
-            ]
+            "cardinality":"many",
+            "property":"classes"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"classModel",
-            "targetproperty":"classes",
-            "source":"ClassModel",
-            "target":"Clazz"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"classModel",
+            "id":"ClassModel"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"classModel",
-            "targetproperty":"enumerations",
-            "source":"ClassModel",
-            "target":"Enumeration"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"superClazzes",
-            "targetproperty":"kidClazzes",
-            "source":"Clazz",
-            "target":"Clazz"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"clazz",
-            "targetproperty":"attributes",
-            "source":"Clazz",
-            "target":"Attribute"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"clazz",
-            "targetproperty":"methods",
-            "source":"Clazz",
-            "target":"Method"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"clazz",
-            "targetproperty":"roles",
-            "source":"Clazz",
-            "target":"Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"enumeration",
-            "targetproperty":"methods",
-            "source":"Enumeration",
-            "target":"Method"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"parameter",
-            "targetproperty":"method",
-            "source":"Parameter",
-            "target":"Method"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"assoc",
-            "targetproperty":"source",
-            "source":"Association",
-            "target":"Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"assoc",
-            "targetproperty":"target",
-            "source":"Association",
-            "target":"Role"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parent",
-            "targetproperty":"bodyStats",
-            "source":"StatementEntry",
-            "target":"StatementEntry"
-         },
-         {
-            "typ":"generalisation",
-            "source":"ClassModel",
-            "target":"SDMLibClass"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Clazz",
-            "target":"SDMLibClass"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Value",
-            "target":"SDMLibClass"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Attribute",
-            "target":"Value"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Method",
-            "target":"SDMLibClass"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Enumeration",
-            "target":"SDMLibClass"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Parameter",
-            "target":"Value"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Association",
-            "target":"SDMLibClass"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Role",
-            "target":"SDMLibClass"
+         "target":{
+            "id":"Enumeration",
+            "cardinality":"many",
+            "property":"enumerations"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"superClazzes",
+            "id":"Clazz"
+         },
+         "target":{
+            "id":"Clazz",
+            "cardinality":"many",
+            "property":"kidClazzes"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"Clazz"
+         },
+         "target":{
+            "id":"Attribute",
+            "cardinality":"many",
+            "property":"attributes"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"Clazz"
+         },
+         "target":{
+            "id":"Method",
+            "cardinality":"many",
+            "property":"methods"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"Clazz"
+         },
+         "target":{
+            "id":"Role",
+            "cardinality":"many",
+            "property":"roles"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"enumeration",
+            "id":"Enumeration"
+         },
+         "target":{
+            "id":"Method",
+            "cardinality":"many",
+            "property":"methods"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"parameter",
+            "id":"Parameter"
+         },
+         "target":{
+            "id":"Method",
+            "cardinality":"one",
+            "property":"method"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"assoc",
+            "id":"Association"
+         },
+         "target":{
+            "id":"Role",
+            "cardinality":"one",
+            "property":"source"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"assoc",
+            "id":"Association"
+         },
+         "target":{
+            "id":"Role",
+            "cardinality":"one",
+            "property":"target"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"StatementEntry"
+         },
+         "target":{
+            "id":"StatementEntry",
+            "cardinality":"many",
+            "property":"bodyStats"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"ClassModel"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Clazz"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Value"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Attribute"},
+         "target":{"id":"Value"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Method"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Enumeration"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Parameter"},
+         "target":{"id":"Value"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Association"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Role"},
+         "target":{"id":"SDMLibClass"}
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasClassModelCodeGenClassDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

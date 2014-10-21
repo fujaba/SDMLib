@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,13 +7,13 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/ludo/LudoStoryboard.java' type='text/x-java'>LudoStoryboard</a></p>
 <p>LudoStoryboard</p>
 <p>Start situation: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -576,8 +577,292 @@
    g.layout(100,100);
 </script>
 <p>now the pawn may move to Tom's start field</p>
-<embed type="image/svg+xml"src='LudoStoryboardPatternDiagram4.svg'>
-<embed type="image/svg+xml"src='LudoStoryboardPatternDiagram5.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"p1 : PawnPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"p2 : PlayerPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"d3 : DicePO",
+         "attributes":[
+         "value == 6"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"f4 : FieldPO",
+         "attributes":[
+         "kind == base"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"f5 : FieldPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"p6 : PawnPO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p1 : PawnPO"
+         },
+         "target":{
+            "property":"player",
+            "id":"p2 : PlayerPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p2 : PlayerPO"
+         },
+         "target":{
+            "property":"dice",
+            "id":"d3 : DicePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p1 : PawnPO"
+         },
+         "target":{
+            "property":"pos",
+            "id":"f4 : FieldPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p2 : PlayerPO"
+         },
+         "target":{
+            "property":"base",
+            "id":"f4 : FieldPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p2 : PlayerPO"
+         },
+         "target":{
+            "property":"start",
+            "id":"f5 : FieldPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"f5 : FieldPO"
+         },
+         "target":{
+            "property":"pawns",
+            "id":"p6 : PawnPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p6 : PawnPO"
+         },
+         "target":{
+            "property":"player",
+            "id":"p2 : PlayerPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLudoStoryboardPatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"p1 : PawnPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"p2 : PlayerPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"d3 : DicePO",
+         "attributes":[
+         "value == 6"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"f4 : FieldPO",
+         "attributes":[
+         "kind == base"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"f5 : FieldPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"p6 : PawnPO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p1 : PawnPO"
+         },
+         "target":{
+            "property":"player",
+            "id":"p2 : PlayerPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p2 : PlayerPO"
+         },
+         "target":{
+            "property":"dice",
+            "id":"d3 : DicePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p1 : PawnPO"
+         },
+         "target":{
+            "property":"pos",
+            "id":"f4 : FieldPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p2 : PlayerPO"
+         },
+         "target":{
+            "property":"base",
+            "id":"f4 : FieldPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p2 : PlayerPO"
+         },
+         "target":{
+            "property":"start",
+            "id":"f5 : FieldPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"f5 : FieldPO"
+         },
+         "target":{
+            "property":"pawns",
+            "id":"p6 : PawnPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p6 : PawnPO"
+         },
+         "target":{
+            "property":"player",
+            "id":"p2 : PlayerPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p1 : PawnPO"
+         },
+         "target":{
+            "property":"pos",
+            "id":"f4 : FieldPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p1 : PawnPO"
+         },
+         "target":{
+            "property":"pos",
+            "id":"f5 : FieldPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasLudoStoryboardPatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

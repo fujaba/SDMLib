@@ -531,21 +531,17 @@ public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInt
             
             // add subgraph
             JsonObject node = new JsonObject();
-            node.put("typ", "subgraph");
+            node.put("typ", "objectdiagram");
+            node.put("style", "nac");
             node.put("info", CGUtil.shortClassName(subPattern.getClass().getName()));
             nodes.add(node);
             
-            JsonObject graph = new JsonObject();
-            node.put("graph", graph);
-            
-            graph.put("typ", "object");
-            
             JsonArray subNodes = new JsonArray();
             
-            graph.put("nodes", subNodes);
+            node.put("nodes", subNodes);
             
-            JsonArray edges = new JsonArray();
-            graph.put("edges", edges);
+            // JsonArray edges = new JsonArray();
+            // node.put("edges", edges);
             
             
             addNodesToDiagram(subPattern.getElements(), subNodes, nameMap);

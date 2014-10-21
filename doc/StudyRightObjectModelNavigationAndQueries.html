@@ -67,7 +67,7 @@
 <p>Start: Example object structure:</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -956,7 +956,7 @@
       
 </pre><script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -1231,19 +1231,16 @@
          "attributes":[]
       },
       {
-         "typ":"subgraph",
+         "typ":"objectdiagram",
+         "style":"nac",
          "info":"NegativeApplicationCondition",
-         "graph":{
-            "typ":"object",
-            "nodes":[
-            {
-                  "typ":"patternObject",
-                  "id":"p4 : PatternObject",
-                  "attributes":[]
-               }
-            ],
-            "edges":[]
-         }
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"p4 : PatternObject",
+               "attributes":[]
+            }
+         ]
       },
       {
          "typ":"patternObject",
@@ -1317,7 +1314,7 @@
 <p>Results in:</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -1545,7 +1542,7 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -1564,8 +1561,7 @@
             "room=null"
          ]
       }
-   ],
-   "edges":[]
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries51", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -1623,7 +1619,7 @@
 </script>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",

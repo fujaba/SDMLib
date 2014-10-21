@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,67 +7,77 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/groupAccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
 <p>GroupAccountCodegen</p>
 <p>Start situation: Nothing here yet. Generate classes</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"GroupAccount",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"GroupAccount",
-            "attributes":[]
+         "typ":"node",
+         "id":"Person",
+         "attributes":[
+         "name : String",
+            "balance : double"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Item",
+         "attributes":[
+         "description : String",
+            "value : double"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"GroupAccount"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Person",
-            "attributes":[
-            "name : String",
-               "balance : double"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Item",
-            "attributes":[
-            "description : String",
-               "value : double"
-            ]
+            "cardinality":"many",
+            "property":"persons"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parent",
-            "targetproperty":"persons",
-            "source":"GroupAccount",
-            "target":"Person"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"GroupAccount"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parent",
-            "targetproperty":"item",
-            "source":"GroupAccount",
-            "target":"Item"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"buyer",
-            "targetproperty":"item",
-            "source":"Person",
-            "target":"Item"
+         "target":{
+            "id":"Item",
+            "cardinality":"many",
+            "property":"item"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"Person"
+         },
+         "target":{
+            "id":"Item",
+            "cardinality":"many",
+            "property":"item"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasGroupAccountCodegenClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

@@ -170,8 +170,14 @@ public class Javascript implements GuiAdapter
          {
             JsonObject jsonAssoc = new JsonObject();
             jsonAssoc.put("typ","generalisation");
-            jsonAssoc.put("source",CGUtil.shortClassName(kidClazz.getName()));
-            jsonAssoc.put("target",CGUtil.shortClassName(superClazz.getName()));
+            
+            JsonObject jsonRole = new JsonObject();
+            jsonRole.put("id",CGUtil.shortClassName(kidClazz.getName()));
+            jsonAssoc.put("source", jsonRole);
+            
+            jsonRole = new JsonObject();
+            jsonRole.put("id",CGUtil.shortClassName(superClazz.getName()));
+            jsonAssoc.put("target", jsonRole);
 
             jsonEdges.add(jsonAssoc);
          }

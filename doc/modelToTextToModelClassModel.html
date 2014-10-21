@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,120 +7,142 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../.srctestjava/org/sdmlib/templates/ModelToTextToModelClassModel.java' type='text/x-java'>modelToTextToModelClassModel</a></p>
 <p>modelToTextToModelClassModel</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Template",
+         "attributes":[
+         "templateText : String",
+            "expandedText : String",
+            "modelObject : Object",
+            "modelClassName : String",
+            "listStart : String",
+            "listSeparator : String",
+            "listEnd : String",
+            "referenceLookup : boolean",
+            "name : String"
+         ]
+      },
       {
-            "typ":"node",
+         "typ":"node",
+         "id":"PlaceHolderDescription",
+         "attributes":[
+         "textFragment : String",
+            "value : String",
+            "attrName : String",
+            "isKeyAttribute : boolean",
+            "prefix : String",
+            "codeSnippet : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"ChoiceTemplate",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Match",
+         "attributes":[
+         "startPos : int",
+            "endPos : int",
+            "fullText : String",
+            "matchText : String",
+            "modelObject : Object"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"placeholders",
+            "id":"PlaceHolderDescription"
+         },
+         "target":{
             "id":"Template",
-            "attributes":[
-            "templateText : String",
-               "expandedText : String",
-               "modelObject : Object",
-               "modelClassName : String",
-               "listStart : String",
-               "listSeparator : String",
-               "listEnd : String",
-               "referenceLookup : boolean",
-               "name : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"PlaceHolderDescription",
-            "attributes":[
-            "textFragment : String",
-               "value : String",
-               "attrName : String",
-               "isKeyAttribute : boolean",
-               "prefix : String",
-               "codeSnippet : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"ChoiceTemplate",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Match",
-            "attributes":[
-            "startPos : int",
-               "endPos : int",
-               "fullText : String",
-               "matchText : String",
-               "modelObject : Object"
-            ]
+            "cardinality":"many",
+            "property":"owners"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"placeholders",
-            "targetproperty":"owners",
-            "source":"PlaceHolderDescription",
-            "target":"Template"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"chooser",
+            "id":"ChoiceTemplate"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"chooser",
-            "targetproperty":"choices",
-            "source":"ChoiceTemplate",
-            "target":"Template"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"matches",
-            "targetproperty":"template",
-            "source":"Match",
-            "target":"Template"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"parents",
-            "targetproperty":"subTemplate",
-            "source":"PlaceHolderDescription",
-            "target":"Template"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"matches",
-            "targetproperty":"placeholder",
-            "source":"Match",
-            "target":"PlaceHolderDescription"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parentMatch",
-            "targetproperty":"subMatches",
-            "source":"Match",
-            "target":"Match"
-         },
-         {
-            "typ":"generalisation",
-            "source":"ChoiceTemplate",
-            "target":"Template"
+         "target":{
+            "id":"Template",
+            "cardinality":"many",
+            "property":"choices"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"matches",
+            "id":"Match"
+         },
+         "target":{
+            "id":"Template",
+            "cardinality":"one",
+            "property":"template"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"PlaceHolderDescription"
+         },
+         "target":{
+            "id":"Template",
+            "cardinality":"one",
+            "property":"subTemplate"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"matches",
+            "id":"Match"
+         },
+         "target":{
+            "id":"PlaceHolderDescription",
+            "cardinality":"one",
+            "property":"placeholder"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parentMatch",
+            "id":"Match"
+         },
+         "target":{
+            "id":"Match",
+            "cardinality":"many",
+            "property":"subMatches"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"ChoiceTemplate"},
+         "target":{"id":"Template"}
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasmodelToTextToModelClassModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,88 +7,106 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../src/test/java/org/sdmlib/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java' type='text/x-java'>FerryMansProblemModel</a></p>
 <p>FerryMansProblemModel</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"River",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"River",
-            "attributes":[]
+         "typ":"node",
+         "id":"Boat",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Bank",
+         "attributes":[
+         "name : String",
+            "age : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Cargo",
+         "attributes":[
+         "name : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"River"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Boat",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Bank",
-            "attributes":[
-            "name : String",
-               "age : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Cargo",
-            "attributes":[
-            "name : String"
-            ]
+            "cardinality":"one",
+            "property":"boat"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"river",
-            "targetproperty":"boat",
-            "source":"River",
-            "target":"Boat"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"River"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"river",
-            "targetproperty":"banks",
-            "source":"River",
-            "target":"Bank"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"boat",
-            "targetproperty":"bank",
-            "source":"Boat",
-            "target":"Bank"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"cargo",
-            "targetproperty":"boat",
-            "source":"Cargo",
-            "target":"Boat"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"bank",
-            "targetproperty":"cargos",
-            "source":"Bank",
-            "target":"Cargo"
+         "target":{
+            "id":"Bank",
+            "cardinality":"many",
+            "property":"banks"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"Boat"
+         },
+         "target":{
+            "id":"Bank",
+            "cardinality":"one",
+            "property":"bank"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"Cargo"
+         },
+         "target":{
+            "id":"Boat",
+            "cardinality":"one",
+            "property":"boat"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"Bank"
+         },
+         "target":{
+            "id":"Cargo",
+            "cardinality":"many",
+            "property":"cargos"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasFerryMansProblemModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

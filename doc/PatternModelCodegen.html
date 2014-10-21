@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,315 +7,357 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../.srctestjava/org/sdmlib/examples/SDMLib/PatternModelCodeGen.java' type='text/x-java'>PatternModelCodegen</a></p>
 <p>PatternModelCodegen</p>
 <p>Start situation: </p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"PatternElement",
+         "attributes":[
+         "modifier : String",
+            "hasMatch : boolean",
+            "patternObjectName : String",
+            "doAllMatches : boolean"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"PatternElement",
-            "attributes":[
-            "modifier : String",
-               "hasMatch : boolean",
-               "patternObjectName : String",
-               "doAllMatches : boolean"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Pattern",
-            "attributes":[
-            "currentSubPattern : Pattern",
-               "debugMode : int",
-               "name : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"NegativeApplicationCondition",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"OptionalSubPattern",
-            "attributes":[
-            "matchForward : boolean"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"PatternObject",
-            "attributes":[
-            "currentMatch : Object",
-               "candidates : Object"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"PatternLink",
-            "attributes":[
-            "tgtRoleName : String",
-               "hostGraphSrcObject : Object"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"AttributeConstraint",
-            "attributes":[
-            "attrName : String",
-               "tgtValue : Object",
-               "upperTgtValue : Object",
-               "cmpOp : String",
-               "hostGraphSrcObject : Object"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"LinkConstraint",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"MatchIsomorphicConstraint",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"CloneOp",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"UnifyGraphsOp",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"DestroyObjectElem",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"CardinalityConstraint",
-            "attributes":[
-            "tgtRoleName : String",
-               "hostGraphSrcObject : Object",
-               "minCard : long",
-               "maxCard : long"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"MatchOtherThen",
-            "attributes":[
+         "typ":"node",
+         "id":"Pattern",
+         "attributes":[
+         "currentSubPattern : Pattern",
+            "debugMode : int",
+            "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"NegativeApplicationCondition",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"OptionalSubPattern",
+         "attributes":[
+         "matchForward : boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"PatternObject",
+         "attributes":[
+         "currentMatch : Object",
+            "candidates : Object"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"PatternLink",
+         "attributes":[
+         "tgtRoleName : String",
             "hostGraphSrcObject : Object"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"GenericConstraint",
-            "attributes":[
-            "text : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"ReachabilityGraph",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"ReachableState",
-            "attributes":[
-            "number : long",
-               "graphRoot : Object"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"RuleApplication",
-            "attributes":[
-            "description : String"
-            ]
-         }
-      ],
-      "edges":[
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"pattern",
-            "targetproperty":"elements",
-            "source":"Pattern",
-            "target":"PatternElement"
+         "typ":"node",
+         "id":"AttributeConstraint",
+         "attributes":[
+         "attrName : String",
+            "tgtValue : Object",
+            "upperTgtValue : Object",
+            "cmpOp : String",
+            "hostGraphSrcObject : Object"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"LinkConstraint",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"MatchIsomorphicConstraint",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"CloneOp",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"UnifyGraphsOp",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"DestroyObjectElem",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"CardinalityConstraint",
+         "attributes":[
+         "tgtRoleName : String",
+            "hostGraphSrcObject : Object",
+            "minCard : long",
+            "maxCard : long"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"MatchOtherThen",
+         "attributes":[
+         "hostGraphSrcObject : Object"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"GenericConstraint",
+         "attributes":[
+         "text : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"ReachabilityGraph",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"ReachableState",
+         "attributes":[
+         "number : long",
+            "graphRoot : Object"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"RuleApplication",
+         "attributes":[
+         "description : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"Pattern"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"rgraph",
-            "targetproperty":"rules",
-            "source":"ReachabilityGraph",
-            "target":"Pattern"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"attrConstraints",
-            "targetproperty":"src",
-            "source":"AttributeConstraint",
-            "target":"PatternObject"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"destroyElem",
-            "targetproperty":"patternObject",
-            "source":"DestroyObjectElem",
-            "target":"PatternObject"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"cardConstraints",
-            "targetproperty":"src",
-            "source":"CardinalityConstraint",
-            "target":"PatternObject"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"matchOtherThen",
-            "targetproperty":"src",
-            "source":"MatchOtherThen",
-            "target":"PatternObject"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"excluders",
-            "targetproperty":"forbidden",
-            "source":"MatchOtherThen",
-            "target":"PatternObject"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parent",
-            "targetproperty":"states",
-            "source":"ReachabilityGraph",
-            "target":"ReachableState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"master",
-            "targetproperty":"todo",
-            "source":"ReachabilityGraph",
-            "target":"ReachableState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"ruleapplications",
-            "targetproperty":"src",
-            "source":"RuleApplication",
-            "target":"ReachableState"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"resultOf",
-            "targetproperty":"tgt",
-            "source":"RuleApplication",
-            "target":"ReachableState"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Pattern",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"NegativeApplicationCondition",
-            "target":"Pattern"
-         },
-         {
-            "typ":"generalisation",
-            "source":"OptionalSubPattern",
-            "target":"Pattern"
-         },
-         {
-            "typ":"generalisation",
-            "source":"PatternObject",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"PatternLink",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"AttributeConstraint",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"LinkConstraint",
-            "target":"PatternLink"
-         },
-         {
-            "typ":"generalisation",
-            "source":"MatchIsomorphicConstraint",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"CloneOp",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"UnifyGraphsOp",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"DestroyObjectElem",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"CardinalityConstraint",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"MatchOtherThen",
-            "target":"PatternElement"
-         },
-         {
-            "typ":"generalisation",
-            "source":"GenericConstraint",
-            "target":"PatternElement"
+         "target":{
+            "id":"PatternElement",
+            "cardinality":"many",
+            "property":"elements"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"rgraph",
+            "id":"ReachabilityGraph"
+         },
+         "target":{
+            "id":"Pattern",
+            "cardinality":"many",
+            "property":"rules"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"attrConstraints",
+            "id":"AttributeConstraint"
+         },
+         "target":{
+            "id":"PatternObject",
+            "cardinality":"one",
+            "property":"src"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"destroyElem",
+            "id":"DestroyObjectElem"
+         },
+         "target":{
+            "id":"PatternObject",
+            "cardinality":"one",
+            "property":"patternObject"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"cardConstraints",
+            "id":"CardinalityConstraint"
+         },
+         "target":{
+            "id":"PatternObject",
+            "cardinality":"one",
+            "property":"src"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"matchOtherThen",
+            "id":"MatchOtherThen"
+         },
+         "target":{
+            "id":"PatternObject",
+            "cardinality":"one",
+            "property":"src"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"excluders",
+            "id":"MatchOtherThen"
+         },
+         "target":{
+            "id":"PatternObject",
+            "cardinality":"one",
+            "property":"forbidden"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"ReachabilityGraph"
+         },
+         "target":{
+            "id":"ReachableState",
+            "cardinality":"many",
+            "property":"states"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"master",
+            "id":"ReachabilityGraph"
+         },
+         "target":{
+            "id":"ReachableState",
+            "cardinality":"many",
+            "property":"todo"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"ruleapplications",
+            "id":"RuleApplication"
+         },
+         "target":{
+            "id":"ReachableState",
+            "cardinality":"one",
+            "property":"src"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"resultOf",
+            "id":"RuleApplication"
+         },
+         "target":{
+            "id":"ReachableState",
+            "cardinality":"one",
+            "property":"tgt"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Pattern"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"NegativeApplicationCondition"},
+         "target":{"id":"Pattern"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"OptionalSubPattern"},
+         "target":{"id":"Pattern"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"PatternObject"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"PatternLink"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"AttributeConstraint"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"LinkConstraint"},
+         "target":{"id":"PatternLink"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"MatchIsomorphicConstraint"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"CloneOp"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"UnifyGraphsOp"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"DestroyObjectElem"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"CardinalityConstraint"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"MatchOtherThen"},
+         "target":{"id":"PatternElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"GenericConstraint"},
+         "target":{"id":"PatternElement"}
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasPatternModelCodegenClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

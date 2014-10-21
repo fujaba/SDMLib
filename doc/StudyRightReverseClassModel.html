@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,101 +7,119 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightReverseClassModel</a></p>
 <p>StudyRightReverseClassModel</p>
 <p>Start situation: There are some java files. We parse them and generate a class model: </p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Professor",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"Professor",
-            "attributes":[
-            "name : String"
-            ]
+         "typ":"node",
+         "id":"Topic",
+         "attributes":[
+         "title : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Room",
+         "attributes":[
+         "roomNo : String",
+            "credits : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"prof",
+            "id":"Professor"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Topic",
-            "attributes":[
-            "title : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Room",
-            "attributes":[
-            "roomNo : String",
-               "credits : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Student",
-            "attributes":[
-            "name : String",
-               "matrNo : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"University",
-            "attributes":[
-            "name : String"
-            ]
+            "cardinality":"one",
+            "property":"topic"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"prof",
-            "targetproperty":"topic",
-            "source":"Professor",
-            "target":"Topic"
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"Room"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"neighbors",
-            "targetproperty":"neighbors",
-            "source":"Room",
-            "target":"Room"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"in",
-            "targetproperty":"students",
-            "source":"Room",
-            "target":"Student"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"rooms",
-            "targetproperty":"uni",
-            "source":"Room",
-            "target":"University"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"students",
-            "targetproperty":"uni",
-            "source":"Student",
-            "target":"University"
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"neighbors"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"Room"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"Room"
+         },
+         "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"uni"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"Student"
+         },
+         "target":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"uni"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightReverseClassModelClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

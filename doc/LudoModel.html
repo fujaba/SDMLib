@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,179 +7,225 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/ludo/LudoModel.java' type='text/x-java'>LudoModel</a></p>
 <p>LudoModel</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Ludo",
+         "attributes":[
+         "date : java.util.Date"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"Ludo",
-            "attributes":[
-            "date : java.util.Date"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Point",
-            "attributes":[
+         "typ":"node",
+         "id":"Point",
+         "attributes":[
+         "x : int",
+            "y : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Player",
+         "attributes":[
+         "color : String",
+            "enumColor : org.sdmlib.examples.ludo.LudoModel.LudoColor",
+            "name : String",
             "x : int",
-               "y : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Player",
-            "attributes":[
-            "color : String",
-               "enumColor : org.sdmlib.examples.ludo.LudoModel.LudoColor",
-               "name : String",
-               "x : int",
-               "y : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Dice",
-            "attributes":[
-            "value : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Field",
-            "attributes":[
-            "color : String",
-               "kind : String",
-               "x : int",
-               "y : int",
-               "point : java.awt.Point"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Pawn",
-            "attributes":[
-            "color : String",
-               "x : int",
-               "y : int"
-            ]
-         }
-      ],
-      "edges":[
+            "y : int"
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"players",
-            "targetproperty":"game",
-            "source":"Player",
-            "target":"Ludo"
+         "typ":"node",
+         "id":"Dice",
+         "attributes":[
+         "value : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Field",
+         "attributes":[
+         "color : String",
+            "kind : String",
+            "x : int",
+            "y : int",
+            "point : java.awt.Point"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Pawn",
+         "attributes":[
+         "color : String",
+            "x : int",
+            "y : int"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"players",
+            "id":"Player"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"dice",
-            "targetproperty":"game",
-            "source":"Dice",
-            "target":"Ludo"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"fields",
-            "targetproperty":"game",
-            "source":"Field",
-            "target":"Ludo"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"prev",
-            "targetproperty":"next",
-            "source":"Player",
-            "target":"Player"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"player",
-            "targetproperty":"dice",
-            "source":"Player",
-            "target":"Dice"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"starter",
-            "targetproperty":"start",
-            "source":"Player",
-            "target":"Field"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"baseowner",
-            "targetproperty":"base",
-            "source":"Player",
-            "target":"Field"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"lander",
-            "targetproperty":"landing",
-            "source":"Player",
-            "target":"Field"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"pawns",
-            "targetproperty":"player",
-            "source":"Pawn",
-            "target":"Player"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"prev",
-            "targetproperty":"next",
-            "source":"Field",
-            "target":"Field"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"entry",
-            "targetproperty":"landing",
-            "source":"Field",
-            "target":"Field"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"pawns",
-            "targetproperty":"pos",
-            "source":"Pawn",
-            "target":"Field"
+         "target":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"dice",
+            "id":"Dice"
+         },
+         "target":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"fields",
+            "id":"Field"
+         },
+         "target":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"Player"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"next"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"player",
+            "id":"Player"
+         },
+         "target":{
+            "id":"Dice",
+            "cardinality":"one",
+            "property":"dice"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"starter",
+            "id":"Player"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"start"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"baseowner",
+            "id":"Player"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"base"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"lander",
+            "id":"Player"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"landing"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"pawns",
+            "id":"Pawn"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"player"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"Field"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"next"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"entry",
+            "id":"Field"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"landing"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"pawns",
+            "id":"Pawn"
+         },
+         "target":{
+            "id":"Field",
+            "cardinality":"one",
+            "property":"pos"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasLudoModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

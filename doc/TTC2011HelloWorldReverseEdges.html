@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,13 +7,13 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldReverseEdges</a></p>
 <p>TTC2011HelloWorldReverseEdges</p>
 <hr/><p>create example graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -1165,12 +1166,188 @@
    g.layout(100,100);
 </script>
 <hr/><h2>Reverse Edges per pattern: </h2><p>did not find method reverseEdgesPerPattern(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
-<embed type="image/svg+xml"src='TTC2011HelloWorldReverseEdgesPatternDiagram7.svg'>
-<embed type="image/svg+xml"src='TTC2011HelloWorldReverseEdgesPatternDiagram8.svg'>
-<p>Result graph: </p>
 <script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n3 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n3 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldReverseEdgesPatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n3 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n3 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldReverseEdgesPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Result graph: </p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -2327,7 +2504,7 @@
 <p>Result graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",

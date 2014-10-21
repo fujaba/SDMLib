@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,7 +7,7 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../.srctestjava/org/sdmlib/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
 <p>GenericObjectDiagram</p>
 <p>Start situation: we do not yet have a class diagram but want to start with some example object models</p>
@@ -14,7 +15,7 @@
 <embed type="image/svg+xml" src='GenericGraphModelClassDiagram1.svg'><p>Step 2: We just build our example object structure with generic objects: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -517,37 +518,39 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Building",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"Building",
-            "attributes":[
-            "name : String"
-            ]
+         "typ":"node",
+         "id":"Floor",
+         "attributes":[
+         "name : String",
+            "level : int",
+            "guest : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"buildings",
+            "id":"Building"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Floor",
-            "attributes":[
-            "name : String",
-               "level : int",
-               "guest : String"
-            ]
+            "cardinality":"many",
+            "property":"has"
          }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"buildings",
-            "targetproperty":"has",
-            "source":"Building",
-            "target":"Floor"
-         }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasGenericObjectDiagramClassDiagram9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -556,37 +559,39 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Building",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"Building",
-            "attributes":[
-            "name : String"
-            ]
+         "typ":"node",
+         "id":"Floor",
+         "attributes":[
+         "level : int",
+            "name : String",
+            "guest : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"buildings",
+            "id":"Building"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Floor",
-            "attributes":[
-            "level : int",
-               "name : String",
-               "guest : String"
-            ]
+            "cardinality":"many",
+            "property":"has"
          }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"buildings",
-            "targetproperty":"has",
-            "source":"Building",
-            "target":"Floor"
-         }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasGenericObjectDiagramClassDiagram11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -595,7 +600,7 @@
 <p>Step 7: derive non-generic objects from the generic objects </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -685,7 +690,7 @@
 <p>New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",

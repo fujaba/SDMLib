@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,14 +7,14 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011InsertTransitiveEdges</a></p>
 <p>TTC2011InsertTransitiveEdges</p>
 <hr/><p>Insert transitive edges.</p>
 <p>Start graph:</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -1167,13 +1168,357 @@
 </script>
 <p>Transformation:</p>
 <p>did not find method insertTransitiveEdges(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
-<embed type="image/svg+xml"src='TTC2011InsertTransitiveEdgesPatternDiagram7.svg'>
-<p>Transformation with matches:</p>
-<embed type="image/svg+xml"src='TTC2011InsertTransitiveEdgesPatternDiagram9.svg'>
-<p>We have inserted 8 new transitive edges. Result graph:</p>
 <script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e3 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n5 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n6 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"e7 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e8 : EdgePO",
+         "attributes":[
+         "<< create>>"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e3 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n5 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e3 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n5 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e7 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e7 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n5 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e8 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e8 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011InsertTransitiveEdgesPatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Transformation with matches:</p>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e2 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e3 : EdgePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n4 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n5 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n6 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"e7 : EdgePO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e8 : EdgePO",
+         "attributes":[
+         "<< create>>"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e2 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GraphPO"
+         },
+         "target":{
+            "property":"edges",
+            "id":"e3 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e3 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n4 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e2 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n5 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e3 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n5 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e7 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e7 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n5 : NodePO"
+         },
+         "target":{
+            "property":"outEdges",
+            "id":"e8 : EdgePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e8 : EdgePO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"n6 : NodePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC2011InsertTransitiveEdgesPatternDiagram9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>We have inserted 8 new transitive edges. Result graph:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",

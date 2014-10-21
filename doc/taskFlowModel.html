@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,120 +7,130 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
-<p>Storyboard <a href='../src/main/replication/org/sdmlib/model/taskflows/TaskFlowModel.java' type='text/x-java'>taskFlowModel</a></p>
+</head><body>
+<p>Storyboard <a href='../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java' type='text/x-java'>taskFlowModel</a></p>
 <p>taskFlowModel</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"TaskFlow",
+         "attributes":[
+         "taskNo : int",
+            "idMap : org.sdmlib.serialization.SDMLibJsonIdMap"
+         ]
+      },
       {
-            "typ":"node",
+         "typ":"node",
+         "id":"PeerProxy",
+         "attributes":[
+         "ip : String",
+            "port : int",
+            "idMap : org.sdmlib.serialization.SDMLibJsonIdMap"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"SocketThread",
+         "attributes":[
+         "ip : String",
+            "port : int",
+            "idMap : org.sdmlib.serialization.SDMLibJsonIdMap",
+            "defaultTargetThread : Object"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"FetchFileFlow",
+         "attributes":[
+         "fileServer : org.sdmlib.models.taskflows.PeerProxy",
+            "fileName : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Logger",
+         "attributes":[
+         "startPeer : org.sdmlib.models.taskflows.PeerProxy"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"LogEntry",
+         "attributes":[
+         "nodeName : String",
+            "taskName : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Timer",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"SDMTimer",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"TaskFlow"
+         },
+         "target":{
             "id":"TaskFlow",
-            "attributes":[
-            "taskNo : int",
-               "idMap : org.sdmlib.serialization.SDMLibJsonIdMap"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"PeerProxy",
-            "attributes":[
-            "ip : String",
-               "port : int",
-               "idMap : org.sdmlib.serialization.SDMLibJsonIdMap"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"SocketThread",
-            "attributes":[
-            "ip : String",
-               "port : int",
-               "idMap : org.sdmlib.serialization.SDMLibJsonIdMap",
-               "defaultTargetThread : Object"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"FetchFileFlow",
-            "attributes":[
-            "fileServer : org.sdmlib.model.taskflows.PeerProxy",
-               "fileName : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Logger",
-            "attributes":[
-            "startPeer : org.sdmlib.model.taskflows.PeerProxy"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"LogEntry",
-            "attributes":[
-            "nodeName : String",
-               "taskName : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Timer",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"SDMTimer",
-            "attributes":[]
+            "cardinality":"one",
+            "property":"subFlow"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"parent",
-            "targetproperty":"subFlow",
-            "source":"TaskFlow",
-            "target":"TaskFlow"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"logger",
+            "id":"Logger"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"logger",
-            "targetproperty":"entries",
-            "source":"Logger",
-            "target":"LogEntry"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parent",
-            "targetproperty":"children",
-            "source":"LogEntry",
-            "target":"LogEntry"
-         },
-         {
-            "typ":"generalisation",
-            "source":"FetchFileFlow",
-            "target":"TaskFlow"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Logger",
-            "target":"TaskFlow"
-         },
-         {
-            "typ":"generalisation",
-            "source":"SDMTimer",
-            "target":"Timer"
+         "target":{
+            "id":"LogEntry",
+            "cardinality":"many",
+            "property":"entries"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"LogEntry"
+         },
+         "target":{
+            "id":"LogEntry",
+            "cardinality":"many",
+            "property":"children"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"FetchFileFlow"},
+         "target":{"id":"TaskFlow"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Logger"},
+         "target":{"id":"TaskFlow"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"SDMTimer"},
+         "target":{"id":"Timer"}
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvastaskFlowModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

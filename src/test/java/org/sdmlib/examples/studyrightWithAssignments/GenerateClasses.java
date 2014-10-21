@@ -41,7 +41,7 @@ public class GenerateClasses {
 
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StudyRight%20with%20assignments%20class%20generation.html
       
-      Storyboard storyboard = new Storyboard("examples", "StudyRight with assignments class generation");
+      Storyboard storyboard = new Storyboard("src/test/java", "StudyRight with assignments class generation");
 
       //============================================================
       storyboard.add("1. generate class University");

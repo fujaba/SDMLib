@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,48 +7,54 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../src/test/java/org/sdmlib/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java' type='text/x-java'>SimpleReachabilityGraphModel</a></p>
 <p>SimpleReachabilityGraphModel</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"SimpleState",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"SimpleState",
-            "attributes":[]
+         "typ":"node",
+         "id":"Node",
+         "attributes":[
+         "num : int"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"SimpleState"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Node",
-            "attributes":[
-            "num : int"
-            ]
+            "cardinality":"many",
+            "property":"nodes"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"nodes",
-            "source":"SimpleState",
-            "target":"Node"
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"prev",
+            "id":"Node"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"prev",
-            "targetproperty":"next",
-            "source":"Node",
-            "target":"Node"
+         "target":{
+            "id":"Node",
+            "cardinality":"many",
+            "property":"next"
          }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasSimpleReachabilityGraphModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

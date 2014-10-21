@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,13 +7,13 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../src/test/java/org/sdmlib/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java' type='text/x-java'>FerrymansProblemExample</a></p>
 <p>FerrymansProblemExample</p>
 <p>initial situation:</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -316,13 +317,337 @@
   }
 }*1
 </p>
-<embed type="image/svg+xml"src='loadBoat.svg'>
-<embed type="image/svg+xml"src='moveBoat.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"r1 : RiverPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"b2 : BoatPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"c3 : CargoPO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"b4 : BankPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"c5 : CargoPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"c6 : CargoPO",
+               "attributes":[
+               "name == goat"
+               ]
+            },
+            {
+               "typ":"patternObject",
+               "id":"c7 : CargoPO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RiverPO"
+         },
+         "target":{
+            "property":"boat",
+            "id":"b2 : BoatPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b2 : BoatPO"
+         },
+         "target":{
+            "property":"cargo",
+            "id":"c3 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b2 : BoatPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"b4 : BankPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b4 : BankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"c5 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b4 : BankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"c6 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b4 : BankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"c7 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b4 : BankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"c5 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b2 : BoatPO"
+         },
+         "target":{
+            "property":"cargo",
+            "id":"c5 : CargoPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasloadBoat", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"r1 : RiverPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"b2 : BoatPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"b3 : BankPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"b4 : BankPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"NegativeApplicationCondition",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"c5 : CargoPO",
+               "attributes":[
+               "name == goat"
+               ]
+            },
+            {
+               "typ":"patternObject",
+               "id":"c6 : CargoPO",
+               "attributes":[]
+            }
+         ]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"c7 : CargoPO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RiverPO"
+         },
+         "target":{
+            "property":"boat",
+            "id":"b2 : BoatPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b2 : BoatPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"b3 : BankPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"r1 : RiverPO"
+         },
+         "target":{
+            "property":"banks",
+            "id":"b4 : BankPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b3 : BankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"c5 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b3 : BankPO"
+         },
+         "target":{
+            "property":"cargos",
+            "id":"c6 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b2 : BoatPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"b3 : BankPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b2 : BoatPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"b4 : BankPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b2 : BoatPO"
+         },
+         "target":{
+            "property":"cargo",
+            "id":"c7 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"b2 : BoatPO"
+         },
+         "target":{
+            "property":"cargo",
+            "id":"c7 : CargoPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c7 : CargoPO"
+         },
+         "target":{
+            "property":"bank",
+            "id":"b4 : BankPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasmoveBoat", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>Number of States: 27</p>
 <p>Small reachbility graph with hyperlinks to states: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -9417,7 +9742,7 @@
 <p>large reachbility graph with embedded states: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -9431,8 +9756,7 @@
             "todo=null"
          ]
       }
-   ],
-   "edges":[]
+   ]
 }   ;
    json["options"]={"canvasid":"canvasFerrymansProblemExample12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

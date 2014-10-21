@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,12 +7,12 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/patternrewriteops/TrainStoryboards.java' type='text/x-java'>trainCollectPassengers</a></p>
 <p>trainCollectPassengers</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -386,13 +387,353 @@
    g.layout(100,100);
 </script>
 <p>step 1</p>
-<embed type="image/svg+xml"src='trainCollectPassengersPatternDiagram3.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"t1 : TrainPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StationPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s3 : SignalFlagPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"p4 : PersonPO",
+               "attributes":[
+               "<< destroy>>"
+               ]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t1 : TrainPO"
+         },
+         "target":{
+            "property":"station",
+            "id":"s2 : StationPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StationPO"
+         },
+         "target":{
+            "property":"flag",
+            "id":"s3 : SignalFlagPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StationPO"
+         },
+         "target":{
+            "property":"people",
+            "id":"p4 : PersonPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p4 : PersonPO"
+         },
+         "target":{
+            "property":"train",
+            "id":"t1 : TrainPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>step 2</p>
-<embed type="image/svg+xml"src='trainCollectPassengersPatternDiagram5.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"t1 : TrainPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StationPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s3 : SignalFlagPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"p4 : PersonPO",
+               "attributes":[
+               "<< destroy>>"
+               ]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t1 : TrainPO"
+         },
+         "target":{
+            "property":"station",
+            "id":"s2 : StationPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StationPO"
+         },
+         "target":{
+            "property":"flag",
+            "id":"s3 : SignalFlagPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StationPO"
+         },
+         "target":{
+            "property":"people",
+            "id":"p4 : PersonPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p4 : PersonPO"
+         },
+         "target":{
+            "property":"train",
+            "id":"t1 : TrainPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>step 3</p>
-<embed type="image/svg+xml"src='trainCollectPassengersPatternDiagram7.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"t1 : TrainPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StationPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s3 : SignalFlagPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"p4 : PersonPO",
+               "attributes":[
+               "<< destroy>>"
+               ]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t1 : TrainPO"
+         },
+         "target":{
+            "property":"station",
+            "id":"s2 : StationPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StationPO"
+         },
+         "target":{
+            "property":"flag",
+            "id":"s3 : SignalFlagPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StationPO"
+         },
+         "target":{
+            "property":"people",
+            "id":"p4 : PersonPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p4 : PersonPO"
+         },
+         "target":{
+            "property":"train",
+            "id":"t1 : TrainPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 <p>step 4</p>
-<embed type="image/svg+xml"src='trainCollectPassengersPatternDiagram9.svg'>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"t1 : TrainPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s2 : StationPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"s3 : SignalFlagPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+         {
+               "typ":"patternObject",
+               "id":"p4 : PersonPO",
+               "attributes":[
+               "<< destroy>>"
+               ]
+            }
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"t1 : TrainPO"
+         },
+         "target":{
+            "property":"station",
+            "id":"s2 : StationPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StationPO"
+         },
+         "target":{
+            "property":"flag",
+            "id":"s3 : SignalFlagPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"s2 : StationPO"
+         },
+         "target":{
+            "property":"people",
+            "id":"p4 : PersonPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"p4 : PersonPO"
+         },
+         "target":{
+            "property":"train",
+            "id":"t1 : TrainPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvastrainCollectPassengersPatternDiagram9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

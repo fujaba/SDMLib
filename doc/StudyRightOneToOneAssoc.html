@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,42 +7,44 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightOneToOneAssoc</a></p>
 <p>StudyRightOneToOneAssoc</p>
 <p>Add class Prof --gives-- Topic</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Professor",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"Professor",
-            "attributes":[
-            "name : String"
-            ]
+         "typ":"node",
+         "id":"Topic",
+         "attributes":[
+         "title : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"prof",
+            "id":"Professor"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Topic",
-            "attributes":[
-            "title : String"
-            ]
+            "cardinality":"one",
+            "property":"topic"
          }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"one",
-            "sourceproperty":"prof",
-            "targetproperty":"topic",
-            "source":"Professor",
-            "target":"Topic"
-         }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightOneToOneAssocClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,100 +7,122 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../.srctestjava/org/sdmlib/examples/m2m/BanfM2MTransformations.java' type='text/x-java'>BanfM2MTransformation</a></p>
 <p>BanfM2MTransformation</p>
 <p>Class diagram for source model:</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"GraphComponent",
+         "attributes":[
+         "text : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"GraphComponent",
-            "attributes":[
+         "typ":"node",
+         "id":"Graph",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Person",
+         "attributes":[
+         "firstName : String",
             "text : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Graph",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Person",
-            "attributes":[
-            "firstName : String",
-               "text : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Relation",
-            "attributes":[
-            "kind : String"
-            ]
-         }
-      ],
-      "edges":[
+         ]
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parent",
-            "targetproperty":"gcs",
-            "source":"Graph",
-            "target":"GraphComponent"
+         "typ":"node",
+         "id":"Relation",
+         "attributes":[
+         "kind : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"Graph"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"persons",
-            "source":"Graph",
-            "target":"Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"relations",
-            "source":"Graph",
-            "target":"Relation"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"outEdges",
-            "targetproperty":"src",
-            "source":"Relation",
-            "target":"Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"inEdges",
-            "targetproperty":"tgt",
-            "source":"Relation",
-            "target":"Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"knows",
-            "targetproperty":"knows",
-            "source":"Person",
-            "target":"Person"
+         "target":{
+            "id":"GraphComponent",
+            "cardinality":"many",
+            "property":"gcs"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"Graph"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"persons"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"Graph"
+         },
+         "target":{
+            "id":"Relation",
+            "cardinality":"many",
+            "property":"relations"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"Relation"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"src"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"Relation"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"tgt"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"Person"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"knows"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasBanfM2MTransformationClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -108,71 +131,81 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Graph",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"Graph",
-            "attributes":[]
+         "typ":"node",
+         "id":"GraphComponent",
+         "attributes":[
+         "text : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Person",
+         "attributes":[]
+      },
+      {
+         "typ":"node",
+         "id":"Relation",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"Graph"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"GraphComponent",
-            "attributes":[
-            "text : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Person",
-            "attributes":[]
-         },
-         {
-            "typ":"node",
-            "id":"Relation",
-            "attributes":[]
+            "cardinality":"many",
+            "property":"gcs"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"parent",
-            "targetproperty":"gcs",
-            "source":"Graph",
-            "target":"GraphComponent"
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"Relation"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"outEdges",
-            "targetproperty":"src",
-            "source":"Relation",
-            "target":"Person"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"inEdges",
-            "targetproperty":"tgt",
-            "source":"Relation",
-            "target":"Person"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Person",
-            "target":"GraphComponent"
-         },
-         {
-            "typ":"generalisation",
-            "source":"Relation",
-            "target":"GraphComponent"
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"src"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"Relation"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"tgt"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Person"},
+         "target":{"id":"GraphComponent"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Relation"},
+         "target":{"id":"GraphComponent"}
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasBanfM2MTransformationClassDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -180,7 +213,7 @@
 <hr/><p>Create example source graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -560,7 +593,7 @@
 <hr/><h2>Migrate using Generic Graph representation : </h2><p>did not find method simpleMigrationByGenericGraph(Graph,Storyboard) in class org.sdmlib.examples.m2m.BanfM2MTransformations</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -2246,25 +2279,195 @@
    json["options"]={"canvasid":"canvasBanfM2MTransformation13", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
 <script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == firstName",
+            "name == text"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram13", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == kind",
+            "name == text"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram14", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericLinkPO",
+         "attributes":[
+         "tgtLabel == graph",
+            "tgtLabel == parent",
+            "srcLabel == gcs"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"links",
+            "id":"g2 : GenericLinkPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericLinkPO",
+         "attributes":[
+         "srcLabel == graph",
+            "srcLabel == parent",
+            "tgtLabel == gcs"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"links",
+            "id":"g2 : GenericLinkPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram16", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -3953,7 +4156,7 @@
 <p>Result graph: </p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -4333,42 +4536,48 @@
 <hr/><h2>Even more evolved class diagram : </h2><script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Graph",
+         "attributes":[]
+      },
       {
-            "typ":"node",
-            "id":"Graph",
-            "attributes":[]
+         "typ":"node",
+         "id":"Person",
+         "attributes":[
+         "text : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"Graph"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Person",
-            "attributes":[
-            "text : String"
-            ]
+            "cardinality":"many",
+            "property":"persons"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"graph",
-            "targetproperty":"persons",
-            "source":"Graph",
-            "target":"Person"
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"Person"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"knows",
-            "targetproperty":"knows",
-            "source":"Person",
-            "target":"Person"
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"knows"
          }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasBanfM2MTransformationClassDiagram22", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -4376,7 +4585,7 @@
 <hr/><p>Again the input graph:</p>
 <script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -4755,22 +4964,218 @@
 </script>
 <p>The transformation code:</p>
 <p>did not find method simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard) in class org.sdmlib.examples.m2m.BanfM2MTransformations</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>Result graph: </p>
 <script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == firstName",
+            "name == text"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram28", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[
+         "type == org.sdmlib.examples.m2m.model.Relation"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericLinkPO",
+         "attributes":[
+         "tgtLabel == src"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g4 : GenericLinkPO",
+         "attributes":[
+         "tgtLabel == tgt",
+            "srcLabel == knows",
+            "tgtLabel == knows"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g5 : GenericObjectPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g6 : GenericObjectPO",
+         "attributes":[]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"outgoingLinks",
+            "id":"g3 : GenericLinkPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"outgoingLinks",
+            "id":"g4 : GenericLinkPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g3 : GenericLinkPO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"g5 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g4 : GenericLinkPO"
+         },
+         "target":{
+            "property":"tgt",
+            "id":"g6 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g4 : GenericLinkPO"
+         },
+         "target":{
+            "property":"src",
+            "id":"g5 : GenericObjectPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram29", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[
+         "type == org.sdmlib.examples.m2m.model.Relation"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram30", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Result graph: </p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -4959,44 +5364,396 @@
 <hr/><p>Let us derive the reverse transformation for the first model evolution:</p>
 <p>_____ forward ______________ backward ___________</p>
 <pre>      Pattern reverseRenameFirstNameAttrRule = revertRule(genericGraphPO.getPattern());
-</pre><p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<hr/><pre>      Pattern reverseRenameKindAttrRule = revertRule(renameKindAttrGraphPO.getPattern());
-</pre><p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<hr/><pre>      Pattern reverseRenamePersonsLinkRule = revertRule(renamePersonsLinkGraphPO.getPattern());
-</pre><p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<hr/><pre>      Pattern reverseRenameRelationsLinkRule = revertRule(renameRelationsLinkGraphPO.getPattern());
-</pre><p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<p>{
-   "typ":"object",
-   "nodes":[]
-}</p>
-<hr/><script>
+</pre><script>
    var json = {
    "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[
+         "type == org.sdmlib.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == firstName",
+            "name == text"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram37", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[
+         "type == org.sdmlib.examples.m2m.model.Person"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == text",
+            "name == firstName"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram38", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<hr/><pre>      Pattern reverseRenameKindAttrRule = revertRule(renameKindAttrGraphPO.getPattern());
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[
+         "type == org.sdmlib.examples.m2m.model.Relation"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == kind",
+            "name == text"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram41", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericObjectPO",
+         "attributes":[
+         "type == org.sdmlib.examples.m2m.model.Relation"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g3 : GenericAttributePO",
+         "attributes":[
+         "name == text",
+            "name == kind"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"objects",
+            "id":"g2 : GenericObjectPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g2 : GenericObjectPO"
+         },
+         "target":{
+            "property":"attrs",
+            "id":"g3 : GenericAttributePO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram42", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<hr/><pre>      Pattern reverseRenamePersonsLinkRule = revertRule(renamePersonsLinkGraphPO.getPattern());
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericLinkPO",
+         "attributes":[
+         "tgtLabel == graph",
+            "srcLabel == persons",
+            "tgtLabel == parent",
+            "srcLabel == gcs"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"links",
+            "id":"g2 : GenericLinkPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram45", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericLinkPO",
+         "attributes":[
+         "tgtLabel == parent",
+            "srcLabel == gcs",
+            "tgtLabel == graph",
+            "srcLabel == persons"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"links",
+            "id":"g2 : GenericLinkPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram46", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<hr/><pre>      Pattern reverseRenameRelationsLinkRule = revertRule(renameRelationsLinkGraphPO.getPattern());
+</pre><script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericLinkPO",
+         "attributes":[
+         "srcLabel == graph",
+            "tgtLabel == relations",
+            "srcLabel == parent",
+            "tgtLabel == gcs"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"links",
+            "id":"g2 : GenericLinkPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram49", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"g1 : GenericGraphPO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"g2 : GenericLinkPO",
+         "attributes":[
+         "srcLabel == parent",
+            "tgtLabel == gcs",
+            "srcLabel == graph",
+            "tgtLabel == relations"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"g1 : GenericGraphPO"
+         },
+         "target":{
+            "property":"links",
+            "id":"g2 : GenericLinkPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBanfM2MTransformationPatternDiagram50", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<hr/><script>
+   var json = {
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -6684,7 +7441,7 @@
 </script>
 <hr/><script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -8372,7 +9129,7 @@
 </script>
 <hr/><script>
    var json = {
-   "typ":"object",
+   "typ":"objectdiagram",
    "nodes":[
    {
          "typ":"node",

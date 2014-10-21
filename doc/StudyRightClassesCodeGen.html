@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -6,25 +7,23 @@
 <script src="includes/dagre.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body onload="init();">
+</head><body>
 <p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
 <p>StudyRightClassesCodeGen</p>
 <p>1. generate class University</p>
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
-      {
-            "typ":"node",
-            "id":"University",
-            "attributes":[
-            "name : String"
-            ]
-         }
-      ],
-      "edges":[]
-   }
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      }
+   ],
+   "edges":[]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -33,26 +32,24 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"University",
-            "attributes":[
-            "name : String"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Student",
-            "attributes":[
-            "name : String",
-               "matrNo : int"
-            ]
-         }
-      ],
-      "edges":[]
-   }
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int"
+         ]
+      }
+   ],
+   "edges":[]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -61,36 +58,38 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"University",
-            "attributes":[
-            "name : String"
-            ]
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"University"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Student",
-            "attributes":[
-            "name : String",
-               "matrNo : int"
-            ]
+            "cardinality":"many",
+            "property":"students"
          }
-      ],
-      "edges":[
-      {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"uni",
-            "targetproperty":"students",
-            "source":"University",
-            "target":"Student"
-         }
-      ]
-   }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -99,71 +98,85 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"University",
-            "attributes":[
-            "name : String"
-            ]
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Room",
+         "attributes":[
+         "roomNo : String",
+            "credits : int"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"University"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Student",
-            "attributes":[
-            "name : String",
-               "matrNo : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Room",
-            "attributes":[
-            "roomNo : String",
-               "credits : int"
-            ]
+            "cardinality":"many",
+            "property":"students"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"uni",
-            "targetproperty":"students",
-            "source":"University",
-            "target":"Student"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"University"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"uni",
-            "targetproperty":"rooms",
-            "source":"University",
-            "target":"Room"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"students",
-            "targetproperty":"in",
-            "source":"Student",
-            "target":"Room"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"neighbors",
-            "targetproperty":"neighbors",
-            "source":"Room",
-            "target":"Room"
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"rooms"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"Student"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"in"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"Room"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"neighbors"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -172,99 +185,121 @@
 <script>
    var json = {
    "typ":"class",
-   "value":{
-      "nodes":[
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      },
       {
-            "typ":"node",
-            "id":"University",
-            "attributes":[
-            "name : String"
-            ]
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int",
+            "credits : int",
+            "motivation : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Room",
+         "attributes":[
+         "roomNo : String",
+            "credits : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Assignment",
+         "attributes":[
+         "name : String",
+            "points : int"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"University"
          },
-         {
-            "typ":"node",
+         "target":{
             "id":"Student",
-            "attributes":[
-            "name : String",
-               "matrNo : int",
-               "credits : int",
-               "motivation : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Room",
-            "attributes":[
-            "roomNo : String",
-               "credits : int"
-            ]
-         },
-         {
-            "typ":"node",
-            "id":"Assignment",
-            "attributes":[
-            "name : String",
-               "points : int"
-            ]
+            "cardinality":"many",
+            "property":"students"
          }
-      ],
-      "edges":[
+      },
       {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"uni",
-            "targetproperty":"students",
-            "source":"University",
-            "target":"Student"
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"University"
          },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"uni",
-            "targetproperty":"rooms",
-            "source":"University",
-            "target":"Room"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"one",
-            "sourceproperty":"students",
-            "targetproperty":"in",
-            "source":"Student",
-            "target":"Room"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"students",
-            "targetproperty":"done",
-            "source":"Student",
-            "target":"Assignment"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"many",
-            "targetcardinality":"many",
-            "sourceproperty":"neighbors",
-            "targetproperty":"neighbors",
-            "source":"Room",
-            "target":"Room"
-         },
-         {
-            "typ":"edge",
-            "sourcecardinality":"one",
-            "targetcardinality":"many",
-            "sourceproperty":"room",
-            "targetproperty":"assignments",
-            "source":"Assignment",
-            "target":"Room"
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"rooms"
          }
-      ]
-   }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"Student"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"in"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"students",
+            "id":"Student"
+         },
+         "target":{
+            "id":"Assignment",
+            "cardinality":"many",
+            "property":"done"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"Room"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"neighbors"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"Assignment"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"assignments"
+         }
+      }
+   ]
 }   ;
    json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

@@ -5,6 +5,15 @@
 	border: 1px solid rgb(204, 204, 204);
 }
 
+.classdiagram{
+	border: 1px solid rgb(187, 187, 187);
+	position: absolute; 
+}
+.objectdiagram{
+	border: 1px solid rgb(187, 187, 187);
+	position: absolute; 
+}
+
 .classElement{
 	border: 1px solid rgb(187, 187, 187);
 	/*background-color: rgb(221, 221, 221);*/
