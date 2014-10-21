@@ -62,7 +62,7 @@ public class GraphFactory
    
 	public void generate(String path) {
 		File dir = new File(path);
-		String rootPath = dir.getAbsolutePath();
+		String rootPath = dir.getPath();
 		if (".".equals(path)) {
 			rootPath = rootPath.substring(0, rootPath.length() - 1);
 		}
@@ -111,6 +111,12 @@ public class GraphFactory
 
          for (URL plugin : plugins) {
             String name = plugin.getPath();
+            if (name.lastIndexOf("/")>0) {
+            	name = name.substring(name.lastIndexOf("/")+1);
+            }
+            if (name.lastIndexOf("\\")>0) {
+            	name = name.substring(name.lastIndexOf("\\")+1);
+            }
             if (name.indexOf(".")>0) {
                name = name.substring(0, name.indexOf("."));
             }
