@@ -29,7 +29,6 @@ public class GraphFactory
       // Add Defaults
       this.with(new Javascript());
       this.with(new GraphViz());
-      
       generate(".");
    }
 
@@ -78,6 +77,25 @@ public class GraphFactory
          }
       }
       loadPlugins(plugins);
+      if(".".equals(path)){
+    	  URL resource = GraphFactory.class.getResource("/org/SDMLib.gwt.xml");
+			File test = new File(".");
+			File lib = new File(resource.getPath());
+			lib = lib.getParentFile().getParentFile().getParentFile();
+			String rootPath = test.getAbsolutePath();
+			rootPath = rootPath.substring(0, rootPath.length()-1);
+			String libPath = lib.getPath();
+			if(libPath.startsWith("file:\\")){
+				libPath = libPath.substring(6);
+			}
+			if(!(libPath.endsWith("\\")||libPath.endsWith("/"))){
+				libPath += "/";
+			}
+			
+			if(libPath.startsWith(rootPath)){
+				generate(libPath.substring(rootPath.length()));
+			}
+      }
    }
    
    
