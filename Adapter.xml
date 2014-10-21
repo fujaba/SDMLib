@@ -18,28 +18,28 @@ Class-Path: .
 
 		<delete dir="build/temp"></delete>
 		<mkdir dir="build/temp/" />
-		<javac srcdir="Adapter/GraphViz/Java:src/org/sdmlib/doc/interfaze/Drawer" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true"/>
+		<javac srcdir="Adapter/GraphViz/Java:src/main/java/org/sdmlib/doc/interfaze/Drawer" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true"/>
 		<delete file="build/GraphViz_win.jar" />
 		<jar destfile="build/GraphViz_win.jar" manifest="build/MANIFEST.MF">
 			<fileset dir="build/temp/" />
 			<fileset dir="Adapter/GraphViz/Java" />
-			<fileset dir="src/org/sdmlib/doc/interfaze/"/>
+			<fileset dir="src/main/java/org/sdmlib/doc/interfaze/"/>
 			<zipfileset casesensitive="false" dir="Adapter/GraphViz/Resources" />
 		</jar>
 		<delete dir="build/temp"></delete>
 		
 		<!-- Source-graphViz -->
 		<mkdir dir="build/temp/" />
-		<javac srcdir="Adapter/GraphVizSource/Java:src/org/sdmlib/doc/interfaze/Drawer" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true" />
+		<javac srcdir="Adapter/GraphVizSource/Java:src/main/java/org/sdmlib/doc/interfaze/Drawer" destdir="build/temp"  includeantruntime="false" debug="true" listfiles="true" />
 		<jar destfile="GraphViz.jar" manifest="build/MANIFEST.MF">
 			<fileset dir="Adapter/GraphViz/Java" />
 			<fileset dir="build/temp/" />
-			<fileset dir="src/org/sdmlib/doc/interfaze/"/>
+			<fileset dir="src/main/java/org/sdmlib/doc/interfaze/"/>
 		</jar>
 		<jar destfile="build/GraphViz_source.jar" manifest="build/MANIFEST.MF">
 			<fileset dir="Adapter/GraphViz/Java" />
 			<fileset dir="build/temp/" />
-			<fileset dir="src/org/sdmlib/doc/interfaze/"/>
+			<fileset dir="src/main/java/org/sdmlib/doc/interfaze/"/>
 		</jar>
 		<delete dir="build/temp"></delete>
 		<delete file="build/MANIFEST.MF" />
