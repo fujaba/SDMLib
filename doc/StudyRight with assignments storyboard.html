@@ -8,11 +8,60 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRight with assignments storyboard</a></p>
+<p>Storyboard <a href='../src/test/java/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRight with assignments storyboard</a></p>
 <p>StudyRight with assignments storyboard</p>
 <p>1. (start situation/pre-condition) Karli enters the Study-Right University 
 in the math room. Karli has no credits yet and still a motivation of 214. </p>
-<script>
+<pre>      University university = new University()
+      .withName(&quot;StudyRight&quot;);
+
+      Student karli = university.createStudents()
+            .withId(&quot;4242&quot;)
+            .withName(&quot;Karli&quot;);
+
+      Assignment a1 = new Assignment()
+      .withContent(&quot;Matrix Multiplication&quot;)
+      .withPoints(5);
+
+      Assignment a2 = new Assignment()
+      .withContent(&quot;Series&quot;)
+      .withPoints(6);
+
+      Assignment a3 = new Assignment()
+      .withContent(&quot;Integrals&quot;)
+      .withPoints(8);
+
+      Room mathRoom = university.createRooms()
+            .withName(&quot;senate&quot;)
+            .withTopic(&quot;math&quot;)
+            .withCredits(17)  
+            .withStudents(karli)
+            .withAssignments(a1, a2, a3);
+
+      Room artsRoom = university.createRooms()
+            .withName(&quot;7522&quot;)
+            .withTopic(&quot;arts&quot;)
+            .withCredits(16)
+            .withDoors(mathRoom); 
+
+      Room sportsRoom = university.createRooms()
+            .withName(&quot;gymnasium&quot;)
+            .withTopic(&quot;sports&quot;)
+            .withCredits(25)
+            .withDoors(mathRoom, artsRoom); 
+
+      Room examRoom = university.createRooms()
+            .withName(&quot;The End&quot;)
+            .withTopic(&quot;exam&quot;)
+            .withCredits(0)
+            .withDoors(sportsRoom, artsRoom);
+
+      Room softwareEngineering = university.createRooms()
+            .withName(&quot;7422&quot;)
+            .withTopic(&quot;Software Engineering&quot;)
+            .withCredits(42)
+            .withDoors(artsRoom, examRoom);
+</pre><script>
    var json = {
    "typ":"objectdiagram",
    "nodes":[
@@ -567,14 +616,16 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
 (general rule: the student earns always full points for doing an assignment). <br>
 Karli's motivation is reduced by 5 points to now 209.
 </p>
-<script>
+<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
+      karli.withDone(a1);
+</pre><script>
    var json = {
    "typ":"objectdiagram",
    "nodes":[
@@ -763,13 +814,15 @@ Karli's motivation is reduced by 5 points to now 209.
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
 Thus Karli has 11 points now. Motivation is reduced to 203.
 </p>
-<script>
+<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
+      karli.withDone(a2);
+</pre><script>
    var json = {
    "typ":"objectdiagram",
    "nodes":[
@@ -983,13 +1036,15 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>4. Karli does the third assignment on Integrals, earns <br>
 another 8 points and thus Karli has now 19 points and a motivation of 195.
 </p>
-<script>
+<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
+      karli.withDone(a3);
+</pre><script>
    var json = {
    "typ":"objectdiagram",
    "nodes":[
@@ -1228,7 +1283,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard13", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>5. Since 19 points are more than the 17 points required 
@@ -1236,7 +1291,12 @@ for the 17 math credits, Karli hands the points in and earns the credits
 and has his assignmnet points reset to 0. <br>
 (General rule: if the points earned by the assignments are higher or equal than 
 the credit points, the credit points will be awarded to the student.)</p>
-<script>
+<pre>      if ( karli.getAssignmentPoints() &gt;= mathRoom.getCredits() )
+      {
+         karli.setCredits(karli.getCredits() + mathRoom.getCredits() );
+         karli.setAssignmentPoints(0);
+      }
+</pre><script>
    var json = {
    "typ":"objectdiagram",
    "nodes":[
@@ -1475,7 +1535,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard16", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>

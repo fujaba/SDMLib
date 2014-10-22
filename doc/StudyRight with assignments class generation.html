@@ -11,7 +11,11 @@
 <p>Storyboard <a href='../src/test/java/org/sdmlib/examples/studyrightWithAssignments/GenerateClasses.java' type='text/x-java'>StudyRight with assignments class generation</a></p>
 <p>StudyRight with assignments class generation</p>
 <p>1. generate class University</p>
-<script>
+<pre>      ClassModel model = new ClassModel(&quot;org.sdmlib.examples.studyrightWithAssignments.model&quot;);
+
+      Clazz universityClass = model.createClazz(&quot;University&quot;)
+            .withAttribute(&quot;name&quot;, DataType.STRING);
+</pre><script>
    var json = {
    "typ":"class",
    "nodes":[
@@ -25,11 +29,17 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>2. generate class Student</p>
-<script>
+<pre>      Clazz studentClass = model.createClazz(&quot;Student&quot;)
+            .withAttribute(&quot;name&quot;, DataType.STRING)
+            .withAttribute(&quot;id&quot;, DataType.STRING)
+            .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
+            .withAttribute(&quot;motivation&quot;, DataType.INT) 
+            .withAttribute(&quot;credits&quot;, DataType.INT);
+</pre><script>
    var json = {
    "typ":"class",
    "nodes":[
@@ -54,11 +64,12 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>3. add University --> Student association</p>
-<script>
+<pre>      universityClass.withAssoc(studentClass, &quot;students&quot;, Card.MANY, &quot;university&quot;, Card.ONE);
+</pre><script>
    var json = {
    "typ":"class",
    "nodes":[
@@ -97,11 +108,26 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>4. add University --> Room association</p>
-<script>
+<pre>      Clazz roomClass = model.createClazz(&quot;Room&quot;)
+            .withAttribute(&quot;name&quot;, DataType.STRING)
+            .withAttribute(&quot;topic&quot;, DataType.STRING)
+            .withAttribute(&quot;credits&quot;, DataType.INT);
+
+      roomClass.createMethod(&quot;findPath&quot;).withParameter(&quot;String&quot;, DataType.INT);
+
+      &#x2F;&#x2F;Association universityToRoom = 
+      universityClass.withAssoc(roomClass, &quot;rooms&quot;, Card.MANY, &quot;university&quot;, Card.ONE);
+      
+      &#x2F;&#x2F; Association doors = 
+      roomClass.withAssoc(roomClass, &quot;doors&quot;, Card.MANY, &quot;doors&quot;, Card.MANY);
+
+      &#x2F;&#x2F; Association studentsInRoom = 
+      studentClass.withAssoc(roomClass, &quot;in&quot;, Card.ONE, &quot;students&quot;, Card.MANY);
+</pre><script>
    var json = {
    "typ":"class",
    "nodes":[
@@ -188,11 +214,17 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>5. add assignments:</p>
-<script>
+<pre>      Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
+               .withAttribute(&quot;content&quot;, DataType.STRING)
+               .withAttribute(&quot;points&quot;, DataType.INT)
+               .withAssoc(roomClass, &quot;room&quot;, Card.ONE, &quot;assignments&quot;, Card.MANY);
+      
+      studentClass.withAssoc(assignmentClass, &quot;done&quot;, Card.MANY, &quot;students&quot;, Card.MANY);
+</pre><script>
    var json = {
    "typ":"class",
    "nodes":[
@@ -313,7 +345,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>6. generate class source files.</p>

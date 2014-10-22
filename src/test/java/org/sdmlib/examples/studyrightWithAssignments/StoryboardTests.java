@@ -48,12 +48,13 @@ public class StoryboardTests {
    @Test
    public void testStudyRightObjectStoryboards()
    {
-      Storyboard storyboard = new Storyboard("examples", "StudyRight with assignments storyboard");
+      Storyboard storyboard = new Storyboard("src/test/java", "StudyRight with assignments storyboard");
 
       //=============================================================
       storyboard.add("1. (start situation/pre-condition) Karli enters the Study-Right University \n"
             +"in the math room. Karli has no credits yet and still a motivation of 214. ");
 
+      storyboard.markCodeStart();
       University university = new University()
       .withName("StudyRight");
 
@@ -103,7 +104,8 @@ public class StoryboardTests {
             .withTopic("Software Engineering")
             .withCredits(42)
             .withDoors(artsRoom, examRoom);
-
+      storyboard.addCode();
+      
       storyboard.addObjectDiagram(
          "studyRight", university, 
          "karli", "icons/karli.png", karli, 
@@ -120,27 +122,33 @@ public class StoryboardTests {
             +"(general rule: the student earns always full points for doing an assignment). <br>\n"
             +"Karli's motivation is reduced by 5 points to now 209.\n"); 
 
+      storyboard.markCodeStart();
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
       karli.withDone(a1);
-
+      storyboard.addCode();
+      
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. <br>\n"
             +"Thus Karli has 11 points now. Motivation is reduced to 203.\n");
 
+      storyboard.markCodeStart();
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
       karli.withDone(a2);
-
+      storyboard.addCode();
+      
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("4. Karli does the third assignment on Integrals, earns <br>\n"
             +"another 8 points and thus Karli has now 19 points and a motivation of 195.\n"); 
 
+      storyboard.markCodeStart();
       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
       karli.withDone(a3);
-
+      storyboard.addCode();
+      
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
@@ -150,11 +158,14 @@ public class StoryboardTests {
             +"(General rule: if the points earned by the assignments are higher or equal than \n"
             +"the credit points, the credit points will be awarded to the student.)"); 
 
+      storyboard.markCodeStart();
       if ( karli.getAssignmentPoints() >= mathRoom.getCredits() )
       {
          karli.setCredits(karli.getCredits() + mathRoom.getCredits() );
          karli.setAssignmentPoints(0);
       }
+      storyboard.addCode();
+      
 
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
 

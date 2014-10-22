@@ -45,23 +45,27 @@ public class GenerateClasses {
 
       //============================================================
       storyboard.add("1. generate class University");
-
+      
+      storyboard.markCodeStart();
       ClassModel model = new ClassModel("org.sdmlib.examples.studyrightWithAssignments.model");
 
       Clazz universityClass = model.createClazz("University")
-      .withAttribute("name", DataType.STRING);
-
+            .withAttribute("name", DataType.STRING);
+      storyboard.addCode();
+      
       storyboard.addClassDiagram(model);
 
       //============================================================
       storyboard.add("2. generate class Student");
 
+      storyboard.markCodeStart();
       Clazz studentClass = model.createClazz("Student")
             .withAttribute("name", DataType.STRING)
             .withAttribute("id", DataType.STRING)
             .withAttribute("assignmentPoints", DataType.INT)
             .withAttribute("motivation", DataType.INT) 
             .withAttribute("credits", DataType.INT);
+      storyboard.addCode();
 
       storyboard.addClassDiagram(model);
 
@@ -69,10 +73,10 @@ public class GenerateClasses {
       //============================================================
       storyboard.add("3. add University --> Student association");
 
-      //Association universityToStudent = 
-      new Association()
-      .withSource(universityClass, "university", Card.ONE)
-      .withTarget(studentClass, "students", Card.MANY); 
+      // Association universityToStudent = 
+      storyboard.markCodeStart();
+      universityClass.withAssoc(studentClass, "students", Card.MANY, "university", Card.ONE);
+      storyboard.addCode();
 
       storyboard.addClassDiagram(model);
 
@@ -80,27 +84,23 @@ public class GenerateClasses {
       //============================================================
       storyboard.add("4. add University --> Room association");
 
+      storyboard.markCodeStart();
       Clazz roomClass = model.createClazz("Room")
-      .withAttribute("name", DataType.STRING)
-      .withAttribute("topic", DataType.STRING)
-      .withAttribute("credits", DataType.INT);
+            .withAttribute("name", DataType.STRING)
+            .withAttribute("topic", DataType.STRING)
+            .withAttribute("credits", DataType.INT);
 
       roomClass.createMethod("findPath").withParameter("String", DataType.INT);
 
       //Association universityToRoom = 
-      new Association()
-      .withSource(universityClass, "university", Card.ONE)
-      .withTarget(roomClass, "rooms", Card.MANY); 
+      universityClass.withAssoc(roomClass, "rooms", Card.MANY, "university", Card.ONE);
+      
+      // Association doors = 
+      roomClass.withAssoc(roomClass, "doors", Card.MANY, "doors", Card.MANY);
 
-      //Association doors = 
-      new Association()
-      .withSource(roomClass, "doors", Card.MANY)
-      .withTarget(roomClass, "doors", Card.MANY);
-
-      //Association studentsInRoom = 
-      new Association()
-      .withSource(studentClass, "students", Card.MANY)
-      .withTarget(roomClass, "in", Card.ONE);
+      // Association studentsInRoom = 
+      studentClass.withAssoc(roomClass, "in", Card.ONE, "students", Card.MANY);
+      storyboard.addCode();
 
       storyboard.addClassDiagram(model);
       
@@ -109,16 +109,15 @@ public class GenerateClasses {
       //============================================================
       storyboard.add("5. add assignments:");
 
-      
+      storyboard.markCodeStart();
       Clazz assignmentClass = model.createClazz("Assignment")
-               .withAssoc(roomClass, "room", Card.ONE, "assignments", Card.MANY)
                .withAttribute("content", DataType.STRING)
-               .withAttribute("points", DataType.INT);
+               .withAttribute("points", DataType.INT)
+               .withAssoc(roomClass, "room", Card.ONE, "assignments", Card.MANY);
       
-//      Clazz assignmentClass = roomClass.createClassAndAssoc("Assignment", "assignments", Card.MANY, "room", Card.ONE)
-
       studentClass.withAssoc(assignmentClass, "done", Card.MANY, "students", Card.MANY);
-
+      storyboard.addCode();
+      
       storyboard.addClassDiagram(model);
       
       studentClass.withAssoc(studentClass, "friends", Card.MANY, "friends", Card.MANY);
@@ -136,10 +135,12 @@ public class GenerateClasses {
       //============================================================
       storyboard.add("6. generate class source files.");
 
-      model.removeAllGeneratedCode("examples");
+      model.removeAllGeneratedCode("src/test/java");
 
+      storyboard.markCodeStart();
       model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
-
+      storyboard.addCode();
+      
 
       StoryboardManager.get()
       .add(storyboard)
