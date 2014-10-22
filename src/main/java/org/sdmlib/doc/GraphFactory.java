@@ -1,6 +1,7 @@
 package org.sdmlib.doc;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -67,7 +68,7 @@ public class GraphFactory
 			rootPath = rootPath.substring(0, rootPath.length() - 1);
 		}
 		if (rootPath.length()>0 && !(rootPath.endsWith("\\") || rootPath.endsWith("/"))) {
-			rootPath += "/";
+			rootPath += File.separator;
 		}
 		ArrayList<URL> plugins = new ArrayList<URL>();
 		for (File item : dir.listFiles()) {
@@ -94,8 +95,11 @@ public class GraphFactory
 			if (libPath.startsWith("file:\\")) {
 				libPath = libPath.substring(6);
 			}
-			if (!(libPath.endsWith("\\") || libPath.endsWith("/"))) {
-				libPath += "/";
+			if (libPath.startsWith("file:/")) {
+				libPath = libPath.substring(5);
+			}
+			if (!(libPath.endsWith(File.separator))) {
+				libPath += File.separator;
 			}
 
 			if (libPath.startsWith(rootPath)) {
@@ -106,7 +110,6 @@ public class GraphFactory
    
    
    public void loadPlugins(List<URL> plugins) {
-      try {
          URLClassLoader ucl = new URLClassLoader(plugins.toArray(new URL[plugins.size()]), this.getClass().getClassLoader());
 
          for (URL plugin : plugins) {
@@ -128,25 +131,29 @@ public class GraphFactory
             if (name.indexOf("_")>0) {
                name = name.substring(0, name.indexOf("_"));
             }
-            Class<?> c = ucl.loadClass("org.sdmlib.doc." + name);
-            Object p =c.newInstance();
-            if( p instanceof GuiAdapter){
-               this.with((GuiAdapter)p);
-            }else if(p instanceof GuiFileDrawer){
-               GuiFileDrawer drawer = (GuiFileDrawer) p;
-               ArrayList<GuiAdapter> adapters = getAdapters();
-               for(GuiAdapter item : adapters){
-                  if(item.getName().equalsIgnoreCase(name)){
-                     item.withDrawer(drawer);
-                     drawer.withPlugin(new File(path), plugin.getPath());
-                  }
-               }
-            }
+            try {
+	            Class<?> c = ucl.loadClass("org.sdmlib.doc." + name);
+	            Object p =c.newInstance();
+	            if( p instanceof GuiAdapter){
+	               this.with((GuiAdapter)p);
+	            }else if(p instanceof GuiFileDrawer){
+	               GuiFileDrawer drawer = (GuiFileDrawer) p;
+	               ArrayList<GuiAdapter> adapters = getAdapters();
+	               for(GuiAdapter item : adapters){
+	                  if(item.getName().equalsIgnoreCase(name)){
+	                     item.withDrawer(drawer);
+	                     drawer.withPlugin(new File(path), plugin.getPath());
+	                  }
+	               }
+	            }
+            } catch (Exception e) {
+                //e.printStackTrace();
+             }
          }
-         ucl.close();
-      } catch (Exception e) {
-         //e.printStackTrace();
-      }
+         try {
+			ucl.close();
+		} catch (IOException e) {
+		}
    }
 
    public ArrayList<GuiAdapter> getAdapters()

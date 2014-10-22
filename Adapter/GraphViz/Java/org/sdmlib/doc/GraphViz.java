@@ -165,7 +165,11 @@ public class GraphViz implements GuiFileDrawer
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+    	  System.err.println("Can't run GraphViz: "+ e.getMessage());
+    	  if("linux".equals(System.getProperty("os.name").toLowerCase())){
+    		  System.err.println("Please install GraphViz: "+ "apt-get install graphviz");
+    	  }
+         //e.printStackTrace();
       }
       return true;
    }
