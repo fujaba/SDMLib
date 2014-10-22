@@ -31,10 +31,10 @@ public class RemoteTaskSet extends SDMSet<RemoteTask>
 {
 
 
-   public RemoteTaskPO hasRemoteTaskPO()
-   {
-      return new RemoteTaskPO(this.toArray(new RemoteTask[this.size()]));
-   }
+//   public RemoteTaskPO hasRemoteTaskPO()
+//   {
+//      return new RemoteTaskPO(this.toArray(new RemoteTask[this.size()]));
+//   }
 
 
    @Override
