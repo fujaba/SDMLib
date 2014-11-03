@@ -32,26 +32,19 @@ public class DocEnvironment {
 	public void copyJS(String target){
 		new File(target).mkdirs();
 		new File(target+"/includes").mkdirs();
-		copyDocFile(target, "burndown", "d3.v3.js");
-		copyDocFile(target, "burndown", "nv.d3.css");
-		copyDocFile(target, "burndown", "nv.d3.js");
-		copyDocFile(target, "graph", "dagre.min.js");
-		copyDocFile(target, "graph", "drawer.js");
-		copyDocFile(target, "graph", "graph.js");
-		copyDocFile(target, "graph", "diagramstyle.css");
+		copyDocFile(target, "d3.v3.min.js");
+		copyDocFile(target, "nv.d3.css");
+		copyDocFile(target, "nv.d3.min.js");
+		copyDocFile(target, "dagre.min.js");
+		copyDocFile(target, "drawer.js");
+		copyDocFile(target, "graph.js");
+		copyDocFile(target, "diagramstyle.css");
 	}
 
-	private void copyDocFile(String targetFolder, String dir, String file) {
+	private void copyDocFile(String targetFolder, String file) {
 		File target = new File(targetFolder + "/includes/" + file);
 
-		if (dir == null) {
-			dir = "";
-
-		}
-		if (dir.length() > 0 && !dir.endsWith("/")) {
-			dir += "/";
-		}
-		InputStream is = GraphList.class.getResourceAsStream("../" + dir + "/" + file);
+		InputStream is = GraphList.class.getResourceAsStream(file);
 
 		if (is != null) {
 			final int BUFF_SIZE = 5 * 1024; // 5KB
