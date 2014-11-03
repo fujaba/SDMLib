@@ -192,12 +192,10 @@ public class Javascript implements GuiAdapter
                "   var json = " +
                json.toString(3) +
                "   ;\n" +
-               "   json[\"options\"]={\"canvasid\":\"canvas" + diagName + "\", "
+               "   new Graph(json, {\"canvasid\":\"canvas" + diagName + "\", "
                + "\"display\":\"html\", "
                + "\"fontsize\":10,"
-               + "\"bar\":true};" +
-               "   var g = new Graph(json);\n" +
-               "   g.layout(100,100);\n" +
+               + "\"bar\":true}).layout(100,100);\n" +
                "</script>\n";      
       return text;
    }
