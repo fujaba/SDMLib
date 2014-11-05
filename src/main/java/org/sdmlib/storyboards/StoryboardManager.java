@@ -24,7 +24,6 @@ package org.sdmlib.storyboards;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,12 +43,11 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.doc.JavascriptAdapter.Javascript;
+import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.serialization.JsonIdComparator;
 import org.sdmlib.storyboards.util.KanbanEntryCreator;
 
-import de.uniks.networkparser.graph.GraphList;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
@@ -122,57 +120,15 @@ public class StoryboardManager
          this.toBeRemoved = null;
       }
 
-      new File("doc").mkdirs();
-      new File("doc/includes").mkdirs();
+      new DocEnvironment().copyJS("doc");
 
       // add javascript files
-      copyDocFile("burndown", "d3.v3.js");
-      copyDocFile("burndown", "nv.d3.css");
-      copyDocFile("burndown", "nv.d3.js");
-      copyDocFile("graph", "dagre.js");
-      copyDocFile("graph", "drawer.js");
-      copyDocFile("graph", "graph.js");
-      copyDocFile("graph", "diagramstyle.css");
+      
 
       dumpKanban();
    }
 
-   private void copyDocFile(String dir, String file)
-   {
-      File target=new File("doc/includes/" + file);
-      
-      // graphlist is in de.uniks.networkparser.graph
-
-      InputStream is = GraphList.class.getResourceAsStream("../" + dir + "/" + file);
-
-      if (is != null)
-      {
-         final int BUFF_SIZE = 5 * 1024; // 5KB
-         final byte[] buffer = new byte[BUFF_SIZE];
-
-         try
-         {
-            if(!target.exists()){
-               target.createNewFile();
-            }
-            FileOutputStream out = new FileOutputStream(target);
-
-            while (true) {
-               int count = is.read(buffer);
-               if (count == -1)
-                  break;
-               out.write(buffer, 0, count);
-            }
-            out.close();
-            is.close();
-         }
-         catch (Exception e)
-         {
-            // e.printStackTrace();
-         }
-
-      }
-   }
+   
 
    public void dumpKanban() 
    {

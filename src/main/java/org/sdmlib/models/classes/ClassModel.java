@@ -23,21 +23,18 @@ package org.sdmlib.models.classes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
-
-import de.uniks.networkparser.graph.GraphList;
 
 public class ClassModel extends SDMLibClass
 {
@@ -318,8 +315,8 @@ public class ClassModel extends SDMLibClass
       String htmlTemplate = "<html>\n" +
             "<head>\n" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"includes/diagramstyle.css\">\n" +
+            "<script src=\"includes/dagre.min.js\"></script>\n"+
             "<script src=\"includes/graph.js\"></script>\n"+
-            "<script src=\"includes/dagre.js\"></script>\n"+
             "<script src=\"includes/drawer.js\"></script>\n"+
             "</head>\n" +
             "<body>\n" +
@@ -337,63 +334,8 @@ public class ClassModel extends SDMLibClass
       } catch (FileNotFoundException e) {
          e.printStackTrace();
       }
-      
-      copyJSBib(folder);
-      
-      
+      new DocEnvironment().copyJS(folder);
    }
-   private void copyJSBib(String folder)
-   {
-      new File(folder+"/includes").mkdirs();
-
-      // add javascript files
-      copyDocFile(folder, "", "dagre.js");
-      copyDocFile(folder, "", "drawer.js");
-      copyDocFile(folder, "", "graph.js");
-      copyDocFile(folder, "", "diagramstyle.css");
-   } 
-   
-   private void copyDocFile(String targetFolder, String dir, String file)
-   {
-      File target=new File(targetFolder+ "/includes/" + file);
-
-      if(dir == null){
-    	  dir="";
-    	  
-      }
-      if(dir.length()>0 && !dir.endsWith("/")) {
-    	  dir += "/";
-      }
-      InputStream is = GraphList.class.getResourceAsStream(dir + file);
-
-      if(is!=null)
-      {
-         final int BUFF_SIZE = 5 * 1024; // 5KB
-         final byte[] buffer = new byte[BUFF_SIZE];
-
-         try
-         {
-            if(!target.exists()){
-               target.createNewFile();
-            }
-            FileOutputStream out = new FileOutputStream(target);
-
-            while (true) {
-               int count = is.read(buffer);
-               if (count == -1)
-                  break;
-               out.write(buffer, 0, count);
-            }
-            out.close();
-            is.close();
-         }
-         catch (Exception e)
-         {
-            // e.printStackTrace();
-         }
-      }
-   }
-
    
    /********************************************************************
     * <pre>
