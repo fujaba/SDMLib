@@ -136,7 +136,7 @@ task latestJar(type: Jar) {
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
 	classifier = 'pm'
-	version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), text:"latest")
+	baseName = "latest"
 }
 
 artifacts { archives sourceJar, javadocJar, fatJar, pmJar, latestJar}
