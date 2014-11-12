@@ -135,8 +135,7 @@ task latestJar(type: Jar) {
 	// REMOVE not nessessary Files NetworkParser
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
-	group = 'latest'
-	name = 'pm'
+	group = 'latest';
 	classifier = 'pm'
 }
 
