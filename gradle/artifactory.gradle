@@ -108,5 +108,5 @@ task pmJar(type: Jar) {
 
 artifacts { 
 	archives sourceJar, javadocJar, fatJar, pmJar
-	archives name: 'SDMLib-latest', type: 'jar', builtBy: pmJar
+	archives file: generate.destFile, name: 'SDMLib-latest', type: 'jar', builtBy: pmJar
 }
