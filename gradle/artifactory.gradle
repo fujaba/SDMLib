@@ -135,7 +135,7 @@ task latestJar(type: Jar) {
 	// REMOVE not nessessary Files NetworkParser
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
-	destFile = file('build/'SDMLib-latest.jar')
+	destFile = file('build/SDMLib-latest.jar')
 	classifier = 'pm'
 }
 
