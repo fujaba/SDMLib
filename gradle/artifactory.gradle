@@ -135,17 +135,8 @@ task latestJar(type: Jar) {
 	// REMOVE not nessessary Files NetworkParser
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
-	
-	println "archiveName:"+archiveName
-	println "archivePath:"+archivePath
-	println "destinationDir:"+destinationDir
-	println "baseName:"+baseName
-	println "appendix:"+appendix
-	println "version:"+version
-	println "extension:"+extension
-	
-	classifier = 'pm-latest'
-	appendix = "latest"
+	classifier = 'se'
+	version = "latest"
 }
 
 artifacts { archives sourceJar, javadocJar, fatJar, pmJar, latestJar}
