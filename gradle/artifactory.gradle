@@ -134,6 +134,7 @@ task pmJarVersion(type: Jar) {
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
 	appendix = gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision
+	classifier = "pm."+gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision
 }
 
 artifacts { 
