@@ -5,6 +5,7 @@ apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply from: 'gradle/ide.gradle'
 apply from: 'gradle/version.gradle'
+apply from: 'gradle/tasks.gradle'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
