@@ -50,7 +50,11 @@ repositories {
 
     // NetworkParser
     if(project.hasProperty('lectureBuild')) {
-        maven { url "https://se.cs.uni-kassel.de/artifactory/lecture" }
+        maven { url "https://se.cs.uni-kassel.de/artifactory/lecture"
+			addFilter('se') {artifact, file ->
+				artifact.name == 'SDMLib-latest.jar'
+			}
+		}
     }else{
         maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
     }
