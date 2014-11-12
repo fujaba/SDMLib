@@ -141,5 +141,5 @@ task latestJar(type: Jar) {
 
 artifacts { 
 	archives sourceJar, javadocJar, fatJar, pmJar
-	archives file: 'SDMLib-latest.jar', name: 'latest', type: 'Jar', builtBy: pmJar
+	archives file: latestJar.destFile, name: 'latest', type: 'Jar', builtBy: pmJar
 }
