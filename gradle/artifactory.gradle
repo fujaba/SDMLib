@@ -102,11 +102,9 @@ task pmJar(type: Jar) {
 	// REMOVE not nessessary Files NetworkParser
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
-	
 	classifier = 'pm'
 }
-
-task latestJar(type: Jar) {
+task pmJarVersion(type: Jar) {
 	from {(
 		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
 		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("NetworkParserFX")<0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}) +
@@ -135,11 +133,9 @@ task latestJar(type: Jar) {
 	// REMOVE not nessessary Files NetworkParser
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
-	//destFile = file('build/SDMLib-latest.jar')
-	classifier = 'pm'
+	appendix = gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision
 }
 
 artifacts { 
-	archives sourceJar, javadocJar, fatJar, pmJar
-	archives file: file('build/SDMLib-latest.jar'), name: 'latest', type: 'Jar', builtBy: latestJar
+	archives sourceJar, javadocJar, fatJar, pmJar,pmJarVersion
 }
