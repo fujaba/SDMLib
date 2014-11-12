@@ -106,37 +106,7 @@ task pmJar(type: Jar) {
 	classifier = 'pm'
 }
 
-task latestJar(type: Jar) {
-	from {(
-		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
-		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("NetworkParserFX")<0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}) +
-		configurations.compile.filter({it.name.indexOf("NetworkParserFX")>=0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)})
-		)}
-	manifest {
-		attributes 'Specification-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
-			'Implementation-Title': 'SDMLib',
-			'Specification-Title': 'SDMLib',
-			'Built-Time': gitVersion.buildTime,
-			'Created-By': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision+" "+System.properties['user.name'],
-			'Built-By': "${System.properties['user.name']}",
-			'Location': "${System.properties['user.language']}",
-			'Version': gitVersion.revision,
-			'Author': 'Stefan Lindel',
-			'Implementation-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
-			'GIT-Revision': gitVersion.revision,
-			'Java-Version': "${System.properties['java.version']}",
-			'Bundle-Description': 'SDMLib',
-			'Bundle-ClassPath': '.'
-	}
-	exclude('META-INF/MANIFEST.MF')
-	exclude('org/sdmlib/models/transformations/**')
-	exclude('org/sdmlib/replication/**')
-
-	// REMOVE not nessessary Files NetworkParser
-	exclude('de/uniks/networkparser/bytes/**')
-	exclude('de/uniks/networkparser/date/**')
-	classifier = 'se'
-	version = "latest"
+artifacts { 
+	archives sourceJar, javadocJar, fatJar, pmJar
+	archives name: 'SDMLib-latest', type: 'jar', builtBy: pmJar
 }
-
-artifacts { archives sourceJar, javadocJar, fatJar, pmJar, latestJar}
