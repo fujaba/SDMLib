@@ -106,7 +106,7 @@ task pmJar(type: Jar) {
 	classifier = 'pm'
 }
 
-task latestJar(type: MyTaskType) {
+task latestJar(type: Jar) {
 	from {(
 		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
 		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("NetworkParserFX")<0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}) +
@@ -141,5 +141,5 @@ task latestJar(type: MyTaskType) {
 
 artifacts { 
 	archives sourceJar, javadocJar, fatJar, pmJar
-	archives file: generate.destFile, name: 'SDMLib-latest', type: 'jar', builtBy: latestJar
+	archives file: "SDMLib-latest.jar", name: 'SDMLib-latest', type: 'Jar', builtBy: latestJar
 }
