@@ -11,7 +11,7 @@ task printVersion {
     }
 }
 
-version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime() )
+version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime())
 
 ext{
 	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild') )
@@ -24,18 +24,22 @@ public class GITVersion {
     int minor = -1
     int revision = -1
 	
+	String text
 	String buildTime
     String hash = ""
     // change, if release is needed some day: boolean release
     // also change version above to accept release property
     boolean release = false
 	boolean lecture
+	
 
     String toString() {
 		if (System.getenv().BUILD_NUMBER) {
 			revision = System.getenv().BUILD_NUMBER as int
 		}
-
+		if ( text != null) {
+			return text
+		}
 		"$major.$minor.$revision${release ? '' : (lecture ? '-LECTURE' : '-SNAPSHOT')}"
     }
 }

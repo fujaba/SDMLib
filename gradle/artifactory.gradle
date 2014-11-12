@@ -135,8 +135,8 @@ task latestJar(type: Jar) {
 	// REMOVE not nessessary Files NetworkParser
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
-	group = 'latest'
 	classifier = 'pm'
+	version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), text:"latest")
 }
 
 artifacts { archives sourceJar, javadocJar, fatJar, pmJar, latestJar}
