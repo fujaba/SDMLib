@@ -77,9 +77,8 @@ task pomFile(type: Jar) {
 	sw.append("\t<artifactId>SDMLib</artifactId>"+crlf);
 	sw.append("\t<version>"+version+"</version>"+crlf);
 	sw.append("</project>"+crlf);
+
 	def stringsFile = new FileWriter("build/SDMLib-SNAPSHOT-pm.xml")
-	
-	println stringsFile.getAbsolutePath()
 	stringsFile.write(sw.toString())
 	stringsFile.close()
 
