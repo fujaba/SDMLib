@@ -51,11 +51,9 @@ repositories {
 
     // NetworkParser
     if(project.hasProperty('lectureBuild')) {
-		println "lecture";
-        maven { println "lecture";url "https://se.cs.uni-kassel.de/artifactory/lecture" }
+        maven { url "https://se.cs.uni-kassel.de/artifactory/lecture" }
     }else{
-		println "snapshot";
-        maven { println "snapshot";url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
+        maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
     }
 }
 
