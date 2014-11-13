@@ -61,5 +61,50 @@ task pmJarVersion(type: Jar) {
 	appendix = gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision
 	classifier = "pm."+gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision
 }
-
 pmJarVersion.dependsOn pmJar
+
+task pomFile(type: Jar) {
+	def sw = new StringWriter();
+	def crlf="\r\n";
+	//def version=gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision;
+	def version="SNAPSHOT";
+	def time= gitVersion.mavenTime
+	
+	sw.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+crlf);
+	sw.append("<project xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\" xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"+crlf);
+	sw.append("\t<modelVersion>4.0.0</modelVersion>"+crlf);
+	sw.append("\t<groupId>org.sdmlib</groupId>"+crlf);
+	sw.append("\t<artifactId>SDMLib</artifactId>"+crlf);
+	sw.append("\t<version>"+version+"</version>"+crlf);
+	sw.append("</project>"+crlf);
+	def stringsFile = new File("build/SDMLib-SNAPSHOT-pm.xml")
+	stringsFile.write(sw.toString())
+
+	sw = new StringWriter();
+	sw.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+crlf);
+	sw.append("<metadata>"+crlf);
+	sw.append("\t<groupId>org.sdmlib</groupId>"+crlf);
+	sw.append("\t<artifactId>SDMLib</artifactId>"+crlf);
+	sw.append("\t<version>"+version+"</version>"+crlf);
+	sw.append("\t<versioning>"+crlf);
+	sw.append("\t\t<snapshot><timestamp>"+time+"</timestamp><buildNumber>1</buildNumber></snapshot>"+crlf);
+	sw.append("\t\t<lastUpdated>"+time+"</lastUpdated>"+crlf);
+	sw.append("\t\t<snapshotVersions>"+crlf);
+	sw.append("\t\t\t<snapshotVersion>"+crlf);
+	sw.append("\t\t\t\t<extension>pom</extension>"+crlf);
+	sw.append("\t\t\t\t<value>"+version+"</value>"+crlf);
+	sw.append("\t\t\t\t<updated>"+time+"</updated>"+crlf);
+	sw.append("\t\t\t</snapshotVersion>"+crlf);
+	sw.append("\t\t\t<snapshotVersion>"+crlf);
+	sw.append("\t\t\t\t<classifier>pm</classifier>"+crlf);
+	sw.append("\t\t\t\t<extension>jar</extension>"+crlf);
+	sw.append("\t\t\t\t<value>"+version+"</value>"+crlf);
+	sw.append("\t\t\t\t<updated>"+time+"</updated>"+crlf);
+	sw.append("\t\t\t</snapshotVersion>"+crlf);
+	sw.append("\t\t</snapshotVersions>"+crlf);
+	sw.append("\t</versioning>"+crlf);
+	sw.append("</metadata>"+crlf);
+
+	stringsFile = new File("build/maven-metadata.xml")
+	stringsFile.write(sw.toString())
+}

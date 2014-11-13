@@ -1,7 +1,6 @@
  import java.lang.ClassValue.Version;
 
 apply plugin: 'artifactory'
-apply plugin: 'maven'
 
 buildscript {
     repositories {
