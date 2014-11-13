@@ -77,8 +77,11 @@ task pomFile(type: Jar) {
 	sw.append("\t<artifactId>SDMLib</artifactId>"+crlf);
 	sw.append("\t<version>"+version+"</version>"+crlf);
 	sw.append("</project>"+crlf);
-	def stringsFile = new File("build/SDMLib-SNAPSHOT-pm.xml")
+	def stringsFile = new FileWriter("build/SDMLib-SNAPSHOT-pm.xml")
+	
+	println stringsFile.getAbsolutePath()
 	stringsFile.write(sw.toString())
+	stringsFile.close()
 
 	sw = new StringWriter();
 	sw.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+crlf);
@@ -105,6 +108,7 @@ task pomFile(type: Jar) {
 	sw.append("\t</versioning>"+crlf);
 	sw.append("</metadata>"+crlf);
 
-	stringsFile = new File("build/maven-metadata.xml")
+	stringsFile = new FileWriter("build/maven-metadata.xml")
 	stringsFile.write(sw.toString())
+	stringsFile.close()
 }
