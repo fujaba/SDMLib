@@ -27,7 +27,6 @@ import java.util.Arrays;
 import org.sdmlib.models.classes.util.ArrayListSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
 import org.sdmlib.models.classes.util.MethodSet;
-import java.util.TreeSet;
 
 public class Enumeration extends SDMLibClass {
 

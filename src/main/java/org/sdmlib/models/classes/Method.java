@@ -267,6 +267,34 @@ public class Method extends SDMLibClass
       }
       return result.substring(1);
    }
+   
+   public String getSignature() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(this.getName() + "(");
+		boolean first = true;
+		int i = 0;
+
+		for (Parameter parameter : getParameter()) {
+
+			if (first) {
+				sb.append(getParameterSignature(true, parameter, i));
+				first = false;
+			} else {
+				sb.append(getParameterSignature(true, parameter, i));
+			}
+
+			if (i <  getParameter().size() - 1) {
+				sb.append(", ");
+			}
+			i++;
+		}
+		sb.append(")");
+		if(returnType!=null && returnType!= DataType.VOID){
+			sb.append(" "+returnType.getValue());
+		}
+		return sb.toString();
+	}
 
    public String getBody()
    {

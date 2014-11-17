@@ -33,7 +33,7 @@ public class ReplicationServer extends ReplicationNode implements
    public static final int REPLICATION_SERVER_PORT = 11142;
 
    /**
-    * @param args
+    * @param args The Startparameter
     */
    public static void main(String[] args)
    {
