@@ -1235,12 +1235,12 @@ public class Storyboard implements PropertyChangeInterface
     * storyboard.add("ExtendStoryboardByAddToDoMethod", BACKLOG, "zuendorf",
     * "21.08.2012 15:57:42", 0, 1);
     * 
-    * @param string
-    * @param phase
-    * @param developer
-    * @param date
-    * @param hoursSpend
-    * @param hoursRemaining
+    * @param string The Description
+    * @param phase The Phase of Project
+    * @param developer The Developer
+    * @param date The Current Date
+    * @param hoursSpend Value of Time to Spend
+    * @param hoursRemaining Value of remaining Hours
     */
    public void add(String string, String phase, String developer, String date, double hoursSpend, double hoursRemaining)
    {
@@ -1529,6 +1529,7 @@ public class Storyboard implements PropertyChangeInterface
     * Storyboard ----------------------------------- StoryboardStep
     *              storyboard                   storyboardSteps
     * </pre>
+    * @return The StoryboardWall
     */
 
    public StoryboardStepSet getStoryboardSteps()
@@ -1623,8 +1624,8 @@ public class Storyboard implements PropertyChangeInterface
     * Storyboard ----------------------------------- StoryboardWall
     *              storyboard                   wall
     * </pre>
+    * @return The StoryboardWall
     */
-
    public StoryboardWall getWall()
    {
       return this.wall;

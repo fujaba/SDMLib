@@ -448,8 +448,9 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- PatternLink
     *              tgt                   incomming
     * </pre>
-    */
-   public PatternLinkSet getIncomming()
+   	* @return The PatternObject
+   	*/
+public PatternLinkSet getIncomming()
    {
       if (this.incomming == null)
       {
@@ -528,8 +529,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- PatternLink
     *              src                   outgoing
     * </pre>
+    * @return The PatternLinkSet
     */
-
    public PatternLinkSet getOutgoing()
    {
       if (this.outgoing == null)
@@ -633,8 +634,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- AttributeConstraint
     *              src                   attrConstraints
     * </pre>
+    * @return The AttributeConstraintSet
     */
-
    public AttributeConstraintSet getAttrConstraints()
    {
       if (this.attrConstraints == null)
@@ -772,6 +773,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- DestroyObjectElem
     *              patternObject                   destroyElem
     * </pre>
+    * @return The DestroyObjectElem
     */
    public DestroyObjectElem getDestroyElem()
    {
@@ -834,6 +836,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- CardinalityConstraint
     *              src                   cardConstraints
     * </pre>
+    * @return The CardinalityConstraintSet
     */
    public CardinalityConstraintSet getCardConstraints()
    {
@@ -950,8 +953,8 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- MatchOtherThen
     *              src                   matchOtherThen
     * </pre>
+    * @return The MatchOtherThenSet
     */
-
    public MatchOtherThenSet getMatchOtherThen()
    {
       if (this.matchOtherThen == null)
@@ -1049,6 +1052,7 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
     * PatternObject ----------------------------------- MatchOtherThen
     *              forbidden                   excluders
     * </pre>
+    * @return The MatchOtherThenSet
     */
    public MatchOtherThenSet getExcluders()
    {

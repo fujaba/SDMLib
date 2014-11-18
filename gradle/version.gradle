@@ -11,10 +11,10 @@ task printVersion {
     }
 }
 
-version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime() )
+version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime() )
 
 ext{
-	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild') )
+	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime() )
 }
 group = 'org.sdmlib'
 // Define a method using a closure as the method body
@@ -25,17 +25,22 @@ public class GITVersion {
     int revision = -1
 	
 	String buildTime
+	String mavenTime
+	String year
     String hash = ""
     // change, if release is needed some day: boolean release
     // also change version above to accept release property
     boolean release = false
 	boolean lecture
+	
 
     String toString() {
 		if (System.getenv().BUILD_NUMBER) {
 			revision = System.getenv().BUILD_NUMBER as int
 		}
-
+		if ( lecture ) {
+			return "SNAPSHOT"
+		}
 		"$major.$minor.$revision${release ? '' : (lecture ? '-LECTURE' : '-SNAPSHOT')}"
     }
 }
@@ -94,4 +99,14 @@ def buildTime() {
 	def df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'") //you can change it
 	df.setTimeZone(TimeZone.getTimeZone("UTC"))
 	return df.format(new Date())
- }
+}
+def buildTimeYear() {
+	def df = new SimpleDateFormat("yyyy")
+	df.setTimeZone(TimeZone.getTimeZone("UTC"))
+	return df.format(new Date())
+}
+def mavenTime() {
+	def df = new SimpleDateFormat("yyyyMMddHHmmss")
+	df.setTimeZone(TimeZone.getTimeZone("UTC"))
+	return df.format(new Date())
+}

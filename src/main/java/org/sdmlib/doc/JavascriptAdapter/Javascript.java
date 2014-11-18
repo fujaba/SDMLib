@@ -10,6 +10,7 @@ import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
@@ -125,14 +126,24 @@ public class Javascript implements GuiAdapter
          jsonClazz.put("typ", "node");
          jsonClazz.put("id", CGUtil.shortClassName(clazz.getName()));
          
+         // Attributes
          JsonArray jsonAttrs = new JsonArray();
          for (Attribute attr : clazz.getAttributes())
          {
             jsonAttrs.add("" + attr.getName() + " : " + attr.getType().getValue());
          }
-         
-         jsonClazz.put("attributes", jsonAttrs);
-         
+         if(jsonAttrs.size()>0){
+        	 jsonClazz.put("attributes", jsonAttrs);
+         }
+         // Methods
+         JsonArray jsonMethods = new JsonArray();
+         for (Method method : clazz.getMethods())
+         {
+        	 jsonMethods.add("" + method.getSignature());
+         }
+         if(jsonMethods.size()>0){
+        	 jsonClazz.put("methods", jsonMethods);
+         }
          jsonNodes.add(jsonClazz);
       }
       
@@ -192,12 +203,10 @@ public class Javascript implements GuiAdapter
                "   var json = " +
                json.toString(3) +
                "   ;\n" +
-               "   json[\"options\"]={\"canvasid\":\"canvas" + diagName + "\", "
+               "   new Graph(json, {\"canvasid\":\"canvas" + diagName + "\", "
                + "\"display\":\"html\", "
                + "\"fontsize\":10,"
-               + "\"bar\":true};" +
-               "   var g = new Graph(json);\n" +
-               "   g.layout(100,100);\n" +
+               + "\"bar\":true}).layout(100,100);\n" +
                "</script>\n";      
       return text;
    }

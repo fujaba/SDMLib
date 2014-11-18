@@ -85,7 +85,7 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
          task.withBoardTask(boardTask);
          task.run();
       } else {
-         throw new RuntimeException("No such task: " + boardTask.getName());
+         throw new RuntimeException("No such task: " + boardTask.getName() + " on " + getName());
       }
    }
    
@@ -99,6 +99,8 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
    protected abstract boolean init(PropertyChangeEvent evt);
 
    protected abstract void handleReplicationRootChange(PropertyChangeEvent evt);
+   
+   protected abstract String getName();
 
    public RemoteTaskBoard getRemoteTaskBoard()
    {
