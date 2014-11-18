@@ -594,10 +594,9 @@ Graph.prototype.initDragAndDrop = function(){
 	this.offset= new Pos(0,0);
 	this.startObj= new Pos(0,0);
 	var that = this;
-	// its Root = this.board
-	this.board.onmousemove = function(e){that.doDrag(e);};
-	this.board.onmouseup = function(e){that.stopDrag(e);};
-	this.board.onmouseout = function(e){that.stopDrag(e);};
+	bindEvent(this.board, "mousemove", function(e){that.doDrag(e);});
+	bindEvent(this.board, "mouseup", function(e){that.stopDrag(e);});
+	bindEvent(this.board, "mouseout", function(e){that.stopDrag(e);});
 };
 Graph.prototype.addNodeLister = function(element, node){
 	var that = this;
@@ -806,19 +805,7 @@ Graph.prototype.optionButton = function(event){
 		this.drawGraph(0,0);
 		this.loader.resetDrawer();
 	}else if(btn.innerHTML=="PDF"){
-		var oldDrawer = btn.graph.drawer;
-		btn.graph.drawer = new SVGDrawer();
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
-		var svg = this.serializeXmlNode(btn.graph.board);
-
-		var pdf = new jsPDF('l', 'pt', 'a4');
-		svgElementToPdf(svg, pdf, {removeInvalid: false});
-		pdf.save('Download.pdf');
-
-		btn.graph.drawer = oldDrawer;
-		btn.graph.initGraph();
-		btn.graph.drawGraph(0,0);
+		btn.graph.ExportPDF();
 	}
 }
 
@@ -834,21 +821,48 @@ Graph.prototype.utf8_to_b64 = function( str ) {
 	return window.btoa(unescape(encodeURIComponent( str )));
 }
 
-Graph.prototype.SaveAs = function () {
+Graph.prototype.ExportPDF = function () {
+	var oldDrawer = this.drawer;
+	this.drawer = new SVGDrawer();
+	this.initGraph();
+	this.drawGraph(0,0);
+	
+	var svg = this.serializeXmlNode(this.board);
+	var pdf = new jsPDF('l', 'pt', 'a4');
+	svgElementToPdf(svg, pdf, {removeInvalid: false});
+	pdf.save('Download.pdf');
+
+	this.drawer = oldDrawer;
+	this.initGraph();
+	this.drawGraph(0,0);
+};
+Graph.prototype.ExportPNG = function () {
 	var image = new Image();
 	image.src = 'data:image/svg+xml;base64,' + this.utf8_to_b64(this.serializeXmlNode(this.board));
+	var that = this;
 	image.onload = function(e) {
 		var canvas = document.createElement('canvas');
 		canvas.width = image.width;
 		canvas.height = image.height;
 		var context = canvas.getContext('2d');
 		context.drawImage(image, 0, 0);
-	    var a = document.createElement('a');
+		var a = document.createElement('a');
 		a.download = "download.png";
 		a.href = canvas.toDataURL('image/png');
 		a.click();
 	};
-	this.Save("image/svg+xml", this.serializeXmlNode(this.board), "download.svg");
+}
+Graph.prototype.SaveAs = function (typ) {
+	typ = typ.toLowerCase();
+	if(typ=="svg") {
+		this.Save("image/svg+xml", this.serializeXmlNode(this.board), "download.svg");
+	}else if(typ=="html") {
+		this.ExportHTML();
+	}else if(typ=="png") {
+		this.ExportPNG();
+	}else if(typ=="pdf") {
+		this.ExportPDF();
+	}
 };
 Graph.prototype.Save = function (typ, data, name) {
 	var a = document.createElement("a");
@@ -858,7 +872,7 @@ Graph.prototype.Save = function (typ, data, name) {
 	a.click();
 }
 
-Graph.prototype.Export = function () {
+Graph.prototype.ExportHTML = function () {
 	var result = {};
 	result.typ = this.typ;
 	result.options = {};

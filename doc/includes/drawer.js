@@ -256,59 +256,139 @@ SVGDrawer.prototype.addFontAttributes = function(node){
 		}
 	}
 };
-
-SVGDrawer.prototype.createButton = function(board){
-	var btn = this.createElement({tag:"g"});
+SVGDrawer.prototype.drawDef = function(){
 	var def = this.createObject("http://www.w3.org/2000/svg", "defs");
 
 	var child = this.createElement({tag:"filter", id:"drop-shadow"});
 	child.appendChild( this.createElement({tag:"feGaussianBlur", in:"SourceAlpha", result:"blur-out", stdDeviation:2}));
 	child.appendChild( this.createElement({tag:"feOffset", in:"blur-out", dx:2, dy:2}));
 	child.appendChild( this.createElement({tag:"feBlend", in:"SourceGraphic", mode:"normal"}));
-
 	def.appendChild( child );
-
+	
 	child = this.createElement({tag:"linearGradient", id:"reflect", x1:"0%", x2:"0%", y1:"50%", y2:"0%", spreadMethod:"reflect"});
 	child.appendChild( this.createElement({tag:"stop", "stop-color":"#aaa",offset:"0%"}) );
 	child.appendChild( this.createElement({tag:"stop", "stop-color":"#eee",offset:"100%"}) );
 	def.appendChild( child );
-	board.appendChild( def );
+	return def;
 
-	btn.appendChild( this.createElement({tag:"rect", rx: 8, width:60, height:28, stroke:"#000", filter:"url(#drop-shadow)", class:"saveBtn"}));
-	btn.appendChild( this.createElement({tag:"text", x:18, y:18, fill:"black", value:"Save", class:"hand"}));
-
-	btn.onclick =(function (event) {
-		board.removeChild( board.savebtn );
-		board.removeChild( board.exportbtn );
-		board.graph.SaveAs();
+};
+SVGDrawer.prototype.drawButton = function(action){
+	var btn = this.createElement({tag:"g"});
+	btn.appendChild( this.createElement({tag:"rect", rx:8, x: 86, y:8, width:60, height:28, stroke:"#000", filter:"url(#drop-shadow)", class:"saveBtn"}));
+	btn.appendChild( this.createElement({tag:"text", x:98, y:26, fill:"black", value:"Save", class:"hand"}));
+	btn.onclick = action;
+	btn.close = function(){};
+	return btn;
+};
+SVGDrawer.prototype.drawComboBox = function(elements, activText, action){
+	var g = this.createElement({tag:"g"});
+	g.tool={};
+	g.tool.x = 0;
+	g.tool.y = 8;
+	g.status="close";
+	g.appendChild( this.createElement({tag:"rect", rx:0, x: g.tool.x, y: g.tool.y, width:60, height:28, stroke:"#000", fill:"none"}));
+	g.appendChild( this.createElement({tag:"rect", rx:2, x: g.tool.x+60, y: g.tool.y, width:20, height:28, stroke:"#000", class:"saveBtn"}));
+	g.appendChild( this.createElement({tag:"path", style:"fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1",
+									d:"m 65,"+(g.tool.y+13)+" 10,0 L 70,"+(g.tool.y+20)+" z"}));
+	g.tool.minheight = 28;
+	g.tool.maxheight = 28;
+	g.tool.width = 80;
+	if(elements){
+		var choicebox = this.createElement({tag:"g"});
+		var h = elements.length * 24+6;
+		choicebox.appendChild( this.createElement({tag:"rect", rx:0, x: 0, y: g.tool.y+28, width:60, height:h, stroke:"#000", fill:"#fff", opacity:"0.7"}));
+		g.tool.maxheight = h + g.tool.minheight;
+		
+		g.elements=elements;
+		g.activ = this.createElement({tag:"text", "text-anchor":"left", "width": 60, "x": 10, "y": g.tool.y+20, value: activText})
+		g.appendChild(g.activ);
+		var y = 46+g.tool.y;
+		var yr = 28+g.tool.y;
+		for(var e=0;e<elements.length;e++){
+			var element = elements[e];
+			choicebox.appendChild(this.createElement({tag:"text", "text-anchor":"left", "width": 60, "x": 10, "y": y, value:element}));
+			var item = choicebox.appendChild( this.createElement({tag:"rect", rx:0, x: 0, y: yr, width:60, height:24, stroke:"none", class:"selection"}));
+			item.value = element;
+			if(action) {
+				item.onclick = action;
+			} else {
+				item.onclick = (function (event) {
+					g.activ.textContent = event.currentTarget.value;
+				});
+			}
+			y += 26;
+			yr += 26;
+		}
+		g.choicebox = choicebox;
+	}
+	
+	g.onclick = (function (event) {
+		if(g.status=="close"){
+			g.open();
+		}else{
+			g.close();
+		}
 	});
 	
-	board.savebtn = btn;
+	g.close = function(){
+		if(g.status=="open"){
+			this.removeChild(this.choicebox);
+		}
+		this.status="close";
+		this.tool.height = this.tool.minheight;
+	};
+	g.open = function(){
+		if(g.status=="close"){
+			this.appendChild( this.choicebox );
+		}
+		this.status="open";
+		this.tool.height = this.tool.maxheight;
+	};
+	g.close();
+	return g;
+};
+SVGDrawer.prototype.removeToolItems = function(board) {
+	for(var i=0;i<this.toolitems.length;i++){
+		this.toolitems[i].close();
+		board.removeChild( this.toolitems[i] );
+	}
+}
+SVGDrawer.prototype.showToolItems = function(board) {
+	for(var i=0;i<this.toolitems.length;i++){
+		board.appendChild( this.toolitems[i] );
+	}
+};
 
-	btn = this.createElement({tag:"g"});
-	btn.appendChild( this.createElement({tag:"rect", rx:8, x: 76, width:60, height:28, stroke:"#000", filter:"url(#drop-shadow)", class:"saveBtn"}));
-	btn.appendChild( this.createElement({tag:"text", x:88, y:18, fill:"black", value:"Export", class:"hand"}));
-
-	btn.onclick =(function (event) {
-		board.graph.Export();
-	});
-	
-	board.exportbtn = btn;
+SVGDrawer.prototype.isInTool = function(x, y, ox, oy) {
+	for(var i=0;i<this.toolitems.length;i++){
+		var g = this.toolitems[i];
+		if(x>=(g.tool.x+ox) && x<=(g.tool.x+g.tool.width+ox) && y>=(g.tool.y+oy) && y<=(g.tool.y+g.tool.height+oy)) {
+			return true;
+		}
+	}
+	return false;
 };
 
 SVGDrawer.prototype.createContainer = function(graph){
 	this.graph = graph;
 	var board = this.createElement({tag:"svg", xmlns:"http://www.w3.org/2000/svg", "xmlns:svg":"http://www.w3.org/2000/svg", "xmlns:xlink":"http://www.w3.org/1999/xlink"});
-	this.createButton(board);
+
+	var that = this;
+	board.appendChild( this.drawDef() );
+	this.toolitems=[];
+	this.toolitems.push(this.drawComboBox(["HTML", "SVG", "PNG", "PDF"], "Save", (function (e) {that.removeToolItems(board);that.graph.SaveAs(e.currentTarget.value);})));
 
 	board.rasterElements=[];
 	board.graph = graph;
 
 	board.saveShow=false;
-	board.onmouseover = (function (event) { board.appendChild( board.savebtn); board.appendChild( board.exportbtn);});
+	board.onmouseover = (function (event) {
+		that.showToolItems(board);
+	});
 	board.onmouseout = (function (event) {
-		if(!(event.x<140 && event.y <70) )
-			{ board.removeChild( board.savebtn ); board.removeChild( board.exportbtn);}
+		if(!that.isInTool(event.x, event.y, board.offsetLeft, board.offsetTop)){
+			that.removeToolItems(board);
+		}
 		});
 	return board;
 };

@@ -124,6 +124,15 @@
 	cursor: move;
 	
 }
+.selection{
+	cursor: hand;
+	opacity:0;
+}
+.selection:hover{
+	cursor: hand;
+	opacity:0.3;
+	fill: #FF9;
+}
 .saveBtn:hover{
 	opacity:0.75;
 	cursor: hand;

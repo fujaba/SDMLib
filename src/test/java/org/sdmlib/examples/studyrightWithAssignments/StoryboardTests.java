@@ -584,6 +584,10 @@ public class StoryboardTests {
      
       story.addPattern(roomPO.getPattern(), false);
       
+      //      story.add("Internal pattern structure for debugging.");
+      //      
+      //      story.addObjectDiagramWith(roomPO.getPattern(), roomPO.getPattern().getElementsTransitive(null));
+      
       story.add("Results in:");
       
       story.addObjectDiagramWith(rooms, rooms.getStudents(), rooms.getTas());

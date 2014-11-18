@@ -200,11 +200,12 @@ public class Storyboard implements PropertyChangeInterface
             else
             {
                boolean done = searchDirectoryTree(subDir);
-               if (done) return true;
+               if (done)
+                  return true;
             }
          }
       }
-      
+
       return false;
    }
 
@@ -291,15 +292,15 @@ public class Storyboard implements PropertyChangeInterface
 
          String todayString = dateFormat.format(today);
          kanbanEntry = new KanbanEntry()
-         .withName(this.getName())
-         .withPhase(BACKLOG)
-         .withParent(kanbanBoard)
-         .withLogEntries(
-            new LogEntryStoryBoard()
-            .withDate(todayString)
+            .withName(this.getName())
             .withPhase(BACKLOG)
-            .withDeveloper(System.getProperty("user.name"))
-            .withHoursRemainingInTotal(0.0));
+            .withParent(kanbanBoard)
+            .withLogEntries(
+               new LogEntryStoryBoard()
+                  .withDate(todayString)
+                  .withPhase(BACKLOG)
+                  .withDeveloper(System.getProperty("user.name"))
+                  .withHoursRemainingInTotal(0.0));
       }
 
       if (kanbanEntry.getPhase() == null)
@@ -344,7 +345,8 @@ public class Storyboard implements PropertyChangeInterface
       // reuse old logentries to keep kanban.json stable
       double remainingTime = 0.0;
       double hoursSpend = 0.0;
-      Iterator<LogEntryStoryBoard> oldLogEntriesIter = ((HashSet<LogEntryStoryBoard>) kanbanEntry.getLogEntries().clone()).iterator();
+      Iterator<LogEntryStoryBoard> oldLogEntriesIter = ((HashSet<LogEntryStoryBoard>) kanbanEntry.getLogEntries()
+         .clone()).iterator();
       Date latestEntryTime = null;
 
       for (LogEntryStoryBoard newEntry : newLogEntries.values())
@@ -366,10 +368,10 @@ public class Storyboard implements PropertyChangeInterface
          {
             LogEntryStoryBoard oldEntry = oldLogEntriesIter.next();
             oldEntry.withDeveloper(newEntry.getDeveloper())
-            .withDate(newEntry.getDate())
-            .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
-            .withHoursSpend(newEntry.getHoursSpend())
-            .withPhase(newEntry.getPhase());
+               .withDate(newEntry.getDate())
+               .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
+               .withHoursSpend(newEntry.getHoursSpend())
+               .withPhase(newEntry.getPhase());
          }
          else
          {
@@ -390,20 +392,20 @@ public class Storyboard implements PropertyChangeInterface
       // generate the html text
       String htmlText = "<!DOCTYPE html>\n"
          + "<html>\n" +
-            "<head>" +
-            "<meta charset=\"utf-8\">\n" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
-            "\n" +
-            "<script src=\"includes/dagre.js\"></script>\n" +
-            "<script src=\"includes/drawer.js\"></script>\n" +
-            "<script src=\"includes/graph.js\"></script>\n" +
-            "</head>" +
-            "<body>\n" +
-            "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
-            "$text\n" +
-            "</body>\n" +
-            "</html>\n";
+         "<head>" +
+         "<meta charset=\"utf-8\">\n" +
+         "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+         "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+         "\n" +
+         "<script src=\"includes/dagre.js\"></script>\n" +
+         "<script src=\"includes/drawer.js\"></script>\n" +
+         "<script src=\"includes/graph.js\"></script>\n" +
+         "</head>" +
+         "<body>\n" +
+         "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
+         "$text\n" +
+         "</body>\n" +
+         "</html>\n";
 
       String storyboardName = this.getName();
 
@@ -442,8 +444,8 @@ public class Storyboard implements PropertyChangeInterface
       int pos = htmlText.indexOf("$text");
 
       htmlText = htmlText.substring(0, pos)
-            + text.toString()
-            + htmlText.substring(pos + "$text".length());
+         + text.toString()
+         + htmlText.substring(pos + "$text".length());
 
       writeToFile(shortFileName, htmlText);
 
@@ -460,44 +462,46 @@ public class Storyboard implements PropertyChangeInterface
             return;
          }
 
-         File oldFile = new File ("doc/" + imgName);
-         
+         File oldFile = new File("doc/" + imgName);
+
          if (oldFile.exists())
          {
-            // load old file content and compare with new fileText, if no change, do not write
-            
+            // load old file content and compare with new fileText, if no
+            // change, do not write
+
             BufferedReader in = new BufferedReader(new FileReader(oldFile));
             StringBuilder oldFileText = new StringBuilder();
-            
+
             String line = in.readLine();
             while (line != null)
             {
                oldFileText.append(line).append("\n");
                line = in.readLine();
             }
-            
+
             String oldFileString = oldFileText.toString().trim();
-            
+
             fileText = fileText.replaceAll("\\r", "");
-            
+
             int oldStringLength = oldFileString.length();
             int newStringLength = fileText.length();
-            
-            //            for (int i = 0; i < Math.min(oldStringLength, newStringLength); i++)
-            //            {
-            //               if (oldFileString.charAt(i) != fileText.charAt(i))
-            //               {
-            //                  System.out.println("Found diff");
-            //               }
-            //            }
-            
+
+            // for (int i = 0; i < Math.min(oldStringLength, newStringLength);
+            // i++)
+            // {
+            // if (oldFileString.charAt(i) != fileText.charAt(i))
+            // {
+            // System.out.println("Found diff");
+            // }
+            // }
+
             if (oldFileString.equals(fileText.trim()))
             {
                // do not write file, no change
                return;
             }
          }
-         
+
          BufferedWriter out = new BufferedWriter(new FileWriter("doc/" + imgName));
 
          out.write(fileText);
@@ -543,7 +547,8 @@ public class Storyboard implements PropertyChangeInterface
       this.add(string);
    }
 
-   public Storyboard withMap(JsonIdMap map){
+   public Storyboard withMap(JsonIdMap map)
+   {
       this.jsonIdMap = map;
       return this;
    }
@@ -595,7 +600,7 @@ public class Storyboard implements PropertyChangeInterface
    }
 
    public void coverSeldomModelMethods(JsonIdMap copyMap) throws NoSuchMethodException, IllegalAccessException,
-   InvocationTargetException
+         InvocationTargetException
    {
       LinkedHashSet<String> handledClassesNames = new LinkedHashSet<String>();
 
@@ -625,30 +630,41 @@ public class Storyboard implements PropertyChangeInterface
 
             try
             {
-               Method addPropertyChangeListenerMetod = objectClass.getMethod("addPropertyChangeListener", PropertyChangeListener.class);
-               addPropertyChangeListenerMetod.invoke(object, new Object[] {null});
+               Method addPropertyChangeListenerMetod = objectClass.getMethod("addPropertyChangeListener",
+                  PropertyChangeListener.class);
+               addPropertyChangeListenerMetod.invoke(object, new Object[]
+               { null });
             }
             catch (Exception e)
             {
                // dont worry
             }
 
-            // call createXY methods (some of them are not used in practice, e.g student.createUniversity())
+            // call createXY methods (some of them are not used in practice, e.g
+            // student.createUniversity())
             for (Method m : objectClass.getMethods())
             {
                String methodName = m.getName();
                if (methodName.startsWith("create") && m.getParameterTypes().length == 0)
                {
-                  try {
+                  try
+                  {
                      m.invoke(object);
-                  } catch (Exception e) {}
+                  }
+                  catch (Exception e)
+                  {
+                  }
                }
 
                if (methodName.startsWith("get") && methodName.endsWith("Transitive"))
                {
-                  try {
+                  try
+                  {
                      m.invoke(object);
-                  } catch (Exception e) {}
+                  }
+                  catch (Exception e)
+                  {
+                  }
                }
             }
 
@@ -663,8 +679,6 @@ public class Storyboard implements PropertyChangeInterface
 
       }
    }
-
-
 
    public void coverSetAndPOClasses(JsonIdMap copyMap)
    {
@@ -694,14 +708,16 @@ public class Storyboard implements PropertyChangeInterface
             }
 
             // add entry
-            Method withMethod = setClass.getMethod("with", new Class[] {Object.class});
+            Method withMethod = setClass.getMethod("with", new Class[]
+            { Object.class });
             withMethod.invoke(setObject, object);
             withMethod.invoke(setObject, setObject);
 
             PatternObject patternObject = null;
             Class patternObjectClass = null;
             Method hasPOMethod = null;
-            try { 
+            try
+            {
                hasPOMethod = setClass.getMethod("has" + CGUtil.shortClassName(className) + "PO");
                patternObject = (PatternObject) hasPOMethod.invoke(setObject);
 
@@ -711,10 +727,13 @@ public class Storyboard implements PropertyChangeInterface
                Method allMatchesMethod = patternObjectClass.getMethod("allMatches");
                allMatchesMethod.invoke(patternObject);
 
-               //               Method poConstructor = patternObjectClass.getMethod(CGUtil.shortClassName(patternObjectClass.getName()));
-               //               poConstructor.invoke(null);
+               // Method poConstructor =
+               // patternObjectClass.getMethod(CGUtil.shortClassName(patternObjectClass.getName()));
+               // poConstructor.invoke(null);
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                // e.printStackTrace();
             }
 
@@ -765,26 +784,39 @@ public class Storyboard implements PropertyChangeInterface
                   Method setMethod = setClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
                   setMethod.invoke(setObject, value);
 
-                  try {
+                  try
+                  {
                      Method unsetMethod = setClass.getMethod("without" + StrUtil.upFirstChar(attrName), valueClass);
                      unsetMethod.invoke(setObject, value);
-                  } catch (Exception e) {}
+                  }
+                  catch (Exception e)
+                  {
+                  }
 
-                  try {
+                  try
+                  {
                      Method hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
                      hasMethod.invoke(setObject, value);
 
                      hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass, valueClass);
                      hasMethod.invoke(setObject, value, value);
-                  } catch (Exception e) {}
+                  }
+                  catch (Exception e)
+                  {
+                  }
 
-                  try {
+                  try
+                  {
                      Method hasMethod = setClass.getMethod("has" + StrUtil.upFirstChar(attrName), Object.class);
                      hasMethod.invoke(setObject, value);
-                     if (setValue != null) {
+                     if (setValue != null)
+                     {
                         hasMethod.invoke(setObject, setValue);
                      }
-                  } catch (Exception e) {}
+                  }
+                  catch (Exception e)
+                  {
+                  }
 
                   // also cover creatorclass set method
                   creatorClass.setValue(object, attrName, value, "");
@@ -795,58 +827,113 @@ public class Storyboard implements PropertyChangeInterface
                   if (patternObject != null)
                   {
                      // cover attr methods for pattern object
-                     try {
-                        //getName
+                     try
+                     {
+                        // getName
                         getMethod = patternObjectClass.getMethod("get" + StrUtil.upFirstChar(attrName));
                         getMethod.invoke(patternObject);
-                     } catch (Exception e) {}
-                     try {
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         // createName
                         withMethod = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), valueClass);
                         withMethod.invoke(patternObject, value);
-                     } catch (Exception e) {}
-                     try {
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         // createName
-                        Method createMethod = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName), valueClass);
+                        Method createMethod = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName),
+                           valueClass);
                         createMethod.invoke(patternObject, value);
-                     } catch (Exception e) {}
-                     try {
-                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass);
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
+                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
+                           valueClass);
                         hasMethod.invoke(patternObject, value);
-                     } catch (Exception e) {}
-                     try {
-                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), valueClass, valueClass);
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
+                        Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
+                           valueClass, valueClass);
                         hasMethod.invoke(patternObject, value, value);
-                     } catch (Exception e) {}
-                     try {
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         Method hasMethod = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName));
                         hasMethod.invoke(patternObject);
-                     } catch (Exception e) {}
-                     try {
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         Method method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName));
                         method.invoke(patternObject);
-                     } catch (Exception e) {}
-                     try {
+                     }
+                     catch (Exception e)
+                     {
+                     }
+                     try
+                     {
                         String poClassName = CGUtil.helperClassName(valueClass.getName(), "PO");
                         SendableEntityCreator poCreator = copyMap.getCreator(poClassName, true);
                         Object po = poCreator.getSendableInstance(false);
-                        try {
-                           Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName), po.getClass());
+                        try
+                        {
+                           Method method = patternObjectClass.getMethod("has" + StrUtil.upFirstChar(attrName),
+                              po.getClass());
                            method.invoke(patternObject, po);
-                        } catch (Exception e) {}
-                        try {                           
-                           Method method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName), po.getClass());
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                        try
+                        {
+                           Method method = patternObjectClass.getMethod("with" + StrUtil.upFirstChar(attrName),
+                              po.getClass());
                            method.invoke(patternObject, po);
-                        } catch (Exception e) {}
-                        try {
-                           Method method = patternObjectClass.getMethod("without" + StrUtil.upFirstChar(attrName), po.getClass());
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                        try
+                        {
+                           Method method = patternObjectClass.getMethod("without" + StrUtil.upFirstChar(attrName),
+                              po.getClass());
                            method.invoke(patternObject, po);
-                        } catch (Exception e) {}
-                        try {
-                           Method method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName), po.getClass());
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                        try
+                        {
+                           Method method = patternObjectClass.getMethod("create" + StrUtil.upFirstChar(attrName),
+                              po.getClass());
                            method.invoke(patternObject, po);
-                        } catch (Exception e) {}
-                     } catch (Exception e) {}
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                     }
+                     catch (Exception e)
+                     {
+                     }
 
                   }
 
@@ -963,7 +1050,7 @@ public class Storyboard implements PropertyChangeInterface
             explicitElems.addAll((Collection<?>) object);
 
             Collection<?> coll = (Collection<?>) object;
-            if (  ! coll.isEmpty())
+            if (!coll.isEmpty())
             {
                object = coll.iterator().next();
             }
@@ -992,7 +1079,7 @@ public class Storyboard implements PropertyChangeInterface
             // try to infer creator class
             String className = object.getClass().getName();
             String creatorClassName = CGUtil.helperClassName(className, "Creator");
-            try 
+            try
             {
                Class<?> creatorClass = this.getClass().getClassLoader().loadClass(creatorClassName);
                Method createIdMapMethod = creatorClass.getDeclaredMethod("createIdMap", String.class);
@@ -1077,7 +1164,7 @@ public class Storyboard implements PropertyChangeInterface
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
       if (largestJsonArray == null || largestJsonArray.size() <=
-            jsonArray.size())
+         jsonArray.size())
       {
          largestJsonArray = jsonArray;
          largestRoot = root;
@@ -1085,13 +1172,12 @@ public class Storyboard implements PropertyChangeInterface
 
       String imgLink =
             getAdapter().withRootDir(getModelRootDir()).withIconMap(iconMap)
-            .toImg(this.getName() + (this.getStoryboardSteps().size()+1), jsonArray);
+               .toImg(this.getName() + (this.getStoryboardSteps().size() + 1), jsonArray);
 
       this.addToSteps(imgLink);
 
       // this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
-
 
    public void setKanbanPhase(String string)
    {
@@ -1110,12 +1196,12 @@ public class Storyboard implements PropertyChangeInterface
          String comment)
    {
       LogEntryStoryBoard logEntry = new LogEntryStoryBoard()
-      .withDate(date)
-      .withPhase(phase)
-      .withDeveloper(developer)
-      .withHoursSpend(hoursSpend)
-      .withHoursRemainingInTotal(hoursRemaining)
-      .withComment(comment);
+         .withDate(date)
+         .withPhase(phase)
+         .withDeveloper(developer)
+         .withHoursSpend(hoursSpend)
+         .withHoursRemainingInTotal(hoursRemaining)
+         .withComment(comment);
 
       this.addLogEntry(logEntry);
    }
@@ -1160,12 +1246,12 @@ public class Storyboard implements PropertyChangeInterface
    {
       add(string);
       addLogEntry(new LogEntryStoryBoard()
-      .withDate(date)
-      .withPhase(phase)
-      .withDeveloper(developer)
-      .withHoursSpend(hoursSpend)
-      .withHoursRemainingInTotal(hoursRemaining)
-      .withComment("Achieved: " + string));
+         .withDate(date)
+         .withPhase(phase)
+         .withDeveloper(developer)
+         .withHoursSpend(hoursSpend)
+         .withHoursRemainingInTotal(hoursRemaining)
+         .withComment("Achieved: " + string));
    }
 
    public KanbanEntry addToDo(String entryName, String phase, String developer,
@@ -1176,14 +1262,14 @@ public class Storyboard implements PropertyChangeInterface
       KanbanEntry kanbanBoard = man.loadOldKanbanEntries();
 
       KanbanEntry todoEntry = kanbanBoard.findOrCreate(entryName)
-            .withLastDeveloper(developer)
-            .withPhase(phase)
-            .withParent(kanbanBoard);
+         .withLastDeveloper(developer)
+         .withPhase(phase)
+         .withParent(kanbanBoard);
 
       LogEntryStoryBoard logEntry = todoEntry.findOrCreateLogEntry(date, phase)
-            .withPhase(phase)
-            .withHoursRemainingInTotal(hoursRemaining)
-            .withHoursSpend(hoursSpend);
+         .withPhase(phase)
+         .withHoursRemainingInTotal(hoursRemaining)
+         .withHoursSpend(hoursSpend);
 
       man.dumpKanban();
 
@@ -1284,7 +1370,7 @@ public class Storyboard implements PropertyChangeInterface
 
       Clazz clazz = model.createClazz(className);
 
-      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate( clazz);
+      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
 
       Parser parser = generator.getOrCreateParser(rootDir);
 
@@ -1298,8 +1384,8 @@ public class Storyboard implements PropertyChangeInterface
       SymTabEntry symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + methodSignature);
 
       String methodText = "<pre>   " +
-            StrUtil.htmlEncode(parser.getText().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
-            + "</pre>";
+         StrUtil.htmlEncode(parser.getText().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1))
+         + "</pre>";
 
       return methodText;
    }
@@ -1335,45 +1421,71 @@ public class Storyboard implements PropertyChangeInterface
    public void dumpHTML()
    {
       StoryboardManager.get()
-      .add(this)
-      .dumpHTML();
+         .add(this)
+         .dumpHTML();
    }
 
    public void assertEquals(String message, double expected, double actual, double delta)
    {
-      this.add("Check: " + message + expected);
+      this.add("Check: " + message + " " + expected + " actual " + actual);
+
+      if (Math.abs(expected - actual) > delta)
+      {
+         this.dumpHTML();
+      }
       Assert.assertEquals("FAILED: " + message, expected, actual, delta);
    }
 
    public void assertTrue(String message, boolean condition)
    {
-      this.add("Check: " + message);
+      this.add("Check: " + message + " " + condition);
+      if (!condition)
+      {
+         this.dumpHTML();
+      }
       Assert.assertTrue("FAILED: " + message, condition);
    }
 
    public void assertFalse(String message, boolean condition)
    {
-      this.add("Check: " + message);
+      this.add("Check: " + message + " " + condition);
+      if (condition)
+      {
+         this.dumpHTML();
+      }
       Assert.assertFalse("FAILED: " + message, condition);
    }
 
    public void assertEquals(String message, int expected, int actual)
    {
-      this.add("Check: " + message + expected);
+      this.add("Check: " + message + " " + expected + " actual " + actual);
+      if (expected != actual)
+      {
+         this.dumpHTML();
+      }
       Assert.assertEquals("FAILED: " + message, expected, actual);
    }
 
    public void assertNotNull(String message, Object obj)
    {
-      this.add("Check: " + message + obj);
+      this.add("Check: " + message + " " + obj);
+      if (obj == null)
+      {
+         this.dumpHTML();
+      }
       Assert.assertNotNull("FAILED: " + message, obj);
    }
 
    public void assertNull(String message, Object obj)
    {
       this.add("Check: " + message + obj);
+      if (obj != null)
+      {
+         this.dumpHTML();
+      }
       Assert.assertNull("FAILED: " + message, obj);
    }
+
    // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -1419,7 +1531,6 @@ public class Storyboard implements PropertyChangeInterface
     * </pre>
     */
 
-
    public StoryboardStepSet getStoryboardSteps()
    {
       if (this.storyboardSteps == null)
@@ -1441,7 +1552,7 @@ public class Storyboard implements PropertyChangeInterface
             this.storyboardSteps = new StoryboardStepSet();
          }
 
-         changed = this.storyboardSteps.add (value);
+         changed = this.storyboardSteps.add(value);
 
          if (changed)
          {
@@ -1459,7 +1570,7 @@ public class Storyboard implements PropertyChangeInterface
 
       if ((this.storyboardSteps != null) && (value != null))
       {
-         changed = this.storyboardSteps.remove (value);
+         changed = this.storyboardSteps.remove(value);
 
          if (changed)
          {
@@ -1683,8 +1794,8 @@ public class Storyboard implements PropertyChangeInterface
    {
       // load the kanban board and remove entry and logs and generate and store
       StoryboardManager.get()
-      .remove(this)
-      .dumpHTML();
+         .remove(this)
+         .dumpHTML();
    }
 
    public void setKanbanWorkFlow(String string)
@@ -1697,7 +1808,8 @@ public class Storyboard implements PropertyChangeInterface
       this.projectName = string;
    }
 
-   public void dumpDiagram(PatternObject<?, ?> po, String name) {
+   public void dumpDiagram(PatternObject<?, ?> po, String name)
+   {
       po.getPattern().dumpDiagram(name);
    }
 
@@ -1715,8 +1827,8 @@ public class Storyboard implements PropertyChangeInterface
       public boolean matches(ValuesMap values)
       {
          if (values.value != null
-               && ("Integer Float Double Long Boolean String"
-                     .indexOf(values.value.getClass().getSimpleName()) >= 0))
+            && ("Integer Float Double Long Boolean String"
+               .indexOf(values.value.getClass().getSimpleName()) >= 0))
          {
             return true;
          }
@@ -1725,4 +1837,3 @@ public class Storyboard implements PropertyChangeInterface
    }
 
 }
-
