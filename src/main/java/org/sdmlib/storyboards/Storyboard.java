@@ -395,7 +395,7 @@ public class Storyboard implements PropertyChangeInterface
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
             "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
             "\n" +
-            "<script src=\"includes/dagre.js\"></script>\n" +
+            "<script src=\"includes/dagre.min.js\"></script>\n" +
             "<script src=\"includes/drawer.js\"></script>\n" +
             "<script src=\"includes/graph.js\"></script>\n" +
             "</head>" +

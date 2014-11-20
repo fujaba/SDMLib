@@ -66,7 +66,8 @@ public class PatternElement<PEC> implements PropertyChangeInterface
     * PatternElement ----------------------------------- Pattern
     *              elements                   pattern
     * </pre>
-    */
+    * @return Pattern&lt;PatternElement&lt;?&gt;&gt;
+	*/
    public Pattern<PatternElement<?>> getPattern()
    {
       return this.pattern;
