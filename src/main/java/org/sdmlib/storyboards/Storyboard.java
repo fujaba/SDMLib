@@ -392,20 +392,20 @@ public class Storyboard implements PropertyChangeInterface
       // generate the html text
       String htmlText = "<!DOCTYPE html>\n"
          + "<html>\n" +
-         "<head>" +
-         "<meta charset=\"utf-8\">\n" +
-         "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-         "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
-         "\n" +
-         "<script src=\"includes/dagre.js\"></script>\n" +
-         "<script src=\"includes/drawer.js\"></script>\n" +
-         "<script src=\"includes/graph.js\"></script>\n" +
-         "</head>" +
-         "<body>\n" +
-         "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
-         "$text\n" +
-         "</body>\n" +
-         "</html>\n";
+            "<head>" +
+            "<meta charset=\"utf-8\">\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+            "\n" +
+            "<script src=\"includes/dagre.min.js\"></script>\n" +
+            "<script src=\"includes/drawer.js\"></script>\n" +
+            "<script src=\"includes/graph.js\"></script>\n" +
+            "</head>" +
+            "<body>\n" +
+            "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
+            "$text\n" +
+            "</body>\n" +
+            "</html>\n";
 
       String storyboardName = this.getName();
 
