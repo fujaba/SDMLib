@@ -90,7 +90,7 @@ public class ReachabilityGraphFerrymansProblemExample
       
       boatPO.createCargo(cargoPO);
       
-      storyboard.add(loadPattern.dumpDiagram("loadBoat"));
+      storyboard.addPattern(loadPattern, false);
       
       reachabilityGraph.addToRules(loadPattern);
       
@@ -124,7 +124,7 @@ public class ReachabilityGraphFerrymansProblemExample
       
       cargoPO.startCreate().hasBank(newBankPO).endCreate().endSubPattern();
       
-      storyboard.add(movePattern.dumpDiagram("moveBoat"));
+      storyboard.addPattern(movePattern, false);
       
       reachabilityGraph.addToRules(movePattern);
       
@@ -139,6 +139,8 @@ public class ReachabilityGraphFerrymansProblemExample
       
       storyboard.add("large reachbility graph with embedded states: ");
       storyboard.addObjectDiagram(map, reachabilityGraph, true);
+      
+      reachabilityGraph.getStates().getElems().hasType(Bank.class).hasName("right");
       
       storyboard.dumpHTML();
    }

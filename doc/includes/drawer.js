@@ -21,7 +21,6 @@
 */
 Object_create = Object.create || function (o) {var F = function() {};F.prototype = o; return new F();};
 Drawer = function(){};
-Drawer.prototype.isShowRaster = function(){return false;}
 Drawer.prototype.showInfoBox = function(){return false;}
 Drawer.prototype.clearBoard = function(){};
 Drawer.prototype.onLoadImage = function(){};
@@ -30,38 +29,139 @@ Drawer.prototype.setPos = function(item, x, y){item.x = x;item.y = y;};
 Drawer.prototype.createText = function(text){return document.createTextNode(text);}
 Drawer.prototype.setSize = function(item, x, y){item.width = x;item.height = y;};
 Drawer.prototype.createSubGraph = function(node, element){
-	node.board = element;
-	node.layoutCalculate();
-};
-Drawer.prototype.createObject= function(ns, tag){
-	if(document.createElementNS){
-		return document.createElementNS(ns, tag);
+	if(node.board) {
+		node.root.removeChild(node.board);
 	}
-	var e = document.createElement(tag);
-	e.setAttribute('xmlns', ns);
-	return e;
+	node.left= 30;
+	node.top= 30;
+	node.board = element;
+	node.layout();
 };
 Drawer.prototype.getBoard = function(graph){
-	if(graph.parent){
-		return this.getBoard(graph.parent);
+	if(graph._parent){
+		return this.getBoard(graph._parent);
 	}
 	return graph.board;
 };
 Drawer.prototype.getNumber = function(num) {return Number(num.toString().replace("px",''));}
+Drawer.prototype.getColor = function(style, defaultColor) {
+	if(style) {
+		if(style.toLowerCase()=="create") {
+			return "#008000";
+		}
+		if(style.toLowerCase()=="nac") {
+			return "#FE3E3E";
+		}
+		if(style.indexOf("#")==0){
+			return style;
+		}
+	}
+	if(defaultColor) {
+		return defaultColor;
+	}
+	return "#000";
+};
+Drawer.prototype.addFontAttributes = function(node){
+	if(this.model && this.model.options.font && (!this.noFonts || this.noFonts.indexOf(node.localName.toLowerCase())<0)){
+		for (var key in this.model.options.font) {
+			if(this.model.options.font[key]){
+				if(node.style ){
+					node.style[key] = this.model.options.font[key];
+				}else{
+					node.setAttribute(key, this.model.options.font[key]);
+				}
+			}
+		}
+	}
+};
+Drawer.prototype.createObject = function(node, model, ns){
+	var element;
+	if(document.createElementNS && ns){
+		element = document.createElementNS(ns, node.tag);
+	}else {
+		element = document.createElement(node.tag);
+		if(ns){
+			element.setAttribute('xmlns', ns);
+		}
+	}
+	this.addFontAttributes(element);
+	var tag = node.tag.toLowerCase();
+	for (var key in node) {
+		var k = key.toLowerCase();
+		if(k=='tag')continue;
+		if(k=='content_src'&& tag=="image") continue;
+		if(k=='value'&& tag=="text") continue;
+		if(k.indexOf("-")>=0){
+			element.style[key] = node[key];
+		}else if(node[key] != null) {
+			element.setAttribute(key, node[key]);
+			element[key] = node[key];
+			if(key==="className"){
+				element.setAttribute("class", node[key]);
+			}
+		}
+	}
+	if(model){
+		element.model = model;
+	}
+	return element;
+};
+Drawer.prototype.removeToolItems = function(board) {
+	for(var i=0;i<this.toolitems.length;i++){
+		this.toolitems[i].close();
+		board.removeChild( this.toolitems[i] );
+	}
+}
+Drawer.prototype.showToolItems = function(board) {
+	for(var i=0;i<this.toolitems.length;i++){
+		board.appendChild( this.toolitems[i] );
+	}
+};
 
+Drawer.prototype.isInTool = function(x, y, ox, oy) {
+	for(var i=0;i<this.toolitems.length;i++){
+		var g = this.toolitems[i];
+		if(x>=(g.tool.x+ox) && x<=(g.tool.x+g.tool.width+ox) && y>=(g.tool.y+oy) && y<=(g.tool.y+g.tool.height+oy)) {
+			return true;
+		}
+	}
+	return false;
+};
+Drawer.prototype.createBoard = function(node, graph, listener) {
+	var that = this;
+	
+	this.model = graph;	
+	this.toolitems=[];
+	
+	for(var i=0;i<listener.length;i++) {
+		this.toolitems.push(listener[i]);
+	}
+	var board = this.createObject(node, graph);
+	board.className="Board";
+	board.rasterElements=[];
+	board.saveShow=false;
+	board.onmouseover = (function (event) {
+		that.showToolItems(board);
+	});
+	board.onmouseout = (function (event) {
+		if(!that.isInTool(event.x, event.y, board.offsetLeft, board.offsetTop)){
+			that.removeToolItems(board);
+		}
+	});
+	return board;
+};
+
+//				###################################################### HTMLDrawer ####################################################################################
 HTMLDrawer = function() {};
 HTMLDrawer.prototype = Object_create(Drawer.prototype);
 HTMLDrawer.prototype.showInfoBox = function(){return true;}
-HTMLDrawer.prototype.isShowRaster = function(){return true;}
 HTMLDrawer.prototype.setPos = function(item, x, y){item.style.left = x+"px";item.style.top = y+"px";};
 HTMLDrawer.prototype.setSize = function(item, x, y){item.style.width = x+"px";item.style.height = y+"px";};
 HTMLDrawer.prototype.createContainer = function(graph){
-	this.graph = graph;	
-	var board = document.createElement("div");
-	board.className="Board";
-	board.graph = graph;
-	board.rasterElements=[];
-	return board;
+	var that = this;
+	return this.createBoard({tag:"div"}, graph,
+		[this.drawButton("SVG", (function (e) {that.model.setTyp("SVG");}))]
+	);
 };
 HTMLDrawer.prototype.createImage = function(model){
 	var img = new Image();
@@ -77,22 +177,23 @@ HTMLDrawer.prototype.createImage = function(model){
 		add=false;
 	}
 	if(add){
-		this.graph.loader.appendImg(img);
+		this.model.loader.appendImg(img);
 	}
 	return img;
 };
 
-HTMLDrawer.prototype.createCell = function(parent, tag){
-	var tr = document.createElement('tr');
-	var cell = document.createElement(tag);
-	cell.style.fontSize=this.graph.options.font["font-size"];
+HTMLDrawer.prototype.createCell = function(parent, tag, innerHTML){
+	var tr = this.createObject({"tag":'tr'});
+	var cell = this.createObject({"tag":tag});
+	if(innerHTML) {
+		cell.innerHTML = innerHTML;
+	}
 	tr.appendChild(cell);
 	parent.appendChild(tr);
 	return cell;
 };
-HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
-	var htmlElement = document.createElement("div");
-	htmlElement["isdraggable"]=true;
+HTMLDrawer.prototype.getNode = function(node, calculate){
+	var htmlElement = this.createObject({tag:"div"}, node);
 	var symbolLib = new SymbolLibary();
 	if(node.typ=="patternobject") {
 		htmlElement.className="patternElement";
@@ -102,7 +203,7 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 		htmlElement.className="classdiagram";
 	} else if(node.typ=="objectdiagram") {
 		htmlElement.className="objectdiagram";
-	} else if(this.graph.typ.toLowerCase()=="objectdiagram") {
+	} else if(this.model.typ.toLowerCase()=="objectdiagram") {
 		htmlElement.className="objectElement";
 	} else {
 		htmlElement.className="classElement";
@@ -115,7 +216,7 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 		this.setSize(htmlElement, node.board.style.width, node.board.style.height);
 		return htmlElement;
 	}
-	this.graph.addNodeLister(htmlElement, node);
+	this.model.addNodeLister(htmlElement, node);
 	if(node.content_src){
 		if(!node.content_img){
 			node.content_img = {};
@@ -132,10 +233,9 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 	if(node.content_plain){
 		htmlElement.appendChild(this.createText(node.content_plain));return htmlElement;
 	}
-	var table = document.createElement('table');
+	var table = this.createObject({tag:'table', border:"0"});
 	htmlElement.appendChild(table);
 	var cell;
-	table.border="0";
 	if(node.head_src){
 		cell = this.createCell(table, "td");
 		if(!node.head_img){
@@ -147,11 +247,10 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 		cell.appendChild(this.createImage(node.head_img));
 	}
 	if(node.headinfo){
-		cell = this.createCell(table, "td");
-		cell.className="head";
-		cell.innerHTML = node.headinfo;
+		this.createCell(table, "td", node.headinfo).className = "head";
+		
 	}
-	if(this.graph.typ.toLowerCase()=="objectdiagram"){
+	if(this.model.typ.toLowerCase()=="objectdiagram"){
 		info = "<u>"+ node.id.charAt(0).toLowerCase() + node.id.slice(1) + "</u>";
 	}else{
 		info = node.id;
@@ -159,14 +258,13 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 	if(node.href){
 		info = "<a href=\""+node.href+"\">" + info + "</a>";
 	}
-	cell = this.createCell(table, "th");
-	cell.innerHTML = info;
+	this.createCell(table, "th", info);
 
+	cell = null;
 	if(node.attributes){
 		var first=true;
 		for(var a = 0; a < node.attributes.length; a++){
-			cell = this.createCell(table, "td");
-			cell.innerHTML = node.attributes[a];
+			cell = this.createCell(table, "td", node.attributes[a]);
 			if(!first){
 				cell.className = 'attributes';
 			}else{
@@ -179,8 +277,7 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 		var first=true;
 		for(var m=0;m < node.methods.length;m++){
 			var method = node.methods[m];
-			cell = this.createCell(table, "td");
-			cell.innerHTML = node.methods[m];
+			cell = this.createCell(table, "td", node.methods[m]);
 			if(!first){
 				cell.className = 'methods';
 			}else{
@@ -189,6 +286,9 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 			}
 		}
 	}
+	if(!cell){
+		this.createCell(table, "td", "&nbsp;").className = 'first';
+	}
 	htmlElement.appendChild(table);
 	htmlElement.node = node;
 	node.htmlElement = htmlElement;
@@ -196,10 +296,9 @@ HTMLDrawer.prototype.getHTMLNode = function(node, calculate){
 };
 
 HTMLDrawer.prototype.createInfo = function(item, calculate, text) {
-	var info = document.createElement("div");
-	info["isdraggable"]=true;
+	var info = this.createObject({tag:"div"}, item);
 	info.className="EdgeInfo";
-	info.style.fontSize = this.graph.options.font["font-size"];
+	info.style.fontSize = this.model.options.font["font-size"];
 	this.setPos(info, item.x, item.y);
 	info.innerHTML = text;
 	return info;
@@ -218,7 +317,7 @@ HTMLDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle, style){
 	// http://www.mathopenref.com/coorddist.html
 	var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 
-	var line = document.createElement("div");
+	var line = this.createObject({tag: "div"});
 	line.className="lineElement";
 	line.style.width = length + "px";
 	line.style.position = "absolute";
@@ -239,75 +338,96 @@ HTMLDrawer.prototype.onLoadImage = function(event){
 	var img = event.target;
 	img.node.width = img.width;
 	img.node.height = img.height;
-	this.graph.loader.onLoad(img);
+	this.model.loader.onLoad(img);
 };
 HTMLDrawer.prototype.onFinishImage = function(event){
-	this.graph.layouting();
+	this.model.layouting();
 }
-// ######################################################           SVG           ####################################################################################
-SVGDrawer = function() {};
-SVGDrawer.prototype = Object_create(Drawer.prototype);
-SVGDrawer.prototype.addFontAttributes = function(node){
-	if(this.graph && this.graph.options.font){
-		for (var key in this.graph.options.font) {
-			if(this.graph.options.font[key]){
-				node.setAttribute(key, this.graph.options.font[key]);
-			}
-		}
-	}
+HTMLDrawer.prototype.drawButton = function(text, action){
+	var btn = this.createObject({tag:"button", tool:{}, width:60, height:28});
+	btn.tool.x = 0;
+	btn.tool.y = 8;
+	btn.tool.height = btn.height;
+	btn.tool.width = btn.width;
+	btn.appendChild(this.createText(text));
+	btn.onclick = action;
+	btn.close = function(){};
+	return btn;
 };
+//				###################################################### SVG ####################################################################################
+SVGDrawer = function() {this.noFonts=["svg", "g", "line", "fegaussianblur", "feoffset", "stop", "defs", "filter", "feblend"];};
+SVGDrawer.prototype = Object_create(Drawer.prototype);
 SVGDrawer.prototype.drawDef = function(){
-	var def = this.createObject("http://www.w3.org/2000/svg", "defs");
+	var def = this.createObject({tag:"defs"}, "http://www.w3.org/2000/svg");
 
-	var child = this.createElement({tag:"filter", id:"drop-shadow"});
-	child.appendChild( this.createElement({tag:"feGaussianBlur", in:"SourceAlpha", result:"blur-out", stdDeviation:2}));
-	child.appendChild( this.createElement({tag:"feOffset", in:"blur-out", dx:2, dy:2}));
-	child.appendChild( this.createElement({tag:"feBlend", in:"SourceGraphic", mode:"normal"}));
+	var child = this.createObject({tag:"filter", id:"drop-shadow"});
+	child.appendChild( this.createObject({tag:"feGaussianBlur", in:"SourceAlpha", result:"blur-out", stdDeviation:2}));
+	child.appendChild( this.createObject({tag:"feOffset", in:"blur-out", dx:2, dy:2}));
+	child.appendChild( this.createObject({tag:"feBlend", in:"SourceGraphic", mode:"normal"}));
 	def.appendChild( child );
 	
-	child = this.createElement({tag:"linearGradient", id:"reflect", x1:"0%", x2:"0%", y1:"50%", y2:"0%", spreadMethod:"reflect"});
-	child.appendChild( this.createElement({tag:"stop", "stop-color":"#aaa",offset:"0%"}) );
-	child.appendChild( this.createElement({tag:"stop", "stop-color":"#eee",offset:"100%"}) );
+	child = this.createObject({tag:"linearGradient", id:"reflect", x1:"0%", x2:"0%", y1:"50%", y2:"0%", spreadMethod:"reflect"});
+	child.appendChild( this.createObject({tag:"stop", "stop-color":"#aaa",offset:"0%"}) );
+	child.appendChild( this.createObject({tag:"stop", "stop-color":"#eee",offset:"100%"}) );
+	def.appendChild( child );
+
+	child = this.createObject({tag:"linearGradient", id:"classelement", x1:"0%", x2:"100%", y1:"100%", y2:"0%"});
+	child.appendChild( this.createObject({tag:"stop", "stop-color":"#ffffff",offset:"0"}) );
+	child.appendChild( this.createObject({tag:"stop", "stop-color":"#d3d3d3",offset:"1"}) );
 	def.appendChild( child );
 	return def;
 
 };
-SVGDrawer.prototype.drawButton = function(action){
-	var btn = this.createElement({tag:"g"});
-	btn.appendChild( this.createElement({tag:"rect", rx:8, x: 86, y:8, width:60, height:28, stroke:"#000", filter:"url(#drop-shadow)", class:"saveBtn"}));
-	btn.appendChild( this.createElement({tag:"text", x:98, y:26, fill:"black", value:"Save", class:"hand"}));
+SVGDrawer.prototype.drawButton = function(text, action){
+	var btn = this.createObject({tag:"g"});
+	btn.tool={};
+	btn.tool.x = 0;
+	btn.tool.y = 8;
+	btn.tool.height = 28;
+	btn.tool.width = 60;
+	btn.appendChild( this.createObject({tag:"rect", rx:8, x: btn.tool.x, y:btn.tool.y, width:btn.tool.width, height:btn.tool.height, stroke:"#000", filter:"url(#drop-shadow)", class:"saveBtn"}));
+	btn.appendChild( this.createObject({tag:"text", x:(btn.tool.x+10), y:(btn.tool.y+18), fill:"black", value:text, class:"hand"}));
 	btn.onclick = action;
 	btn.close = function(){};
 	return btn;
 };
 SVGDrawer.prototype.drawComboBox = function(elements, activText, action){
-	var g = this.createElement({tag:"g"});
+	var g = this.createObject({tag:"g"});
 	g.tool={};
-	g.tool.x = 0;
+	g.tool.x = 66;
 	g.tool.y = 8;
 	g.status="close";
-	g.appendChild( this.createElement({tag:"rect", rx:0, x: g.tool.x, y: g.tool.y, width:60, height:28, stroke:"#000", fill:"none"}));
-	g.appendChild( this.createElement({tag:"rect", rx:2, x: g.tool.x+60, y: g.tool.y, width:20, height:28, stroke:"#000", class:"saveBtn"}));
-	g.appendChild( this.createElement({tag:"path", style:"fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1",
-									d:"m 65,"+(g.tool.y+13)+" 10,0 L 70,"+(g.tool.y+20)+" z"}));
+	g.appendChild( this.createObject({tag:"rect", rx:0, x: g.tool.x, y: g.tool.y, width:60, height:28, stroke:"#000", fill:"none"}));
+	g.appendChild( this.createObject({tag:"rect", rx:2, x: g.tool.x+60, y: g.tool.y, width:20, height:28, stroke:"#000", class:"saveBtn"}));
+	g.appendChild( this.createObject({tag:"path", style:"fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1",
+									d:"m "+(g.tool.x+65)+","+(g.tool.y+13)+" 10,0 L "+(g.tool.x+70)+","+(g.tool.y+20)+" z"}));
 	g.tool.minheight = 28;
 	g.tool.maxheight = 28;
 	g.tool.width = 80;
 	if(elements){
-		var choicebox = this.createElement({tag:"g"});
-		var h = elements.length * 24+6;
-		choicebox.appendChild( this.createElement({tag:"rect", rx:0, x: 0, y: g.tool.y+28, width:60, height:h, stroke:"#000", fill:"#fff", opacity:"0.7"}));
+		var len=0;
+		for(var i=0;i<elements.length;i++) {
+			if(elements[i] && elements[i].length>0){
+				len++;
+			}
+		}
+		var choicebox = this.createObject({tag:"g"});
+		var h = len * 25+6;
+		choicebox.appendChild( this.createObject({tag:"rect", rx:0, x: g.tool.x, y: g.tool.y+28, width:60, height:h, stroke:"#000", fill:"#fff", opacity:"0.7"}));
 		g.tool.maxheight = h + g.tool.minheight;
 		
 		g.elements=elements;
-		g.activ = this.createElement({tag:"text", "text-anchor":"left", "width": 60, "x": 10, "y": g.tool.y+20, value: activText})
+		g.activ = this.createObject({tag:"text", "text-anchor":"left", "width": 60, "x": (g.tool.x+10), "y": g.tool.y+20, value: activText})
 		g.appendChild(g.activ);
 		var y = 46+g.tool.y;
 		var yr = 28+g.tool.y;
 		for(var e=0;e<elements.length;e++){
+			if(!elements[e] || elements[e].length<1){
+				continue;
+			}
 			var element = elements[e];
-			choicebox.appendChild(this.createElement({tag:"text", "text-anchor":"left", "width": 60, "x": 10, "y": y, value:element}));
-			var item = choicebox.appendChild( this.createElement({tag:"rect", rx:0, x: 0, y: yr, width:60, height:24, stroke:"none", class:"selection"}));
+			choicebox.appendChild(this.createObject({tag:"text", "text-anchor":"left", "width": 60, "x": (g.tool.x+10), "y": y, value:element}));
+			var item = choicebox.appendChild( this.createObject({tag:"rect", rx:0, x: g.tool.x, y: yr, width:60, height:24, stroke:"none", class:"selection"}));
 			item.value = element;
 			if(action) {
 				item.onclick = action;
@@ -347,49 +467,26 @@ SVGDrawer.prototype.drawComboBox = function(elements, activText, action){
 	g.close();
 	return g;
 };
-SVGDrawer.prototype.removeToolItems = function(board) {
-	for(var i=0;i<this.toolitems.length;i++){
-		this.toolitems[i].close();
-		board.removeChild( this.toolitems[i] );
-	}
-}
-SVGDrawer.prototype.showToolItems = function(board) {
-	for(var i=0;i<this.toolitems.length;i++){
-		board.appendChild( this.toolitems[i] );
-	}
-};
-
-SVGDrawer.prototype.isInTool = function(x, y, ox, oy) {
-	for(var i=0;i<this.toolitems.length;i++){
-		var g = this.toolitems[i];
-		if(x>=(g.tool.x+ox) && x<=(g.tool.x+g.tool.width+ox) && y>=(g.tool.y+oy) && y<=(g.tool.y+g.tool.height+oy)) {
-			return true;
-		}
-	}
-	return false;
-};
 
 SVGDrawer.prototype.createContainer = function(graph){
-	this.graph = graph;
-	var board = this.createElement({tag:"svg", xmlns:"http://www.w3.org/2000/svg", "xmlns:svg":"http://www.w3.org/2000/svg", "xmlns:xlink":"http://www.w3.org/1999/xlink"});
-
 	var that = this;
-	board.appendChild( this.drawDef() );
-	this.toolitems=[];
-	this.toolitems.push(this.drawComboBox(["HTML", "SVG", "PNG", "PDF"], "Save", (function (e) {that.removeToolItems(board);that.graph.SaveAs(e.currentTarget.value);})));
-
-	board.rasterElements=[];
-	board.graph = graph;
-
-	board.saveShow=false;
-	board.onmouseover = (function (event) {
-		that.showToolItems(board);
-	});
-	board.onmouseout = (function (event) {
-		if(!that.isInTool(event.x, event.y, board.offsetLeft, board.offsetTop)){
-			that.removeToolItems(board);
+	var board;
+	if(graph._parent){
+		board = this.createBoard({tag:"g"}, graph, []);
+	}else{
+		var list = ["HTML", "SVG", "PNG"];
+		if( typeof(svgConverter)!="undefined"){
+			list.push(typeof(jsEPS)!="undefined" ? "EPS" : "");
+			list.push(typeof(jsPDF)!="undefined" ? "PDF" : "");
 		}
-		});
+
+		board = this.createBoard({tag:"svg", xmlns:"http://www.w3.org/2000/svg", "xmlns:svg":"http://www.w3.org/2000/svg", "xmlns:xlink":"http://www.w3.org/1999/xlink"}, graph, 
+		[
+		this.drawButton("HTML", (function (e) {that.model.setTyp("HTML");})),
+		this.drawComboBox(list, "Save", (function (e) {that.removeToolItems(board);that.model.SaveAs(e.currentTarget.value);}))
+		]);
+		board.appendChild( this.drawDef() );
+	}
 	return board;
 };
 SVGDrawer.prototype.setSize = function(item, x, y){
@@ -402,58 +499,76 @@ SVGDrawer.prototype.setSize = function(item, x, y){
 };
 
 SVGDrawer.prototype.getWidth = function(label, calculate){
-	var text = this.createObject("http://www.w3.org/2000/svg", "text");
+	var text = this.createObject({tag:"text"}, "http://www.w3.org/2000/svg");
 	text.appendChild(document.createTextNode(label));
-	this.addFontAttributes(text);
-
 	text.setAttribute("width", "5px");
-	var board = this.getBoard(this.graph);
+	var board = this.getBoard(this.model);
 	board.appendChild(text);
 	var width = text.getBoundingClientRect().width;
 	board.removeChild(text);
 	return width;
 }
-SVGDrawer.prototype.getHTMLNode = function(node, calculate){
+SVGDrawer.prototype.getNode = function(node, calculate){
 	var symbolLib = new SymbolLibary();
 	if(symbolLib.isSymbol(node)) {
 		return symbolLib.draw(this, node, calculate);
 	}
 	if(node.content_src){
-		return this.createElement({tag:"image", height: node.height, width: node.width, content_src: node.content_src, isdraggable:true});
+		return this.createObject({tag:"image", height: node.height, width: node.width, content_src: node.content_src});
 	}
-	var group = this.createElement({tag:"g", "class":"draggable", isdraggable:true});
+	var g = this.createObject({tag:"g"}, node);
 	if(node.content_svg){
-		group.setAttribute('transform', "translate("+node.x+" "+node.y+")");
-		group.innerHTML = node.content_svg;return group;
+		g.setAttribute('transform', "translate("+node.x+" "+node.y+")");
+		g.innerHTML = node.content_svg;return g;
 	}
-	group.model = node;
 	if(node.typ=="objectdiagram" || node.typ=="classdiagram"){
-		this.createSubGraph(node, group);
-		
-		var width = this.getNumber(node.board.style.width);
-		var height = this.getNumber(node.board.style.height);
-		if(node.style && node.style.toLowerCase()=="nac"){
-			group.appendChild(this.createGroup(node, symbolLib.drawStop(node)));
+		var width,height;
+		if(node.status=="close"){
+			width = this.getWidth(node.id) + 30;
+			height = 40;
+			this.addChild(node, g, this.createObject({tag:"text", "text-anchor":"left", "x": (node.x +2), "y":node.y+12, value:node.id}));
+		}else {
+			this.createSubGraph(node, g);
+			width = this.getNumber(node.board.style.width);
+			height = this.getNumber(node.board.style.height);
+			if(node.style && node.style.toLowerCase()=="nac"){
+				this.addChild(node, g, this.createGroup(node, symbolLib.drawStop(node)));
+			}
 		}
-		
-		this.graph.addNodeLister(group, node);
-		group.appendChild( this.createElement({tag:"rect", "width":width, "height":height, "fill":"none", "strokeWidth":"1px", "stroke":this.getColor(node.style, "#CCC"), "x":node.getX(), "y":node.getY()}));
-		this.setSize(group, width, height);
-		return group;
+		this.setSize(g, width, height);
+		this.addChild(node, g, this.createObject({tag:"rect", "width":width, "height":height, "fill":"none", "strokeWidth":"1px", "stroke":this.getColor(node.style, "#CCC"), "x":node.getX(), "y":node.getY()}));
+		if(width>0 && width!=node.width) {node.width = width;}
+		var btn;
+		if(node.status=="close"){
+			// Open Button
+			btn = this.createGroup(node, symbolLib.drawMax(node, calculate));
+		} else {
+			btn = this.createGroup(node, symbolLib.drawMin(node, calculate));
+		}
+		var that = this;
+		btn.setAttribute("class", "btn");
+		btn.onclick = (function(){
+			if(node.status=="close") {
+				node.status="open";
+				that.model.redrawNode(node);
+			}else {
+				node.status="close";
+				that.model.redrawNode(node);
+			}
+		});
+		g.appendChild( btn );
+		return g;
 	}
 
 	if(node.content_plain){
-		var text = this.createElement({tag:"text", "text-anchor":"left", "x": (node.x + 10), "y":y});
-		this.addFontAttributes(text);
-		text.appendChild( document.createTextNode(node.content_plain) );
-		return text;
+		return this.createObject({tag:"text", "text-anchor":"left", "x": (node.x + 10), "y":y, value:node.content_plain});
 	}
 
 	var width=0;
 	var height=40;
 	var textWidth;
 
-	if(this.graph.typ.toLowerCase()=="objectdiagram"){
+	if(this.model.typ.toLowerCase()=="objectdiagram"){
 		textWidth = this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1));
 	}else{
 		textWidth = this.getWidth(node.id);
@@ -468,7 +583,6 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 	}else{
 		height += 20;
 	}
-	
 	if(node.methods && node.methods.length > 0){
 		height = height + node.methods.length*25;
 		for(var m=0; m<node.methods.length;m++){
@@ -481,33 +595,37 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 	var y = node.getY();
 	var x = node.getX();
 
-	this.graph.addNodeLister(group, node);
-	var rect = {tag:"rect", "width":width, "height":height, "x":x, "y":y, "fill":"none", class:"draggable"};
+	this.model.addNodeLister(g, node);
+	var rect = {tag:"rect", "width":width, "height":height, "x":x, "y":y, "fill":"#fff", class:"draggable"};
 	var typ = node.typ.toLowerCase();
 	if(typ=="patternobject") {
 		rect["fill"] = "lightblue";
 	}
 	var strokeColor = this.getColor(node["style"]);
 	rect["stroke"] = strokeColor;
-	group.appendChild( this.createElement(rect) );
+	g.appendChild( this.createObject(rect) );
 
-	var text = this.createElement({tag:"text", "text-anchor":"right", "x":x+width/2-textWidth/2, "y":y+20, "width":textWidth});
+	if(typ!="patternobject"){
+		g.appendChild( this.createObject({tag:"rect", rx:0, "x": x, "y": y, "width":width, height:30, fill:"none", style:"fill:url(#classelement);"}));
+	}
 
-	if(this.graph.typ.toLowerCase()=="objectdiagram"){
+	var text = this.createObject({tag:"text", "text-anchor":"right", "x":x+width/2-textWidth/2, "y":y+20, "width":textWidth});
+
+	if(this.model.typ.toLowerCase()=="objectdiagram"){
 		text.setAttribute("text-decoration", "underline");
 		text.appendChild(document.createTextNode(node.id.charAt(0).toLowerCase() + node.id.slice(1)));
 	}else{
 		text.appendChild(document.createTextNode(node.id));
 	}
 
-	group.appendChild(text);
-	group.appendChild( this.createElement({tag:"line", x1:x, y1:y + 30, x2: x + width, y2: y + 30, stroke:strokeColor}) );
+	g.appendChild(text);
+	g.appendChild( this.createObject({tag:"line", x1:x, y1:y + 30, x2: x + width, y2: y + 30, stroke:strokeColor}) );
 	y += 50;
 
 	if(node.attributes){
 		for(var a=0;a<node.attributes.length;a++){
 			var attribute = node.attributes[a];
-			group.appendChild(this.createElement({tag:"text", "text-anchor":"left", "width": width, "x":(x+10), "y": y, value:attribute}));
+			g.appendChild(this.createObject({tag:"text", "text-anchor":"left", "width": width, "x":(x+10), "y": y, value:attribute}));
 			y += 20;
 		}
 		if(node.attributes.length>0) {
@@ -515,36 +633,26 @@ SVGDrawer.prototype.getHTMLNode = function(node, calculate){
 		}
 	}
 	if(node.methods && node.methods.length > 0){
-		group.appendChild( this.createElement({tag:"line", x1:x, y1: y, x2: x + width, y2: y, stroke:"#000"}) );
+		g.appendChild( this.createObject({tag:"line", x1:x, y1: y, x2: x + width, y2: y, stroke:"#000"}) );
 		y+=20;
 		for(var m=0;m<node.methods.length;m++){
 			var method = node.methods[m];
-			group.appendChild(this.createElement({tag:"text", "text-anchor":"left", "width": width, "x": x + 10, "y": y, value:method}));
+			g.appendChild(this.createObject({tag:"text", "text-anchor":"left", "width": width, "x": x + 10, "y": y, value:method}));
 			y += 20;
 		}
 	}
-	return group;
+	return g;
 };
-
-SVGDrawer.prototype.createElement = function(node){
-	var element = this.createObject("http://www.w3.org/2000/svg", node.tag);
+SVGDrawer.prototype.addChild = function(node, parent, child){
+	child.setAttribute("class", "draggable");
+	parent.appendChild(child);
+	this.model.addNodeLister(child, node);
+};
+SVGDrawer.prototype.supercreateObject = SVGDrawer.prototype.createObject;
+SVGDrawer.prototype.createObject = function(node, model, ns){
+	var element = this.supercreateObject(node, model, "http://www.w3.org/2000/svg");
 	if(node.tag.toLowerCase()=="path"){
 		element.setAttribute('fill', "rgb(255, 255, 255)");
-		//element.setAttribute('style', "stroke:#000;");
-	}
-	this.addFontAttributes(element);
-
-	for (var key in node) {
-		key = key.toLowerCase();
-		if(key=='tag')continue;
-		if(key=='content_src'&& node.tag.toLowerCase()=="image") continue;
-		if(key=='value'&& node.tag.toLowerCase()=="text") continue;
-		if(key.indexOf("-")>=0){
-			element.style[key] = node[key];
-		}else if(node[key] != null) {
-			element.setAttribute(key, node[key]);
-			element[key] = node[key];
-		}
 	}
 	if(node.tag.toLowerCase()=="text" && node.value){
 		element.appendChild(document.createTextNode(node.value));
@@ -559,33 +667,23 @@ SVGDrawer.prototype.createElement = function(node){
 SVGDrawer.prototype.createInfo = function(item, calculate, text) {
 	var items = text.split("\n");
 	if(!calculate && items.length>1){
-		var group = this.createElement({tag:"g", class:"draggable", isdraggable:true});
+		var group = this.createObject({tag:"g", class:"draggable"}, item);
 		for(var i = 0;i<items.length;i++) {
-			var child = this.createElement({tag:"text", "text-anchor":"left", "x": item.x, "y": item.y+(item.size.y*i)});
+			var child = this.createObject({tag:"text", "text-anchor":"left", "x": item.x, "y": item.y+(item.height*i)});
 			child.appendChild(document.createTextNode(items[i]));
 			group.appendChild(child);
 		}
-		this.graph.addNodeLister(group, item);
+		this.model.addNodeLister(group, item);
 		return group;
 	}
-	return this.createElement({tag:"text", "text-anchor":"left", "x": item.x, "y": item.y, value:text, isdraggable:true});
+	var group = this.createObject({tag:"text", "text-anchor":"left", "x": item.x, "y": item.y, value:text, "id": item.id, class:"draggable"}, item);
+	if(!calculate){
+		this.model.addNodeLister(group, item);
+	}
+	return group;
 };
-SVGDrawer.prototype.getColor = function(style, defaultColor) {
-	if(style) {
-		if(style.toLowerCase()=="create") {
-			return "#008000";
-		}
-		if(style.toLowerCase()=="nac") {
-			return "#FE3E3E";
-		}
-	}
-	if(defaultColor) {
-		return defaultColor;
-	}
-	return "#000";
-}
 SVGDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle, style){
-	var line = this.createElement({tag:"line", 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2});
+	var line = this.createObject({tag:"line", 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2});
 	line.setAttribute("stroke",this.getColor(style));
 
 	if(style && style.toLowerCase()=="dotted"){
@@ -595,7 +693,7 @@ SVGDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle, style){
 	return line;
 };
 SVGDrawer.prototype.createGroup = function(node, group){
-	var entity = document.createElementNS("http://www.w3.org/2000/svg", "g");
+	var entity = this.createObject({tag:"g"});
 	if(group.scale){
 		entity.setAttribute('transform', "translate("+group.x+" "+group.y+") scale("+group.scale+")");
 	}else{
@@ -604,43 +702,48 @@ SVGDrawer.prototype.createGroup = function(node, group){
 	entity.setAttribute("height", group.height);
 	entity.setAttribute("width", group.width);
 	for (var i = 0; i < group.items.length; ++i){
-		entity.appendChild( this.createElement( group.items[i] ) );
+		entity.appendChild( this.createObject( group.items[i] ) );
 	}
 	return entity;
 };
 
-// ######################################################           CANVAS           ####################################################################################
+//				###################################################### CANVAS ####################################################################################
 CanvasDrawer = function() {};
 CanvasDrawer.prototype = Object_create(Drawer.prototype);
 CanvasDrawer.prototype.clearBoard = function(){
-	if( !this.graph ){
+	if( !this.model ){
 		return;
 	}
-	var canvas = this.graph.board;
-	var context = canvas.getContext('2d');
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	var canvas = this.model.board;
+	if(canvas) {
+		var context = canvas.getContext('2d');
+		context.clearRect(0, 0, canvas.width, canvas.height);
+	}
 };
 CanvasDrawer.prototype.createContainer = function(graph){
-	this.graph = graph;	
-	var board = document.createElement("canvas");
+	this.model = graph;
+	var board = this.createObject({tag:"canvas"}, graph);
 	board.rasterElements=[];
-	board.graph = graph;
 	return board;
 };
 CanvasDrawer.prototype.getWidth = function(text){
-	var context = this.graph.board.getContext('2d');
-	context.font = this.graph.options.font["font-size"]+" "+this.graph.options.font["font-family"];
+	var context = this.model.board.getContext('2d');
+	context.font = this.model.options.font["font-size"]+" "+this.model.options.font["font-family"];
 	var metrics = context.measureText(text);
 	return metrics.width;
 
 };
-CanvasDrawer.prototype.getHTMLNode = function(node, calculate){
-	var canvas = this.graph.board;
+CanvasDrawer.prototype.getNode = function(node, calculate){
+	var canvas = this.model.board;
+	var symbolLib = new SymbolLibary();
+	if(symbolLib.isSymbol(node)) {
+		return symbolLib.draw(this, node, calculate);
+	}
 
 	// Calculate Height
 	var width=0;
 	var height=20;
-	if(this.graph.typ=="objectdiagram"){
+	if(this.model.typ=="objectdiagram"){
 		width = Math.max(width, this.getWidth(node.id.charAt(0).toLowerCase() + node.id.slice(1)));
 	}else{
 		width = Math.max(width, this.getWidth(node.id));
@@ -667,14 +770,11 @@ CanvasDrawer.prototype.getHTMLNode = function(node, calculate){
 	var textwidth=node.width-10;
 	var context = canvas.getContext('2d');
 	if(node.content_src){
-		var img = document.createElement("img");
-		img.src = node.content_src;
-		img.node = node;
-		this.graph.loader.appendImg(img);
+		this.model.loader.appendImg(this.createObject({tag:"img", src: node.content_src}, node));
 		return null;
 	}
 	if(node.content_plain){
-		context.font = this.graph.options.fontSize+"px Arial";
+		context.font = this.model.options.fontSize+"px Arial";
 		context.fillText(node.content_plain, node.x, node.y);
 		return null;
 	}
@@ -688,9 +788,9 @@ CanvasDrawer.prototype.getHTMLNode = function(node, calculate){
 	this.createLine(node.x, node.y+20, node.x + node.width, node.y+20);
 
 	var context = canvas.getContext('2d');
-	context.font = this.graph.options.fontSize+"px Arial";
+	context.font = this.model.options.fontSize+"px Arial";
 	var text="";
-	if(this.graph.typ=="objectdiagram"){
+	if(this.model.typ=="objectdiagram"){
 		text = node.id.charAt(0).toLowerCase() + node.id.slice(1);
 		var start = node.x + (node.width - this.getWidth(text))/2;
 		this.createLine(start, node.y+16, start + this.getWidth(text), node.y+16);
@@ -704,7 +804,7 @@ CanvasDrawer.prototype.getHTMLNode = function(node, calculate){
 		for(var a=0;a<node.attributes.length;a++){
 			var attribute = node.attributes[a];
 			var context = canvas.getContext('2d');
-			context.font = this.graph.options.fontSize+"px Arial";
+			context.font = this.model.options.fontSize+"px Arial";
 			context.fillText(attribute, node.x + 10, y);
 			y += 20;
 		}
@@ -714,10 +814,10 @@ CanvasDrawer.prototype.getHTMLNode = function(node, calculate){
 CanvasDrawer.prototype.createInfo = function(item, calculate, text) {
 	return null;
 };
-CanvasDrawer.prototype.createLine = function(x1, y1, x2, y2, style){
-	var canvas = this.graph.board;
+CanvasDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle, style){
+	var canvas = this.model.board;
 	var context = canvas.getContext('2d');
-	if(style.toLowerCase()=="dotted"){
+	if(style && style.toLowerCase()=="dotted"){
 		context.setLineDash([1,2]);
 	}
 	context.moveTo(x1, y1);
@@ -729,24 +829,23 @@ CanvasDrawer.prototype.createLine = function(x1, y1, x2, y2, style){
 CanvasDrawer.prototype.onLoadImage = function(event){
 	var img = event.target;
 	
-	var canvas = this.graph.board;
+	var canvas = this.model.board;
 	var context = canvas.getContext('2d');
 	context.drawImage(img, img.node.x, img.node.y);
-	this.graph.loader.remove(img);
-	this.graph.root.removeChild(img);
-	this.graph.loader.resetDrawer();
+	this.model.loader.remove(img);
+	this.model.root.removeChild(img);
+	this.model.loader.resetDrawer();
 };
 CanvasDrawer.prototype.onFinishImage = function(event){
 	try{
-		var img = document.createElement("img");
-		img.src = this.graph.board.toDataURL();
-		this.graph.clearBoard();
-		this.graph.board = img;
-		this.graph.root.appendChild(img);
+		var img = this.createObject({tag:"img", src: this.model.board.toDataURL()});
+		this.model.clearBoard();
+		this.model.board = img;
+		this.model.root.appendChild(img);
 	} catch (e) {
-		this.graph.clearBoard();
-		this.graph.drawer = this.oldDrawer;
-		this.graph.drawGraph(0,0);
+		this.model.clearBoard();
+		this.model.drawer = this.oldDrawer;
+		this.model.drawGraph(0,0);
 		alert("Browser nicht unterstuetzt");
 	}
 };
@@ -890,11 +989,33 @@ SymbolLibary.prototype.drawLamp = function(node, calculte){
 
 SymbolLibary.prototype.drawStop = function(node, calculte){
 	return {
-		x:10,
-		y:10,
+		x:node.getX(),
+		y:node.getY(),
 		width:30,
 		height:30,
 		items:[
-			{tag:"path", fill:"#FFF", "stroke-width":"2", stroke:"#B00", d:"m "+node.getX()+","+node.getY()+" a 14,14 0 1 0 0.0636,-0.065 z m 0,0 20.73215,21.0846"}		
+			{tag:"path", fill:"#FFF", "stroke-width":"2", stroke:"#B00", d:"m 6,6 a 14,14 0 1 0 0.0636,-0.065 z m 0,0 20.73215,21.0846"}		
+		]};
+};
+SymbolLibary.prototype.drawMin = function(node, calculte){
+	return {
+		x: (node.x-20+node.width),
+		y:node.y,
+		width:20,
+		height:20,
+		items:[
+			{tag:"path", fill: "none", stroke:"#000", "stroke-width":0.2, "stroke-linejoin":"round", d:"m 0,0 19.47716,0 0,19.47716 -19.47716,0 z"},
+			{tag:"path", fill: "none", stroke:"#000", "stroke-width":"1px", "stroke-linejoin":"miter", d:"m 4,10 13.48215,-0.0446"}
+		]};
+};
+SymbolLibary.prototype.drawMax = function(node, calculte){
+	return {
+		x: (node.x-20+node.width),
+		y:node.y,
+		width:20,
+		height:20,
+		items:[
+			{tag:"path", fill: "none", stroke:"#000", "stroke-width":0.2, "stroke-linejoin":"round", "stroke-dashoffset":2, "stroke-dasharray":"4.8,4.8", d:"m 0,0 4.91187,0 5.44643,0 9.11886,0 0,19.47716 -19.47716,0 0,-15.88809 z"},
+			{tag:"path", fill: "none", stroke:"#000", "stroke-width":"1px", "stroke-linejoin":"miter", d:"m 4,10 6.66323,0.006 0.0255,5.83919 0.0109,-11.86456 -0.0342,6.02745 c 2.27159,-0.0182 4.43676,-0.002 6.80894,0.0104"}
 		]};
 };

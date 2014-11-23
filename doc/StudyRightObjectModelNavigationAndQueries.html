@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -17,18 +17,15 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"Student",
-         "attributes":[]
+         "id":"Student"
       },
       {
          "typ":"node",
-         "id":"Room",
-         "attributes":[]
+         "id":"Room"
       },
       {
          "typ":"node",
-         "id":"TeachingAssistant",
-         "attributes":[]
+         "id":"TeachingAssistant"
       }
    ],
    "edges":[
@@ -60,8 +57,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightObjectModelNavigationAndQueriesClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>How to navigate and query an object model.</p>
 <p>Start: Example object structure:</p>
@@ -918,15 +914,15 @@
       
 </pre><p>Results in:</p>
 <pre>      Sum of assignment points: 23. 
-      Sum of points of assignments that have been done by at least one students: 9.</pre><p>Check: Assignment points: 23</p>
-<p>Check: donePoints: 9</p>
+      Sum of points of assignments that have been done by at least one students: 9.</pre><p>Check: Assignment points:  23 actual 23</p>
+<p>Check: donePoints:  9 actual 9</p>
 <p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>      
       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
       
       RoomSet rooms = availableAssignments.getRoom();
       
 </pre><p>Results in:</p>
-<pre>      (senate math 17, gymnasium sports 25)</pre><p>Check: rooms.size(): 2</p>
+<pre>      (senate math 17, gymnasium sports 25)</pre><p>Check: rooms.size():  2 actual 2</p>
 <p><a name = 'step_3'>Step 3: Filter for attribute:</a></p><pre>      
       RoomSet rooms17 = university.getRooms().hasCredits(17);
       RoomSet roomsGE20 = university.getRooms().hasCredits(20, Integer.MAX_VALUE);
