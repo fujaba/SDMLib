@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -16,13 +16,11 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"River",
-         "attributes":[]
+         "id":"River"
       },
       {
          "typ":"node",
-         "id":"Boat",
-         "attributes":[]
+         "id":"Boat"
       },
       {
          "typ":"node",
@@ -108,8 +106,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasFerryMansProblemModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasFerryMansProblemModelClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 
 </body>

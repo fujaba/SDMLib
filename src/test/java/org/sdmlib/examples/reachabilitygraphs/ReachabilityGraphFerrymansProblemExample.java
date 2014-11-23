@@ -5,10 +5,12 @@ import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverCreator;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
@@ -140,7 +142,17 @@ public class ReachabilityGraphFerrymansProblemExample
       storyboard.add("large reachbility graph with embedded states: ");
       storyboard.addObjectDiagram(map, reachabilityGraph, true);
       
-      reachabilityGraph.getStates().getElems().hasType(Bank.class).hasName("right");
+      RiverSet rivers = new RiverSet().with( reachabilityGraph.getStates().getGraphRoot());
+      BankSet banks = rivers.getBanks().hasName("right");
+      
+      for (Bank bank : banks)
+      {
+         if (bank.getCargos().size() == 3)
+         {
+            storyboard.add("Found a solution.");
+            break;
+         }
+      }
       
       storyboard.dumpHTML();
    }

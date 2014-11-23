@@ -53,7 +53,8 @@ Options = function(){
 	this.layout= {name:"Dagre", rank:"TB", nodesep:10}	// Dagre TB, LR
 	this.CardinalityInfo = true;
 	this.PropertyInfo = true;
-	this.buttons = [];	// ["HTML", "SVG", "CANVAS", "PNG", "PDF"]
+	this.rotateText = true;
+	this.buttons = ["HTML", "SVG"];	// ["HTML", "SVG", "CANVAS", "PNG", "PDF"]
 }
 
 /* Node */
@@ -100,7 +101,7 @@ GraphNode.prototype.getRoot = function() {
 Graph = function(json, options) {
 	this.init();
 	this.left=0;
-	this.top=0;
+	this.top=60;
 	this.nodeCount=0;
 	this.nodes = {};
 	this.edges = [];
@@ -171,15 +172,6 @@ Graph = function(json, options) {
 				this.root.id = this.options.canvasid;
 			}
 			document.body.appendChild(this.root);document.body.appendChild(this.root);
-		}
-		if(this.options.buttons.length>0){
-			this.optionbar = document.createElement("div");
-			this.optionbar.className = "Options";
-			this.root.appendChild(this.optionbar);
-			for(var i=0; i< this.options.buttons.length; i++){
-				this.optionbar.appendChild(this.getButton(this.options.buttons[i]));
-			}
-			this.optionbar.appendChild(document.createElement("br"));
 		}
 		this.initGraph();
 	}
@@ -260,7 +252,7 @@ Graph.prototype.initInfo = function(edge, info){
 	}	
 	var infoTxt = edge.getInfo(info);
 	if(infoTxt.length > 0) {
-		var html = this.drawer.createInfo(info, true, infoTxt);
+		var html = this.drawer.createInfo(info, true, infoTxt, 0);
 		if(html){
 			var pos = this.getDimension(html);
 			info.width = pos.x;
@@ -293,15 +285,6 @@ Graph.prototype.getDimension = function(html){
 	var pos = new Pos(rect.width, rect.height);
 	this.board.removeChild(html);
 	return pos;
-};
-Graph.prototype.getButton = function(label){
-	var button = document.createElement("button");
-	button.innerHTML = label;
-	button.className="ToolButton";
-	button.model = this;
-	var that = this;
-	bindEvent(button, "click", function(e){that.setTyp(e.innerHTML);});
-	return button;
 };
 Graph.prototype.getNode = function(id, isSub) {
 	if(this.nodes[id]) {
@@ -425,7 +408,6 @@ Graph.prototype.resize = function(){
 
 		this.MinMax(node, min, max);
 	}
-	this.left = this.top = 0;
 
 	this.calcLines();
 	for(var i=0;i<this.edges.length;i++){
@@ -459,6 +441,17 @@ Graph.prototype.drawRaster = function(){
 		this.board.appendChild(line);
 	}
 };
+
+Graph.prototype.draw = function(width, height){
+	for(var i in this.nodes) {
+		var n = this.nodes[i];
+		if(this.left>0 || this.top > 0) {
+			n.x += this.left;
+			n.y += this.top;
+		}
+	}
+	this.drawGraph(width, height);
+};
 Graph.prototype.drawGraph = function(width, height){
 	this.minSize = new Pos(width, height);
 	if(this.loader.abort && this.loader.images.length>0){
@@ -478,10 +471,6 @@ Graph.prototype.drawGraph = function(width, height){
 	}
 };
 Graph.prototype.moveToRaster = function(node){
-	if(this.left>0 || this.top > 0) {
-		node.x += this.left;
-		node.y = this.top;
-	}
 	if(this.options.raster){
 		node.x = parseInt(node.x / 10) * 10;
 		node.y = parseInt(node.y / 10) * 10;
@@ -499,6 +488,7 @@ Graph.prototype.layouting = function(){
 	this.initGraph();
 	this.layout(this.minSize.x, this.minSize.y);
 }
+Graph.prototype.createElement = function(element, typ){};
 //				######################################################### DRAG AND DROP #########################################################
 Graph.prototype.initDragAndDrop = function(){
 	this.objDrag = null;
@@ -888,7 +878,7 @@ DagreLayout.prototype.layout = function(graph, width, height) {
 		node.x = layoutNode.x - (node.width/2);
 		node.y = layoutNode.y - (node.height/2);
 	}
-	this.graph.drawGraph(width, height);
+	this.graph.draw(width, height);
 }
 DagreLayout.prototype.getRootNode = function(node, child) {
 	if(node._parent){
@@ -974,7 +964,10 @@ Edge.prototype.draw = function(board, drawer){
 	var options = drawer.model.options;
 	this.drawSourceText(board, drawer, options);
 	if(this.info) {
-		this.addElement(board, drawer.createInfo(this.infoPos, false, this.info));
+		
+		var angle = Math.atan((p.source.y-p.target.y)/(p.source.x-p.target.x))*60;
+		this.addElement(board, drawer.createInfo(this.infoPos, false, this.info, angle));
+		this.addElement(board, new SymbolLibary().create({typ:"Arrow",x:this.infoPos.x,y:this.infoPos.y, rotate:angle}, drawer));
 	}
 	this.drawTargetText(board, drawer, options);
 };
