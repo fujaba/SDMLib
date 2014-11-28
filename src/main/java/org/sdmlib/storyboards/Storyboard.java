@@ -1436,6 +1436,17 @@ public class Storyboard implements PropertyChangeInterface
       Assert.assertEquals("FAILED: " + message, expected, actual, delta);
    }
 
+   public void assertEquals(String message, Object expected, Object actual)
+   {
+      this.add("Check: " + message + " " + expected + " actual " + actual);
+
+      if (expected != actual)
+      {
+         this.dumpHTML();
+      }
+      Assert.assertEquals("FAILED: " + message, expected, actual);
+   }
+
    public void assertTrue(String message, boolean condition)
    {
       this.add("Check: " + message + " " + condition);
