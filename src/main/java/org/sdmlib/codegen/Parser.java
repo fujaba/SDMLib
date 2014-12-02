@@ -186,9 +186,10 @@ public class Parser
       return methodBodyStartPos;
    }
 
-   public void insert(int offset, String text){
+   public int insert(int offset, String text){
       this.fileBody.insert(offset, text);
       this.fileBodyHasChanged = true;
+      return offset+ text.length();
    }
    
    public int search(String searchText, int pos){

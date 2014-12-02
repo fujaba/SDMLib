@@ -652,6 +652,44 @@ public class GenClassModel
       return model;
    }
    
+   public void insertModelCreationCodeHere(String rootDir, String newMethod)
+   {
+	   StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+
+	      StackTraceElement firstStackTraceElement = stackTrace[0];
+	      String callMethodName = firstStackTraceElement.getMethodName();
+
+	      StackTraceElement secondStackTraceElement = stackTrace[1];
+	      String className = secondStackTraceElement.getClassName();
+	      String methodName = secondStackTraceElement.getMethodName();
+	      int callMethodLineNumber = secondStackTraceElement.getLineNumber();
+	      
+	      Clazz modelCreationClass = getOrCreateClazz(className);
+	      modelCreationClass.getClassModel().without(modelCreationClass);
+	      GenClass modelCreationGenerator = getOrCreate(modelCreationClass);
+	      Parser modelCreationParser = modelCreationGenerator.getOrCreateParser(rootDir);
+	      modelCreationParser.indexOf(Parser.CLASS_END);
+
+	      String signature = Parser.METHOD + ":" + methodName + "(";
+	      SymTabEntry symTabEntry = modelCreationParser.getMethodEntryWithLineNumber(signature, callMethodLineNumber);
+	      
+	      
+	      int currentInsertPos = symTabEntry.getEndPos()  + 2;
+    	  currentInsertPos = modelCreationParser.insert(currentInsertPos, "      @Test\n      public void "+newMethod+"() {\n"
+    	  																							+ "      	ClassModel clazzModel = new ClassModel(\""+ model.getName()+"\");\n");
+    	  modelCreationParser.insert(currentInsertPos, "      }\n");
+    	  signature = Parser.METHOD + ":" + newMethod + "(";
+
+    	  modelCreationParser.indexOf(Parser.CLASS_END);
+    	  
+    	  
+          currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir);
+          
+          completeImports();
+          
+          writeToFile(modelCreationClass);
+	      
+   }
    public void insertModelCreationCodeHere(String rootDir)
    {
 //      String fileName = null;
@@ -672,6 +710,7 @@ public class GenClassModel
 //      fileName = secondStackTraceElement.getFileName();
       className = secondStackTraceElement.getClassName();
       methodName = secondStackTraceElement.getMethodName();
+
       int callMethodLineNumber = secondStackTraceElement.getLineNumber();
 
 
@@ -697,18 +736,24 @@ public class GenClassModel
       // insert code
       int currentInsertPos = modelCreationParser.methodCallIndexOf(Parser.NAME_TOKEN + ":model",
          symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
-      currentInsertPos = modelCreationParser.indexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos + 1,
-         symTabEntry.getEndPos() - 1) + 1;
-
+      
+      if (currentInsertPos > 0) {
+    	  currentInsertPos = modelCreationParser.indexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos + 1,
+    			  symTabEntry.getEndPos() - 1) + 1; 
+      } else {
+    	  currentInsertPos = symTabEntry.getBodyStartPos()  + 2;
+    	  currentInsertPos = modelCreationParser.insert(currentInsertPos, "      ClassModel clazzModel = new ClassModel(\""+ model.getName()+"\");");
+      }
       
       currentInsertPos = completeCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir);
-
+      
       currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir);
       
       completeImports();
-
+      
       writeToFile(modelCreationClass);
    }
+   
    
    private void completeImports()
    {
@@ -1685,7 +1730,7 @@ public class GenClassModel
       }
       
       
-      StringBuilder result = parser.replaceAll(currentInsertPos, "\n" +
+      StringBuilder result = parser.replaceAll(currentInsertPos-2, "\n" +
                   "      .withMethod(\"METHODNAME\", Return_TypePARAMETERS)",
                   "Return_Type", method.getReturnType().toString(),
                   "PARAMETERS", paString.toString(),
