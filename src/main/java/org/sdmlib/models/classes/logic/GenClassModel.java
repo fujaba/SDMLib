@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,7 +18,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -683,7 +685,14 @@ public class GenClassModel
     	  modelCreationParser.indexOf(Parser.CLASS_END);
     	  
     	  
-          currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir);
+    	  TreeSet<Clazz> sortedClazz=new TreeSet<Clazz>(new Comparator<Clazz>() {
+			@Override
+			public int compare(Clazz o1, Clazz o2) {
+				return o1.getFullName().compareTo(o2.getFullName());
+			}
+    		  
+    	  });
+          currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir, sortedClazz);
           
           completeImports();
           
@@ -1539,26 +1548,27 @@ public class GenClassModel
       }
       return currentInsertPos;
    }
+
+   private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
+	         int currentInsertPos, String rootDir)  {
+	   return insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir, new LinkedHashSet<Clazz>());
+   }
    
    private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
-         int currentInsertPos, String rootDir)
-   {
-
+         int currentInsertPos, String rootDir, 	Set<Clazz> clazzQueue)  {
+ 
       // find last creation code position
-      
-      
-      Queue<Clazz> clazzQueue = new LinkedList<Clazz>(); 
-
       for (Clazz clazz : model.getClasses())
       {
-         clazzQueue.offer(clazz);
+         clazzQueue.add(clazz);
       }
 
       boolean format = false;
 
       while (!clazzQueue.isEmpty())
       {
-         Clazz clazz  = clazzQueue.poll();
+         Clazz clazz  = clazzQueue.iterator().next();
+         clazzQueue.remove(clazz);
 
          String modelClassName = clazz.getFullName();
          
@@ -1572,7 +1582,7 @@ public class GenClassModel
          {
             // insert code for new Clazz()
             if (!checkDependencies(clazz)) {
-               clazzQueue.offer(clazz);
+               clazzQueue.add(clazz);
             }
             else
             {
