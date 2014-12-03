@@ -101,27 +101,27 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
       return this;
    }
 
-   public StoryboardWallSet getWall()
-   {
-      StoryboardWallSet result = new StoryboardWallSet();
-      
-      for (Storyboard obj : this)
-      {
-         result.with(obj.getWall());
-      }
-      
-      return result;
-   }
-
-   public StoryboardSet withWall(StoryboardWall value)
-   {
-      for (Storyboard obj : this)
-      {
-         obj.withWall(value);
-      }
-      
-      return this;
-   }
+//   public StoryboardWallSet getWall()
+//   {
+//      StoryboardWallSet result = new StoryboardWallSet();
+//      
+//      for (Storyboard obj : this)
+//      {
+//         result.with(obj.getWall());
+//      }
+//      
+//      return result;
+//   }
+//
+//   public StoryboardSet withWall(StoryboardWall value)
+//   {
+//      for (Storyboard obj : this)
+//      {
+//         obj.withWall(value);
+//      }
+//      
+//      return this;
+//   }
 
    public StringList getRootDir()
    {
