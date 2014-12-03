@@ -71,13 +71,15 @@ public class GraphFactory
 			rootPath += File.separator;
 		}
 		ArrayList<URL> plugins = new ArrayList<URL>();
-		for (File item : dir.listFiles()) {
-			if (item.getName().toLowerCase().endsWith(".jar")) {
-				try {
-
-					plugins.add(new URL("file", "", rootPath+item.getName()));
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
+		if(dir.listFiles() != null) {
+			for (File item : dir.listFiles()) {
+				if (item.getName().toLowerCase().endsWith(".jar")) {
+					try {
+	
+						plugins.add(new URL("file", "", rootPath+item.getName()));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
