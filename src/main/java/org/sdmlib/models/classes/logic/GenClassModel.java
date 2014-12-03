@@ -1443,6 +1443,12 @@ public class GenClassModel
    {
 
       String modelClassName = clazz.getFullName();
+      String classModelName = clazz.getClassModel().getName();
+      
+      if (modelClassName.startsWith(classModelName)) {
+    	  modelClassName = modelClassName.replaceFirst(classModelName+".", "");
+      }
+      
       // no creation code yet. Insert it.
       currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
 
@@ -1517,10 +1523,23 @@ public class GenClassModel
       }
 
       // insert code for new Assoc
-      LinkedHashSet<Role> roles = new LinkedHashSet<Role>();
+//      LinkedHashSet<Role> roles = new LinkedHashSet<Role>();
+      TreeSet<Role> roles = new TreeSet<Role>(new Comparator<Role>() {
+			@Override
+			public int compare(Role o1, Role o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		  
+	  });
+      
 
-      if (!clazz.getRoles().isEmpty())
-         roles.addAll(clazz.getRoles());
+      if (!clazz.getRoles().isEmpty()){
+
+    	 for (Role role : clazz.getRoles())
+         {
+        	 roles.add(role);
+         }
+      }
 
       currentInsertPos = handleAssocs(roles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
 
@@ -1543,7 +1562,7 @@ public class GenClassModel
 //   }
    
 
-   private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
+   private int handleAssocs(TreeSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
    {
       ArrayList<Association> handledAssocs = new ArrayList<Association>();
       ArrayList<Role> handledRoles = new ArrayList<Role>();
@@ -1676,6 +1695,7 @@ public class GenClassModel
          
          if ("ClassModel".equals(localVarTableEntry.getType()) ) {
             String classmodelName = localVarTableEntry.getName();
+                        
             CGUtil.replaceAll(text,"clazzModel", classmodelName);
             break;
          }
