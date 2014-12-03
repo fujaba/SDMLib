@@ -1441,8 +1441,7 @@ public class GenClassModel
    private int createAndInsertCodeForNewClazz(String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry, Clazz clazz, LinkedHashMap<String, Clazz> handledClazzes,
          int currentInsertPos)
    {
-
-      String modelClassName = clazz.getFullName();
+      String modelClassName = clazz.getName();
       // no creation code yet. Insert it.
       currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
 
