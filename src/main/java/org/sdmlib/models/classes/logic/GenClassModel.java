@@ -675,8 +675,8 @@ public class GenClassModel
 	      String signature = Parser.METHOD + ":" + methodName + "(";
 	      SymTabEntry symTabEntry = modelCreationParser.getMethodEntryWithLineNumber(signature, callMethodLineNumber);
 	      
-	      
-	      int currentInsertPos = symTabEntry.getEndPos()  + 2;
+	      int currentInsertPos = modelCreationParser.indexOf(Parser.CLASS_BODY); 
+//	      int currentInsertPos = symTabEntry.getEndPos()  + 2;
     	  currentInsertPos = modelCreationParser.insert(currentInsertPos, "      @Test\n      public void "+newMethod+"() {\n"
     	  																							+ "      	ClassModel clazzModel = new ClassModel(\""+ model.getName()+"\");\n");
     	  modelCreationParser.insert(currentInsertPos, "      }\n");
@@ -1469,7 +1469,21 @@ public class GenClassModel
 
       // insert code for new Attr()
       AttributeSet clazzAttributes = clazz.getAttributes();
+      
+      TreeSet<Attribute> sortedAttributes = new TreeSet<Attribute>(new Comparator<Attribute>() {
+			@Override
+			public int compare(Attribute o1, Attribute o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+  		  
+  	  });
+      
       for (Attribute attribute : clazzAttributes)
+      {
+    	  sortedAttributes.add(attribute);
+      }
+          
+      for (Attribute attribute : sortedAttributes)
       {
          if ( !"PropertyChangeSupport".equals(attribute.getType())) {
             currentInsertPos = insertCreationAttributeCode(attribute,
@@ -1482,7 +1496,22 @@ public class GenClassModel
 
       // insert code for new Method()
       MethodSet methods = clazz.getMethods();
-      for (Method method : methods)
+      
+      TreeSet<Method> sortedMethods = new TreeSet<Method>(new Comparator<Method>() {
+			@Override
+			public int compare(Method o1, Method o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		  
+	  });
+    
+    for (Method method : methods)
+    {
+    	sortedMethods.add(method);
+    }
+      
+      
+      for (Method method : sortedMethods)
       {
          currentInsertPos = insertCreationMethodCode(method, currentInsertPos, modelCreationClass, symTabEntry);
       }

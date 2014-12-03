@@ -58,6 +58,8 @@ public class Parser
 
    public static final String IMPORT = "import";
 
+   public static final String CLASS_BODY = "classBody";
+
    public static final String CLASS_END = "classEnd";
 
    public static final String NAME_TOKEN = "nameToken";
@@ -434,6 +436,7 @@ public class Parser
    {
       // { classBodyDecl* }
       skip("{");
+      checkSearchStringFound(CLASS_BODY, currentRealToken.startPos);
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
       {
          parseMemberDecl();
