@@ -48,10 +48,10 @@ public class StoryboardCreator extends EntityFactory
          return ((Storyboard) target).getStepDoneCounter();
       }
 
-      if (Storyboard.PROPERTY_WALL.equalsIgnoreCase(attrName))
-      {
-         return ((Storyboard) target).getWall();
-      }
+//      if (Storyboard.PROPERTY_WALL.equalsIgnoreCase(attrName))
+//      {
+//         return ((Storyboard) target).getWall();
+//      }
 
       if (Storyboard.PROPERTY_STORYBOARDSTEPS.equalsIgnoreCase(attrName))
       {
@@ -87,11 +87,11 @@ public class StoryboardCreator extends EntityFactory
          return true;
       }
 
-      if (Storyboard.PROPERTY_WALL.equalsIgnoreCase(attrName))
-      {
-         ((Storyboard) target).setWall((StoryboardWall) value);
-         return true;
-      }
+//      if (Storyboard.PROPERTY_WALL.equalsIgnoreCase(attrName))
+//      {
+//         ((Storyboard) target).setWall((StoryboardWall) value);
+//         return true;
+//      }
 
       if (Storyboard.PROPERTY_STORYBOARDSTEPS.equalsIgnoreCase(attrName))
       {

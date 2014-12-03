@@ -73,14 +73,14 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       return hasLinkConstraint(tgt, Storyboard.PROPERTY_WALL);
    }
 
-   public StoryboardWall getWall()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Storyboard) this.getCurrentMatch()).getWall();
-      }
-      return null;
-   }
+//   public StoryboardWall getWall()
+//   {
+//      if (this.getPattern().getHasMatch())
+//      {
+//         return ((Storyboard) this.getCurrentMatch()).getWall();
+//      }
+//      return null;
+//   }
 
    public StoryboardPO hasRootDir(String value)
    {

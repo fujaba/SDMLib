@@ -97,7 +97,7 @@ public class Storyboard implements PropertyChangeInterface
    private int stepCounter;
    private String modelRootDir = null;
    private String rootDir = null;
-   private StoryboardWall wall = null;
+//   private StoryboardWall wall = null;
    private StoryboardStepSet storyboardSteps = null;
    private int codeStartLineNumber = -1;
    private ByteArrayOutputStream systemOutRecorder;
@@ -511,7 +511,7 @@ public class Storyboard implements PropertyChangeInterface
 
    // private int stepCounter = 0;
 
-   public void addStep(String txt)
+   public Storyboard addStep(String txt)
    {
       if (stepCounter == 0)
       {
@@ -527,6 +527,7 @@ public class Storyboard implements PropertyChangeInterface
          this.add(buf.toString());
          this.setStepCounter(this.getStepCounter() + 1);
       }
+      return this;
    }
 
    public void add(String string)
@@ -1393,7 +1394,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void removeYou()
    {
-      setWall(null);
+//      setWall(null);
       removeAllFromStoryboardSteps();
       withoutStoryboardSteps(this.getStoryboardSteps().toArray(new StoryboardStep[this.getStoryboardSteps().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -1513,51 +1514,51 @@ public class Storyboard implements PropertyChangeInterface
     * </pre>
     * @return The StoryboardWall
     */
-   public StoryboardWall getWall()
-   {
-      return this.wall;
-   }
+//   public StoryboardWall getWall()
+//   {
+//      return this.wall;
+//   }
 
-   public boolean setWall(StoryboardWall value)
-   {
-      boolean changed = false;
+//   public boolean setWall(StoryboardWall value)
+//   {
+//      boolean changed = false;
+//
+//      if (this.wall != value)
+//      {
+//         StoryboardWall oldValue = this.wall;
+//
+//         if (this.wall != null)
+//         {
+//            this.wall = null;
+//            oldValue.setStoryboard(null);
+//         }
+//
+//         this.wall = value;
+//
+//         if (value != null)
+//         {
+//            value.withStoryboard(this);
+//         }
+//
+//         getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
+//         changed = true;
+//      }
+//
+//      return changed;
+//   }
 
-      if (this.wall != value)
-      {
-         StoryboardWall oldValue = this.wall;
+//   public Storyboard withWall(StoryboardWall value)
+//   {
+//      setWall(value);
+//      return this;
+//   }
 
-         if (this.wall != null)
-         {
-            this.wall = null;
-            oldValue.setStoryboard(null);
-         }
-
-         this.wall = value;
-
-         if (value != null)
-         {
-            value.withStoryboard(this);
-         }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Storyboard withWall(StoryboardWall value)
-   {
-      setWall(value);
-      return this;
-   }
-
-   public StoryboardWall createWall()
-   {
-      StoryboardWall value = new StoryboardWall();
-      withWall(value);
-      return value;
-   }
+//   public StoryboardWall createWall()
+//   {
+//      StoryboardWall value = new StoryboardWall();
+//      withWall(value);
+//      return value;
+//   }
 
    // ==========================================================================
    public String getRootDir()
