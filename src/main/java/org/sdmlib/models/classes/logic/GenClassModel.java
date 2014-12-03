@@ -672,16 +672,23 @@ public class GenClassModel
 	      Parser modelCreationParser = modelCreationGenerator.getOrCreateParser(rootDir);
 	      modelCreationParser.indexOf(Parser.CLASS_END);
 
-	      String signature = Parser.METHOD + ":" + methodName + "(";
-	      SymTabEntry symTabEntry = modelCreationParser.getMethodEntryWithLineNumber(signature, callMethodLineNumber);
-	      
+	      String signature = Parser.METHOD + ":" + newMethod + "(";
+	      ArrayList<SymTabEntry> symTabEntriesFor = modelCreationParser.getSymTabEntriesFor(signature);
 	      int currentInsertPos = modelCreationParser.indexOf(Parser.CLASS_BODY); 
-//	      int currentInsertPos = symTabEntry.getEndPos()  + 2;
-    	  currentInsertPos = modelCreationParser.insert(currentInsertPos, "      @Test\n      public void "+newMethod+"() {\n"
-    	  																							+ "      	ClassModel clazzModel = new ClassModel(\""+ model.getName()+"\");\n");
-    	  modelCreationParser.insert(currentInsertPos, "      }\n");
-    	  signature = Parser.METHOD + ":" + newMethod + "(";
 
+	      if(symTabEntriesFor.size() < 1) {   
+	      
+//	      int currentInsertPos = symTabEntry.getEndPos()  + 2;
+    	  	currentInsertPos = modelCreationParser.insert(currentInsertPos, "      @Test\n      public void "+newMethod+"() {\n"
+    	  																							+ "      	ClassModel clazzModel = new ClassModel(\""+ model.getName()+"\");\n");
+    	  	modelCreationParser.insert(currentInsertPos, "      }\n");
+
+	      }
+	      else {
+	    	  SymTabEntry symTabEntry = symTabEntriesFor.get(0);  
+	    	  currentInsertPos = symTabEntry.getBodyStartPos() +2;
+	      }
+	      
     	  modelCreationParser.indexOf(Parser.CLASS_END);
     	  
     	  
@@ -1555,7 +1562,6 @@ public class GenClassModel
          {
             continue;
          }
-         handledAssocs.add(assoc);
 
          Role secondRole;
 
@@ -1568,6 +1574,7 @@ public class GenClassModel
 
          if (handledClazzes.containsKey(secondClassName) && !handledRoles.contains(secondRole) )
          {
+        	handledAssocs.add(assoc);
             handledRoles.add(firstRole);
             currentInsertPos = insertCreationAssociationCode(assoc, currentInsertPos, modelCreationClass, symTabEntry);
          }
