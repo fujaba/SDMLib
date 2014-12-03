@@ -1448,7 +1448,7 @@ public class GenClassModel
       if (modelClassName.startsWith(classModelName)) {
     	  modelClassName = modelClassName.replaceFirst(classModelName+".", "");
       }
-      
+
       // no creation code yet. Insert it.
       currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
 
