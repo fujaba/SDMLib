@@ -663,8 +663,6 @@ public class GenClassModel
 
 	      StackTraceElement secondStackTraceElement = stackTrace[1];
 	      String className = secondStackTraceElement.getClassName();
-	      String methodName = secondStackTraceElement.getMethodName();
-	      int callMethodLineNumber = secondStackTraceElement.getLineNumber();
 	      
 	      Clazz modelCreationClass = getOrCreateClazz(className);
 	      modelCreationClass.getClassModel().without(modelCreationClass);
@@ -1534,7 +1532,7 @@ public class GenClassModel
       TreeSet<Role> roles = new TreeSet<Role>(new Comparator<Role>() {
 			@Override
 			public int compare(Role o1, Role o2) {
-				return o1.getName().compareTo(o2.getName());
+				return o1.getPartnerRole().getName().compareTo(o2.getPartnerRole().getName());
 			}
 		  
 	  });
@@ -1590,12 +1588,15 @@ public class GenClassModel
          else
             secondRole = assoc.getSource();
 
-         String secondClassName = secondRole.getClazz().getFullName();
+
+
+        	 String secondClassName = secondRole.getClazz().getFullName();
+         
 
          if (handledClazzes.containsKey(secondClassName) && !handledRoles.contains(secondRole) )
          {
         	handledAssocs.add(assoc);
-            handledRoles.add(firstRole);
+        	handledRoles.add(firstRole);
             currentInsertPos = insertCreationAssociationCode(assoc, currentInsertPos, modelCreationClass, symTabEntry);
          }
 
@@ -1845,14 +1846,26 @@ public class GenClassModel
       StringBuilder text = new StringBuilder(
             "\n      sourceClazz.withAssoc(targetClazz, \"targetName\", targetCard, \"sourceName\", sourceCard);\n");
 
-      String sourceCard = "Card." + assoc.getSource().getCard().toUpperCase();
-      String sourceName = assoc.getSource().getName();
-      String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getFullName())) + "Class";
+      Role source = assoc.getSource();
+      Role target = assoc.getTarget();
+      
+      if(source.getName().compareTo(target.getName())<1) {
+        	 Role tempRole = source;
+        	 source = target;
+        	 target = tempRole;
+      }
+      
+      
+      String sourceCard = "Card." + source.getCard().toUpperCase();
+      String sourceName = source.getName();
+      String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(source.getClazz().getFullName())) + "Class";
 
-      String targetCard = "Card." + assoc.getTarget().getCard().toUpperCase();
-      String targetName = assoc.getTarget().getName();
-      String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getFullName())) + "Class";
+      String targetCard = "Card." + target.getCard().toUpperCase();
+      String targetName = target.getName();
+      String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(target.getClazz().getFullName())) + "Class";
 
+      
+      
       CGUtil.replaceAll(text, 
             "sourceName", sourceName, 
             "sourceClazz", sourceClazz, 
