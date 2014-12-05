@@ -127,7 +127,7 @@ public class Javascript implements GuiAdapter
 	      
       for (Clazz clazz : model.getClasses())
       {
-    	  GraphClazz node = new GraphClazz().withId(CGUtil.shortClassName(clazz.getName()));
+    	  GraphClazz node = new GraphClazz().withClassName(CGUtil.shortClassName(clazz.getName()));
          
          // Attributes
          for (Attribute attr : clazz.getAttributes())
@@ -151,8 +151,8 @@ public class Javascript implements GuiAdapter
     	 Role source = assoc.getSource();
          Role target = assoc.getTarget();
          
-         GraphEdge sourceEdge = new GraphEdge().with(GraphCardinality.valueOf(source.getCard()));
-         GraphEdge targetEdge = new GraphEdge().with(GraphCardinality.valueOf(target.getCard()));
+         GraphEdge sourceEdge = new GraphEdge().with(GraphCardinality.create(source.getCard()));
+         GraphEdge targetEdge = new GraphEdge().with(GraphCardinality.create(target.getCard()));
          sourceEdge.with(targetEdge);
          
          
