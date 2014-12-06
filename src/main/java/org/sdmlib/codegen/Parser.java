@@ -58,6 +58,8 @@ public class Parser
 
    public static final String IMPORT = "import";
 
+   public static final String CLASS_BODY = "classBody";
+
    public static final String CLASS_END = "classEnd";
 
    public static final String NAME_TOKEN = "nameToken";
@@ -186,9 +188,10 @@ public class Parser
       return methodBodyStartPos;
    }
 
-   public void insert(int offset, String text){
+   public int insert(int offset, String text){
       this.fileBody.insert(offset, text);
       this.fileBodyHasChanged = true;
+      return offset+ text.length();
    }
    
    public int search(String searchText, int pos){
@@ -433,6 +436,7 @@ public class Parser
    {
       // { classBodyDecl* }
       skip("{");
+      checkSearchStringFound(CLASS_BODY, currentRealToken.startPos);
       while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
       {
          parseMemberDecl();

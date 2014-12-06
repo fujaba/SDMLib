@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,7 +18,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -652,6 +654,56 @@ public class GenClassModel
       return model;
    }
    
+   public void insertModelCreationCodeHere(String rootDir, String newMethod)
+   {
+	   StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+
+	      StackTraceElement firstStackTraceElement = stackTrace[0];
+	      String callMethodName = firstStackTraceElement.getMethodName();
+
+	      StackTraceElement secondStackTraceElement = stackTrace[1];
+	      String className = secondStackTraceElement.getClassName();
+	      
+	      Clazz modelCreationClass = getOrCreateClazz(className);
+	      modelCreationClass.getClassModel().without(modelCreationClass);
+	      GenClass modelCreationGenerator = getOrCreate(modelCreationClass);
+	      Parser modelCreationParser = modelCreationGenerator.getOrCreateParser(rootDir);
+	      modelCreationParser.indexOf(Parser.CLASS_END);
+
+	      String signature = Parser.METHOD + ":" + newMethod + "(";
+	      ArrayList<SymTabEntry> symTabEntriesFor = modelCreationParser.getSymTabEntriesFor(signature);
+	      int currentInsertPos = modelCreationParser.indexOf(Parser.CLASS_BODY); 
+
+	      if(symTabEntriesFor.size() < 1) {   
+	      
+//	      int currentInsertPos = symTabEntry.getEndPos()  + 2;
+    	  	currentInsertPos = modelCreationParser.insert(currentInsertPos, "      @Test\n      public void "+newMethod+"() {\n"
+    	  																							+ "      	ClassModel clazzModel = new ClassModel(\""+ model.getName()+"\");\n");
+    	  	modelCreationParser.insert(currentInsertPos, "      }\n");
+
+	      }
+	      else {
+	    	  SymTabEntry symTabEntry = symTabEntriesFor.get(0);  
+	    	  currentInsertPos = symTabEntry.getBodyStartPos() +2;
+	      }
+	      
+    	  modelCreationParser.indexOf(Parser.CLASS_END);
+    	  
+    	  
+    	  TreeSet<Clazz> sortedClazz=new TreeSet<Clazz>(new Comparator<Clazz>() {
+			@Override
+			public int compare(Clazz o1, Clazz o2) {
+				return o1.getFullName().compareTo(o2.getFullName());
+			}
+    		  
+    	  });
+          currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir, sortedClazz);
+          
+          completeImports();
+          
+          writeToFile(modelCreationClass);
+	      
+   }
    public void insertModelCreationCodeHere(String rootDir)
    {
 //      String fileName = null;
@@ -672,6 +724,7 @@ public class GenClassModel
 //      fileName = secondStackTraceElement.getFileName();
       className = secondStackTraceElement.getClassName();
       methodName = secondStackTraceElement.getMethodName();
+
       int callMethodLineNumber = secondStackTraceElement.getLineNumber();
 
 
@@ -697,18 +750,24 @@ public class GenClassModel
       // insert code
       int currentInsertPos = modelCreationParser.methodCallIndexOf(Parser.NAME_TOKEN + ":model",
          symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
-      currentInsertPos = modelCreationParser.indexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos + 1,
-         symTabEntry.getEndPos() - 1) + 1;
-
+      
+      if (currentInsertPos > 0) {
+    	  currentInsertPos = modelCreationParser.indexOfInMethodBody(Parser.NAME_TOKEN + ":;", currentInsertPos + 1,
+    			  symTabEntry.getEndPos() - 1) + 1; 
+      } else {
+    	  currentInsertPos = symTabEntry.getBodyStartPos()  + 2;
+    	  currentInsertPos = modelCreationParser.insert(currentInsertPos, "      ClassModel clazzModel = new ClassModel(\""+ model.getName()+"\");");
+      }
       
       currentInsertPos = completeCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir);
-
+      
       currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir);
       
       completeImports();
-
+      
       writeToFile(modelCreationClass);
    }
+   
    
    private void completeImports()
    {
@@ -1389,6 +1448,12 @@ public class GenClassModel
    {
 
       String modelClassName = clazz.getFullName();
+      String classModelName = clazz.getClassModel().getName();
+      
+      if (modelClassName.startsWith(classModelName)) {
+    	  modelClassName = modelClassName.replaceFirst(classModelName+".", "");
+      }
+
       // no creation code yet. Insert it.
       currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
 
@@ -1415,7 +1480,21 @@ public class GenClassModel
 
       // insert code for new Attr()
       AttributeSet clazzAttributes = clazz.getAttributes();
+      
+      TreeSet<Attribute> sortedAttributes = new TreeSet<Attribute>(new Comparator<Attribute>() {
+			@Override
+			public int compare(Attribute o1, Attribute o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+  		  
+  	  });
+      
       for (Attribute attribute : clazzAttributes)
+      {
+    	  sortedAttributes.add(attribute);
+      }
+          
+      for (Attribute attribute : sortedAttributes)
       {
          if ( !"PropertyChangeSupport".equals(attribute.getType())) {
             currentInsertPos = insertCreationAttributeCode(attribute,
@@ -1428,16 +1507,44 @@ public class GenClassModel
 
       // insert code for new Method()
       MethodSet methods = clazz.getMethods();
-      for (Method method : methods)
+      
+      TreeSet<Method> sortedMethods = new TreeSet<Method>(new Comparator<Method>() {
+			@Override
+			public int compare(Method o1, Method o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		  
+	  });
+    
+    for (Method method : methods)
+    {
+    	sortedMethods.add(method);
+    }
+      
+      
+      for (Method method : sortedMethods)
       {
          currentInsertPos = insertCreationMethodCode(method, currentInsertPos, modelCreationClass, symTabEntry);
       }
 
       // insert code for new Assoc
-      LinkedHashSet<Role> roles = new LinkedHashSet<Role>();
+//      LinkedHashSet<Role> roles = new LinkedHashSet<Role>();
+      TreeSet<Role> roles = new TreeSet<Role>(new Comparator<Role>() {
+			@Override
+			public int compare(Role o1, Role o2) {
+				return o1.getPartnerRole().getName().compareTo(o2.getPartnerRole().getName());
+			}
+		  
+	  });
+      
 
-      if (!clazz.getRoles().isEmpty())
-         roles.addAll(clazz.getRoles());
+      if (!clazz.getRoles().isEmpty()){
+
+    	 for (Role role : clazz.getRoles())
+         {
+        	 roles.add(role);
+         }
+      }
 
       currentInsertPos = handleAssocs(roles, currentInsertPos, modelCreationClass, symTabEntry, handledClazzes);
 
@@ -1460,7 +1567,7 @@ public class GenClassModel
 //   }
    
 
-   private int handleAssocs(LinkedHashSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
+   private int handleAssocs(TreeSet<Role> roles, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry, LinkedHashMap<String, Clazz> handledClazzes)
    {
       ArrayList<Association> handledAssocs = new ArrayList<Association>();
       ArrayList<Role> handledRoles = new ArrayList<Role>();
@@ -1473,7 +1580,6 @@ public class GenClassModel
          {
             continue;
          }
-         handledAssocs.add(assoc);
 
          Role secondRole;
 
@@ -1482,11 +1588,15 @@ public class GenClassModel
          else
             secondRole = assoc.getSource();
 
-         String secondClassName = secondRole.getClazz().getFullName();
+
+
+        	 String secondClassName = secondRole.getClazz().getFullName();
+         
 
          if (handledClazzes.containsKey(secondClassName) && !handledRoles.contains(secondRole) )
          {
-            handledRoles.add(firstRole);
+        	handledAssocs.add(assoc);
+        	handledRoles.add(firstRole);
             currentInsertPos = insertCreationAssociationCode(assoc, currentInsertPos, modelCreationClass, symTabEntry);
          }
 
@@ -1494,26 +1604,27 @@ public class GenClassModel
       }
       return currentInsertPos;
    }
+
+   private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
+	         int currentInsertPos, String rootDir)  {
+	   return insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir, new LinkedHashSet<Clazz>());
+   }
    
    private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
-         int currentInsertPos, String rootDir)
-   {
-
+         int currentInsertPos, String rootDir, 	Set<Clazz> clazzQueue)  {
+ 
       // find last creation code position
-      
-      
-      Queue<Clazz> clazzQueue = new LinkedList<Clazz>(); 
-
       for (Clazz clazz : model.getClasses())
       {
-         clazzQueue.offer(clazz);
+         clazzQueue.add(clazz);
       }
 
       boolean format = false;
 
       while (!clazzQueue.isEmpty())
       {
-         Clazz clazz  = clazzQueue.poll();
+         Clazz clazz  = clazzQueue.iterator().next();
+         clazzQueue.remove(clazz);
 
          String modelClassName = clazz.getFullName();
          
@@ -1527,7 +1638,7 @@ public class GenClassModel
          {
             // insert code for new Clazz()
             if (!checkDependencies(clazz)) {
-               clazzQueue.offer(clazz);
+               clazzQueue.add(clazz);
             }
             else
             {
@@ -1592,6 +1703,7 @@ public class GenClassModel
          
          if ("ClassModel".equals(localVarTableEntry.getType()) ) {
             String classmodelName = localVarTableEntry.getName();
+                        
             CGUtil.replaceAll(text,"clazzModel", classmodelName);
             break;
          }
@@ -1685,7 +1797,7 @@ public class GenClassModel
       }
       
       
-      StringBuilder result = parser.replaceAll(currentInsertPos, "\n" +
+      StringBuilder result = parser.replaceAll(currentInsertPos-2, "\n" +
                   "      .withMethod(\"METHODNAME\", Return_TypePARAMETERS)",
                   "Return_Type", method.getReturnType().toString(),
                   "PARAMETERS", paString.toString(),
@@ -1734,14 +1846,26 @@ public class GenClassModel
       StringBuilder text = new StringBuilder(
             "\n      sourceClazz.withAssoc(targetClazz, \"targetName\", targetCard, \"sourceName\", sourceCard);\n");
 
-      String sourceCard = "Card." + assoc.getSource().getCard().toUpperCase();
-      String sourceName = assoc.getSource().getName();
-      String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getSource().getClazz().getFullName())) + "Class";
+      Role source = assoc.getSource();
+      Role target = assoc.getTarget();
+      
+      if(source.getName().compareTo(target.getName())<1) {
+        	 Role tempRole = source;
+        	 source = target;
+        	 target = tempRole;
+      }
+      
+      
+      String sourceCard = "Card." + source.getCard().toUpperCase();
+      String sourceName = source.getName();
+      String sourceClazz = StrUtil.downFirstChar(CGUtil.shortClassName(source.getClazz().getFullName())) + "Class";
 
-      String targetCard = "Card." + assoc.getTarget().getCard().toUpperCase();
-      String targetName = assoc.getTarget().getName();
-      String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(assoc.getTarget().getClazz().getFullName())) + "Class";
+      String targetCard = "Card." + target.getCard().toUpperCase();
+      String targetName = target.getName();
+      String targetClazz = StrUtil.downFirstChar(CGUtil.shortClassName(target.getClazz().getFullName())) + "Class";
 
+      
+      
       CGUtil.replaceAll(text, 
             "sourceName", sourceName, 
             "sourceClazz", sourceClazz, 
