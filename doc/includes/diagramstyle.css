@@ -15,6 +15,29 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	vertical-align: middle;
+	text-align:center;
+}
+
+.ClassEditorError{
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	color: #f00;
+	border-color: #f00;
+	border-style: solid;
+	box-shadow: inset 0 3px 4px #888;
+	vertical-align: middle;
+	text-align:center;
+}
+.ClassEditorOk{
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	color: #009B00;
+	border-color: #009B00;
+	border-style: solid;
+	box-shadow: inset 0 3px 4px #888;
 }
 .Toolbar {
 	background : #F4F4F4;
@@ -26,6 +49,24 @@
 	border-right: 1px solid #999999;
 	position:fixed;
 	bottom:6px;
+}
+.ChoiceBox{
+	position:absolute;
+	height:80px;
+	border:1px solid black;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.ChoiceBox div{
+	height:20px;
+	width:100%;
+	cursor:pointer;
+}
+.ChoiceBox div.alt{
+	background:#F5F5F5;
+}
+.ChoiceBox div:hover{
+	background:#8EB8FD;
 }
 
 .classdiagram{
@@ -63,12 +104,14 @@
 	padding-left:10px;
 	padding-right:10px;
 	text-align:left;
+	vertical-align:top;
 }
 .classElement .attributes{
 	margin-left:10px;
 	padding-left:10px;
 	padding-right:10px;
 	text-align:left;
+	vertical-align:top;
 }
 
 .objectElement{
@@ -185,3 +228,4 @@
 	opacity:0.50;
 	fill:#ddd;
 }
+
