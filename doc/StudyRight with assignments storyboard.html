@@ -80,9 +80,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
             "id=4242",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "done=null",
-            "friends=null"
+            "credits=0"
          ]
       },
       {
@@ -91,8 +89,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
@@ -101,10 +98,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "attributes":[
          "name=7522",
             "topic=arts",
-            "credits=16",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=16"
          ]
       },
       {
@@ -113,10 +107,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=25"
          ]
       },
       {
@@ -125,10 +116,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "attributes":[
          "name=The End",
             "topic=exam",
-            "credits=0",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=0"
          ]
       },
       {
@@ -137,37 +125,31 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "attributes":[
          "name=7422",
             "topic=Software Engineering",
-            "credits=42",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=42"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A1 : Assignment",
+         "id":"A1 : Assignment",
          "attributes":[
          "content=Matrix Multiplication",
-            "points=5",
-            "students=null"
+            "points=5"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A2 : Assignment",
+         "id":"A2 : Assignment",
          "attributes":[
          "content=Series",
-            "points=6",
-            "students=null"
+            "points=6"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A3 : Assignment",
+         "id":"A3 : Assignment",
          "attributes":[
          "content=Integrals",
-            "points=8",
-            "students=null"
+            "points=8"
          ]
       }
    ],
@@ -338,7 +320,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -351,7 +333,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -364,7 +346,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
@@ -580,7 +562,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -593,7 +575,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -606,7 +588,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -637,9 +619,7 @@ Karli's motivation is reduced by 5 points to now 209.
             "id=4242",
             "assignmentPoints=5",
             "motivation=0",
-            "credits=0",
-            "university=null",
-            "friends=null"
+            "credits=0"
          ]
       },
       {
@@ -648,15 +628,12 @@ Karli's motivation is reduced by 5 points to now 209.
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "university=null",
-            "doors=null",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A1 : Assignment",
+         "id":"A1 : Assignment",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -664,204 +641,7 @@ Karli's motivation is reduced by 5 points to now 209.
       },
       {
          "typ":"node",
-         "id":"d.A2 : Assignment",
-         "attributes":[
-         "content=Series",
-            "points=6",
-            "students=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A3 : Assignment",
-         "attributes":[
-         "content=Integrals",
-            "points=8",
-            "students=null"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"d.A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A1 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A1 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A2 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A3 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
-Thus Karli has 11 points now. Motivation is reduced to 203.
-</p>
-<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
-      karli.withDone(a2);
-</pre><script>
-   var json = {
-   "typ":"objectdiagram",
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"karli : Student",
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=11",
-            "motivation=0",
-            "credits=0",
-            "university=null",
-            "friends=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"mathRoom : Room",
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17",
-            "university=null",
-            "doors=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A1 : Assignment",
-         "attributes":[
-         "content=Matrix Multiplication",
-            "points=5"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A2 : Assignment",
+         "id":"A2 : Assignment",
          "attributes":[
          "content=Series",
             "points=6"
@@ -869,229 +649,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       },
       {
          "typ":"node",
-         "id":"d.A3 : Assignment",
-         "attributes":[
-         "content=Integrals",
-            "points=8",
-            "students=null"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"d.A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"student",
-            "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"d.A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A1 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A1 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A2 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A2 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A3 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<p>4. Karli does the third assignment on Integrals, earns <br>
-another 8 points and thus Karli has now 19 points and a motivation of 195.
-</p>
-<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-      karli.withDone(a3);
-</pre><script>
-   var json = {
-   "typ":"objectdiagram",
-   "nodes":[
-   {
-         "typ":"node",
-         "id":"karli : Student",
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=19",
-            "motivation=0",
-            "credits=0",
-            "university=null",
-            "friends=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"mathRoom : Room",
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17",
-            "university=null",
-            "doors=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A1 : Assignment",
-         "attributes":[
-         "content=Matrix Multiplication",
-            "points=5"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A2 : Assignment",
-         "attributes":[
-         "content=Series",
-            "points=6"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A3 : Assignment",
+         "id":"A3 : Assignment",
          "attributes":[
          "content=Integrals",
             "points=8"
@@ -1122,7 +680,184 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A1 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A2 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A1 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A1 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A2 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A3 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
+Thus Karli has 11 points now. Motivation is reduced to 203.
+</p>
+<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
+      karli.withDone(a2);
+</pre><script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"karli : Student",
+         "attributes":[
+         "name=Karli",
+            "id=4242",
+            "assignmentPoints=11",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"mathRoom : Room",
+         "attributes":[
+         "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A1 : Assignment",
+         "attributes":[
+         "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A2 : Assignment",
+         "attributes":[
+         "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A3 : Assignment",
+         "attributes":[
+         "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"mathRoom : Room"
          }
       },
       {
@@ -1135,7 +870,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A2 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -1148,7 +883,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A3 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -1174,7 +909,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -1187,7 +922,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -1200,7 +935,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
@@ -1208,7 +943,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -1221,7 +956,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -1234,7 +969,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -1247,7 +982,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -1260,7 +995,184 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasStudyRight with assignments storyboard10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>4. Karli does the third assignment on Integrals, earns <br>
+another 8 points and thus Karli has now 19 points and a motivation of 195.
+</p>
+<pre>      karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
+      karli.withDone(a3);
+</pre><script>
+   var json = {
+   "typ":"objectdiagram",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"karli : Student",
+         "attributes":[
+         "name=Karli",
+            "id=4242",
+            "assignmentPoints=19",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"mathRoom : Room",
+         "attributes":[
+         "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A1 : Assignment",
+         "attributes":[
+         "content=Matrix Multiplication",
+            "points=5"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A2 : Assignment",
+         "attributes":[
+         "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A3 : Assignment",
+         "attributes":[
+         "content=Integrals",
+            "points=8"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A1 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A2 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"student",
+            "id":"karli : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A1 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A2 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -1273,7 +1185,59 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A3 : Assignment"
+            "id":"A1 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A2 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A2 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A3 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -1308,9 +1272,7 @@ the credit points, the credit points will be awarded to the student.)</p>
             "id=4242",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=17",
-            "university=null",
-            "friends=null"
+            "credits=17"
          ]
       },
       {
@@ -1319,15 +1281,12 @@ the credit points, the credit points will be awarded to the student.)</p>
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "university=null",
-            "doors=null",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A1 : Assignment",
+         "id":"A1 : Assignment",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -1335,7 +1294,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       },
       {
          "typ":"node",
-         "id":"d.A2 : Assignment",
+         "id":"A2 : Assignment",
          "attributes":[
          "content=Series",
             "points=6"
@@ -1343,7 +1302,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       },
       {
          "typ":"node",
-         "id":"d.A3 : Assignment",
+         "id":"A3 : Assignment",
          "attributes":[
          "content=Integrals",
             "points=8"
@@ -1374,7 +1333,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -1387,7 +1346,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -1400,7 +1359,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
@@ -1426,7 +1385,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -1439,7 +1398,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -1452,7 +1411,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
@@ -1460,7 +1419,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -1473,7 +1432,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -1486,7 +1445,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -1499,7 +1458,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -1512,7 +1471,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -1525,7 +1484,7 @@ the credit points, the credit points will be awarded to the student.)</p>
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"many",

@@ -28,9 +28,13 @@ Pos = function(x, y, id) {this.x = x || 0; this.y = y || 0; if(id){this.id = id;
 
 /* Info */
 Info = function(info, parent, edge) { 
-	this.property = info.property; 
-	this.cardinality = info.cardinality; 
-	this.id = info.id; 
+	if(typeof(info)==="string"){
+		this.id = info; 
+	}else{
+		this.property = info.property; 
+		this.cardinality = info.cardinality; 
+		this.id = info.id; 
+	}
 	this.typ = "Info";
 	this.x = this.y = this.width = this.height = 0;
 	this.center=new Pos();
@@ -58,11 +62,7 @@ Options = function(){
 }
 
 /* Node */
-GraphNode = function(id) {
-	this.init();
-	this.typ = "node";
-	this.id = id;
-}
+GraphNode = function(id) { this.init();this.typ = "node";this.id = id;}
 GraphNode.prototype.init = function() {
 	this.x = this.y = this.width = this.height=0;
 	this.edges = [];
@@ -71,29 +71,24 @@ GraphNode.prototype.init = function() {
 	this.RIGHT = this.LEFT = this.UP = this.DOWN=0;
 	this.isdraggable = true;
 };
-
-GraphNode.prototype.removeFromBoard = function(board){
-	if(this.htmlNode){
-		board.removeChild(this.htmlNode);
-		this.htmlNode = null;
+GraphNode.prototype.bind = function(el, eventName, eventHandler) {
+	if (el.addEventListener){
+		el.addEventListener(eventName, eventHandler, false); 
+	} else if (el.attachEvent){
+		el.attachEvent('on'+eventName, eventHandler);
 	}
-};
+}
+GraphNode.prototype.removeFromBoard = function(board){if(this.htmlNode){board.removeChild(this.htmlNode);this.htmlNode = null;}};
 GraphNode.prototype.getX = function(){
-	if(this._parent){
-		return this.x + this._parent.getX();
-	}
+	if(this._parent){return this.x + this._parent.getX();}
 	return this.x;
 };
 GraphNode.prototype.getY = function(){
-	if(this._parent){
-		return this.y + this._parent.getY();
-	}
+	if(this._parent){return this.y + this._parent.getY();}
 	return this.y;
 };
 GraphNode.prototype.getRoot = function() {
-	if(this._parent){
-		return this._parent.getRoot();
-	}
+	if(this._parent){return this._parent.getRoot();}
 	return this;
 }
 
@@ -105,7 +100,8 @@ Graph = function(json, options) {
 	this.nodeCount=0;
 	this.nodes = {};
 	this.edges = [];
-	this.typ = json.typ;
+	json = json || {};
+	this.typ = json.typ || "classdiagram";
 	this.initLayouts();
 	if(json.info){
 		this.info = json.info;
@@ -142,22 +138,24 @@ Graph = function(json, options) {
 		for (var i = 0; i < json.edges.length; i++){
 			var e = json.edges[i];
 			var edge;
-			if(e.typ.toLowerCase()=="generalisation"){
-				edge = new Generalisation();
-			}else if(e.typ.toLowerCase()=="implements"){
-				edge = new Implements();
-			}else{
+			var typ=e.typ.charAt(0).toUpperCase()+e.typ.substring(1).toLowerCase();
+			if(typeof window[typ] === "function") {
+				edge = eval("new "+typ+"()");
+			}else {
 				edge = new Edge();
 			}
-			edge.source = this.getNode(e.source.id);
-			edge.info = e.info;
-			edge.style = e.style;
 			edge.sourceInfo = new Info(e.source, this, edge);
 			edge.targetInfo = new Info(e.target, this, edge);
+			edge.source = this.getNode(edge.sourceInfo.id);
+			edge.info = e.info;
+			edge.style = e.style;
 			edge.source.edges.push(edge);
 			edge.model = this;
+			if(e.counter) {
+				edge.counter = e.counter;
+			}
 
-			edge.target = this.getNode(e.target.id);
+			edge.target = this.getNode(edge.targetInfo.id);
 			edge.target.edges.push(edge);
 			this.edges.push(edge);
 		}
@@ -204,7 +202,7 @@ Graph.prototype.merge = function(ref, src, full) {
 Graph.prototype.copy = function(source, target){
 	this.merge(target, source);
 	if(source.width){target.startWidth = source.width;}
-	if(source.height){node.startHeight = node.height;}
+	if(source.height){target.startHeight = source.height;}
 	return target;
 };
 Graph.prototype.initGraph = function(){
@@ -496,14 +494,14 @@ Graph.prototype.initDragAndDrop = function(){
 	this.offset= new Pos();
 	this.startObj= new Pos();
 	var that = this;
-	bindEvent(this.board, "mousemove", function(e){that.doDrag(e);});
-	bindEvent(this.board, "mouseup", function(e){that.stopDrag(e);});
-	bindEvent(this.board, "mouseout", function(e){that.stopDrag(e);});
+	this.bind(this.board, "mousemove", function(e){that.doDrag(e);});
+	this.bind(this.board, "mouseup", function(e){that.stopDrag(e);});
+	this.bind(this.board, "mouseout", function(e){that.stopDrag(e);});
 };
 Graph.prototype.addNodeLister = function(element, node){
 	var that = this;
 	element.node = node;
-	bindEvent(element, "mousedown", function(e){that.startDrag(e);});
+	this.bind(element, "mousedown", function(e){that.startDrag(e);});
 };
 Graph.prototype.showinfo = function(event){
 	var objElem = event.currentTarget;
@@ -955,7 +953,7 @@ Edge.prototype.calculate = function(board, drawer){
 	this.source.center = new Pos(this.source.getX() + (this.source.width / 2), this.source.getY() + (this.source.height / 2));
 	this.target.center = new Pos(this.target.getX() + (this.target.width / 2), this.target.getY() + (this.target.height / 2));
 	return this.calcCenterLine();
-}
+}//FIXME
 Edge.prototype.draw = function(board, drawer){
 	for(var i=0;i<this.path.length;i++){
 		var p = this.path[i];
@@ -964,7 +962,6 @@ Edge.prototype.draw = function(board, drawer){
 	var options = drawer.model.options;
 	this.drawSourceText(board, drawer, options);
 	if(this.info) {
-		
 		var angle = Math.atan((p.source.y-p.target.y)/(p.source.x-p.target.x))*60;
 		this.addElement(board, drawer.createInfo(this.infoPos, false, this.info, angle));
 		this.addElement(board, new SymbolLibary().create({typ:"Arrow",x:this.infoPos.x,y:this.infoPos.y, rotate:angle}, drawer));
@@ -1060,7 +1057,7 @@ Edge.prototype.getCenterPosition = function(node, pos, offset){
 Edge.prototype.getInfo = function(info){
 	var infoTxt = "";
 	var isCardinality = this.model.typ=="classdiagram" && this.model.options.CardinalityInfo;
-	var isProperty = this.model.typ=="classdiagram" && this.model.options.PropertyInfo;
+	var isProperty = this.model.options.PropertyInfo;
 
 	if(isProperty && info.property){
 		infoTxt = info.property;
@@ -1075,6 +1072,10 @@ Edge.prototype.getInfo = function(info){
 			infoTxt += "0..*";
 		}
 	}
+	if(info.edge.counter && info.edge.counter>0) {
+		infoTxt +=" ("+info.edge.counter+")";
+	}
+
 	return infoTxt;
 }
 Edge.prototype.calcOwnEdge = function(){
@@ -1271,59 +1272,87 @@ Edge.prototype.getPosition= function(m , n, entity, refCenter, offset){
 	}
 	return position;
 };
-Generalisation = function() { this.init();this.typ="Generalisation";};
-Generalisation.prototype = Object_create(Edge.prototype);
-Generalisation.prototype.constructor = Generalisation;
-Generalisation.prototype.initEdge = Generalisation.prototype.init;
-Generalisation.prototype.init =function(){ this.initEdge(); this.size=16;this.angle = 50; }
-Generalisation.prototype.calculateEdge = Generalisation.prototype.calculate;
-Generalisation.prototype.calculate = function(board, drawer){
+Edge.prototype.calcMoveLine = function(size, angle, move){
+	var startArrow	= this.endPos().source;
+	this.end = this.endPos().target;
+	// calculate the angle of the line
+	var lineangle=Math.atan2(this.end.y-startArrow.y,this.end.x-startArrow.x);
+	// h is the line length of a side of the arrow head
+	var h=Math.abs(size/Math.cos(angle));
+	var angle1=lineangle+Math.PI+angle;
+	var hCenter=Math.abs((size/2)/Math.cos(angle));
+
+	this.top = new Pos(this.end.x+Math.cos(angle1)*h, this.end.y+Math.sin(angle1)*h);
+	this.topCenter = new Pos(this.end.x+Math.cos(angle1)*hCenter, this.end.y+Math.sin(angle1)*hCenter);
+	var angle2=lineangle+Math.PI-angle;
+	this.bot = new Pos(this.end.x+Math.cos(angle2)*h, this.end.y+Math.sin(angle2)*h);
+	this.botCenter = new Pos(this.end.x+Math.cos(angle2)*hCenter, this.end.y+Math.sin(angle2)*hCenter);
+	if(move) {
+		this.endPos().target = new Pos((this.top.x + this.bot.x) / 2, (this.top.y + this.bot.y) / 2);
+	}
+}
+Generalization = function() { this.init();this.typ="Generalization";};
+Generalization.prototype = Object_create(Edge.prototype);
+Generalization.prototype.calculateEdge = Generalization.prototype.calculate;
+Generalization.prototype.calculate = function(board, drawer){
 	if(!this.calculateEdge(board, drawer)){
 		return false;
 	}
-
-	var startArrow	= this.endPos().source;
-	var targetArrow	= this.endPos().target;
-	// calculate the angle of the line
-	var lineangle=Math.atan2(targetArrow.y-startArrow.y,targetArrow.x-startArrow.x);
-	// h is the line length of a side of the arrow head
-	var h=Math.abs(this.size/Math.cos(this.angle));
-	var angle1=lineangle+Math.PI+this.angle;
-	this.top = new Pos(targetArrow.x+Math.cos(angle1)*h, targetArrow.y+Math.sin(angle1)*h);
-	var angle2=lineangle+Math.PI-this.angle;
-	this.bot = new Pos(targetArrow.x+Math.cos(angle2)*h, targetArrow.y+Math.sin(angle2)*h);
-	var pos = new Pos((this.top.x + this.bot.x) / 2, (this.top.y + this.bot.y) / 2);
-	this.end = this.path[this.path.length-1].target;
-	this.endPos().target = pos;
+	this.calcMoveLine(16, 50, true);
 	return true;
 };
-Generalisation.prototype.drawSuper = Generalisation.prototype.draw;
-Generalisation.prototype.draw = function(board, drawer){
+Generalization.prototype.drawSuper = Generalization.prototype.draw;
+Generalization.prototype.draw = function(board, drawer){
 	this.drawSuper(board, drawer);
 	this.addElement(board, drawer.createLine(this.top.x, this.top.y, this.end.x, this.end.y, this.lineStyle));
 	this.addElement(board, drawer.createLine(this.bot.x, this.bot.y, this.end.x, this.end.y, this.lineStyle));
 	this.addElement(board, drawer.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y, this.lineStyle));
 };
-Generalisation.prototype.drawSourceText = function(board, drawer, options){};
-Generalisation.prototype.drawTargetText = function(board, drawer, options){};
+Generalization.prototype.drawSourceText = function(board, drawer, options){};
+Generalization.prototype.drawTargetText = function(board, drawer, options){};
 
-Implements = function() { this.init();this.typ="Implements";}
-Implements.prototype = Object_create(Generalisation.prototype);
-Implements.prototype.constructor = Implements;
-Implements.prototype.initGeneralisation = Implements.prototype.init;
-Implements.prototype.init =function(){
-	this.initGeneralisation();
-	this.lineStyle = Line.Format.DOTTED;
-}
+Implements = function() { this.init();this.typ="Implements";this.lineStyle = Line.Format.DOTTED;}
+Implements.prototype = Object_create(Generalization.prototype);
 
-String.prototype.endsWith = function(suffix) {return this.indexOf(suffix, this.length - suffix.length) !== -1;};
-
-function bindEvent(el, eventName, eventHandler) {
-	if (el.addEventListener){
-		el.addEventListener(eventName, eventHandler, false); 
-	} else if (el.attachEvent){
-		el.attachEvent('on'+eventName, eventHandler);
+Unidirectional = function() { this.init();this.typ="Unidirectional";}
+Unidirectional.prototype = Object_create(Generalization.prototype);
+Unidirectional.prototype.calculate = function(board, drawer){
+	if(!this.calculateEdge(board, drawer)){
+		return false;
 	}
+	this.calcMoveLine(16, 50, false);
+	return true;
+};
+Unidirectional.prototype.draw = function(board, drawer){
+	this.drawSuper(board, drawer);
+	this.addElement(board, drawer.createLine(this.top.x, this.top.y, this.end.x, this.end.y, this.lineStyle));
+	this.addElement(board, drawer.createLine(this.bot.x, this.bot.y, this.end.x, this.end.y, this.lineStyle));
+}
+Aggregation = function() { this.init();this.typ="Aggregation";}
+Aggregation.prototype = Object_create(Generalization.prototype);
+Aggregation.prototype.calculate = function(board, drawer){
+	if(!this.calculateEdge(board, drawer)){
+		return false;
+	}
+	this.size=16;
+	this.calcMoveLine(this.size, 49.8, true);
+	return true;
+};
+Aggregation.prototype.draw = function(board, drawer){
+	this.drawSuper(board, drawer);
+	this.addElement(board, drawer.createPath(true, "none", [this.endPos().target, this.topCenter, this.end, this.botCenter]));
+}
+Composition = function() { this.init();this.typ="Composition";}
+Composition.prototype = Object_create(Aggregation.prototype);
+Composition.prototype.draw = function(board, drawer){
+	this.drawSuper(board, drawer);
+
+	var start    = this.endPos().source;
+	var end = this.endPos().target;
+	var a = (start.y - end.y) / (end.x - start.x);
+	var h = Math.atan(a)*100;
+
+	this.addElement(board, drawer.createPath(true, "#000", [this.endPos().target, this.topCenter, this.end, this.botCenter], h));
 }
 function RGBColor(value){
 	this.ok = false;
@@ -1347,9 +1376,7 @@ RGBColor.prototype.convert = function(value){
 	this.ok = true;
 };
 
-RGBColor.prototype.toRGB = function () {
-	return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';
-};
+RGBColor.prototype.toRGB = function () {return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';};
 RGBColor.prototype.toHex = function () {
 	return "#" 
 	+ (this.r + 0x10000).toString(16).substring(3).toUpperCase() 
