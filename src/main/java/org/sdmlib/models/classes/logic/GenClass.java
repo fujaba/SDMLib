@@ -629,7 +629,11 @@ public class GenClass extends Generator<Clazz>
          String name = model.getFullName();
          int pos = name.lastIndexOf('.');
 
-         String packageName = name.substring(0, pos);
+         
+         String packageName = "";
+         if(pos>=0) {
+        	 packageName = name.substring(0, pos);
+         }
          String fileName = name;
 
          String className = name.substring(pos+1);
