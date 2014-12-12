@@ -43,6 +43,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javafx.application.Platform;
+
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.replication.util.ReplicationChannelSet;
@@ -172,7 +174,18 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
          ChannelMsg channelMsg = new ChannelMsg(channel, msg);
          
-         if (this.listener!=null)
+         if (isJavaFXApplication())
+         {
+            Platform.runLater(new Runnable()
+            {
+               @Override
+               public void run()
+               {
+                  handleMessage(channelMsg);
+               }
+            });
+         }
+         else if (this.listener!=null)
          {
             this.listener.enqueueMsg(this, channelMsg);
          }
