@@ -172,7 +172,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
             }
          }
 
-         ChannelMsg channelMsg = new ChannelMsg(channel, msg);
+         final ChannelMsg channelMsg = new ChannelMsg(channel, msg);
          
          if (isJavaFXApplication())
          {
