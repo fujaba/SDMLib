@@ -19,22 +19,16 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.replication.util;
+package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.replication.BoardTask;
-import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.RemoteTask;
-import org.sdmlib.replication.Task;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.simpleModel.model.Person;
 
-public class RemoteTaskCreator extends EntityFactory
+public class PersonCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      RemoteTask.PROPERTY_BOARDTASK,
-      Task.PROPERTY_LOGENTRIES,
    };
    
    @Override
@@ -46,8 +40,8 @@ public class RemoteTaskCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      throw new UnsupportedOperationException("RemoteTask is abstract");
-   } 
+      return new Person();
+   }
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -58,16 +52,6 @@ public class RemoteTaskCreator extends EntityFactory
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
-      }
-
-      if (RemoteTask.PROPERTY_BOARDTASK.equalsIgnoreCase(attribute))
-      {
-         return ((RemoteTask) target).getBoardTask();
-      }
-
-      if (RemoteTask.PROPERTY_LOGENTRIES.equalsIgnoreCase(attribute))
-      {
-         return ((RemoteTask) target).getLogEntries();
       }
       
       return null;
@@ -80,30 +64,12 @@ public class RemoteTaskCreator extends EntityFactory
       {
          attrName = attrName + type;
       }
-
-      if (RemoteTask.PROPERTY_BOARDTASK.equalsIgnoreCase(attrName))
-      {
-         ((RemoteTask) target).withBoardTask((BoardTask) value);
-         return true;
-      }
-
-      if (RemoteTask.PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
-      {
-         ((RemoteTask) target).withLogEntries((LogEntry) value);
-         return true;
-      }
-      
-      if ((RemoteTask.PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((RemoteTask) target).withoutLogEntries((LogEntry) value);
-         return true;
-      }
       
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.replication.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
@@ -111,6 +77,6 @@ public class RemoteTaskCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((RemoteTask) entity).removeYou();
+      ((Person) entity).removeYou();
    }
 }

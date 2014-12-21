@@ -124,7 +124,7 @@ public class ReplicationModel
       
       Clazz object = model.createClazz(Object.class.getName()).withExternal(true);
       
-      sharedSpaceProxy.withUniDirectionalAssoc(object, "observedObjects", Card.MANY);
+      sharedSpaceProxy.withUniDirectionalAssoc(object, "observedObjects", Card.MANY); 
       
       sharedSpaceProxy.withAssoc(sharedSpaceProxy, "partners", Card.MANY, "partners", Card.MANY);
       
