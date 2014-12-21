@@ -6,6 +6,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.util.SharedSpaceProxyPO;
+import org.sdmlib.replication.SharedSpaceProxy;
+import org.sdmlib.replication.util.ReplicationChannelPO;
 
 public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, ReplicationChannel>
 {
@@ -162,4 +165,38 @@ public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, Re
       return this;
    }
    
+   public SharedSpaceProxyPO hasSharedSpaceProxy()
+   {
+      SharedSpaceProxyPO result = new SharedSpaceProxyPO(new SharedSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationChannel.PROPERTY_SHAREDSPACEPROXY, result);
+      
+      return result;
+   }
+
+   public SharedSpaceProxyPO createSharedSpaceProxy()
+   {
+      return this.startCreate().hasSharedSpaceProxy().endCreate();
+   }
+
+   public ReplicationChannelPO hasSharedSpaceProxy(SharedSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACEPROXY);
+   }
+
+   public ReplicationChannelPO createSharedSpaceProxy(SharedSpaceProxyPO tgt)
+   {
+      return this.startCreate().hasSharedSpaceProxy(tgt).endCreate();
+   }
+
+   public SharedSpaceProxy getSharedSpaceProxy()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ReplicationChannel) this.getCurrentMatch()).getSharedSpaceProxy();
+      }
+      return null;
+   }
+
 }

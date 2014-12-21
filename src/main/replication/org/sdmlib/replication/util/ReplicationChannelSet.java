@@ -30,6 +30,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
 import org.sdmlib.replication.util.SharedSpaceSet;
+import org.sdmlib.replication.util.SharedSpaceProxySet;
+import org.sdmlib.replication.SharedSpaceProxy;
 
 public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
 {
@@ -201,6 +203,54 @@ public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
       for (ReplicationChannel obj : this)
       {
          obj.setTargetNodeId(value);
+      }
+      
+      return this;
+   }
+
+   public SharedSpaceProxySet getSharedSpaceProxy()
+   {
+      SharedSpaceProxySet result = new SharedSpaceProxySet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         result.add(obj.getSharedSpaceProxy());
+      }
+      
+      return result;
+   }
+
+   public ReplicationChannelSet hasSharedSpaceProxy(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ReplicationChannelSet answer = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (neighbors.contains(obj.getSharedSpaceProxy()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ReplicationChannelSet withSharedSpaceProxy(SharedSpaceProxy value)
+   {
+      for (ReplicationChannel obj : this)
+      {
+         obj.withSharedSpaceProxy(value);
       }
       
       return this;

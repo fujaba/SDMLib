@@ -26,6 +26,10 @@ import org.sdmlib.replication.RemoteTask;
 import java.util.Collection;
 import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.replication.BoardTask;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.replication.util.LogEntrySet;
+import org.sdmlib.replication.LogEntry;
 
 public class RemoteTaskSet extends SDMSet<RemoteTask>
 {
@@ -97,6 +101,70 @@ public class RemoteTaskSet extends SDMSet<RemoteTask>
       for (RemoteTask obj : this)
       {
          obj.setBoardTask(value);
+      }
+      
+      return this;
+   }
+
+
+
+   public RemoteTaskPO hasRemoteTaskPO()
+   {
+      return new RemoteTaskPO(this.toArray(new RemoteTask[this.size()]));
+   }
+   public LogEntrySet getLogEntries()
+   {
+      LogEntrySet result = new LogEntrySet();
+      
+      for (RemoteTask obj : this)
+      {
+         result.addAll(obj.getLogEntries());
+      }
+      
+      return result;
+   }
+
+   public RemoteTaskSet hasLogEntries(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      RemoteTaskSet answer = new RemoteTaskSet();
+      
+      for (RemoteTask obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getLogEntries()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public RemoteTaskSet withLogEntries(LogEntry value)
+   {
+      for (RemoteTask obj : this)
+      {
+         obj.withLogEntries(value);
+      }
+      
+      return this;
+   }
+
+   public RemoteTaskSet withoutLogEntries(LogEntry value)
+   {
+      for (RemoteTask obj : this)
+      {
+         obj.withoutLogEntries(value);
       }
       
       return this;

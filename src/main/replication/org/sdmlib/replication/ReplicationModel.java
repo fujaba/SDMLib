@@ -115,6 +115,22 @@ public class ReplicationModel
       
       replicationRoot.withAssoc(replicationRoot, "kids", Card.MANY, "parent", Card.ONE);
       
+      Clazz sharedSpaceProxy = model.createClazz("SharedSpaceProxy")
+            .withAttribute("spaceId", DataType.STRING)
+            .withAttribute("password", DataType.STRING)
+            .withAttribute("acceptsConnectionRequests", DataType.BOOLEAN)
+            .withAttribute("hostName", DataType.STRING)
+            .withAttribute("portNo", DataType.LONG);
+      
+      Clazz object = model.createClazz(Object.class.getName()).withExternal(true);
+      
+      sharedSpaceProxy.withUniDirectionalAssoc(object, "observedObjects", Card.MANY);
+      
+      sharedSpaceProxy.withAssoc(sharedSpaceProxy, "partners", Card.MANY, "partners", Card.MANY);
+      
+      sharedSpaceProxy.withAssoc(replicationChannel, "channel", Card.ONE, "sharedSpaceProxy", Card.ONE);
+      
+      
       model.generate("src/main/replication");
 
       storyboard.addClassDiagram(model);

@@ -26,11 +26,11 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import RoomSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
-import java.util.LinkedHashSet;
 
 public class Room implements PropertyChangeInterface
 {
@@ -105,12 +105,12 @@ public class Room implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getName());
-      s.append(" ").append(this.getTopic());
-      s.append(" ").append(this.getCredits());
-      return s.substring(1);
+      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getTopic());
+      result.append(" ").append(this.getCredits());
+      return result.substring(1);
    }
 
 
@@ -299,7 +299,6 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, item, null);
             }
          }
-         
       }
       return this;
    }
@@ -372,7 +371,6 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
-         
       }
       return this;
    }
@@ -452,7 +450,6 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, item, null);
             }
          }
-         
       }
       return this;
    }
@@ -525,7 +522,6 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, item, null);
             }
          }
-         
       }
       return this;
    }

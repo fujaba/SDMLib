@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -29,8 +29,7 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRight with assignments class generationClassDiagram3", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>2. generate class Student</p>
 <pre>      Clazz studentClass = model.createClazz(&quot;Student&quot;)
@@ -64,8 +63,7 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRight with assignments class generationClassDiagram6", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>3. add University --> Student association</p>
 <pre>      universityClass.withAssoc(studentClass, &quot;students&quot;, Card.MANY, &quot;university&quot;, Card.ONE);
@@ -108,8 +106,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRight with assignments class generationClassDiagram9", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>4. add University --> Room association</p>
 <pre>      Clazz roomClass = model.createClazz(&quot;Room&quot;)
@@ -156,6 +153,9 @@
          "name : String",
             "topic : String",
             "credits : int"
+         ],
+         "methods":[
+         "findPath(int String)"
          ]
       }
    ],
@@ -214,8 +214,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRight with assignments class generationClassDiagram12", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>5. add assignments:</p>
 <pre>      Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
@@ -253,6 +252,9 @@
          "name : String",
             "topic : String",
             "credits : int"
+         ],
+         "methods":[
+         "findPath(int String)"
          ]
       },
       {
@@ -345,10 +347,10 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRight with assignments class generationClassDiagram15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRight with assignments class generationClassDiagram15", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>6. generate class source files.</p>
-
+<pre>      model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
+</pre>
 </body>
 </html>

@@ -28,7 +28,6 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
-import java.util.LinkedHashSet;
 
 public class Assignment implements PropertyChangeInterface
 {
@@ -92,11 +91,11 @@ public class Assignment implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getContent());
-      s.append(" ").append(this.getPoints());
-      return s.substring(1);
+      result.append(" ").append(this.getContent());
+      result.append(" ").append(this.getPoints());
+      return result.substring(1);
    }
 
 
@@ -251,7 +250,6 @@ public class Assignment implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
-         
       }
       return this;
    }

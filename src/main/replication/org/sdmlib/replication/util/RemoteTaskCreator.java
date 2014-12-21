@@ -19,21 +19,20 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.studyrightWithAssignments.model.util;
+package org.sdmlib.replication.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.replication.RemoteTask;
+import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.Task;
 
-public class UniversityCreator extends EntityFactory
+public class RemoteTaskCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      University.PROPERTY_NAME,
-      University.PROPERTY_STUDENTS,
-      University.PROPERTY_ROOMS,
+      RemoteTask.PROPERTY_BOARDTASK,
+      Task.PROPERTY_LOGENTRIES,
    };
    
    @Override
@@ -45,7 +44,7 @@ public class UniversityCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new University();
+      return new RemoteTask();
    }
    
    @Override
@@ -59,19 +58,14 @@ public class UniversityCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (University.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      if (RemoteTask.PROPERTY_BOARDTASK.equalsIgnoreCase(attribute))
       {
-         return ((University) target).getName();
+         return ((RemoteTask) target).getBoardTask();
       }
 
-      if (University.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
+      if (RemoteTask.PROPERTY_LOGENTRIES.equalsIgnoreCase(attribute))
       {
-         return ((University) target).getStudents();
-      }
-
-      if (University.PROPERTY_ROOMS.equalsIgnoreCase(attribute))
-      {
-         return ((University) target).getRooms();
+         return ((RemoteTask) target).getLogEntries();
       }
       
       return null;
@@ -85,33 +79,21 @@ public class UniversityCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (University.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (RemoteTask.PROPERTY_BOARDTASK.equalsIgnoreCase(attrName))
       {
-         ((University) target).withName((String) value);
+         ((RemoteTask) target).withBoardTask((BoardTask) value);
          return true;
       }
 
-      if (University.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
+      if (RemoteTask.PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
       {
-         ((University) target).withStudents((Student) value);
+         ((RemoteTask) target).withLogEntries((LogEntry) value);
          return true;
       }
       
-      if ((University.PROPERTY_STUDENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((RemoteTask.PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((University) target).withoutStudents((Student) value);
-         return true;
-      }
-
-      if (University.PROPERTY_ROOMS.equalsIgnoreCase(attrName))
-      {
-         ((University) target).withRooms((Room) value);
-         return true;
-      }
-      
-      if ((University.PROPERTY_ROOMS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((University) target).withoutRooms((Room) value);
+         ((RemoteTask) target).withoutLogEntries((LogEntry) value);
          return true;
       }
       
@@ -119,7 +101,7 @@ public class UniversityCreator extends EntityFactory
    }
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.replication.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================
@@ -127,6 +109,6 @@ public class UniversityCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((University) entity).removeYou();
+      ((RemoteTask) entity).removeYou();
    }
 }

@@ -27,8 +27,8 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
-import java.util.LinkedHashSet;
 
 public class Student implements PropertyChangeInterface
 {
@@ -94,14 +94,14 @@ public class Student implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getName());
-      s.append(" ").append(this.getId());
-      s.append(" ").append(this.getAssignmentPoints());
-      s.append(" ").append(this.getMotivation());
-      s.append(" ").append(this.getCredits());
-      return s.substring(1);
+      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getId());
+      result.append(" ").append(this.getAssignmentPoints());
+      result.append(" ").append(this.getMotivation());
+      result.append(" ").append(this.getCredits());
+      return result.substring(1);
    }
 
 
@@ -399,7 +399,6 @@ public class Student implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_DONE, item, null);
             }
          }
-         
       }
       return this;
    }
@@ -478,7 +477,6 @@ public class Student implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_FRIENDS, item, null);
             }
          }
-         
       }
       return this;
    }
