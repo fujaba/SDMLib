@@ -17,6 +17,6 @@ public class AssignmentPOCreator extends PatternObjectCreator
    }
    
    public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap(sessionID);
    }
 }

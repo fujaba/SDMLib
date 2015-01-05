@@ -509,6 +509,11 @@ public class GenClassModel
                // no problem, 
                continue;
             }
+            if (name.equals(""))
+            {
+               // uni directional assoc, name is not used, no problem
+               continue;
+            }
             if (attributs.containsKey(name)) {
                duplicateEntries.add(role);
                duplicateEntries.add(attributs.get(name));

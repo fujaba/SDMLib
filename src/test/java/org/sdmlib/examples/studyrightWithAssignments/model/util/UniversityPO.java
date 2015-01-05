@@ -32,14 +32,14 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
 
 
    public UniversityPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public UniversityPO(University... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    public UniversityPO hasName(String value)
    {

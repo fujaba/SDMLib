@@ -28,7 +28,6 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
-import java.util.LinkedHashSet;
 
 public class University implements PropertyChangeInterface
 {
@@ -92,10 +91,10 @@ public class University implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getName());
-      return s.substring(1);
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
 
 
@@ -239,7 +238,6 @@ public class University implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, item, null);
             }
          }
-         
       }
       return this;
    }

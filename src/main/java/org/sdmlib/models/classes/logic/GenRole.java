@@ -261,8 +261,8 @@ public class GenRole extends Generator<Role>
       {
          if (! clazz.isInterface())
          {
-            text.append 
-            (     "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
+            String withMeth = 
+                  "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
                   "\n   {" +
                   "\n      if(value==null){" + 
                   "\n         return this;" +
@@ -287,7 +287,15 @@ public class GenRole extends Generator<Role>
                   "\n      }" +
                   "\n      return this;" +
                   "\n   } " +
-                  "\n");
+                  "\n";
+            
+            if (this.model.getName().equals(""))
+            {
+               // uni directional no reverse call
+               withMeth = CGUtil.replaceAll(withMeth, "\n               item.withMyRoleName(this);", "");
+            }
+            
+            text.append(withMeth);
            
          }
          else
@@ -310,8 +318,8 @@ public class GenRole extends Generator<Role>
       {
          if (! clazz.isInterface())
          {
-            text.append 
-            (     "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
+            String withOutMeth = 
+                  "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
                   "\n   {" +
                   "\n      for (partnerClassName item : value)" +
                   "\n      {" +
@@ -326,7 +334,15 @@ public class GenRole extends Generator<Role>
                   "\n      }" +
                   "\n      return this;" +
                   "\n   }" +
-                  "\n");
+                  "\n";
+            
+            if (this.model.getName().equals(""))
+            {
+               // uni directional no reverse call
+               withOutMeth = CGUtil.replaceAll(withOutMeth, "\n               item.reverseWithoutCall(this);", "");
+            }
+            
+            text.append (withOutMeth);
          }
          else
          {
@@ -549,8 +565,7 @@ public class GenRole extends Generator<Role>
       {
          if (! clazz.isInterface())
          {
-            text.append 
-            (     "\n   public boolean setPartnerRoleName(partnerClassName value)" +
+            String setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
                   "\n   {" +
                   "\n      boolean changed = false;" +
                   "\n      " +
@@ -577,7 +592,24 @@ public class GenRole extends Generator<Role>
                   "\n      " +
                   "\n      return changed;" +
                   "\n   }" +
-                  "\n");
+                  "\n";
+
+            if (this.model.getName().equals(""))
+            {
+               // uni directional assoc, to not call reverse
+               setMeth = CGUtil.replaceAll(setMeth, 
+                  "\n         if (this.partnerRoleName != null)" +
+                        "\n         {" +
+                        "\n            this.partnerRoleName = null;" +
+                        "\n            oldValue.withoutMethodCall(this);" +
+                        "\n         }", "",
+                        "\n         if (value != null)" +
+                              "\n         {" +
+                              "\n            value.withMyRoleName(this);" +
+                              "\n         }", ""
+                     );
+            }
+            text.append(setMeth);
          }
          else
          {

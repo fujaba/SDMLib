@@ -50,6 +50,7 @@ import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.replication.util.ReplicationChannelSet;
 import org.sdmlib.replication.util.ReplicationNodeCreator;
 import org.sdmlib.replication.util.ReplicationRootSet;
+import org.sdmlib.replication.util.SharedSpaceCreator;
 import org.sdmlib.replication.util.SharedSpaceSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
@@ -73,9 +74,9 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public static final String TERMINATE = "terminate";
 
-   private static final String RESEND_ID_HISTORY_PREFIX = "resendIdHistoryPrefix";
+   public static final String RESEND_ID_HISTORY_PREFIX = "resendIdHistoryPrefix";
 
-   private static final String RESEND_ID_HISTORY_NUMBER = "resendIdHistoryNumber";
+   public static final String RESEND_ID_HISTORY_NUMBER = "resendIdHistoryNumber";
 
    private static final String LOWER_ID_PREFIX = "lowerIdPrefix";
 
@@ -310,7 +311,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
          // handle resend request
          if (jsonObject.get(RESEND_ID_HISTORY_NUMBER) != null)
          {
-            previousChange.setHistoryIdNumber((long) jsonObject.get(RESEND_ID_HISTORY_NUMBER));
+            previousChange.setHistoryIdNumber(jsonObject.getLong(RESEND_ID_HISTORY_NUMBER));
             previousChange.setHistoryIdPrefix(jsonObject.getString(RESEND_ID_HISTORY_PREFIX));
 
             sendAllChangesSince(previousChange, msg.channel);
@@ -1227,6 +1228,15 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       withChannels(value);
       return value;
    }
+   
+   public ReplicationChannel createChannels(String hostName, int replicationServerPort)
+   {
+      ReplicationChannel channel = this.createChannels();
+      channel.setName("ReplicationChannel" + this.getNodeId() + "Server");
+      channel.withConnect(hostName, replicationServerPort);
+      return channel;
+   } 
+
 
    public void withMap(JsonIdMap map)
    {
@@ -1618,6 +1628,26 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       setJavaFXApplication(value);
       return this;
-   } 
+   }
+
+   public SharedSpace init(JsonIdMap userModelIdMap, boolean javaFXApplication)
+   {
+      String userName = userModelIdMap.getCounter().getPrefixId();
+      
+      this.withSpaceId(userName + "Space")
+      .withNodeId(userName + "Node")
+      .withJavaFXApplication(javaFXApplication);
+      
+      this.withMap(userModelIdMap);
+      userModelIdMap.withCreator(SharedSpaceCreator.createIdMap(null));
+      
+      return this;
+   }
+
+   public void put(String string, Object object)
+   {
+      this.getMap().put(string, object);
+   }
+
 }
 

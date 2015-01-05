@@ -3,7 +3,7 @@ package org.sdmlib.examples.studyrightWithAssignments.model.util;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-class CreatorCreator{
+public class CreatorCreator{
 
    public static JsonIdMap createIdMap(String sessionID)
    {

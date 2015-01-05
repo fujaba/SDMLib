@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -16,18 +16,15 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"Thread",
-         "attributes":[]
+         "id":"Thread"
       },
       {
          "typ":"node",
-         "id":"Socket",
-         "attributes":[]
+         "id":"Socket"
       },
       {
          "typ":"node",
-         "id":"ReplicationNode",
-         "attributes":[]
+         "id":"ReplicationNode"
       },
       {
          "typ":"node",
@@ -50,8 +47,7 @@
       },
       {
          "typ":"node",
-         "id":"ReplicationServer",
-         "attributes":[]
+         "id":"ReplicationServer"
       },
       {
          "typ":"node",
@@ -63,8 +59,7 @@
       },
       {
          "typ":"node",
-         "id":"Task",
-         "attributes":[]
+         "id":"Task"
       },
       {
          "typ":"node",
@@ -77,8 +72,7 @@
       },
       {
          "typ":"node",
-         "id":"ChangeHistory",
-         "attributes":[]
+         "id":"ChangeHistory"
       },
       {
          "typ":"node",
@@ -94,8 +88,7 @@
       },
       {
          "typ":"node",
-         "id":"RemoteTaskBoard",
-         "attributes":[]
+         "id":"RemoteTaskBoard"
       },
       {
          "typ":"node",
@@ -114,8 +107,7 @@
       },
       {
          "typ":"node",
-         "id":"Runnable",
-         "attributes":[]
+         "id":"Runnable"
       },
       {
          "typ":"node",
@@ -134,13 +126,22 @@
       },
       {
          "typ":"node",
-         "id":"ReplicationNode",
-         "attributes":[]
+         "id":"SharedSpaceProxy",
+         "attributes":[
+         "spaceId : String",
+            "password : String",
+            "acceptsConnectionRequests : boolean",
+            "hostName : String",
+            "portNo : long"
+         ]
       },
       {
          "typ":"node",
-         "id":"BoardTask",
-         "attributes":[]
+         "id":"ReplicationNode"
+      },
+      {
+         "typ":"node",
+         "id":"BoardTask"
       }
    ],
    "edges":[
@@ -168,6 +169,19 @@
             "id":"ReplicationChannel",
             "cardinality":"many",
             "property":"channels"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"sharedSpaceProxy",
+            "id":"SharedSpaceProxy"
+         },
+         "target":{
+            "id":"ReplicationChannel",
+            "cardinality":"one",
+            "property":"channel"
          }
       },
       {
@@ -249,6 +263,19 @@
          }
       },
       {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"partners",
+            "id":"SharedSpaceProxy"
+         },
+         "target":{
+            "id":"SharedSpaceProxy",
+            "cardinality":"many",
+            "property":"partners"
+         }
+      },
+      {
          "typ":"generalisation",
          "source":{"id":"SharedSpace"},
          "target":{"id":"Thread"}
@@ -290,8 +317,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasReplicationModelClassDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasReplicationModelClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 
 </body>

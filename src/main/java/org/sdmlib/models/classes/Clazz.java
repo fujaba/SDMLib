@@ -72,6 +72,12 @@ public class Clazz extends SDMLibClass
       return this;
    }
    
+   public void withUniDirectionalAssoc(Clazz tgtClass, String tgtRoleName, Card tgtCard)
+   {
+      this.withAssoc(tgtClass, tgtRoleName, tgtCard, "", Card.ONE);
+   }
+
+   
    public String getFullName()
    {
       
@@ -802,4 +808,5 @@ public class Clazz extends SDMLibClass
    public boolean hasFeature(Feature feature) {
 	   return getClassModel().hasFeature(feature, this);
    }
+
 }
