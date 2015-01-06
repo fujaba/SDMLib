@@ -42,11 +42,9 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ReplicationRootPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ReplicationNodeCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ReplicationNodePOCreator());
-
-      jsonIdMap.withCreator(new org.sdmlib.replication.util.RemoteTaskCreator());
-      jsonIdMap.withCreator(new org.sdmlib.replication.util.RemoteTaskPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SharedSpaceProxyCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SharedSpaceProxyPOCreator());
+      
       return jsonIdMap;
    }
 }
