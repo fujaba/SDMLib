@@ -3,7 +3,6 @@ package org.sdmlib.replication;
 import java.net.Socket;
 
 import org.junit.Test;
-import org.sdmlib.doc.testDocGen;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
