@@ -29,6 +29,7 @@ public class PersonCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
+      Person.PROPERTY_NAME,
    };
    
    @Override
@@ -53,6 +54,11 @@ public class PersonCreator extends EntityFactory
       {
          attribute = attrName.substring(0, pos);
       }
+
+      if (Person.PROPERTY_NAME.equalsIgnoreCase(attribute))
+      {
+         return ((Person) target).getName();
+      }
       
       return null;
    }
@@ -63,6 +69,12 @@ public class PersonCreator extends EntityFactory
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
+      }
+
+      if (Person.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      {
+         ((Person) target).withName((String) value);
+         return true;
       }
       
       return false;

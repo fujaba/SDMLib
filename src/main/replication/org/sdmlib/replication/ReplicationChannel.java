@@ -197,7 +197,6 @@ public class ReplicationChannel extends Thread implements
    public void removeYou()
    {
       setSharedSpace(null);
-      setSharedSpaceProxy(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -366,65 +365,5 @@ public class ReplicationChannel extends Thread implements
       String line = jsonObject.toString();
       this.send(line);     
    }
-
-
-   
-   /********************************************************************
-    * <pre>
-    *              one                       one
-    * ReplicationChannel ----------------------------------- SharedSpaceProxy
-    *              channel                   sharedSpaceProxy
-    * </pre>
-    */
-   
-   public static final String PROPERTY_SHAREDSPACEPROXY = "sharedSpaceProxy";
-
-   private SharedSpaceProxy sharedSpaceProxy = null;
-
-   public SharedSpaceProxy getSharedSpaceProxy()
-   {
-      return this.sharedSpaceProxy;
-   }
-
-   public boolean setSharedSpaceProxy(SharedSpaceProxy value)
-   {
-      boolean changed = false;
-      
-      if (this.sharedSpaceProxy != value)
-      {
-         SharedSpaceProxy oldValue = this.sharedSpaceProxy;
-         
-         if (this.sharedSpaceProxy != null)
-         {
-            this.sharedSpaceProxy = null;
-            oldValue.setChannel(null);
-         }
-         
-         this.sharedSpaceProxy = value;
-         
-         if (value != null)
-         {
-            value.withChannel(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_SHAREDSPACEPROXY, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public ReplicationChannel withSharedSpaceProxy(SharedSpaceProxy value)
-   {
-      setSharedSpaceProxy(value);
-      return this;
-   } 
-
-   public SharedSpaceProxy createSharedSpaceProxy()
-   {
-      SharedSpaceProxy value = new SharedSpaceProxy();
-      withSharedSpaceProxy(value);
-      return value;
-   } 
 }
 

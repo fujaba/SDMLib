@@ -24,14 +24,16 @@ package org.sdmlib.examples.simpleModel.model.util;
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.simpleModel.model.BigBrother;
+import java.lang.Object;
 import org.sdmlib.examples.simpleModel.model.Person;
 
 public class BigBrotherCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      BigBrother.PROPERTY_SUSPECTS,
+      BigBrother.PROPERTY_KIDS,
       BigBrother.PROPERTY_NOONE,
+      BigBrother.PROPERTY_SUSPECTS,
    };
    
    @Override
@@ -57,14 +59,19 @@ public class BigBrotherCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (BigBrother.PROPERTY_SUSPECTS.equalsIgnoreCase(attribute))
+      if (BigBrother.PROPERTY_KIDS.equalsIgnoreCase(attribute))
       {
-         return ((BigBrother) target).getSuspects();
+         return ((BigBrother) target).getKids();
       }
 
       if (BigBrother.PROPERTY_NOONE.equalsIgnoreCase(attribute))
       {
          return ((BigBrother) target).getNoOne();
+      }
+
+      if (BigBrother.PROPERTY_SUSPECTS.equalsIgnoreCase(attribute))
+      {
+         return ((BigBrother) target).getSuspects();
       }
       
       return null;
@@ -78,6 +85,24 @@ public class BigBrotherCreator extends EntityFactory
          attrName = attrName + type;
       }
 
+      if (BigBrother.PROPERTY_KIDS.equalsIgnoreCase(attrName))
+      {
+         ((BigBrother) target).withKids((Object) value);
+         return true;
+      }
+      
+      if ((BigBrother.PROPERTY_KIDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((BigBrother) target).withoutKids((Object) value);
+         return true;
+      }
+
+      if (BigBrother.PROPERTY_NOONE.equalsIgnoreCase(attrName))
+      {
+         ((BigBrother) target).setNoOne((Person) value);
+         return true;
+      }
+
       if (BigBrother.PROPERTY_SUSPECTS.equalsIgnoreCase(attrName))
       {
          ((BigBrother) target).withSuspects((Person) value);
@@ -87,12 +112,6 @@ public class BigBrotherCreator extends EntityFactory
       if ((BigBrother.PROPERTY_SUSPECTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((BigBrother) target).withoutSuspects((Person) value);
-         return true;
-      }
-
-      if (BigBrother.PROPERTY_NOONE.equalsIgnoreCase(attrName))
-      {
-         ((BigBrother) target).setNoOne((Person) value);
          return true;
       }
       

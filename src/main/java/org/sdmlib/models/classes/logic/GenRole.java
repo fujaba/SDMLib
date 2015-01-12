@@ -77,51 +77,52 @@ public class GenRole extends Generator<Role>
    }
 
    
-   private void generateEmptySetInPartnerClass(String rootDir, Role partnerRole)
-   {
-      // generate EMPTY_SET in partner class
-      Clazz partnerClass = partnerRole.getClazz();
-      GenClass partnerClazz = getGenerator(partnerClass);
-      Parser partnerParser = partnerClazz.getOrCreateParser(rootDir);
-      
-      int partnerPos = partnerParser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
-      
-      if (partnerPos < 0)
-      {
-         // add attribute declaration in class file
-         partnerPos = partnerParser.indexOf(Parser.CLASS_END);
-
-         StringBuilder partnerText = new StringBuilder
-            (  "\n   " +
-               "\n   public static final type EMPTY_SET = new type()READONLY;" +
-               "\n"
-               );
-
-         String replaceReadOnly = ".withReadonly(true)";
-         if(!(partnerClass.hasFeature(Feature.ALBERTsSets))){
-        	 replaceReadOnly = "";
-         }
-         
-         CGUtil.replaceAll(partnerText, 
-            "type", partnerClazz.getModelSetClassNameShort(),
-            "READONLY", replaceReadOnly
-            );
-         
-         partnerParser.insert(partnerPos, partnerText.toString());
-         
-         // insert import 
-//         String ownerClassName = partnerClass.getFullName();
-//         String packageName = CGUtil.packageName(ownerClassName);
-//         String shortClassName = CGUtil.shortClassName(ownerClassName);
-         getGenerator(partnerClass).insertImport(partnerClazz.getModelSetClassName());
-         
-         getGenerator(partnerRole.getClazz()).printFile();
-
-      }
-      if (model.getPartnerRole().getCard().equals(Card.MANY.toString())){
-         getGenerator(partnerRole.getClazz()).insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
-      }
-   }
+   //   private void generateEmptySetInPartnerClass(String rootDir, Role partnerRole)
+   //   {
+   //      // generate EMPTY_SET in partner class
+   //      Clazz partnerClass = partnerRole.getClazz();
+   //      
+   //      GenClass partnerClazz = getGenerator(partnerClass);
+   //      Parser partnerParser = partnerClazz.getOrCreateParser(rootDir);
+   //      
+   //      int partnerPos = partnerParser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
+   //      
+   //      if (partnerPos < 0)
+   //      {
+   //         // add attribute declaration in class file
+   //         partnerPos = partnerParser.indexOf(Parser.CLASS_END);
+   //
+   //         StringBuilder partnerText = new StringBuilder
+   //            (  "\n   " +
+   //               "\n   public static final type EMPTY_SET = new type()READONLY;" +
+   //               "\n"
+   //               );
+   //
+   //         String replaceReadOnly = ".withReadonly(true)";
+   //         if(!(partnerClass.hasFeature(Feature.ALBERTsSets))){
+   //        	 replaceReadOnly = "";
+   //         }
+   //         
+   //         CGUtil.replaceAll(partnerText, 
+   //            "type", partnerClazz.getModelSetClassNameShort(),
+   //            "READONLY", replaceReadOnly
+   //            );
+   //         
+   //         partnerParser.insert(partnerPos, partnerText.toString());
+   //         
+   //         // insert import 
+   ////         String ownerClassName = partnerClass.getFullName();
+   ////         String packageName = CGUtil.packageName(ownerClassName);
+   ////         String shortClassName = CGUtil.shortClassName(ownerClassName);
+   //         getGenerator(partnerClass).insertImport(partnerClazz.getModelSetClassName());
+   //         
+   //         getGenerator(partnerRole.getClazz()).printFile();
+   //
+   //      }
+   //      if (model.getPartnerRole().getCard().equals(Card.MANY.toString())){
+   //         getGenerator(partnerRole.getClazz()).insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
+   //      }
+   //   }
 
    private void generateToManyRole(Parser myParser, Clazz clazz, Role partnerRole, StringBuilder text)
    {
@@ -176,7 +177,7 @@ public class GenRole extends Generator<Role>
                   "\n   {" +
                   "\n      if (this.partnerRoleName == null)" +
                   "\n      {" +
-                  "\n         return partnerClassName.EMPTY_SET;" +
+                  "\n         return partnerClassNameSet.EMPTY_SET;" +
                   "\n      }" +
                   "\n   " +
                   "\n      return this.partnerRoleName;" +
@@ -251,7 +252,7 @@ public class GenRole extends Generator<Role>
                (     "\n   public partnerClassNameSet getPartnerRoleNameTransitive();" +
                      "\n");
             }
-            getGenerator(clazz).insertImport(partnerClassNameSet);
+            getGenerator(clazz).insertImport(partnerClazz.getModelSetClassName());
          }
       }
       
@@ -756,10 +757,10 @@ public class GenRole extends Generator<Role>
             	throw e;
             }
 
-         if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
-         {
-            generateEmptySetInPartnerClass(rootDir, partnerRole);
-         }
+//         if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
+//         {
+//            generateEmptySetInPartnerClass(rootDir, partnerRole);
+//         }
       }
       
       //import partner role class if package name has changed
@@ -1015,8 +1016,14 @@ public class GenRole extends Generator<Role>
          
          parser.insert(classEnd, text.toString());
          
-         String helperClassName = CGUtil.helperClassName(partnerRole.getClazz().getFullName(),"Set");
-		getGenerator(tgtClass).insertImport(parser, helperClassName);
+         if (! partnerRole.getClazz().isExternal())
+         {
+            // external classes get a set in this util package, no need for an import
+            // thus just for real classes that may be in other packages
+            String helperClassName = CGUtil.helperClassName(partnerRole.getClazz().getFullName(),"Set");
+            
+            getGenerator(tgtClass).insertImport(parser, helperClassName);
+         }
       }
    }
 
@@ -1067,7 +1074,14 @@ public class GenRole extends Generator<Role>
          if (partnerRole.getCard().equals(Card.MANY.toString()))
          {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "Set");
-            targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullTargetType, parser);
+            if (partnerRole.getClazz().isExternal())
+            {
+               targetType = CGUtil.shortClassName(partnerRole.getClazz().getName()) + "Set";
+            }
+            else
+            {
+               targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullTargetType, parser);
+            }
          }else{
             targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(partnerRole.getClazz().getFullName(), parser);
          }
@@ -1104,9 +1118,13 @@ public class GenRole extends Generator<Role>
             "      return result;\n" + 
             "   }\n\n");
 
-//         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
+         //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
-         String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
+         String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
+         if ( ! partnerRole.getClazz().isExternal())
+         {
+            patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
+         }
          String partnerClass = partnerRole.getClazz().getName();
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,
@@ -1142,7 +1160,11 @@ public class GenRole extends Generator<Role>
 //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
-         String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
+         String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
+         if ( ! partnerRole.getClazz().isExternal())
+         {
+            patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
+         }
          
          CGUtil.replaceAll(text, 
             "PatternObjectType", patternObjectType,

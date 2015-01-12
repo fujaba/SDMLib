@@ -477,4 +477,6 @@ public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements 
       return this;
    }
 
+
+   public static final ReplicationChangeSet EMPTY_SET = new ReplicationChangeSet();
 }

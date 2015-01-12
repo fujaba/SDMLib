@@ -26,11 +26,14 @@ import org.sdmlib.examples.simpleModel.model.BigBrother;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
+import java.lang.Object;
 import org.sdmlib.examples.simpleModel.model.util.PersonSet;
 import org.sdmlib.examples.simpleModel.model.Person;
 
 public class BigBrotherSet extends SDMSet<BigBrother>
 {
+
+   public static final BigBrotherSet EMPTY_SET = new BigBrotherSet().withReadonly(true);
 
 
    public BigBrotherPO hasBigBrotherPO()
@@ -64,6 +67,112 @@ public class BigBrotherSet extends SDMSet<BigBrother>
    public BigBrotherSet without(BigBrother value)
    {
       this.remove(value);
+      return this;
+   }
+
+   public ObjectSet getKids()
+   {
+      ObjectSet result = new ObjectSet();
+      
+      for (BigBrother obj : this)
+      {
+         result.addAll(obj.getKids());
+      }
+      
+      return result;
+   }
+
+   public BigBrotherSet hasKids(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      BigBrotherSet answer = new BigBrotherSet();
+      
+      for (BigBrother obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getKids()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public BigBrotherSet withKids(Object value)
+   {
+      for (BigBrother obj : this)
+      {
+         obj.withKids(value);
+      }
+      
+      return this;
+   }
+
+   public BigBrotherSet withoutKids(Object value)
+   {
+      for (BigBrother obj : this)
+      {
+         obj.withoutKids(value);
+      }
+      
+      return this;
+   }
+
+   public PersonSet getNoOne()
+   {
+      PersonSet result = new PersonSet();
+      
+      for (BigBrother obj : this)
+      {
+         result.add(obj.getNoOne());
+      }
+      
+      return result;
+   }
+
+   public BigBrotherSet hasNoOne(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      BigBrotherSet answer = new BigBrotherSet();
+      
+      for (BigBrother obj : this)
+      {
+         if (neighbors.contains(obj.getNoOne()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public BigBrotherSet withNoOne(Person value)
+   {
+      for (BigBrother obj : this)
+      {
+         obj.withNoOne(value);
+      }
+      
       return this;
    }
 
@@ -120,54 +229,6 @@ public class BigBrotherSet extends SDMSet<BigBrother>
       for (BigBrother obj : this)
       {
          obj.withoutSuspects(value);
-      }
-      
-      return this;
-   }
-
-   public PersonSet getNoOne()
-   {
-      PersonSet result = new PersonSet();
-      
-      for (BigBrother obj : this)
-      {
-         result.add(obj.getNoOne());
-      }
-      
-      return result;
-   }
-
-   public BigBrotherSet hasNoOne(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      BigBrotherSet answer = new BigBrotherSet();
-      
-      for (BigBrother obj : this)
-      {
-         if (neighbors.contains(obj.getNoOne()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public BigBrotherSet withNoOne(Person value)
-   {
-      for (BigBrother obj : this)
-      {
-         obj.withNoOne(value);
       }
       
       return this;

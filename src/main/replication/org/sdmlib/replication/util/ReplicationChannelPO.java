@@ -1,13 +1,11 @@
 package org.sdmlib.replication.util;
 
-import java.net.Socket;
-
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ReplicationChannel;
+import java.net.Socket;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.replication.util.SharedSpacePO;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.SharedSpaceProxyPO;
-import org.sdmlib.replication.SharedSpaceProxy;
 import org.sdmlib.replication.util.ReplicationChannelPO;
 
 public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, ReplicationChannel>
@@ -31,49 +29,15 @@ public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, Re
 
 
    public ReplicationChannelPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.replication.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public ReplicationChannelPO(ReplicationChannel... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.replication.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
-   public SharedSpacePO hasSharedSpace()
-   {
-      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReplicationChannel.PROPERTY_SHAREDSPACE, result);
-      
-      return result;
-   }
-
-   public SharedSpacePO createSharedSpace()
-   {
-      return this.startCreate().hasSharedSpace().endCreate();
-   }
-
-   public ReplicationChannelPO hasSharedSpace(SharedSpacePO tgt)
-   {
-      return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACE);
-   }
-
-   public ReplicationChannelPO createSharedSpace(SharedSpacePO tgt)
-   {
-      return this.startCreate().hasSharedSpace(tgt).endCreate();
-   }
-
-   public SharedSpace getSharedSpace()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ReplicationChannel) this.getCurrentMatch()).getSharedSpace();
-      }
-      return null;
-   }
-
    public ReplicationChannelPO hasSocket(Socket value)
    {
       new AttributeConstraint()
@@ -165,36 +129,36 @@ public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, Re
       return this;
    }
    
-   public SharedSpaceProxyPO hasSharedSpaceProxy()
+   public SharedSpacePO hasSharedSpace()
    {
-      SharedSpaceProxyPO result = new SharedSpaceProxyPO(new SharedSpaceProxy[]{});
+      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReplicationChannel.PROPERTY_SHAREDSPACEPROXY, result);
+      super.hasLink(ReplicationChannel.PROPERTY_SHAREDSPACE, result);
       
       return result;
    }
 
-   public SharedSpaceProxyPO createSharedSpaceProxy()
+   public SharedSpacePO createSharedSpace()
    {
-      return this.startCreate().hasSharedSpaceProxy().endCreate();
+      return this.startCreate().hasSharedSpace().endCreate();
    }
 
-   public ReplicationChannelPO hasSharedSpaceProxy(SharedSpaceProxyPO tgt)
+   public ReplicationChannelPO hasSharedSpace(SharedSpacePO tgt)
    {
-      return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACEPROXY);
+      return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACE);
    }
 
-   public ReplicationChannelPO createSharedSpaceProxy(SharedSpaceProxyPO tgt)
+   public ReplicationChannelPO createSharedSpace(SharedSpacePO tgt)
    {
-      return this.startCreate().hasSharedSpaceProxy(tgt).endCreate();
+      return this.startCreate().hasSharedSpace(tgt).endCreate();
    }
 
-   public SharedSpaceProxy getSharedSpaceProxy()
+   public SharedSpace getSharedSpace()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((ReplicationChannel) this.getCurrentMatch()).getSharedSpaceProxy();
+         return ((ReplicationChannel) this.getCurrentMatch()).getSharedSpace();
       }
       return null;
    }

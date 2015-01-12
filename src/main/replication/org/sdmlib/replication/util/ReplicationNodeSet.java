@@ -360,4 +360,6 @@ public class ReplicationNodeSet extends SDMSet<ReplicationNode>
       return this;
    }
 
+
+   public static final ReplicationNodeSet EMPTY_SET = new ReplicationNodeSet().withReadonly(true);
 }

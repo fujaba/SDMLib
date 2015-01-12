@@ -2,9 +2,9 @@ package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.simpleModel.model.BigBrother;
+import org.sdmlib.examples.simpleModel.model.util.BigBrotherPO;
 import org.sdmlib.examples.simpleModel.model.util.PersonPO;
 import org.sdmlib.examples.simpleModel.model.Person;
-import org.sdmlib.examples.simpleModel.model.util.BigBrotherPO;
 import org.sdmlib.examples.simpleModel.model.util.PersonSet;
 
 public class BigBrotherPO extends PatternObject<BigBrotherPO, BigBrother>
@@ -37,36 +37,36 @@ public class BigBrotherPO extends PatternObject<BigBrotherPO, BigBrother>
       }
       newInstance(org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
-   public PersonPO hasSuspects()
+   public ObjectPO hasKids()
    {
-      PersonPO result = new PersonPO(new Person[]{});
+      ObjectPO result = new ObjectPO(new java.lang.Object[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(BigBrother.PROPERTY_SUSPECTS, result);
+      super.hasLink(BigBrother.PROPERTY_KIDS, result);
       
       return result;
    }
 
-   public PersonPO createSuspects()
+   public ObjectPO createKids()
    {
-      return this.startCreate().hasSuspects().endCreate();
+      return this.startCreate().hasKids().endCreate();
    }
 
-   public BigBrotherPO hasSuspects(PersonPO tgt)
+   public BigBrotherPO hasKids(ObjectPO tgt)
    {
-      return hasLinkConstraint(tgt, BigBrother.PROPERTY_SUSPECTS);
+      return hasLinkConstraint(tgt, BigBrother.PROPERTY_KIDS);
    }
 
-   public BigBrotherPO createSuspects(PersonPO tgt)
+   public BigBrotherPO createKids(ObjectPO tgt)
    {
-      return this.startCreate().hasSuspects(tgt).endCreate();
+      return this.startCreate().hasKids(tgt).endCreate();
    }
 
-   public PersonSet getSuspects()
+   public ObjectSet getKids()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((BigBrother) this.getCurrentMatch()).getSuspects();
+         return ((BigBrother) this.getCurrentMatch()).getKids();
       }
       return null;
    }
@@ -101,6 +101,40 @@ public class BigBrotherPO extends PatternObject<BigBrotherPO, BigBrother>
       if (this.getPattern().getHasMatch())
       {
          return ((BigBrother) this.getCurrentMatch()).getNoOne();
+      }
+      return null;
+   }
+
+   public PersonPO hasSuspects()
+   {
+      PersonPO result = new PersonPO(new Person[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(BigBrother.PROPERTY_SUSPECTS, result);
+      
+      return result;
+   }
+
+   public PersonPO createSuspects()
+   {
+      return this.startCreate().hasSuspects().endCreate();
+   }
+
+   public BigBrotherPO hasSuspects(PersonPO tgt)
+   {
+      return hasLinkConstraint(tgt, BigBrother.PROPERTY_SUSPECTS);
+   }
+
+   public BigBrotherPO createSuspects(PersonPO tgt)
+   {
+      return this.startCreate().hasSuspects(tgt).endCreate();
+   }
+
+   public PersonSet getSuspects()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((BigBrother) this.getCurrentMatch()).getSuspects();
       }
       return null;
    }

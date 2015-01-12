@@ -126,10 +126,19 @@
       },
       {
          "typ":"node",
-         "id":"SharedSpaceProxy",
+         "id":"SeppelSpace",
          "attributes":[
          "spaceId : String",
-            "password : String",
+            "history : ChangeHistory",
+            "lastChangeId : long",
+            "javaFXApplication : boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"SeppelSpaceProxy",
+         "attributes":[
+         "spaceId : String",
             "acceptsConnectionRequests : boolean",
             "hostName : String",
             "portNo : long"
@@ -137,11 +146,30 @@
       },
       {
          "typ":"node",
-         "id":"ReplicationNode"
+         "id":"SeppelUser",
+         "attributes":[
+         "loginName : String",
+            "password : String"
+         ]
       },
       {
          "typ":"node",
-         "id":"BoardTask"
+         "id":"SeppelScope",
+         "attributes":[
+         "scopeName : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"SeppelChannel",
+         "attributes":[
+         "socket : java.net.Socket",
+            "loginValidated : boolean"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Object"
       }
    ],
    "edges":[
@@ -169,19 +197,6 @@
             "id":"ReplicationChannel",
             "cardinality":"many",
             "property":"channels"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"sharedSpaceProxy",
-            "id":"SharedSpaceProxy"
-         },
-         "target":{
-            "id":"ReplicationChannel",
-            "cardinality":"one",
-            "property":"channel"
          }
       },
       {
@@ -265,14 +280,79 @@
       {
          "typ":"edge",
          "source":{
-            "cardinality":"many",
-            "property":"partners",
-            "id":"SharedSpaceProxy"
+            "cardinality":"one",
+            "property":"seppelSpace",
+            "id":"SeppelSpace"
          },
          "target":{
-            "id":"SharedSpaceProxy",
+            "id":"SeppelChannel",
+            "cardinality":"many",
+            "property":"channels"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"partners",
+            "id":"SeppelSpaceProxy"
+         },
+         "target":{
+            "id":"SeppelSpaceProxy",
             "cardinality":"many",
             "property":"partners"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"seppelSpaceProxy",
+            "id":"SeppelSpaceProxy"
+         },
+         "target":{
+            "id":"SeppelChannel",
+            "cardinality":"one",
+            "property":"channel"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"users",
+            "id":"SeppelUser"
+         },
+         "target":{
+            "id":"SeppelScope",
+            "cardinality":"many",
+            "property":"scopes"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"superScopes",
+            "id":"SeppelScope"
+         },
+         "target":{
+            "id":"SeppelScope",
+            "cardinality":"many",
+            "property":"subScopes"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"",
+            "id":"SeppelScope"
+         },
+         "target":{
+            "id":"Object",
+            "cardinality":"many",
+            "property":"observedObjects"
          }
       },
       {
@@ -314,6 +394,16 @@
          "typ":"generalisation",
          "source":{"id":"RemoteTask"},
          "target":{"id":"Runnable"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"SeppelSpace"},
+         "target":{"id":"Thread"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"SeppelChannel"},
+         "target":{"id":"Thread"}
       }
    ]
 }   ;

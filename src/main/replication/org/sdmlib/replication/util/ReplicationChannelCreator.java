@@ -26,7 +26,7 @@ import org.sdmlib.replication.SharedSpace;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.replication.SharedSpaceProxy;
+import org.sdmlib.replication.SeppelSpaceProxy;
 
 public class ReplicationChannelCreator extends EntityFactory
 {
@@ -35,7 +35,6 @@ public class ReplicationChannelCreator extends EntityFactory
       ReplicationChannel.PROPERTY_SHAREDSPACE,
       ReplicationChannel.PROPERTY_SOCKET,
       ReplicationChannel.PROPERTY_TARGETNODEID,
-      ReplicationChannel.PROPERTY_SHAREDSPACEPROXY,
    };
    
    @Override
@@ -76,11 +75,6 @@ public class ReplicationChannelCreator extends EntityFactory
          return ((ReplicationChannel) target).getTargetNodeId();
       }
 
-      if (ReplicationChannel.PROPERTY_SHAREDSPACEPROXY.equalsIgnoreCase(attribute))
-      {
-         return ((ReplicationChannel) target).getSharedSpaceProxy();
-      }
-      
       return null;
    }
    
@@ -110,12 +104,6 @@ public class ReplicationChannelCreator extends EntityFactory
          return true;
       }
 
-      if (ReplicationChannel.PROPERTY_SHAREDSPACEPROXY.equalsIgnoreCase(attrName))
-      {
-         ((ReplicationChannel) target).setSharedSpaceProxy((SharedSpaceProxy) value);
-         return true;
-      }
-      
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)

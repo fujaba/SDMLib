@@ -24,6 +24,8 @@ package org.sdmlib.examples.simpleModel.model;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.examples.simpleModel.model.util.ObjectSet;
+import java.lang.Object;
 import org.sdmlib.examples.simpleModel.model.util.PersonSet;
 
 public class BigBrother implements PropertyChangeInterface
@@ -51,8 +53,9 @@ public class BigBrother implements PropertyChangeInterface
    
    public void removeYou()
    {
-      withoutSuspects(this.getSuspects().toArray(new Person[this.getSuspects().size()]));
+      withoutKids(this.getKids().toArray(new Object[this.getKids().size()]));
       setNoOne(null);
+      withoutSuspects(this.getSuspects().toArray(new Person[this.getSuspects().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -60,69 +63,69 @@ public class BigBrother implements PropertyChangeInterface
    /********************************************************************
     * <pre>
     *              one                       many
-    * BigBrother ----------------------------------- Person
-    *                                 suspects
+    * BigBrother ----------------------------------- Object
+    *                                 kids
     * </pre>
     */
    
-   public static final String PROPERTY_SUSPECTS = "suspects";
+   public static final String PROPERTY_KIDS = "kids";
 
-   private PersonSet suspects = null;
+   private ObjectSet kids = null;
    
-   public PersonSet getSuspects()
+   public ObjectSet getKids()
    {
-      if (this.suspects == null)
+      if (this.kids == null)
       {
-         return Person.EMPTY_SET;
+         return ObjectSet.EMPTY_SET;
       }
    
-      return this.suspects;
+      return this.kids;
    }
 
-   public BigBrother withSuspects(Person... value)
+   public BigBrother withKids(Object... value)
    {
       if(value==null){
          return this;
       }
-      for (Person item : value)
+      for (Object item : value)
       {
          if (item != null)
          {
-            if (this.suspects == null)
+            if (this.kids == null)
             {
-               this.suspects = new PersonSet();
+               this.kids = new ObjectSet();
             }
             
-            boolean changed = this.suspects.add (item);
+            boolean changed = this.kids.add (item);
 
             if (changed)
             {
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_SUSPECTS, null, item);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDS, null, item);
             }
          }
       }
       return this;
    } 
 
-   public BigBrother withoutSuspects(Person... value)
+   public BigBrother withoutKids(Object... value)
    {
-      for (Person item : value)
+      for (Object item : value)
       {
-         if ((this.suspects != null) && (item != null))
+         if ((this.kids != null) && (item != null))
          {
-            if (this.suspects.remove(item))
+            if (this.kids.remove(item))
             {
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_SUSPECTS, item, null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_KIDS, item, null);
             }
          }
       }
       return this;
    }
 
-   public Person createSuspects()
+   public Object createKids()
    {
-      Person value = new Person();
-      withSuspects(value);
+      Object value = new Object();
+      withKids(value);
       return value;
    } 
 
@@ -173,6 +176,76 @@ public class BigBrother implements PropertyChangeInterface
    {
       Person value = new Person();
       withNoOne(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * BigBrother ----------------------------------- Person
+    *                                 suspects
+    * </pre>
+    */
+   
+   public static final String PROPERTY_SUSPECTS = "suspects";
+
+   private PersonSet suspects = null;
+   
+   public PersonSet getSuspects()
+   {
+      if (this.suspects == null)
+      {
+         return PersonSet.EMPTY_SET;
+      }
+   
+      return this.suspects;
+   }
+
+   public BigBrother withSuspects(Person... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Person item : value)
+      {
+         if (item != null)
+         {
+            if (this.suspects == null)
+            {
+               this.suspects = new PersonSet();
+            }
+            
+            boolean changed = this.suspects.add (item);
+
+            if (changed)
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_SUSPECTS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public BigBrother withoutSuspects(Person... value)
+   {
+      for (Person item : value)
+      {
+         if ((this.suspects != null) && (item != null))
+         {
+            if (this.suspects.remove(item))
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_SUSPECTS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Person createSuspects()
+   {
+      Person value = new Person();
+      withSuspects(value);
       return value;
    } 
 }

@@ -313,4 +313,6 @@ public class ReplicationRootSet extends SDMSet<ReplicationRoot>
       return this;
    }
 
+
+   public static final ReplicationRootSet EMPTY_SET = new ReplicationRootSet().withReadonly(true);
 }

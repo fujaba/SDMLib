@@ -523,7 +523,7 @@ public class GenClass extends Generator<Clazz>
 
    public void insertImport(Parser myParser, String className)
    {
-	   if(className.indexOf("<") > 0){
+      if(className.indexOf("<") > 0){
 		   className = className.substring(0, className.indexOf("<"));
 	   }
       if ("String int double float boolean void".indexOf(className) >= 0)
@@ -970,6 +970,7 @@ public class GenClass extends Generator<Clazz>
             modelSetParser.withFileBody( text ).withFileChanged(true);
          }
          insertLicense(modelSetParser);
+         insertEmptySetDecl(modelSetParser, modelSetClassName);
          insertSetStartModelPattern(modelSetParser);
          insertSetEntryType(modelSetParser);
          insertSetWithWithout(modelSetParser);
@@ -978,6 +979,32 @@ public class GenClass extends Generator<Clazz>
       return modelSetParser;
    }
 
+
+   private void insertEmptySetDecl(Parser parser, String modelSetClassName)
+   {
+      int partnerPos = parser.indexOf(Parser.ATTRIBUTE + ":EMPTY_SET");
+      
+      if (partnerPos < 0)
+      {
+         // add attribute declaration in class file
+         partnerPos = parser.indexOf(Parser.CLASS_END);
+
+         StringBuilder partnerText = new StringBuilder
+            (  "\n   public static final type EMPTY_SET = new type()READONLY;" +
+               "\n"
+               );
+
+         String replaceReadOnly = ".withReadonly(true)";
+         
+         
+         CGUtil.replaceAll(partnerText, 
+            "type", modelSetClassName,
+            "READONLY", replaceReadOnly
+            );
+         
+         parser.insert(partnerPos, partnerText.toString());
+      }
+   }
 
    private void insertSetWithWithout(Parser parser)
    {

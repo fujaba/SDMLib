@@ -273,4 +273,6 @@ public class LogEntrySet extends SDMSet<LogEntry>
       return this;
    }
 
+
+   public static final LogEntrySet EMPTY_SET = new LogEntrySet().withReadonly(true);
 }

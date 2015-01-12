@@ -2,6 +2,7 @@ package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.simpleModel.model.Person;
+import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {
@@ -33,4 +34,57 @@ public class PersonPO extends PatternObject<PersonPO, Person>
       }
       newInstance(org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+   public PersonPO hasName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PersonPO hasName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Person.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public PersonPO createName(String value)
+   {
+      this.startCreate().hasName(value).endCreate();
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Person) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public PersonPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Person) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
 }

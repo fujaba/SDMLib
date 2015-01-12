@@ -28,6 +28,8 @@ import java.util.Collection;
 public class ObjectSet extends SDMSet<Object>
 {
 
+   public static final ObjectSet EMPTY_SET = new ObjectSet().withReadonly(true);
+
 
    public ObjectPO hasObjectPO()
    {

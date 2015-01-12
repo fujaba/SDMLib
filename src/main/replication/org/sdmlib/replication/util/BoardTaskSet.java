@@ -445,4 +445,6 @@ public class BoardTaskSet extends SDMSet<BoardTask>
       return this;
    }
 
+
+   public static final BoardTaskSet EMPTY_SET = new BoardTaskSet().withReadonly(true);
 }

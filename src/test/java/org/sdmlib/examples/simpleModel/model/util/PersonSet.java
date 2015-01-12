@@ -24,9 +24,12 @@ package org.sdmlib.examples.simpleModel.model.util;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.simpleModel.model.Person;
 import java.util.Collection;
+import org.sdmlib.models.modelsets.StringList;
 
 public class PersonSet extends SDMSet<Person>
 {
+
+   public static final PersonSet EMPTY_SET = new PersonSet().withReadonly(true);
 
 
    public PersonPO hasPersonPO()
@@ -60,6 +63,58 @@ public class PersonSet extends SDMSet<Person>
    public PersonSet without(Person value)
    {
       this.remove(value);
+      return this;
+   }
+
+   public StringList getName()
+   {
+      StringList result = new StringList();
+      
+      for (Person obj : this)
+      {
+         result.add(obj.getName());
+      }
+      
+      return result;
+   }
+
+   public PersonSet hasName(String value)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PersonSet hasName(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PersonSet withName(String value)
+   {
+      for (Person obj : this)
+      {
+         obj.setName(value);
+      }
+      
       return this;
    }
 

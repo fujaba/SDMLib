@@ -46,7 +46,7 @@ public class RemoteTaskCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      throw new UnsupportedOperationException("RemoteTask is abstract");
+      return null;
    } 
    
    @Override

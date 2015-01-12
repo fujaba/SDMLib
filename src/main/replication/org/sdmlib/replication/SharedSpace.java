@@ -1392,8 +1392,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       }
    }
 
-   private boolean readMessages = false;
-
    public static final String REMOTE_TASK_BOARD_ROOT = "taskFlowBoardRoot";
 
    public static final String REPLICATION_ROOT = "replicationRoot";
@@ -1409,6 +1407,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
 	   this.remoteTaskBoard = remoteTaskBoard;
    }
+
+   private boolean readMessages = false;
 
    public void setReadMessages(boolean readMessages)
    {

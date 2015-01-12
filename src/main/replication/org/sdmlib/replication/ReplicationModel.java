@@ -3,6 +3,7 @@ package org.sdmlib.replication;
 import java.net.Socket;
 
 import org.junit.Test;
+import org.sdmlib.doc.testDocGen;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -14,6 +15,74 @@ public class ReplicationModel
 {
    private static final String CHANGE_HISTORY = "ChangeHistory";
    private static final String REPLICATION_NODE = "ReplicationNode";
+   
+   
+   @Test
+   public void testSeppelModel()
+   {
+      Storyboard story = new Storyboard();
+
+      ClassModel model = new ClassModel("org.sdmlib.replication");
+      
+      // seppel spaces
+      Clazz thread = model.createClazz(Thread.class.getName()).withExternal(true);
+
+      Clazz seppelSpace = model.createClazz("SeppelSpace")
+            .withAttribute("spaceId", DataType.STRING) 
+            .withAttribute("history", DataType.ref(CHANGE_HISTORY))
+            .withAttribute("lastChangeId", DataType.LONG) 
+            .withAttribute("javaFXApplication", DataType.BOOLEAN)
+            .withSuperClazz(thread);
+      
+      Clazz seppelSpaceProxy = model.createClazz("SeppelSpaceProxy")
+            .withAttribute("spaceId", DataType.STRING)
+            .withAttribute("acceptsConnectionRequests", DataType.BOOLEAN)
+            .withAttribute("hostName", DataType.STRING)
+            .withAttribute("portNo", DataType.INT);
+      
+      seppelSpaceProxy.withAssoc(seppelSpaceProxy, "partners", Card.MANY, "partners", Card.MANY);
+      
+      Clazz seppelUser = model.createClazz("SeppelUser")
+            .withAttribute("loginName", DataType.STRING)
+            .withAttribute("password", DataType.STRING); 
+      
+      seppelSpaceProxy.withAssoc(seppelUser, "knownUsers", Card.MANY, "masterSpace", Card.ONE);
+
+      seppelSpaceProxy.withAssoc(seppelUser, "user", Card.ONE, "spaces", Card.MANY);
+      
+      Clazz seppelScope = model.createClazz("SeppelScope")
+            .withAttribute("scopeName", DataType.STRING);
+      
+      seppelScope.withAssoc(seppelScope, "subScopes", Card.MANY, "superScopes", Card.MANY);
+
+      seppelUser.withAssoc(seppelScope, "scopes", Card.MANY, "users", Card.MANY);
+      
+      seppelSpaceProxy.withAssoc(seppelScope, "scopes", Card.MANY, "spaces", Card.MANY);
+      
+      Clazz object = model.createClazz(Object.class.getName()).withExternal(true);
+      
+      seppelScope.withUniDirectionalAssoc(object, "observedObjects", Card.MANY); 
+
+      Clazz seppelChannel = model.createClazz("SeppelChannel")
+            .withSuperClazz(thread)
+            .withAttribute("socket", DataType.ref(Socket.class))
+            .withAttribute("loginValidated", DataType.BOOLEAN); 
+      
+            
+      seppelSpaceProxy.withAssoc(seppelChannel, "channel", Card.ONE, "seppelSpaceProxy", Card.ONE);
+      
+      // seppelSpace.withAssoc(seppelChannel, "channels", Card.MANY, "seppelSpace", Card.ONE);
+
+
+      
+
+      model.generate("src/main/replication");
+
+      story.addClassDiagram(model);
+
+
+      story.dumpHTML();
+   }
 
    @Test
    public void testReplicationModel()
@@ -114,23 +183,7 @@ public class ReplicationModel
             .withAttribute("applicationObject", DataType.OBJECT);
       
       replicationRoot.withAssoc(replicationRoot, "kids", Card.MANY, "parent", Card.ONE);
-      
-      Clazz sharedSpaceProxy = model.createClazz("SharedSpaceProxy")
-            .withAttribute("spaceId", DataType.STRING)
-            .withAttribute("password", DataType.STRING)
-            .withAttribute("acceptsConnectionRequests", DataType.BOOLEAN)
-            .withAttribute("hostName", DataType.STRING)
-            .withAttribute("portNo", DataType.LONG);
-      
-      Clazz object = model.createClazz(Object.class.getName()).withExternal(true);
-      
-      sharedSpaceProxy.withUniDirectionalAssoc(object, "observedObjects", Card.MANY); 
-      
-      sharedSpaceProxy.withAssoc(sharedSpaceProxy, "partners", Card.MANY, "partners", Card.MANY);
-      
-      sharedSpaceProxy.withAssoc(replicationChannel, "channel", Card.ONE, "sharedSpaceProxy", Card.ONE);
-      
-      
+
       model.generate("src/main/replication");
 
       storyboard.addClassDiagram(model);

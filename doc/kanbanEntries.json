@@ -50,7 +50,10 @@
       {"id":"KE.K115"},
       {"id":"KE.K117"},
       {"id":"KE.K124"},
-      {"id":"KE.K126"}
+      {"id":"KE.K126"},
+      {"id":"KE.K127"},
+      {"id":"KE.K128"},
+      {"id":"KE.K129"}
     ],
     "phases":"active, backlog, implementation, done, bug"
   }
@@ -761,6 +764,33 @@
   "class":"org.sdmlib.storyboards.KanbanEntry",
   "prop":{
     "name":"UniDirectionalAssoc",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K127",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"UniDirectionalAssocToObject",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K128",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"UniDirectionalAssocJson",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K129",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"SeppelModel",
     "phase":"backlog",
     "parent":{"id":"KE.K1"},
     "phases":"active, backlog, implementation, done"

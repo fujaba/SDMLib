@@ -126,4 +126,6 @@ public class RemoteTaskBoardSet extends SDMSet<RemoteTaskBoard>
       return this;
    }
 
+
+   public static final RemoteTaskBoardSet EMPTY_SET = new RemoteTaskBoardSet().withReadonly(true);
 }
