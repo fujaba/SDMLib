@@ -42,9 +42,9 @@ public class intList extends ArrayList<Integer> implements PropertyChangeInterfa
       
       return result;
    }
-   
+
 	public int max() {
-		int max = 0;
+		int max = Integer.MIN_VALUE;
 
 		for (int x : this) {
 			if (x > max) {
