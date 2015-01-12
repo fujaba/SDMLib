@@ -21,15 +21,14 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.replication.RemoteTask;
 import java.util.Collection;
-import org.sdmlib.replication.util.BoardTaskSet;
-import org.sdmlib.replication.BoardTask;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.replication.util.LogEntrySet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.RemoteTask;
 
 public class RemoteTaskSet extends SDMSet<RemoteTask>
 {
@@ -108,10 +107,11 @@ public class RemoteTaskSet extends SDMSet<RemoteTask>
 
 
 
-   public RemoteTaskPO hasRemoteTaskPO()
+   public Object hasRemoteTaskPO()
    {
-      return new RemoteTaskPO(this.toArray(new RemoteTask[this.size()]));
+      return null;
    }
+   
    public LogEntrySet getLogEntries()
    {
       LogEntrySet result = new LogEntrySet();
