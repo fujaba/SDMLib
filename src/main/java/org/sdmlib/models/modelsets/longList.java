@@ -20,7 +20,7 @@ public class longList extends ArrayList<Long>
 
    public long max()
    {
-      long max = 0;
+      long max = Long.MIN_VALUE;
 
       for (long x : this)
       {
