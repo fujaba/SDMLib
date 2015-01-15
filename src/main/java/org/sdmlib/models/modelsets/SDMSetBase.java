@@ -90,10 +90,10 @@ public class SDMSetBase<T> extends ItemList<T>
       return result;
    }
 
-   @SuppressWarnings("unchecked")
-   public <ST extends SDMSet<T>> ST has(Condition condition)
+   public <ST extends SDMSet<T>> ST has(Condition<T> condition)
    {
-      ST result = (ST) this.getNewInstance();
+      @SuppressWarnings("unchecked")
+	ST result = (ST) this.getNewInstance();
       result.addAll(this);
       
       for (T elem : this)
@@ -113,11 +113,6 @@ public class SDMSetBase<T> extends ItemList<T>
    
    public Iterator<T> cloneIterator() {
       return super.clone().iterator();
-   }
-   
-   public abstract class Condition
-   {
-      public abstract boolean check(T elem);
    }
    
    @Override
