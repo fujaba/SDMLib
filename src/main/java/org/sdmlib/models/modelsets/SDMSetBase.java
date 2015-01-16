@@ -1,5 +1,7 @@
 package org.sdmlib.models.modelsets;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -30,8 +32,14 @@ public class SDMSetBase<T> extends ItemList<T>
    
    public <ST extends SDMSet> ST instanceOf(ST target)
    {
-      String className = target.getClass().getName();
-      className = CGUtil.baseClassName(className, "Set");
+	   String className;
+	   ParameterizedType genericSuperclass = (ParameterizedType) target.getClass().getGenericSuperclass();
+	   if(genericSuperclass.getActualTypeArguments().length>0){
+		   className = genericSuperclass.getActualTypeArguments()[0].getTypeName();
+	   }else{
+	      className = target.getClass().getName();
+	      className = CGUtil.baseClassName(className, "Set");
+	   }
       try
       {
          Class<?> targetClass = target.getClass().getClassLoader().loadClass(className);
@@ -90,10 +98,10 @@ public class SDMSetBase<T> extends ItemList<T>
       return result;
    }
 
-   @SuppressWarnings("unchecked")
-   public <ST extends SDMSet<T>> ST has(Condition condition)
+   public <ST extends SDMSet<T>> ST has(Condition<T> condition)
    {
-      ST result = (ST) this.getNewInstance();
+      @SuppressWarnings("unchecked")
+	ST result = (ST) this.getNewInstance();
       result.addAll(this);
       
       for (T elem : this)
@@ -113,11 +121,6 @@ public class SDMSetBase<T> extends ItemList<T>
    
    public Iterator<T> cloneIterator() {
       return super.clone().iterator();
-   }
-   
-   public abstract class Condition
-   {
-      public abstract boolean check(T elem);
    }
    
    @Override

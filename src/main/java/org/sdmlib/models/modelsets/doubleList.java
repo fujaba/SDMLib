@@ -20,7 +20,7 @@ public class doubleList extends ArrayList<Double>
 
    public double max()
    {
-      double max = 0;
+      double max = Double.MIN_VALUE;
 
       for (double x : this)
       {

@@ -37,6 +37,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversityCreato
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.modelsets.Condition;
 import org.sdmlib.models.pattern.Match;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
@@ -467,7 +468,7 @@ public class StoryboardTests {
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
       
-      RoomSet roomsEven = university.getRooms().has(rooms.new Condition() {
+      RoomSet roomsEven = university.getRooms().has(new Condition<Room>() {
 
          @Override
          public boolean check(Room elem)

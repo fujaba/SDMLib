@@ -1,17 +1,16 @@
 package org.sdmlib.models.modelsets;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
 
-public class ObjectSet extends LinkedHashSet<Object>
+public class ObjectSet extends SDMSet<Object>
 {
-   private static final long serialVersionUID = 1L;
-
-   public ObjectSet with(Object... elems)
+   public ObjectSet with(Object... values)
    {
-      // TODO Auto-generated method stub
-      this.addAll(Arrays.asList(elems));
+      super.with(values);
       return this;
    }
 
+	@Override
+	public String getEntryType() {
+		return ObjectSet.class.getName();
+	}
 }

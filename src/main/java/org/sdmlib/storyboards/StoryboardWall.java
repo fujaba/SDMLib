@@ -81,14 +81,14 @@ public class StoryboardWall implements PropertyChangeInterface
          if (this.storyboard != null)
          {
             this.storyboard = null;
-            oldValue.setWall(null);
+//            oldValue.setWall(null);
          }
          
          this.storyboard = value;
          
          if (value != null)
          {
-            value.withWall(this);
+//            value.withWall(this);
          }
          
          getPropertyChangeSupport().firePropertyChange(PROPERTY_STORYBOARD, oldValue, value);
