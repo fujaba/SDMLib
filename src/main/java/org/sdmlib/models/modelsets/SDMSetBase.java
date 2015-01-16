@@ -1,5 +1,7 @@
 package org.sdmlib.models.modelsets;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -30,8 +32,14 @@ public class SDMSetBase<T> extends ItemList<T>
    
    public <ST extends SDMSet> ST instanceOf(ST target)
    {
-      String className = target.getClass().getName();
-      className = CGUtil.baseClassName(className, "Set");
+	   String className;
+	   ParameterizedType genericSuperclass = (ParameterizedType) target.getClass().getGenericSuperclass();
+	   if(genericSuperclass.getActualTypeArguments().length>0){
+		   className = genericSuperclass.getActualTypeArguments()[0].getTypeName();
+	   }else{
+	      className = target.getClass().getName();
+	      className = CGUtil.baseClassName(className, "Set");
+	   }
       try
       {
          Class<?> targetClass = target.getClass().getClassLoader().loadClass(className);

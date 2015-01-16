@@ -22,14 +22,15 @@
 package org.sdmlib.models.modelsets;
 
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
+import java.util.Collection;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-public class intList extends ArrayList<Integer> implements PropertyChangeInterface
+public class intList extends SDMSet<Integer> implements PropertyChangeInterface, Collection<Integer>
 {
-
-	private static final long serialVersionUID = -2345886837862490672L;
+	public intList(){
+		withAllowDuplicate(true);
+	}
 
 	public int sum()
    {
@@ -96,5 +97,10 @@ public class intList extends ArrayList<Integer> implements PropertyChangeInterfa
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
+
+	@Override
+	public String getEntryType() {
+		return intList.class.getName();
+	}
 }
 
