@@ -1,16 +1,9 @@
 package org.sdmlib.replication.util;
 
+import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.SeppelScope;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.replication.util.SeppelScopePO;
-import org.sdmlib.replication.util.SeppelScopeSet;
-import org.sdmlib.replication.util.SeppelUserPO;
-import org.sdmlib.replication.SeppelUser;
-import org.sdmlib.replication.util.SeppelUserSet;
-import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class SeppelScopePO extends PatternObject<SeppelScopePO, SeppelScope>
 {
@@ -159,40 +152,6 @@ public class SeppelScopePO extends PatternObject<SeppelScopePO, SeppelScope>
       if (this.getPattern().getHasMatch())
       {
          return ((SeppelScope) this.getCurrentMatch()).getSuperScopes();
-      }
-      return null;
-   }
-
-   public SeppelUserPO hasUsers()
-   {
-      SeppelUserPO result = new SeppelUserPO(new SeppelUser[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(SeppelScope.PROPERTY_USERS, result);
-      
-      return result;
-   }
-
-   public SeppelUserPO createUsers()
-   {
-      return this.startCreate().hasUsers().endCreate();
-   }
-
-   public SeppelScopePO hasUsers(SeppelUserPO tgt)
-   {
-      return hasLinkConstraint(tgt, SeppelScope.PROPERTY_USERS);
-   }
-
-   public SeppelScopePO createUsers(SeppelUserPO tgt)
-   {
-      return this.startCreate().hasUsers(tgt).endCreate();
-   }
-
-   public SeppelUserSet getUsers()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((SeppelScope) this.getCurrentMatch()).getUsers();
       }
       return null;
    }

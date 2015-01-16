@@ -5,9 +5,6 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
-import org.sdmlib.replication.util.SeppelUserPO;
-import org.sdmlib.replication.SeppelUser;
-import org.sdmlib.replication.util.SeppelUserSet;
 import org.sdmlib.replication.util.SeppelScopePO;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.util.SeppelScopeSet;
@@ -241,6 +238,112 @@ public class SeppelSpaceProxyPO extends PatternObject<SeppelSpaceProxyPO, Seppel
       return this;
    }
    
+   public SeppelSpaceProxyPO hasLoginName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_LOGINNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO hasLoginName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_LOGINNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO createLoginName(String value)
+   {
+      this.startCreate().hasLoginName(value).endCreate();
+      return this;
+   }
+   
+   public String getLoginName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((SeppelSpaceProxy) getCurrentMatch()).getLoginName();
+      }
+      return null;
+   }
+   
+   public SeppelSpaceProxyPO withLoginName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((SeppelSpaceProxy) getCurrentMatch()).setLoginName(value);
+      }
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO hasPassword(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_PASSWORD)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO hasPassword(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpaceProxy.PROPERTY_PASSWORD)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      this.getPattern().findMatch();
+      
+      return this;
+   }
+   
+   public SeppelSpaceProxyPO createPassword(String value)
+   {
+      this.startCreate().hasPassword(value).endCreate();
+      return this;
+   }
+   
+   public String getPassword()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((SeppelSpaceProxy) getCurrentMatch()).getPassword();
+      }
+      return null;
+   }
+   
+   public SeppelSpaceProxyPO withPassword(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((SeppelSpaceProxy) getCurrentMatch()).setPassword(value);
+      }
+      return this;
+   }
+   
    public SeppelSpaceProxyPO hasPartners()
    {
       SeppelSpaceProxyPO result = new SeppelSpaceProxyPO(new SeppelSpaceProxy[]{});
@@ -271,74 +374,6 @@ public class SeppelSpaceProxyPO extends PatternObject<SeppelSpaceProxyPO, Seppel
       if (this.getPattern().getHasMatch())
       {
          return ((SeppelSpaceProxy) this.getCurrentMatch()).getPartners();
-      }
-      return null;
-   }
-
-   public SeppelUserPO hasKnownUsers()
-   {
-      SeppelUserPO result = new SeppelUserPO(new SeppelUser[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(SeppelSpaceProxy.PROPERTY_KNOWNUSERS, result);
-      
-      return result;
-   }
-
-   public SeppelUserPO createKnownUsers()
-   {
-      return this.startCreate().hasKnownUsers().endCreate();
-   }
-
-   public SeppelSpaceProxyPO hasKnownUsers(SeppelUserPO tgt)
-   {
-      return hasLinkConstraint(tgt, SeppelSpaceProxy.PROPERTY_KNOWNUSERS);
-   }
-
-   public SeppelSpaceProxyPO createKnownUsers(SeppelUserPO tgt)
-   {
-      return this.startCreate().hasKnownUsers(tgt).endCreate();
-   }
-
-   public SeppelUserSet getKnownUsers()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((SeppelSpaceProxy) this.getCurrentMatch()).getKnownUsers();
-      }
-      return null;
-   }
-
-   public SeppelUserPO hasUser()
-   {
-      SeppelUserPO result = new SeppelUserPO(new SeppelUser[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(SeppelSpaceProxy.PROPERTY_USER, result);
-      
-      return result;
-   }
-
-   public SeppelUserPO createUser()
-   {
-      return this.startCreate().hasUser().endCreate();
-   }
-
-   public SeppelSpaceProxyPO hasUser(SeppelUserPO tgt)
-   {
-      return hasLinkConstraint(tgt, SeppelSpaceProxy.PROPERTY_USER);
-   }
-
-   public SeppelSpaceProxyPO createUser(SeppelUserPO tgt)
-   {
-      return this.startCreate().hasUser(tgt).endCreate();
-   }
-
-   public SeppelUser getUser()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((SeppelSpaceProxy) this.getCurrentMatch()).getUser();
       }
       return null;
    }

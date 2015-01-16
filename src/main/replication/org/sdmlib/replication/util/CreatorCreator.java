@@ -50,8 +50,6 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelSpaceProxyPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelChannelCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelChannelPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelUserCreator());
-      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelUserPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelScopeCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelScopePOCreator());
       

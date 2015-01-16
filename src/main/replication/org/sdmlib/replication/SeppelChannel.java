@@ -138,12 +138,12 @@ public class SeppelChannel extends Thread implements PropertyChangeInterface
          this.socket = new Socket(hostName, portNo);
          
          SeppelSpaceProxy selfProxy = myProxy.getPartners().first();
-         SeppelUser selfUser = selfProxy.getKnownUsers().first();
+         // SeppelUser selfUser = selfProxy.getKnownUsers().first();
          
          JsonObject jsonObject = new JsonObject();
          jsonObject.put("spaceId", selfProxy.getSpaceId());
-         jsonObject.put("login", selfUser.getLoginName());
-         jsonObject.put("pwd", selfUser.getPassword());
+         //         jsonObject.put("login", selfUser.getLoginName());
+         //         jsonObject.put("pwd", selfUser.getPassword());
          
          this.send(jsonObject.toString());
       }

@@ -24,7 +24,6 @@ package org.sdmlib.replication.util;
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.replication.SeppelScope;
-import org.sdmlib.replication.SeppelUser;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import java.lang.Object;
 
@@ -35,7 +34,6 @@ public class SeppelScopeCreator extends EntityFactory
       SeppelScope.PROPERTY_SCOPENAME,
       SeppelScope.PROPERTY_SUBSCOPES,
       SeppelScope.PROPERTY_SUPERSCOPES,
-      SeppelScope.PROPERTY_USERS,
       SeppelScope.PROPERTY_SPACES,
       SeppelScope.PROPERTY_OBSERVEDOBJECTS,
    };
@@ -76,11 +74,6 @@ public class SeppelScopeCreator extends EntityFactory
       if (SeppelScope.PROPERTY_SUPERSCOPES.equalsIgnoreCase(attribute))
       {
          return ((SeppelScope) target).getSuperScopes();
-      }
-
-      if (SeppelScope.PROPERTY_USERS.equalsIgnoreCase(attribute))
-      {
-         return ((SeppelScope) target).getUsers();
       }
 
       if (SeppelScope.PROPERTY_SPACES.equalsIgnoreCase(attribute))
@@ -131,18 +124,6 @@ public class SeppelScopeCreator extends EntityFactory
       if ((SeppelScope.PROPERTY_SUPERSCOPES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelScope) target).withoutSuperScopes((SeppelScope) value);
-         return true;
-      }
-
-      if (SeppelScope.PROPERTY_USERS.equalsIgnoreCase(attrName))
-      {
-         ((SeppelScope) target).withUsers((SeppelUser) value);
-         return true;
-      }
-      
-      if ((SeppelScope.PROPERTY_USERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((SeppelScope) target).withoutUsers((SeppelUser) value);
          return true;
       }
 

@@ -128,20 +128,20 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
                String login = jsonObject.getString("login");
                String pwd = jsonObject.getString("pwd");
 
-               SeppelUser theUser = selfProxy.getKnownUsers()
-                     .hasLoginName(login)
-                     .hasPassword(pwd)
-                     .first();
-
-               SeppelSpaceProxy theSpace = theUser.getOrCreateSpaces(spaceId);
-               selfProxy.withPartners(theSpace);
-               msg.channel.setSeppelSpaceProxy(theSpace);
+               //               SeppelUser theUser = selfProxy.getKnownUsers()
+               //                     .hasLoginName(login)
+               //                     .hasPassword(pwd)
+               //                     .first();
+               //
+//               SeppelSpaceProxy theSpace; // = theUser.getOrCreateSpaces(spaceId);
+//               selfProxy.withPartners(theSpace);
+//               msg.channel.setSeppelSpaceProxy(theSpace);
                
-               if (theSpace.getScopes().isEmpty())
-               {
-                  // provide initial scope
-                  theSpace.withScopes(theUser.getScopes().toArray(new SeppelScope[] {}));
-               }
+//               if (theSpace.getScopes().isEmpty())
+//               {
+//                  // provide initial scope
+//                  theSpace.withScopes(theUser.getScopes().toArray(new SeppelScope[] {}));
+//               }
                
                // that worked, set channel to valid
                msg.channel.setLoginValidated(true);

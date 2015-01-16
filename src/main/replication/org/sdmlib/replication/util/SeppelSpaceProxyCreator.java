@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,7 +24,6 @@ package org.sdmlib.replication.util;
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.SeppelUser;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelChannel;
 
@@ -36,11 +35,11 @@ public class SeppelSpaceProxyCreator extends EntityFactory
       SeppelSpaceProxy.PROPERTY_ACCEPTSCONNECTIONREQUESTS,
       SeppelSpaceProxy.PROPERTY_HOSTNAME,
       SeppelSpaceProxy.PROPERTY_PORTNO,
+      SeppelSpaceProxy.PROPERTY_LOGINNAME,
+      SeppelSpaceProxy.PROPERTY_PASSWORD,
       SeppelSpaceProxy.PROPERTY_PARTNERS,
-      SeppelSpaceProxy.PROPERTY_KNOWNUSERS,
-      SeppelSpaceProxy.PROPERTY_USER,
       SeppelSpaceProxy.PROPERTY_SCOPES,
-      //      SeppelSpaceProxy.PROPERTY_CHANNEL,
+      SeppelSpaceProxy.PROPERTY_CHANNEL,
    };
    
    @Override
@@ -86,19 +85,19 @@ public class SeppelSpaceProxyCreator extends EntityFactory
          return ((SeppelSpaceProxy) target).getPortNo();
       }
 
+      if (SeppelSpaceProxy.PROPERTY_LOGINNAME.equalsIgnoreCase(attribute))
+      {
+         return ((SeppelSpaceProxy) target).getLoginName();
+      }
+
+      if (SeppelSpaceProxy.PROPERTY_PASSWORD.equalsIgnoreCase(attribute))
+      {
+         return ((SeppelSpaceProxy) target).getPassword();
+      }
+
       if (SeppelSpaceProxy.PROPERTY_PARTNERS.equalsIgnoreCase(attribute))
       {
          return ((SeppelSpaceProxy) target).getPartners();
-      }
-
-      if (SeppelSpaceProxy.PROPERTY_KNOWNUSERS.equalsIgnoreCase(attribute))
-      {
-         return ((SeppelSpaceProxy) target).getKnownUsers();
-      }
-
-      if (SeppelSpaceProxy.PROPERTY_USER.equalsIgnoreCase(attribute))
-      {
-         return ((SeppelSpaceProxy) target).getUser();
       }
 
       if (SeppelSpaceProxy.PROPERTY_SCOPES.equalsIgnoreCase(attribute))
@@ -146,6 +145,18 @@ public class SeppelSpaceProxyCreator extends EntityFactory
          return true;
       }
 
+      if (SeppelSpaceProxy.PROPERTY_LOGINNAME.equalsIgnoreCase(attrName))
+      {
+         ((SeppelSpaceProxy) target).withLoginName((String) value);
+         return true;
+      }
+
+      if (SeppelSpaceProxy.PROPERTY_PASSWORD.equalsIgnoreCase(attrName))
+      {
+         ((SeppelSpaceProxy) target).withPassword((String) value);
+         return true;
+      }
+
       if (SeppelSpaceProxy.PROPERTY_PARTNERS.equalsIgnoreCase(attrName))
       {
          ((SeppelSpaceProxy) target).withPartners((SeppelSpaceProxy) value);
@@ -155,24 +166,6 @@ public class SeppelSpaceProxyCreator extends EntityFactory
       if ((SeppelSpaceProxy.PROPERTY_PARTNERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((SeppelSpaceProxy) target).withoutPartners((SeppelSpaceProxy) value);
-         return true;
-      }
-
-      if (SeppelSpaceProxy.PROPERTY_KNOWNUSERS.equalsIgnoreCase(attrName))
-      {
-         ((SeppelSpaceProxy) target).withKnownUsers((SeppelUser) value);
-         return true;
-      }
-      
-      if ((SeppelSpaceProxy.PROPERTY_KNOWNUSERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((SeppelSpaceProxy) target).withoutKnownUsers((SeppelUser) value);
-         return true;
-      }
-
-      if (SeppelSpaceProxy.PROPERTY_USER.equalsIgnoreCase(attrName))
-      {
-         ((SeppelSpaceProxy) target).setUser((SeppelUser) value);
          return true;
       }
 

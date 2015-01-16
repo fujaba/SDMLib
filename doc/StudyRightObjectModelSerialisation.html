@@ -25,25 +25,11 @@
       },
       {
          "typ":"node",
-         "id":"karli : Student",
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0",
-            "done=null",
-            "friends=null"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"mathRoom : Room",
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
@@ -52,10 +38,7 @@
          "attributes":[
          "name=7522",
             "topic=arts",
-            "credits=16",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=16"
          ]
       },
       {
@@ -64,10 +47,7 @@
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=25"
          ]
       },
       {
@@ -76,10 +56,7 @@
          "attributes":[
          "name=The End",
             "topic=exam",
-            "credits=0",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=0"
          ]
       },
       {
@@ -88,55 +65,47 @@
          "attributes":[
          "name=7422",
             "topic=Software Engineering",
-            "credits=42",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=42"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A1 : Assignment",
+         "id":"karli : Student",
+         "attributes":[
+         "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A1 : Assignment",
          "attributes":[
          "content=Matrix Multiplication",
-            "points=5",
-            "students=null"
+            "points=5"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A2 : Assignment",
+         "id":"A2 : Assignment",
          "attributes":[
          "content=Series",
-            "points=6",
-            "students=null"
+            "points=6"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A3 : Assignment",
+         "id":"A3 : Assignment",
          "attributes":[
          "content=Integrals",
-            "points=8",
-            "students=null"
+            "points=8"
          ]
       }
    ],
    "edges":[
    {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
@@ -199,6 +168,318 @@
             "cardinality":"many",
             "property":"rooms",
             "id":"placeToBe : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A1 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A2 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"placeToBe : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"placeToBe : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
          }
       },
       {
@@ -231,307 +512,8 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"placeToBe : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"placeToBe : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"placeToBe : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -544,7 +526,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -557,7 +539,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -719,107 +701,89 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"d.U4 : University",
+         "id":"U4 : University",
          "attributes":[
          "name=StudyRight"
          ]
       },
       {
          "typ":"node",
-         "id":"d.S5 : Student",
+         "id":"R5 : Room",
+         "attributes":[
+         "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R6 : Room",
+         "attributes":[
+         "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R7 : Room",
+         "attributes":[
+         "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R8 : Room",
+         "attributes":[
+         "name=The End",
+            "topic=exam",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R9 : Room",
+         "attributes":[
+         "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"S10 : Student",
          "attributes":[
          "name=Karli",
             "id=4242",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "done=null",
-            "friends=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R6 : Room",
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R7 : Room",
-         "attributes":[
-         "name=7522",
-            "topic=arts",
-            "credits=16",
-            "students=null",
-            "assignments=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R8 : Room",
-         "attributes":[
-         "name=gymnasium",
-            "topic=sports",
-            "credits=25",
-            "students=null",
-            "assignments=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R9 : Room",
-         "attributes":[
-         "name=The End",
-            "topic=exam",
-            "credits=0",
-            "students=null",
-            "assignments=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R10 : Room",
-         "attributes":[
-         "name=7422",
-            "topic=Software Engineering",
-            "credits=42",
-            "students=null",
-            "assignments=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A11 : Assignment",
+         "id":"A11 : Assignment",
          "attributes":[
          "content=Matrix Multiplication",
-            "points=5",
-            "students=null"
+            "points=5"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A12 : Assignment",
+         "id":"A12 : Assignment",
          "attributes":[
          "content=Series",
-            "points=6",
-            "students=null"
+            "points=6"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A13 : Assignment",
+         "id":"A13 : Assignment",
          "attributes":[
          "content=Integrals",
-            "points=8",
-            "students=null"
+            "points=8"
          ]
       }
    ],
@@ -829,77 +793,376 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R8 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"rooms",
+            "id":"R9 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"d.S5 : Student"
+            "id":"S10 : Student"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
+            "property":"room",
+            "id":"R5 : Room"
          },
          "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R6 : Room"
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
+            "property":"room",
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R7 : Room"
+            "property":"doors",
+            "id":"R6 : Room"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
+            "property":"room",
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R8 : Room"
+            "property":"doors",
+            "id":"R7 : Room"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
+            "property":"room",
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R9 : Room"
+            "property":"students",
+            "id":"S10 : Student"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
+            "property":"room",
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R10 : Room"
+            "property":"assignments",
+            "id":"A11 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A12 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A13 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R8 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"U4 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R9 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
          }
       },
       {
@@ -907,12 +1170,12 @@
          "source":{
             "cardinality":"one",
             "property":"student",
-            "id":"d.S5 : Student"
+            "id":"S10 : Student"
          },
          "target":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          }
       },
       {
@@ -920,311 +1183,12 @@
          "source":{
             "cardinality":"one",
             "property":"student",
-            "id":"d.S5 : Student"
+            "id":"S10 : Student"
          },
          "target":{
             "cardinality":"one",
             "property":"in",
-            "id":"d.R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R7 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R8 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"d.S5 : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A11 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A12 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A13 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R7 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R8 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R9 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R10 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R8 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R8 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R8 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R7 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R8 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R9 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R9 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R9 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R8 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R9 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R7 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R9 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R10 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R10 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U4 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R10 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R7 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R10 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"d.R9 : Room"
+            "id":"R5 : Room"
          }
       },
       {
@@ -1232,12 +1196,12 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A11 : Assignment"
+            "id":"A11 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R5 : Room"
          }
       },
       {
@@ -1245,12 +1209,12 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A12 : Assignment"
+            "id":"A12 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R5 : Room"
          }
       },
       {
@@ -1258,12 +1222,12 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A13 : Assignment"
+            "id":"A13 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R5 : Room"
          }
       }
    ]

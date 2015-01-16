@@ -21,19 +21,14 @@
    
 package org.sdmlib.replication;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ObjectSet;
-
-import java.lang.Object;
-
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.replication.util.SeppelScopeSet;
-import org.sdmlib.replication.util.SeppelUserSet;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class SeppelSpaceProxy implements PropertyChangeInterface
 {
@@ -63,9 +58,7 @@ public class SeppelSpaceProxy implements PropertyChangeInterface
       withoutObservedObjects(this.getObservedObjects().toArray(new Object[this.getObservedObjects().size()]));
       withoutPartners(this.getPartners().toArray(new SeppelSpaceProxy[this.getPartners().size()]));
       setChannel(null);
-      setUser(null);
       withoutScopes(this.getScopes().toArray(new SeppelScope[this.getScopes().size()]));
-      withoutKnownUsers(this.getKnownUsers().toArray(new SeppelUser[this.getKnownUsers().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -106,6 +99,8 @@ public class SeppelSpaceProxy implements PropertyChangeInterface
       result.append(" ").append(this.getSpaceId());
       result.append(" ").append(this.getHostName());
       result.append(" ").append(this.getPortNo());
+      result.append(" ").append(this.getLoginName());
+      result.append(" ").append(this.getPassword());
       return result.substring(1);
    }
 
@@ -433,65 +428,6 @@ public class SeppelSpaceProxy implements PropertyChangeInterface
    
    /********************************************************************
     * <pre>
-    *              many                       one
-    * SeppelSpaceProxy ----------------------------------- SeppelUser
-    *              spaces                   user
-    * </pre>
-    */
-   
-   public static final String PROPERTY_USER = "user";
-
-   private SeppelUser user = null;
-
-   public SeppelUser getUser()
-   {
-      return this.user;
-   }
-
-   public boolean setUser(SeppelUser value)
-   {
-      boolean changed = false;
-      
-      if (this.user != value)
-      {
-         SeppelUser oldValue = this.user;
-         
-         if (this.user != null)
-         {
-            this.user = null;
-            oldValue.withoutSpaces(this);
-         }
-         
-         this.user = value;
-         
-         if (value != null)
-         {
-            value.withSpaces(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_USER, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public SeppelSpaceProxy withUser(SeppelUser value)
-   {
-      setUser(value);
-      return this;
-   } 
-
-   public SeppelUser createUser()
-   {
-      SeppelUser value = new SeppelUser();
-      withUser(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
     *              many                       many
     * SeppelSpaceProxy ----------------------------------- SeppelScope
     *              spaces                   scopes
@@ -561,87 +497,60 @@ public class SeppelSpaceProxy implements PropertyChangeInterface
       return value;
    } 
 
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * SeppelSpaceProxy ----------------------------------- SeppelUser
-    *              masterSpace                   knownUsers
-    * </pre>
-    */
-   
-   public static final String PROPERTY_KNOWNUSERS = "knownUsers";
 
-   private SeppelUserSet knownUsers = null;
    
-   public SeppelUserSet getKnownUsers()
+   //==========================================================================
+   
+   public static final String PROPERTY_LOGINNAME = "loginName";
+   
+   private String loginName;
+
+   public String getLoginName()
    {
-      if (this.knownUsers == null)
-      {
-         return SeppelUserSet.EMPTY_SET;
-      }
-   
-      return this.knownUsers;
+      return this.loginName;
    }
-
-   public SeppelSpaceProxy withKnownUsers(SeppelUser... value)
+   
+   public void setLoginName(String value)
    {
-      if(value==null){
-         return this;
-      }
-      for (SeppelUser item : value)
+      if ( ! StrUtil.stringEquals(this.loginName, value))
       {
-         if (item != null)
-         {
-            if (this.knownUsers == null)
-            {
-               this.knownUsers = new SeppelUserSet();
-            }
-            
-            boolean changed = this.knownUsers.add (item);
-
-            if (changed)
-            {
-               item.withMasterSpace(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_KNOWNUSERS, null, item);
-            }
-         }
+         String oldValue = this.loginName;
+         this.loginName = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LOGINNAME, oldValue, value);
       }
+   }
+   
+   public SeppelSpaceProxy withLoginName(String value)
+   {
+      setLoginName(value);
       return this;
    } 
 
-   public SeppelSpaceProxy withoutKnownUsers(SeppelUser... value)
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PASSWORD = "password";
+   
+   private String password;
+
+   public String getPassword()
    {
-      for (SeppelUser item : value)
+      return this.password;
+   }
+   
+   public void setPassword(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.password, value))
       {
-         if ((this.knownUsers != null) && (item != null))
-         {
-            if (this.knownUsers.remove(item))
-            {
-               item.setMasterSpace(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_KNOWNUSERS, item, null);
-            }
-         }
+         String oldValue = this.password;
+         this.password = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PASSWORD, oldValue, value);
       }
+   }
+   
+   public SeppelSpaceProxy withPassword(String value)
+   {
+      setPassword(value);
       return this;
-   }
-
-   public SeppelUser createKnownUsers()
-   {
-      SeppelUser value = new SeppelUser();
-      withKnownUsers(value);
-      return value;
-   }
-
-   public SeppelUser getOrCreateKnownUsers(String userName)
-   {
-      SeppelUser user = this.getKnownUsers().hasLoginName(userName).first();
-      
-      if (user == null)
-      {
-         user = new SeppelUser().withLoginName(userName).withMasterSpace(this);
-      }
-      
-      return user;
    } 
 }

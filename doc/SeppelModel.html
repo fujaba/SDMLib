@@ -35,14 +35,8 @@
          "spaceId : String",
             "acceptsConnectionRequests : boolean",
             "hostName : String",
-            "portNo : int"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"SeppelUser",
-         "attributes":[
-         "loginName : String",
+            "portNo : int",
+            "loginName : String",
             "password : String"
          ]
       },
@@ -91,32 +85,6 @@
       {
          "typ":"edge",
          "source":{
-            "cardinality":"one",
-            "property":"masterSpace",
-            "id":"SeppelSpaceProxy"
-         },
-         "target":{
-            "id":"SeppelUser",
-            "cardinality":"many",
-            "property":"knownUsers"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"spaces",
-            "id":"SeppelSpaceProxy"
-         },
-         "target":{
-            "id":"SeppelUser",
-            "cardinality":"one",
-            "property":"user"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
             "cardinality":"many",
             "property":"spaces",
             "id":"SeppelSpaceProxy"
@@ -138,19 +106,6 @@
             "id":"SeppelChannel",
             "cardinality":"one",
             "property":"channel"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"users",
-            "id":"SeppelUser"
-         },
-         "target":{
-            "id":"SeppelScope",
-            "cardinality":"many",
-            "property":"scopes"
          }
       },
       {

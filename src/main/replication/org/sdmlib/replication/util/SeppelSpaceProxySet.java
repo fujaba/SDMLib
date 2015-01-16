@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -30,8 +30,6 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
-import org.sdmlib.replication.util.SeppelUserSet;
-import org.sdmlib.replication.SeppelUser;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.util.SeppelChannelSet;
@@ -270,6 +268,110 @@ public class SeppelSpaceProxySet extends SDMSet<SeppelSpaceProxy>
       return this;
    }
 
+   public StringList getLoginName()
+   {
+      StringList result = new StringList();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         result.add(obj.getLoginName());
+      }
+      
+      return result;
+   }
+
+   public SeppelSpaceProxySet hasLoginName(String value)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (value.equals(obj.getLoginName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SeppelSpaceProxySet hasLoginName(String lower, String upper)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (lower.compareTo(obj.getLoginName()) <= 0 && obj.getLoginName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SeppelSpaceProxySet withLoginName(String value)
+   {
+      for (SeppelSpaceProxy obj : this)
+      {
+         obj.setLoginName(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getPassword()
+   {
+      StringList result = new StringList();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         result.add(obj.getPassword());
+      }
+      
+      return result;
+   }
+
+   public SeppelSpaceProxySet hasPassword(String value)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (value.equals(obj.getPassword()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SeppelSpaceProxySet hasPassword(String lower, String upper)
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if (lower.compareTo(obj.getPassword()) <= 0 && obj.getPassword().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SeppelSpaceProxySet withPassword(String value)
+   {
+      for (SeppelSpaceProxy obj : this)
+      {
+         obj.setPassword(value);
+      }
+      
+      return this;
+   }
+
    public SeppelSpaceProxySet getPartners()
    {
       SeppelSpaceProxySet result = new SeppelSpaceProxySet();
@@ -347,112 +449,6 @@ public class SeppelSpaceProxySet extends SDMSet<SeppelSpaceProxy>
       for (SeppelSpaceProxy obj : this)
       {
          obj.withoutPartners(value);
-      }
-      
-      return this;
-   }
-
-   public SeppelUserSet getKnownUsers()
-   {
-      SeppelUserSet result = new SeppelUserSet();
-      
-      for (SeppelSpaceProxy obj : this)
-      {
-         result.addAll(obj.getKnownUsers());
-      }
-      
-      return result;
-   }
-
-   public SeppelSpaceProxySet hasKnownUsers(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      SeppelSpaceProxySet answer = new SeppelSpaceProxySet();
-      
-      for (SeppelSpaceProxy obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getKnownUsers()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public SeppelSpaceProxySet withKnownUsers(SeppelUser value)
-   {
-      for (SeppelSpaceProxy obj : this)
-      {
-         obj.withKnownUsers(value);
-      }
-      
-      return this;
-   }
-
-   public SeppelSpaceProxySet withoutKnownUsers(SeppelUser value)
-   {
-      for (SeppelSpaceProxy obj : this)
-      {
-         obj.withoutKnownUsers(value);
-      }
-      
-      return this;
-   }
-
-   public SeppelUserSet getUser()
-   {
-      SeppelUserSet result = new SeppelUserSet();
-      
-      for (SeppelSpaceProxy obj : this)
-      {
-         result.add(obj.getUser());
-      }
-      
-      return result;
-   }
-
-   public SeppelSpaceProxySet hasUser(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      SeppelSpaceProxySet answer = new SeppelSpaceProxySet();
-      
-      for (SeppelSpaceProxy obj : this)
-      {
-         if (neighbors.contains(obj.getUser()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public SeppelSpaceProxySet withUser(SeppelUser value)
-   {
-      for (SeppelSpaceProxy obj : this)
-      {
-         obj.withUser(value);
       }
       
       return this;

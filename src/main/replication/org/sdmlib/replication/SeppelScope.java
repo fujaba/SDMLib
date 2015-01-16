@@ -21,15 +21,14 @@
    
 package org.sdmlib.replication;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
-import org.sdmlib.replication.util.SeppelScopeSet;
-import org.sdmlib.replication.util.SeppelUserSet;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.replication.util.ObjectSet;
-import java.lang.Object;
+import org.sdmlib.replication.util.SeppelScopeSet;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class SeppelScope implements PropertyChangeInterface
 {
@@ -58,7 +57,6 @@ public class SeppelScope implements PropertyChangeInterface
    {
       withoutSubScopes(this.getSubScopes().toArray(new SeppelScope[this.getSubScopes().size()]));
       withoutSuperScopes(this.getSuperScopes().toArray(new SeppelScope[this.getSuperScopes().size()]));
-      withoutUsers(this.getUsers().toArray(new SeppelUser[this.getUsers().size()]));
       withoutSpaces(this.getSpaces().toArray(new SeppelSpaceProxy[this.getSpaces().size()]));
       withoutObservedObjects(this.getObservedObjects().toArray(new Object[this.getObservedObjects().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
@@ -256,78 +254,6 @@ public class SeppelScope implements PropertyChangeInterface
    {
       SeppelScope value = new SeppelScope();
       withSuperScopes(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * SeppelScope ----------------------------------- SeppelUser
-    *              scopes                   users
-    * </pre>
-    */
-   
-   public static final String PROPERTY_USERS = "users";
-
-   private SeppelUserSet users = null;
-   
-   public SeppelUserSet getUsers()
-   {
-      if (this.users == null)
-      {
-         return SeppelUserSet.EMPTY_SET;
-      }
-   
-      return this.users;
-   }
-
-   public SeppelScope withUsers(SeppelUser... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (SeppelUser item : value)
-      {
-         if (item != null)
-         {
-            if (this.users == null)
-            {
-               this.users = new SeppelUserSet();
-            }
-            
-            boolean changed = this.users.add (item);
-
-            if (changed)
-            {
-               item.withScopes(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_USERS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public SeppelScope withoutUsers(SeppelUser... value)
-   {
-      for (SeppelUser item : value)
-      {
-         if ((this.users != null) && (item != null))
-         {
-            if (this.users.remove(item))
-            {
-               item.withoutScopes(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_USERS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public SeppelUser createUsers()
-   {
-      SeppelUser value = new SeppelUser();
-      withUsers(value);
       return value;
    } 
 
