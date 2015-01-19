@@ -678,7 +678,7 @@ Graph.prototype.doDrag = function(event) {
 			if(this.objDrag.model){
 				this.objDrag.model.x = x;
 				this.objDrag.model.y = y;
-				this.objDrag.model._parent.resize(this.model);
+				this.resize(this.model);
 			}
 		}
 	}

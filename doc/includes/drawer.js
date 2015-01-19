@@ -270,15 +270,18 @@ HTMLDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle){
 	// http://www.mathopenref.com/coorddist.html
 	var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 
-	var line = this.util.create({tag: "div", class:"lineElement", style:{width:length, position:"absolute", zIndex:42}});
+    // var line = this.util.create({tag:"line", 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2, "stroke":this.getColor(style)});
+	var line = this.util.create({tag: "div", class:"lineElement", style:{width:length+"px", position:"absolute", zIndex:42}});
 	line.style.borderBottomStyle= lineStyle;
 
 	var angle = Math.atan((y1-y2)/(x1-x2));
 	if(x1==x2){
 		angle = Math.atan((y1-y2)/(x1-x2))*-1;
 	}
-	line.style.top = y1 + 0.5*length*Math.sin(angle) + "px";
-	line.style.left = x1 - 0.5*length*(1 - Math.cos(angle)) + "px";
+	var cx = (x1+x2)/2;
+	var cy = (y1+y2)/2;
+	line.style.top = cy + "px";
+	line.style.left = cx - 0.5*length + "px";
 	line.style.transform="rotate("+angle+"rad)";
 	line.style.msTransform = line.style.MozTransform = line.style.WebkitTransform = line.style.OTransform= "rotate(" + angle + "rad)";
 	return line;

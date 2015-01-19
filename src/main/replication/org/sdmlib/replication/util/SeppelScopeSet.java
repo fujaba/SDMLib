@@ -404,4 +404,18 @@ public class SeppelScopeSet extends SDMSet<SeppelScope>
       return this;
    }
 
+
+   public boolean containsObservedObjects(Object targetObject)
+   {
+      for (SeppelScope scope : this)
+      {
+         if (scope.getObservedObjects().contains(targetObject))
+         {
+            return true;
+         }
+      }
+      
+      return false;
+   }
+
 }
