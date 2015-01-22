@@ -742,6 +742,13 @@ public PatternLinkSet getIncomming()
       }
    }
 
+   protected void hasAttribute() {
+      if(!this.getPattern().findMatch()) 
+      {
+         setCurrentMatch(null);
+      }
+   }
+   
    public POC has(GenericConstraint.Condition condition, String text)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
