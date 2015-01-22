@@ -360,7 +360,7 @@ public class StoryboardTests {
             .withName("senate")
             .withTopic("math")
             .withCredits(17)  
-            .withStudents(karli)
+            .withStudents(karli) 
             .withAssignments(a1, a2, a3);
 
       Room artsRoom = university.createRooms()

@@ -37,25 +37,17 @@ public class ReplicationModel
             .withAttribute("spaceId", DataType.STRING)
             .withAttribute("acceptsConnectionRequests", DataType.BOOLEAN)
             .withAttribute("hostName", DataType.STRING)
-            .withAttribute("portNo", DataType.INT);
+            .withAttribute("portNo", DataType.INT)
+            .withAttribute("loginName", DataType.STRING)
+            .withAttribute("password", DataType.STRING);
       
       seppelSpaceProxy.withAssoc(seppelSpaceProxy, "partners", Card.MANY, "partners", Card.MANY);
-      
-      Clazz seppelUser = model.createClazz("SeppelUser")
-            .withAttribute("loginName", DataType.STRING)
-            .withAttribute("password", DataType.STRING); 
-      
-      seppelSpaceProxy.withAssoc(seppelUser, "knownUsers", Card.MANY, "masterSpace", Card.ONE);
-
-      seppelSpaceProxy.withAssoc(seppelUser, "user", Card.ONE, "spaces", Card.MANY);
       
       Clazz seppelScope = model.createClazz("SeppelScope")
             .withAttribute("scopeName", DataType.STRING);
       
       seppelScope.withAssoc(seppelScope, "subScopes", Card.MANY, "superScopes", Card.MANY);
 
-      seppelUser.withAssoc(seppelScope, "scopes", Card.MANY, "users", Card.MANY);
-      
       seppelSpaceProxy.withAssoc(seppelScope, "scopes", Card.MANY, "spaces", Card.MANY);
       
       Clazz object = model.createClazz(Object.class.getName()).withExternal(true);
@@ -70,11 +62,6 @@ public class ReplicationModel
             
       seppelSpaceProxy.withAssoc(seppelChannel, "channel", Card.ONE, "seppelSpaceProxy", Card.ONE);
       
-      // seppelSpace.withAssoc(seppelChannel, "channels", Card.MANY, "seppelSpace", Card.ONE);
-
-
-      
-
       model.generate("src/main/replication");
 
       story.addClassDiagram(model);

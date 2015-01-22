@@ -74,6 +74,51 @@
       },
       {
          "typ":"node",
+         "id":"mathRoom : Room",
+         "attributes":[
+         "name=senate",
+            "topic=math",
+            "credits=17"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"artsRoom : Room",
+         "attributes":[
+         "name=7522",
+            "topic=arts",
+            "credits=16"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"sportsRoom : Room",
+         "attributes":[
+         "name=gymnasium",
+            "topic=sports",
+            "credits=25"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"examRoom : Room",
+         "attributes":[
+         "name=The End",
+            "topic=exam",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"placeToBe : Room",
+         "attributes":[
+         "name=7422",
+            "topic=Software Engineering",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"abu : Student",
          "attributes":[
          "name=Abu",
@@ -92,9 +137,7 @@
             "id=4242",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "friends=null",
-            "room=null"
+            "credits=0"
          ]
       },
       {
@@ -105,69 +148,12 @@
             "id=2323",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "done=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
-         "id":"mathRoom : Room",
-         "attributes":[
-         "name=senate",
-            "topic=math",
-            "credits=17",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"artsRoom : Room",
-         "attributes":[
-         "name=7522",
-            "topic=arts",
-            "credits=16",
-            "students=null",
-            "assignments=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"sportsRoom : Room",
-         "attributes":[
-         "name=gymnasium",
-            "topic=sports",
-            "credits=25",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"examRoom : Room",
-         "attributes":[
-         "name=The End",
-            "topic=exam",
-            "credits=0",
-            "students=null",
-            "assignments=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"placeToBe : Room",
-         "attributes":[
-         "name=7422",
-            "topic=Software Engineering",
-            "credits=42",
-            "students=null",
-            "assignments=null",
-            "tas=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A1 : Assignment",
+         "id":"A1 : Assignment",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -175,15 +161,7 @@
       },
       {
          "typ":"node",
-         "id":"d.A4 : Assignment",
-         "attributes":[
-         "content=Pushups",
-            "points=4"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.A2 : Assignment",
+         "id":"A2 : Assignment",
          "attributes":[
          "content=Series",
             "points=6"
@@ -191,11 +169,18 @@
       },
       {
          "typ":"node",
-         "id":"d.A3 : Assignment",
+         "id":"A3 : Assignment",
          "attributes":[
          "content=Integrals",
-            "points=8",
-            "students=null"
+            "points=8"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A4 : Assignment",
+         "attributes":[
+         "content=Pushups",
+            "points=4"
          ]
       }
    ],
@@ -209,45 +194,6 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
             "property":"rooms",
             "id":"mathRoom : Room"
          }
@@ -308,6 +254,383 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"abu : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"alice : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A1 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A2 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A3 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"artsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"placeToBe : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"abu : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"alice : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A4 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"examRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"placeToBe : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"placeToBe : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
             "property":"student",
             "id":"abu : Student"
          },
@@ -340,7 +663,7 @@
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -353,7 +676,7 @@
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A4 : Assignment"
+            "id":"A4 : Assignment"
          }
       },
       {
@@ -373,25 +696,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
+            "property":"assignment",
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
             "id":"mathRoom : Room"
          }
       },
@@ -399,34 +709,8 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
+            "property":"assignment",
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -438,273 +722,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A4 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
+            "property":"assignment",
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"many",
             "property":"students",
             "id":"karli : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A2 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"d.A3 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"examRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"placeToBe : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"placeToBe : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"placeToBe : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"placeToBe : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
          }
       },
       {
@@ -743,7 +767,7 @@
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -756,7 +780,7 @@
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -764,7 +788,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -777,64 +801,38 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A2 : Assignment"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A4 : Assignment"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"assignment",
+            "id":"A4 : Assignment"
          },
          "target":{
             "cardinality":"many",
             "property":"students",
             "id":"abu : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A1 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A2 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A2 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : TeachingAssistant"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A3 : Assignment"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"mathRoom : Room"
          }
       },
       {
@@ -881,25 +879,12 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A4 : Assignment"
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"assignment",
-            "id":"d.A4 : Assignment"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
+            "id":"mathRoom : Room"
          }
       }
    ]
@@ -962,10 +947,7 @@
             "id=1337",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
@@ -976,10 +958,7 @@
             "id=2323",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
@@ -991,12 +970,7 @@
             "id=4242",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null",
-            "friends=null",
-            "room=null"
+            "credits=0"
          ]
       }
    ],
@@ -1318,10 +1292,7 @@
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "university=null",
-            "doors=null",
-            "assignments=null"
+            "credits=25"
          ]
       },
       {
@@ -1332,9 +1303,7 @@
             "id=1337",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
@@ -1345,25 +1314,17 @@
             "id=2323",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.T5 : TeachingAssistant",
+         "id":"T5 : TeachingAssistant",
          "attributes":[
          "certified=false",
-            "name=null",
-            "id=null",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null",
-            "friends=null"
+            "credits=0"
          ]
       }
    ],
@@ -1404,7 +1365,7 @@
          "target":{
             "cardinality":"many",
             "property":"tas",
-            "id":"d.T5 : TeachingAssistant"
+            "id":"T5 : TeachingAssistant"
          }
       },
       {
@@ -1464,7 +1425,7 @@
          "source":{
             "cardinality":"one",
             "property":"teachingassistant",
-            "id":"d.T5 : TeachingAssistant"
+            "id":"T5 : TeachingAssistant"
          },
          "target":{
             "cardinality":"one",
@@ -1549,12 +1510,7 @@
             "id=4242",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null",
-            "friends=null",
-            "room=null"
+            "credits=0"
          ]
       }
    ]
@@ -1625,9 +1581,7 @@
             "id=1337",
             "assignmentPoints=0",
             "motivation=168",
-            "credits=0",
-            "university=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
@@ -1636,10 +1590,7 @@
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "university=null",
-            "assignments=null",
-            "tas=null"
+            "credits=25"
          ]
       },
       {
@@ -1650,9 +1601,7 @@
             "id=2323",
             "assignmentPoints=0",
             "motivation=168",
-            "credits=0",
-            "university=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
@@ -1661,10 +1610,7 @@
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "university=null",
-            "assignments=null",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
@@ -1676,11 +1622,7 @@
             "id=4242",
             "assignmentPoints=0",
             "motivation=168",
-            "credits=0",
-            "university=null",
-            "done=null",
-            "friends=null",
-            "room=null"
+            "credits=0"
          ]
       }
    ],

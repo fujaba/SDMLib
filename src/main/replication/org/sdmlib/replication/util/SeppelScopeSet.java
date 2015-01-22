@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -28,8 +28,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.replication.util.SeppelScopeSet;
-import org.sdmlib.replication.util.SeppelUserSet;
-import org.sdmlib.replication.SeppelUser;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import java.lang.Object;
@@ -290,64 +288,6 @@ public class SeppelScopeSet extends SDMSet<SeppelScope>
       return this;
    }
 
-   public SeppelUserSet getUsers()
-   {
-      SeppelUserSet result = new SeppelUserSet();
-      
-      for (SeppelScope obj : this)
-      {
-         result.addAll(obj.getUsers());
-      }
-      
-      return result;
-   }
-
-   public SeppelScopeSet hasUsers(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      SeppelScopeSet answer = new SeppelScopeSet();
-      
-      for (SeppelScope obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getUsers()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public SeppelScopeSet withUsers(SeppelUser value)
-   {
-      for (SeppelScope obj : this)
-      {
-         obj.withUsers(value);
-      }
-      
-      return this;
-   }
-
-   public SeppelScopeSet withoutUsers(SeppelUser value)
-   {
-      for (SeppelScope obj : this)
-      {
-         obj.withoutUsers(value);
-      }
-      
-      return this;
-   }
-
    public SeppelSpaceProxySet getSpaces()
    {
       SeppelSpaceProxySet result = new SeppelSpaceProxySet();
@@ -467,7 +407,6 @@ public class SeppelScopeSet extends SDMSet<SeppelScope>
 
    public boolean containsObservedObjects(Object targetObject)
    {
-      // does one of the scope contain targetObject?
       for (SeppelScope scope : this)
       {
          if (scope.getObservedObjects().contains(targetObject))
@@ -475,6 +414,7 @@ public class SeppelScopeSet extends SDMSet<SeppelScope>
             return true;
          }
       }
+      
       return false;
    }
 
