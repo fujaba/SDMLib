@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.models.modelsets.Condition;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
@@ -749,10 +750,11 @@ public PatternLinkSet getIncomming()
       }
    }
    
-   public POC has(GenericConstraint.Condition condition, String text)
+   public POC has(Condition<Object> condition, String text)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
          .withText(text)
+         .withSrc(this)
          .withCondition(condition)
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
@@ -762,10 +764,11 @@ public PatternLinkSet getIncomming()
       return (POC) this;
    }
 
-   public POC has(GenericConstraint.Condition condition)
+   public POC has(Condition<Object> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
          .withCondition(condition)
+         .withSrc(this)
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 

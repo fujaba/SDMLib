@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeListener;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.models.modelsets.Condition;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
@@ -46,7 +47,7 @@ public class GenericConstraint extends PatternElement<GenericConstraint> impleme
       else
       {
          // forward 
-         boolean ok = condition.check();
+         boolean ok = condition.check(getSrc().getCurrentMatch());
          
          this.setHasMatch(ok);
          
@@ -59,14 +60,8 @@ public class GenericConstraint extends PatternElement<GenericConstraint> impleme
       }
    }
 
-   Condition condition;
+   Condition<Object> condition;
    
-   public static abstract class Condition
-   {
-      public abstract boolean check();
-   }
-
-
    //==========================================================================
 
    @Override
@@ -106,13 +101,26 @@ public class GenericConstraint extends PatternElement<GenericConstraint> impleme
 
 
 
-   public GenericConstraint withCondition(Condition newCondition)
+   public GenericConstraint withCondition(Condition<Object> newCondition)
    {
       this.condition = newCondition;
       return this;
    }
 
-
+   private PatternObject src = null;
+   
+   public PatternObject getSrc()
+   {
+      return this.src;
+   }
+    
+   public GenericConstraint withSrc(PatternObject value)
+   {
+	   if(value != this.src) {
+		   this.src = value;
+	   }
+      return this;
+   } 
    
    //==========================================================================
    
