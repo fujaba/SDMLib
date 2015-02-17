@@ -419,8 +419,8 @@ public class SeppelSpaceProxy implements PropertyChangeInterface
 
    public SeppelChannel createChannel()
    {
-      SeppelChannel value = new SeppelChannel();
-      withChannel(value);
+      SeppelChannel value = new SeppelChannel(this.getHostName(), this.getPortNo());
+      this.withChannel(value);
       return value;
    }
 

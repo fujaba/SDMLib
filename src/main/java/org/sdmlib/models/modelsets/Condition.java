@@ -1,6 +1,8 @@
 package org.sdmlib.models.modelsets;
 
-public abstract class Condition<T>
+@FunctionalInterface
+public interface Condition<T>
 {
+   
    public abstract boolean check(T elem);
 }

@@ -918,15 +918,7 @@
       &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
       
-      RoomSet roomsEven = university.getRooms().has(rooms.new Condition() {
-
-         @Override
-         public boolean check(Room elem)
-         {
-            return elem.getCredits() % 2 == 0;
-         }
-         
-      });
+      RoomSet roomsEven = university.getRooms().has(elem -&gt; elem.getCredits() % 2 == 0);
       
 </pre><p>Results in:</p>
 <pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
@@ -1085,18 +1077,6 @@
       stud1PO = roomPO.hasStudents();      
       
       final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
-      
-      &#x2F;&#x2F; Java 8: 
-      &#x2F;&#x2F; stud2PO.has( () -&gt; stud2PO.getMotivation() &lt; 50);
-      
-      &#x2F;&#x2F;      stud2PO.has(new GenericConstraint.Condition()
-      &#x2F;&#x2F;      {
-      &#x2F;&#x2F;         @Override
-      &#x2F;&#x2F;         public boolean check()
-      &#x2F;&#x2F;         {
-      &#x2F;&#x2F;            return stud2PO.getMotivation() &lt; 50;
-      &#x2F;&#x2F;         }
-      &#x2F;&#x2F;      });
       
       stud2PO.hasFriends(stud1PO);
       

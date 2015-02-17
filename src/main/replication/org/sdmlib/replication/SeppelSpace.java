@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -49,13 +51,16 @@ import org.sdmlib.replication.util.SeppelChannelSet;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.interfaces.MapUpdateListener;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import de.uniks.networkparser.logic.Deep;
 
 public class SeppelSpace extends Thread implements PropertyChangeInterface, MapUpdateListener
 {
@@ -127,21 +132,11 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
                String spaceId = jsonObject.getString("spaceId");
                String login = jsonObject.getString("login");
                String pwd = jsonObject.getString("pwd");
-
-               //               SeppelUser theUser = selfProxy.getKnownUsers()
-               //                     .hasLoginName(login)
-               //                     .hasPassword(pwd)
-               //                     .first();
-               //
-//               SeppelSpaceProxy theSpace; // = theUser.getOrCreateSpaces(spaceId);
-//               selfProxy.withPartners(theSpace);
-//               msg.channel.setSeppelSpaceProxy(theSpace);
                
-//               if (theSpace.getScopes().isEmpty())
-//               {
-//                  // provide initial scope
-//                  theSpace.withScopes(theUser.getScopes().toArray(new SeppelScope[] {}));
-//               }
+               // find the space proxy for that user
+               SeppelSpaceProxy theSpace = this.getSelfProxy().getPartners().hasLoginName(login).hasPassword(pwd).first();
+
+               theSpace.withChannel(msg.channel);
                
                // that worked, set channel to valid
                msg.channel.setLoginValidated(true);
@@ -150,7 +145,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
             {
                try
                {
-                  msg.channel.getMsgQueue().put("ckeck");
+                  msg.channel.getMsgQueue().put("check");
                }
                catch (InterruptedException e)
                {
@@ -330,6 +325,17 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
       {
          this.setReadMessages(true);
          map.executeUpdateMsg(jsonUpdate);
+         
+//         Object obj = map.getObject(change.getTargetObjectId());
+//         if (obj != null && obj instanceof SeppelScope && SeppelScope.PROPERTY_OBSERVEDOBJECTS.equals(change.getTargetProperty()))
+//         {
+//            // add valueObject to scope explicitly
+//            SeppelScope scope = (SeppelScope) obj;
+//            String valueObjectId = jsonUpdate.getJsonObject(JsonIdMap.UPDATE).getJsonObject(SeppelScope.PROPERTY_OBSERVEDOBJECTS).getString(JsonIdMap.ID);
+//            Object valueObject = map.getObject(valueObjectId);
+//            
+//            scope.withObservedObjects(valueObject);
+//         }
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -369,14 +375,25 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
          object = jsonObject.get(JsonIdMap.REMOVE);
       }
 
+      JsonObject valueJsonObject = null;
+      JsonObject jsonUpdate = null;
+      String prop = null;
+      
       if (object != null)
       {
-         JsonObject jsonUpdate = (JsonObject) object;
+         jsonUpdate = (JsonObject) object;
          Iterator<String> iter = jsonUpdate.keys();
          if ( iter.hasNext())
          {
-            String prop = iter.next();
+            prop = iter.next();
             change.withTargetProperty(prop);
+            
+            Object obj = jsonUpdate.get(prop);
+            
+            if (obj instanceof JsonObject)
+            {
+               valueJsonObject = (JsonObject) obj;
+            }
          }
       }
 
@@ -387,6 +404,29 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
       {
          change.setIsToManyProperty(true);
       }
+      
+      if (target instanceof SeppelScope 
+            && SeppelScope.PROPERTY_OBSERVEDOBJECTS.equals(change.getTargetProperty())
+            && valueJsonObject != null)
+      {
+         // some new object has been added to a scope, 
+         // provide all details of that object as it will now be send to new partner spaces
+         if (valueJsonObject.get(JsonIdMap.ID) != null && valueJsonObject.size() == 1)
+         {
+            // it contains only the object id, no properties of the object, just add those
+            String valueObjectId = valueJsonObject.getString(JsonIdMap.ID);
+            Object valueObject = map.getObject(valueObjectId);
+            LinkedHashSet explicitElems = new LinkedHashSet();
+            explicitElems.add(valueObject);
+            JsonObject newValueJsonObject = map.toJsonObject(valueObject, 
+               new Filter().withConvertable(new Deep().withDeep(0)));
+            
+            jsonUpdate.put(prop, newValueJsonObject);
+            change.withChangeMsg(jsonObject.toString());
+         }
+         
+      }
+         
 
       getHistory().addChange(change);
 
@@ -603,9 +643,11 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
       
       this.selfProxy = new SeppelSpaceProxy()
       .withSpaceId(this.getSpaceId())
+      .withLoginName(userName)
       .withHostName(hostName)
       .withPortNo(portNo);
-      this.put(this.getSpaceId(), this.selfProxy);
+      
+      this.put(this.selfProxy.getLoginName()+"Proxy", this.selfProxy);
 
       
       return this;
@@ -919,14 +961,19 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
 
    private void sendNewChange(ReplicationChange change)
    {
-      // TODO Auto-generated method stub
-      
+      // go through all channels
+      for(SeppelChannel channel : this.getSelfProxy().getPartners().getChannel())
+      {
+         SeppelScopeSet scopes = channel.getSeppelSpaceProxy().getScopes();
+         
+         sendChangeToChannel(channel, scopes, change);
+      }
    }
 
 
    public void sendAllChanges(SeppelChannel channel)
    {
-      JsonObject jsonObject = new JsonObject();
+      JsonObject jsonObject;
       
       // go through history and send changes that are in the scope of this channel
       SeppelScopeSet scopes = channel.getSeppelSpaceProxy().getScopes();
@@ -940,40 +987,65 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
       
       for (ReplicationChange change : this.getHistory().getChanges())
       {
-         String targetObjectId = change.getTargetObjectId();
-         Object targetObject = this.get(targetObjectId);
-         
-         if (targetObject != null && scopes.containsObservedObjects(targetObject))
-         {
-            // the value should also be in scope
-            String changeMsg = change.getChangeMsg();
+         sendChangeToChannel(channel, scopes, change);
+      }
+   }
+
+
+   private void sendChangeToChannel(SeppelChannel channel, SeppelScopeSet scopes, ReplicationChange change)
+   {
+      JsonObject jsonObject;
+      String targetObjectId = change.getTargetObjectId();
+      Object targetObject = this.get(targetObjectId);
       
-            jsonObject.clear();
-            jsonObject.withValue(changeMsg);
+      if (targetObject != null 
+            && (scopes.containsObservedObjects(targetObject)
+                  || channel.getSeppelSpaceProxy() == targetObject
+                  || selfProxy == targetObject
+                  || scopes.contains(targetObject)))
+      {
+         // the value should also be in scope
+         String changeMsg = change.getChangeMsg();
+    
+         jsonObject = new JsonObject();
+         jsonObject.withValue(changeMsg);
+         
+         jsonObject = (JsonObject) jsonObject.get("upd");
+         
+         Object valueObject = jsonObject.get(change.getTargetProperty());
+         
+         if (valueObject != null && valueObject instanceof JsonObject)
+         {
+            JsonObject valueJsonObject = (JsonObject) valueObject;
+            String valueObjectId = (String) valueJsonObject.get("id");
             
-            jsonObject = (JsonObject) jsonObject.get("upd");
+            valueObject = this.get(valueObjectId);
             
-            Object valueObject = jsonObject.get(change.getTargetProperty());
-            
-            if (valueObject != null && valueObject instanceof JsonObject)
+            if (valueObject != null 
+                  && (scopes.containsObservedObjects(valueObject)
+                        || scopes.contains(valueObject)
+                        || channel.getSeppelSpaceProxy() == valueObject)) 
             {
-               jsonObject = (JsonObject) valueObject;
-               String valueObjectId = (String) jsonObject.get("id");
-               
-               valueObject = this.get(valueObjectId);
-               
-               if (valueObject != null && scopes.containsObservedObjects(targetObject))
-               {
-                  // yes, the change is in scope send it
-                  JsonIdMap cmap = getChangeMap();
+               // yes, the change is in scope send it
+               JsonIdMap cmap = getChangeMap();
 
-                  JsonObject jsonChange = cmap.toJsonObject(change);
-                  
-                  String line = jsonChange.toString();
+               JsonObject jsonChange = cmap.toJsonObject(change);
+               
+               String line = jsonChange.toString();
 
-                  channel.send(line);
-               }
+               channel.send(line);
             }
+         }
+         else 
+         {
+            // seems to be a plain value, send it
+            JsonIdMap cmap = getChangeMap();
+
+            JsonObject jsonChange = cmap.toJsonObject(change);
+            
+            String line = jsonChange.toString();
+
+            channel.send(line);
          }
       }
    } 

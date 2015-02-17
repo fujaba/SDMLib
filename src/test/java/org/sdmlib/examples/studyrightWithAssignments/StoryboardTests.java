@@ -37,7 +37,6 @@ import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversityCreato
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.modelsets.Condition;
 import org.sdmlib.models.pattern.Match;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
@@ -468,15 +467,7 @@ public class StoryboardTests {
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
       
-      RoomSet roomsEven = university.getRooms().has(new Condition<Room>() {
-
-         @Override
-         public boolean check(Room elem)
-         {
-            return elem.getCredits() % 2 == 0;
-         }
-         
-      });
+      RoomSet roomsEven = university.getRooms().has(elem -> elem.getCredits() % 2 == 0);
       
       story.addCode();
       
@@ -539,18 +530,6 @@ public class StoryboardTests {
       stud1PO = roomPO.hasStudents();      
       
       final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
-      
-      // Java 8: 
-      // stud2PO.has( () -> stud2PO.getMotivation() < 50);
-      
-      //      stud2PO.has(new GenericConstraint.Condition()
-      //      {
-      //         @Override
-      //         public boolean check()
-      //         {
-      //            return stud2PO.getMotivation() < 50;
-      //         }
-      //      });
       
       stud2PO.hasFriends(stud1PO);
       

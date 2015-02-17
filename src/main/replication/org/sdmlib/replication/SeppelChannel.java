@@ -125,26 +125,24 @@ public class SeppelChannel extends Thread implements PropertyChangeInterface
 
    public void login()
    {
-      // I trust myself
-      this.setLoginValidated(true);
-      
-      // connect to server and send my login data
-      SeppelSpaceProxy myProxy = this.getSeppelSpaceProxy();
-      String hostName = myProxy.getHostName();
-      int portNo = (int) myProxy.getPortNo();
-      
       try
-      {
-         this.socket = new Socket(hostName, portNo);
-         
+      {// I trust myself
+         this.setLoginValidated(true);
+
+         // connect to server and send my login data
+         SeppelSpaceProxy myProxy = this.getSeppelSpaceProxy();
+         String hostName = myProxy.getHostName();
+         int portNo = (int) myProxy.getPortNo();
+
+
          SeppelSpaceProxy selfProxy = myProxy.getPartners().first();
          // SeppelUser selfUser = selfProxy.getKnownUsers().first();
-         
+
          JsonObject jsonObject = new JsonObject();
          jsonObject.put("spaceId", selfProxy.getSpaceId());
-         //         jsonObject.put("login", selfUser.getLoginName());
-         //         jsonObject.put("pwd", selfUser.getPassword());
-         
+         jsonObject.put("login", selfProxy.getLoginName());
+         jsonObject.put("pwd", selfProxy.getPassword());
+
          this.send(jsonObject.toString());
       }
       catch (Exception e)
@@ -160,6 +158,11 @@ public class SeppelChannel extends Thread implements PropertyChangeInterface
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
    private SeppelSpace seppelSpace;
+   
+   public void setSeppelSpace(SeppelSpace seppelSpace)
+   {
+      this.seppelSpace = seppelSpace;
+   }
 
    private SeppelSpaceProxy selfProxy;
    
@@ -168,6 +171,19 @@ public class SeppelChannel extends Thread implements PropertyChangeInterface
       this.socket = connection;
       this.seppelSpace = seppelSpace;
       this.selfProxy = seppelSpace.getSelfProxy();
+   }
+
+   public SeppelChannel(String host, int port)
+   {
+      try
+      {
+         this.socket = new Socket(host, port);
+      }
+      catch (Exception e)
+      {
+         this.socket = null; // just to be sure
+         // e.printStackTrace();
+      }
    }
 
    public SeppelChannel()
@@ -332,6 +348,16 @@ public class SeppelChannel extends Thread implements PropertyChangeInterface
       withSeppelSpaceProxy(value);
       return value;
    } 
+   
+   @Override
+   public String toString()
+   {
+      if (this.seppelSpaceProxy != null)
+      {
+         return "channel to " + this.seppelSpaceProxy.getLoginName();
+      }
+      return super.toString();
+   }
 
    
 

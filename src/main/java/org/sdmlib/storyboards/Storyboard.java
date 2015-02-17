@@ -1826,7 +1826,7 @@ public class Storyboard implements PropertyChangeInterface
       po.getPattern().dumpDiagram(name);
    }
 
-   class RestrictToFilter extends ConditionMap
+   public static class RestrictToFilter extends ConditionMap
    {
       private LinkedHashSet<Object> explicitElems;
 
