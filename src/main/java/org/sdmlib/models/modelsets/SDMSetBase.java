@@ -1,7 +1,6 @@
 package org.sdmlib.models.modelsets;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -59,7 +58,7 @@ public class SDMSetBase<T> extends ItemList<T>
       return target;
    }
    
-   public <ST extends SDMSet<T>> ST union(ST other)
+   public <ST extends SDMSet<T>> ST union(Collection<? extends T> other)
    {
       @SuppressWarnings("unchecked")
       ST result = (ST) this.getNewInstance();
@@ -70,7 +69,7 @@ public class SDMSetBase<T> extends ItemList<T>
    }
    
    
-   public <ST extends SDMSetBase<T>> ST intersection(ST other)
+   public <ST extends SDMSetBase<T>> ST intersection(Collection<? extends T> other)
    {
       @SuppressWarnings("unchecked")
       ST result = (ST) this.getNewInstance();
