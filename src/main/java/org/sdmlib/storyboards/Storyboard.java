@@ -192,7 +192,7 @@ public class Storyboard implements PropertyChangeInterface
             if (new File(subPath + "/" + javaTestFileName).exists())
             {
                // got it
-               this.rootDir = subDir.getPath();
+               this.rootDir = subDir.getPath().replaceAll("\\\\", "/");
                javaTestFileName = "../" + rootDir + "/" + javaTestFileName;
 
                return true;
