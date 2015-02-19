@@ -562,7 +562,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
       getHistory().addChange(change);
 
-      writeChange(change);
+//      writeChange(change);
 
       this.lastChangeId = Math.max(lastChangeId, change.getHistoryIdNumber());
 
