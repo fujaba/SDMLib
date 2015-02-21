@@ -406,4 +406,6 @@ public class LoggerSet extends SDMSet<Logger>
       return this;
    }
 
+
+   public static final LoggerSet EMPTY_SET = new LoggerSet().withReadonly(true);
 }

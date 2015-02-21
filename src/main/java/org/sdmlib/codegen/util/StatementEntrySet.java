@@ -310,4 +310,6 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       return result;
    }
 
+
+   public static final StatementEntrySet EMPTY_SET = new StatementEntrySet().withReadonly(true);
 }

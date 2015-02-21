@@ -389,5 +389,7 @@ public class StationSet extends SDMSet<Station>
       return this;
    }
 
+
+   public static final StationSet EMPTY_SET = new StationSet().withReadonly(true);
 }
 

@@ -15,7 +15,7 @@ public class GroupAccountClassModel
    @Test
    public void testGroupAccountCodegen()
    {
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.setSprint("Sprint.002.Examples"); 
       

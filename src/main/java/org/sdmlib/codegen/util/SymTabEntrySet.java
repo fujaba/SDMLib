@@ -26,10 +26,11 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
-public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
+public class SymTabEntrySet extends SDMSet<SymTabEntry>
 {
    private static final long serialVersionUID = 1L;
 
@@ -247,4 +248,6 @@ public class SymTabEntrySet extends LinkedHashSet<SymTabEntry>
       return new SymTabEntryPO(this.toArray(new SymTabEntry[this.size()]));
 
    }
+
+   public static final SymTabEntrySet EMPTY_SET = new SymTabEntrySet().withReadonly(true);
 }

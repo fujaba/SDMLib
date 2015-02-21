@@ -30,7 +30,9 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 
-public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
+import de.uniks.networkparser.gui.ItemList;
+
+public class GenericAttributeSet extends ItemList<GenericAttribute>
 {
    public StringList getName()
    {
@@ -152,6 +154,8 @@ public class GenericAttributeSet extends LinkedHashSet<GenericAttribute>
    {
       return new GenericAttributePO(this.toArray(new GenericAttribute[this.size()]));
    }
+
+   public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet().withReadonly(true);
 }
 
 

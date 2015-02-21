@@ -174,6 +174,8 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
    {
       return new AssociationSet();
    }
+
+   public static final AssociationSet EMPTY_SET = new AssociationSet().withReadonly(true);
 }
 
 

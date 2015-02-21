@@ -4,11 +4,11 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../.srctestjava/org/sdmlib/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/models/objects/GenericObjectsTest.java' type='text/x-java'>GenericObjectDiagram</a></p>
 <p>GenericObjectDiagram</p>
 <p>Start situation: we do not yet have a class diagram but want to start with some example object models</p>
 <p>Step 1: We build a generic class model for object structures: </p>
@@ -16,60 +16,53 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.G1 : GenericGraph"
+         "id":"G1 : GenericGraph"
       },
       {
          "typ":"node",
-         "id":"d.G2 : GenericObject",
+         "id":"G2 : GenericObject",
          "attributes":[
          "name=WilliAllee",
-            "type=Building",
-            "icon=null",
-            "incommingLinks=null"
+            "type=Building"
          ]
       },
       {
          "typ":"node",
-         "id":"d.G5 : GenericObject",
+         "id":"G5 : GenericObject",
          "attributes":[
          "name=seFloor",
-            "type=Floor",
-            "icon=null",
-            "outgoingLinks=null"
+            "type=Floor"
          ]
       },
       {
          "typ":"node",
-         "id":"d.G9 : GenericObject",
+         "id":"G9 : GenericObject",
          "attributes":[
          "name=digitalFloor",
-            "type=Floor",
-            "icon=null",
-            "outgoingLinks=null"
+            "type=Floor"
          ]
       },
       {
          "typ":"node",
-         "id":"d.G4 : GenericLink",
+         "id":"G4 : GenericLink",
          "attributes":[
-         "tgtLabel=has",
-            "srcLabel=null"
+         "tgtLabel=has"
          ]
       },
       {
          "typ":"node",
-         "id":"d.G8 : GenericLink",
+         "id":"G8 : GenericLink",
          "attributes":[
-         "tgtLabel=has",
-            "srcLabel=null"
+         "tgtLabel=has"
          ]
       },
       {
          "typ":"node",
-         "id":"d.G3 : GenericAttribute",
+         "id":"G3 : GenericAttribute",
          "attributes":[
          "name=name",
             "value=WA73"
@@ -77,7 +70,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G6 : GenericAttribute",
+         "id":"G6 : GenericAttribute",
          "attributes":[
          "name=name",
             "value=WA13"
@@ -85,7 +78,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G7 : GenericAttribute",
+         "id":"G7 : GenericAttribute",
          "attributes":[
          "name=level",
             "value=1"
@@ -93,7 +86,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G10 : GenericAttribute",
+         "id":"G10 : GenericAttribute",
          "attributes":[
          "name=name",
             "value=WA03"
@@ -101,7 +94,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G11 : GenericAttribute",
+         "id":"G11 : GenericAttribute",
          "attributes":[
          "name=level",
             "value=0"
@@ -109,7 +102,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G12 : GenericAttribute",
+         "id":"G12 : GenericAttribute",
          "attributes":[
          "name=guest",
             "value=Ulrich"
@@ -122,12 +115,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"objects",
-            "id":"d.G2 : GenericObject"
+            "id":"G2 : GenericObject"
          }
       },
       {
@@ -135,12 +128,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"objects",
-            "id":"d.G5 : GenericObject"
+            "id":"G5 : GenericObject"
          }
       },
       {
@@ -148,12 +141,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"objects",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          }
       },
       {
@@ -161,12 +154,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"links",
-            "id":"d.G4 : GenericLink"
+            "id":"G4 : GenericLink"
          }
       },
       {
@@ -174,12 +167,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"links",
-            "id":"d.G8 : GenericLink"
+            "id":"G8 : GenericLink"
          }
       },
       {
@@ -187,12 +180,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G2 : GenericObject"
+            "id":"G2 : GenericObject"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          }
       },
       {
@@ -200,12 +193,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G2 : GenericObject"
+            "id":"G2 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G3 : GenericAttribute"
+            "id":"G3 : GenericAttribute"
          }
       },
       {
@@ -213,12 +206,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G2 : GenericObject"
+            "id":"G2 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"d.G4 : GenericLink"
+            "id":"G4 : GenericLink"
          }
       },
       {
@@ -226,12 +219,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G2 : GenericObject"
+            "id":"G2 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"d.G8 : GenericLink"
+            "id":"G8 : GenericLink"
          }
       },
       {
@@ -239,12 +232,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G3 : GenericAttribute"
+            "id":"G3 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G2 : GenericObject"
+            "id":"G2 : GenericObject"
          }
       },
       {
@@ -252,12 +245,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G4 : GenericLink"
+            "id":"G4 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"d.G2 : GenericObject"
+            "id":"G2 : GenericObject"
          }
       },
       {
@@ -265,12 +258,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G4 : GenericLink"
+            "id":"G4 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"d.G5 : GenericObject"
+            "id":"G5 : GenericObject"
          }
       },
       {
@@ -278,12 +271,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G4 : GenericLink"
+            "id":"G4 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          }
       },
       {
@@ -291,12 +284,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G5 : GenericObject"
+            "id":"G5 : GenericObject"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          }
       },
       {
@@ -304,12 +297,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G5 : GenericObject"
+            "id":"G5 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G6 : GenericAttribute"
+            "id":"G6 : GenericAttribute"
          }
       },
       {
@@ -317,12 +310,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G5 : GenericObject"
+            "id":"G5 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G7 : GenericAttribute"
+            "id":"G7 : GenericAttribute"
          }
       },
       {
@@ -330,12 +323,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G5 : GenericObject"
+            "id":"G5 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"d.G4 : GenericLink"
+            "id":"G4 : GenericLink"
          }
       },
       {
@@ -343,12 +336,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G6 : GenericAttribute"
+            "id":"G6 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G5 : GenericObject"
+            "id":"G5 : GenericObject"
          }
       },
       {
@@ -356,12 +349,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G7 : GenericAttribute"
+            "id":"G7 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G5 : GenericObject"
+            "id":"G5 : GenericObject"
          }
       },
       {
@@ -369,12 +362,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G8 : GenericLink"
+            "id":"G8 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"d.G2 : GenericObject"
+            "id":"G2 : GenericObject"
          }
       },
       {
@@ -382,12 +375,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G8 : GenericLink"
+            "id":"G8 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          }
       },
       {
@@ -395,12 +388,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G8 : GenericLink"
+            "id":"G8 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          }
       },
       {
@@ -408,12 +401,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G1 : GenericGraph"
+            "id":"G1 : GenericGraph"
          }
       },
       {
@@ -421,12 +414,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G10 : GenericAttribute"
+            "id":"G10 : GenericAttribute"
          }
       },
       {
@@ -434,12 +427,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G11 : GenericAttribute"
+            "id":"G11 : GenericAttribute"
          }
       },
       {
@@ -447,12 +440,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G12 : GenericAttribute"
+            "id":"G12 : GenericAttribute"
          }
       },
       {
@@ -460,12 +453,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"d.G8 : GenericLink"
+            "id":"G8 : GenericLink"
          }
       },
       {
@@ -473,12 +466,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G10 : GenericAttribute"
+            "id":"G10 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          }
       },
       {
@@ -486,12 +479,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G11 : GenericAttribute"
+            "id":"G11 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          }
       },
       {
@@ -499,12 +492,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G12 : GenericAttribute"
+            "id":"G12 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G9 : GenericObject"
+            "id":"G9 : GenericObject"
          }
       }
    ]
@@ -552,8 +545,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGenericObjectDiagramClassDiagram9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasGenericObjectDiagramClassDiagram9", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
 <script>
@@ -593,34 +585,33 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGenericObjectDiagramClassDiagram11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasGenericObjectDiagramClassDiagram11", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>Step 6: generate code from the learned class diagram </p>
 <p>Step 7: derive non-generic objects from the generic objects </p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.B13 : Building",
+         "id":"B13 : Building",
          "attributes":[
          "name=WA73"
          ]
       },
       {
          "typ":"node",
-         "id":"d.F14 : Floor",
+         "id":"F14 : Floor",
          "attributes":[
          "level=1",
-            "name=WA13",
-            "guest=null"
+            "name=WA13"
          ]
       },
       {
          "typ":"node",
-         "id":"d.F15 : Floor",
+         "id":"F15 : Floor",
          "attributes":[
          "level=0",
             "name=WA03",
@@ -634,12 +625,12 @@
          "source":{
             "cardinality":"one",
             "property":"building",
-            "id":"d.B13 : Building"
+            "id":"B13 : Building"
          },
          "target":{
             "cardinality":"many",
             "property":"has",
-            "id":"d.F14 : Floor"
+            "id":"F14 : Floor"
          }
       },
       {
@@ -647,12 +638,12 @@
          "source":{
             "cardinality":"one",
             "property":"building",
-            "id":"d.B13 : Building"
+            "id":"B13 : Building"
          },
          "target":{
             "cardinality":"many",
             "property":"has",
-            "id":"d.F15 : Floor"
+            "id":"F15 : Floor"
          }
       },
       {
@@ -660,12 +651,12 @@
          "source":{
             "cardinality":"one",
             "property":"floor",
-            "id":"d.F14 : Floor"
+            "id":"F14 : Floor"
          },
          "target":{
             "cardinality":"one",
             "property":"buildings",
-            "id":"d.B13 : Building"
+            "id":"B13 : Building"
          }
       },
       {
@@ -673,12 +664,12 @@
          "source":{
             "cardinality":"one",
             "property":"floor",
-            "id":"d.F15 : Floor"
+            "id":"F15 : Floor"
          },
          "target":{
             "cardinality":"one",
             "property":"buildings",
-            "id":"d.B13 : Building"
+            "id":"B13 : Building"
          }
       }
    ]
@@ -691,44 +682,39 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.G16 : GenericGraph"
+         "id":"G16 : GenericGraph"
       },
       {
          "typ":"node",
-         "id":"d.G17 : GenericObject",
+         "id":"G17 : GenericObject",
          "attributes":[
          "name=spec2gen.B1",
-            "type=de.kassel.roombook.Building",
-            "icon=null",
-            "incommingLinks=null"
+            "type=de.kassel.roombook.Building"
          ]
       },
       {
          "typ":"node",
-         "id":"d.G20 : GenericObject",
+         "id":"G20 : GenericObject",
          "attributes":[
          "name=spec2gen.F2",
-            "type=de.kassel.roombook.Floor",
-            "icon=null",
-            "outgoingLinks=null"
+            "type=de.kassel.roombook.Floor"
          ]
       },
       {
          "typ":"node",
-         "id":"d.G24 : GenericObject",
+         "id":"G24 : GenericObject",
          "attributes":[
          "name=spec2gen.F3",
-            "type=de.kassel.roombook.Floor",
-            "icon=null",
-            "outgoingLinks=null"
+            "type=de.kassel.roombook.Floor"
          ]
       },
       {
          "typ":"node",
-         "id":"d.G19 : GenericLink",
+         "id":"G19 : GenericLink",
          "attributes":[
          "tgtLabel=has",
             "srcLabel=buildings"
@@ -736,7 +722,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G23 : GenericLink",
+         "id":"G23 : GenericLink",
          "attributes":[
          "tgtLabel=has",
             "srcLabel=buildings"
@@ -744,7 +730,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G18 : GenericAttribute",
+         "id":"G18 : GenericAttribute",
          "attributes":[
          "name=name",
             "value=WA73"
@@ -752,7 +738,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G21 : GenericAttribute",
+         "id":"G21 : GenericAttribute",
          "attributes":[
          "name=level",
             "value=1"
@@ -760,7 +746,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G22 : GenericAttribute",
+         "id":"G22 : GenericAttribute",
          "attributes":[
          "name=name",
             "value=WA13"
@@ -768,7 +754,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G25 : GenericAttribute",
+         "id":"G25 : GenericAttribute",
          "attributes":[
          "name=name",
             "value=WA03"
@@ -776,7 +762,7 @@
       },
       {
          "typ":"node",
-         "id":"d.G26 : GenericAttribute",
+         "id":"G26 : GenericAttribute",
          "attributes":[
          "name=guest",
             "value=Ulrich"
@@ -789,12 +775,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"objects",
-            "id":"d.G17 : GenericObject"
+            "id":"G17 : GenericObject"
          }
       },
       {
@@ -802,12 +788,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"objects",
-            "id":"d.G20 : GenericObject"
+            "id":"G20 : GenericObject"
          }
       },
       {
@@ -815,12 +801,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"objects",
-            "id":"d.G24 : GenericObject"
+            "id":"G24 : GenericObject"
          }
       },
       {
@@ -828,12 +814,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"links",
-            "id":"d.G19 : GenericLink"
+            "id":"G19 : GenericLink"
          }
       },
       {
@@ -841,12 +827,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericgraph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          },
          "target":{
             "cardinality":"many",
             "property":"links",
-            "id":"d.G23 : GenericLink"
+            "id":"G23 : GenericLink"
          }
       },
       {
@@ -854,12 +840,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G17 : GenericObject"
+            "id":"G17 : GenericObject"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          }
       },
       {
@@ -867,12 +853,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G17 : GenericObject"
+            "id":"G17 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G18 : GenericAttribute"
+            "id":"G18 : GenericAttribute"
          }
       },
       {
@@ -880,12 +866,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G17 : GenericObject"
+            "id":"G17 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"d.G19 : GenericLink"
+            "id":"G19 : GenericLink"
          }
       },
       {
@@ -893,12 +879,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G17 : GenericObject"
+            "id":"G17 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"d.G23 : GenericLink"
+            "id":"G23 : GenericLink"
          }
       },
       {
@@ -906,12 +892,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G18 : GenericAttribute"
+            "id":"G18 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G17 : GenericObject"
+            "id":"G17 : GenericObject"
          }
       },
       {
@@ -919,12 +905,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G19 : GenericLink"
+            "id":"G19 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"d.G17 : GenericObject"
+            "id":"G17 : GenericObject"
          }
       },
       {
@@ -932,12 +918,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G19 : GenericLink"
+            "id":"G19 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"d.G20 : GenericObject"
+            "id":"G20 : GenericObject"
          }
       },
       {
@@ -945,12 +931,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G19 : GenericLink"
+            "id":"G19 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          }
       },
       {
@@ -958,12 +944,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G20 : GenericObject"
+            "id":"G20 : GenericObject"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          }
       },
       {
@@ -971,12 +957,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G20 : GenericObject"
+            "id":"G20 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G21 : GenericAttribute"
+            "id":"G21 : GenericAttribute"
          }
       },
       {
@@ -984,12 +970,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G20 : GenericObject"
+            "id":"G20 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G22 : GenericAttribute"
+            "id":"G22 : GenericAttribute"
          }
       },
       {
@@ -997,12 +983,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G20 : GenericObject"
+            "id":"G20 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"d.G19 : GenericLink"
+            "id":"G19 : GenericLink"
          }
       },
       {
@@ -1010,12 +996,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G21 : GenericAttribute"
+            "id":"G21 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G20 : GenericObject"
+            "id":"G20 : GenericObject"
          }
       },
       {
@@ -1023,12 +1009,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G22 : GenericAttribute"
+            "id":"G22 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G20 : GenericObject"
+            "id":"G20 : GenericObject"
          }
       },
       {
@@ -1036,12 +1022,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G23 : GenericLink"
+            "id":"G23 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"d.G17 : GenericObject"
+            "id":"G17 : GenericObject"
          }
       },
       {
@@ -1049,12 +1035,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G23 : GenericLink"
+            "id":"G23 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"d.G24 : GenericObject"
+            "id":"G24 : GenericObject"
          }
       },
       {
@@ -1062,12 +1048,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericlink",
-            "id":"d.G23 : GenericLink"
+            "id":"G23 : GenericLink"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          }
       },
       {
@@ -1075,12 +1061,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G24 : GenericObject"
+            "id":"G24 : GenericObject"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.G16 : GenericGraph"
+            "id":"G16 : GenericGraph"
          }
       },
       {
@@ -1088,12 +1074,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G24 : GenericObject"
+            "id":"G24 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G25 : GenericAttribute"
+            "id":"G25 : GenericAttribute"
          }
       },
       {
@@ -1101,12 +1087,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G24 : GenericObject"
+            "id":"G24 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"attrs",
-            "id":"d.G26 : GenericAttribute"
+            "id":"G26 : GenericAttribute"
          }
       },
       {
@@ -1114,12 +1100,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericobject",
-            "id":"d.G24 : GenericObject"
+            "id":"G24 : GenericObject"
          },
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"d.G23 : GenericLink"
+            "id":"G23 : GenericLink"
          }
       },
       {
@@ -1127,12 +1113,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G25 : GenericAttribute"
+            "id":"G25 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G24 : GenericObject"
+            "id":"G24 : GenericObject"
          }
       },
       {
@@ -1140,12 +1126,12 @@
          "source":{
             "cardinality":"one",
             "property":"genericattribute",
-            "id":"d.G26 : GenericAttribute"
+            "id":"G26 : GenericAttribute"
          },
          "target":{
             "cardinality":"one",
             "property":"owner",
-            "id":"d.G24 : GenericObject"
+            "id":"G24 : GenericObject"
          }
       }
    ]

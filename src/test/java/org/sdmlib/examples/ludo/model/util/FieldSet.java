@@ -810,4 +810,6 @@ public class FieldSet extends SDMSet<Field>
       return this;
    }
 
+
+   public static final FieldSet EMPTY_SET = new FieldSet().withReadonly(true);
 }

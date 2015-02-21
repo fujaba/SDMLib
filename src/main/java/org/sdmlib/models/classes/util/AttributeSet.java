@@ -186,6 +186,8 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       return new AttributeSet();
    }
+
+   public static final AttributeSet EMPTY_SET = new AttributeSet().withReadonly(true);
 }
 
 

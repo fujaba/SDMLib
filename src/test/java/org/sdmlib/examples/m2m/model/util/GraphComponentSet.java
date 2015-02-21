@@ -152,4 +152,6 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
       return this;
    }
 
+
+   public static final GraphComponentSet EMPTY_SET = new GraphComponentSet().withReadonly(true);
 }

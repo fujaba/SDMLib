@@ -251,4 +251,6 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
+
+   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadonly(true);
 }

@@ -125,4 +125,6 @@ public class SimpleStateSet extends SDMSet<SimpleState>
       return this;
    }
 
+
+   public static final SimpleStateSet EMPTY_SET = new SimpleStateSet().withReadonly(true);
 }

@@ -4,11 +4,11 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../.srctestjava/org/sdmlib/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructure</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructure</a></p>
 <p>StoryboardInfrastructure</p>
 <p>This storyboard tests the storyboard infrastructure. </p>
 <p>Start: At first creating the html file just with text should work. </p>
@@ -29,13 +29,11 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"LogEntryStoryBoard",
-         "attributes":[]
+         "id":"LogEntryStoryBoard"
       },
       {
          "typ":"node",
-         "id":"StoryboardWall",
-         "attributes":[]
+         "id":"StoryboardWall"
       },
       {
          "typ":"node",
@@ -96,8 +94,7 @@ phase entries will be used for planning, in future</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStoryboardInfrastructureClassDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStoryboardInfrastructureClassDiagram7", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p> Editing the log entries works now fine as part of the add method. </p>
 <p>Seems that we have solved the problem with the sorting of log entries after loading. </p>
@@ -105,98 +102,76 @@ phase entries will be used for planning, in future</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.C1 : ClassModel",
+         "id":"C1 : ClassModel",
          "attributes":[
-         "name=org.sdmlib.storyboards",
-            "enumerations=null"
+         "name=org.sdmlib.storyboards"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C2 : Clazz",
+         "id":"C2 : Clazz",
          "attributes":[
-         "name=null",
-            "external=false",
-            "superClazzes=null",
-            "methods=null",
-            "kidClazzes=null",
+         "external=false",
             "interface=false"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C8 : Clazz",
+         "id":"C10 : Clazz",
          "attributes":[
-         "name=null",
-            "external=false",
-            "superClazzes=null",
-            "attributes=null",
-            "methods=null",
-            "kidClazzes=null",
+         "external=false",
             "interface=false"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C9 : Clazz",
+         "id":"C11 : Clazz",
          "attributes":[
-         "name=null",
-            "external=false",
-            "superClazzes=null",
-            "attributes=null",
-            "methods=null",
-            "kidClazzes=null",
+         "external=false",
             "interface=false"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C13 : Clazz",
+         "id":"C15 : Clazz",
          "attributes":[
-         "name=null",
-            "external=false",
-            "superClazzes=null",
-            "methods=null",
-            "kidClazzes=null",
+         "external=false",
             "interface=false"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C20 : Clazz",
+         "id":"C22 : Clazz",
          "attributes":[
-         "name=null",
-            "external=false",
-            "superClazzes=null",
-            "methods=null",
-            "kidClazzes=null",
+         "external=false",
             "interface=false"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A3 : Attribute",
+         "id":"G24 : GenClassModel"
+      },
+      {
+         "typ":"node",
+         "id":"A3 : Attribute",
          "attributes":[
-         "initialization=null",
-            "type=DataType.INT",
-            "name=oldNoOfLogEntries"
+         "name=oldNoOfLogEntries"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A4 : Attribute",
+         "id":"A5 : Attribute",
          "attributes":[
-         "initialization=null",
-            "type=DataType.STRING",
-            "name=phases"
+         "name=phases"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R5 : Role",
+         "id":"R7 : Role",
          "attributes":[
          "name=kanbanEntry",
             "card=one",
@@ -205,14 +180,25 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"d.A6 : Association",
+         "id":"D4 : DataType",
          "attributes":[
-         "name=null"
+         "value=int"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R7 : Role",
+         "id":"D6 : DataType",
+         "attributes":[
+         "value=String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A8 : Association"
+      },
+      {
+         "typ":"node",
+         "id":"R9 : Role",
          "attributes":[
          "name=logEntries",
             "card=many",
@@ -221,7 +207,7 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"d.R10 : Role",
+         "id":"R12 : Role",
          "attributes":[
          "name=wall",
             "card=one",
@@ -230,14 +216,11 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"d.A11 : Association",
-         "attributes":[
-         "name=null"
-         ]
+         "id":"A13 : Association"
       },
       {
          "typ":"node",
-         "id":"d.R12 : Role",
+         "id":"R14 : Role",
          "attributes":[
          "name=storyboard",
             "card=one",
@@ -246,34 +229,28 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"d.A14 : Attribute",
+         "id":"A16 : Attribute",
          "attributes":[
-         "initialization=null",
-            "type=DataType.STRING",
-            "name=rootDir"
+         "name=rootDir"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A15 : Attribute",
+         "id":"A17 : Attribute",
          "attributes":[
-         "initialization=null",
-            "type=DataType.INT",
-            "name=stepCounter"
+         "name=stepCounter"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A16 : Attribute",
+         "id":"A18 : Attribute",
          "attributes":[
-         "initialization=null",
-            "type=DataType.INT",
-            "name=stepDoneCounter"
+         "name=stepDoneCounter"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R17 : Role",
+         "id":"R19 : Role",
          "attributes":[
          "name=storyboard",
             "card=one",
@@ -282,14 +259,11 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"d.A18 : Association",
-         "attributes":[
-         "name=null"
-         ]
+         "id":"A20 : Association"
       },
       {
          "typ":"node",
-         "id":"d.R19 : Role",
+         "id":"R21 : Role",
          "attributes":[
          "name=storyboardSteps",
             "card=many",
@@ -298,11 +272,16 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"d.A21 : Attribute",
+         "id":"A23 : Attribute",
          "attributes":[
-         "initialization=null",
-            "type=DataType.STRING",
-            "name=text"
+         "name=text"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"G25 : GenClassModel$DIFF",
+         "attributes":[
+         "declaringClass=class org.sdmlib.models.classes.logic.GenClassModel$DIFF"
          ]
       }
    ],
@@ -312,12 +291,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"classmodel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          },
          "target":{
             "cardinality":"many",
             "property":"classes",
-            "id":"d.C2 : Clazz"
+            "id":"C2 : Clazz"
          }
       },
       {
@@ -325,12 +304,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"classmodel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          },
          "target":{
             "cardinality":"many",
             "property":"classes",
-            "id":"d.C8 : Clazz"
+            "id":"C10 : Clazz"
          }
       },
       {
@@ -338,12 +317,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"classmodel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          },
          "target":{
             "cardinality":"many",
             "property":"classes",
-            "id":"d.C9 : Clazz"
+            "id":"C11 : Clazz"
          }
       },
       {
@@ -351,12 +330,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"classmodel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          },
          "target":{
             "cardinality":"many",
             "property":"classes",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          }
       },
       {
@@ -364,12 +343,25 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"classmodel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          },
          "target":{
             "cardinality":"many",
             "property":"classes",
-            "id":"d.C20 : Clazz"
+            "id":"C22 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"classmodel",
+            "id":"C1 : ClassModel"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"generator",
+            "id":"G24 : GenClassModel"
          }
       },
       {
@@ -377,12 +369,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C2 : Clazz"
+            "id":"C2 : Clazz"
          },
          "target":{
             "cardinality":"one",
             "property":"classModel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          }
       },
       {
@@ -390,12 +382,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C2 : Clazz"
+            "id":"C2 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"attributes",
-            "id":"d.A3 : Attribute"
+            "id":"A3 : Attribute"
          }
       },
       {
@@ -403,12 +395,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C2 : Clazz"
+            "id":"C2 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"attributes",
-            "id":"d.A4 : Attribute"
+            "id":"A5 : Attribute"
          }
       },
       {
@@ -416,12 +408,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C2 : Clazz"
+            "id":"C2 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"roles",
-            "id":"d.R5 : Role"
+            "id":"R7 : Role"
          }
       },
       {
@@ -429,12 +421,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"attribute",
-            "id":"d.A3 : Attribute"
+            "id":"A3 : Attribute"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C2 : Clazz"
+            "id":"C2 : Clazz"
          }
       },
       {
@@ -442,12 +434,38 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"attribute",
-            "id":"d.A4 : Attribute"
+            "id":"A3 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"type",
+            "id":"D4 : DataType"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"attribute",
+            "id":"A5 : Attribute"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C2 : Clazz"
+            "id":"C2 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"attribute",
+            "id":"A5 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"type",
+            "id":"D6 : DataType"
          }
       },
       {
@@ -455,12 +473,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R5 : Role"
+            "id":"R7 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C2 : Clazz"
+            "id":"C2 : Clazz"
          }
       },
       {
@@ -468,12 +486,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R5 : Role"
+            "id":"R7 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"assoc",
-            "id":"d.A6 : Association"
+            "id":"A8 : Association"
          }
       },
       {
@@ -481,12 +499,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"association",
-            "id":"d.A6 : Association"
+            "id":"A8 : Association"
          },
          "target":{
             "cardinality":"one",
             "property":"source",
-            "id":"d.R5 : Role"
+            "id":"R7 : Role"
          }
       },
       {
@@ -494,12 +512,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"association",
-            "id":"d.A6 : Association"
+            "id":"A8 : Association"
          },
          "target":{
             "cardinality":"one",
             "property":"target",
-            "id":"d.R7 : Role"
+            "id":"R9 : Role"
          }
       },
       {
@@ -507,12 +525,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R7 : Role"
+            "id":"R9 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C8 : Clazz"
+            "id":"C10 : Clazz"
          }
       },
       {
@@ -520,12 +538,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R7 : Role"
+            "id":"R9 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"assoc",
-            "id":"d.A6 : Association"
+            "id":"A8 : Association"
          }
       },
       {
@@ -533,12 +551,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C8 : Clazz"
+            "id":"C10 : Clazz"
          },
          "target":{
             "cardinality":"one",
             "property":"classModel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          }
       },
       {
@@ -546,12 +564,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C8 : Clazz"
+            "id":"C10 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"roles",
-            "id":"d.R7 : Role"
+            "id":"R9 : Role"
          }
       },
       {
@@ -559,12 +577,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C9 : Clazz"
+            "id":"C11 : Clazz"
          },
          "target":{
             "cardinality":"one",
             "property":"classModel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          }
       },
       {
@@ -572,12 +590,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C9 : Clazz"
+            "id":"C11 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"roles",
-            "id":"d.R10 : Role"
+            "id":"R12 : Role"
          }
       },
       {
@@ -585,12 +603,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R10 : Role"
+            "id":"R12 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C9 : Clazz"
+            "id":"C11 : Clazz"
          }
       },
       {
@@ -598,12 +616,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R10 : Role"
+            "id":"R12 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"assoc",
-            "id":"d.A11 : Association"
+            "id":"A13 : Association"
          }
       },
       {
@@ -611,12 +629,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"association",
-            "id":"d.A11 : Association"
+            "id":"A13 : Association"
          },
          "target":{
             "cardinality":"one",
             "property":"source",
-            "id":"d.R10 : Role"
+            "id":"R12 : Role"
          }
       },
       {
@@ -624,12 +642,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"association",
-            "id":"d.A11 : Association"
+            "id":"A13 : Association"
          },
          "target":{
             "cardinality":"one",
             "property":"target",
-            "id":"d.R12 : Role"
+            "id":"R14 : Role"
          }
       },
       {
@@ -637,12 +655,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R12 : Role"
+            "id":"R14 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          }
       },
       {
@@ -650,12 +668,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R12 : Role"
+            "id":"R14 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"assoc",
-            "id":"d.A11 : Association"
+            "id":"A13 : Association"
          }
       },
       {
@@ -663,12 +681,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          },
          "target":{
             "cardinality":"one",
             "property":"classModel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          }
       },
       {
@@ -676,12 +694,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"attributes",
-            "id":"d.A14 : Attribute"
+            "id":"A16 : Attribute"
          }
       },
       {
@@ -689,12 +707,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"attributes",
-            "id":"d.A15 : Attribute"
+            "id":"A17 : Attribute"
          }
       },
       {
@@ -702,12 +720,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"attributes",
-            "id":"d.A16 : Attribute"
+            "id":"A18 : Attribute"
          }
       },
       {
@@ -715,12 +733,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"roles",
-            "id":"d.R12 : Role"
+            "id":"R14 : Role"
          }
       },
       {
@@ -728,12 +746,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"roles",
-            "id":"d.R17 : Role"
+            "id":"R19 : Role"
          }
       },
       {
@@ -741,12 +759,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"attribute",
-            "id":"d.A14 : Attribute"
+            "id":"A16 : Attribute"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          }
       },
       {
@@ -754,12 +772,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"attribute",
-            "id":"d.A15 : Attribute"
+            "id":"A16 : Attribute"
          },
          "target":{
             "cardinality":"one",
-            "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "property":"type",
+            "id":"D6 : DataType"
          }
       },
       {
@@ -767,12 +785,51 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"attribute",
-            "id":"d.A16 : Attribute"
+            "id":"A17 : Attribute"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"attribute",
+            "id":"A17 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"type",
+            "id":"D4 : DataType"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"attribute",
+            "id":"A18 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"C15 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"attribute",
+            "id":"A18 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"type",
+            "id":"D4 : DataType"
          }
       },
       {
@@ -780,12 +837,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R17 : Role"
+            "id":"R19 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C13 : Clazz"
+            "id":"C15 : Clazz"
          }
       },
       {
@@ -793,12 +850,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R17 : Role"
+            "id":"R19 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"assoc",
-            "id":"d.A18 : Association"
+            "id":"A20 : Association"
          }
       },
       {
@@ -806,12 +863,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"association",
-            "id":"d.A18 : Association"
+            "id":"A20 : Association"
          },
          "target":{
             "cardinality":"one",
             "property":"source",
-            "id":"d.R17 : Role"
+            "id":"R19 : Role"
          }
       },
       {
@@ -819,12 +876,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"association",
-            "id":"d.A18 : Association"
+            "id":"A20 : Association"
          },
          "target":{
             "cardinality":"one",
             "property":"target",
-            "id":"d.R19 : Role"
+            "id":"R21 : Role"
          }
       },
       {
@@ -832,12 +889,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R19 : Role"
+            "id":"R21 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C20 : Clazz"
+            "id":"C22 : Clazz"
          }
       },
       {
@@ -845,12 +902,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"role",
-            "id":"d.R19 : Role"
+            "id":"R21 : Role"
          },
          "target":{
             "cardinality":"one",
             "property":"assoc",
-            "id":"d.A18 : Association"
+            "id":"A20 : Association"
          }
       },
       {
@@ -858,12 +915,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C20 : Clazz"
+            "id":"C22 : Clazz"
          },
          "target":{
             "cardinality":"one",
             "property":"classModel",
-            "id":"d.C1 : ClassModel"
+            "id":"C1 : ClassModel"
          }
       },
       {
@@ -871,12 +928,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C20 : Clazz"
+            "id":"C22 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"attributes",
-            "id":"d.A21 : Attribute"
+            "id":"A23 : Attribute"
          }
       },
       {
@@ -884,12 +941,12 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C20 : Clazz"
+            "id":"C22 : Clazz"
          },
          "target":{
             "cardinality":"many",
             "property":"roles",
-            "id":"d.R19 : Role"
+            "id":"R21 : Role"
          }
       },
       {
@@ -897,12 +954,90 @@ phase entries will be used for planning, in future</p>
          "source":{
             "cardinality":"one",
             "property":"attribute",
-            "id":"d.A21 : Attribute"
+            "id":"A23 : Attribute"
          },
          "target":{
             "cardinality":"one",
             "property":"clazz",
-            "id":"d.C20 : Clazz"
+            "id":"C22 : Clazz"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"attribute",
+            "id":"A23 : Attribute"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"type",
+            "id":"D6 : DataType"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G24 : GenClassModel"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"associations",
+            "id":"A8 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G24 : GenClassModel"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"associations",
+            "id":"A13 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G24 : GenClassModel"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"associations",
+            "id":"A20 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G24 : GenClassModel"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"showDiff",
+            "id":"G25 : GenClassModel$DIFF"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G24 : GenClassModel"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"model",
+            "id":"C1 : ClassModel"
          }
       }
    ]

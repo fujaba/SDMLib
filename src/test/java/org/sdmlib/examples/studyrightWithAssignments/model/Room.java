@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,15 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
-import org.sdmlib.StrUtil;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 
 public class Room implements PropertyChangeInterface
 {
@@ -170,9 +170,6 @@ public class Room implements PropertyChangeInterface
    } 
 
    
-   public static final RoomSet EMPTY_SET = new RoomSet().withReadonly(true);
-
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -248,7 +245,7 @@ public class Room implements PropertyChangeInterface
    {
       if (this.doors == null)
       {
-         return Room.EMPTY_SET;
+         return RoomSet.EMPTY_SET;
       }
    
       return this.doors;
@@ -326,7 +323,7 @@ public class Room implements PropertyChangeInterface
    {
       if (this.students == null)
       {
-         return Student.EMPTY_SET;
+         return StudentSet.EMPTY_SET;
       }
    
       return this.students;
@@ -405,7 +402,7 @@ public class Room implements PropertyChangeInterface
    {
       if (this.assignments == null)
       {
-         return Assignment.EMPTY_SET;
+         return AssignmentSet.EMPTY_SET;
       }
    
       return this.assignments;
@@ -477,7 +474,7 @@ public class Room implements PropertyChangeInterface
    {
       if (this.tas == null)
       {
-         return TeachingAssistant.EMPTY_SET;
+         return TeachingAssistantSet.EMPTY_SET;
       }
    
       return this.tas;

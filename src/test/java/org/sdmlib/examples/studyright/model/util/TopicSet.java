@@ -152,4 +152,6 @@ public class TopicSet extends SDMSet<Topic>
       return this;
    }
 
+
+   public static final TopicSet EMPTY_SET = new TopicSet().withReadonly(true);
 }

@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
@@ -33,7 +34,7 @@ import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.util.PatternSet;
 
-public class PatternLinkSet extends LinkedHashSet<PatternLink>
+public class PatternLinkSet extends SDMSet<PatternLink>
 {
    public StringList getSrcRoleName()
    {
@@ -298,4 +299,6 @@ public class PatternLinkSet extends LinkedHashSet<PatternLink>
    {
       return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
    }
+
+   public static final PatternLinkSet EMPTY_SET = new PatternLinkSet().withReadonly(true);
 }

@@ -168,5 +168,7 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
+
+   public static final PersonSet EMPTY_SET = new PersonSet().withReadonly(true);
 }
 

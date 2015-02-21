@@ -257,4 +257,6 @@ public class MancalaSet extends SDMSet<Mancala>
       return this;
    }
 
+
+   public static final MancalaSet EMPTY_SET = new MancalaSet().withReadonly(true);
 }

@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -17,8 +17,7 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"Graph",
-         "attributes":[]
+         "id":"Graph"
       },
       {
          "typ":"node",
@@ -90,8 +89,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationClassDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram3", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <hr/><p>Target model:</p>
 <script>
@@ -100,8 +98,7 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"Graph",
-         "attributes":[]
+         "id":"Graph"
       },
       {
          "typ":"node",
@@ -112,13 +109,11 @@
       },
       {
          "typ":"node",
-         "id":"Edge",
-         "attributes":[]
+         "id":"Edge"
       },
       {
          "typ":"node",
-         "id":"Node",
-         "attributes":[]
+         "id":"Node"
       }
    ],
    "edges":[
@@ -173,8 +168,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationClassDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram6", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <hr/><p>Migration extension:</p>
 <script>
@@ -183,8 +177,7 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"Node",
-         "attributes":[]
+         "id":"Node"
       }
    ],
    "edges":[
@@ -203,219 +196,142 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationClassDiagram9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram9", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <hr/><p>Create example source graph: </p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"hg.G1 : Graph",
-         "attributes":[
-         "gcs=null"
-         ]
+         "id":"hg.G1 : Graph"
       },
       {
          "typ":"node",
          "id":"hg.N2 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n1",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n1"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N4 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n2",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n2"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N6 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n3",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n3"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N9 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n4",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n4"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N11 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n5",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n5"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N15 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n6",
-            "outEdges=null",
-            "inEdges=null",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n6"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N16 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n7",
-            "outEdges=null",
-            "inEdges=null",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n7"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N17 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n8",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n8"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E12 : Edge",
          "attributes":[
-         "name=e18",
-            "tgt=null",
-            "text=null",
-            "parent=null"
+         "name=e18"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E14 : Edge",
          "attributes":[
-         "name=e19",
-            "src=null",
-            "text=null",
-            "parent=null"
+         "name=e19"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E3 : Edge",
          "attributes":[
-         "name=e10",
-            "text=null",
-            "parent=null"
+         "name=e10"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E5 : Edge",
          "attributes":[
-         "name=e11",
-            "text=null",
-            "parent=null"
+         "name=e11"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E7 : Edge",
          "attributes":[
-         "name=e12",
-            "text=null",
-            "parent=null"
+         "name=e12"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E8 : Edge",
          "attributes":[
-         "name=e13",
-            "text=null",
-            "parent=null"
+         "name=e13"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E10 : Edge",
          "attributes":[
-         "name=e14",
-            "text=null",
-            "parent=null"
+         "name=e14"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E13 : Edge",
          "attributes":[
-         "name=e15",
-            "text=null",
-            "parent=null"
+         "name=e15"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E18 : Edge",
          "attributes":[
-         "name=e16",
-            "text=null",
-            "parent=null"
+         "name=e16"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E19 : Edge",
          "attributes":[
-         "name=e17",
-            "text=null",
-            "parent=null"
+         "name=e17"
          ]
       }
    ],
@@ -1660,213 +1576,136 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"hg.G21 : Graph",
-         "attributes":[
-         "nodes=null",
-            "edges=null"
-         ]
+         "id":"hg.G21 : Graph"
       },
       {
          "typ":"node",
          "id":"hg.N20 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n1",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n1"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N22 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n2",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n2"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N23 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n3",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n3"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N24 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n4",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n4"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N25 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n5",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n5"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N26 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n6",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n6"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N27 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n7",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n7"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N28 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n8",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n8"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E29 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "tgt=null",
-            "text=e18"
+         "text=e18"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E30 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "src=null",
-            "text=e19"
+         "text=e19"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E31 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e10"
+         "text=e10"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E32 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e11"
+         "text=e11"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E33 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e12"
+         "text=e12"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E34 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e13"
+         "text=e13"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E35 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e14"
+         "text=e14"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E36 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e15"
+         "text=e15"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E37 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e16"
+         "text=e16"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E38 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e17"
+         "text=e17"
          ]
       }
    ],
@@ -2819,213 +2658,136 @@ Number of migrated Edges: 10</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"hg.G39 : Graph",
-         "attributes":[
-         "nodes=null",
-            "edges=null"
-         ]
+         "id":"hg.G39 : Graph"
       },
       {
          "typ":"node",
          "id":"hg.N40 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n1",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n1"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N42 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n2",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n2"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N44 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n3",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n3"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N47 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n4",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n4"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N49 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n5",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n5"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N53 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n6",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n6"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N54 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n7",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n7"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N55 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n8",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n8"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E50 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "tgt=null",
-            "text=e18"
+         "text=e18"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E52 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "src=null",
-            "text=e19"
+         "text=e19"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E41 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e10"
+         "text=e10"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E43 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e11"
+         "text=e11"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E45 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e12"
+         "text=e12"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E46 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e13"
+         "text=e13"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E48 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e14"
+         "text=e14"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E51 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e15"
+         "text=e15"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E56 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e16"
+         "text=e16"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E57 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e17"
+         "text=e17"
          ]
       }
    ],
@@ -3977,213 +3739,136 @@ Number of migrated Edges: 10</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"hg.G58 : Graph",
-         "attributes":[
-         "nodes=null",
-            "edges=null"
-         ]
+         "id":"hg.G58 : Graph"
       },
       {
          "typ":"node",
          "id":"hg.N59 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n1",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n1"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N61 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n2",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n2"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N63 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n3",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n3"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N66 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n4",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n4"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N68 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n5",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n5"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N72 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n6",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n6"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N73 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n7",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n7"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N74 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n8",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n8"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E60 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e10"
+         "text=e10"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E62 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e11"
+         "text=e11"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E64 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e12"
+         "text=e12"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E65 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e13"
+         "text=e13"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E67 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e14"
+         "text=e14"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E69 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "tgt=null",
-            "text=e18"
+         "text=e18"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E70 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e15"
+         "text=e15"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E71 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "src=null",
-            "text=e19"
+         "text=e19"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E75 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e16"
+         "text=e16"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E76 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e17"
+         "text=e17"
          ]
       }
    ],
@@ -5134,213 +4819,136 @@ Number of migrated Edges: 10</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"hg.G77 : Graph",
-         "attributes":[
-         "nodes=null",
-            "edges=null"
-         ]
+         "id":"hg.G77 : Graph"
       },
       {
          "typ":"node",
          "id":"hg.N78 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n1",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n1"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E79 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e10"
+         "text=e10"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N80 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n2",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n2"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E81 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e11"
+         "text=e11"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N82 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n3",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n3"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E83 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e12"
+         "text=e12"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E84 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e13"
+         "text=e13"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N85 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n4",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n4"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E86 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e14"
+         "text=e14"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N87 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n5",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n5"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E88 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "tgt=null",
-            "text=e18"
+         "text=e18"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E89 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e15"
+         "text=e15"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E90 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "src=null",
-            "text=e19"
+         "text=e19"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N91 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n6",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n6"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N92 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n7",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n7"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N93 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n8",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n8"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E94 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e16"
+         "text=e16"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E95 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e17"
+         "text=e17"
          ]
       }
    ],
@@ -6290,16 +5898,14 @@ Number of migrated Edges: 10</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
          "id":"hg.G96 : GenericObject",
          "attributes":[
          "name=g1.G1",
-            "type=org.sdmlib.examples.helloworld.model.Graph",
-            "icon=null",
-            "graph=null",
-            "attrs=null"
+            "type=org.sdmlib.examples.helloworld.model.Graph"
          ]
       },
       {
@@ -6307,8 +5913,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G97 : GenericLink",
          "attributes":[
          "tgtLabel=nodes",
-            "srcLabel=graph",
-            "graph=null"
+            "srcLabel=graph"
          ]
       },
       {
@@ -6316,8 +5921,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G107 : GenericLink",
          "attributes":[
          "tgtLabel=nodes",
-            "srcLabel=graph",
-            "graph=null"
+            "srcLabel=graph"
          ]
       },
       {
@@ -6325,8 +5929,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G115 : GenericLink",
          "attributes":[
          "tgtLabel=nodes",
-            "srcLabel=graph",
-            "graph=null"
+            "srcLabel=graph"
          ]
       },
       {
@@ -6334,8 +5937,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G128 : GenericLink",
          "attributes":[
          "tgtLabel=nodes",
-            "srcLabel=graph",
-            "graph=null"
+            "srcLabel=graph"
          ]
       },
       {
@@ -6343,8 +5945,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G136 : GenericLink",
          "attributes":[
          "tgtLabel=nodes",
-            "srcLabel=graph",
-            "graph=null"
+            "srcLabel=graph"
          ]
       },
       {
@@ -6352,8 +5953,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G150 : GenericLink",
          "attributes":[
          "tgtLabel=nodes",
-            "srcLabel=graph",
-            "graph=null"
+            "srcLabel=graph"
          ]
       },
       {
@@ -6361,8 +5961,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G153 : GenericLink",
          "attributes":[
          "tgtLabel=nodes",
-            "srcLabel=graph",
-            "graph=null"
+            "srcLabel=graph"
          ]
       },
       {
@@ -6370,8 +5969,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G156 : GenericLink",
          "attributes":[
          "tgtLabel=nodes",
-            "srcLabel=graph",
-            "graph=null"
+            "srcLabel=graph"
          ]
       },
       {
@@ -6379,8 +5977,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G103 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
@@ -6388,17 +5985,15 @@ Number of migrated Edges: 10</p>
          "id":"hg.G111 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G120 : GenericLink",
+         "id":"hg.G119 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
@@ -6406,8 +6001,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G124 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
@@ -6415,8 +6009,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G132 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
@@ -6424,17 +6017,15 @@ Number of migrated Edges: 10</p>
          "id":"hg.G140 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G145 : GenericLink",
+         "id":"hg.G144 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
@@ -6442,26 +6033,23 @@ Number of migrated Edges: 10</p>
          "id":"hg.G149 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G163 : GenericLink",
+         "id":"hg.G162 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G168 : GenericLink",
+         "id":"hg.G167 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
-            "srcLabel=edges",
-            "graph=null"
+            "srcLabel=edges"
          ]
       },
       {
@@ -6469,10 +6057,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G99 : GenericObject",
          "attributes":[
          "name=g1.N2",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -6488,17 +6073,15 @@ Number of migrated Edges: 10</p>
          "id":"hg.G100 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G119 : GenericLink",
+         "id":"hg.G120 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -6506,10 +6089,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G101 : GenericObject",
          "attributes":[
          "name=g1.E3",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6525,8 +6105,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G104 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -6534,10 +6113,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G105 : GenericObject",
          "attributes":[
          "name=g1.N4",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -6553,8 +6129,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G108 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -6562,10 +6137,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G109 : GenericObject",
          "attributes":[
          "name=g1.E5",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6581,8 +6153,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G112 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -6590,10 +6161,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G113 : GenericObject",
          "attributes":[
          "name=g1.N6",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -6609,8 +6177,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G116 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -6618,17 +6185,15 @@ Number of migrated Edges: 10</p>
          "id":"hg.G121 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G144 : GenericLink",
+         "id":"hg.G145 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -6636,10 +6201,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G117 : GenericObject",
          "attributes":[
          "name=g1.E7",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6655,10 +6217,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G122 : GenericObject",
          "attributes":[
          "name=g1.E8",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6674,8 +6233,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G125 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -6683,10 +6241,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G126 : GenericObject",
          "attributes":[
          "name=g1.N9",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -6702,8 +6257,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G129 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -6711,10 +6265,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G130 : GenericObject",
          "attributes":[
          "name=g1.E10",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6730,8 +6281,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G133 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -6739,10 +6289,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G134 : GenericObject",
          "attributes":[
          "name=g1.N11",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -6758,8 +6305,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G137 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -6767,8 +6313,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G141 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -6776,8 +6321,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G146 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -6785,10 +6329,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G138 : GenericObject",
          "attributes":[
          "name=g1.E12",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6804,10 +6345,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G142 : GenericObject",
          "attributes":[
          "name=g1.E13",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6823,10 +6361,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G147 : GenericObject",
          "attributes":[
          "name=g1.E14",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6842,10 +6377,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G151 : GenericObject",
          "attributes":[
          "name=g1.N15",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -6861,10 +6393,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G154 : GenericObject",
          "attributes":[
          "name=g1.N16",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -6880,10 +6409,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G157 : GenericObject",
          "attributes":[
          "name=g1.N17",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -6898,36 +6424,32 @@ Number of migrated Edges: 10</p>
          "typ":"node",
          "id":"hg.G159 : GenericLink",
          "attributes":[
-         "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+         "tgtLabel=src",
+            "srcLabel=outEdges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G162 : GenericLink",
+         "id":"hg.G163 : GenericLink",
          "attributes":[
-         "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+         "tgtLabel=tgt",
+            "srcLabel=inEdges"
          ]
       },
       {
          "typ":"node",
          "id":"hg.G164 : GenericLink",
          "attributes":[
-         "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+         "tgtLabel=src",
+            "srcLabel=outEdges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G167 : GenericLink",
+         "id":"hg.G168 : GenericLink",
          "attributes":[
-         "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+         "tgtLabel=tgt",
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -6935,10 +6457,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G160 : GenericObject",
          "attributes":[
          "name=g1.E18",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -6954,10 +6473,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G165 : GenericObject",
          "attributes":[
          "name=g1.E19",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -7110,7 +6626,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G120 : GenericLink"
+            "id":"hg.G119 : GenericLink"
          }
       },
       {
@@ -7162,7 +6678,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G145 : GenericLink"
+            "id":"hg.G144 : GenericLink"
          }
       },
       {
@@ -7188,7 +6704,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G163 : GenericLink"
+            "id":"hg.G162 : GenericLink"
          }
       },
       {
@@ -7201,7 +6717,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G168 : GenericLink"
+            "id":"hg.G167 : GenericLink"
          }
       },
       {
@@ -7279,7 +6795,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G119 : GenericLink"
+            "id":"hg.G120 : GenericLink"
          }
       },
       {
@@ -7344,7 +6860,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G100 : GenericLink"
+            "id":"hg.G103 : GenericLink"
          }
       },
       {
@@ -7357,7 +6873,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G103 : GenericLink"
+            "id":"hg.G100 : GenericLink"
          }
       },
       {
@@ -7578,7 +7094,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G108 : GenericLink"
+            "id":"hg.G111 : GenericLink"
          }
       },
       {
@@ -7591,7 +7107,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G111 : GenericLink"
+            "id":"hg.G108 : GenericLink"
          }
       },
       {
@@ -7747,7 +7263,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G144 : GenericLink"
+            "id":"hg.G145 : GenericLink"
          }
       },
       {
@@ -7903,7 +7419,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G99 : GenericObject"
+            "id":"hg.G96 : GenericObject"
          }
       },
       {
@@ -7929,7 +7445,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G96 : GenericObject"
+            "id":"hg.G99 : GenericObject"
          }
       },
       {
@@ -7981,7 +7497,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G121 : GenericLink"
+            "id":"hg.G124 : GenericLink"
          }
       },
       {
@@ -7994,7 +7510,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G124 : GenericLink"
+            "id":"hg.G121 : GenericLink"
          }
       },
       {
@@ -8215,7 +7731,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G129 : GenericLink"
+            "id":"hg.G132 : GenericLink"
          }
       },
       {
@@ -8228,7 +7744,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G132 : GenericLink"
+            "id":"hg.G129 : GenericLink"
          }
       },
       {
@@ -8475,7 +7991,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G137 : GenericLink"
+            "id":"hg.G140 : GenericLink"
          }
       },
       {
@@ -8488,7 +8004,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G140 : GenericLink"
+            "id":"hg.G137 : GenericLink"
          }
       },
       {
@@ -8644,7 +8160,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G113 : GenericObject"
+            "id":"hg.G96 : GenericObject"
          }
       },
       {
@@ -8670,7 +8186,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G96 : GenericObject"
+            "id":"hg.G113 : GenericObject"
          }
       },
       {
@@ -8722,7 +8238,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G146 : GenericLink"
+            "id":"hg.G149 : GenericLink"
          }
       },
       {
@@ -8735,7 +8251,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G149 : GenericLink"
+            "id":"hg.G146 : GenericLink"
          }
       },
       {
@@ -8982,7 +8498,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G162 : GenericLink"
+            "id":"hg.G163 : GenericLink"
          }
       },
       {
@@ -9008,7 +8524,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G167 : GenericLink"
+            "id":"hg.G168 : GenericLink"
          }
       },
       {
@@ -9073,7 +8589,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G159 : GenericLink"
+            "id":"hg.G162 : GenericLink"
          }
       },
       {
@@ -9086,7 +8602,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G162 : GenericLink"
+            "id":"hg.G159 : GenericLink"
          }
       },
       {
@@ -9138,7 +8654,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G157 : GenericObject"
+            "id":"hg.G96 : GenericObject"
          }
       },
       {
@@ -9164,7 +8680,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G96 : GenericObject"
+            "id":"hg.G157 : GenericObject"
          }
       },
       {
@@ -9216,7 +8732,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G164 : GenericLink"
+            "id":"hg.G167 : GenericLink"
          }
       },
       {
@@ -9229,7 +8745,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G167 : GenericLink"
+            "id":"hg.G164 : GenericLink"
          }
       },
       {
@@ -9281,7 +8797,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G157 : GenericObject"
+            "id":"hg.G96 : GenericObject"
          }
       },
       {
@@ -9307,7 +8823,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G96 : GenericObject"
+            "id":"hg.G157 : GenericObject"
          }
       }
    ]
@@ -9450,16 +8966,14 @@ Number of migrated Edges: 10</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
          "id":"hg.G96 : GenericObject",
          "attributes":[
          "name=g1.G1",
-            "type=org.sdmlib.examples.helloworld.model.Graph",
-            "icon=null",
-            "graph=null",
-            "attrs=null"
+            "type=org.sdmlib.examples.helloworld.model.Graph"
          ]
       },
       {
@@ -9467,8 +8981,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G97 : GenericLink",
          "attributes":[
          "tgtLabel=gcs",
-            "srcLabel=parent",
-            "graph=null"
+            "srcLabel=parent"
          ]
       },
       {
@@ -9476,8 +8989,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G107 : GenericLink",
          "attributes":[
          "tgtLabel=gcs",
-            "srcLabel=parent",
-            "graph=null"
+            "srcLabel=parent"
          ]
       },
       {
@@ -9485,8 +8997,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G115 : GenericLink",
          "attributes":[
          "tgtLabel=gcs",
-            "srcLabel=parent",
-            "graph=null"
+            "srcLabel=parent"
          ]
       },
       {
@@ -9494,8 +9005,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G128 : GenericLink",
          "attributes":[
          "tgtLabel=gcs",
-            "srcLabel=parent",
-            "graph=null"
+            "srcLabel=parent"
          ]
       },
       {
@@ -9503,8 +9013,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G136 : GenericLink",
          "attributes":[
          "tgtLabel=gcs",
-            "srcLabel=parent",
-            "graph=null"
+            "srcLabel=parent"
          ]
       },
       {
@@ -9512,8 +9021,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G150 : GenericLink",
          "attributes":[
          "tgtLabel=gcs",
-            "srcLabel=parent",
-            "graph=null"
+            "srcLabel=parent"
          ]
       },
       {
@@ -9521,8 +9029,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G153 : GenericLink",
          "attributes":[
          "tgtLabel=gcs",
-            "srcLabel=parent",
-            "graph=null"
+            "srcLabel=parent"
          ]
       },
       {
@@ -9530,8 +9037,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G156 : GenericLink",
          "attributes":[
          "tgtLabel=gcs",
-            "srcLabel=parent",
-            "graph=null"
+            "srcLabel=parent"
          ]
       },
       {
@@ -9539,8 +9045,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G103 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
@@ -9548,17 +9053,15 @@ Number of migrated Edges: 10</p>
          "id":"hg.G111 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G120 : GenericLink",
+         "id":"hg.G119 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
@@ -9566,8 +9069,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G124 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
@@ -9575,8 +9077,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G132 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
@@ -9584,17 +9085,15 @@ Number of migrated Edges: 10</p>
          "id":"hg.G140 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G145 : GenericLink",
+         "id":"hg.G144 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
@@ -9602,26 +9101,23 @@ Number of migrated Edges: 10</p>
          "id":"hg.G149 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G163 : GenericLink",
+         "id":"hg.G162 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G168 : GenericLink",
+         "id":"hg.G167 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
-            "srcLabel=gcs",
-            "graph=null"
+            "srcLabel=gcs"
          ]
       },
       {
@@ -9629,10 +9125,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G99 : GenericObject",
          "attributes":[
          "name=g1.N2",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -9648,17 +9141,15 @@ Number of migrated Edges: 10</p>
          "id":"hg.G100 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G119 : GenericLink",
+         "id":"hg.G120 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -9666,10 +9157,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G101 : GenericObject",
          "attributes":[
          "name=g1.E3",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -9685,8 +9173,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G104 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -9694,10 +9181,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G105 : GenericObject",
          "attributes":[
          "name=g1.N4",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -9713,8 +9197,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G108 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -9722,10 +9205,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G109 : GenericObject",
          "attributes":[
          "name=g1.E5",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -9741,8 +9221,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G112 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -9750,10 +9229,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G113 : GenericObject",
          "attributes":[
          "name=g1.N6",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -9769,8 +9245,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G116 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -9778,17 +9253,15 @@ Number of migrated Edges: 10</p>
          "id":"hg.G121 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G144 : GenericLink",
+         "id":"hg.G145 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -9796,10 +9269,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G117 : GenericObject",
          "attributes":[
          "name=g1.E7",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -9815,10 +9285,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G122 : GenericObject",
          "attributes":[
          "name=g1.E8",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -9834,8 +9301,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G125 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -9843,10 +9309,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G126 : GenericObject",
          "attributes":[
          "name=g1.N9",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -9862,8 +9325,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G129 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -9871,10 +9333,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G130 : GenericObject",
          "attributes":[
          "name=g1.E10",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -9890,8 +9349,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G133 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -9899,10 +9357,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G134 : GenericObject",
          "attributes":[
          "name=g1.N11",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -9918,8 +9373,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G137 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -9927,8 +9381,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G141 : GenericLink",
          "attributes":[
          "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+            "srcLabel=outEdges"
          ]
       },
       {
@@ -9936,8 +9389,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G146 : GenericLink",
          "attributes":[
          "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -9945,10 +9397,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G138 : GenericObject",
          "attributes":[
          "name=g1.E12",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -9964,10 +9413,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G142 : GenericObject",
          "attributes":[
          "name=g1.E13",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -9983,10 +9429,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G147 : GenericObject",
          "attributes":[
          "name=g1.E14",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -10002,10 +9445,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G151 : GenericObject",
          "attributes":[
          "name=g1.N15",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -10021,10 +9461,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G154 : GenericObject",
          "attributes":[
          "name=g1.N16",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -10040,10 +9477,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G157 : GenericObject",
          "attributes":[
          "name=g1.N17",
-            "type=org.sdmlib.examples.helloworld.model.Node",
-            "icon=null",
-            "graph=null",
-            "outgoingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Node"
          ]
       },
       {
@@ -10058,36 +9492,32 @@ Number of migrated Edges: 10</p>
          "typ":"node",
          "id":"hg.G159 : GenericLink",
          "attributes":[
-         "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+         "tgtLabel=src",
+            "srcLabel=outEdges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G162 : GenericLink",
+         "id":"hg.G163 : GenericLink",
          "attributes":[
-         "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+         "tgtLabel=tgt",
+            "srcLabel=inEdges"
          ]
       },
       {
          "typ":"node",
          "id":"hg.G164 : GenericLink",
          "attributes":[
-         "tgtLabel=tgt",
-            "srcLabel=inEdges",
-            "graph=null"
+         "tgtLabel=src",
+            "srcLabel=outEdges"
          ]
       },
       {
          "typ":"node",
-         "id":"hg.G167 : GenericLink",
+         "id":"hg.G168 : GenericLink",
          "attributes":[
-         "tgtLabel=src",
-            "srcLabel=outEdges",
-            "graph=null"
+         "tgtLabel=tgt",
+            "srcLabel=inEdges"
          ]
       },
       {
@@ -10095,10 +9525,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G160 : GenericObject",
          "attributes":[
          "name=g1.E18",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -10114,10 +9541,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G165 : GenericObject",
          "attributes":[
          "name=g1.E19",
-            "type=org.sdmlib.examples.helloworld.model.Edge",
-            "icon=null",
-            "graph=null",
-            "incommingLinks=null"
+            "type=org.sdmlib.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -10270,7 +9694,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G120 : GenericLink"
+            "id":"hg.G119 : GenericLink"
          }
       },
       {
@@ -10322,7 +9746,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G145 : GenericLink"
+            "id":"hg.G144 : GenericLink"
          }
       },
       {
@@ -10348,7 +9772,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G163 : GenericLink"
+            "id":"hg.G162 : GenericLink"
          }
       },
       {
@@ -10361,7 +9785,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G168 : GenericLink"
+            "id":"hg.G167 : GenericLink"
          }
       },
       {
@@ -10439,7 +9863,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G119 : GenericLink"
+            "id":"hg.G120 : GenericLink"
          }
       },
       {
@@ -10504,7 +9928,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G100 : GenericLink"
+            "id":"hg.G103 : GenericLink"
          }
       },
       {
@@ -10517,7 +9941,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G103 : GenericLink"
+            "id":"hg.G100 : GenericLink"
          }
       },
       {
@@ -10738,7 +10162,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G108 : GenericLink"
+            "id":"hg.G111 : GenericLink"
          }
       },
       {
@@ -10751,7 +10175,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G111 : GenericLink"
+            "id":"hg.G108 : GenericLink"
          }
       },
       {
@@ -10907,7 +10331,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G144 : GenericLink"
+            "id":"hg.G145 : GenericLink"
          }
       },
       {
@@ -11063,7 +10487,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G99 : GenericObject"
+            "id":"hg.G96 : GenericObject"
          }
       },
       {
@@ -11089,7 +10513,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G96 : GenericObject"
+            "id":"hg.G99 : GenericObject"
          }
       },
       {
@@ -11141,7 +10565,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G121 : GenericLink"
+            "id":"hg.G124 : GenericLink"
          }
       },
       {
@@ -11154,7 +10578,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G124 : GenericLink"
+            "id":"hg.G121 : GenericLink"
          }
       },
       {
@@ -11375,7 +10799,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G129 : GenericLink"
+            "id":"hg.G132 : GenericLink"
          }
       },
       {
@@ -11388,7 +10812,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G132 : GenericLink"
+            "id":"hg.G129 : GenericLink"
          }
       },
       {
@@ -11635,7 +11059,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G137 : GenericLink"
+            "id":"hg.G140 : GenericLink"
          }
       },
       {
@@ -11648,7 +11072,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G140 : GenericLink"
+            "id":"hg.G137 : GenericLink"
          }
       },
       {
@@ -11804,7 +11228,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G113 : GenericObject"
+            "id":"hg.G96 : GenericObject"
          }
       },
       {
@@ -11830,7 +11254,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G96 : GenericObject"
+            "id":"hg.G113 : GenericObject"
          }
       },
       {
@@ -11882,7 +11306,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G146 : GenericLink"
+            "id":"hg.G149 : GenericLink"
          }
       },
       {
@@ -11895,7 +11319,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G149 : GenericLink"
+            "id":"hg.G146 : GenericLink"
          }
       },
       {
@@ -12142,7 +11566,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G162 : GenericLink"
+            "id":"hg.G163 : GenericLink"
          }
       },
       {
@@ -12168,7 +11592,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"incommingLinks",
-            "id":"hg.G167 : GenericLink"
+            "id":"hg.G168 : GenericLink"
          }
       },
       {
@@ -12233,7 +11657,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G159 : GenericLink"
+            "id":"hg.G162 : GenericLink"
          }
       },
       {
@@ -12246,7 +11670,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G162 : GenericLink"
+            "id":"hg.G159 : GenericLink"
          }
       },
       {
@@ -12298,7 +11722,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G157 : GenericObject"
+            "id":"hg.G96 : GenericObject"
          }
       },
       {
@@ -12324,7 +11748,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G96 : GenericObject"
+            "id":"hg.G157 : GenericObject"
          }
       },
       {
@@ -12376,7 +11800,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G164 : GenericLink"
+            "id":"hg.G167 : GenericLink"
          }
       },
       {
@@ -12389,7 +11813,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"outgoingLinks",
-            "id":"hg.G167 : GenericLink"
+            "id":"hg.G164 : GenericLink"
          }
       },
       {
@@ -12441,7 +11865,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G157 : GenericObject"
+            "id":"hg.G96 : GenericObject"
          }
       },
       {
@@ -12467,7 +11891,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"hg.G96 : GenericObject"
+            "id":"hg.G157 : GenericObject"
          }
       }
    ]
@@ -12479,213 +11903,136 @@ Number of migrated Edges: 10</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"hg.G169 : Graph",
-         "attributes":[
-         "nodes=null",
-            "edges=null"
-         ]
+         "id":"hg.G169 : Graph"
       },
       {
          "typ":"node",
          "id":"hg.N170 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n1",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n1"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E171 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e10"
+         "text=e10"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N172 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n2",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n2"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E173 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e11"
+         "text=e11"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N174 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n3",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n3"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E175 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e12"
+         "text=e12"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E176 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e13"
+         "text=e13"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N177 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n4",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n4"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E178 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e14"
+         "text=e14"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N179 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n5",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n5"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E180 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "tgt=null",
-            "text=e18"
+         "text=e18"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E181 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e15"
+         "text=e15"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E182 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "src=null",
-            "text=e19"
+         "text=e19"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N183 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n6",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n6"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N184 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n7",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n7"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N185 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "graph=null",
-            "text=n8",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n8"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E186 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e16"
+         "text=e16"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E187 : Edge",
          "attributes":[
-         "name=null",
-            "graph=null",
-            "text=e17"
+         "text=e17"
          ]
       }
    ],
@@ -13637,8 +12984,7 @@ Number of migrated Edges: 10</p>
    "nodes":[
    {
          "typ":"node",
-         "id":"Graph",
-         "attributes":[]
+         "id":"Graph"
       },
       {
          "typ":"node",
@@ -13677,218 +13023,141 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationClassDiagram52", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram52", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"hg.G188 : Graph",
-         "attributes":[
-         "gcs=null"
-         ]
+         "id":"hg.G188 : Graph"
       },
       {
          "typ":"node",
          "id":"hg.N189 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n1",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n1"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N191 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n2",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n2"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N193 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n3",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n3"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N196 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n4",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n4"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N198 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n5",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n5"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N202 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n6",
-            "outEdges=null",
-            "inEdges=null",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n6"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N203 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n7",
-            "outEdges=null",
-            "inEdges=null",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n7"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N204 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=n8",
-            "text=null",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "name=n8"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E199 : Edge",
          "attributes":[
-         "name=e18",
-            "tgt=null",
-            "text=null",
-            "parent=null"
+         "name=e18"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E201 : Edge",
          "attributes":[
-         "name=e19",
-            "src=null",
-            "text=null",
-            "parent=null"
+         "name=e19"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E190 : Edge",
          "attributes":[
-         "name=e10",
-            "text=null",
-            "parent=null"
+         "name=e10"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E192 : Edge",
          "attributes":[
-         "name=e11",
-            "text=null",
-            "parent=null"
+         "name=e11"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E194 : Edge",
          "attributes":[
-         "name=e12",
-            "text=null",
-            "parent=null"
+         "name=e12"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E195 : Edge",
          "attributes":[
-         "name=e13",
-            "text=null",
-            "parent=null"
+         "name=e13"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E197 : Edge",
          "attributes":[
-         "name=e14",
-            "text=null",
-            "parent=null"
+         "name=e14"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E200 : Edge",
          "attributes":[
-         "name=e15",
-            "text=null",
-            "parent=null"
+         "name=e15"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E205 : Edge",
          "attributes":[
-         "name=e16",
-            "text=null",
-            "parent=null"
+         "name=e16"
          ]
       },
       {
          "typ":"node",
          "id":"hg.E206 : Edge",
          "attributes":[
-         "name=e17",
-            "text=null",
-            "parent=null"
+         "name=e17"
          ]
       }
    ],
@@ -15048,121 +14317,66 @@ Number of migrated Edges: 10</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"hg.G207 : Graph",
-         "attributes":[
-         "edges=null",
-            "gcs=null"
-         ]
+         "id":"hg.G207 : Graph"
       },
       {
          "typ":"node",
          "id":"hg.N208 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n1",
-            "parent=null"
+         "text=n1"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N209 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n2",
-            "parent=null"
+         "text=n2"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N210 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n3",
-            "parent=null"
+         "text=n3"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N211 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n4",
-            "parent=null"
+         "text=n4"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N212 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n5",
-            "parent=null"
+         "text=n5"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N213 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n6",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n6"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N214 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n7",
-            "parent=null",
-            "linksTo=null",
-            "linksFrom=null"
+         "text=n7"
          ]
       },
       {
          "typ":"node",
          "id":"hg.N215 : Node",
          "attributes":[
-         "copy=null",
-            "orig=null",
-            "name=null",
-            "outEdges=null",
-            "inEdges=null",
-            "text=n8",
-            "parent=null"
+         "text=n8"
          ]
       }
    ],

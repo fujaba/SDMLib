@@ -455,4 +455,6 @@ public class PitSet extends SDMSet<Pit>
       return this;
    }
 
+
+   public static final PitSet EMPTY_SET = new PitSet().withReadonly(true);
 }

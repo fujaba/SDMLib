@@ -391,4 +391,6 @@ public class PlayerSet extends SDMSet<Player>
       return this;
    }
 
+
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadonly(true);
 }

@@ -11,11 +11,6 @@ import de.uniks.networkparser.gui.ItemList;
 
 public class SDMSetBase<T> extends ItemList<T>
 {
-   public SDMSetBase()
-   {
-      this.allowDuplicate = false;
-   }
-  
    @Override
    public String toString()
    {
@@ -147,6 +142,6 @@ public class SDMSetBase<T> extends ItemList<T>
    }
 	@Override
 	public boolean remove(Object value) {
-		return removeItemByObject(value) >= 0;
+		return removeByObject(value) >= 0;
 	}
 }

@@ -14,6 +14,7 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
@@ -482,17 +483,18 @@
 <p><a name = 'step_1'>Step 1: Use text templates to generate a natural language description of the object model.</a></p><script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
          "id":"T9 : Template",
          "attributes":[
-         "listStart=",
-            "listSeparator=",
-            "valueStartPos=0",
-            "listEnd=",
+         "referenceLookup=false",
             "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList ",
-            "referenceLookup=false"
+            "valueStartPos=0",
+            "listStart=",
+            "listSeparator=",
+            "listEnd="
          ]
       },
       {
@@ -611,12 +613,12 @@
          "typ":"node",
          "id":"T14 : Template",
          "attributes":[
-         "listStart=",
-            "listSeparator=\u000a",
-            "valueStartPos=0",
-            "listEnd=\u000a",
+         "referenceLookup=true",
             "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors",
-            "referenceLookup=true"
+            "valueStartPos=0",
+            "listStart=",
+            "listSeparator=\u000a",
+            "listEnd=\u000a"
          ]
       },
       {
@@ -650,12 +652,12 @@
          "typ":"node",
          "id":"T18 : Template",
          "attributes":[
-         "listStart=",
-            "listSeparator=, ",
-            "valueStartPos=0",
-            "listEnd=.",
+         "referenceLookup=true",
             "templateText=name",
-            "referenceLookup=true"
+            "valueStartPos=0",
+            "listStart=",
+            "listSeparator=, ",
+            "listEnd=."
          ]
       },
       {
@@ -671,12 +673,12 @@
          "typ":"node",
          "id":"T21 : Template",
          "attributes":[
-         "listStart=",
-            "listSeparator=\u000a",
-            "valueStartPos=0",
-            "listEnd=\u000a",
+         "referenceLookup=false",
             "templateText= - Stud has student number 1234.",
-            "referenceLookup=false"
+            "valueStartPos=0",
+            "listStart=",
+            "listSeparator=\u000a",
+            "listEnd=\u000a"
          ]
       },
       {
@@ -1484,6 +1486,7 @@
  </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p><script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",

@@ -24,13 +24,14 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.util.PatternSet;
 
-public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
+public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -199,4 +200,6 @@ public class CloneOpSet extends LinkedHashSet<CloneOp> implements org.sdmlib.mod
    {
       return new CloneOpPO(this.toArray(new CloneOp[this.size()]));
    }
+
+   public static final CloneOpSet EMPTY_SET = new CloneOpSet().withReadonly(true);
 }

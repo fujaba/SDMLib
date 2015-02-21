@@ -116,4 +116,6 @@ public class AlexSet extends SDMSet<Alex>
       return this;
    }
 
+
+   public static final AlexSet EMPTY_SET = new AlexSet().withReadonly(true);
 }

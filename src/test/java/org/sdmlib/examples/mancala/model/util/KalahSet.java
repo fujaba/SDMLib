@@ -492,4 +492,6 @@ public class KalahSet extends SDMSet<Kalah>
       return this;
    }
 
+
+   public static final KalahSet EMPTY_SET = new KalahSet().withReadonly(true);
 }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,86 +19,50 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.examples.studyright.model.util;
+package org.sdmlib.examples.simpleModel.model.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Male;
+import org.sdmlib.examples.simpleModel.model.Item;
 import java.util.Collection;
 
-public class MaleSet extends SDMSet<Male>
+public class ItemSet extends SDMSet<Item>
 {
 
+   public static final ItemSet EMPTY_SET = new ItemSet().withReadonly(true);
 
-   public MalePO hasMalePO()
+
+   public ItemPO hasItemPO()
    {
-      return new MalePO(this.toArray(new Male[this.size()]));
+      return new ItemPO(this.toArray(new Item[this.size()]));
    }
 
 
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Male";
+      return "org.sdmlib.examples.simpleModel.model.Item";
    }
 
 
    @SuppressWarnings("unchecked")
-   public MaleSet with(Object value)
+   public ItemSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Male>)value);
+         this.addAll((Collection<Item>)value);
       }
       else if (value != null)
       {
-         this.add((Male) value);
+         this.add((Item) value);
       }
       
       return this;
    }
    
-   public MaleSet without(Male value)
+   public ItemSet without(Item value)
    {
       this.remove(value);
       return this;
    }
 
-   
-   //==========================================================================
-   
-   public MaleSet findMyPosition()
-   {
-      for (Male obj : this)
-      {
-         obj.findMyPosition();
-      }
-      return this;
-   }
-
-   
-   //==========================================================================
-   
-   public MaleSet findMyPosition(String p0)
-   {
-      for (Male obj : this)
-      {
-         obj.findMyPosition(p0);
-      }
-      return this;
-   }
-
-   
-   //==========================================================================
-   
-   public MaleSet findMyPosition(String p0, int p1)
-   {
-      for (Male obj : this)
-      {
-         obj.findMyPosition(p0, p1);
-      }
-      return this;
-   }
-
-
-   public static final MaleSet EMPTY_SET = new MaleSet().withReadonly(true);
 }

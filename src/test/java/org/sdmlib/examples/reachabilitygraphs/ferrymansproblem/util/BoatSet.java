@@ -214,4 +214,6 @@ public class BoatSet extends SDMSet<Boat>
       return this;
    }
 
+
+   public static final BoatSet EMPTY_SET = new BoatSet().withReadonly(true);
 }

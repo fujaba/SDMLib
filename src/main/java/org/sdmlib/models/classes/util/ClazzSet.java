@@ -704,6 +704,8 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       return new ClazzSet();
    }
+
+   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadonly(true);
 }
 
 

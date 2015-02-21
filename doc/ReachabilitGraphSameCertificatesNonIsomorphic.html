@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -15,35 +15,36 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.S1 : SimpleState"
+         "id":"S1 : SimpleState"
       },
       {
          "typ":"node",
-         "id":"d.N2 : Node",
+         "id":"N2 : Node",
          "attributes":[
          "num=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.N3 : Node",
+         "id":"N3 : Node",
          "attributes":[
          "num=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.N4 : Node",
+         "id":"N4 : Node",
          "attributes":[
          "num=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.N5 : Node",
+         "id":"N5 : Node",
          "attributes":[
          "num=0"
          ]
@@ -55,12 +56,12 @@
          "source":{
             "cardinality":"one",
             "property":"simplestate",
-            "id":"d.S1 : SimpleState"
+            "id":"S1 : SimpleState"
          },
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"d.N2 : Node"
+            "id":"N2 : Node"
          }
       },
       {
@@ -68,12 +69,12 @@
          "source":{
             "cardinality":"one",
             "property":"simplestate",
-            "id":"d.S1 : SimpleState"
+            "id":"S1 : SimpleState"
          },
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"d.N3 : Node"
+            "id":"N3 : Node"
          }
       },
       {
@@ -81,12 +82,12 @@
          "source":{
             "cardinality":"one",
             "property":"simplestate",
-            "id":"d.S1 : SimpleState"
+            "id":"S1 : SimpleState"
          },
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"d.N4 : Node"
+            "id":"N4 : Node"
          }
       },
       {
@@ -94,12 +95,12 @@
          "source":{
             "cardinality":"one",
             "property":"simplestate",
-            "id":"d.S1 : SimpleState"
+            "id":"S1 : SimpleState"
          },
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"d.N5 : Node"
+            "id":"N5 : Node"
          }
       },
       {
@@ -107,12 +108,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N2 : Node"
+            "id":"N2 : Node"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.S1 : SimpleState"
+            "id":"S1 : SimpleState"
          }
       },
       {
@@ -120,12 +121,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N2 : Node"
+            "id":"N2 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.N3 : Node"
+            "id":"N3 : Node"
          }
       },
       {
@@ -133,12 +134,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N2 : Node"
+            "id":"N2 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.N3 : Node"
+            "id":"N3 : Node"
          }
       },
       {
@@ -146,12 +147,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N3 : Node"
+            "id":"N3 : Node"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.S1 : SimpleState"
+            "id":"S1 : SimpleState"
          }
       },
       {
@@ -159,12 +160,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N3 : Node"
+            "id":"N3 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.N2 : Node"
+            "id":"N2 : Node"
          }
       },
       {
@@ -172,12 +173,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N3 : Node"
+            "id":"N3 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.N2 : Node"
+            "id":"N2 : Node"
          }
       },
       {
@@ -185,12 +186,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N4 : Node"
+            "id":"N4 : Node"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.S1 : SimpleState"
+            "id":"S1 : SimpleState"
          }
       },
       {
@@ -198,12 +199,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N4 : Node"
+            "id":"N4 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.N5 : Node"
+            "id":"N5 : Node"
          }
       },
       {
@@ -211,12 +212,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N4 : Node"
+            "id":"N4 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.N5 : Node"
+            "id":"N5 : Node"
          }
       },
       {
@@ -224,12 +225,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N5 : Node"
+            "id":"N5 : Node"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.S1 : SimpleState"
+            "id":"S1 : SimpleState"
          }
       },
       {
@@ -237,12 +238,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N5 : Node"
+            "id":"N5 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.N4 : Node"
+            "id":"N4 : Node"
          }
       },
       {
@@ -250,12 +251,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N5 : Node"
+            "id":"N5 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.N4 : Node"
+            "id":"N4 : Node"
          }
       }
    ]
@@ -266,35 +267,36 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.S6 : SimpleState"
+         "id":"S6 : SimpleState"
       },
       {
          "typ":"node",
-         "id":"d.N7 : Node",
+         "id":"N7 : Node",
          "attributes":[
          "num=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.N8 : Node",
+         "id":"N8 : Node",
          "attributes":[
          "num=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.N9 : Node",
+         "id":"N9 : Node",
          "attributes":[
          "num=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.N10 : Node",
+         "id":"N10 : Node",
          "attributes":[
          "num=0"
          ]
@@ -306,12 +308,12 @@
          "source":{
             "cardinality":"one",
             "property":"simplestate",
-            "id":"d.S6 : SimpleState"
+            "id":"S6 : SimpleState"
          },
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"d.N7 : Node"
+            "id":"N7 : Node"
          }
       },
       {
@@ -319,12 +321,12 @@
          "source":{
             "cardinality":"one",
             "property":"simplestate",
-            "id":"d.S6 : SimpleState"
+            "id":"S6 : SimpleState"
          },
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"d.N8 : Node"
+            "id":"N8 : Node"
          }
       },
       {
@@ -332,12 +334,12 @@
          "source":{
             "cardinality":"one",
             "property":"simplestate",
-            "id":"d.S6 : SimpleState"
+            "id":"S6 : SimpleState"
          },
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"d.N9 : Node"
+            "id":"N9 : Node"
          }
       },
       {
@@ -345,12 +347,12 @@
          "source":{
             "cardinality":"one",
             "property":"simplestate",
-            "id":"d.S6 : SimpleState"
+            "id":"S6 : SimpleState"
          },
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"d.N10 : Node"
+            "id":"N10 : Node"
          }
       },
       {
@@ -358,12 +360,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N7 : Node"
+            "id":"N7 : Node"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.S6 : SimpleState"
+            "id":"S6 : SimpleState"
          }
       },
       {
@@ -371,12 +373,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N7 : Node"
+            "id":"N7 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.N8 : Node"
+            "id":"N8 : Node"
          }
       },
       {
@@ -384,12 +386,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N7 : Node"
+            "id":"N7 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.N10 : Node"
+            "id":"N10 : Node"
          }
       },
       {
@@ -397,12 +399,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N8 : Node"
+            "id":"N8 : Node"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.S6 : SimpleState"
+            "id":"S6 : SimpleState"
          }
       },
       {
@@ -410,12 +412,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N8 : Node"
+            "id":"N8 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.N9 : Node"
+            "id":"N9 : Node"
          }
       },
       {
@@ -423,12 +425,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N8 : Node"
+            "id":"N8 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.N7 : Node"
+            "id":"N7 : Node"
          }
       },
       {
@@ -436,12 +438,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N9 : Node"
+            "id":"N9 : Node"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.S6 : SimpleState"
+            "id":"S6 : SimpleState"
          }
       },
       {
@@ -449,12 +451,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N9 : Node"
+            "id":"N9 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.N10 : Node"
+            "id":"N10 : Node"
          }
       },
       {
@@ -462,12 +464,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N9 : Node"
+            "id":"N9 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.N8 : Node"
+            "id":"N8 : Node"
          }
       },
       {
@@ -475,12 +477,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N10 : Node"
+            "id":"N10 : Node"
          },
          "target":{
             "cardinality":"one",
             "property":"graph",
-            "id":"d.S6 : SimpleState"
+            "id":"S6 : SimpleState"
          }
       },
       {
@@ -488,12 +490,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N10 : Node"
+            "id":"N10 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.N7 : Node"
+            "id":"N7 : Node"
          }
       },
       {
@@ -501,12 +503,12 @@
          "source":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.N10 : Node"
+            "id":"N10 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.N9 : Node"
+            "id":"N9 : Node"
          }
       }
    ]

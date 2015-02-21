@@ -628,6 +628,8 @@ public class TemplateSet extends SDMSet<Template>
       return this;
    }
 
+
+   public static final TemplateSet EMPTY_SET = new TemplateSet().withReadonly(true);
 }
 
 

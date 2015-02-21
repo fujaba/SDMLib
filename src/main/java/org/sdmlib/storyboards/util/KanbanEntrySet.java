@@ -24,13 +24,14 @@ package org.sdmlib.storyboards.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
-public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sdmlib.models.modelsets.ModelSet
+public class KanbanEntrySet extends SDMSet<KanbanEntry> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -195,6 +196,8 @@ public class KanbanEntrySet extends LinkedHashSet<KanbanEntry> implements org.sd
    {
       return new KanbanEntryPO (this.toArray(new KanbanEntry[this.size()]));
    }
+
+   public static final KanbanEntrySet EMPTY_SET = new KanbanEntrySet().withReadonly(true);
 }
 
 

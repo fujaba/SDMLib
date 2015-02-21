@@ -251,4 +251,6 @@ public class ProfessorSet extends SDMSet<Professor>
       return this;
    }
 
+
+   public static final ProfessorSet EMPTY_SET = new ProfessorSet().withReadonly(true);
 }

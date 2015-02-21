@@ -670,6 +670,8 @@ public class NodeSet extends SDMSet<Node>
       return this;
    }
 
+
+   public static final NodeSet EMPTY_SET = new NodeSet().withReadonly(true);
 }
 
 

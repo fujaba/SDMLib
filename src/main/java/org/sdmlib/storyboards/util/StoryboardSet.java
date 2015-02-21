@@ -24,6 +24,7 @@ package org.sdmlib.storyboards.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.storyboards.Storyboard;
@@ -32,7 +33,7 @@ import org.sdmlib.storyboards.StoryboardWall;
 import org.sdmlib.storyboards.util.StoryboardWallSet;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
-public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
+public class StoryboardSet extends SDMSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -215,6 +216,8 @@ public class StoryboardSet extends LinkedHashSet<Storyboard> implements org.sdml
    {
       return new StoryboardPO (this.toArray(new Storyboard[this.size()]));
    }
+
+   public static final StoryboardSet EMPTY_SET = new StoryboardSet().withReadonly(true);
 }
 
 

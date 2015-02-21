@@ -1520,6 +1520,7 @@ public class Storyboard implements PropertyChangeInterface
 //      setWall(null);
       removeAllFromStoryboardSteps();
       withoutStoryboardSteps(this.getStoryboardSteps().toArray(new StoryboardStep[this.getStoryboardSteps().size()]));
+      setWall(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -1849,4 +1850,52 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
+
+   private StoryboardWall wall = null;
+
+   public StoryboardWall getWall()
+   {
+      return this.wall;
+   }
+
+   public boolean setWall(StoryboardWall value)
+   {
+      boolean changed = false;
+      
+      if (this.wall != value)
+      {
+         StoryboardWall oldValue = this.wall;
+         
+         if (this.wall != null)
+         {
+            this.wall = null;
+            oldValue.setStoryboard(null);
+         }
+         
+         this.wall = value;
+         
+         if (value != null)
+         {
+            value.withStoryboard(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Storyboard withWall(StoryboardWall value)
+   {
+      setWall(value);
+      return this;
+   } 
+
+   public StoryboardWall createWall()
+   {
+      StoryboardWall value = new StoryboardWall();
+      withWall(value);
+      return value;
+   } 
 }

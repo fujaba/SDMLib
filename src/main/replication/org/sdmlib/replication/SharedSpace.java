@@ -380,7 +380,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
                      updateJson = (JsonObject) higherJson.get(JsonIdMap.REMOVE);
                   }
 
-                  for (Iterator<String> keyIter = updateJson.keys(); keyIter.hasNext();)
+                  for (Iterator<String> keyIter = updateJson.keyIterator(); keyIter.hasNext();)
                   {
                      String property = keyIter.next();
 
@@ -846,7 +846,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       if (object != null)
       {
          JsonObject jsonUpdate = (JsonObject) object;
-         for (Iterator<String> iter = jsonUpdate.keys(); iter.hasNext();)
+         for (Iterator<String> iter = jsonUpdate.keyIterator(); iter.hasNext();)
          {
             String prop = iter.next();
             change.withTargetProperty(prop);

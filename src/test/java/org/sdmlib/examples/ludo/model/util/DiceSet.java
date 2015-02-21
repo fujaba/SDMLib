@@ -203,4 +203,6 @@ public class DiceSet extends SDMSet<Dice>
       return this;
    }
 
+
+   public static final DiceSet EMPTY_SET = new DiceSet().withReadonly(true);
 }

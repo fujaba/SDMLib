@@ -252,4 +252,6 @@ public class LectureSet extends SDMSet<Lecture>
       return this;
    }
 
+
+   public static final LectureSet EMPTY_SET = new LectureSet().withReadonly(true);
 }

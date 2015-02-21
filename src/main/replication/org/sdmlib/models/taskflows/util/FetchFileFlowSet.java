@@ -410,4 +410,6 @@ public class FetchFileFlowSet extends SDMSet<FetchFileFlow>
       return this;
    }
 
+
+   public static final FetchFileFlowSet EMPTY_SET = new FetchFileFlowSet().withReadonly(true);
 }

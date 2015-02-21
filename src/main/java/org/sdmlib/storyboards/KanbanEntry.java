@@ -28,13 +28,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.KanbanEntrySet;
 import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
+
 import java.beans.PropertyChangeListener;
 
 // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StoryboardInfrastructure.html
@@ -235,7 +238,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
 
    public static final String PROPERTY_FILES = "files";
 
-   public static final Set<KanbanEntry> EMPTY_SET = new KanbanEntrySet();
+   public static final KanbanEntrySet EMPTY_SET = new KanbanEntrySet();
 
    private String files;
 
@@ -428,7 +431,7 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
       return this;
    }
 
-   public Set<KanbanEntry> getSubentries() 
+   public KanbanEntrySet getSubentries() 
    {
       if (this.subentries == null)
       {

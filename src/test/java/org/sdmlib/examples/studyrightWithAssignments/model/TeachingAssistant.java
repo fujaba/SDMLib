@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,7 +22,6 @@
 package org.sdmlib.examples.studyrightWithAssignments.model;
 
 import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 
 public class TeachingAssistant extends Student
 {
@@ -144,7 +143,4 @@ public class TeachingAssistant extends Student
       withRoom(value);
       return value;
    } 
-
-   
-   public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet().withReadonly(true);
 }

@@ -227,4 +227,6 @@ public class FloorSet extends SDMSet<Floor>
       return this;
    }
 
+
+   public static final FloorSet EMPTY_SET = new FloorSet().withReadonly(true);
 }

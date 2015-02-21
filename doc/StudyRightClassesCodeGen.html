@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -25,8 +25,7 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>2. generate class Student with new notation</p>
 <script>
@@ -51,8 +50,7 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram4", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>3. add uni --> stud assoc</p>
 <script>
@@ -91,8 +89,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram6", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram6", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>4. add uni --> room</p>
 <script>
@@ -120,6 +117,9 @@
          "attributes":[
          "roomNo : String",
             "credits : int"
+         ],
+         "methods":[
+         "findPath(String p0, int p1)"
          ]
       }
    ],
@@ -178,8 +178,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram8", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>add assignments:</p>
 <script>
@@ -209,6 +208,9 @@
          "attributes":[
          "roomNo : String",
             "credits : int"
+         ],
+         "methods":[
+         "findPath(String p0, int p1)"
          ]
       },
       {
@@ -301,11 +303,10 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasStudyRightClassesCodeGenClassDiagram10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram10", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>5. generate generic set for attributes and assocs</p>
-<p>Check: found method set(String,Object) in class student</p>
+<p>Check: found method set(String,Object) in class student true</p>
 <p>6. generate generic get for attributes and assocs</p>
 <p>7. generate creator classes</p>
 <a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><p>8. generate imports</p>
@@ -321,8 +322,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;</p>
 <p>9. generate property change support</p>
 <p>Caution: property change support needs not to be generated if the parent class does this already.</p>
 <p>10. generate removeYou method</p>
-<p>Check: found method removeYou) in class student</p>
-<p>Check: found symtab entry for method removeYou() method:removeYou():void</p>
+<p>Check: found method removeYou) in class student true</p>
+<p>Check: found symtab entry for method removeYou()  method:removeYou():void</p>
 <pre>   public void removeYou()
    {
       super.removeYou();

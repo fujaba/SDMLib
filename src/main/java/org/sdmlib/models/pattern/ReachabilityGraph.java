@@ -594,7 +594,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       JsonObject currentProps1 = currentJo1.getJsonObject(JsonIdMap.JSON_PROPS);
       JsonObject currentProps2 = currentJo2.getJsonObject(JsonIdMap.JSON_PROPS);
 
-      for (Iterator<String> iter = currentProps1.keys(); iter.hasNext();)
+      for (Iterator<String> iter = currentProps1.keyIterator(); iter.hasNext();)
       {
          String key = iter.next();
 

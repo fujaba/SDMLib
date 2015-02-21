@@ -23,27 +23,25 @@ package org.sdmlib.serialization;
  */
 import java.util.LinkedHashMap;
 
-import de.uniks.networkparser.AbstractBidiMap;
-
-public class BidiLinkedHashMap<K, V> extends AbstractBidiMap<K, V>
-{
-
-   public BidiLinkedHashMap()
-   {
-      super(new LinkedHashMap<K, V>(), new LinkedHashMap<V, K>());
-   }
-
-   @Override
-   public BidiLinkedHashMap<K, V> without(K key, V value)
-   {
-      keyValue.remove(key, value);
-      valueKey.remove(value, key); 
-      return this;
-   }
-
-   public BidiLinkedHashMap<K, V> with(K key, V value)
-   {
-      return (BidiLinkedHashMap<K, V>) super.with(key, value);
-   }
-
-}
+//public class BidiLinkedHashMap<K, V> extends AbstractBidiMap<K, V>
+//{
+//
+//   public BidiLinkedHashMap()
+//   {
+//      super(new LinkedHashMap<K, V>(), new LinkedHashMap<V, K>());
+//   }
+//
+//   @Override
+//   public BidiLinkedHashMap<K, V> without(K key, V value)
+//   {
+//      keyValue.remove(key, value);
+//      valueKey.remove(value, key); 
+//      return this;
+//   }
+//
+//   public BidiLinkedHashMap<K, V> with(K key, V value)
+//   {
+//      return (BidiLinkedHashMap<K, V>) super.with(key, value);
+//   }
+//
+//}

@@ -168,4 +168,6 @@ public class BuildingSet extends SDMSet<Building>
       return this;
    }
 
+
+   public static final BuildingSet EMPTY_SET = new BuildingSet().withReadonly(true);
 }

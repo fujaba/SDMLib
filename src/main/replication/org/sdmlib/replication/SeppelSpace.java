@@ -218,7 +218,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
                      updateJson = (JsonObject) higherJson.get(JsonIdMap.REMOVE);
                   }
 
-                  for (Iterator<String> keyIter = updateJson.keys(); keyIter.hasNext();)
+                  for (Iterator<String> keyIter = updateJson.keyIterator(); keyIter.hasNext();)
                   {
                      String property = keyIter.next();
 
@@ -382,7 +382,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
       if (object != null)
       {
          jsonUpdate = (JsonObject) object;
-         Iterator<String> iter = jsonUpdate.keys();
+         Iterator<String> iter = jsonUpdate.keyIterator();
          if ( iter.hasNext())
          {
             prop = iter.next();

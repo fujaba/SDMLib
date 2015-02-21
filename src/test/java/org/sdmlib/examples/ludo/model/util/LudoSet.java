@@ -275,4 +275,6 @@ public class LudoSet extends SDMSet<Ludo>
       return this;
    }
 
+
+   public static final LudoSet EMPTY_SET = new LudoSet().withReadonly(true);
 }

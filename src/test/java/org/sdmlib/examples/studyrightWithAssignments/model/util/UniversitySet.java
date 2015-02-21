@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -34,6 +34,8 @@ import org.sdmlib.examples.studyrightWithAssignments.model.Room;
 
 public class UniversitySet extends SDMSet<University>
 {
+
+   public static final UniversitySet EMPTY_SET = new UniversitySet().withReadonly(true);
 
 
    public UniversityPO hasUniversityPO()

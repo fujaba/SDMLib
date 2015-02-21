@@ -14,21 +14,15 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.R1 : River"
+         "id":"R1 : River"
       },
       {
          "typ":"node",
-         "id":"d.B2 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.B3 : Bank",
+         "id":"B2 : Bank",
          "attributes":[
          "name=left",
             "age=0"
@@ -36,36 +30,35 @@
       },
       {
          "typ":"node",
-         "id":"d.B7 : Bank",
+         "id":"B7 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null",
-            "cargos=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C4 : Cargo",
+         "id":"B3 : Boat"
+      },
+      {
+         "typ":"node",
+         "id":"C4 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C5 : Cargo",
+         "id":"C5 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C6 : Cargo",
+         "id":"C6 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       }
    ],
@@ -75,25 +68,12 @@
          "source":{
             "cardinality":"one",
             "property":"river",
-            "id":"d.R1 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"d.B2 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"d.R1 : River"
+            "id":"R1 : River"
          },
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"d.B3 : Bank"
+            "id":"B2 : Bank"
          }
       },
       {
@@ -101,12 +81,90 @@
          "source":{
             "cardinality":"one",
             "property":"river",
-            "id":"d.R1 : River"
+            "id":"R1 : River"
          },
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"d.B7 : Bank"
+            "id":"B7 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"R1 : River"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"B3 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B2 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"B3 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B2 : Bank"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"R1 : River"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B2 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"C4 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B2 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"C5 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B2 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"C6 : Cargo"
          }
       },
       {
@@ -114,12 +172,12 @@
          "source":{
             "cardinality":"one",
             "property":"boat",
-            "id":"d.B2 : Boat"
+            "id":"B3 : Boat"
          },
          "target":{
             "cardinality":"one",
             "property":"river",
-            "id":"d.R1 : River"
+            "id":"R1 : River"
          }
       },
       {
@@ -127,12 +185,51 @@
          "source":{
             "cardinality":"one",
             "property":"boat",
-            "id":"d.B2 : Boat"
+            "id":"B3 : Boat"
          },
          "target":{
             "cardinality":"one",
             "property":"bank",
-            "id":"d.B3 : Bank"
+            "id":"B2 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"C4 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B2 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"C5 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B2 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"C6 : Cargo"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"B2 : Bank"
          }
       },
       {
@@ -140,116 +237,12 @@
          "source":{
             "cardinality":"one",
             "property":"bank",
-            "id":"d.B3 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"d.B2 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"d.B3 : Bank"
+            "id":"B7 : Bank"
          },
          "target":{
             "cardinality":"one",
             "property":"river",
-            "id":"d.R1 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"d.B3 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"d.C4 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"d.B3 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"d.C5 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"d.B3 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"d.C6 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"d.C4 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"d.B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"d.C5 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"d.B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"d.C6 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"d.B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"d.B7 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"d.R1 : River"
+            "id":"R1 : River"
          }
       }
    ]
@@ -648,246 +641,192 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"s.R31 : ReachabilityGraph",
-         "attributes":[
-         "todo=null"
-         ]
+         "id":"s.R31 : ReachabilityGraph"
       },
       {
          "typ":"node",
          "id":"s.R32 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=1"
+         "number=1"
          ]
       },
       {
          "typ":"node",
          "id":"s.R40 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=2"
+         "number=2"
          ]
       },
       {
          "typ":"node",
          "id":"s.R42 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=3"
+         "number=3"
          ]
       },
       {
          "typ":"node",
          "id":"s.R58 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=4"
+         "number=4"
          ]
       },
       {
          "typ":"node",
          "id":"s.R60 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=5"
+         "number=5"
          ]
       },
       {
          "typ":"node",
          "id":"s.R77 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=6"
+         "number=6"
          ]
       },
       {
          "typ":"node",
          "id":"s.R86 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=7"
+         "number=7"
          ]
       },
       {
          "typ":"node",
          "id":"s.R89 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=8"
+         "number=8"
          ]
       },
       {
          "typ":"node",
          "id":"s.R98 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=9"
+         "number=9"
          ]
       },
       {
          "typ":"node",
          "id":"s.R114 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=10"
+         "number=10"
          ]
       },
       {
          "typ":"node",
          "id":"s.R123 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=11"
+         "number=11"
          ]
       },
       {
          "typ":"node",
          "id":"s.R132 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=12"
+         "number=12"
          ]
       },
       {
          "typ":"node",
          "id":"s.R141 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=13"
+         "number=13"
          ]
       },
       {
          "typ":"node",
          "id":"s.R143 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=14"
+         "number=14"
          ]
       },
       {
          "typ":"node",
          "id":"s.R153 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=15"
+         "number=15"
          ]
       },
       {
          "typ":"node",
          "id":"s.R170 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=16"
+         "number=16"
          ]
       },
       {
          "typ":"node",
          "id":"s.R179 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=17"
+         "number=17"
          ]
       },
       {
          "typ":"node",
          "id":"s.R188 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=18"
+         "number=18"
          ]
       },
       {
          "typ":"node",
          "id":"s.R197 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=19"
+         "number=19"
          ]
       },
       {
          "typ":"node",
          "id":"s.R199 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=20"
+         "number=20"
          ]
       },
       {
          "typ":"node",
          "id":"s.R218 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=21"
+         "number=21"
          ]
       },
       {
          "typ":"node",
          "id":"s.R227 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=22"
+         "number=22"
          ]
       },
       {
          "typ":"node",
          "id":"s.R229 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=23"
+         "number=23"
          ]
       },
       {
          "typ":"node",
          "id":"s.R247 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=24"
+         "number=24"
          ]
       },
       {
          "typ":"node",
          "id":"s.R250 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=25"
+         "number=25"
          ]
       },
       {
          "typ":"node",
          "id":"s.R266 : ReachableState",
          "attributes":[
-         "parent=null",
-            "master=null",
-            "number=26"
+         "number=26"
          ]
       },
       {
@@ -910,10 +849,7 @@
       },
       {
          "typ":"node",
-         "id":"s.B2 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B2 : Boat"
       },
       {
          "typ":"node",
@@ -928,33 +864,28 @@
          "id":"s.B7 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null",
-            "cargos=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C4 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C5 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C6 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -985,33 +916,28 @@
          "id":"s.B39 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null",
-            "cargos=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C37 : Cargo",
          "attributes":[
-         "name=goat",
-            "bank=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C36 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C38 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -1041,18 +967,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B44 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B44 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B47 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
@@ -1067,24 +989,21 @@
          "typ":"node",
          "id":"s.C46 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C48 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C49 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -1100,8 +1019,7 @@
          "id":"s.B53 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "cargos=null"
+            "age=0"
          ]
       },
       {
@@ -1109,32 +1027,28 @@
          "id":"s.B55 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C54 : Cargo",
          "attributes":[
-         "name=goat",
-            "bank=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C56 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C57 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -1171,18 +1085,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B62 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B62 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B66 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
@@ -1197,24 +1107,21 @@
          "typ":"node",
          "id":"s.C64 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C65 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C67 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
@@ -1245,32 +1152,28 @@
          "id":"s.B75 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C73 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "bank=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C74 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C76 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
@@ -1300,18 +1203,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B91 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B91 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B95 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
@@ -1326,24 +1225,21 @@
          "typ":"node",
          "id":"s.C93 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C94 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C96 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -1374,32 +1270,28 @@
          "id":"s.B112 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C110 : Cargo",
          "attributes":[
-         "name=goat",
-            "bank=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C111 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C113 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -1429,18 +1321,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B145 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B145 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B149 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
@@ -1455,24 +1343,21 @@
          "typ":"node",
          "id":"s.C147 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C148 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C150 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
@@ -1503,32 +1388,28 @@
          "id":"s.B168 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C166 : Cargo",
          "attributes":[
-         "name=wolf",
-            "bank=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C167 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C169 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
@@ -1572,18 +1453,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B201 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B201 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B205 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
@@ -1598,24 +1475,21 @@
          "typ":"node",
          "id":"s.C203 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C204 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C206 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
@@ -1646,32 +1520,28 @@
          "id":"s.B216 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C214 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "bank=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C215 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C217 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
@@ -1701,18 +1571,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B155 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B155 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B159 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
@@ -1727,24 +1593,21 @@
          "typ":"node",
          "id":"s.C157 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C158 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C160 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -1768,32 +1631,28 @@
          "id":"s.B186 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C184 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "bank=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C185 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C187 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -1824,32 +1683,28 @@
          "id":"s.B195 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C194 : Cargo",
          "attributes":[
-         "name=goat",
-            "bank=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C193 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C196 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -1879,18 +1734,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B100 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B100 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B104 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
@@ -1905,24 +1756,21 @@
          "typ":"node",
          "id":"s.C102 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C103 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C105 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
@@ -1946,32 +1794,28 @@
          "id":"s.B130 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C128 : Cargo",
          "attributes":[
-         "name=goat",
-            "bank=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C129 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C131 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
@@ -1995,32 +1839,28 @@
          "id":"s.B139 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C138 : Cargo",
          "attributes":[
-         "name=wolf",
-            "bank=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C137 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C140 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
@@ -2044,32 +1884,28 @@
          "id":"s.B84 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C83 : Cargo",
          "attributes":[
-         "name=wolf",
-            "bank=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C82 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C85 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
@@ -2093,32 +1929,28 @@
          "id":"s.B225 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C224 : Cargo",
          "attributes":[
-         "name=wolf",
-            "bank=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C223 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C226 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
@@ -2141,18 +1973,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B231 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B231 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B234 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
@@ -2167,24 +1995,21 @@
          "typ":"node",
          "id":"s.C233 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C235 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C236 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -2207,8 +2032,7 @@
          "id":"s.B242 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "cargos=null"
+            "age=0"
          ]
       },
       {
@@ -2216,32 +2040,28 @@
          "id":"s.B244 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C243 : Cargo",
          "attributes":[
-         "name=goat",
-            "bank=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C245 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C246 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -2257,19 +2077,14 @@
       },
       {
          "typ":"node",
-         "id":"s.B252 : Boat",
-         "attributes":[
-         "cargo=null"
-         ]
+         "id":"s.B252 : Boat"
       },
       {
          "typ":"node",
          "id":"s.B257 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null",
-            "cargos=null"
+            "age=0"
          ]
       },
       {
@@ -2284,24 +2099,21 @@
          "typ":"node",
          "id":"s.C254 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C255 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C256 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
@@ -2325,33 +2137,28 @@
          "id":"s.B265 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null",
-            "cargos=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C264 : Cargo",
          "attributes":[
-         "name=goat",
-            "bank=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C262 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C263 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
@@ -2375,32 +2182,28 @@
          "id":"s.B177 : Bank",
          "attributes":[
          "name=right",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C176 : Cargo",
          "attributes":[
-         "name=goat",
-            "bank=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C175 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       },
       {
          "typ":"node",
          "id":"s.C178 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "boat=null"
+         "name=cabbage"
          ]
       },
       {
@@ -2424,32 +2227,28 @@
          "id":"s.B121 : Bank",
          "attributes":[
          "name=left",
-            "age=0",
-            "boat=null"
+            "age=0"
          ]
       },
       {
          "typ":"node",
          "id":"s.C120 : Cargo",
          "attributes":[
-         "name=cabbage",
-            "bank=null"
+         "name=cabbage"
          ]
       },
       {
          "typ":"node",
          "id":"s.C119 : Cargo",
          "attributes":[
-         "name=goat",
-            "boat=null"
+         "name=goat"
          ]
       },
       {
          "typ":"node",
          "id":"s.C122 : Cargo",
          "attributes":[
-         "name=wolf",
-            "boat=null"
+         "name=wolf"
          ]
       }
    ],
@@ -9743,20 +9542,18 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.S8 : SDMLibJsonIdMap"
+         "id":"S8 : SDMLibJsonIdMap"
       },
       {
          "typ":"node",
-         "id":"d.R9 : ReachabilityGraph",
-         "attributes":[
-         "states=null",
-            "todo=null"
-         ]
+         "id":"R9 : ReachabilityGraph"
       }
-   ]
+   ],
+   "edges":null
 }   ;
    json["options"]={"canvasid":"canvasFerrymansProblemExample12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

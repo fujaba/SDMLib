@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,54 +19,45 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.classes.util;
+package org.sdmlib.examples.simpleModel.model;
 
-import java.util.Collection;
+import java.util.Date;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.modelsets.SDMSet;
-
-public class DataTypeSet extends SDMSet<DataType>
+public class Item implements PropertyChangeInterface
 {
-   public DataTypePO hasDataTypePO()
+
+   
+   //==========================================================================
+   
+    static void init(  )
    {
-      return new DataTypePO(this.toArray(new DataType[this.size()]));
-   }
+System.out.println(new Date());   }
 
-
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
    @Override
-   public String getEntryType()
+   public PropertyChangeSupport getPropertyChangeSupport()
    {
-      return "org.sdmlib.models.classes.DataType";
-   }
-
-
-   @SuppressWarnings("unchecked")
-   public DataTypeSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<DataType>)value);
-      }
-      else if (value != null)
-      {
-         this.add((DataType) value);
-      }
-      
-      return this;
+      return listeners;
    }
    
-   public DataTypeSet without(DataType value)
+   public void addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      this.remove(value);
-      return this;
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
    }
 
-   @Override
-   public DataTypeSet getNewInstance()
+   
+   //==========================================================================
+   
+   
+   public void removeYou()
    {
-      return new DataTypeSet();
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   public static final DataTypeSet EMPTY_SET = new DataTypeSet().withReadonly(true);
 }

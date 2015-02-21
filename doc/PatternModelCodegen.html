@@ -4,11 +4,11 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../.srctestjava/org/sdmlib/examples/SDMLib/PatternModelCodeGen.java' type='text/x-java'>PatternModelCodegen</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/SDMLib/PatternModelCodeGen.java' type='text/x-java'>PatternModelCodegen</a></p>
 <p>PatternModelCodegen</p>
 <p>Start situation: </p>
 <script>
@@ -36,8 +36,7 @@
       },
       {
          "typ":"node",
-         "id":"NegativeApplicationCondition",
-         "attributes":[]
+         "id":"NegativeApplicationCondition"
       },
       {
          "typ":"node",
@@ -75,28 +74,23 @@
       },
       {
          "typ":"node",
-         "id":"LinkConstraint",
-         "attributes":[]
+         "id":"LinkConstraint"
       },
       {
          "typ":"node",
-         "id":"MatchIsomorphicConstraint",
-         "attributes":[]
+         "id":"MatchIsomorphicConstraint"
       },
       {
          "typ":"node",
-         "id":"CloneOp",
-         "attributes":[]
+         "id":"CloneOp"
       },
       {
          "typ":"node",
-         "id":"UnifyGraphsOp",
-         "attributes":[]
+         "id":"UnifyGraphsOp"
       },
       {
          "typ":"node",
-         "id":"DestroyObjectElem",
-         "attributes":[]
+         "id":"DestroyObjectElem"
       },
       {
          "typ":"node",
@@ -124,8 +118,7 @@
       },
       {
          "typ":"node",
-         "id":"ReachabilityGraph",
-         "attributes":[]
+         "id":"ReachabilityGraph"
       },
       {
          "typ":"node",
@@ -359,8 +352,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasPatternModelCodegenClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasPatternModelCodegenClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 
 </body>

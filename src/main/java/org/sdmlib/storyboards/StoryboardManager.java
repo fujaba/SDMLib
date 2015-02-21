@@ -262,7 +262,7 @@ public class StoryboardManager
          objectLine = objectLine.replaceFirst("objectId", jsonObject.getString(JsonIdMap.ID));
 
          // iterate through keys
-         for (Iterator<String> iter = jsonObject.keys(); iter.hasNext();)
+         for (Iterator<String> iter = jsonObject.keyIterator(); iter.hasNext();)
          {
 
             String key = (String) iter.next();

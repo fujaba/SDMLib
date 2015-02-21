@@ -137,4 +137,6 @@ public class FemaleSet extends SDMSet<Female>
       return this;
    }
 
+
+   public static final FemaleSet EMPTY_SET = new FemaleSet().withReadonly(true);
 }

@@ -4,84 +4,77 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../.srctestjava/org/sdmlib/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructureInternals</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/kanban/ProjectBoard.java' type='text/x-java'>StoryboardInfrastructureInternals</a></p>
 <p>StoryboardInfrastructureInternals</p>
 <p>Internals.</p>
 <p>Object diagram for storyboard and KanbanEntry:</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.S1 : StoryboardWall"
+         "id":"S1 : StoryboardWall"
       },
       {
          "typ":"node",
-         "id":"d.S3 : Storyboard",
+         "id":"S3 : Storyboard",
          "attributes":[
-         "rootDir=.\src\test\java",
+         "rootDir=./src/test/java",
             "stepCounter=0",
             "stepDoneCounter=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.S4 : StoryboardStep",
+         "id":"S4 : StoryboardStep",
          "attributes":[
          "text=StoryboardInfrastructureInternals"
          ]
       },
       {
          "typ":"node",
-         "id":"d.S5 : StoryboardStep",
+         "id":"S5 : StoryboardStep",
          "attributes":[
          "text=Internals."
          ]
       },
       {
          "typ":"node",
-         "id":"d.S6 : StoryboardStep",
+         "id":"S6 : StoryboardStep",
          "attributes":[
          "text=Object diagram for storyboard and KanbanEntry:"
          ]
       },
       {
          "typ":"node",
-         "id":"d.K2 : KanbanEntry",
+         "id":"K2 : KanbanEntry",
          "attributes":[
          "name=name",
             "phase=done",
             "lastDeveloper=zuendorf",
             "hoursRemaining=1.0",
             "hoursSpend=2.0",
-            "files=null",
-            "oldNoOfLogEntries=0",
-            "phases=null"
+            "oldNoOfLogEntries=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.K7 : KanbanEntry",
+         "id":"K7 : KanbanEntry",
          "attributes":[
-         "name=null",
-            "phase=null",
-            "lastDeveloper=null",
-            "hoursRemaining=0.0",
+         "hoursRemaining=0.0",
             "hoursSpend=0.0",
-            "logEntries=null",
-            "files=null",
-            "oldNoOfLogEntries=0",
-            "phases=null"
+            "oldNoOfLogEntries=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.L8 : LogEntryStoryBoard",
+         "id":"L8 : LogEntryStoryBoard",
          "attributes":[
          "date=08.10.2013 13:22:42",
             "hoursSpend=1.0",
@@ -98,12 +91,12 @@
          "source":{
             "cardinality":"one",
             "property":"storyboardwall",
-            "id":"d.S1 : StoryboardWall"
+            "id":"S1 : StoryboardWall"
          },
          "target":{
             "cardinality":"one",
             "property":"storyboard",
-            "id":"d.S3 : Storyboard"
+            "id":"S3 : Storyboard"
          }
       },
       {
@@ -111,12 +104,12 @@
          "source":{
             "cardinality":"one",
             "property":"storyboard",
-            "id":"d.S3 : Storyboard"
+            "id":"S3 : Storyboard"
          },
          "target":{
             "cardinality":"many",
             "property":"storyboardSteps",
-            "id":"d.S4 : StoryboardStep"
+            "id":"S4 : StoryboardStep"
          }
       },
       {
@@ -124,12 +117,12 @@
          "source":{
             "cardinality":"one",
             "property":"storyboard",
-            "id":"d.S3 : Storyboard"
+            "id":"S3 : Storyboard"
          },
          "target":{
             "cardinality":"many",
             "property":"storyboardSteps",
-            "id":"d.S5 : StoryboardStep"
+            "id":"S5 : StoryboardStep"
          }
       },
       {
@@ -137,25 +130,12 @@
          "source":{
             "cardinality":"one",
             "property":"storyboard",
-            "id":"d.S3 : Storyboard"
+            "id":"S3 : Storyboard"
          },
          "target":{
             "cardinality":"many",
             "property":"storyboardSteps",
-            "id":"d.S6 : StoryboardStep"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"storyboard",
-            "id":"d.S3 : Storyboard"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"wall",
-            "id":"d.S1 : StoryboardWall"
+            "id":"S6 : StoryboardStep"
          }
       },
       {
@@ -163,12 +143,12 @@
          "source":{
             "cardinality":"one",
             "property":"storyboardstep",
-            "id":"d.S4 : StoryboardStep"
+            "id":"S4 : StoryboardStep"
          },
          "target":{
             "cardinality":"one",
             "property":"storyboard",
-            "id":"d.S3 : Storyboard"
+            "id":"S3 : Storyboard"
          }
       },
       {
@@ -176,12 +156,12 @@
          "source":{
             "cardinality":"one",
             "property":"storyboardstep",
-            "id":"d.S5 : StoryboardStep"
+            "id":"S5 : StoryboardStep"
          },
          "target":{
             "cardinality":"one",
             "property":"storyboard",
-            "id":"d.S3 : Storyboard"
+            "id":"S3 : Storyboard"
          }
       },
       {
@@ -189,12 +169,12 @@
          "source":{
             "cardinality":"one",
             "property":"storyboardstep",
-            "id":"d.S6 : StoryboardStep"
+            "id":"S6 : StoryboardStep"
          },
          "target":{
             "cardinality":"one",
             "property":"storyboard",
-            "id":"d.S3 : Storyboard"
+            "id":"S3 : Storyboard"
          }
       },
       {
@@ -202,12 +182,12 @@
          "source":{
             "cardinality":"one",
             "property":"kanbanentry",
-            "id":"d.K2 : KanbanEntry"
+            "id":"K2 : KanbanEntry"
          },
          "target":{
             "cardinality":"one",
             "property":"parent",
-            "id":"d.K7 : KanbanEntry"
+            "id":"K7 : KanbanEntry"
          }
       },
       {
@@ -215,12 +195,12 @@
          "source":{
             "cardinality":"one",
             "property":"kanbanentry",
-            "id":"d.K2 : KanbanEntry"
+            "id":"K2 : KanbanEntry"
          },
          "target":{
             "cardinality":"many",
             "property":"logEntries",
-            "id":"d.L8 : LogEntryStoryBoard"
+            "id":"L8 : LogEntryStoryBoard"
          }
       },
       {
@@ -228,12 +208,12 @@
          "source":{
             "cardinality":"one",
             "property":"kanbanentry",
-            "id":"d.K7 : KanbanEntry"
+            "id":"K7 : KanbanEntry"
          },
          "target":{
             "cardinality":"many",
             "property":"subentries",
-            "id":"d.K2 : KanbanEntry"
+            "id":"K2 : KanbanEntry"
          }
       },
       {
@@ -241,12 +221,12 @@
          "source":{
             "cardinality":"one",
             "property":"logentrystoryboard",
-            "id":"d.L8 : LogEntryStoryBoard"
+            "id":"L8 : LogEntryStoryBoard"
          },
          "target":{
             "cardinality":"one",
             "property":"kanbanEntry",
-            "id":"d.K2 : KanbanEntry"
+            "id":"K2 : KanbanEntry"
          }
       }
    ]

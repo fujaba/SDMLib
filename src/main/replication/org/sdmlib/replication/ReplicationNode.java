@@ -179,8 +179,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
 
    public void removeAllFromSharedSpaces()
    {
-      LinkedHashSet<SharedSpace> tmpSet = new LinkedHashSet<SharedSpace>(this
-         .getSharedSpaces().values());
+      SharedSpaceSet tmpSet = new SharedSpaceSet().with(this.getSharedSpaces());
 
       for (SharedSpace value : tmpSet)
       {

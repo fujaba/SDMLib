@@ -198,4 +198,6 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
    {
       return new ParameterSet();
    }
+
+   public static final ParameterSet EMPTY_SET = new ParameterSet().withReadonly(true);
 }

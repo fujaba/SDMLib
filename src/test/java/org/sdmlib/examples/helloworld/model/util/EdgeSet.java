@@ -339,6 +339,8 @@ public class EdgeSet extends SDMSet<Edge>
       return this;
    }
 
+
+   public static final EdgeSet EMPTY_SET = new EdgeSet().withReadonly(true);
 }
 
 

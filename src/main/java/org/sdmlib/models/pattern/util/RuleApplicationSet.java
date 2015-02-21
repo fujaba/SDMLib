@@ -24,12 +24,13 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 
-public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
+public class RuleApplicationSet extends SDMSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 4806320760135586890L;
 
@@ -154,4 +155,6 @@ public class RuleApplicationSet extends LinkedHashSet<RuleApplication> implement
    {
       return new RuleApplicationPO(this.toArray(new RuleApplication[this.size()]));
    }
+
+   public static final RuleApplicationSet EMPTY_SET = new RuleApplicationSet().withReadonly(true);
 }

@@ -88,7 +88,7 @@ public class Specific2Generic
          
          if (jsonProps != null)
          {
-            for (Iterator<String> iter = jsonProps.keys(); iter.hasNext();)
+            for (Iterator<String> iter = jsonProps.keyIterator(); iter.hasNext();)
             {
                String attrName = iter.next();
                

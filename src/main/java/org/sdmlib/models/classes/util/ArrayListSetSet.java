@@ -63,4 +63,6 @@ public class ArrayListSetSet extends SDMSet<ArrayListSet>
       return this;
    }
 
+
+   public static final ArrayListSetSet EMPTY_SET = new ArrayListSetSet().withReadonly(true);
 }

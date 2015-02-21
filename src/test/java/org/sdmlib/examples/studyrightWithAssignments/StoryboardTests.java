@@ -427,7 +427,7 @@ public class StoryboardTests {
       story.addPreformatted(text);
       
       story.assertEquals("Assignment points: ", 23, assignmentPoints);
-      story.assertEquals("donePoints: ", 9, donePoints);
+      story.assertEquals("donePoints: ", 15, donePoints);
       
       //=====================================================
       story.addStep("Rooms with assignments not yet done by Karli:");

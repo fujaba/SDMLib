@@ -49,7 +49,7 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
       {
          // if the value is a JsonObject, just use the id
          JsonObject jsonUpdate = (JsonObject) update;
-         String key = jsonUpdate.keys().next();
+         String key = jsonUpdate.keyIterator().next();
          Object value = jsonUpdate.get(key);
          
          if (value instanceof JsonObject)
@@ -111,7 +111,7 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
             {
                JsonObject jsonUpdate = (JsonObject) update;
                
-               String key = jsonUpdate.keys().next();
+               String key = jsonUpdate.keyIterator().next();
                
                if (key.equals(property))
                {

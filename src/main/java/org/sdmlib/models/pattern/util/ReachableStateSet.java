@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.ReachabilityGraph;
@@ -33,7 +34,7 @@ import org.sdmlib.models.pattern.RuleApplication;
 import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
 
-public class ReachableStateSet extends LinkedHashSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
+public class ReachableStateSet extends SDMSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -265,4 +266,6 @@ public class ReachableStateSet extends LinkedHashSet<ReachableState> implements 
    {
       return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
    }
+
+   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet().withReadonly(true);
 }

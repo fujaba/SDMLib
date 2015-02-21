@@ -50,7 +50,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -65,7 +65,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }

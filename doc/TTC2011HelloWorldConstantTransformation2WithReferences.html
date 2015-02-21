@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -18,8 +18,7 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"Greeting",
-         "attributes":[]
+         "id":"Greeting"
       },
       {
          "typ":"node",
@@ -65,8 +64,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesClassDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesClassDiagram3", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>The code that builds and runs the transformation / pattern looks like: </p>
 <script>
@@ -126,7 +124,7 @@
    json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesPatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Constant transformation has match</p>
+<p>Check: Constant transformation has match true</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <script>
    var json = {
@@ -189,26 +187,24 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.G1 : Greeting",
-         "attributes":[
-         "text=null"
-         ]
+         "id":"G1 : Greeting"
       },
       {
          "typ":"node",
-         "id":"d.G2 : GreetingMessage",
-         "attributes":[
-         "text=Hello"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.P3 : Person",
+         "id":"P2 : Person",
          "attributes":[
          "name=TTC Participants"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"G3 : GreetingMessage",
+         "attributes":[
+         "text=Hello"
          ]
       }
    ],
@@ -218,12 +214,12 @@
          "source":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          },
          "target":{
             "cardinality":"one",
-            "property":"greetingMessage",
-            "id":"d.G2 : GreetingMessage"
+            "property":"person",
+            "id":"P2 : Person"
          }
       },
       {
@@ -231,12 +227,25 @@
          "source":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          },
          "target":{
             "cardinality":"one",
+            "property":"greetingMessage",
+            "id":"G3 : GreetingMessage"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
             "property":"person",
-            "id":"d.P3 : Person"
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
          }
       },
       {
@@ -244,25 +253,12 @@
          "source":{
             "cardinality":"one",
             "property":"greetingmessage",
-            "id":"d.G2 : GreetingMessage"
+            "id":"G3 : GreetingMessage"
          },
          "target":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"d.P3 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          }
       }
    ]

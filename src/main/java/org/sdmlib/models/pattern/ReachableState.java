@@ -103,7 +103,7 @@ public class ReachableState implements PropertyChangeInterface
             JsonObject propObj = jsonObj.getJsonObject(JsonIdMap.JSON_PROPS);
 
             // make references anonymous
-            for (Iterator<String> iter = propObj.keys(); iter.hasNext();)
+            for (Iterator<String> iter = propObj.keyIterator(); iter.hasNext();)
             {
                String key = iter.next();
 

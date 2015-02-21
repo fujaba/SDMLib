@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.DestroyObjectElem;
@@ -32,7 +33,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
+public class DestroyObjectElemSet extends SDMSet<DestroyObjectElem>
 {
    private static final long serialVersionUID = 1L;
 
@@ -223,4 +224,6 @@ public class DestroyObjectElemSet extends LinkedHashSet<DestroyObjectElem>
    {
       return new DestroyObjectElemPO(this.toArray(new DestroyObjectElem[this.size()]));
    }
+
+   public static final DestroyObjectElemSet EMPTY_SET = new DestroyObjectElemSet().withReadonly(true);
 }

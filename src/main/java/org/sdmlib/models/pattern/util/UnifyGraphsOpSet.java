@@ -24,13 +24,14 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
 import org.sdmlib.models.pattern.util.PatternSet;
 
-public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
+public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -202,4 +203,6 @@ public class UnifyGraphsOpSet extends LinkedHashSet<UnifyGraphsOp> implements or
    {
       return new UnifyGraphsOpPO(this.toArray(new UnifyGraphsOp[this.size()]));
    }
+
+   public static final UnifyGraphsOpSet EMPTY_SET = new UnifyGraphsOpSet().withReadonly(true);
 }

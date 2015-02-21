@@ -67,7 +67,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -82,7 +82,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -120,7 +120,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -135,7 +135,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -173,7 +173,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -188,7 +188,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }

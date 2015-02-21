@@ -180,4 +180,6 @@ public class ValueSet extends SDMSet<Value>
    {
       return new ValueSet();
    }
+
+   public static final ValueSet EMPTY_SET = new ValueSet().withReadonly(true);
 }

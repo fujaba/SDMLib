@@ -283,5 +283,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
    {
       return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
    }
+
+   public static final GenericObjectSet EMPTY_SET = new GenericObjectSet().withReadonly(true);
 }
 

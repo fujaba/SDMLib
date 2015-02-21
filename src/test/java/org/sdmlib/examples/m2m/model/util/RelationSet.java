@@ -335,4 +335,6 @@ public class RelationSet extends SDMSet<Relation>
       return this;
    }
 
+
+   public static final RelationSet EMPTY_SET = new RelationSet().withReadonly(true);
 }

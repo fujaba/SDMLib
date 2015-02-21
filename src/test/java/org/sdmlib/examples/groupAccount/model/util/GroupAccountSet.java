@@ -211,4 +211,6 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return this;
    }
 
+
+   public static final GroupAccountSet EMPTY_SET = new GroupAccountSet().withReadonly(true);
 }

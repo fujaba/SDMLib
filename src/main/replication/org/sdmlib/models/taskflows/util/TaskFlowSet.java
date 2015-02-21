@@ -306,4 +306,6 @@ public class TaskFlowSet extends SDMSet<TaskFlow>
       return this;
    }
 
+
+   public static final TaskFlowSet EMPTY_SET = new TaskFlowSet().withReadonly(true);
 }
