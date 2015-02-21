@@ -22,8 +22,8 @@
          "attributes":[
          "name=Tom",
             "color=blue",
-            "y=0",
-            "x=0"
+            "x=0",
+            "y=0"
          ]
       },
       {
@@ -37,7 +37,14 @@
       },
       {
          "typ":"node",
-         "id":"F4 : Field",
+         "id":"D4 : Dice",
+         "attributes":[
+         "value=6"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"F5 : Field",
          "attributes":[
          "color=blue",
             "kind=start",
@@ -57,33 +64,18 @@
       },
       {
          "typ":"node",
-         "id":"D11 : Dice",
-         "attributes":[
-         "value=6"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"F5 : Field",
-         "attributes":[
-         "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P9 : Pawn",
-         "attributes":[
-         "color=red",
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"F6 : Field",
          "attributes":[
          "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P10 : Pawn",
+         "attributes":[
+         "color=red",
+            "x=0",
             "y=0"
          ]
       },
@@ -105,12 +97,20 @@
       },
       {
          "typ":"node",
-         "id":"P10 : Player",
+         "id":"F9 : Field",
+         "attributes":[
+         "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P11 : Player",
          "attributes":[
          "name=Sabine",
             "color=red",
-            "y=0",
-            "x=0"
+            "x=0",
+            "y=0"
          ]
       }
    ],
@@ -137,8 +137,21 @@
          },
          "target":{
             "cardinality":"one",
+            "property":"dice",
+            "id":"D4 : Dice"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"player",
+            "id":"P1 : Player"
+         },
+         "target":{
+            "cardinality":"one",
             "property":"start",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
          }
       },
       {
@@ -152,19 +165,6 @@
             "cardinality":"one",
             "property":"base",
             "id":"F3 : Field"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"player",
-            "id":"P1 : Player"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"dice",
-            "id":"D11 : Dice"
          }
       },
       {
@@ -249,13 +249,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"field",
-            "id":"F4 : Field"
+            "property":"dice",
+            "id":"D4 : Dice"
          },
          "target":{
             "cardinality":"one",
-            "property":"next",
-            "id":"F5 : Field"
+            "property":"player",
+            "id":"P1 : Player"
          }
       },
       {
@@ -263,7 +263,20 @@
          "source":{
             "cardinality":"one",
             "property":"field",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"F6 : Field"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"field",
+            "id":"F5 : Field"
          },
          "target":{
             "cardinality":"one",
@@ -276,38 +289,12 @@
          "source":{
             "cardinality":"one",
             "property":"field",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
          },
          "target":{
             "cardinality":"many",
             "property":"pawns",
-            "id":"P9 : Pawn"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"field",
-            "id":"F5 : Field"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"next",
-            "id":"F6 : Field"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"field",
-            "id":"F5 : Field"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"prev",
-            "id":"F4 : Field"
+            "id":"P10 : Pawn"
          }
       },
       {
@@ -371,8 +358,34 @@
          },
          "target":{
             "cardinality":"one",
+            "property":"next",
+            "id":"F9 : Field"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"field",
+            "id":"F8 : Field"
+         },
+         "target":{
+            "cardinality":"one",
             "property":"prev",
             "id":"F7 : Field"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"field",
+            "id":"F9 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"F8 : Field"
          }
       },
       {
@@ -380,12 +393,12 @@
          "source":{
             "cardinality":"one",
             "property":"pawn",
-            "id":"P9 : Pawn"
+            "id":"P10 : Pawn"
          },
          "target":{
             "cardinality":"one",
             "property":"player",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          }
       },
       {
@@ -393,12 +406,12 @@
          "source":{
             "cardinality":"one",
             "property":"pawn",
-            "id":"P9 : Pawn"
+            "id":"P10 : Pawn"
          },
          "target":{
             "cardinality":"one",
             "property":"pos",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
          }
       },
       {
@@ -406,12 +419,12 @@
          "source":{
             "cardinality":"one",
             "property":"player",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          },
          "target":{
             "cardinality":"many",
             "property":"pawns",
-            "id":"P9 : Pawn"
+            "id":"P10 : Pawn"
          }
       },
       {
@@ -419,12 +432,12 @@
          "source":{
             "cardinality":"one",
             "property":"player",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          },
          "target":{
             "cardinality":"many",
             "property":"nextTransitive",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          }
       },
       {
@@ -432,25 +445,12 @@
          "source":{
             "cardinality":"one",
             "property":"player",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          },
          "target":{
             "cardinality":"many",
             "property":"prevTransitive",
-            "id":"P10 : Player"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"dice",
-            "id":"D11 : Dice"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"player",
-            "id":"P1 : Player"
+            "id":"P11 : Player"
          }
       }
    ]
@@ -470,8 +470,8 @@
          "attributes":[
          "name=Tom",
             "color=blue",
-            "y=0",
-            "x=0"
+            "x=0",
+            "y=0"
          ]
       },
       {
@@ -485,7 +485,14 @@
       },
       {
          "typ":"node",
-         "id":"F4 : Field",
+         "id":"D4 : Dice",
+         "attributes":[
+         "value=6"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"F5 : Field",
          "attributes":[
          "color=blue",
             "kind=start",
@@ -505,33 +512,18 @@
       },
       {
          "typ":"node",
-         "id":"D11 : Dice",
-         "attributes":[
-         "value=6"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"F5 : Field",
-         "attributes":[
-         "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P9 : Pawn",
-         "attributes":[
-         "color=red",
-            "x=0",
-            "y=0"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"F6 : Field",
          "attributes":[
          "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P10 : Pawn",
+         "attributes":[
+         "color=red",
+            "x=0",
             "y=0"
          ]
       },
@@ -553,12 +545,20 @@
       },
       {
          "typ":"node",
-         "id":"P10 : Player",
+         "id":"F9 : Field",
+         "attributes":[
+         "x=0",
+            "y=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P11 : Player",
          "attributes":[
          "name=Sabine",
             "color=red",
-            "y=0",
-            "x=0"
+            "x=0",
+            "y=0"
          ]
       }
    ],
@@ -585,8 +585,21 @@
          },
          "target":{
             "cardinality":"one",
+            "property":"dice",
+            "id":"D4 : Dice"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"player",
+            "id":"P1 : Player"
+         },
+         "target":{
+            "cardinality":"one",
             "property":"start",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
          }
       },
       {
@@ -610,19 +623,6 @@
             "id":"P1 : Player"
          },
          "target":{
-            "cardinality":"one",
-            "property":"dice",
-            "id":"D11 : Dice"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"player",
-            "id":"P1 : Player"
-         },
-         "target":{
             "cardinality":"many",
             "property":"nextTransitive",
             "id":"P1 : Player"
@@ -664,19 +664,6 @@
          "target":{
             "cardinality":"one",
             "property":"pos",
-            "id":"F4 : Field"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"field",
-            "id":"F4 : Field"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"next",
             "id":"F5 : Field"
          }
       },
@@ -685,7 +672,20 @@
          "source":{
             "cardinality":"one",
             "property":"field",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"next",
+            "id":"F6 : Field"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"field",
+            "id":"F5 : Field"
          },
          "target":{
             "cardinality":"one",
@@ -698,12 +698,12 @@
          "source":{
             "cardinality":"one",
             "property":"field",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
          },
          "target":{
             "cardinality":"many",
             "property":"pawns",
-            "id":"P9 : Pawn"
+            "id":"P10 : Pawn"
          }
       },
       {
@@ -711,7 +711,7 @@
          "source":{
             "cardinality":"one",
             "property":"field",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
          },
          "target":{
             "cardinality":"many",
@@ -724,32 +724,6 @@
          "source":{
             "cardinality":"one",
             "property":"field",
-            "id":"F5 : Field"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"next",
-            "id":"F6 : Field"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"field",
-            "id":"F5 : Field"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"prev",
-            "id":"F4 : Field"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"field",
             "id":"F6 : Field"
          },
          "target":{
@@ -806,8 +780,34 @@
          },
          "target":{
             "cardinality":"one",
+            "property":"next",
+            "id":"F9 : Field"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"field",
+            "id":"F8 : Field"
+         },
+         "target":{
+            "cardinality":"one",
             "property":"prev",
             "id":"F7 : Field"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"field",
+            "id":"F9 : Field"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"prev",
+            "id":"F8 : Field"
          }
       },
       {
@@ -815,12 +815,12 @@
          "source":{
             "cardinality":"one",
             "property":"pawn",
-            "id":"P9 : Pawn"
+            "id":"P10 : Pawn"
          },
          "target":{
             "cardinality":"one",
             "property":"player",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          }
       },
       {
@@ -828,12 +828,12 @@
          "source":{
             "cardinality":"one",
             "property":"pawn",
-            "id":"P9 : Pawn"
+            "id":"P10 : Pawn"
          },
          "target":{
             "cardinality":"one",
             "property":"pos",
-            "id":"F4 : Field"
+            "id":"F5 : Field"
          }
       },
       {
@@ -841,12 +841,12 @@
          "source":{
             "cardinality":"one",
             "property":"player",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          },
          "target":{
             "cardinality":"many",
             "property":"pawns",
-            "id":"P9 : Pawn"
+            "id":"P10 : Pawn"
          }
       },
       {
@@ -854,12 +854,12 @@
          "source":{
             "cardinality":"one",
             "property":"player",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          },
          "target":{
             "cardinality":"many",
             "property":"nextTransitive",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          }
       },
       {
@@ -867,12 +867,25 @@
          "source":{
             "cardinality":"one",
             "property":"player",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
          },
          "target":{
             "cardinality":"many",
             "property":"prevTransitive",
-            "id":"P10 : Player"
+            "id":"P11 : Player"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"dice",
+            "id":"D4 : Dice"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"player",
+            "id":"P1 : Player"
          }
       },
       {
@@ -885,19 +898,6 @@
          "target":{
             "cardinality":"one",
             "property":"baseowner",
-            "id":"P1 : Player"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"dice",
-            "id":"D11 : Dice"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"player",
             "id":"P1 : Player"
          }
       }

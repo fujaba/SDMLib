@@ -489,12 +489,12 @@
          "typ":"node",
          "id":"T9 : Template",
          "attributes":[
-         "referenceLookup=false",
-            "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList ",
+         "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList ",
             "valueStartPos=0",
-            "listStart=",
             "listSeparator=",
-            "listEnd="
+            "listStart=",
+            "listEnd=",
+            "referenceLookup=false"
          ]
       },
       {
@@ -613,12 +613,12 @@
          "typ":"node",
          "id":"T14 : Template",
          "attributes":[
-         "referenceLookup=true",
-            "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors",
+         "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors",
             "valueStartPos=0",
-            "listStart=",
             "listSeparator=\u000a",
-            "listEnd=\u000a"
+            "listStart=",
+            "listEnd=\u000a",
+            "referenceLookup=true"
          ]
       },
       {
@@ -652,12 +652,12 @@
          "typ":"node",
          "id":"T18 : Template",
          "attributes":[
-         "referenceLookup=true",
-            "templateText=name",
+         "templateText=name",
             "valueStartPos=0",
-            "listStart=",
             "listSeparator=, ",
-            "listEnd=."
+            "listStart=",
+            "listEnd=.",
+            "referenceLookup=true"
          ]
       },
       {
@@ -673,12 +673,12 @@
          "typ":"node",
          "id":"T21 : Template",
          "attributes":[
-         "referenceLookup=false",
-            "templateText= - Stud has student number 1234.",
+         "templateText= - Stud has student number 1234.",
             "valueStartPos=0",
-            "listStart=",
             "listSeparator=\u000a",
-            "listEnd=\u000a"
+            "listStart=",
+            "listEnd=\u000a",
+            "referenceLookup=false"
          ]
       },
       {
@@ -1243,19 +1243,6 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"parents",
-            "id":"P13 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"template",
-            "id":"T14 : Template"
-         },
-         "target":{
-            "cardinality":"many",
             "property":"placeholders",
             "id":"P15 : PlaceHolderDescription"
          }
@@ -1284,6 +1271,19 @@
             "cardinality":"many",
             "property":"placeholders",
             "id":"P17 : PlaceHolderDescription"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"template",
+            "id":"T14 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"P13 : PlaceHolderDescription"
          }
       },
       {
@@ -1347,8 +1347,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"parents",
-            "id":"P17 : PlaceHolderDescription"
+            "property":"placeholders",
+            "id":"P19 : PlaceHolderDescription"
          }
       },
       {
@@ -1360,8 +1360,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"placeholders",
-            "id":"P19 : PlaceHolderDescription"
+            "property":"parents",
+            "id":"P17 : PlaceHolderDescription"
          }
       },
       {
@@ -1412,19 +1412,6 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"parents",
-            "id":"P20 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"template",
-            "id":"T21 : Template"
-         },
-         "target":{
-            "cardinality":"many",
             "property":"placeholders",
             "id":"P22 : PlaceHolderDescription"
          }
@@ -1440,6 +1427,19 @@
             "cardinality":"many",
             "property":"placeholders",
             "id":"P23 : PlaceHolderDescription"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"template",
+            "id":"T21 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"P20 : PlaceHolderDescription"
          }
       },
       {
