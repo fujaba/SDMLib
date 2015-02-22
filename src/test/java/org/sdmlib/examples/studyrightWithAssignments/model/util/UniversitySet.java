@@ -25,6 +25,12 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.University;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
 
 public class UniversitySet extends SDMSet<University>
 {
@@ -113,6 +119,122 @@ public class UniversitySet extends SDMSet<University>
       for (University obj : this)
       {
          obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   public StudentSet getStudents()
+   {
+      StudentSet result = new StudentSet();
+      
+      for (University obj : this)
+      {
+         result.addAll(obj.getStudents());
+      }
+      
+      return result;
+   }
+
+   public UniversitySet hasStudents(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UniversitySet answer = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public UniversitySet withStudents(Student value)
+   {
+      for (University obj : this)
+      {
+         obj.withStudents(value);
+      }
+      
+      return this;
+   }
+
+   public UniversitySet withoutStudents(Student value)
+   {
+      for (University obj : this)
+      {
+         obj.withoutStudents(value);
+      }
+      
+      return this;
+   }
+
+   public RoomSet getRooms()
+   {
+      RoomSet result = new RoomSet();
+      
+      for (University obj : this)
+      {
+         result.addAll(obj.getRooms());
+      }
+      
+      return result;
+   }
+
+   public UniversitySet hasRooms(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      UniversitySet answer = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getRooms()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public UniversitySet withRooms(Room value)
+   {
+      for (University obj : this)
+      {
+         obj.withRooms(value);
+      }
+      
+      return this;
+   }
+
+   public UniversitySet withoutRooms(Room value)
+   {
+      for (University obj : this)
+      {
+         obj.withoutRooms(value);
       }
       
       return this;
