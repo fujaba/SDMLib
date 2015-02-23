@@ -196,7 +196,7 @@ public class GenClassModel
       }
       
       // perhabs there is already generated and compiled code from previous run. Try to do coverage of model code
-//      this.doCoverageOfModelCode();
+      this.doCoverageOfModelCode();
       
       return true;
    }
@@ -3113,7 +3113,7 @@ public class GenClassModel
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         // e.printStackTrace();
       }
    }
 }
