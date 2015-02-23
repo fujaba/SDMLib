@@ -22,14 +22,14 @@
 package org.sdmlib.storyboards.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
 import org.sdmlib.storyboards.util.KanbanEntrySet;
 
-public class LogEntryStoryBoardSet extends LinkedHashSet<LogEntryStoryBoard> implements org.sdmlib.models.modelsets.ModelSet
+public class LogEntryStoryBoardSet extends SDMSet<LogEntryStoryBoard> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -112,6 +112,8 @@ public class LogEntryStoryBoardSet extends LinkedHashSet<LogEntryStoryBoard> imp
    {
       return new LogEntryStoryBoardPO (this.toArray(new LogEntryStoryBoard[this.size()]));
    }
+
+   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet().withReadonly(true);
 }
 
 

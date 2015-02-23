@@ -261,6 +261,15 @@ public class StoryboardPO extends PatternObject<StoryboardPO, Storyboard>
       return this.startCreate().hasStoryboardSteps(tgt).endCreate();
    }
 
+   public StoryboardWall getWall()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Storyboard) this.getCurrentMatch()).getWall();
+      }
+      return null;
+   }
+
 }
 
 

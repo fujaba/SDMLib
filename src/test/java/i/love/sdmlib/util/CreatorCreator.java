@@ -16,6 +16,10 @@ public class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.examples.helloworld.util.GreetingMessagePOCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.helloworld.util.PersonCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.helloworld.util.PersonPOCreator());
+      jsonIdMap.withCreator(new de.kassel.roombook.util.BuildingCreator());
+      jsonIdMap.withCreator(new de.kassel.roombook.util.BuildingPOCreator());
+      jsonIdMap.withCreator(new de.kassel.roombook.util.FloorCreator());
+      jsonIdMap.withCreator(new de.kassel.roombook.util.FloorPOCreator());
       return jsonIdMap;
    }
 }

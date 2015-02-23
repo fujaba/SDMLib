@@ -64,4 +64,6 @@ public class SDMLibJsonIdMapSet extends SDMSet<SDMLibJsonIdMap>
       return this;
    }
 
+
+   public static final SDMLibJsonIdMapSet EMPTY_SET = new SDMLibJsonIdMapSet().withReadonly(true);
 }

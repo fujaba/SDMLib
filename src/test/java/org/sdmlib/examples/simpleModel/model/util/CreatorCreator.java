@@ -18,6 +18,8 @@ public class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.examples.simpleModel.model.util.MacListPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.simpleModel.model.util.PersonCreator());
       jsonIdMap.withCreator(new org.sdmlib.examples.simpleModel.model.util.PersonPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.simpleModel.model.util.ItemCreator());
+      jsonIdMap.withCreator(new org.sdmlib.examples.simpleModel.model.util.ItemPOCreator());
       return jsonIdMap;
    }
 }

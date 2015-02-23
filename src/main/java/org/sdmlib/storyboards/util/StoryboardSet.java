@@ -32,6 +32,7 @@ import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.storyboards.StoryboardWall;
 import org.sdmlib.storyboards.util.StoryboardWallSet;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
+import org.sdmlib.models.modelsets.ObjectSet;
 
 public class StoryboardSet extends SDMSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -218,6 +219,54 @@ public class StoryboardSet extends SDMSet<Storyboard> implements org.sdmlib.mode
    }
 
    public static final StoryboardSet EMPTY_SET = new StoryboardSet().withReadonly(true);
+   public StoryboardWallSet getWall()
+   {
+      StoryboardWallSet result = new StoryboardWallSet();
+      
+      for (Storyboard obj : this)
+      {
+         result.add(obj.getWall());
+      }
+      
+      return result;
+   }
+
+   public StoryboardSet hasWall(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      StoryboardSet answer = new StoryboardSet();
+      
+      for (Storyboard obj : this)
+      {
+         if (neighbors.contains(obj.getWall()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public StoryboardSet withWall(StoryboardWall value)
+   {
+      for (Storyboard obj : this)
+      {
+         obj.withWall(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

@@ -115,6 +115,8 @@ public class StoryboardWallSet extends SDMSet<StoryboardWall>
       return this;
    }
 
+
+   public static final StoryboardWallSet EMPTY_SET = new StoryboardWallSet().withReadonly(true);
 }
 
 

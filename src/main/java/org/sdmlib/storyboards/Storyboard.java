@@ -345,8 +345,8 @@ public class Storyboard implements PropertyChangeInterface
       // reuse old logentries to keep kanban.json stable
       double remainingTime = 0.0;
       double hoursSpend = 0.0;
-      Iterator<LogEntryStoryBoard> oldLogEntriesIter = ((HashSet<LogEntryStoryBoard>) kanbanEntry.getLogEntries()
-         .clone()).iterator();
+      Iterator<LogEntryStoryBoard> oldLogEntriesIter = kanbanEntry.getLogEntries()
+         .clone().iterator();
       Date latestEntryTime = null;
 
       for (LogEntryStoryBoard newEntry : newLogEntries.values())

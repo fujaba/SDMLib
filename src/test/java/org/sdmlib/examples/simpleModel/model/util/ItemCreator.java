@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,63 +19,64 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.models.taskflows.util;
+package org.sdmlib.examples.simpleModel.model.util;
 
-import java.util.Collection;
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.simpleModel.model.Item;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.taskflows.SDMTimer;
-
-public class SDMTimerSet extends SDMSet<SDMTimer>
+public class ItemCreator extends EntityFactory
 {
-
-
-   public SDMTimerPO hasSDMTimerPO()
+   private final String[] properties = new String[]
    {
-      return new SDMTimerPO(this.toArray(new SDMTimer[this.size()]));
-   }
-
-
+   };
+   
    @Override
-   public String getEntryType()
+   public String[] getProperties()
    {
-      return "org.sdmlib.models.taskflows.SDMTimer";
-   }
-
-
-   @SuppressWarnings("unchecked")
-   public SDMTimerSet with(Object value)
-   {
-      if (value instanceof java.util.Collection)
-      {
-         this.addAll((Collection<SDMTimer>)value);
-      }
-      else if (value != null)
-      {
-         this.add((SDMTimer) value);
-      }
-      
-      return this;
+      return properties;
    }
    
-   public SDMTimerSet without(SDMTimer value)
+   @Override
+   public Object getSendableInstance(boolean reference)
    {
-      this.remove(value);
-      return this;
+      return new Item();
    }
-
+   
+   @Override
+   public Object getValue(Object target, String attrName)
+   {
+      int pos = attrName.indexOf('.');
+      String attribute = attrName;
+      
+      if (pos > 0)
+      {
+         attribute = attrName.substring(0, pos);
+      }
+      
+      return null;
+   }
+   
+   @Override
+   public boolean setValue(Object target, String attrName, Object value, String type)
+   {
+      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      {
+         attrName = attrName + type;
+      }
+      
+      return false;
+   }
+   public static JsonIdMap createIdMap(String sessionID)
+   {
+      return org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap(sessionID);
+   }
    
    //==========================================================================
    
-   public SDMTimerSet schedule(java.util.TimerTask p0)
+   @Override
+   public void removeObject(Object entity)
    {
-      for (SDMTimer obj : this)
-      {
-         obj.schedule(p0);
-      }
-      return this;
+      ((Item) entity).removeYou();
    }
-
-
-   public static final SDMTimerSet EMPTY_SET = new SDMTimerSet().withReadonly(true);
 }

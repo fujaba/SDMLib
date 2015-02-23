@@ -44,12 +44,17 @@ public class ClassModel extends SDMLibClass
    private ClazzSet classes;
    private GenClassModel generator;
 
-   public ClassModel(){
+   public ClassModel()
+   {
 		name = "i.love.sdmlib";
+		
+		Feature.reset();
    }
    
-   public ClassModel(String packageName){
+   public ClassModel(String packageName)
+   {
       withName(packageName);
+      Feature.reset();
    }
    
 	public ClassModel generate()

@@ -245,4 +245,6 @@ public class GraphSet extends SDMSet<Graph>
       return this;
    }
 
+
+   public static final GraphSet EMPTY_SET = new GraphSet().withReadonly(true);
 }

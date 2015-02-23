@@ -58,6 +58,11 @@ public class StoryboardCreator extends EntityFactory
          return ((Storyboard) target).getStoryboardSteps();
       }
 
+      if (Storyboard.PROPERTY_WALL.equalsIgnoreCase(attrName))
+      {
+         return ((Storyboard) target).getWall();
+      }
+
       return super.getValue(target, attrName);
    }
    
@@ -102,6 +107,12 @@ public class StoryboardCreator extends EntityFactory
       if ((Storyboard.PROPERTY_STORYBOARDSTEPS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Storyboard) target).removeFromStoryboardSteps((StoryboardStep) value);
+         return true;
+      }
+
+      if (Storyboard.PROPERTY_WALL.equalsIgnoreCase(attrName))
+      {
+         ((Storyboard) target).setWall((StoryboardWall) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);
