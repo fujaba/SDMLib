@@ -26,12 +26,6 @@ import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import java.util.Collections;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
 
 public class AssignmentSet extends SDMSet<Assignment>
 {
@@ -172,112 +166,6 @@ public class AssignmentSet extends SDMSet<Assignment>
       for (Assignment obj : this)
       {
          obj.setPoints(value);
-      }
-      
-      return this;
-   }
-
-   public RoomSet getRoom()
-   {
-      RoomSet result = new RoomSet();
-      
-      for (Assignment obj : this)
-      {
-         result.add(obj.getRoom());
-      }
-      
-      return result;
-   }
-
-   public AssignmentSet hasRoom(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AssignmentSet answer = new AssignmentSet();
-      
-      for (Assignment obj : this)
-      {
-         if (neighbors.contains(obj.getRoom()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public AssignmentSet withRoom(Room value)
-   {
-      for (Assignment obj : this)
-      {
-         obj.withRoom(value);
-      }
-      
-      return this;
-   }
-
-   public StudentSet getStudents()
-   {
-      StudentSet result = new StudentSet();
-      
-      for (Assignment obj : this)
-      {
-         result.addAll(obj.getStudents());
-      }
-      
-      return result;
-   }
-
-   public AssignmentSet hasStudents(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AssignmentSet answer = new AssignmentSet();
-      
-      for (Assignment obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public AssignmentSet withStudents(Student value)
-   {
-      for (Assignment obj : this)
-      {
-         obj.withStudents(value);
-      }
-      
-      return this;
-   }
-
-   public AssignmentSet withoutStudents(Student value)
-   {
-      for (Assignment obj : this)
-      {
-         obj.withoutStudents(value);
       }
       
       return this;

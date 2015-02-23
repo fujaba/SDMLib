@@ -100,32 +100,6 @@
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"one",
-            "property":"rootParent",
-            "id":"F1 : FetchFileFlow"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"fetchfileflow",
-            "id":"F1 : FetchFileFlow"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"subFlow",
-            "id":"L6 : Logger"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"fetchfileflow",
-            "id":"F1 : FetchFileFlow"
-         },
-         "target":{
             "cardinality":"many",
             "property":"subFlowTransitive",
             "id":"F1 : FetchFileFlow"
@@ -154,6 +128,32 @@
          "target":{
             "cardinality":"many",
             "property":"parentTransitive",
+            "id":"F1 : FetchFileFlow"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"subFlow",
+            "id":"L6 : Logger"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"rootParent",
             "id":"F1 : FetchFileFlow"
          }
       },
