@@ -217,17 +217,6 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       return this;
    }
 
-   public GenericObjectSet with(GenericObject... genObjects)
-   {
-      for (GenericObject genObj : genObjects)
-      {
-         this.add(genObj);
-      }
-      
-      return this;
-   }
-
-
    @Override
    public String toString()
    {
