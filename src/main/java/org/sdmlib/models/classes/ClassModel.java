@@ -54,7 +54,16 @@ public class ClassModel extends SDMLibClass
    
 	public ClassModel generate()
 	{
-		return generate("src/main/java");
+	   File srcDir = new File("src/main/java");
+	   
+	   if (srcDir.exists())
+	   {
+	      return generate("src/main/java");
+	   }
+	   else 
+	   {
+	      return generate("src");
+	   }
 	}
 
 	public ClassModel generate(String rootDir)
