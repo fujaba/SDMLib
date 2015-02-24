@@ -25,14 +25,14 @@
       },
       {
          "typ":"node",
-         "id":"F4 : FetchFileFlow$TaskNames;"
-      },
-      {
-         "typ":"node",
-         "id":"P5 : PeerProxy",
+         "id":"P4 : PeerProxy",
          "attributes":[
          "port=0"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"F5 : FetchFileFlow$TaskNames;"
       },
       {
          "typ":"node",
@@ -75,8 +75,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"taskNames",
-            "id":"F4 : FetchFileFlow$TaskNames;"
+            "property":"fileServer",
+            "id":"P4 : PeerProxy"
          }
       },
       {
@@ -88,8 +88,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"fileServer",
-            "id":"P5 : PeerProxy"
+            "property":"taskNames",
+            "id":"F5 : FetchFileFlow$TaskNames;"
          }
       },
       {
