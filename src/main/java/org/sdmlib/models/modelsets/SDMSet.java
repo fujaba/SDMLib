@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.sdmlib.CGUtil;
 
 import de.uniks.networkparser.gui.ItemList;
+import de.uniks.networkparser.logic.Condition;
 
 
 public abstract class SDMSet<T> extends ItemList<T> implements ModelSet

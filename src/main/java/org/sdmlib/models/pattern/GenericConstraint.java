@@ -24,9 +24,10 @@ package org.sdmlib.models.pattern;
 import java.beans.PropertyChangeListener;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.modelsets.Condition;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
+
+import de.uniks.networkparser.logic.Condition;
 
 public class GenericConstraint extends PatternElement<GenericConstraint> implements PropertyChangeInterface
 {

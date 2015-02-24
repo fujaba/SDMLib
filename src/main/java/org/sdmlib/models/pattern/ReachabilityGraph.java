@@ -57,7 +57,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       }
 
       @Override
-      public boolean matches(ValuesMap values)
+      public boolean check(ValuesMap values)
       {
          return values.value != root;
       }

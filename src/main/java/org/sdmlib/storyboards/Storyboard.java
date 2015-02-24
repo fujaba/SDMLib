@@ -1153,7 +1153,7 @@ public class Storyboard implements PropertyChangeInterface
    private class AlwaysTrueCondition extends ConditionMap
    {
       @Override
-      public boolean matches(ValuesMap values)
+      public boolean check(ValuesMap values)
       {
          // TODO Auto-generated method stub
          return true;
@@ -1838,7 +1838,7 @@ public class Storyboard implements PropertyChangeInterface
       }
 
       @Override
-      public boolean matches(ValuesMap values)
+      public boolean check(ValuesMap values)
       {
          if (values.value != null
             && ("Integer Float Double Long Boolean String"
