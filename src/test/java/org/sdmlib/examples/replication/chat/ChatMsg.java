@@ -153,7 +153,7 @@ public class ChatMsg implements PropertyChangeInterface
    } 
 
    
-   public static final ChatMsgSet EMPTY_SET = new ChatMsgSet().withReadonly(true);
+   public static final ChatMsgSet EMPTY_SET = new ChatMsgSet().withReadOnly(true);
 
   
 

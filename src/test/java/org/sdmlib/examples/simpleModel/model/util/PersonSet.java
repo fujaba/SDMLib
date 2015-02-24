@@ -29,7 +29,7 @@ import org.sdmlib.models.modelsets.StringList;
 public class PersonSet extends SDMSet<Person>
 {
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadonly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
 
 
    public PersonPO hasPersonPO()

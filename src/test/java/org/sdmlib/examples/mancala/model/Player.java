@@ -279,7 +279,7 @@ public class Player implements PropertyChangeInterface
    } 
 
    
-   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadonly(true);
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
 
    
    /********************************************************************

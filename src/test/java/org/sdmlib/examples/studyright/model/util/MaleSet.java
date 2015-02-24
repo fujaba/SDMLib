@@ -100,5 +100,5 @@ public class MaleSet extends SDMSet<Male>
    }
 
 
-   public static final MaleSet EMPTY_SET = new MaleSet().withReadonly(true);
+   public static final MaleSet EMPTY_SET = new MaleSet().withReadOnly(true);
 }

@@ -127,5 +127,5 @@ public class TaskSet extends SDMSet<Task>
    }
 
 
-   public static final TaskSet EMPTY_SET = new TaskSet().withReadonly(true);
+   public static final TaskSet EMPTY_SET = new TaskSet().withReadOnly(true);
 }

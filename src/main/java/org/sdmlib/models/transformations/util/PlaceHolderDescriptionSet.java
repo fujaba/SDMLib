@@ -473,7 +473,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
    }
 
 
-   public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet().withReadonly(true);
+   public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet().withReadOnly(true);
 }
 
 

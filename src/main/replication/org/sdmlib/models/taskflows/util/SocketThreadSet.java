@@ -247,5 +247,5 @@ public class SocketThreadSet extends SDMSet<SocketThread>
    }
 
 
-   public static final SocketThreadSet EMPTY_SET = new SocketThreadSet().withReadonly(true);
+   public static final SocketThreadSet EMPTY_SET = new SocketThreadSet().withReadOnly(true);
 }

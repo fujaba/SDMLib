@@ -290,5 +290,5 @@ public class LinkConstraintSet extends SDMSet<LinkConstraint>
       return new LinkConstraintPO(this.toArray(new LinkConstraint[this.size()]));
    }
 
-   public static final LinkConstraintSet EMPTY_SET = new LinkConstraintSet().withReadonly(true);
+   public static final LinkConstraintSet EMPTY_SET = new LinkConstraintSet().withReadOnly(true);
 }

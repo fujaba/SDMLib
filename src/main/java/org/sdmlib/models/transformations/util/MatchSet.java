@@ -510,7 +510,7 @@ public class MatchSet extends SDMSet<Match>
    }
 
 
-   public static final MatchSet EMPTY_SET = new MatchSet().withReadonly(true);
+   public static final MatchSet EMPTY_SET = new MatchSet().withReadOnly(true);
 }
 
 

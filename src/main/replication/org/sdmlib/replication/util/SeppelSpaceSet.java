@@ -33,7 +33,7 @@ import org.sdmlib.replication.SeppelSpace;
 public class SeppelSpaceSet extends SDMSet<SeppelSpace>
 {
 
-   public static final SeppelSpaceSet EMPTY_SET = new SeppelSpaceSet().withReadonly(true);
+   public static final SeppelSpaceSet EMPTY_SET = new SeppelSpaceSet().withReadOnly(true);
 
 
    public SeppelSpacePO hasSeppelSpacePO()

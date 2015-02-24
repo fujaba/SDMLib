@@ -189,5 +189,5 @@ public class ReachabilityGraphSet extends SDMSet<ReachabilityGraph> implements o
       return new ReachabilityGraphPO(this.toArray(new ReachabilityGraph[this.size()]));
    }
 
-   public static final ReachabilityGraphSet EMPTY_SET = new ReachabilityGraphSet().withReadonly(true);
+   public static final ReachabilityGraphSet EMPTY_SET = new ReachabilityGraphSet().withReadOnly(true);
 }

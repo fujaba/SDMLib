@@ -64,5 +64,5 @@ public class RunnableSet extends SDMSet<Runnable>
    }
 
 
-   public static final RunnableSet EMPTY_SET = new RunnableSet().withReadonly(true);
+   public static final RunnableSet EMPTY_SET = new RunnableSet().withReadOnly(true);
 }

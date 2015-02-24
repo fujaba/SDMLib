@@ -367,5 +367,5 @@ public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
       return new OptionalSubPatternPO(this.toArray(new OptionalSubPattern[this.size()]));
    }
 
-   public static final OptionalSubPatternSet EMPTY_SET = new OptionalSubPatternSet().withReadonly(true);
+   public static final OptionalSubPatternSet EMPTY_SET = new OptionalSubPatternSet().withReadOnly(true);
 }

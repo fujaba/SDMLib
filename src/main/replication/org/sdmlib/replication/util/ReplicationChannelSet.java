@@ -33,7 +33,7 @@ import org.sdmlib.replication.SharedSpace;
 public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
 {
 
-   public static final ReplicationChannelSet EMPTY_SET = new ReplicationChannelSet().withReadonly(true);
+   public static final ReplicationChannelSet EMPTY_SET = new ReplicationChannelSet().withReadOnly(true);
 
 
    public ReplicationChannelPO hasReplicationChannelPO()

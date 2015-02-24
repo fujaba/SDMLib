@@ -33,7 +33,7 @@ import org.sdmlib.examples.simpleModel.model.Person;
 public class BigBrotherSet extends SDMSet<BigBrother>
 {
 
-   public static final BigBrotherSet EMPTY_SET = new BigBrotherSet().withReadonly(true);
+   public static final BigBrotherSet EMPTY_SET = new BigBrotherSet().withReadOnly(true);
 
 
    public BigBrotherPO hasBigBrotherPO()

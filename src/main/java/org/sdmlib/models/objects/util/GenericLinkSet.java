@@ -198,6 +198,6 @@ public class GenericLinkSet extends SDMSet<GenericLink>
       return new GenericLinkPO(this.toArray(new GenericLink[this.size()]));
    }
 
-   public static final GenericLinkSet EMPTY_SET = new GenericLinkSet().withReadonly(true);
+   public static final GenericLinkSet EMPTY_SET = new GenericLinkSet().withReadOnly(true);
 }
 

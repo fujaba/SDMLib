@@ -161,7 +161,7 @@ public class Role extends SDMLibClass
       return this;
    }
    
-   public static final RoleSet EMPTY_SET = new RoleSet().withReadonly(true);
+   public static final RoleSet EMPTY_SET = new RoleSet().withReadOnly(true);
 
    
    /********************************************************************

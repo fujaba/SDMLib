@@ -994,7 +994,7 @@ public class GenClass extends Generator<Clazz>
                "\n"
                );
 
-         String replaceReadOnly = ".withReadonly(true)";
+         String replaceReadOnly = ".withReadOnly(true)";
          
          
          CGUtil.replaceAll(partnerText, 

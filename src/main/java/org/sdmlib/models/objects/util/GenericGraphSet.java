@@ -154,6 +154,6 @@ public class GenericGraphSet extends SDMSet<GenericGraph>
       return new GenericGraphPO(this.toArray(new GenericGraph[this.size()]));
    }
 
-   public static final GenericGraphSet EMPTY_SET = new GenericGraphSet().withReadonly(true);
+   public static final GenericGraphSet EMPTY_SET = new GenericGraphSet().withReadOnly(true);
 }
 

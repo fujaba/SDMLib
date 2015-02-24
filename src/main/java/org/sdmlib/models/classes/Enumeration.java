@@ -84,7 +84,7 @@ public class Enumeration extends SDMLibClass {
 	}
 
 	public static final EnumerationSet EMPTY_SET = new EnumerationSet()
-			.withReadonly(true);
+			.withReadOnly(true);
 
 	/********************************************************************
 	 * <pre>

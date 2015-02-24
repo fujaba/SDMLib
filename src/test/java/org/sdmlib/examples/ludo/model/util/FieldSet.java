@@ -811,5 +811,5 @@ public class FieldSet extends SDMSet<Field>
    }
 
 
-   public static final FieldSet EMPTY_SET = new FieldSet().withReadonly(true);
+   public static final FieldSet EMPTY_SET = new FieldSet().withReadOnly(true);
 }

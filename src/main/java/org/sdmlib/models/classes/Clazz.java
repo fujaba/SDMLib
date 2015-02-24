@@ -40,7 +40,7 @@ public class Clazz extends SDMLibClass
    
    public static final String PROPERTY_INTERFAZE = "interface";
    public static final String PROPERTY_EXTERNAL = "external";
-   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadonly(true);
+   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadOnly(true);
 
    private AttributeSet attributes = null;
    private ClassModel classModel = null;  

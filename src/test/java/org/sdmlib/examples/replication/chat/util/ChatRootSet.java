@@ -32,7 +32,7 @@ import org.sdmlib.examples.replication.chat.ChatUser;
 public class ChatRootSet extends SDMSet<ChatRoot>
 {
 
-   public static final ChatRootSet EMPTY_SET = new ChatRootSet().withReadonly(true);
+   public static final ChatRootSet EMPTY_SET = new ChatRootSet().withReadOnly(true);
 
 
    public ChatRootPO hasChatRootPO()

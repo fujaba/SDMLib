@@ -200,5 +200,5 @@ public class MatchIsomorphicConstraintSet extends SDMSet<MatchIsomorphicConstrai
       return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
    }
 
-   public static final MatchIsomorphicConstraintSet EMPTY_SET = new MatchIsomorphicConstraintSet().withReadonly(true);
+   public static final MatchIsomorphicConstraintSet EMPTY_SET = new MatchIsomorphicConstraintSet().withReadOnly(true);
 }

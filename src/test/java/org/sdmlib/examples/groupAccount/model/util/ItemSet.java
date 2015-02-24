@@ -271,5 +271,5 @@ public class ItemSet extends SDMSet<Item>
    }
 
 
-   public static final ItemSet EMPTY_SET = new ItemSet().withReadonly(true);
+   public static final ItemSet EMPTY_SET = new ItemSet().withReadOnly(true);
 }

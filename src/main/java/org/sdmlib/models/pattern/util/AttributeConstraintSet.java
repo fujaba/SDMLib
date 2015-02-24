@@ -379,5 +379,5 @@ public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
       return new AttributeConstraintPO(this.toArray(new AttributeConstraint[this.size()]));
    }
 
-   public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet().withReadonly(true);
+   public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet().withReadOnly(true);
 }

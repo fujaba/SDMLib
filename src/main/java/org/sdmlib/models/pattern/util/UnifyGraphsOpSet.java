@@ -204,5 +204,5 @@ public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmli
       return new UnifyGraphsOpPO(this.toArray(new UnifyGraphsOp[this.size()]));
    }
 
-   public static final UnifyGraphsOpSet EMPTY_SET = new UnifyGraphsOpSet().withReadonly(true);
+   public static final UnifyGraphsOpSet EMPTY_SET = new UnifyGraphsOpSet().withReadOnly(true);
 }

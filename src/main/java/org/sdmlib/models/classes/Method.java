@@ -32,7 +32,7 @@ public class Method extends SDMLibClass
    public static final String PROPERTY_BODY = "body";
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_MODIFIER = "modifier";
-   public static final MethodSet EMPTY_SET = new MethodSet().withReadonly(true);
+   public static final MethodSet EMPTY_SET = new MethodSet().withReadOnly(true);
    
    private Visibility modifier = Visibility.PUBLIC;
    private Clazz clazz = null;

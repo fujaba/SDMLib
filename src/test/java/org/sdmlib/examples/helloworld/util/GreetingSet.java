@@ -210,7 +210,7 @@ public class GreetingSet extends SDMSet<Greeting>
    }
 
 
-   public static final GreetingSet EMPTY_SET = new GreetingSet().withReadonly(true);
+   public static final GreetingSet EMPTY_SET = new GreetingSet().withReadOnly(true);
 }
 
 

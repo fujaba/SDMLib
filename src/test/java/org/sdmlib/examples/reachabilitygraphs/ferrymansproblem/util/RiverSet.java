@@ -176,5 +176,5 @@ public class RiverSet extends SDMSet<River>
    }
 
 
-   public static final RiverSet EMPTY_SET = new RiverSet().withReadonly(true);
+   public static final RiverSet EMPTY_SET = new RiverSet().withReadOnly(true);
 }

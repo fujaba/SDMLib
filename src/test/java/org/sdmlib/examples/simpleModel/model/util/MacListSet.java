@@ -29,7 +29,7 @@ import org.sdmlib.models.modelsets.StringList;
 public class MacListSet extends SDMSet<MacList>
 {
 
-   public static final MacListSet EMPTY_SET = new MacListSet().withReadonly(true);
+   public static final MacListSet EMPTY_SET = new MacListSet().withReadOnly(true);
 
 
    public MacListPO hasMacListPO()

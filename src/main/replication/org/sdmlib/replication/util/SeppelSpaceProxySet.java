@@ -38,7 +38,7 @@ import org.sdmlib.replication.SeppelChannel;
 public class SeppelSpaceProxySet extends SDMSet<SeppelSpaceProxy>
 {
 
-   public static final SeppelSpaceProxySet EMPTY_SET = new SeppelSpaceProxySet().withReadonly(true);
+   public static final SeppelSpaceProxySet EMPTY_SET = new SeppelSpaceProxySet().withReadOnly(true);
 
 
    public SeppelSpaceProxyPO hasSeppelSpaceProxyPO()

@@ -197,7 +197,7 @@ public class KanbanEntrySet extends SDMSet<KanbanEntry> implements org.sdmlib.mo
       return new KanbanEntryPO (this.toArray(new KanbanEntry[this.size()]));
    }
 
-   public static final KanbanEntrySet EMPTY_SET = new KanbanEntrySet().withReadonly(true);
+   public static final KanbanEntrySet EMPTY_SET = new KanbanEntrySet().withReadOnly(true);
 }
 
 

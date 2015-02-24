@@ -270,5 +270,5 @@ public class MatchOtherThenSet extends SDMSet<MatchOtherThen> implements org.sdm
       return new MatchOtherThenPO(this.toArray(new MatchOtherThen[this.size()]));
    }
 
-   public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet().withReadonly(true);
+   public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet().withReadOnly(true);
 }

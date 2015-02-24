@@ -130,6 +130,6 @@ public class SignalFlagSet extends SDMSet<SignalFlag>
    }
 
 
-   public static final SignalFlagSet EMPTY_SET = new SignalFlagSet().withReadonly(true);
+   public static final SignalFlagSet EMPTY_SET = new SignalFlagSet().withReadOnly(true);
 }
 

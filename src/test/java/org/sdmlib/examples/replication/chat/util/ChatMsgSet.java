@@ -33,7 +33,7 @@ import org.sdmlib.examples.replication.chat.ChatChannel;
 public class ChatMsgSet extends SDMSet<ChatMsg>
 {
 
-   public static final ChatMsgSet EMPTY_SET = new ChatMsgSet().withReadonly(true);
+   public static final ChatMsgSet EMPTY_SET = new ChatMsgSet().withReadOnly(true);
 
 
    public ChatMsgPO hasChatMsgPO()

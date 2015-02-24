@@ -106,5 +106,5 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
       return new SDMLibClassSet();
    }
 
-   public static final SDMLibClassSet EMPTY_SET = new SDMLibClassSet().withReadonly(true);
+   public static final SDMLibClassSet EMPTY_SET = new SDMLibClassSet().withReadOnly(true);
 }

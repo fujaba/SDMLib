@@ -201,5 +201,5 @@ public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.mod
       return new CloneOpPO(this.toArray(new CloneOp[this.size()]));
    }
 
-   public static final CloneOpSet EMPTY_SET = new CloneOpSet().withReadonly(true);
+   public static final CloneOpSet EMPTY_SET = new CloneOpSet().withReadOnly(true);
 }

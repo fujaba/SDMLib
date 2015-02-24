@@ -207,7 +207,7 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
    }
 
 
-   public static final ClassModelSet EMPTY_SET = new ClassModelSet().withReadonly(true);
+   public static final ClassModelSet EMPTY_SET = new ClassModelSet().withReadOnly(true);
 }
 
 

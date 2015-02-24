@@ -41,7 +41,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.Student;
 public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
 {
 
-   public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet().withReadonly(true);
+   public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet().withReadOnly(true);
 
 
    public TeachingAssistantPO hasTeachingAssistantPO()

@@ -209,5 +209,5 @@ public class PeerProxySet extends SDMSet<PeerProxy>
    }
 
 
-   public static final PeerProxySet EMPTY_SET = new PeerProxySet().withReadonly(true);
+   public static final PeerProxySet EMPTY_SET = new PeerProxySet().withReadOnly(true);
 }

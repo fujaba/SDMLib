@@ -249,5 +249,5 @@ public class SymTabEntrySet extends SDMSet<SymTabEntry>
 
    }
 
-   public static final SymTabEntrySet EMPTY_SET = new SymTabEntrySet().withReadonly(true);
+   public static final SymTabEntrySet EMPTY_SET = new SymTabEntrySet().withReadOnly(true);
 }
