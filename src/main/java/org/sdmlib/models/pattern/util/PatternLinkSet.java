@@ -300,5 +300,5 @@ public class PatternLinkSet extends SDMSet<PatternLink>
       return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
    }
 
-   public static final PatternLinkSet EMPTY_SET = new PatternLinkSet().withReadonly(true);
+   public static final PatternLinkSet EMPTY_SET = new PatternLinkSet().withReadOnly(true);
 }

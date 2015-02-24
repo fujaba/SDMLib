@@ -218,5 +218,5 @@ public class CargoSet extends SDMSet<Cargo>
    }
 
 
-   public static final CargoSet EMPTY_SET = new CargoSet().withReadonly(true);
+   public static final CargoSet EMPTY_SET = new CargoSet().withReadOnly(true);
 }

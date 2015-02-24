@@ -98,7 +98,7 @@ public class GenRole extends Generator<Role>
    //               "\n"
    //               );
    //
-   //         String replaceReadOnly = ".withReadonly(true)";
+   //         String replaceReadOnly = ".withReadOnly(true)";
    //         if(!(partnerClass.hasFeature(Feature.ALBERTsSets))){
    //        	 replaceReadOnly = "";
    //         }

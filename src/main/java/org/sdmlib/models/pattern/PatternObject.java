@@ -27,7 +27,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.modelsets.Condition;
 import org.sdmlib.models.pattern.util.AttributeConstraintSet;
 import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 import org.sdmlib.models.pattern.util.MatchOtherThenSet;
@@ -37,6 +36,7 @@ import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.logic.Condition;
 
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {

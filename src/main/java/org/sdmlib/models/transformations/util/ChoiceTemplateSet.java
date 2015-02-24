@@ -688,7 +688,7 @@ public class ChoiceTemplateSet extends SDMSet<ChoiceTemplate>
    }
 
 
-   public static final ChoiceTemplateSet EMPTY_SET = new ChoiceTemplateSet().withReadonly(true);
+   public static final ChoiceTemplateSet EMPTY_SET = new ChoiceTemplateSet().withReadOnly(true);
 }
 
 

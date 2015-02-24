@@ -356,5 +356,5 @@ public class NegativeApplicationConditionSet extends SDMSet<NegativeApplicationC
       return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
    }
 
-   public static final NegativeApplicationConditionSet EMPTY_SET = new NegativeApplicationConditionSet().withReadonly(true);
+   public static final NegativeApplicationConditionSet EMPTY_SET = new NegativeApplicationConditionSet().withReadOnly(true);
 }

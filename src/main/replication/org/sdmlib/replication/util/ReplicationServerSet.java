@@ -361,5 +361,5 @@ public class ReplicationServerSet extends SDMSet<ReplicationServer>
    }
 
 
-   public static final ReplicationServerSet EMPTY_SET = new ReplicationServerSet().withReadonly(true);
+   public static final ReplicationServerSet EMPTY_SET = new ReplicationServerSet().withReadOnly(true);
 }

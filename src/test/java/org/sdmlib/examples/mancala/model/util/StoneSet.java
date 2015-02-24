@@ -64,5 +64,5 @@ public class StoneSet extends SDMSet<Stone>
    }
 
 
-   public static final StoneSet EMPTY_SET = new StoneSet().withReadonly(true);
+   public static final StoneSet EMPTY_SET = new StoneSet().withReadOnly(true);
 }

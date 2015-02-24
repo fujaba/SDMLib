@@ -117,5 +117,5 @@ public class MacSet extends SDMSet<Mac>
    }
 
 
-   public static final MacSet EMPTY_SET = new MacSet().withReadonly(true);
+   public static final MacSet EMPTY_SET = new MacSet().withReadOnly(true);
 }

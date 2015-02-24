@@ -156,5 +156,5 @@ public class RuleApplicationSet extends SDMSet<RuleApplication> implements org.s
       return new RuleApplicationPO(this.toArray(new RuleApplication[this.size()]));
    }
 
-   public static final RuleApplicationSet EMPTY_SET = new RuleApplicationSet().withReadonly(true);
+   public static final RuleApplicationSet EMPTY_SET = new RuleApplicationSet().withReadOnly(true);
 }

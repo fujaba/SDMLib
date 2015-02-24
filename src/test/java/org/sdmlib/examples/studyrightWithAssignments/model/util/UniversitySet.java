@@ -35,7 +35,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.Room;
 public class UniversitySet extends SDMSet<University>
 {
 
-   public static final UniversitySet EMPTY_SET = new UniversitySet().withReadonly(true);
+   public static final UniversitySet EMPTY_SET = new UniversitySet().withReadOnly(true);
 
 
    public UniversityPO hasUniversityPO()

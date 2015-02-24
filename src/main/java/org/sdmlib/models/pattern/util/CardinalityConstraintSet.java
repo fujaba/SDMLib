@@ -315,5 +315,5 @@ public class CardinalityConstraintSet extends SDMSet<CardinalityConstraint> impl
       return new CardinalityConstraintPO(this.toArray(new CardinalityConstraint[this.size()]));
    }
 
-   public static final CardinalityConstraintSet EMPTY_SET = new CardinalityConstraintSet().withReadonly(true);
+   public static final CardinalityConstraintSet EMPTY_SET = new CardinalityConstraintSet().withReadOnly(true);
 }

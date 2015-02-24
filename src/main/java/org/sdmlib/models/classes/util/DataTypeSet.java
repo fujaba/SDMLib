@@ -68,5 +68,5 @@ public class DataTypeSet extends SDMSet<DataType>
       return new DataTypeSet();
    }
 
-   public static final DataTypeSet EMPTY_SET = new DataTypeSet().withReadonly(true);
+   public static final DataTypeSet EMPTY_SET = new DataTypeSet().withReadOnly(true);
 }

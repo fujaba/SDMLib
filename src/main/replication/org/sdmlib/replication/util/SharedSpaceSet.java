@@ -500,5 +500,5 @@ public class SharedSpaceSet extends SDMSet<SharedSpace>
    }
 
 
-   public static final SharedSpaceSet EMPTY_SET = new SharedSpaceSet().withReadonly(true);
+   public static final SharedSpaceSet EMPTY_SET = new SharedSpaceSet().withReadOnly(true);
 }

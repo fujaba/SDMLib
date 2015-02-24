@@ -336,7 +336,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
    }
 
 
-   public static final GenericConstraintSet EMPTY_SET = new GenericConstraintSet().withReadonly(true);
+   public static final GenericConstraintSet EMPTY_SET = new GenericConstraintSet().withReadOnly(true);
 }
 
 

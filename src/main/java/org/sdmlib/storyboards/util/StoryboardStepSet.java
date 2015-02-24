@@ -162,7 +162,7 @@ public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdm
       return new StoryboardStepPO (this.toArray(new StoryboardStep[this.size()]));
    }
 
-   public static final StoryboardStepSet EMPTY_SET = new StoryboardStepSet().withReadonly(true);
+   public static final StoryboardStepSet EMPTY_SET = new StoryboardStepSet().withReadOnly(true);
 }
 
 

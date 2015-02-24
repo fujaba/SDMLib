@@ -181,5 +181,5 @@ public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
 
    }
 
-   public static final LocalVarTableEntrySet EMPTY_SET = new LocalVarTableEntrySet().withReadonly(true);
+   public static final LocalVarTableEntrySet EMPTY_SET = new LocalVarTableEntrySet().withReadOnly(true);
 }

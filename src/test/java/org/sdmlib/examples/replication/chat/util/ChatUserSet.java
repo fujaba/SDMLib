@@ -35,7 +35,7 @@ import org.sdmlib.models.modelsets.StringList;
 public class ChatUserSet extends SDMSet<ChatUser>
 {
 
-   public static final ChatUserSet EMPTY_SET = new ChatUserSet().withReadonly(true);
+   public static final ChatUserSet EMPTY_SET = new ChatUserSet().withReadOnly(true);
 
 
    public ChatUserPO hasChatUserPO()

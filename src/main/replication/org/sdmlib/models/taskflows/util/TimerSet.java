@@ -65,5 +65,5 @@ public class TimerSet extends SDMSet<Timer>
    }
 
 
-   public static final TimerSet EMPTY_SET = new TimerSet().withReadonly(true);
+   public static final TimerSet EMPTY_SET = new TimerSet().withReadOnly(true);
 }

@@ -65,5 +65,5 @@ public class LudoColorSet extends SDMSet<LudoColor>
    }
 
 
-   public static final LudoColorSet EMPTY_SET = new LudoColorSet().withReadonly(true);
+   public static final LudoColorSet EMPTY_SET = new LudoColorSet().withReadOnly(true);
 }

@@ -169,5 +169,5 @@ public class BuildingSet extends SDMSet<Building>
    }
 
 
-   public static final BuildingSet EMPTY_SET = new BuildingSet().withReadonly(true);
+   public static final BuildingSet EMPTY_SET = new BuildingSet().withReadOnly(true);
 }

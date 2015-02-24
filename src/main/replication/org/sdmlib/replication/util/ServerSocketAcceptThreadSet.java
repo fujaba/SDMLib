@@ -156,5 +156,5 @@ public class ServerSocketAcceptThreadSet extends SDMSet<ServerSocketAcceptThread
    }
 
 
-   public static final ServerSocketAcceptThreadSet EMPTY_SET = new ServerSocketAcceptThreadSet().withReadonly(true);
+   public static final ServerSocketAcceptThreadSet EMPTY_SET = new ServerSocketAcceptThreadSet().withReadOnly(true);
 }

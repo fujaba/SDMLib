@@ -218,7 +218,7 @@ public class StoryboardSet extends SDMSet<Storyboard> implements org.sdmlib.mode
       return new StoryboardPO (this.toArray(new Storyboard[this.size()]));
    }
 
-   public static final StoryboardSet EMPTY_SET = new StoryboardSet().withReadonly(true);
+   public static final StoryboardSet EMPTY_SET = new StoryboardSet().withReadOnly(true);
    public StoryboardWallSet getWall()
    {
       StoryboardWallSet result = new StoryboardWallSet();

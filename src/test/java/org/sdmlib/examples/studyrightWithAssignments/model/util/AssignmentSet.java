@@ -36,7 +36,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.Student;
 public class AssignmentSet extends SDMSet<Assignment>
 {
 
-   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadonly(true);
+   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadOnly(true);
 
 
    public AssignmentPO hasAssignmentPO()

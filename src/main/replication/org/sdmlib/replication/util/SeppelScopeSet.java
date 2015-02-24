@@ -35,7 +35,7 @@ import java.lang.Object;
 public class SeppelScopeSet extends SDMSet<SeppelScope>
 {
 
-   public static final SeppelScopeSet EMPTY_SET = new SeppelScopeSet().withReadonly(true);
+   public static final SeppelScopeSet EMPTY_SET = new SeppelScopeSet().withReadOnly(true);
 
 
    public SeppelScopePO hasSeppelScopePO()

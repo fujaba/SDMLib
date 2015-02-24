@@ -267,5 +267,5 @@ public class EnumerationSet extends SDMSet<Enumeration>
    }
 
 
-   public static final EnumerationSet EMPTY_SET = new EnumerationSet().withReadonly(true);
+   public static final EnumerationSet EMPTY_SET = new EnumerationSet().withReadOnly(true);
 }

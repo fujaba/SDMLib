@@ -311,5 +311,5 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
    }
 
 
-   public static final StatementEntrySet EMPTY_SET = new StatementEntrySet().withReadonly(true);
+   public static final StatementEntrySet EMPTY_SET = new StatementEntrySet().withReadOnly(true);
 }

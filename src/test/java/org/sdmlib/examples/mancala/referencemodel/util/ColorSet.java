@@ -64,5 +64,5 @@ public class ColorSet extends SDMSet<Color>
    }
 
 
-   public static final ColorSet EMPTY_SET = new ColorSet().withReadonly(true);
+   public static final ColorSet EMPTY_SET = new ColorSet().withReadOnly(true);
 }

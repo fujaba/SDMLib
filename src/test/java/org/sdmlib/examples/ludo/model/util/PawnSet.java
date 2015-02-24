@@ -279,5 +279,5 @@ public class PawnSet extends SDMSet<Pawn>
    }
 
 
-   public static final PawnSet EMPTY_SET = new PawnSet().withReadonly(true);
+   public static final PawnSet EMPTY_SET = new PawnSet().withReadOnly(true);
 }

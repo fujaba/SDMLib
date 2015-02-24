@@ -140,5 +140,5 @@ public class PointSet extends SDMSet<Point>
    }
 
 
-   public static final PointSet EMPTY_SET = new PointSet().withReadonly(true);
+   public static final PointSet EMPTY_SET = new PointSet().withReadOnly(true);
 }

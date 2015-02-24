@@ -3,13 +3,12 @@ package org.sdmlib.models.modelsets;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.sdmlib.CGUtil;
+import de.uniks.networkparser.list.SimpleList;
+import de.uniks.networkparser.logic.Condition;
 
-import de.uniks.networkparser.gui.ItemList;
 
-
-public abstract class SDMSet<T> extends ItemList<T> implements ModelSet
+public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
 {
    @Override
    public String toString()
@@ -143,5 +142,38 @@ public abstract class SDMSet<T> extends ItemList<T> implements ModelSet
 	@Override
 	public boolean remove(Object value) {
 		return removeByObject(value) >= 0;
+	}
+	
+	// ReadOnly Add all
+	@Override
+	public T set(int index, T element) {
+		if (isReadOnly()) {
+			throw new UnsupportedOperationException("set(" + index + ")");
+		}
+		return super.set(index, element);
+	}
+
+	@Override
+	public void add(int index, T element) {
+		if (isReadOnly()) {
+			throw new UnsupportedOperationException("add(" + index + ")");
+		}
+		super.add(index, element);
+	}
+
+	@Override
+	public T remove(int index) {
+		if (isReadOnly()) {
+			throw new UnsupportedOperationException("remove(" + index + ")");
+		}
+		return super.remove(index);
+	}
+
+	@Override
+	public boolean add(T newValue) {
+		if (isReadOnly()) {
+			throw new UnsupportedOperationException("add()");
+		}
+		return super.add(newValue);
 	}
 }

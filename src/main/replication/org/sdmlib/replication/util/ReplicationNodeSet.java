@@ -361,5 +361,5 @@ public class ReplicationNodeSet extends SDMSet<ReplicationNode>
    }
 
 
-   public static final ReplicationNodeSet EMPTY_SET = new ReplicationNodeSet().withReadonly(true);
+   public static final ReplicationNodeSet EMPTY_SET = new ReplicationNodeSet().withReadOnly(true);
 }

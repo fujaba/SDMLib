@@ -267,5 +267,5 @@ public class ReachableStateSet extends SDMSet<ReachableState> implements org.sdm
       return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
    }
 
-   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet().withReadonly(true);
+   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet().withReadOnly(true);
 }

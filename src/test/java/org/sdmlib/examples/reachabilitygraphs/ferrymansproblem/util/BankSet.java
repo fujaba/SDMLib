@@ -332,5 +332,5 @@ public class BankSet extends SDMSet<Bank>
    }
 
 
-   public static final BankSet EMPTY_SET = new BankSet().withReadonly(true);
+   public static final BankSet EMPTY_SET = new BankSet().withReadOnly(true);
 }

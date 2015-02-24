@@ -180,6 +180,6 @@ public class TrainSet extends SDMSet<Train>
    }
 
 
-   public static final TrainSet EMPTY_SET = new TrainSet().withReadonly(true);
+   public static final TrainSet EMPTY_SET = new TrainSet().withReadOnly(true);
 }
 

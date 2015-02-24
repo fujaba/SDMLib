@@ -154,7 +154,7 @@ public class GreetingMessageSet extends SDMSet<GreetingMessage>
    }
 
 
-   public static final GreetingMessageSet EMPTY_SET = new GreetingMessageSet().withReadonly(true);
+   public static final GreetingMessageSet EMPTY_SET = new GreetingMessageSet().withReadOnly(true);
 }
 
 

@@ -221,5 +221,5 @@ public class PatternElementSet extends SDMSet<PatternElement<?>>
       return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
    }
 
-   public static final PatternElementSet EMPTY_SET = new PatternElementSet().withReadonly(true);
+   public static final PatternElementSet EMPTY_SET = new PatternElementSet().withReadOnly(true);
 }

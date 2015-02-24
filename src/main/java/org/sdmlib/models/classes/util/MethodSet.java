@@ -308,7 +308,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    }
 
 
-   public static final MethodSet EMPTY_SET = new MethodSet().withReadonly(true);
+   public static final MethodSet EMPTY_SET = new MethodSet().withReadOnly(true);
 }
 
 

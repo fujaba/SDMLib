@@ -22,17 +22,13 @@
 package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.modelsets.ObjectSet;
 
-import de.uniks.networkparser.gui.ItemList;
-
-public class GenericAttributeSet extends ItemList<GenericAttribute>
+public class GenericAttributeSet extends SDMSet<GenericAttribute>
 {
    public StringList getName()
    {
@@ -155,7 +151,7 @@ public class GenericAttributeSet extends ItemList<GenericAttribute>
       return new GenericAttributePO(this.toArray(new GenericAttribute[this.size()]));
    }
 
-   public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet().withReadonly(true);
+   public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet().withReadOnly(true);
 }
 
 

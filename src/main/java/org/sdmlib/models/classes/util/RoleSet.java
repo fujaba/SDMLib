@@ -224,7 +224,7 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return new RoleSet();
    }
 
-   public static final RoleSet EMPTY_SET = new RoleSet().withReadonly(true);
+   public static final RoleSet EMPTY_SET = new RoleSet().withReadOnly(true);
 }
 
 

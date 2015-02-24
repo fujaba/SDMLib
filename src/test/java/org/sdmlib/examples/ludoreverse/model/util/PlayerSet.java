@@ -201,5 +201,5 @@ public class PlayerSet extends SDMSet<Player>
    }
 
 
-   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadonly(true);
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
 }

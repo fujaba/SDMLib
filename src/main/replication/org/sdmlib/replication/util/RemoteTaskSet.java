@@ -172,5 +172,5 @@ public class RemoteTaskSet extends SDMSet<RemoteTask>
    }
 
 
-   public static final RemoteTaskSet EMPTY_SET = new RemoteTaskSet().withReadonly(true);
+   public static final RemoteTaskSet EMPTY_SET = new RemoteTaskSet().withReadOnly(true);
 }

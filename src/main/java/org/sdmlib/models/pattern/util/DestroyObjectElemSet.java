@@ -225,5 +225,5 @@ public class DestroyObjectElemSet extends SDMSet<DestroyObjectElem>
       return new DestroyObjectElemPO(this.toArray(new DestroyObjectElem[this.size()]));
    }
 
-   public static final DestroyObjectElemSet EMPTY_SET = new DestroyObjectElemSet().withReadonly(true);
+   public static final DestroyObjectElemSet EMPTY_SET = new DestroyObjectElemSet().withReadOnly(true);
 }

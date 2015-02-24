@@ -469,5 +469,5 @@ public class RoomSet extends SDMSet<Room>
    }
 
 
-   public static final RoomSet EMPTY_SET = new RoomSet().withReadonly(true);
+   public static final RoomSet EMPTY_SET = new RoomSet().withReadOnly(true);
 }

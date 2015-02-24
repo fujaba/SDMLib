@@ -65,5 +65,5 @@ public class SocketSet extends SDMSet<Socket>
    }
 
 
-   public static final SocketSet EMPTY_SET = new SocketSet().withReadonly(true);
+   public static final SocketSet EMPTY_SET = new SocketSet().withReadOnly(true);
 }

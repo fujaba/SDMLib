@@ -98,7 +98,7 @@ public class Node implements PropertyChangeInterface
 
 
    
-   public static final NodeSet EMPTY_SET = new NodeSet().withReadonly(true);
+   public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
 
    
    /********************************************************************

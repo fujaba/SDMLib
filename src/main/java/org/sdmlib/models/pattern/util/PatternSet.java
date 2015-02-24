@@ -355,5 +355,5 @@ public class PatternSet extends SDMSet<Pattern>
       return new PatternPO(this.toArray(new Pattern[this.size()]));
    }
 
-   public static final PatternSet EMPTY_SET = new PatternSet().withReadonly(true);
+   public static final PatternSet EMPTY_SET = new PatternSet().withReadOnly(true);
 }

@@ -41,7 +41,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 public class RoomSet extends SDMSet<Room>
 {
 
-   public static final RoomSet EMPTY_SET = new RoomSet().withReadonly(true);
+   public static final RoomSet EMPTY_SET = new RoomSet().withReadOnly(true);
 
 
    public RoomPO hasRoomPO()

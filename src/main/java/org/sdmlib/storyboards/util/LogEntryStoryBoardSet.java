@@ -113,7 +113,7 @@ public class LogEntryStoryBoardSet extends SDMSet<LogEntryStoryBoard> implements
       return new LogEntryStoryBoardPO (this.toArray(new LogEntryStoryBoard[this.size()]));
    }
 
-   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet().withReadonly(true);
+   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet().withReadOnly(true);
 }
 
 

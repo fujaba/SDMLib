@@ -39,7 +39,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 public class StudentSet extends SDMSet<Student>
 {
 
-   public static final StudentSet EMPTY_SET = new StudentSet().withReadonly(true);
+   public static final StudentSet EMPTY_SET = new StudentSet().withReadOnly(true);
 
 
    public StudentPO hasStudentPO()

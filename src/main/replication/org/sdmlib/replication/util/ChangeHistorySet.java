@@ -127,5 +127,5 @@ public class ChangeHistorySet extends SDMSet<ChangeHistory>
    }
 
 
-   public static final ChangeHistorySet EMPTY_SET = new ChangeHistorySet().withReadonly(true);
+   public static final ChangeHistorySet EMPTY_SET = new ChangeHistorySet().withReadOnly(true);
 }

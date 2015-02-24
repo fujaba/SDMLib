@@ -25,7 +25,7 @@ import org.sdmlib.models.classes.util.AttributeSet;
 public class Attribute extends Value
 {
    public static final String PROPERTY_CLAZZ = "clazz";
-   public static final AttributeSet EMPTY_SET = new AttributeSet().withReadonly(true);
+   public static final AttributeSet EMPTY_SET = new AttributeSet().withReadOnly(true);
 
    private Clazz clazz = null;
    private Visibility visibility = Visibility.PRIVATE;

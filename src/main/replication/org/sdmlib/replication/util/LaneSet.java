@@ -230,5 +230,5 @@ public class LaneSet extends SDMSet<Lane>
    }
 
 
-   public static final LaneSet EMPTY_SET = new LaneSet().withReadonly(true);
+   public static final LaneSet EMPTY_SET = new LaneSet().withReadOnly(true);
 }
