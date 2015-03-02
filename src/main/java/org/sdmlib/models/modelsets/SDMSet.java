@@ -176,4 +176,17 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
 		}
 		return super.add(newValue);
 	}
+	
+	private  Iterator<T> iterator;
+	
+	@Override
+	public Iterator<T> iterator() {
+		if(isReadOnly()) {
+			if(iterator==null) {
+				iterator = super.iterator();
+			}
+			return iterator;
+		}
+		return super.iterator();
+	}
 }
