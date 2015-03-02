@@ -1,8 +1,10 @@
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class LinkedHashSetPOCreator extends PatternObjectCreator
 {

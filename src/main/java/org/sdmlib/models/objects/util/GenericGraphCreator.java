@@ -1,10 +1,11 @@
 package org.sdmlib.models.objects.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.GenericLink;
+import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenericGraphCreator extends EntityFactory
 {

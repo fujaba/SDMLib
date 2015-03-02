@@ -3,7 +3,9 @@ package org.sdmlib.models.modelsets;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Iterator;
+
 import org.sdmlib.CGUtil;
+
 import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.logic.Condition;
 

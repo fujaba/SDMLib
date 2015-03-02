@@ -27,7 +27,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.studyright.model.util.LectureSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.util.LinkedHashSet;
 
 public class Lecture implements PropertyChangeInterface
 {

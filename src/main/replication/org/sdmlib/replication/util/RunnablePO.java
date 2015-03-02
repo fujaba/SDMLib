@@ -1,7 +1,6 @@
 package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import java.lang.Runnable;
 
 public class RunnablePO extends PatternObject<RunnablePO, Runnable>
 {

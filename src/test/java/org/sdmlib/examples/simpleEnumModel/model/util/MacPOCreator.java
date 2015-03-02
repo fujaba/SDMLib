@@ -1,8 +1,9 @@
 package org.sdmlib.examples.simpleEnumModel.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.simpleEnumModel.model.Mac;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class MacPOCreator extends PatternObjectCreator
 {

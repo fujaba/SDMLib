@@ -1,11 +1,9 @@
 package org.sdmlib.examples.m2m.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.m2m.model.Graph;
 import org.sdmlib.examples.m2m.model.GraphComponent;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.m2m.model.util.GraphPO;
-import org.sdmlib.examples.m2m.model.Graph;
-import org.sdmlib.examples.m2m.model.util.GraphComponentPO;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GraphComponentPO extends PatternObject<GraphComponentPO, GraphComponent>
 {

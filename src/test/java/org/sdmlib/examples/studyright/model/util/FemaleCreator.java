@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.studyright.model.Female;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class FemaleCreator extends EntityFactory
 {

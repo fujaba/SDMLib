@@ -1,8 +1,8 @@
 package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
 import de.uniks.networkparser.json.JsonIdMap;
-import java.lang.Runnable;
 
 public class RunnablePOCreator extends PatternObjectCreator
 {

@@ -1,8 +1,9 @@
 package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.replication.SeppelSpaceProxy;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class SeppelSpaceProxyPOCreator extends PatternObjectCreator
 {

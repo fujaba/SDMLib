@@ -1,8 +1,9 @@
 package org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class CargoPOCreator extends PatternObjectCreator
 {

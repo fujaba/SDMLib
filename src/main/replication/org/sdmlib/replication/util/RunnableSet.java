@@ -21,9 +21,9 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import java.lang.Runnable;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class RunnableSet extends SDMSet<Runnable>
 {

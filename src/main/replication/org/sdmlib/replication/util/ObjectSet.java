@@ -21,9 +21,9 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import java.lang.Object;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class ObjectSet extends SDMSet<Object>
 {

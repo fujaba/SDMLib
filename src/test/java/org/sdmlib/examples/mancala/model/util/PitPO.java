@@ -1,13 +1,10 @@
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.mancala.model.Pit;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.mancala.model.util.MancalaPO;
 import org.sdmlib.examples.mancala.model.Mancala;
-import org.sdmlib.examples.mancala.model.util.PitPO;
-import org.sdmlib.examples.mancala.model.util.PlayerPO;
+import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PitPO extends PatternObject<PitPO, Pit>
 {

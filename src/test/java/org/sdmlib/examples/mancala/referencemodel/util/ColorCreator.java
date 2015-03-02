@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.mancala.referencemodel.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.mancala.referencemodel.Color;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ColorCreator extends EntityFactory
 {

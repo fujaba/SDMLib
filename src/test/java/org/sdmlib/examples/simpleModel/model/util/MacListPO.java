@@ -1,8 +1,8 @@
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.simpleModel.model.MacList;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class MacListPO extends PatternObject<MacListPO, MacList>
 {

@@ -1,8 +1,9 @@
 package de.kassel.roombook.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
+
 import de.kassel.roombook.Floor;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class FloorPOCreator extends PatternObjectCreator
 {

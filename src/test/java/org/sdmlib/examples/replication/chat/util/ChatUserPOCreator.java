@@ -1,8 +1,9 @@
 package org.sdmlib.examples.replication.chat.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.replication.chat.ChatUser;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ChatUserPOCreator extends PatternObjectCreator
 {

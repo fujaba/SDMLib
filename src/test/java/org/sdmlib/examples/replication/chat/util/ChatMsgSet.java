@@ -21,14 +21,14 @@
    
 package org.sdmlib.examples.replication.chat.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.replication.chat.ChatMsg;
 import java.util.Collection;
+
+import org.sdmlib.examples.replication.chat.ChatChannel;
+import org.sdmlib.examples.replication.chat.ChatMsg;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.replication.chat.util.ChatChannelSet;
-import org.sdmlib.examples.replication.chat.ChatChannel;
 
 public class ChatMsgSet extends SDMSet<ChatMsg>
 {

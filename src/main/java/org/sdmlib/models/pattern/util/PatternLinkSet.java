@@ -22,7 +22,6 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
@@ -32,7 +31,6 @@ import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternLinkSet extends SDMSet<PatternLink>
 {

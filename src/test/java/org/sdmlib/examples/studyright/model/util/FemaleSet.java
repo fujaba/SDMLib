@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Female;
 import java.util.Collection;
+
+import org.sdmlib.examples.studyright.model.Female;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class FemaleSet extends SDMSet<Female>

@@ -1,8 +1,10 @@
 package org.sdmlib.examples.ludoreverse.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import java.awt.Point;
+
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PointPOCreator extends PatternObjectCreator
 {

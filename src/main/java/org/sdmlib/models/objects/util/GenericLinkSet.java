@@ -22,16 +22,12 @@
 package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.objects.util.GenericGraphSet;
 
 public class GenericLinkSet extends SDMSet<GenericLink>
 {

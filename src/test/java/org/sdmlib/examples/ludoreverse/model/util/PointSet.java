@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.ludoreverse.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import java.awt.Point;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 
 public class PointSet extends SDMSet<Point>

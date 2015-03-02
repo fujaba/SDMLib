@@ -26,7 +26,6 @@ import org.sdmlib.replication.SharedSpace;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.replication.SeppelSpaceProxy;
 
 public class ReplicationChannelCreator extends EntityFactory
 {

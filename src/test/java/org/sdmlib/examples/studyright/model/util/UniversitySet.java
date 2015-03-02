@@ -21,16 +21,15 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.University;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
+
 import org.sdmlib.examples.studyright.model.Room;
 import org.sdmlib.examples.studyright.model.Student;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
+import org.sdmlib.examples.studyright.model.University;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class UniversitySet extends SDMSet<University>
 {

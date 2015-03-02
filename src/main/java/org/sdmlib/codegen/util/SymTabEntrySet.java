@@ -23,7 +23,6 @@ package org.sdmlib.codegen.util;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.modelsets.SDMSet;

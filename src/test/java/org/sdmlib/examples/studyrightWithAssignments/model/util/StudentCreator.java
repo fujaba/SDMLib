@@ -21,12 +21,13 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class StudentCreator extends EntityFactory
 {

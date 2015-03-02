@@ -22,9 +22,10 @@
 package de.kassel.roombook.util;
 
 import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import de.kassel.roombook.Floor;
+
 import de.kassel.roombook.Building;
+import de.kassel.roombook.Floor;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class FloorCreator extends EntityFactory
 {

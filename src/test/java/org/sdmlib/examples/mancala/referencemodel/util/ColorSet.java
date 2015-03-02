@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.mancala.referencemodel.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.mancala.referencemodel.Color;
 import java.util.Collection;
+
+import org.sdmlib.examples.mancala.referencemodel.Color;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class ColorSet extends SDMSet<Color>
 {

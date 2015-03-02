@@ -1,8 +1,8 @@
 package org.sdmlib.examples.simpleEnumModel.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.simpleEnumModel.model.Alex;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class AlexPO extends PatternObject<AlexPO, Alex>
 {

@@ -1,7 +1,8 @@
 package org.sdmlib.examples.m2m.model.util;
 
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 class CreatorCreator{
 

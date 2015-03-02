@@ -1,14 +1,10 @@
 package org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class BoatPO extends PatternObject<BoatPO, Boat>
 {

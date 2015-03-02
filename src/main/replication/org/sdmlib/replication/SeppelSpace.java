@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -43,15 +42,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import javafx.application.Platform;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.replication.SharedSpace.ChannelMsg;
-import org.sdmlib.replication.SharedSpace.HookAction;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.replication.util.ReplicationNodeCreator;
-import org.sdmlib.replication.util.SeppelChannelSet;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.Filter;

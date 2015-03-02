@@ -26,12 +26,10 @@ import java.util.Collections;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.classes.util.EnumerationSet;
-import org.sdmlib.models.classes.Enumeration;
 
 public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.models.modelsets.ModelSet
 {

@@ -21,17 +21,15 @@
    
 package org.sdmlib.examples.m2m.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.m2m.model.Graph;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
+
+import org.sdmlib.examples.m2m.model.Graph;
 import org.sdmlib.examples.m2m.model.GraphComponent;
 import org.sdmlib.examples.m2m.model.Person;
 import org.sdmlib.examples.m2m.model.Relation;
-import org.sdmlib.examples.m2m.model.util.GraphComponentSet;
-import org.sdmlib.examples.m2m.model.util.PersonSet;
-import org.sdmlib.examples.m2m.model.util.RelationSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class GraphSet extends SDMSet<Graph>
 {

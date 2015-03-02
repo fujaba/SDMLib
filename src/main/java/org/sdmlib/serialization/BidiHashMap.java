@@ -1,6 +1,5 @@
 package org.sdmlib.serialization;
 
-import java.util.HashMap;
 
 //public class BidiHashMap<K, V> extends AbstractBidiMap<K, V>
 //{

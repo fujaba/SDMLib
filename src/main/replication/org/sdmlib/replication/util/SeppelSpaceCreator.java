@@ -21,10 +21,11 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.ChangeHistory;
+import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class SeppelSpaceCreator extends EntityFactory
 {

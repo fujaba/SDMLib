@@ -1,14 +1,10 @@
 package org.sdmlib.examples.replication.chat.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.replication.chat.ChatUser;
-import org.sdmlib.examples.replication.chat.util.ChatRootPO;
-import org.sdmlib.examples.replication.chat.ChatRoot;
-import org.sdmlib.examples.replication.chat.util.ChatUserPO;
-import org.sdmlib.examples.replication.chat.util.ChatChannelPO;
 import org.sdmlib.examples.replication.chat.ChatChannel;
-import org.sdmlib.examples.replication.chat.util.ChatChannelSet;
+import org.sdmlib.examples.replication.chat.ChatRoot;
+import org.sdmlib.examples.replication.chat.ChatUser;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ChatUserPO extends PatternObject<ChatUserPO, ChatUser>
 {

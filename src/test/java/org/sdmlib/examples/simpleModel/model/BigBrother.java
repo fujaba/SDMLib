@@ -21,12 +21,12 @@
    
 package org.sdmlib.examples.simpleModel.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.examples.simpleModel.model.util.ObjectSet;
-import java.lang.Object;
 import org.sdmlib.examples.simpleModel.model.util.PersonSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class BigBrother implements PropertyChangeInterface
 {

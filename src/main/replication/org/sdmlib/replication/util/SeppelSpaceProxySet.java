@@ -21,19 +21,17 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.replication.SeppelSpaceProxy;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
-import org.sdmlib.replication.util.SeppelScopeSet;
-import org.sdmlib.replication.SeppelScope;
-import org.sdmlib.replication.util.SeppelChannelSet;
 import org.sdmlib.replication.SeppelChannel;
+import org.sdmlib.replication.SeppelScope;
+import org.sdmlib.replication.SeppelSpaceProxy;
 
 public class SeppelSpaceProxySet extends SDMSet<SeppelSpaceProxy>
 {

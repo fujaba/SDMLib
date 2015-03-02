@@ -1,15 +1,11 @@
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.mancala.model.Kalah;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.mancala.model.util.MancalaPO;
-import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Mancala;
-import org.sdmlib.examples.mancala.model.util.KalahPO;
-import org.sdmlib.examples.mancala.model.util.PlayerPO;
+import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Player;
-import org.sdmlib.examples.mancala.model.util.PitPO;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class KalahPO extends PatternObject<KalahPO, Kalah>
 {

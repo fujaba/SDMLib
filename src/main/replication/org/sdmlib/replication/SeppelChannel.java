@@ -21,22 +21,19 @@
    
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.Thread;
+import java.net.Socket;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
-
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class SeppelChannel extends Thread implements PropertyChangeInterface
 {

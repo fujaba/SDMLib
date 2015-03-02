@@ -5,7 +5,6 @@ import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSocketAcceptThread;
 import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.SeppelScopeSet;
 
 public class ReplicationChatServer 
 {

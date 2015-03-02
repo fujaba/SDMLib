@@ -22,7 +22,6 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;

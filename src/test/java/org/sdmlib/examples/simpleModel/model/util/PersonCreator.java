@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.simpleModel.model.Person;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PersonCreator extends EntityFactory
 {

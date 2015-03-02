@@ -28,7 +28,6 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
-import org.sdmlib.replication.util.LaneSet;
 
 public class RemoteTaskBoardSet extends SDMSet<RemoteTaskBoard>
 {

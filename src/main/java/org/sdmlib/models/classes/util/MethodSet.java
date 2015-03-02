@@ -33,9 +33,6 @@ import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.EnumerationSet;
-import org.sdmlib.models.classes.util.ParameterSet;
-import org.sdmlib.models.classes.util.ClazzSet;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {

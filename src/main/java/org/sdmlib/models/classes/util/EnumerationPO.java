@@ -1,14 +1,10 @@
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.classes.util.ClassModelPO;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.util.EnumerationPO;
-import org.sdmlib.models.classes.util.MethodPO;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class EnumerationPO extends PatternObject<EnumerationPO, Enumeration>
 {

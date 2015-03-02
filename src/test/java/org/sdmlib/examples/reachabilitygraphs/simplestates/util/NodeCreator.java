@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.reachabilitygraphs.simplestates.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.examples.reachabilitygraphs.simplestates.SimpleState;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class NodeCreator extends EntityFactory
 {

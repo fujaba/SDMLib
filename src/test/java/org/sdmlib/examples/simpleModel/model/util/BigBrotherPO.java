@@ -1,11 +1,8 @@
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.simpleModel.model.BigBrother;
-import org.sdmlib.examples.simpleModel.model.util.BigBrotherPO;
-import org.sdmlib.examples.simpleModel.model.util.PersonPO;
 import org.sdmlib.examples.simpleModel.model.Person;
-import org.sdmlib.examples.simpleModel.model.util.PersonSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class BigBrotherPO extends PatternObject<BigBrotherPO, BigBrother>
 {

@@ -1,7 +1,5 @@
 package org.sdmlib.examples.replication.chat;
 
-import java.net.Socket;
-
 import org.junit.Test;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
