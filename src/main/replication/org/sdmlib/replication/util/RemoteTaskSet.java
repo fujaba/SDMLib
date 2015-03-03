@@ -29,7 +29,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.RemoteTask;
-import org.sdmlib.replication.util.LogEntrySet;
 
 public class RemoteTaskSet extends SDMSet<RemoteTask>
 {

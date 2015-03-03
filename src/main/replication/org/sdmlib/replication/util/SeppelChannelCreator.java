@@ -21,11 +21,13 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.replication.SeppelChannel;
 import java.net.Socket;
+
+import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class SeppelChannelCreator extends EntityFactory
 {

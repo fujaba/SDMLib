@@ -1,7 +1,7 @@
 package org.sdmlib.examples.mancala.referencemodel.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.mancala.referencemodel.Color;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ColorPO extends PatternObject<ColorPO, Color>
 {

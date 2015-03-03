@@ -1,15 +1,11 @@
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.Lecture;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.studyright.model.util.RoomPO;
-import org.sdmlib.examples.studyright.model.util.LecturePO;
-import org.sdmlib.examples.studyright.model.Room;
-import org.sdmlib.examples.studyright.model.util.ProfessorPO;
 import org.sdmlib.examples.studyright.model.Professor;
-import org.sdmlib.examples.studyright.model.util.StudentPO;
+import org.sdmlib.examples.studyright.model.Room;
 import org.sdmlib.examples.studyright.model.Student;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LecturePO extends PatternObject<LecturePO, Lecture>
 {

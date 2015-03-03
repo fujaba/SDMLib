@@ -27,7 +27,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public class ServerSocketAcceptThread extends Thread implements
       PropertyChangeInterface

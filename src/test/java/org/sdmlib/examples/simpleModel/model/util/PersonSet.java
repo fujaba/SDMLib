@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleModel.model.Person;
 import java.util.Collection;
+
+import org.sdmlib.examples.simpleModel.model.Person;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class PersonSet extends SDMSet<Person>

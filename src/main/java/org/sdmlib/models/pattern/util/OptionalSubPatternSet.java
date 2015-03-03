@@ -22,7 +22,6 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
@@ -32,8 +31,6 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
 public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
 {

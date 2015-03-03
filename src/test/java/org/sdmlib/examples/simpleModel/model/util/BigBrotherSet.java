@@ -21,14 +21,13 @@
    
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleModel.model.BigBrother;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import java.lang.Object;
-import org.sdmlib.examples.simpleModel.model.util.PersonSet;
+
+import org.sdmlib.examples.simpleModel.model.BigBrother;
 import org.sdmlib.examples.simpleModel.model.Person;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class BigBrotherSet extends SDMSet<BigBrother>
 {

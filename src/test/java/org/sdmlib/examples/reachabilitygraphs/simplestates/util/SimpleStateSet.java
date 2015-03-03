@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.reachabilitygraphs.simplestates.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.reachabilitygraphs.simplestates.SimpleState;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.examples.reachabilitygraphs.simplestates.util.NodeSet;
+
 import org.sdmlib.examples.reachabilitygraphs.simplestates.Node;
+import org.sdmlib.examples.reachabilitygraphs.simplestates.SimpleState;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class SimpleStateSet extends SDMSet<SimpleState>
 {

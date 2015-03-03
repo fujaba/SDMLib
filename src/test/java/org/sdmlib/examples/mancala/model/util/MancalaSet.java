@@ -21,15 +21,14 @@
    
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.mancala.model.Mancala;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.mancala.model.util.PlayerSet;
-import org.sdmlib.examples.mancala.model.Player;
 import java.util.Collections;
-import org.sdmlib.examples.mancala.model.util.PitSet;
+
+import org.sdmlib.examples.mancala.model.Mancala;
 import org.sdmlib.examples.mancala.model.Pit;
+import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class MancalaSet extends SDMSet<Mancala>
 {

@@ -21,12 +21,14 @@
    
 package de.kassel.roombook;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.StrUtil;
-import de.kassel.roombook.util.FloorSet;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.kassel.roombook.util.FloorSet;
 
 public class Building implements PropertyChangeInterface
 {

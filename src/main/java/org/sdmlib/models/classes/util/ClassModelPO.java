@@ -2,12 +2,9 @@ package org.sdmlib.models.classes.util;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.util.EnumerationPO;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.util.ClassModelPO;
-import org.sdmlib.models.classes.util.EnumerationSet;
 
 public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
 {

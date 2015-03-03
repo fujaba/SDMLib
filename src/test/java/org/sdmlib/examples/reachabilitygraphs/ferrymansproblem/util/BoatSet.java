@@ -21,16 +21,14 @@
    
 package org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
+
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class BoatSet extends SDMSet<Boat>
 {

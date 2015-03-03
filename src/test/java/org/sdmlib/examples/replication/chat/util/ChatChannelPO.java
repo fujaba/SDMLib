@@ -1,14 +1,9 @@
 package org.sdmlib.examples.replication.chat.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.replication.chat.ChatChannel;
-import org.sdmlib.examples.replication.chat.util.ChatUserPO;
-import org.sdmlib.examples.replication.chat.ChatUser;
-import org.sdmlib.examples.replication.chat.util.ChatChannelPO;
-import org.sdmlib.examples.replication.chat.util.ChatUserSet;
-import org.sdmlib.examples.replication.chat.util.ChatMsgPO;
 import org.sdmlib.examples.replication.chat.ChatMsg;
-import org.sdmlib.examples.replication.chat.util.ChatMsgSet;
+import org.sdmlib.examples.replication.chat.ChatUser;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ChatChannelPO extends PatternObject<ChatChannelPO, ChatChannel>
 {

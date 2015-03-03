@@ -38,11 +38,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.logic.Equals;
 import de.uniks.networkparser.logic.ValuesMap;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {

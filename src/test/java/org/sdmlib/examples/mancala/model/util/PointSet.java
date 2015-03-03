@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import java.awt.Point;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class PointSet extends SDMSet<Point>
 {

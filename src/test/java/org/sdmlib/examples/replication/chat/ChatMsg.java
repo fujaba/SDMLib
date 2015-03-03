@@ -21,11 +21,12 @@
    
 package org.sdmlib.examples.replication.chat;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.replication.chat.util.ChatMsgSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class ChatMsg implements PropertyChangeInterface
 {

@@ -1,7 +1,8 @@
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import java.util.LinkedHashSet;
+
+import org.sdmlib.models.pattern.PatternObject;
 
 public class LinkedHashSetPO extends PatternObject<LinkedHashSetPO, LinkedHashSet>
 {

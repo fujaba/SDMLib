@@ -21,9 +21,10 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import java.util.LinkedHashSet;
 import java.util.Collection;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class LinkedHashSetSet extends SDMSet<LinkedHashSet>
 {

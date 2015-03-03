@@ -29,7 +29,6 @@ import org.sdmlib.replication.util.ObjectSet;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.lang.Object;
 
 public class SeppelScope implements PropertyChangeInterface
 {

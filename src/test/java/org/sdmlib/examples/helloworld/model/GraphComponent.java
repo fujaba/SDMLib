@@ -21,13 +21,11 @@
    
 package org.sdmlib.examples.helloworld.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class GraphComponent implements PropertyChangeInterface
 {

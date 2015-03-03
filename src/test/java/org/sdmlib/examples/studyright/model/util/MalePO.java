@@ -1,7 +1,7 @@
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.Male;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class MalePO extends PatternObject<MalePO, Male>
 {

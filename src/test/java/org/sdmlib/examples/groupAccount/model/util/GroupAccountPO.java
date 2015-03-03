@@ -1,14 +1,9 @@
 package org.sdmlib.examples.groupAccount.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.groupAccount.model.GroupAccount;
-import org.sdmlib.examples.groupAccount.model.util.PersonPO;
-import org.sdmlib.examples.groupAccount.model.Person;
-import org.sdmlib.examples.groupAccount.model.util.GroupAccountPO;
-import org.sdmlib.examples.groupAccount.model.util.PersonSet;
-import org.sdmlib.examples.groupAccount.model.util.ItemPO;
 import org.sdmlib.examples.groupAccount.model.Item;
-import org.sdmlib.examples.groupAccount.model.util.ItemSet;
+import org.sdmlib.examples.groupAccount.model.Person;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
 {

@@ -1,7 +1,7 @@
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.mancala.model.Stone;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class StonePO extends PatternObject<StonePO, Stone>
 {

@@ -3,7 +3,9 @@ package org.sdmlib.models.modelsets;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Iterator;
+
 import org.sdmlib.CGUtil;
+
 import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.logic.Condition;
 
@@ -175,5 +177,18 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
 			throw new UnsupportedOperationException("add()");
 		}
 		return super.add(newValue);
+	}
+	
+	private  Iterator<T> iterator;
+	
+	@Override
+	public Iterator<T> iterator() {
+		if(isReadOnly()) {
+			if(iterator==null) {
+				iterator = super.iterator();
+			}
+			return iterator;
+		}
+		return super.iterator();
 	}
 }

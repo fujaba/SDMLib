@@ -1,8 +1,9 @@
 package org.sdmlib.models.objects.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenericObjectPOCreator extends PatternObjectCreator
 {

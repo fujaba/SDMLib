@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.simpleModel.model;
 
-import java.util.Date;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.Date;
+
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Item implements PropertyChangeInterface
 {

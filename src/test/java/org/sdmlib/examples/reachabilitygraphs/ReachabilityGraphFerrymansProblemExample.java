@@ -11,7 +11,6 @@ import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverCreator;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
-import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;

@@ -1,14 +1,11 @@
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.replication.RemoteTask;
-import org.sdmlib.replication.BoardTask;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.replication.util.LogEntryPO;
-import org.sdmlib.replication.Task;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.util.RemoteTaskPO;
-import org.sdmlib.replication.util.LogEntrySet;
+import org.sdmlib.replication.RemoteTask;
+import org.sdmlib.replication.Task;
 
 public class RemoteTaskPO extends PatternObject<RemoteTaskPO, RemoteTask>
 {

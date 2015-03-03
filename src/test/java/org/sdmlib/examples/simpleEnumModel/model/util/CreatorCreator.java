@@ -1,7 +1,8 @@
 package org.sdmlib.examples.simpleEnumModel.model.util;
 
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class CreatorCreator{
 

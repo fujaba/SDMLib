@@ -28,7 +28,6 @@ import org.sdmlib.examples.helloworld.GreetingMessage;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.helloworld.util.GreetingSet;
 
 public class GreetingMessageSet extends SDMSet<GreetingMessage>
 {

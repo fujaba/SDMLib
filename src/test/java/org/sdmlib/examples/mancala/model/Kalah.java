@@ -21,7 +21,6 @@
    
 package org.sdmlib.examples.mancala.model;
 
-import org.sdmlib.examples.mancala.model.Pit;
 
 public class Kalah extends Pit
 {

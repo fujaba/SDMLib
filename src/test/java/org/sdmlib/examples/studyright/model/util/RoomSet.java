@@ -21,21 +21,18 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Room;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.examples.studyright.model.Lecture;
-import org.sdmlib.examples.studyright.model.University;
-import org.sdmlib.examples.studyright.model.Student;
+
 import org.sdmlib.examples.studyright.model.Assignment;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
-import org.sdmlib.examples.studyright.model.util.UniversitySet;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
-import org.sdmlib.examples.studyright.model.util.AssignmentSet;
+import org.sdmlib.examples.studyright.model.Lecture;
+import org.sdmlib.examples.studyright.model.Room;
+import org.sdmlib.examples.studyright.model.Student;
+import org.sdmlib.examples.studyright.model.University;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class RoomSet extends SDMSet<Room>
 {

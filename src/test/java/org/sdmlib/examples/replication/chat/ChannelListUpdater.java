@@ -2,7 +2,6 @@ package org.sdmlib.examples.replication.chat;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,7 +9,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 
 public class ChannelListUpdater implements PropertyChangeListener, ChangeListener<Toggle>

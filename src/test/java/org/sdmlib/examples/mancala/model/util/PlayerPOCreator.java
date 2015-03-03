@@ -1,8 +1,9 @@
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PlayerPOCreator extends PatternObjectCreator
 {

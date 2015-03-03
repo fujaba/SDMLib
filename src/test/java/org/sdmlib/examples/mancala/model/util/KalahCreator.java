@@ -21,12 +21,13 @@
    
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.mancala.model.Kalah;
-import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Mancala;
+import org.sdmlib.examples.mancala.model.Pit;
 import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class KalahCreator extends EntityFactory
 {

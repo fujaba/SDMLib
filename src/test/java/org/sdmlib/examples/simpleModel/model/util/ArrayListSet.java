@@ -21,11 +21,12 @@
    
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ArrayListSet extends SDMSet<ArrayList>
+import org.sdmlib.models.modelsets.SDMSet;
+
+public class ArrayListSet extends SDMSet<ArrayList<?>>
 {
 
    public static final ArrayListSet EMPTY_SET = new ArrayListSet().withReadOnly(true);
@@ -49,17 +50,17 @@ public class ArrayListSet extends SDMSet<ArrayList>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ArrayList>)value);
+         this.addAll((Collection<ArrayList<?>>)value);
       }
       else if (value != null)
       {
-         this.add((ArrayList) value);
+         this.add((ArrayList<?>) value);
       }
       
       return this;
    }
    
-   public ArrayListSet without(ArrayList value)
+   public ArrayListSet without(ArrayList<?> value)
    {
       this.remove(value);
       return this;

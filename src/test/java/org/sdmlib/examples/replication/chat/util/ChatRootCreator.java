@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.replication.chat.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.replication.chat.ChatRoot;
 import org.sdmlib.examples.replication.chat.ChatUser;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ChatRootCreator extends EntityFactory
 {

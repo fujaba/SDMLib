@@ -21,11 +21,12 @@
    
 package org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class RiverCreator extends EntityFactory
 {

@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleModel.model.MacList;
 import java.util.Collection;
+
+import org.sdmlib.examples.simpleModel.model.MacList;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class MacListSet extends SDMSet<MacList>

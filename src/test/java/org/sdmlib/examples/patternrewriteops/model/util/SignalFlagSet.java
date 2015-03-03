@@ -28,7 +28,6 @@ import org.sdmlib.examples.patternrewriteops.model.SignalFlag;
 import org.sdmlib.examples.patternrewriteops.model.Station;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
 
 public class SignalFlagSet extends SDMSet<SignalFlag>
 {

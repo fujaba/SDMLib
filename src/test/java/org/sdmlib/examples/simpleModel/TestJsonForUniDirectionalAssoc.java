@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.sdmlib.examples.simpleModel.model.BigBrother;
 import org.sdmlib.examples.simpleModel.model.Person;
 import org.sdmlib.examples.simpleModel.model.util.BigBrotherCreator;
-import org.sdmlib.examples.studyright.model.util.UniversityCreator;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;

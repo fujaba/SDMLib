@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
-import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class University implements PropertyChangeInterface
 {

@@ -1,8 +1,9 @@
 package org.sdmlib.examples.mancala.referencemodel.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.mancala.referencemodel.Color;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ColorPOCreator extends PatternObjectCreator
 {

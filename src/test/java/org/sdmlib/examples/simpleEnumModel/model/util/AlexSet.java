@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.simpleEnumModel.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleEnumModel.model.Alex;
 import java.util.Collection;
+
+import org.sdmlib.examples.simpleEnumModel.model.Alex;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class AlexSet extends SDMSet<Alex>

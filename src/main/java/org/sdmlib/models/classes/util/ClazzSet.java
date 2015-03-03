@@ -34,10 +34,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
-import org.sdmlib.models.classes.util.ClassModelSet;
-import org.sdmlib.models.classes.util.AttributeSet;
-import org.sdmlib.models.classes.util.MethodSet;
-import org.sdmlib.models.classes.util.RoleSet;
 
 public class ClazzSet extends SDMSet<Clazz> 
 {

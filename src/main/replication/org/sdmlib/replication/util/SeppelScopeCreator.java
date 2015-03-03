@@ -21,11 +21,11 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import java.lang.Object;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class SeppelScopeCreator extends EntityFactory
 {

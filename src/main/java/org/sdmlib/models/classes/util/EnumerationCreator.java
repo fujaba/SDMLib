@@ -21,12 +21,13 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.SDMLibClass;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class EnumerationCreator extends EntityFactory
 {

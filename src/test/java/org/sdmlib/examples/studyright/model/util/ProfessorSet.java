@@ -21,17 +21,16 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Professor;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
+
 import org.sdmlib.examples.studyright.model.Lecture;
+import org.sdmlib.examples.studyright.model.Professor;
 import org.sdmlib.examples.studyright.model.Topic;
-import org.sdmlib.examples.studyright.model.util.LectureSet;
-import org.sdmlib.examples.studyright.model.util.TopicSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class ProfessorSet extends SDMSet<Professor>
 {

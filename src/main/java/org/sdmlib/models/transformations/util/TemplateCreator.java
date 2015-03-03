@@ -21,12 +21,13 @@
    
 package org.sdmlib.models.transformations.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.Template;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class TemplateCreator extends EntityFactory
 {
