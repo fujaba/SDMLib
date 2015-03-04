@@ -50,14 +50,14 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.Filter;
-import de.uniks.networkparser.interfaces.MapUpdateListener;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.UpdateListenerSend;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.logic.Deep;
 
-public class SeppelSpace extends Thread implements PropertyChangeInterface, MapUpdateListener
+public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListenerSend
 {
    //==========================================================================
    private LinkedBlockingQueue<ChannelMsg> msgQueue = new LinkedBlockingQueue<ChannelMsg>();
@@ -608,7 +608,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
    public void withMap(JsonIdMap map)
    {
       this.map = map;
-      map.withUpdateMsgListener((MapUpdateListener) this);
+      map.withUpdateListenerSend(this);
    }
    
    public void put(String string, Object object)
@@ -934,25 +934,6 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
    {
       return readMessages;
    }
-
-   @Override
-   public boolean isReadMessages(String key, Object element, JsonObject props, String type)
-   {
-      return readMessages;
-   }
-
-      @Override
-   public boolean readMessages(String key, Object element, Object value, JsonObject props, String type)
-   {
-      return false;
-   }
-
-   @Override
-   public boolean skipUpdateCollision(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson)
-   {
-      return false;
-   }
-
 
    private void sendNewChange(ReplicationChange change)
    {

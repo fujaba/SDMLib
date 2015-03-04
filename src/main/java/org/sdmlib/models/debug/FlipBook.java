@@ -10,11 +10,12 @@ import java.util.ArrayList;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.MapUpdateListener;
+import de.uniks.networkparser.interfaces.UpdateListenerRead;
+import de.uniks.networkparser.interfaces.UpdateListenerSend;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 
-public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
+public class FlipBook implements UpdateListenerSend,  PropertyChangeInterface
 
 {
    public void step()
@@ -338,30 +339,7 @@ public class FlipBook implements MapUpdateListener,  PropertyChangeInterface
       this.isReading = isReading;
    }
    
-   @Override
-   public boolean isReadMessages(String key, Object element, JsonObject props,
-         String type)
-   {
-      // TODO Auto-generated method stub
-      return isReading;
-   }
 
-   @Override
-   public boolean readMessages(String key, Object element, Object value,
-         JsonObject props, String type)
-   {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public boolean skipUpdateCollision(Object masterObj, String key, Object value,
-         JsonObject removeJson, JsonObject updateJson)
-   {
-      // TODO Auto-generated method stub
-      return false;
-   }
-   
    class StepInfo
    {
       public StepInfo(JsonObject jsonObject, RuntimeException runtimeException)

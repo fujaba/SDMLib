@@ -4,28 +4,19 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-import de.uniks.networkparser.interfaces.MapUpdateListener;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.UpdateListenerSend;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 
 public class Specific2Generic
 {
-   private class MyUpdateListener implements MapUpdateListener
+   private class MyUpdateListener implements UpdateListenerSend
    {
       public String firstPropName = null;
       
       public String secondPropName = null;
-      
-      
-      @Override
-      public boolean skipUpdateCollision(Object masterObj, String key, Object value,
-            JsonObject removeJson, JsonObject updateJson)
-      {
-         // TODO Auto-generated method stub
-         return false;
-      }
 
       @Override
   	public boolean sendUpdateMsg(Object target, String property, Object oldObj,
@@ -44,20 +35,6 @@ public class Specific2Generic
          }
          return false;
       }
-
-	@Override
-	public boolean isReadMessages(String key, Object element, JsonObject props,
-			String type) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean readMessages(String key, Object element, Object value,
-			JsonObject props, String type) {
-		// TODO Auto-generated method stub
-		return false;
-	}
    }
 
    public GenericGraph convert(JsonIdMap idMap, Object root)
@@ -68,7 +45,7 @@ public class Specific2Generic
       LinkedHashSet<String> knownLinks = new LinkedHashSet<String>();
       
       MyUpdateListener changeListener = new MyUpdateListener();
-      idMap.withUpdateMsgListener(changeListener);
+      idMap.withUpdateListenerSend(changeListener);
       
       // we go via a json array
       JsonArray jsonArray = idMap.toJsonArray(root);

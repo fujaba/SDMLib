@@ -56,8 +56,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.SimpleIdCounter;
-import de.uniks.networkparser.interfaces.MapUpdateListener;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.UpdateListenerSend;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
@@ -65,7 +65,7 @@ import de.uniks.networkparser.json.JsonTokener;
 
 
 public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
-      MapUpdateListener
+      UpdateListenerSend
 {
 
    public static final String JLOG = "jlog";
@@ -111,7 +111,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       map.withCreator(ReplicationNodeCreator.createIdMap("i"));
       
-      map.withUpdateMsgListener((MapUpdateListener) this);
+      map.withUpdateListenerSend(this);
       
       setReplicationRoot(new ReplicationRoot());
       map.put(SharedSpace.REPLICATION_ROOT, getReplicationRoot());
@@ -1241,27 +1241,13 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    public void withMap(JsonIdMap map)
    {
       this.map = map;
-      map.withUpdateMsgListener((MapUpdateListener) this);
+      map.withUpdateListenerSend(this);
    }
 
    @Override
    public void propertyChange(PropertyChangeEvent evt)
    {
       // System.out.println(evt);
-   }
-
-   @Override
-   public boolean readMessages(String key, Object element, Object value, JsonObject props,
-         String type)
-   {
-      return false;
-   }
-
-   @Override
-   public boolean skipUpdateCollision(Object masterObj, String key, Object value, JsonObject removeJson,
-         JsonObject updateJson)
-   {
-      return false;
    }
 
    // ==========================================================================
@@ -1417,13 +1403,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
    public boolean isReadMessages()
    {
-      return readMessages;
-   }
-
-   @Override
-   public boolean isReadMessages(String key, Object element, JsonObject props, String type)
-   {
-      // TODO Auto-generated method stub
       return readMessages;
    }
 
