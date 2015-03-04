@@ -948,7 +948,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, MapU
    }
 
    @Override
-   public boolean skipCollision(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson)
+   public boolean skipUpdateCollision(Object masterObj, String key, Object value, JsonObject removeJson, JsonObject updateJson)
    {
       return false;
    }

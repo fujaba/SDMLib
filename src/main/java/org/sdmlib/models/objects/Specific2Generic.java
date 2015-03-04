@@ -20,7 +20,7 @@ public class Specific2Generic
       
       
       @Override
-      public boolean skipCollision(Object masterObj, String key, Object value,
+      public boolean skipUpdateCollision(Object masterObj, String key, Object value,
             JsonObject removeJson, JsonObject updateJson)
       {
          // TODO Auto-generated method stub

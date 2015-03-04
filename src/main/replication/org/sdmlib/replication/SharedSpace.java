@@ -1258,7 +1258,7 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    }
 
    @Override
-   public boolean skipCollision(Object masterObj, String key, Object value, JsonObject removeJson,
+   public boolean skipUpdateCollision(Object masterObj, String key, Object value, JsonObject removeJson,
          JsonObject updateJson)
    {
       return false;
