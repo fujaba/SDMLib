@@ -133,14 +133,6 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
       return result;
    }
 
-   @SuppressWarnings("unchecked")
-   @Override
-   public SDMSet<T> with(Object... values) {
-      for(Object item : values){
-         this.add((T) item);
-      }
-      return this;
-   }
 	@Override
 	public boolean remove(Object value) {
 		return removeByObject(value) >= 0;
