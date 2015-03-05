@@ -8,8 +8,8 @@ apply from: 'gradle/ide.gradle'
 apply from: 'gradle/version.gradle'
 apply from: 'gradle/tasks.gradle'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 // apply plugins/external files only on jenkins build
 // jenkins needs -Pjenkins switch
