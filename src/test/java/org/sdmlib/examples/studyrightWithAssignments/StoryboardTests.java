@@ -43,6 +43,7 @@ import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.logic.Condition;
 
 public class StoryboardTests {
    @Test
@@ -467,7 +468,12 @@ public class StoryboardTests {
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
       
-      RoomSet roomsEven = university.getRooms().has(elem -> elem.getCredits() % 2 == 0);
+      RoomSet roomsEven = university.getRooms().has(new Condition<Room>() {
+		@Override
+		public boolean check(Room value) {
+			return value.getCredits() % 2 == 0;
+		}
+      });
       
       story.addCode();
       

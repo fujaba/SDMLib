@@ -8,8 +8,8 @@ apply from: 'gradle/ide.gradle'
 apply from: 'gradle/version.gradle'
 apply from: 'gradle/tasks.gradle'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 // apply plugins/external files only on jenkins build
 // jenkins needs -Pjenkins switch
@@ -62,7 +62,6 @@ dependencies {
     compile group: "junit", name: "junit", version: "4.+"
     compile group: "org.beanshell", name: "bsh", version: "2.+"
     compile 'de.uniks:NetworkParser:4.2+:sources'
-    compile 'de.uniks:NetworkParserFX:4.2+:sources'
 }
 
 jacoco {
