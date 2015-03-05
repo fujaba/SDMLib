@@ -62,6 +62,7 @@ dependencies {
     compile group: "junit", name: "junit", version: "4.+"
     compile group: "org.beanshell", name: "bsh", version: "2.+"
     compile 'de.uniks:NetworkParser:4.2+:sources'
+    compile 'de.uniks:NetworkParserFX:4.2+:sources'
 }
 
 jacoco {
