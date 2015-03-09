@@ -57,7 +57,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.SimpleIdCounter;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListenerSend;
+import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
@@ -65,7 +65,7 @@ import de.uniks.networkparser.json.JsonTokener;
 
 
 public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
-      UpdateListenerSend
+      UpdateListener
 {
 
    public static final String JLOG = "jlog";
@@ -821,9 +821,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    static public int msgNo = 0;
 
    @Override
-   public boolean sendUpdateMsg(Object target, String property, Object oldObj, Object newObject,
-         JsonObject jsonObject)
-   {
+   public boolean update(Object target, String property, JsonObject jsonObject,
+			String typ, Object oldValue, Object newValue) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -1627,6 +1626,5 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    {
       this.getMap().put(string, object);
    }
-
 }
 

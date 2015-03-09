@@ -57,7 +57,7 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
    public <ST extends SDMSet<T>> ST union(Collection<? extends T> other)
    {
       @SuppressWarnings("unchecked")
-      ST result = (ST) this.getNewInstance();
+      ST result = (ST) this.getNewList(false);
       result.addAll(this);
       result.addAll(other);
       
@@ -68,7 +68,7 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
    public <ST extends SDMSet<T>> ST intersection(Collection<? extends T> other)
    {
       @SuppressWarnings("unchecked")
-      ST result = (ST) this.getNewInstance();
+      ST result = (ST) this.getNewList(false);
       result.addAll(this);
       result.retainAll(other);
       return result;
@@ -78,7 +78,7 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
    @SuppressWarnings("unchecked")
    public <ST extends SDMSet<T>> ST minus(Object other)
    {
-      ST result = (ST) this.getNewInstance();
+      ST result = (ST) this.getNewList(false);
       result.addAll(this);
       
       if (other instanceof Collection)
@@ -96,7 +96,7 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
    public <ST extends SDMSet<T>> ST has(Condition<T> condition)
    {
       @SuppressWarnings("unchecked")
-	ST result = (ST) this.getNewInstance();
+	ST result = (ST) this.getNewList(false);
       result.addAll(this);
       
       for (T elem : this)
@@ -118,20 +118,17 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
       return super.clone().iterator();
    }
    
-   @Override
-   public SDMSet<T> getNewInstance() 
-   {
-      SDMSet<T> result = null;
-      try
-      {
-         result = this.getClass().newInstance();
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return result;
-   }
+	@Override
+	@SuppressWarnings("unchecked")
+	public SDMSet<T> getNewList(boolean keyValue) {
+		SDMSet<T> result = null;
+		try {
+			result = this.getClass().newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public boolean remove(Object value) {

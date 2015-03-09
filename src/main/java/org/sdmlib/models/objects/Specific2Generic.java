@@ -5,23 +5,23 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListenerSend;
+import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 
 public class Specific2Generic
 {
-   private class MyUpdateListener implements UpdateListenerSend
+   private class MyUpdateListener implements UpdateListener
    {
       public String firstPropName = null;
       
       public String secondPropName = null;
 
-      @Override
-  	public boolean sendUpdateMsg(Object target, String property, Object oldObj,
-  			Object newObject, JsonObject jsonObject) {
-         Object tmp = jsonObject.get(JsonIdMap.REMOVE);
+	@Override
+	public boolean update(Object target, String property,
+			JsonObject jsonObject, String typ, Object oldValue, Object newValue) {
+		Object tmp = jsonObject.get(JsonIdMap.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)
          {
@@ -34,7 +34,7 @@ public class Specific2Generic
             secondPropName = propName;
          }
          return false;
-      }
+	}
    }
 
    public GenericGraph convert(JsonIdMap idMap, Object root)

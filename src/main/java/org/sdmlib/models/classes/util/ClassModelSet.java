@@ -141,11 +141,6 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
       return new ClassModelPO(this.toArray(new ClassModel[this.size()]));
    }
    
-   @Override
-   public ClassModelSet getNewInstance()
-   {
-      return new ClassModelSet();
-   }
    public EnumerationSet getEnumerations()
    {
       EnumerationSet result = new EnumerationSet();

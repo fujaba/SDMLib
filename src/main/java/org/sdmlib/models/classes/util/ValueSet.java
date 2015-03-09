@@ -175,11 +175,5 @@ public class ValueSet extends SDMSet<Value>
       return this;
    }
 
-   @Override
-   public ValueSet getNewInstance()
-   {
-      return new ValueSet();
-   }
-
    public static final ValueSet EMPTY_SET = new ValueSet().withReadOnly(true);
 }

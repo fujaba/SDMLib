@@ -10,12 +10,11 @@ import java.util.ArrayList;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.UpdateListenerRead;
-import de.uniks.networkparser.interfaces.UpdateListenerSend;
+import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 
-public class FlipBook implements UpdateListenerSend,  PropertyChangeInterface
+public class FlipBook implements UpdateListener,  PropertyChangeInterface
 
 {
    public void step()
@@ -309,9 +308,8 @@ public class FlipBook implements UpdateListenerSend,  PropertyChangeInterface
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
    
    @Override
-   public boolean sendUpdateMsg(Object target, String property, Object oldObj,
-         Object newObject, JsonObject jsonObject)
-   {
+   public boolean update(Object target, String property, JsonObject jsonObject,
+   		String typ, Object oldValue, Object newValue) {
       if (isReading)
       {
          // do nothing
@@ -361,6 +359,4 @@ public class FlipBook implements UpdateListenerSend,  PropertyChangeInterface
    {
       return listeners;
    }
-
-
 }
