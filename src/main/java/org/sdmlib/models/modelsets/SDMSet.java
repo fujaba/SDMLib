@@ -178,17 +178,19 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
 		}
 		return super.add(newValue);
 	}
-	
-	private  Iterator<T> iterator;
-	
-	@Override
-	public Iterator<T> iterator() {
-		if(isReadOnly()) {
-			if(iterator==null) {
-				iterator = super.iterator();
-			}
-			return iterator;
-		}
-		return super.iterator();
-	}
+
+	// Inefficient: the iterator attribute per set instance costs to much memory. 
+	// use a static attribute in model set class instead.
+	//	private  Iterator<T> iterator;
+	//	
+	//	@Override
+	//	public Iterator<T> iterator() {
+	//		if(isReadOnly()) {
+	//			if(iterator==null) {
+	//				iterator = super.iterator();
+	//			}
+	//			return iterator;
+	//		}
+	//		return super.iterator();
+	//	}
 }
