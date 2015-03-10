@@ -251,11 +251,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       
       return this;
    }
-   @Override
-   public MethodSet getNewInstance()
-   {
-      return new MethodSet();
-   }
+
    public EnumerationSet getEnumeration()
    {
       EnumerationSet result = new EnumerationSet();

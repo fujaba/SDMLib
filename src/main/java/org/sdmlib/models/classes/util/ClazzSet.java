@@ -695,12 +695,6 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
-   @Override
-   public ClazzSet getNewInstance()
-   {
-      return new ClazzSet();
-   }
-
    public static final ClazzSet EMPTY_SET = new ClazzSet().withReadOnly(true);
 }
 

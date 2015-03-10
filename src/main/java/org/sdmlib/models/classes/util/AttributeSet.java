@@ -180,12 +180,6 @@ public class AttributeSet extends SDMSet<Attribute>
       return new AttributePO(this.toArray(new Attribute[this.size()]));
    }
    
-   @Override
-   public AttributeSet getNewInstance()
-   {
-      return new AttributeSet();
-   }
-
    public static final AttributeSet EMPTY_SET = new AttributeSet().withReadOnly(true);
 }
 
