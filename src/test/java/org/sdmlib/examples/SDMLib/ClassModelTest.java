@@ -127,6 +127,7 @@ public class ClassModelTest
       .withAttribute("startPos", DataType.INT)
       .withAttribute("bodyStartPos", DataType.INT)
       .withAttribute("endPos", DataType.INT)
+      .withAttribute("annotations", DataType.STRING)
       .withAttribute("modifiers", DataType.STRING);
       
       model.createClazz("org.sdmlib.codegen.LocalVarTableEntry")

@@ -383,8 +383,12 @@ public class GenClass extends Generator<Clazz>
 
    private void insertRemoveYouMethod(String rootDir)
    {
+	   // TODO : alternative removeYou() 
+	  String propChSupport = "getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);";
+	  
       if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
-         return;
+//         return;
+    	  propChSupport = "";
       }
       String searchString = Parser.METHOD + ":removeYou()";
       if (parser.indexOf(searchString) < 0)
@@ -408,13 +412,13 @@ public class GenClass extends Generator<Clazz>
          if (model.getSuperClass() != null && !model.getSuperClass().isExternal()) {
             superReplacement = "\n      super.removeYou();\n";
          }
-         parser.replaceAll("\n   " +
+		parser.replaceAll("\n   " +
                "\n   //==========================================================================" +
                "\n   " +
                "\n   OVERRIDE" +
                "\n   public void removeYou()" +
                "\n   {SUPER" +
-               "\n      getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);" +              
+               "\n      " + propChSupport +              
                "\n   }" +
                "\n", 
                "OVERRIDE",  overrideText,
