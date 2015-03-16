@@ -7,6 +7,10 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.AnnotationPO;
+import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.classes.util.MethodPO;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class MethodPO extends PatternObject<MethodPO, Method>
 {
@@ -359,6 +363,40 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       if (this.getPattern().getHasMatch())
       {
          return ((Method) this.getCurrentMatch()).getEnumeration();
+      }
+      return null;
+   }
+
+   public AnnotationPO hasAnnotations()
+   {
+      AnnotationPO result = new AnnotationPO(new Annotation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Method.PROPERTY_ANNOTATIONS, result);
+      
+      return result;
+   }
+
+   public AnnotationPO createAnnotations()
+   {
+      return this.startCreate().hasAnnotations().endCreate();
+   }
+
+   public MethodPO hasAnnotations(AnnotationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Method.PROPERTY_ANNOTATIONS);
+   }
+
+   public MethodPO createAnnotations(AnnotationPO tgt)
+   {
+      return this.startCreate().hasAnnotations(tgt).endCreate();
+   }
+
+   public AnnotationSet getAnnotations()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Method) this.getCurrentMatch()).getAnnotations();
       }
       return null;
    }

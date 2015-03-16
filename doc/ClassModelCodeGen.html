@@ -57,6 +57,13 @@
       },
       {
          "typ":"node",
+         "id":"Annotation",
+         "attributes":[
+         "values : ArrayListSet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"Enumeration",
          "attributes":[
          "valueNames : ArrayListSet"
@@ -174,6 +181,19 @@
             "id":"Clazz"
          },
          "target":{
+            "id":"Annotation",
+            "cardinality":"many",
+            "property":"annotations"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"Clazz"
+         },
+         "target":{
             "id":"Method",
             "cardinality":"many",
             "property":"methods"
@@ -190,6 +210,19 @@
             "id":"Role",
             "cardinality":"many",
             "property":"roles"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"method",
+            "id":"Method"
+         },
+         "target":{
+            "id":"Annotation",
+            "cardinality":"many",
+            "property":"annotations"
          }
       },
       {
@@ -280,6 +313,11 @@
       {
          "typ":"generalisation",
          "source":{"id":"Method"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Annotation"},
          "target":{"id":"SDMLibClass"}
       },
       {

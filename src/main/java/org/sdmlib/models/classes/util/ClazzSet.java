@@ -34,6 +34,12 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
+import org.sdmlib.models.classes.util.ClassModelSet;
+import org.sdmlib.models.classes.util.AttributeSet;
+import org.sdmlib.models.classes.util.AnnotationSet;
+import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.util.RoleSet;
 
 public class ClazzSet extends SDMSet<Clazz> 
 {
@@ -696,6 +702,64 @@ public class ClazzSet extends SDMSet<Clazz>
    }
 
    public static final ClazzSet EMPTY_SET = new ClazzSet().withReadOnly(true);
+   public AnnotationSet getAnnotations()
+   {
+      AnnotationSet result = new AnnotationSet();
+      
+      for (Clazz obj : this)
+      {
+         result.addAll(obj.getAnnotations());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet hasAnnotations(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ClazzSet answer = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAnnotations()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ClazzSet withAnnotations(Annotation value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withAnnotations(value);
+      }
+      
+      return this;
+   }
+
+   public ClazzSet withoutAnnotations(Annotation value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.withoutAnnotations(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

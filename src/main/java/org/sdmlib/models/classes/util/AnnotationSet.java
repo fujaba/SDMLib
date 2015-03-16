@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 NeTH 
+   Copyright (c) 2015 christian 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,75 +21,75 @@
    
 package org.sdmlib.models.classes.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.classes.Annotation;
+import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClassModelSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.Method;
 
-public class EnumerationSet extends SDMSet<Enumeration>
+public class AnnotationSet extends SDMSet<Annotation>
 {
 
+   public static final AnnotationSet EMPTY_SET = new AnnotationSet().withReadOnly(true);
 
-   public EnumerationPO hasEnumerationPO()
+
+   public AnnotationPO hasAnnotationPO()
    {
-      return new EnumerationPO(this.toArray(new Enumeration[this.size()]));
+      return new AnnotationPO(this.toArray(new Annotation[this.size()]));
    }
 
 
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.models.classes.Enumeration";
+      return "org.sdmlib.models.classes.Annotation";
    }
 
 
    @SuppressWarnings("unchecked")
-   public EnumerationSet with(Object value)
+   public AnnotationSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Enumeration>)value);
+         this.addAll((Collection<Annotation>)value);
       }
       else if (value != null)
       {
-         this.add((Enumeration) value);
+         this.add((Annotation) value);
       }
       
       return this;
    }
    
-   public EnumerationSet without(Enumeration value)
+   public AnnotationSet without(Annotation value)
    {
       this.remove(value);
       return this;
    }
 
-   public ArrayListSet getValueNames()
+   public ArrayListSet getValues()
    {
       ArrayListSet result = new ArrayListSet();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         result.addAll(obj.getValueNames());
+         result.addAll(obj.getValues());
       }
       
       return result;
    }
 
-   public EnumerationSet hasValueNames(ArrayListSet value)
+   public AnnotationSet hasValues(ArrayListSet value)
    {
-      EnumerationSet result = new EnumerationSet();
+      AnnotationSet result = new AnnotationSet();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         if (value == obj.getValueNames())
+         if (value == obj.getValues())
          {
             result.add(obj);
          }
@@ -98,11 +98,11 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return result;
    }
 
-   public EnumerationSet withValueNames(ArrayListSet value)
+   public AnnotationSet withValues(ArrayListSet value)
    {
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         obj.setValueNames(value);
+         obj.setValues(value);
       }
       
       return this;
@@ -112,7 +112,7 @@ public class EnumerationSet extends SDMSet<Enumeration>
    {
       StringList result = new StringList();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
          result.add(obj.getName());
       }
@@ -120,11 +120,11 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return result;
    }
 
-   public EnumerationSet hasName(String value)
+   public AnnotationSet hasName(String value)
    {
-      EnumerationSet result = new EnumerationSet();
+      AnnotationSet result = new AnnotationSet();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
          if (value.equals(obj.getName()))
          {
@@ -135,11 +135,11 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return result;
    }
 
-   public EnumerationSet hasName(String lower, String upper)
+   public AnnotationSet hasName(String lower, String upper)
    {
-      EnumerationSet result = new EnumerationSet();
+      AnnotationSet result = new AnnotationSet();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
          if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
          {
@@ -150,9 +150,9 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return result;
    }
 
-   public EnumerationSet withName(String value)
+   public AnnotationSet withName(String value)
    {
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
          obj.withName(value);
       }
@@ -160,19 +160,19 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return this;
    }
 
-   public ClassModelSet getClassModel()
+   public ClazzSet getClazz()
    {
-      ClassModelSet result = new ClassModelSet();
+      ClazzSet result = new ClazzSet();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         result.add(obj.getClassModel());
+         result.add(obj.getClazz());
       }
       
       return result;
    }
 
-   public EnumerationSet hasClassModel(Object value)
+   public AnnotationSet hasClazz(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -185,11 +185,11 @@ public class EnumerationSet extends SDMSet<Enumeration>
          neighbors.add(value);
       }
       
-      EnumerationSet answer = new EnumerationSet();
+      AnnotationSet answer = new AnnotationSet();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         if (neighbors.contains(obj.getClassModel()))
+         if (neighbors.contains(obj.getClazz()))
          {
             answer.add(obj);
          }
@@ -198,29 +198,29 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return answer;
    }
 
-   public EnumerationSet withClassModel(ClassModel value)
+   public AnnotationSet withClazz(Clazz value)
    {
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         obj.withClassModel(value);
+         obj.withClazz(value);
       }
       
       return this;
    }
 
-   public MethodSet getMethods()
+   public MethodSet getMethod()
    {
       MethodSet result = new MethodSet();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         result.addAll(obj.getMethods());
+         result.add(obj.getMethod());
       }
       
       return result;
    }
 
-   public EnumerationSet hasMethods(Object value)
+   public AnnotationSet hasMethod(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -233,11 +233,11 @@ public class EnumerationSet extends SDMSet<Enumeration>
          neighbors.add(value);
       }
       
-      EnumerationSet answer = new EnumerationSet();
+      AnnotationSet answer = new AnnotationSet();
       
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getMethods()))
+         if (neighbors.contains(obj.getMethod()))
          {
             answer.add(obj);
          }
@@ -246,26 +246,14 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return answer;
    }
 
-   public EnumerationSet withMethods(Method value)
+   public AnnotationSet withMethod(Method value)
    {
-      for (Enumeration obj : this)
+      for (Annotation obj : this)
       {
-         obj.withMethods(value);
+         obj.withMethod(value);
       }
       
       return this;
    }
 
-   public EnumerationSet withoutMethods(Method value)
-   {
-      for (Enumeration obj : this)
-      {
-         obj.withoutMethods(value);
-      }
-      
-      return this;
-   }
-
-
-   public static final EnumerationSet EMPTY_SET = new EnumerationSet().withReadOnly(true);
 }
