@@ -1170,6 +1170,11 @@ public class GenClass extends Generator<Clazz>
 
    public Parser getOrCreateParserForPatternObjectFile(String rootDir)
    {
+      if (!getRepairClassModel().hasFeature(Feature.ALBERTsSets))
+      {
+         return null;
+      }
+      
       if (patternObjectParser == null)
       {
          // try to find existing file

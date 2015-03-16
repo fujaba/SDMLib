@@ -347,6 +347,9 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodInPatternObject(Clazz clazz2, Parser parser)
    {
+      if(parser == null) {
+        return; 
+      }
       String signature = model.getSignature(false);
 
       String key = Parser.METHOD + ":" + signature;
