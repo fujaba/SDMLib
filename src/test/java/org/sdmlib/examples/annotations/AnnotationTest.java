@@ -39,6 +39,10 @@ public class AnnotationTest {
 		model.getGenerator().updateFromCode("src/test/java", packageName);
 		
 		Clazz clazz = model.getClazz("House");
+		
+		if (clazz == null)
+			return;
+		
 		MethodSet methods = clazz.getMethods();
 		
 		for (Method method : methods) {
