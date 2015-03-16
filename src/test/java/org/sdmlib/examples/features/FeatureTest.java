@@ -9,20 +9,20 @@ import org.sdmlib.models.classes.Feature;
 
 public class FeatureTest {
 	
-	@Test
-	public void testFeaturesNone() {
-		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.simple")
-								.withFeatures(null);
-		
-		Clazz house = model.createClazz("House");
-		Clazz door = model.createClazz("Door");
-		Clazz window = model.createClazz("Window");
-		
-		house.withAssoc(door, "doors", Card.MANY, "house", Card.ONE);
-		house.withAssoc(window, "windows", Card.MANY, "house", Card.ONE);
-		
-		model.generate("src/test/java");
-	}
+//	@Test
+//	public void testFeaturesNone() {
+//		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.simple")
+//								.withFeatures(null);
+//		
+//		Clazz house = model.createClazz("House");
+//		Clazz door = model.createClazz("Door");
+//		Clazz window = model.createClazz("Window");
+//		
+//		house.withAssoc(door, "doors", Card.MANY, "house", Card.ONE);
+//		house.withAssoc(window, "windows", Card.MANY, "house", Card.ONE);
+//		
+//		model.generate("src/test/java");
+//	}
 	
 	@Test
 	public void testFeaturesAlbertSets() {
@@ -54,19 +54,19 @@ public class FeatureTest {
 		model.generate("src/test/java");
 	}
 	
-	@Test
-	public void testFeaturesSerialization() {
-		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.serialization")
-							.withFeatures(null).withFeature(Feature.Serialization);
-		
-		Clazz house = model.createClazz("House");
-		Clazz door = model.createClazz("Door");
-		Clazz window = model.createClazz("Window");
-		
-		house.withAssoc(door, "doors", Card.MANY, "house", Card.ONE);
-		house.withAssoc(window, "windows", Card.MANY, "house", Card.ONE);
-		
-		model.generate("src/test/java");
-	}
+//	@Test
+//	public void testFeaturesSerialization() {
+//		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.serialization")
+//							.withFeatures(null).withFeature(Feature.Serialization);
+//		
+//		Clazz house = model.createClazz("House");
+//		Clazz door = model.createClazz("Door");
+//		Clazz window = model.createClazz("Window");
+//		
+//		house.withAssoc(door, "doors", Card.MANY, "house", Card.ONE);
+//		house.withAssoc(window, "windows", Card.MANY, "house", Card.ONE);
+//		
+//		model.generate("src/test/java");
+//	}
 	
 }

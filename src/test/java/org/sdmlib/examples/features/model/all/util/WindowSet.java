@@ -31,6 +31,8 @@ import org.sdmlib.examples.features.model.all.House;
 public class WindowSet extends SDMSet<Window>
 {
 
+   public static final WindowSet EMPTY_SET = new WindowSet().withReadOnly(true);
+
 
    public WindowPO hasWindowPO()
    {

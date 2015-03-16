@@ -74,7 +74,7 @@ public class House implements PropertyChangeInterface
    {
       if (this.doors == null)
       {
-         return Door.EMPTY_SET;
+         return DoorSet.EMPTY_SET;
       }
    
       return this.doors;
@@ -146,7 +146,7 @@ public class House implements PropertyChangeInterface
    {
       if (this.windows == null)
       {
-         return Window.EMPTY_SET;
+         return WindowSet.EMPTY_SET;
       }
    
       return this.windows;

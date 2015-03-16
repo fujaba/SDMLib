@@ -24,7 +24,6 @@ package org.sdmlib.examples.features.model.albertsets;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.examples.features.model.albertsets.util.DoorSet;
 
 public class Door implements PropertyChangeInterface
 {
@@ -54,9 +53,6 @@ public class Door implements PropertyChangeInterface
       setHouse(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-   
-   public static final DoorSet EMPTY_SET = new DoorSet().withReadonly(true);
 
    
    /********************************************************************

@@ -31,6 +31,8 @@ import org.sdmlib.examples.features.model.all.House;
 public class DoorSet extends SDMSet<Door>
 {
 
+   public static final DoorSet EMPTY_SET = new DoorSet().withReadOnly(true);
+
 
    public DoorPO hasDoorPO()
    {

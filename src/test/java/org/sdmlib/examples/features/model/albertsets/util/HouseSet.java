@@ -34,6 +34,8 @@ import org.sdmlib.examples.features.model.albertsets.Window;
 public class HouseSet extends SDMSet<House>
 {
 
+   public static final HouseSet EMPTY_SET = new HouseSet().withReadOnly(true);
+
 
    public HousePO hasHousePO()
    {
