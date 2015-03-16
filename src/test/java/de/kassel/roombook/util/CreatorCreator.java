@@ -1,7 +1,8 @@
 package de.kassel.roombook.util;
 
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 class CreatorCreator{
 

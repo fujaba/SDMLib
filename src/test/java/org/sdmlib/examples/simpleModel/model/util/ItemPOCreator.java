@@ -1,8 +1,9 @@
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.simpleModel.model.Item;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ItemPOCreator extends PatternObjectCreator
 {
@@ -17,6 +18,6 @@ public class ItemPOCreator extends PatternObjectCreator
    }
    
    public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap(sessionID);
    }
 }

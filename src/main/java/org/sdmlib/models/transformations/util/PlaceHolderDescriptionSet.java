@@ -21,17 +21,16 @@
    
 package org.sdmlib.models.transformations.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.models.transformations.Template;
 import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.util.TemplateSet;
-import org.sdmlib.models.transformations.util.MatchSet;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.Template;
 
 public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
 {
@@ -472,6 +471,8 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       return this;
    }
 
+
+   public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet().withReadOnly(true);
 }
 
 

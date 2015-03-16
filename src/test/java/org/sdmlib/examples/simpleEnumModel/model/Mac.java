@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.simpleEnumModel.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Mac implements PropertyChangeInterface
 {

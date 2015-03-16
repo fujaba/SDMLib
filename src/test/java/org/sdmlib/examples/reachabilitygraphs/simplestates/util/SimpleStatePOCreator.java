@@ -1,8 +1,9 @@
 package org.sdmlib.examples.reachabilitygraphs.simplestates.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.reachabilitygraphs.simplestates.SimpleState;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class SimpleStatePOCreator extends PatternObjectCreator
 {

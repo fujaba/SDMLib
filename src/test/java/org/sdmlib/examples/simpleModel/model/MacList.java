@@ -21,11 +21,12 @@
    
 package org.sdmlib.examples.simpleModel.model;
 
-import java.util.ArrayList;
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+
 import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class MacList extends ArrayList implements PropertyChangeInterface
 {

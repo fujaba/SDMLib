@@ -1,21 +1,12 @@
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversityPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentPO;
 import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantPO;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class RoomPO extends PatternObject<RoomPO, Room>
 {
@@ -38,14 +29,14 @@ public class RoomPO extends PatternObject<RoomPO, Room>
 
 
    public RoomPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public RoomPO(Room... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    
    //==========================================================================
@@ -67,7 +58,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -82,7 +73,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -120,7 +111,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -135,7 +126,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -173,7 +164,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -188,7 +179,7 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }

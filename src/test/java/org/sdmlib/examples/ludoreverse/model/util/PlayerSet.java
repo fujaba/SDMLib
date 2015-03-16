@@ -21,14 +21,14 @@
    
 package org.sdmlib.examples.ludoreverse.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.ludoreverse.model.Player;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
+
 import org.sdmlib.examples.ludoreverse.model.Ludo;
-import org.sdmlib.examples.ludoreverse.model.util.LudoSet;
+import org.sdmlib.examples.ludoreverse.model.Player;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class PlayerSet extends SDMSet<Player>
 {
@@ -200,4 +200,6 @@ public class PlayerSet extends SDMSet<Player>
       return this;
    }
 
+
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
 }

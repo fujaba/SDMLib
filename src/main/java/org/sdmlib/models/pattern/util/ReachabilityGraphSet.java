@@ -22,16 +22,14 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.models.pattern.util.ReachableStateSet;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> implements org.sdmlib.models.modelsets.ModelSet
+public class ReachabilityGraphSet extends SDMSet<ReachabilityGraph> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -187,4 +185,6 @@ public class ReachabilityGraphSet extends LinkedHashSet<ReachabilityGraph> imple
    {
       return new ReachabilityGraphPO(this.toArray(new ReachabilityGraph[this.size()]));
    }
+
+   public static final ReachabilityGraphSet EMPTY_SET = new ReachabilityGraphSet().withReadOnly(true);
 }

@@ -1,7 +1,7 @@
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.simpleModel.model.Item;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ItemPO extends PatternObject<ItemPO, Item>
 {
@@ -24,13 +24,13 @@ public class ItemPO extends PatternObject<ItemPO, Item>
 
 
    public ItemPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public ItemPO(Item... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
 }

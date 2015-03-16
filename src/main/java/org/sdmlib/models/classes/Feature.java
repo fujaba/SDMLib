@@ -20,7 +20,7 @@ public enum Feature
       return new HashSet<Feature>();
    }
    
-   public static final HashSet<Feature> getAll(){
+   public static HashSet<Feature> getAll(){
       HashSet<Feature> result = new HashSet<Feature>();
       result.add(PropertyChangeSupport);
       result.add(PatternObject);
@@ -60,6 +60,14 @@ public enum Feature
 
 	public HashSet<String> getPath() {
 		return getFeature().getPath();
+	}
+	
+	public static void reset()
+	{
+	   for (Feature f : Feature.values())
+      {
+         f.feature = new FeatureProperty();
+      }
 	}
 }
 

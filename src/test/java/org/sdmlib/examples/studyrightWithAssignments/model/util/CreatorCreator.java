@@ -1,9 +1,10 @@
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-class CreatorCreator{
+import de.uniks.networkparser.json.JsonIdMap;
+
+public class CreatorCreator{
 
    public static JsonIdMap createIdMap(String sessionID)
    {

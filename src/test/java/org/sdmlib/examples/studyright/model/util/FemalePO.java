@@ -1,8 +1,8 @@
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyright.model.Female;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class FemalePO extends PatternObject<FemalePO, Female>
 {

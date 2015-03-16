@@ -6,10 +6,6 @@ import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.objects.util.GenericLinkSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.objects.util.GenericObjectPO;
-import org.sdmlib.models.objects.util.GenericGraphPO;
 
 public class GenericLinkPO extends PatternObject<GenericLinkPO, GenericLink>
 {

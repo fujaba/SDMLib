@@ -1,12 +1,9 @@
 package de.kassel.roombook.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import de.kassel.roombook.Building;
-import de.kassel.roombook.util.BuildingSet;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import de.kassel.roombook.util.FloorPO;
-import de.kassel.roombook.util.BuildingPO;
-import de.kassel.roombook.util.FloorSet;
+import org.sdmlib.models.pattern.PatternObject;
+
+import de.kassel.roombook.Building;
 
 public class BuildingPO extends PatternObject<BuildingPO, Building>
 {

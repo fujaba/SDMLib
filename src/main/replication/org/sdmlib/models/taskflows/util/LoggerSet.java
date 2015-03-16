@@ -31,7 +31,6 @@ import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
-import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class LoggerSet extends SDMSet<Logger>
@@ -406,4 +405,6 @@ public class LoggerSet extends SDMSet<Logger>
       return this;
    }
 
+
+   public static final LoggerSet EMPTY_SET = new LoggerSet().withReadOnly(true);
 }

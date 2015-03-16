@@ -4,97 +4,84 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>StudyRightObjectStoryboards</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>StudyRightObjectStoryboards</a></p>
 <p>StudyRightObjectStoryboards</p>
 <p>Start situation: use University class to build object structure</p>
 <p>step 1: dump object diagram</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.U1 : University",
+         "id":"U1 : University",
          "attributes":[
          "name=StudyRight"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R2 : Room",
-         "attributes":[
-         "roomNo=math",
-            "credits=42",
-            "lecture=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R3 : Room",
-         "attributes":[
-         "roomNo=arts",
-            "credits=23",
-            "lecture=null",
-            "students=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R4 : Room",
-         "attributes":[
-         "roomNo=sports",
-            "credits=23",
-            "lecture=null",
-            "students=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R5 : Room",
-         "attributes":[
-         "roomNo=exam",
-            "credits=0",
-            "lecture=null",
-            "students=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R6 : Room",
-         "attributes":[
-         "roomNo=ProgMeth",
-            "credits=42",
-            "lecture=null",
-            "students=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.S7 : Student",
+         "id":"S2 : Student",
          "attributes":[
          "name=Albert",
             "matrNo=4242",
-            "lecture=null",
             "credits=0",
-            "motivation=0",
-            "done=null"
+            "motivation=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.S8 : Student",
+         "id":"S8 : Student",
          "attributes":[
          "name=Nina",
             "matrNo=2323",
-            "lecture=null",
             "credits=0",
-            "motivation=0",
-            "in=null",
-            "done=null"
+            "motivation=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R3 : Room",
+         "attributes":[
+         "roomNo=math",
+            "credits=42"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R4 : Room",
+         "attributes":[
+         "roomNo=arts",
+            "credits=23"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R5 : Room",
+         "attributes":[
+         "roomNo=sports",
+            "credits=23"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R6 : Room",
+         "attributes":[
+         "roomNo=exam",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R7 : Room",
+         "attributes":[
+         "roomNo=ProgMeth",
+            "credits=42"
          ]
       }
    ],
@@ -104,77 +91,12 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U1 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R2 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U1 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R3 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U1 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R4 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U1 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R5 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U1 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"d.R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"d.U1 : University"
+            "id":"U1 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"d.S7 : Student"
+            "id":"S2 : Student"
          }
       },
       {
@@ -182,272 +104,77 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U1 : University"
+            "id":"U1 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"d.S8 : Student"
+            "id":"S8 : Student"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"d.R2 : Room"
+            "property":"university",
+            "id":"U1 : University"
          },
          "target":{
             "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R3 : Room"
+            "property":"rooms",
+            "id":"R3 : Room"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"d.R2 : Room"
+            "property":"university",
+            "id":"U1 : University"
          },
          "target":{
             "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R4 : Room"
+            "property":"rooms",
+            "id":"R4 : Room"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"d.R2 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"d.U1 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R2 : Room"
+            "property":"university",
+            "id":"U1 : University"
          },
          "target":{
             "cardinality":"many",
-            "property":"students",
-            "id":"d.S7 : Student"
+            "property":"rooms",
+            "id":"R5 : Room"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"d.R3 : Room"
+            "property":"university",
+            "id":"U1 : University"
          },
          "target":{
             "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R2 : Room"
+            "property":"rooms",
+            "id":"R6 : Room"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"room",
-            "id":"d.R3 : Room"
+            "property":"university",
+            "id":"U1 : University"
          },
          "target":{
             "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R4 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R3 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R5 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R3 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R3 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"d.U1 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R2 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R3 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R4 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R5 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R4 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"d.U1 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R4 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R3 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R5 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R5 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"d.U1 : University"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R3 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"d.R5 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"d.R6 : Room"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"d.U1 : University"
+            "property":"rooms",
+            "id":"R7 : Room"
          }
       },
       {
@@ -455,12 +182,12 @@
          "source":{
             "cardinality":"one",
             "property":"student",
-            "id":"d.S7 : Student"
+            "id":"S2 : Student"
          },
          "target":{
             "cardinality":"one",
             "property":"uni",
-            "id":"d.U1 : University"
+            "id":"U1 : University"
          }
       },
       {
@@ -468,12 +195,272 @@
          "source":{
             "cardinality":"one",
             "property":"student",
-            "id":"d.S7 : Student"
+            "id":"S2 : Student"
          },
          "target":{
             "cardinality":"one",
             "property":"in",
-            "id":"d.R2 : Room"
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R3 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"S2 : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R4 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R3 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R5 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R5 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R4 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"neighbors",
+            "id":"R6 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"R7 : Room"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uni",
+            "id":"U1 : University"
          }
       },
       {
@@ -481,12 +468,12 @@
          "source":{
             "cardinality":"one",
             "property":"student",
-            "id":"d.S8 : Student"
+            "id":"S8 : Student"
          },
          "target":{
             "cardinality":"one",
             "property":"uni",
-            "id":"d.U1 : University"
+            "id":"U1 : University"
          }
       }
    ]
@@ -494,7 +481,7 @@
    json["options"]={"canvasid":"canvasStudyRightObjectStoryboards4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Number of students: 2</p>
+<p>Check: Number of students:  2 actual 2</p>
 <p>step 2: add support for path navigation
       call </p>
 <p>shall compute to 88.</p>

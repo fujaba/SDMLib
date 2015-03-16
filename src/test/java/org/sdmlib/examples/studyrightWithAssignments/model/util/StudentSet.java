@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,22 +21,22 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import java.util.Collections;
-import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversitySet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
 
 public class StudentSet extends SDMSet<Student>
 {
+
+   public static final StudentSet EMPTY_SET = new StudentSet().withReadOnly(true);
 
 
    public StudentPO hasStudentPO()

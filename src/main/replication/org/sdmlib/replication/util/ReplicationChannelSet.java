@@ -29,10 +29,11 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.SharedSpaceSet;
 
 public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
 {
+
+   public static final ReplicationChannelSet EMPTY_SET = new ReplicationChannelSet().withReadOnly(true);
 
 
    public ReplicationChannelPO hasReplicationChannelPO()
@@ -69,54 +70,6 @@ public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
       return this;
    }
 
-   public SharedSpaceSet getSharedSpace()
-   {
-      SharedSpaceSet result = new SharedSpaceSet();
-      
-      for (ReplicationChannel obj : this)
-      {
-         result.add(obj.getSharedSpace());
-      }
-      
-      return result;
-   }
-
-   public ReplicationChannelSet hasSharedSpace(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ReplicationChannelSet answer = new ReplicationChannelSet();
-      
-      for (ReplicationChannel obj : this)
-      {
-         if (neighbors.contains(obj.getSharedSpace()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public ReplicationChannelSet withSharedSpace(SharedSpace value)
-   {
-      for (ReplicationChannel obj : this)
-      {
-         obj.withSharedSpace(value);
-      }
-      
-      return this;
-   }
-
    public SocketSet getSocket()
    {
       SocketSet result = new SocketSet();
@@ -129,7 +82,7 @@ public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
       return result;
    }
 
-   public ReplicationChannelSet hasSocket(java.net.Socket value)
+   public ReplicationChannelSet hasSocket(Socket value)
    {
       ReplicationChannelSet result = new ReplicationChannelSet();
       
@@ -201,6 +154,54 @@ public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
       for (ReplicationChannel obj : this)
       {
          obj.setTargetNodeId(value);
+      }
+      
+      return this;
+   }
+
+   public SharedSpaceSet getSharedSpace()
+   {
+      SharedSpaceSet result = new SharedSpaceSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         result.add(obj.getSharedSpace());
+      }
+      
+      return result;
+   }
+
+   public ReplicationChannelSet hasSharedSpace(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ReplicationChannelSet answer = new ReplicationChannelSet();
+      
+      for (ReplicationChannel obj : this)
+      {
+         if (neighbors.contains(obj.getSharedSpace()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ReplicationChannelSet withSharedSpace(SharedSpace value)
+   {
+      for (ReplicationChannel obj : this)
+      {
+         obj.withSharedSpace(value);
       }
       
       return this;

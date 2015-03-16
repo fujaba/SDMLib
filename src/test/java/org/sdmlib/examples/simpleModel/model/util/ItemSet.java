@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,15 @@
    
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleModel.model.Item;
 import java.util.Collection;
+
+import org.sdmlib.examples.simpleModel.model.Item;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class ItemSet extends SDMSet<Item>
 {
+
+   public static final ItemSet EMPTY_SET = new ItemSet().withReadOnly(true);
 
 
    public ItemPO hasItemPO()

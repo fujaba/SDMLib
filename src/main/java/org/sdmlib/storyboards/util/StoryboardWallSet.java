@@ -27,7 +27,6 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardWall;
-import org.sdmlib.storyboards.util.StoryboardSet;
 
 public class StoryboardWallSet extends SDMSet<StoryboardWall>
 {
@@ -115,6 +114,8 @@ public class StoryboardWallSet extends SDMSet<StoryboardWall>
       return this;
    }
 
+
+   public static final StoryboardWallSet EMPTY_SET = new StoryboardWallSet().withReadOnly(true);
 }
 
 

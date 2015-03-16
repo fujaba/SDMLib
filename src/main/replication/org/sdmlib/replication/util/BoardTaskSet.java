@@ -30,8 +30,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.util.LogEntrySet;
-import org.sdmlib.replication.util.LaneSet;
 
 public class BoardTaskSet extends SDMSet<BoardTask>
 {
@@ -445,4 +443,6 @@ public class BoardTaskSet extends SDMSet<BoardTask>
       return this;
    }
 
+
+   public static final BoardTaskSet EMPTY_SET = new BoardTaskSet().withReadOnly(true);
 }

@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Person;
 import java.util.Collection;
+
+import org.sdmlib.examples.studyright.model.Person;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class PersonSet extends SDMSet<Person>
 {
@@ -99,4 +100,6 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
+
+   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
 }

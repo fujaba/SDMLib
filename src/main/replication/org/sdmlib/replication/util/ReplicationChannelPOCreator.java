@@ -18,6 +18,6 @@ public class ReplicationChannelPOCreator extends PatternObjectCreator
    }
    
    public static JsonIdMap createIdMap(String sessionID) {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.replication.util.CreatorCreator.createIdMap(sessionID);
    }
 }

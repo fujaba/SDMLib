@@ -22,8 +22,8 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
@@ -32,10 +32,8 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
-public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeApplicationCondition>
+public class NegativeApplicationConditionSet extends SDMSet<NegativeApplicationCondition>
 {
    public booleanSet getHasMatch()
    {
@@ -354,4 +352,6 @@ public class NegativeApplicationConditionSet extends LinkedHashSet<NegativeAppli
    {
       return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
    }
+
+   public static final NegativeApplicationConditionSet EMPTY_SET = new NegativeApplicationConditionSet().withReadOnly(true);
 }

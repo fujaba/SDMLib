@@ -38,7 +38,7 @@ public class GroupAccountTests implements PropertyChangeInterface
    @Test
    public void testGroupAccountStoryboard1()
    {
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
       
       GroupAccount g1 = new GroupAccount();
       

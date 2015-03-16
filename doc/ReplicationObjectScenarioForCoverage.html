@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -14,129 +14,129 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.R1 : ReplicationNode",
+         "id":"R1 : ReplicationNode",
          "attributes":[
-         "spaceId=coverage",
-            "history=null",
-            "lastChangeId=0",
-            "nodeId=null",
+         "lastChangeId=0",
+            "spaceId=coverage",
+            "name=Thread-2",
+            "threadGroup=java.lang.ThreadGroup[name=main,maxpri=10]",
+            "id=13",
+            "priority=5",
+            "state=NEW",
+            "uncaughtExceptionHandler=java.lang.ThreadGroup[name=main,maxpri=10]"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"S7 : SharedSpace",
+         "attributes":[
+         "lastChangeId=0",
             "javaFXApplication=false"
          ]
       },
       {
          "typ":"node",
-         "id":"d.S7 : SharedSpace",
+         "id":"S10 : StackTraceElement;"
+      },
+      {
+         "typ":"node",
+         "id":"H11 : HashMap"
+      },
+      {
+         "typ":"node",
+         "id":"L12 : Launcher$AppClassLoader"
+      },
+      {
+         "typ":"node",
+         "id":"R8 : ReplicationChannel"
+      },
+      {
+         "typ":"node",
+         "id":"C9 : ChangeHistory"
+      },
+      {
+         "typ":"node",
+         "id":"U13 : URL;"
+      },
+      {
+         "typ":"node",
+         "id":"L14 : Launcher$ExtClassLoader"
+      },
+      {
+         "typ":"node",
+         "id":"U15 : URL;"
+      },
+      {
+         "typ":"node",
+         "id":"R2 : ReplicationServer",
          "attributes":[
-         "socket=null",
-            "targetNodeId=null",
-            "spaceId=null",
-            "lastChangeId=0",
-            "nodeId=null",
+         "lastChangeId=0",
             "javaFXApplication=false"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R8 : ReplicationChannel",
+         "id":"S3 : ServerSocketAcceptThread",
          "attributes":[
-         "socket=null",
-            "targetNodeId=null"
+         "port=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.C9 : ChangeHistory",
-         "attributes":[
-         "changes=null"
-         ]
+         "id":"R4 : RemoteTaskBoard"
       },
       {
          "typ":"node",
-         "id":"d.R2 : ReplicationServer",
-         "attributes":[
-         "spaceId=null",
-            "history=null",
-            "lastChangeId=0",
-            "nodeId=null",
-            "javaFXApplication=false",
-            "sharedSpaces=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.S3 : ServerSocketAcceptThread",
-         "attributes":[
-         "port=0",
-            "replicationNode=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.R4 : RemoteTaskBoard"
-      },
-      {
-         "typ":"node",
-         "id":"d.L10 : Lane",
+         "id":"L16 : Lane",
          "attributes":[
          "name=todo"
          ]
       },
       {
          "typ":"node",
-         "id":"d.B11 : BoardTask",
+         "id":"B17 : BoardTask",
          "attributes":[
-         "name=firstTask",
-            "status=null",
-            "taskObjects=null"
+         "name=firstTask"
          ]
       },
       {
          "typ":"node",
-         "id":"d.B13 : BoardTask",
+         "id":"B19 : BoardTask",
          "attributes":[
-         "name=secondTask",
-            "status=null",
-            "logEntries=null",
-            "taskObjects=null"
+         "name=secondTask"
          ]
       },
       {
          "typ":"node",
-         "id":"d.L12 : LogEntry",
+         "id":"L18 : LogEntry",
          "attributes":[
-         "stepName=null",
-            "executedBy=null",
-            "timeStamp=0"
+         "timeStamp=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R5 : ReplicationRoot",
-         "attributes":[
-         "name=null",
-            "applicationObject=null",
-            "kids=null",
-            "parent=null"
-         ]
+         "id":"H20 : HashMap"
       },
       {
          "typ":"node",
-         "id":"d.C6 : ChangeHistory"
+         "id":"R5 : ReplicationRoot"
       },
       {
          "typ":"node",
-         "id":"d.R14 : ReplicationChange",
+         "id":"C6 : ChangeHistory"
+      },
+      {
+         "typ":"node",
+         "id":"R21 : ReplicationChange",
          "attributes":[
          "historyIdPrefix=42",
             "historyIdNumber=0",
-            "targetObjectId=null",
-            "targetProperty=null",
             "isToManyProperty=false",
-            "changeMsg={}",
-            "logEntries=null"
+            "changeMsg={}"
          ]
       }
    ],
@@ -146,12 +146,51 @@
          "source":{
             "cardinality":"one",
             "property":"replicationnode",
-            "id":"d.R1 : ReplicationNode"
+            "id":"R1 : ReplicationNode"
          },
          "target":{
             "cardinality":"many",
             "property":"sharedSpaces",
-            "id":"d.S7 : SharedSpace"
+            "id":"S7 : SharedSpace"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"replicationnode",
+            "id":"R1 : ReplicationNode"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"stackTrace",
+            "id":"S10 : StackTraceElement;"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"replicationnode",
+            "id":"R1 : ReplicationNode"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"allStackTraces",
+            "id":"H11 : HashMap"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"replicationnode",
+            "id":"R1 : ReplicationNode"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"contextClassLoader",
+            "id":"L12 : Launcher$AppClassLoader"
          }
       },
       {
@@ -159,12 +198,12 @@
          "source":{
             "cardinality":"one",
             "property":"sharedspace",
-            "id":"d.S7 : SharedSpace"
+            "id":"S7 : SharedSpace"
          },
          "target":{
             "cardinality":"one",
             "property":"node",
-            "id":"d.R1 : ReplicationNode"
+            "id":"R1 : ReplicationNode"
          }
       },
       {
@@ -172,12 +211,12 @@
          "source":{
             "cardinality":"one",
             "property":"sharedspace",
-            "id":"d.S7 : SharedSpace"
+            "id":"S7 : SharedSpace"
          },
          "target":{
             "cardinality":"many",
             "property":"channels",
-            "id":"d.R8 : ReplicationChannel"
+            "id":"R8 : ReplicationChannel"
          }
       },
       {
@@ -185,12 +224,12 @@
          "source":{
             "cardinality":"one",
             "property":"sharedspace",
-            "id":"d.S7 : SharedSpace"
+            "id":"S7 : SharedSpace"
          },
          "target":{
             "cardinality":"one",
             "property":"history",
-            "id":"d.C9 : ChangeHistory"
+            "id":"C9 : ChangeHistory"
          }
       },
       {
@@ -198,12 +237,77 @@
          "source":{
             "cardinality":"one",
             "property":"replicationchannel",
-            "id":"d.R8 : ReplicationChannel"
+            "id":"R8 : ReplicationChannel"
          },
          "target":{
             "cardinality":"one",
             "property":"sharedSpace",
-            "id":"d.S7 : SharedSpace"
+            "id":"S7 : SharedSpace"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"launcher$appclassloader",
+            "id":"L12 : Launcher$AppClassLoader"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uRLs",
+            "id":"U13 : URL;"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"launcher$appclassloader",
+            "id":"L12 : Launcher$AppClassLoader"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"systemClassLoader",
+            "id":"L12 : Launcher$AppClassLoader"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"launcher$appclassloader",
+            "id":"L12 : Launcher$AppClassLoader"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"L14 : Launcher$ExtClassLoader"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"launcher$extclassloader",
+            "id":"L14 : Launcher$ExtClassLoader"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"uRLs",
+            "id":"U15 : URL;"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"launcher$extclassloader",
+            "id":"L14 : Launcher$ExtClassLoader"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"systemClassLoader",
+            "id":"L12 : Launcher$AppClassLoader"
          }
       },
       {
@@ -211,12 +315,12 @@
          "source":{
             "cardinality":"one",
             "property":"remotetaskboard",
-            "id":"d.R4 : RemoteTaskBoard"
+            "id":"R4 : RemoteTaskBoard"
          },
          "target":{
             "cardinality":"many",
             "property":"lanes",
-            "id":"d.L10 : Lane"
+            "id":"L16 : Lane"
          }
       },
       {
@@ -224,12 +328,12 @@
          "source":{
             "cardinality":"one",
             "property":"lane",
-            "id":"d.L10 : Lane"
+            "id":"L16 : Lane"
          },
          "target":{
             "cardinality":"one",
             "property":"board",
-            "id":"d.R4 : RemoteTaskBoard"
+            "id":"R4 : RemoteTaskBoard"
          }
       },
       {
@@ -237,12 +341,12 @@
          "source":{
             "cardinality":"one",
             "property":"lane",
-            "id":"d.L10 : Lane"
+            "id":"L16 : Lane"
          },
          "target":{
             "cardinality":"many",
             "property":"tasks",
-            "id":"d.B11 : BoardTask"
+            "id":"B17 : BoardTask"
          }
       },
       {
@@ -250,12 +354,12 @@
          "source":{
             "cardinality":"one",
             "property":"lane",
-            "id":"d.L10 : Lane"
+            "id":"L16 : Lane"
          },
          "target":{
             "cardinality":"many",
             "property":"tasks",
-            "id":"d.B13 : BoardTask"
+            "id":"B19 : BoardTask"
          }
       },
       {
@@ -263,12 +367,12 @@
          "source":{
             "cardinality":"one",
             "property":"boardtask",
-            "id":"d.B11 : BoardTask"
+            "id":"B17 : BoardTask"
          },
          "target":{
             "cardinality":"many",
             "property":"logEntries",
-            "id":"d.L12 : LogEntry"
+            "id":"L18 : LogEntry"
          }
       },
       {
@@ -276,12 +380,12 @@
          "source":{
             "cardinality":"one",
             "property":"boardtask",
-            "id":"d.B11 : BoardTask"
+            "id":"B17 : BoardTask"
          },
          "target":{
             "cardinality":"many",
             "property":"next",
-            "id":"d.B13 : BoardTask"
+            "id":"B19 : BoardTask"
          }
       },
       {
@@ -289,12 +393,25 @@
          "source":{
             "cardinality":"one",
             "property":"boardtask",
-            "id":"d.B11 : BoardTask"
+            "id":"B17 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"taskObjects",
+            "id":"H20 : HashMap"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boardtask",
+            "id":"B17 : BoardTask"
          },
          "target":{
             "cardinality":"one",
             "property":"lane",
-            "id":"d.L10 : Lane"
+            "id":"L16 : Lane"
          }
       },
       {
@@ -302,12 +419,12 @@
          "source":{
             "cardinality":"one",
             "property":"logentry",
-            "id":"d.L12 : LogEntry"
+            "id":"L18 : LogEntry"
          },
          "target":{
             "cardinality":"one",
             "property":"task",
-            "id":"d.B11 : BoardTask"
+            "id":"B17 : BoardTask"
          }
       },
       {
@@ -315,12 +432,12 @@
          "source":{
             "cardinality":"one",
             "property":"boardtask",
-            "id":"d.B13 : BoardTask"
+            "id":"B19 : BoardTask"
          },
          "target":{
             "cardinality":"many",
             "property":"prev",
-            "id":"d.B11 : BoardTask"
+            "id":"B17 : BoardTask"
          }
       },
       {
@@ -328,12 +445,25 @@
          "source":{
             "cardinality":"one",
             "property":"boardtask",
-            "id":"d.B13 : BoardTask"
+            "id":"B19 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"taskObjects",
+            "id":"H20 : HashMap"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boardtask",
+            "id":"B19 : BoardTask"
          },
          "target":{
             "cardinality":"one",
             "property":"lane",
-            "id":"d.L10 : Lane"
+            "id":"L16 : Lane"
          }
       },
       {
@@ -341,12 +471,12 @@
          "source":{
             "cardinality":"one",
             "property":"changehistory",
-            "id":"d.C6 : ChangeHistory"
+            "id":"C6 : ChangeHistory"
          },
          "target":{
             "cardinality":"many",
             "property":"changes",
-            "id":"d.R14 : ReplicationChange"
+            "id":"R21 : ReplicationChange"
          }
       }
    ]

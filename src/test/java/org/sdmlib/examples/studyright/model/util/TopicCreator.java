@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.studyright.model.Topic;
 import org.sdmlib.examples.studyright.model.Professor;
+import org.sdmlib.examples.studyright.model.Topic;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class TopicCreator extends EntityFactory
 {

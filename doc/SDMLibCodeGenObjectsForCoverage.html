@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -14,19 +14,29 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.C1 : ClassModel",
+         "id":"C1 : ClassModel",
          "attributes":[
-         "classes=null",
-            "name=org.sdmlib",
-            "enumerations=null"
+         "name=org.sdmlib"
          ]
       },
       {
          "typ":"node",
-         "id":"d.S2 : StatementEntry",
+         "id":"G5 : GenClassModel"
+      },
+      {
+         "typ":"node",
+         "id":"G6 : GenClassModel$DIFF",
+         "attributes":[
+         "declaringClass=class org.sdmlib.models.classes.logic.GenClassModel$DIFF"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"S2 : StatementEntry",
          "attributes":[
          "kind=polite",
             "assignTargetVarName=x",
@@ -36,33 +46,40 @@
       },
       {
          "typ":"node",
-         "id":"d.S5 : StatementEntry",
+         "id":"A7 : ArrayList"
+      },
+      {
+         "typ":"node",
+         "id":"S8 : StatementEntry",
          "attributes":[
-         "kind=null",
-            "tokenList=null",
-            "assignTargetVarName=null",
-            "startPos=0",
+         "startPos=0",
             "endPos=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.L3 : LocalVarTableEntry",
+         "id":"A9 : ArrayList"
+      },
+      {
+         "typ":"node",
+         "id":"L3 : LocalVarTableEntry",
          "attributes":[
          "name=me",
             "type=int",
             "startPos=42",
-            "endPos=84",
-            "de.uniks.networkparser.json.JsonArray=[a, bc]"
+            "endPos=84"
          ]
       },
       {
          "typ":"node",
-         "id":"d.S4 : SymTabEntry",
+         "id":"A10 : ArrayList"
+      },
+      {
+         "typ":"node",
+         "id":"S4 : SymTabEntry",
          "attributes":[
          "kind=cool",
             "memberName=me",
-            "type=null",
             "startPos=43",
             "bodyStartPos=42",
             "endPos=84",
@@ -75,13 +92,39 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"statemententry",
-            "id":"d.S2 : StatementEntry"
+            "property":"classmodel",
+            "id":"C1 : ClassModel"
          },
          "target":{
-            "cardinality":"many",
-            "property":"bodyStats",
-            "id":"d.S5 : StatementEntry"
+            "cardinality":"one",
+            "property":"generator",
+            "id":"G5 : GenClassModel"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G5 : GenClassModel"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"showDiff",
+            "id":"G6 : GenClassModel$DIFF"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G5 : GenClassModel"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"model",
+            "id":"C1 : ClassModel"
          }
       },
       {
@@ -89,12 +132,64 @@
          "source":{
             "cardinality":"one",
             "property":"statemententry",
-            "id":"d.S5 : StatementEntry"
+            "id":"S2 : StatementEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tokenList",
+            "id":"A7 : ArrayList"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"statemententry",
+            "id":"S2 : StatementEntry"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"bodyStats",
+            "id":"S8 : StatementEntry"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"statemententry",
+            "id":"S8 : StatementEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tokenList",
+            "id":"A9 : ArrayList"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"statemententry",
+            "id":"S8 : StatementEntry"
          },
          "target":{
             "cardinality":"one",
             "property":"parent",
-            "id":"d.S2 : StatementEntry"
+            "id":"S2 : StatementEntry"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"localvartableentry",
+            "id":"L3 : LocalVarTableEntry"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"initSequence",
+            "id":"A10 : ArrayList"
          }
       }
    ]

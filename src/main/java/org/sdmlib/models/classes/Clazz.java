@@ -27,6 +27,7 @@ import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class Clazz extends SDMLibClass
 {
@@ -40,7 +41,7 @@ public class Clazz extends SDMLibClass
    
    public static final String PROPERTY_INTERFAZE = "interface";
    public static final String PROPERTY_EXTERNAL = "external";
-   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadonly(true);
+   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadOnly(true);
 
    private AttributeSet attributes = null;
    private ClassModel classModel = null;  
@@ -71,6 +72,12 @@ public class Clazz extends SDMLibClass
       
       return this;
    }
+   
+   public void withUniDirectionalAssoc(Clazz tgtClass, String tgtRoleName, Card tgtCard)
+   {
+      this.withAssoc(tgtClass, tgtRoleName, tgtCard, "", Card.ONE);
+   }
+
    
    public String getFullName()
    {
@@ -348,6 +355,7 @@ public class Clazz extends SDMLibClass
       withoutAttributes(this.getAttributes().toArray(new Attribute[this.getAttributes().size()]));
       withoutMethods(this.getMethods().toArray(new Method[this.getMethods().size()]));
       withoutRoles(this.getRoles().toArray(new Role[this.getRoles().size()]));
+      withoutAnnotations(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
@@ -802,4 +810,77 @@ public class Clazz extends SDMLibClass
    public boolean hasFeature(Feature feature) {
 	   return getClassModel().hasFeature(feature, this);
    }
+
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Clazz ----------------------------------- Annotation
+    *              clazz                   annotations
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ANNOTATIONS = "annotations";
+
+   private AnnotationSet annotations = null;
+   
+   public AnnotationSet getAnnotations()
+   {
+      if (this.annotations == null)
+      {
+         return AnnotationSet.EMPTY_SET;
+      }
+   
+      return this.annotations;
+   }
+
+   public Clazz withAnnotations(Annotation... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Annotation item : value)
+      {
+         if (item != null)
+         {
+            if (this.annotations == null)
+            {
+               this.annotations = new AnnotationSet();
+            }
+            
+            boolean changed = this.annotations.add (item);
+
+            if (changed)
+            {
+               item.withClazz(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Clazz withoutAnnotations(Annotation... value)
+   {
+      for (Annotation item : value)
+      {
+         if ((this.annotations != null) && (item != null))
+         {
+            if (this.annotations.remove(item))
+            {
+               item.setClazz(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Annotation createAnnotations()
+   {
+      Annotation value = new Annotation();
+      withAnnotations(value);
+      return value;
+   } 
 }

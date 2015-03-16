@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../.srctestjava/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelNavigationAndQueries</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelNavigationAndQueries</a></p>
 <p>StudyRightObjectModelNavigationAndQueries</p>
 <p>Extend the class model:</p>
 <script>
@@ -64,6 +64,7 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
@@ -75,6 +76,7 @@
       {
          "typ":"node",
          "id":"abu : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@16e99306",
          "attributes":[
          "name=Abu",
             "id=1337",
@@ -86,37 +88,36 @@
       {
          "typ":"node",
          "id":"karli : TeachingAssistant",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@653fb8d1",
          "attributes":[
          "certified=true",
             "name=Karli",
             "id=4242",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "friends=null",
-            "room=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
          "id":"alice : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@48581a3b",
          "attributes":[
          "name=Alice",
             "id=2323",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "done=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
          "id":"mathRoom : Room",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@531ec978",
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
@@ -125,10 +126,7 @@
          "attributes":[
          "name=7522",
             "topic=arts",
-            "credits=16",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=16"
          ]
       },
       {
@@ -137,8 +135,7 @@
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "tas=null"
+            "credits=25"
          ]
       },
       {
@@ -147,10 +144,7 @@
          "attributes":[
          "name=The End",
             "topic=exam",
-            "credits=0",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=0"
          ]
       },
       {
@@ -159,15 +153,13 @@
          "attributes":[
          "name=7422",
             "topic=Software Engineering",
-            "credits=42",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=42"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A1 : Assignment",
+         "id":"A1 : Assignment",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@93501be",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -175,7 +167,7 @@
       },
       {
          "typ":"node",
-         "id":"d.A4 : Assignment",
+         "id":"A4 : Assignment",
          "attributes":[
          "content=Pushups",
             "points=4"
@@ -183,7 +175,8 @@
       },
       {
          "typ":"node",
-         "id":"d.A2 : Assignment",
+         "id":"A2 : Assignment",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@11d4d979",
          "attributes":[
          "content=Series",
             "points=6"
@@ -191,11 +184,11 @@
       },
       {
          "typ":"node",
-         "id":"d.A3 : Assignment",
+         "id":"A3 : Assignment",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@195580ba",
          "attributes":[
          "content=Integrals",
-            "points=8",
-            "students=null"
+            "points=8"
          ]
       }
    ],
@@ -340,7 +333,7 @@
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -353,7 +346,7 @@
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A4 : Assignment"
+            "id":"A4 : Assignment"
          }
       },
       {
@@ -457,7 +450,7 @@
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A4 : Assignment"
+            "id":"A4 : Assignment"
          }
       },
       {
@@ -522,7 +515,7 @@
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -535,7 +528,7 @@
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -548,7 +541,7 @@
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
@@ -743,7 +736,7 @@
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -756,7 +749,7 @@
          "target":{
             "cardinality":"many",
             "property":"done",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -764,7 +757,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -777,7 +770,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -790,7 +783,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -803,7 +796,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -816,7 +809,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -829,7 +822,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -881,7 +874,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A4 : Assignment"
+            "id":"A4 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -894,7 +887,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A4 : Assignment"
+            "id":"A4 : Assignment"
          },
          "target":{
             "cardinality":"many",
@@ -914,8 +907,8 @@
       
 </pre><p>Results in:</p>
 <pre>      Sum of assignment points: 23. 
-      Sum of points of assignments that have been done by at least one students: 9.</pre><p>Check: Assignment points:  23 actual 23</p>
-<p>Check: donePoints:  9 actual 9</p>
+      Sum of points of assignments that have been done by at least one students: 15.</pre><p>Check: Assignment points:  23 actual 23</p>
+<p>Check: donePoints:  15 actual 15</p>
 <p><a name = 'step_2'>Step 2: Rooms with assignments not yet done by Karli:</a></p><pre>      
       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
       
@@ -933,15 +926,7 @@
       &#x2F;&#x2F; Java 8:
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
       
-      RoomSet roomsEven = university.getRooms().has(rooms.new Condition() {
-
-         @Override
-         public boolean check(Room elem)
-         {
-            return elem.getCredits() % 2 == 0;
-         }
-         
-      });
+      RoomSet roomsEven = university.getRooms().has(elem -&gt; elem.getCredits() % 2 == 0);
       
 </pre><p>Results in:</p>
 <pre>      (7522 arts 16, The End exam 0, 7422 Software Engineering 42)</pre><p><a name = 'step_5'>Step 5: Filter for type: </a></p><pre>      
@@ -953,50 +938,43 @@
 </pre><script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
          "id":"abu : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@236ae13d",
          "attributes":[
          "name=Abu",
             "id=1337",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
          "id":"alice : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@193eb1ba",
          "attributes":[
          "name=Alice",
             "id=2323",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
          "id":"karli : TeachingAssistant",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@2be818da",
          "attributes":[
          "certified=true",
             "name=Karli",
             "id=4242",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null",
-            "friends=null",
-            "room=null"
+            "credits=0"
          ]
       }
    ],
@@ -1111,18 +1089,6 @@
       stud1PO = roomPO.hasStudents();      
       
       final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
-      
-      &#x2F;&#x2F; Java 8: 
-      &#x2F;&#x2F; stud2PO.has( () -&gt; stud2PO.getMotivation() &lt; 50);
-      
-      &#x2F;&#x2F;      stud2PO.has(new GenericConstraint.Condition()
-      &#x2F;&#x2F;      {
-      &#x2F;&#x2F;         @Override
-      &#x2F;&#x2F;         public boolean check()
-      &#x2F;&#x2F;         {
-      &#x2F;&#x2F;            return stud2PO.getMotivation() &lt; 50;
-      &#x2F;&#x2F;         }
-      &#x2F;&#x2F;      });
       
       stud2PO.hasFriends(stud1PO);
       
@@ -1311,6 +1277,7 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
@@ -1318,52 +1285,41 @@
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "university=null",
-            "doors=null",
-            "assignments=null"
+            "credits=25"
          ]
       },
       {
          "typ":"node",
          "id":"abu : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@798deee8",
          "attributes":[
          "name=Abu",
             "id=1337",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
          "id":"alice : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@96897c8",
          "attributes":[
          "name=Alice",
             "id=2323",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.T5 : TeachingAssistant",
+         "id":"T5 : TeachingAssistant",
          "attributes":[
          "certified=false",
-            "name=null",
-            "id=null",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null",
-            "friends=null"
+            "credits=0"
          ]
       }
    ],
@@ -1404,7 +1360,7 @@
          "target":{
             "cardinality":"many",
             "property":"tas",
-            "id":"d.T5 : TeachingAssistant"
+            "id":"T5 : TeachingAssistant"
          }
       },
       {
@@ -1464,7 +1420,7 @@
          "source":{
             "cardinality":"one",
             "property":"teachingassistant",
-            "id":"d.T5 : TeachingAssistant"
+            "id":"T5 : TeachingAssistant"
          },
          "target":{
             "cardinality":"one",
@@ -1539,25 +1495,23 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
          "id":"karli : TeachingAssistant",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@3b9ac754",
          "attributes":[
          "certified=true",
             "name=Karli",
             "id=4242",
             "assignmentPoints=0",
             "motivation=42",
-            "credits=0",
-            "university=null",
-            "in=null",
-            "done=null",
-            "friends=null",
-            "room=null"
+            "credits=0"
          ]
       }
-   ]
+   ],
+   "edges":null
 }   ;
    json["options"]={"canvasid":"canvasStudyRightObjectModelNavigationAndQueries51", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
@@ -1616,18 +1570,18 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
          "id":"abu : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@ce12fbb",
          "attributes":[
          "name=Abu",
             "id=1337",
             "assignmentPoints=0",
             "motivation=168",
-            "credits=0",
-            "university=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
@@ -1636,51 +1590,42 @@
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "university=null",
-            "assignments=null",
-            "tas=null"
+            "credits=25"
          ]
       },
       {
          "typ":"node",
          "id":"alice : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@4525e9e8",
          "attributes":[
          "name=Alice",
             "id=2323",
             "assignmentPoints=0",
             "motivation=168",
-            "credits=0",
-            "university=null",
-            "done=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
          "id":"mathRoom : Room",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@443a53df",
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "university=null",
-            "assignments=null",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
          "typ":"node",
          "id":"karli : TeachingAssistant",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6c33da7a",
          "attributes":[
          "certified=true",
             "name=Karli",
             "id=4242",
             "assignmentPoints=0",
             "motivation=168",
-            "credits=0",
-            "university=null",
-            "done=null",
-            "friends=null",
-            "room=null"
+            "credits=0"
          ]
       }
    ],

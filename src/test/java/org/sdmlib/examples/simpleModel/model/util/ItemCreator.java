@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 Stefan 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.simpleModel.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.simpleModel.model.Item;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ItemCreator extends EntityFactory
 {
@@ -69,7 +70,7 @@ public class ItemCreator extends EntityFactory
    }
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================

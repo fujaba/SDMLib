@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -14,74 +14,55 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.F1 : FetchFileFlow",
+         "id":"F1 : FetchFileFlow",
          "attributes":[
-         "idMap=null",
-            "fileName=null",
-            "taskNo=0"
+         "taskNo=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.P4 : PeerProxy",
+         "id":"P4 : PeerProxy",
          "attributes":[
-         "ip=null",
-            "port=0",
-            "idMap=null"
+         "port=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.L5 : Logger",
+         "id":"F5 : FetchFileFlow$TaskNames;"
+      },
+      {
+         "typ":"node",
+         "id":"L6 : Logger",
          "attributes":[
-         "startPeer=null",
-            "taskNo=0",
-            "idMap=null"
+         "taskNo=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.L6 : LogEntry",
+         "id":"L7 : LogEntry"
+      },
+      {
+         "typ":"node",
+         "id":"L9 : LogEntry"
+      },
+      {
+         "typ":"node",
+         "id":"L8 : LogEntry"
+      },
+      {
+         "typ":"node",
+         "id":"S2 : SocketThread",
          "attributes":[
-         "nodeName=null",
-            "taskName=null"
+         "port=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.L8 : LogEntry",
-         "attributes":[
-         "nodeName=null",
-            "taskName=null",
-            "children=null",
-            "parent=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.L7 : LogEntry",
-         "attributes":[
-         "nodeName=null",
-            "taskName=null",
-            "logger=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.S2 : SocketThread",
-         "attributes":[
-         "ip=null",
-            "port=0",
-            "idMap=null",
-            "defaultTargetThread=null"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"d.S3 : SDMTimer"
+         "id":"S3 : SDMTimer"
       }
    ],
    "edges":[
@@ -90,12 +71,12 @@
          "source":{
             "cardinality":"one",
             "property":"fetchfileflow",
-            "id":"d.F1 : FetchFileFlow"
+            "id":"F1 : FetchFileFlow"
          },
          "target":{
             "cardinality":"one",
             "property":"fileServer",
-            "id":"d.P4 : PeerProxy"
+            "id":"P4 : PeerProxy"
          }
       },
       {
@@ -103,12 +84,77 @@
          "source":{
             "cardinality":"one",
             "property":"fetchfileflow",
-            "id":"d.F1 : FetchFileFlow"
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"taskNames",
+            "id":"F5 : FetchFileFlow$TaskNames;"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"subFlowTransitive",
+            "id":"F1 : FetchFileFlow"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"subFlowTransitive",
+            "id":"L6 : Logger"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"parentTransitive",
+            "id":"F1 : FetchFileFlow"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
          },
          "target":{
             "cardinality":"one",
             "property":"subFlow",
-            "id":"d.L5 : Logger"
+            "id":"L6 : Logger"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"rootParent",
+            "id":"F1 : FetchFileFlow"
          }
       },
       {
@@ -116,12 +162,12 @@
          "source":{
             "cardinality":"one",
             "property":"logger",
-            "id":"d.L5 : Logger"
+            "id":"L6 : Logger"
          },
          "target":{
             "cardinality":"one",
             "property":"parent",
-            "id":"d.F1 : FetchFileFlow"
+            "id":"F1 : FetchFileFlow"
          }
       },
       {
@@ -129,12 +175,12 @@
          "source":{
             "cardinality":"one",
             "property":"logger",
-            "id":"d.L5 : Logger"
+            "id":"L6 : Logger"
          },
          "target":{
             "cardinality":"many",
             "property":"entries",
-            "id":"d.L6 : LogEntry"
+            "id":"L7 : LogEntry"
          }
       },
       {
@@ -142,12 +188,12 @@
          "source":{
             "cardinality":"one",
             "property":"logger",
-            "id":"d.L5 : Logger"
+            "id":"L6 : Logger"
          },
          "target":{
             "cardinality":"many",
             "property":"entries",
-            "id":"d.L8 : LogEntry"
+            "id":"L9 : LogEntry"
          }
       },
       {
@@ -155,12 +201,12 @@
          "source":{
             "cardinality":"one",
             "property":"logentry",
-            "id":"d.L6 : LogEntry"
+            "id":"L7 : LogEntry"
          },
          "target":{
             "cardinality":"one",
             "property":"logger",
-            "id":"d.L5 : Logger"
+            "id":"L6 : Logger"
          }
       },
       {
@@ -168,12 +214,12 @@
          "source":{
             "cardinality":"one",
             "property":"logentry",
-            "id":"d.L6 : LogEntry"
+            "id":"L7 : LogEntry"
          },
          "target":{
             "cardinality":"many",
             "property":"children",
-            "id":"d.L7 : LogEntry"
+            "id":"L8 : LogEntry"
          }
       },
       {
@@ -181,12 +227,12 @@
          "source":{
             "cardinality":"one",
             "property":"logentry",
-            "id":"d.L7 : LogEntry"
+            "id":"L8 : LogEntry"
          },
          "target":{
             "cardinality":"one",
             "property":"parent",
-            "id":"d.L6 : LogEntry"
+            "id":"L7 : LogEntry"
          }
       },
       {
@@ -194,12 +240,12 @@
          "source":{
             "cardinality":"one",
             "property":"logentry",
-            "id":"d.L8 : LogEntry"
+            "id":"L9 : LogEntry"
          },
          "target":{
             "cardinality":"one",
             "property":"logger",
-            "id":"d.L5 : Logger"
+            "id":"L6 : Logger"
          }
       }
    ]

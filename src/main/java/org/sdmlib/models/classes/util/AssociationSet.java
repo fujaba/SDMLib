@@ -169,11 +169,7 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       return this;
    }
    
-   @Override
-   public AssociationSet getNewInstance()
-   {
-      return new AssociationSet();
-   }
+   public static final AssociationSet EMPTY_SET = new AssociationSet().withReadOnly(true);
 }
 
 

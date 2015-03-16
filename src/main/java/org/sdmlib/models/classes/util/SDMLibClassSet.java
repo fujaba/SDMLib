@@ -99,10 +99,6 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
       
       return this;
    }
-   
-   @Override
-   public SDMLibClassSet getNewInstance()
-   {
-      return new SDMLibClassSet();
-   }
+
+   public static final SDMLibClassSet EMPTY_SET = new SDMLibClassSet().withReadOnly(true);
 }

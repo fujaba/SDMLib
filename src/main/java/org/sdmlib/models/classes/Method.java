@@ -24,6 +24,7 @@ package org.sdmlib.models.classes;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class Method extends SDMLibClass
 {
@@ -32,7 +33,7 @@ public class Method extends SDMLibClass
    public static final String PROPERTY_BODY = "body";
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final String PROPERTY_MODIFIER = "modifier";
-   public static final MethodSet EMPTY_SET = new MethodSet().withReadonly(true);
+   public static final MethodSet EMPTY_SET = new MethodSet().withReadOnly(true);
    
    private Visibility modifier = Visibility.PUBLIC;
    private Clazz clazz = null;
@@ -230,6 +231,7 @@ public class Method extends SDMLibClass
       without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       withoutParameter(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       setEnumeration(null);
+      withoutAnnotations(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -278,9 +280,11 @@ public class Method extends SDMLibClass
 		for (Parameter parameter : getParameter()) {
 
 			if (first) {
+			   //TODO check includeName
 				sb.append(getParameterSignature(true, parameter, i));
 				first = false;
 			} else {
+			   //TODO check includeName
 				sb.append(getParameterSignature(true, parameter, i));
 			}
 
@@ -291,6 +295,7 @@ public class Method extends SDMLibClass
 		}
 		sb.append(")");
 		if(returnType!=null && returnType!= DataType.VOID){
+		   //TODO check returnType :
 			sb.append(" "+returnType.getValue());
 		}
 		return sb.toString();
@@ -422,6 +427,78 @@ public class Method extends SDMLibClass
    {
       Enumeration value = new Enumeration();
       withEnumeration(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Method ----------------------------------- Annotation
+    *              method                   annotations
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ANNOTATIONS = "annotations";
+
+   private AnnotationSet annotations = null;
+   
+   public AnnotationSet getAnnotations()
+   {
+      if (this.annotations == null)
+      {
+         return AnnotationSet.EMPTY_SET;
+      }
+   
+      return this.annotations;
+   }
+
+   public Method withAnnotations(Annotation... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Annotation item : value)
+      {
+         if (item != null)
+         {
+            if (this.annotations == null)
+            {
+               this.annotations = new AnnotationSet();
+            }
+            
+            boolean changed = this.annotations.add (item);
+
+            if (changed)
+            {
+               item.withMethod(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Method withoutAnnotations(Annotation... value)
+   {
+      for (Annotation item : value)
+      {
+         if ((this.annotations != null) && (item != null))
+         {
+            if (this.annotations.remove(item))
+            {
+               item.setMethod(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Annotation createAnnotations()
+   {
+      Annotation value = new Annotation();
+      withAnnotations(value);
       return value;
    } 
 }

@@ -63,4 +63,6 @@ public class ThreadSet extends SDMSet<Thread>
       return this;
    }
 
+
+   public static final ThreadSet EMPTY_SET = new ThreadSet().withReadOnly(true);
 }

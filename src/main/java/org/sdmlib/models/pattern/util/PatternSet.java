@@ -22,8 +22,8 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
@@ -32,11 +32,8 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
-public class PatternSet extends LinkedHashSet<Pattern>
+public class PatternSet extends SDMSet<Pattern>
 {
    public PatternElementSet getElements()
    {
@@ -353,4 +350,6 @@ public class PatternSet extends LinkedHashSet<Pattern>
    {
       return new PatternPO(this.toArray(new Pattern[this.size()]));
    }
+
+   public static final PatternSet EMPTY_SET = new PatternSet().withReadOnly(true);
 }

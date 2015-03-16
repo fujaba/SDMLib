@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -25,8 +25,7 @@
       },
       {
          "typ":"node",
-         "id":"ClassModel",
-         "attributes":[]
+         "id":"ClassModel"
       },
       {
          "typ":"node",
@@ -46,8 +45,7 @@
       },
       {
          "typ":"node",
-         "id":"Attribute",
-         "attributes":[]
+         "id":"Attribute"
       },
       {
          "typ":"node",
@@ -59,6 +57,13 @@
       },
       {
          "typ":"node",
+         "id":"Annotation",
+         "attributes":[
+         "values : ArrayListSet"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"Enumeration",
          "attributes":[
          "valueNames : ArrayListSet"
@@ -66,13 +71,11 @@
       },
       {
          "typ":"node",
-         "id":"Parameter",
-         "attributes":[]
+         "id":"Parameter"
       },
       {
          "typ":"node",
-         "id":"Association",
-         "attributes":[]
+         "id":"Association"
       },
       {
          "typ":"node",
@@ -178,6 +181,19 @@
             "id":"Clazz"
          },
          "target":{
+            "id":"Annotation",
+            "cardinality":"many",
+            "property":"annotations"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"Clazz"
+         },
+         "target":{
             "id":"Method",
             "cardinality":"many",
             "property":"methods"
@@ -194,6 +210,19 @@
             "id":"Role",
             "cardinality":"many",
             "property":"roles"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"method",
+            "id":"Method"
+         },
+         "target":{
+            "id":"Annotation",
+            "cardinality":"many",
+            "property":"annotations"
          }
       },
       {
@@ -288,6 +317,11 @@
       },
       {
          "typ":"generalisation",
+         "source":{"id":"Annotation"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
          "source":{"id":"Enumeration"},
          "target":{"id":"SDMLibClass"}
       },
@@ -308,8 +342,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasClassModelCodeGenClassDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasClassModelCodeGenClassDiagram3", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>Generate generic get and set and removeYou.</p>
 <p>Generate creator classes.</p>

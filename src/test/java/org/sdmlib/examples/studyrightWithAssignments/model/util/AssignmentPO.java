@@ -1,14 +1,10 @@
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomPO;
 import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentPO;
 import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 {
@@ -31,14 +27,14 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 
 
    public AssignmentPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public AssignmentPO(Assignment... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    public AssignmentPO hasContent(String value)
    {
@@ -49,7 +45,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -64,7 +60,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -102,7 +98,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -117,7 +113,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }

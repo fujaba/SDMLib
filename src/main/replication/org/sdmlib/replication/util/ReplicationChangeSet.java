@@ -33,8 +33,6 @@ import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.ReplicationChange;
-import org.sdmlib.replication.util.LogEntrySet;
-import org.sdmlib.replication.util.ChangeHistorySet;
 
 public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements ModelSet
 {
@@ -477,4 +475,6 @@ public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements 
       return this;
    }
 
+
+   public static final ReplicationChangeSet EMPTY_SET = new ReplicationChangeSet();
 }

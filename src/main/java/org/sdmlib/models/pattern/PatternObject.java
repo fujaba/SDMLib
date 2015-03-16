@@ -36,6 +36,7 @@ import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.logic.Condition;
 
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {
@@ -742,10 +743,18 @@ public PatternLinkSet getIncomming()
       }
    }
 
-   public POC has(GenericConstraint.Condition condition, String text)
+   protected void hasAttribute() {
+      if(!this.getPattern().findMatch()) 
+      {
+         setCurrentMatch(null);
+      }
+   }
+   
+   public POC has(Condition<Object> condition, String text)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
          .withText(text)
+         .withSrc(this)
          .withCondition(condition)
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
@@ -755,10 +764,11 @@ public PatternLinkSet getIncomming()
       return (POC) this;
    }
 
-   public POC has(GenericConstraint.Condition condition)
+   public POC has(Condition<Object> condition)
    {
       GenericConstraint genericConstraint = (GenericConstraint) new GenericConstraint()
          .withCondition(condition)
+         .withSrc(this)
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 

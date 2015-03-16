@@ -1,11 +1,9 @@
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyright.model.Professor;
 import org.sdmlib.examples.studyright.model.Topic;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.studyright.model.util.ProfessorPO;
-import org.sdmlib.examples.studyright.model.Professor;
-import org.sdmlib.examples.studyright.model.util.TopicPO;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class TopicPO extends PatternObject<TopicPO, Topic>
 {

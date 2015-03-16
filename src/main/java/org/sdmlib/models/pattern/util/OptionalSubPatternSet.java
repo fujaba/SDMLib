@@ -22,8 +22,8 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
@@ -31,10 +31,8 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
-public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
+public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
 {
    public StringList getModifier()
    {
@@ -365,4 +363,6 @@ public class OptionalSubPatternSet extends LinkedHashSet<OptionalSubPattern>
    {
       return new OptionalSubPatternPO(this.toArray(new OptionalSubPattern[this.size()]));
    }
+
+   public static final OptionalSubPatternSet EMPTY_SET = new OptionalSubPatternSet().withReadOnly(true);
 }

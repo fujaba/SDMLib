@@ -21,16 +21,14 @@
    
 package org.sdmlib.examples.mancala.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
-import org.sdmlib.examples.mancala.model.PlayerState;
-import org.sdmlib.examples.mancala.referencemodel.Color;
-import org.sdmlib.examples.mancala.model.util.PlayerSet;
-import org.sdmlib.examples.mancala.model.Kalah;
 import org.sdmlib.examples.mancala.model.util.PitSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.examples.mancala.model.util.PlayerSet;
+import org.sdmlib.examples.mancala.referencemodel.Color;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Player implements PropertyChangeInterface
 {
@@ -279,7 +277,7 @@ public class Player implements PropertyChangeInterface
    } 
 
    
-   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadonly(true);
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
 
    
    /********************************************************************

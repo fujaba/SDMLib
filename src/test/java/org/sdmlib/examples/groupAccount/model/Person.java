@@ -21,16 +21,14 @@
    
 package org.sdmlib.examples.groupAccount.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 import org.sdmlib.examples.groupAccount.model.util.ItemSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.examples.groupAccount.model.util.PersonSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Person implements PropertyChangeInterface, PropertyChangeListener
 {
@@ -136,7 +134,7 @@ public class Person implements PropertyChangeInterface, PropertyChangeListener
    } 
 
    
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadonly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
 
    
    /********************************************************************

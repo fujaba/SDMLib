@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -26,8 +26,7 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation1ClassDiagram3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011HelloWorldConstantTransformation1ClassDiagram3", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 '><p>The code that builds and runs the transformation / pattern looks like: </p>
 <script>
@@ -49,7 +48,7 @@
    json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation1PatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Check: Constant transformation has match</p>
+<p>Check: Constant transformation has match true</p>
 <p>At runtime the object structure for the pattern and for the hostgraph looks like: </p>
 <script>
    var json = {
@@ -74,17 +73,17 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.G1 : Greeting",
+         "id":"G1 : Greeting",
          "attributes":[
-         "text=Hello World",
-            "greetingMessage=null",
-            "person=null"
+         "text=Hello World"
          ]
       }
-   ]
+   ],
+   "edges":null
 }   ;
    json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation111", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

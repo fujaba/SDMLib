@@ -29,11 +29,6 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericGraphSet;
-import org.sdmlib.models.modelsets.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.models.objects.util.GenericAttributeSet;
-import org.sdmlib.models.objects.util.GenericLinkSet;
 
 public class GenericObjectSet extends SDMSet<GenericObject>
 {
@@ -217,17 +212,6 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       return this;
    }
 
-   public GenericObjectSet with(GenericObject... genObjects)
-   {
-      for (GenericObject genObj : genObjects)
-      {
-         this.add(genObj);
-      }
-      
-      return this;
-   }
-
-
    @Override
    public String toString()
    {
@@ -283,5 +267,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
    {
       return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
    }
+
+   public static final GenericObjectSet EMPTY_SET = new GenericObjectSet().withReadOnly(true);
 }
 

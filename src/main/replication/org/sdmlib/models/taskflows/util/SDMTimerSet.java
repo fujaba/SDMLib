@@ -76,4 +76,6 @@ public class SDMTimerSet extends SDMSet<SDMTimer>
       return this;
    }
 
+
+   public static final SDMTimerSet EMPTY_SET = new SDMTimerSet().withReadOnly(true);
 }

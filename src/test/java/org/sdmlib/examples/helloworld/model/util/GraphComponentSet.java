@@ -28,7 +28,6 @@ import org.sdmlib.examples.helloworld.model.GraphComponent;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.helloworld.model.util.GraphSet;
 
 public class GraphComponentSet extends SDMSet<GraphComponent>
 {
@@ -156,6 +155,8 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
       return this;
    }
 
+
+   public static final GraphComponentSet EMPTY_SET = new GraphComponentSet().withReadOnly(true);
 }
 
 

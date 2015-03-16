@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -16,24 +16,22 @@
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.G1 : Greeting",
-         "attributes":[
-         "text=null"
-         ]
+         "id":"G1 : Greeting"
       },
       {
          "typ":"node",
-         "id":"d.G2 : GreetingMessage",
+         "id":"G2 : GreetingMessage",
          "attributes":[
          "text=Hello"
          ]
       },
       {
          "typ":"node",
-         "id":"d.P3 : Person",
+         "id":"P3 : Person",
          "attributes":[
          "name=TTC Participants"
          ]
@@ -45,12 +43,12 @@
          "source":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          },
          "target":{
             "cardinality":"one",
             "property":"greetingMessage",
-            "id":"d.G2 : GreetingMessage"
+            "id":"G2 : GreetingMessage"
          }
       },
       {
@@ -58,12 +56,12 @@
          "source":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          },
          "target":{
             "cardinality":"one",
             "property":"person",
-            "id":"d.P3 : Person"
+            "id":"P3 : Person"
          }
       },
       {
@@ -71,12 +69,12 @@
          "source":{
             "cardinality":"one",
             "property":"greetingmessage",
-            "id":"d.G2 : GreetingMessage"
+            "id":"G2 : GreetingMessage"
          },
          "target":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          }
       },
       {
@@ -84,12 +82,12 @@
          "source":{
             "cardinality":"one",
             "property":"person",
-            "id":"d.P3 : Person"
+            "id":"P3 : Person"
          },
          "target":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          }
       }
    ]
@@ -104,24 +102,22 @@ Hello TTC Participants</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.G1 : Greeting",
-         "attributes":[
-         "text=null"
-         ]
+         "id":"G1 : Greeting"
       },
       {
          "typ":"node",
-         "id":"d.G2 : GreetingMessage",
+         "id":"G2 : GreetingMessage",
          "attributes":[
          "text=Hi"
          ]
       },
       {
          "typ":"node",
-         "id":"d.P3 : Person",
+         "id":"P3 : Person",
          "attributes":[
          "name=dudes"
          ]
@@ -133,12 +129,12 @@ Hello TTC Participants</p>
          "source":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          },
          "target":{
             "cardinality":"one",
             "property":"greetingMessage",
-            "id":"d.G2 : GreetingMessage"
+            "id":"G2 : GreetingMessage"
          }
       },
       {
@@ -146,12 +142,12 @@ Hello TTC Participants</p>
          "source":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          },
          "target":{
             "cardinality":"one",
             "property":"person",
-            "id":"d.P3 : Person"
+            "id":"P3 : Person"
          }
       },
       {
@@ -159,12 +155,12 @@ Hello TTC Participants</p>
          "source":{
             "cardinality":"one",
             "property":"greetingmessage",
-            "id":"d.G2 : GreetingMessage"
+            "id":"G2 : GreetingMessage"
          },
          "target":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          }
       },
       {
@@ -172,12 +168,12 @@ Hello TTC Participants</p>
          "source":{
             "cardinality":"one",
             "property":"person",
-            "id":"d.P3 : Person"
+            "id":"P3 : Person"
          },
          "target":{
             "cardinality":"one",
             "property":"greeting",
-            "id":"d.G1 : Greeting"
+            "id":"G1 : Greeting"
          }
       }
    ]

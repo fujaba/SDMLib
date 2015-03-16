@@ -21,17 +21,15 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Lecture;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.studyright.model.Room;
+
+import org.sdmlib.examples.studyright.model.Lecture;
 import org.sdmlib.examples.studyright.model.Professor;
+import org.sdmlib.examples.studyright.model.Room;
 import org.sdmlib.examples.studyright.model.Student;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
-import org.sdmlib.examples.studyright.model.util.ProfessorSet;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class LectureSet extends SDMSet<Lecture>
 {
@@ -252,4 +250,6 @@ public class LectureSet extends SDMSet<Lecture>
       return this;
    }
 
+
+   public static final LectureSet EMPTY_SET = new LectureSet().withReadOnly(true);
 }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='../src/test/java/org/sdmlib/examples/replication/chat/ReplicationChatModel.java' type='text/x-java'>ReplicationChatModel</a></p>
+<p>ReplicationChatModel</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"ChatRoot"
+      },
+      {
+         "typ":"node",
+         "id":"ChatUser",
+         "attributes":[
+         "userName : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"ChatChannel"
+      },
+      {
+         "typ":"node",
+         "id":"ChatMsg",
+         "attributes":[
+         "text : String",
+            "time : long",
+            "sender : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"chatRoot",
+            "id":"ChatRoot"
+         },
+         "target":{
+            "id":"ChatUser",
+            "cardinality":"many",
+            "property":"users"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"many",
+            "property":"users",
+            "id":"ChatUser"
+         },
+         "target":{
+            "id":"ChatChannel",
+            "cardinality":"many",
+            "property":"channels"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"channel",
+            "id":"ChatChannel"
+         },
+         "target":{
+            "id":"ChatMsg",
+            "cardinality":"many",
+            "property":"msgs"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasReplicationChatModelClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+
+</body>
+</html>

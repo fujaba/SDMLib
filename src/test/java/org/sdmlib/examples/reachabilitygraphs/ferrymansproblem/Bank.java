@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.reachabilitygraphs.ferrymansproblem;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Bank implements PropertyChangeInterface
 {
@@ -188,7 +188,7 @@ public class Bank implements PropertyChangeInterface
    } 
 
    
-   public static final BankSet EMPTY_SET = new BankSet().withReadonly(true);
+   public static final BankSet EMPTY_SET = new BankSet().withReadOnly(true);
 
    
    /********************************************************************

@@ -25,15 +25,14 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
+public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
 {
    public StringList getAttrName()
    {
@@ -377,4 +376,6 @@ public class AttributeConstraintSet extends LinkedHashSet<AttributeConstraint>
    {
       return new AttributeConstraintPO(this.toArray(new AttributeConstraint[this.size()]));
    }
+
+   public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet().withReadOnly(true);
 }

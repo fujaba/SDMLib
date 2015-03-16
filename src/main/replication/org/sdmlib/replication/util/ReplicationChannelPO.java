@@ -28,49 +28,15 @@ public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, Re
 
 
    public ReplicationChannelPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.replication.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public ReplicationChannelPO(ReplicationChannel... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.replication.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
-   public SharedSpacePO hasSharedSpace()
-   {
-      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(ReplicationChannel.PROPERTY_SHAREDSPACE, result);
-      
-      return result;
-   }
-
-   public SharedSpacePO createSharedSpace()
-   {
-      return this.startCreate().hasSharedSpace().endCreate();
-   }
-
-   public ReplicationChannelPO hasSharedSpace(SharedSpacePO tgt)
-   {
-      return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACE);
-   }
-
-   public ReplicationChannelPO createSharedSpace(SharedSpacePO tgt)
-   {
-      return this.startCreate().hasSharedSpace(tgt).endCreate();
-   }
-
-   public SharedSpace getSharedSpace()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ReplicationChannel) this.getCurrentMatch()).getSharedSpace();
-      }
-      return null;
-   }
-
    public ReplicationChannelPO hasSocket(Socket value)
    {
       new AttributeConstraint()
@@ -162,4 +128,38 @@ public class ReplicationChannelPO extends PatternObject<ReplicationChannelPO, Re
       return this;
    }
    
+   public SharedSpacePO hasSharedSpace()
+   {
+      SharedSpacePO result = new SharedSpacePO(new SharedSpace[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ReplicationChannel.PROPERTY_SHAREDSPACE, result);
+      
+      return result;
+   }
+
+   public SharedSpacePO createSharedSpace()
+   {
+      return this.startCreate().hasSharedSpace().endCreate();
+   }
+
+   public ReplicationChannelPO hasSharedSpace(SharedSpacePO tgt)
+   {
+      return hasLinkConstraint(tgt, ReplicationChannel.PROPERTY_SHAREDSPACE);
+   }
+
+   public ReplicationChannelPO createSharedSpace(SharedSpacePO tgt)
+   {
+      return this.startCreate().hasSharedSpace(tgt).endCreate();
+   }
+
+   public SharedSpace getSharedSpace()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ReplicationChannel) this.getCurrentMatch()).getSharedSpace();
+      }
+      return null;
+   }
+
 }

@@ -21,17 +21,16 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Assignment;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
+
+import org.sdmlib.examples.studyright.model.Assignment;
 import org.sdmlib.examples.studyright.model.Room;
 import org.sdmlib.examples.studyright.model.Student;
-import org.sdmlib.examples.studyright.model.util.RoomSet;
-import org.sdmlib.examples.studyright.model.util.StudentSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
 
 public class AssignmentSet extends SDMSet<Assignment>
 {
@@ -251,4 +250,6 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
+
+   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadOnly(true);
 }

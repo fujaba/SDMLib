@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.simpleEnumModel.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleEnumModel.model.Alex;
 import java.util.Collection;
+
+import org.sdmlib.examples.simpleEnumModel.model.Alex;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class AlexSet extends SDMSet<Alex>
@@ -116,4 +117,6 @@ public class AlexSet extends SDMSet<Alex>
       return this;
    }
 
+
+   public static final AlexSet EMPTY_SET = new AlexSet().withReadOnly(true);
 }

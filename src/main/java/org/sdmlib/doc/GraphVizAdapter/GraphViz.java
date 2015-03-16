@@ -165,7 +165,7 @@ public class GraphViz implements GuiAdapter {
 					continue;
 				}
 
-				for (Iterator<String> iter = props.keys(); iter.hasNext();) {
+				for (Iterator<String> iter = props.keyIterator(); iter.hasNext();) {
 					String nextProp = iter.next();
 
 					if (aggregationRolesSet.contains(nextProp)) {
@@ -299,7 +299,7 @@ public class GraphViz implements GuiAdapter {
 
 			String attrText = "<tr><td><table border='0' cellborder='0' cellspacing='0'></table></td></tr>";
 			boolean addAttrText = false;
-			for (Iterator<String> iter = jsonObject.keys(); iter.hasNext();) {
+			for (Iterator<String> iter = jsonObject.keyIterator(); iter.hasNext();) {
 				String key = iter.next();
 
 				if (!JsonIdMap.ID.equals(key) && !JsonIdMap.CLASS.equals(key)) {

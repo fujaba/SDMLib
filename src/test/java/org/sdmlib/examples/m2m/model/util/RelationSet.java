@@ -21,15 +21,14 @@
    
 package org.sdmlib.examples.m2m.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.m2m.model.Relation;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+
 import org.sdmlib.examples.m2m.model.Graph;
 import org.sdmlib.examples.m2m.model.Person;
-import org.sdmlib.examples.m2m.model.util.GraphSet;
-import org.sdmlib.examples.m2m.model.util.PersonSet;
+import org.sdmlib.examples.m2m.model.Relation;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class RelationSet extends SDMSet<Relation>
 {
@@ -335,4 +334,6 @@ public class RelationSet extends SDMSet<Relation>
       return this;
    }
 
+
+   public static final RelationSet EMPTY_SET = new RelationSet().withReadOnly(true);
 }

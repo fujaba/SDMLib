@@ -49,7 +49,12 @@
       {"id":"KE.K114"},
       {"id":"KE.K115"},
       {"id":"KE.K117"},
-      {"id":"KE.K124"}
+      {"id":"KE.K124"},
+      {"id":"KE.K126"},
+      {"id":"KE.K127"},
+      {"id":"KE.K128"},
+      {"id":"KE.K129"},
+      {"id":"KE.K132"}
     ],
     "phases":"active, backlog, implementation, done, bug"
   }
@@ -433,8 +438,8 @@
     "parent":{"id":"KE.K1"},
     "logEntries":[
     {"id":"KE.L66"},
-      {"id":"KE.L67"},
-      {"id":"KE.L68"}
+      {"id":"KE.L130"},
+      {"id":"KE.L131"}
     ],
     "phases":"active, backlog, implementation, done"
   }
@@ -751,6 +756,51 @@
   "class":"org.sdmlib.storyboards.KanbanEntry",
   "prop":{
     "name":"SDMLibCodeGenObjectsForCoverage",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K126",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"UniDirectionalAssoc",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K127",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"UniDirectionalAssocToObject",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K128",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"UniDirectionalAssocJson",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K129",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"SeppelModel",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K132",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"ReplicationChatModel",
     "phase":"backlog",
     "parent":{"id":"KE.K1"},
     "phases":"active, backlog, implementation, done"
@@ -1098,28 +1148,6 @@
     "phase":"done"
   }
 },  {
-  "id":"KE.L67",
-  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
-  "prop":{
-    "date":"24.02.2014 20:03:42 EST",
-    "hoursSpend":2,
-    "kanbanEntry":{"id":"KE.K65"},
-    "developer":"zuendorf",
-    "phase":"done",
-    "comment":"added createXY shortcuts for patterns"
-  }
-},  {
-  "id":"KE.L68",
-  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
-  "prop":{
-    "date":"25.02.2014 22:11:42 EST",
-    "hoursSpend":2,
-    "kanbanEntry":{"id":"KE.K65"},
-    "developer":"zuendorf",
-    "phase":"done",
-    "comment":"switched to roomSet.hasRoomPO()"
-  }
-},  {
   "id":"KE.L71",
   "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
   "prop":{
@@ -1390,5 +1418,27 @@
     "developer":"zuendorf",
     "phase":"done",
     "comment":"should be published in paper"
+  }
+},  {
+  "id":"KE.L130",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"24.02.2014 20:03:42 EST",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K65"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"added createXY shortcuts for patterns"
+  }
+},  {
+  "id":"KE.L131",
+  "class":"org.sdmlib.storyboards.LogEntryStoryBoard",
+  "prop":{
+    "date":"25.02.2014 22:11:42 EST",
+    "hoursSpend":2,
+    "kanbanEntry":{"id":"KE.K65"},
+    "developer":"zuendorf",
+    "phase":"done",
+    "comment":"switched to roomSet.hasRoomPO()"
   }
 }]

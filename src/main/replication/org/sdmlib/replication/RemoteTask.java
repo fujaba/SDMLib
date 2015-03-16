@@ -21,9 +21,6 @@
    
 package org.sdmlib.replication;
 
-import java.lang.Runnable;
-import org.sdmlib.replication.Task;
-import org.sdmlib.replication.BoardTask;
 
 public abstract class RemoteTask extends Task implements Runnable
 {

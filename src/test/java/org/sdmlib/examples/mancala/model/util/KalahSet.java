@@ -21,17 +21,15 @@
    
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.mancala.model.Kalah;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.mancala.model.util.MancalaSet;
+
+import org.sdmlib.examples.mancala.model.Kalah;
 import org.sdmlib.examples.mancala.model.Mancala;
-import org.sdmlib.examples.mancala.model.util.PlayerSet;
-import org.sdmlib.examples.mancala.model.Player;
-import org.sdmlib.examples.mancala.model.util.PitSet;
 import org.sdmlib.examples.mancala.model.Pit;
+import org.sdmlib.examples.mancala.model.Player;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.intList;
 
 public class KalahSet extends SDMSet<Kalah>
 {
@@ -492,4 +490,6 @@ public class KalahSet extends SDMSet<Kalah>
       return this;
    }
 
+
+   public static final KalahSet EMPTY_SET = new KalahSet().withReadOnly(true);
 }

@@ -218,11 +218,7 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return new RolePO(this.toArray(new Role[this.size()]));
    }
    
-   @Override
-   public RoleSet getNewInstance()
-   {
-      return new RoleSet();
-   }
+   public static final RoleSet EMPTY_SET = new RoleSet().withReadOnly(true);
 }
 
 

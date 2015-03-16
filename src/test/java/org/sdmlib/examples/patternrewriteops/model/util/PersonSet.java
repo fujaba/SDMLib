@@ -28,8 +28,6 @@ import org.sdmlib.examples.patternrewriteops.model.Station;
 import org.sdmlib.examples.patternrewriteops.model.Train;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
-import org.sdmlib.examples.patternrewriteops.model.util.TrainSet;
 
 public class PersonSet extends SDMSet<Person>
 {
@@ -168,5 +166,7 @@ public class PersonSet extends SDMSet<Person>
       return this;
    }
 
+
+   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
 }
 

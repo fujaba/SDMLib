@@ -21,13 +21,13 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Topic;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+
 import org.sdmlib.examples.studyright.model.Professor;
-import org.sdmlib.examples.studyright.model.util.ProfessorSet;
+import org.sdmlib.examples.studyright.model.Topic;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class TopicSet extends SDMSet<Topic>
 {
@@ -152,4 +152,6 @@ public class TopicSet extends SDMSet<Topic>
       return this;
    }
 
+
+   public static final TopicSet EMPTY_SET = new TopicSet().withReadOnly(true);
 }

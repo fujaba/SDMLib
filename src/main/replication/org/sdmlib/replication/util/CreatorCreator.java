@@ -42,7 +42,17 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ReplicationRootPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ReplicationNodeCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ReplicationNodePOCreator());
-
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.RemoteTaskCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.RemoteTaskPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelSpaceCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelSpacePOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelSpaceProxyCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelSpaceProxyPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelChannelCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelChannelPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelScopeCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelScopePOCreator());
+      
       return jsonIdMap;
    }
 }

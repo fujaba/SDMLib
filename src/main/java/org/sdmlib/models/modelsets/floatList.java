@@ -20,7 +20,7 @@ public class floatList extends ArrayList<Float>
 
    public float max()
    {
-      float max = 0;
+      float max = Float.MIN_VALUE;
 
       for (float x : this)
       {

@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.m2m.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.m2m.model.GraphComponent;
 import org.sdmlib.examples.m2m.model.Graph;
+import org.sdmlib.examples.m2m.model.GraphComponent;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GraphComponentCreator extends EntityFactory
 {

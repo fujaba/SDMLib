@@ -1,8 +1,9 @@
 package org.sdmlib.examples.groupAccount.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.groupAccount.model.GroupAccount;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GroupAccountPOCreator extends PatternObjectCreator
 {

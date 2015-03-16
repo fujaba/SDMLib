@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/simpleModel/TestJsonForUniDirectionalAssoc.java' type='text/x-java'>UniDirectionalAssocJson</a></p>
+<p>UniDirectionalAssocJson</p>
+<p>adding flipbook to protocol changes.</p>
+<pre>      SDMLibJsonIdMap idMap = (SDMLibJsonIdMap) BigBrotherCreator.createIdMap(&quot;#&quot;);
+      FlipBook flipBook = idMap.createFlipBook();
+      
+      BigBrother bigBrother = new BigBrother();
+      idMap.put(&quot;#bb&quot;, bigBrother);
+</pre><p>extend uni directional assco with objects and check flipbook for change protocol</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"#bb : BigBrother"
+      },
+      {
+         "typ":"node",
+         "id":"#.P3 : Person",
+         "attributes":[
+         "name=Tom"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"#.P4 : Person",
+         "attributes":[
+         "name=Jessica"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"#.P1 : Person",
+         "attributes":[
+         "name=Albert"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"#.P2 : Person",
+         "attributes":[
+         "name=Sabine"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bigbrother",
+            "id":"#bb : BigBrother"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"kids",
+            "id":"#.P3 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bigbrother",
+            "id":"#bb : BigBrother"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"kids",
+            "id":"#.P4 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bigbrother",
+            "id":"#bb : BigBrother"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"noOne",
+            "id":"#.P1 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bigbrother",
+            "id":"#bb : BigBrother"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"suspects",
+            "id":"#.P2 : Person"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasUniDirectionalAssocJson5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

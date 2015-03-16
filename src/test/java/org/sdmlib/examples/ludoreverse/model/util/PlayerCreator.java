@@ -21,10 +21,11 @@
    
 package org.sdmlib.examples.ludoreverse.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.examples.ludoreverse.model.Player;
 import org.sdmlib.examples.ludoreverse.model.Ludo;
+import org.sdmlib.examples.ludoreverse.model.Player;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PlayerCreator extends EntityFactory
 {

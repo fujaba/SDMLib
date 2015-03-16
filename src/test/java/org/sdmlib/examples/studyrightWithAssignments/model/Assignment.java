@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,12 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Assignment implements PropertyChangeInterface
 {
@@ -92,11 +90,11 @@ public class Assignment implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getContent());
-      s.append(" ").append(this.getPoints());
-      return s.substring(1);
+      result.append(" ").append(this.getContent());
+      result.append(" ").append(this.getPoints());
+      return result.substring(1);
    }
 
 
@@ -188,9 +186,6 @@ public class Assignment implements PropertyChangeInterface
    } 
 
    
-   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadonly(true);
-
-   
    /********************************************************************
     * <pre>
     *              many                       many
@@ -207,7 +202,7 @@ public class Assignment implements PropertyChangeInterface
    {
       if (this.students == null)
       {
-         return Student.EMPTY_SET;
+         return StudentSet.EMPTY_SET;
       }
    
       return this.students;
@@ -251,7 +246,6 @@ public class Assignment implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
-         
       }
       return this;
    }

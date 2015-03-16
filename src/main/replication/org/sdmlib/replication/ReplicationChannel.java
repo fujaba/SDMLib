@@ -23,7 +23,6 @@ package org.sdmlib.replication;
 
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -34,7 +33,6 @@ import org.sdmlib.replication.util.ReplicationChannelSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
-import java.beans.PropertyChangeListener;
 
 public class ReplicationChannel extends Thread implements
       PropertyChangeInterface
@@ -78,6 +76,10 @@ public class ReplicationChannel extends Thread implements
             {
                String senderNodeId = line.split(" ")[2];
                this.setTargetNodeId(senderNodeId);
+               // send history
+               for (ReplicationChange change : sharedSpace.getHistory().getChanges()) {
+            	   this.send(sharedSpace.getChangeMap().encode(change).toString());
+               }
             }
             else if (line.startsWith("mouse"))
             {
@@ -90,7 +92,7 @@ public class ReplicationChannel extends Thread implements
             }
          }
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          System.out.println("Socket has been closed");
          this.removeYou();
@@ -115,7 +117,7 @@ public class ReplicationChannel extends Thread implements
          out.write(line);
          out.flush();
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          // this channel is dead, remove it
          this.removeYou();
@@ -356,5 +358,14 @@ public class ReplicationChannel extends Thread implements
       return s.substring(1);
    }
 
+   public void loadHistory()
+   {
+      JsonObject jsonObject = new JsonObject();
+      jsonObject.put(SharedSpace.RESEND_ID_HISTORY_NUMBER, 0);
+      jsonObject.put(SharedSpace.RESEND_ID_HISTORY_PREFIX, "");
+
+      String line = jsonObject.toString();
+      this.send(line);     
+   }
 }
 

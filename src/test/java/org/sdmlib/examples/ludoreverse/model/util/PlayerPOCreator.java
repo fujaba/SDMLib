@@ -1,8 +1,9 @@
 package org.sdmlib.examples.ludoreverse.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.ludoreverse.model.Player;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PlayerPOCreator extends PatternObjectCreator
 {

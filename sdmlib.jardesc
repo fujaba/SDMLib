@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="onesizefitsallcontainerpaper/lib/sdmlib.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/SDMLib/sdmlib.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=SDMLib/src\/main\/java"/>
+        <javaElement handleIdentifier="=SDMLib/src\/main\/replication"/>
+        <folder path="/SDMLib/test"/>
+        <folder path="/SDMLib/lib"/>
+        <javaElement handleIdentifier="=SDMLib/src\/test\/java"/>
+        <folder path="/SDMLib/src"/>
+        <javaElement handleIdentifier="=NetworkParser"/>
+    </selectedElements>
+</jardesc>

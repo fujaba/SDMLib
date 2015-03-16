@@ -21,11 +21,11 @@
    
 package org.sdmlib.examples.reachabilitygraphs.simplestates;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.examples.reachabilitygraphs.simplestates.util.NodeSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Node implements PropertyChangeInterface
 {
@@ -98,7 +98,7 @@ public class Node implements PropertyChangeInterface
 
 
    
-   public static final NodeSet EMPTY_SET = new NodeSet().withReadonly(true);
+   public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
 
    
    /********************************************************************

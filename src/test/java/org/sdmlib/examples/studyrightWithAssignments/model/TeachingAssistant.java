@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,8 +21,6 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model;
 
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 
 public class TeachingAssistant extends Student
 {
@@ -75,14 +73,14 @@ public class TeachingAssistant extends Student
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getName());
-      s.append(" ").append(this.getId());
-      s.append(" ").append(this.getAssignmentPoints());
-      s.append(" ").append(this.getMotivation());
-      s.append(" ").append(this.getCredits());
-      return s.substring(1);
+      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getId());
+      result.append(" ").append(this.getAssignmentPoints());
+      result.append(" ").append(this.getMotivation());
+      result.append(" ").append(this.getCredits());
+      return result.substring(1);
    }
 
 
@@ -144,7 +142,4 @@ public class TeachingAssistant extends Student
       withRoom(value);
       return value;
    } 
-
-   
-   public static final TeachingAssistantSet EMPTY_SET = new TeachingAssistantSet().withReadonly(true);
 }

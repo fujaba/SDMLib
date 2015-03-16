@@ -21,16 +21,15 @@
    
 package org.sdmlib.examples.groupAccount.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.groupAccount.model.Item;
 import java.util.Collection;
+
+import org.sdmlib.examples.groupAccount.model.GroupAccount;
+import org.sdmlib.examples.groupAccount.model.Item;
+import org.sdmlib.examples.groupAccount.model.Person;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.groupAccount.model.util.GroupAccountSet;
-import org.sdmlib.examples.groupAccount.model.GroupAccount;
-import org.sdmlib.examples.groupAccount.model.util.PersonSet;
-import org.sdmlib.examples.groupAccount.model.Person;
 
 public class ItemSet extends SDMSet<Item>
 {
@@ -270,4 +269,6 @@ public class ItemSet extends SDMSet<Item>
       return this;
    }
 
+
+   public static final ItemSet EMPTY_SET = new ItemSet().withReadOnly(true);
 }

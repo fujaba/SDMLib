@@ -22,15 +22,14 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicConstraint>
+public class MatchIsomorphicConstraintSet extends SDMSet<MatchIsomorphicConstraint>
 {
    private static final long serialVersionUID = 1L;
 
@@ -198,4 +197,6 @@ public class MatchIsomorphicConstraintSet extends LinkedHashSet<MatchIsomorphicC
    {
       return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
    }
+
+   public static final MatchIsomorphicConstraintSet EMPTY_SET = new MatchIsomorphicConstraintSet().withReadOnly(true);
 }

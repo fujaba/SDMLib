@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -97,7 +96,7 @@ public class Storyboard implements PropertyChangeInterface
    private int stepCounter;
    private String modelRootDir = null;
    private String rootDir = null;
-   private StoryboardWall wall = null;
+//   private StoryboardWall wall = null;
    private StoryboardStepSet storyboardSteps = null;
    private int codeStartLineNumber = -1;
    private ByteArrayOutputStream systemOutRecorder;
@@ -192,7 +191,7 @@ public class Storyboard implements PropertyChangeInterface
             if (new File(subPath + "/" + javaTestFileName).exists())
             {
                // got it
-               this.rootDir = subDir.getPath();
+               this.rootDir = subDir.getPath().replaceAll("\\\\", "/");
                javaTestFileName = "../" + rootDir + "/" + javaTestFileName;
 
                return true;
@@ -345,8 +344,8 @@ public class Storyboard implements PropertyChangeInterface
       // reuse old logentries to keep kanban.json stable
       double remainingTime = 0.0;
       double hoursSpend = 0.0;
-      Iterator<LogEntryStoryBoard> oldLogEntriesIter = ((HashSet<LogEntryStoryBoard>) kanbanEntry.getLogEntries()
-         .clone()).iterator();
+      Iterator<LogEntryStoryBoard> oldLogEntriesIter = kanbanEntry.getLogEntries()
+         .clone().iterator();
       Date latestEntryTime = null;
 
       for (LogEntryStoryBoard newEntry : newLogEntries.values())
@@ -515,7 +514,7 @@ public class Storyboard implements PropertyChangeInterface
 
    // private int stepCounter = 0;
 
-   public void addStep(String txt)
+   public Storyboard addStep(String txt)
    {
       if (stepCounter == 0)
       {
@@ -531,6 +530,7 @@ public class Storyboard implements PropertyChangeInterface
          this.add(buf.toString());
          this.setStepCounter(this.getStepCounter() + 1);
       }
+      return this;
    }
 
    public void add(String string)
@@ -1083,7 +1083,7 @@ public class Storyboard implements PropertyChangeInterface
             {
                Class<?> creatorClass = this.getClass().getClassLoader().loadClass(creatorClassName);
                Method createIdMapMethod = creatorClass.getDeclaredMethod("createIdMap", String.class);
-               jsonIdMap = (JsonIdMap) createIdMapMethod.invoke(null, "d");
+               jsonIdMap = (JsonIdMap) createIdMapMethod.invoke(null, null);
                jsonIdMap.getLogger().withError(false);
             }
             catch (Exception e)
@@ -1152,7 +1152,7 @@ public class Storyboard implements PropertyChangeInterface
    private class AlwaysTrueCondition extends ConditionMap
    {
       @Override
-      public boolean matches(ValuesMap values)
+      public boolean check(ValuesMap values)
       {
          // TODO Auto-generated method stub
          return true;
@@ -1516,9 +1516,10 @@ public class Storyboard implements PropertyChangeInterface
 
    public void removeYou()
    {
-      setWall(null);
+//      setWall(null);
       removeAllFromStoryboardSteps();
       withoutStoryboardSteps(this.getStoryboardSteps().toArray(new StoryboardStep[this.getStoryboardSteps().size()]));
+      setWall(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -1637,51 +1638,51 @@ public class Storyboard implements PropertyChangeInterface
     * </pre>
     * @return The StoryboardWall
     */
-   public StoryboardWall getWall()
-   {
-      return this.wall;
-   }
+//   public StoryboardWall getWall()
+//   {
+//      return this.wall;
+//   }
 
-   public boolean setWall(StoryboardWall value)
-   {
-      boolean changed = false;
+//   public boolean setWall(StoryboardWall value)
+//   {
+//      boolean changed = false;
+//
+//      if (this.wall != value)
+//      {
+//         StoryboardWall oldValue = this.wall;
+//
+//         if (this.wall != null)
+//         {
+//            this.wall = null;
+//            oldValue.setStoryboard(null);
+//         }
+//
+//         this.wall = value;
+//
+//         if (value != null)
+//         {
+//            value.withStoryboard(this);
+//         }
+//
+//         getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
+//         changed = true;
+//      }
+//
+//      return changed;
+//   }
 
-      if (this.wall != value)
-      {
-         StoryboardWall oldValue = this.wall;
+//   public Storyboard withWall(StoryboardWall value)
+//   {
+//      setWall(value);
+//      return this;
+//   }
 
-         if (this.wall != null)
-         {
-            this.wall = null;
-            oldValue.setStoryboard(null);
-         }
-
-         this.wall = value;
-
-         if (value != null)
-         {
-            value.withStoryboard(this);
-         }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Storyboard withWall(StoryboardWall value)
-   {
-      setWall(value);
-      return this;
-   }
-
-   public StoryboardWall createWall()
-   {
-      StoryboardWall value = new StoryboardWall();
-      withWall(value);
-      return value;
-   }
+//   public StoryboardWall createWall()
+//   {
+//      StoryboardWall value = new StoryboardWall();
+//      withWall(value);
+//      return value;
+//   }
 
    // ==========================================================================
    public String getRootDir()
@@ -1825,7 +1826,7 @@ public class Storyboard implements PropertyChangeInterface
       po.getPattern().dumpDiagram(name);
    }
 
-   class RestrictToFilter extends ConditionMap
+   public static class RestrictToFilter extends ConditionMap
    {
       private LinkedHashSet<Object> explicitElems;
 
@@ -1836,7 +1837,7 @@ public class Storyboard implements PropertyChangeInterface
       }
 
       @Override
-      public boolean matches(ValuesMap values)
+      public boolean check(ValuesMap values)
       {
          if (values.value != null
             && ("Integer Float Double Long Boolean String"
@@ -1848,4 +1849,52 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
+
+   private StoryboardWall wall = null;
+
+   public StoryboardWall getWall()
+   {
+      return this.wall;
+   }
+
+   public boolean setWall(StoryboardWall value)
+   {
+      boolean changed = false;
+      
+      if (this.wall != value)
+      {
+         StoryboardWall oldValue = this.wall;
+         
+         if (this.wall != null)
+         {
+            this.wall = null;
+            oldValue.setStoryboard(null);
+         }
+         
+         this.wall = value;
+         
+         if (value != null)
+         {
+            value.withStoryboard(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_WALL, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Storyboard withWall(StoryboardWall value)
+   {
+      setWall(value);
+      return this;
+   } 
+
+   public StoryboardWall createWall()
+   {
+      StoryboardWall value = new StoryboardWall();
+      withWall(value);
+      return value;
+   } 
 }

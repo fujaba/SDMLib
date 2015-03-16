@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.studyright.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.studyright.model.Male;
 import java.util.Collection;
+
+import org.sdmlib.examples.studyright.model.Male;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class MaleSet extends SDMSet<Male>
 {
@@ -99,4 +100,6 @@ public class MaleSet extends SDMSet<Male>
       return this;
    }
 
+
+   public static final MaleSet EMPTY_SET = new MaleSet().withReadOnly(true);
 }

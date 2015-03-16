@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,16 +21,15 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class Room implements PropertyChangeInterface
 {
@@ -105,12 +104,12 @@ public class Room implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getName());
-      s.append(" ").append(this.getTopic());
-      s.append(" ").append(this.getCredits());
-      return s.substring(1);
+      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getTopic());
+      result.append(" ").append(this.getCredits());
+      return result.substring(1);
    }
 
 
@@ -169,9 +168,6 @@ public class Room implements PropertyChangeInterface
       setCredits(value);
       return this;
    } 
-
-   
-   public static final RoomSet EMPTY_SET = new RoomSet().withReadonly(true);
 
    
    /********************************************************************
@@ -249,7 +245,7 @@ public class Room implements PropertyChangeInterface
    {
       if (this.doors == null)
       {
-         return Room.EMPTY_SET;
+         return RoomSet.EMPTY_SET;
       }
    
       return this.doors;
@@ -299,7 +295,6 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_DOORS, item, null);
             }
          }
-         
       }
       return this;
    }
@@ -328,7 +323,7 @@ public class Room implements PropertyChangeInterface
    {
       if (this.students == null)
       {
-         return Student.EMPTY_SET;
+         return StudentSet.EMPTY_SET;
       }
    
       return this.students;
@@ -372,7 +367,6 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_STUDENTS, item, null);
             }
          }
-         
       }
       return this;
    }
@@ -408,7 +402,7 @@ public class Room implements PropertyChangeInterface
    {
       if (this.assignments == null)
       {
-         return Assignment.EMPTY_SET;
+         return AssignmentSet.EMPTY_SET;
       }
    
       return this.assignments;
@@ -452,7 +446,6 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTS, item, null);
             }
          }
-         
       }
       return this;
    }
@@ -481,7 +474,7 @@ public class Room implements PropertyChangeInterface
    {
       if (this.tas == null)
       {
-         return TeachingAssistant.EMPTY_SET;
+         return TeachingAssistantSet.EMPTY_SET;
       }
    
       return this.tas;
@@ -525,7 +518,6 @@ public class Room implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_TAS, item, null);
             }
          }
-         
       }
       return this;
    }

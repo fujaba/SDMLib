@@ -24,6 +24,7 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
@@ -33,13 +34,8 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.AttributeConstraintSet;
-import org.sdmlib.models.pattern.util.DestroyObjectElemSet;
-import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
-import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 
-public class PatternObjectSet extends LinkedHashSet<PatternObject>
+public class PatternObjectSet extends SDMSet<PatternObject>
 {
    public LinkedHashSet<Object> getCurrentMatch()
    {
@@ -496,4 +492,6 @@ public class PatternObjectSet extends LinkedHashSet<PatternObject>
    {
       return new PatternObjectPO(this.toArray(new PatternObject[this.size()]));
    }
+
+   public static final PatternObjectSet EMPTY_SET = new PatternObjectSet().withReadOnly(true);
 }

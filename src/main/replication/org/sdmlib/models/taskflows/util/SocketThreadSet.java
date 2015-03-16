@@ -246,4 +246,6 @@ public class SocketThreadSet extends SDMSet<SocketThread>
       return this;
    }
 
+
+   public static final SocketThreadSet EMPTY_SET = new SocketThreadSet().withReadOnly(true);
 }

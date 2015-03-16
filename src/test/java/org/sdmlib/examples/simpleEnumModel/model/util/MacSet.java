@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.simpleEnumModel.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleEnumModel.model.Mac;
 import java.util.Collection;
+
+import org.sdmlib.examples.simpleEnumModel.model.Mac;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 public class MacSet extends SDMSet<Mac>
@@ -116,4 +117,6 @@ public class MacSet extends SDMSet<Mac>
       return this;
    }
 
+
+   public static final MacSet EMPTY_SET = new MacSet().withReadOnly(true);
 }

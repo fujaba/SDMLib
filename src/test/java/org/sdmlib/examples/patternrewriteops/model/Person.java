@@ -26,7 +26,6 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.examples.patternrewriteops.model.util.PersonSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.util.LinkedHashSet;
 
 public class Person implements PropertyChangeInterface
 {

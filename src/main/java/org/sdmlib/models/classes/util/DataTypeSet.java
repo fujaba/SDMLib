@@ -62,9 +62,5 @@ public class DataTypeSet extends SDMSet<DataType>
       return this;
    }
 
-   @Override
-   public DataTypeSet getNewInstance()
-   {
-      return new DataTypeSet();
-   }
+   public static final DataTypeSet EMPTY_SET = new DataTypeSet().withReadOnly(true);
 }

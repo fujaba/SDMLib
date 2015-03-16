@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.sdmlib.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.examples.reachabilitygraphs.simplestates.SimpleState;
 import org.sdmlib.examples.reachabilitygraphs.simplestates.util.SimpleStateCreator;
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.storyboards.Storyboard;

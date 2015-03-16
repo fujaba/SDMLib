@@ -38,11 +38,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.logic.Equals;
 import de.uniks.networkparser.logic.ValuesMap;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
 
 public class ReachabilityGraph implements PropertyChangeInterface
 {
@@ -57,7 +53,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       }
 
       @Override
-      public boolean matches(ValuesMap values)
+      public boolean check(ValuesMap values)
       {
          return values.value != root;
       }
@@ -594,7 +590,7 @@ public class ReachabilityGraph implements PropertyChangeInterface
       JsonObject currentProps1 = currentJo1.getJsonObject(JsonIdMap.JSON_PROPS);
       JsonObject currentProps2 = currentJo2.getJsonObject(JsonIdMap.JSON_PROPS);
 
-      for (Iterator<String> iter = currentProps1.keys(); iter.hasNext();)
+      for (Iterator<String> iter = currentProps1.keyIterator(); iter.hasNext();)
       {
          String key = iter.next();
 

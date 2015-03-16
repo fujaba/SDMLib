@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
@@ -17,23 +17,19 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"Train",
-         "attributes":[]
+         "id":"Train"
       },
       {
          "typ":"node",
-         "id":"Station",
-         "attributes":[]
+         "id":"Station"
       },
       {
          "typ":"node",
-         "id":"Person",
-         "attributes":[]
+         "id":"Person"
       },
       {
          "typ":"node",
-         "id":"SignalFlag",
-         "attributes":[]
+         "id":"SignalFlag"
       }
    ],
    "edges":[
@@ -104,8 +100,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTrainModelClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasTrainModelClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 
 </body>

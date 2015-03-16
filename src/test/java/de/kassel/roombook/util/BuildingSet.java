@@ -21,20 +21,14 @@
    
 package de.kassel.roombook.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-
-import de.kassel.roombook.Building;
-
 import java.util.Collection;
-
-import org.sdmlib.models.modelsets.StringList;
-
 import java.util.Collections;
 
-import de.kassel.roombook.util.FloorSet;
-
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
+import de.kassel.roombook.Building;
 import de.kassel.roombook.Floor;
 
 public class BuildingSet extends SDMSet<Building>
@@ -168,4 +162,6 @@ public class BuildingSet extends SDMSet<Building>
       return this;
    }
 
+
+   public static final BuildingSet EMPTY_SET = new BuildingSet().withReadOnly(true);
 }

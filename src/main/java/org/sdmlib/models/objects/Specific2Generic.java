@@ -4,33 +4,24 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-import de.uniks.networkparser.interfaces.MapUpdateListener;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 
 public class Specific2Generic
 {
-   private class MyUpdateListener implements MapUpdateListener
+   private class MyUpdateListener implements UpdateListener
    {
       public String firstPropName = null;
       
       public String secondPropName = null;
-      
-      
-      @Override
-      public boolean skipCollision(Object masterObj, String key, Object value,
-            JsonObject removeJson, JsonObject updateJson)
-      {
-         // TODO Auto-generated method stub
-         return false;
-      }
 
-      @Override
-  	public boolean sendUpdateMsg(Object target, String property, Object oldObj,
-  			Object newObject, JsonObject jsonObject) {
-         Object tmp = jsonObject.get(JsonIdMap.REMOVE);
+	@Override
+	public boolean update(Object target, String property,
+			JsonObject jsonObject, String typ, Object oldValue, Object newValue) {
+		Object tmp = jsonObject.get(JsonIdMap.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)
          {
@@ -43,20 +34,6 @@ public class Specific2Generic
             secondPropName = propName;
          }
          return false;
-      }
-
-	@Override
-	public boolean isReadMessages(String key, Object element, JsonObject props,
-			String type) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean readMessages(String key, Object element, Object value,
-			JsonObject props, String type) {
-		// TODO Auto-generated method stub
-		return false;
 	}
    }
 
@@ -68,7 +45,7 @@ public class Specific2Generic
       LinkedHashSet<String> knownLinks = new LinkedHashSet<String>();
       
       MyUpdateListener changeListener = new MyUpdateListener();
-      idMap.withUpdateMsgListener(changeListener);
+      idMap.withUpdateListenerSend(changeListener);
       
       // we go via a json array
       JsonArray jsonArray = idMap.toJsonArray(root);
@@ -88,7 +65,7 @@ public class Specific2Generic
          
          if (jsonProps != null)
          {
-            for (Iterator<String> iter = jsonProps.keys(); iter.hasNext();)
+            for (Iterator<String> iter = jsonProps.keyIterator(); iter.hasNext();)
             {
                String attrName = iter.next();
                

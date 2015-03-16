@@ -21,15 +21,14 @@
    
 package org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import java.util.Collections;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
+
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class RiverSet extends SDMSet<River>
 {
@@ -175,4 +174,6 @@ public class RiverSet extends SDMSet<River>
       return this;
    }
 
+
+   public static final RiverSet EMPTY_SET = new RiverSet().withReadOnly(true);
 }

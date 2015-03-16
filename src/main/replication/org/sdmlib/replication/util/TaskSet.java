@@ -28,7 +28,6 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.LogEntrySet;
 
 public class TaskSet extends SDMSet<Task>
 {
@@ -126,4 +125,6 @@ public class TaskSet extends SDMSet<Task>
       return this;
    }
 
+
+   public static final TaskSet EMPTY_SET = new TaskSet().withReadOnly(true);
 }

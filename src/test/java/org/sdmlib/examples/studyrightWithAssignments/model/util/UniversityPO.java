@@ -1,15 +1,10 @@
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversityPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class UniversityPO extends PatternObject<UniversityPO, University>
 {
@@ -32,14 +27,14 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
 
 
    public UniversityPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public UniversityPO(University... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    public UniversityPO hasName(String value)
    {
@@ -50,7 +45,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -65,7 +60,7 @@ public class UniversityPO extends PatternObject<UniversityPO, University>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }

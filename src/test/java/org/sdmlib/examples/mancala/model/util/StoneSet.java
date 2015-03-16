@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.mancala.model.Stone;
 import java.util.Collection;
+
+import org.sdmlib.examples.mancala.model.Stone;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class StoneSet extends SDMSet<Stone>
 {
@@ -63,4 +64,6 @@ public class StoneSet extends SDMSet<Stone>
       return this;
    }
 
+
+   public static final StoneSet EMPTY_SET = new StoneSet().withReadOnly(true);
 }

@@ -22,16 +22,16 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 
-public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
+public class LinkConstraintSet extends SDMSet<LinkConstraint>
 {
    private static final long serialVersionUID = 1L;
 
@@ -288,4 +288,6 @@ public class LinkConstraintSet extends LinkedHashSet<LinkConstraint>
    {
       return new LinkConstraintPO(this.toArray(new LinkConstraint[this.size()]));
    }
+
+   public static final LinkConstraintSet EMPTY_SET = new LinkConstraintSet().withReadOnly(true);
 }

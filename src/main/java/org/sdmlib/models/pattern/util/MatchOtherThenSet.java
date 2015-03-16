@@ -22,18 +22,16 @@
 package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class MatchOtherThenSet extends LinkedHashSet<MatchOtherThen> implements org.sdmlib.models.modelsets.ModelSet
+public class MatchOtherThenSet extends SDMSet<MatchOtherThen> implements org.sdmlib.models.modelsets.ModelSet
 {
    private static final long serialVersionUID = 1L;
 
@@ -268,4 +266,6 @@ public class MatchOtherThenSet extends LinkedHashSet<MatchOtherThen> implements 
    {
       return new MatchOtherThenPO(this.toArray(new MatchOtherThen[this.size()]));
    }
+
+   public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet().withReadOnly(true);
 }

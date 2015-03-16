@@ -29,7 +29,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.TaskSet;
 
 public class LogEntrySet extends SDMSet<LogEntry>
 {
@@ -273,4 +272,6 @@ public class LogEntrySet extends SDMSet<LogEntry>
       return this;
    }
 
+
+   public static final LogEntrySet EMPTY_SET = new LogEntrySet().withReadOnly(true);
 }

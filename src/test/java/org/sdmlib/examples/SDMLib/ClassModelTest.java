@@ -79,6 +79,17 @@ public class ClassModelTest
             .withAttribute("returnType", DataType.ref(DataType.class))
             .withAttribute("body", DataType.STRING);
       
+      Clazz annotationClass = model.createClazz("Annotation").withSuperClazz(sdmLibClazz)
+            .withImport("java.util.TreeSet")
+            .withAttribute("values", DataType.ref("ArrayListSet"), "new ArrayListSet()");
+      
+      new Association()
+      .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
+      .withTarget(annotationClass, "annotations", Card.MANY);
+      
+      new Association()
+      .withSource(new Role(methodClass, "method", Card.ONE).withKind(Role.AGGREGATION))
+      .withTarget(annotationClass, "annotations", Card.MANY);
       
       // ---- Enumeration ----
       

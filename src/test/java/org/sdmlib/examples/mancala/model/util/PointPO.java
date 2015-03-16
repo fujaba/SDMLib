@@ -1,7 +1,8 @@
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import java.awt.Point;
+
+import org.sdmlib.models.pattern.PatternObject;
 
 public class PointPO extends PatternObject<PointPO, Point>
 {

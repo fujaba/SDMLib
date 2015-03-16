@@ -21,9 +21,11 @@
    
 package org.sdmlib.examples.ludoreverse.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import java.awt.Point;
+
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PointCreator extends EntityFactory
 {

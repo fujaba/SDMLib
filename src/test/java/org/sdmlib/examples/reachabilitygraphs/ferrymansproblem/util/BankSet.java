@@ -21,19 +21,17 @@
    
 package org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo;
+import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
-import java.util.Collections;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 
 public class BankSet extends SDMSet<Bank>
 {
@@ -331,4 +329,6 @@ public class BankSet extends SDMSet<Bank>
       return this;
    }
 
+
+   public static final BankSet EMPTY_SET = new BankSet().withReadOnly(true);
 }

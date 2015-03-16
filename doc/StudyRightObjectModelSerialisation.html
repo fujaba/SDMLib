@@ -8,13 +8,14 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../.srctestjava/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelSerialisation</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/studyrightWithAssignments/StoryboardTests.java' type='text/x-java'>StudyRightObjectModelSerialisation</a></p>
 <p>StudyRightObjectModelSerialisation</p>
 <p>How to serialize an object model to json and how to read json into an object model</p>
 <p>Start: Example object structure:</p>
 <script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
@@ -26,24 +27,23 @@
       {
          "typ":"node",
          "id":"karli : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@18a096b5",
          "attributes":[
          "name=Karli",
             "id=4242",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "done=null",
-            "friends=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
          "id":"mathRoom : Room",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@79b18230",
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
@@ -52,10 +52,7 @@
          "attributes":[
          "name=7522",
             "topic=arts",
-            "credits=16",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=16"
          ]
       },
       {
@@ -64,10 +61,7 @@
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=25"
          ]
       },
       {
@@ -76,10 +70,7 @@
          "attributes":[
          "name=The End",
             "topic=exam",
-            "credits=0",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=0"
          ]
       },
       {
@@ -88,37 +79,34 @@
          "attributes":[
          "name=7422",
             "topic=Software Engineering",
-            "credits=42",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=42"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A1 : Assignment",
+         "id":"A1 : Assignment",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1d4f5506",
          "attributes":[
          "content=Matrix Multiplication",
-            "points=5",
-            "students=null"
+            "points=5"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A2 : Assignment",
+         "id":"A2 : Assignment",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@7dee835",
          "attributes":[
          "content=Series",
-            "points=6",
-            "students=null"
+            "points=6"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A3 : Assignment",
+         "id":"A3 : Assignment",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1b57c345",
          "attributes":[
          "content=Integrals",
-            "points=8",
-            "students=null"
+            "points=8"
          ]
       }
    ],
@@ -289,7 +277,7 @@
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -302,7 +290,7 @@
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          }
       },
       {
@@ -315,7 +303,7 @@
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          }
       },
       {
@@ -531,7 +519,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A1 : Assignment"
+            "id":"A1 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -544,7 +532,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A2 : Assignment"
+            "id":"A2 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -557,7 +545,7 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A3 : Assignment"
+            "id":"A3 : Assignment"
          },
          "target":{
             "cardinality":"one",
@@ -716,110 +704,93 @@
 </pre><script>
    var json = {
    "typ":"objectdiagram",
+   "style":null,
    "nodes":[
    {
          "typ":"node",
-         "id":"d.U4 : University",
+         "id":"U4 : University",
          "attributes":[
          "name=StudyRight"
          ]
       },
       {
          "typ":"node",
-         "id":"d.S5 : Student",
+         "id":"S5 : Student",
          "attributes":[
          "name=Karli",
             "id=4242",
             "assignmentPoints=0",
             "motivation=0",
-            "credits=0",
-            "done=null",
-            "friends=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R6 : Room",
+         "id":"R6 : Room",
          "attributes":[
          "name=senate",
             "topic=math",
-            "credits=17",
-            "tas=null"
+            "credits=17"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R7 : Room",
+         "id":"R7 : Room",
          "attributes":[
          "name=7522",
             "topic=arts",
-            "credits=16",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=16"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R8 : Room",
+         "id":"R8 : Room",
          "attributes":[
          "name=gymnasium",
             "topic=sports",
-            "credits=25",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=25"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R9 : Room",
+         "id":"R9 : Room",
          "attributes":[
          "name=The End",
             "topic=exam",
-            "credits=0",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=0"
          ]
       },
       {
          "typ":"node",
-         "id":"d.R10 : Room",
+         "id":"R10 : Room",
          "attributes":[
          "name=7422",
             "topic=Software Engineering",
-            "credits=42",
-            "students=null",
-            "assignments=null",
-            "tas=null"
+            "credits=42"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A11 : Assignment",
+         "id":"A11 : Assignment",
          "attributes":[
          "content=Matrix Multiplication",
-            "points=5",
-            "students=null"
+            "points=5"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A12 : Assignment",
+         "id":"A12 : Assignment",
          "attributes":[
          "content=Series",
-            "points=6",
-            "students=null"
+            "points=6"
          ]
       },
       {
          "typ":"node",
-         "id":"d.A13 : Assignment",
+         "id":"A13 : Assignment",
          "attributes":[
          "content=Integrals",
-            "points=8",
-            "students=null"
+            "points=8"
          ]
       }
    ],
@@ -829,12 +800,12 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"d.S5 : Student"
+            "id":"S5 : Student"
          }
       },
       {
@@ -842,12 +813,12 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"rooms",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          }
       },
       {
@@ -855,12 +826,12 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"rooms",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          }
       },
       {
@@ -868,12 +839,12 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"rooms",
-            "id":"d.R8 : Room"
+            "id":"R8 : Room"
          }
       },
       {
@@ -881,12 +852,12 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"rooms",
-            "id":"d.R9 : Room"
+            "id":"R9 : Room"
          }
       },
       {
@@ -894,12 +865,12 @@
          "source":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          },
          "target":{
             "cardinality":"many",
             "property":"rooms",
-            "id":"d.R10 : Room"
+            "id":"R10 : Room"
          }
       },
       {
@@ -907,12 +878,12 @@
          "source":{
             "cardinality":"one",
             "property":"student",
-            "id":"d.S5 : Student"
+            "id":"S5 : Student"
          },
          "target":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          }
       },
       {
@@ -920,12 +891,12 @@
          "source":{
             "cardinality":"one",
             "property":"student",
-            "id":"d.S5 : Student"
+            "id":"S5 : Student"
          },
          "target":{
             "cardinality":"one",
             "property":"in",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          }
       },
       {
@@ -933,12 +904,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          },
          "target":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          }
       },
       {
@@ -946,12 +917,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          }
       },
       {
@@ -959,12 +930,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R8 : Room"
+            "id":"R8 : Room"
          }
       },
       {
@@ -972,12 +943,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"students",
-            "id":"d.S5 : Student"
+            "id":"S5 : Student"
          }
       },
       {
@@ -985,12 +956,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A11 : Assignment"
+            "id":"A11 : Assignment"
          }
       },
       {
@@ -998,12 +969,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A12 : Assignment"
+            "id":"A12 : Assignment"
          }
       },
       {
@@ -1011,12 +982,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"assignments",
-            "id":"d.A13 : Assignment"
+            "id":"A13 : Assignment"
          }
       },
       {
@@ -1024,12 +995,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          },
          "target":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          }
       },
       {
@@ -1037,12 +1008,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          }
       },
       {
@@ -1050,12 +1021,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R8 : Room"
+            "id":"R8 : Room"
          }
       },
       {
@@ -1063,12 +1034,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R9 : Room"
+            "id":"R9 : Room"
          }
       },
       {
@@ -1076,12 +1047,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R10 : Room"
+            "id":"R10 : Room"
          }
       },
       {
@@ -1089,12 +1060,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R8 : Room"
+            "id":"R8 : Room"
          },
          "target":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          }
       },
       {
@@ -1102,12 +1073,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R8 : Room"
+            "id":"R8 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          }
       },
       {
@@ -1115,12 +1086,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R8 : Room"
+            "id":"R8 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          }
       },
       {
@@ -1128,12 +1099,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R8 : Room"
+            "id":"R8 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R9 : Room"
+            "id":"R9 : Room"
          }
       },
       {
@@ -1141,12 +1112,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R9 : Room"
+            "id":"R9 : Room"
          },
          "target":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          }
       },
       {
@@ -1154,12 +1125,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R9 : Room"
+            "id":"R9 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R8 : Room"
+            "id":"R8 : Room"
          }
       },
       {
@@ -1167,12 +1138,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R9 : Room"
+            "id":"R9 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          }
       },
       {
@@ -1180,12 +1151,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R9 : Room"
+            "id":"R9 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R10 : Room"
+            "id":"R10 : Room"
          }
       },
       {
@@ -1193,12 +1164,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R10 : Room"
+            "id":"R10 : Room"
          },
          "target":{
             "cardinality":"one",
             "property":"university",
-            "id":"d.U4 : University"
+            "id":"U4 : University"
          }
       },
       {
@@ -1206,12 +1177,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R10 : Room"
+            "id":"R10 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R7 : Room"
+            "id":"R7 : Room"
          }
       },
       {
@@ -1219,12 +1190,12 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R10 : Room"
+            "id":"R10 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"d.R9 : Room"
+            "id":"R9 : Room"
          }
       },
       {
@@ -1232,12 +1203,12 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A11 : Assignment"
+            "id":"A11 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          }
       },
       {
@@ -1245,12 +1216,12 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A12 : Assignment"
+            "id":"A12 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          }
       },
       {
@@ -1258,12 +1229,12 @@
          "source":{
             "cardinality":"one",
             "property":"assignment",
-            "id":"d.A13 : Assignment"
+            "id":"A13 : Assignment"
          },
          "target":{
             "cardinality":"one",
             "property":"room",
-            "id":"d.R6 : Room"
+            "id":"R6 : Room"
          }
       }
    ]

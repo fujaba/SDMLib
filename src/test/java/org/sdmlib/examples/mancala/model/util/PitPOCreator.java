@@ -1,8 +1,9 @@
 package org.sdmlib.examples.mancala.model.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.mancala.model.Pit;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class PitPOCreator extends PatternObjectCreator
 {

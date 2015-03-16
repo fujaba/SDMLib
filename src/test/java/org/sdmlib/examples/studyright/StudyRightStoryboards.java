@@ -16,7 +16,7 @@ public class StudyRightStoryboards
    @Test
    public void testStudyRightObjectStoryboards()
    {
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
       storyboard.setSprint("Sprint.001.Booting");
       

@@ -25,7 +25,6 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.models.transformations.ChoiceTemplate;
 
 public class ChoiceTemplate extends Template implements PropertyChangeInterface
 {

@@ -29,8 +29,6 @@ import org.sdmlib.examples.ludo.model.Player;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.ludo.model.util.LudoSet;
-import org.sdmlib.examples.ludo.model.util.PlayerSet;
 
 public class DiceSet extends SDMSet<Dice>
 {
@@ -203,4 +201,6 @@ public class DiceSet extends SDMSet<Dice>
       return this;
    }
 
+
+   public static final DiceSet EMPTY_SET = new DiceSet().withReadOnly(true);
 }

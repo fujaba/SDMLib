@@ -37,7 +37,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import java.beans.PropertyChangeListener;
 
 public class ReachableState implements PropertyChangeInterface
 {
@@ -103,7 +102,7 @@ public class ReachableState implements PropertyChangeInterface
             JsonObject propObj = jsonObj.getJsonObject(JsonIdMap.JSON_PROPS);
 
             // make references anonymous
-            for (Iterator<String> iter = propObj.keys(); iter.hasNext();)
+            for (Iterator<String> iter = propObj.keyIterator(); iter.hasNext();)
             {
                String key = iter.next();
 

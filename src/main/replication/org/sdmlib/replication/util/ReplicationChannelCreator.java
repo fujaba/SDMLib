@@ -73,7 +73,7 @@ public class ReplicationChannelCreator extends EntityFactory
       {
          return ((ReplicationChannel) target).getTargetNodeId();
       }
-      
+
       return null;
    }
    
@@ -102,7 +102,7 @@ public class ReplicationChannelCreator extends EntityFactory
          ((ReplicationChannel) target).withTargetNodeId((String) value);
          return true;
       }
-      
+
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)

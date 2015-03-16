@@ -27,7 +27,6 @@ import java.util.LinkedHashSet;
 import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public class GenericGraph implements PropertyChangeInterface
 {

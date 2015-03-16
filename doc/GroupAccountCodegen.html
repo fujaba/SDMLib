@@ -4,11 +4,11 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<script src="includes/dagre.js"></script>
+<script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/groupAccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/groupAccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
 <p>GroupAccountCodegen</p>
 <p>Start situation: Nothing here yet. Generate classes</p>
 <script>
@@ -18,7 +18,10 @@
    {
          "typ":"node",
          "id":"GroupAccount",
-         "attributes":[]
+         "methods":[
+         "getTaskNames(double p0, String p1) double",
+            "updateBalances()"
+         ]
       },
       {
          "typ":"node",
@@ -79,8 +82,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGroupAccountCodegenClassDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
+   new Graph(json, {"canvasid":"canvasGroupAccountCodegenClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 
 </body>

@@ -30,8 +30,6 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.ludo.model.util.PlayerSet;
-import org.sdmlib.examples.ludo.model.util.FieldSet;
 
 public class PawnSet extends SDMSet<Pawn>
 {
@@ -278,4 +276,6 @@ public class PawnSet extends SDMSet<Pawn>
       return this;
    }
 
+
+   public static final PawnSet EMPTY_SET = new PawnSet().withReadOnly(true);
 }

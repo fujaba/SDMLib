@@ -14,6 +14,61 @@ public class ReplicationModel
 {
    private static final String CHANGE_HISTORY = "ChangeHistory";
    private static final String REPLICATION_NODE = "ReplicationNode";
+   
+   
+   @Test
+   public void testSeppelModel()
+   {
+      Storyboard story = new Storyboard();
+
+      ClassModel model = new ClassModel("org.sdmlib.replication");
+      
+      // seppel spaces
+      Clazz thread = model.createClazz(Thread.class.getName()).withExternal(true);
+
+      Clazz seppelSpace = model.createClazz("SeppelSpace")
+            .withAttribute("spaceId", DataType.STRING) 
+            .withAttribute("history", DataType.ref(CHANGE_HISTORY))
+            .withAttribute("lastChangeId", DataType.LONG) 
+            .withAttribute("javaFXApplication", DataType.BOOLEAN)
+            .withSuperClazz(thread);
+      
+      Clazz seppelSpaceProxy = model.createClazz("SeppelSpaceProxy")
+            .withAttribute("spaceId", DataType.STRING)
+            .withAttribute("acceptsConnectionRequests", DataType.BOOLEAN)
+            .withAttribute("hostName", DataType.STRING)
+            .withAttribute("portNo", DataType.INT)
+            .withAttribute("loginName", DataType.STRING)
+            .withAttribute("password", DataType.STRING);
+      
+      seppelSpaceProxy.withAssoc(seppelSpaceProxy, "partners", Card.MANY, "partners", Card.MANY);
+      
+      Clazz seppelScope = model.createClazz("SeppelScope")
+            .withAttribute("scopeName", DataType.STRING);
+      
+      seppelScope.withAssoc(seppelScope, "subScopes", Card.MANY, "superScopes", Card.MANY);
+
+      seppelSpaceProxy.withAssoc(seppelScope, "scopes", Card.MANY, "spaces", Card.MANY);
+      
+      Clazz object = model.createClazz(Object.class.getName()).withExternal(true);
+      
+      seppelScope.withUniDirectionalAssoc(object, "observedObjects", Card.MANY); 
+
+      Clazz seppelChannel = model.createClazz("SeppelChannel")
+            .withSuperClazz(thread)
+            .withAttribute("socket", DataType.ref(Socket.class))
+            .withAttribute("loginValidated", DataType.BOOLEAN); 
+      
+            
+      seppelSpaceProxy.withAssoc(seppelChannel, "channel", Card.ONE, "seppelSpaceProxy", Card.ONE);
+      
+      model.generate("src/main/replication");
+
+      story.addClassDiagram(model);
+
+
+      story.dumpHTML();
+   }
 
    @Test
    public void testReplicationModel()
@@ -114,7 +169,7 @@ public class ReplicationModel
             .withAttribute("applicationObject", DataType.OBJECT);
       
       replicationRoot.withAssoc(replicationRoot, "kids", Card.MANY, "parent", Card.ONE);
-      
+
       model.generate("src/main/replication");
 
       storyboard.addClassDiagram(model);

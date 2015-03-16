@@ -23,13 +23,13 @@ package org.sdmlib.codegen.util;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.codegen.LocalVarTableEntry;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
-public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
+public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
 {
    private static final long serialVersionUID = 1L;
 
@@ -179,4 +179,6 @@ public class LocalVarTableEntrySet extends LinkedHashSet<LocalVarTableEntry>
       return new LocalVarTableEntryPO(this.toArray(new LocalVarTableEntry[this.size()]));
 
    }
+
+   public static final LocalVarTableEntrySet EMPTY_SET = new LocalVarTableEntrySet().withReadOnly(true);
 }

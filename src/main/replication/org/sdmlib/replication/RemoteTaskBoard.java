@@ -28,7 +28,6 @@ import org.sdmlib.replication.util.LaneSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import java.beans.PropertyChangeListener;
 
 public class RemoteTaskBoard implements PropertyChangeInterface
 {

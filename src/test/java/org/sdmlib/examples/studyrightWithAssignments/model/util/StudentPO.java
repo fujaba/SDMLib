@@ -1,17 +1,11 @@
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.UniversityPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomPO;
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentPO;
 import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class StudentPO extends PatternObject<StudentPO, Student>
 {
@@ -34,14 +28,14 @@ public class StudentPO extends PatternObject<StudentPO, Student>
 
 
    public StudentPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public StudentPO(Student... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.examples.studyrightWithAssignments.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    public StudentPO hasName(String value)
    {
@@ -52,7 +46,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -67,7 +61,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -105,7 +99,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -120,7 +114,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -158,7 +152,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -173,7 +167,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -211,7 +205,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -226,7 +220,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -264,7 +258,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -279,7 +273,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }

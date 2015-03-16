@@ -29,8 +29,6 @@ import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.helloworld.model.util.GraphSet;
-import org.sdmlib.examples.helloworld.model.util.NodeSet;
 
 public class EdgeSet extends SDMSet<Edge>
 {
@@ -339,6 +337,8 @@ public class EdgeSet extends SDMSet<Edge>
       return this;
    }
 
+
+   public static final EdgeSet EMPTY_SET = new EdgeSet().withReadOnly(true);
 }
 
 

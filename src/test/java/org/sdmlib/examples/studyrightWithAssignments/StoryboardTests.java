@@ -43,6 +43,7 @@ import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.logic.Condition;
 
 public class StoryboardTests {
    @Test
@@ -359,7 +360,7 @@ public class StoryboardTests {
             .withName("senate")
             .withTopic("math")
             .withCredits(17)  
-            .withStudents(karli)
+            .withStudents(karli) 
             .withAssignments(a1, a2, a3);
 
       Room artsRoom = university.createRooms()
@@ -427,7 +428,7 @@ public class StoryboardTests {
       story.addPreformatted(text);
       
       story.assertEquals("Assignment points: ", 23, assignmentPoints);
-      story.assertEquals("donePoints: ", 9, donePoints);
+      story.assertEquals("donePoints: ", 15, donePoints);
       
       //=====================================================
       story.addStep("Rooms with assignments not yet done by Karli:");
@@ -467,14 +468,11 @@ public class StoryboardTests {
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
       
-      RoomSet roomsEven = university.getRooms().has(rooms.new Condition() {
-
-         @Override
-         public boolean check(Room elem)
-         {
-            return elem.getCredits() % 2 == 0;
-         }
-         
+      RoomSet roomsEven = university.getRooms().has(new Condition<Room>() {
+		@Override
+		public boolean check(Room value) {
+			return value.getCredits() % 2 == 0;
+		}
       });
       
       story.addCode();
@@ -538,18 +536,6 @@ public class StoryboardTests {
       stud1PO = roomPO.hasStudents();      
       
       final StudentPO stud2PO = roomPO.hasStudents().hasMotivation(0, 50);
-      
-      // Java 8: 
-      // stud2PO.has( () -> stud2PO.getMotivation() < 50);
-      
-      //      stud2PO.has(new GenericConstraint.Condition()
-      //      {
-      //         @Override
-      //         public boolean check()
-      //         {
-      //            return stud2PO.getMotivation() < 50;
-      //         }
-      //      });
       
       stud2PO.hasFriends(stud1PO);
       

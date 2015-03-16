@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,14 +21,13 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
-import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
-import java.util.LinkedHashSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class University implements PropertyChangeInterface
 {
@@ -92,10 +91,10 @@ public class University implements PropertyChangeInterface
    @Override
    public String toString()
    {
-      StringBuilder s = new StringBuilder();
+      StringBuilder result = new StringBuilder();
       
-      s.append(" ").append(this.getName());
-      return s.substring(1);
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
 
 
@@ -116,7 +115,7 @@ public class University implements PropertyChangeInterface
    {
       if (this.students == null)
       {
-         return Student.EMPTY_SET;
+         return StudentSet.EMPTY_SET;
       }
    
       return this.students;
@@ -195,7 +194,7 @@ public class University implements PropertyChangeInterface
    {
       if (this.rooms == null)
       {
-         return Room.EMPTY_SET;
+         return RoomSet.EMPTY_SET;
       }
    
       return this.rooms;
@@ -239,7 +238,6 @@ public class University implements PropertyChangeInterface
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ROOMS, item, null);
             }
          }
-         
       }
       return this;
    }

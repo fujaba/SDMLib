@@ -21,16 +21,15 @@
    
 package org.sdmlib.models.pattern.util;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class PatternElementSet extends ArrayList<PatternElement<?>>
+public class PatternElementSet extends SDMSet<PatternElement<?>>
 {
    public PatternSet getPattern()
    {
@@ -219,4 +218,6 @@ public class PatternElementSet extends ArrayList<PatternElement<?>>
    {
       return new PatternElementPO(this.toArray(new PatternElement[this.size()]));
    }
+
+   public static final PatternElementSet EMPTY_SET = new PatternElementSet().withReadOnly(true);
 }
