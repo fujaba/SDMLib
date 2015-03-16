@@ -57,6 +57,7 @@ public class SymTabEntry implements PropertyChangeInterface
 //      s.append(" ").append(this.getBodyStartPos());
 //      s.append(" ").append(this.getEndPos());
 //      s.append(" ").append(this.getModifiers());
+//      result.append(" ").append(this.getAnnotations());
       return "" + type;
    }   
    //==========================================================================
@@ -216,4 +217,32 @@ public class SymTabEntry implements PropertyChangeInterface
       return this;
    } 
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ANNOTATIONS = "annotations";
+   
+   private String annotations;
+
+   public String getAnnotations()
+   {
+      return this.annotations;
+   }
+   
+   public void setAnnotations(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.annotations, value))
+      {
+         String oldValue = this.annotations;
+         this.annotations = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, oldValue, value);
+      }
+   }
+   
+   public SymTabEntry withAnnotations(String value)
+   {
+      setAnnotations(value);
+      return this;
+   } 
 }

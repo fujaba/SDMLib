@@ -350,6 +350,59 @@ public class SymTabEntryPO extends PatternObject<SymTabEntryPO, SymTabEntry>
       return this;
    }
    
+   public SymTabEntryPO hasAnnotations(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SymTabEntry.PROPERTY_ANNOTATIONS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttribute();
+      
+      return this;
+   }
+   
+   public SymTabEntryPO hasAnnotations(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(SymTabEntry.PROPERTY_ANNOTATIONS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttribute();
+      
+      return this;
+   }
+   
+   public SymTabEntryPO createAnnotations(String value)
+   {
+      this.startCreate().hasAnnotations(value).endCreate();
+      return this;
+   }
+   
+   public String getAnnotations()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((SymTabEntry) getCurrentMatch()).getAnnotations();
+      }
+      return null;
+   }
+   
+   public SymTabEntryPO withAnnotations(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((SymTabEntry) getCurrentMatch()).setAnnotations(value);
+      }
+      return this;
+   }
+   
 }
 
 

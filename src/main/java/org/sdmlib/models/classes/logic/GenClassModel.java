@@ -2869,6 +2869,10 @@ public class GenClassModel
                method.with(new Parameter(DataType.ref(param)));
             }
          }
+         
+         if (!symTabEntry.getAnnotations().isEmpty()) {
+        	 method.withAnnotations(new Annotation().withName(symTabEntry.getAnnotations()));
+         }
       }
    }
 

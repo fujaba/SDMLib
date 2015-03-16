@@ -27,7 +27,7 @@ public class GenAnnotation extends Generator<Annotation>
       ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(method.getSignature(false));
       SymTabEntry symTabEntry = tabEntries.get(0);
       
-      if (symTabEntry == null)
+      if (symTabEntry == null || symTabEntry.getAnnotations().contains(model.getName()))
          return null;
       
       int startPos = symTabEntry.getStartPos();
@@ -52,7 +52,7 @@ public class GenAnnotation extends Generator<Annotation>
       ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(clazz.getFullName());
       SymTabEntry symTabEntry = tabEntries.get(0);
       
-      if (symTabEntry == null)
+      if (symTabEntry == null|| symTabEntry.getAnnotations().contains(model.getName()))
          return null;
       
       int startPos = symTabEntry.getStartPos();
