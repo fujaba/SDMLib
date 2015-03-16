@@ -1,25 +1,25 @@
 package org.sdmlib.examples.annotations;
 
 import org.junit.Test;
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Method;
-
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Parameter;
 
 
 public class AnnotationTest {
 	
 	@Test
 	public void testFeaturesNone() {
-		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.simple")
-								.withFeatures(null);
+		ClassModel model = new ClassModel("org.sdmlib.examples.annotations.model.simple");
 		
-		Clazz house = model.createClazz("House");
-		Method method = house.createMethod("init");
-		method.with
+		Clazz cube = model.createClazz("Cube");
+		cube.createMethod("init");
+		
+		Clazz house = model.createClazz("House").withSuperClazz(cube);
+		house.createMethod("init")
+				.withAnnotations(new Annotation().withName("Override"));
+		
 		Clazz door = model.createClazz("Door");
 		Clazz window = model.createClazz("Window");
 		
