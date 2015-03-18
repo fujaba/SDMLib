@@ -21,15 +21,16 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.classes.Annotation;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.classes.util.ClazzSet;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class AnnotationSet extends SDMSet<Annotation>
 {
@@ -71,9 +72,9 @@ public class AnnotationSet extends SDMSet<Annotation>
       return this;
    }
 
-   public ArrayListSet getValues()
+   public Set<String> getValues()
    {
-      ArrayListSet result = new ArrayListSet();
+      Set<String> result = new HashSet<String>();
       
       for (Annotation obj : this)
       {
@@ -83,7 +84,7 @@ public class AnnotationSet extends SDMSet<Annotation>
       return result;
    }
 
-   public AnnotationSet hasValues(ArrayListSet value)
+   public AnnotationSet hasValues(Set<String> value)
    {
       AnnotationSet result = new AnnotationSet();
       
@@ -98,7 +99,7 @@ public class AnnotationSet extends SDMSet<Annotation>
       return result;
    }
 
-   public AnnotationSet withValues(ArrayListSet value)
+   public AnnotationSet withValues(Set<String> value)
    {
       for (Annotation obj : this)
       {
@@ -254,6 +255,58 @@ public class AnnotationSet extends SDMSet<Annotation>
       }
       
       return this;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createOverrideAnnotation()
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createOverrideAnnotation());
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createDeprecatedAnnotation()
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createDeprecatedAnnotation());
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createSuppressWarningsAnnotation(String value)
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createSuppressWarningsAnnotation(value));
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createSafeVarargsAnnotation()
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createSafeVarargsAnnotation());
+      }
+      return result;
    }
 
 }

@@ -58,8 +58,11 @@
       {
          "typ":"node",
          "id":"Annotation",
-         "attributes":[
-         "values : ArrayListSet"
+         "methods":[
+         "createOverrideAnnotation() org.sdmlib.models.classes.Annotation",
+            "createDeprecatedAnnotation() org.sdmlib.models.classes.Annotation",
+            "createSuppressWarningsAnnotation(String value) org.sdmlib.models.classes.Annotation",
+            "createSafeVarargsAnnotation() org.sdmlib.models.classes.Annotation"
          ]
       },
       {
@@ -95,6 +98,7 @@
             "startPos : int",
             "bodyStartPos : int",
             "endPos : int",
+            "annotations : String",
             "modifiers : String"
          ]
       },

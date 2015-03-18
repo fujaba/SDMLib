@@ -1,5 +1,7 @@
 package org.sdmlib.models.classes.util;
 
+import java.util.Set;
+
 import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
@@ -56,7 +58,7 @@ public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
       return this;
    }
    
-   public ArrayListSet getValues()
+   public Set<String> getValues()
    {
       if (this.getPattern().getHasMatch())
       {
@@ -65,7 +67,7 @@ public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
       return null;
    }
    
-   public AnnotationPO withValues(ArrayListSet value)
+   public AnnotationPO withValues(Set<String> value)
    {
       if (this.getPattern().getHasMatch())
       {
@@ -191,6 +193,54 @@ public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
       if (this.getPattern().getHasMatch())
       {
          return ((Annotation) this.getCurrentMatch()).getMethod();
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public org.sdmlib.models.classes.Annotation createOverrideAnnotation()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Annotation) getCurrentMatch()).createOverrideAnnotation();
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public org.sdmlib.models.classes.Annotation createDeprecatedAnnotation()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Annotation) getCurrentMatch()).createDeprecatedAnnotation();
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public org.sdmlib.models.classes.Annotation createSuppressWarningsAnnotation(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Annotation) getCurrentMatch()).createSuppressWarningsAnnotation(value);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public org.sdmlib.models.classes.Annotation createSafeVarargsAnnotation()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Annotation) getCurrentMatch()).createSafeVarargsAnnotation();
       }
       return null;
    }
