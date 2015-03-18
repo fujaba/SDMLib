@@ -368,8 +368,11 @@ public class GenClassModel
                         + CGUtil.shortClassName(clazz.getFullName());
                   }
 
-                  creators.append("      jsonIdMap.withCreator(new " + creatorName + "Creator());\n" +
-                     "      jsonIdMap.withCreator(new " + creatorName + "POCreator());\n");
+                  creators.append("      jsonIdMap.withCreator(new " + creatorName + "Creator());\n");
+                  
+                  if (clazz.hasFeature(Feature.PatternObject)) {
+                	  creators.append("      jsonIdMap.withCreator(new " + creatorName + "POCreator());\n");
+                  }
 
                   // if there are multiple packages, the CreatorCreator must be
                   // public
@@ -447,10 +450,15 @@ public class GenClassModel
          int addCreatorPos = ccParser.search("return jsonIdMap;", methodBodyStartPos);
 
          StringBuilder text = new StringBuilder
-               ("jsonIdMap.withCreator(new ClassCreator());\n" +
-                  "      jsonIdMap.withCreator(new ClassPOCreator());\n" +
-                  "      "
+               ("jsonIdMap.withCreator(new ClassCreator());\n" // +
+//                  "      jsonIdMap.withCreator(new ClassPOCreator());\n" +
+//                  "      "
                );
+         
+         if (clazz.hasFeature(Feature.PatternObject)) {
+        	 text.append("      jsonIdMap.withCreator(new ClassPOCreator());\n");
+         }
+         text.append("      ");
 
          CGUtil.replaceAll(text,
             "ClassCreator", creatorClassName,

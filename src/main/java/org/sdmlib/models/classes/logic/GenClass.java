@@ -258,6 +258,7 @@ public class GenClass extends Generator<Clazz>
       {
          if ("PropertyChangeSupport".equals(attr.getType()))
             continue;
+         
          getGenerator(attr).generate(rootDir, helpersDir, fromSuperClass);
       }
 
@@ -980,7 +981,7 @@ public class GenClass extends Generator<Clazz>
 
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
-      if (!getRepairClassModel().hasFeature(Feature.ALBERTsSets))
+      if (!getRepairClassModel().hasFeature(Feature.ALBERTsSets) && !getRepairClassModel().hasFeature(Feature.Serialization))
       {
          return null;
       }

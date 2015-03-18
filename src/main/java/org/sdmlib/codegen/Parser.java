@@ -643,12 +643,17 @@ public class Parser
 			if("(".equals(currentRealWord())) {
 				result += currentRealWord();
 				nextRealToken();
-				result += currentRealWord();
-				nextRealToken();
+				
+				while (!")".equals(currentRealWord())) {
+					result += currentRealWord();
+					nextRealToken();
+				}
 				result += currentRealWord();
 				nextRealToken();
 			}
 		}
+		
+//		if (!result.isEmpty()) System.out.println(result);
 		return result;
 	}
 
