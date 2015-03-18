@@ -18,17 +18,17 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.classes;
 
-import org.sdmlib.models.classes.util.ArrayListSet;
-import java.util.TreeSet;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Annotation extends SDMLibClass
 {
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    @Override
    public void removeYou()
    {
@@ -39,46 +39,6 @@ public class Annotation extends SDMLibClass
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_VALUES = "values";
-   
-   private ArrayListSet values = new ArrayListSet();
-
-   public ArrayListSet getValues()
-   {
-      return this.values;
-   }
-   
-   public void setValues(ArrayListSet value)
-   {
-      if (this.values != value)
-      {
-         ArrayListSet oldValue = this.values;
-         this.values = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUES, oldValue, value);
-      }
-   }
-   
-   public Annotation withValues(ArrayListSet value)
-   {
-      setValues(value);
-      return this;
-   } 
-
-
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
-      
-      result.append(" ").append(this.getName());
-      return result.substring(1);
-   }
-
-
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -86,7 +46,7 @@ public class Annotation extends SDMLibClass
     *              annotations                   clazz
     * </pre>
     */
-   
+
    public static final String PROPERTY_CLAZZ = "clazz";
 
    private Clazz clazz = null;
@@ -99,28 +59,28 @@ public class Annotation extends SDMLibClass
    public boolean setClazz(Clazz value)
    {
       boolean changed = false;
-      
+
       if (this.clazz != value)
       {
          Clazz oldValue = this.clazz;
-         
+
          if (this.clazz != null)
          {
             this.clazz = null;
             oldValue.withoutAnnotations(this);
          }
-         
+
          this.clazz = value;
-         
+
          if (value != null)
          {
             value.withAnnotations(this);
          }
-         
+
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -128,16 +88,15 @@ public class Annotation extends SDMLibClass
    {
       setClazz(value);
       return this;
-   } 
+   }
 
    public Clazz createClazz()
    {
       Clazz value = new Clazz(null);
       withClazz(value);
       return value;
-   } 
+   }
 
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -145,7 +104,7 @@ public class Annotation extends SDMLibClass
     *              annotations                   method
     * </pre>
     */
-   
+
    public static final String PROPERTY_METHOD = "method";
 
    private Method method = null;
@@ -158,28 +117,28 @@ public class Annotation extends SDMLibClass
    public boolean setMethod(Method value)
    {
       boolean changed = false;
-      
+
       if (this.method != value)
       {
          Method oldValue = this.method;
-         
+
          if (this.method != null)
          {
             this.method = null;
             oldValue.withoutAnnotations(this);
          }
-         
+
          this.method = value;
-         
+
          if (value != null)
          {
             value.withAnnotations(this);
          }
-         
+
          getPropertyChangeSupport().firePropertyChange(PROPERTY_METHOD, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -187,7 +146,7 @@ public class Annotation extends SDMLibClass
    {
       setMethod(value);
       return this;
-   } 
+   }
 
    public Method createMethod()
    {
@@ -201,5 +160,93 @@ public class Annotation extends SDMLibClass
    {
       setName(value);
       return this;
-   } 
+   }
+
+   // ==========================================================================
+   public static Annotation createOverrideAnnotation()
+   {
+      return new Annotation().withName("Override");
+   }
+
+   // ==========================================================================
+   public static Annotation createDeprecatedAnnotation()
+   {
+      return new Annotation().withName("Deprecated");
+   }
+
+   // ==========================================================================
+   public static Annotation createSuppressWarningsAnnotation(String value)
+   {
+      return new Annotation().withName("SuppressWarnings").withValues(value);
+   }
+
+   // ==========================================================================
+   public static Annotation createSafeVarargsAnnotation()
+   {
+      return new Annotation().withName("SafeVarargs");
+   }
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+
+      result.append(" ").append(this.getName());
+      return result.substring(1);
+   }
+
+   // ==========================================================================
+   public static final String PROPERTY_VALUES = "values";
+
+   private Set<String> values;
+
+   public Set<String> createValues()
+   {
+      if (values == null)
+      {
+         values = new HashSet<String>();
+      }
+      return values;
+   }
+   
+   public Set<String> getValues() {
+      if (values == null)
+      {
+         values = new HashSet<String>();
+      }
+      return values;
+   }
+
+   public void setValues(Set<String> values) {
+      Set<String> oldValues = this.values;
+      this.values = values;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUES, oldValues, values);
+   }
+   
+   public Annotation withValues(String... values) {
+      if(this.values == null) {
+         this.values = new HashSet<String>();
+      }
+      for (String value : values)
+      {
+         if(this.values.add(value)) {
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUES, null, value);
+         }
+      }
+      return this;
+   }
+   
+   public Annotation withoutValues(String... values) {
+      if(this.values == null) {
+         this.values = new HashSet<String>();
+      }
+      for (String value : values)
+      {
+         if(this.values.remove(value)) {
+            getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUES, value, null);
+         }
+      }
+      return this;
+   }
+   
 }

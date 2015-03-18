@@ -21,6 +21,8 @@
    
 package org.sdmlib.models.classes.util;
 
+import java.util.Set;
+
 import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
@@ -37,6 +39,7 @@ public class AnnotationCreator extends EntityFactory
       SDMLibClass.PROPERTY_NAME,
       Annotation.PROPERTY_CLAZZ,
       Annotation.PROPERTY_METHOD,
+      Annotation.PROPERTY_VALUES
    };
    
    @Override
@@ -95,7 +98,7 @@ public class AnnotationCreator extends EntityFactory
 
       if (Annotation.PROPERTY_VALUES.equalsIgnoreCase(attrName))
       {
-         ((Annotation) target).withValues((ArrayListSet) value);
+         ((Annotation) target).setValues((Set<String>) value);
          return true;
       }
 
