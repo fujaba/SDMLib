@@ -245,4 +245,16 @@ public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
       return null;
    }
 
+   
+   //==========================================================================
+   
+   public org.sdmlib.models.classes.Annotation createSuppressWarningsAnnotation(String... value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Annotation) getCurrentMatch()).createSuppressWarningsAnnotation(value);
+      }
+      return null;
+   }
+
 }

@@ -23,6 +23,7 @@ package org.sdmlib.examples.SDMLib;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -30,6 +31,7 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.Visibility;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -83,9 +85,16 @@ public class ClassModelTest
          .withMethod("createDeprecatedAnnotation", DataType.ref(annotationClass))
          .with(
             new Method("createSuppressWarningsAnnotation", DataType.ref(annotationClass),
-                  new Parameter(DataType.STRING).withName("value")))
+                  new Parameter(DataType.ref("String...")).withName("values")))
          .withMethod("createSafeVarargsAnnotation", DataType.ref(annotationClass));
+      
+      Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("Deprecated");
+      Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("Override");
+      Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("SafeVarargs");
+      Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("SuppressWarnings");
 
+      annotationClass.with(deprecatedAnnotation, overrideAnnotation, safeVarargsAnnotation, suppressWarningsAnnotation);
+      
       new Association()
          .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
          .withTarget(annotationClass, "annotations", Card.MANY);

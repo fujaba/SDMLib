@@ -58,10 +58,16 @@
       {
          "typ":"node",
          "id":"Annotation",
+         "attributes":[
+         "DEPRECATED : String",
+            "OVERRIDE : String",
+            "SAFE_VARGARGS : String",
+            "SUPPRESS_WARNINGS : String"
+         ],
          "methods":[
          "createOverrideAnnotation() org.sdmlib.models.classes.Annotation",
             "createDeprecatedAnnotation() org.sdmlib.models.classes.Annotation",
-            "createSuppressWarningsAnnotation(String value) org.sdmlib.models.classes.Annotation",
+            "createSuppressWarningsAnnotation(String... value) org.sdmlib.models.classes.Annotation",
             "createSafeVarargsAnnotation() org.sdmlib.models.classes.Annotation"
          ]
       },

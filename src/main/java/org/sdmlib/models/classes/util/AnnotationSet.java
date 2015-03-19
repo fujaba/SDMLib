@@ -31,6 +31,9 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class AnnotationSet extends SDMSet<Annotation>
 {
@@ -305,6 +308,19 @@ public class AnnotationSet extends SDMSet<Annotation>
       for (Annotation obj : this)
       {
          result.add(obj.createSafeVarargsAnnotation());
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createSuppressWarningsAnnotation(String... value)
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createSuppressWarningsAnnotation(value));
       }
       return result;
    }

@@ -165,25 +165,25 @@ public class Annotation extends SDMLibClass
    // ==========================================================================
    public static Annotation createOverrideAnnotation()
    {
-      return new Annotation().withName("Override");
+      return new Annotation().withName(OVERRIDE);
    }
 
    // ==========================================================================
    public static Annotation createDeprecatedAnnotation()
    {
-      return new Annotation().withName("Deprecated");
+      return new Annotation().withName(DEPRECATED);
    }
 
    // ==========================================================================
-   public static Annotation createSuppressWarningsAnnotation(String value)
+   public static Annotation createSuppressWarningsAnnotation(String... values)
    {
-      return new Annotation().withName("SuppressWarnings").withValues(value);
+      return new Annotation().withName(SUPPRESS_WARNINGS).withValues(values);
    }
 
    // ==========================================================================
    public static Annotation createSafeVarargsAnnotation()
    {
-      return new Annotation().withName("SafeVarargs");
+      return new Annotation().withName(SAFE_VARGARGS);
    }
 
    @Override
@@ -208,8 +208,9 @@ public class Annotation extends SDMLibClass
       }
       return values;
    }
-   
-   public Set<String> getValues() {
+
+   public Set<String> getValues()
+   {
       if (values == null)
       {
          values = new HashSet<String>();
@@ -217,36 +218,59 @@ public class Annotation extends SDMLibClass
       return values;
    }
 
-   public void setValues(Set<String> values) {
+   public void setValues(Set<String> values)
+   {
       Set<String> oldValues = this.values;
       this.values = values;
       getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUES, oldValues, values);
    }
-   
-   public Annotation withValues(String... values) {
-      if(this.values == null) {
+
+   public Annotation withValues(String... values)
+   {
+      if (this.values == null)
+      {
          this.values = new HashSet<String>();
       }
       for (String value : values)
       {
-         if(this.values.add(value)) {
+         if (this.values.add(value))
+         {
             getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUES, null, value);
          }
       }
       return this;
    }
-   
-   public Annotation withoutValues(String... values) {
-      if(this.values == null) {
+
+   public Annotation withoutValues(String... values)
+   {
+      if (this.values == null)
+      {
          this.values = new HashSet<String>();
       }
       for (String value : values)
       {
-         if(this.values.remove(value)) {
+         if (this.values.remove(value))
+         {
             getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUES, value, null);
          }
       }
       return this;
    }
-   
+
+   // ==========================================================================
+
+   public static final String DEPRECATED = "Deprecated";
+
+   // ==========================================================================
+
+   public static final String OVERRIDE = "Override";
+
+   // ==========================================================================
+
+   public static final String SAFE_VARGARGS = "SafeVarargs";
+
+   // ==========================================================================
+
+   public static final String SUPPRESS_WARNINGS = "SuppressWarnings";
+
 }
