@@ -6,6 +6,7 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Annotation;
 
 public class MethodCreator extends SDMLibClassCreator
 {
@@ -17,6 +18,7 @@ public class MethodCreator extends SDMLibClassCreator
       Method.PROPERTY_CLAZZ,
       Method.PROPERTY_BODY,
       Method.PROPERTY_ENUMERATION,
+      Method.PROPERTY_ANNOTATIONS,
    };
    
    @Override
@@ -70,6 +72,11 @@ public class MethodCreator extends SDMLibClassCreator
       {
          return ((Method) target).getEnumeration();
       }
+
+      if (Method.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attribute))
+      {
+         return ((Method) target).getAnnotations();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -114,6 +121,18 @@ public class MethodCreator extends SDMLibClassCreator
       if (Method.PROPERTY_ENUMERATION.equalsIgnoreCase(attrName))
       {
          ((Method) target).setEnumeration((Enumeration) value);
+         return true;
+      }
+
+      if (Method.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
+      {
+         ((Method) target).withAnnotations((Annotation) value);
+         return true;
+      }
+      
+      if ((Method.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Method) target).withoutAnnotations((Annotation) value);
          return true;
       }
 

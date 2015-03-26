@@ -76,6 +76,7 @@ public class ClassModel extends SDMLibClass
 	   getGenerator().generate(rootDir);
 	   return this;
 	}
+	
 	public GenClassModel getGenerator(){
 	   if(generator==null){
          this.setGenerator(new GenClassModel());

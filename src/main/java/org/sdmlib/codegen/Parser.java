@@ -457,9 +457,10 @@ public class Parser
 
    private void parseMemberDecl()
    {
-      // modifiers (genericsDecl) ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
+      // annotations modifiers (genericsDecl) ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
 
       // TODO: annotations
+	   String annotations = parseAnnotations();
 
       int startPos = currentRealToken.startPos;
 
@@ -574,8 +575,9 @@ public class Parser
             String params = parseFormalParamList();
 
             // FIXME : skip annotations 
-            if("@".equals(type))
-               return;
+            if(type.startsWith("@")) {
+            	return;
+            }
 
             methodBodyStartPos = currentRealToken.startPos;
             // skip throws
@@ -601,6 +603,7 @@ public class Parser
             .withStartPos(startPos)
             .withEndPos(previousRealToken.startPos)
             .withBodyStartPos(methodBodyStartPos)
+            .withAnnotations(annotations)
             .withModifiers(modifiers)
                   );
 
@@ -628,7 +631,33 @@ public class Parser
       }
    }
 
-   private void skipTo(char c) {
+	private String parseAnnotations() {
+		String result = "";
+
+		while ("@".equals(currentRealWord())) {
+			result += currentRealWord();
+			nextRealToken();
+			result += currentRealWord();
+			nextRealToken();
+
+			if("(".equals(currentRealWord())) {
+				result += currentRealWord();
+				nextRealToken();
+				
+				while (!")".equals(currentRealWord())) {
+					result += currentRealWord();
+					nextRealToken();
+				}
+				result += currentRealWord();
+				nextRealToken();
+			}
+		}
+		
+//		if (!result.isEmpty()) System.out.println(result);
+		return result;
+	}
+
+	private void skipTo(char c) {
       while (!currentRealKindEquals(c) && ! currentRealKindEquals(EOF)) {
          nextRealToken();
       }
@@ -744,7 +773,9 @@ public class Parser
          typeString.append(currentRealToken.text);
 
       }
-
+      if("@".equals(typeString.toString())) {
+    	  typeString.append(currentRealToken.text);
+      }
       // phew
       return typeString.toString();
    }

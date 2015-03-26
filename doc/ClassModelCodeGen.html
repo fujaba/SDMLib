@@ -57,6 +57,22 @@
       },
       {
          "typ":"node",
+         "id":"Annotation",
+         "attributes":[
+         "DEPRECATED : String",
+            "OVERRIDE : String",
+            "SAFE_VARGARGS : String",
+            "SUPPRESS_WARNINGS : String"
+         ],
+         "methods":[
+         "createOverrideAnnotation() org.sdmlib.models.classes.Annotation",
+            "createDeprecatedAnnotation() org.sdmlib.models.classes.Annotation",
+            "createSuppressWarningsAnnotation(String... value) org.sdmlib.models.classes.Annotation",
+            "createSafeVarargsAnnotation() org.sdmlib.models.classes.Annotation"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"Enumeration",
          "attributes":[
          "valueNames : ArrayListSet"
@@ -88,6 +104,7 @@
             "startPos : int",
             "bodyStartPos : int",
             "endPos : int",
+            "annotations : String",
             "modifiers : String"
          ]
       },
@@ -174,6 +191,19 @@
             "id":"Clazz"
          },
          "target":{
+            "id":"Annotation",
+            "cardinality":"many",
+            "property":"annotations"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"clazz",
+            "id":"Clazz"
+         },
+         "target":{
             "id":"Method",
             "cardinality":"many",
             "property":"methods"
@@ -190,6 +220,19 @@
             "id":"Role",
             "cardinality":"many",
             "property":"roles"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"method",
+            "id":"Method"
+         },
+         "target":{
+            "id":"Annotation",
+            "cardinality":"many",
+            "property":"annotations"
          }
       },
       {
@@ -280,6 +323,11 @@
       {
          "typ":"generalisation",
          "source":{"id":"Method"},
+         "target":{"id":"SDMLibClass"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Annotation"},
          "target":{"id":"SDMLibClass"}
       },
       {

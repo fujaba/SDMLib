@@ -93,7 +93,11 @@ Drawer.prototype.createBoard = function(node, graph, listener) {
 	
 	var board = this.util.create(node);
 	node.model=graph;
-	board.className="Board";
+	try {
+		board.className = "Board";
+	}catch(e) {
+		board.classList.add("Board");
+	}
 	board.rasterElements=[];
 	board.saveShow=false;
 	board.onmouseover = (function () {
@@ -287,7 +291,9 @@ HTMLDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle){
 	var angle;
 	if(x1!=x2){
 		angle = Math.atan((y1-y2)/(x1-x2));
-	}else {
+	}else if(y1!=y2){
+		angle =300;
+	}else{
 		angle =0;
 	}
 	var cx = (x1+x2)/2;

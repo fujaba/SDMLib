@@ -36,6 +36,7 @@ public class GenAttribute extends Generator<Attribute>
       if (text == null)
          return;
 
+
       String valueCompare = "this.name != value";
       if ("String".equalsIgnoreCase(model.getType().getValue()))
       {
@@ -56,7 +57,8 @@ public class GenAttribute extends Generator<Attribute>
          "name", model.getName(),
          "Name", StrUtil.upFirstChar(model.getName()),
          "NAME", model.getName().toUpperCase(),
-         " init", model.getInitialization() == null ? "" : " = " +model.getInitialization(),
+         " init", model.getInitialization() == null ? "" : " = " + 
+        		  (DataType.STRING.equals(model.getType()) ? "\"" + model.getInitialization() +"\"" :model.getInitialization()),
                "ownerClass", CGUtil.shortClassName(clazz.getFullName())
             );
 
@@ -93,6 +95,13 @@ public class GenAttribute extends Generator<Attribute>
          text.append("\n   modifier type name init;\n");
          hasNewContent = true;
       }
+      
+      // if constant field -> return
+      if (model.getVisibility().has(Visibility.PUBLIC)
+    		  && model.getVisibility().has(Visibility.STATIC)
+    		  && model.getVisibility().has(Visibility.FINAL)
+    		  && model.getInitialization() != null)
+    	  return text;
       
       if(model.getVisibility().same(Visibility.PRIVATE) ){
          if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName())+ "()", parser) && !entryExist(Parser.METHOD + ":is" + StrUtil.upFirstChar(model.getName())+ "()", parser))
@@ -204,6 +213,13 @@ public class GenAttribute extends Generator<Attribute>
 
   private void insertCaseInToString(Parser parser)
    {
+	// if constant field -> return
+      if (model.getVisibility().has(Visibility.PUBLIC)
+    		  && model.getVisibility().has(Visibility.STATIC)
+    		  && model.getVisibility().has(Visibility.FINAL)
+    		  && model.getInitialization() != null)
+    	  return;
+	  
       if ("String int double float".indexOf(CGUtil.shortClassName(model.getType().getValue())) < 0)
       {
          // only standard types contribute to toString()

@@ -9,6 +9,10 @@ import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.AnnotationPO;
+import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.classes.util.ClazzPO;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class ClazzPO extends PatternObject<ClazzPO, Clazz>
 {
@@ -557,4 +561,38 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       return this;
    }
    
+   public AnnotationPO hasAnnotations()
+   {
+      AnnotationPO result = new AnnotationPO(new Annotation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Clazz.PROPERTY_ANNOTATIONS, result);
+      
+      return result;
+   }
+
+   public AnnotationPO createAnnotations()
+   {
+      return this.startCreate().hasAnnotations().endCreate();
+   }
+
+   public ClazzPO hasAnnotations(AnnotationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Clazz.PROPERTY_ANNOTATIONS);
+   }
+
+   public ClazzPO createAnnotations(AnnotationPO tgt)
+   {
+      return this.startCreate().hasAnnotations(tgt).endCreate();
+   }
+
+   public AnnotationSet getAnnotations()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Clazz) this.getCurrentMatch()).getAnnotations();
+      }
+      return null;
+   }
+
 }

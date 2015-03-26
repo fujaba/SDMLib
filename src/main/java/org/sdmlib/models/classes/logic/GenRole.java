@@ -183,6 +183,12 @@ public class GenRole extends Generator<Role>
                   "\n      return this.partnerRoleName;" +
                   "\n   }" +
                   "\n");
+            
+            if (!clazz.hasFeature(Feature.ALBERTsSets) 
+            		&& !clazz.hasFeature(Feature.PatternObject)
+            		&& !clazz.hasFeature(Feature.Serialization) ) {
+            	CGUtil.replaceAll(text, "partnerClassNameSet.EMPTY_SET", "new type()");
+            }
          }
          else
          {
@@ -804,19 +810,19 @@ public class GenRole extends Generator<Role>
 	      // generate property in model set class
 	      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
 	      
-	      if(getModel().getClazz().getClassModel().hasFeature(Feature.PatternObject)){
-		      insertGetterInModelSetFile(clazz, modelSetParser, myParser, partnerRole);
-		      insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
-	      }
+		  insertGetterInModelSetFile(clazz, modelSetParser, myParser, partnerRole);
+		  insertSetterInModelSetFile(clazz, modelSetParser, partnerRole);
 	      
 	      getGenerator(clazz).printFile(modelSetParser);
 	
+	      if(getModel().getClazz().getClassModel().hasFeature(Feature.PatternObject)){
 	      // generate property in pattern object class
 	      Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
 	      
 	      insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
 	      
 	      getGenerator(clazz).printFile(patternObjectParser);
+	      }
       }
    }
    

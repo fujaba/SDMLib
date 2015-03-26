@@ -8,6 +8,7 @@ import org.sdmlib.models.classes.Role;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Annotation;
 
 public class ClazzCreator extends EntityFactory
 {
@@ -22,6 +23,7 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_ROLES,
       Clazz.PROPERTY_KIDCLAZZES,
       Clazz.PROPERTY_INTERFAZE,
+      Clazz.PROPERTY_ANNOTATIONS,
    };
    
    @Override
@@ -89,6 +91,11 @@ public class ClazzCreator extends EntityFactory
       if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attribute))
       {
          return ((Clazz) target).isInterface();
+      }
+
+      if (Clazz.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attribute))
+      {
+         return ((Clazz) target).getAnnotations();
       }
       return super.getValue(target, attrName);
    }
@@ -176,6 +183,18 @@ public class ClazzCreator extends EntityFactory
       if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
       {
          ((Clazz) target).setInterface((Boolean) value);
+         return true;
+      }
+
+      if (Clazz.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
+      {
+         ((Clazz) target).withAnnotations((Annotation) value);
+         return true;
+      }
+      
+      if ((Clazz.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Clazz) target).withoutAnnotations((Annotation) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);
