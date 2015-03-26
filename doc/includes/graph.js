@@ -21,6 +21,7 @@
 */
 "use strict";
 var Object_create = Object.create || function (o) { var F = function() {};F.prototype = o; return new F();};
+function isIE () {var myNav = navigator.userAgent.toLowerCase();return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;}
 /* Pos */
 var Pos = function(x, y, id) {this.x = x || 0; this.y = y || 0; if(id){this.id = id;} };
 /* GraphUtil */
@@ -425,7 +426,12 @@ Graph.prototype.getDimension = function(html){
 		return new Pos();
 	}
 	this.board.appendChild(html);
-	var rect = html.getBoundingClientRect();
+	var rect = null;
+	try {
+		rect = elem.getBoundingClientRect();
+	} catch(e) {
+		rect = { top: 10, left: 10, width: 150, height: 100};
+	}
 	var pos = new Pos(rect.width, rect.height);
 	this.board.removeChild(html);
 	return pos;
@@ -628,6 +634,9 @@ Graph.prototype.setSelectable = function(node, value) {
 	}
 };
 Graph.prototype.getDragNode = function(node) {
+	if(!node) {
+		return null;
+	}
 	if(node.model){
 		if(!node.model._isdraggable){
 			return null;
@@ -742,8 +751,7 @@ Graph.prototype.stopDrag = function(event) {
 			this.resize(this.model);
 		}else{
 			this.resize(n);
-		}
-		
+		}	
 	}
 };
 Graph.prototype.redrawNode = function(node, draw){
@@ -862,65 +870,52 @@ Graph.prototype.ExportHTML = function () {
 	this.Save("text/json", data, "download.html");
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //				######################################################### GraphLayout-Dagre #########################################################
 var DagreLayout = function() {};
 DagreLayout.prototype.layout = function(graph, node, width, height) {
-	var g = new dagre.graphlib.Graph(node.copy({directed:false}, node.options.layout));
-	g.setGraph({});
-	g.setDefaultEdgeLabel(function() { return {}; });
-	var i;
-	for (i in node.nodes) {
-		var n = node.nodes[i];
-		g.setNode(n.id, {label: n.id, width:n.width, height:n.height, x:n.x, y:n.y});
-	}
-	for (i = 0; i < node.edges.length; i++) {
-		var e = node.edges[i];
-		g.setEdge(this.getRootNode(e.source).id, this.getRootNode(e.target).id);
-	}
-
-	dagre.layout(g);
-	// Set the layouting back
-	for (i in node.nodes) {
-		var n = node.nodes[i];
-		var layoutNode = g.node(n.id);
-		n.x = layoutNode.x - (n.width/2);
-		n.y = layoutNode.y - (n.height/2);
+	var error=false;
+	try {
+		var g = new dagre.graphlib.Graph(node.copy({directed:false}, node.options.layout));
+		g.setGraph({});
+		g.setDefaultEdgeLabel(function() { return {}; });
+		var i;
+		for (i in node.nodes) {
+			var n = node.nodes[i];
+			g.setNode(n.id, {label: n.id, width:n.width, height:n.height, x:n.x, y:n.y});
+		}
+		for (i = 0; i < node.edges.length; i++) {
+			var e = node.edges[i];
+			g.setEdge(this.getRootNode(e.source).id, this.getRootNode(e.target).id);
+		}
+		dagre.layout(g);
+		// Set the layouting back
+		for (i in node.nodes) {
+			var n = node.nodes[i];
+			var layoutNode = g.node(n.id);
+			n.x = layoutNode.x - (n.width/2);
+			n.y = layoutNode.y - (n.height/2);
+		}
+	} catch(err) {
+		var x=0;
+		var y=0;
+		for (i in node.nodes) {
+			var n = node.nodes[i];
+			n.x = x;
+			n.y = y;
+			
+			x+=300;
+			if(x>700) {
+				y+=200;
+				x=0;
+			}
+		}
+		error=true;
 	}
 	graph.draw(node, width, height);
+	if(error) {
+		//node._gui.style.visibility="hidden";
+		node._gui.innerHTML="<h2>Please show in external Browser V:"+isIE()+"</h2>"+node._gui.innerHTML;
+	}
 };
 DagreLayout.prototype.getRootNode = function(node, child) {
 	if(node._parent){

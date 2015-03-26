@@ -32,6 +32,10 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.util.SeppelScopeSet;
+import org.sdmlib.replication.util.SeppelChannelSet;
+import org.sdmlib.replication.util.BoardTaskSet;
+import org.sdmlib.replication.BoardTask;
 
 public class SeppelSpaceProxySet extends SDMSet<SeppelSpaceProxy>
 {
@@ -553,6 +557,64 @@ public class SeppelSpaceProxySet extends SDMSet<SeppelSpaceProxy>
       for (SeppelSpaceProxy obj : this)
       {
          obj.withChannel(value);
+      }
+      
+      return this;
+   }
+
+   public BoardTaskSet getTasks()
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         result.addAll(obj.getTasks());
+      }
+      
+      return result;
+   }
+
+   public SeppelSpaceProxySet hasTasks(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      SeppelSpaceProxySet answer = new SeppelSpaceProxySet();
+      
+      for (SeppelSpaceProxy obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getTasks()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public SeppelSpaceProxySet withTasks(BoardTask value)
+   {
+      for (SeppelSpaceProxy obj : this)
+      {
+         obj.withTasks(value);
+      }
+      
+      return this;
+   }
+
+   public SeppelSpaceProxySet withoutTasks(BoardTask value)
+   {
+      for (SeppelSpaceProxy obj : this)
+      {
+         obj.withoutTasks(value);
       }
       
       return this;

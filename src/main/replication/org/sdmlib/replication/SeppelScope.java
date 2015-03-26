@@ -29,6 +29,7 @@ import org.sdmlib.replication.util.ObjectSet;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.lang.Object;
 
 public class SeppelScope implements PropertyChangeInterface
 {
@@ -397,5 +398,11 @@ public class SeppelScope implements PropertyChangeInterface
       Object value = new Object();
       withObservedObjects(value);
       return value;
+   }
+
+   public <T> T add(T newObject)
+   {
+      this.withObservedObjects(newObject);
+      return newObject;
    } 
 }

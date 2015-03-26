@@ -52,6 +52,7 @@ import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
+import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
@@ -419,6 +420,26 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
             change.withChangeMsg(jsonObject.toString());
          }
          
+      }
+      else if (target instanceof SeppelScope 
+            && SeppelScope.PROPERTY_SPACES.equals(change.getTargetProperty())
+            && valueJsonObject != null)
+      {
+         // the scope is attached to a new space proxy. Add scope name to change
+         // as the scope object will now be created in the corresponding space
+         // and all the other parts
+         JsonObject newValueJsonObject = map.toJsonObject(target, 
+            new Filter().withConvertable(new Deep().withDeep(0)));
+         JsonArray spaceArray = new JsonArray();
+         spaceArray.add(valueJsonObject);
+         JsonObject selfProxyId = new JsonObject();
+         selfProxyId.put(JsonIdMap.ID, map.getKey(selfProxy));
+         spaceArray.add(selfProxyId);
+         jsonUpdate.put(SeppelScope.PROPERTY_SCOPENAME, ((SeppelScope) target).getScopeName());
+         jsonUpdate.put(SeppelScope.PROPERTY_SPACES, spaceArray);
+         jsonObject.put(JsonIdMap.JSON_PROPS, jsonUpdate);
+         jsonObject.remove(JsonIdMap.UPDATE);
+         change.withChangeMsg(jsonObject.toString());
       }
          
 
@@ -987,7 +1008,19 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          
          jsonObject = (JsonObject) jsonObject.get("upd");
          
-         Object valueObject = jsonObject.get(change.getTargetProperty());
+         if (jsonObject == null)
+         {
+            jsonObject = new JsonObject();
+            jsonObject.withValue(changeMsg);
+            jsonObject = (JsonObject) jsonObject.get(JsonIdMap.JSON_PROPS);
+         }
+         
+         Object valueObject = null; 
+         
+         if (jsonObject != null) 
+         {
+            valueObject = jsonObject.get(change.getTargetProperty());
+         }
          
          if (valueObject != null && valueObject instanceof JsonObject)
          {
@@ -1023,6 +1056,54 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
             channel.send(line);
          }
       }
+   }
+
+
+   public SeppelSpaceProxy connectTo(String serverName, String hostName, int portNo, String loginName, String pwd, SeppelScope commonScope)
+   {
+      selfProxy.withLoginName(loginName).withPassword(pwd);
+      
+      SeppelSpaceProxy serverProxy = selfProxy.getPartners().hasLoginName(serverName).first();
+      
+      if (serverProxy == null)
+      {
+         serverProxy = new SeppelSpaceProxy();
+         this.put(serverName+"Proxy", serverProxy);
+         serverProxy.withLoginName(serverName);
+         selfProxy.withPartners(serverProxy);
+      }
+      
+      serverProxy.withHostName(hostName).withPortNo(portNo);
+      
+      serverProxy.withScopes(commonScope);
+      
+      try {
+         SeppelChannel channel = serverProxy.getOrCreateChannel();
+         channel.setSeppelSpace(this);
+         channel.start();
+         channel.login();
+         this.sendAllChanges(channel);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      
+      return serverProxy;
+   }
+
+   SeppelTaskHandler taskHandler = null;
+   
+   public SeppelSpace withTaskHandler(SeppelTaskHandler handler)
+   {
+      this.taskHandler = handler;
+      
+      handler.withSeppelSpace(this);
+      
+      // subscribe at selfProxy
+      selfProxy.getPropertyChangeSupport().addPropertyChangeListener(SeppelSpaceProxy.PROPERTY_TASKS, handler);
+      
+      return this;
    } 
 
 }

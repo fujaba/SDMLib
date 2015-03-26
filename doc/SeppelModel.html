@@ -61,6 +61,10 @@
       },
       {
          "typ":"node",
+         "id":"BoardTask"
+      },
+      {
+         "typ":"node",
          "id":"ChangeHistory"
       },
       {
@@ -106,6 +110,19 @@
             "id":"SeppelChannel",
             "cardinality":"one",
             "property":"channel"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"proxy",
+            "id":"SeppelSpaceProxy"
+         },
+         "target":{
+            "id":"BoardTask",
+            "cardinality":"many",
+            "property":"tasks"
          }
       },
       {

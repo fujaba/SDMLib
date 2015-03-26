@@ -21,7 +21,6 @@
 */
 "use strict";
 var Object_create = Object.create || function (o) { var F = function() {};F.prototype = o; return new F();};
-
 var Drawer = function(){this.util = new GraphUtil();};
 Drawer.prototype.clearBoard = function(){};
 Drawer.prototype.setPos = function(item, x, y){item.x = x;item.y = y;};
@@ -101,11 +100,13 @@ Drawer.prototype.createBoard = function(node, graph, listener) {
 		that.showToolItems(board);
 	});
 	board.onmouseout = (function (event) {
-		var left = board.offsetLeft, top = board.offsetTop, x = Math.floor(event.pageX), y = Math.floor(event.pageY);
-		if(!left){left = board.parentNode.offsetLeft;}
-		if(!top){top = board.parentNode.offsetTop;}
-		if(!that.isInTool(x, y, left, top)){
-			that.removeToolItems(board);
+		if(event && event.pageX) {
+			var left = board.offsetLeft, top = board.offsetTop, x = Math.floor(event.pageX), y = Math.floor(event.pageY);
+			if(!left){left = board.parentNode.offsetLeft;}
+			if(!top){top = board.parentNode.offsetTop;}
+			if(!that.isInTool(x, y, left, top)){
+				that.removeToolItems(board);
+			}
 		}
 	});
 	return board;
@@ -119,6 +120,9 @@ Drawer.prototype.getButtons = function(graph, notTyp) {
 			var typ = o[i];
 			if(typ != notTyp){
 				buttons.push(this.drawButton(typ, (function (e) {
+					if(!e.target) {
+						return;
+					}
 					var t=e.target.typ || e.target.parentElement.typ;
 					that.model.initDrawer(t);that.model.layout();})));
 			}
@@ -161,7 +165,6 @@ HTMLDrawer.prototype.getNode = function(node, draw){
 		htmlElement.className="classElement";
 	}
 	this.setPos(htmlElement, node.x, node.y);
-	htmlElement.style.zIndex=5000;
 
 	if(node.typ=="objectdiagram" || node.typ=="classdiagram"){
 		node.left = node.top = 30;
@@ -250,10 +253,17 @@ HTMLDrawer.prototype.getNode = function(node, draw){
 	htmlElement.appendChild(table);
 	htmlElement.node = node;
 	node.htmlElement = htmlElement;
+	
+	if(node.width>0){
+		htmlElement.style.width = ""+node.width+"px";
+	}
+	if(node.height>0){
+		htmlElement.style.height = ""+node.height+"px";
+	}
 	return htmlElement;
 };
 HTMLDrawer.prototype.createInfo = function(item, calculate, text) {
-	var info = this.util.create({tag:"div", _font:true, model:item, class:"EdgeInfo", value: text});
+	var info = this.util.create({tag:"div", _font:true, model:item, "class":"EdgeInfo", "value": text});
 	this.setPos(info, item.x, item.y);
 	return info;
 };
@@ -271,12 +281,14 @@ HTMLDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle){
 	var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 
     // var line = this.util.create({tag:"line", 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2, "stroke":this.getColor(style)});
-	var line = this.util.create({tag: "div", class:"lineElement", style:{width:length+"px", position:"absolute", zIndex:42}});
+	var line = this.util.create({tag: "div", "class":"lineElement", style:{width:length+"px", "position":"absolute", zIndex:42}});
 	line.style.borderBottomStyle= lineStyle;
 
-	var angle = Math.atan((y1-y2)/(x1-x2));
-	if(x1==x2){
-		angle = Math.atan((y1-y2)/(x1-x2))*-1;
+	var angle;
+	if(x1!=x2){
+		angle = Math.atan((y1-y2)/(x1-x2));
+	}else {
+		angle =0;
 	}
 	var cx = (x1+x2)/2;
 	var cy = (y1+y2)/2;
@@ -284,7 +296,17 @@ HTMLDrawer.prototype.createLine = function(x1, y1, x2, y2, lineStyle){
 	line.style.left = cx - 0.5*length + "px";
 	line.style.transform="rotate("+angle+"rad)";
 	line.style.msTransform = line.style.MozTransform = line.style.WebkitTransform = line.style.OTransform= "rotate(" + angle + "rad)";
+	x1 = isIE();
+	if(x1==7 || x1==8 ) {
+		this.setRotateIE(line, angle);
+	}
 	return line;
+};
+HTMLDrawer.prototype.setRotateIE = function(obj, rad) {
+	var costheta = Math.cos(rad);
+	var sintheta = Math.sin(rad);
+	var filter = "progid:DXImageTransform.Microsoft.Matrix(M11="+costheta+", M12="+(-sintheta)+", M21="+sintheta+", M22="+costheta+", sizingMethod='auto expand')";
+	obj.style.filter = filter;
 };
 HTMLDrawer.prototype.onLoadImage = function(event){
 	var img = event.target;
@@ -323,7 +345,14 @@ SVGDrawer.prototype.getWidth = function(label, calculate){
 	text.setAttribute("width", "5px");
 	var board = this.model.board;
 	board.appendChild(text);
-	var width = text.getBoundingClientRect().width;
+	
+	var width = 100;
+	try {
+		width = text.getBoundingClientRect().width;
+	} catch(e) {
+		width = 100;
+	}
+	width = 100;
 	board.removeChild(text);
 	return width;
 };
@@ -331,9 +360,9 @@ SVGDrawer.prototype.drawDef = function(){
 	var def = this.util.create({tag:"defs"});
 
 	var child = this.util.create({tag:"filter", id:"drop-shadow"});
-	child.appendChild( this.util.create({tag:"feGaussianBlur", in:"SourceAlpha", result:"blur-out", stdDeviation:2}));
-	child.appendChild( this.util.create({tag:"feOffset", in:"blur-out", dx:2, dy:2}));
-	child.appendChild( this.util.create({tag:"feBlend", in:"SourceGraphic", mode:"normal"}));
+	child.appendChild( this.util.create({tag:"feGaussianBlur", "in":"SourceAlpha", "result":"blur-out", stdDeviation:2}));
+	child.appendChild( this.util.create({tag:"feOffset", "in":"blur-out", dx:2, dy:2}));
+	child.appendChild( this.util.create({tag:"feBlend", "in":"SourceGraphic", mode:"normal"}));
 	def.appendChild( child );
 	
 	child = this.util.create({tag:"linearGradient", id:"reflect", x1:"0%", x2:"0%", y1:"50%", y2:"0%", spreadMethod:"reflect"});
@@ -351,10 +380,10 @@ SVGDrawer.prototype.drawDef = function(){
 SVGDrawer.prototype.drawButton = function(text, action){
 	var btn = this.util.create({tag:"g", "#typ": text});
 	btn.tool={x:0, y: 8, height: 28, width: 60};
-	var rect = this.util.create({tag:"rect", rx:8, x: btn.tool.x, y:btn.tool.y, width:btn.tool.width, height:btn.tool.height, stroke:"#000", filter:"url(#drop-shadow)", class:"saveBtn"});
+	var rect = this.util.create({tag:"rect", rx:8, x: btn.tool.x, y:btn.tool.y, width:btn.tool.width, height:btn.tool.height, stroke:"#000", filter:"url(#drop-shadow)", "class":"saveBtn"});
 	
 	btn.appendChild( rect );
-	btn.appendChild( this.util.create({tag:"text", _font:true, x:(btn.tool.x+10), y:(btn.tool.y+18), fill:"black", value:text, class:"hand"}));
+	btn.appendChild( this.util.create({tag:"text", _font:true, x:(btn.tool.x+10), y:(btn.tool.y+18), fill:"black", value:text, "class":"hand"}));
 	this.util.bind(btn, "mousedown", action);
 	btn.close = function(){};
 	return btn;
@@ -364,7 +393,7 @@ SVGDrawer.prototype.drawComboBox = function(elements, activText, action){
 	g.tool={x:66, y:8, minheight: 28, maxheight: 28, width: 80};
 	g.status="close";
 	g.appendChild( this.util.create({tag:"rect", rx:0, x: g.tool.x, y: g.tool.y, width:60, height:28, stroke:"#000", fill:"none"}));
-	g.appendChild( this.util.create({tag:"rect", rx:2, x: g.tool.x+60, y: g.tool.y, width:20, height:28, stroke:"#000", class:"saveBtn"}));
+	g.appendChild( this.util.create({tag:"rect", rx:2, x: g.tool.x+60, y: g.tool.y, width:20, height:28, stroke:"#000", "class":"saveBtn"}));
 	g.appendChild( this.util.create({tag:"path", style:"fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1",
 								d:"m "+(g.tool.x+65)+","+(g.tool.y+13)+" 10,0 L "+(g.tool.x+70)+","+(g.tool.y+20)+" z"}));
 	if(elements){
@@ -390,7 +419,7 @@ SVGDrawer.prototype.drawComboBox = function(elements, activText, action){
 			}
 			var element = elements[e];
 			choicebox.appendChild(this.util.create({tag:"text", _font:true, "text-anchor":"left", "width": 60, "x": (g.tool.x+10), "y": y, value:element}));
-			var item = choicebox.appendChild( this.util.create({tag:"rect", rx:0, x: g.tool.x, y: yr, width:60, height:24, stroke:"none", class:"selection"}));
+			var item = choicebox.appendChild( this.util.create({tag:"rect", rx:0, x: g.tool.x, y: yr, width:60, height:24, stroke:"none", "class":"selection"}));
 			item.value = element;
 			if(action) {
 				item.onclick = action;
@@ -499,7 +528,7 @@ SVGDrawer.prototype.getNode = function(node, draw){
 			}
 		}
 		this.setSize(g, width, height);
-		this.addChild(node, g, this.util.create({tag:"rect", "width":width, "height":height, "fill":"none", "strokeWidth":"1px", "stroke":this.getColor(node.style, "#CCC"), "x":node.getX(), "y":node.getY(), class:"draggable"}));
+		this.addChild(node, g, this.util.create({tag:"rect", "width":width, "height":height, "fill":"none", "strokeWidth":"1px", "stroke":this.getColor(node.style, "#CCC"), "x":node.getX(), "y":node.getY(), "class":"draggable"}));
 		if(width>0 && width!=node.width) {node.width = width;}
 		var btn;
 		if(node.status=="close"){
@@ -570,7 +599,7 @@ SVGDrawer.prototype.getNode = function(node, draw){
 	var x = node.getX();
 
 	this.model.addNodeLister(g, node);
-	var rect = {tag:"rect", "width":width, "height":height, "x":x, "y":y, "fill":"#fff", class:"draggable"};
+	var rect = {tag:"rect", "width":width, "height":height, "x":x, "y":y, "fill":"#fff", "class":"draggable"};
 	var typ = node.typ.toLowerCase();
 	if(typ=="patternobject") {
 		rect["fill"] = "lightblue";
@@ -623,7 +652,7 @@ SVGDrawer.prototype.addChild = function(node, parent, child){
 SVGDrawer.prototype.createInfo = function(item, calculate, text, angle) {
 	var items = text.split("\n");
 	if(!calculate && items.length>1){
-		var group = this.util.create({tag:"g", class:"draggable", rotate:angle, model:item});
+		var group = this.util.create({tag:"g", "class":"draggable", rotate:angle, model:item});
 		for(var i = 0;i<items.length;i++) {
 			var child = this.util.create({tag:"text", _font:true, "text-anchor":"left", "x": item.x, "y": item.y+(item.height*i)});
 			child.appendChild(document.createTextNode(items[i]));
@@ -632,7 +661,7 @@ SVGDrawer.prototype.createInfo = function(item, calculate, text, angle) {
 		this.model.addNodeLister(group, item);
 		return group;
 	}
-	var group = this.util.create({tag:"text", _font:true, "text-anchor":"left", "x": item.x, "y": item.y, value:text, "id": item.id, class:"draggable", rotate:angle, model:item});
+	var group = this.util.create({tag:"text", _font:true, "text-anchor":"left", "x": item.x, "y": item.y, value:text, "id": item.id, "class":"draggable", rotate:angle, model:item});
 	if(!calculate){
 		this.model.addNodeLister(group, item);
 	}

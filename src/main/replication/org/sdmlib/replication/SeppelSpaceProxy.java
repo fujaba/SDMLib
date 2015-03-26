@@ -29,6 +29,7 @@ import org.sdmlib.replication.util.ObjectSet;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.replication.util.BoardTaskSet;
 
 public class SeppelSpaceProxy implements PropertyChangeInterface
 {
@@ -59,6 +60,7 @@ public class SeppelSpaceProxy implements PropertyChangeInterface
       withoutPartners(this.getPartners().toArray(new SeppelSpaceProxy[this.getPartners().size()]));
       setChannel(null);
       withoutScopes(this.getScopes().toArray(new SeppelScope[this.getScopes().size()]));
+      withoutTasks(this.getTasks().toArray(new BoardTask[this.getTasks().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -377,7 +379,8 @@ public class SeppelSpaceProxy implements PropertyChangeInterface
    {
       if (this.channel == null)
       {
-         this.createChannel();
+         SeppelChannel newChannel = new SeppelChannel(this.hostName, this.portNo);
+         this.withChannel(newChannel);
       }
       return this.channel;
    }
@@ -552,5 +555,77 @@ public class SeppelSpaceProxy implements PropertyChangeInterface
    {
       setPassword(value);
       return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * SeppelSpaceProxy ----------------------------------- BoardTask
+    *              proxy                   tasks
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TASKS = "tasks";
+
+   private BoardTaskSet tasks = null;
+   
+   public BoardTaskSet getTasks()
+   {
+      if (this.tasks == null)
+      {
+         return BoardTaskSet.EMPTY_SET;
+      }
+   
+      return this.tasks;
+   }
+
+   public SeppelSpaceProxy withTasks(BoardTask... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (BoardTask item : value)
+      {
+         if (item != null)
+         {
+            if (this.tasks == null)
+            {
+               this.tasks = new BoardTaskSet();
+            }
+            
+            boolean changed = this.tasks.add (item);
+
+            if (changed)
+            {
+               item.withProxy(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_TASKS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public SeppelSpaceProxy withoutTasks(BoardTask... value)
+   {
+      for (BoardTask item : value)
+      {
+         if ((this.tasks != null) && (item != null))
+         {
+            if (this.tasks.remove(item))
+            {
+               item.setProxy(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_TASKS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public BoardTask createTasks()
+   {
+      BoardTask value = new BoardTask();
+      withTasks(value);
+      return value;
    } 
 }

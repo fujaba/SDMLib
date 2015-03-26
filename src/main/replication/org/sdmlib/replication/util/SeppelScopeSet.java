@@ -29,6 +29,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class SeppelScopeSet extends SDMSet<SeppelScope>
 {

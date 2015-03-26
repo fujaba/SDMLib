@@ -20,12 +20,19 @@ import org.sdmlib.examples.replication.chat.util.ChatChannelSet;
 import org.sdmlib.examples.replication.chat.util.ChatRootCreator;
 import org.sdmlib.examples.replication.chat.util.ChatUserCreator;
 import org.sdmlib.examples.replication.chat.util.ChatUserPO;
+import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.SeppelBoardTaskAction;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.SeppelTaskHandler;
 import org.sdmlib.replication.util.SeppelScopePO;
 import org.sdmlib.replication.util.SeppelSpaceProxyPO;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
+import org.sdmlib.storyboards.util.StoryboardCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 
 public class ReplicationChatClientApp extends Application
@@ -82,7 +89,9 @@ public class ReplicationChatClientApp extends Application
       userName = parameters.get(0);
       pwd = parameters.get(1);
       
-      seppelSpace = new SeppelSpace().init(ChatRootCreator.createIdMap(userName), true, null, 0);
+      JsonIdMap idMap = ChatRootCreator.createIdMap(userName);
+      idMap.withCreator(StoryboardCreator.createIdMap(userName));
+      seppelSpace = new SeppelSpace().init(idMap, true, null, 0);
 
       selfProxy = seppelSpace.getSelfProxy();
       
@@ -146,6 +155,9 @@ public class ReplicationChatClientApp extends Application
             channel.getPropertyChangeSupport().addPropertyChangeListener(ChatChannel.PROPERTY_MSGS, new ChatChannelScopeUpdater(scope));
          }
       }
+
+      addReplicationChatTaskHandler();
+      
       
       // build gui
       Label loginLabel = newLabel("Login: " + userName + " **** ");
@@ -284,6 +296,42 @@ public class ReplicationChatClientApp extends Application
       
    }
    
-   
+   private void addReplicationChatTaskHandler()
+   {
+      seppelSpace.withTaskHandler(
+         new SeppelTaskHandler()
+         .with("tomChatWithSabine", new SeppelBoardTaskAction() 
+         {
+            @Override
+            public void run(BoardTask task)
+            {
+
+               // ask the server to ask sabine to check the inbox
+               SeppelSpaceProxy zuenFamProxy = selfProxy.getPartners().hasLoginName("zuenFamilyChatServer").first();
+               SeppelScope cmdScope = selfProxy.getScopes().hasScopeName("commands").first();
+               BoardTask boardTask = cmdScope.add(new BoardTask().withName("sabineCheckInbox"));
+
+               zuenFamProxy.withTasks(boardTask);
+            }
+         })
+         .with("sabineCheckInbox", new SeppelBoardTaskAction() 
+         {
+            @Override
+            public void run(BoardTask task)
+            {
+
+               // ask the server to terminate the test
+               SeppelSpaceProxy serverProxy = selfProxy.getPartners().hasLoginName("zuenFamilyChatServer").first();
+               SeppelScope cmdScope = selfProxy.getScopes().hasScopeName("commands").first();
+
+               BoardTask boardTask = cmdScope.add(new BoardTask().withName("terminate"));
+
+               serverProxy.withTasks(boardTask);
+            }
+         }));
+
+   }
+
+
 
 }
