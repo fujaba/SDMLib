@@ -141,47 +141,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"storyboardstep",
-            "id":"S4 : StoryboardStep"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"storyboard",
-            "id":"S3 : Storyboard"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"storyboardstep",
-            "id":"S5 : StoryboardStep"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"storyboard",
-            "id":"S3 : Storyboard"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"storyboardstep",
-            "id":"S6 : StoryboardStep"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"storyboard",
-            "id":"S3 : Storyboard"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"kanbanentry",
+            "cardinality":"many",
+            "property":"subentries",
             "id":"K2 : KanbanEntry"
          },
          "target":{
@@ -194,39 +155,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"kanbanentry",
+            "property":"kanbanEntry",
             "id":"K2 : KanbanEntry"
          },
          "target":{
             "cardinality":"many",
             "property":"logEntries",
             "id":"L8 : LogEntryStoryBoard"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"kanbanentry",
-            "id":"K7 : KanbanEntry"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"subentries",
-            "id":"K2 : KanbanEntry"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"logentrystoryboard",
-            "id":"L8 : LogEntryStoryBoard"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"kanbanEntry",
-            "id":"K2 : KanbanEntry"
          }
       }
    ]

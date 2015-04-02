@@ -28,6 +28,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.objects.util.GenericObjectSet;
+import org.sdmlib.models.objects.util.GenericLinkSet;
 
 public class GenericGraphSet extends SDMSet<GenericGraph>
 {

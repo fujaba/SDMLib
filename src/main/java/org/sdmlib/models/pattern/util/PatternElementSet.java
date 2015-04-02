@@ -28,6 +28,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternElementSet extends SDMSet<PatternElement<?>>
 {

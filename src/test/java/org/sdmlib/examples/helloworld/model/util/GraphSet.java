@@ -30,6 +30,9 @@ import org.sdmlib.examples.helloworld.model.GraphComponent;
 import org.sdmlib.examples.helloworld.model.Node;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.helloworld.model.util.NodeSet;
+import org.sdmlib.examples.helloworld.model.util.EdgeSet;
+import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
 
 public class GraphSet extends SDMSet<Graph>
 {

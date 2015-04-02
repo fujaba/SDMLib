@@ -92,7 +92,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"classmodel",
+            "property":"model",
             "id":"C1 : ClassModel"
          },
          "target":{
@@ -118,19 +118,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"genclassmodel",
-            "id":"G5 : GenClassModel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"model",
-            "id":"C1 : ClassModel"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"statemententry",
             "id":"S2 : StatementEntry"
          },
@@ -144,7 +131,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"statemententry",
+            "property":"parent",
             "id":"S2 : StatementEntry"
          },
          "target":{
@@ -164,19 +151,6 @@
             "cardinality":"one",
             "property":"tokenList",
             "id":"A9 : ArrayList"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"statemententry",
-            "id":"S8 : StatementEntry"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"S2 : StatementEntry"
          }
       },
       {

@@ -123,19 +123,6 @@
             "id":"B2 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"R1 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B2 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"C4 : Cargo"
@@ -165,84 +152,6 @@
             "cardinality":"many",
             "property":"cargos",
             "id":"C6 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"B3 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"R1 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"B3 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B2 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"C4 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B2 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"C5 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B2 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"C6 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B2 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B7 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"R1 : River"
          }
       }
    ]
@@ -2608,7 +2517,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R32 : ReachableState"
          },
          "target":{
@@ -2621,7 +2530,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R32 : ReachableState"
          },
          "target":{
@@ -2678,47 +2587,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R1 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B2 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B3 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B2 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B3 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R1 : River"
          }
       },
       {
@@ -2763,73 +2633,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C4 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C5 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C6 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B3 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B7 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R1 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R41 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R32 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R41 : RuleApplication"
          },
          "target":{
@@ -2855,26 +2660,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R40 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R50 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R40 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R41 : RuleApplication"
          }
       },
       {
@@ -2925,19 +2717,6 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R33 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B34 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B35 : Bank"
          }
@@ -2953,32 +2732,6 @@
             "cardinality":"one",
             "property":"cargo",
             "id":"s.C37 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B35 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B34 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B35 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R33 : River"
          }
       },
       {
@@ -3010,73 +2763,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C36 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B35 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C38 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B35 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C37 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B34 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B39 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R33 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R50 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R40 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R50 : RuleApplication"
          },
          "target":{
@@ -3102,7 +2790,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R42 : ReachableState"
          },
          "target":{
@@ -3115,7 +2803,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R42 : ReachableState"
          },
          "target":{
@@ -3128,20 +2816,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R42 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R50 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R42 : ReachableState"
          },
          "target":{
@@ -3198,47 +2873,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R43 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B44 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B45 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B45 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B44 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B45 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R43 : River"
          }
       },
       {
@@ -3252,32 +2888,6 @@
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C46 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C46 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B45 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B47 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R43 : River"
          }
       },
       {
@@ -3309,47 +2919,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C48 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B47 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C49 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B47 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R59 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R42 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R59 : RuleApplication"
          },
          "target":{
@@ -3375,7 +2946,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R58 : ReachableState"
          },
          "target":{
@@ -3388,241 +2959,98 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R58 : ReachableState"
+            "property":"river",
+            "id":"s.R51 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B52 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R51 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B53 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R51 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B55 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B52 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B53 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B52 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C54 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B55 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C56 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B55 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C57 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"s.R59 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R51 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B52 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R51 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B53 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R51 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B55 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B52 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R51 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B52 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B53 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B52 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C54 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B53 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B52 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B53 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R51 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C54 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B52 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B55 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R51 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B55 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C56 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B55 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C57 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C56 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B55 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C57 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B55 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R69 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R58 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R69 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R32 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R68 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R42 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
             "id":"s.R68 : RuleApplication"
          },
          "target":{
@@ -3648,7 +3076,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R60 : ReachableState"
          },
          "target":{
@@ -3661,7 +3089,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R60 : ReachableState"
          },
          "target":{
@@ -3674,7 +3102,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R60 : ReachableState"
          },
          "target":{
@@ -3687,20 +3115,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R60 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R68 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R60 : ReachableState"
          },
          "target":{
@@ -3713,7 +3128,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R60 : ReachableState"
          },
          "target":{
@@ -3770,47 +3185,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R61 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B62 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B63 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B63 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B62 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B63 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R61 : River"
          }
       },
       {
@@ -3843,45 +3219,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C64 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B63 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C65 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B63 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B66 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R61 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B66 : Bank"
          },
@@ -3894,34 +3231,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C67 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B66 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R78 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R60 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R78 : RuleApplication"
          },
          "target":{
@@ -3947,7 +3258,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R77 : ReachableState"
          },
          "target":{
@@ -3960,215 +3271,98 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R77 : ReachableState"
+            "property":"river",
+            "id":"s.R70 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B71 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R70 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B72 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R70 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B75 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B71 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B72 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B71 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C73 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B72 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C74 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B75 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C76 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"s.R78 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R70 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B71 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R70 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B72 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R70 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B75 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B71 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R70 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B71 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B72 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B71 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C73 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B72 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B71 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B72 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R70 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B72 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C74 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C74 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B72 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C73 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B71 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B75 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R70 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B75 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C76 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C76 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B75 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R97 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R77 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
             "id":"s.R97 : RuleApplication"
          },
          "target":{
@@ -4194,7 +3388,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R89 : ReachableState"
          },
          "target":{
@@ -4207,7 +3401,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R89 : ReachableState"
          },
          "target":{
@@ -4220,20 +3414,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R89 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R97 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R89 : ReachableState"
          },
          "target":{
@@ -4290,47 +3471,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R90 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B91 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B92 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B92 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B91 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B92 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R90 : River"
          }
       },
       {
@@ -4363,45 +3505,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C93 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B92 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C94 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B92 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B95 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R90 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B95 : Bank"
          },
@@ -4414,34 +3517,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C96 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B95 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R115 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R89 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R115 : RuleApplication"
          },
          "target":{
@@ -4467,7 +3544,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R114 : ReachableState"
          },
          "target":{
@@ -4480,215 +3557,98 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R114 : ReachableState"
+            "property":"river",
+            "id":"s.R107 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B108 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R107 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B109 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R107 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B112 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B108 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B109 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B108 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C110 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B109 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C111 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B112 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C113 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"s.R115 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R107 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B108 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R107 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B109 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R107 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B112 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B108 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R107 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B108 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B109 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B108 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C110 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B109 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B108 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B109 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R107 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B109 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C111 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C111 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B109 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C110 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B108 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B112 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R107 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B112 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C113 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C113 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B112 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R151 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R114 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
             "id":"s.R151 : RuleApplication"
          },
          "target":{
@@ -4714,7 +3674,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R143 : ReachableState"
          },
          "target":{
@@ -4727,7 +3687,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R143 : ReachableState"
          },
          "target":{
@@ -4740,20 +3700,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R143 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R151 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R143 : ReachableState"
          },
          "target":{
@@ -4810,47 +3757,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R144 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B145 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B146 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B146 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B145 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B146 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R144 : River"
          }
       },
       {
@@ -4883,45 +3791,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C147 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B146 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C148 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B146 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B149 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R144 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B149 : Bank"
          },
@@ -4934,34 +3803,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C150 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B149 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R171 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R143 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R171 : RuleApplication"
          },
          "target":{
@@ -4987,7 +3830,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R170 : ReachableState"
          },
          "target":{
@@ -5000,215 +3843,98 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R170 : ReachableState"
+            "property":"river",
+            "id":"s.R163 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B164 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R163 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B165 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R163 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B168 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B164 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B165 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B164 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C166 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B165 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C167 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B168 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C169 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"s.R171 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R163 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B164 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R163 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B165 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R163 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B168 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B164 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R163 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B164 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B165 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B164 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C166 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B165 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B164 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B165 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R163 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B165 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C167 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C167 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B165 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C166 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B164 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B168 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R163 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B168 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C169 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C169 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B168 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R207 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R170 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
             "id":"s.R207 : RuleApplication"
          },
          "target":{
@@ -5234,7 +3960,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R199 : ReachableState"
          },
          "target":{
@@ -5247,7 +3973,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R199 : ReachableState"
          },
          "target":{
@@ -5260,7 +3986,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R199 : ReachableState"
          },
          "target":{
@@ -5273,20 +3999,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R199 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R207 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R199 : ReachableState"
          },
          "target":{
@@ -5299,7 +4012,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R199 : ReachableState"
          },
          "target":{
@@ -5356,47 +4069,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R200 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B201 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B202 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B202 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B201 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B202 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R200 : River"
          }
       },
       {
@@ -5429,45 +4103,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C203 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B202 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C204 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B202 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B205 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R200 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B205 : Bank"
          },
@@ -5480,34 +4115,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C206 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B205 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R219 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R199 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R219 : RuleApplication"
          },
          "target":{
@@ -5533,26 +4142,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R218 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R238 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R218 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R219 : RuleApplication"
          }
       },
       {
@@ -5592,19 +4188,6 @@
             "cardinality":"many",
             "property":"banks",
             "id":"s.B216 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B212 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R211 : River"
          }
       },
       {
@@ -5641,74 +4224,9 @@
             "id":"s.B213 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B212 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B213 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R211 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B213 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C215 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C215 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B213 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C214 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B212 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B216 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R211 : River"
          }
       },
       {
@@ -5727,34 +4245,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C217 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B216 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R238 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R218 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R238 : RuleApplication"
          },
          "target":{
@@ -5780,7 +4272,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R153 : ReachableState"
          },
          "target":{
@@ -5793,7 +4285,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R153 : ReachableState"
          },
          "target":{
@@ -5806,7 +4298,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R153 : ReachableState"
          },
          "target":{
@@ -5819,215 +4311,98 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R153 : ReachableState"
+            "property":"river",
+            "id":"s.R154 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B155 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R154 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B159 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R154 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B156 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B155 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B156 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B156 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C157 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B156 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C158 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B159 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C160 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"s.R238 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R154 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B155 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R154 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B159 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R154 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B156 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B155 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R154 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B155 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B156 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B156 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B155 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B156 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R154 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B156 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C157 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B156 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C158 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C157 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B156 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C158 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B156 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B159 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R154 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B159 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C160 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C160 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B159 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R189 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R153 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
             "id":"s.R189 : RuleApplication"
          },
          "target":{
@@ -6053,26 +4428,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R188 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R209 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R188 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R189 : RuleApplication"
          }
       },
       {
@@ -6112,19 +4474,6 @@
             "cardinality":"many",
             "property":"banks",
             "id":"s.B186 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B182 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R181 : River"
          }
       },
       {
@@ -6161,74 +4510,9 @@
             "id":"s.B183 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B182 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B183 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R181 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B183 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C185 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C185 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B183 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C184 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B182 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B186 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R181 : River"
          }
       },
       {
@@ -6247,60 +4531,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C187 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B186 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R209 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R188 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R209 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R199 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R198 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R153 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R198 : RuleApplication"
          },
          "target":{
@@ -6326,26 +4558,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R197 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R210 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R197 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R198 : RuleApplication"
          }
       },
       {
@@ -6385,19 +4604,6 @@
             "cardinality":"many",
             "property":"banks",
             "id":"s.B195 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B191 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R190 : River"
          }
       },
       {
@@ -6434,74 +4640,9 @@
             "id":"s.B192 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B191 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B192 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R190 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B192 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C193 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C193 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B192 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C194 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B191 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B195 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R190 : River"
          }
       },
       {
@@ -6520,34 +4661,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C196 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B195 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R210 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R197 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R210 : RuleApplication"
          },
          "target":{
@@ -6573,7 +4688,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R98 : ReachableState"
          },
          "target":{
@@ -6586,7 +4701,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R98 : ReachableState"
          },
          "target":{
@@ -6599,7 +4714,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R98 : ReachableState"
          },
          "target":{
@@ -6612,215 +4727,98 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R98 : ReachableState"
+            "property":"river",
+            "id":"s.R99 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B100 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R99 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B104 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R99 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B101 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B100 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B101 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B101 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C102 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B101 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C103 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B104 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C105 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"s.R210 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R99 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B100 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R99 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B104 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R99 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B101 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B100 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R99 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B100 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B101 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B101 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B100 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B101 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R99 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B101 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C102 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B101 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C103 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C102 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B101 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C103 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B101 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B104 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R99 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B104 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C105 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C105 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B104 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R133 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R98 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
             "id":"s.R133 : RuleApplication"
          },
          "target":{
@@ -6846,26 +4844,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R132 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R161 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R132 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R133 : RuleApplication"
          }
       },
       {
@@ -6905,19 +4890,6 @@
             "cardinality":"many",
             "property":"banks",
             "id":"s.B130 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B126 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R125 : River"
          }
       },
       {
@@ -6954,74 +4926,9 @@
             "id":"s.B127 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B126 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B127 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R125 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B127 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C129 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C129 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B127 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C128 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B126 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B130 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R125 : River"
          }
       },
       {
@@ -7040,60 +4947,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C131 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B130 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R161 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R132 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R161 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R153 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R142 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R98 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R142 : RuleApplication"
          },
          "target":{
@@ -7119,26 +4974,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R141 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R162 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R141 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R142 : RuleApplication"
          }
       },
       {
@@ -7178,19 +5020,6 @@
             "cardinality":"many",
             "property":"banks",
             "id":"s.B139 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B135 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R134 : River"
          }
       },
       {
@@ -7227,74 +5056,9 @@
             "id":"s.B136 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B135 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B136 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R134 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B136 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C137 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C137 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B136 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C138 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B135 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B139 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R134 : River"
          }
       },
       {
@@ -7313,66 +5077,14 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C140 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B139 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R162 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R141 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R162 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R60 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"ruleapplications",
             "id":"s.R106 : RuleApplication"
          },
          "target":{
             "cardinality":"one",
             "property":"src",
             "id":"s.R86 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R106 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R98 : ReachableState"
          }
       },
       {
@@ -7392,20 +5104,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R86 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"ruleapplications",
-            "id":"s.R106 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R86 : ReachableState"
          },
          "target":{
@@ -7462,19 +5161,6 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R79 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B80 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B81 : Bank"
          }
@@ -7500,74 +5186,9 @@
             "id":"s.B81 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B80 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B81 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R79 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B81 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C82 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C82 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B81 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C83 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B80 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B84 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R79 : River"
          }
       },
       {
@@ -7586,60 +5207,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C85 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B84 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R87 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R60 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R87 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R86 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R228 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R199 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R228 : RuleApplication"
          },
          "target":{
@@ -7665,7 +5234,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R227 : ReachableState"
          },
          "target":{
@@ -7678,241 +5247,98 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R227 : ReachableState"
+            "property":"river",
+            "id":"s.R220 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B221 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R220 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B222 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R220 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B225 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B221 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B222 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B221 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C224 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B222 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C223 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B225 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C226 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"s.R228 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R220 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B221 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R220 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B222 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R220 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B225 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B221 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R220 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B221 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B222 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B221 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C224 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B222 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B221 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B222 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R220 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B222 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C223 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C223 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B222 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C224 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B221 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B225 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R220 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B225 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C226 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C226 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B225 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R239 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R227 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R239 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R143 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R237 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R199 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
             "id":"s.R237 : RuleApplication"
          },
          "target":{
@@ -7938,7 +5364,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R229 : ReachableState"
          },
          "target":{
@@ -7951,7 +5377,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R229 : ReachableState"
          },
          "target":{
@@ -7964,20 +5390,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R229 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R237 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
+            "property":"tgt",
             "id":"s.R229 : ReachableState"
          },
          "target":{
@@ -8034,47 +5447,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R230 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B231 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B232 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B232 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B231 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B232 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R230 : River"
          }
       },
       {
@@ -8088,32 +5462,6 @@
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C233 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C233 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B232 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B234 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R230 : River"
          }
       },
       {
@@ -8145,47 +5493,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C235 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B234 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C236 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B234 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R248 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R229 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R248 : RuleApplication"
          },
          "target":{
@@ -8211,7 +5520,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R247 : ReachableState"
          },
          "target":{
@@ -8224,215 +5533,98 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R247 : ReachableState"
+            "property":"river",
+            "id":"s.R240 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B241 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R240 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B242 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"s.R240 : River"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"banks",
+            "id":"s.B244 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B241 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B242 : Bank"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"s.B241 : Boat"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"cargo",
+            "id":"s.C243 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B244 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C245 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"bank",
+            "id":"s.B244 : Bank"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"cargos",
+            "id":"s.C246 : Cargo"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"resultOf",
-            "id":"s.R248 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R240 : River"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B241 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R240 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B242 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R240 : River"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"banks",
-            "id":"s.B244 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B241 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R240 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B241 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B242 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B241 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C243 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B242 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B241 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B242 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R240 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C243 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B241 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B244 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R240 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B244 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C245 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B244 : Bank"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"cargos",
-            "id":"s.C246 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C245 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B244 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C246 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B244 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R258 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R247 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
             "id":"s.R258 : RuleApplication"
          },
          "target":{
@@ -8458,26 +5650,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R250 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R267 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R250 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R258 : RuleApplication"
          }
       },
       {
@@ -8528,47 +5707,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R251 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B252 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B253 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B253 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B252 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B253 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R251 : River"
          }
       },
       {
@@ -8613,73 +5753,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C254 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B253 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C255 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B253 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C256 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B253 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B257 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R251 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R267 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R250 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R267 : RuleApplication"
          },
          "target":{
@@ -8705,26 +5780,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R266 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R268 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R266 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R267 : RuleApplication"
          }
       },
       {
@@ -8775,19 +5837,6 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R259 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B260 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B261 : Bank"
          }
@@ -8803,32 +5852,6 @@
             "cardinality":"one",
             "property":"cargo",
             "id":"s.C264 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B261 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B260 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B261 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R259 : River"
          }
       },
       {
@@ -8860,125 +5883,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C262 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B261 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C263 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B261 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C264 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B260 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B265 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R259 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R268 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R266 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R268 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R229 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R249 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R229 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R249 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R199 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R180 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R143 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R180 : RuleApplication"
          },
          "target":{
@@ -9004,26 +5910,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R179 : ReachableState"
          },
          "target":{
             "cardinality":"many",
             "property":"ruleapplications",
             "id":"s.R208 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R179 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R180 : RuleApplication"
          }
       },
       {
@@ -9063,19 +5956,6 @@
             "cardinality":"many",
             "property":"banks",
             "id":"s.B177 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B173 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R172 : River"
          }
       },
       {
@@ -9112,74 +5992,9 @@
             "id":"s.B174 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B173 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B174 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R172 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B174 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C175 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C175 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B174 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C176 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B173 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B177 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R172 : River"
          }
       },
       {
@@ -9198,60 +6013,8 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C178 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B177 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R208 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R179 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R208 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R89 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R124 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R89 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
+            "cardinality":"many",
+            "property":"resultOf",
             "id":"s.R124 : RuleApplication"
          },
          "target":{
@@ -9277,7 +6040,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
+            "property":"src",
             "id":"s.R123 : ReachableState"
          },
          "target":{
@@ -9290,19 +6053,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"reachablestate",
-            "id":"s.R123 : ReachableState"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"resultOf",
-            "id":"s.R124 : RuleApplication"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"river",
             "id":"s.R116 : River"
          },
@@ -9347,19 +6097,6 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"river",
-            "id":"s.R116 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B117 : Boat"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"bank",
             "id":"s.B118 : Bank"
          }
@@ -9385,74 +6122,9 @@
             "id":"s.B118 : Bank"
          },
          "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B117 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B118 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R116 : River"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B118 : Bank"
-         },
-         "target":{
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C119 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C119 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B118 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C120 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"s.B117 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B121 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"river",
-            "id":"s.R116 : River"
          }
       },
       {
@@ -9466,71 +6138,6 @@
             "cardinality":"many",
             "property":"cargos",
             "id":"s.C122 : Cargo"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"cargo",
-            "id":"s.C122 : Cargo"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"s.B121 : Bank"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R152 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R123 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R152 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R60 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R88 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"s.R60 : ReachableState"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"s.R88 : RuleApplication"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"s.R42 : ReachableState"
          }
       }
    ]
