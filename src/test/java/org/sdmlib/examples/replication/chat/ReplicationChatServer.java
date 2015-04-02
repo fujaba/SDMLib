@@ -132,6 +132,16 @@ public class ReplicationChatServer
                   
                   cmdScope.withObservedObjects(story.getStoryboardSteps().last());
                   
+                  try
+                  {
+                     story.dumpHTML();
+                  }
+                  catch (Exception e)
+                  {
+                     // TODO Auto-generated catch block
+                     e.printStackTrace();
+                  }
+                  
                   // ask tom to chat with sabine
                   BoardTask boardTask = cmdScope.add(
                      new BoardTask().withName("tomChatWithSabine")

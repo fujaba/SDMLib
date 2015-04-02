@@ -28,7 +28,7 @@ public class SeppelTaskHandler implements PropertyChangeListener
          }
          catch (Exception e)
          {
-            e.printStackTrace();
+            e.printStackTrace(); 
          }
          finally 
          {

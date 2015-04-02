@@ -42,6 +42,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import javafx.application.Platform;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.ObjectSet;
 import org.sdmlib.replication.util.ReplicationChangeSet;
 import org.sdmlib.replication.util.ReplicationNodeCreator;
 import org.sdmlib.replication.util.SeppelScopeSet;
@@ -56,7 +57,9 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
+import de.uniks.networkparser.logic.ConditionMap;
 import de.uniks.networkparser.logic.Deep;
+import de.uniks.networkparser.logic.ValuesMap;
 
 public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListener
 {
@@ -164,7 +167,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          
          ReplicationChange change = (ReplicationChange) cmap.decode(jsonObject);
          
-         change.setChangeMsg(EntityUtil.unQuote(change.getChangeMsg()));
+         // change.setChangeMsg(EntityUtil.unQuote(change.getChangeMsg()));
 
          // is change already known?
          if (getHistory().getChanges().contains(change))
@@ -315,23 +318,13 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject(); 
       
-      new JsonTokener().withAllowCRLF(true).withText(change.getChangeMsg()).parseToEntity(jsonUpdate);
-   
       try
       {
          this.setReadMessages(true);
+         new JsonTokener().withAllowCRLF(true).withText(change.getChangeMsg())
+         .parseToEntity(jsonUpdate);
          map.executeUpdateMsg(jsonUpdate);
          
-//         Object obj = map.getObject(change.getTargetObjectId());
-//         if (obj != null && obj instanceof SeppelScope && SeppelScope.PROPERTY_OBSERVEDOBJECTS.equals(change.getTargetProperty()))
-//         {
-//            // add valueObject to scope explicitly
-//            SeppelScope scope = (SeppelScope) obj;
-//            String valueObjectId = jsonUpdate.getJsonObject(JsonIdMap.UPDATE).getJsonObject(SeppelScope.PROPERTY_OBSERVEDOBJECTS).getString(JsonIdMap.ID);
-//            Object valueObject = map.getObject(valueObjectId);
-//            
-//            scope.withObservedObjects(valueObject);
-//         }
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -345,6 +338,36 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
       writeChange(change);
 
       this.lastChangeId = Math.max(lastChangeId, change.getHistoryIdNumber());
+   }
+   
+   public static class RestrictToFilter extends ConditionMap
+   {
+      private ObjectSet explicitElems;
+
+      public RestrictToFilter(ObjectSet explicitElems2)
+      {
+         this.explicitElems = explicitElems2;
+
+      }
+
+      @Override
+      public boolean check(ValuesMap values)
+      {
+         if (values.value != null)
+         {
+            if (values.deep >= 3)
+            {
+               return false;
+            }
+            else if ("Integer Float Double Long Boolean String"
+               .indexOf(values.value.getClass().getSimpleName()) >= 0)
+            {
+               return true;
+            }
+         }
+         
+         return explicitElems.contains(values.value);
+      }
    }
 
 
@@ -411,10 +434,9 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
             // it contains only the object id, no properties of the object, just add those
             String valueObjectId = valueJsonObject.getString(JsonIdMap.ID);
             Object valueObject = map.getObject(valueObjectId);
-            LinkedHashSet explicitElems = new LinkedHashSet();
-            explicitElems.add(valueObject);
+            ObjectSet explicitElems = ((SeppelScope) target).getObservedObjects();
             JsonObject newValueJsonObject = map.toJsonObject(valueObject, 
-               new Filter().withConvertable(new Deep().withDeep(0)));
+               new Filter().withPropertyRegard(new RestrictToFilter(explicitElems)));
             
             jsonUpdate.put(prop, newValueJsonObject);
             change.withChangeMsg(jsonObject.toString());

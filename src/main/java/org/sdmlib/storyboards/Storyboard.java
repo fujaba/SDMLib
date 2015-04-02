@@ -84,9 +84,9 @@ public class Storyboard implements PropertyChangeInterface
    public static final String IMPLEMENTATION = "implementation";
    public static final String BACKLOG = "backlog";
 
-   private String name;
+   private String name = "";
    private GuiAdapter adapter;
-   private String javaTestFileName;
+   private String javaTestFileName = "";
    private JsonArray largestJsonArray = null;
    private Object largestRoot = null;
    private String kanbanWorkFlow = null;
