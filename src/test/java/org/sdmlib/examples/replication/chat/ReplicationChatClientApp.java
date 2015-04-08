@@ -1,15 +1,23 @@
 package org.sdmlib.examples.replication.chat;
 
+import java.io.File;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -30,6 +38,7 @@ import org.sdmlib.replication.SeppelTaskHandler;
 import org.sdmlib.replication.util.SeppelScopePO;
 import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 
 import de.uniks.networkparser.json.JsonIdMap;
@@ -68,6 +77,8 @@ public class ReplicationChatClientApp extends Application
    }
    
    private ChatTextUpdater chatTextUpdater;
+   private Stage stage;
+   private ChannelListUpdater channelListUpdater;
    
    
    /**
@@ -84,6 +95,7 @@ public class ReplicationChatClientApp extends Application
    @Override
    public void start(Stage stage) throws Exception
    {
+      this.stage = stage;
       List<String> parameters = this.getParameters().getRaw();
       
       userName = parameters.get(0);
@@ -171,7 +183,7 @@ public class ReplicationChatClientApp extends Application
       Label channelsLabel = newLabel("Channels: ");
       
       VBox channelListVBox = new VBox();
-      new ChannelListUpdater(this, chatRoot, channelListVBox, userName);
+      channelListUpdater = new ChannelListUpdater(this, chatRoot, channelListVBox, userName);
       channelListVBox.setPadding(new Insets(0, 0, 8, 16));
       
       chatText = new Text("Hello\nWorld\n ");
@@ -183,7 +195,7 @@ public class ReplicationChatClientApp extends Application
       
       chatInput = new TextField();
       chatInput.setPrefWidth(192);
-      Button chatButton = new Button("Send");
+      chatButton = new Button("Send");
       chatButton.setOnAction(new ChatButtonAction(this));
       
       HBox chatInputLine = new HBox(chatInput, chatButton);
@@ -235,6 +247,7 @@ public class ReplicationChatClientApp extends Application
    }
    
    LinkedHashSet<ChatChannel> observedChannels = new LinkedHashSet<ChatChannel>();
+   private Button chatButton;
 
    public void chatWithCurrentUser(ChatUser currentUser)
    {
@@ -305,13 +318,64 @@ public class ReplicationChatClientApp extends Application
             @Override
             public void run(BoardTask task)
             {
+               // do a screen dump of the current gui
+               WritableImage snapshot = stage.getScene().snapshot(null);
+               
+               File file = new File("doc/SeppelChatTomGUI1.png");
 
-               // ask the server to ask sabine to check the inbox
-               SeppelSpaceProxy zuenFamProxy = selfProxy.getPartners().hasLoginName("zuenFamilyChatServer").first();
+               try {
+                   ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
+               } catch (Exception s) {
+               }
+               
+               // add to story
+               
+               Storyboard story = (Storyboard) task.getFromTaskObjects("story");
+               story.addImage("SeppelChatTomGUI1.png");
                SeppelScope cmdScope = selfProxy.getScopes().hasScopeName("commands").first();
-               BoardTask boardTask = cmdScope.add(new BoardTask().withName("sabineCheckInbox"));
+               cmdScope.withObservedObjects(story.getStoryboardSteps().last());
+               
+               // now select sabine for chatting
+               ToggleGroup toggleGroup = channelListUpdater.getToggleGroup();
+               for (Toggle toggle : toggleGroup.getToggles())
+               {
+                  ChatUser user = (ChatUser) toggle.getUserData();
+                  
+                  if ("sabine".equals(user.getUserName()))
+                  {
+                     toggle.setSelected(true);
+                     break;
+                  }
+               }
+               
+               
+               Platform.runLater(new Runnable()
+               {
+                  
+                  @Override
+                  public void run()
+                  {
+                     // enter greeting
+                     chatInput.setText("Hello Sabine, greetings from Tom");
+                     
+                     Platform.runLater(new Runnable()
+                     {
+                        
+                        @Override
+                        public void run()
+                        {
+                           // click send
+                           chatButton.fire();
 
-               zuenFamProxy.withTasks(boardTask);
+                           // ask the server to ask sabine to check the inbox
+                           SeppelSpaceProxy zuenFamProxy = selfProxy.getPartners().hasLoginName("zuenFamilyChatServer").first();
+                           BoardTask boardTask = cmdScope.add(new BoardTask().withName("sabineCheckInbox"));
+
+                           zuenFamProxy.withTasks(boardTask);
+                        }
+                     });
+                  }
+               });
             }
          })
          .with("sabineCheckInbox", new SeppelBoardTaskAction() 

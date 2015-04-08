@@ -18,7 +18,14 @@ public class ChannelListUpdater implements PropertyChangeListener, ChangeListene
    private ChatRoot chatRoot;
    private VBox vbox;
    private String userName;
+   
    private ToggleGroup toggleGroup;
+   
+   public ToggleGroup getToggleGroup()
+   {
+      return toggleGroup;
+   }
+   
    private ReplicationChatClientApp app;
 
    public ChannelListUpdater(ReplicationChatClientApp replicationChatClientApp, ChatRoot chatRoot, VBox channelListVBox, String userName)

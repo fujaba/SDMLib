@@ -103,6 +103,15 @@ public class SeppelChatTest
                   inbox.offer(task);
                }
             
+         })
+         .with(Exception.class.getName(), new SeppelBoardTaskAction() 
+         {
+               @Override
+               public void run(BoardTask task)
+               {
+                  inbox.offer(task);
+               }
+            
          }));
             
       

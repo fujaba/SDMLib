@@ -28,7 +28,19 @@ public class SeppelTaskHandler implements PropertyChangeListener
          }
          catch (Exception e)
          {
-            e.printStackTrace(); 
+            // exception during exception handling? => abort
+            // else call exception handling
+            if ( ! Exception.class.getName().equals(task.getName()))
+            {
+               BoardTask exceptionTask = new BoardTask().withName(Exception.class.getName());
+               exceptionTask.withTaskObject("failedTask", task).withTaskObject(Exception.class.getName(), e);
+               PropertyChangeEvent newEvt = new PropertyChangeEvent(evt.getSource(), evt.getPropertyName(), evt.getOldValue(), exceptionTask);
+               this.propertyChange(newEvt);
+            }   
+            else
+            {
+               e.printStackTrace(); 
+            }
          }
          finally 
          {

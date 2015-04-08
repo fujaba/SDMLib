@@ -75,20 +75,8 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       },
       {
          "typ":"node",
-         "id":"karli : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@37d80fe7",
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"mathRoom : Room",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@384fc774",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@365a6a43",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -133,8 +121,20 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       },
       {
          "typ":"node",
+         "id":"karli : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@288cdaab",
+         "attributes":[
+         "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"A1 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@e3cee7b",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@23b3aa8c",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -143,7 +143,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       {
          "typ":"node",
          "id":"A2 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@71e9a896",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@99407c2",
          "attributes":[
          "content=Series",
             "points=6"
@@ -152,7 +152,7 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       {
          "typ":"node",
          "id":"A3 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6b9267b",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6c796cc1",
          "attributes":[
          "content=Integrals",
             "points=8"
@@ -161,19 +161,6 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
    ],
    "edges":[
    {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
@@ -241,14 +228,14 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
             "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
          }
       },
       {
@@ -275,6 +262,19 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
             "cardinality":"many",
             "property":"doors",
             "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
          }
       },
       {
@@ -400,7 +400,7 @@ Karli's motivation is reduced by 5 points to now 209.
    {
          "typ":"node",
          "id":"karli : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@fac80",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@65eabaab",
          "attributes":[
          "name=Karli",
             "id=4242",
@@ -412,7 +412,7 @@ Karli's motivation is reduced by 5 points to now 209.
       {
          "typ":"node",
          "id":"mathRoom : Room",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@726386ed",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@7123be6c",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -422,7 +422,7 @@ Karli's motivation is reduced by 5 points to now 209.
       {
          "typ":"node",
          "id":"A1 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@649f2009",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1de9d54",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -431,7 +431,7 @@ Karli's motivation is reduced by 5 points to now 209.
       {
          "typ":"node",
          "id":"A2 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@14bb2297",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@77a2aa4a",
          "attributes":[
          "content=Series",
             "points=6"
@@ -440,7 +440,7 @@ Karli's motivation is reduced by 5 points to now 209.
       {
          "typ":"node",
          "id":"A3 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@69adf72c",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@47ad69f7",
          "attributes":[
          "content=Integrals",
             "points=8"
@@ -531,7 +531,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
    {
          "typ":"node",
          "id":"karli : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@5bd1ceca",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6d5037a9",
          "attributes":[
          "name=Karli",
             "id=4242",
@@ -543,7 +543,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       {
          "typ":"node",
          "id":"mathRoom : Room",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@30c31dd7",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@422b8438",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -553,7 +553,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       {
          "typ":"node",
          "id":"A1 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@499b2a5c",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@30669dac",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -562,7 +562,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       {
          "typ":"node",
          "id":"A2 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@596df867",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@629adce",
          "attributes":[
          "content=Series",
             "points=6"
@@ -571,7 +571,7 @@ Thus Karli has 11 points now. Motivation is reduced to 203.
       {
          "typ":"node",
          "id":"A3 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@c1fca1e",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6a282fdd",
          "attributes":[
          "content=Integrals",
             "points=8"
@@ -675,7 +675,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
    {
          "typ":"node",
          "id":"karli : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@285f09de",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6ff415ad",
          "attributes":[
          "name=Karli",
             "id=4242",
@@ -687,7 +687,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       {
          "typ":"node",
          "id":"mathRoom : Room",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@73393584",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@280d9edc",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -697,7 +697,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       {
          "typ":"node",
          "id":"A1 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@31500940",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@28fd3dc1",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -706,7 +706,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       {
          "typ":"node",
          "id":"A2 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1827a871",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@5f9b6ae7",
          "attributes":[
          "content=Series",
             "points=6"
@@ -715,7 +715,7 @@ another 8 points and thus Karli has now 19 points and a motivation of 195.
       {
          "typ":"node",
          "id":"A3 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@48e64352",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@108d55c4",
          "attributes":[
          "content=Integrals",
             "points=8"
@@ -837,7 +837,7 @@ the credit points, the credit points will be awarded to the student.)</p>
    {
          "typ":"node",
          "id":"karli : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@750fe12e",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@3b90a30a",
          "attributes":[
          "name=Karli",
             "id=4242",
@@ -849,7 +849,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       {
          "typ":"node",
          "id":"mathRoom : Room",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@f8908f6",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@69fa8e76",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -859,7 +859,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       {
          "typ":"node",
          "id":"A1 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@3e587920",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@bdd2027",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -868,7 +868,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       {
          "typ":"node",
          "id":"A2 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@2ef8a8c3",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@31f20c9f",
          "attributes":[
          "content=Series",
             "points=6"
@@ -877,7 +877,7 @@ the credit points, the credit points will be awarded to the student.)</p>
       {
          "typ":"node",
          "id":"A3 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@24f43aa3",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@f446158",
          "attributes":[
          "content=Integrals",
             "points=8"

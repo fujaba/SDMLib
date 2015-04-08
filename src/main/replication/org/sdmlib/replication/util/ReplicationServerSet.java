@@ -32,6 +32,7 @@ import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationServer;
 import org.sdmlib.replication.SharedSpace;
+import org.sdmlib.replication.util.SharedSpaceSet;
 
 public class ReplicationServerSet extends SDMSet<ReplicationServer>
 {

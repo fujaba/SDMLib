@@ -82,6 +82,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          catch (Exception e)
          {
             // just try again
+            e.printStackTrace();
          }
       }
    }
@@ -101,7 +102,14 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                @Override
                public void run()
                {
-                  handleMessage(channelMsg);
+                  try
+                  {
+                     handleMessage(channelMsg);
+                  }
+                  catch (Exception e)
+                  {
+                     e.printStackTrace();
+                  }
                }
             });
          }
@@ -203,6 +211,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                }
                else
                {
+                  boolean setOfProps = false;
                   // undo higher changes, apply, redo higher changes
                   // find source object, property and earlier content object
                   String changeMsg = higher.getChangeMsg();
@@ -217,10 +226,34 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                      updateJson = (JsonObject) higherJson.get(JsonIdMap.REMOVE);
                   }
 
-                  for (Iterator<String> keyIter = updateJson.keyIterator(); keyIter.hasNext();)
+                  if (updateJson == null)
+                  {
+                     // might be a set of props
+                     updateJson = (JsonObject) higherJson.get(JsonIdMap.JSON_PROPS);
+                     if (updateJson != null)
+                     {
+                        setOfProps = true;
+                        applyChange(change, msg.channel);
+                     }
+                  }
+                  
+                  if (updateJson == null)
+                  {
+                     // ups that should not happen
+                     System.out.println("ups");
+                  }
+                  
+                  for (Iterator<String> keyIter = updateJson.keyIterator(); ! setOfProps && keyIter.hasNext();)
                   {
                      String property = keyIter.next();
 
+                     Object object = updateJson.get(property);
+                     
+                     if (object == null || ! (object instanceof JsonObject))
+                     {
+                        System.out.println("Problem at SeppelSpace line 248 ");
+                     }
+                     
                      JsonObject targetJson = updateJson.getJsonObject(property);
 
                      String targetId = targetJson.getString(JsonIdMap.ID);
@@ -993,6 +1026,8 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
    {
       JsonObject jsonObject;
       
+      if (channel == null || channel.getSeppelSpaceProxy() == null) return; //<==========
+
       // go through history and send changes that are in the scope of this channel
       SeppelScopeSet scopes = channel.getSeppelSpaceProxy().getScopes();
       SeppelScope s = scopes.first();

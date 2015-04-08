@@ -28,6 +28,13 @@
       },
       {
          "typ":"node",
+         "id":"S3 : SeppelScope",
+         "attributes":[
+         "scopeName=commands"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"S2 : SeppelSpaceProxy",
          "attributes":[
          "loginName=albert",
@@ -64,13 +71,6 @@
       },
       {
          "typ":"node",
-         "id":"S3 : SeppelScope",
-         "attributes":[
-         "scopeName=commands"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"B14 : BoardTask",
          "attributes":[
          "name=addAllProxiesToCmdScope"
@@ -81,10 +81,10 @@
          "id":"S4 : Storyboard",
          "attributes":[
          "name=",
+            "modelRootDir=./src/test/java",
             "rootDir=./src/test/java",
             "stepCounter=5",
-            "stepDoneCounter=0",
-            "modelRootDir=./src/test/java"
+            "stepDoneCounter=0"
          ]
       },
       {
@@ -135,6 +135,19 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
+            "property":"spaces",
+            "id":"S1 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"scopes",
+            "id":"S3 : SeppelScope"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
             "property":"partnersTransitive",
             "id":"S1 : SeppelSpaceProxy"
          },
@@ -186,14 +199,66 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"spaces",
+            "cardinality":"one",
+            "property":"seppelspaceproxy",
             "id":"S1 : SeppelSpaceProxy"
          },
          "target":{
             "cardinality":"many",
-            "property":"scopes",
-            "id":"S3 : SeppelScope"
+            "property":"partnersTransitive",
+            "id":"S1 : SeppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"seppelspaceproxy",
+            "id":"S1 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S2 : SeppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"seppelspaceproxy",
+            "id":"S1 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S6 : SeppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"seppelspaceproxy",
+            "id":"S1 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S7 : SeppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"seppelspaceproxy",
+            "id":"S1 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S5 : SeppelSpaceProxy"
          }
       },
       {
@@ -212,130 +277,13 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"seppelspaceproxy",
-            "id":"S1 : SeppelSpaceProxy"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S1 : SeppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"seppelspaceproxy",
-            "id":"S1 : SeppelSpaceProxy"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S2 : SeppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"seppelspaceproxy",
-            "id":"S1 : SeppelSpaceProxy"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S6 : SeppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"seppelspaceproxy",
-            "id":"S1 : SeppelSpaceProxy"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S7 : SeppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"seppelspaceproxy",
-            "id":"S1 : SeppelSpaceProxy"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S5 : SeppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"spaces",
-            "id":"S2 : SeppelSpaceProxy"
-         },
-         "target":{
             "cardinality":"many",
             "property":"scopes",
             "id":"S3 : SeppelScope"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"seppelspaceproxy",
-            "id":"S2 : SeppelSpaceProxy"
          },
          "target":{
             "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S2 : SeppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S2 : SeppelSpaceProxy"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S6 : SeppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S2 : SeppelSpaceProxy"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S7 : SeppelSpaceProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
-            "id":"S2 : SeppelSpaceProxy"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"partnersTransitive",
+            "property":"spaces",
             "id":"S5 : SeppelSpaceProxy"
          }
       },
@@ -349,7 +297,7 @@
          "target":{
             "cardinality":"many",
             "property":"spaces",
-            "id":"S5 : SeppelSpaceProxy"
+            "id":"S2 : SeppelSpaceProxy"
          }
       },
       {
@@ -505,6 +453,19 @@
          "target":{
             "cardinality":"many",
             "property":"partnersTransitive",
+            "id":"S2 : SeppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S5 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
             "id":"S6 : SeppelSpaceProxy"
          }
       },
@@ -514,6 +475,45 @@
             "cardinality":"many",
             "property":"partnersTransitive",
             "id":"S5 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S7 : SeppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"seppelspaceproxy",
+            "id":"S2 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S2 : SeppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S2 : SeppelSpaceProxy"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S6 : SeppelSpaceProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"partnersTransitive",
+            "id":"S2 : SeppelSpaceProxy"
          },
          "target":{
             "cardinality":"many",

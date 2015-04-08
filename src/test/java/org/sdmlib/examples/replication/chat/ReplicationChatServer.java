@@ -8,6 +8,7 @@ import org.sdmlib.replication.SeppelSocketAcceptThread;
 import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.SeppelTaskHandler;
+import org.sdmlib.replication.util.SeppelSpaceProxyCreator;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 
@@ -123,29 +124,29 @@ public class ReplicationChatServer
                   for (SeppelSpaceProxy proxy : selfProxy.getPartners())
                   {
                      proxy.withScopes(cmdScope);
+                     
+                     if (proxy.getChannel() != null)
+                     {
+                        seppelSpace.sendAllChanges(proxy.getChannel());
+                     }
                   }
 
                   // protocol result
                   Storyboard story = (Storyboard) task.getFromTaskObjects("story");
                   
-                  story.addObjectDiagramWith(selfProxy, selfProxy.getPartners(), cmdScope, cmdScope.getObservedObjects());
+                  story.withJsonIdMap(SeppelSpaceProxyCreator.createIdMap("sb"));
+                  
+                  story.addObjectDiagramWith(selfProxy, selfProxy.getPartners(), 
+                     selfProxy.getPartners().getTasks(), task);
                   
                   cmdScope.withObservedObjects(story.getStoryboardSteps().last());
-                  
-                  try
-                  {
-                     story.dumpHTML();
-                  }
-                  catch (Exception e)
-                  {
-                     // TODO Auto-generated catch block
-                     e.printStackTrace();
-                  }
                   
                   // ask tom to chat with sabine
                   BoardTask boardTask = cmdScope.add(
                      new BoardTask().withName("tomChatWithSabine")
                      .withTaskObject("story", story));
+                  
+                  task.withNext(boardTask);
 
                   SeppelSpaceProxy tomProxy = selfProxy.getPartners().hasLoginName("tom").first();
                   tomProxy.withTasks(boardTask);
@@ -178,6 +179,20 @@ public class ReplicationChatServer
 
                proxy.withTasks(task);
             }
+         })
+         .with(Exception.class.getName(), new SeppelBoardTaskAction() 
+         {
+               @Override
+               public void run(BoardTask task)
+               {
+                  // if there is a tester inform it
+                  SeppelSpaceProxy proxy = selfProxy.getPartners().hasLoginName("tester").first();
+                  SeppelScope cmdScope = selfProxy.getScopes().hasScopeName("commands").first();
+
+                  proxy.withTasks(task);
+                  
+               }
+            
          }));
 
    }
