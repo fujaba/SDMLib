@@ -332,7 +332,7 @@ public class ReplicationChatClientApp extends Application
                
                Storyboard story = (Storyboard) task.getFromTaskObjects("story");
                story.addImage("SeppelChatTomGUI1.png");
-               SeppelScope cmdScope = selfProxy.getScopes().hasScopeName("commands").first();
+               final SeppelScope cmdScope = selfProxy.getScopes().hasScopeName("commands").first();
                cmdScope.withObservedObjects(story.getStoryboardSteps().last());
                
                // now select sabine for chatting
