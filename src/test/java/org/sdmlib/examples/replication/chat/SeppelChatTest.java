@@ -25,7 +25,7 @@ public class SeppelChatTest
    private SeppelSpaceProxy selfProxy;
    private SeppelSpaceProxy partner;
 
-   @Test
+   // Test
    public void testSeppelChat()
    {
       Storyboard story = new Storyboard();
