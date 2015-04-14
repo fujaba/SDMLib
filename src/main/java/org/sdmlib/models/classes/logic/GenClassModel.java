@@ -18,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -922,7 +923,7 @@ public class GenClassModel
    {
       SymTabEntry symTabEntry = null;
       rescanCode(clazz, rootDir);
-      LinkedHashMap<String, SymTabEntry> symTab = getOrCreate(clazz).getOrCreateParser(rootDir).getSymTab();
+      Map<String, SymTabEntry> symTab = getOrCreate(clazz).getOrCreateParser(rootDir).getSymTab();
       for (String key : symTab.keySet())
       {
          if (key.startsWith(signature))
@@ -1992,7 +1993,7 @@ public class GenClassModel
    private int checkImport(String newImport, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
    {
       getOrCreate(modelCreationClass).getParser().indexOf(Parser.CLASS_END);
-      LinkedHashMap<String, SymTabEntry> symTab = getOrCreate(modelCreationClass).getParser().getSymTab();
+      Map<String, SymTabEntry> symTab = getOrCreate(modelCreationClass).getParser().getSymTab();
       LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
 
       for (String key : symTab.keySet())
@@ -2783,7 +2784,7 @@ public class GenClassModel
       String[] split = memberName.split(":");
       String signature = split[1];
 
-      LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
+      Map<String, SymTabEntry> symTab = parser.getSymTab();
 
       for (String key : symTab.keySet())
       {
@@ -2886,7 +2887,7 @@ public class GenClassModel
 
    private boolean isGetterSetter(String signature, Parser parser, Clazz clazz)
    {
-      LinkedHashMap<String, SymTabEntry> symTab = parser.getSymTab();
+      Map<String, SymTabEntry> symTab = parser.getSymTab();
       List<String> attributeKeys = new ArrayList<>();
 
       for (String key : symTab.keySet())

@@ -1,81 +1,76 @@
 package org.sdmlib.models.classes;
 
-import java.beans.PropertyChangeSupport;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-public class DataType implements PropertyChangeInterface
+public class DataType 
 {
-   public static final String PROPERTY_VALUE = "value";
 
-   public static final DataType VOID = new DataType("void");
-   public static final DataType INT = new DataType("int");
-   public static final DataType LONG = new DataType("long");
-   public static final DataType DOUBLE = new DataType("double");
-   public static final DataType STRING = new DataType("String");
-   public static final DataType BOOLEAN = new DataType("boolean");
-   public static final DataType OBJECT = new DataType("Object");
-   
-   private String value;
-   DataType(String value){
-      this.setValue(value);
-   }
-   
-   public String getValue()
-   {
-      return value;
-   }
-   
-   public boolean setValue(String value)
-   {
-      if ( ! StrUtil.stringEquals(this.value, value))
-      {
-         String oldValue = this.value;
-         this.value = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_VALUE, oldValue, value);
-         return true;
-      }
-      return false;
-   }
-   public DataType withValue(String value){
-      this.value = value;
-      return this;
-   }
-   
-   public static DataType ref(String value){
-      return new DataType(value);
-   }
-   public static DataType ref(Class<?> value){
-      return new DataType(value.getName().replace("$", "."));
-   }
-   public static DataType ref(Clazz value){
-      return new DataType(value.getFullName());
-   }
-   
-   public static DataType ref(Enumeration value) {
-	   return new DataType(value.getFullName());
-   }
 
-   @Override
-   public String toString()
-   {
-      if ("void int long double String boolean Object".indexOf(this.value) >= 0)
-      {
-         return "DataType." + value.toUpperCase();
-      }
-      else
-      {
-         return "DataType.ref(\"" + value + "\")";
-      }
-   }
-   
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+	private static ConcurrentHashMap<String, DataType> instances = new ConcurrentHashMap<>();
+	
 
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
+	public static DataType getInstance(String value)
+	{
+		return instances.computeIfAbsent(value,DataType::new);
+	}
+
+	public static final DataType VOID =  getInstance("void");
+	public static final DataType INT =  getInstance("int");
+	public static final DataType LONG =  getInstance("long");
+	public static final DataType DOUBLE =  getInstance("double");
+	public static final DataType STRING =  getInstance("String");
+	public static final DataType BOOLEAN =  getInstance("boolean");
+	public static final DataType OBJECT =  getInstance("Object");
+
+	private String value;
+
+	private DataType ( String value )
+	{
+		this.value = value;
+	}
+
+	public String getValue()
+	{
+		return value;
+	}
+
+
+
+	public static DataType ref(String value)
+	{
+		return getInstance(value);
+	}
+
+	public static DataType ref(Class<?> value)
+	{
+		return getInstance(value.getName().replace("$", "."));
+	}
+
+	public static DataType ref(Clazz value)
+	{
+		return getInstance(value.getFullName());
+	}
+
+	public static DataType ref(Enumeration value)
+	{
+		return getInstance(value.getFullName());
+	}
+
+	@Override
+	public String toString()
+	{
+		if ("void int long double String boolean Object".indexOf(this.value) >= 0)
+		{
+			return "DataType." + value.toUpperCase();
+		}
+		else
+		{
+			return "DataType.ref(\"" + value + "\")";
+		}
+	}
+
+
+
+
+
 }
