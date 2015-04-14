@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.sdmlib.CGUtil;
@@ -1605,7 +1606,7 @@ public class GenClass extends Generator<Clazz>
 
          newFileParser.parse();
          // Diff Methods
-         LinkedHashMap<String, SymTabEntry> oldSymTab = oldFileParser.getSymTab();
+         Map<String, SymTabEntry> oldSymTab = oldFileParser.getSymTab();
 
          String packageName = CGUtil.packageName(this.model.getFullName());
          String shortName = newFileParser.getFileName().replace("\\", ".").replace("/", ".");

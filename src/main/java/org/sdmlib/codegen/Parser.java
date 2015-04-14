@@ -29,6 +29,9 @@ import java.util.Set;
 
 import org.sdmlib.StrUtil;
 
+import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleList;
+
 public class Parser
 {
 
@@ -93,9 +96,9 @@ public class Parser
 
    private int index;
 
-   private LinkedHashMap<String, SymTabEntry> symTab;
+   private SimpleKeyValueList<String, SymTabEntry> symTab;
 
-   public LinkedHashMap<String, SymTabEntry> getSymTab()
+   public SimpleKeyValueList<String, SymTabEntry> getSymTab()
    {
       return symTab;
    }
@@ -219,7 +222,7 @@ public class Parser
    {
       if (symTab == null)
       {
-         symTab = new LinkedHashMap<String, SymTabEntry>();
+         symTab = new SimpleKeyValueList<String, SymTabEntry>();
       }
       else
       {
@@ -1930,6 +1933,11 @@ public class Parser
       }
       return entries;
    }
+   
+   public SymTabEntry getSymTabEntry(String signature) {
+      return symTab.get(signature);
+   }
+
 
    public SymTabEntry getMethodEntryWithLineNumber(String signature, long callMethodLineNumber) {
       ArrayList<SymTabEntry> symTabEntries = getSymTabEntriesFor(signature);
