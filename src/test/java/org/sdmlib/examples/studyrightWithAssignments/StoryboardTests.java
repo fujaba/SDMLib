@@ -63,7 +63,7 @@ public class StoryboardTests {
             .withId("4242")
             .withName("Karli");
 
-      Assignment a1 = new Assignment()
+      Assignment matrixMult = new Assignment()
       .withContent("Matrix Multiplication")
       .withPoints(5);
 
@@ -80,7 +80,7 @@ public class StoryboardTests {
             .withTopic("math")
             .withCredits(17)  
             .withStudents(karli)
-            .withAssignments(a1, a2, a3);
+            .withAssignments(matrixMult, a2, a3);
 
       Room artsRoom = university.createRooms()
             .withName("7522")
@@ -115,7 +115,7 @@ public class StoryboardTests {
          "sportsRoom", sportsRoom, 
          "examRoom", examRoom, 
          "placeToBe", softwareEngineering, 
-         "icons/matrix.png", a1, 
+         "icons/matrix.png", matrixMult, 
          "icons/limes.png", a2 , "icons/integralAssignment.png", a3);
 
       //===============================================================================================
@@ -124,8 +124,8 @@ public class StoryboardTests {
             +"Karli's motivation is reduced by 5 points to now 209.\n"); 
 
       storyboard.markCodeStart();
-      karli.setAssignmentPoints(karli.getAssignmentPoints() + a1.getPoints());
-      karli.withDone(a1);
+      karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
+      karli.withDone(matrixMult);
       storyboard.addCode();
       
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
