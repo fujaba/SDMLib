@@ -67,7 +67,7 @@ public class StoryboardTests {
       .withContent("Matrix Multiplication")
       .withPoints(5);
 
-      Assignment a2 = new Assignment()
+      Assignment series = new Assignment()
       .withContent("Series")
       .withPoints(6);
 
@@ -80,7 +80,7 @@ public class StoryboardTests {
             .withTopic("math")
             .withCredits(17)  
             .withStudents(karli)
-            .withAssignments(matrixMult, a2, a3);
+            .withAssignments(matrixMult, series, a3);
 
       Room artsRoom = university.createRooms()
             .withName("7522")
@@ -116,7 +116,7 @@ public class StoryboardTests {
          "examRoom", examRoom, 
          "placeToBe", softwareEngineering, 
          "icons/matrix.png", matrixMult, 
-         "icons/limes.png", a2 , "icons/integralAssignment.png", a3);
+         "icons/limes.png", series , "icons/integralAssignment.png", a3);
 
       //===============================================================================================
       storyboard.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>\n"
@@ -135,8 +135,8 @@ public class StoryboardTests {
             +"Thus Karli has 11 points now. Motivation is reduced to 203.\n");
 
       storyboard.markCodeStart();
-      karli.setAssignmentPoints(karli.getAssignmentPoints() + a2.getPoints());
-      karli.withDone(a2);
+      karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
+      karli.withDone(series);
       storyboard.addCode();
       
       storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());

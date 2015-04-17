@@ -29,6 +29,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GenerateClasses {
 
