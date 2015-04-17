@@ -207,7 +207,7 @@ public class StoryboardTests {
       .withContent("Series")
       .withPoints(6);
 
-      Assignment a3 = new Assignment()
+      Assignment integrals = new Assignment()
       .withContent("Integrals")
       .withPoints(8);
 
@@ -216,7 +216,7 @@ public class StoryboardTests {
             .withTopic("math")
             .withCredits(17)  
             .withStudents(karli)
-            .withAssignments(a1, a2, a3);
+            .withAssignments(a1, a2, integrals);
 
       Room artsRoom = university.createRooms()
             .withName("7522")
@@ -251,7 +251,7 @@ public class StoryboardTests {
          "examRoom", examRoom, 
          "placeToBe", softwareEngineering, 
          "icons/matrix.png", a1, 
-         "icons/limes.png", a2 , "icons/integralAssignment.png", a3);
+         "icons/limes.png", a2 , "icons/integralAssignment.png", integrals);
 
       
       //=====================================================
