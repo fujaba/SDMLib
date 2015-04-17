@@ -105,7 +105,7 @@ public class LudoStoryboard
       
       PlayerPO playerPO = pawnPO.hasPlayer();
       
-      DicePO dicePO = playerPO.hasDice().hasValue(6);
+      DicePO diePO = playerPO.hasDice().hasValue(6);
       
       FieldPO baseField = pawnPO.hasPos().hasKind("base");
       
