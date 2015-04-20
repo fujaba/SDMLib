@@ -545,12 +545,16 @@ public class Parser
             endOfAttributeInitialization = previousRealToken.startPos;
 
             skip(";");
+       
+            
 
             symTab.put(ATTRIBUTE+":"+memberName, 
                new SymTabEntry()
             .withMemberName(memberName)
             .withKind(ATTRIBUTE)
             .withType(type)
+            .withStartPos(startPos)
+            .withEndPos(previousRealToken.startPos)
             .withModifiers(modifiers)
                   );
 
@@ -567,6 +571,8 @@ public class Parser
             .withMemberName(memberName)
             .withKind(ATTRIBUTE)
             .withType(type)
+            .withStartPos(startPos)
+            .withEndPos(previousRealToken.startPos)
             .withModifiers(modifiers)
                   );
 
