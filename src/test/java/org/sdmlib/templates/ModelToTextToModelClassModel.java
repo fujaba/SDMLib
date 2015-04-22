@@ -34,54 +34,51 @@ public class ModelToTextToModelClassModel
    public void modelToTextToModelClassModel()
    {
       Storyboard story = new Storyboard();
-      
+
       ClassModel model = new ClassModel("org.sdmlib.models.transformations");
-      
+
       Clazz template = model.createClazz("Template")
-            .withAttribute("templateText", DataType.STRING) 
-            .withAttribute("expandedText", DataType.STRING)
-            .withAttribute("modelObject", DataType.OBJECT) 
-            .withAttribute("modelClassName", DataType.STRING)
-            .withAttribute("listStart", DataType.STRING)
-            .withAttribute("listSeparator", DataType.STRING)
-            .withAttribute("listEnd", DataType.STRING) 
-            .withAttribute("referenceLookup", DataType.BOOLEAN)
-            .withAttribute("name", DataType.STRING);
-      
+         .withAttribute("templateText", DataType.STRING)
+         .withAttribute("expandedText", DataType.STRING)
+         .withAttribute("modelObject", DataType.OBJECT)
+         .withAttribute("modelClassName", DataType.STRING)
+         .withAttribute("listStart", DataType.STRING)
+         .withAttribute("listSeparator", DataType.STRING)
+         .withAttribute("listEnd", DataType.STRING)
+         .withAttribute("referenceLookup", DataType.BOOLEAN)
+         .withAttribute("name", DataType.STRING);
+
       Clazz placeholderDescription = model.createClazz("PlaceHolderDescription")
-            .withAssoc(template, "owners", Card.MANY, "placeholders", Card.MANY)
-            .withAttribute("textFragment", DataType.STRING)
-            .withAttribute("value", DataType.STRING)
-            .withAttribute("attrName", DataType.STRING)
-            .withAttribute("isKeyAttribute", DataType.BOOLEAN)
-            .withAttribute("prefix", DataType.STRING)
-            .withAttribute("codeSnippet", DataType.STRING);
-      
-      
-      
+         .withAssoc(template, "owners", Card.MANY, "placeholders", Card.MANY)
+         .withAttribute("textFragment", DataType.STRING)
+         .withAttribute("value", DataType.STRING)
+         .withAttribute("attrName", DataType.STRING)
+         .withAttribute("isKeyAttribute", DataType.BOOLEAN)
+         .withAttribute("prefix", DataType.STRING);
+
       model.createClazz("ChoiceTemplate")
-            .withSuperClazz(template)
-            .withAssoc(template, "choices", Card.MANY, "chooser", Card.ONE);
-      
-      Clazz matchClazz = model.createClazz("Match") 
-            .withAttribute("startPos", DataType.INT) 
-         .withAttribute("endPos", DataType.INT) 
-         .withAttribute("fullText", DataType.STRING) 
+         .withSuperClazz(template)
+         .withAssoc(template, "choices", Card.MANY, "chooser", Card.ONE);
+
+      Clazz matchClazz = model.createClazz("Match")
+         .withAttribute("startPos", DataType.INT)
+         .withAttribute("endPos", DataType.INT)
+         .withAttribute("fullText", DataType.STRING)
          .withAttribute("matchText", DataType.STRING);
-      
+
       matchClazz.withAssoc(template, "template", Card.ONE, "matches", Card.MANY);
       matchClazz.withAssoc(placeholderDescription, "placeholder", Card.ONE, "matches", Card.MANY);
       matchClazz.withAttribute("modelObject", DataType.OBJECT);
       matchClazz.withAssoc(matchClazz, "subMatches", Card.MANY, "parentMatch", Card.ONE);
-      
+
       placeholderDescription.withAssoc(template, "subTemplate", Card.ONE, "parents", Card.MANY);
-      
+
       story.addClassDiagram(model);
-      
+
       model.generate("src/main/java");
-      
+
       story.addLogEntry(Kanban.DONE, "zuendorf", "23.02.2014 17:50:42", 50, 0, "Solving tricky parsing issue. Enabling reference lookup on demand");
-      
+
       story.dumpHTML();
    }
 }
