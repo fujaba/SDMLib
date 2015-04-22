@@ -30,6 +30,9 @@ import org.sdmlib.examples.m2m.model.Person;
 import org.sdmlib.examples.m2m.model.Relation;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.m2m.model.util.GraphComponentSet;
+import org.sdmlib.examples.m2m.model.util.PersonSet;
+import org.sdmlib.examples.m2m.model.util.RelationSet;
 
 public class GraphSet extends SDMSet<Graph>
 {

@@ -62,6 +62,10 @@ public class ReplicationModel
             
       seppelSpaceProxy.withAssoc(seppelChannel, "channel", Card.ONE, "seppelSpaceProxy", Card.ONE);
       
+      Clazz boardTask = model.createClazz("BoardTask");
+      
+      seppelSpaceProxy.withAssoc(boardTask, "tasks", Card.MANY, "proxy", Card.ONE);
+      
       model.generate("src/main/replication");
 
       story.addClassDiagram(model);

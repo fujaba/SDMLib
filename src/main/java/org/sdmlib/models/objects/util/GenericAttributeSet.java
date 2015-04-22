@@ -27,6 +27,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericObject;
+import org.sdmlib.models.objects.util.GenericObjectSet;
 
 public class GenericAttributeSet extends SDMSet<GenericAttribute>
 {

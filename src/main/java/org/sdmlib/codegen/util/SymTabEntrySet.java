@@ -249,4 +249,56 @@ public class SymTabEntrySet extends SDMSet<SymTabEntry>
    }
 
    public static final SymTabEntrySet EMPTY_SET = new SymTabEntrySet().withReadOnly(true);
+   public StringList getAnnotations()
+   {
+      StringList result = new StringList();
+      
+      for (SymTabEntry obj : this)
+      {
+         result.add(obj.getAnnotations());
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet hasAnnotations(String value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value.equals(obj.getAnnotations()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet hasAnnotations(String lower, String upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower.compareTo(obj.getAnnotations()) <= 0 && obj.getAnnotations().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet withAnnotations(String value)
+   {
+      for (SymTabEntry obj : this)
+      {
+         obj.setAnnotations(value);
+      }
+      
+      return this;
+   }
+
 }

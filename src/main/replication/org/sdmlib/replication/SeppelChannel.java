@@ -84,6 +84,7 @@ public class SeppelChannel extends Thread implements PropertyChangeInterface
       }
       catch (Exception e)
       {
+         // e.printStackTrace();
          System.out.println("Socket has been closed");
          this.removeYou();
       }

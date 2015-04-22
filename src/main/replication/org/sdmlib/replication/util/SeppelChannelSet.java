@@ -29,6 +29,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class SeppelChannelSet extends SDMSet<SeppelChannel>
 {

@@ -27,6 +27,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
+import org.sdmlib.storyboards.util.StoryboardSet;
 
 public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
 {

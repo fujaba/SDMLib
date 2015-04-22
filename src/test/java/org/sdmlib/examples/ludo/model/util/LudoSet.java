@@ -32,6 +32,9 @@ import org.sdmlib.examples.ludo.model.Player;
 import org.sdmlib.models.modelsets.DateList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.ludo.model.util.PlayerSet;
+import org.sdmlib.examples.ludo.model.util.DiceSet;
+import org.sdmlib.examples.ludo.model.util.FieldSet;
 
 public class LudoSet extends SDMSet<Ludo>
 {

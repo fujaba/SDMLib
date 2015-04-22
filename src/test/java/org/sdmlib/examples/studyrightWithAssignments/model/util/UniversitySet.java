@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf 
+   Copyright (c) 2015 Olaf Gunkel 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,15 +21,16 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.University;
+import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
 
 public class UniversitySet extends SDMSet<University>
 {

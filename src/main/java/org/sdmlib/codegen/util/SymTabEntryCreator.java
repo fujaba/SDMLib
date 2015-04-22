@@ -14,6 +14,7 @@ public class SymTabEntryCreator extends EntityFactory
       SymTabEntry.PROPERTY_BODYSTARTPOS,
       SymTabEntry.PROPERTY_ENDPOS,
       SymTabEntry.PROPERTY_MODIFIERS,
+      SymTabEntry.PROPERTY_ANNOTATIONS,
    };
    
    @Override
@@ -65,6 +66,11 @@ public class SymTabEntryCreator extends EntityFactory
       {
          return ((SymTabEntry)target).getKind();
       }
+
+      if (SymTabEntry.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry) target).getAnnotations();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -110,6 +116,12 @@ public class SymTabEntryCreator extends EntityFactory
       if (SymTabEntry.PROPERTY_KIND.equalsIgnoreCase(attrName))
       {
          ((SymTabEntry)target).setKind((String) value);
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry) target).withAnnotations((String) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

@@ -33,6 +33,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import bsh.EvalError;
 import bsh.Interpreter;
+import org.sdmlib.models.transformations.ChoiceTemplate;
 
 public class PlaceHolderDescription implements PropertyChangeInterface
 {

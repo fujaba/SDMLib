@@ -162,8 +162,9 @@ public class CGUtil
          
          while (pos >= 0)
          {
-            text.replace(pos, pos + placeholder.length(), args[i+1].toString());
-            pos = text.indexOf(placeholder, pos + args[i+1].toString().length());
+            String newString = "" + args[i+1];
+            text.replace(pos, pos + placeholder.length(), newString);
+            pos = text.indexOf(placeholder, pos + newString.length());
          }
       }
       

@@ -27,6 +27,7 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.replication.BoardTask;
 
 public class SeppelSpaceProxyCreator extends EntityFactory
 {
@@ -41,6 +42,7 @@ public class SeppelSpaceProxyCreator extends EntityFactory
       SeppelSpaceProxy.PROPERTY_PARTNERS,
       SeppelSpaceProxy.PROPERTY_SCOPES,
       SeppelSpaceProxy.PROPERTY_CHANNEL,
+      SeppelSpaceProxy.PROPERTY_TASKS,
    };
    
    @Override
@@ -109,6 +111,11 @@ public class SeppelSpaceProxyCreator extends EntityFactory
       if (SeppelSpaceProxy.PROPERTY_CHANNEL.equalsIgnoreCase(attribute))
       {
          return ((SeppelSpaceProxy) target).getChannel();
+      }
+
+      if (SeppelSpaceProxy.PROPERTY_TASKS.equalsIgnoreCase(attribute))
+      {
+         return ((SeppelSpaceProxy) target).getTasks();
       }
       
       return null;
@@ -185,6 +192,18 @@ public class SeppelSpaceProxyCreator extends EntityFactory
       if (SeppelSpaceProxy.PROPERTY_CHANNEL.equalsIgnoreCase(attrName))
       {
          ((SeppelSpaceProxy) target).setChannel((SeppelChannel) value);
+         return true;
+      }
+
+      if (SeppelSpaceProxy.PROPERTY_TASKS.equalsIgnoreCase(attrName))
+      {
+         ((SeppelSpaceProxy) target).withTasks((BoardTask) value);
+         return true;
+      }
+      
+      if ((SeppelSpaceProxy.PROPERTY_TASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((SeppelSpaceProxy) target).withoutTasks((BoardTask) value);
          return true;
       }
       

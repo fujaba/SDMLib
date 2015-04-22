@@ -33,6 +33,11 @@ import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.AnnotationSet;
+import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.classes.util.EnumerationSet;
+import org.sdmlib.models.classes.util.ParameterSet;
+import org.sdmlib.models.classes.util.ClazzSet;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -302,6 +307,64 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
 
 
    public static final MethodSet EMPTY_SET = new MethodSet().withReadOnly(true);
+   public AnnotationSet getAnnotations()
+   {
+      AnnotationSet result = new AnnotationSet();
+      
+      for (Method obj : this)
+      {
+         result.addAll(obj.getAnnotations());
+      }
+      
+      return result;
+   }
+
+   public MethodSet hasAnnotations(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      MethodSet answer = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAnnotations()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public MethodSet withAnnotations(Annotation value)
+   {
+      for (Method obj : this)
+      {
+         obj.withAnnotations(value);
+      }
+      
+      return this;
+   }
+
+   public MethodSet withoutAnnotations(Annotation value)
+   {
+      for (Method obj : this)
+      {
+         obj.withoutAnnotations(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

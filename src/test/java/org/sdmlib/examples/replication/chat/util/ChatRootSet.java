@@ -28,6 +28,7 @@ import org.sdmlib.examples.replication.chat.ChatRoot;
 import org.sdmlib.examples.replication.chat.ChatUser;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.replication.chat.util.ChatUserSet;
 
 public class ChatRootSet extends SDMSet<ChatRoot>
 {

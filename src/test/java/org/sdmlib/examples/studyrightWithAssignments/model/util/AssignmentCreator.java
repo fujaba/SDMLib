@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf 
+   Copyright (c) 2015 Olaf Gunkel 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,11 @@
    
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
+import org.sdmlib.serialization.EntityFactory;
+import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.serialization.EntityFactory;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class AssignmentCreator extends EntityFactory
 {

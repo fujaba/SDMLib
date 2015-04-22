@@ -5,6 +5,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.util.BoardTaskPO;
+import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.util.SeppelSpaceProxyPO;
+import org.sdmlib.replication.util.BoardTaskSet;
 
 public class SeppelSpaceProxyPO extends PatternObject<SeppelSpaceProxyPO, SeppelSpaceProxy>
 {
@@ -437,6 +441,40 @@ public class SeppelSpaceProxyPO extends PatternObject<SeppelSpaceProxyPO, Seppel
       if (this.getPattern().getHasMatch())
       {
          return ((SeppelSpaceProxy) this.getCurrentMatch()).getChannel();
+      }
+      return null;
+   }
+
+   public BoardTaskPO hasTasks()
+   {
+      BoardTaskPO result = new BoardTaskPO(new BoardTask[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(SeppelSpaceProxy.PROPERTY_TASKS, result);
+      
+      return result;
+   }
+
+   public BoardTaskPO createTasks()
+   {
+      return this.startCreate().hasTasks().endCreate();
+   }
+
+   public SeppelSpaceProxyPO hasTasks(BoardTaskPO tgt)
+   {
+      return hasLinkConstraint(tgt, SeppelSpaceProxy.PROPERTY_TASKS);
+   }
+
+   public SeppelSpaceProxyPO createTasks(BoardTaskPO tgt)
+   {
+      return this.startCreate().hasTasks(tgt).endCreate();
+   }
+
+   public BoardTaskSet getTasks()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((SeppelSpaceProxy) this.getCurrentMatch()).getTasks();
       }
       return null;
    }

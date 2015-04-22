@@ -32,6 +32,7 @@ import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.event.ObjectMapEntry;
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.replication.SeppelSpaceProxy;
 
 public class BoardTaskCreator extends EntityFactory
 {
@@ -44,6 +45,7 @@ public class BoardTaskCreator extends EntityFactory
       BoardTask.PROPERTY_PREV,
       BoardTask.PROPERTY_TASKOBJECTS,
       BoardTask.PROPERTY_LANE,
+      BoardTask.PROPERTY_PROXY,
    };
    
    @Override
@@ -102,6 +104,11 @@ public class BoardTaskCreator extends EntityFactory
       if (BoardTask.PROPERTY_TASKOBJECTS.equalsIgnoreCase(attribute))
       {
          return ((BoardTask) target).getTaskObjects();
+      }
+
+      if (BoardTask.PROPERTY_PROXY.equalsIgnoreCase(attribute))
+      {
+         return ((BoardTask) target).getProxy();
       }
       
       return null;
@@ -181,6 +188,12 @@ public class BoardTaskCreator extends EntityFactory
             ((BoardTask) target).withTaskObjects((HashMap<String, Object>) value);
             return true;
          }  
+      }
+
+      if (BoardTask.PROPERTY_PROXY.equalsIgnoreCase(attrName))
+      {
+         ((BoardTask) target).setProxy((SeppelSpaceProxy) value);
+         return true;
       }
 
       return false;

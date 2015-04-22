@@ -36,6 +36,8 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.codegen.util.StatementEntryPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.classes.util.EnumerationCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.classes.util.EnumerationPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.AnnotationCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.AnnotationPOCreator());
       return jsonIdMap;
    }
 }

@@ -31,119 +31,10 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
+import java.beans.PropertyChangeListener;
+
 public class BoardTask extends Task implements PropertyChangeInterface
 {
-
-   // ==========================================================================
-
-   public Object get(String attrName)
-   {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         return getName();
-      }
-
-      if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
-      {
-         return getLogEntries();
-      }
-
-      if (PROPERTY_LANE.equalsIgnoreCase(attrName))
-      {
-         return getLane();
-      }
-
-      if (PROPERTY_STATUS.equalsIgnoreCase(attrName))
-      {
-         return getStatus();
-      }
-
-      if (PROPERTY_NEXT.equalsIgnoreCase(attrName))
-      {
-         return getNext();
-      }
-
-      if (PROPERTY_PREV.equalsIgnoreCase(attrName))
-      {
-         return getPrev();
-      }
-
-      if (PROPERTY_TASKOBJECTS.equalsIgnoreCase(attrName))
-      {
-         return getTaskObjects();
-      }
-
-      return null;
-   }
-
-   // ==========================================================================
-
-   @SuppressWarnings("unchecked")
-   public boolean set(String attrName, Object value)
-   {
-      if (PROPERTY_NAME.equalsIgnoreCase(attrName))
-      {
-         setName((String) value);
-         return true;
-      }
-
-      if (PROPERTY_LOGENTRIES.equalsIgnoreCase(attrName))
-      {
-         addToLogEntries((LogEntry) value);
-         return true;
-      }
-
-      if ((PROPERTY_LOGENTRIES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromLogEntries((LogEntry) value);
-         return true;
-      }
-
-      if (PROPERTY_LANE.equalsIgnoreCase(attrName))
-      {
-         setLane((Lane) value);
-         return true;
-      }
-
-      if (PROPERTY_STATUS.equalsIgnoreCase(attrName))
-      {
-         setStatus((String) value);
-         return true;
-      }
-
-      if (PROPERTY_NEXT.equalsIgnoreCase(attrName))
-      {
-         addToNext((BoardTask) value);
-         return true;
-      }
-
-      if ((PROPERTY_NEXT + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromNext((BoardTask) value);
-         return true;
-      }
-
-      if (PROPERTY_PREV.equalsIgnoreCase(attrName))
-      {
-         addToPrev((BoardTask) value);
-         return true;
-      }
-
-      if ((PROPERTY_PREV + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         removeFromPrev((BoardTask) value);
-         return true;
-      }
-
-      if ((PROPERTY_TASKOBJECTS).equalsIgnoreCase(attrName))
-      {
-         withTaskObjects((HashMap<String, Object>) value);
-         return true;
-      }
-
-      return false;
-   }
-
    // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -164,6 +55,7 @@ public class BoardTask extends Task implements PropertyChangeInterface
       withoutLogEntries(this.getLogEntries().toArray(new LogEntry[this.getLogEntries().size()]));
       withoutNext(this.getNext().toArray(new BoardTask[this.getNext().size()]));
       withoutPrev(this.getPrev().toArray(new BoardTask[this.getPrev().size()]));
+      setProxy(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
       super.removeYou();
    }
@@ -539,5 +431,75 @@ public class BoardTask extends Task implements PropertyChangeInterface
       return this;
    }
 
+   public BoardTask withTaskObject(String name, Object o) {
+      getTaskObjects().put(name, o);
+      return this;
+   }
+
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * BoardTask ----------------------------------- SeppelSpaceProxy
+    *              tasks                   proxy
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PROXY = "proxy";
+
+   private SeppelSpaceProxy proxy = null;
+
+   public SeppelSpaceProxy getProxy()
+   {
+      return this.proxy;
+   }
+
+   public boolean setProxy(SeppelSpaceProxy value)
+   {
+      boolean changed = false;
+      
+      if (this.proxy != value)
+      {
+         SeppelSpaceProxy oldValue = this.proxy;
+         
+         if (this.proxy != null)
+         {
+            this.proxy = null;
+            oldValue.withoutTasks(this);
+         }
+         
+         this.proxy = value;
+         
+         if (value != null)
+         {
+            value.withTasks(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PROXY, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public BoardTask withProxy(SeppelSpaceProxy value)
+   {
+      setProxy(value);
+      return this;
+   } 
+
+   public SeppelSpaceProxy createProxy()
+   {
+      SeppelSpaceProxy value = new SeppelSpaceProxy();
+      withProxy(value);
+      return value;
+   }
+
+   public Object getFromTaskObjects(String key)
+   {
+      return this.taskObjects.get(key);
+      
+   } 
 }
 

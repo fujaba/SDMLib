@@ -68,34 +68,21 @@
    {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"train",
-            "id":"Train.T1 : Train"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S2 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S2 : Station"
-         },
-         "target":{
             "cardinality":"many",
             "property":"trains",
             "id":"Train.T1 : Train"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"station",
+            "id":"Train.S2 : Station"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"station",
+            "property":"prev",
             "id":"Train.S2 : Station"
          },
          "target":{
@@ -146,7 +133,7 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"station",
             "id":"Train.S2 : Station"
          },
@@ -160,7 +147,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"station",
+            "property":"prev",
             "id":"Train.S3 : Station"
          },
          "target":{
@@ -173,39 +160,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"station",
-            "id":"Train.S3 : Station"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"prev",
-            "id":"Train.S2 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"station",
             "id":"Train.S4 : Station"
          },
          "target":{
             "cardinality":"one",
             "property":"next",
             "id":"Train.S5 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S4 : Station"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"prev",
-            "id":"Train.S3 : Station"
          }
       },
       {
@@ -237,7 +198,7 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
+            "cardinality":"many",
             "property":"station",
             "id":"Train.S4 : Station"
          },
@@ -245,110 +206,6 @@
             "cardinality":"one",
             "property":"flag",
             "id":"Train.S8 : SignalFlag"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S5 : Station"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"prev",
-            "id":"Train.S4 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"Train.P6 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S4 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"Train.P7 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S4 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"signalflag",
-            "id":"Train.S8 : SignalFlag"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"station",
-            "id":"Train.S4 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"Train.P9 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S2 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"Train.P10 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S2 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"Train.P11 : Person"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"station",
-            "id":"Train.S2 : Station"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"signalflag",
-            "id":"Train.S12 : SignalFlag"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"station",
-            "id":"Train.S2 : Station"
          }
       }
    ]

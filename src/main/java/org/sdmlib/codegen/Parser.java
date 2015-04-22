@@ -29,6 +29,9 @@ import java.util.Set;
 
 import org.sdmlib.StrUtil;
 
+import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleList;
+
 public class Parser
 {
 
@@ -93,9 +96,9 @@ public class Parser
 
    private int index;
 
-   private LinkedHashMap<String, SymTabEntry> symTab;
+   private SimpleKeyValueList<String, SymTabEntry> symTab;
 
-   public LinkedHashMap<String, SymTabEntry> getSymTab()
+   public SimpleKeyValueList<String, SymTabEntry> getSymTab()
    {
       return symTab;
    }
@@ -219,7 +222,7 @@ public class Parser
    {
       if (symTab == null)
       {
-         symTab = new LinkedHashMap<String, SymTabEntry>();
+         symTab = new SimpleKeyValueList<String, SymTabEntry>();
       }
       else
       {
@@ -457,9 +460,10 @@ public class Parser
 
    private void parseMemberDecl()
    {
-      // modifiers (genericsDecl) ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
+      // annotations modifiers (genericsDecl) ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
 
       // TODO: annotations
+	   String annotations = parseAnnotations();
 
       int startPos = currentRealToken.startPos;
 
@@ -541,12 +545,16 @@ public class Parser
             endOfAttributeInitialization = previousRealToken.startPos;
 
             skip(";");
+       
+            
 
             symTab.put(ATTRIBUTE+":"+memberName, 
                new SymTabEntry()
             .withMemberName(memberName)
             .withKind(ATTRIBUTE)
             .withType(type)
+            .withStartPos(startPos)
+            .withEndPos(previousRealToken.startPos)
             .withModifiers(modifiers)
                   );
 
@@ -563,6 +571,8 @@ public class Parser
             .withMemberName(memberName)
             .withKind(ATTRIBUTE)
             .withType(type)
+            .withStartPos(startPos)
+            .withEndPos(previousRealToken.startPos)
             .withModifiers(modifiers)
                   );
 
@@ -574,8 +584,9 @@ public class Parser
             String params = parseFormalParamList();
 
             // FIXME : skip annotations 
-            if("@".equals(type))
-               return;
+            if(type.startsWith("@")) {
+            	return;
+            }
 
             methodBodyStartPos = currentRealToken.startPos;
             // skip throws
@@ -601,6 +612,7 @@ public class Parser
             .withStartPos(startPos)
             .withEndPos(previousRealToken.startPos)
             .withBodyStartPos(methodBodyStartPos)
+            .withAnnotations(annotations)
             .withModifiers(modifiers)
                   );
 
@@ -628,7 +640,33 @@ public class Parser
       }
    }
 
-   private void skipTo(char c) {
+	private String parseAnnotations() {
+		String result = "";
+
+		while ("@".equals(currentRealWord())) {
+			result += currentRealWord();
+			nextRealToken();
+			result += currentRealWord();
+			nextRealToken();
+
+			if("(".equals(currentRealWord())) {
+				result += currentRealWord();
+				nextRealToken();
+				
+				while (!")".equals(currentRealWord())) {
+					result += currentRealWord();
+					nextRealToken();
+				}
+				result += currentRealWord();
+				nextRealToken();
+			}
+		}
+		
+//		if (!result.isEmpty()) System.out.println(result);
+		return result;
+	}
+
+	private void skipTo(char c) {
       while (!currentRealKindEquals(c) && ! currentRealKindEquals(EOF)) {
          nextRealToken();
       }
@@ -744,7 +782,9 @@ public class Parser
          typeString.append(currentRealToken.text);
 
       }
-
+      if("@".equals(typeString.toString())) {
+    	  typeString.append(currentRealToken.text);
+      }
       // phew
       return typeString.toString();
    }
@@ -1899,6 +1939,11 @@ public class Parser
       }
       return entries;
    }
+   
+   public SymTabEntry getSymTabEntry(String signature) {
+      return symTab.get(signature);
+   }
+
 
    public SymTabEntry getMethodEntryWithLineNumber(String signature, long callMethodLineNumber) {
       ArrayList<SymTabEntry> symTabEntries = getSymTabEntriesFor(signature);

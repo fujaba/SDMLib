@@ -30,6 +30,10 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
+import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.util.LogEntrySet;
+import org.sdmlib.replication.util.LaneSet;
 
 public class BoardTaskSet extends SDMSet<BoardTask>
 {
@@ -445,4 +449,52 @@ public class BoardTaskSet extends SDMSet<BoardTask>
 
 
    public static final BoardTaskSet EMPTY_SET = new BoardTaskSet().withReadOnly(true);
+   public SeppelSpaceProxySet getProxy()
+   {
+      SeppelSpaceProxySet result = new SeppelSpaceProxySet();
+      
+      for (BoardTask obj : this)
+      {
+         result.add(obj.getProxy());
+      }
+      
+      return result;
+   }
+
+   public BoardTaskSet hasProxy(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      BoardTaskSet answer = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (neighbors.contains(obj.getProxy()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public BoardTaskSet withProxy(SeppelSpaceProxy value)
+   {
+      for (BoardTask obj : this)
+      {
+         obj.withProxy(value);
+      }
+      
+      return this;
+   }
+
 }

@@ -31,6 +31,8 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.pattern.util.PatternSet;
+import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
 {
