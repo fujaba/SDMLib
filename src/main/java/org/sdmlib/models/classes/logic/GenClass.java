@@ -725,6 +725,11 @@ public class GenClass extends Generator<Clazz>
 
          String className = name.substring(pos + 1);
 
+         String abztract = "";
+         if(model.isAbztract()) {
+            abztract = "abstract";
+         }
+         
          fileName = fileName.replaceAll("\\.", "/");
 
          fileName = rootDir + "/" + fileName + ".java";
@@ -742,9 +747,10 @@ public class GenClass extends Generator<Clazz>
             parser.replaceAll("" +
                "package packageName;\n" +
                "\n" +
-               "public clazz className\n" +
+               "public abztract clazz className\n" +
                "{\n" +
                "}\n",
+               "abztract", abztract,
                "className", className,
                "packageName", packageName,
                "clazz", (model.isInterface() ? "interface" : "class")
