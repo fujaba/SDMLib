@@ -760,6 +760,43 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
+   public booleanList getAbztract()
+   {
+      booleanList result = new booleanList();
+      
+      for (Clazz obj : this)
+      {
+         result.add(obj.isAbztract());
+      }
+      
+      return result;
+   }
+
+   public ClazzSet hasAbztract(boolean value)
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if (value == obj.isAbztract())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ClazzSet withAbztract(boolean value)
+   {
+      for (Clazz obj : this)
+      {
+         obj.setAbztract(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

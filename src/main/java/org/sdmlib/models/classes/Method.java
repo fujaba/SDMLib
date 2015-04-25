@@ -166,12 +166,18 @@ public class Method extends SDMLibClass
       this.modifier = value;
    }
 
-   public Method with(Visibility value)
+   public Method with(Visibility... visibility)
    {
-      setModifier(value);
+      if(visibility==null){
+         return this;
+      }
+      
+      if(visibility.length==1){
+         this.modifier = visibility[0];
+      }
+      this.modifier = Visibility.ref(visibility);
       return this;
    }
-
 
    /**
     * get The Clazz of a Method

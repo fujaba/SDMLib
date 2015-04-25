@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 christoph 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations.util;
 
 import org.sdmlib.models.transformations.Match;
@@ -32,35 +32,34 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      PlaceHolderDescription.PROPERTY_TEXTFRAGMENT,
-      PlaceHolderDescription.PROPERTY_VALUE,
-      PlaceHolderDescription.PROPERTY_ATTRNAME,
-      PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE,
-      PlaceHolderDescription.PROPERTY_PREFIX,
-      PlaceHolderDescription.PROPERTY_OWNERS,
-      PlaceHolderDescription.PROPERTY_MATCHES,
-      PlaceHolderDescription.PROPERTY_SUBTEMPLATE,
-      PlaceHolderDescription.PROPERTY_CODESNIPPET,
+         PlaceHolderDescription.PROPERTY_TEXTFRAGMENT,
+         PlaceHolderDescription.PROPERTY_VALUE,
+         PlaceHolderDescription.PROPERTY_ATTRNAME,
+         PlaceHolderDescription.PROPERTY_ISKEYATTRIBUTE,
+         PlaceHolderDescription.PROPERTY_PREFIX,
+         PlaceHolderDescription.PROPERTY_OWNERS,
+         PlaceHolderDescription.PROPERTY_MATCHES,
+         PlaceHolderDescription.PROPERTY_SUBTEMPLATE,
    };
-   
+
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new PlaceHolderDescription();
    }
-   
+
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -106,14 +105,9 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
          return ((PlaceHolderDescription) target).getSubTemplate();
       }
 
-      if (PlaceHolderDescription.PROPERTY_CODESNIPPET.equalsIgnoreCase(attribute))
-      {
-         return ((PlaceHolderDescription) target).getCodeSnippet();
-      }
-      
       return null;
    }
-   
+
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
@@ -157,7 +151,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
          ((PlaceHolderDescription) target).withOwners((Template) value);
          return true;
       }
-      
+
       if ((PlaceHolderDescription.PROPERTY_OWNERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PlaceHolderDescription) target).withoutOwners((Template) value);
@@ -169,7 +163,7 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
          ((PlaceHolderDescription) target).withMatches((Match) value);
          return true;
       }
-      
+
       if ((PlaceHolderDescription.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((PlaceHolderDescription) target).withoutMatches((Match) value);
@@ -182,21 +176,16 @@ public class PlaceHolderDescriptionCreator extends EntityFactory
          return true;
       }
 
-      if (PlaceHolderDescription.PROPERTY_CODESNIPPET.equalsIgnoreCase(attrName))
-      {
-         ((PlaceHolderDescription) target).withCodeSnippet((String) value);
-         return true;
-      }
-      
       return false;
    }
+
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.transformations.util.CreatorCreator.createIdMap(sessionID);
    }
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {

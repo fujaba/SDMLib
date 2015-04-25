@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 christoph 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations.util;
 
 import java.util.Collection;
@@ -31,18 +31,16 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.util.TemplateSet;
-import org.sdmlib.models.transformations.util.MatchSet;
 
 public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
 {
 
+   public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet().withReadOnly(true);
 
    public PlaceHolderDescriptionPO hasPlaceHolderDescriptionPO()
    {
       return new PlaceHolderDescriptionPO(this.toArray(new PlaceHolderDescription[this.size()]));
    }
-
 
    @Override
    public String getEntryType()
@@ -50,22 +48,21 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       return "org.sdmlib.models.transformations.PlaceHolderDescription";
    }
 
-
    @SuppressWarnings("unchecked")
    public PlaceHolderDescriptionSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<PlaceHolderDescription>)value);
+         this.addAll((Collection<PlaceHolderDescription>) value);
       }
       else if (value != null)
       {
          this.add((PlaceHolderDescription) value);
       }
-      
+
       return this;
    }
-   
+
    public PlaceHolderDescriptionSet without(PlaceHolderDescription value)
    {
       this.remove(value);
@@ -75,19 +72,19 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
    public StringList getTextFragment()
    {
       StringList result = new StringList();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          result.add(obj.getTextFragment());
       }
-      
+
       return result;
    }
 
    public PlaceHolderDescriptionSet hasTextFragment(String value)
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          if (value.equals(obj.getTextFragment()))
@@ -95,7 +92,22 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
             result.add(obj);
          }
       }
-      
+
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasTextFragment(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getTextFragment()) <= 0 && obj.getTextFragment().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+
       return result;
    }
 
@@ -105,26 +117,26 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.setTextFragment(value);
       }
-      
+
       return this;
    }
 
    public StringList getValue()
    {
       StringList result = new StringList();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          result.add(obj.getValue());
       }
-      
+
       return result;
    }
 
    public PlaceHolderDescriptionSet hasValue(String value)
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          if (value.equals(obj.getValue()))
@@ -132,7 +144,22 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
             result.add(obj);
          }
       }
-      
+
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasValue(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getValue()) <= 0 && obj.getValue().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+
       return result;
    }
 
@@ -142,26 +169,26 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.setValue(value);
       }
-      
+
       return this;
    }
 
    public StringList getAttrName()
    {
       StringList result = new StringList();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          result.add(obj.getAttrName());
       }
-      
+
       return result;
    }
 
    public PlaceHolderDescriptionSet hasAttrName(String value)
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          if (value.equals(obj.getAttrName()))
@@ -169,7 +196,22 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
             result.add(obj);
          }
       }
-      
+
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasAttrName(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getAttrName()) <= 0 && obj.getAttrName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+
       return result;
    }
 
@@ -179,26 +221,26 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.setAttrName(value);
       }
-      
+
       return this;
    }
 
    public booleanList getIsKeyAttribute()
    {
       booleanList result = new booleanList();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          result.add(obj.getIsKeyAttribute());
       }
-      
+
       return result;
    }
 
    public PlaceHolderDescriptionSet hasIsKeyAttribute(boolean value)
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          if (value == obj.getIsKeyAttribute())
@@ -206,7 +248,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
             result.add(obj);
          }
       }
-      
+
       return result;
    }
 
@@ -216,26 +258,26 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.setIsKeyAttribute(value);
       }
-      
+
       return this;
    }
 
    public StringList getPrefix()
    {
       StringList result = new StringList();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          result.add(obj.getPrefix());
       }
-      
+
       return result;
    }
 
    public PlaceHolderDescriptionSet hasPrefix(String value)
    {
       PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          if (value.equals(obj.getPrefix()))
@@ -243,7 +285,22 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
             result.add(obj);
          }
       }
-      
+
+      return result;
+   }
+
+   public PlaceHolderDescriptionSet hasPrefix(String lower, String upper)
+   {
+      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
+
+      for (PlaceHolderDescription obj : this)
+      {
+         if (lower.compareTo(obj.getPrefix()) <= 0 && obj.getPrefix().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+
       return result;
    }
 
@@ -253,19 +310,19 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.setPrefix(value);
       }
-      
+
       return this;
    }
 
    public TemplateSet getOwners()
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          result.addAll(obj.getOwners());
       }
-      
+
       return result;
    }
 
@@ -281,17 +338,17 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          neighbors.add(value);
       }
-      
+
       PlaceHolderDescriptionSet answer = new PlaceHolderDescriptionSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getOwners()))
+         if (!Collections.disjoint(neighbors, obj.getOwners()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -301,7 +358,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.withOwners(value);
       }
-      
+
       return this;
    }
 
@@ -311,19 +368,19 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.withoutOwners(value);
       }
-      
+
       return this;
    }
 
    public MatchSet getMatches()
    {
       MatchSet result = new MatchSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          result.addAll(obj.getMatches());
       }
-      
+
       return result;
    }
 
@@ -339,17 +396,17 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          neighbors.add(value);
       }
-      
+
       PlaceHolderDescriptionSet answer = new PlaceHolderDescriptionSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getMatches()))
+         if (!Collections.disjoint(neighbors, obj.getMatches()))
          {
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -359,7 +416,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.withMatches(value);
       }
-      
+
       return this;
    }
 
@@ -369,19 +426,19 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.withoutMatches(value);
       }
-      
+
       return this;
    }
 
    public TemplateSet getSubTemplate()
    {
       TemplateSet result = new TemplateSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          result.add(obj.getSubTemplate());
       }
-      
+
       return result;
    }
 
@@ -397,9 +454,9 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          neighbors.add(value);
       }
-      
+
       PlaceHolderDescriptionSet answer = new PlaceHolderDescriptionSet();
-      
+
       for (PlaceHolderDescription obj : this)
       {
          if (neighbors.contains(obj.getSubTemplate()))
@@ -407,7 +464,7 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
             answer.add(obj);
          }
       }
-      
+
       return answer;
    }
 
@@ -417,66 +474,8 @@ public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
       {
          obj.withSubTemplate(value);
       }
-      
+
       return this;
    }
 
-   public StringList getCodeSnippet()
-   {
-      StringList result = new StringList();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         result.add(obj.getCodeSnippet());
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet hasCodeSnippet(String value)
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         if (value.equals(obj.getCodeSnippet()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet hasCodeSnippet(String lower, String upper)
-   {
-      PlaceHolderDescriptionSet result = new PlaceHolderDescriptionSet();
-      
-      for (PlaceHolderDescription obj : this)
-      {
-         if (lower.compareTo(obj.getCodeSnippet()) <= 0 && obj.getCodeSnippet().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public PlaceHolderDescriptionSet withCodeSnippet(String value)
-   {
-      for (PlaceHolderDescription obj : this)
-      {
-         obj.setCodeSnippet(value);
-      }
-      
-      return this;
-   }
-
-
-   public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet().withReadOnly(true);
 }
-
-
-
-

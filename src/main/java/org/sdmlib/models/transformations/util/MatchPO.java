@@ -1,10 +1,14 @@
 package org.sdmlib.models.transformations.util;
 
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.transformations.util.TemplatePO;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.util.MatchPO;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionPO;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import org.sdmlib.models.transformations.util.MatchSet;
 
 public class MatchPO extends PatternObject<MatchPO, Match>
 {
@@ -27,14 +31,14 @@ public class MatchPO extends PatternObject<MatchPO, Match>
 
 
    public MatchPO(){
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"));
+      newInstance(org.sdmlib.models.transformations.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
    public MatchPO(Match... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
-      newInstance(CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
+      newInstance(org.sdmlib.models.transformations.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    public MatchPO hasStartPos(int value)
    {
@@ -45,7 +49,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -60,7 +64,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -98,7 +102,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -113,7 +117,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -151,7 +155,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -166,7 +170,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -204,7 +208,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -219,7 +223,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }
@@ -257,7 +261,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      this.getPattern().findMatch();
+      super.hasAttribute();
       
       return this;
    }

@@ -2373,10 +2373,10 @@ public class GenClassModel
    public void updateFromCode(String includePathes, String packages)
    {
       String binDir = getClass().getClassLoader().getResource(".").getPath();
-      File binFolder = new File(binDir);
-      File srcFolder = new File(".");
 
-      updateFromCode(includePathes, packages, srcFolder);
+      File projectRootFolder = new File(".");
+
+      updateFromCode(includePathes, packages, projectRootFolder);
    }
 
    /*
@@ -2386,14 +2386,14 @@ public class GenClassModel
     * ().getParent() + "/src/main/" ));
     */
 
-   public void updateFromCode(String includePathes, String packages, File srcFolder)
+   public void updateFromCode(String includePathes, String packages, File projectRoot)
    {
       // find java files in parent directory
 
-      if (srcFolder != null)
+      if (projectRoot != null)
       {
-         ArrayList<File> javaFiles = searchForJavaFiles(includePathes, packages, srcFolder);
-         addJavaFilesToClasses(packages, srcFolder, javaFiles);
+         ArrayList<File> javaFiles = searchForJavaFiles(includePathes, packages, projectRoot);
+         addJavaFilesToClasses(packages, projectRoot, javaFiles);
 
          if (model.getClasses().isEmpty())
          {
@@ -2936,7 +2936,7 @@ public class GenClassModel
       return true;
    }
 
-   private ArrayList<File> searchForJavaFiles(String includePathes, String packageString, File srcFolder)
+   private ArrayList<File> searchForJavaFiles(String includePathes, String packageString, File projectRoot)
    {
       ArrayList<File> javaFiles = new ArrayList<File>();
       String[] packages = packageString.split("\\s+");
@@ -2946,7 +2946,7 @@ public class GenClassModel
          String[] includes = includePathes.split("\\s+");
          for (String include : includes)
          {
-            String newPath = srcFolder.getPath() + "/" + include + "/" + packagepath;
+            String newPath = projectRoot.getPath() + "/" + include + "/" + packagepath;
             javaFiles.addAll(searchForJavaFiles(newPath));
          }
       }

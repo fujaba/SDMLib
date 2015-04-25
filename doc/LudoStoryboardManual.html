@@ -118,6 +118,19 @@
    {
          "typ":"EDGE",
          "source":{
+            "cardinality":"many",
+            "property":"prevTransitive",
+            "id":"P1 : Player"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nextTransitive",
+            "id":"P1 : Player"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"one",
             "property":"player",
             "id":"P1 : Player"
@@ -165,19 +178,6 @@
             "cardinality":"many",
             "property":"pawns",
             "id":"P4 : Pawn"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"nextTransitive",
-            "id":"P1 : Player"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"prevTransitive",
-            "id":"P1 : Player"
          }
       },
       {
@@ -275,12 +275,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"nextTransitive",
+            "property":"prevTransitive",
             "id":"P11 : Player"
          },
          "target":{
             "cardinality":"many",
-            "property":"prevTransitive",
+            "property":"nextTransitive",
             "id":"P11 : Player"
          }
       }
@@ -397,6 +397,19 @@
    {
          "typ":"EDGE",
          "source":{
+            "cardinality":"many",
+            "property":"prevTransitive",
+            "id":"P1 : Player"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nextTransitive",
+            "id":"P1 : Player"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"one",
             "property":"player",
             "id":"P1 : Player"
@@ -444,19 +457,6 @@
             "cardinality":"many",
             "property":"pawns",
             "id":"P4 : Pawn"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"nextTransitive",
-            "id":"P1 : Player"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"prevTransitive",
-            "id":"P1 : Player"
          }
       },
       {
@@ -554,12 +554,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"nextTransitive",
+            "property":"prevTransitive",
             "id":"P11 : Player"
          },
          "target":{
             "cardinality":"many",
-            "property":"prevTransitive",
+            "property":"nextTransitive",
             "id":"P11 : Player"
          }
       }

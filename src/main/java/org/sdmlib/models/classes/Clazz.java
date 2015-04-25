@@ -824,6 +824,7 @@ public class Clazz extends SDMLibClass
    public static final String PROPERTY_ANNOTATIONS = "annotations";
 
    private AnnotationSet annotations = null;
+   private boolean abztract;
    
    public AnnotationSet getAnnotations()
    {
@@ -882,5 +883,31 @@ public class Clazz extends SDMLibClass
       Annotation value = new Annotation();
       withAnnotations(value);
       return value;
+   }
+
+   public boolean isAbztract()
+   {
+      return abztract;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ABZTRACT = "abztract";
+   
+   public void setAbztract(boolean value)
+   {
+      if (this.abztract != value)
+      {
+         boolean oldValue = this.abztract;
+         this.abztract = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ABZTRACT, oldValue, value);
+      }
+   }
+   
+   public Clazz withAbztract(boolean value)
+   {
+      setAbztract(value);
+      return this;
    } 
 }

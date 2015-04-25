@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 christoph 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,12 +21,11 @@
    
 package org.sdmlib.models.transformations.util;
 
-import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.transformations.Match;
+import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
 
 public class MatchCreator extends EntityFactory
 {
@@ -186,7 +185,7 @@ public class MatchCreator extends EntityFactory
    }
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.transformations.util.CreatorCreator.createIdMap(sessionID);
    }
    
    //==========================================================================

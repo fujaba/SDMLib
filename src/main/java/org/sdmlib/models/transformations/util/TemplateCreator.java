@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 christoph 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -18,7 +18,7 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-   
+
 package org.sdmlib.models.transformations.util;
 
 import org.sdmlib.models.transformations.ChoiceTemplate;
@@ -33,39 +33,39 @@ public class TemplateCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Template.PROPERTY_TEMPLATETEXT,
-      Template.PROPERTY_EXPANDEDTEXT,
-      Template.PROPERTY_MODELOBJECT,
-      Template.PROPERTY_MODELCLASSNAME,
-      Template.PROPERTY_LISTSTART,
-      Template.PROPERTY_LISTSEPARATOR,
-      Template.PROPERTY_LISTEND,
-      Template.PROPERTY_REFERENCELOOKUP,
-      Template.PROPERTY_NAME,
-      Template.PROPERTY_PLACEHOLDERS,
-      Template.PROPERTY_CHOOSER,
-      Template.PROPERTY_MATCHES,
-      Template.PROPERTY_PARENTS,
+         Template.PROPERTY_TEMPLATETEXT,
+         Template.PROPERTY_EXPANDEDTEXT,
+         Template.PROPERTY_MODELOBJECT,
+         Template.PROPERTY_MODELCLASSNAME,
+         Template.PROPERTY_LISTSTART,
+         Template.PROPERTY_LISTSEPARATOR,
+         Template.PROPERTY_LISTEND,
+         Template.PROPERTY_REFERENCELOOKUP,
+         Template.PROPERTY_NAME,
+         Template.PROPERTY_PLACEHOLDERS,
+         Template.PROPERTY_CHOOSER,
+         Template.PROPERTY_MATCHES,
+         Template.PROPERTY_PARENTS,
    };
-   
+
    @Override
    public String[] getProperties()
    {
       return properties;
    }
-   
+
    @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Template();
    }
-   
+
    @Override
    public Object getValue(Object target, String attrName)
    {
       int pos = attrName.indexOf('.');
       String attribute = attrName;
-      
+
       if (pos > 0)
       {
          attribute = attrName.substring(0, pos);
@@ -135,10 +135,10 @@ public class TemplateCreator extends EntityFactory
       {
          return ((Template) target).getParents();
       }
-      
+
       return null;
    }
-   
+
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
@@ -206,7 +206,7 @@ public class TemplateCreator extends EntityFactory
          ((Template) target).withPlaceholders((PlaceHolderDescription) value);
          return true;
       }
-      
+
       if ((Template.PROPERTY_PLACEHOLDERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutPlaceholders((PlaceHolderDescription) value);
@@ -224,7 +224,7 @@ public class TemplateCreator extends EntityFactory
          ((Template) target).withMatches((Match) value);
          return true;
       }
-      
+
       if ((Template.PROPERTY_MATCHES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutMatches((Match) value);
@@ -236,22 +236,23 @@ public class TemplateCreator extends EntityFactory
          ((Template) target).withParents((PlaceHolderDescription) value);
          return true;
       }
-      
+
       if ((Template.PROPERTY_PARENTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Template) target).withoutParents((PlaceHolderDescription) value);
          return true;
       }
-      
+
       return false;
    }
+
    public static JsonIdMap createIdMap(String sessionID)
    {
-      return CreatorCreator.createIdMap(sessionID);
+      return org.sdmlib.models.transformations.util.CreatorCreator.createIdMap(sessionID);
    }
-   
-   //==========================================================================
-   
+
+   // ==========================================================================
+
    @Override
    public void removeObject(Object entity)
    {

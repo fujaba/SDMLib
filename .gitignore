@@ -21,6 +21,10 @@ atlassian-ide-plugin.xml
 *.iws
 *.*~
 .settings
-
 /build/
 .classpath
+.project
+*.iml
+*.ipr
+/.idea/
+

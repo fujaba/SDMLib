@@ -55,6 +55,7 @@ public class ClassModelTest
 
       Clazz clazzClass = model.createClazz("Clazz").withSuperClazz(sdmLibClazz)
          .withAttribute("interfaze", DataType.BOOLEAN)
+         .withAttribute("abztract", DataType.BOOLEAN)
          .withAttribute("external", DataType.BOOLEAN);
 
       new Association()
