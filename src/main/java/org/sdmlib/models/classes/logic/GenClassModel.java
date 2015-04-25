@@ -2374,7 +2374,7 @@ public class GenClassModel
    {
       String binDir = getClass().getClassLoader().getResource(".").getPath();
       File binFolder = new File(binDir);
-      File srcFolder = binFolder.getParentFile();
+      File srcFolder = new File(".");
 
       updateFromCode(includePathes, packages, srcFolder);
    }
