@@ -86,6 +86,11 @@ public class PatternObject<POC, MC> extends PatternElement<POC>
       this.hasLink("instanceof", subclassPO);
       return subclassPO;
    }
+   
+   public boolean rebind(MC o)
+   {
+      return this.getPattern().rebind(this, o);
+   }
 
    public POC nextMatch()
    {
