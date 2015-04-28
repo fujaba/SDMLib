@@ -286,19 +286,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P1 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P1 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"src",
             "id":"P1 : Person"
          },
@@ -337,6 +324,19 @@
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P1 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P1 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"inEdges",
             "id":"R2 : Relation"
@@ -351,19 +351,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P3 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P3 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
             "id":"P3 : Person"
          },
@@ -371,6 +358,19 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"R4 : Relation"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P3 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P3 : Person"
          }
       },
       {
@@ -390,19 +390,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P5 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P5 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
             "id":"P5 : Person"
          },
@@ -410,6 +397,19 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"R6 : Relation"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P5 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P5 : Person"
          }
       },
       {
@@ -442,20 +442,20 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
+            "property":"tgt",
             "id":"P9 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P9 : Person"
+            "property":"outEdges",
+            "id":"R10 : Relation"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"tgt",
+            "property":"person",
             "id":"P9 : Person"
          },
          "target":{
@@ -473,8 +473,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outEdges",
-            "id":"R10 : Relation"
+            "property":"knowsTransitive",
+            "id":"P9 : Person"
          }
       }
    ]
@@ -2731,19 +2731,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P52 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P52 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"src",
             "id":"P52 : Person"
          },
@@ -2782,6 +2769,19 @@
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P52 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P52 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"inEdges",
             "id":"R53 : Relation"
@@ -2796,19 +2796,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P54 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P54 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
             "id":"P54 : Person"
          },
@@ -2816,6 +2803,19 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"R55 : Relation"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P54 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P54 : Person"
          }
       },
       {
@@ -2835,19 +2835,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P56 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P56 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
             "id":"P56 : Person"
          },
@@ -2855,6 +2842,19 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"R57 : Relation"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P56 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P56 : Person"
          }
       },
       {
@@ -2887,20 +2887,20 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
+            "property":"tgt",
             "id":"P60 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P60 : Person"
+            "property":"outEdges",
+            "id":"R61 : Relation"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"tgt",
+            "property":"person",
             "id":"P60 : Person"
          },
          "target":{
@@ -2918,8 +2918,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outEdges",
-            "id":"R61 : Relation"
+            "property":"knowsTransitive",
+            "id":"P60 : Person"
          }
       }
    ]
@@ -3056,19 +3056,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P62 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P62 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"src",
             "id":"P62 : Person"
          },
@@ -3107,6 +3094,19 @@
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P62 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P62 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"inEdges",
             "id":"R63 : Relation"
@@ -3121,19 +3121,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P64 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P64 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
             "id":"P64 : Person"
          },
@@ -3141,6 +3128,19 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"R65 : Relation"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P64 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P64 : Person"
          }
       },
       {
@@ -3160,19 +3160,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P66 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P66 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
             "id":"P66 : Person"
          },
@@ -3180,6 +3167,19 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"R67 : Relation"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P66 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P66 : Person"
          }
       },
       {
@@ -3212,20 +3212,20 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
+            "property":"tgt",
             "id":"P70 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P70 : Person"
+            "property":"outEdges",
+            "id":"R71 : Relation"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"tgt",
+            "property":"person",
             "id":"P70 : Person"
          },
          "target":{
@@ -3243,8 +3243,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outEdges",
-            "id":"R71 : Relation"
+            "property":"knowsTransitive",
+            "id":"P70 : Person"
          }
       }
    ]
@@ -3508,13 +3508,26 @@
    {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
+            "cardinality":"one",
+            "property":"person",
             "id":"P73 : Person"
          },
          "target":{
             "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P73 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
             "property":"knows",
+            "id":"P73 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
             "id":"P74 : Person"
          }
       },
@@ -3522,12 +3535,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P73 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knows",
+            "property":"knowsTransitive",
             "id":"P75 : Person"
          }
       },
@@ -3535,12 +3548,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P73 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knows",
+            "property":"knowsTransitive",
             "id":"P76 : Person"
          }
       },
@@ -3553,20 +3566,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P73 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P73 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P74 : Person"
          }
       },
@@ -3576,32 +3576,6 @@
             "cardinality":"one",
             "property":"person",
             "id":"P73 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P75 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P73 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P76 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P74 : Person"
          },
          "target":{
             "cardinality":"many",
@@ -3614,37 +3588,11 @@
          "source":{
             "cardinality":"one",
             "property":"person",
-            "id":"P74 : Person"
+            "id":"P73 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P74 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P74 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P75 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P74 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P76 : Person"
          }
       },
@@ -3653,7 +3601,20 @@
          "source":{
             "cardinality":"one",
             "property":"person",
-            "id":"P75 : Person"
+            "id":"P74 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P74 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P74 : Person"
          },
          "target":{
             "cardinality":"many",
@@ -3666,7 +3627,7 @@
          "source":{
             "cardinality":"many",
             "property":"knowsTransitive",
-            "id":"P75 : Person"
+            "id":"P74 : Person"
          },
          "target":{
             "cardinality":"many",
@@ -3679,6 +3640,45 @@
          "source":{
             "cardinality":"one",
             "property":"person",
+            "id":"P74 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P75 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P75 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P75 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P75 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P76 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
             "id":"P76 : Person"
          },
          "target":{
@@ -3691,12 +3691,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P77 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knows",
+            "property":"knowsTransitive",
             "id":"P77 : Person"
          }
       }
@@ -6156,19 +6156,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P120 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P120 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"src",
             "id":"P120 : Person"
          },
@@ -6207,6 +6194,19 @@
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P120 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P120 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"inEdges",
             "id":"R121 : Relation"
@@ -6221,19 +6221,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P122 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P122 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
             "id":"P122 : Person"
          },
@@ -6241,6 +6228,19 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"R123 : Relation"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P122 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P122 : Person"
          }
       },
       {
@@ -6260,19 +6260,6 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
-            "id":"P124 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P124 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
             "id":"P124 : Person"
          },
@@ -6280,6 +6267,19 @@
             "cardinality":"many",
             "property":"inEdges",
             "id":"R125 : Relation"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P124 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P124 : Person"
          }
       },
       {
@@ -6312,20 +6312,20 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"person",
+            "property":"tgt",
             "id":"P128 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P128 : Person"
+            "property":"outEdges",
+            "id":"R129 : Relation"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"tgt",
+            "property":"person",
             "id":"P128 : Person"
          },
          "target":{
@@ -6343,8 +6343,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outEdges",
-            "id":"R129 : Relation"
+            "property":"knowsTransitive",
+            "id":"P128 : Person"
          }
       }
    ]

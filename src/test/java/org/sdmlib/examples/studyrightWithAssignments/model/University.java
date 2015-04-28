@@ -29,7 +29,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
 
-public class University implements PropertyChangeInterface
+public  class University implements PropertyChangeInterface
 {
 
    

@@ -29,7 +29,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 
-public class Student implements PropertyChangeInterface
+public  class Student implements PropertyChangeInterface
 {
 
    

@@ -61,6 +61,11 @@ public class OptionalSubPatternCreator extends PatternCreator
       {
          return ((OptionalSubPattern) target).getRgraph();
       }
+
+      if (OptionalSubPattern.PROPERTY_PATTERN.equalsIgnoreCase(attribute))
+      {
+         return ((OptionalSubPattern) target).getPattern();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -87,6 +92,12 @@ public class OptionalSubPatternCreator extends PatternCreator
       if (OptionalSubPattern.PROPERTY_RGRAPH.equalsIgnoreCase(attrName))
       {
          ((OptionalSubPattern) target).setRgraph((ReachabilityGraph) value);
+         return true;
+      }
+
+      if (OptionalSubPattern.PROPERTY_PATTERN.equalsIgnoreCase(attrName))
+      {
+         ((OptionalSubPattern) target).setPattern((Pattern) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

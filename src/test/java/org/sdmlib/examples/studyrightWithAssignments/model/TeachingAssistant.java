@@ -23,7 +23,7 @@ package org.sdmlib.examples.studyrightWithAssignments.model;
 
 import org.sdmlib.examples.studyrightWithAssignments.model.Student;
 
-public class TeachingAssistant extends Student
+public  class TeachingAssistant extends Student
 {
 
    
