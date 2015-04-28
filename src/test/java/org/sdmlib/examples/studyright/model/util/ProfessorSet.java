@@ -31,6 +31,8 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
+import org.sdmlib.examples.studyright.model.util.TopicSet;
 
 public class ProfessorSet extends SDMSet<Professor>
 {

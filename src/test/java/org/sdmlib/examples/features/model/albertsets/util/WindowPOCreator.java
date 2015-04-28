@@ -1,9 +1,8 @@
 package org.sdmlib.examples.features.model.albertsets.util;
 
-import org.sdmlib.examples.features.model.albertsets.Window;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.features.model.albertsets.Window;
 
 public class WindowPOCreator extends PatternObjectCreator
 {

@@ -2,7 +2,6 @@ package org.sdmlib.models.pattern.util;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-
 public class StringBuilderPOCreator extends PatternObjectCreator
 {
    @Override

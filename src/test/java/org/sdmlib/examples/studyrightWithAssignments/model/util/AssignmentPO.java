@@ -1,10 +1,14 @@
 package org.sdmlib.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomPO;
+import org.sdmlib.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentPO;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentPO;
+import org.sdmlib.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
 {

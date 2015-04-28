@@ -25,15 +25,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedHashSet;
 
-import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
-
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-
-import bsh.EvalError;
+import org.sdmlib.models.transformations.ChoiceTemplate;
 
 public class PlaceHolderDescription implements PropertyChangeInterface
 {
@@ -98,7 +95,6 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       result.append(" ").append(this.getValue());
       result.append(" ").append(this.getAttrName());
       result.append(" ").append(this.getPrefix());
-      result.append(" ").append(this.getCodeSnippet());
       return result.substring(1);
    }
 
@@ -488,47 +484,4 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       return value;
    }
 
-   // ==========================================================================
-
-   public static final String PROPERTY_CODESNIPPET = "codeSnippet";
-
-   private String codeSnippet;
-
-   public String getCodeSnippet()
-   {
-      return this.codeSnippet;
-   }
-
-   public void setCodeSnippet(String value)
-   {
-      if (!StrUtil.stringEquals(this.codeSnippet, value))
-      {
-         String oldValue = this.codeSnippet;
-         this.codeSnippet = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CODESNIPPET, oldValue, value);
-      }
-   }
-
-   public PlaceHolderDescription withCodeSnippet(String value)
-   {
-      setCodeSnippet(value);
-      return this;
-   }
-
-   public Object enhanceValue(Object modelObject, Object value)
-   {
-      Interpreter interpreter = new Interpreter();
-
-      try
-      {
-         interpreter.set(attrName, value);
-         interpreter.eval(codeSnippet);
-         value = interpreter.get(attrName);
-      }
-      catch (EvalError e)
-      {
-         e.printStackTrace();
-      }
-      return value;
-   }
 }

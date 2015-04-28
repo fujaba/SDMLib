@@ -2,7 +2,6 @@ package org.sdmlib.examples.simpleextends;
 
 import org.junit.Test;
 
-
 public class SimpleExtends
 {
    @Test

@@ -1,8 +1,7 @@
 package org.sdmlib.examples.features.model.all.util;
 
-import org.sdmlib.serialization.SDMLibJsonIdMap;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 public class CreatorCreator{
 

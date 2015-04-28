@@ -28,6 +28,7 @@ import org.sdmlib.examples.studyright.model.Topic;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.examples.studyright.model.util.ProfessorSet;
 
 public class TopicSet extends SDMSet<Topic>
 {

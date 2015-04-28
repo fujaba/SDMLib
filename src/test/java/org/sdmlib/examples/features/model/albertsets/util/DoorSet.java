@@ -21,12 +21,12 @@
    
 package org.sdmlib.examples.features.model.albertsets.util;
 
-import java.util.Collection;
-
-import org.sdmlib.examples.features.model.albertsets.Door;
-import org.sdmlib.examples.features.model.albertsets.House;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.features.model.albertsets.Door;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.examples.features.model.albertsets.util.HouseSet;
+import org.sdmlib.examples.features.model.albertsets.House;
 
 public class DoorSet extends SDMSet<Door>
 {

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 zuendorf 
+   Copyright (c) 2015 christoph 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,19 +21,23 @@
    
 package org.sdmlib.models.transformations.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.models.transformations.Template;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
+import org.sdmlib.models.transformations.PlaceHolderDescription;
+import java.util.Collections;
+import org.sdmlib.models.transformations.util.MatchSet;
 
 public class MatchSet extends SDMSet<Match>
 {
+
+   public static final MatchSet EMPTY_SET = new MatchSet().withReadOnly(true);
 
 
    public MatchPO hasMatchPO()
@@ -97,6 +101,21 @@ public class MatchSet extends SDMSet<Match>
       return result;
    }
 
+   public MatchSet hasStartPos(int lower, int upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public MatchSet withStartPos(int value)
    {
       for (Match obj : this)
@@ -126,6 +145,21 @@ public class MatchSet extends SDMSet<Match>
       for (Match obj : this)
       {
          if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchSet hasEndPos(int lower, int upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
          {
             result.add(obj);
          }
@@ -171,6 +205,21 @@ public class MatchSet extends SDMSet<Match>
       return result;
    }
 
+   public MatchSet hasFullText(String lower, String upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower.compareTo(obj.getFullText()) <= 0 && obj.getFullText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
    public MatchSet withFullText(String value)
    {
       for (Match obj : this)
@@ -200,6 +249,21 @@ public class MatchSet extends SDMSet<Match>
       for (Match obj : this)
       {
          if (value.equals(obj.getMatchText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchSet hasMatchText(String lower, String upper)
+   {
+      MatchSet result = new MatchSet();
+      
+      for (Match obj : this)
+      {
+         if (lower.compareTo(obj.getMatchText()) <= 0 && obj.getMatchText().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -508,10 +572,4 @@ public class MatchSet extends SDMSet<Match>
       return this;
    }
 
-
-   public static final MatchSet EMPTY_SET = new MatchSet().withReadOnly(true);
 }
-
-
-
-

@@ -29,6 +29,8 @@ import org.sdmlib.examples.patternrewriteops.model.Station;
 import org.sdmlib.examples.patternrewriteops.model.Train;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.patternrewriteops.model.util.StationSet;
+import org.sdmlib.examples.patternrewriteops.model.util.PersonSet;
 
 public class TrainSet extends SDMSet<Train>
 {

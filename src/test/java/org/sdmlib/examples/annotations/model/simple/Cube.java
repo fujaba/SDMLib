@@ -21,10 +21,9 @@
    
 package org.sdmlib.examples.annotations.model.simple;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import org.sdmlib.serialization.PropertyChangeInterface;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
 public class Cube implements PropertyChangeInterface
 {

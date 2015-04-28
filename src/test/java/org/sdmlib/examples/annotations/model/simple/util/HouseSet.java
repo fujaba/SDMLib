@@ -21,14 +21,15 @@
    
 package org.sdmlib.examples.annotations.model.simple.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.sdmlib.examples.annotations.model.simple.Door;
-import org.sdmlib.examples.annotations.model.simple.House;
-import org.sdmlib.examples.annotations.model.simple.Window;
-import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.examples.annotations.model.simple.House;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.examples.annotations.model.simple.util.DoorSet;
+import org.sdmlib.examples.annotations.model.simple.Door;
+import org.sdmlib.examples.annotations.model.simple.util.WindowSet;
+import org.sdmlib.examples.annotations.model.simple.Window;
 
 public class HouseSet extends SDMSet<House>
 {

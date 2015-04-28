@@ -29,10 +29,13 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.util.SeppelScopeSet;
+import org.sdmlib.replication.util.SeppelChannelSet;
+import org.sdmlib.replication.util.BoardTaskSet;
+import org.sdmlib.replication.BoardTask;
 
 public class SeppelSpaceProxySet extends SDMSet<SeppelSpaceProxy>
 {

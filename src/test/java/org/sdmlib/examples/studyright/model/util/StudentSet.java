@@ -33,6 +33,10 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.examples.studyright.model.util.LectureSet;
+import org.sdmlib.examples.studyright.model.util.UniversitySet;
+import org.sdmlib.examples.studyright.model.util.RoomSet;
+import org.sdmlib.examples.studyright.model.util.AssignmentSet;
 
 public class StudentSet extends SDMSet<Student>
 {

@@ -1,9 +1,14 @@
 package org.sdmlib.examples.features.model.albertsets.util;
 
-import org.sdmlib.examples.features.model.albertsets.Door;
-import org.sdmlib.examples.features.model.albertsets.House;
-import org.sdmlib.examples.features.model.albertsets.Window;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.examples.features.model.albertsets.House;
+import org.sdmlib.examples.features.model.albertsets.util.DoorPO;
+import org.sdmlib.examples.features.model.albertsets.Door;
+import org.sdmlib.examples.features.model.albertsets.util.HousePO;
+import org.sdmlib.examples.features.model.albertsets.util.DoorSet;
+import org.sdmlib.examples.features.model.albertsets.util.WindowPO;
+import org.sdmlib.examples.features.model.albertsets.Window;
+import org.sdmlib.examples.features.model.albertsets.util.WindowSet;
 
 public class HousePO extends PatternObject<HousePO, House>
 {

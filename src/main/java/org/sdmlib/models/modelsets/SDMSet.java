@@ -3,11 +3,11 @@ package org.sdmlib.models.modelsets;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.concurrent.locks.Condition;
 
 import org.sdmlib.CGUtil;
 
 import de.uniks.networkparser.list.SimpleList;
+import de.uniks.networkparser.logic.Condition;
 
 
 public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet

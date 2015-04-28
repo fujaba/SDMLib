@@ -20,8 +20,6 @@
  */
 package org.sdmlib.examples.studyrightWithAssignments;
 
-import java.util.concurrent.locks.Condition;
-
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.examples.studyrightWithAssignments.model.Assignment;
@@ -45,6 +43,7 @@ import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.logic.Condition;
 
 public class StoryboardTests {
    @Test

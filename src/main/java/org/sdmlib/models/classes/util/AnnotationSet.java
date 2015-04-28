@@ -31,6 +31,9 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.classes.util.MethodSet;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class AnnotationSet extends SDMSet<Annotation>
 {

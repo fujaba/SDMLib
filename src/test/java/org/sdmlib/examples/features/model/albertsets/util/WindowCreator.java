@@ -21,11 +21,10 @@
    
 package org.sdmlib.examples.features.model.albertsets.util;
 
-import org.sdmlib.examples.features.model.albertsets.House;
-import org.sdmlib.examples.features.model.albertsets.Window;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.features.model.albertsets.Window;
+import org.sdmlib.examples.features.model.albertsets.House;
 
 public class WindowCreator extends EntityFactory
 {

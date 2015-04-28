@@ -21,12 +21,11 @@
    
 package org.sdmlib.examples.features.model.all.util;
 
-import org.sdmlib.examples.features.model.all.Door;
-import org.sdmlib.examples.features.model.all.House;
-import org.sdmlib.examples.features.model.all.Window;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.features.model.all.House;
+import org.sdmlib.examples.features.model.all.Door;
+import org.sdmlib.examples.features.model.all.Window;
 
 public class HouseCreator extends EntityFactory
 {

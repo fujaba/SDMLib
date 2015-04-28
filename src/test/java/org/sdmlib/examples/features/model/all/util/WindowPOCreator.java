@@ -1,9 +1,8 @@
 package org.sdmlib.examples.features.model.all.util;
 
-import org.sdmlib.examples.features.model.all.Window;
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.examples.features.model.all.Window;
 
 public class WindowPOCreator extends PatternObjectCreator
 {
