@@ -2972,6 +2972,7 @@ public class GenClassModel
       return javaFiles;
    }
 
+
    private void addJavaFilesToClasses(String packageString, File srcFolder, ArrayList<File> javaFiles)
    {
       String[] packages = packageString.split("\\s+");
