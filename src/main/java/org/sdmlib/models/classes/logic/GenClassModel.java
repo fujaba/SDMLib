@@ -2384,6 +2384,19 @@ public class GenClassModel
          filePath = filePath.substring(0, filePath.length() - 5);
          Clazz clazz = model.createClazz(filePath);
          getOrCreate(clazz).withFilePath(absolutpath);
+         
+         if (model.getClasses().isEmpty())
+         {
+            System.out.println("no class files found !!!! END");
+            return;
+         }
+
+         // parse each java file
+         for (Iterator<Clazz> i = model.getClasses().cloneIterator(); i.hasNext();)
+         {
+            Clazz currentClazz = i.next();
+            handleMember(currentClazz, absolutpath);
+         }
       }
       
    }
