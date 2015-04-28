@@ -2372,34 +2372,7 @@ public class GenClassModel
       return javaFiles;
    }
 
-   public void updateFromCode(String absolutpath)
-   {
-      
-      ArrayList<File> javaFiles = searchForJavaFiles(absolutpath);
-      
-      for (File file : javaFiles)
-      {
-         String filePath = file.getAbsolutePath();
-         filePath = filePath.replace(File.separatorChar, '.').substring(1);
-         filePath = filePath.substring(0, filePath.length() - 5);
-         Clazz clazz = model.createClazz(filePath);
-         getOrCreate(clazz).withFilePath(absolutpath);
-         
-         if (model.getClasses().isEmpty())
-         {
-            System.out.println("no class files found !!!! END");
-            return;
-         }
 
-         // parse each java file
-         for (Iterator<Clazz> i = model.getClasses().cloneIterator(); i.hasNext();)
-         {
-            Clazz currentClazz = i.next();
-            handleMember(currentClazz, absolutpath);
-         }
-      }
-      
-   }
 
    public void updateFromCode(String includePathes, String packages)
    {
@@ -2435,17 +2408,17 @@ public class GenClassModel
          for (Iterator<Clazz> i = model.getClasses().cloneIterator(); i.hasNext();)
          {
             Clazz clazz = i.next();
-            handleMember(clazz, includePathes);
+            handleMember(clazz, includePathes, projectRoot);
          }
       }
 
       // add model creation code at invocation place, if not yet there
    }
 
-   private Clazz handleMember(Clazz clazz, String rootDir)
+   private Clazz handleMember(Clazz clazz, String rootDir, File projectRoot)
    {
       System.out.println("parse " + clazz.getFullName());
-      Parser parser = getOrCreate(clazz).getOrCreateParser(rootDir);
+      Parser parser = getOrCreate(clazz).getOrCreateParser(projectRoot.getAbsolutePath()+"//"+rootDir);
       parser.indexOf(Parser.CLASS_END);
 
       if (isHelperClass(parser))
