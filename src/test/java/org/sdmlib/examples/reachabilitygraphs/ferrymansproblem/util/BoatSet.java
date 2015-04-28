@@ -29,9 +29,6 @@ import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
 
 public class BoatSet extends SDMSet<Boat>
 {

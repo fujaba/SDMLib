@@ -21,9 +21,10 @@
    
 package org.sdmlib.examples.annotations.model.simple.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.annotations.model.simple.Cube;
+import org.sdmlib.serialization.EntityFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class CubeCreator extends EntityFactory
 {

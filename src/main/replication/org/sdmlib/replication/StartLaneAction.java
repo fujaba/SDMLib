@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import org.junit.Assert;
 import org.sdmlib.storyboards.Storyboard;
 
 public class StartLaneAction

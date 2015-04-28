@@ -29,10 +29,6 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
-
-import java.beans.PropertyChangeListener;
-
 public class BoardTask extends Task implements PropertyChangeInterface
 {
    // ==========================================================================

@@ -21,11 +21,12 @@
    
 package org.sdmlib.examples.features.model.all;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.examples.features.model.all.util.DoorSet;
 import org.sdmlib.examples.features.model.all.util.WindowSet;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class House implements PropertyChangeInterface
 {

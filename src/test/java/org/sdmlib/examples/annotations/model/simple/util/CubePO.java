@@ -1,7 +1,7 @@
 package org.sdmlib.examples.annotations.model.simple.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.annotations.model.simple.Cube;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class CubePO extends PatternObject<CubePO, Cube>
 {

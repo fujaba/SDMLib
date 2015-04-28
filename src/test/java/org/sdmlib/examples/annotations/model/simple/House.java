@@ -21,7 +21,6 @@
    
 package org.sdmlib.examples.annotations.model.simple;
 
-import org.sdmlib.examples.annotations.model.simple.Cube;
 import org.sdmlib.examples.annotations.model.simple.util.DoorSet;
 import org.sdmlib.examples.annotations.model.simple.util.WindowSet;
 

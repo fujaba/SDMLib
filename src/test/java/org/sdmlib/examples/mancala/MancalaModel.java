@@ -2,7 +2,6 @@ package org.sdmlib.examples.mancala;
 
 import java.awt.Point;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.examples.mancala.referencemodel.Color;
 import org.sdmlib.models.classes.Attribute;

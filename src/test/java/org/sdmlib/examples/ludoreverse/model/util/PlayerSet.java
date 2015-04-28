@@ -29,7 +29,6 @@ import org.sdmlib.examples.ludoreverse.model.Player;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.ludoreverse.model.util.LudoSet;
 
 public class PlayerSet extends SDMSet<Player>
 {

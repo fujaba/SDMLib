@@ -1,12 +1,12 @@
 package org.sdmlib.models.classes.util;
 
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.Annotation;
 
 public class MethodCreator extends SDMLibClassCreator
 {

@@ -28,7 +28,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
-import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
 public class KanbanEntrySet extends SDMSet<KanbanEntry> implements org.sdmlib.models.modelsets.ModelSet
 {

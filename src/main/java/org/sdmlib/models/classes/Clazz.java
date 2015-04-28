@@ -23,11 +23,11 @@ package org.sdmlib.models.classes;
 
 import java.util.ArrayList;
 
+import org.sdmlib.models.classes.util.AnnotationSet;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
-import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class Clazz extends SDMLibClass
 {

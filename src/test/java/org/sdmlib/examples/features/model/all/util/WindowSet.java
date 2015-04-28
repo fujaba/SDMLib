@@ -21,12 +21,12 @@
    
 package org.sdmlib.examples.features.model.all.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.features.model.all.Window;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.examples.features.model.all.util.HouseSet;
+
 import org.sdmlib.examples.features.model.all.House;
+import org.sdmlib.examples.features.model.all.Window;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
 public class WindowSet extends SDMSet<Window>
 {

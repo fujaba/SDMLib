@@ -26,7 +26,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.objects.util.GenericAttributeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public class GenericAttribute implements PropertyChangeInterface
 {

@@ -32,9 +32,6 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
-import org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
 
 public class BankSet extends SDMSet<Bank>
 {

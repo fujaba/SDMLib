@@ -1,6 +1,5 @@
 package org.sdmlib.examples.patternrewriteops;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.examples.patternrewriteops.model.Person;
 import org.sdmlib.examples.patternrewriteops.model.Station;

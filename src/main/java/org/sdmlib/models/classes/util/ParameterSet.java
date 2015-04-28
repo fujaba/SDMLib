@@ -30,7 +30,6 @@ import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.MethodSet;
 
 public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
 {

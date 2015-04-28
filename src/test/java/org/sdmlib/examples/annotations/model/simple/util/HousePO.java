@@ -1,14 +1,9 @@
 package org.sdmlib.examples.annotations.model.simple.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.examples.annotations.model.simple.House;
-import org.sdmlib.examples.annotations.model.simple.util.DoorPO;
 import org.sdmlib.examples.annotations.model.simple.Door;
-import org.sdmlib.examples.annotations.model.simple.util.HousePO;
-import org.sdmlib.examples.annotations.model.simple.util.DoorSet;
-import org.sdmlib.examples.annotations.model.simple.util.WindowPO;
+import org.sdmlib.examples.annotations.model.simple.House;
 import org.sdmlib.examples.annotations.model.simple.Window;
-import org.sdmlib.examples.annotations.model.simple.util.WindowSet;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class HousePO extends PatternObject<HousePO, House>
 {

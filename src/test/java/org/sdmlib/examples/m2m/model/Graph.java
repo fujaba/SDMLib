@@ -29,8 +29,6 @@ import org.sdmlib.examples.m2m.model.util.GraphComponentSet;
 import org.sdmlib.examples.m2m.model.util.PersonSet;
 import org.sdmlib.examples.m2m.model.util.RelationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.examples.m2m.model.Person;
-import org.sdmlib.examples.m2m.model.Relation;
 
 public class Graph implements PropertyChangeInterface
 {

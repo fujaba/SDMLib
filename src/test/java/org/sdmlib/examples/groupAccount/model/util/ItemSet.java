@@ -30,8 +30,6 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.examples.groupAccount.model.util.GroupAccountSet;
-import org.sdmlib.examples.groupAccount.model.util.PersonSet;
 
 public class ItemSet extends SDMSet<Item>
 {

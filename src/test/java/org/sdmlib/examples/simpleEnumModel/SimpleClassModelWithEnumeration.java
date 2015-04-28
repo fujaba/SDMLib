@@ -1,7 +1,6 @@
 package org.sdmlib.examples.simpleEnumModel;
 
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;

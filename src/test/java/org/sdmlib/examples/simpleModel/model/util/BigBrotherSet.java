@@ -28,7 +28,6 @@ import org.sdmlib.examples.simpleModel.model.BigBrother;
 import org.sdmlib.examples.simpleModel.model.Person;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.examples.simpleModel.model.util.PersonSet;
 
 public class BigBrotherSet extends SDMSet<BigBrother>
 {

@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -24,6 +22,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+
 import org.sdmlib.examples.replication.chat.util.ChatChannelSet;
 import org.sdmlib.examples.replication.chat.util.ChatRootCreator;
 import org.sdmlib.examples.replication.chat.util.ChatUserCreator;
@@ -37,7 +37,6 @@ import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.SeppelTaskHandler;
 import org.sdmlib.replication.util.SeppelScopePO;
 import org.sdmlib.replication.util.SeppelSpaceProxyPO;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 

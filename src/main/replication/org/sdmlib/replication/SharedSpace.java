@@ -43,9 +43,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
-
-
-
 import javafx.application.Platform;
 
 import org.sdmlib.StrUtil;

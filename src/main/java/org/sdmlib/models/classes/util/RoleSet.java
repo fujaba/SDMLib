@@ -28,8 +28,6 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.classes.util.AssociationSet;
 
 public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets.ModelSet
 {

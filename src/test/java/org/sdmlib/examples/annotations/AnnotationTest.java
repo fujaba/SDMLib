@@ -1,7 +1,6 @@
 package org.sdmlib.examples.annotations;
 
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Card;

@@ -1,5 +1,6 @@
 package org.sdmlib.models.classes.util;
 
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -9,10 +10,6 @@ import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.classes.util.AnnotationPO;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.util.ClazzPO;
-import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class ClazzPO extends PatternObject<ClazzPO, Clazz>
 {

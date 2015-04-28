@@ -32,7 +32,6 @@ import org.sdmlib.models.taskflows.Logger;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 public class LoggerSet extends SDMSet<Logger>
 {

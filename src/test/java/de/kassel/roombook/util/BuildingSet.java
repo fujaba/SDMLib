@@ -30,7 +30,6 @@ import org.sdmlib.models.modelsets.StringList;
 
 import de.kassel.roombook.Building;
 import de.kassel.roombook.Floor;
-import de.kassel.roombook.util.FloorSet;
 
 public class BuildingSet extends SDMSet<Building>
 {

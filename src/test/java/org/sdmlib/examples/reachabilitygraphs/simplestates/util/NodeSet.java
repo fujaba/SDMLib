@@ -29,7 +29,6 @@ import org.sdmlib.examples.reachabilitygraphs.simplestates.SimpleState;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
 
 public class NodeSet extends SDMSet<Node>
 {

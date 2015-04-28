@@ -27,7 +27,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.examples.simpleModel.model.util.ObjectSet;
 import org.sdmlib.examples.simpleModel.model.util.PersonSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.lang.Object;
 
 public class BigBrother implements PropertyChangeInterface
 {

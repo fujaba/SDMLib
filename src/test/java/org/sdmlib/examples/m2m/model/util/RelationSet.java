@@ -29,8 +29,6 @@ import org.sdmlib.examples.m2m.model.Relation;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.examples.m2m.model.util.GraphSet;
-import org.sdmlib.examples.m2m.model.util.PersonSet;
 
 public class RelationSet extends SDMSet<Relation>
 {

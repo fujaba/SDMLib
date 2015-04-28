@@ -1,8 +1,9 @@
 package org.sdmlib.examples.features.model.all.util;
 
-import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.examples.features.model.all.House;
+import org.sdmlib.models.pattern.util.PatternObjectCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class HousePOCreator extends PatternObjectCreator
 {

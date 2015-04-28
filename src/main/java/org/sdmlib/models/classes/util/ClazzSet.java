@@ -24,6 +24,7 @@ package org.sdmlib.models.classes.util;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
@@ -34,12 +35,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
-import org.sdmlib.models.classes.util.ClassModelSet;
-import org.sdmlib.models.classes.util.AttributeSet;
-import org.sdmlib.models.classes.util.AnnotationSet;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.util.MethodSet;
-import org.sdmlib.models.classes.util.RoleSet;
 
 public class ClazzSet extends SDMSet<Clazz> 
 {

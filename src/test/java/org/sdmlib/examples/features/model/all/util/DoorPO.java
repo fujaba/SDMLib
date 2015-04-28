@@ -1,10 +1,8 @@
 package org.sdmlib.examples.features.model.all.util;
 
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.examples.features.model.all.Door;
-import org.sdmlib.examples.features.model.all.util.HousePO;
 import org.sdmlib.examples.features.model.all.House;
-import org.sdmlib.examples.features.model.all.util.DoorPO;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class DoorPO extends PatternObject<DoorPO, Door>
 {

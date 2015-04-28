@@ -25,11 +25,11 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.replication.util.ObjectSet;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.replication.util.BoardTaskSet;
 
 public class SeppelSpaceProxy implements PropertyChangeInterface
 {

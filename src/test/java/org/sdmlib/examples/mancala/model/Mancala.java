@@ -27,7 +27,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.examples.mancala.model.util.PitSet;
 import org.sdmlib.examples.mancala.model.util.PlayerSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.examples.mancala.model.Kalah;
 
 public class Mancala implements PropertyChangeInterface
 {

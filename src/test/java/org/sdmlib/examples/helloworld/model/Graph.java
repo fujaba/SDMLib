@@ -29,8 +29,6 @@ import org.sdmlib.examples.helloworld.model.util.EdgeSet;
 import org.sdmlib.examples.helloworld.model.util.GraphComponentSet;
 import org.sdmlib.examples.helloworld.model.util.NodeSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.examples.helloworld.model.Edge;
-import org.sdmlib.examples.helloworld.model.Node;
 
 public class Graph implements PropertyChangeInterface
 {

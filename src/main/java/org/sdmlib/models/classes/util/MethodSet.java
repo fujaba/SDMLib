@@ -24,6 +24,7 @@ package org.sdmlib.models.classes.util;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
@@ -33,11 +34,6 @@ import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.AnnotationSet;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.util.EnumerationSet;
-import org.sdmlib.models.classes.util.ParameterSet;
-import org.sdmlib.models.classes.util.ClazzSet;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {

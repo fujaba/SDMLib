@@ -31,8 +31,6 @@ import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class CardinalityConstraintSet extends SDMSet<CardinalityConstraint> implements org.sdmlib.models.modelsets.ModelSet
 {

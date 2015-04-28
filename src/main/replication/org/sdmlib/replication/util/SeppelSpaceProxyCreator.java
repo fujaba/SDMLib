@@ -21,13 +21,13 @@
    
 package org.sdmlib.replication.util;
 
+import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.replication.BoardTask;
 
 public class SeppelSpaceProxyCreator extends EntityFactory
 {

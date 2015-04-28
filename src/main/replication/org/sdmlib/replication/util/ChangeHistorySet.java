@@ -28,7 +28,6 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChange;
-import org.sdmlib.replication.util.ReplicationChangeSet;
 
 public class ChangeHistorySet extends SDMSet<ChangeHistory>
 {

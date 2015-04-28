@@ -1,15 +1,12 @@
 package org.sdmlib.examples.replication.chat;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.junit.Test;
 import org.sdmlib.examples.replication.chat.util.ChatRootCreator;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.JVMWraper;
 import org.sdmlib.replication.SeppelBoardTaskAction;
-import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.SeppelSpaceProxy;

@@ -2,6 +2,7 @@ package org.sdmlib.serialization;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
+
 public class EntityFactory implements SendableEntityCreator
 {
    /**

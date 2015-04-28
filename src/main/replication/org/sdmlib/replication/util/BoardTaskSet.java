@@ -30,10 +30,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.LogEntrySet;
-import org.sdmlib.replication.util.LaneSet;
 
 public class BoardTaskSet extends SDMSet<BoardTask>
 {
