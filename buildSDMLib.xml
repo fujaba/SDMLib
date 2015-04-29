@@ -27,13 +27,31 @@
 		<javac srcdir="src/main/:../NetworkParser/src/main" destdir="build/temp"  includeantruntime="false" debug="true" sourcepath="src" listfiles="true">
 			<classpath>
 				<pathelement location="lib/junit.jar"/>
-				<pathelement location="lib/bsh-2.0b5.jar"/>
-			</classpath>			
+			</classpath>
+			<exclude name="test/**"/>
 		</javac>
 	</target>
 
 	<target name="create_jar" depends="init">
-		<delete file="build/lib/SDMLib.jar" />
+		<delete file="build/lib/SDMLib-pm.jar" />
+		<jar destfile="build/SDMLib-pm.jar">
+			<manifest>
+				<attribute name="Class-Path" value="." />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Version" value="${revisionVersion}" />
+				<attribute name="Implementation-Version" value="4.2.23.${revisionVersion} ${TODAY}" />
+				<attribute name="Main-Class" value="org.sdmlib.models.classes.SDMDiagramEditor" />
+			</manifest>
+			<fileset dir="build/temp/" />
+			<fileset dir="./src/main/java">
+				<exclude name="**/test/**" />
+			</fileset>
+			<fileset dir="../NetworkParser/src/main/java">
+				<exclude name="**/test/**" />
+			</fileset>
+			<fileset dir="../NetworkParser/src/main/resources" />
+		</jar>
+
 		<jar destfile="build/SDMLib.jar">
 			<manifest>
 				<attribute name="Class-Path" value="." />
@@ -61,6 +79,8 @@
 			<fileset dir="./src"/>
 			<fileset dir="../NetworkParser/src/main/java" />
 		</jar>
+		
+		
 		<javadoc destdir="build/javadoc/" sourcepath="src/main/:../NetworkParser/src/main/java">
 			<classpath>
 				<pathelement location="lib/junit.jar"/>
@@ -76,6 +96,7 @@
 			</manifest>
 			<fileset dir="build/javadoc/" />
 		</jar>
+
 		<delete dir="build/lib"></delete>
 		<delete dir="build/temp"></delete>
 		<delete dir="build/javadoc"></delete>
