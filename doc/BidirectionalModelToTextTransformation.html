@@ -294,12 +294,12 @@
          "typ":"node",
          "id":"T9 : Template",
          "attributes":[
-         "referenceLookup=false",
+         "valueStartPos=0",
+            "referenceLookup=false",
             "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList ",
-            "valueStartPos=0",
             "listStart=",
-            "listEnd=",
-            "listSeparator="
+            "listSeparator=",
+            "listEnd="
          ]
       },
       {
@@ -418,12 +418,12 @@
          "typ":"node",
          "id":"T14 : Template",
          "attributes":[
-         "referenceLookup=true",
+         "valueStartPos=0",
+            "referenceLookup=true",
             "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors",
-            "valueStartPos=0",
             "listStart=",
-            "listEnd=\u000a",
-            "listSeparator=\u000a"
+            "listSeparator=\u000a",
+            "listEnd=\u000a"
          ]
       },
       {
@@ -457,12 +457,12 @@
          "typ":"node",
          "id":"T18 : Template",
          "attributes":[
-         "referenceLookup=true",
+         "valueStartPos=0",
+            "referenceLookup=true",
             "templateText=name",
-            "valueStartPos=0",
             "listStart=",
-            "listEnd=.",
-            "listSeparator=, "
+            "listSeparator=, ",
+            "listEnd=."
          ]
       },
       {
@@ -478,12 +478,12 @@
          "typ":"node",
          "id":"T21 : Template",
          "attributes":[
-         "referenceLookup=false",
+         "valueStartPos=0",
+            "referenceLookup=false",
             "templateText= - Stud has student number 1234.",
-            "valueStartPos=0",
             "listStart=",
-            "listEnd=\u000a",
-            "listSeparator=\u000a"
+            "listSeparator=\u000a",
+            "listEnd=\u000a"
          ]
       },
       {
@@ -922,158 +922,9 @@
          "attributes":[
          "name=Study False"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"R29 : Room",
-         "attributes":[
-         "roomNo=class diagrams",
-            "credits=23"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"R33 : Room",
-         "attributes":[
-         "roomNo=laws",
-            "credits=24"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"R36 : Room",
-         "attributes":[
-         "roomNo=business",
-            "credits=3"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"S57 : Student",
-         "attributes":[
-         "name=Bart",
-            "matrNo=111",
-            "credits=0",
-            "motivation=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"S61 : Student",
-         "attributes":[
-         "name=Meggie",
-            "matrNo=112",
-            "credits=0",
-            "motivation=0"
-         ]
       }
    ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U24 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R29 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U24 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R33 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U24 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"rooms",
-            "id":"R36 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U24 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S57 : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"uni",
-            "id":"U24 : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"S61 : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R29 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R33 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R29 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R36 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R33 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"neighbors",
-            "id":"R36 : Room"
-         }
-      }
-   ]
+   "edges":null
 }   ;
    json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);

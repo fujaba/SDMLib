@@ -31,7 +31,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 
-public class Room implements PropertyChangeInterface
+public  class Room implements PropertyChangeInterface
 {
 
    
