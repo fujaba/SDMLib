@@ -68,7 +68,6 @@ public class ItemSet extends SDMSet<Item>
 
    
    //==========================================================================
-   
    public ItemSet init()
    {
       for (Item obj : this)
@@ -78,5 +77,4 @@ public class ItemSet extends SDMSet<Item>
       
       return this;
    }
-
 }

@@ -90,3 +90,6 @@ tasks.withType(JavaCompile) {
     //Suppress underscore warnings
     options.compilerArgs << '-Xlint:none'
 }
+
+
+defaultTasks = ['clean', 'jar']
