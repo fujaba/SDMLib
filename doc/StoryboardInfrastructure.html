@@ -116,7 +116,8 @@ phase entries will be used for planning, in future</p>
          "id":"C2 : Clazz",
          "attributes":[
          "external=false",
-            "interface=false"
+            "interface=false",
+            "abztract=false"
          ]
       },
       {
@@ -124,7 +125,8 @@ phase entries will be used for planning, in future</p>
          "id":"C10 : Clazz",
          "attributes":[
          "external=false",
-            "interface=false"
+            "interface=false",
+            "abztract=false"
          ]
       },
       {
@@ -132,7 +134,8 @@ phase entries will be used for planning, in future</p>
          "id":"C11 : Clazz",
          "attributes":[
          "external=false",
-            "interface=false"
+            "interface=false",
+            "abztract=false"
          ]
       },
       {
@@ -140,7 +143,8 @@ phase entries will be used for planning, in future</p>
          "id":"C15 : Clazz",
          "attributes":[
          "external=false",
-            "interface=false"
+            "interface=false",
+            "abztract=false"
          ]
       },
       {
@@ -148,7 +152,8 @@ phase entries will be used for planning, in future</p>
          "id":"C22 : Clazz",
          "attributes":[
          "external=false",
-            "interface=false"
+            "interface=false",
+            "abztract=false"
          ]
       },
       {
@@ -684,6 +689,19 @@ phase entries will be used for planning, in future</p>
             "id":"G24 : GenClassModel"
          },
          "target":{
+            "cardinality":"one",
+            "property":"showDiff",
+            "id":"G25 : GenClassModel$DIFF"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G24 : GenClassModel"
+         },
+         "target":{
             "cardinality":"many",
             "property":"associations",
             "id":"A8 : Association"
@@ -713,19 +731,6 @@ phase entries will be used for planning, in future</p>
             "cardinality":"many",
             "property":"associations",
             "id":"A20 : Association"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"genclassmodel",
-            "id":"G24 : GenClassModel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"showDiff",
-            "id":"G25 : GenClassModel$DIFF"
          }
       }
    ]

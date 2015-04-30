@@ -33,4 +33,15 @@ public class ItemPO extends PatternObject<ItemPO, Item>
       }
       newInstance(org.sdmlib.examples.simpleModel.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
+   
+   //==========================================================================
+   
+   public void init()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Item) getCurrentMatch()).init();
+      }
+   }
+
 }

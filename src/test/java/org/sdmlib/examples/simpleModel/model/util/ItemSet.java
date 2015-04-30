@@ -66,4 +66,17 @@ public class ItemSet extends SDMSet<Item>
       return this;
    }
 
+   
+   //==========================================================================
+   
+   public ItemSet init()
+   {
+      for (Item obj : this)
+      {
+         obj.init();
+      }
+      
+      return this;
+   }
+
 }

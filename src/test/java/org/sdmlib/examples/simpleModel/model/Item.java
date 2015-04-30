@@ -33,7 +33,7 @@ public class Item implements PropertyChangeInterface
    
    //==========================================================================
    
-    static void init(  )
+   public static void init(  )
    {
 System.out.println(new Date());   }
 

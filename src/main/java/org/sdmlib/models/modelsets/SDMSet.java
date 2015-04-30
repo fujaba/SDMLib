@@ -6,12 +6,37 @@ import java.util.Iterator;
 
 import org.sdmlib.CGUtil;
 
+import de.uniks.networkparser.list.SimpleIterator;
 import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.logic.Condition;
 
 
 public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
 {
+   // Added to cach iterators. Minor speedup. Serious multi threading problems. Have to think about it, again. Albert
+   private SimpleIterator oldIterator = null;
+
+   //   public static long noOfIteratorRequests = 0;
+   //   public static long noOfIteratorReuses = 0;
+
+   @Override
+   public Iterator<T> iterator()
+   {
+      // noOfIteratorRequests++;
+
+      // try to reuse old iterator 
+      if (oldIterator == null || ! oldIterator.isReusable())
+      {
+         oldIterator = (SimpleIterator) super.iterator();
+         return oldIterator;
+      }
+
+      // may reuse old
+      // noOfIteratorReuses++;
+      oldIterator.withList(this);
+      return oldIterator;
+   }
+   
    @Override
    public String toString()
    {

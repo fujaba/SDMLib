@@ -37,17 +37,6 @@ public class Token
 		return this.text.toString();
 	}
 
-	public boolean is(String string) 
-	{
-		return (this.kind == 'v' && string != null
-			&& string.equals(this.text.toString()));
-	}
-
-	public boolean is(char c) 
-	{
-		return this.kind == c;
-	}
-	
 	@Override
    public String toString()
 	{

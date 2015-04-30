@@ -25,14 +25,14 @@
       },
       {
          "typ":"node",
-         "id":"P4 : PeerProxy",
-         "attributes":[
-         "port=0"
-         ]
+         "id":"F4 : FetchFileFlow$TaskNames;"
       },
       {
          "typ":"node",
-         "id":"F5 : FetchFileFlow$TaskNames;"
+         "id":"P5 : PeerProxy",
+         "attributes":[
+         "port=0"
+         ]
       },
       {
          "typ":"node",
@@ -75,21 +75,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"fileServer",
-            "id":"P4 : PeerProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"fetchfileflow",
-            "id":"F1 : FetchFileFlow"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"taskNames",
-            "id":"F5 : FetchFileFlow$TaskNames;"
+            "id":"F4 : FetchFileFlow$TaskNames;"
          }
       },
       {
@@ -100,42 +87,29 @@
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"many",
-            "property":"subFlowTransitive",
-            "id":"F1 : FetchFileFlow"
+            "cardinality":"one",
+            "property":"fileServer",
+            "id":"P5 : PeerProxy"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"fetchfileflow",
-            "id":"F1 : FetchFileFlow"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"subFlowTransitive",
-            "id":"L6 : Logger"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"fetchfileflow",
-            "id":"F1 : FetchFileFlow"
-         },
-         "target":{
             "cardinality":"many",
             "property":"parentTransitive",
             "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"rootParent",
+            "id":"F1 : FetchFileFlow"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"fetchfileflow",
+            "property":"parent",
             "id":"F1 : FetchFileFlow"
          },
          "target":{
@@ -152,22 +126,9 @@
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"one",
-            "property":"rootParent",
-            "id":"F1 : FetchFileFlow"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"logger",
+            "cardinality":"many",
+            "property":"subFlowTransitive",
             "id":"L6 : Logger"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"F1 : FetchFileFlow"
          }
       },
       {
@@ -200,52 +161,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"logentry",
-            "id":"L7 : LogEntry"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"logger",
-            "id":"L6 : Logger"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"logentry",
+            "property":"parent",
             "id":"L7 : LogEntry"
          },
          "target":{
             "cardinality":"many",
             "property":"children",
             "id":"L8 : LogEntry"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"logentry",
-            "id":"L8 : LogEntry"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"L7 : LogEntry"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"logentry",
-            "id":"L9 : LogEntry"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"logger",
-            "id":"L6 : Logger"
          }
       }
    ]
