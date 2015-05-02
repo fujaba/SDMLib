@@ -30,7 +30,6 @@ import java.util.Set;
 import org.sdmlib.StrUtil;
 
 import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.list.SimpleList;
 
 public class Parser
 {

@@ -31,8 +31,6 @@ import org.sdmlib.models.modelsets.intList;
 
 public class SymTabEntrySet extends SDMSet<SymTabEntry>
 {
-   private static final long serialVersionUID = 1L;
-
    public StringList getKind()
    {
       StringList result = new StringList();
