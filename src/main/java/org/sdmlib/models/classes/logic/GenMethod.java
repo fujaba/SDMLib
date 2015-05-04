@@ -25,7 +25,7 @@ public class GenMethod extends Generator<Method>
       {
          getGenerator(annotation).generate(rootDir, helpersDir);
       }
-      
+
       // insertCaseInGenericGetSet(parser);
 
       Parser modelSetParser = generator.getOrCreateParserForModelSetFile(helpersDir);
@@ -64,12 +64,19 @@ public class GenMethod extends Generator<Method>
                ("\n   " +
                   "\n   //==========================================================================" +
                   "\n   modifiers returnType mehodName( parameter )");
-         text.append(
-            "\n   {" +
-               "\n      returnClause" +
-               "\n   }" +
-               "\n"
-            );
+         if (model.getModifier().has(Visibility.ABSTRACT))
+         {
+            text.append(";");
+         }
+         else
+         {
+            text.append(
+               "\n   {" +
+                  "\n      returnClause" +
+                  "\n   }" +
+                  "\n"
+               );
+         }
          String methodName = signature.substring(0, signature.indexOf("("));
          String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
          String returnClause = "";
@@ -347,8 +354,9 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodInPatternObject(Clazz clazz2, Parser parser)
    {
-      if(parser == null) {
-        return; 
+      if (parser == null)
+      {
+         return;
       }
       String signature = model.getSignature(false);
 
