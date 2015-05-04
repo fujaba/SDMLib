@@ -64,19 +64,12 @@ public class GenMethod extends Generator<Method>
                ("\n   " +
                   "\n   //==========================================================================" +
                   "\n   modifiers returnType mehodName( parameter )");
-         if (model.getModifier().has(Visibility.ABSTRACT))
-         {
-            text.append(";");
-         }
-         else
-         {
-            text.append(
-               "\n   {" +
-                  "\n      returnClause" +
-                  "\n   }" +
-                  "\n"
-               );
-         }
+         text.append(
+            "\n   {" +
+               "\n      returnClause" +
+               "\n   }" +
+               "\n"
+            );
          String methodName = signature.substring(0, signature.indexOf("("));
          String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
          String returnClause = "";
@@ -136,7 +129,7 @@ public class GenMethod extends Generator<Method>
                   "\n   //==========================================================================" +
                   "\n   modifiers returnType mehodName( parameter )");
 
-         if (clazz.isInterface())
+         if (clazz.isInterface() || model.getModifier().has(Visibility.ABSTRACT))
          {
             text.append(";\n");
          }
