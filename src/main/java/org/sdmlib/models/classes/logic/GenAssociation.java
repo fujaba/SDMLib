@@ -24,7 +24,7 @@ public class GenAssociation extends Generator<Association>
          sourceGenRole.generate(kidClass, rootDir, helperDir, model.getTarget(), ! needsImplementation);
       }
       
-      if (model.getSource().getName().equals(""))
+      if (model.getSource().getName()==null || model.getSource().getName().equals(""))
       {
          // uni directional assoc, do not generate reverse direction
          return this;

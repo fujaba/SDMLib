@@ -581,6 +581,9 @@ public class GenClassModel
          for (Role role : roles)
          {
             String name = role.getName();
+            if(name == null ) {
+            	name = "";
+            }
             if (name.equals(role.getPartnerRole().getName()))
             {
                // no problem,
