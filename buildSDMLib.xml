@@ -28,6 +28,7 @@
 			<classpath>
 				<pathelement location="lib/junit.jar"/>
 			</classpath>
+			<compilerarg value="-Xlint"/> 
 			<exclude name="test/**"/>
 		</javac>
 	</target>
@@ -45,6 +46,9 @@
 			<fileset dir="build/temp/" />
 			<fileset dir="./src/main/java">
 				<exclude name="**/test/**" />
+			</fileset>
+			<fileset dir="./src/main/resources">
+				<exclude name="**/replication/**" />
 			</fileset>
 			<fileset dir="../NetworkParser/src/main/java">
 				<exclude name="**/test/**" />

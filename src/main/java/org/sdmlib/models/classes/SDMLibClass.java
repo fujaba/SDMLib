@@ -25,7 +25,6 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public abstract class SDMLibClass implements PropertyChangeInterface
 {  
@@ -43,7 +42,7 @@ public abstract class SDMLibClass implements PropertyChangeInterface
    
    boolean setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
+      if ( ! StrUtil.stringEquals(this.name, value) && value!=null && value.length()>0)
       {
          String oldValue = this.name;
          this.name = value;

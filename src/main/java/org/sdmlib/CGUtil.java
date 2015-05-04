@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.TreeMap;
@@ -120,7 +121,8 @@ public class CGUtil
    public static String fill(String text, String... args)
    {
       StringBuilder builder = new StringBuilder(text);
-      replaceAll(builder, args);
+      Object[] params = Arrays.asList(args).toArray(new Object[args.length]);
+      replaceAll(builder, params);
       return builder.toString();
    }
    

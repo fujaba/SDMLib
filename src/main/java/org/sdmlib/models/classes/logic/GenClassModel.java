@@ -761,12 +761,14 @@ public class GenClassModel
    {
       StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
 
-      StackTraceElement firstStackTraceElement = stackTrace[0];
-      String callMethodName = firstStackTraceElement.getMethodName();
-
+//      StackTraceElement firstStackTraceElement = stackTrace[0];
+//      String callMethodName = firstStackTraceElement.getMethodName();
       StackTraceElement secondStackTraceElement = stackTrace[1];
       String className = secondStackTraceElement.getClassName();
-
+      insertModelCreationCodeHere(rootDir, className,  newMethod);
+   }
+   public void insertModelCreationCodeHere(String rootDir, String className, String newMethod)
+   {
       Clazz modelCreationClass = getOrCreateClazz(className);
       modelCreationClass.getClassModel().without(modelCreationClass);
       GenClass modelCreationGenerator = getOrCreate(modelCreationClass);
@@ -804,7 +806,7 @@ public class GenClassModel
          }
 
       });
-      currentInsertPos = insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos,
+      currentInsertPos = insertNewCreationClasses(modelCreationClass, signature, currentInsertPos,
             rootDir, sortedClazz);
 
       completeImports();
@@ -1595,7 +1597,7 @@ public class GenClassModel
       return type;
    }
 
-   private int createAndInsertCodeForNewClazz(String callMethodName, Clazz modelCreationClass, SymTabEntry symTabEntry,
+   private int createAndInsertCodeForNewClazz(Clazz modelCreationClass, SymTabEntry symTabEntry,
          Clazz clazz, LinkedHashMap<String, Clazz> handledClazzes,
          int currentInsertPos)
    {
@@ -1773,11 +1775,11 @@ public class GenClassModel
    private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
          int currentInsertPos, String rootDir)
    {
-      return insertNewCreationClasses(callMethodName, modelCreationClass, signature, currentInsertPos, rootDir,
+      return insertNewCreationClasses( modelCreationClass, signature, currentInsertPos, rootDir,
             new LinkedHashSet<Clazz>());
    }
 
-   private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
+   private int insertNewCreationClasses(Clazz modelCreationClass, String signature,
          int currentInsertPos, String rootDir, Set<Clazz> clazzQueue)
    {
 
@@ -1819,7 +1821,7 @@ public class GenClassModel
                }
 
                handledClazzes.put(modelClassName, clazz);
-               currentInsertPos = createAndInsertCodeForNewClazz(callMethodName, modelCreationClass,
+               currentInsertPos = createAndInsertCodeForNewClazz(modelCreationClass,
                      refreshMethodScan(signature, modelCreationClass, rootDir), clazz, handledClazzes, currentInsertPos);
             }
             writeToFile(modelCreationClass);
