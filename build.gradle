@@ -61,19 +61,26 @@ repositories {
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
     compile 'de.uniks:NetworkParser:4.2+:sources'
-    compile 'de.uniks:NetworkParserFX:4.2+:sources'
 }
-
 jacoco {
-	toolVersion = '0.7.1.201405082137'
-	//reportsDir = file("${buildDir}/jacoco")
+    toolVersion = "0.7.4.201502262128"
 }
-
 jacocoTestReport {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    executionData = files("$buildDir/jacoco/test.exec")
     reports {
-        xml.enabled true
+        xml {
+            enabled true
+            //Following value is a file
+            destination "${buildDir}/reports/jacoco/jacoco.xml"
+        }
         csv.enabled false
-        html.destination "${buildDir}/jacoco/html"
+        html {
+            enabled true
+            //Following value is a folder
+            destination "${buildDir}/reports/jacoco"
+        }
     }
 }
 
@@ -90,3 +97,6 @@ tasks.withType(JavaCompile) {
     //Suppress underscore warnings
     options.compilerArgs << '-Xlint:none'
 }
+
+
+defaultTasks = ['clean', 'jar']

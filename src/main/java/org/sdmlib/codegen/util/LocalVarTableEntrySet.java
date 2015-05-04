@@ -31,10 +31,6 @@ import org.sdmlib.models.modelsets.intList;
 
 public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
 {
-   private static final long serialVersionUID = 1L;
-
-
-
    public StringList getName()
    {
       StringList result = new StringList();

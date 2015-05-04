@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 Olaf Gunkel 
+   Copyright (c) 2015 zuendorf 
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -29,7 +29,7 @@ import org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.examples.studyrightWithAssignments.model.util.RoomSet;
 
-public class University implements PropertyChangeInterface
+public  class University implements PropertyChangeInterface
 {
 
    

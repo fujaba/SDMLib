@@ -53,8 +53,8 @@ public class ClassModel extends SDMLibClass
    
    public ClassModel(String packageName)
    {
+	  this();
       withName(packageName);
-      Feature.reset();
    }
    
 	public ClassModel generate()

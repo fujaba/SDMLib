@@ -28,7 +28,6 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeListener;
 
 public class StatementEntry implements PropertyChangeInterface
 {

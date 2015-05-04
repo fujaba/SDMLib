@@ -1083,7 +1083,7 @@ public class Storyboard implements PropertyChangeInterface
             {
                Class<?> creatorClass = this.getClass().getClassLoader().loadClass(creatorClassName);
                Method createIdMapMethod = creatorClass.getDeclaredMethod("createIdMap", String.class);
-               jsonIdMap = (JsonIdMap) createIdMapMethod.invoke(null, null);
+               jsonIdMap = (JsonIdMap) createIdMapMethod.invoke(null, new Object[0]);
                jsonIdMap.getLogger().withError(false);
             }
             catch (Exception e)

@@ -33,6 +33,7 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
 {
