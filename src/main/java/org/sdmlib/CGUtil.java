@@ -416,6 +416,19 @@ public class CGUtil
       
       return entries;
    }
+   
+   public static final String javaKeyWords = " abstract assert boolean break byte case catch char class const continue default do double else enum extends final finally float for if goto implements import instanceof int interface long native new package private protected public return short static strictfp super switch synchronized this throw throws transient try void volatile while ";
+
+   public static String toValidJavaId(String tag)
+   {
+      if (javaKeyWords.indexOf(" " + tag + " ") >= 0)
+      {
+         tag = "_" + tag;
+      }
+
+      return tag;
+   }
+
 }
 
 
