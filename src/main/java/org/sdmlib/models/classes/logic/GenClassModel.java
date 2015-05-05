@@ -397,7 +397,7 @@ public class GenClassModel
 
          for (Clazz clazz : this.getModel().getClasses())
          {
-            if (!clazz.isInterface() && !clazz.isExternal() && clazz.hasFeature(Feature.Serialization))
+            if (!clazz.isInterface() && !clazz.isExternal() && clazz.hasFeature(Feature.Serialization) && !clazz.isEnumeration())
             {
                insertCreatorClassInCreatorCreator(creatorCreatorParser, clazz);
             }

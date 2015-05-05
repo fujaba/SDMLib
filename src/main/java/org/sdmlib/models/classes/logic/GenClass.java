@@ -98,7 +98,7 @@ public class GenClass extends Generator<Clazz>
       }
 
       // now generate the corresponding ModelSet class
-      if (!model.isEnumeration() && model.hasFeature(Feature.Serialization))
+      if (model.hasFeature(Feature.Serialization))
       {
          getOrCreateParserForModelSetFile(helpersDir);
          printFile(modelSetParser);

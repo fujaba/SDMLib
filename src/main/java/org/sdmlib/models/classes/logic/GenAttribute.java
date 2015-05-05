@@ -453,19 +453,20 @@ public class GenAttribute extends Generator<Attribute>
    }
 
    private String checkSetImportFor(String type) {
-      Clazz findClass = model.getClazz().getClassModel().getGenerator().findClass(type);
-      if (findClass == null)
+//      Clazz findClass = model.getClazz().getClassModel().getGenerator().findClass(type);
+	  Clazz clazz = getModel().getClazz().getClassModel().getClazz(type);
+      if (clazz == null)
          return null;
       Clazz attributClass = model.getClazz();
-      String packageNameFromFindClass = CGUtil.packageName(findClass.getFullName());
+      String packageNameFromFindClass = CGUtil.packageName(clazz.getFullName());
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
-      if (findClass.isExternal())
+      if (clazz.isExternal())
       {
-         return packageNameFromFindClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
+         return packageNameFromFindClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(clazz.getFullName()) + "Set";
       }
-      else if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
+      if (!packageNameFromFindClass.equals(packageNameFromOwnerClass)) 
       {
-         return packageNameFromOwnerClass + GenClassModel.UTILPATH+"." + CGUtil.shortClassName(findClass.getFullName()) + "Set";
+         return packageNameFromOwnerClass + GenClassModel.UTILPATH+"." + CGUtil.shortClassName(clazz.getFullName()) + "Set";
       }
       return null;
    }
@@ -592,6 +593,11 @@ public class GenAttribute extends Generator<Attribute>
                "   \n");
 
          getGenerator(ownerClazz).insertImport(parser, AttributeConstraint.class.getName());
+         
+    	 Clazz clazz = model.getClazz().getClassModel().getClazz(model.getType().getValue());
+    	 if(clazz!=null) {
+    		 getGenerator(ownerClazz).insertImport(parser, clazz.getFullName());
+    	 }
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getFullName()) + "PO";
 
          String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser);
@@ -710,6 +716,11 @@ public class GenAttribute extends Generator<Attribute>
 
          if ( ! CGUtil.isPrimitiveType(fullModelSetType) && !fullModelSetType.contains("<") && !fullModelSetType.endsWith("Set")) 
          {
+             Clazz clazz = model.getClazz().getClassModel().getClazz(model.getType().getValue());
+             if(clazz!=null) {
+                 getGenerator(ownerClazz).insertImport(parser, clazz.getFullName());
+             }
+
             modelSetType = CGUtil.shortClassName(fullModelSetType) + "Set";
             fullModelSetType = CGUtil.packageName(fullModelSetType) + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(fullModelSetType)+ "Set";
             String importForSet = checkSetImportFor(CGUtil.shortClassName(dataType.getValue()));
@@ -972,36 +983,42 @@ public class GenAttribute extends Generator<Attribute>
          DataType dataType = model.getType();
          String type = dataType.getValue();
          type = CGUtil.shortClassName(type);
+         boolean modelClass=true;
          if ("int".equals(type))
          {
             typePlaceholder = "(type) value";
             type = "Integer.parseInt(value.toString())";
+            modelClass=false;
          }
          else if ("long".equals(type))
          {
             typePlaceholder = "(type) value";
             type = "Long.parseLong(value.toString())";
+            modelClass=false;
          }
          else if ("double".equals(type))
          {
             typePlaceholder = "(type) value";
             type = "Double.parseDouble(value.toString())";
+            modelClass=false;
          }
          else if ("float".equals(type))
          {
             typePlaceholder = "(type) value";
             type = "Float.parseFloat(value.toString())";
+            modelClass=false;
          }
          else if ("boolean".equals(type))
          {
             type = "Boolean";
+            modelClass=false;
          }
          else if (isEnumType(model, ownerClazz))
          {
         	 //Suit.valueOf((String)
             type = CGUtil.shortClassName(model.getType().getValue())+".valueOf((String) value)";
+            modelClass=false;
          }
-         
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameSetter = "with"+name+"((type) value)";
          if (isEnumType(model, ownerClazz)) {
@@ -1038,6 +1055,12 @@ public class GenAttribute extends Generator<Attribute>
          
          if (isEnumType(model, ownerClazz)){
         	 getGenerator(ownerClazz).insertImport(parser, model.getType().getValue());
+         }
+         if(modelClass) {
+             Clazz clazz = model.getClazz().getClassModel().getClazz(model.getType().getValue());
+             if(clazz!=null) {
+                 getGenerator(ownerClazz).insertImport(parser, clazz.getFullName());
+             }
          }
       }
    }
