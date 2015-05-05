@@ -116,7 +116,7 @@ public class ClassModel extends SDMLibClass
 	{
 	   for (Clazz c : getClasses())
       {
-         if (c.getName().endsWith(name))
+		 if (c.getName().equals(name) || c.getName().endsWith("."+name))
          {
             return c;
          }

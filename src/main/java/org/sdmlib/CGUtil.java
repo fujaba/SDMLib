@@ -428,8 +428,10 @@ public class CGUtil
 
       return tag;
    }
+   public static final String emfTypes = " EOBJECT EBIG_DECIMAL EBOOLEAN EBYTE EBYTE_ARRAY ECHAR EDATE EDOUBLE EFLOAT EINT EINTEGER ELONG EMAP ERESOURCE ESHORT ESTRING ";
 
+   public static boolean isEMFType(String tag)
+   {
+      return emfTypes.indexOf(" " + tag.toUpperCase() + " ")>=0;
+   }
 }
-
-
-

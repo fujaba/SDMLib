@@ -506,8 +506,12 @@ public class GenClassModel
 
             if (clazz == null)
             {
-               // class is missing, create it.
-               model.createClazz(typeName).withExternal(true);
+            	// class is missing, create it.
+            	if(typeName.indexOf(".")>=0) {
+            		model.createClazz(typeName).withExternal(true);
+            	}else{
+            		model.createClazz(typeName);
+            	}
             }
          }
       }

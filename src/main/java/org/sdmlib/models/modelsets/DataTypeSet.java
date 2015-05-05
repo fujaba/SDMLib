@@ -21,14 +21,11 @@
    
 package org.sdmlib.models.modelsets;
 
-import java.util.ArrayList;
-
 import org.sdmlib.models.classes.DataType;
+import de.uniks.networkparser.list.SimpleList;
 
-public class DataTypeSet extends ArrayList<DataType>
+public class DataTypeSet extends SimpleList<DataType>
 {
-   private static final long serialVersionUID = 1L;
-   
    @Override
    public String toString()
    {      
