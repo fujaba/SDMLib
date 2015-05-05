@@ -520,7 +520,6 @@ public class GenClass extends Generator<Clazz>
                "\n   " +
                "\n   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);" +
                "\n   " +
-               "\n   @Override" +
                "\n   public PropertyChangeSupport getPropertyChangeSupport()" +
                "\n   {" +
                "\n      return listeners;" +
@@ -1161,7 +1160,6 @@ public class GenClass extends Generator<Clazz>
       {
          StringBuilder text = new StringBuilder(
                "\n\n" +
-                  "   @Override\n" +
                   "   public String getEntryType()\n" +
                   "   {\n" +
                   "      return \"ModelType\";\n" +

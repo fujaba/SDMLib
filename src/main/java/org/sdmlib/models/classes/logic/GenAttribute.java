@@ -628,7 +628,7 @@ public class GenAttribute extends Generator<Attribute>
       int pos = parser.indexOf(key);
       int enumPos = -1;
       
- 	 boolean isEnum = isEnumType(model, ownerClazz);
+ 	 boolean isEnum = isEnumType(model, ownerClazz, false);
 	if (isEnum) {
  		 String enumKey = Parser.METHOD + ":has"
               + StrUtil.upFirstChar(CGUtil.shortClassName(model.getName())) + "("+CGUtil.shortClassName(model.getType().getValue())+")";
@@ -652,7 +652,7 @@ public class GenAttribute extends Generator<Attribute>
 				                + "\n";
     	  
     	 // no getter vor enum
-    	 if (isEnumType(model, ownerClazz)) {
+    	 if (isEnumType(model, ownerClazz, false)) {
     		 getterString ="";
     	 }
     	  
@@ -725,7 +725,7 @@ public class GenAttribute extends Generator<Attribute>
             fullModelSetType = CGUtil.packageName(fullModelSetType) + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(fullModelSetType)+ "Set";
             String importForSet = checkSetImportFor(CGUtil.shortClassName(dataType.getValue()));
             
-            if (!isEnumType(model, ownerClazz)) {
+            if (!isEnumType(model, ownerClazz, false)) {
             
 	            if(importForSet != null)
 	            {
@@ -984,7 +984,8 @@ public class GenAttribute extends Generator<Attribute>
          String type = dataType.getValue();
          type = CGUtil.shortClassName(type);
          boolean modelClass=true;
-         if ("int".equals(type))
+         boolean isEnum = false;
+		if ("int".equals(type))
          {
             typePlaceholder = "(type) value";
             type = "Integer.parseInt(value.toString())";
@@ -1013,15 +1014,20 @@ public class GenAttribute extends Generator<Attribute>
             type = "Boolean";
             modelClass=false;
          }
-         else if (isEnumType(model, ownerClazz))
+         else if (isEnumType(model, ownerClazz, false))
          {
         	 //Suit.valueOf((String)
             type = CGUtil.shortClassName(model.getType().getValue())+".valueOf((String) value)";
             modelClass=false;
-         }
+            isEnum = true;
+         } else if (isEnumType(model, ownerClazz, true)) {
+             type = CGUtil.shortClassName(model.getType().getValue())+".valueOf((String) value)";
+             isEnum = true;
+      	 }
+
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameSetter = "with"+name+"((type) value)";
-         if (isEnumType(model, ownerClazz)) {
+         if (isEnum) {
         	 attrNameSetter = "with"+name+"(type)";
          }
          if(model.getVisibility().same(Visibility.PUBLIC)){
@@ -1053,7 +1059,7 @@ public class GenAttribute extends Generator<Attribute>
         		 getGenerator(ownerClazz).insertImport(parser, iMport);
          }
          
-         if (isEnumType(model, ownerClazz)){
+         if (isEnumType(model, ownerClazz, false)){
         	 getGenerator(ownerClazz).insertImport(parser, model.getType().getValue());
          }
          if(modelClass) {
@@ -1134,11 +1140,17 @@ public class GenAttribute extends Generator<Attribute>
       return this;
    }
 
-	public boolean isEnumType(Attribute model, Clazz clazz) {
+	public boolean isEnumType(Attribute model, Clazz clazz, boolean shortName) {
 		DataType dataType = model.getType();
 		String value = dataType.getValue();
 		for (Enumeration enumeration : clazz.getClassModel().getEnumerations()) {
-			String fullName = enumeration.getFullName();
+			String fullName;
+			if(shortName) {
+				fullName = enumeration.getName();
+			}else{
+				fullName = enumeration.getFullName();
+			}
+			
 			if (value.equals(fullName)) {
 				return true;
 			}
