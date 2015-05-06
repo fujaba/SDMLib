@@ -71,7 +71,8 @@ public class GenClass extends Generator<Clazz>
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
             insertInterfaceMethods(model, rootDir, helpersDir);
-            insertRemoveYouMethod(rootDir);
+            if (model.hasFeature(Feature.REMOVEYOUMETHOD))
+            	insertRemoveYouMethod(rootDir);
 
             if (model.hasFeature(Feature.Serialization))
                insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
@@ -92,7 +93,9 @@ public class GenClass extends Generator<Clazz>
          if (getRepairClassModel().hasFeature(Feature.Serialization))
          {
             getOrCreateParserForCreatorClass(helpersDir);
-            insertRemoveObjectInCreatorClass();
+            if (model.hasFeature(Feature.REMOVEYOUMETHOD)) {
+            	insertRemoveObjectInCreatorClass();
+            }
             printFile(creatorParser);
          }
       }

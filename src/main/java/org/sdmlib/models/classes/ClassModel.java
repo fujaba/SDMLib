@@ -250,6 +250,25 @@ public class ClassModel extends SDMLibClass
       }
       return this;
    }
+   
+   public ClassModel withoutFeature(Feature... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Feature item : value)
+      {
+         if (item != null)
+         {
+            if ( this.features.remove(item))
+            {
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, item, null);
+            }
+         }
+      }
+      return this;
+   }
+ 
    public ClassModel withFeatures(HashSet<Feature> value)
    {
 		if (value == null) {

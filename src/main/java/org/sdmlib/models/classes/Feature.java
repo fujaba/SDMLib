@@ -7,7 +7,8 @@ public enum Feature
    PropertyChangeSupport(new FeatureProperty()),
    PatternObject(new FeatureProperty()),
    Serialization(new FeatureProperty()),
-   ALBERTsSets(new FeatureProperty());
+   ALBERTsSets(new FeatureProperty()),
+   REMOVEYOUMETHOD(new FeatureProperty());
    
    private FeatureProperty feature;
    
@@ -26,6 +27,7 @@ public enum Feature
       result.add(PatternObject);
       result.add(Serialization);
       result.add(ALBERTsSets);
+      result.add(REMOVEYOUMETHOD);
       return result;
    }
    
