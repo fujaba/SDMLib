@@ -1823,7 +1823,7 @@ public class Storyboard implements PropertyChangeInterface
 
    public void dumpDiagram(PatternObject<?, ?> po, String name)
    {
-      po.getPattern().dumpDiagram(name);
+      add(po.getPattern().dumpDiagram(name));
    }
 
    public static class RestrictToFilter extends ConditionMap

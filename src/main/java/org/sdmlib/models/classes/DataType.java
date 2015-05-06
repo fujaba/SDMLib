@@ -28,6 +28,7 @@ public class DataType
    public static final DataType STRING = getInstance("String");
    public static final DataType BOOLEAN = getInstance("boolean");
    public static final DataType OBJECT = getInstance("Object");
+   public static final DataType CHARACTER = getInstance("char");
 
    private String value;
 
