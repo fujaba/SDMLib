@@ -199,7 +199,10 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"A8 : Association"
+         "id":"A8 : Association",
+         "attributes":[
+         "name="
+         ]
       },
       {
          "typ":"node",
@@ -221,7 +224,10 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"A13 : Association"
+         "id":"A13 : Association",
+         "attributes":[
+         "name="
+         ]
       },
       {
          "typ":"node",
@@ -264,7 +270,10 @@ phase entries will be used for planning, in future</p>
       },
       {
          "typ":"node",
-         "id":"A20 : Association"
+         "id":"A20 : Association",
+         "attributes":[
+         "name="
+         ]
       },
       {
          "typ":"node",
@@ -689,19 +698,6 @@ phase entries will be used for planning, in future</p>
             "id":"G24 : GenClassModel"
          },
          "target":{
-            "cardinality":"one",
-            "property":"showDiff",
-            "id":"G25 : GenClassModel$DIFF"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"genclassmodel",
-            "id":"G24 : GenClassModel"
-         },
-         "target":{
             "cardinality":"many",
             "property":"associations",
             "id":"A8 : Association"
@@ -731,6 +727,19 @@ phase entries will be used for planning, in future</p>
             "cardinality":"many",
             "property":"associations",
             "id":"A20 : Association"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G24 : GenClassModel"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"showDiff",
+            "id":"G25 : GenClassModel$DIFF"
          }
       }
    ]

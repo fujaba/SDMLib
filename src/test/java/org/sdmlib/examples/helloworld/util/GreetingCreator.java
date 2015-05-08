@@ -14,6 +14,7 @@ public class GreetingCreator extends EntityFactory
       Greeting.PROPERTY_TEXT,
       Greeting.PROPERTY_GREETINGMESSAGE,
       Greeting.PROPERTY_PERSON,
+      Greeting.PROPERTY_TGT,
    };
    
    @Override
@@ -46,6 +47,11 @@ public class GreetingCreator extends EntityFactory
          return ((Greeting) target).getPerson();
       }
 
+      if (Greeting.PROPERTY_TGT.equalsIgnoreCase(attrName))
+      {
+         return ((Greeting) target).getTgt();
+      }
+
       return null;
    }
    
@@ -72,6 +78,12 @@ public class GreetingCreator extends EntityFactory
       if (Greeting.PROPERTY_PERSON.equalsIgnoreCase(attrName))
       {
          ((Greeting) target).setPerson((Person) value);
+         return true;
+      }
+
+      if (Greeting.PROPERTY_TGT.equalsIgnoreCase(attrName))
+      {
+         ((Greeting) target).setTgt((Greeting) value);
          return true;
       }
 

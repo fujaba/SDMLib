@@ -31,6 +31,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.examples.helloworld.util.GreetingMessageSet;
 import org.sdmlib.examples.helloworld.util.PersonSet;
+import org.sdmlib.examples.helloworld.util.GreetingSet;
 
 public class GreetingSet extends SDMSet<Greeting>
 {
@@ -211,6 +212,81 @@ public class GreetingSet extends SDMSet<Greeting>
 
 
    public static final GreetingSet EMPTY_SET = new GreetingSet().withReadOnly(true);
+   public GreetingSet getTgt()
+   {
+      GreetingSet result = new GreetingSet();
+      
+      for (Greeting obj : this)
+      {
+         result.add(obj.getTgt());
+      }
+      
+      return result;
+   }
+
+   public GreetingSet hasTgt(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      GreetingSet answer = new GreetingSet();
+      
+      for (Greeting obj : this)
+      {
+         if (neighbors.contains(obj.getTgt()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+
+   public GreetingSet getTgtTransitive()
+   {
+      GreetingSet todo = new GreetingSet().with(this);
+      
+      GreetingSet result = new GreetingSet();
+      
+      while ( ! todo.isEmpty())
+      {
+         Greeting current = todo.first();
+         
+         todo.remove(current);
+         
+         if ( ! result.contains(current))
+         {
+            result.add(current);
+            
+            if ( ! result.contains(current.getTgt()))
+            {
+               todo.with(current.getTgt());
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   public GreetingSet withTgt(Greeting value)
+   {
+      for (Greeting obj : this)
+      {
+         obj.withTgt(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

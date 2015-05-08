@@ -20,17 +20,23 @@
  permissions and limitations under the Licence.
 */
 "use strict";
-var Object_create = Object.create || function (o) { var F = function() {};F.prototype = o; return new F();};
-function isIE () {var myNav = navigator.userAgent.toLowerCase();return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;}
+//var uniId = 0;
+//function generateId() { return uniId++; };
+//Object.prototype.uniId = function() {
+//	var newId = generateId();
+//	this.uniId = function() { return newId; };
+//	return newId;
+//};
+var Object_create = Object.create || function (o) {var F = function() {};F.prototype = o;return new F();};
 /* Pos */
-var Pos = function(x, y, id) {this.x = x || 0; this.y = y || 0; if(id){this.id = id;} };
+var Pos = function(x, y, id) {this.x = Math.round(x || 0); this.y = Math.round(y || 0); if(id){this._id = id;} };
 /* GraphUtil */
 var GraphUtil = function(ns){if(ns) {this.ns = ns;}};
-GraphUtil.prototype.copy = function(ref, src, full) {
+GraphUtil.prototype.copy = function(ref, src, full, replace) {
 	if(src){
 		var i;
 		for(i in src){
-			if(!src.hasOwnProperty(i)){
+			if(!src.hasOwnProperty(i) || typeof(src[i])==="function"){
 				continue;
 			}
 			if(i.charAt(0)==="_"){
@@ -38,6 +44,10 @@ GraphUtil.prototype.copy = function(ref, src, full) {
 				continue;
 			}
 			if(typeof(src[i])=="object") {
+				if(replace) {
+					ref[i] = src[i];
+					continue;
+				}
 				if(!ref[i]){
 					if(src[i] instanceof Array) {
 						ref[i] = [];
@@ -47,6 +57,9 @@ GraphUtil.prototype.copy = function(ref, src, full) {
 				}
 				this.copy(ref[i], src[i], full);
 			}else{
+				if(src[i]===""){
+					continue;
+				}
 				ref[i] = src[i];
 			}
 		}
@@ -54,6 +67,48 @@ GraphUtil.prototype.copy = function(ref, src, full) {
 		if(src.height){ref._startHeight = src.height;}
 	}
 	return ref;
+};
+GraphUtil.prototype.minJson = function(target, src, ref) {
+	for(var i in src){
+		if(!src.hasOwnProperty(i) || typeof(src[i])==="function"){
+			continue;
+		}
+		if(src[i]===null || src[i]==="" ||src[i]===0 || src[i]===false || i.charAt(0)==="_"){
+			continue;
+		}
+		var temp, value = src[i];
+		if(value instanceof Options || ref != null){
+			if(typeof(value)=="object") {
+				temp = (value instanceof Array) ? [] : {};
+				if(ref){
+					value = this.minJson(temp, value, ref[i]);
+				}else{
+					value = this.minJson(temp, value, new Options());
+				}
+			}
+			if(ref && value===ref[i]) {
+				continue;
+			}
+			
+		}
+		if(typeof(value)=="object") {
+			if(value instanceof Array && value.length<1) {
+				continue;
+			}
+			if(value instanceof Array) {
+				target[i] = this.minJson([], value);
+			}else{
+				var newItem = this.minJson({}, value);
+				if(JSON.stringify(newItem, null, "")==="{}"){
+					continue;
+				}
+				target[i] = newItem;
+			}
+		}else{
+			target[i] = value;
+		}
+	}
+	return target;
 };
 GraphUtil.prototype.bind = function(el, eventName, eventHandler) {
 	if (el.addEventListener){
@@ -64,7 +119,6 @@ GraphUtil.prototype.bind = function(el, eventName, eventHandler) {
 };
 GraphUtil.prototype.create = function(node){
 	var item;
-	
 	if(document.createElementNS && (node.xmlns || this.ns )){
 		if(node.xmlns) {
 			item = document.createElementNS(node.xmlns, node.tag);
@@ -157,10 +211,10 @@ GraphUtil.prototype.create = function(node){
 	}
 	return item;
 };
-GraphUtil.prototype.getModel = function(element) {
-	while(!element.model) {
+GraphUtil.prototype.getModelNode = function(element) {
+	if(!element.model) {
 		if(element.parentElement){
-			return this.getModel(element.parentElement);
+			return this.getModelNode(element.parentElement);
 		}
 		return null;
 	}
@@ -168,16 +222,51 @@ GraphUtil.prototype.getModel = function(element) {
 };
 GraphUtil.prototype.getValue = function(value) {return parseInt(("0"+value).replace("px",""));};
 GraphUtil.prototype.isIE = function() {return document.all&&!window.opera;};
-
+GraphUtil.prototype.isFireFox = function() {return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;};
+GraphUtil.prototype.isOpera = function() {return navigator.userAgent.indexOf("Opera")> -1;};
+GraphUtil.prototype.getEventX = function(event) {return (this.isIE) ? window.event.clientX : event.pageX;};
+GraphUtil.prototype.getEventY = function(event) {return (this.isIE) ? window.event.clientY : event.pageY;};
+GraphUtil.prototype.set = function(id, value){if(value){this[id]=value;}};
+GraphUtil.prototype.selectText = function(text) {
+	var range;
+	if (this.isIE()) {
+		range = document.body.createTextRange();
+		range.moveToElementText(text);
+		range.select();
+	} else if (this.isFireFox() || this.isOpera()) {
+		var selection = window.getSelection();
+		range = document.createRange();
+		range.selectNodeContents(text);
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
+};
+GraphUtil.prototype.sizeHTML = function(html, node){
+	if(!html) {return;}
+	if(this._parent) {
+		return this._parent.sizeHTML(html, node);
+	}
+	this.board.appendChild(html);
+	var rect = html.getBoundingClientRect();
+	this.board.removeChild(html);
+	if(node){
+		if(!node._startWidth){
+			node.width=Math.round(rect.width);
+		}
+		if(!node._startHeight){
+			node.height=Math.round(rect.height);
+		}
+	}
+	return rect;
+};
 /* Node */
 var GraphNode = function(id) {
 	this.typ = "node";
 	this.id = id;
-	this.edges = [];
+	this._edges = [];
 	this.attributes = [];
 	this.methods = [];
 	this._parent=null;
-	this._RIGHT = this._LEFT = this._UP = this._DOWN=0;
 	this.x = this.y = this.width = this.height=0;
 	this._isdraggable = true;
 };
@@ -193,22 +282,16 @@ var GraphModel=function(json, options){
 	this.left=json.left || 0;
 	this.top=json.top || 0;
 	this.x = this.y = this.width = this.height=0;
-	this.nodeCount=0;
+	this._nodeCount=0;
 	this.nodes = {};
 	this.edges = [];
 	json = json || {};
 	this.typ = json.typ || "classdiagram";
-	if(json.id) {
-		this.id = json.id;
-	}
-	this.options = this.copy(this.copy(new Options(), json.options), options, true);
+	this.set("id", json.id);
+	this.options = this.copy(this.copy(new Options(), json.options), options, true, true);
 	this.package = "";
-	if(json.info){
-		this.info = json.info;
-	}
-	if(json.style){
-		this.style = json.style;
-	}
+	this.set("info", json.info);
+	this.set("style", json.style);
 	var i;
 	if(json.nodes) {
 		for (i = 0; i < json.nodes.length; i++) {
@@ -217,31 +300,41 @@ var GraphModel=function(json, options){
 	}
 	if(json.edges) {
 		for (i = 0; i < json.edges.length; i++){
-			var e = json.edges[i];
-			var edge;
-			var typ=e.typ.charAt(0).toUpperCase()+e.typ.substring(1).toLowerCase();
-			if(typeof window[typ] === "function") {
-				edge = eval("new "+typ+"()");
-			}else {
-				edge = new Edge();
-			}
-			edge.sourceInfo = new Info(e.source, this, edge);
-			edge.targetInfo = new Info(e.target, this, edge);
-			edge.source = this.getNode(edge.sourceInfo.id, true);
-			edge.info = e.info;
-			edge.style = e.style;
-			edge.source.edges.push(edge);
-			edge.model = this;
-			if(e.counter) {
-				edge.counter = e.counter;
-			}
-			edge.target = this.getNode(edge.targetInfo.id, true);
-			edge.target.edges.push(edge);
-			this.edges.push(edge);
+			this.addEdgeModel(json.edges[i]);
 		}
 	}
 };
 GraphModel.prototype = Object_create(GraphNode.prototype);
+GraphModel.prototype.addEdgeModel = function(e) {
+	var typ=e.typ.charAt(0).toUpperCase()+e.typ.substring(1).toLowerCase();
+	var edge;
+	if(typeof window[typ] === "function") {
+		edge = eval("new "+typ+"()");
+	}else {
+		edge = new Edge();
+	}
+	edge.source = new Info(e.source, this);
+	edge.target = new Info(e.target, this);
+	edge._sNode = this.getNode(edge.source.id, true);
+	edge._sNode._edges.push(edge);
+	
+	if(e.info){
+		if(typeof(e.info)==="string"){
+			edge.info = {id:e.info};
+		}else{
+			edge.info = {id:e.info.id, property: e.info.property, cardinality: e.info.cardinality};
+		}
+	}
+	edge._parent = this;
+	edge.set("style", e.style);
+	edge.set("counter", e["counter"]);
+
+	edge._tNode = this.getNode(edge.target.id, true);
+	edge._tNode._edges.push(edge);
+
+	this.edges.push(edge);
+	return edge;
+};
 GraphModel.prototype.addNode = function(node) {
 	/* testing if node is already existing in the graph */
 	if(typeof(node)=="string"){
@@ -249,7 +342,7 @@ GraphModel.prototype.addNode = function(node) {
 	}
 	node.typ = node.typ.toLowerCase();
 	if(!(node.id)){
-		node.id = node.typ+"_"+(this.nodeCount+1);
+		node.id = node.typ+"_"+(this._nodeCount+1);
 	}
 	if(this.nodes[node.id] != undefined) {
 		return this.nodes[node.id];
@@ -261,29 +354,32 @@ GraphModel.prototype.addNode = function(node) {
 	}
 	this.nodes[node.id] = node;
 	node._parent = this;
-	this.nodeCount++;
+	this._nodeCount++;
 	return this.nodes[node.id];
 };
 GraphModel.prototype.addEdge = function(source, target) {
 	var edge = new Edge();
-	edge.source = this.addNode(source);
-	edge.target = this.addNode(target);
-	edge.source.edges.push(edge);
+	edge._sNode = this.addNode(source);
+	edge._sNode._edges.push(edge);
+
+	edge._tNode = this.addNode(target);
+	edge._tNode._edges.push(edge);
+
 	this.edges.push(edge);
-	edge.target.edges.push(edge);
 	return edge;
 };
 GraphModel.prototype.removeNode = function(id) {
 	delete(this.nodes[id]);
 
 	for(var i = 0; i < this.edges.length; i++) {
-		if (this.edges[i].source.id == id || this.edges[i].target.id == id) {
+		if (this.edges[i]._sNode.id == id || this.edges[i]._tNode.id == id) {
 			this.edges.splice(i, 1);
 			i--;
 		}
 	}
 };
-GraphModel.prototype.getNode = function(id, isSub) {
+GraphModel.prototype.getNode = function(id, isSub, deep) {
+	deep = deep || 0;
 	if(this.nodes[id]) {
 		return this.nodes[id];
 	}
@@ -291,14 +387,19 @@ GraphModel.prototype.getNode = function(id, isSub) {
 		return this.addNode(id);
 	}
 	for(var i in this.nodes) {
-
+		if(!this.nodes.hasOwnProperty(i)) {
+			continue;
+		}
 		var n = this.nodes[i];
 		if(n instanceof GraphModel) {
-			var r = n.getNode(id, isSub);
+			var r = n.getNode(id, isSub, deep+1);
 			if(r) {
 				return r;
 			}
 		}
+	}
+	if(deep==0){
+		return this.addNode(id);
 	}
 	return null;
 };
@@ -308,39 +409,60 @@ GraphModel.prototype.removeFromBoard = function(board){
 	if(this._gui)
 		{board.removeChild(this._gui);this._gui = null;}
 };
+GraphModel.prototype.calcLines = function(drawer){
+	var ownAssoc = [];
+	var i;
+	for(i in this.nodes) {
+		if(!this.nodes.hasOwnProperty(i) || typeof(this.nodes[i])==="function"){
+			continue;
+		}
+		var n = this.nodes[i];
+		n._RIGHT = n._LEFT = n._UP = n._DOWN=0;
+	}
+	for(i = 0; i < this.edges.length; i++) {
+		if(!this.edges[i].calculate(this._gui, drawer)){
+			ownAssoc.push(this.edges[i]);
+		}
+	}
+	for(i = 0; i < ownAssoc.length; i++) {
+		ownAssoc[i].calcOwnEdge();
+		var sourcePos = ownAssoc[i].getCenterPosition(ownAssoc[i]._sNode, ownAssoc[i]._start);
+		ownAssoc[i].calcInfoPos( sourcePos, ownAssoc[i]._sNode, ownAssoc[i].source);
+
+		sourcePos = ownAssoc[i].getCenterPosition(ownAssoc[i]._tNode, ownAssoc[i]._end);
+		ownAssoc[i].calcInfoPos( sourcePos, ownAssoc[i]._tNode, ownAssoc[i].target);
+	}
+};
+
 /* Info */
-var Info = function(info, parent, edge) {
+var Info = function(info, parent) {
 	if(typeof(info)==="string"){
 		this.id = info; 
 	}else{
-		this.property = info.property; 
-		this.cardinality = info.cardinality; 
+		if(info.property){this.property = info.property;}
+		if(info.cardinality){this.cardinality = info.cardinality;}
 		this.id = info.id; 
 	}
-	this.typ = "Info";
 	this.x = this.y = this.width = this.height = 0;
 	this._center=new Pos();
 	this.custom = false;
 	this._parent = parent;
-	this.edge = edge;
 	this._isdraggable = true;
 };
 
-var Line = function(source, target, line, style) {this.source = source; this.target = target; this.line = line; this.style = style;}
+var Line = function(source, target, line, style) {this.source = source; this.target = target; this.line = line; this.style = style;};
 Line.Format={SOLID:"SOLID", DOTTED:"DOTTED"};
 /* Options */
 var Options = function(){
-	this.canvasid = null;
 	this.raster = false;
 	this.display = "svg";
 	this.font={"font-size":"10px", "font-family": "Verdana"};
-	this.layout= {name:"Dagre", rank:"TB", nodesep:10};	// Dagre TB, LR
+	this.layout= {name:"Dagre", rankDir:"TB", nodesep:10};	// Dagre TB, LR
 	this.CardinalityInfo = true;
 	this.PropertyInfo = true;
 	this.rotateText = true;
 	this.buttons = ["HTML", "SVG"];	// ["HTML", "SVG", "PNG", "PDF"]
 };
-
 //				######################################################### Graph #########################################################
 var Graph = function(json, options) {
 	this.x = this.y = this.width = this.height=0;
@@ -375,19 +497,14 @@ var Graph = function(json, options) {
 	}
 };
 Graph.prototype = Object_create(GraphNode.prototype);
-Graph.prototype.initLayouts=function(){ this.layouts=[{name:"dagre", value:new DagreLayout()}];}
+Graph.prototype.initLayouts=function(){ this.layouts=[{name:"dagre", value:new DagreLayout()}];};
 Graph.prototype.initInfo = function(edge, info){
 	if(!this.model.options.CardinalityInfo && !this.model.options.PropertyInfo){
 		return null;
-	}	
+	}
 	var infoTxt = edge.getInfo(info);
 	if(infoTxt.length > 0) {
-		var html = this.drawer.createInfo(info, true, infoTxt, 0);
-		if(html){
-			var pos = this.getDimension(html);
-			info.width = pos.x;
-			info.height = pos.y;
-		}
+		this.sizeHTML(this.drawer.createInfo(info, infoTxt, 0), info);
 	}
 	return infoTxt;
 };
@@ -395,6 +512,9 @@ Graph.prototype.clearBoard = function(){
 	if(this.board){
 		this.clearLines(this.model);
 		for(var i in this.model.nodes) {
+			if(!this.model.nodes.hasOwnProperty(i)){
+				continue;
+			}
 			var n=this.model.nodes[i];
 			n.removeFromBoard(this.board);
 			n._RIGHT = n._LEFT = n._UP = n._DOWN=0;
@@ -405,47 +525,12 @@ Graph.prototype.clearBoard = function(){
 		this.drawer.clearBoard();
 	}
 };
-Graph.prototype.getDimension = function(html){
-	if(this._parent){
-		return this._parent.getDimension(html);
-	}
-	if(!this.board){
-		return new Pos();
-	}
-	this.board.appendChild(html);
-	var rect = null;
-	try {
-		rect = html.getBoundingClientRect();
-	} catch(e) {
-		rect = { top: 10, left: 10, width: 150, height: 100};
-	}
-	var pos = new Pos(rect.width, rect.height);
-	this.board.removeChild(html);
-	return pos;
-};
 Graph.prototype.addNode = function(node) {return this.model.addNode(node);};
 Graph.prototype.addEdge = function(source, target) {return this.model.addEdge(source, target);};
 Graph.prototype.removeNode = function(id) {return this.model.removeNode(id);};
 Graph.prototype.calcLines = function(model){
-	var ownAssoc = [];
 	model = model || this.model;
-	for(var i in model.nodes) {
-		var n = model.nodes[i];
-		n._RIGHT = n._LEFT = n._UP = n._DOWN=0;
-	}
-	for(var i = 0; i < model.edges.length; i++) {
-		if(!model.edges[i].calculate(model._gui, this.drawer)){
-			ownAssoc.push(model.edges[i]);
-		}
-	}
-	for(var i = 0; i < ownAssoc.length; i++) {
-		ownAssoc[i].calcOwnEdge();
-		var sourcePos = ownAssoc[i].getCenterPosition(ownAssoc[i].source, ownAssoc[i].start);
-		ownAssoc[i].calcInfoPos( sourcePos, ownAssoc[i].source, ownAssoc[i].sourceInfo, -1);
-
-		sourcePos = ownAssoc[i].getCenterPosition(ownAssoc[i].target, ownAssoc[i].end);
-		ownAssoc[i].calcInfoPos( sourcePos, ownAssoc[i].target, ownAssoc[i].targetInfo, -1);
-	}
+	model.calcLines(this.drawer);
 };
 Graph.prototype.drawLines = function(model){
 	this.clearLines(model);
@@ -455,33 +540,33 @@ Graph.prototype.drawLines = function(model){
 };
 Graph.prototype.clearLines = function(model){
 	for(var i=0; i<model.edges.length;i++) {
-		var e = model.edges[i];
-		if(e._gui){
-			while(e._gui.length>0){
-				this.board.removeChild(e._gui.pop());
-			}
-		}
+		model.edges[i].removeFromBoard(this.board);
 	}
 };
 Graph.prototype.MinMax = function(node, min, max){
-	max.x = Math.max(max.x,node.x+node.width+10);
-	max.y=Math.max(max.y,node.y+node.height+10);
+	max.x = Math.max(max.x,node.x+Number(node.width)+10);
+	max.y=Math.max(max.y,node.y+Number(node.height)+10);
 	min.x=Math.max(min.x,node.x);
 	min.y=Math.max(min.y,node.y);
 };
 Graph.prototype.resize = function(model){
 	var min=new Pos();
 	var max=new Pos(model.minSize.x, model.minSize.y);
-	for (var i in model.nodes) {
-		var n = model.nodes[i];
+	var i;
+	var nodes=model.nodes;
+	for (i in nodes) {
+		if(!nodes.hasOwnProperty(i) || typeof(nodes[i])==="function") {
+			continue;
+		}
+		var n = nodes[i];
 		this.moveToRaster(n);
 		this.MinMax(n, min, max);
 	}
 	this.calcLines(model);
-	for(var i=0;i<model.edges.length;i++){
+	for(i=0;i<model.edges.length;i++){
 		var e=model.edges[i];
-		this.MinMax(e.sourceInfo, min, max);
-		this.MinMax(e.targetInfo, min, max);
+		this.MinMax(e.source, min, max);
+		this.MinMax(e.target, min, max);
 	}
 	model.height = max.y;
 	model.width = max.x;
@@ -513,9 +598,12 @@ Graph.prototype.drawRaster = function(){
 	}
 };
 Graph.prototype.draw = function(model, width, height){
-	var i,n;
-	for(i in model.nodes) {
-		n = model.nodes[i];
+	var i, n, nodes=model.nodes;
+	for(i in nodes) {
+		if(!nodes.hasOwnProperty(i) || typeof(nodes[i])==="function"){
+			continue;
+		}
+		n = nodes[i];
 		if(model.left>0 || model.top > 0) {
 			n.x += model.left;
 			n.y += model.top;
@@ -526,8 +614,11 @@ Graph.prototype.draw = function(model, width, height){
 		return;
 	}
 	this.resize(model);
-	for(i in model.nodes) {
-		n = model.nodes[i];
+	for(i in nodes) {
+		if(!nodes.hasOwnProperty(i) || typeof(nodes[i])==="function"){
+			continue;
+		}
+		n = nodes[i];
 		n._gui = this.drawer.getNode(n);
 		model._gui.appendChild( n._gui );
 	}
@@ -544,6 +635,9 @@ Graph.prototype.moveToRaster = function(node){
 Graph.prototype.initGraph = function(model){
 	var i;
 	for (i in model.nodes) {
+		if(typeof(model.nodes[i])==="function"){
+			continue;
+		}
 		var n = model.nodes[i];
 		var isDiag = n.typ.indexOf("diagram", n.typ.length - 7) !== -1;
 		if(isDiag) {
@@ -551,13 +645,7 @@ Graph.prototype.initGraph = function(model){
 		}
 		var html = this.drawer.getNode(n);
 		if(html){
-			var pos = this.getDimension(html);
-			if(!n._startWidth){
-				n.width=pos.x;
-			}
-			if(!n._startHeight){
-				n.height=pos.y;
-			}
+			this.sizeHTML(html, n);
 			if(isDiag){
 				n._center = new Pos(n.x + (n.width / 2), n.y + (n.height / 2));
 			}
@@ -565,8 +653,8 @@ Graph.prototype.initGraph = function(model){
 	}
 	for (i=0; i< model.edges.length;i++) {
 		var e = model.edges[i];
-		this.initInfo(e, e.sourceInfo);
-		this.initInfo(e, e.targetInfo);
+		this.initInfo(e, e.source);
+		this.initInfo(e, e.target);
 	}
 };
 Graph.prototype.layout = function(minwidth, minHeight, model){
@@ -584,11 +672,14 @@ Graph.prototype.layout = function(minwidth, minHeight, model){
 		this.loader.height = minHeight;
 	}
 };
-Graph.prototype.createElement = function(element, typ){
+Graph.prototype.createElement = function(element, typ, node){
+	var that = this;
+	element.node = node;
+	this.bind(element, "mousedown", function(e){that.startDrag(e);});
 };
 Graph.prototype.appendImage = function(img){
 	this.loader.add(img);
-}
+};
 
 //				######################################################### DRAG AND DROP #########################################################
 Graph.prototype.initDragAndDrop = function(){
@@ -600,11 +691,6 @@ Graph.prototype.initDragAndDrop = function(){
 	this.bind(this.board, "mousemove", function(e){that.doDrag(e);});
 	this.bind(this.board, "mouseup", function(e){that.stopDrag(e);});
 	this.bind(this.board, "mouseout", function(e){that.stopDrag(e);});
-};
-Graph.prototype.addNodeLister = function(element, node){
-	var that = this;
-	element.node = node;
-	this.bind(element, "mousedown", function(e){that.startDrag(e);});
 };
 Graph.prototype.setSelectable = function(node, value) {
 	if (node.nodeType == 1) {
@@ -621,9 +707,6 @@ Graph.prototype.setSelectable = function(node, value) {
 	}
 };
 Graph.prototype.getDragNode = function(node) {
-	if(!node) {
-		return null;
-	}
 	if(node.model){
 		if(!node.model._isdraggable){
 			return null;
@@ -652,14 +735,14 @@ Graph.prototype.startDrag = function(event) {
 			this.setSelectable(graph.children[i], "on");
 		}
 	}
-	this.offset.x = this.isIE() ? window.event.clientX : event.pageX;
-	this.offset.y = this.isIE() ? window.event.clientY : event.pageY;
+	this.offset.x = this.isIE ? window.event.clientX : event.pageX;
+	this.offset.y = this.isIE ? window.event.clientY : event.pageY;
 	this.startObj.x = this.objDrag.model.x;
 	this.startObj.y = this.objDrag.model.y;
 };
 Graph.prototype.doDrag = function(event) {
-	this.mouse.x = this.isIE() ? window.event.clientX : event.pageX;
-	this.mouse.y = this.isIE() ? window.event.clientY : event.pageY;
+	this.mouse.x = this.isIE ? window.event.clientX : event.pageX;
+	this.mouse.y = this.isIE ? window.event.clientY : event.pageY;
 
 	if (this.objDrag != null) {
 		var x =(this.mouse.x - this.offset.x) + this.startObj.x;
@@ -674,7 +757,7 @@ Graph.prototype.doDrag = function(event) {
 			if(this.objDrag.model){
 				this.objDrag.model.x = x;
 				this.objDrag.model.y = y;
-				this.resize(this.model);
+				this.objDrag.model._parent.resize(this.model);
 			}
 		}
 	}
@@ -704,7 +787,6 @@ Graph.prototype.stopDrag = function(event) {
 				item.model.y = item.model.y + Number(pos[1]);
 			}
 			item.model._center = new Pos(item.model.x + (item.model.width / 2), item.model.y + (item.model.height / 2));
-			
 			parent.removeChild(item);
 			if(item.model.board) {
 				item.model.board = null;
@@ -714,16 +796,16 @@ Graph.prototype.stopDrag = function(event) {
 				item.model.custom = true;
 				item.model.edge.removeElement(item);
 				var infoTxt = item.model.edge.getInfo(item.model);
-				item.model.edge.addElement(this.board, this.drawer.createInfo(item.model, false, infoTxt));
+				item.model.edge.drawText(this.board, this.drawer, infoTxt, item.model);
 			}else{
 				item.model._gui = this.drawer.getNode(item.model);
 				if(item.model._gui){
 					parent.appendChild( item.model._gui );
 				}
-				for(i=0;i<item.model.edges.length;i++){
-					var edge = item.model.edges[i];
-					edge.sourceInfo.custom = false;
-					edge.targetInfo.custom = false;
+				for(i=0;i<item.model._edges.length;i++){
+					var e = item.model._edges[i];
+					e.source.custom = false;
+					e.target.custom = false;
 				}
 			}
 		}
@@ -738,7 +820,7 @@ Graph.prototype.stopDrag = function(event) {
 			this.resize(this.model);
 		}else{
 			this.resize(n);
-		}	
+		}
 	}
 };
 Graph.prototype.redrawNode = function(node, draw){
@@ -749,7 +831,7 @@ Graph.prototype.redrawNode = function(node, draw){
 	}
 	if(node.typ=="Info") {
 		var infoTxt = node.edge.getInfo(node.node);
-		node.edge.addElement(this.board, this.drawer.createInfo(node, false, infoTxt));
+		node.edge.drawText(this.board, this.drawer, infoTxt, node.node);
 	}else{
 		node._gui = this.drawer.getNode(node, draw);
 		if(node._gui){
@@ -758,19 +840,6 @@ Graph.prototype.redrawNode = function(node, draw){
 	}
 	node._center = new Pos(node.x + (node.width / 2), node.y + (node.height / 2));
 	this.resize(node._parent);
-};
-Graph.prototype.getGraphNode = function(obj){
-	while(obj&&!obj.node){
-		if(!obj.node){
-			obj=obj.parentNode;
-		}else{
-			break;
-		}
-	}
-	if(obj&&obj.node){
-		return obj.node;
-	}
-	return null;
 };
 Graph.prototype.initDrawer = function(typ){
 	if(typ) {
@@ -817,8 +886,7 @@ Graph.prototype.ExportEPS = function () {
 Graph.prototype.ExportPNG = function () {
 	var image = new Image();
 	image.src = 'data:image/svg+xml;base64,' + this.utf8_to_b64(this.serializeXmlNode(this.board));
-	var that = this;
-	image.onload = function(e) {
+	image.onload = function() {
 		var canvas = document.createElement('canvas');
 		canvas.width = image.width;
 		canvas.height = image.height;
@@ -853,56 +921,40 @@ Graph.prototype.Save = function (typ, data, name) {
 Graph.prototype.ExportHTML = function () {
 	var json = this.model.toJson();
 	var data="<html><head>"+document.head.innerHTML.trim()+"</head><body><script>"
-		+"new Graph("+JSON.stringify(json, null, "\t") +").layout();</script></body></html>";
+		+"new Graph("+JSON.stringify(json, null, "\t") +").layout();<"+"/script></body></html>";
 	this.Save("text/json", data, "download.html");
 };
-
 //				######################################################### GraphLayout-Dagre #########################################################
 var DagreLayout = function() {};
 DagreLayout.prototype.layout = function(graph, node, width, height) {
-	var error=false;
-	try {
-		var g = new dagre.graphlib.Graph(node.copy({directed:false}, node.options.layout));
-		g.setGraph({});
-		g.setDefaultEdgeLabel(function() { return {}; });
-		var i;
-		for (i in node.nodes) {
-			var n = node.nodes[i];
-			g.setNode(n.id, {label: n.id, width:n.width, height:n.height, x:n.x, y:n.y});
+	var graphOptions = node.copy({directed:false}, node.options.layout);
+	var g = new dagre.graphlib.Graph(graphOptions);
+	g.setGraph(graphOptions);
+	g.setDefaultEdgeLabel(function() { return {}; });
+	var i, n, nodes = node.nodes;
+	for (i in nodes) {
+		if(!nodes.hasOwnProperty(i) || typeof(nodes[i])==="function"){
+			continue;
 		}
-		for (i = 0; i < node.edges.length; i++) {
-			var e = node.edges[i];
-			g.setEdge(this.getRootNode(e.source).id, this.getRootNode(e.target).id);
+		n = nodes[i];
+		g.setNode(n.id, {label: n.id, width:n.width, height:n.height, x:n.x, y:n.y});
+	}
+	for (i = 0; i < node.edges.length; i++) {
+		var e = node.edges[i];
+		g.setEdge(this.getRootNode(e._sNode).id, this.getRootNode(e._tNode).id);
+	}
+	dagre.layout(g);
+	// Set the layouting back
+	for (i in nodes) {
+		if(!nodes.hasOwnProperty(i) || typeof(nodes[i])==="function"){
+			continue;
 		}
-		dagre.layout(g);
-		// Set the layouting back
-		for (i in node.nodes) {
-			var n = node.nodes[i];
-			var layoutNode = g.node(n.id);
-			n.x = layoutNode.x - (n.width/2);
-			n.y = layoutNode.y - (n.height/2);
-		}
-	} catch(err) {
-		var x=0;
-		var y=0;
-		for (i in node.nodes) {
-			var n = node.nodes[i];
-			n.x = x;
-			n.y = y;
-			
-			x+=300;
-			if(x>700) {
-				y+=200;
-				x=0;
-			}
-		}
-		error=true;
+		n = nodes[i];
+		var layoutNode = g.node(n.id);
+		n.x = Math.round(layoutNode.x - (n.width/2));
+		n.y = Math.round(layoutNode.y - (n.height/2));
 	}
 	graph.draw(node, width, height);
-	if(error) {
-		//node._gui.style.visibility="hidden";
-		node._gui.innerHTML="<h2>Please show in external Browser V:"+isIE()+"</h2>"+node._gui.innerHTML;
-	}
 };
 DagreLayout.prototype.getRootNode = function(node, child) {
 	if(node._parent){
@@ -914,7 +966,7 @@ DagreLayout.prototype.getRootNode = function(node, child) {
 	return child;
 };
 //				######################################################### Loader #########################################################
-var Loader = function(graph) {this.images = [];this.graph=graph;this.abort=false;}
+var Loader = function(graph) {this.images = [];this.graph=graph;this.abort=false;};
 Loader.prototype.execute = function(){
 	if(this.images.length==0){
 		this.graph.layout(this.width, this.height);
@@ -944,22 +996,19 @@ Loader.prototype.add = function(img){
 //				######################################################### LINES #########################################################
 var Edge = function() {this.init();this.typ="EDGE";};
 Edge.prototype.init = function(){
-	this.path = [];
-	this.source=null;
-	this.target=null;
-	this.start = null;
-	this.end = null;
+	this._path = [];
+	this._sNode=null;
+	this._tNode=null;
 	this._gui = [];
-	this.m = 0;
-	this.n = 0;
-	this.lineStyle = Line.Format.SOLID;
+	this._m = 0;
+	this._n = 0;
+	this._lineStyle = Line.Format.SOLID;
 };
 Edge.Layout ={ DIAG : 1, RECT : 0 };
 Edge.Position={UP:"UP", LEFT:"LEFT", RIGHT:"RIGHT", DOWN:"DOWN"};
+Edge.prototype.set = function(id, value){if(value){this[id]=value;}};
 Edge.prototype.addElement = function(board, element){
-	if(element){
-		this._gui.push(element);board.appendChild(element);
-	}
+	if(element){this._gui.push(element);board.appendChild(element);}
 };
 Edge.prototype.removeElement = function(element){
 	if(element){
@@ -971,45 +1020,64 @@ Edge.prototype.removeElement = function(element){
 		}
 	}
 };
+Edge.prototype.removeFromBoard = function(board){
+	if(this._gui){	
+		while(this._gui.length>0){
+			board.removeChild(this._gui.pop());
+		}
+	}
+};
 Edge.prototype.calculate = function(){
-	this.source._center = new Pos(this.source.getX() + (this.source.width / 2), this.source.getY() + (this.source.height / 2));
-	this.target._center = new Pos(this.target.getX() + (this.target.width / 2), this.target.getY() + (this.target.height / 2));
+	this._sNode._center = new Pos(this._sNode.getX() + (this._sNode.width / 2), this._sNode.getY() + (this._sNode.height / 2));
+	this._tNode._center = new Pos(this._tNode.getX() + (this._tNode.width / 2), this._tNode.getY() + (this._tNode.height / 2));
 	return this.calcCenterLine();
 };
 Edge.prototype.draw = function(board, drawer){
-	for(var i=0;i<this.path.length;i++){
-		var p = this.path[i];
+	for(var i=0;i<this._path.length;i++){
+		var p = this._path[i];
 		this.addElement(board, drawer.createLine(p.source.x, p.source.y, p.target.x, p.target.y, p.line, p.style));
 	}
 	var options = drawer.model.options;
 	this.drawSourceText(board, drawer, options);
 	if(this.info) {
-		var angle = Math.atan((p.source.y-p.target.y)/(p.source.x-p.target.x))*60;
-		this.addElement(board, drawer.createInfo(this.infoPos, false, this.info, angle));
+		var angle = this.drawText(board, drawer, this.info, this.infoPos);
 		this.addElement(board, new SymbolLibary().create({typ:"Arrow",x:this.infoPos.x,y:this.infoPos.y, rotate:angle}, drawer));
 	}
 	this.drawTargetText(board, drawer, options);
 };
+Edge.prototype.drawText = function(board, drawer, text, pos){
+	if(this._path.length<1){
+		return;
+	}
+	var p = this._path[this._path.length-1];
+	var angle = 0;
+	var options = drawer.model.model.options;
+	if(options.rotateText) {
+		angle = Math.atan((p.source.y-p.target.y)/(p.source.x-p.target.x))*60;
+	}
+	this.addElement(board, drawer.createInfo(pos, text, angle));
+	return angle;
+};
 Edge.prototype.drawSourceText = function(board, drawer){
-	var infoTxt = this.getInfo(this.sourceInfo);
+	var infoTxt = this.getInfo(this.source);
 	if(infoTxt.length > 0 ){
-		this.addElement(board, drawer.createInfo(this.sourceInfo, false, infoTxt));
+		this.drawText(board, drawer, infoTxt, this.source);
 	}
 };
 Edge.prototype.drawTargetText = function(board, drawer){
-	var infoTxt = this.getInfo(this.targetInfo);
+	var infoTxt = this.getInfo(this.target);
 	if(infoTxt.length > 0 ){
-		this.addElement(board, drawer.createInfo(this.targetInfo, false, infoTxt));
+		this.drawText(board, drawer, infoTxt, this.target);
 	}
 };
-Edge.prototype.endPos = function(){return this.path[this.path.length-1];};
+Edge.prototype.endPos = function(){return this._path[this._path.length-1];};
 Edge.prototype.edgePosition = function() {
 	var pos=0;
-	for(var i=0;i < this.source.edges.length; i++) {
-		if(this.source.edges[i] == this){
+	for(var i=0;i < this._sNode._edges.length; i++) {
+		if(this._sNode._edges[i] == this){
 			return pos;
 		}
-		if(this.source.edges[i].target == this.target){
+		if(this._sNode._edges[i].target == this._tNode){
 			pos ++;
 		}
 	}
@@ -1025,19 +1093,19 @@ Edge.prototype.getTarget = function(node, startNode){
 	return this.getTarget(node._parent, startNode);
 };
 Edge.prototype.calcCenterLine = function(){
-	var divisor = (this.target._center.x - this.source._center.x);
+	var divisor = (this._tNode._center.x - this._sNode._center.x);
 	var sourcePos,targetPos;
 	var edgePos = this.edgePosition() * 20;
+	this._path = [];
 
-	this.path = [];
-	var source = this.getTarget(this.source, this.source), target = this.getTarget(this.target, this.target);
+	var source = this.getTarget(this._sNode, this._sNode), target = this.getTarget(this._tNode, this._tNode);
 	if(divisor==0){
-		if(this.source==this.target){
+		if(this._sNode==this._tNode){
 			/* OwnAssoc */
 			return false;
 		}
 		// Must be UP_DOWN or DOWN_UP
-		if(this.source._center.y<this.target._center.y){
+		if(this._sNode._center.y<this._tNode._center.y){
 			// UP_DOWN
 			sourcePos = this.getCenterPosition(source, Edge.Position.DOWN, edgePos);
 			targetPos = this.getCenterPosition(target, Edge.Position.UP, edgePos);
@@ -1046,25 +1114,21 @@ Edge.prototype.calcCenterLine = function(){
 			targetPos = this.getCenterPosition(target, Edge.Position.DOWN, edgePos);
 		}
 	}else{
-		this.m = (target._center.y - source._center.y) / divisor;
-		this.n = source._center.y - (source._center.x * this.m);
-		sourcePos = this.getPosition(this.m,this.n, source, target._center, edgePos);
-		targetPos = this.getPosition(this.m,this.n, target, sourcePos, edgePos);
+		this._m = (target._center.y - source._center.y) / divisor;
+		this._n = source._center.y - (source._center.x * this._m);
+		sourcePos = this.getPosition(this._m,this._n, source, target._center, edgePos);
+		targetPos = this.getPosition(this._m,this._n, target, sourcePos, edgePos);
 	}
 	if(sourcePos&&targetPos){
-		var x2 = sourcePos.x;
-		var x1 = targetPos.x;
-		var y2 = sourcePos.y;
-		var y1 = targetPos.y;
-		var d = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
-		if(d>0) {d = Math.sqrt(d);}
-		var height = this.sourceInfo.height+this.targetInfo.height;
-		this.calcInfoPos( sourcePos, source, this.sourceInfo, edgePos, d, height);
-		this.calcInfoPos( targetPos, target, this.targetInfo, edgePos, d, height);
-		this.addEdgeToNode(source, sourcePos.id);
-		this.addEdgeToNode(target, targetPos.id);
-		this.path.push ( new Line(sourcePos, targetPos, this.lineStyle, this.style));
-		this.infoPos = new Pos( (sourcePos.x + targetPos.x)/2, (sourcePos.y + targetPos.y)/2 );
+		this.calcInfoPos( sourcePos, source, this.source, edgePos);
+		this.calcInfoPos( targetPos, target, this.target, edgePos);
+		source["_"+sourcePos.id] += 1;
+		target["_"+targetPos.id] += 1;
+		this._path.push ( new Line(sourcePos, targetPos, this._lineStyle, this.style));
+		if(this.info){
+			this.info.x = (sourcePos.x + targetPos.x)/2;
+			this.info.y = (sourcePos.y + targetPos.y)/2;
+		}
 	}
 	return true;
 };
@@ -1085,8 +1149,8 @@ Edge.prototype.getCenterPosition = function(node, pos, offset){
 };
 Edge.prototype.getInfo = function(info){
 	var infoTxt = "";
-	var isCardinality = this.model.typ=="classdiagram" && this.model.options.CardinalityInfo;
-	var isProperty = this.model.options.PropertyInfo;
+	var isCardinality = this._parent.typ=="classdiagram" && this._parent.options.CardinalityInfo;
+	var isProperty = this._parent.options.PropertyInfo;
 
 	if(isProperty && info.property){
 		infoTxt = info.property;
@@ -1101,106 +1165,92 @@ Edge.prototype.getInfo = function(info){
 			infoTxt += "0..*";
 		}
 	}
-	if(info.edge.counter && info.edge.counter>0) {
-		infoTxt +=" ("+info.edge.counter+")";
+	if(info.edge && info.edge["counter"] && info.edge["counter"]>0) {
+		infoTxt +=" ("+info.edge["counter"]+")";
 	}
 	return infoTxt;
 };
 Edge.prototype.calcOwnEdge = function(){
 	//this.source
 	var offset = 20;
-	this.start = this.getFree(this.source);
-	if(this.start.length>0){
-		this.end = this.getFreeOwn(this.source, this.start);
+	this._start = this.getFree(this._sNode);
+	if(this._start.length>0){
+		this._end = this.getFreeOwn(this._sNode, this._start);
 	}else{
-		this.start = Edge.Position.RIGHT;
-		this.end = Edge.Position.DOWN;
+		this._start = Edge.Position.RIGHT;
+		this._end = Edge.Position.DOWN;
 	}
 
-	var sPos = this.getCenterPosition(this.source, this.start);
+	var sPos = this.getCenterPosition(this._sNode, this._start);
 	var tPos;
-	if(this.start==Edge.Position.UP){
+	if(this._start==Edge.Position.UP){
 		tPos = new Pos(sPos.x, sPos.y - offset);
-	}else if(this.start==Edge.Position.DOWN){
+	}else if(this._start==Edge.Position.DOWN){
 		tPos = new Pos(sPos.x, sPos.y + offset);
-	}else if(this.start==Edge.Position.RIGHT){
+	}else if(this._start==Edge.Position.RIGHT){
 		tPos = new Pos(sPos.x + offset, sPos.y);
-	}else if(this.start==Edge.Position.LEFT){
+	}else if(this._start==Edge.Position.LEFT){
 		tPos = new Pos(sPos.x - offset, sPos.y);
 	}
-	this.path.push (new Line(sPos, tPos, this.lineStyle));
-	if(this.end==Edge.Position.LEFT || this.end==Edge.Position.RIGHT){
-		if(this.start==Edge.Position.LEFT){
+	this._path.push (new Line(sPos, tPos, this._lineStyle));
+	if(this._end==Edge.Position.LEFT || this._end==Edge.Position.RIGHT){
+		if(this._start==Edge.Position.LEFT){
 			sPos = tPos;
-			tPos = new Pos(sPos.x, this.source.y - offset);
-			this.path.push (new Line(sPos, tPos, this.lineStyle));
-		}else if(this.start==Edge.Position.RIGHT){
+			tPos = new Pos(sPos.x, this._sNode.y - offset);
+			this._path.push (new Line(sPos, tPos, this._lineStyle));
+		}else if(this._start==Edge.Position.RIGHT){
 			sPos = tPos;
-			tPos = new Pos(sPos.x, this.source.y + offset);
-			this.path.push (new Line(sPos, tPos, this.lineStyle));
+			tPos = new Pos(sPos.x, this._sNode.y + offset);
+			this._path.push (new Line(sPos, tPos, this._lineStyle));
 		}
 		sPos = tPos;
-		if(this.end==Edge.Position.LEFT){
-			tPos = new Pos(this.source.x - offset, sPos.y);
+		if(this._end==Edge.Position.LEFT){
+			tPos = new Pos(this._sNode.x - offset, sPos.y);
 		}else{
-			tPos = new Pos(this.source.x + this.source.width + offset, sPos.y);
+			tPos = new Pos(this._sNode.x + this._sNode.width + offset, sPos.y);
 		}
-		this.path.push (new Line(sPos, tPos, this.lineStyle));
+		this._path.push (new Line(sPos, tPos, this._lineStyle));
 		sPos = tPos;
-		tPos = new Pos(sPos.x, this.source._center.y);
-		this.path.push (new Line(sPos, tPos, this.lineStyle));
-
-		this.infoPos = new Pos( (sPos.x + tPos.x)/2, sPos.y );
-	}else if(this.end==Edge.Position.UP || this.end==Edge.Position.DOWN){
-		if(this.start==Edge.Position.UP){
+		tPos = new Pos(sPos.x, this._sNode._center.y);
+		this._path.push (new Line(sPos, tPos, this._lineStyle));
+		if(this.info) {
+			this.info.x = (sPos.x + tPos.x)/2;
+			this.info.y = sPos.y;
+		}
+	}else if(this._end==Edge.Position.UP || this._end==Edge.Position.DOWN){
+		if(this._start==Edge.Position.UP){
 			sPos = tPos;
-			tPos = new Pos(this.source.x + this.source.width + offset, sPos.y);
-			this.path.push (new Line(sPos, tPos, this.lineStyle));
-		}else if(this.start==Edge.Position.DOWN){
+			tPos = new Pos(this._sNode.x + this._sNode.width + offset, sPos.y);
+			this._path.push (new Line(sPos, tPos, this._lineStyle));
+		}else if(this._start==Edge.Position.DOWN){
 			sPos = tPos;
-			tPos = new Pos(this.source.x - offset, sPos.y);
-			this.path.push (new Line(sPos, tPos, this.lineStyle));
+			tPos = new Pos(this._sNode.x - offset, sPos.y);
+			this._path.push (new Line(sPos, tPos, this._lineStyle));
 		}
 		sPos = tPos;
-		if(this.end==Edge.Position.UP){
-			tPos = new Pos(sPos.x, this.source.y - offset);
+		if(this._end==Edge.Position.UP){
+			tPos = new Pos(sPos.x, this._sNode.y - offset);
 		}else{
-			tPos = new Pos(sPos.x, this.source.y + this.source.height + offset);
+			tPos = new Pos(sPos.x, this._sNode.y + this._sNode.height + offset);
 		}
-		this.path.push (new Line(sPos, tPos, this.lineStyle));
+		this._path.push (new Line(sPos, tPos, this._lineStyle));
 		sPos = tPos;
-		tPos = new Pos(this.source._center.x, sPos.y);
-		this.path.push (new Line(sPos, tPos, this.lineStyle));
-
-		this.infoPos = new Pos( sPos.x , (sPos.y + tPos.y)/2 );
+		tPos = new Pos(this._sNode._center.x, sPos.y);
+		this._path.push (new Line(sPos, tPos, this._lineStyle));
+		if(this.info) {
+			this.info.x = sPos.x;
+			this.info.y = (sPos.y + tPos.y)/2;
+		}
 	}
 	sPos = tPos;
-	this.path.push (new Line(sPos, this.getCenterPosition(this.source, this.end), this.lineStyle));
-};
-Edge.prototype.addEdgeToNode=function(node, pos){
-	if(pos==Edge.Position.UP){
-		node._UP+=1;
-	}else if(pos==Edge.Position.DOWN){
-		node._DOWN+=1;
-	}else if(pos==Edge.Position.RIGHT){
-		node._RIGHT+=1;
-	}else if(pos==Edge.Position.LEFT){
-		node._LEFT+=1;
-	}
+	this._path.push (new Line(sPos, this.getCenterPosition(this._sNode, this._end), this._lineStyle));
 };
 Edge.prototype.getFree = function(node){
-	if(node._UP==0 ){
-		node._UP +=1;
-		return Edge.Position.UP;
-	}else if(node._RIGHT==0 ){
-		node._RIGHT +=1;
-		return Edge.Position.RIGHT;
-	}else if(node._DOWN==0 ){
-		node._DOWN +=1;
-		return Edge.Position.DOWN;
-	}else if(node._LEFT==0 ){
-		node._LEFT +=1;
-		return Edge.Position.LEFT;
+	for(var i in Edge.Position){
+		if(node.hasOwnProperty("_"+i) && node["_"+i]===0){
+			node["_"+i] = 1;
+			return i;
+		}
 	}
 	return "";
 };
@@ -1213,54 +1263,49 @@ Edge.prototype.getFreeOwn = function(node, start){
 			break;
 		}
 	}
-	if(node[list[id + 1]] == 0 || node[list[id + 1]] < node[list[id + 3]]) {
-		node[list[id + 1]] ++;
+	if(node["_"+list[id + 1]] == 0 || node["_"+list[id + 1]] < node["_"+list[id + 3]]) {
+		node["_"+list[id + 1]] ++;
 		return list[id + 1];
 	}
-	node[list[id + 3]]++;
+	node["_"+list[id + 3]]++;
 	return list[id + 3];
 };
-Edge.prototype.calcInfoPos = function(linePos, item, info, offset, d, height){
+Edge.prototype.calcInfoPos = function(linePos, item, info, offset){
 	// Manuell move the InfoTag
 	offset = offset || 0;
-	var spaceA = 20;
-	var spaceB = 10;
-	
+	var spaceA=20, spaceB=0;
+	if(item._parent.options && !item._parent.options.rotateText) {
+		spaceA = 20;
+		spaceB = 10;
+	}
 	if(info.custom){
 		return;
 	}
 	var newY = linePos.y;
 	var newX = linePos.x;
-	if(linePos.id==Edge.Position.UP){
-		if(d>0 && spaceA*2+height>d) {
-			spaceA = 4;
-		}
+	if(linePos._id==Edge.Position.UP){
 		newY = newY - info.height - offset - spaceA;
-		if(this.m!=0){
-			newX = (newY-this.n) / this.m + spaceB;
+		if(this._m!=0){
+			newX = (newY-this._n) / this._m + spaceB;
 		}
-	}else if(linePos.id==Edge.Position.DOWN){
-		if(d>0 && spaceA*2+height>d) {
-			spaceA = 4;
-		}
+	}else if(linePos._id==Edge.Position.DOWN){
 		newY = newY + offset + spaceA;
-		if(this.m!=0){
-			newX = (newY-this.n) / this.m + spaceB;
+		if(this._m!=0){
+			newX = (newY-this._n) / this._m + spaceB;
 		}
-	}else if(linePos.id==Edge.Position.LEFT){
+	}else if(linePos._id==Edge.Position.LEFT){
 		newX = newX - info.width - offset - spaceA;
-		if(this.m!=0){
-			newY = (this.m * newX)+ this.n;
+		if(this._m!=0){
+			newY = (this._m * newX)+ this._n;
 		}
-	}else if(linePos.id==Edge.Position.RIGHT){
+	}else if(linePos._id==Edge.Position.RIGHT){
 		newX += offset + spaceA;
-		if(this.m!=0){
-			newY = (this.m * newX)+ this.n;
+		if(this._m!=0){
+			newY = (this._m * newX)+ this._n;
 		}
 	}
-	info.id = linePos.id;
-	info.x = newX;
-	info.y = newY;
+	info.x = Math.round(newX);
+	info.y = Math.round(newY);
 };
 Edge.prototype.getPosition= function(m , n, entity, refCenter, offset){
 	if (!offset) {
@@ -1305,48 +1350,48 @@ Edge.prototype.getPosition= function(m , n, entity, refCenter, offset){
 };
 Edge.prototype.calcMoveLine = function(size, angle, move){
 	var startArrow	= this.endPos().source;
-	this.end = this.endPos().target;
+	this._end = this.endPos().target;
 	// calculate the angle of the line
-	var lineangle=Math.atan2(this.end.y-startArrow.y,this.end.x-startArrow.x);
+	var lineangle=Math.atan2(this._end.y-startArrow.y,this._end.x-startArrow.x);
 	// h is the line length of a side of the arrow head
 	var h=Math.abs(size/Math.cos(angle));
 	var angle1=lineangle+Math.PI+angle;
 	var hCenter=Math.abs((size/2)/Math.cos(angle));
 
-	this.top = new Pos(this.end.x+Math.cos(angle1)*h, this.end.y+Math.sin(angle1)*h);
-	this.topCenter = new Pos(this.end.x+Math.cos(angle1)*hCenter, this.end.y+Math.sin(angle1)*hCenter);
+	this._top = new Pos(this._end.x+Math.cos(angle1)*h, this._end.y+Math.sin(angle1)*h);
+	this._topCenter = new Pos(this._end.x+Math.cos(angle1)*hCenter, this._end.y+Math.sin(angle1)*hCenter);
 	var angle2=lineangle+Math.PI-angle;
-	this.bot = new Pos(this.end.x+Math.cos(angle2)*h, this.end.y+Math.sin(angle2)*h);
-	this.botCenter = new Pos(this.end.x+Math.cos(angle2)*hCenter, this.end.y+Math.sin(angle2)*hCenter);
+	this._bot = new Pos(this._end.x+Math.cos(angle2)*h, this._end.y+Math.sin(angle2)*h);
+	this._botCenter = new Pos(this._end.x+Math.cos(angle2)*hCenter, this._end.y+Math.sin(angle2)*hCenter);
 	if(move) {
-		this.endPos().target = new Pos((this.top.x + this.bot.x) / 2, (this.top.y + this.bot.y) / 2);
+		this.endPos().target = new Pos((this._top.x + this._bot.x) / 2, (this._top.y + this._bot.y) / 2);
 	}
 };
-var Generalisation = function() { this.init();this.typ="Generalisation";};
-Generalisation.prototype = Object_create(Edge.prototype);
-Generalisation.prototype.calculateEdge = Generalisation.prototype.calculate;
-Generalisation.prototype.calculate = function(board, drawer){
+var Generalization = function() { this.init();this.typ="Generalization";};
+Generalization.prototype = Object_create(Edge.prototype);
+Generalization.prototype.calculateEdge = Generalization.prototype.calculate;
+Generalization.prototype.calculate = function(board, drawer){
 	if(!this.calculateEdge(board, drawer)){
 		return false;
 	}
 	this.calcMoveLine(16, 50, true);
 	return true;
 };
-Generalisation.prototype.drawSuper = Generalisation.prototype.draw;
-Generalisation.prototype.draw = function(board, drawer){
+Generalization.prototype.drawSuper = Generalization.prototype.draw;
+Generalization.prototype.draw = function(board, drawer){
 	this.drawSuper(board, drawer);
-	this.addElement(board, drawer.createLine(this.top.x, this.top.y, this.end.x, this.end.y, this.lineStyle));
-	this.addElement(board, drawer.createLine(this.bot.x, this.bot.y, this.end.x, this.end.y, this.lineStyle));
-	this.addElement(board, drawer.createLine(this.top.x, this.top.y, this.bot.x, this.bot.y, this.lineStyle));
+	this.addElement(board, drawer.createLine(this._top.x, this._top.y, this._end.x, this._end.y, this._lineStyle));
+	this.addElement(board, drawer.createLine(this._bot.x, this._bot.y, this._end.x, this._end.y, this._lineStyle));
+	this.addElement(board, drawer.createLine(this._top.x, this._top.y, this._bot.x, this._bot.y, this._lineStyle));
 };
-Generalisation.prototype.drawSourceText = function(board, drawer, options){};
-Generalisation.prototype.drawTargetText = function(board, drawer, options){};
+Generalization.prototype.drawSourceText = function(board, drawer, options){};
+Generalization.prototype.drawTargetText = function(board, drawer, options){};
 
-var Implements = function() { this.init();this.typ="Implements";this.lineStyle = Line.Format.DOTTED;};
-Implements.prototype = Object_create(Generalisation.prototype);
+var Implements = function() { this.init();this.typ="Implements";this._lineStyle = Line.Format.DOTTED;};
+Implements.prototype = Object_create(Generalization.prototype);
 
 var Unidirectional = function() { this.init();this.typ="Unidirectional";};
-Unidirectional.prototype = Object_create(Generalisation.prototype);
+Unidirectional.prototype = Object_create(Generalization.prototype);
 Unidirectional.prototype.calculate = function(board, drawer){
 	if(!this.calculateEdge(board, drawer)){
 		return false;
@@ -1356,22 +1401,21 @@ Unidirectional.prototype.calculate = function(board, drawer){
 };
 Unidirectional.prototype.draw = function(board, drawer){
 	this.drawSuper(board, drawer);
-	this.addElement(board, drawer.createLine(this.top.x, this.top.y, this.end.x, this.end.y, this.lineStyle));
-	this.addElement(board, drawer.createLine(this.bot.x, this.bot.y, this.end.x, this.end.y, this.lineStyle));
+	this.addElement(board, drawer.createLine(this._top.x, this._top.y, this._end.x, this._end.y, this._lineStyle));
+	this.addElement(board, drawer.createLine(this._bot.x, this._bot.y, this._end.x, this._end.y, this._lineStyle));
 };
 var Aggregation = function() { this.init();this.typ="Aggregation";};
-Aggregation.prototype = Object_create(Generalisation.prototype);
+Aggregation.prototype = Object_create(Generalization.prototype);
 Aggregation.prototype.calculate = function(board, drawer){
 	if(!this.calculateEdge(board, drawer)){
 		return false;
 	}
-	this.size=16;
-	this.calcMoveLine(this.size, 49.8, true);
+	this.calcMoveLine(16, 49.8, true);
 	return true;
 };
 Aggregation.prototype.draw = function(board, drawer){
 	this.drawSuper(board, drawer);
-	this.addElement(board, drawer.createPath(true, "none", [this.endPos().target, this.topCenter, this.end, this.botCenter]));
+	this.addElement(board, drawer.createPath(true, "none", [this.endPos().target, this._topCenter, this._end, this._botCenter]));
 };
 var Composition = function() { this.init();this.typ="Composition";};
 Composition.prototype = Object_create(Aggregation.prototype);
@@ -1383,7 +1427,7 @@ Composition.prototype.draw = function(board, drawer){
 	var a = (start.y - end.y) / (end.x - start.x);
 	var h = Math.atan(a)*100;
 
-	this.addElement(board, drawer.createPath(true, "#000", [this.endPos().target, this.topCenter, this.end, this.botCenter], h));
+	this.addElement(board, drawer.createPath(true, "#000", [this.endPos().target, this._topCenter, this._end, this._botCenter], h));
 };
 function RGBColor(value){
 	this.ok = false;
@@ -1412,4 +1456,870 @@ RGBColor.prototype.toHex = function () {
 	+ (this.r + 0x10000).toString(16).substring(3).toUpperCase() 
 	+ (this.g + 0x10000).toString(16).substring(3).toUpperCase()
 	+ (this.b + 0x10000).toString(16).substring(3).toUpperCase();
+};
+
+
+// Validate input
+// TODO
+// Create Assocs
+// Edit Assocs
+// Delete Assocs
+// ################################## ClassEditor ####################################################
+var ClassEditor = function(element){
+	this.isIE = document.all&&!window.opera;
+	this.drawer = new HTMLDrawer();
+	this.inputEvent = true;
+	this.nodes={};
+	this.model = new GraphModel(this, {buttons:[]});
+	if(element) {
+		if(typeof(element)=="string"){
+			this.board = document.getElementById(element);
+			if(!this.board){
+				this.board = this.drawer.createContainer(this);
+				this.board.className = "ClassEditor";
+				document.body.appendChild(this.board);
+			}
+		}else{
+			this.board = element;
+		}
+	}else{
+		this.board = document.body;
+	}
+	this.inputNode = new InputNode(this);
+	this.editNode = new EditNode(this);
+	this.createEdge = new CreateEdge(this);
+	this.actions = [ new Selector(this), new MoveNode(this), this.createEdge, new CreateNode(this)];
+
+	var that = this;
+	this.bind(this.board, "mousedown", function(e){that.doAction(e, "startAction");});
+	this.bind(this.board, "mousemove", function(e){that.doAction(e, "doAction");});
+	this.bind(this.board, "mouseup", function(e){that.doAction(e, "stopAction");});
+	this.bind(this.board, "mouseout", function(e){that.doAction(e, "outAction");});
+	this.bind(this.board, "dragover", function(e){that.dragClass(e);});
+	this.bind(this.board, "dragleave", function(e){that.dragClass(e);});
+	this.bind(this.board, "drop", function(e){that.dropModel(e);});
+	this.loadModel(this.model);
+};
+ClassEditor.prototype = Object_create(GraphUtil.prototype);
+ClassEditor.prototype.dragStyler = function(e, typ) {
+	e.stopPropagation();
+	e.preventDefault();
+	if(typ=="dragleave"){
+		e.target.className="ClassEditor";
+		if(e.target.errorText) {
+			e.target.removeChild(e.target.errorText);
+			e.target.errorText = null;
+		}
+		return true;
+	}
+	if(typ=="error"){
+		e.target.className = "ClassEditorError";
+		if(!e.target.errorText){
+			e.target.errorText = this.create({tag:"div", style:"margin-top: 30%", value:"NO TEXTFILE"});
+			e.target.appendChild(e.target.errorText);
+		}
+		return true;
+	}
+	e.target.className = "ClassEditorOk";
+	return false;
+};
+ClassEditor.prototype.dragClass = function(e) {
+	if(this.dragStyler(e, e.type)){
+		return;
+	}
+	if(e.target!=this.board){
+		return;
+	}
+	var files = e.target.files || e.dataTransfer.files;
+	// process all File objects
+	var error=true;
+	for (var i = 0, f; f = files[i]; i++) {
+		if (f.type.indexOf("text") == 0) {
+			error=false;
+		}else if(f.type===""){
+			var n = f.name.toLowerCase();
+			if(n.indexOf("json", n.length - 4) !== -1){
+				error=false;
+			}
+		}
+	}
+	this.dragStyler(e, error ? "error" : "ok");
+};
+ClassEditor.prototype.dropModel= function(e) {
+	this.dragStyler(e, "dragleave");
+	var files = e.target.files || e.dataTransfer.files;
+	for (var i = 0, f; f = files[i]; i++) {
+		var load=f.type.indexOf("text") == 0;
+		if (!load && f.type==="") {
+			var n = f.name.toLowerCase();
+			if(n.indexOf("json", n.length - 4) !== -1){
+				load=true;
+			}
+		}
+		if(load) {
+			e.stopPropagation();
+			// file.name
+			var that = this;
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var data = e.target.result;
+				var model = that.copy(new ClassModel(that), JSON.parse(data));
+				that.loadModel(model, f);
+			};
+			reader.readAsText(f);
+			break;
+		}
+	}
+};
+ClassEditor.prototype.download = function (typ, data, name) {
+	var a = document.createElement("a");
+	a.href = window.URL.createObjectURL(new Blob([data], {type: typ}));
+	a.download = name;
+	a.click();
+};
+ClassEditor.prototype.save= function() {
+	var result = {};
+	this.copy(result, this.model);
+	var data = JSON.stringify(result, null, "\t");
+	if(typeof(java)!="undefined") {
+		java.save(data);
+	} else {
+		this.download("text/json", data, "model.json");
+	}
+};
+ClassEditor.prototype.generate = function() {
+	var result = this.minJson({}, this.model);
+	var data = JSON.stringify(result, null, "\t");
+	java.generate( data );
+};
+ClassEditor.prototype.close = function() {
+	java.exit();
+};
+ClassEditor.prototype.loadModel= function(model, file) {
+	this.model = model;
+	var i;
+	for(i=this.board.children.length-1;i>=0;i--){
+		this.board.removeChild(this.board.children[i]);
+	}
+	this.getAction("Selector").setNode(null);
+	for(i=0;i<model.nodes.length;i++) {
+		this.addNode(model.nodes[i]);
+	}
+	var that = this;
+	this.toolbar = this.create({tag:"div", id:"toolbar", class:"Toolbar", style:"width:6px;height:120px", onMouseOver:function(){that.maxToolbar()}, onMouseOut:function(e){that.minToolbar(e)}, _parent:this.board});
+	this.codeView = this.create({tag:"div", class:"CodeView", _parent:this.board});
+	this.create({tag:"div", class:"pi", _parent:this.codeView, value:"&pi;", onMouseOver:function(){that.maxCodeView()}, onMouseOut:function(e){that.minCodeView(e)}});
+};
+ClassEditor.prototype.maxCodeView = function() {
+	if(this.codeViewer){return;}
+	var result = this.minJson({}, this.model);
+	var data = JSON.stringify(result, null, "    ");
+	data = data.replace(new RegExp("\n", 'g'), "<br/>").replace(new RegExp(" ", 'g'), "&nbsp;");
+	
+	var html = this.create({tag:"div", style:"position:absolute;", value:data});
+	this.board.appendChild(html);
+	var rect = html.getBoundingClientRect();
+	this.board.removeChild(html);
+	
+	this.codeViewer = this.create({tag:"div", class:"code_box", style:{width:rect.width, height:rect.height}, _parent:this.board, value:data});
+};
+ClassEditor.prototype.minCodeView = function() {
+	if(!this.codeViewer){
+		return;
+	}
+	this.board.removeChild(this.codeViewer);
+	this.codeViewer = null;
+};
+
+ClassEditor.prototype.maxToolbar = function() {
+	if(this.toolbar.clientWidth>100){
+		return;
+	}
+	var that = this;
+
+	this.toolbar.minWidth = this.toolbar.clientWidth;
+	this.toolbar.style.width=300;
+	var table = this.create({tag:"table", _parent:this.toolbar});
+	var tr =this.create({tag:'tr', _parent:table});
+	this.create({"tag":"th", _parent:tr, colspan:2, value:"Properties"});
+	tr = this.create({tag:'tr', _parent:table});
+	this.create({"tag":"td", value:"Workspace:", _parent:tr});
+	var cell = this.create({"tag":"td", _parent:tr});
+	this.createInputField({value:this.model.package, _parent:cell,onChange:function(e){that.savePackage(e);}});
+	tr =this.create({tag:'tr', _parent:table});
+	cell = this.create({"tag":"td", colspan:2, style:"text-align:right;padding:10px 10px 0 0", _parent:tr});
+	this.create({tag:'button', _parent:cell, style:"margin-left:10px;", value:"Save", onClick:function(){that.save();}});
+	if(typeof(java)!="undefined") {
+		this.create({tag:'button', _parent:cell, style:"margin-left:10px;", value:"Generate", onClick:function(){that.generate();}});
+		this.create({tag:'button', _parent:cell, style:"margin-left:10px;", value:"Exit", onClick:function(){that.close();}});
+	}
+};
+ClassEditor.prototype.createInputField = function(option){
+	var that = this;
+	var node = this.copy({tag:"input", type:"text", width:"100%", onFocus:function(){that.inputEvent = false;}, onBlur:function(){that.inputEvent = true;}}, option);
+	if(option._parent){
+		node._parent = option._parent;
+	}
+	return this.create(node);
+};
+ClassEditor.prototype.savePackage = function(e) {
+	this.model.package = e.target.value;
+};
+ClassEditor.prototype.minToolbar = function(e) {
+	if(this.toolbar.clientWidth<100 || this.getId(e.toElement, "toolbar")){
+		return;
+	}
+	for(var i=this.toolbar.children.length-1;i>=0;i--){
+		this.toolbar.removeChild(this.toolbar.children[i]);
+	}
+	this.toolbar.style.width = this.toolbar.minWidth;
+	this.inputEvent = true;
+};
+ClassEditor.prototype.getId = function(element, id) {
+	if(element.id===id){
+		return true;
+	}
+	if(element.parentElement) {
+		return this.getId(element.parentElement, id);
+	}
+	return false;
+};
+ClassEditor.prototype.doAction = function(event, functionName) {
+	for(var i=0;i<this.actions.length;i++){
+		if(typeof this.actions[i][functionName] === "function" && this.actions[i][functionName](event)) {
+			return;
+		}
+	}
+	if(functionName==="stopAction" && event.target==this.board) {
+		this.getAction("Selector").setNode(null);
+	}
+};
+ClassEditor.prototype.selectNode = function(event){
+	var n = this.getModelNode(event.target);
+	if(n) {
+		this.getAction("Selector").setNode(n);
+	}
+};
+ClassEditor.prototype.getAction = function(name){
+	for(var i=0;i<this.actions.length;i++) {
+		if(name===this.actions[i].name){
+			return this.actions[i];
+		}
+	}
+	return null;
+};
+ClassEditor.prototype.createElement = function(element, typ, node){
+	if(typ) {
+		if(typ=="empty" || typ=="attribute" || typ=="method" ) {
+			this.createEdge.addElement(element, node);
+		} else {
+			if(typ!="info"){
+				var that = this;
+				this.bind(element, "mousedown", function(e){that.callBack(typ, e);});
+			}
+			this.editNode.addElement(element, typ);
+		}
+	}
+};
+ClassEditor.prototype.callBack = function(typ, e){
+	this.getAction("MoveNode").callBack(typ, e);
+};
+ClassEditor.prototype.addNode = function(node) {
+	var html = null;
+	for(var i=0;i<this.model.nodes.length;i++) {
+		if(this.model.nodes[i].id==node.id){
+			html = this.drawer.getNode(this.model.nodes[i], false);
+			break;
+		}
+	}
+	if(!html) {
+		node = this.model.addNode( node );
+		html = this.drawer.getNode(node, false);
+	}
+	if(this.getAction("Selector").node){
+		this.getAction("Selector").node = html;
+	}
+	this.board.appendChild(html);
+
+	var size = this.drawer.getSize(html);
+	node._minWidth = size.x;
+	node._minHeight = size.y;
+	this.drawer.setSize(html, Math.max(Number(node.width), Number(node._minWidth)), Math.max(Number(node.height), Number(node._minHeight)));
+
+	var that = this;
+	this.bind(html, "mouseup", function(e){that.selectNode(e);});
+};
+ClassEditor.prototype.clearLines = function(){
+	for(var i=0; i<this.model.edges.length;i++) {
+		this.model.edges[i].removeFromBoard(this.board);
+	}
+};
+ClassEditor.prototype.drawlines = function() {
+	this.clearLines();
+	var infoTxt, e,i;
+	for(i = 0; i < this.model.edges.length; i++) {
+		e = this.model.edges[i];
+		infoTxt = e.getInfo(e.source);
+		if(infoTxt.length > 0) {
+			this.sizeHTML(this.drawer.createInfo(e.source, infoTxt, 0), e.source);
+		}
+		infoTxt = e.getInfo(e.target);
+		if(infoTxt.length > 0) {
+			this.sizeHTML(this.drawer.createInfo(e.target, infoTxt, 0), e.target);
+		}
+	}
+	this.model.calcLines(this.drawer);
+	for(i = 0; i < this.model.edges.length; i++) {
+		e = this.model.edges[i];
+		this.model.edges[i].draw(this.board, this.drawer);
+	}
+};
+
+ClassEditor.prototype.removeCurrentNode = function() {
+	var selector = this.getAction("Selector");
+	var item = selector.node;
+	if(item) {
+		selector.removeAll();
+		this.board.removeChild(item);
+		var n = item.model;
+		for(var i=0;i<this.model.nodes.length;i++) {
+			if(this.model.nodes[i].id==n.id){
+				this.model.nodes.splice(i-1, 1);
+				i--;
+			}
+		}
+	}
+};
+// ################################## CREATE ####################################################
+var CreateNode = function(parent){
+	this.name="CreateNode";
+	this._parent = parent;
+	this.minSize = 20;
+	this.offset=new Pos();
+	this.mouse=new Pos();
+	this.createClass=false;
+};
+CreateNode.prototype = Object_create(GraphUtil.prototype);
+CreateNode.prototype.startAction = function(event) {
+	if(event.button == 2){return;}
+	if(event.target != this._parent.board){return;}
+	this.createClass=true;
+	this.offset.x = this.mouse.x = this.getEventX(event);
+	this.offset.y = this.mouse.y = this.getEventY(event);
+	return true;
+};
+CreateNode.prototype.doAction = function(event) {
+	if(!this.createClass){return;}
+	this.mouse.x = this.getEventX(event);
+	this.mouse.y = this.getEventY(event);
+	var width = Math.abs(this.mouse.x - this.offset.x);
+	var height = Math.abs(this.mouse.y - this.offset.y);
+	if(width>this.minSize && height > this.minSize){
+		if(!this.newClass) {
+			this.newClass = this.create({tag:"div", style:"position:absolute;opacity: 0.2;background-color:#ccc;"});
+			this._parent.board.appendChild(this.newClass);
+		}
+		this.newClass.style.width=width;
+		this.newClass.style.height=height;
+		this.newClass.style.left=Math.min(this.mouse.x, this.offset.x);
+		this.newClass.style.top=Math.min(this.mouse.y, this.offset.y);
+	}else{
+		if(this.newClass) {
+			this._parent.board.removeChild(this.newClass);
+			this.newClass = null;
+		}
+	}
+	return true;
+};
+CreateNode.prototype.outAction = function(event) {return this.stopAction(event);};
+CreateNode.prototype.stopAction = function() {
+	this.createClass=false;
+	if(!this.newClass){
+		return false;
+	}
+	var node = {"typ":"node", "id":"Class"+(this._parent.model._nodeCount+1)};
+	node["x"] = this.getValue(this.newClass.style.left);
+	node["y"] = this.getValue(this.newClass.style.top);
+	node["width"] =	this.getValue(this.newClass.style.width);
+	node["height"] =this.getValue(this.newClass.style.height);
+
+	this._parent.board.removeChild(this.newClass);
+	this.newClass = null;
+	this._parent.addNode(node);
+	return true;
+};
+
+// ################################## SELECTOR ####################################################
+var Selector = function(parent){
+	this.name="Selector";
+	this._parent = parent;
+	this.size=6;
+	this.nodes = {};
+	this.mouse=new Pos();
+	this.offset=new Pos();
+	this.resizeNode = null;
+};
+Selector.prototype = Object_create(GraphUtil.prototype);
+Selector.prototype.start = function(e){
+	this.resizeNode=e.target.id;
+	this.sizeNode=new Pos(this.node.model.width, this.node.model.height);
+	this.offset.x = this.mouse.x = this.getEventX(event);
+	this.offset.y = this.mouse.y = this.getEventY(event);
+};
+Selector.prototype.doit = function(e){
+	if(!this.resizeNode){
+		return;
+	}
+	this.mouse.x = this.getEventX(event);
+	this.mouse.y = this.getEventY(event);
+
+	var multiX=1, multiY=1;
+	if(this.resizeNode.charAt(0)=="n") {
+		multiY = -1;
+	}
+	if(this.resizeNode.indexOf("w")>=0) {
+		multiX = -1;
+	}
+	var n=this.node.model;
+	var newWidth = Math.max(n._minWidth, this.sizeNode.x + (this.mouse.x - this.offset.x)*multiX);
+	var newHeight = Math.max(n._minHeight, this.sizeNode.y + (this.mouse.y - this.offset.y)*multiY);
+
+	var diffX=0;
+	var diffY=0;
+	if(this.resizeNode=="n") {
+		diffY = n.height - newHeight;
+		n.height = this.node.style.height = newHeight;
+	}else if(this.resizeNode=="nw") {
+		diffY = n.height - newHeight;
+		n.height = this.node.style.height = newHeight;
+		diffX = n.width - newWidth;
+		n.width = this.node.style.width = newWidth;
+	}else if(this.resizeNode=="ne") {
+		diffY = n.height - newHeight;
+		n.height = this.node.style.height = newHeight;
+		n.width = this.node.style.width = newWidth;
+	}else if(this.resizeNode=="sw") {
+		diffX = n.width - newWidth;
+		n.height = this.node.style.height = newHeight;
+		n.width = this.node.style.width = newWidth;
+	}else if(this.resizeNode=="s") {
+		n.height = this.node.style.height = newHeight;
+	}else if(this.resizeNode=="w") {
+		diffX = n.width - newWidth;
+		n.width = this.node.style.width = newWidth;
+	}else if(this.resizeNode=="e") {
+		n.width = this.node.style.width = newWidth;
+	} else {
+		n.width = this.node.style.width = newWidth;
+		n.height = this.node.style.height = newHeight;
+	}
+	if(diffY!=0){
+		n.y += diffY;
+		this.node.style.top = n.y;
+	}
+	if(diffX!=0){
+		n.x += diffX;
+		this.node.style.left = n.x;
+	}
+	this.refreshNode();
+};
+Selector.prototype.stop = function(){this.resizeNode=null;};
+Selector.prototype.removeAll = function(){
+	for(var i in this.nodes){
+		if(!this.nodes.hasOwnProperty(i)){
+			continue;
+		}
+		var select = this.nodes[i];
+		this._parent.board.removeChild(select);
+	}
+	this.nodes = {};
+};
+
+Selector.prototype.setNode = function(node){
+	if(this.node) {
+		this.removeAll();
+	}
+	this.node = node;
+	this.refreshNode();
+};
+Selector.prototype.refreshNode = function(){
+	if(!this.node){
+		return;
+	}
+	var x = this.getValue(this.node.style.left);
+	var y = this.getValue(this.node.style.top);
+	var width = this.getValue(this.node.clientWidth);
+	var height = this.getValue(this.node.clientHeight);
+	var s=this.size+1;
+	var sh=this.size/2+1;
+	this.selector("nw", x-s, y-s);
+	this.selector("n", x+(width/2)-sh, y-s);
+	this.selector("ne", x+width+1, y-s);
+	this.selector("w", x-s, y+height/2-sh);
+	this.selector("sw", x-s, y+height+1);
+	this.selector("s", x+(width/2)-sh, y+height+1);
+	this.selector("se", x+width+1, y+height+1);
+	this.selector("e", x+width+1, y+height/2-sh);
+};
+
+Selector.prototype.selector = function(id, x, y){
+	var n = this.nodes[id];
+	if(!n){
+		n = this.create({tag:"div", "id": id, style:"position:absolute;background:#00F;width:"+this.size+"px;height:"+this.size+"px;cursor:"+id+"-resize;"});
+		this.nodes[id] = n;
+		var that = this;
+		this.bind(n, "mousedown", function(e){that.start(e);});
+		this.bind(n, "mousemove", function(e){that.doit(e);});
+		this.bind(n, "mouseup", function(e){that.stop(e);});
+		this._parent.board.appendChild(n);
+	}
+	n.style.left = x;
+	n.style.top = y;
+};
+Selector.prototype.startAction = function() {
+	if(!this.node){
+		return false;
+	}
+};
+Selector.prototype.doAction = function(event) {
+	if(!this.resizeNode){
+		return false;
+	}
+	this.doit(event);
+	return true;
+};
+
+Selector.prototype.stopAction = function() {
+	if(this.resizeNode){
+		this.resizeNode = false;
+		return true;
+	}
+	return false;
+};
+
+// ################################## SELECTOR ####################################################
+var MoveNode = function(parent){ this.name="MoveNode";this._parent = parent;this.mouse=new Pos();this.offset=new Pos();};
+MoveNode.prototype = Object_create(GraphUtil.prototype);
+MoveNode.prototype.callBack = function(typ, e){
+	if(typ==="id") {
+		var th =e.target;
+		var that = this;
+		this.bind(th, "mousedown", function(e){that.start(e);});
+		this.bind(th, "mousemove", function(e){that.doit(e);});
+		this.bind(th, "mouseup", function(e){that.stop(e);});
+	}
+};
+MoveNode.prototype.start = function(e){
+	this.node=this.getModelNode(e.target).model;
+	this.posNode=new Pos(this.node.x, this.node.y);
+	// SAVE ID
+	this.offset.x = this.mouse.x = this.getEventX(event);
+	this.offset.y = this.mouse.y = this.getEventY(event);
+};
+MoveNode.prototype.doAction = function() {return this.node;};
+MoveNode.prototype.doit = function(){
+	if(!this.node){
+		return;
+	}
+	this.mouse.x = this.getEventX(event);
+	this.mouse.y = this.getEventY(event);
+
+	var newX = this.posNode.x + (this.mouse.x - this.offset.x);
+	var newY = this.posNode.y + (this.mouse.y - this.offset.y);
+
+	this.node.x = this.node._gui.style.left = newX;
+	this.node.y = this.node._gui.style.top = newY;
+	this._parent.getAction("Selector").refreshNode();
+};
+MoveNode.prototype.stop = function(){
+	this.node=null;
+	this._parent.drawlines();
+};
+
+// ################################## InputNode ####################################################
+var InputNode = function(parent){this.name="InputNode";this._parent = parent;
+	var that = this;
+	document.body.addEventListener("keyup", function(e){
+		that.keyup(e);
+	});
+};
+InputNode.prototype = Object_create(GraphUtil.prototype);
+InputNode.prototype.keyup = function(e) {
+	if(!this._parent.inputEvent){
+		return;
+	}
+	var x = e.keyCode;
+	if(e.altKey || e.ctrlKey) {
+		return;
+	}
+	if(x==46){
+		this._parent.removeCurrentNode();
+	}
+	if((x>64&&x<91) && !e.shiftKey){
+		x+=32;
+	}
+	if((x>64&&x<91)||(x>96&&x<123)||(x>127&&x<155)||(x>159&&x<166)){
+		var selector = this._parent.getAction("Selector");
+		var item = selector.node;
+		if(item && !this.inputItem) {
+			var m=item.model;
+			this.inputItem = this._parent.create({tag:"input", type:"text", "#node":item, "value":String.fromCharCode(x), style:"position:absolute;left:"+m.x+"px;top:"+(m.y+m.height)+"px;width:"+m.width});
+			this._parent.board.appendChild(this.inputItem);
+			this.choiceBox = new ChoiceBox(this.inputItem, this._parent);
+			var that = this;
+			this.inputItem.addEventListener("keyup", function(e){
+				that.changeText(e);
+			});
+			this.inputItem.focus();
+		}
+	}
+};
+InputNode.prototype.accept = function() {
+	var text = this.inputItem.value;
+	var n = this.inputItem.node;
+	if(text.length<1){
+		return false;
+	}
+	if(text.indexOf(":")>=0) {
+		if(!n.model.attributes) {
+			n.model.attributes = [];
+		}
+		n.model.attributes.push(text);
+		return true;
+	}
+	if(text.indexOf("(")>0) {
+		if(!n.model.methods) {
+			n.model.methods = [];
+		}
+		n.model.methods.push(text);
+		return true;
+	}
+	n.model.id=text;
+	return true;
+};
+InputNode.prototype.changeText = function(e) {
+	if(!this.inputItem){
+		return;
+	}
+	var close=false;
+	if(e.keyCode==27) {close=true;}
+	if(e.keyCode==13){
+		if(this.accept()) {
+			var n = this.inputItem.node;
+			this._parent.board.removeChild(n);
+			this._parent.addNode(n.model);
+			this._parent.getAction("Selector").refreshNode();
+			close = true;
+		}
+	}
+	if(close){
+		this._parent.board.removeChild(this.inputItem);
+		this.inputItem = null;
+		if(this.choiceBox && this.choiceBox.div){
+			this.graph.board.removeChild(this.choiceBox.div);
+			this.choiceBox.div = null;
+			this.choiceBox = null;
+		}
+	}
+};
+// ################################## ChoiceBox ####################################################
+var ChoiceBox = function(field, graph){
+	this.field=field;
+	this.graph = graph;
+	this.list = [];
+	var that = this;
+	this.bind(field, "keyup", function(e){that.change(e);});
+};
+ChoiceBox.prototype = Object_create(GraphUtil.prototype);
+ChoiceBox.prototype.initAttributes = function() {
+	this.list = ["Boolean", "Byte", "Character", "Double", "Float", "Integer", "Long", "Number", "Object", "Short", "String"];
+	this.addFromGraph(this.graph.model, "nodes.id");
+	this.list.sort();
+};
+ChoiceBox.prototype.addFromGraph = function(item, filter) {
+	for(var i in item) {
+		if(!item.hasOwnProperty(i)){
+			continue;
+		}
+		if(item[i] instanceof Array) {
+			for(var z=0;z<item[i].length;z++){
+				this.addFromGraph(item[i][z], filter.substring(filter.indexOf(".")+1));
+			}
+		}
+		if(filter.indexOf(".")<0 && i==filter) {
+			this.list.push(item[i]);
+		}
+	}
+};
+ChoiceBox.prototype.change = function(e) {
+	if(this.div){
+		this.graph.board.removeChild(this.div);
+		this.div = null;
+	}
+	if(e.keyCode==27 || e.keyCode==13){
+		return;
+	}
+	var t=e.target.value.toLowerCase();
+	this.typ="";
+	if(t.indexOf(":")>=0) {
+		this.initAttributes();
+		this.typ = ":";
+	}
+	if(this.typ==""){
+		return;
+	}
+	t = t.substring(t.lastIndexOf(this.typ)+1);
+	var div = this.create({tag:"div", "class":"ChoiceBox", style:"left:"+this.field.style.left+";top:"+(this.getValue(this.field.style.top)+this.field.clientHeight+4)+";width:"+this.field.clientWidth});
+	var that = this;
+	for(var i=0;i<this.list.length;i++) {
+		if(this.list[i].toLowerCase().indexOf(t)>=0) {
+			if(i%2==0){
+				this.create({tag:"div", value:this.list[i], _parent:div, onMouseup:function(){that.select(this);}});
+			}else{
+				this.create({tag:"div", value:this.list[i], "class":"alt", _parent:div,onMouseup:function(){that.select(this);}});
+			}
+		}
+	}
+	if(div.children.length>0){
+		this.div = div;
+		this.graph.board.appendChild(div);
+	}
+};
+ChoiceBox.prototype.select = function(input) {
+	var pos = this.field.value.lastIndexOf(this.typ);
+	this.field.value = this.field.value.substring(0, pos+1)+input.innerHTML;
+	if(this.div){
+		this.graph.board.removeChild(this.div);
+		this.div = null;
+	}
+	this.field.focus();
+};
+// ################################## EditNode ####################################################
+var EditNode = function(graph){this.graph = graph;};
+EditNode.prototype = Object_create(GraphUtil.prototype);
+EditNode.prototype.addElement = function(element, typ) {
+	var that = this;
+	this.bind(element, "mouseup", function(e){that.click(e, element, typ);});
+};
+EditNode.prototype.click = function(e, control, typ) {
+	if(!control.lastClick || control.lastClick < new Date().getTime()-1000 || control.oldValue){
+		control.lastClick = new Date().getTime();
+		return;
+	}
+	if(control.model && control.model.typ=="node") {
+		return;
+	}
+	var that = this;
+	control.oldValue = control.innerHTML;
+	control.contentEditable = true;
+	control.typ = typ;
+	this.graph.inputEvent = false;
+	this.selectText(control);
+	control.onkeydown = (function(e){that.change(e, control);});
+};
+EditNode.prototype.change = function(e, control) {
+	if(e.keyCode!=27 && e.keyCode!=13){
+		return;
+	}
+	var node = this.getModelNode(control);
+	control.contentEditable = false;
+	this.graph.inputEvent=true;
+	if(e.keyCode==27) {
+		control.innerHTML = control.oldValue;
+		control.oldValue = null;
+		return;
+	}
+	var value = control.innerHTML;
+	control.oldValue = null;
+	while(value.substring(value.length-4)=="<br>"){
+		value = value.substring(0, value.length-4);
+	}
+	if(control.typ=="id") {
+		node.model.id = value;
+	} else if(control.typ=="attribute" || control.typ=="method") {
+		var t = control.typ+"s";
+		for(var i=0;i<node.model[t].length;i++){
+			if(node.model[t][i]==control.oldValue){
+				if(value.length>0) {
+					node.model[t][i] = value;
+				}else {
+					node.model[t].splice(i, 1);
+				}
+				break;
+			}
+		}
+	} else if(control.typ=="info" ) {
+		node.model["property"] = value;
+	}
+	control.innerHTML = value;
+};
+// ################################## CreateEdge ####################################################
+var CreateEdge = function(graph){this.graph = graph;};
+CreateEdge.prototype = Object_create(GraphUtil.prototype);
+CreateEdge.prototype.addElement = function(element, node) {
+	var that = this;
+	this.bind(element, "mouseup", function(e){that.up(e, element, node);});
+	this.bind(element, "mousedown", function(e){that.down(e, element, node);});
+};
+CreateEdge.prototype.down = function(e, element, node) {
+	this.fromElement = element;
+	this.fromNode = node;
+	this.x = e.x;
+	this.y = e.y;
+};
+CreateEdge.prototype.up = function(e, element, node) {
+	if(!this.fromElement){
+		return;
+	}
+	if(this.graph.getAction("Selector").node || Math.abs(e.x-this.x)+Math.abs(e.y-this.y)<10){
+		this.fromElement = null;
+		this.fromNode = null;
+		return;
+	}
+	//this.getAction("Selector").setNode(null);
+	e.stopPropagation();
+	this.toElement = element;
+	this.toNode = node;
+
+	var i, width=120;
+
+	if(this.div){
+		return;
+	}
+	this.list = ["Generalization", "Assoziation", "Abort"];
+	
+	var div = this.create({tag:"div", "class":"ChoiceBox", style:{left:e.x,top:e.y, "width":width,zIndex:6000}});
+	var that = this;
+
+	for(i=0;i<this.list.length;i++) {
+		if(i%2==0){
+			this.create({tag:"div", value:this.list[i], _parent:div, onMouseup:function(){that.select(this);}});
+		}else{
+			this.create({tag:"div", value:this.list[i], "class":"alt", _parent:div,onMouseup:function(){that.select(this);}});
+		}
+	}
+	this.div = div;
+	this.graph.board.appendChild(div);
+};
+CreateEdge.prototype.startAction = function(e) {
+	if(e.target==this.graph.board && this.div){
+		this.graph.board.removeChild(this.div);
+		this.div = null;
+	}
+};
+CreateEdge.prototype.select = function(e) {
+	var t = e.innerHTML;
+	var edge;
+	if(t==this.list[0]) {
+	}
+	if(t==this.list[1]) {
+		edge = this.graph.model.addEdgeModel({"typ":"edge", "source":{id:this.fromNode.id, property:"from"}, target:{id:this.toNode.id, property:"to"}});
+		this.graph.drawlines();
+	}
+	this.graph.board.removeChild(this.div);
+	this.div = null;
+	this.fromElement = null;
+	this.fromNode = null;
+	this.toNode = null;
+	this.toElement = null;
 };

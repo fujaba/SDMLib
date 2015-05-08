@@ -603,7 +603,7 @@ public class GenRole extends Generator<Role>
 
             if (this.model.getName().equals(""))
             {
-               // uni directional assoc, to not call reverse
+               // uni directional assoc, do not call reverse
                setMeth = CGUtil.replaceAll(setMeth, 
                   "\n         if (this.partnerRoleName != null)" +
                         "\n         {" +

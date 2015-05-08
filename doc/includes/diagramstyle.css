@@ -18,7 +18,25 @@
 	vertical-align: middle;
 	text-align:center;
 }
-
+.code_box {
+	position: absolute;
+	width:400px;
+	height:300px;
+	border: 1px solid #c2e1f5;
+	right:8px;
+	bottom: 56px;
+	text-align: left;
+}
+.code_box:before {
+	top: 100%;
+	right:0px;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+	border-top-color: #c2e1f5;
+	border-width: 20px;
+}
 .ClassEditorError{
 	width: 100%;
 	height: 100%;
@@ -49,6 +67,18 @@
 	border-right: 1px solid #999999;
 	position:fixed;
 	bottom:6px;
+}
+.CodeView {
+	background : #F4F4F4;
+	position:fixed;
+	bottom:9px;
+	right:7px;
+	width:30px;
+	height:30px;
+}
+.pi {
+	padding-top:5px;
+	cursor:hand;
 }
 .ChoiceBox{
 	position:absolute;
@@ -142,9 +172,9 @@
 	background: -ms-linear-gradient(top, #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* IE10+ */
 	background: linear-gradient(to bottom, #eeeeee 0%,#aaaaaa 50%,#e5e5e5 100%); /* W3C */
 	border-radius: 20px;
-	-webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-	box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
+	box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.75);
 	cursor:pointer;
 }
 

@@ -25,6 +25,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.examples.helloworld.util.GreetingSet;
 
 public class Greeting implements PropertyChangeInterface
 {
@@ -52,6 +53,7 @@ public class Greeting implements PropertyChangeInterface
    {
       setGreetingMessage(null);
       setPerson(null);
+      setTgt(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -210,6 +212,62 @@ public class Greeting implements PropertyChangeInterface
    {
       Person value = new Person();
       withPerson(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * Greeting ----------------------------------- Greeting
+    *                                 tgt
+    * </pre>
+    */
+   
+   public static final String PROPERTY_TGT = "tgt";
+
+   private Greeting tgt = null;
+
+   public Greeting getTgt()
+   {
+      return this.tgt;
+   }
+   public GreetingSet getTgtTransitive()
+   {
+      GreetingSet result = new GreetingSet().with(this);
+      return result.getTgtTransitive();
+   }
+
+
+   public boolean setTgt(Greeting value)
+   {
+      boolean changed = false;
+      
+      if (this.tgt != value)
+      {
+         Greeting oldValue = this.tgt;
+         
+         
+         this.tgt = value;
+         
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TGT, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Greeting withTgt(Greeting value)
+   {
+      setTgt(value);
+      return this;
+   } 
+
+   public Greeting createTgt()
+   {
+      Greeting value = new Greeting();
+      withTgt(value);
       return value;
    } 
 }

@@ -38,6 +38,10 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.models.classes.util.EnumerationPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.classes.util.AnnotationCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.classes.util.AnnotationPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ArrayListSetCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ArrayListSetPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ArrayListCreator());
+      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ArrayListPOCreator());
       return jsonIdMap;
    }
 }
