@@ -498,7 +498,7 @@ public class GenClassModel
          {
             typeName = typeName.substring(0, pos);
          }
-         pos = "int float double long String boolean Object java.util.Date".indexOf(typeName);
+         pos = "int float double long char String boolean Object java.util.Date".indexOf(typeName);
          if (pos < 0)
          {
 

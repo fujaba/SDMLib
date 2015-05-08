@@ -653,49 +653,31 @@ public class GenClass extends Generator<Clazz>
          // insert MIT License otherwise.
          String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
          parser
-            .replaceAll(
-               0,
-               "/*\n"
-                  +
-                  "   Copyright (c) <year> <developer> \n"
-                  +
-                  "   \n"
-                  +
-                  "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n"
-                  +
-                  "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n"
-                  +
-                  "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n"
-                  +
-                  "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n"
-                  +
-                  "   furnished to do so, subject to the following conditions: \n"
-                  +
-                  "   \n"
-                  +
-                  "   The above copyright notice and this permission notice shall be included in all copies or \n"
-                  +
-                  "   substantial portions of the Software. \n"
-                  +
-                  "   \n"
-                  +
-                  "   The Software shall be used for Good, not Evil. \n"
-                  +
-                  "   \n"
-                  +
-                  "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n"
-                  +
-                  "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n"
-                  +
-                  "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n"
-                  +
-                  "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n"
-                  +
+         .replaceAll(0,
+            "/*\n" +
+                  "   Copyright (c) <year> <developer> \n" +
+                  "   \n" +
+                  "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
+                  "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
+                  "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
+                  "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n" +
+                  "   furnished to do so, subject to the following conditions: \n" +
+                  "   \n" +
+                  "   The above copyright notice and this permission notice shall be included in all copies or \n" +
+                  "   substantial portions of the Software. \n" +
+                  "   \n" +
+                  "   The Software shall be used for Good, not Evil. \n" +
+                  "   \n" +
+                  "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n" +
+                  "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n" +
+                  "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n" +
+                  "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n" +
                   "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n" +
                   " */\n" +
-                  "   \n", "<year>", year,
-               "<developer>", System.getProperty("user.name")
-            );
+                  "   \n", 
+                  "<year>", year,
+                  "<developer>", System.getProperty("user.name")
+               );
       }
 
    }

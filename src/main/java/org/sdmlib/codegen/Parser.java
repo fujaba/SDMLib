@@ -190,26 +190,33 @@ public class Parser
       return methodBodyStartPos;
    }
 
-   public int insert(int offset, String text){
+   public int insert(int offset, String text)
+   {
       this.fileBody.insert(offset, text);
       this.fileBodyHasChanged = true;
       return offset+ text.length();
    }
    
-   public int search(String searchText, int pos){
+   public int search(String searchText, int pos)
+   {
       return this.fileBody.indexOf(searchText, pos);
    }
-   public int search(String searchText){
+   
+   public int search(String searchText)
+   {
       return this.fileBody.indexOf(searchText);
    }
    
-   public String getClassName(){
+   public String getClassName()
+   {
       return className;
    }
    
    
-   class SearchStringFoundException extends RuntimeException {
-      private static final long serialVersionUID = 1L; }
+   class SearchStringFoundException extends RuntimeException 
+   {
+      private static final long serialVersionUID = 1L; 
+   }
 
    public Parser withFileBody(StringBuilder fileBody)
    {
@@ -489,7 +496,9 @@ public class Parser
          }
          skipBody();
          if (currentRealTokenEquals("}")) 
+         {
             return;
+         }
          modifiers = parseModifiers();
       }
       else if (currentRealTokenEquals(ENUM))
@@ -499,7 +508,9 @@ public class Parser
          nextRealToken(); // name
          skipBody();
          if (currentRealTokenEquals("}")) 
+         {
             return;
+         }
          modifiers = parseModifiers();
       }
 
@@ -545,8 +556,6 @@ public class Parser
 
             skip(";");
        
-            
-
             symTab.put(ATTRIBUTE+":"+memberName, 
                new SymTabEntry()
             .withMemberName(memberName)
