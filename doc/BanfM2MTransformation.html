@@ -3508,13 +3508,26 @@
    {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
+            "cardinality":"one",
+            "property":"person",
             "id":"P73 : Person"
          },
          "target":{
             "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P73 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
             "property":"knows",
+            "id":"P73 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
             "id":"P74 : Person"
          }
       },
@@ -3522,12 +3535,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P73 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knows",
+            "property":"knowsTransitive",
             "id":"P75 : Person"
          }
       },
@@ -3535,12 +3548,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P73 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knows",
+            "property":"knowsTransitive",
             "id":"P76 : Person"
          }
       },
@@ -3553,20 +3566,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P73 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P73 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P74 : Person"
          }
       },
@@ -3576,32 +3576,6 @@
             "cardinality":"one",
             "property":"person",
             "id":"P73 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P75 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P73 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P76 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P74 : Person"
          },
          "target":{
             "cardinality":"many",
@@ -3614,37 +3588,11 @@
          "source":{
             "cardinality":"one",
             "property":"person",
-            "id":"P74 : Person"
+            "id":"P73 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P74 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P74 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P75 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
-            "id":"P74 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P76 : Person"
          }
       },
@@ -3653,7 +3601,20 @@
          "source":{
             "cardinality":"one",
             "property":"person",
-            "id":"P75 : Person"
+            "id":"P74 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P74 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P74 : Person"
          },
          "target":{
             "cardinality":"many",
@@ -3666,7 +3627,7 @@
          "source":{
             "cardinality":"many",
             "property":"knowsTransitive",
-            "id":"P75 : Person"
+            "id":"P74 : Person"
          },
          "target":{
             "cardinality":"many",
@@ -3679,6 +3640,45 @@
          "source":{
             "cardinality":"one",
             "property":"person",
+            "id":"P74 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knows",
+            "id":"P75 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P75 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P75 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P75 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"knowsTransitive",
+            "id":"P76 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
             "id":"P76 : Person"
          },
          "target":{
@@ -3691,12 +3691,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"knowsTransitive",
+            "property":"knows",
             "id":"P77 : Person"
          },
          "target":{
             "cardinality":"many",
-            "property":"knows",
+            "property":"knowsTransitive",
             "id":"P77 : Person"
          }
       }

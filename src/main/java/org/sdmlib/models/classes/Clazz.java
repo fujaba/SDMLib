@@ -359,6 +359,12 @@ public class Clazz extends SDMLibClass
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
+   public boolean isWithNoObjects()
+   {
+      return this.isAbztract() || this.isInterfaze();
+   }
+   
+   
    //==========================================================================
    public boolean isInterface()
    {

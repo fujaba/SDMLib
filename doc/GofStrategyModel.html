@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/gofpattern/StrategyModel.java' type='text/x-java'>GofStrategyModel</a></p>
+<p>GofStrategyModel</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"BombermanPlayer",
+         "attributes":[
+         "xPosition : int",
+            "yPosition : int",
+            "numberOfBombs : int",
+            "lastKey : char"
+         ],
+         "methods":[
+         "keyPress(String key)"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"BombermanStrategy",
+         "methods":[
+         "handleMove()"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"MoveUp"
+      },
+      {
+         "typ":"node",
+         "id":"MoveDown"
+      },
+      {
+         "typ":"node",
+         "id":"MoveLeft"
+      },
+      {
+         "typ":"node",
+         "id":"MoveRight"
+      },
+      {
+         "typ":"node",
+         "id":"Blast"
+      },
+      {
+         "typ":"node",
+         "id":"Stay"
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
+            "property":"",
+            "id":"BombermanStrategy"
+         },
+         "target":{
+            "id":"BombermanStrategy",
+            "cardinality":"one",
+            "property":"successor"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"MoveUp"},
+         "target":{"id":"BombermanStrategy"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"MoveDown"},
+         "target":{"id":"BombermanStrategy"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"MoveLeft"},
+         "target":{"id":"BombermanStrategy"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"MoveRight"},
+         "target":{"id":"BombermanStrategy"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Blast"},
+         "target":{"id":"BombermanStrategy"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Stay"},
+         "target":{"id":"BombermanStrategy"}
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasGofStrategyModelClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+
+</body>
+</html>

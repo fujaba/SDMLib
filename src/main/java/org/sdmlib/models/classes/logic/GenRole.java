@@ -654,22 +654,22 @@ public class GenRole extends Generator<Role>
       
       String realPartnerClassName = partnerClassName;
       
-      ClazzSet kindClasses = partnerRole.getClazz().getKidClazzes();
-      ClazzSet kindClassesInterfaces =new ClazzSet();
-      for(Clazz item : kindClasses){
-         if(item.isInterface()){
-            kindClassesInterfaces.add(item);
+      ClazzSet kidClasses = partnerRole.getClazz().getKidClazzesTransitive().without(partnerRole.getClazz());
+      ClazzSet kidClassesInterfaces =new ClazzSet();
+      for(Clazz item : kidClasses){
+         if(item.isWithNoObjects()){
+            kidClassesInterfaces.add(item);
          }
       }
       
-      if (partnerRole.getClazz().isInterface() && kindClassesInterfaces.size() == 1)
+      if (partnerRole.getClazz().isWithNoObjects() && kidClassesInterfaces.size() == 1)
       {
-         realPartnerClassName = CGUtil.shortClassName(kindClassesInterfaces.first().getFullName());
+         realPartnerClassName = CGUtil.shortClassName(kidClassesInterfaces.first().getFullName());
       }
       
-      if (pos < 0 && ! (partnerRole.getClazz().isInterface() && kindClassesInterfaces.size() != 1))
+      if (pos < 0 && ! (partnerRole.getClazz().isWithNoObjects() && kidClassesInterfaces.size() != 1))
       {
-         if (! clazz.isInterface())
+         if (! clazz.isWithNoObjects())
          {
             text.append 
             (     "\n   public partnerClassName createPartnerRoleName()" +

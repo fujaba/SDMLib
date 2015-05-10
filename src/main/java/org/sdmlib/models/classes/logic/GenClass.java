@@ -911,6 +911,11 @@ public class GenClass extends Generator<Clazz>
                instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName
                   + "()";
             }
+            
+            if (model.isAbztract())
+            {
+               instanceCreationClause = "null";
+            }
 
             String classModelPackage = model.getClassModel().getName() + ".util.";
 
