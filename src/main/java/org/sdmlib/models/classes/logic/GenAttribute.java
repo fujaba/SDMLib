@@ -419,7 +419,8 @@ public class GenAttribute extends Generator<Attribute>
 
          String nullValue = "null";
 
-         if ("int long double float char".indexOf(attrType) >= 0)
+         
+         if ("int long double float char short byte".indexOf(attrType) >= 0)
          {
             nullValue = "0";
          }
