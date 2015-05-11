@@ -498,8 +498,8 @@ public class GenClassModel
          {
             typeName = typeName.substring(0, pos);
          }
-         pos = "int float double long char String boolean Object java.util.Date".indexOf(typeName);
-         if (pos < 0)
+         
+         if ( ! CGUtil.isPrimitiveType(typeName))
          {
 
             Clazz clazz = this.model.getClazz(typeName);

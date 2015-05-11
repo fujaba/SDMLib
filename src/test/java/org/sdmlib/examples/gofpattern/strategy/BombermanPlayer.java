@@ -183,4 +183,32 @@ public  class BombermanPlayer implements PropertyChangeInterface
       setLastKey(value);
       return this;
    } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_SHORTTEST = "shortTest";
+   
+   private short shortTest;
+
+   public short getShortTest()
+   {
+      return this.shortTest;
+   }
+   
+   public void setShortTest(short value)
+   {
+      if (this.shortTest != value)
+      {
+         short oldValue = this.shortTest;
+         this.shortTest = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_SHORTTEST, oldValue, value);
+      }
+   }
+   
+   public BombermanPlayer withShortTest(short value)
+   {
+      setShortTest(value);
+      return this;
+   } 
 }

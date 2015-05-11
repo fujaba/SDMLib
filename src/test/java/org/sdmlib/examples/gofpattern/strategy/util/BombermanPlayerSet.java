@@ -26,6 +26,7 @@ import org.sdmlib.examples.gofpattern.strategy.BombermanPlayer;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.modelsets.charList;
+import org.sdmlib.models.modelsets.shortList;
 
 public class BombermanPlayerSet extends SDMSet<BombermanPlayer>
 {
@@ -266,6 +267,43 @@ public class BombermanPlayerSet extends SDMSet<BombermanPlayer>
       for (BombermanPlayer obj : this)
       {
          obj.setLastKey(value);
+      }
+      
+      return this;
+   }
+
+   public shortList getShortTest()
+   {
+      shortList result = new shortList();
+      
+      for (BombermanPlayer obj : this)
+      {
+         result.add(obj.getShortTest());
+      }
+      
+      return result;
+   }
+
+   public BombermanPlayerSet hasShortTest(short value)
+   {
+      BombermanPlayerSet result = new BombermanPlayerSet();
+      
+      for (BombermanPlayer obj : this)
+      {
+         if (value == obj.getShortTest())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public BombermanPlayerSet withShortTest(short value)
+   {
+      for (BombermanPlayer obj : this)
+      {
+         obj.setShortTest(value);
       }
       
       return this;

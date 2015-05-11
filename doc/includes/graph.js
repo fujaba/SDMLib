@@ -619,7 +619,7 @@ Graph.prototype.draw = function(model, width, height){
 			continue;
 		}
 		n = nodes[i];
-		n._gui = this.drawer.getNode(n);
+		n._gui = this.drawer.getNode(n, true);
 		model._gui.appendChild( n._gui );
 	}
 };
@@ -798,7 +798,7 @@ Graph.prototype.stopDrag = function(event) {
 				var infoTxt = item.model.edge.getInfo(item.model);
 				item.model.edge.drawText(this.board, this.drawer, infoTxt, item.model);
 			}else{
-				item.model._gui = this.drawer.getNode(item.model);
+				item.model._gui = this.drawer.getNode(item.model, true);
 				if(item.model._gui){
 					parent.appendChild( item.model._gui );
 				}

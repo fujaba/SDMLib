@@ -46,7 +46,7 @@ public class CGUtil
 
    public static boolean isPrimitiveType(String type)
    {
-      String primitiveTypes = " String long int char boolean byte float double java.util.Date ";
+      String primitiveTypes = " String long int char short boolean byte float double java.util.Date ";
       
       if (type == null)  return false;
       

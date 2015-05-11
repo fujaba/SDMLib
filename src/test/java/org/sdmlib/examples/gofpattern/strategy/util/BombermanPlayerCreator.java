@@ -33,6 +33,7 @@ public class BombermanPlayerCreator extends EntityFactory
       BombermanPlayer.PROPERTY_YPOSITION,
       BombermanPlayer.PROPERTY_NUMBEROFBOMBS,
       BombermanPlayer.PROPERTY_LASTKEY,
+      BombermanPlayer.PROPERTY_SHORTTEST,
    };
    
    @Override
@@ -77,6 +78,11 @@ public class BombermanPlayerCreator extends EntityFactory
       {
          return ((BombermanPlayer) target).getLastKey();
       }
+
+      if (BombermanPlayer.PROPERTY_SHORTTEST.equalsIgnoreCase(attribute))
+      {
+         return ((BombermanPlayer) target).getShortTest();
+      }
       
       return null;
    }
@@ -110,6 +116,12 @@ public class BombermanPlayerCreator extends EntityFactory
       if (BombermanPlayer.PROPERTY_LASTKEY.equalsIgnoreCase(attrName))
       {
          ((BombermanPlayer) target).withLastKey((char) value);
+         return true;
+      }
+
+      if (BombermanPlayer.PROPERTY_SHORTTEST.equalsIgnoreCase(attrName))
+      {
+         ((BombermanPlayer) target).withShortTest((short) value);
          return true;
       }
       

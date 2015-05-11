@@ -23,6 +23,7 @@ public class StrategyModel
             .withAttribute("yPosition", DataType.INT)
             .withAttribute("numberOfBombs", DataType.INT)
             .withAttribute("lastKey", DataType.CHAR)
+            .withAttribute("shortTest", DataType.ref("short"))
             .withMethod("keyPress", DataType.VOID,
                new Parameter("key", DataType.STRING));
 

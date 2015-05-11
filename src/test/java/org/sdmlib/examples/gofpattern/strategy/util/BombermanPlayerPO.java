@@ -242,4 +242,42 @@ public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, Bomberma
       return this;
    }
    
+   public BombermanPlayerPO hasShortTest(short value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BombermanPlayer.PROPERTY_SHORTTEST)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttribute();
+      
+      return this;
+   }
+   
+   public BombermanPlayerPO createShortTest(short value)
+   {
+      this.startCreate().hasShortTest(value).endCreate();
+      return this;
+   }
+   
+   public short getShortTest()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((BombermanPlayer) getCurrentMatch()).getShortTest();
+      }
+      return 0;
+   }
+   
+   public BombermanPlayerPO withShortTest(short value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((BombermanPlayer) getCurrentMatch()).setShortTest(value);
+      }
+      return this;
+   }
+   
 }
