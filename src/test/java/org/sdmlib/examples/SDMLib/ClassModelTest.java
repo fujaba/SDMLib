@@ -104,6 +104,10 @@ public class ClassModelTest
          .withSource(new Role(methodClass, "method", Card.ONE).withKind(Role.AGGREGATION))
          .withTarget(annotationClass, "annotations", Card.MANY);
 
+      new Association()
+      .withSource(new Role(attributeClass, "attribute", Card.ONE).withKind(Role.AGGREGATION))
+      .withTarget(annotationClass, "annotations", Card.MANY);
+
       // ---- Enumeration ----
 
       Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz)

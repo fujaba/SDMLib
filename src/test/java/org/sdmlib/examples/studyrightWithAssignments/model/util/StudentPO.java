@@ -52,7 +52,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -67,7 +67,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -105,7 +105,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -120,7 +120,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -158,7 +158,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -173,7 +173,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -211,7 +211,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -226,7 +226,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -264,7 +264,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -279,7 +279,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }

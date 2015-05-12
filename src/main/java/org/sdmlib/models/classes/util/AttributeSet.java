@@ -30,6 +30,10 @@ import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.classes.util.ClazzSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.models.classes.util.AnnotationSet;
+import org.sdmlib.models.classes.Annotation;
 
 public class AttributeSet extends SDMSet<Attribute>
 {
@@ -182,6 +186,64 @@ public class AttributeSet extends SDMSet<Attribute>
    }
    
    public static final AttributeSet EMPTY_SET = new AttributeSet().withReadOnly(true);
+   public AnnotationSet getAnnotations()
+   {
+      AnnotationSet result = new AnnotationSet();
+      
+      for (Attribute obj : this)
+      {
+         result.addAll(obj.getAnnotations());
+      }
+      
+      return result;
+   }
+
+   public AttributeSet hasAnnotations(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AttributeSet answer = new AttributeSet();
+      
+      for (Attribute obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getAnnotations()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public AttributeSet withAnnotations(Annotation value)
+   {
+      for (Attribute obj : this)
+      {
+         obj.withAnnotations(value);
+      }
+      
+      return this;
+   }
+
+   public AttributeSet withoutAnnotations(Annotation value)
+   {
+      for (Attribute obj : this)
+      {
+         obj.withoutAnnotations(value);
+      }
+      
+      return this;
+   }
+
 }
 
 

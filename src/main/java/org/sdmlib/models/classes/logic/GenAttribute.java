@@ -536,7 +536,7 @@ public class GenAttribute extends Generator<Attribute>
                   "      .withModifier(this.getPattern().getModifier())\n" + 
                   "      .withPattern(this.getPattern());\n" + 
                   "      \n" + 
-                  "      super.hasAttribute();\n" + 
+                  "      super.hasAttr();\n" + 
                   "      \n" + 
                   "      return this;\n" + 
                   "   }\n" +
@@ -586,7 +586,7 @@ public class GenAttribute extends Generator<Attribute>
                   "      .withModifier(this.getPattern().getModifier())\n" + 
                   "      .withPattern(this.getPattern());\n" + 
                   "      \n" + 
-                  "      super.hasAttribute();\n" +
+                  "      super.hasAttr();\n" +
                   "      \n" + 
                   "      return this;\n" + 
                   "   }\n" +

@@ -54,7 +54,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -92,7 +92,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -107,7 +107,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -145,7 +145,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -160,7 +160,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -198,7 +198,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -213,7 +213,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -251,7 +251,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -266,7 +266,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -304,7 +304,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -319,7 +319,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }

@@ -6,6 +6,7 @@ import java.util.Set;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 
@@ -17,7 +18,18 @@ public class GenAnnotation extends Generator<Annotation>
          return generate(model.getClazz(), rootDir, helperDir);
       if (model.getMethod() != null)
          return generate(model.getMethod(), rootDir, helperDir);
+      if (model.getAttribute() != null)
+         return generate(model.getAttribute(), rootDir, helperDir);
       return this;
+   }
+
+   private GenAnnotation generate(Attribute attribute, String rootDir, String helperDir)
+   {
+      Parser parser = getGenerator(attribute.getClazz()).getOrCreateParser(rootDir);
+      parser.parse();
+
+      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(attribute.getName());
+      return generate(parser, tabEntries);
    }
 
    private GenAnnotation generate(Method method, String rootDir, String helperDir)

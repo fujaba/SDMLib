@@ -34,6 +34,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
+import org.sdmlib.models.classes.util.AttributeSet;
+import org.sdmlib.models.classes.Attribute;
 
 public class AnnotationSet extends SDMSet<Annotation>
 {
@@ -323,6 +325,54 @@ public class AnnotationSet extends SDMSet<Annotation>
          result.add(obj.createSuppressWarningsAnnotation(value));
       }
       return result;
+   }
+
+   public AttributeSet getAttribute()
+   {
+      AttributeSet result = new AttributeSet();
+      
+      for (Annotation obj : this)
+      {
+         result.add(obj.getAttribute());
+      }
+      
+      return result;
+   }
+
+   public AnnotationSet hasAttribute(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AnnotationSet answer = new AnnotationSet();
+      
+      for (Annotation obj : this)
+      {
+         if (neighbors.contains(obj.getAttribute()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public AnnotationSet withAttribute(Attribute value)
+   {
+      for (Annotation obj : this)
+      {
+         obj.withAttribute(value);
+      }
+      
+      return this;
    }
 
 }

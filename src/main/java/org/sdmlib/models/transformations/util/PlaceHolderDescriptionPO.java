@@ -48,7 +48,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }
@@ -63,7 +63,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }
@@ -101,7 +101,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }
@@ -116,7 +116,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }
@@ -154,7 +154,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }
@@ -169,7 +169,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }
@@ -207,7 +207,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }
@@ -245,7 +245,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }
@@ -260,7 +260,7 @@ public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescripti
          .withModifier(this.getPattern().getModifier())
          .withPattern(this.getPattern());
 
-      super.hasAttribute();
+      super.hasAttr();
 
       return this;
    }

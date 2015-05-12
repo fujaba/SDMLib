@@ -359,7 +359,7 @@ public class SymTabEntryPO extends PatternObject<SymTabEntryPO, SymTabEntry>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -374,7 +374,7 @@ public class SymTabEntryPO extends PatternObject<SymTabEntryPO, SymTabEntry>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }

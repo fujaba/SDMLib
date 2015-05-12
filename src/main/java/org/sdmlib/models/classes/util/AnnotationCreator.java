@@ -30,6 +30,7 @@ import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Attribute;
 
 public class AnnotationCreator extends EntityFactory
 {
@@ -39,7 +40,8 @@ public class AnnotationCreator extends EntityFactory
       SDMLibClass.PROPERTY_NAME,
       Annotation.PROPERTY_CLAZZ,
       Annotation.PROPERTY_METHOD,
-      Annotation.PROPERTY_VALUES
+      Annotation.PROPERTY_VALUES,
+      Annotation.PROPERTY_ATTRIBUTE,
    };
    
    @Override
@@ -84,6 +86,11 @@ public class AnnotationCreator extends EntityFactory
       {
          return ((Annotation) target).getMethod();
       }
+
+      if (Annotation.PROPERTY_ATTRIBUTE.equalsIgnoreCase(attribute))
+      {
+         return ((Annotation) target).getAttribute();
+      }
       
       return null;
    }
@@ -117,6 +124,12 @@ public class AnnotationCreator extends EntityFactory
       if (Annotation.PROPERTY_METHOD.equalsIgnoreCase(attrName))
       {
          ((Annotation) target).setMethod((Method) value);
+         return true;
+      }
+
+      if (Annotation.PROPERTY_ATTRIBUTE.equalsIgnoreCase(attrName))
+      {
+         ((Annotation) target).setAttribute((Attribute) value);
          return true;
       }
       
