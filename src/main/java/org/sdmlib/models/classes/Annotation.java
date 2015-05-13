@@ -37,6 +37,7 @@ public class Annotation extends SDMLibClass
 
       setClazz(null);
       setMethod(null);
+      setAttribute(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -277,6 +278,89 @@ public class Annotation extends SDMLibClass
 
 
    
+   
+   //==========================================================================
+   
+   
+   //==========================================================================
+   
+   
+   //==========================================================================
+   
+   
+   //==========================================================================
+   
+   
+   //==========================================================================
+   
+   
+   //==========================================================================
+   
+   
+   //==========================================================================
+   
+   
+   //==========================================================================
+   
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Annotation ----------------------------------- Attribute
+    *              annotations                   attribute
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ATTRIBUTE = "attribute";
+
+   private Attribute attribute = null;
+
+   public Attribute getAttribute()
+   {
+      return this.attribute;
+   }
+
+   public boolean setAttribute(Attribute value)
+   {
+      boolean changed = false;
+      
+      if (this.attribute != value)
+      {
+         Attribute oldValue = this.attribute;
+         
+         if (this.attribute != null)
+         {
+            this.attribute = null;
+            oldValue.withoutAnnotations(this);
+         }
+         
+         this.attribute = value;
+         
+         if (value != null)
+         {
+            value.withAnnotations(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTE, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Annotation withAttribute(Attribute value)
+   {
+      setAttribute(value);
+      return this;
+   } 
+
+   public Attribute createAttribute()
+   {
+      Attribute value = new Attribute(null, null);
+      withAttribute(value);
+      return value;
+   } 
+
    
    //==========================================================================
    

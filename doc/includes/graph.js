@@ -457,7 +457,7 @@ var Options = function(){
 	this.raster = false;
 	this.display = "svg";
 	this.font={"font-size":"10px", "font-family": "Verdana"};
-	this.layout= {name:"Dagre", rankDir:"TB", nodesep:10};	// Dagre TB, LR
+	this.layout= {name:"Dagre", rank:"TB", nodesep:10};	// Dagre TB, LR
 	this.CardinalityInfo = true;
 	this.PropertyInfo = true;
 	this.rotateText = true;
@@ -619,7 +619,7 @@ Graph.prototype.draw = function(model, width, height){
 			continue;
 		}
 		n = nodes[i];
-		n._gui = this.drawer.getNode(n, true);
+		n._gui = this.drawer.getNode(n);
 		model._gui.appendChild( n._gui );
 	}
 };
@@ -798,7 +798,7 @@ Graph.prototype.stopDrag = function(event) {
 				var infoTxt = item.model.edge.getInfo(item.model);
 				item.model.edge.drawText(this.board, this.drawer, infoTxt, item.model);
 			}else{
-				item.model._gui = this.drawer.getNode(item.model, true);
+				item.model._gui = this.drawer.getNode(item.model);
 				if(item.model._gui){
 					parent.appendChild( item.model._gui );
 				}
@@ -927,9 +927,8 @@ Graph.prototype.ExportHTML = function () {
 //				######################################################### GraphLayout-Dagre #########################################################
 var DagreLayout = function() {};
 DagreLayout.prototype.layout = function(graph, node, width, height) {
-	var graphOptions = node.copy({directed:false}, node.options.layout);
-	var g = new dagre.graphlib.Graph(graphOptions);
-	g.setGraph(graphOptions);
+	var g = new dagre.graphlib.Graph(node.copy({directed:false}, node.options.layout));
+	g.setGraph({});
 	g.setDefaultEdgeLabel(function() { return {}; });
 	var i, n, nodes = node.nodes;
 	for (i in nodes) {
@@ -943,6 +942,7 @@ DagreLayout.prototype.layout = function(graph, node, width, height) {
 		var e = node.edges[i];
 		g.setEdge(this.getRootNode(e._sNode).id, this.getRootNode(e._tNode).id);
 	}
+
 	dagre.layout(g);
 	// Set the layouting back
 	for (i in nodes) {

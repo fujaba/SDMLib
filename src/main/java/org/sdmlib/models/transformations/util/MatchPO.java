@@ -49,7 +49,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -64,7 +64,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -102,7 +102,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -117,7 +117,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -155,7 +155,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -170,7 +170,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -208,7 +208,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -223,7 +223,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -261,7 +261,7 @@ public class MatchPO extends PatternObject<MatchPO, Match>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }

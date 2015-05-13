@@ -748,7 +748,7 @@ public PatternLinkSet getIncomming()
       }
    }
 
-   protected void hasAttribute() {
+   protected void hasAttr() {
       if(!this.getPattern().findMatch()) 
       {
          setCurrentMatch(null);

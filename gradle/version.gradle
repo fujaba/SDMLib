@@ -46,40 +46,51 @@ public class GITVersion {
 }
 
 def getGitTag() {
-	try {
-		def stdout = new ByteArrayOutputStream()
-		exec {
-			commandLine 'git', 'tag'
-			standardOutput = stdout
+	def gittag=-1
+	def test = [-1]
+	executeCommand("git", "tag").eachLine {
+		try {
+			test << (it.trim() as int)
+		} catch (Exception ex) {
+			// no problem as long as there's another tag with a number
 		}
-
-		def test = []
-	
-		stdout.toString().eachLine {
-			try {
-				test << (it.trim() as int)
-			} catch (Exception ex) {
-				// no problem as long as there's another tag with a number
-				//ex.printStackTrace()
-			}
-		}
-		test.max()
-	} catch (Exception e) {
-		e.printStackTrace()
-		-1
 	}
+	gittag = test.max()
+	println "Git-Tag: " + gittag
+	gittag
+}
+
+def executeCommand(String[] args) {
+	def pb = new ProcessBuilder(args)
+	def result = ""
+	InputStream is = null
+	ByteArrayOutputStream stdout
+	try {
+		def prs = pb.start()
+		is = prs.getInputStream();
+		byte[] b = new byte[1024];
+		int size = 0;
+		stdout = new ByteArrayOutputStream();
+		while((size = is.read(b)) != -1){
+			stdout.write(b, 0, size);
+		}
+		result = stdout.toString()
+	} catch (Exception e) {
+	} finally{
+		try {
+			if(is != null) is.close();
+			if(stdout != null) stdout.close();
+		} catch (Exception ex){}
+	}
+	result
 }
 
 def revisionNumber() {
-	def stdout = new ByteArrayOutputStream()
-	exec {
-		commandLine 'git', 'log', '--oneline'
-			standardOutput = stdout
-	}
 	def count = 0
-	stdout.toString().eachLine {
+	executeCommand("git", "log", "--oneline").eachLine {
 		count = count + 1
 	}
+	println "RevisionNumber: " + count
 	count
 }
 

@@ -49,7 +49,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -64,7 +64,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -102,7 +102,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -117,7 +117,7 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }

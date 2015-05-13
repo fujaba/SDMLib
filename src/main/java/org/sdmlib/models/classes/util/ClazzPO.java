@@ -604,7 +604,7 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }

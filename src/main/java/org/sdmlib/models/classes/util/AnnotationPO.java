@@ -7,6 +7,9 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.AttributePO;
+import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.util.AnnotationPO;
 
 public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
 {
@@ -47,7 +50,7 @@ public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -85,7 +88,7 @@ public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -100,7 +103,7 @@ public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
       .withModifier(this.getPattern().getModifier())
       .withPattern(this.getPattern());
       
-      super.hasAttribute();
+      super.hasAttr();
       
       return this;
    }
@@ -253,6 +256,40 @@ public class AnnotationPO extends PatternObject<AnnotationPO, Annotation>
       if (this.getPattern().getHasMatch())
       {
          return ((Annotation) getCurrentMatch()).createSuppressWarningsAnnotation(value);
+      }
+      return null;
+   }
+
+   public AttributePO hasAttribute()
+   {
+      AttributePO result = new AttributePO(new Attribute[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Annotation.PROPERTY_ATTRIBUTE, result);
+      
+      return result;
+   }
+
+   public AttributePO createAttribute()
+   {
+      return this.startCreate().hasAttribute().endCreate();
+   }
+
+   public AnnotationPO hasAttribute(AttributePO tgt)
+   {
+      return hasLinkConstraint(tgt, Annotation.PROPERTY_ATTRIBUTE);
+   }
+
+   public AnnotationPO createAttribute(AttributePO tgt)
+   {
+      return this.startCreate().hasAttribute(tgt).endCreate();
+   }
+
+   public Attribute getAttribute()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Annotation) this.getCurrentMatch()).getAttribute();
       }
       return null;
    }

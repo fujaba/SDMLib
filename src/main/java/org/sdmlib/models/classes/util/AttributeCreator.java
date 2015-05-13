@@ -28,6 +28,7 @@ import org.sdmlib.models.classes.Value;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Annotation;
 
 public class AttributeCreator extends EntityFactory
 {
@@ -37,6 +38,7 @@ public class AttributeCreator extends EntityFactory
       Attribute.PROPERTY_CLAZZ,
       Attribute.PROPERTY_TYPE,
       Attribute.PROPERTY_NAME,
+      Attribute.PROPERTY_ANNOTATIONS,
    };
    
    @Override
@@ -85,6 +87,11 @@ public class AttributeCreator extends EntityFactory
       {
          return ((Attribute) target).getClazz();
       }
+
+      if (Attribute.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attribute))
+      {
+         return ((Attribute) target).getAnnotations();
+      }
       
       return null;
    }
@@ -118,6 +125,18 @@ public class AttributeCreator extends EntityFactory
       if (Attribute.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
       {
          ((Attribute) target).setClazz((Clazz) value);
+         return true;
+      }
+
+      if (Attribute.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
+      {
+         ((Attribute) target).withAnnotations((Annotation) value);
+         return true;
+      }
+      
+      if ((Attribute.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Attribute) target).withoutAnnotations((Annotation) value);
          return true;
       }
       

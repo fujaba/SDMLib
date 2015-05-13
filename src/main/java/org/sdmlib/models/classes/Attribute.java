@@ -21,6 +21,7 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.models.classes.util.AttributeSet;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class Attribute extends Value
 {
@@ -89,6 +90,7 @@ public class Attribute extends Value
    {
       super.removeYou();
       setClazz(null);
+      withoutAnnotations(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
@@ -142,6 +144,78 @@ public class Attribute extends Value
    {
       Clazz value = new Clazz(null);
       withClazz(value);
+      return value;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * Attribute ----------------------------------- Annotation
+    *              attribute                   annotations
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ANNOTATIONS = "annotations";
+
+   private AnnotationSet annotations = null;
+   
+   public AnnotationSet getAnnotations()
+   {
+      if (this.annotations == null)
+      {
+         return AnnotationSet.EMPTY_SET;
+      }
+   
+      return this.annotations;
+   }
+
+   public Attribute withAnnotations(Annotation... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (Annotation item : value)
+      {
+         if (item != null)
+         {
+            if (this.annotations == null)
+            {
+               this.annotations = new AnnotationSet();
+            }
+            
+            boolean changed = this.annotations.add (item);
+
+            if (changed)
+            {
+               item.withAttribute(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public Attribute withoutAnnotations(Annotation... value)
+   {
+      for (Annotation item : value)
+      {
+         if ((this.annotations != null) && (item != null))
+         {
+            if (this.annotations.remove(item))
+            {
+               item.setAttribute(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Annotation createAnnotations()
+   {
+      Annotation value = new Annotation();
+      withAnnotations(value);
       return value;
    } 
 }

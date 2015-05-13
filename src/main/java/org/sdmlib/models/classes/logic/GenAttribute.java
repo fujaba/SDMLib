@@ -6,6 +6,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
@@ -35,7 +36,6 @@ public class GenAttribute extends Generator<Attribute>
 
       if (text == null)
          return;
-
 
       String valueCompare = "this.name != value";
       if ("String".equalsIgnoreCase(model.getType().getValue()))
@@ -536,7 +536,7 @@ public class GenAttribute extends Generator<Attribute>
                   "      .withModifier(this.getPattern().getModifier())\n" + 
                   "      .withPattern(this.getPattern());\n" + 
                   "      \n" + 
-                  "      super.hasAttribute();\n" + 
+                  "      super.hasAttr();\n" + 
                   "      \n" + 
                   "      return this;\n" + 
                   "   }\n" +
@@ -586,7 +586,7 @@ public class GenAttribute extends Generator<Attribute>
                   "      .withModifier(this.getPattern().getModifier())\n" + 
                   "      .withPattern(this.getPattern());\n" + 
                   "      \n" + 
-                  "      super.hasAttribute();\n" +
+                  "      super.hasAttr();\n" +
                   "      \n" + 
                   "      return this;\n" + 
                   "   }\n" +
@@ -1111,6 +1111,11 @@ public class GenAttribute extends Generator<Attribute>
             insertCaseInToString(parser);
          }
 
+         for (Annotation annotation : model.getAnnotations())
+         {
+            getGenerator(annotation).generate(rootDir, helpersDir);
+         }
+         
          getGenerator( clazz).printFile();
       }
 

@@ -227,6 +227,19 @@
          "typ":"edge",
          "source":{
             "cardinality":"one",
+            "property":"attribute",
+            "id":"Attribute"
+         },
+         "target":{
+            "id":"Annotation",
+            "cardinality":"many",
+            "property":"annotations"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "cardinality":"one",
             "property":"method",
             "id":"Method"
          },

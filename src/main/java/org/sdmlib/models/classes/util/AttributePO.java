@@ -5,6 +5,10 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.models.classes.util.AnnotationPO;
+import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.classes.util.AttributePO;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class AttributePO extends PatternObject<AttributePO, Attribute>
 {
@@ -250,4 +254,38 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       return this;
    }
    
+   public AnnotationPO hasAnnotations()
+   {
+      AnnotationPO result = new AnnotationPO(new Annotation[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Attribute.PROPERTY_ANNOTATIONS, result);
+      
+      return result;
+   }
+
+   public AnnotationPO createAnnotations()
+   {
+      return this.startCreate().hasAnnotations().endCreate();
+   }
+
+   public AttributePO hasAnnotations(AnnotationPO tgt)
+   {
+      return hasLinkConstraint(tgt, Attribute.PROPERTY_ANNOTATIONS);
+   }
+
+   public AttributePO createAnnotations(AnnotationPO tgt)
+   {
+      return this.startCreate().hasAnnotations(tgt).endCreate();
+   }
+
+   public AnnotationSet getAnnotations()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Attribute) this.getCurrentMatch()).getAnnotations();
+      }
+      return null;
+   }
+
 }
