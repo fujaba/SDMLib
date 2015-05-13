@@ -49,6 +49,10 @@ public abstract class Generator<M>
       {
          return annotation.getMethod().getClazz().getClassModel().getGenerator().getOrCreate(annotation);
       }
+      if (annotation.getAttribute() != null)
+      {
+         return annotation.getAttribute().getClazz().getClassModel().getGenerator().getOrCreate(annotation);
+      }
       return null;
    }
 
