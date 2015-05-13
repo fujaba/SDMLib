@@ -22,8 +22,6 @@ atlassian-ide-plugin.xml
 *.*~
 .settings
 /build/
-.classpath
-.project
 *.iml
 *.ipr
 /.idea/
