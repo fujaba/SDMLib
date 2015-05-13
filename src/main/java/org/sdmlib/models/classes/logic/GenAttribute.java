@@ -1102,7 +1102,6 @@ public class GenAttribute extends Generator<Attribute>
       if (! clazz.isExternal())
       {
          parser = getGenerator( clazz).getOrCreateParser(rootDir);
-         
          if (!fromSuperClass)
          {
             insertAttrDeclPlusAccessors(clazz, parser);
@@ -1111,7 +1110,7 @@ public class GenAttribute extends Generator<Attribute>
          {
             insertCaseInToString(parser);
          }
-         
+
          for (Annotation annotation : model.getAnnotations())
          {
             getGenerator(annotation).generate(rootDir, helpersDir);

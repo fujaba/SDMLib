@@ -28,8 +28,13 @@ public class GenAnnotation extends Generator<Annotation>
       Parser parser = getGenerator(attribute.getClazz()).getOrCreateParser(rootDir);
       parser.parse();
 
-      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(attribute.getName());
-      return generate(parser, tabEntries);
+//      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(attribute.getName());
+      return generate(parser, getStartPos(parser));
+   }
+
+   private int getStartPos(Parser parser)
+   {
+      return parser.indexOf(Parser.ATTRIBUTE+":"+model.getAttribute().getName());
    }
 
    private GenAnnotation generate(Method method, String rootDir, String helperDir)
@@ -38,7 +43,7 @@ public class GenAnnotation extends Generator<Annotation>
       parser.parse();
 
       ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(method.getSignature(false));
-      return generate(parser, tabEntries);
+      return generate(parser, getStartPos(tabEntries));
    }
 
 
@@ -48,10 +53,10 @@ public class GenAnnotation extends Generator<Annotation>
       parser.parse();
 
       ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(clazz.getFullName());
-      return generate(parser, tabEntries);
+      return generate(parser, getStartPos(tabEntries));
    }
    
-   private GenAnnotation generate(Parser parser, ArrayList<SymTabEntry> tabEntries)
+   private int getStartPos(ArrayList<SymTabEntry> tabEntries)
    {
       SymTabEntry symTabEntry = null;
       
@@ -61,9 +66,18 @@ public class GenAnnotation extends Generator<Annotation>
       }
 
       if (symTabEntry == null || (symTabEntry.getAnnotations() != null && symTabEntry.getAnnotations().contains(model.getName())))
+         return -1;      
+      
+      return symTabEntry.getStartPos();
+   }
+   
+   private GenAnnotation generate(Parser parser, int startPos)
+   {
+      
+      if(startPos == -1) 
+      {
          return this;
-
-      int startPos = symTabEntry.getStartPos();
+      }
 
       StringBuilder sb = new StringBuilder();
       sb.append("@");
