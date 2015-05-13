@@ -53,10 +53,15 @@ public class GenAnnotation extends Generator<Annotation>
    
    private GenAnnotation generate(Parser parser, ArrayList<SymTabEntry> tabEntries)
    {
-      SymTabEntry symTabEntry = tabEntries.get(0);
+      SymTabEntry symTabEntry = null;
+      
+      if(tabEntries.size() > 0) 
+      {
+         symTabEntry = tabEntries.get(0);
+      }
 
-      if (symTabEntry == null || symTabEntry.getAnnotations().contains(model.getName()))
-         return null;
+      if (symTabEntry == null || (symTabEntry.getAnnotations() != null && symTabEntry.getAnnotations().contains(model.getName())))
+         return this;
 
       int startPos = symTabEntry.getStartPos();
 
