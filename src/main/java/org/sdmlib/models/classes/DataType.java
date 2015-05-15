@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DataType
 {
 
-   private static ConcurrentHashMap<String, DataType> instances = new ConcurrentHashMap<>();
+   private static ConcurrentHashMap<Clazz, DataType> instances = new ConcurrentHashMap<>();
 
    public static synchronized DataType getInstance(String key)
    {
@@ -14,11 +14,16 @@ public class DataType
       if (result == null)
       {
          result = new DataType(key);
-         instances.put(key, result);
+         instances.put(new Clazz(key), result);
 
       }
       return result;
 
+   }
+   
+   public static synchronized DataType getInstance(Clazz key)
+   {
+	   return getInstance(key.getFullName());   
    }
 
    public static final DataType VOID = getInstance("void");
@@ -31,10 +36,16 @@ public class DataType
    public static final DataType CHAR = getInstance("char");
 
    private String value;
+   private Clazz clazzValue;
 
    private DataType ( String value )
    {
       this.value = value;
+   }
+   
+   private DataType ( Clazz value )
+   {
+      this.clazzValue = value;
    }
 
    public String getValue()
@@ -54,7 +65,7 @@ public class DataType
 
    public static DataType ref(Clazz value)
    {
-      return getInstance(value.getFullName());
+      return getInstance(value);
    }
 
    public static DataType ref(Enumeration value)

@@ -136,7 +136,17 @@ public class Method extends SDMLibClass
       this.createParameter().withName(paramName).with(dataType);
       return this;
    }
+   public Method withParameter(String paramName, Clazz clazz) {
+	   this.createParameter().withName(paramName).with(DataType.ref(clazz));
+	   return this;
+   }
 
+   public Method withParameter(String paramName, Class<?> clazz) {
+	   this.createParameter().withName(paramName).with(DataType.ref(clazz));
+	   return this;
+   }
+
+   
    public Method without(Parameter... value)
    {
       if (this.parameter == null || value==null){
