@@ -59,6 +59,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.SimpleIdCounter;
+import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonIdMap;
@@ -824,8 +825,8 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
    static public int msgNo = 0;
 
    @Override
-   public boolean update(Object target, String property, JsonObject jsonObject,
-			String typ, Object oldValue, Object newValue) {
+   public boolean update(String typ, BaseItem jsonObject, Object target, String property, 
+			Object oldValue, Object newValue) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -835,14 +836,14 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       ReplicationChange change = new ReplicationChange()
       .withHistoryIdPrefix(nodeId)
       .withHistoryIdNumber(getNewHistoryIdNumber())
-      .withTargetObjectId(jsonObject.getString(JsonIdMap.ID))
+      .withTargetObjectId((String) jsonObject.getValueItem(JsonIdMap.ID))
       .withChangeMsg(jsonObject.toString());
 
-      Object object = jsonObject.get(JsonIdMap.UPDATE);
+      Object object = jsonObject.getValueItem(JsonIdMap.UPDATE);
       
       if (object == null)
       {
-         object = jsonObject.get(JsonIdMap.REMOVE);
+         object = jsonObject.getValueItem(JsonIdMap.REMOVE);
       }
 
       if (object != null)
