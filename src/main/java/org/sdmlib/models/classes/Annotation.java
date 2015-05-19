@@ -193,7 +193,7 @@ public class Annotation extends SDMLibClass
    {
       StringBuilder result = new StringBuilder();
 
-      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getName()).append(", ").append(values);
       return result.substring(1);
    }
 
