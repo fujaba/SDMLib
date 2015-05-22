@@ -498,20 +498,23 @@ public class GenClassModel
          {
             typeName = typeName.substring(0, pos);
          }
-         
-         if ( ! CGUtil.isPrimitiveType(typeName))
+
+         if (!CGUtil.isPrimitiveType(typeName))
          {
 
             Clazz clazz = this.model.getClazz(typeName);
 
             if (clazz == null)
             {
-            	// class is missing, create it.
-            	if(typeName.indexOf(".")>=0) {
-            		model.createClazz(typeName).withExternal(true);
-            	}else{
-            		model.createClazz(typeName);
-            	}
+               // class is missing, create it.
+               if (typeName.indexOf(".") >= 0)
+               {
+                  model.createClazz(typeName).withExternal(true);
+               }
+               else
+               {
+                  model.createClazz(typeName);
+               }
             }
          }
       }
@@ -585,8 +588,9 @@ public class GenClassModel
          for (Role role : roles)
          {
             String name = role.getName();
-            if(name == null ) {
-            	name = "";
+            if (name == null)
+            {
+               name = "";
             }
             if (name.equals(role.getPartnerRole().getName()))
             {
@@ -768,12 +772,13 @@ public class GenClassModel
    {
       StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
 
-//      StackTraceElement firstStackTraceElement = stackTrace[0];
-//      String callMethodName = firstStackTraceElement.getMethodName();
+      //      StackTraceElement firstStackTraceElement = stackTrace[0];
+      //      String callMethodName = firstStackTraceElement.getMethodName();
       StackTraceElement secondStackTraceElement = stackTrace[1];
       String className = secondStackTraceElement.getClassName();
-      insertModelCreationCodeHere(rootDir, className,  newMethod);
+      insertModelCreationCodeHere(rootDir, className, newMethod);
    }
+
    public void insertModelCreationCodeHere(String rootDir, String className, String newMethod)
    {
       Clazz modelCreationClass = getOrCreateClazz(className);
@@ -1782,7 +1787,7 @@ public class GenClassModel
    private int insertNewCreationClasses(String callMethodName, Clazz modelCreationClass, String signature,
          int currentInsertPos, String rootDir)
    {
-      return insertNewCreationClasses( modelCreationClass, signature, currentInsertPos, rootDir,
+      return insertNewCreationClasses(modelCreationClass, signature, currentInsertPos, rootDir,
             new LinkedHashSet<Clazz>());
    }
 
@@ -2378,10 +2383,19 @@ public class GenClassModel
             javaFiles.addAll(searchForJavaFiles(dir.getPath()));
          }
       }
+      javaFiles.sort(new Comparator<File>()
+      {
+
+         @Override
+         public int compare(File file1, File file2)
+         {
+            return file1.getAbsolutePath().compareTo(file2.getAbsolutePath());
+
+         }
+
+      });
       return javaFiles;
    }
-
-
 
    public void updateFromCode(String includePathes, String packages)
    {
@@ -2427,7 +2441,7 @@ public class GenClassModel
    private Clazz handleMember(Clazz clazz, String rootDir, File projectRoot)
    {
       System.out.println("parse " + clazz.getFullName());
-      Parser parser = getOrCreate(clazz).getOrCreateParser(projectRoot.getAbsolutePath()+"//"+rootDir);
+      Parser parser = getOrCreate(clazz).getOrCreateParser(projectRoot.getAbsolutePath() + "//" + rootDir);
       parser.indexOf(Parser.CLASS_END);
 
       if (isHelperClass(parser))
@@ -2955,21 +2969,18 @@ public class GenClassModel
       String[] packages = packageString.split("\\s+");
       String[] includes = includePathes.split("\\s+");
 
-  
-
-         for (String pAckage : packages)
+      for (String pAckage : packages)
+      {
+         String packagepath = pAckage.replace('.', '/');
+         for (String include : includes)
          {
-            String packagepath = pAckage.replace('.', '/');
-            for (String include : includes)
-            {
 
-               String newPath = projectRoot.getPath() + "/" + include + "/" + packagepath;
+            String newPath = projectRoot.getPath() + "/" + include + "/" + packagepath;
 
-               javaFiles.addAll(searchForJavaFiles(newPath));
+            javaFiles.addAll(searchForJavaFiles(newPath));
 
-            }
          }
-    
+      }
 
       return javaFiles;
    }
