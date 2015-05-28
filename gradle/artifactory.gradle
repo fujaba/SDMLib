@@ -9,7 +9,7 @@ def isReleaseBuild() {
 }
 
 signing {
-    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") && new File("secring.gpg").exist()}
     sign configurations.archives
 }
 
