@@ -3,7 +3,10 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
-apply plugin: 'signing'
+if(new File("secring.gpg").exists()) {
+	println "RevisionNumber: "
+	apply plugin: 'signing'
+}
 
 apply from: 'gradle/ide.gradle'
 apply from: 'gradle/version.gradle'
