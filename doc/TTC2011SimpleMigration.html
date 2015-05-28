@@ -3031,6 +3031,14 @@ Number of migrated Edges: 10</p>
       },
       {
          "typ":"node",
+         "id":"hg.G138 : GenericLink",
+         "attributes":[
+         "tgtLabel=nodes",
+            "srcLabel=graph"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"hg.G85 : GenericLink",
          "attributes":[
          "tgtLabel=graph",
@@ -3091,14 +3099,6 @@ Number of migrated Edges: 10</p>
          "attributes":[
          "tgtLabel=graph",
             "srcLabel=edges"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"hg.G138 : GenericLink",
-         "attributes":[
-         "tgtLabel=graph",
-            "srcLabel=graph"
          ]
       },
       {
@@ -3646,6 +3646,19 @@ Number of migrated Edges: 10</p>
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
+            "property":"src",
+            "id":"hg.G78 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"hg.G138 : GenericLink"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
             "property":"tgt",
             "id":"hg.G78 : GenericObject"
          },
@@ -3744,19 +3757,6 @@ Number of migrated Edges: 10</p>
             "cardinality":"many",
             "property":"incommingLinks",
             "id":"hg.G131 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"hg.G78 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"incommingLinks",
-            "id":"hg.G138 : GenericLink"
          }
       },
       {
@@ -4543,12 +4543,12 @@ Number of migrated Edges: 10</p>
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"outgoingLinks",
+            "property":"incommingLinks",
             "id":"hg.G138 : GenericLink"
          },
          "target":{
             "cardinality":"one",
-            "property":"src",
+            "property":"tgt",
             "id":"hg.G139 : GenericObject"
          }
       },
@@ -4929,6 +4929,14 @@ Number of migrated Edges: 10</p>
       },
       {
          "typ":"node",
+         "id":"hg.G138 : GenericLink",
+         "attributes":[
+         "tgtLabel=gcs",
+            "srcLabel=parent"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"hg.G85 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
@@ -4986,14 +4994,6 @@ Number of migrated Edges: 10</p>
       {
          "typ":"node",
          "id":"hg.G131 : GenericLink",
-         "attributes":[
-         "tgtLabel=parent",
-            "srcLabel=gcs"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"hg.G138 : GenericLink",
          "attributes":[
          "tgtLabel=parent",
             "srcLabel=gcs"
@@ -5544,6 +5544,19 @@ Number of migrated Edges: 10</p>
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
+            "property":"src",
+            "id":"hg.G78 : GenericObject"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outgoingLinks",
+            "id":"hg.G138 : GenericLink"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
             "property":"tgt",
             "id":"hg.G78 : GenericObject"
          },
@@ -5642,19 +5655,6 @@ Number of migrated Edges: 10</p>
             "cardinality":"many",
             "property":"incommingLinks",
             "id":"hg.G131 : GenericLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"hg.G78 : GenericObject"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"incommingLinks",
-            "id":"hg.G138 : GenericLink"
          }
       },
       {
@@ -6441,12 +6441,12 @@ Number of migrated Edges: 10</p>
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"outgoingLinks",
+            "property":"incommingLinks",
             "id":"hg.G138 : GenericLink"
          },
          "target":{
             "cardinality":"one",
-            "property":"src",
+            "property":"tgt",
             "id":"hg.G139 : GenericObject"
          }
       },

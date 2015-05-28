@@ -652,11 +652,20 @@ public class GenClass extends Generator<Clazz>
       {
          // insert MIT License otherwise.
          String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
+         String developer = System.getProperty("user.name");
+         if(pos>0) {
+        	 int existingIndex = parser.indexOf("Copyright (c) ");
+        	 String lineForPos = parser.getLineForPos(existingIndex);
+        	 String[] items = lineForPos.split(" ");
+        	 if(!items[items.length-1].trim().isEmpty()) {
+        		 developer = items[items.length-1].trim();
+        	 }
+         }
          parser
          .replaceAll(0,
             "/*\n" +
-                  "   Copyright (c) <year> <developer> \n" +
-                  "   \n" +
+                  "   Copyright (c) <year> <developer>\r\n" +
+                  "   \r\n" +
                   "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
                   "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
                   "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
@@ -676,7 +685,7 @@ public class GenClass extends Generator<Clazz>
                   " */\n" +
                   "   \n", 
                   "<year>", year,
-                  "<developer>", System.getProperty("user.name")
+                  "<developer>", developer
                );
       }
 

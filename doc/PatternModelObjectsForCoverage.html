@@ -21,8 +21,8 @@
          "id":"P1 : PatternObject",
          "attributes":[
          "currentMatch=match",
-            "modifier=bound",
             "hasMatch=false",
+            "modifier=bound",
             "doAllMatches=false"
          ]
       },
@@ -262,7 +262,7 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"topPattern",
+            "property":"pattern",
             "id":"P5 : Pattern"
          }
       },
@@ -275,7 +275,7 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"pattern",
+            "property":"topPattern",
             "id":"P5 : Pattern"
          }
       },
@@ -309,7 +309,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"pattern",
+            "property":"topPattern",
             "id":"P5 : Pattern"
          },
          "target":{
