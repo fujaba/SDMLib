@@ -75,8 +75,45 @@
       },
       {
          "typ":"node",
+         "id":"abu : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@74985a5b",
+         "attributes":[
+         "name=Abu",
+            "id=1337",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"karli : TeachingAssistant",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@3d220596",
+         "attributes":[
+         "certified=true",
+            "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"alice : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@353573a5",
+         "attributes":[
+         "name=Alice",
+            "id=2323",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"mathRoom : Room",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@7d44a19",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@5c054849",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -121,66 +158,11 @@
       },
       {
          "typ":"node",
-         "id":"abu : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1fb2d5e",
-         "attributes":[
-         "name=Abu",
-            "id=1337",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"karli : TeachingAssistant",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1716e8c5",
-         "attributes":[
-         "certified=true",
-            "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"alice : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6573d2f7",
-         "attributes":[
-         "name=Alice",
-            "id=2323",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"A1 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@4052c8c2",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6a798b10",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"A2 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@181b8c4b",
-         "attributes":[
-         "content=Series",
-            "points=6"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"A3 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@38eb0f4d",
-         "attributes":[
-         "content=Integrals",
-            "points=8"
          ]
       },
       {
@@ -190,10 +172,67 @@
          "content=Pushups",
             "points=4"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"A2 : Assignment",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@475a3d7c",
+         "attributes":[
+         "content=Series",
+            "points=6"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"A3 : Assignment",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@59ecc669",
+         "attributes":[
+         "content=Integrals",
+            "points=8"
+         ]
       }
    ],
    "edges":[
    {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"abu : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : TeachingAssistant"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"alice : Student"
+         }
+      },
+      {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
@@ -261,40 +300,118 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
             "cardinality":"many",
             "property":"students",
             "id":"abu : Student"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"sportsRoom : Room"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
+            "cardinality":"many",
+            "property":"students",
+            "id":"abu : Student"
          },
          "target":{
             "cardinality":"many",
+            "property":"done",
+            "id":"A1 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
             "property":"students",
-            "id":"karli : TeachingAssistant"
+            "id":"abu : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A4 : Assignment"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"abu : Student"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"friends",
+            "id":"alice : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"mathRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"artsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"examRoom : Room"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
+            "property":"in",
+            "id":"sportsRoom : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"students",
             "id":"alice : Student"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"room",
+            "id":"sportsRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"assignments",
+            "id":"A4 : Assignment"
          }
       },
       {
@@ -308,19 +425,6 @@
             "cardinality":"many",
             "property":"doors",
             "id":"artsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"mathRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"sportsRoom : Room"
          }
       },
       {
@@ -385,19 +489,6 @@
          "target":{
             "cardinality":"many",
             "property":"doors",
-            "id":"sportsRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"artsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
             "id":"examRoom : Room"
          }
       },
@@ -419,58 +510,6 @@
          "source":{
             "cardinality":"many",
             "property":"doors",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"examRoom : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"room",
-            "id":"sportsRoom : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"assignments",
-            "id":"A4 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
             "id":"examRoom : Room"
          },
          "target":{
@@ -482,53 +521,14 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A1 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A4 : Assignment"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"abu : Student"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"friends",
-            "id":"alice : Student"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"done",
-            "id":"A1 : Assignment"
-         },
-         "target":{
             "cardinality":"many",
             "property":"students",
             "id":"karli : TeachingAssistant"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"done",
+            "id":"A1 : Assignment"
          }
       },
       {
@@ -597,7 +597,7 @@
    {
          "typ":"node",
          "id":"abu : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@176996c3",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@63d36113",
          "attributes":[
          "name=Abu",
             "id=1337",
@@ -609,7 +609,7 @@
       {
          "typ":"node",
          "id":"alice : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@411c6d44",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@3ffa45d9",
          "attributes":[
          "name=Alice",
             "id=2323",
@@ -621,7 +621,7 @@
       {
          "typ":"node",
          "id":"karli : TeachingAssistant",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1687eb01",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@4eb58c31",
          "attributes":[
          "certified=true",
             "name=Karli",
@@ -932,7 +932,7 @@
       {
          "typ":"node",
          "id":"abu : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@22eaa86e",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1615290",
          "attributes":[
          "name=Abu",
             "id=1337",
@@ -944,7 +944,7 @@
       {
          "typ":"node",
          "id":"alice : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@561b7d53",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@584c76af",
          "attributes":[
          "name=Alice",
             "id=2323",
@@ -1089,7 +1089,7 @@
    {
          "typ":"node",
          "id":"karli : TeachingAssistant",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@50fb33a",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@70b30f95",
          "attributes":[
          "certified=true",
             "name=Karli",
@@ -1164,7 +1164,7 @@
    {
          "typ":"node",
          "id":"abu : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@44cffc25",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@5cee47cf",
          "attributes":[
          "name=Abu",
             "id=1337",
@@ -1185,7 +1185,7 @@
       {
          "typ":"node",
          "id":"alice : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@2a369e14",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@40194885",
          "attributes":[
          "name=Alice",
             "id=2323",
@@ -1197,7 +1197,7 @@
       {
          "typ":"node",
          "id":"mathRoom : Room",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@25aeb5ac",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@728a9b78",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -1207,7 +1207,7 @@
       {
          "typ":"node",
          "id":"karli : TeachingAssistant",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@c755b2",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@3e39bd03",
          "attributes":[
          "certified=true",
             "name=Karli",

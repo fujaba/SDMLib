@@ -166,6 +166,10 @@ HTMLDrawer.prototype.getNode = function(node, draw){
 		node._gui = htmlElement;
 		if(draw) {
 			this.model.draw(node);
+			htmlElement.style.borderColor = "red";
+			if(node.style && node.style.toLowerCase()=="nac"){
+				htmlElement.appendChild(symbolLib.draw(null, {typ:"stop", x:0, y:0}));
+			}
 		}else{
 			this.model.layout(0, 0, node);
 		}
@@ -315,7 +319,7 @@ HTMLDrawer.prototype.createPath = function(close, fill, path, angle){
 	return line;
 };
 //				###################################################### SVG ####################################################################################
-var SVGDrawer = function() {this.util = new GraphUtil("http://www.w3.org/2000/svg");};
+var SVGDrawer = function() {this.util = new GraphUtil("http://www.w3.org/2000/svg");this.showButton=true;};
 SVGDrawer.prototype = Object_create(Drawer.prototype);
 SVGDrawer.prototype.getWidth = function(label){
 	var text = this.util.create({tag:"text", _font:true, value:label});
@@ -432,9 +436,11 @@ SVGDrawer.prototype.createContainer = function(graph){
 		list.push(typeof(jsEPS)!="undefined" ? "EPS" : "");
 		list.push(typeof(jsPDF)!="undefined" ? "PDF" : "");
 	}
-
-	var buttons = this.getButtons(graph, "SVG");
-	buttons.push(this.drawComboBox(list, "Save", (function (e) {that.removeToolItems(board);that.model.SaveAs(e.currentTarget.value);})));
+	var buttons = [];
+	if(this.showButton) {
+		buttons = this.getButtons(graph, "SVG");
+		buttons.push(this.drawComboBox(list, "Save", (function (e) {that.removeToolItems(board);that.model.SaveAs(e.currentTarget.value);})));
+	}
 
 	var board = this.createBoard({tag:"svg", "xmlns:svg":"http://www.w3.org/2000/svg", "xmlns:xlink":"http://www.w3.org/1999/xlink"}, graph, buttons);
 	board.appendChild( this.drawDef() );
@@ -688,6 +694,7 @@ SymbolLibary.prototype.draw = function(drawer, node){
 		var group = fn.apply(this, [node]);
 		if( !drawer){
 			drawer = new SVGDrawer();
+			drawer.showButton=false;
 			var board = drawer.createContainer(null);
 			var element = drawer.createGroup(node, group);
 			board.appendChild(element);
@@ -801,8 +808,8 @@ SymbolLibary.prototype.drawLamp = function(){
 };
 SymbolLibary.prototype.drawStop = function(node){
 	return {
-		x:node.getX(),
-		y:node.getY(),
+		x:node.x,
+		y:node.y,
 		width:30,
 		height:30,
 		items:[

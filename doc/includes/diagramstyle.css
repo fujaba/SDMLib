@@ -18,6 +18,19 @@
 	vertical-align: middle;
 	text-align:center;
 }
+.Error{
+	border-color: #f00;
+	color: #f00;
+	box-shadow: inset 0 3px 4px #888;
+}
+.Ok{
+	border-color: #009B00;
+	box-shadow: inset 0 3px 4px #888;
+}
+.Add{
+	border-color: yellow;
+	box-shadow: inset 0 3px 4px #888;
+}
 .code_box {
 	position: absolute;
 	width:400px;
@@ -36,26 +49,6 @@
 	pointer-events: none;
 	border-top-color: #c2e1f5;
 	border-width: 20px;
-}
-.ClassEditorError{
-	width: 100%;
-	height: 100%;
-	min-height: 100%;
-	color: #f00;
-	border-color: #f00;
-	border-style: solid;
-	box-shadow: inset 0 3px 4px #888;
-	vertical-align: middle;
-	text-align:center;
-}
-.ClassEditorOk{
-	width: 100%;
-	height: 100%;
-	min-height: 100%;
-	color: #009B00;
-	border-color: #009B00;
-	border-style: solid;
-	box-shadow: inset 0 3px 4px #888;
 }
 .Toolbar {
 	background : #F4F4F4;

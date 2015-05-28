@@ -1,5 +1,13 @@
-task sourceJar(type: Jar) { from sourceSets.main.allSource; classifier = 'sources' }
-task javadocJar(type: Jar) { from javadoc.outputs.files; classifier = 'javadoc' }
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource;
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc.outputs.files;
+    classifier = 'javadoc'
+}
+
 task fatJar(type: Jar) {
 	manifest {
 	   attributes 'Specification-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
@@ -26,6 +34,7 @@ task fatJar(type: Jar) {
 	exclude('META-INF/MANIFEST.MF')
     classifier = 'all'
 }
+
 task pmJar(type: Jar) {
 	from {(
 		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
@@ -56,10 +65,12 @@ task pmJar(type: Jar) {
 	exclude('de/uniks/networkparser/date/**')
 	classifier = 'pm'
 }
+
 task pmJarVersion(type: Jar) {
 	appendix = gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision
 	classifier = "pm."+gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision
 }
+
 pmJarVersion.dependsOn pmJar
 
 task pomFile(type: Jar) {
@@ -78,7 +89,7 @@ task pomFile(type: Jar) {
 	sw.append("</project>"+crlf);
 
 	def file = new File("build")
-    file.mkdirs()
+        file.mkdirs()
 	file = new File("build/SDMLib-SNAPSHOT-pm.xml")
 	println file.getAbsolutePath()
 	def stringsFile = new FileWriter(file, false)
