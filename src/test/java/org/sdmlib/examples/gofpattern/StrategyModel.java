@@ -41,6 +41,7 @@ public class StrategyModel
       // bStrategy.withAssoc(bStrategy, "suc", Card.ONE, "pre", Card.ONE);
 
       cm.removeAllGeneratedCode("src/test/java");
+      cm.withAuthorName("zuendorf");
       cm.generate("src/test/java");
       
       story.addClassDiagram(cm);

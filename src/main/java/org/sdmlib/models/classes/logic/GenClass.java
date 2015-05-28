@@ -652,7 +652,7 @@ public class GenClass extends Generator<Clazz>
       {
          // insert MIT License otherwise.
          String year = new SimpleDateFormat("yyyy").format(new Date(System.currentTimeMillis()));
-         String developer = System.getProperty("user.name");
+         String developer = model.getClassModel().getAuthorName();
          if(pos>0) {
         	 int existingIndex = parser.indexOf("Copyright (c) ");
         	 String lineForPos = parser.getLineForPos(existingIndex);
