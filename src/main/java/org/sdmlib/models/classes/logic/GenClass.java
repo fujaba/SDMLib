@@ -694,8 +694,8 @@ public class GenClass extends Generator<Clazz>
 
    public Parser getOrCreateParser(String rootDir)
    {
-      if (parser == null)
-      {
+//      if (parser == null)
+//      {
          // try to find existing file
          String name = model.getFullName();
          int pos = name.lastIndexOf('.');
@@ -716,7 +716,8 @@ public class GenClass extends Generator<Clazz>
          
          fileName = fileName.replaceAll("\\.", "/");
 
-         fileName = rootDir + "/" + fileName + ".java";
+         fileName = getRepairClassModel().getGenerator().getProjectRoot().getAbsolutePath() + "/" + rootDir + "/" + fileName + ".java";
+
 
          File javaFile = new File(fileName);
 
@@ -741,7 +742,7 @@ public class GenClass extends Generator<Clazz>
                );
             parser.withFileChanged(true);
          }
-      }
+//      }
 
       return parser;
    }
@@ -781,7 +782,8 @@ public class GenClass extends Generator<Clazz>
 
          fileName = fileName.replaceAll("\\.", "/");
 
-         fileName = rootDir + "/" + fileName + ".java";
+         fileName = getRepairClassModel().getGenerator().getProjectRoot().getAbsolutePath() + "/" + rootDir + "/" + fileName + ".java";
+
 
          File creatorJavaFile = new File(fileName);
 
@@ -1009,7 +1011,8 @@ public class GenClass extends Generator<Clazz>
 
          fileName = fileName.replaceAll("\\.", "/");
 
-         fileName = rootDir + "/" + fileName + ".java";
+         fileName = getRepairClassModel().getGenerator().getProjectRoot().getAbsolutePath() + "/" + rootDir + "/" + fileName + ".java";
+
 
          File modelSetJavaFile = new File(fileName);
 
@@ -1194,7 +1197,8 @@ public class GenClass extends Generator<Clazz>
 
          fileName = fileName.replaceAll("\\.", "/");
 
-         fileName = rootDir + "/" + fileName + ".java";
+         fileName = getRepairClassModel().getGenerator().getProjectRoot().getAbsolutePath() + "/" + rootDir + "/" + fileName + ".java";
+
 
          File patternObjectJavaFile = new File(fileName);
 
@@ -1353,7 +1357,7 @@ public class GenClass extends Generator<Clazz>
 
          fileName = fileName.replaceAll("\\.", "/");
 
-         fileName = rootDir + "/" + fileName + ".java";
+         fileName = getRepairClassModel().getGenerator().getProjectRoot().getAbsolutePath() + "/" + rootDir + "/" + fileName + ".java";
 
          File patternObjectCreatorJavaFile = new File(fileName);
 

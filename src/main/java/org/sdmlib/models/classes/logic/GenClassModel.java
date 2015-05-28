@@ -1957,6 +1957,7 @@ public class GenClassModel
    }
 
    HashMap<String, GenClass> imports = new HashMap<>();
+   private File projectRoot = new File(".");
 
    private void addImportForClazz(String className, GenClass genCreationClass)
    {
@@ -2416,6 +2417,7 @@ public class GenClassModel
    {
       // find java files in parent directory
 
+      this.projectRoot = projectRoot;
       if (projectRoot != null)
       {
          ArrayList<File> javaFiles = searchForJavaFiles(includePathes, packages, projectRoot);
@@ -2441,7 +2443,7 @@ public class GenClassModel
    private Clazz handleMember(Clazz clazz, String rootDir, File projectRoot)
    {
       System.out.println("parse " + clazz.getFullName());
-      Parser parser = getOrCreate(clazz).getOrCreateParser(projectRoot.getAbsolutePath() + "//" + rootDir);
+      Parser parser = getOrCreate(clazz).getOrCreateParser(rootDir);
       parser.indexOf(Parser.CLASS_END);
 
       if (isHelperClass(parser))
@@ -3395,6 +3397,16 @@ public class GenClassModel
       {
          // e.printStackTrace();
       }
+   }
+
+   public File getProjectRoot()
+   {
+      return projectRoot;
+   }
+
+   public void setProjectRoot(File projectRoot)
+   {
+      this.projectRoot = projectRoot;
    }
 
 }
