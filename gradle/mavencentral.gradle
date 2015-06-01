@@ -1,0 +1,66 @@
+import java.lang.ClassValue.Version;
+
+artifacts { 
+	archives sourceJar, javadocJar, fatJar, pmJar, pmJarVersion
+}
+
+def isReleaseBuild() {
+    return "$version".contains("SNAPSHOT") == false
+}
+if(new File("secring.gpg").exists()) {
+	signing {
+		required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives")}
+		sign configurations.archives
+	}
+
+	uploadArchives {
+		repositories {
+			mavenDeployer {
+				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+				repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+					authentication(userName: ossrhUsername, password: ossrhPassword)
+				}
+				
+				snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+					authentication(userName: ossrhUsername, password: ossrhPassword)
+				}
+
+				pom.project {
+				   name 'SDMLib'
+				   packaging 'jar'
+				   description 'SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor.'
+				   url 'https://github.com/fujaba/SDMLib'
+
+				   scm {
+					   url 'scm:git@github.com:fujaba/SDMLib.git'
+					   connection 'scm:git@github.com:fujaba/SDMLib.git'
+					   developerConnection 'scm:git@github.com:fujaba/SDMLib.git'
+				   }
+
+				   licenses {
+					   license {
+						   name 'The MIT License (MIT)'
+						   url 'http://opensource.org/licenses/MIT'
+					   }
+				   }
+
+				   developers {
+					   developer {
+						   id 'zuendorf'
+						   name 'Albert Zuendorf'
+					   }
+					   developer {
+						   id 'slin'
+						   name 'Stefan Lindel'
+					   }
+					   developer {
+						   id 'smu'
+						   name 'Sascha Mueller'
+					   }
+				   }
+			   }
+			}
+		}
+	}
+}
