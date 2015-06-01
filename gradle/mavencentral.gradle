@@ -5,7 +5,7 @@ artifacts {
 }
 
 def isReleaseBuild() {
-    return "$version".contains("SNAPSHOT") == false
+    return "$version".contains("SNAPSHOT") == false || project.hasProperty('mavenrelease')
 }
 if(new File("secring.gpg").exists()) {
 	signing {
