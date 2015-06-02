@@ -1,5 +1,17 @@
  import java.lang.ClassValue.Version;
 
+def getReleaseRepository() {
+	def repoKey=""
+	if(project.hasProperty('lectureBuild')) {
+		repoKey = 'lecture'
+	}else if(project.hasProperty('release')) {
+		repoKey = 'libs-release-local'
+	} else {
+		repoKey = 'libs-snapshot-local'
+	}
+	return repoKey
+}
+
 if(project.hasProperty("artifactory_user")) {
 	apply plugin: 'artifactory'
 	buildscript {
@@ -39,19 +51,8 @@ if(project.hasProperty("artifactory_user")) {
 	artifacts { 
 		archives sourceJar, javadocJar, fatJar, pmJar,pmJarVersion
 	}
-	
-	def getReleaseRepository() {
-		def repoKey=""
-		if(project.hasProperty('lectureBuild')) {
-			repoKey = 'lecture'
-		}else if(project.hasProperty('release')) {
-			repoKey = 'libs-release-local'
-		} else {
-			repoKey = 'libs-snapshot-local'
-		}
-		return repoKey
-	}
 } else {
 	task artifactoryPublish(type: Jar) {
 	}
 }
+
