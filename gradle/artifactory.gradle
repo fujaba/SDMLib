@@ -1,17 +1,5 @@
  import java.lang.ClassValue.Version;
 
-def getReleaseRepository() {
-	def repoKey=""
-	if(project.hasProperty('lectureBuild')) {
-		repoKey = 'lecture'
-	}else if(project.hasProperty('release')) {
-		repoKey = 'libs-release-local'
-	} else {
-		repoKey = 'libs-snapshot-local'
-	}
-	return repoKey
-}
-
 if(project.hasProperty("artifactory_user")) {
 	apply plugin: 'artifactory'
 	buildscript {
@@ -30,7 +18,13 @@ if(project.hasProperty("artifactory_user")) {
 		contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
 		publish {
 			repository {
-				repoKey = getReleaseRepository()
+				if(project.hasProperty('lectureBuild')) {
+					repoKey = 'lecture'
+				} else if(project.hasProperty('release')) {
+					repoKey = 'libs-release-local'
+				} else {
+					repoKey = 'libs-snapshot-local'
+				}
 				username = "${artifactory_user}"
 				password = "${artifactory_password}"
 				maven = true
@@ -39,7 +33,13 @@ if(project.hasProperty("artifactory_user")) {
 		}
 		resolve {
 			repository {
-				repoKey = getReleaseRepository()
+				if(project.hasProperty('lectureBuild')) {
+					repoKey = 'lecture'
+				} else if(project.hasProperty('release')) {
+					repoKey = 'libs-release-local'
+				} else {
+					repoKey = 'libs-snapshot-local'
+				}
 				username = "${artifactory_user}"
 				password = "${artifactory_password}"
 				maven = true
