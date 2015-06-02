@@ -18,11 +18,7 @@ if(project.hasProperty("artifactory_user")) {
 		contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
 		publish {
 			repository {
-				if(project.hasProperty('lectureBuild')) {
-					repoKey = 'lecture'
-				}else{
-					repoKey = 'libs-snapshot-local'
-				}
+				repoKey = getReleaseRepository()
 				username = "${artifactory_user}"
 				password = "${artifactory_password}"
 				maven = true
@@ -31,11 +27,7 @@ if(project.hasProperty("artifactory_user")) {
 		}
 		resolve {
 			repository {
-				if(project.hasProperty('lectureBuild')) {
-					repoKey = 'lecture'
-				}else{
-					repoKey = 'libs-release'
-				}
+				repoKey = getReleaseRepository()
 				username = "${artifactory_user}"
 				password = "${artifactory_password}"
 				maven = true
@@ -46,6 +38,18 @@ if(project.hasProperty("artifactory_user")) {
 
 	artifacts { 
 		archives sourceJar, javadocJar, fatJar, pmJar,pmJarVersion
+	}
+	
+	def getReleaseRepository() {
+		def repoKey=""
+		if(project.hasProperty('lectureBuild')) {
+			repoKey = 'lecture'
+		}else if(project.hasProperty('release')) {
+			repoKey = 'libs-release-local'
+		} else {
+			repoKey = 'libs-snapshot-local'
+		}
+		return repoKey
 	}
 } else {
 	task artifactoryPublish(type: Jar) {
