@@ -11,7 +11,7 @@ task printVersion {
     }
 }
 
-version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime() )
+version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
 
 ext{
 	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
