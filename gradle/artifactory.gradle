@@ -1,49 +1,58 @@
  import java.lang.ClassValue.Version;
 
-apply plugin: 'artifactory'
+if(project.hasProperty("artifactory_user")) {
+	apply plugin: 'artifactory'
+	buildscript {
+		repositories {
+			maven {
+				url 'https://se.cs.uni-kassel.de/artifactory/plugins-release'
+				credentials {
+					username = "${artifactory_user}"
+					password = "${artifactory_password}"
+				}
+			}
+		}
+	}
 
-buildscript {
-    repositories {
-        maven {
-            url 'https://se.cs.uni-kassel.de/artifactory/plugins-release'
-            credentials {
-                username = "${artifactory_user}"
-                password = "${artifactory_password}"
-            }
-        }
-    }
+	artifactory {
+		contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+		publish {
+			repository {
+				if(project.hasProperty('lectureBuild')) {
+					repoKey = 'lecture'
+				} else if(project.hasProperty('release')) {
+					repoKey = 'libs-release-local'
+				} else {
+					repoKey = 'libs-snapshot-local'
+				}
+				username = "${artifactory_user}"
+				password = "${artifactory_password}"
+				maven = true
+
+			}
+		}
+		resolve {
+			repository {
+				if(project.hasProperty('lectureBuild')) {
+					repoKey = 'lecture'
+				} else if(project.hasProperty('release')) {
+					repoKey = 'libs-release-local'
+				} else {
+					repoKey = 'libs-snapshot-local'
+				}
+				username = "${artifactory_user}"
+				password = "${artifactory_password}"
+				maven = true
+
+			}
+		}
+	}
+
+	artifacts { 
+		archives sourceJar, javadocJar, fatJar, pmJar,pmJarVersion
+	}
+} else {
+	task artifactoryPublish(type: Jar) {
+	}
 }
 
-artifactory {
-    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            if(project.hasProperty('lectureBuild')) {
-	            repoKey = 'lecture'
-	        }else{
-	            repoKey = 'libs-snapshot-local'
-	        }
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-            maven = true
-
-        }
-    }
-    resolve {
-        repository {
-            if(project.hasProperty('lectureBuild')) {
-	            repoKey = 'lecture'
-	        }else{
-	            repoKey = 'libs-release'
-	        }
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-            maven = true
-
-        }
-    }
-}
-
-artifacts { 
-	archives sourceJar, javadocJar, fatJar, pmJar,pmJarVersion
-}

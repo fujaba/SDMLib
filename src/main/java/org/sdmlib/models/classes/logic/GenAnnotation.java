@@ -28,13 +28,14 @@ public class GenAnnotation extends Generator<Annotation>
       Parser parser = getGenerator(attribute.getClazz()).getOrCreateParser(rootDir);
       parser.parse();
 
-//      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(attribute.getName());
+      // ArrayList<SymTabEntry> tabEntries =
+      // parser.getSymTabEntriesFor(attribute.getName());
       return generate(parser, getStartPos(parser));
    }
 
    private int getStartPos(Parser parser)
    {
-      return parser.indexOf(Parser.ATTRIBUTE+":"+model.getAttribute().getName());
+      return parser.indexOf(Parser.ATTRIBUTE + ":" + model.getAttribute().getName());
    }
 
    private GenAnnotation generate(Method method, String rootDir, String helperDir)
@@ -46,7 +47,6 @@ public class GenAnnotation extends Generator<Annotation>
       return generate(parser, getStartPos(tabEntries));
    }
 
-
    private GenAnnotation generate(Clazz clazz, String rootDir, String helperDir)
    {
       Parser parser = getGenerator(clazz).getOrCreateParser(rootDir);
@@ -55,26 +55,45 @@ public class GenAnnotation extends Generator<Annotation>
       ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(clazz.getFullName());
       return generate(parser, getStartPos(tabEntries));
    }
-   
+
    private int getStartPos(ArrayList<SymTabEntry> tabEntries)
    {
       SymTabEntry symTabEntry = null;
-      
-      if(tabEntries.size() > 0) 
+
+      if (tabEntries.size() > 0)
       {
          symTabEntry = tabEntries.get(0);
       }
 
-      if (symTabEntry == null || (symTabEntry.getAnnotations() != null && symTabEntry.getAnnotations().contains(model.getName())))
-         return -1;      
-      
+      if (symTabEntry == null || annotationAlreadyInserted(symTabEntry))
+         return -1;
+
       return symTabEntry.getStartPos();
    }
-   
+
+   private boolean annotationAlreadyInserted(SymTabEntry symTabEntry)
+   {
+      boolean inserted = false;
+      if (symTabEntry.getAnnotations() != null && symTabEntry.getAnnotations().contains(model.getName()))
+      {
+         inserted = true;
+         for (String value : model.getValues())
+         {
+            if (!symTabEntry.getAnnotations().contains(value))
+            {
+               inserted = false;
+               break;
+            }
+         }
+      }
+
+      return inserted;
+   }
+
    private GenAnnotation generate(Parser parser, int startPos)
    {
-      
-      if(startPos == -1) 
+
+      if (startPos == -1)
       {
          return this;
       }
@@ -102,7 +121,7 @@ public class GenAnnotation extends Generator<Annotation>
          sb.replace(sb.length() - 2, sb.length(), "");
          sb.append("})");
       }
-      
+
       sb.append("\n");
       // CGUtil
 

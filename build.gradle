@@ -3,6 +3,9 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
+if(new File("secring.gpg").exists()) {
+	apply plugin: 'signing'
+}
 
 apply from: 'gradle/ide.gradle'
 apply from: 'gradle/version.gradle'
@@ -15,8 +18,8 @@ targetCompatibility = 1.7
 // jenkins needs -Pjenkins switch
 if (project.hasProperty('jenkins')) {
     //apply plugin: 'checkstyle'
-    //apply from: 'gradle/version.gradle'
     apply from: 'gradle/artifactory.gradle'
+	apply from: 'gradle/mavencentral.gradle'
 }
 
 configurations.all {
@@ -47,7 +50,7 @@ test {
 
 repositories {
     jcenter()
-    mavenLocal()
+    //mavenLocal()
     mavenCentral()
 
     // NetworkParser
@@ -60,11 +63,13 @@ repositories {
 
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
-    compile 'de.uniks:NetworkParser:4.2+:sources'
+    compile 'com.github.fujaba:NetworkParser:4.2.+:sources'
 }
+
 jacoco {
     toolVersion = "0.7.4.201502262128"
 }
+
 jacocoTestReport {
     group = "Reporting"
     description = "Generate Jacoco coverage reports after running tests."
@@ -97,6 +102,5 @@ tasks.withType(JavaCompile) {
     //Suppress underscore warnings
     options.compilerArgs << '-Xlint:none'
 }
-
 
 defaultTasks = ['clean', 'jar']

@@ -41,6 +41,7 @@ public class ClassModel extends SDMLibClass
    public static final String PROPERTY_CLASSES = "classes";
    private static final String PROPERTY_FEATURE = "feature";
    private Set<Feature> features=Feature.getAll();
+   private String defaultAuthorName=System.getProperty("user.name");
    private ClazzSet classes;
    private GenClassModel generator;
 
@@ -440,5 +441,13 @@ public class ClassModel extends SDMLibClass
       Enumeration value = new Enumeration();
       withEnumerations(value);
       return value;
-   } 
+   }
+
+	public String getAuthorName() {
+		return defaultAuthorName;
+	}
+
+	public void withAuthorName(String defaultAuthorName) {
+		this.defaultAuthorName = defaultAuthorName;
+	}
 }

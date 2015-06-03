@@ -1521,21 +1521,25 @@ ClassEditor.prototype = Object_create(GraphUtil.prototype);
 ClassEditor.prototype.dragStyler = function(e, typ) {
 	e.stopPropagation();
 	e.preventDefault();
-	this.removeClass(e.target, "Error");
-	this.removeClass(e.target, "Ok");
-	this.removeClass(e.target, "Add");
+	this.setBoardStyle(typ);
+};
+ClassEditor.prototype.setBoardStyle = function(typ) {
+	var b = this.board;
+	this.removeClass(b, "Error");
+	this.removeClass(b, "Ok");
+	this.removeClass(b, "Add");
 	if(typ=="dragleave"){
-		if(e.target.errorText) {
-			e.target.removeChild(e.target.errorText);
-			e.target.errorText = null;
+		if(b.errorText) {
+			b.removeChild(b.errorText);
+			b.errorText = null;
 		}
 		return true;
 	}
-	this.addClass(e.target, typ);
+	this.addClass(b, typ);
 	if(typ=="Error"){
-		if(!e.target.errorText){
-			e.target.errorText = this.create({tag:"div", style:"margin-top: 30%", value:"NO TEXTFILE"});
-			e.target.appendChild(e.target.errorText);
+		if(!b.errorText){
+			b.errorText = this.create({tag:"div", style:"margin-top: 30%", value:"NO TEXTFILE"});
+			b.appendChild(b.errorText);
 		}
 		return true;
 	}
@@ -1551,6 +1555,9 @@ ClassEditor.prototype.dragClass = function(e) {
 	var files = e.target.files || e.dataTransfer.files;
 	// process all File objects
 	var error=true;
+	if(!files || files.length < 1) {
+		return;
+	}
 	for (var i = 0, f; f = files[i]; i++) {
 		if (f.type.indexOf("text") == 0) {
 			error=false;
@@ -1568,9 +1575,11 @@ ClassEditor.prototype.dragClass = function(e) {
 	} else {
 		this.dragStyler(e, "Ok");
 	}
-
 };
-ClassEditor.prototype.dropModel= function(e) {
+ClassEditor.prototype.dropFile =  function(content, file) {
+	this.loadModel(JSON.parse(content),false, file);
+};
+ClassEditor.prototype.dropModel = function(e) {
 	this.dragStyler(e, "dragleave");
 	var files = e.target.files || e.dataTransfer.files;
 	for (var i = 0, f; f = files[i]; i++) {
@@ -2361,6 +2370,8 @@ CreateEdge.prototype.select = function(e) {
 	var t = e.innerHTML;
 	var edge;
 	if(t==this.list[0]) {
+		edge = this.graph.model.addEdgeModel({"typ":"Generalization", "source":{id:this.fromNode.id}, target:{id:this.toNode.id}});
+		this.graph.drawlines();
 	}
 	if(t==this.list[1]) {
 		edge = this.graph.model.addEdgeModel({"typ":"edge", "source":{id:this.fromNode.id, property:"from"}, target:{id:this.toNode.id, property:"to"}});

@@ -751,7 +751,7 @@ public class StoryboardManager
             parentFile.mkdirs();
          }
          PrintStream out = new PrintStream(file);
-         out.println(text);
+         out.print(text);
          out.flush();
          out.close();
       } catch (FileNotFoundException e) {

@@ -11,12 +11,14 @@ task printVersion {
     }
 }
 
-version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime() )
+version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
 
 ext{
-	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime() )
+	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
 }
+
 group = 'org.sdmlib'
+
 // Define a method using a closure as the method body
 public class GITVersion {
 	// MAJOR VERSION - Manually set
@@ -24,24 +26,21 @@ public class GITVersion {
     int minor = -1
     int revision = -1
 	
-	String buildTime
-	String mavenTime
-	String year
+    String buildTime
+    String mavenTime
+    String year
     String hash = ""
     // change, if release is needed some day: boolean release
     // also change version above to accept release property
     boolean release = false
-	boolean lecture
+    boolean lecture
 	
 
     String toString() {
 		if (System.getenv().BUILD_NUMBER) {
 			revision = System.getenv().BUILD_NUMBER as int
 		}
-		if ( lecture ) {
-			return "SNAPSHOT"
-		}
-		"$major.$minor.$revision${release ? '' : (lecture ? '-LECTURE' : '-SNAPSHOT')}"
+		"$major.$minor.$revision${release ? '' : '-SNAPSHOT'}"
     }
 }
 
@@ -106,16 +105,19 @@ def revisionHash() {
     def refHead = new File(gitFolder + head[1].trim())
     refHead.text.trim().take takeFromHash
 }
+
 def buildTime() {
 	def df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'") //you can change it
 	df.setTimeZone(TimeZone.getTimeZone("UTC"))
 	return df.format(new Date())
 }
+
 def buildTimeYear() {
 	def df = new SimpleDateFormat("yyyy")
 	df.setTimeZone(TimeZone.getTimeZone("UTC"))
 	return df.format(new Date())
 }
+
 def mavenTime() {
 	def df = new SimpleDateFormat("yyyyMMddHHmmss")
 	df.setTimeZone(TimeZone.getTimeZone("UTC"))

@@ -23,7 +23,6 @@ package org.sdmlib.models.classes;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.sdmlib.StrUtil;
 
 public class Annotation extends SDMLibClass
 {
@@ -193,7 +192,7 @@ public class Annotation extends SDMLibClass
    {
       StringBuilder result = new StringBuilder();
 
-      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getName()).append(", ").append(values);
       return result.substring(1);
    }
 
@@ -275,34 +274,6 @@ public class Annotation extends SDMLibClass
 
    public static final String SUPPRESS_WARNINGS = "SuppressWarnings";
 
-
-
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -359,17 +330,5 @@ public class Annotation extends SDMLibClass
       Attribute value = new Attribute(null, null);
       withAttribute(value);
       return value;
-   } 
-
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
-   
-   
-   //==========================================================================
    }
+}

@@ -19,6 +19,14 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
    //   public static long noOfIteratorRequests = 0;
    //   public static long noOfIteratorReuses = 0;
 
+   @SuppressWarnings("unchecked")
+   public <ST extends SDMSet> ST withReadOnly(boolean value)  {
+	   if(value) {
+		   addFlag(SimpleList.READONLY);
+	   }
+	   return (ST)this;
+   }
+   
    @Override
    public Iterator<T> iterator()
    {
