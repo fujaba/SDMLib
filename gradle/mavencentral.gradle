@@ -26,7 +26,8 @@ if(new File("secring.gpg").exists()) {
 					authentication(userName: ossrhUsername, password: ossrhPassword)
 				}
 
-				pom.project {
+				pom{
+					project {
 				   name 'SDMLib'
 				   packaging 'jar'
 				   description 'SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor.'
@@ -59,6 +60,12 @@ if(new File("secring.gpg").exists()) {
 						   name 'Sascha Mueller'
 					   }
 				   }
+				   }
+				   whenConfigured {
+						p -> p.dependencies = p.dependencies.findAll { 
+							dep -> dep.artifactId != "junit" 
+						}
+					}
 			   }
 			}
 		}
