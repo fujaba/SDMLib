@@ -18,7 +18,7 @@ public class ReplicationModel
    private static final String REPLICATION_NODE = "ReplicationNode";
    
    @Test
-   public void MinChangeModel() throws Exception
+   public void MinChangeModel()
    {
       Storyboard story = new Storyboard();
       
@@ -37,6 +37,8 @@ public class ReplicationModel
             ;
       
       story.addClassDiagram(model);
+      
+      model.generate("src/main/replication");
 
       story.dumpHTML();
    }

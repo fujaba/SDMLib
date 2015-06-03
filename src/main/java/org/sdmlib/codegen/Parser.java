@@ -596,12 +596,13 @@ public class Parser
             	return;
             }
 
-            methodBodyStartPos = currentRealToken.startPos;
             // skip throws
             if (currentRealTokenEquals("throws")) 
             {
                skipTo('{');
             }
+
+            methodBodyStartPos = currentRealToken.startPos;
 
             if (currentRealKindEquals('{'))
             {

@@ -53,6 +53,8 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelScopeCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelScopePOCreator());
       
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.ChangeEventCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.ChangeEventPOCreator());
       return jsonIdMap;
    }
 }
