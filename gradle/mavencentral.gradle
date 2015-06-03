@@ -63,12 +63,10 @@ if(new File("secring.gpg").exists()) {
 				   }
 				   whenConfigured {
 						p -> p.dependencies = p.dependencies.findAll {
-							dep -> {
-								if(dep.artifactId=="NetworkParser") {
-									dep.version = "[4.2"
-								}
-								dep.artifactId != "junit"
+							if(it.artifactId=="NetworkParser") {
+								it.version = "[4.2"
 							}
+							it.artifactId != "junit"
 						}
 					}
 			   }
