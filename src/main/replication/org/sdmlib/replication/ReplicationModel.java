@@ -1,5 +1,7 @@
 package org.sdmlib.replication;
 
+import static org.junit.Assert.*;
+
 import java.net.Socket;
 
 import org.junit.Test;
@@ -14,6 +16,30 @@ public class ReplicationModel
 {
    private static final String CHANGE_HISTORY = "ChangeHistory";
    private static final String REPLICATION_NODE = "ReplicationNode";
+   
+   @Test
+   public void MinChangeModel() throws Exception
+   {
+      Storyboard story = new Storyboard();
+      
+      ClassModel model = new ClassModel("org.sdmlib.replication");
+      
+      Clazz changeEvent = model.createClazz("ChangeEvent")
+            .withAttribute("objectId", DataType.STRING)
+            .withAttribute("objectType", DataType.STRING)
+            .withAttribute("property", DataType.STRING)
+            .withAttribute("newValue", DataType.STRING)
+            .withAttribute("oldValue", DataType.STRING)
+            .withAttribute("valueType", DataType.STRING)
+            .withAttribute("opCode", DataType.STRING)
+            .withAttribute("changeNo", DataType.STRING)
+            .withAttribute("sessionId", DataType.STRING)
+            ;
+      
+      story.addClassDiagram(model);
+
+      story.dumpHTML();
+   }
    
    
    @Test

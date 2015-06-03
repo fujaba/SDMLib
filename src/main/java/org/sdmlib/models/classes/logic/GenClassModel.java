@@ -59,11 +59,11 @@ import de.uniks.networkparser.json.JsonIdMap;
 public class GenClassModel
 {
    public static final String UTILPATH = ".util";
-   private ClassModel model;
+   ClassModel model;
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
    private AssociationSet associations = null;
    private HashMap<Object, Generator<?>> generators = new HashMap<Object, Generator<?>>();
-   private Parser creatorCreatorParser;
+   Parser creatorCreatorParser;
    private DIFF showDiff = DIFF.NONE;
    private List<String> ignoreDiff;
 
@@ -195,7 +195,7 @@ public class GenClassModel
       fixClassModel();
 
       addHelperClassesForUnknownAttributeTypes();
-      getOrCreateCreatorCreatorParser(rootDir);
+      genFactory.getOrCreateFactoryFactoryParser(this, rootDir);
 
       for (Enumeration enumeration : model.getEnumerations())
       {
@@ -296,120 +296,8 @@ public class GenClassModel
          this.addToAssociations(role.getAssoc());
       }
    }
-
-   public Parser getOrCreateCreatorCreatorParser(String rootDir)
-   {
-      if (!model.getClasses().isEmpty() && creatorCreatorParser == null && model.getName() != null
-            && model.hasFeature(Feature.Serialization))
-      {
-         String packageName = model.getName();
-
-         packageName = packageName + UTILPATH;
-         String creatorCreatorClassName = packageName + ".CreatorCreator";
-
-         String fileName = creatorCreatorClassName;
-         fileName = fileName.replaceAll("\\.", "/");
-
-         fileName = rootDir + "/" + fileName + ".java";
-
-         File javaFile = new File(fileName);
-
-         creatorCreatorParser = new Parser().withFileName(fileName);
-         // found old one?
-         if (javaFile.exists())
-         {
-            creatorCreatorParser.withFileBody(CGUtil.readFile(javaFile));
-         }
-         else
-         {
-            StringBuilder text =
-                  new StringBuilder(
-                        "package packageName;\n\n"
-                              + "import " + JsonIdMap.class.getName() + ";\n"
-                              +
-                              "import org.sdmlib.serialization.SDMLibJsonIdMap;\n"
-                              +
-                              "\n"
-                              +
-                              "class className{\n" +
-                              "\n" +
-                              "   public static JsonIdMap createIdMap(String sessionID)\n" +
-                              "   {\n" +
-                              "      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);\n" +
-                              "      \n" +
-                              "JSONCREATORS\n" +
-                              "      return jsonIdMap;\n" +
-                              "   }\n" +
-                              "}\n");
-
-            StringBuilder creators = new StringBuilder();
-            // boolean publicCreatorCreator = false;
-            for (Clazz clazz : model.getClasses())
-            {
-               if (!clazz.isInterface() && !clazz.isEnumeration() && clazz.hasFeature(Feature.Serialization))
-               {
-                  String creatorName = "";
-                  if (clazz.isExternal())
-                  {
-                     creatorName = model.getName() + UTILPATH + "." + CGUtil.shortClassName(clazz.getFullName());
-
-                     GenClass genClass = getOrCreate(clazz);
-                     Parser creatorClassParser = genClass.getOrCreateParserForCreatorClass(rootDir);
-                     String string = creatorClassParser.getFileName();
-                     String alternativeFilePath = string.substring(rootDir.length() + 1,
-                           string.length() - "Creator.java".length()).replaceAll("/", ".");
-
-                     if (!creatorName.equals(alternativeFilePath))
-                        creatorName = alternativeFilePath;
-
-                  }
-                  else
-                  {
-                     creatorName = CGUtil.packageName(clazz.getFullName()) + UTILPATH + "."
-                           + CGUtil.shortClassName(clazz.getFullName());
-                  }
-
-                  creators.append("      jsonIdMap.withCreator(new " + creatorName + "Creator());\n");
-
-                  if (clazz.hasFeature(Feature.PatternObject))
-                  {
-                     creators.append("      jsonIdMap.withCreator(new " + creatorName + "POCreator());\n");
-                  }
-
-                  // if there are multiple packages, the CreatorCreator must be
-                  // public
-                  if (!model.getName().equals(CGUtil.packageName(clazz.getFullName())))
-                  {
-                     // publicCreatorCreator = true;
-                  }
-               }
-            }
-
-            CGUtil.replaceAll(text, "class className", "public class className");
-
-            CGUtil.replaceAll(text,
-                  "className", CGUtil.shortClassName(creatorCreatorClassName),
-                  "packageName", packageName,
-                  "JSONCREATORS", creators.toString());
-
-            creatorCreatorParser.withFileBody(text).withFileChanged(true);
-         }
-
-         for (Clazz clazz : this.getModel().getClasses())
-         {
-            if (!clazz.isInterface() && !clazz.isExternal() && clazz.hasFeature(Feature.Serialization) && !clazz.isEnumeration())
-            {
-               insertCreatorClassInCreatorCreator(creatorCreatorParser, clazz);
-            }
-         }
-         if (getShowDiff() == DIFF.NONE)
-         {
-            CGUtil.printFile(creatorCreatorParser);
-         }
-      }
-
-      return creatorCreatorParser;
-   }
+   
+   public GenFactory genFactory = new GenFactory();
 
    public void insertCreatorClassInCreatorCreator(Parser ccParser, Clazz clazz)
    {

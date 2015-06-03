@@ -56,7 +56,8 @@
       {"id":"KE.K129"},
       {"id":"KE.K132"},
       {"id":"KE.K133"},
-      {"id":"KE.K134"}
+      {"id":"KE.K134"},
+      {"id":"KE.K135"}
     ],
     "phases":"active, backlog, implementation, done, bug"
   }
@@ -821,6 +822,15 @@
   "class":"org.sdmlib.storyboards.KanbanEntry",
   "prop":{
     "name":"GofStrategyModel",
+    "phase":"backlog",
+    "parent":{"id":"KE.K1"},
+    "phases":"active, backlog, implementation, done"
+  }
+},  {
+  "id":"KE.K135",
+  "class":"org.sdmlib.storyboards.KanbanEntry",
+  "prop":{
+    "name":"MinChangeModel",
     "phase":"backlog",
     "parent":{"id":"KE.K1"},
     "phases":"active, backlog, implementation, done"
