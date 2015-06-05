@@ -364,97 +364,189 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
       }
       
       JsonObject jsonObject = (JsonObject) item;
-
-      ChangeEvent change = new ChangeEvent()
-      .withSessionId(spaceId)
-      .withChangeNo("" + getNewHistoryIdNumber())
-      .withObjectId(jsonObject.getString(JsonIdMap.ID))
-      ;
-
-      Object object = jsonObject.get(JsonIdMap.UPDATE);
       
-      if (object == null)
+      // {"id":"testerProxy",
+      //  "class":"org.sdmlib.replication.SeppelSpaceProxy",
+      //  "upd":{"scopes":{"class":"org.sdmlib.replication.SeppelScope",
+      //                   "id":"tester.S1",
+      //                   "prop":{"scopeName":"commands",
+      //                           "spaces":[{"id":"testerProxy"}]}}}}
+
+      String opCode = JsonIdMap.UPDATE;
+      
+      Object attributes = jsonObject.get(JsonIdMap.UPDATE);
+      
+      if (attributes == null)
       {
-         object = jsonObject.get(JsonIdMap.REMOVE);
+         attributes = jsonObject.get(JsonIdMap.REMOVE);
+         opCode = JsonIdMap.REMOVE;
+         
+         if (attributes == null)
+         {
+            attributes = jsonObject.get("prop");
+            opCode = JsonIdMap.UPDATE;
+         }
       }
 
       JsonObject valueJsonObject = null;
-      JsonObject jsonUpdate = null;
+      JsonObject attributesJson = null;
       String prop = null;
       
-      if (object != null)
+      if (attributes != null)
       {
-         jsonUpdate = (JsonObject) object;
-         Iterator<String> iter = jsonUpdate.keyIterator();
-         if ( iter.hasNext())
+         attributesJson = (JsonObject) attributes;
+         
+         Iterator<String> iter = attributesJson.keyIterator();
+         while ( iter.hasNext())
          {
             prop = iter.next();
-            change.withProperty(prop);
+
+            ChangeEvent change = new ChangeEvent()
+            .withSessionId(spaceId)
+            .withChangeNo("" + getNewHistoryIdNumber())
+            .withObjectId(jsonObject.getString(JsonIdMap.ID))
+            .withObjectType(jsonObject.getString(JsonIdMap.CLASS))
+            .withProperty(prop);
             
-            Object obj = jsonUpdate.get(prop);
+            Object attrValue = attributesJson.get(prop);
             
-            if (obj instanceof JsonObject)
+            if (attrValue instanceof JsonObject)
             {
-               valueJsonObject = (JsonObject) obj;
+               JsonArray valueJsonArray = new JsonArray();
+               valueJsonArray.add(attrValue);
+               attrValue = valueJsonArray;
+            }
+            
+            if (attrValue instanceof JsonArray)
+            {
+               JsonArray valueJsonArray = (JsonArray) attrValue;
+               
+               for (Object arrayElem : valueJsonArray)
+               {
+                  valueJsonObject = (JsonObject) arrayElem;
+
+                  String valueObjectId = (String) valueJsonObject.get(JsonIdMap.ID);
+               
+                  String valueObjectType = (String) valueJsonObject.get(JsonIdMap.CLASS);
+
+                  Object valueObject = map.getObject(valueObjectId);
+
+                  if (valueObjectType == null)
+                  {
+                     // get object and ask it
+                     valueObjectType = valueObject.getClass().getName();
+                  }
+
+                  change.withValueType(valueObjectType);
+
+                  // toOne or toMany
+                  change.withPropertyKind(ChangeEvent.TO_ONE);
+
+                  Object targetObject = map.getObject(change.getObjectId());
+
+                  SendableEntityCreator creator = map.getCreatorClass(targetObject);
+
+                  Object value = creator.getValue(targetObject, change.getProperty());
+
+                  if (value != null && value instanceof Collection)
+                  {
+                     change.setPropertyKind(ChangeEvent.TO_MANY);
+                  }
+
+                  // newValue or oldValue?
+                  if (opCode.equals(JsonIdMap.REMOVE))
+                  {
+                     change.withOldValue(valueObjectId);
+                  }
+                  else
+                  {
+                     change.withNewValue(valueObjectId);
+                  }
+
+                  // store it
+                  getHistory().addChange(change);
+                  writeChange(change);
+                  sendNewChange(change);
+
+                  // does the value have properties?
+                  if (valueJsonObject.get("prop") != null)
+                  {
+                     // call recursive
+                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+                  }
+               }
+            }
+            else
+            {
+               String oldValueString = "" + oldValue;
+               if (oldValue == null)
+               {
+                  oldValueString = null;
+               }
+               
+               // plain attribute
+               change.withPropertyKind(ChangeEvent.PLAIN)
+               .withNewValue("" + attrValue)
+               .withOldValue(oldValueString);
+               
+               getHistory().addChange(change);
+               writeChange(change);
+               sendNewChange(change);
             }
          }
       }
 
-      Object targetObject = map.getObject(change.getObjectId());
-      SendableEntityCreator creator = map.getCreatorClass(targetObject);
-      Object value = creator.getValue(targetObject, change.getProperty());
-//      if (value != null && value instanceof Collection)
+
+//      
+//      
+//      
+//      if (target instanceof SeppelScope 
+//            && SeppelScope.PROPERTY_OBSERVEDOBJECTS.equals(change.getProperty())
+//            && valueJsonObject != null)
 //      {
-//         change.setIsToManyProperty(true);
+//         // some new object has been added to a scope, 
+//         // provide all details of that object as it will now be send to new partner spaces
+//         if (valueJsonObject.get(JsonIdMap.ID) != null && valueJsonObject.size() == 1)
+//         {
+//            // it contains only the object id, no properties of the object, just add those
+//            String valueObjectId = valueJsonObject.getString(JsonIdMap.ID);
+//            Object valueObject = map.getObject(valueObjectId);
+//            ObjectSet explicitElems = ((SeppelScope) target).getObservedObjects();
+//            JsonObject newValueJsonObject = map.toJsonObject(valueObject, 
+//               new Filter().withPropertyRegard(new RestrictToFilter(explicitElems)));
+//            
+//            jsonUpdate.put(prop, newValueJsonObject);
+//            // change.withChangeMsg(jsonObject.toString());
+//         }
+//         
 //      }
-      
-      if (target instanceof SeppelScope 
-            && SeppelScope.PROPERTY_OBSERVEDOBJECTS.equals(change.getProperty())
-            && valueJsonObject != null)
-      {
-         // some new object has been added to a scope, 
-         // provide all details of that object as it will now be send to new partner spaces
-         if (valueJsonObject.get(JsonIdMap.ID) != null && valueJsonObject.size() == 1)
-         {
-            // it contains only the object id, no properties of the object, just add those
-            String valueObjectId = valueJsonObject.getString(JsonIdMap.ID);
-            Object valueObject = map.getObject(valueObjectId);
-            ObjectSet explicitElems = ((SeppelScope) target).getObservedObjects();
-            JsonObject newValueJsonObject = map.toJsonObject(valueObject, 
-               new Filter().withPropertyRegard(new RestrictToFilter(explicitElems)));
-            
-            jsonUpdate.put(prop, newValueJsonObject);
-            // change.withChangeMsg(jsonObject.toString());
-         }
-         
-      }
-      else if (target instanceof SeppelScope 
-            && SeppelScope.PROPERTY_SPACES.equals(change.getProperty())
-            && valueJsonObject != null)
-      {
-         // the scope is attached to a new space proxy. Add scope name to change
-         // as the scope object will now be created in the corresponding space
-         // and all the other parts
-         JsonObject newValueJsonObject = map.toJsonObject(target, 
-            new Filter().withConvertable(new Deep().withDeep(0)));
-         JsonArray spaceArray = new JsonArray();
-         spaceArray.add(valueJsonObject);
-         JsonObject selfProxyId = new JsonObject();
-         selfProxyId.put(JsonIdMap.ID, map.getKey(selfProxy));
-         spaceArray.add(selfProxyId);
-         jsonUpdate.put(SeppelScope.PROPERTY_SCOPENAME, ((SeppelScope) target).getScopeName());
-         jsonUpdate.put(SeppelScope.PROPERTY_SPACES, spaceArray);
-         jsonObject.put(JsonIdMap.JSON_PROPS, jsonUpdate);
-         jsonObject.remove(JsonIdMap.UPDATE);
-         // change.withChangeMsg(jsonObject.toString());
-      }
-         
-
-      getHistory().addChange(change);
-
-      writeChange(change);
-
-      sendNewChange(change);
+//      else if (target instanceof SeppelScope 
+//            && SeppelScope.PROPERTY_SPACES.equals(change.getProperty())
+//            && valueJsonObject != null)
+//      {
+//         // the scope is attached to a new space proxy. Add scope name to change
+//         // as the scope object will now be created in the corresponding space
+//         // and all the other parts
+//         JsonObject newValueJsonObject = map.toJsonObject(target, 
+//            new Filter().withConvertable(new Deep().withDeep(0)));
+//         JsonArray spaceArray = new JsonArray();
+//         spaceArray.add(valueJsonObject);
+//         JsonObject selfProxyId = new JsonObject();
+//         selfProxyId.put(JsonIdMap.ID, map.getKey(selfProxy));
+//         spaceArray.add(selfProxyId);
+//         jsonUpdate.put(SeppelScope.PROPERTY_SCOPENAME, ((SeppelScope) target).getScopeName());
+//         jsonUpdate.put(SeppelScope.PROPERTY_SPACES, spaceArray);
+//         jsonObject.put(JsonIdMap.JSON_PROPS, jsonUpdate);
+//         jsonObject.remove(JsonIdMap.UPDATE);
+//         // change.withChangeMsg(jsonObject.toString());
+//      }
+//         
+//
+//      getHistory().addChange(change);
+//
+//      writeChange(change);
+//
+//      sendNewChange(change);
 
       return true;
    }
@@ -693,18 +785,17 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
    //==============================================================================
    public long getNewHistoryIdNumber()
    {
-      lastChangeId++;
+      long result = System.currentTimeMillis();
+      
+      if (result <= lastChangeId)
+      {
+         result = lastChangeId + 1;
+      }
+      
+      lastChangeId = result;
 
-      return lastChangeId;
+      return result;
    }
-
-   public long getNewHistoryIdNumber(int increment)
-   {
-      lastChangeId += increment;
-
-      return lastChangeId;
-   }
-
 
    //==============================================================================
    private File logFile = null;

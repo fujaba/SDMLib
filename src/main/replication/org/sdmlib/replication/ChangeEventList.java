@@ -26,7 +26,9 @@ import java.util.List;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.list.SortedList;
+
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
@@ -180,6 +182,26 @@ public class ChangeEventList implements PropertyChangeInterface
       return result;
    }
 
+   public void getChanges(String valueObjectId)
+   {
+      SimpleList<ChangeEvent> result = new SimpleList<ChangeEvent>();
+      
+      AttributeChangeTable attrTable = objectTable.get(valueObjectId);
+      
+      for (Object attrChange : attrTable.values())
+      {
+         if (attrChange instanceof ChangeEvent)
+         {
+            result.add((ChangeEvent) attrChange);
+         }
+         else 
+         {
+            result.addAll((TimeSortedChangeList)attrChange);
+         }
+      }
+   }
+
+
 
    
    //==========================================================================
@@ -204,5 +226,4 @@ public class ChangeEventList implements PropertyChangeInterface
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
 }
