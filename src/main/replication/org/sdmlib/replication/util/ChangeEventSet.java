@@ -377,58 +377,6 @@ public class ChangeEventSet extends SDMSet<ChangeEvent>
       return this;
    }
 
-   public StringList getOpCode()
-   {
-      StringList result = new StringList();
-      
-      for (ChangeEvent obj : this)
-      {
-         result.add(obj.getOpCode());
-      }
-      
-      return result;
-   }
-
-   public ChangeEventSet hasOpCode(String value)
-   {
-      ChangeEventSet result = new ChangeEventSet();
-      
-      for (ChangeEvent obj : this)
-      {
-         if (value.equals(obj.getOpCode()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ChangeEventSet hasOpCode(String lower, String upper)
-   {
-      ChangeEventSet result = new ChangeEventSet();
-      
-      for (ChangeEvent obj : this)
-      {
-         if (lower.compareTo(obj.getOpCode()) <= 0 && obj.getOpCode().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ChangeEventSet withOpCode(String value)
-   {
-      for (ChangeEvent obj : this)
-      {
-         obj.setOpCode(value);
-      }
-      
-      return this;
-   }
-
    public StringList getChangeNo()
    {
       StringList result = new StringList();

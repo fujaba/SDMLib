@@ -56,6 +56,8 @@ class CreatorCreator{
       
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ChangeEventCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ChangeEventPOCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.ChangeEventListCreator());
+      jsonIdMap.withCreator(new org.sdmlib.replication.util.ChangeEventListPOCreator());
       return jsonIdMap;
    }
 }

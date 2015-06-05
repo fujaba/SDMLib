@@ -42,7 +42,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ObjectSet;
-import org.sdmlib.replication.util.ReplicationChangeSet;
+import org.sdmlib.replication.util.ChangeEventSet;
 import org.sdmlib.replication.util.ReplicationNodeCreator;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceCreator;
@@ -389,7 +389,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          if ( iter.hasNext())
          {
             prop = iter.next();
-            change.withTargetProperty(prop);
+            change.withProperty(prop);
             
             Object obj = jsonUpdate.get(prop);
             
@@ -402,14 +402,14 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
 
       Object targetObject = map.getObject(change.getObjectId());
       SendableEntityCreator creator = map.getCreatorClass(targetObject);
-      Object value = creator.getValue(targetObject, change.getTargetProperty());
-      if (value != null && value instanceof Collection)
-      {
-         change.setIsToManyProperty(true);
-      }
+      Object value = creator.getValue(targetObject, change.getProperty());
+//      if (value != null && value instanceof Collection)
+//      {
+//         change.setIsToManyProperty(true);
+//      }
       
       if (target instanceof SeppelScope 
-            && SeppelScope.PROPERTY_OBSERVEDOBJECTS.equals(change.getTargetProperty())
+            && SeppelScope.PROPERTY_OBSERVEDOBJECTS.equals(change.getProperty())
             && valueJsonObject != null)
       {
          // some new object has been added to a scope, 
@@ -424,12 +424,12 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                new Filter().withPropertyRegard(new RestrictToFilter(explicitElems)));
             
             jsonUpdate.put(prop, newValueJsonObject);
-            change.withChangeMsg(jsonObject.toString());
+            // change.withChangeMsg(jsonObject.toString());
          }
          
       }
       else if (target instanceof SeppelScope 
-            && SeppelScope.PROPERTY_SPACES.equals(change.getTargetProperty())
+            && SeppelScope.PROPERTY_SPACES.equals(change.getProperty())
             && valueJsonObject != null)
       {
          // the scope is attached to a new space proxy. Add scope name to change
@@ -446,7 +446,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          jsonUpdate.put(SeppelScope.PROPERTY_SPACES, spaceArray);
          jsonObject.put(JsonIdMap.JSON_PROPS, jsonUpdate);
          jsonObject.remove(JsonIdMap.UPDATE);
-         change.withChangeMsg(jsonObject.toString());
+         // change.withChangeMsg(jsonObject.toString());
       }
          
 
@@ -868,10 +868,10 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
       }
 
       // loop through history
-      for (ReplicationChange change : getHistory().getChanges())
+      for (ChangeEvent change : getHistory().getChanges())
       {
          // if my change
-         if (change.getHistoryIdPrefix().equals(loginName))
+         if (change.getSessionId().equals(loginName))
          {
             // add to xy.jlog file   
             writeChange(change);
@@ -885,7 +885,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
       // loop through logDir and load all .jlog files
       if (logDir.exists() && logDir.isDirectory())
       {
-         ArrayList<ReplicationChange> changeList = new ArrayList<ReplicationChange>();
+         ArrayList<ChangeEvent> changeList = new ArrayList<ChangeEvent>();
          
          for (File file : logDir.listFiles())
          {
@@ -903,8 +903,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                   {
                      JsonObject jsonObject = new JsonObject().withValue(line);
                      
-                     ReplicationChange change = (ReplicationChange) getChangeMap().decode(jsonObject);
-                     change.setChangeMsg(EntityUtil.unQuote(change.getChangeMsg()));
+                     ChangeEvent change = new ChangeEvent(jsonObject);
 
                      changeList.add(change);
 
@@ -930,7 +929,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
             this.isApplyingChangeMsg = true;
             this.loadingHistory = true;
             
-            for (ReplicationChange change : changeList)
+            for (ChangeEvent change : changeList)
             {
                applyChangeLocally(change);
             }
@@ -962,7 +961,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
       return readMessages;
    }
 
-   private void sendNewChange(ReplicationChange change)
+   private void sendNewChange(ChangeEvent change)
    {
       // go through all channels
       for(SeppelChannel channel : this.getSelfProxy().getPartners().getChannel())
@@ -990,17 +989,17 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          return;
       }
       
-      for (ReplicationChange change : this.getHistory().getChanges())
+      for (ChangeEvent change : this.getHistory().getChanges())
       {
          sendChangeToChannel(channel, scopes, change);
       }
    }
 
 
-   private void sendChangeToChannel(SeppelChannel channel, SeppelScopeSet scopes, ReplicationChange change)
+   private void sendChangeToChannel(SeppelChannel channel, SeppelScopeSet scopes, ChangeEvent change)
    {
       JsonObject jsonObject;
-      String targetObjectId = change.getTargetObjectId();
+      String targetObjectId = change.getObjectId();
       Object targetObject = this.get(targetObjectId);
       
       if (targetObject != null 
@@ -1010,7 +1009,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                   || scopes.contains(targetObject)))
       {
          // the value should also be in scope
-         String changeMsg = change.getChangeMsg();
+         String changeMsg = change.toJson().toString();
     
          jsonObject = new JsonObject();
          jsonObject.withValue(changeMsg);
@@ -1028,7 +1027,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          
          if (jsonObject != null) 
          {
-            valueObject = jsonObject.get(change.getTargetProperty());
+            valueObject = jsonObject.get(change.getProperty());
          }
          
          if (valueObject != null && valueObject instanceof JsonObject)

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 zuendorf 
+   Copyright (c) 2015 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,20 +21,14 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.replication.ChangeHistory;
-import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.serialization.EntityFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.replication.ChangeEventList;
 
-public class SeppelSpaceCreator extends EntityFactory
+public class ChangeEventListCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      SeppelSpace.PROPERTY_SPACEID,
-      SeppelSpace.PROPERTY_HISTORY,
-      SeppelSpace.PROPERTY_LASTCHANGEID,
-      SeppelSpace.PROPERTY_JAVAFXAPPLICATION,
    };
    
    @Override
@@ -46,7 +40,7 @@ public class SeppelSpaceCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new SeppelSpace();
+      return new ChangeEventList();
    }
    
    @Override
@@ -59,26 +53,6 @@ public class SeppelSpaceCreator extends EntityFactory
       {
          attribute = attrName.substring(0, pos);
       }
-
-      if (SeppelSpace.PROPERTY_SPACEID.equalsIgnoreCase(attribute))
-      {
-         return ((SeppelSpace) target).getSpaceId();
-      }
-
-      if (SeppelSpace.PROPERTY_HISTORY.equalsIgnoreCase(attribute))
-      {
-         return ((SeppelSpace) target).getHistory();
-      }
-
-      if (SeppelSpace.PROPERTY_LASTCHANGEID.equalsIgnoreCase(attribute))
-      {
-         return ((SeppelSpace) target).getLastChangeId();
-      }
-
-      if (SeppelSpace.PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attribute))
-      {
-         return ((SeppelSpace) target).isJavaFXApplication();
-      }
       
       return null;
    }
@@ -89,24 +63,6 @@ public class SeppelSpaceCreator extends EntityFactory
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (SeppelSpace.PROPERTY_SPACEID.equalsIgnoreCase(attrName))
-      {
-         ((SeppelSpace) target).withSpaceId((String) value);
-         return true;
-      }
-
-      if (SeppelSpace.PROPERTY_LASTCHANGEID.equalsIgnoreCase(attrName))
-      {
-         ((SeppelSpace) target).withLastChangeId(Long.parseLong(value.toString()));
-         return true;
-      }
-
-      if (SeppelSpace.PROPERTY_JAVAFXAPPLICATION.equalsIgnoreCase(attrName))
-      {
-         ((SeppelSpace) target).withJavaFXApplication((Boolean) value);
-         return true;
       }
       
       return false;
@@ -121,6 +77,6 @@ public class SeppelSpaceCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((SeppelSpace) entity).removeYou();
+      ((ChangeEventList) entity).removeYou();
    }
 }

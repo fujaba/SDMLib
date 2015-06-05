@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.replication.ChangeEventList;
 
 public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
 {
@@ -84,44 +85,6 @@ public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
       if (this.getPattern().getHasMatch())
       {
          ((SeppelSpace) getCurrentMatch()).setSpaceId(value);
-      }
-      return this;
-   }
-   
-   public SeppelSpacePO hasHistory(ChangeHistory value)
-   {
-      new AttributeConstraint()
-      .withAttrName(SeppelSpace.PROPERTY_HISTORY)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      this.getPattern().findMatch();
-      
-      return this;
-   }
-   
-   public SeppelSpacePO createHistory(ChangeHistory value)
-   {
-      this.startCreate().hasHistory(value).endCreate();
-      return this;
-   }
-   
-   public ChangeHistory getHistory()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((SeppelSpace) getCurrentMatch()).getHistory();
-      }
-      return null;
-   }
-   
-   public SeppelSpacePO withHistory(ChangeHistory value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((SeppelSpace) getCurrentMatch()).setHistory(value);
       }
       return this;
    }
@@ -213,6 +176,44 @@ public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
       if (this.getPattern().getHasMatch())
       {
          ((SeppelSpace) getCurrentMatch()).setJavaFXApplication(value);
+      }
+      return this;
+   }
+   
+   public SeppelSpacePO hasHistory(ChangeEventList value)
+   {
+      new AttributeConstraint()
+      .withAttrName(SeppelSpace.PROPERTY_HISTORY)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public SeppelSpacePO createHistory(ChangeEventList value)
+   {
+      this.startCreate().hasHistory(value).endCreate();
+      return this;
+   }
+   
+   public ChangeEventList getHistory()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((SeppelSpace) getCurrentMatch()).getHistory();
+      }
+      return null;
+   }
+   
+   public SeppelSpacePO withHistory(ChangeEventList value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((SeppelSpace) getCurrentMatch()).setHistory(value);
       }
       return this;
    }
