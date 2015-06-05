@@ -533,4 +533,56 @@ public class ChangeEventSet extends SDMSet<ChangeEvent>
       return this;
    }
 
+   public StringList getPropertyKind()
+   {
+      StringList result = new StringList();
+      
+      for (ChangeEvent obj : this)
+      {
+         result.add(obj.getPropertyKind());
+      }
+      
+      return result;
+   }
+
+   public ChangeEventSet hasPropertyKind(String value)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (value.equals(obj.getPropertyKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChangeEventSet hasPropertyKind(String lower, String upper)
+   {
+      ChangeEventSet result = new ChangeEventSet();
+      
+      for (ChangeEvent obj : this)
+      {
+         if (lower.compareTo(obj.getPropertyKind()) <= 0 && obj.getPropertyKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ChangeEventSet withPropertyKind(String value)
+   {
+      for (ChangeEvent obj : this)
+      {
+         obj.setPropertyKind(value);
+      }
+      
+      return this;
+   }
+
 }

@@ -29,6 +29,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.StrUtil;
@@ -169,153 +171,19 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          // handle change messages 
          this.isApplyingChangeMsg = true;
 
-         JsonIdMap cmap = getChangeMap();
+         ChangeEvent change = new ChangeEvent(jsonObject);
          
+         historyPos = history.addChange(change);
          
-         ReplicationChange change = (ReplicationChange) cmap.decode(jsonObject);
-         
-         // change.setChangeMsg(EntityUtil.unQuote(change.getChangeMsg()));
-
-         // is change already known?
-         if (getHistory().getChanges().contains(change))
+         if (historyPos < 0)
          {
             // change already known, ignore
             return;
          }
 
          // try to apply change
-         // is it a conflict?
-         String key = change.getTargetObjectId() + "|" + change.getTargetProperty();
-
-         Object oldChange = this.getHistory().getChangeMap().get(key);
-
-         if (change.getIsToManyProperty())
-         {
-            // no conflict, but consider ordering
-            if (oldChange == null)
-            {
-               // no conflict do it
-               applyChange(change, msg.channel);
-            }
-            else
-            {
-               ReplicationChangeSet oldChanges = (ReplicationChangeSet) oldChange;
-
-               ReplicationChange higher = oldChanges.higher(change);
-
-               if (higher == null)
-               {
-                  // new change will be last, just apply it.
-                  applyChange(change, msg.channel);
-               }
-               else
-               {
-                  boolean setOfProps = false;
-                  // undo higher changes, apply, redo higher changes
-                  // find source object, property and earlier content object
-                  String changeMsg = higher.getChangeMsg();
-                  JsonObject higherJson = new JsonObject().withValue(changeMsg);
-                  String sourceId = higherJson.getString(JsonIdMap.ID);
-                  Object sourceObject = map.getObject(sourceId);
-                  
-                  JsonObject updateJson = (JsonObject) higherJson.get(JsonIdMap.UPDATE);
-                  
-                  if (updateJson == null)
-                  {
-                     updateJson = (JsonObject) higherJson.get(JsonIdMap.REMOVE);
-                  }
-
-                  if (updateJson == null)
-                  {
-                     // might be a set of props
-                     updateJson = (JsonObject) higherJson.get(JsonIdMap.JSON_PROPS);
-                     if (updateJson != null)
-                     {
-                        setOfProps = true;
-                        applyChange(change, msg.channel);
-                     }
-                  }
-                  
-                  if (updateJson == null)
-                  {
-                     // ups that should not happen
-                     System.out.println("ups");
-                  }
-                  
-                  for (Iterator<String> keyIter = updateJson.keyIterator(); ! setOfProps && keyIter.hasNext();)
-                  {
-                     String property = keyIter.next();
-
-                     Object object = updateJson.get(property);
-                     
-                     if (object == null || ! (object instanceof JsonObject))
-                     {
-                        System.out.println("Problem at SeppelSpace line 248 ");
-                     }
-                     
-                     JsonObject targetJson = updateJson.getJsonObject(property);
-
-                     String targetId = targetJson.getString(JsonIdMap.ID);
-
-                     Object targetObj = map.getObject(targetId);
-
-                     // now remove targetObj and its successors from property
-                     // collection
-                     SendableEntityCreator creatorClass = map.getCreatorClass(sourceObject);
-
-                     Collection collection = (Collection) creatorClass.getValue(sourceObject,
-                        property);
-
-                     LinkedList<Object> higherList = new LinkedList<Object>();
-                     boolean found = false;
-                     for (Object obj : collection)
-                     {
-                        if (obj == targetObj)
-                        {
-                           found = true;
-                        }
-
-                        if (found)
-                        {
-                           higherList.add(obj);
-                        }
-                     }
-
-                     // remove higher elems from collection
-                     for (Object obj : higherList)
-                     {
-                        creatorClass.setValue(sourceObject, property + JsonIdMap.REMOVE, obj, null);
-                     }
-
-                     // add new
-                     applyChange(change, msg.channel);
-
-                     // re-add higher elements
-                     for (Object obj : higherList)
-                     {
-                        creatorClass.setValue(sourceObject, property, obj, null);
-                     }
-                     break;
-                  }
-               }
-            }
-         }
-         else
-         {
-            // is new change later than old change?
-            if (oldChange == null || ((ReplicationChange) oldChange).compareTo(change) < 0)
-            {
-               applyChange(change, msg.channel);
-            }
-            else
-            {
-               // there is a newer change, but we may need to keep this one
-               // until
-               // we have synchronized with the sending node.
-               getHistory().addToChanges(change);
-               getHistory().addToObsoleteChanges(change);
-            }
-         }
+         applyChange(change, msg.channel);
+         
       }
       finally
       {
@@ -338,40 +206,123 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
    }
    
    
-   private void applyChange(ReplicationChange change, SeppelChannel sender)
+   private void applyChange(ChangeEvent change, SeppelChannel sender)
    {
       applyChangeLocally(change);
 
       sendNewChange(change);
    }
 
-   public void applyChangeLocally(ReplicationChange change)
+   public void applyChangeLocally(ChangeEvent change)
    {
-      // no conflict, apply change
-      JsonObject jsonUpdate = new JsonObject(); 
+      // get source object
+      Object object = map.getObject(change.getObjectId());
+      
+      String objectType = change.getObjectType();
+      SendableEntityCreator creator = map.getCreator(objectType, false);
+      
+      if (object == null)
+      {
+         // new object, create it
+         object = creator.getSendableInstance(false);
+      }
+      
+      if (ChangeEvent.PLAIN.equals(change.getPropertyKind()))
+      {
+         // simple attribute just do assignment
+         creator.setValue(object, change.getProperty(), change.getNewValue(), null);
+      }
+      else if (ChangeEvent.TO_ONE.equals(change.getPropertyKind()))
+      {
+         String newValueId = change.getNewValue();
+         
+         if (newValueId == null)
+         {
+            // set pointer to null
+            creator.setValue(object, change.getProperty(), null, null);
+         }
+         else
+         {
+            // provide target object
+            Object targetObject = map.getObject(newValueId);
+            
+            if (targetObject == null)
+            {
+               // not yet known target, build it. 
+               SendableEntityCreator targetCreator = map.getCreator(change.getValueType(), false);
+               targetObject = targetCreator.getSendableInstance(false);
+            }
+            
+            // assign value
+            creator.setValue(object, change.getProperty(), targetObject, null);
+         }
+      }
+      else // toMany
+      {
+         String targetId = change.getNewValue();
+         
+         if (targetId == null)
+         {
+            // remove the object from the to_many attribute
+            targetId = change.getOldValue();
+            
+            Object targetObject = map.getObject(targetId);
+            
+            if (targetObject != null)
+            {
+               creator.setValue(object, change.getProperty(), targetObject, JsonIdMap.REMOVE);
+            }
+         }
+         else
+         {
+            // insertion
+            Object targetObject = map.getObject(targetId);
+            
+            if (targetObject == null)
+            {
+               // create unknown target
+               SendableEntityCreator targetCreator = map.getCreator(change.getValueType(), false);
+               targetObject = targetCreator.getSendableInstance(false);
+            }
+            
+            // assign value
+            creator.setValue(object, change.getProperty(), targetObject, null);
+            
+            // try to adjust position
+            tryToAdjustPosition(object, change.getProperty(), targetObject);
+         }
+      }
+      
+      writeChange(change);
+   }
+   
+   private void tryToAdjustPosition(Object object, String property, Object targetObject)
+   {
+      Class sourceClass = object.getClass();
       
       try
       {
-         this.setReadMessages(true);
-         new JsonTokener().withAllowCRLF(true).withText(change.getChangeMsg())
-         .parseToEntity(jsonUpdate);
-         map.decode(jsonUpdate);
+         Field field = sourceClass.getField(property);
+         Object value = field.get(object);
          
-      } catch (Exception e) {
+         if (value != null && value instanceof List)
+         {
+            List valueList = (List) value;
+            int indexOf = valueList.indexOf(targetObject);
+            
+            if (indexOf != historyPos)
+            {
+               valueList.remove(indexOf);
+               valueList.add(historyPos, targetObject);
+            }
+         }
+      }
+      catch (Exception e)
+      {
          e.printStackTrace();
       }
-      finally
-      {
-         this.setReadMessages(false);
-      }
-
-      getHistory().addChange(change);
-
-      writeChange(change);
-
-      this.lastChangeId = Math.max(lastChangeId, change.getHistoryIdNumber());
    }
-   
+
    public static class RestrictToFilter extends ConditionMap
    {
       private ObjectSet explicitElems;
@@ -414,11 +365,11 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
       
       JsonObject jsonObject = (JsonObject) item;
 
-      ReplicationChange change = new ReplicationChange()
-      .withHistoryIdPrefix(spaceId)
-      .withHistoryIdNumber(getNewHistoryIdNumber())
-      .withTargetObjectId(jsonObject.getString(JsonIdMap.ID))
-      .withChangeMsg(jsonObject.toString());
+      ChangeEvent change = new ChangeEvent()
+      .withSessionId(spaceId)
+      .withChangeNo("" + getNewHistoryIdNumber())
+      .withObjectId(jsonObject.getString(JsonIdMap.ID))
+      ;
 
       Object object = jsonObject.get(JsonIdMap.UPDATE);
       
@@ -449,7 +400,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          }
       }
 
-      Object targetObject = map.getObject(change.getTargetObjectId());
+      Object targetObject = map.getObject(change.getObjectId());
       SendableEntityCreator creator = map.getCreatorClass(targetObject);
       Object value = creator.getValue(targetObject, change.getTargetProperty());
       if (value != null && value instanceof Collection)
@@ -583,29 +534,29 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
    
    public static final String PROPERTY_HISTORY = "history";
    
-   private ChangeHistory history;
+   private ChangeEventList history;
 
-   public ChangeHistory getHistory()
+   public ChangeEventList getHistory()
    {
       if (history == null)
       {
-         history = new ChangeHistory();
+         history = new ChangeEventList();
       }
 
       return this.history;
    }
    
-   public void setHistory(ChangeHistory value)
+   public void setHistory(ChangeEventList value)
    {
       if (this.history != value)
       {
-         ChangeHistory oldValue = this.history;
+         ChangeEventList oldValue = this.history;
          this.history = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_HISTORY, oldValue, value);
       }
    }
    
-   public SeppelSpace withHistory(ChangeHistory value)
+   public SeppelSpace withHistory(ChangeEventList value)
    {
       setHistory(value);
       return this;
@@ -786,7 +737,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
    }
 
    
-   private void writeChange(ReplicationChange change)
+   private void writeChange(ChangeEvent change)
    {
       if (loadingHistory)
       {
@@ -805,7 +756,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          
          logFileWriter = new FileWriter(logFile, true);
 
-         JsonObject jsonObject = getChangeMap().toJsonObject(change);
+         JsonObject jsonObject = change.toJson();
          logFileWriter.write(jsonObject.toString() + "\n");
          logFileWriter.flush();
          logFileWriter.close();
@@ -1151,6 +1102,8 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
    }
 
    SeppelTaskHandler taskHandler = null;
+
+   private int historyPos;
    
    public SeppelSpace withTaskHandler(SeppelTaskHandler handler)
    {

@@ -31,7 +31,7 @@ public class ReplicationModel
             .withAttribute("newValue", DataType.STRING)
             .withAttribute("oldValue", DataType.STRING)
             .withAttribute("valueType", DataType.STRING)
-            .withAttribute("opCode", DataType.STRING)
+            .withAttribute("propertyKind", DataType.STRING)
             .withAttribute("changeNo", DataType.STRING)
             .withAttribute("sessionId", DataType.STRING)
             ;
@@ -56,7 +56,7 @@ public class ReplicationModel
 
       Clazz seppelSpace = model.createClazz("SeppelSpace")
             .withAttribute("spaceId", DataType.STRING) 
-            .withAttribute("history", DataType.ref(CHANGE_HISTORY))
+            .withAttribute("history", DataType.ref("ChangeEventList"))
             .withAttribute("lastChangeId", DataType.LONG) 
             .withAttribute("javaFXApplication", DataType.BOOLEAN)
             .withSuperClazz(thread);

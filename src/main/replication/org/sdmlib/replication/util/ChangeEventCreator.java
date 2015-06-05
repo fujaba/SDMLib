@@ -35,9 +35,9 @@ public class ChangeEventCreator extends EntityFactory
       ChangeEvent.PROPERTY_NEWVALUE,
       ChangeEvent.PROPERTY_OLDVALUE,
       ChangeEvent.PROPERTY_VALUETYPE,
-      ChangeEvent.PROPERTY_OPCODE,
       ChangeEvent.PROPERTY_CHANGENO,
       ChangeEvent.PROPERTY_SESSIONID,
+      ChangeEvent.PROPERTY_PROPERTYKIND,
    };
    
    @Override
@@ -93,11 +93,6 @@ public class ChangeEventCreator extends EntityFactory
          return ((ChangeEvent) target).getValueType();
       }
 
-      if (ChangeEvent.PROPERTY_OPCODE.equalsIgnoreCase(attribute))
-      {
-         return ((ChangeEvent) target).getOpCode();
-      }
-
       if (ChangeEvent.PROPERTY_CHANGENO.equalsIgnoreCase(attribute))
       {
          return ((ChangeEvent) target).getChangeNo();
@@ -106,6 +101,11 @@ public class ChangeEventCreator extends EntityFactory
       if (ChangeEvent.PROPERTY_SESSIONID.equalsIgnoreCase(attribute))
       {
          return ((ChangeEvent) target).getSessionId();
+      }
+
+      if (ChangeEvent.PROPERTY_PROPERTYKIND.equalsIgnoreCase(attribute))
+      {
+         return ((ChangeEvent) target).getPropertyKind();
       }
       
       return null;
@@ -155,12 +155,6 @@ public class ChangeEventCreator extends EntityFactory
          return true;
       }
 
-      if (ChangeEvent.PROPERTY_OPCODE.equalsIgnoreCase(attrName))
-      {
-         ((ChangeEvent) target).withOpCode((String) value);
-         return true;
-      }
-
       if (ChangeEvent.PROPERTY_CHANGENO.equalsIgnoreCase(attrName))
       {
          ((ChangeEvent) target).withChangeNo((String) value);
@@ -170,6 +164,12 @@ public class ChangeEventCreator extends EntityFactory
       if (ChangeEvent.PROPERTY_SESSIONID.equalsIgnoreCase(attrName))
       {
          ((ChangeEvent) target).withSessionId((String) value);
+         return true;
+      }
+
+      if (ChangeEvent.PROPERTY_PROPERTYKIND.equalsIgnoreCase(attrName))
+      {
+         ((ChangeEvent) target).withPropertyKind((String) value);
          return true;
       }
       

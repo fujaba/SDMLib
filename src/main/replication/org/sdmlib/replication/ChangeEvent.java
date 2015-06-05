@@ -21,14 +21,104 @@
    
 package org.sdmlib.replication;
 
+import org.sdmlib.replication.util.ChangeEventCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.Comparator;
+
 import org.sdmlib.StrUtil;
 
-public  class ChangeEvent implements PropertyChangeInterface
-{
+import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.json.util.JsonObjectCreator;
 
+public  class ChangeEvent implements PropertyChangeInterface, Comparable<ChangeEvent>
+{
+   public static final String PLAIN = "plain"; 
+   public static final String TO_ONE = "toOne";
+   public static final String TO_MANY = "toMany";
+   
+
+   public ChangeEvent(JsonObject jsonObject)
+   {
+      for (String property : myCreator.getProperties())
+      {
+         String value = (String) jsonObject.get(property);
+         myCreator.setValue(this, property, value, null);
+      }
+   }
+
+   private static ChangeEventCreator myCreator = new ChangeEventCreator();
+   
+   
+   public ChangeEvent()
+   {
+      // TODO Auto-generated constructor stub
+   }
+
+
+   public JsonObject toJson()
+   {
+      JsonObject result = new JsonObject();
+
+      for (String property : myCreator.getProperties())
+      {
+         String value = (String) myCreator.getValue(this, property);
+         result.put(property, value);
+      }
+
+      return result;
+   }
+
+   public static Comparator<ChangeEvent> timeComparator = new Comparator<ChangeEvent>()
+   {
+      @Override
+      public int compare(ChangeEvent o1, ChangeEvent o2)
+      {
+         int result = 0;
+         
+         if (o1.getChangeNo().length() < o2.getChangeNo().length())
+         {
+            return -1;
+         }
+
+         if (o1.getChangeNo().length() > o2.getChangeNo().length())
+         {
+            return 1;
+         }
+         
+         // same length its strings consisting of digits only. They have the same length: alphabetic order matches integer order
+         result = o1.getChangeNo().compareTo(o2.getChangeNo()); 
+         
+         if (result != 0)  
+         {
+            return result;
+         }
+         
+         // same changeNo, compare sessionId
+         
+         return o1.getSessionId().compareTo(o2.getSessionId());
+      }
+   };
+   
+   @Override
+   public int compareTo(ChangeEvent o)
+   {
+      return timeComparator.compare(this, o);
+   } 
+
+   public String getTargetId()
+   {
+      String targetId = this.getNewValue();
+      
+      if (targetId == null)
+      {
+         targetId = this.getOldValue();
+      }
+      
+      return targetId;
+   }
    
    //==========================================================================
    
@@ -93,9 +183,9 @@ public  class ChangeEvent implements PropertyChangeInterface
       result.append(" ").append(this.getNewValue());
       result.append(" ").append(this.getOldValue());
       result.append(" ").append(this.getValueType());
-      result.append(" ").append(this.getOpCode());
       result.append(" ").append(this.getChangeNo());
       result.append(" ").append(this.getSessionId());
+      result.append(" ").append(this.getPropertyKind());
       return result.substring(1);
    }
 
@@ -243,34 +333,6 @@ public  class ChangeEvent implements PropertyChangeInterface
    
    //==========================================================================
    
-   public static final String PROPERTY_OPCODE = "opCode";
-   
-   private String opCode;
-
-   public String getOpCode()
-   {
-      return this.opCode;
-   }
-   
-   public void setOpCode(String value)
-   {
-      if ( ! StrUtil.stringEquals(this.opCode, value))
-      {
-         String oldValue = this.opCode;
-         this.opCode = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_OPCODE, oldValue, value);
-      }
-   }
-   
-   public ChangeEvent withOpCode(String value)
-   {
-      setOpCode(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
    public static final String PROPERTY_CHANGENO = "changeNo";
    
    private String changeNo;
@@ -321,6 +383,35 @@ public  class ChangeEvent implements PropertyChangeInterface
    public ChangeEvent withSessionId(String value)
    {
       setSessionId(value);
+      return this;
+   }
+
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PROPERTYKIND = "propertyKind";
+   
+   private String propertyKind;
+
+   public String getPropertyKind()
+   {
+      return this.propertyKind;
+   }
+   
+   public void setPropertyKind(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.propertyKind, value))
+      {
+         String oldValue = this.propertyKind;
+         this.propertyKind = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PROPERTYKIND, oldValue, value);
+      }
+   }
+   
+   public ChangeEvent withPropertyKind(String value)
+   {
+      setPropertyKind(value);
       return this;
    } 
 }

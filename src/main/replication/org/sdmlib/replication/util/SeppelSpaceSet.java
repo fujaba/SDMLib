@@ -27,6 +27,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
+import org.sdmlib.replication.ChangeEventList;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.SeppelSpace;
 
@@ -122,19 +123,12 @@ public class SeppelSpaceSet extends SDMSet<SeppelSpace>
       return this;
    }
 
-   public ChangeHistorySet getHistory()
+   public Object getHistory()
    {
-      ChangeHistorySet result = new ChangeHistorySet();
-      
-      for (SeppelSpace obj : this)
-      {
-         result.add(obj.getHistory());
-      }
-      
-      return result;
+      return null;
    }
 
-   public SeppelSpaceSet hasHistory(ChangeHistory value)
+   public SeppelSpaceSet hasHistory(ChangeEventList value)
    {
       SeppelSpaceSet result = new SeppelSpaceSet();
       
@@ -149,7 +143,7 @@ public class SeppelSpaceSet extends SDMSet<SeppelSpace>
       return result;
    }
 
-   public SeppelSpaceSet withHistory(ChangeHistory value)
+   public SeppelSpaceSet withHistory(ChangeEventList value)
    {
       for (SeppelSpace obj : this)
       {

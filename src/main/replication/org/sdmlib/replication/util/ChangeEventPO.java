@@ -352,59 +352,6 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       return this;
    }
    
-   public ChangeEventPO hasOpCode(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(ChangeEvent.PROPERTY_OPCODE)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.hasAttr();
-      
-      return this;
-   }
-   
-   public ChangeEventPO hasOpCode(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(ChangeEvent.PROPERTY_OPCODE)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.hasAttr();
-      
-      return this;
-   }
-   
-   public ChangeEventPO createOpCode(String value)
-   {
-      this.startCreate().hasOpCode(value).endCreate();
-      return this;
-   }
-   
-   public String getOpCode()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((ChangeEvent) getCurrentMatch()).getOpCode();
-      }
-      return null;
-   }
-   
-   public ChangeEventPO withOpCode(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((ChangeEvent) getCurrentMatch()).setOpCode(value);
-      }
-      return this;
-   }
-   
    public ChangeEventPO hasChangeNo(String value)
    {
       new AttributeConstraint()
@@ -507,6 +454,59 @@ public class ChangeEventPO extends PatternObject<ChangeEventPO, ChangeEvent>
       if (this.getPattern().getHasMatch())
       {
          ((ChangeEvent) getCurrentMatch()).setSessionId(value);
+      }
+      return this;
+   }
+   
+   public ChangeEventPO hasPropertyKind(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTYKIND)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO hasPropertyKind(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ChangeEvent.PROPERTY_PROPERTYKIND)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public ChangeEventPO createPropertyKind(String value)
+   {
+      this.startCreate().hasPropertyKind(value).endCreate();
+      return this;
+   }
+   
+   public String getPropertyKind()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ChangeEvent) getCurrentMatch()).getPropertyKind();
+      }
+      return null;
+   }
+   
+   public ChangeEventPO withPropertyKind(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ChangeEvent) getCurrentMatch()).setPropertyKind(value);
       }
       return this;
    }
