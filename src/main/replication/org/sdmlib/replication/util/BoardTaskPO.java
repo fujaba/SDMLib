@@ -9,6 +9,7 @@ import org.sdmlib.replication.Task;
 import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.util.BoardTaskPO;
+import java.beans.PropertyChangeEvent;
 
 public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
 {
@@ -316,4 +317,91 @@ public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
       return null;
    }
 
+   public BoardTaskPO hasManualExecution(boolean value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_MANUALEXECUTION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public BoardTaskPO createManualExecution(boolean value)
+   {
+      this.startCreate().hasManualExecution(value).endCreate();
+      return this;
+   }
+   
+   public boolean getManualExecution()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((BoardTask) getCurrentMatch()).isManualExecution();
+      }
+      return false;
+   }
+   
+   public BoardTaskPO withManualExecution(boolean value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((BoardTask) getCurrentMatch()).setManualExecution(value);
+      }
+      return this;
+   }
+   
+   
+   //==========================================================================
+   
+   public void execute()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((BoardTask) getCurrentMatch()).execute();
+      }
+   }
+
+   public BoardTaskPO hasStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      new AttributeConstraint()
+      .withAttrName(BoardTask.PROPERTY_STASHEDPROPERTYCHANGEEVENT)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public BoardTaskPO createStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      this.startCreate().hasStashedPropertyChangeEvent(value).endCreate();
+      return this;
+   }
+   
+   public PropertyChangeEvent getStashedPropertyChangeEvent()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((BoardTask) getCurrentMatch()).getStashedPropertyChangeEvent();
+      }
+      return null;
+   }
+   
+   public BoardTaskPO withStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((BoardTask) getCurrentMatch()).setStashedPropertyChangeEvent(value);
+      }
+      return this;
+   }
+   
 }

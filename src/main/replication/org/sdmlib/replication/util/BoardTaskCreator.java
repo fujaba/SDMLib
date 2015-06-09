@@ -33,6 +33,7 @@ import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.event.ObjectMapEntry;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import java.beans.PropertyChangeEvent;
 
 public class BoardTaskCreator extends EntityFactory
 {
@@ -46,6 +47,8 @@ public class BoardTaskCreator extends EntityFactory
       BoardTask.PROPERTY_TASKOBJECTS,
       BoardTask.PROPERTY_LANE,
       BoardTask.PROPERTY_PROXY,
+      BoardTask.PROPERTY_MANUALEXECUTION,
+      BoardTask.PROPERTY_STASHEDPROPERTYCHANGEEVENT,
    };
    
    @Override
@@ -109,6 +112,16 @@ public class BoardTaskCreator extends EntityFactory
       if (BoardTask.PROPERTY_PROXY.equalsIgnoreCase(attribute))
       {
          return ((BoardTask) target).getProxy();
+      }
+
+      if (BoardTask.PROPERTY_MANUALEXECUTION.equalsIgnoreCase(attribute))
+      {
+         return ((BoardTask) target).isManualExecution();
+      }
+
+      if (BoardTask.PROPERTY_STASHEDPROPERTYCHANGEEVENT.equalsIgnoreCase(attribute))
+      {
+         return ((BoardTask) target).getStashedPropertyChangeEvent();
       }
       
       return null;
@@ -193,6 +206,18 @@ public class BoardTaskCreator extends EntityFactory
       if (BoardTask.PROPERTY_PROXY.equalsIgnoreCase(attrName))
       {
          ((BoardTask) target).setProxy((SeppelSpaceProxy) value);
+         return true;
+      }
+
+      if (BoardTask.PROPERTY_MANUALEXECUTION.equalsIgnoreCase(attrName))
+      {
+         ((BoardTask) target).withManualExecution((Boolean) value);
+         return true;
+      }
+
+      if (BoardTask.PROPERTY_STASHEDPROPERTYCHANGEEVENT.equalsIgnoreCase(attrName))
+      {
+         ((BoardTask) target).withStashedPropertyChangeEvent((PropertyChangeEvent) value);
          return true;
       }
 

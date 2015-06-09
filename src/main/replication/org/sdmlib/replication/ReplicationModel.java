@@ -1,5 +1,6 @@
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeEvent;
 import java.net.Socket;
 
 import org.junit.Test;
@@ -153,7 +154,10 @@ public class ReplicationModel
       Clazz boardTask = model.createClazz("BoardTask")
             .withSuperClazz(task)
             .withAttribute("name", DataType.STRING)
-            .withAttribute("status", DataType.STRING);
+            .withAttribute("status", DataType.STRING)
+            .withAttribute("manualExecution", DataType.BOOLEAN)
+            .withAttribute("stashedPropertyChangeEvent", DataType.ref(PropertyChangeEvent.class))
+            .withMethod("execute");
             
       Clazz runnable = model.createClazz("java.lang.Runnable")
             .withExternal(true)

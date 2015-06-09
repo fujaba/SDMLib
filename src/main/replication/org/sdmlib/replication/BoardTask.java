@@ -21,6 +21,7 @@
 
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -29,12 +30,41 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.json.JsonIdMap;
-
-import java.beans.PropertyChangeListener;
-
 public class BoardTask extends Task implements PropertyChangeInterface
 {
+   
+   public BoardTask()
+   {
+      this(false);
+   }
+   
+   /**
+    * 
+    * @param manualExecution
+    */
+   public BoardTask(boolean manualExecution) {
+      this(null, manualExecution);
+   }
+   
+   /**
+    * 
+    * @param name
+    */
+   public BoardTask(String name) {
+      this(name, false);
+   }
+   
+   /**
+    * 
+    * @param name
+    * @param manualExecution
+    */
+   public BoardTask(String name, boolean manualExecution)
+   {
+      setName(name);
+      setManualExecution(manualExecution);
+   }
+   
    // ==========================================================================
 
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -137,8 +167,12 @@ public class BoardTask extends Task implements PropertyChangeInterface
             value.withTasks(this);
          }
 
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LANE, oldValue,
-            value);
+         stashedPropertyChangeEvent = new PropertyChangeEvent(this, PROPERTY_LANE, oldValue, value);
+
+         if (!isManualExecution())
+         {
+            execute();
+         }
          changed = true;
       }
 
@@ -406,12 +440,13 @@ public class BoardTask extends Task implements PropertyChangeInterface
       BoardTaskSet result = new BoardTaskSet().with(this);
       return result.getPrevTransitive();
    }
-   
+
    public static final String PROPERTY_TASKOBJECTS = "taskObjects";
-   
+
    private HashMap<String, Object> taskObjects = new HashMap<String, Object>();
-   
-   public Object putTaskObject(String name, Object o) {
+
+   public Object putTaskObject(String name, Object o)
+   {
       return getTaskObjects().put(name, o);
    }
 
@@ -431,13 +466,12 @@ public class BoardTask extends Task implements PropertyChangeInterface
       return this;
    }
 
-   public BoardTask withTaskObject(String name, Object o) {
+   public BoardTask withTaskObject(String name, Object o)
+   {
       getTaskObjects().put(name, o);
       return this;
    }
 
-
-   
    /********************************************************************
     * <pre>
     *              many                       one
@@ -445,7 +479,7 @@ public class BoardTask extends Task implements PropertyChangeInterface
     *              tasks                   proxy
     * </pre>
     */
-   
+
    public static final String PROPERTY_PROXY = "proxy";
 
    private SeppelSpaceProxy proxy = null;
@@ -458,28 +492,28 @@ public class BoardTask extends Task implements PropertyChangeInterface
    public boolean setProxy(SeppelSpaceProxy value)
    {
       boolean changed = false;
-      
+
       if (this.proxy != value)
       {
          SeppelSpaceProxy oldValue = this.proxy;
-         
+
          if (this.proxy != null)
          {
             this.proxy = null;
             oldValue.withoutTasks(this);
          }
-         
+
          this.proxy = value;
-         
+
          if (value != null)
          {
             value.withTasks(this);
          }
-         
+
          getPropertyChangeSupport().firePropertyChange(PROPERTY_PROXY, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
@@ -487,7 +521,7 @@ public class BoardTask extends Task implements PropertyChangeInterface
    {
       setProxy(value);
       return this;
-   } 
+   }
 
    public SeppelSpaceProxy createProxy()
    {
@@ -499,7 +533,68 @@ public class BoardTask extends Task implements PropertyChangeInterface
    public Object getFromTaskObjects(String key)
    {
       return this.taskObjects.get(key);
-      
+
+   }
+
+   // ==========================================================================
+
+   public static final String PROPERTY_MANUALEXECUTION = "manualExecution";
+
+   private boolean manualExecution;
+
+   public boolean isManualExecution()
+   {
+      return this.manualExecution;
+   }
+
+   public void setManualExecution(boolean value)
+   {
+      if (this.manualExecution != value)
+      {
+         boolean oldValue = this.manualExecution;
+         this.manualExecution = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MANUALEXECUTION, oldValue, value);
+      }
+   }
+
+   public BoardTask withManualExecution(boolean value)
+   {
+      setManualExecution(value);
+      return this;
+   }
+
+   
+   //==========================================================================
+   public void execute(  )
+   {
+      getPropertyChangeSupport().firePropertyChange(stashedPropertyChangeEvent);
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_STASHEDPROPERTYCHANGEEVENT = "stashedPropertyChangeEvent";
+   
+   private PropertyChangeEvent stashedPropertyChangeEvent;
+
+   public PropertyChangeEvent getStashedPropertyChangeEvent()
+   {
+      return this.stashedPropertyChangeEvent;
+   }
+   
+   public void setStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      if (this.stashedPropertyChangeEvent != value)
+      {
+         PropertyChangeEvent oldValue = this.stashedPropertyChangeEvent;
+         this.stashedPropertyChangeEvent = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STASHEDPROPERTYCHANGEEVENT, oldValue, value);
+      }
+   }
+   
+   public BoardTask withStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      setStashedPropertyChangeEvent(value);
+      return this;
    } 
 }
-

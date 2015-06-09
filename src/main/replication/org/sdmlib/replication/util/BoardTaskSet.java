@@ -21,19 +21,18 @@
    
 package org.sdmlib.replication.util;
 
+import java.beans.PropertyChangeEvent;
 import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.LogEntrySet;
-import org.sdmlib.replication.util.LaneSet;
 
 public class BoardTaskSet extends SDMSet<BoardTask>
 {
@@ -492,6 +491,80 @@ public class BoardTaskSet extends SDMSet<BoardTask>
       for (BoardTask obj : this)
       {
          obj.withProxy(value);
+      }
+      
+      return this;
+   }
+
+   public booleanList getManualExecution()
+   {
+      booleanList result = new booleanList();
+      
+      for (BoardTask obj : this)
+      {
+         result.add(obj.isManualExecution());
+      }
+      
+      return result;
+   }
+
+   public BoardTaskSet hasManualExecution(boolean value)
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (value == obj.isManualExecution())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public BoardTaskSet withManualExecution(boolean value)
+   {
+      for (BoardTask obj : this)
+      {
+         obj.setManualExecution(value);
+      }
+      
+      return this;
+   }
+
+   
+   //==========================================================================
+   
+   public BoardTaskSet execute()
+   {
+      for (BoardTask obj : this)
+      {
+         obj.execute();
+      }
+      return this;
+   }
+
+   public BoardTaskSet hasStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      BoardTaskSet result = new BoardTaskSet();
+      
+      for (BoardTask obj : this)
+      {
+         if (value == obj.getStashedPropertyChangeEvent())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public BoardTaskSet withStashedPropertyChangeEvent(PropertyChangeEvent value)
+   {
+      for (BoardTask obj : this)
+      {
+         obj.setStashedPropertyChangeEvent(value);
       }
       
       return this;
