@@ -52,7 +52,7 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelChannelPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelScopeCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.SeppelScopePOCreator());
-      jsonIdMap.withCreator(new de.uniks.networkparser.gui.javafx.PropertyChangeEventWrapper());
+      jsonIdMap.withCreator(new PropertyChangeEventWrapper());
       
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ChangeEventCreator());
       jsonIdMap.withCreator(new org.sdmlib.replication.util.ChangeEventPOCreator());
