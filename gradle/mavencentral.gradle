@@ -27,57 +27,62 @@ if(new File("secring.gpg").exists()) {
 				}
 
 				pom{
-				  project {
-				   name 'SDMLib'
-				   packaging 'jar'
-				   description 'SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor.'
-				   url 'https://github.com/fujaba/SDMLib'
+					project {
+						name 'SDMLib'
+						packaging 'jar'
+						description 'SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor.'
+						url 'https://github.com/fujaba/SDMLib'
 
-				   scm {
-					   url 'scm:git@github.com:fujaba/SDMLib.git'
-					   connection 'scm:git@github.com:fujaba/SDMLib.git'
-					   developerConnection 'scm:git@github.com:fujaba/SDMLib.git'
-				   }
+						scm {
+							url 'scm:git@github.com:fujaba/SDMLib.git'
+							connection 'scm:git@github.com:fujaba/SDMLib.git'
+							developerConnection 'scm:git@github.com:fujaba/SDMLib.git'
+						}
 
-				   licenses {
-					   license {
-						   name 'The MIT License (MIT)'
-						   url 'http://opensource.org/licenses/MIT'
-					   }
-				   }
+						licenses {
+							license {
+								name 'The MIT License (MIT)'
+								url 'http://opensource.org/licenses/MIT'
+							}
+						}
 
-				   developers {
-					   developer {
-						   id 'zuendorf'
-						   name 'Albert Zuendorf'
-					   }
-					   developer {
-						   id 'slin'
-						   name 'Stefan Lindel'
-					   }
-					   developer {
-						   id 'smu'
-						   name 'Sascha Mueller'
-					   }
-					   developer {
-						   id 'cre'
-						   name 'Christian Repik'
-					   }
-					   developer {
-						   id 'ajahl'
-						   name 'Alexander Jahl'
-					   }
-					   developer {
-						   id 'tge'
-						   name 'Tobias George'
-					   }
-					   developer {
-						   id 'cei'
-						   name 'Christoph Eickhoff'
-					   }
+						developers {
+							developer {
+								id 'zuendorf'
+								name 'Albert Zuendorf'
+							}
+							developer {
+								id 'slin'
+								name 'Stefan Lindel'
+							}
+							developer {
+								id 'smu'
+								name 'Sascha Mueller'
+							}
+							developer {
+								id 'cre'
+								name 'Christian Repik'
+							}
+							developer {
+								id 'ajahl'
+								name 'Alexander Jahl'
+							}
+							developer {
+								id 'tge'
+								name 'Tobias George'
+							}
+							developer {
+								id 'cei'
+								name 'Christoph Eickhoff'
+							}
+						}
 					}
-				   }
-			   }
+					whenConfigured {
+						p -> p.dependencies = p.dependencies.findAll {
+							it.artifactId != "junit"
+						}
+					}
+				}
 			}
 		}
 	}
