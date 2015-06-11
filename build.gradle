@@ -63,7 +63,7 @@ repositories {
 
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
-    compile 'com.github.fujaba:NetworkParser:4.2.+:sources'
+	compile 'com.github.fujaba:NetworkParser:[4.2,):sources'
 }
 
 jacoco {

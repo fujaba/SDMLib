@@ -27,7 +27,7 @@ if(new File("secring.gpg").exists()) {
 				}
 
 				pom{
-					project {
+				  project {
 				   name 'SDMLib'
 				   packaging 'jar'
 				   description 'SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor.'
@@ -59,16 +59,24 @@ if(new File("secring.gpg").exists()) {
 						   id 'smu'
 						   name 'Sascha Mueller'
 					   }
-				   }
-				   }
-				   whenConfigured {
-						p -> p.dependencies = p.dependencies.findAll {
-							if(it.artifactId=="NetworkParser") {
-								it.version = "[4.2"
-							}
-							it.artifactId != "junit"
-						}
+					   developer {
+						   id 'cre'
+						   name 'Christian Repik'
+					   }
+					   developer {
+						   id 'ajahl'
+						   name 'Alexander Jahl'
+					   }
+					   developer {
+						   id 'tge'
+						   name 'Tobias George'
+					   }
+					   developer {
+						   id 'cei'
+						   name 'Christoph Eickhoff'
+					   }
 					}
+				   }
 			   }
 			}
 		}
