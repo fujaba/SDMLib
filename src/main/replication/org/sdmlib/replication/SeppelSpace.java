@@ -355,7 +355,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          this.setReadMessages(true);
          new JsonTokener().withAllowCRLF(true).withText(change.getChangeMsg())
          .parseToEntity(jsonUpdate);
-         map.executeUpdateMsg(jsonUpdate);
+         map.decode(jsonUpdate);
          
       } catch (Exception e) {
          e.printStackTrace();

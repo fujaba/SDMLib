@@ -76,7 +76,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
       }
       
       setReading(true);
-      map.executeUpdateMsg(undo);
+      map.decode(undo);
       setReading(false);
       currentStep--;
       
@@ -209,7 +209,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
       JsonObject jo = step.change;
       
       setReading(true);
-      map.executeUpdateMsg(jo);
+      map.decode(jo);
       setReading(false);
       currentStep++;
       
