@@ -46,10 +46,42 @@ public class ChannelListUpdater implements PropertyChangeListener, ChangeListene
             radioButton.setUserData(user);
             radioButton.setToggleGroup(toggleGroup);
             vbox.getChildren().add(radioButton);
+            
+            new RadioButtonTextUpdater(radioButton, user, userName);
          }
       }
       
       this.toggleGroup.selectedToggleProperty().addListener(this);
+      
+   }
+   
+   public static class RadioButtonTextUpdater implements PropertyChangeListener 
+   {
+
+      private RadioButton radioButton;
+      private ChatUser myUser;
+      private String mainUserName;
+
+      public RadioButtonTextUpdater(RadioButton radioButton, ChatUser user, String mainUserName)
+      {
+         this.radioButton = radioButton;
+         this.myUser = user;
+         this.mainUserName = mainUserName;
+         
+         user.getPropertyChangeSupport().addPropertyChangeListener(ChatUser.PROPERTY_USERNAME, this);
+      }
+
+      @Override
+      public void propertyChange(PropertyChangeEvent evt)
+      {
+         this.radioButton.setText(myUser.getUserName());
+         
+         if (mainUserName.equals(myUser.getUserName()))
+         {
+            // hide radio button
+            this.radioButton.setVisible(false);
+         }
+      }
       
    }
 
@@ -68,6 +100,8 @@ public class ChannelListUpdater implements PropertyChangeListener, ChangeListene
             radioButton.setUserData(user);
             radioButton.setToggleGroup(toggleGroup);
             vbox.getChildren().add(radioButton);
+            
+            new RadioButtonTextUpdater(radioButton, user, userName);
          }
       }
       
