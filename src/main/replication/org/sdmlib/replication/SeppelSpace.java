@@ -185,6 +185,10 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          applyChange(change, msg.channel);
          
       }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
       finally
       {
          this.isApplyingChangeMsg = false;
@@ -225,6 +229,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
       {
          // new object, create it
          object = creator.getSendableInstance(false);
+         this.put(change.getObjectId(), object);
       }
       
       if (ChangeEvent.PLAIN.equals(change.getPropertyKind()))
@@ -251,6 +256,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                // not yet known target, build it. 
                SendableEntityCreator targetCreator = map.getCreator(change.getValueType(), false);
                targetObject = targetCreator.getSendableInstance(false);
+               this.put(newValueId, targetObject);
             }
             
             // assign value
@@ -283,43 +289,35 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                // create unknown target
                SendableEntityCreator targetCreator = map.getCreator(change.getValueType(), false);
                targetObject = targetCreator.getSendableInstance(false);
+               this.put(targetId, targetObject);
             }
             
             // assign value
             creator.setValue(object, change.getProperty(), targetObject, null);
             
             // try to adjust position
-            tryToAdjustPosition(object, change.getProperty(), targetObject);
+            tryToAdjustPosition(object, change.getProperty(), targetObject, creator);
          }
       }
       
       writeChange(change);
    }
    
-   private void tryToAdjustPosition(Object object, String property, Object targetObject)
+   private void tryToAdjustPosition(Object object, String property, Object targetObject, SendableEntityCreator creator)
    {
-      Class sourceClass = object.getClass();
-      
-      try
-      {
-         Field field = sourceClass.getField(property);
-         Object value = field.get(object);
+      Object value = creator.getValue(object, property);
          
-         if (value != null && value instanceof List)
-         {
-            List valueList = (List) value;
-            int indexOf = valueList.indexOf(targetObject);
-            
-            if (indexOf != historyPos)
-            {
-               valueList.remove(indexOf);
-               valueList.add(historyPos, targetObject);
-            }
-         }
-      }
-      catch (Exception e)
+      if (value != null && value instanceof List)
       {
-         e.printStackTrace();
+         List<Object> valueList = (List<Object>) value;
+         int indexOf = valueList.indexOf(targetObject);
+            
+         if (indexOf != historyPos)
+         {
+            valueList.remove(indexOf);
+            valueList.add(historyPos, targetObject);
+         }
+         
       }
    }
 

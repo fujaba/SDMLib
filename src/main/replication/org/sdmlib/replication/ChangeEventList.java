@@ -21,19 +21,14 @@
    
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.TreeSet;
-
-import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.list.SimpleList;
-import de.uniks.networkparser.list.SortedList;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyChangeListener;
 
 public class ChangeEventList implements PropertyChangeInterface
 {
@@ -129,12 +124,12 @@ public class ChangeEventList implements PropertyChangeInterface
    }
    
    
-   public static class ObjectChangeTable extends SimpleKeyValueList<String, AttributeChangeTable>
+   public static class ObjectChangeTable extends LinkedHashMap<String, AttributeChangeTable>
    {
       
    }
    
-   public static class AttributeChangeTable extends SimpleKeyValueList<String, Object>
+   public static class AttributeChangeTable extends LinkedHashMap<String, Object>
    {
       
    }
