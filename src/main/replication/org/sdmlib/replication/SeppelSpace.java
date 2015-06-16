@@ -816,16 +816,16 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
    
    private boolean loadingHistory = false; 
    
-   private JsonIdMap changeMap = null;
-
-   public JsonIdMap getChangeMap()
-   {
-      if (changeMap == null)
-      {
-         changeMap = ReplicationNodeCreator.createIdMap(spaceId);
-      }
-      return changeMap;
-   }
+   //   private JsonIdMap changeMap = null;
+   //
+   //   public JsonIdMap getChangeMap()
+   //   {
+   //      if (changeMap == null)
+   //      {
+   //         changeMap = ReplicationNodeCreator.createIdMap(spaceId);
+   //      }
+   //      return changeMap;
+   //   }
 
    
    private void writeChange(ChangeEvent change)
@@ -1134,9 +1134,7 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
                         || channel.getSeppelSpaceProxy() == valueObject)) 
             {
                // yes, the change is in scope send it
-               JsonIdMap cmap = getChangeMap();
-
-               JsonObject jsonChange = cmap.toJsonObject(change);
+               JsonObject jsonChange = change.toJson();
                
                String line = jsonChange.toString();
 
@@ -1146,10 +1144,8 @@ public class SeppelSpace extends Thread implements PropertyChangeInterface, Upda
          else 
          {
             // seems to be a plain value, send it
-            JsonIdMap cmap = getChangeMap();
-
-            JsonObject jsonChange = cmap.toJsonObject(change);
-            
+            JsonObject jsonChange = change.toJson();
+                        
             String line = jsonChange.toString();
 
             channel.send(line);

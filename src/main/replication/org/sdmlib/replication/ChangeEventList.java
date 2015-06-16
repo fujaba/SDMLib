@@ -21,7 +21,10 @@
    
 package org.sdmlib.replication;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
 
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
@@ -69,7 +72,7 @@ public class ChangeEventList implements PropertyChangeInterface
             // to-many
             TimeSortedChangeList eventList = new TimeSortedChangeList();
             attrTable.put(property, eventList);
-            eventList.add(change);
+            eventList.addSorted(change);
             return 0;
          }
       }
@@ -101,9 +104,9 @@ public class ChangeEventList implements PropertyChangeInterface
             if (oldChange == null)
             {
                // first occurences of this target id, insert change
-               eventList.add(change);
+               int pos = eventList.addSorted(change);
                
-               return eventList.getPositionKey(change);
+               return pos;
             }
             else
             {
@@ -113,9 +116,7 @@ public class ChangeEventList implements PropertyChangeInterface
                   // new change is newer
                   eventList.remove(oldChange);
                   
-                  eventList.add(change);
-                  
-                  return eventList.getPositionKey(change);
+                  return eventList.addSorted(change);
                }
                else
                {
@@ -138,13 +139,8 @@ public class ChangeEventList implements PropertyChangeInterface
       
    }
    
-   public static class TimeSortedChangeList extends SortedList<ChangeEvent>
+   public static class TimeSortedChangeList extends ArrayList<ChangeEvent>
    {
-      public TimeSortedChangeList()
-      {
-         withComparator(ChangeEvent.timeComparator);
-      }
-
       public ChangeEvent findChange(ChangeEvent change)
       {
          String targetId = change.getTargetId();
@@ -156,13 +152,21 @@ public class ChangeEventList implements PropertyChangeInterface
                return event;
             }
          }
+         
          return null;
+      }
+
+      public int addSorted(ChangeEvent change)
+      {
+         this.add(change);
+         Collections.sort(this);
+         return this.indexOf(change);
       }
    }
   
    public List<ChangeEvent> getChanges()
    {
-      SimpleList<ChangeEvent> result = new SimpleList<ChangeEvent>();
+      ArrayList<ChangeEvent> result = new ArrayList<ChangeEvent>();
       
       for (AttributeChangeTable attrTable : objectTable.values())
       {
@@ -184,7 +188,7 @@ public class ChangeEventList implements PropertyChangeInterface
 
    public void getChanges(String valueObjectId)
    {
-      SimpleList<ChangeEvent> result = new SimpleList<ChangeEvent>();
+      ArrayList<ChangeEvent> result = new ArrayList<ChangeEvent>();
       
       AttributeChangeTable attrTable = objectTable.get(valueObjectId);
       
