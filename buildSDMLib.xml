@@ -41,7 +41,7 @@
 				<attribute name="Built-By" value="${user.name}" />
 				<attribute name="Version" value="${revisionVersion}" />
 				<attribute name="Implementation-Version" value="4.2.23.${revisionVersion} ${TODAY}" />
-				<attribute name="Main-Class" value="org.sdmlib.models.classes.SDMDiagramEditor" />
+				<attribute name="Main-Class" value="org.sdmlib.models.classes.gui.SDMDiagramEditor" />
 			</manifest>
 			<fileset dir="build/temp/" />
 			<fileset dir="./src/main/java">
