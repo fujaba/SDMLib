@@ -48,7 +48,7 @@ public class GraphSet extends SDMSet<Graph>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.helloworld.model.Graph";
+      return "org.sdmlib.test.examples.helloworld.model.Graph";
    }
 
 

@@ -41,7 +41,7 @@ public class CubeSet extends SDMSet<Cube>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.annotations.model.simple.Cube";
+      return "org.sdmlib.test.examples.annotations.model.simple.Cube";
    }
 
 

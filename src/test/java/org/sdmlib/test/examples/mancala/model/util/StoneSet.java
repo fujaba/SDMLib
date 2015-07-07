@@ -39,7 +39,7 @@ public class StoneSet extends SDMSet<Stone>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.mancala.model.Stone";
+      return "org.sdmlib.test.examples.mancala.model.Stone";
    }
 
 

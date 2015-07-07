@@ -11,7 +11,7 @@ public class SimpleModel
 {
    @Test
    public void testSimpleModel(){
-      ClassModel model = new ClassModel("org.sdmlib.examples.simpleModel.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       
       Clazz createClazz = model.createClazz("Alex");
       createClazz.withAttribute("Name", DataType.STRING);
@@ -26,7 +26,7 @@ public class SimpleModel
    
    @Test
    public void testMethodModel(){
-      ClassModel model = new ClassModel("org.sdmlib.examples.simpleModel.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       Clazz helperClazz = model.createClazz("Item");
       helperClazz.createMethod("init").withBody("System.out.println(new Date());").with(Visibility.STATIC);
       helperClazz.withImport("java.util.Date");

@@ -44,7 +44,7 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.groupAccount.model.GroupAccount";
+      return "org.sdmlib.test.examples.groupAccount.model.GroupAccount";
    }
 
 

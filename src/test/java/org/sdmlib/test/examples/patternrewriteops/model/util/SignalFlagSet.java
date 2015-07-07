@@ -44,7 +44,7 @@ public class SignalFlagSet extends SDMSet<SignalFlag>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.patternrewriteops.model.SignalFlag";
+      return "org.sdmlib.test.examples.patternrewriteops.model.SignalFlag";
    }
 
 

@@ -47,7 +47,7 @@ public class HouseSet extends SDMSet<House>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.annotations.model.simple.House";
+      return "org.sdmlib.test.examples.annotations.model.simple.House";
    }
 
 

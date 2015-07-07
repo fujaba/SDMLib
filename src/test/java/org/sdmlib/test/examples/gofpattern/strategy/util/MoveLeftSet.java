@@ -43,7 +43,7 @@ public class MoveLeftSet extends SDMSet<MoveLeft>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.gofpattern.strategy.MoveLeft";
+      return "org.sdmlib.test.examples.gofpattern.strategy.MoveLeft";
    }
 
 

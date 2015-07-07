@@ -46,7 +46,7 @@ public class PersonSet extends SDMSet<Person>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.m2m.model.Person";
+      return "org.sdmlib.test.examples.m2m.model.Person";
    }
 
 

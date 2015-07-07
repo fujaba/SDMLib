@@ -48,7 +48,7 @@ public class PlayerSet extends SDMSet<Player>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.mancala.model.Player";
+      return "org.sdmlib.test.examples.mancala.model.Player";
    }
 
 

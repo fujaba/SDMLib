@@ -46,7 +46,7 @@ public class PawnSet extends SDMSet<Pawn>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.ludo.model.Pawn";
+      return "org.sdmlib.test.examples.ludo.model.Pawn";
    }
 
 

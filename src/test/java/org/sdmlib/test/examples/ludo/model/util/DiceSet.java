@@ -45,7 +45,7 @@ public class DiceSet extends SDMSet<Dice>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.ludo.model.Dice";
+      return "org.sdmlib.test.examples.ludo.model.Dice";
    }
 
 

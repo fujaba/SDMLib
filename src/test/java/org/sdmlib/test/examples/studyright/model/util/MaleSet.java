@@ -39,7 +39,7 @@ public class MaleSet extends SDMSet<Male>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Male";
+      return "org.sdmlib.test.examples.studyright.model.Male";
    }
 
 

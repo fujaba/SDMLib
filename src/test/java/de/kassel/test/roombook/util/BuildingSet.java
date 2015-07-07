@@ -43,7 +43,7 @@ public class BuildingSet extends SDMSet<Building>
    @Override
    public String getEntryType()
    {
-      return "de.kassel.roombook.Building";
+      return "de.kassel.test.roombook.Building";
    }
 
 

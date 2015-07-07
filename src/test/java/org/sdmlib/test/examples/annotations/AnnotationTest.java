@@ -15,7 +15,7 @@ public class AnnotationTest {
 	
 	@Test
 	public void testFeaturesNone() {
-		String packageName = "org.sdmlib.examples.annotations.model.simple";
+		String packageName = "org.sdmlib.test.examples.annotations.model.simple";
 		ClassModel model = new ClassModel(packageName);
 		
 		Clazz cube = model.createClazz("Cube");

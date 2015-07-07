@@ -14,7 +14,7 @@ public class ReachabilityGraphExampleModels
    {
       Storyboard storyboard = new Storyboard("src/test/java");
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.reachabilitygraphs.simplestates");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.simplestates");
       
       Clazz state = model.createClazz("SimpleState");
       
@@ -37,7 +37,7 @@ public class ReachabilityGraphExampleModels
    {
       Storyboard storyboard = new Storyboard("src/test/java");
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.reachabilitygraphs.ferrymansproblem");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem");
       
       Clazz river = model.createClazz("River");
       

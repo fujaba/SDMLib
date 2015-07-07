@@ -17,7 +17,7 @@ public class TrainModel
       storyboard.add("Example model for testing destroy with model patterns: ",
       		Storyboard.DONE, "zuendorf", "07.02.2013 16:20:42", 3, 0);
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.patternrewriteops.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.patternrewriteops.model");
             
       Clazz trainClass = model.createClazz("Train").with(model);
       

@@ -47,7 +47,7 @@ public class LectureSet extends SDMSet<Lecture>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Lecture";
+      return "org.sdmlib.test.examples.studyright.model.Lecture";
    }
 
 

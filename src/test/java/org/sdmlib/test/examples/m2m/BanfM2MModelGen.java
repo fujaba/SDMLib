@@ -10,7 +10,7 @@ public class BanfM2MModelGen
 {
    public static ClassModel genModel()
    {
-      ClassModel model = new ClassModel("org.sdmlib.examples.m2m.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.m2m.model");
       
       Clazz graphComponentClazz = model.createClazz("GraphComponent")
             .withAttribute("text", DataType.STRING );

@@ -43,7 +43,7 @@ public class BlastSet extends SDMSet<Blast>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.gofpattern.strategy.Blast";
+      return "org.sdmlib.test.examples.gofpattern.strategy.Blast";
    }
 
 

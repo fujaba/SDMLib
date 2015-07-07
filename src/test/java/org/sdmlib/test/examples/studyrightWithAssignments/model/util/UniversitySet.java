@@ -47,7 +47,7 @@ public class UniversitySet extends SDMSet<University>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyrightWithAssignments.model.University";
+      return "org.sdmlib.test.examples.studyrightWithAssignments.model.University";
    }
 
 

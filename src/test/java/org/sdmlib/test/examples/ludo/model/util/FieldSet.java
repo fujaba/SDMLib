@@ -50,7 +50,7 @@ public class FieldSet extends SDMSet<Field>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.ludo.model.Field";
+      return "org.sdmlib.test.examples.ludo.model.Field";
    }
 
 

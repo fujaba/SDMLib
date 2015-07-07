@@ -44,7 +44,7 @@ public class NodeSet extends SDMSet<Node>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.reachabilitygraphs.simplestates.Node";
+      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node";
    }
 
 

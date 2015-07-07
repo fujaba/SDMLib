@@ -65,7 +65,7 @@ public class HelloWorldTTC2011
 
       ClassModel model = new ClassModel();
 
-      Clazz greetClass = model.createClazz("org.sdmlib.examples.helloworld.Greeting")
+      Clazz greetClass = model.createClazz("org.sdmlib.test.examples.helloworld.Greeting")
             .withAttribute("text", DataType.STRING);
 
       greetClass.withUniDirectionalAssoc(greetClass, "tgt", Card.ONE);
@@ -136,12 +136,12 @@ public class HelloWorldTTC2011
 
       ClassModel model = new ClassModel();
 
-      Clazz greetingClazz = model.createClazz("org.sdmlib.examples.helloworld.Greeting");
+      Clazz greetingClazz = model.createClazz("org.sdmlib.test.examples.helloworld.Greeting");
 
-      Clazz greetingMessageClazz = model.createClazz("org.sdmlib.examples.helloworld.GreetingMessage")
+      Clazz greetingMessageClazz = model.createClazz("org.sdmlib.test.examples.helloworld.GreetingMessage")
             .withAttribute("text", DataType.STRING);
 
-      Clazz personClazz = model.createClazz("org.sdmlib.examples.helloworld.Person")
+      Clazz personClazz = model.createClazz("org.sdmlib.test.examples.helloworld.Person")
             .withAttribute("name", DataType.STRING);
 
       greetingClazz.withAssoc(greetingMessageClazz, "greetingMessage", Card.ONE, "greeting", Card.ONE);
@@ -274,7 +274,7 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("Simple Graph application classes: ");
 
-      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       Clazz graphClazz = model.createClazz("Graph");
 
@@ -549,7 +549,7 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("Source model:");
 
-      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       Clazz graphClazz = model.createClazz("Graph");
 
@@ -587,7 +587,7 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("Target model:");
 
-      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       graphClazz = model.createClazz("Graph");
 
@@ -624,7 +624,7 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("Migration extension:");
 
-      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       nodeClazz = model.createClazz("Node");
 
@@ -738,7 +738,7 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("<h2>Even more evolved graph model : </h2>");
 
-      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       graphClazz = model.createClazz("Graph");
 
@@ -778,7 +778,7 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("Source model:");
 
-      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       Clazz graphClazz = model.createClazz("Graph");
 
@@ -816,7 +816,7 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("Target model:");
 
-      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       graphClazz = model.createClazz("Graph");
 
@@ -880,7 +880,7 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("<h2>Even more evolved graph model : </h2>");
 
-      model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       graphClazz = model.createClazz("Graph");
 

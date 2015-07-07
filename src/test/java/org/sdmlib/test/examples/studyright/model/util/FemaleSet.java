@@ -40,7 +40,7 @@ public class FemaleSet extends SDMSet<Female>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Female";
+      return "org.sdmlib.test.examples.studyright.model.Female";
    }
 
 

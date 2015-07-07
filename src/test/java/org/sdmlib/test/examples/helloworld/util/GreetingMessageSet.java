@@ -43,7 +43,7 @@ public class GreetingMessageSet extends SDMSet<GreetingMessage>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.helloworld.GreetingMessage";
+      return "org.sdmlib.test.examples.helloworld.GreetingMessage";
    }
 
 

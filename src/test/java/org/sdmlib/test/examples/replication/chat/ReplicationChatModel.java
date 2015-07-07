@@ -19,7 +19,7 @@ public class ReplicationChatModel
    {
       Storyboard story = new Storyboard("src/test/java", "ReplicationChatModel");
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.replication.chat");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.replication.chat");
       
       Clazz chatRoot = model.createClazz("ChatRoot");
       

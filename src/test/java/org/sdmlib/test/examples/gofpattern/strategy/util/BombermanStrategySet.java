@@ -42,7 +42,7 @@ public class BombermanStrategySet extends SDMSet<BombermanStrategy>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.gofpattern.strategy.BombermanStrategy";
+      return "org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy";
    }
 
 

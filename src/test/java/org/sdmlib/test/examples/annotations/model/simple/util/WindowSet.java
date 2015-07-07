@@ -44,7 +44,7 @@ public class WindowSet extends SDMSet<Window>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.annotations.model.simple.Window";
+      return "org.sdmlib.test.examples.annotations.model.simple.Window";
    }
 
 

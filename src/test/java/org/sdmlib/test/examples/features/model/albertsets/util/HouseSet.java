@@ -47,7 +47,7 @@ public class HouseSet extends SDMSet<House>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.features.model.albertsets.House";
+      return "org.sdmlib.test.examples.features.model.albertsets.House";
    }
 
 

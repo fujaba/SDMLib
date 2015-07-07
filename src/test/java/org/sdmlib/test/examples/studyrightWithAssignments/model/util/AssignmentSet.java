@@ -49,7 +49,7 @@ public class AssignmentSet extends SDMSet<Assignment>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyrightWithAssignments.model.Assignment";
+      return "org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment";
    }
 
 

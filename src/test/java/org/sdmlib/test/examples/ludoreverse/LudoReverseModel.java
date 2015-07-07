@@ -16,7 +16,7 @@ public class LudoReverseModel
    @Test
    public void LudoModelCreation()
    {
-      ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.ludoreverse.model");
 
       Clazz ludo = model.createClazz("Ludo")
             .withAttribute("style", DataType.STRING)
@@ -38,20 +38,20 @@ public class LudoReverseModel
    @Test
    public void LudoModelReverse()
    {
-      ClassModel model = new ClassModel("org.sdmlib.examples.ludoreverse.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.ludoreverse.model");
 
-      Clazz ludoClass = model.createClazz("org.sdmlib.examples.ludoreverse.model.Ludo")
+      Clazz ludoClass = model.createClazz("org.sdmlib.test.examples.ludoreverse.model.Ludo")
       .with(new Attribute("style", DataType.ref("String")) )
       .with(new Attribute("age", DataType.ref("int")) );
 
-      Clazz playerClass = model.createClazz("org.sdmlib.examples.ludoreverse.model.Player")
+      Clazz playerClass = model.createClazz("org.sdmlib.test.examples.ludoreverse.model.Player")
       .with(new Attribute("name", DataType.ref("String")) )
       .with(new Attribute("color", DataType.ref("String")) );
 
       ludoClass.withAssoc(playerClass, "game", Card.ONE, "players", Card.MANY);
 
 
-      model.getGenerator().updateFromCode("examples", "org.sdmlib.examples.ludoreverse.model");
+      model.getGenerator().updateFromCode("examples", "org.sdmlib.test.examples.ludoreverse.model");
       model.getGenerator().insertModelCreationCodeHere("examples");
    }
 }

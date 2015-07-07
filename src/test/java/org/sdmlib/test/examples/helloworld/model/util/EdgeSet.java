@@ -46,7 +46,7 @@ public class EdgeSet extends SDMSet<Edge>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.helloworld.model.Edge";
+      return "org.sdmlib.test.examples.helloworld.model.Edge";
    }
 
 

@@ -52,7 +52,7 @@ public class PlayerSet extends SDMSet<Player>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.ludo.model.Player";
+      return "org.sdmlib.test.examples.ludo.model.Player";
    }
 
 

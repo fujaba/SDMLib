@@ -49,7 +49,7 @@ public class LudoSet extends SDMSet<Ludo>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.ludo.model.Ludo";
+      return "org.sdmlib.test.examples.ludo.model.Ludo";
    }
 
 

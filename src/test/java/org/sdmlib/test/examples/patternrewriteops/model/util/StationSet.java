@@ -48,7 +48,7 @@ public class StationSet extends SDMSet<Station>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.patternrewriteops.model.Station";
+      return "org.sdmlib.test.examples.patternrewriteops.model.Station";
    }
 
 

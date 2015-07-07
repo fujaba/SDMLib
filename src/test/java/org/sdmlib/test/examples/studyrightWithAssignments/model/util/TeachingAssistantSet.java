@@ -54,7 +54,7 @@ public class TeachingAssistantSet extends SDMSet<TeachingAssistant>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyrightWithAssignments.model.TeachingAssistant";
+      return "org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant";
    }
 
 

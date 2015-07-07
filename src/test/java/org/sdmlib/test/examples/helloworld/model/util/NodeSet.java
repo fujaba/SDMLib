@@ -46,7 +46,7 @@ public class NodeSet extends SDMSet<Node>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.helloworld.model.Node";
+      return "org.sdmlib.test.examples.helloworld.model.Node";
    }
 
 

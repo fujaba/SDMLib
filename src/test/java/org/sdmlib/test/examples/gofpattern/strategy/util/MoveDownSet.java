@@ -43,7 +43,7 @@ public class MoveDownSet extends SDMSet<MoveDown>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.gofpattern.strategy.MoveDown";
+      return "org.sdmlib.test.examples.gofpattern.strategy.MoveDown";
    }
 
 

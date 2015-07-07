@@ -40,7 +40,7 @@ public class AlexSet extends SDMSet<Alex>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.simpleEnumModel.model.Alex";
+      return "org.sdmlib.test.examples.simpleEnumModel.model.Alex";
    }
 
 

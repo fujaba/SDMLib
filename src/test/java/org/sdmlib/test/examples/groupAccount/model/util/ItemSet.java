@@ -44,7 +44,7 @@ public class ItemSet extends SDMSet<Item>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.groupAccount.model.Item";
+      return "org.sdmlib.test.examples.groupAccount.model.Item";
    }
 
 

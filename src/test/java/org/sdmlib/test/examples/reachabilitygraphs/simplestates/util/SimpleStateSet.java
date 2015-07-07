@@ -43,7 +43,7 @@ public class SimpleStateSet extends SDMSet<SimpleState>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.reachabilitygraphs.simplestates.SimpleState";
+      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState";
    }
 
 

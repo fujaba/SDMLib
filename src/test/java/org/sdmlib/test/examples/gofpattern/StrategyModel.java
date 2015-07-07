@@ -15,7 +15,7 @@ public class StrategyModel
    {
       Storyboard story = new Storyboard();
       
-      ClassModel cm = new ClassModel("org.sdmlib.examples.gofpattern.strategy");
+      ClassModel cm = new ClassModel("org.sdmlib.test.examples.gofpattern.strategy");
 
       Clazz bPlayer = cm
             .createClazz("BombermanPlayer")

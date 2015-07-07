@@ -34,9 +34,6 @@ import de.kassel.test.roombook.util.BuildingSet;
 
 public class FloorSet extends SDMSet<Floor>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public FloorPO hasFloorPO()
    {
       return new FloorPO(this.toArray(new Floor[this.size()]));
@@ -46,7 +43,7 @@ public class FloorSet extends SDMSet<Floor>
    @Override
    public String getEntryType()
    {
-      return "de.kassel.roombook.Floor";
+      return "de.kassel.test.roombook.Floor";
    }
 
 

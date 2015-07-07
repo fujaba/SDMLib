@@ -45,7 +45,7 @@ public class BigBrotherSet extends SDMSet<BigBrother>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.simpleModel.model.BigBrother";
+      return "org.sdmlib.test.examples.simpleModel.model.BigBrother";
    }
 
 

@@ -46,7 +46,7 @@ public class BoatSet extends SDMSet<Boat>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat";
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat";
    }
 
 

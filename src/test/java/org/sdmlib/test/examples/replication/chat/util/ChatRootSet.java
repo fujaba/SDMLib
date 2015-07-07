@@ -45,7 +45,7 @@ public class ChatRootSet extends SDMSet<ChatRoot>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.replication.chat.ChatRoot";
+      return "org.sdmlib.test.examples.replication.chat.ChatRoot";
    }
 
 

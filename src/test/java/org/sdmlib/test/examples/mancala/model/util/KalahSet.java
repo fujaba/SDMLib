@@ -44,7 +44,7 @@ public class KalahSet extends SDMSet<Kalah>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.mancala.model.Kalah";
+      return "org.sdmlib.test.examples.mancala.model.Kalah";
    }
 
 

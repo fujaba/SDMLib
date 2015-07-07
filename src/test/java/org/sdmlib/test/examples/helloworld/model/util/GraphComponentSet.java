@@ -44,7 +44,7 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.helloworld.model.GraphComponent";
+      return "org.sdmlib.test.examples.helloworld.model.GraphComponent";
    }
 
 

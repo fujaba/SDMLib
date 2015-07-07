@@ -59,7 +59,7 @@ public class BanfM2MTransformations
       storyboard.add("<hr/>");
       storyboard.add("Class diagram for target model:");
       
-      model = new ClassModel("org.sdmlib.examples.m2m.model");
+      model = new ClassModel("org.sdmlib.test.examples.m2m.model");
       
       graphClazz = model.createClazz("Graph");
       
@@ -117,7 +117,7 @@ public class BanfM2MTransformations
       storyboard.add("<hr/>");
       storyboard.add("<h2>Even more evolved class diagram : </h2>");
 
-      model = new ClassModel("org.sdmlib.examples.m2m.model");
+      model = new ClassModel("org.sdmlib.test.examples.m2m.model");
       
       graphClazz = model.createClazz("Graph");
 

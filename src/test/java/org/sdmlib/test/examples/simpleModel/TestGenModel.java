@@ -12,7 +12,7 @@ public class TestGenModel
 {
    @Test
    public void testSimpleModel(){
-      ClassModel model = new ClassModel("org.sdmlib.examples.simpleModel.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       
       Clazz arrayListClazz = model.createClazz("java.util.ArrayList").withExternal(true);
       Clazz createClazz = model.createClazz("MacList");
@@ -30,7 +30,7 @@ public class TestGenModel
    {
       Storyboard story = new Storyboard();
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.simpleModel.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       
       Clazz bigBrother = model.createClazz("BigBrother");
       
@@ -53,7 +53,7 @@ public class TestGenModel
    {
       Storyboard story = new Storyboard();
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.simpleModel.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       
       Clazz bigBrother = model.createClazz("BigBrother");
       

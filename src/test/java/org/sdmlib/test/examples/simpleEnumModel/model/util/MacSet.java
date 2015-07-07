@@ -40,7 +40,7 @@ public class MacSet extends SDMSet<Mac>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.simpleEnumModel.model.Mac";
+      return "org.sdmlib.test.examples.simpleEnumModel.model.Mac";
    }
 
 

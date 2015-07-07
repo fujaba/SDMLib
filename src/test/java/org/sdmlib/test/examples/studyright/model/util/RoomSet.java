@@ -51,7 +51,7 @@ public class RoomSet extends SDMSet<Room>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Room";
+      return "org.sdmlib.test.examples.studyright.model.Room";
    }
 
 

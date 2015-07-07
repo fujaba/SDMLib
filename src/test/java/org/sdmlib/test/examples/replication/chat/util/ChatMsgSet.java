@@ -46,7 +46,7 @@ public class ChatMsgSet extends SDMSet<ChatMsg>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.replication.chat.ChatMsg";
+      return "org.sdmlib.test.examples.replication.chat.ChatMsg";
    }
 
 

@@ -48,7 +48,7 @@ public class ChatUserSet extends SDMSet<ChatUser>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.replication.chat.ChatUser";
+      return "org.sdmlib.test.examples.replication.chat.ChatUser";
    }
 
 

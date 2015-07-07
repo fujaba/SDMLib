@@ -43,7 +43,7 @@ public class MancalaSet extends SDMSet<Mancala>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.mancala.model.Mancala";
+      return "org.sdmlib.test.examples.mancala.model.Mancala";
    }
 
 

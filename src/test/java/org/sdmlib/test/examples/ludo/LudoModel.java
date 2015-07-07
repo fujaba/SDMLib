@@ -40,7 +40,7 @@ public class LudoModel
       //      storyboard.add("The model: ",
       //         MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
       
-      ClassModel model = new ClassModel("org.sdmlib.examples.ludo.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.ludo.model");
       Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
       
       Clazz point = model.createClazz(Point.class.getName())
@@ -97,7 +97,7 @@ public class LudoModel
       
       pawn.withAssoc(field, "pos", Card.ONE, "pawns", Card.MANY);
       
-      // model.updateFromCode("examples", "examples", "org.sdmlib.examples.ludo");
+      // model.updateFromCode("examples", "examples", "org.sdmlib.test.examples.ludo");
 
       // model.insertModelCreationCodeHere("examples");
      

@@ -43,7 +43,7 @@ public class BombermanPlayerSet extends SDMSet<BombermanPlayer>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.gofpattern.strategy.BombermanPlayer";
+      return "org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer";
    }
 
 

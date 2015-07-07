@@ -49,7 +49,7 @@ public class BankSet extends SDMSet<Bank>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank";
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank";
    }
 
 

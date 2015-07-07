@@ -39,7 +39,7 @@ public class ColorSet extends SDMSet<Color>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.mancala.referencemodel.Color";
+      return "org.sdmlib.test.examples.mancala.referencemodel.Color";
    }
 
 

@@ -10,7 +10,7 @@ public class HelloWorldTmp
    @Test
    public void testTmp()
    {
-      ClassModel model = new ClassModel("org.sdmlib.examples.helloworld.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.helloworld.model");
 
       Clazz nodeClazz = model.createClazz("Node");
 

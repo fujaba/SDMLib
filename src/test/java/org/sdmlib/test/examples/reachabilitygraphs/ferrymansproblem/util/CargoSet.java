@@ -45,7 +45,7 @@ public class CargoSet extends SDMSet<Cargo>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo";
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo";
    }
 
 

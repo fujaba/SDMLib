@@ -52,7 +52,7 @@ public class StudentSet extends SDMSet<Student>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyrightWithAssignments.model.Student";
+      return "org.sdmlib.test.examples.studyrightWithAssignments.model.Student";
    }
 
 

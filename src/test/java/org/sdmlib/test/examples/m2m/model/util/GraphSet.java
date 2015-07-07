@@ -47,7 +47,7 @@ public class GraphSet extends SDMSet<Graph>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.m2m.model.Graph";
+      return "org.sdmlib.test.examples.m2m.model.Graph";
    }
 
 

@@ -46,7 +46,7 @@ public class TrainSet extends SDMSet<Train>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.patternrewriteops.model.Train";
+      return "org.sdmlib.test.examples.patternrewriteops.model.Train";
    }
 
 

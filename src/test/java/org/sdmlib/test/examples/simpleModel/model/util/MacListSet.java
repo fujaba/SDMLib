@@ -42,7 +42,7 @@ public class MacListSet extends SDMSet<MacList>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.simpleModel.model.MacList";
+      return "org.sdmlib.test.examples.simpleModel.model.MacList";
    }
 
 

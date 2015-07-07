@@ -69,7 +69,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       .withValue(6)
       .withParent(g1);
 
-      // JsonIdMap createIdMap = org.sdmlib.examples.groupAccount.creators.GroupAccountCreator.createIdMap("az42");
+      // JsonIdMap createIdMap = org.sdmlib.test.examples.groupAccount.creators.GroupAccountCreator.createIdMap("az42");
       storyboard.addObjectDiagram(g1);
       
       storyboard.add("We call updateBalances() to compute the correct balances.\n",
@@ -81,7 +81,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       storyboard.add("Now see updateBalances() as code: ");
       
-      String methodText = storyboard.getMethodText("examples", "org.sdmlib.examples.groupAccount.model.GroupAccount", "updateBalances()");
+      String methodText = storyboard.getMethodText("examples", "org.sdmlib.test.examples.groupAccount.model.GroupAccount", "updateBalances()");
       
       storyboard.add(methodText);
       

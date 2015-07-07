@@ -43,7 +43,7 @@ public class MoveUpSet extends SDMSet<MoveUp>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.gofpattern.strategy.MoveUp";
+      return "org.sdmlib.test.examples.gofpattern.strategy.MoveUp";
    }
 
 

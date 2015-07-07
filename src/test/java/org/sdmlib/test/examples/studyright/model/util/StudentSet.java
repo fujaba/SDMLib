@@ -51,7 +51,7 @@ public class StudentSet extends SDMSet<Student>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Student";
+      return "org.sdmlib.test.examples.studyright.model.Student";
    }
 
 

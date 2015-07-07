@@ -39,7 +39,7 @@ public class PersonSet extends SDMSet<Person>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Person";
+      return "org.sdmlib.test.examples.studyright.model.Person";
    }
 
 

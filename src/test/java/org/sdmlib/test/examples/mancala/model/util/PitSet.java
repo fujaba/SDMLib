@@ -43,7 +43,7 @@ public class PitSet extends SDMSet<Pit>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.mancala.model.Pit";
+      return "org.sdmlib.test.examples.mancala.model.Pit";
    }
 
 

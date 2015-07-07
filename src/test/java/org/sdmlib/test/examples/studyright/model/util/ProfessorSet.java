@@ -47,7 +47,7 @@ public class ProfessorSet extends SDMSet<Professor>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Professor";
+      return "org.sdmlib.test.examples.studyright.model.Professor";
    }
 
 

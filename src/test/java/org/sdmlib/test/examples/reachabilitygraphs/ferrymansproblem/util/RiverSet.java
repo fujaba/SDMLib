@@ -45,7 +45,7 @@ public class RiverSet extends SDMSet<River>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River";
+      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River";
    }
 
 

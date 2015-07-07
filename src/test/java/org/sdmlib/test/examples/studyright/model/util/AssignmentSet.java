@@ -47,7 +47,7 @@ public class AssignmentSet extends SDMSet<Assignment>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Assignment";
+      return "org.sdmlib.test.examples.studyright.model.Assignment";
    }
 
 

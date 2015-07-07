@@ -47,7 +47,7 @@ public class ChatChannelSet extends SDMSet<ChatChannel>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.replication.chat.ChatChannel";
+      return "org.sdmlib.test.examples.replication.chat.ChatChannel";
    }
 
 

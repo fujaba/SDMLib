@@ -43,7 +43,7 @@ public class TopicSet extends SDMSet<Topic>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.studyright.model.Topic";
+      return "org.sdmlib.test.examples.studyright.model.Topic";
    }
 
 

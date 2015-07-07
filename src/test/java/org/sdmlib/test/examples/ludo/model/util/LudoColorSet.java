@@ -39,7 +39,7 @@ public class LudoColorSet extends SDMSet<LudoColor>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.ludo.LudoModel.LudoColor";
+      return "org.sdmlib.test.examples.ludo.LudoModel.LudoColor";
    }
 
 

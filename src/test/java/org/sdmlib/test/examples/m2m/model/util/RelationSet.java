@@ -45,7 +45,7 @@ public class RelationSet extends SDMSet<Relation>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.m2m.model.Relation";
+      return "org.sdmlib.test.examples.m2m.model.Relation";
    }
 
 

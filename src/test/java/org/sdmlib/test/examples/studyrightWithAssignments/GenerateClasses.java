@@ -48,7 +48,7 @@ public class GenerateClasses {
       storyboard.add("1. generate class University");
       
       storyboard.markCodeStart();
-      ClassModel model = new ClassModel("org.sdmlib.examples.studyrightWithAssignments.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.studyrightWithAssignments.model");
 
       Clazz universityClass = model.createClazz("University")
             .withAttribute("name", DataType.STRING);

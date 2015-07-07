@@ -11,7 +11,7 @@ public class FeatureTest {
 	
 //	@Test
 //	public void testFeaturesNone() {
-//		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.simple")
+//		ClassModel model = new ClassModel("org.sdmlib.test.examples.features.model.simple")
 //								.withFeatures(null);
 //		
 //		Clazz house = model.createClazz("House");
@@ -26,7 +26,7 @@ public class FeatureTest {
 	
 	@Test
 	public void testFeaturesAlbertSets() {
-		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.albertsets")
+		ClassModel model = new ClassModel("org.sdmlib.test.examples.features.model.albertsets")
 								.withFeature(Feature.ALBERTsSets);
 		
 		Clazz house = model.createClazz("House");
@@ -41,7 +41,7 @@ public class FeatureTest {
 	
 	@Test
 	public void testFeaturesAll() {
-		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.all")
+		ClassModel model = new ClassModel("org.sdmlib.test.examples.features.model.all")
 								.withFeatures(Feature.getAll());
 		
 		Clazz house = model.createClazz("House");
@@ -56,7 +56,7 @@ public class FeatureTest {
 	
 //	@Test
 //	public void testFeaturesSerialization() {
-//		ClassModel model = new ClassModel("org.sdmlib.examples.features.model.serialization")
+//		ClassModel model = new ClassModel("org.sdmlib.test.examples.features.model.serialization")
 //							.withFeatures(null).withFeature(Feature.Serialization);
 //		
 //		Clazz house = model.createClazz("House");

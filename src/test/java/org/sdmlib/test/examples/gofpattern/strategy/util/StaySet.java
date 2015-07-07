@@ -43,7 +43,7 @@ public class StaySet extends SDMSet<Stay>
 
    public String getEntryType()
    {
-      return "org.sdmlib.examples.gofpattern.strategy.Stay";
+      return "org.sdmlib.test.examples.gofpattern.strategy.Stay";
    }
 
 

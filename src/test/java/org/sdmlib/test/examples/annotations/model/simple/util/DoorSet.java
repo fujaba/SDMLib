@@ -44,7 +44,7 @@ public class DoorSet extends SDMSet<Door>
    @Override
    public String getEntryType()
    {
-      return "org.sdmlib.examples.annotations.model.simple.Door";
+      return "org.sdmlib.test.examples.annotations.model.simple.Door";
    }
 
 
