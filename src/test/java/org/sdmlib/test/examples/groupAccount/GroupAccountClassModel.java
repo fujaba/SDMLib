@@ -22,7 +22,7 @@ public class GroupAccountClassModel
       storyboard.add("Start situation: Nothing here yet. Generate classes",
          Kanban.DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);
       
-      ClassModel model = new ClassModel("org.sdmlib.test.examples.groupAccount.model");
+      ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
       
       Clazz groupAccountClass = model.createClazz("GroupAccount");
             
