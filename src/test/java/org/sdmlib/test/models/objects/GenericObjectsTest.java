@@ -106,7 +106,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
 
       ClassModel learnedModel = new ClassModel().getGenerator()
-            .learnFromGenericObjects("de.kassel.roombook", building);
+            .learnFromGenericObjects("de.kassel.test.roombook", building);
 
       storyboard.addClassDiagram(learnedModel);
 
@@ -117,10 +117,10 @@ public class GenericObjectsTest implements PropertyChangeInterface
       storyboard.markCodeStart();
       ClassModel model = new ClassModel();
 
-      Clazz buildingClass = model.createClazz("de.kassel.roombook.Building")
+      Clazz buildingClass = model.createClazz("de.kassel.test.roombook.Building")
             .withAttribute("name", DataType.STRING);
 
-      Clazz floorClass = model.createClazz("de.kassel.roombook.Floor")
+      Clazz floorClass = model.createClazz("de.kassel.test.roombook.Floor")
             .withAttribute("level", DataType.INT)
             .withAttribute("name", DataType.STRING)
             /*add attribut*/
@@ -145,7 +145,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
       JsonIdMap createIdMap = de.kassel.test.roombook.util.BuildingCreator.createIdMap("gen2spec");
 
-      Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.roombook", graph);
+      Building specificBuilding = (Building) new Generic2Specific().convert(createIdMap, "de.kassel.test.roombook", graph);
 
       storyboard.addObjectDiagram(specificBuilding);
 
