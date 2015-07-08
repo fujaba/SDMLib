@@ -33,9 +33,10 @@ task compileJava17(type: JavaCompile) {
 	targetCompatibility = '1.7'
 	classpath = fileTree(dir: 'build/allLibs', include: '*.jar')
 }
-classes.dependsOn compileJava17
+//classes.dependsOn compileJava17
+compileJava.dependsOn compileJava17
 compileJava17.dependsOn copyAllDependencies
-//compileJava.dependsOn compileJava17
+
 
 
 task coreJar17(type: Jar) {
