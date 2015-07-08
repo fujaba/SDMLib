@@ -62,7 +62,6 @@ public class GenClassModel
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
    private AssociationSet associations = null;
    private HashMap<Object, Generator<?>> generators = new HashMap<Object, Generator<?>>();
-   Parser creatorCreatorParser;
    private DIFF showDiff = DIFF.NONE;
    private List<String> ignoreDiff;
 
@@ -194,7 +193,6 @@ public class GenClassModel
       fixClassModel();
 
       addHelperClassesForUnknownAttributeTypes();
-      genFactory.getOrCreateFactoryFactoryParser(this, rootDir);
 
       for (Enumeration enumeration : model.getEnumerations())
       {
@@ -296,8 +294,6 @@ public class GenClassModel
       }
    }
    
-   public GenFactory genFactory = new GenFactory();
-
    public void addHelperClassesForUnknownAttributeTypes()
    {
       // for attribute types like java.util.Date we add a class with that name

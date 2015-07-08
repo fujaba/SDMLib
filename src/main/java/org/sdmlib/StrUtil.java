@@ -23,6 +23,7 @@ package org.sdmlib;
 
 public class StrUtil
 {
+	public static final String LF = "\n";
    /**
     * Safe String comparison.
     *

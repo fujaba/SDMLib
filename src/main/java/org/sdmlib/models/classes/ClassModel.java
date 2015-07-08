@@ -38,6 +38,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
 
 public class ClassModel extends SDMLibClass
 {
+	public static final String DEFAULTPACKAGE = "i.love.sdmlib";
    public static final String PROPERTY_CLASSES = "classes";
    private static final String PROPERTY_FEATURE = "feature";
    private Set<Feature> features=Feature.getAll();
@@ -47,7 +48,7 @@ public class ClassModel extends SDMLibClass
 
    public ClassModel()
    {
-		name = "i.love.sdmlib";
+		name = DEFAULTPACKAGE;
 		
 		Feature.reset();
    }
@@ -115,14 +116,21 @@ public class ClassModel extends SDMLibClass
 	
 	public Clazz getClazz(String name)
 	{
-	   for (Clazz c : getClasses())
-      {
-		 if (c.getName().equals(name) || c.getName().endsWith("."+name))
-         {
-            return c;
-         }
-      }
-	   return null;
+		if (name == null) {
+			return null;
+		}
+		for (Clazz c : getClasses()) {
+			if (c.getName().equals(name) ) {
+				return c;
+			}else if(name.indexOf(".")>0) {
+				if(c.getName().equals(name.substring(name.lastIndexOf(".")+1))) {
+					return c;
+				}
+			}else if(c.getName().endsWith("." + name)){
+				return c;
+			}
+		}
+		return null;
 	}
 
 	public Clazz createClazz(String name)

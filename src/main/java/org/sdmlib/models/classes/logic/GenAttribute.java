@@ -473,7 +473,8 @@ public class GenAttribute extends Generator<Attribute>
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
       if (clazz.isExternal())
       {
-         return packageNameFromFindClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(clazz.getFullName()) + "Set";
+    	  return null;
+//         return packageNameFromFindClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(clazz.getFullName()) + "Set";
       }
       if (!packageNameFromFindClass.equals(packageNameFromOwnerClass))
       {
@@ -645,43 +646,32 @@ public class GenAttribute extends Generator<Attribute>
       String key = Parser.METHOD + ":get"
             + StrUtil.upFirstChar(model.getName()) + "()";
       int pos = parser.indexOf(key);
-      int enumPos = -1;
 
       boolean isEnum = isEnumType(model, ownerClazz, false);
-      if (isEnum)
-      {
-         String enumKey = Parser.METHOD + ":has"
-               + StrUtil.upFirstChar(CGUtil.shortClassName(model.getName())) + "(" + CGUtil.shortClassName(model.getType().getValue()) + ")";
-         enumPos = parser.indexOf(enumKey);
-      }
+      String enumKey = Parser.METHOD + ":has"
+              + StrUtil.upFirstChar(CGUtil.shortClassName(model.getName())) + "(" + CGUtil.shortClassName(model.getType().getValue()) + ")";
+      int enumPos = parser.indexOf(enumKey);
 
       if ((isEnum && pos < 0 && enumPos < 0) ||
             (!isEnum && pos < 0))
       {
          // need to add property to string array
-
-         String getterString = "   public ModelSetType getName()\n"
-               + "   {\n"
-               + "      ModelSetType result = new ModelSetType();\n"
-               + "      \n"
-               + "      for (ContentType obj : this)\n"
-               + "      {\n"
-               + "         result.addOneOrMore(obj.VALUEGET);\n"
-               + "      }\n" + "      \n"
-               + "      return result;\n"
-               + "   }\n"
-               + "\n";
-
-         // no getter vor enum
-         if (isEnumType(model, ownerClazz, false))
-         {
-            getterString = "";
-         }
-
-         StringBuilder text = new StringBuilder(
-               getterString
-                     +
-                     "   public ObjectSetType hasName(AttrType value)\n" +
+    	  StringBuilder text = new StringBuilder();
+    	  if (!isEnum) {
+    		  text.append("   public ModelSetType getName()\n"
+		                 + "   {\n"
+		                 + "      ModelSetType result = new ModelSetType();\n"
+		                 + "      \n"
+		                 + "      for (ContentType obj : this)\n"
+		                 + "      {\n"
+		                 + "         result.addOneOrMore(obj.VALUEGET);\n"
+		                 + "      }\n" + "      \n"
+		                 + "      return result;\n"
+		                 + "   }\n"
+		                 + "\n");
+    	  }
+    	  if(enumPos<0) {
+    		  text.append("   public ObjectSetType hasName(AttrType value)\n" +
                      "   {\n" +
                      "      ObjectSetType result = new ObjectSetType();\n" +
                      "      \n" +
@@ -696,7 +686,7 @@ public class GenAttribute extends Generator<Attribute>
                      "      return result;\n" +
                      "   }\n" +
                      "\n");
-
+    	  }
          if (" int long float double String ".indexOf(" " + model.getType().getValue() + " ") >= 0)
          {
             text.append(
@@ -745,21 +735,21 @@ public class GenAttribute extends Generator<Attribute>
             }
 
             modelSetType = CGUtil.shortClassName(fullModelSetType) + "Set";
-            fullModelSetType = CGUtil.packageName(fullModelSetType) + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(fullModelSetType) + "Set";
-            String importForSet = checkSetImportFor(CGUtil.shortClassName(dataType.getValue()));
-
-            if (!isEnumType(model, ownerClazz, false))
-            {
-
-               if (importForSet != null)
-               {
-                  importClassesFromTypes.add(importForSet);
-               }
-               else if (!fullModelSetType.startsWith("."))
-               {
-                  importClassesFromTypes.add(fullModelSetType);
-               }
-            }
+//            fullModelSetType = CGUtil.packageName(fullModelSetType) + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(fullModelSetType) + "Set";
+//            String importForSet = checkSetImportFor(CGUtil.shortClassName(dataType.getValue()));
+//
+//            if (isEnum)
+//            {
+//
+//               if (importForSet != null)
+//               {
+//                  importClassesFromTypes.add(importForSet);
+//               }
+//               else if (!fullModelSetType.startsWith("."))
+//               {
+//                  importClassesFromTypes.add(fullModelSetType);
+//               }
+//            }
          }
 
          String add = "add";

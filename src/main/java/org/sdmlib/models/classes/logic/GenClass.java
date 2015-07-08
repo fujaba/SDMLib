@@ -31,6 +31,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 /**
  * @author Stefan
@@ -93,6 +94,9 @@ public class GenClass extends Generator<Clazz>
          if (getRepairClassModel().hasFeature(Feature.Serialization))
          {
             getOrCreateParserForCreatorClass(helpersDir);
+
+            insertClassInCreatorCreatorClass(getModel(), rootDir, creatorParser);
+
             if (model.hasFeature(Feature.REMOVEYOUMETHOD)) {
             	insertRemoveObjectInCreatorClass();
             }
@@ -321,6 +325,120 @@ public class GenClass extends Generator<Clazz>
       }
    }
 
+	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
+		if (!clazz.isInterface() && !clazz.isEnumeration() && clazz.hasFeature(Feature.Serialization)) {
+			String creatorName = "";
+			if (clazz.isExternal()) {
+				GenClassModel generator = clazz.getClassModel().getGenerator();
+				creatorName = clazz.getClassModel().getName() + GenClassModel.UTILPATH + "."
+						+ CGUtil.shortClassName(clazz.getFullName());
+				GenClass genClass = generator.getOrCreate(clazz);
+				Parser creatorClassParser = genClass.getOrCreateParserForCreatorClass(rootDir);
+				String string = creatorClassParser.getFileName();
+				String alternativeFilePath = string
+						.substring(rootDir.length() + 1, string.length() - "Creator.java".length())
+						.replaceAll("/", ".");
+
+				if (!creatorName.equals(alternativeFilePath))
+					creatorName = alternativeFilePath;
+
+			} else {
+				creatorName = CGUtil.packageName(clazz.getFullName()) + GenClassModel.UTILPATH + "."
+						+ CGUtil.shortClassName(clazz.getFullName());
+			}
+
+			Parser creatorcreator = getOrCreateCreatorCreator(clazz, rootDir);
+			if(isMultiCreator(creatorcreator)){
+				if(!creatorcreator.getClassModifier().contains("public")) {
+					CGUtil.replaceAll(creatorcreator.getFileBody(), "class CreatorCreator", "public class CreatorCreator");
+					creatorcreator.withFileChanged(true);
+				}
+			}
+			StringBuilder creators=new StringBuilder(); 
+			creators.append("      jsonIdMap.withCreator(new " + creatorName + "Creator());\n");
+			if (clazz.hasFeature(Feature.PatternObject)) {
+				creators.append("      jsonIdMap.withCreator(new " + creatorName + "POCreator());\n");
+			}
+			ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
+			if(symTabEntriesFor.size()>0) {
+				SymTabEntry symTabEntry = symTabEntriesFor.get(0);
+				String lines = creatorcreator.getFileBody().substring(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
+				
+				CGUtil.replaceAll("      return jsonIdMap;", creators+"\n      return jsonIdMap;");
+				creatorcreator.replace(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos(), lines);
+				creatorcreator.withFileChanged(true);
+				printFile(creatorcreator);
+			}
+		}
+	}
+	final String searchString="jsonIdMap.withCreator(new ";
+	private boolean isMultiCreator(Parser creatorcreator) {
+		creatorcreator.indexOf(Parser.CLASS_END);
+		ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
+		if(symTabEntriesFor.size()>0) {
+			SymTabEntry symTabEntry = symTabEntriesFor.get(0);
+			String[] lines = creatorcreator.getFileBody().substring(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos()).split(StrUtil.LF);
+
+			String lastOne = null;
+			for(String line : lines) {
+				line = line.trim();
+				if(line.indexOf(searchString)>0 && line.lastIndexOf(".")>searchString.length()) {
+					String packageName=line.substring(searchString.length(), line.lastIndexOf("."));
+					if(packageName.endsWith(GenClassModel.UTILPATH)) {
+						packageName = packageName.substring(0, packageName.length()- GenClassModel.UTILPATH.length());
+					}
+					if(lastOne != null && !lastOne.equals(packageName)) {
+						return true;
+					}
+					lastOne = packageName;
+				}
+			}
+		}
+		return false;
+	}
+   
+	private Parser getOrCreateCreatorCreator(Clazz clazz, String rootDir) {
+		ClassModel classModel = clazz.getClassModel();
+		String packageName = classModel.getName();
+		// BOAH check DEFAULT PACKAGE
+		if (ClassModel.DEFAULTPACKAGE.equals(packageName)) {
+			// Get Package from clazz
+			packageName = CGUtil.packageName(clazz.getFullName());
+			if(packageName.length() < 1) {
+				packageName = ClassModel.DEFAULTPACKAGE; 
+			}
+		}
+	    String creatorCreatorClassName = packageName + GenClassModel.UTILPATH + ".CreatorCreator";
+	    String fileName = creatorCreatorClassName;
+	      fileName = fileName.replaceAll("\\.", "/");
+	      fileName = rootDir + "/" + fileName + ".java";
+	      Parser creatorCreator = new Parser().withFileName(fileName);
+	      // found old one?
+	      if (!creatorCreator.loadFile())
+	      {
+	    	  creatorCreator.withFileBody(
+	               new StringBuilder(
+	                     "package "+packageName+GenClassModel.UTILPATH+";\n\n"
+	                           + "import " + JsonIdMap.class.getName() + ";\n"
+	                           +
+	                           "import org.sdmlib.serialization.SDMLibJsonIdMap;\n"
+	                           +
+	                           "\n"
+	                           +
+	                           "class CreatorCreator{\n" +
+	                           "\n" +
+	                           "   public static JsonIdMap createIdMap(String sessionID)\n" +
+	                           "   {\n" +
+	                           "      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);\n" +
+	                           "      return jsonIdMap;\n" +
+	                           "   }\n" +
+	                           "}\n")
+	               );
+	      }
+	      return creatorCreator;
+	}
+	
+	
    private void insertInterfaceMethods(Clazz clazz, String rootDir, String helpersDir)
    {
 

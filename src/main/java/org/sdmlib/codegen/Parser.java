@@ -21,12 +21,14 @@
 
 package org.sdmlib.codegen;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
+import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 
 import de.uniks.networkparser.list.SimpleKeyValueList;
@@ -158,7 +160,9 @@ public class Parser
 
    private int endOfExtendsClause;
 
-   private int endOfImports;  
+   private int endOfImports;
+
+private String classModifier;  
 
    public int getEndOfImports()
    {
@@ -340,7 +344,7 @@ public class Parser
    private void parseClassDecl()
    {
       // modifiers class name classbody
-      parseModifiers();
+      classModifier = parseModifiers();
 
       // skip keyword
       //      skip ("class");
@@ -1933,6 +1937,19 @@ public class Parser
       return this;
    }
 
+   public boolean exists() {
+	   return new File(fileName).exists();
+   }
+   
+   public boolean loadFile() {
+	   File file = new File(fileName);
+	   if(file.exists()) {
+		   this.withFileBody(CGUtil.readFile(file));
+		   return true;
+	   }
+	   return false;
+   }
+   
    public void parseMethodBody(SymTabEntry symTabEntry)
    {
       if ( symTabEntry.getMemberName().startsWith(METHOD+":") )
@@ -2097,6 +2114,9 @@ public class Parser
       return fileBody;
    }
 
+	public String getClassModifier() {
+		return classModifier;
+	}
    public String getLineForPos(int currentInsertPos)
    {
       String part1 = fileBody.substring(0, currentInsertPos);
