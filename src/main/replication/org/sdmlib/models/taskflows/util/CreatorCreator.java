@@ -4,7 +4,7 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class CreatorCreator{
+class CreatorCreator{
 
    public static JsonIdMap createIdMap(String sessionID)
    {
