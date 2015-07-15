@@ -96,17 +96,17 @@ public class ClassModelTest
 
       annotationClass.with(deprecatedAnnotation, overrideAnnotation, safeVarargsAnnotation, suppressWarningsAnnotation);
       
-      new Association()
-         .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(annotationClass, "annotations", Card.MANY);
-
-      new Association()
-         .withSource(new Role(methodClass, "method", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(annotationClass, "annotations", Card.MANY);
-
-      new Association()
-      .withSource(new Role(attributeClass, "attribute", Card.ONE).withKind(Role.AGGREGATION))
-      .withTarget(annotationClass, "annotations", Card.MANY);
+//      new Association()
+//         .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
+//         .withTarget(annotationClass, "annotations", Card.MANY);
+//
+//      new Association()
+//         .withSource(new Role(methodClass, "method", Card.ONE).withKind(Role.AGGREGATION))
+//         .withTarget(annotationClass, "annotations", Card.MANY);
+//
+//      new Association()
+//      .withSource(new Role(attributeClass, "attribute", Card.ONE).withKind(Role.AGGREGATION))
+//      .withTarget(annotationClass, "annotations", Card.MANY);
 
       // ---- Enumeration ----
 
