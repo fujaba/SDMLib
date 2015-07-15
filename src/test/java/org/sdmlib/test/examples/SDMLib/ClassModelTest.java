@@ -168,7 +168,7 @@ public class ClassModelTest
 
       Clazz statementEntry = model.createClazz("org.sdmlib.codegen.StatementEntry")
          .withAttribute("kind", DataType.STRING)
-         .withAttribute("tokenList", DataType.ref("ArrayList<String>"))
+         .withAttribute("tokenList", DataType.ref("java.util.ArrayList<String>", true))
          .withAttribute("assignTargetVarName", DataType.STRING)
          .withAttribute("startPos", DataType.INT)
          .withAttribute("endPos", DataType.INT);

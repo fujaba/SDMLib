@@ -50,7 +50,9 @@ public class DataType
    {
       return new DataType(value);
    }
-
+   public static DataType ref(String value, boolean external) {
+	   return new DataType(new Clazz(value).withExternal(external));
+   }
    public static DataType ref(Class<?> value)
    {
       return new DataType(value.getName().replace("$", "."));
