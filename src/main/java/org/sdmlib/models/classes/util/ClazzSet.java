@@ -340,12 +340,6 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
-   public ClazzPO startModelPattern()
-   {
-      return new ClazzPO(this.toArray(new Clazz[this.size()]));
-   }
-
-
    @SuppressWarnings("unchecked")
    public ClazzSet with(Object value)
    {
@@ -365,13 +359,6 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       this.remove(value);
       return this;
-   }
-
-
-
-   public ClazzPO hasClazzPO()
-   {
-      return new ClazzPO(this.toArray(new Clazz[this.size()]));
    }
 
    public ClazzSet getInterfacesTransitive()

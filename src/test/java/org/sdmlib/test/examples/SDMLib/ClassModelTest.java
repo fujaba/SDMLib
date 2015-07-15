@@ -28,6 +28,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
@@ -184,6 +185,7 @@ public class ClassModelTest
       // .withIgnoreClazz("org.sdmlib.models.classes.Attribute")
       // .withShowDiff(DIFF.DIFF);
 
+      model.withoutFeature(Feature.PatternObject);
       model.generate("src/main/java");
 
       storyboard.dumpHTML();

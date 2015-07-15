@@ -28,14 +28,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 
 public class ArrayListSet extends SDMSet<ArrayList<?>>
 {
-
-
-   public ArrayListPO hasArrayListPO()
-   {
-      return new ArrayListPO(this.toArray(new ArrayList[this.size()]));
-   }
-
-
    @Override
    public String getEntryType()
    {

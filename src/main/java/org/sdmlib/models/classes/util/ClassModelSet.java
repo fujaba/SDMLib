@@ -110,13 +110,6 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
       return "org.sdmlib.models.classes.ClassModel";
    }
 
-
-   public ClassModelPO startModelPattern()
-   {
-      return new ClassModelPO(this.toArray(new ClassModel[this.size()]));
-   }
-
-
    @SuppressWarnings("unchecked")
    public ClassModelSet with(Object value)
    {
@@ -138,11 +131,6 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
       return this;
    }
 
-   public ClassModelPO hasClassModelPO()
-   {
-      return new ClassModelPO(this.toArray(new ClassModel[this.size()]));
-   }
-   
    public EnumerationSet getEnumerations()
    {
       EnumerationSet result = new EnumerationSet();
@@ -204,7 +192,3 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
 
    public static final ClassModelSet EMPTY_SET = new ClassModelSet().withReadOnly(true);
 }
-
-
-
-

@@ -158,13 +158,6 @@ public class AttributeSet extends SDMSet<Attribute>
       return this;
    }
 
-
-
-   public AttributePO startModelPattern()
-   {
-      return new AttributePO(this.toArray(new Attribute[this.size()]));
-   }
-
    @SuppressWarnings("unchecked")
    public AttributeSet with(Object value)
    {
@@ -180,11 +173,6 @@ public class AttributeSet extends SDMSet<Attribute>
       return this;
    }
 
-   public AttributePO hasAttributePO()
-   {
-      return new AttributePO(this.toArray(new Attribute[this.size()]));
-   }
-   
    public static final AttributeSet EMPTY_SET = new AttributeSet().withReadOnly(true);
    public AnnotationSet getAnnotations()
    {

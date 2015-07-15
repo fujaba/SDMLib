@@ -28,12 +28,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 
 public class DataTypeSet extends SDMSet<DataType>
 {
-   public DataTypePO hasDataTypePO()
-   {
-      return new DataTypePO(this.toArray(new DataType[this.size()]));
-   }
-
-
    @Override
    public String getEntryType()
    {

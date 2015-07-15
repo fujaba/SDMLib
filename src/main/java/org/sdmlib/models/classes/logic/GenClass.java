@@ -1192,7 +1192,9 @@ public class GenClass extends Generator<Clazz>
          }
          insertLicense(modelSetParser);
          insertEmptySetDecl(modelSetParser, modelSetClassName);
-         insertSetStartModelPattern(modelSetParser);
+         if(model.hasFeature(Feature.PatternObject)) {
+        	 insertSetStartModelPattern(modelSetParser);
+         }
          insertSetEntryType(modelSetParser);
          insertSetWithWithout(modelSetParser);
       }

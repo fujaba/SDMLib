@@ -34,13 +34,6 @@ public class AnnotationSet extends SDMSet<Annotation>
 
    public static final AnnotationSet EMPTY_SET = new AnnotationSet().withReadOnly(true);
 
-
-   public AnnotationPO hasAnnotationPO()
-   {
-      return new AnnotationPO(this.toArray(new Annotation[this.size()]));
-   }
-
-
    @Override
    public String getEntryType()
    {

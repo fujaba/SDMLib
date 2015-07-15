@@ -35,14 +35,6 @@ import org.sdmlib.models.classes.util.MethodSet;
 
 public class EnumerationSet extends SDMSet<Enumeration>
 {
-
-
-   public EnumerationPO hasEnumerationPO()
-   {
-      return new EnumerationPO(this.toArray(new Enumeration[this.size()]));
-   }
-
-
    @Override
    public String getEntryType()
    {

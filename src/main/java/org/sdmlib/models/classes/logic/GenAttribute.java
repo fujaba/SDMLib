@@ -990,7 +990,9 @@ public class GenAttribute extends Generator<Attribute>
          String typePlaceholder = "type";
          DataType dataType = model.getType();
          String type = dataType.getValue();
-         type = CGUtil.shortClassName(type);
+         if(!dataType.getClazz().isExternal()) {
+        	 type = CGUtil.shortClassName(type);
+         }
          boolean modelClass = true;
          boolean isEnum = false;
          if ("int".equals(type))

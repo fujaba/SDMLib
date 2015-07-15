@@ -185,13 +185,6 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return result;
    }
 
-
-   public RolePO startModelPattern()
-   {
-      return new RolePO(this.toArray(new Role[this.size()]));
-   }
-
-
    @SuppressWarnings("unchecked")
    public RoleSet with(Object value)
    {
@@ -212,15 +205,5 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       this.remove(value);
       return this;
    }
-
-   public RolePO hasRolePO()
-   {
-      return new RolePO(this.toArray(new Role[this.size()]));
-   }
-   
    public static final RoleSet EMPTY_SET = new RoleSet().withReadOnly(true);
 }
-
-
-
-

@@ -134,14 +134,6 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return this;
    }
 
-
-
-   public MethodPO startModelPattern()
-   {
-      return new MethodPO(this.toArray(new Method[this.size()]));
-   }
-
-
    @SuppressWarnings("unchecked")
    public MethodSet with(Object value)
    {
@@ -163,10 +155,6 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return this;
    }
 
-   public MethodPO hasMethodPO()
-   {
-      return new MethodPO(this.toArray(new Method[this.size()]));
-   }
    public StringList getName()
    {
       StringList result = new StringList();
