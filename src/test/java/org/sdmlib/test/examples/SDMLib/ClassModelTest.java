@@ -31,7 +31,7 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -89,10 +89,10 @@ public class ClassModelTest
                   new Parameter(DataType.ref("String...")).withName("values")))
          .withMethod("createSafeVarargsAnnotation", DataType.ref(annotationClass));
       
-      Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("Deprecated");
-      Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("Override");
-      Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("SafeVarargs");
-      Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("SuppressWarnings");
+      Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("Deprecated");
+      Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("Override");
+      Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("SafeVarargs");
+      Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("SuppressWarnings");
 
       annotationClass.with(deprecatedAnnotation, overrideAnnotation, safeVarargsAnnotation, suppressWarningsAnnotation);
       

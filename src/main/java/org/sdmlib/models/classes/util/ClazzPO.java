@@ -593,44 +593,5 @@ public class ClazzPO extends PatternObject<ClazzPO, Clazz>
          return ((Clazz) this.getCurrentMatch()).getAnnotations();
       }
       return null;
-   }
-
-   public ClazzPO hasAbztract(boolean value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Clazz.PROPERTY_ABZTRACT)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.hasAttr();
-      
-      return this;
-   }
-   
-   public ClazzPO createAbztract(boolean value)
-   {
-      this.startCreate().hasAbztract(value).endCreate();
-      return this;
-   }
-   
-   public boolean getAbztract()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Clazz) getCurrentMatch()).isAbztract();
-      }
-      return false;
-   }
-   
-   public ClazzPO withAbztract(boolean value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Clazz) getCurrentMatch()).setAbztract(value);
-      }
-      return this;
-   }
-   
+   } 
 }

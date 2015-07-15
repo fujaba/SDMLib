@@ -18,60 +18,43 @@
    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
+   
+package org.sdmlib.models.classes.util;
 
-package org.sdmlib.models.classes;
+import java.util.Collection;
 
-import java.beans.PropertyChangeSupport;
+import org.sdmlib.models.classes.Modifier;
+import org.sdmlib.models.modelsets.SDMSet;
 
-import org.sdmlib.StrUtil;
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-public abstract class SDMLibClass implements PropertyChangeInterface
-{  
-   public static final String PROPERTY_NAME = "name";
-
-   protected String name = "";
-   protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-
+public class ModifierSet extends SDMSet<Modifier>
+{
    @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public String getEntryType()
    {
-      return listeners;
+      return "org.sdmlib.models.classes.Modifier";
    }
-   
-   
-   boolean setName(String value)
+
+
+   @SuppressWarnings("unchecked")
+   public ModifierSet with(Object value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value) && value!=null && value.length()>0)
+      if (value instanceof java.util.Collection)
       {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-         return true;
+         this.addAll((Collection<Modifier>)value);
       }
-      return false;
-   }
-  
-   public String getName()
-   {
-      return name;
+      else if (value != null)
+      {
+         this.add((Modifier) value);
+      }
+      
+      return this;
    }
    
-   public abstract SDMLibClass withName(String value);
-
-
-   public void removeYou()
+   public ModifierSet without(Modifier value)
    {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      this.remove(value);
+      return this;
    }
 
-
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
-      
-      result.append(" ").append(this.getName());
-      return result.substring(1);
-   }
+   public static final ModifierSet EMPTY_SET = new ModifierSet().withReadOnly(true);
 }

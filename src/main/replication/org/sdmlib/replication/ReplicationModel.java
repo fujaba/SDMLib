@@ -80,7 +80,7 @@ public class ReplicationModel
       
       Clazz object = model.createClazz(Object.class.getName()).withExternal(true);
       
-      seppelScope.withUniDirectionalAssoc(object, "observedObjects", Card.MANY); 
+      seppelScope.withAssoc(object, "observedObjects", Card.MANY); 
 
       Clazz seppelChannel = model.createClazz("SeppelChannel")
             .withSuperClazz(thread)

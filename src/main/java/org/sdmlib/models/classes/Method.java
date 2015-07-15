@@ -35,7 +35,7 @@ public class Method extends SDMLibClass implements AnnotationOwner
    public static final String PROPERTY_MODIFIER = "modifier";
    public static final MethodSet EMPTY_SET = new MethodSet().withReadOnly(true);
    
-   private Visibility modifier = Visibility.PUBLIC;
+   private Modifier modifier = Modifier.PUBLIC;
    private Clazz clazz = null;
    private String body;
    private ParameterSet parameter = null;
@@ -166,17 +166,17 @@ public class Method extends SDMLibClass implements AnnotationOwner
       return this;
    }
 
-   public Visibility getModifier()
+   public Modifier getModifier()
    {
       return this.modifier;
    }
 
-   public void setModifier(Visibility value)
+   public void setModifier(Modifier value)
    {
       this.modifier = value;
    }
 
-   public Method with(Visibility... visibility)
+   public Method with(Modifier... visibility)
    {
       if(visibility==null){
          return this;
@@ -185,7 +185,7 @@ public class Method extends SDMLibClass implements AnnotationOwner
       if(visibility.length==1){
          this.modifier = visibility[0];
       }
-      this.modifier = Visibility.ref(visibility);
+      this.modifier = Modifier.ref(visibility);
       return this;
    }
 

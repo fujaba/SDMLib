@@ -72,5 +72,3 @@ public enum Feature
       }
 	}
 }
-
-

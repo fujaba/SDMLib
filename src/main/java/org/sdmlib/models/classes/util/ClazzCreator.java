@@ -24,7 +24,6 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_KIDCLAZZES,
       Clazz.PROPERTY_INTERFAZE,
       Clazz.PROPERTY_ANNOTATIONS,
-      Clazz.PROPERTY_ABZTRACT,
    };
    
    @Override
@@ -97,11 +96,6 @@ public class ClazzCreator extends EntityFactory
       if (Clazz.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attribute))
       {
          return ((Clazz) target).getAnnotations();
-      }
-
-      if (Clazz.PROPERTY_ABZTRACT.equalsIgnoreCase(attribute))
-      {
-         return ((Clazz) target).isAbztract();
       }
       return super.getValue(target, attrName);
    }
@@ -201,12 +195,6 @@ public class ClazzCreator extends EntityFactory
       if ((Clazz.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Clazz) target).withoutAnnotation((Annotation) value);
-         return true;
-      }
-
-      if (Clazz.PROPERTY_ABZTRACT.equalsIgnoreCase(attrName))
-      {
-         ((Clazz) target).withAbztract((Boolean) value);
          return true;
       }
       return super.setValue(target, attrName, value, type);

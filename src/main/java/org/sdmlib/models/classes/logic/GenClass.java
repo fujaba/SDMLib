@@ -25,13 +25,13 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 
 /**
  * @author Stefan
@@ -837,7 +837,7 @@ public class GenClass extends Generator<Clazz>
          String className = name.substring(pos + 1);
 
          String abztract = "";
-         if(model.isAbztract()) {
+         if(model.hasModifier(Modifier.ABSTRACT)) {
             abztract = "abstract";
          }
          
@@ -1039,7 +1039,7 @@ public class GenClass extends Generator<Clazz>
                   + "()";
             }
             
-            if (model.isAbztract())
+            if (model.hasModifier(Modifier.ABSTRACT))
             {
                instanceCreationClause = "null";
             }

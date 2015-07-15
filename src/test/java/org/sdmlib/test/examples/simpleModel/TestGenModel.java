@@ -5,7 +5,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.storyboards.Storyboard;
 
 public class TestGenModel
@@ -16,7 +16,7 @@ public class TestGenModel
       
       Clazz arrayListClazz = model.createClazz("java.util.ArrayList").withExternal(true);
       Clazz createClazz = model.createClazz("MacList");
-      createClazz.createAttribute("serialVersionUID", DataType.LONG).withInitialization("1L").with(Visibility.STATIC, Visibility.FINAL, Visibility.PRIVATE);
+      createClazz.createAttribute("serialVersionUID", DataType.LONG).withInitialization("1L").with(Modifier.STATIC, Modifier.FINAL, Modifier.PRIVATE);
       
       createClazz.withAttribute("Name", DataType.STRING);
       createClazz.withSuperClazz(arrayListClazz);
@@ -37,8 +37,8 @@ public class TestGenModel
       Clazz person = model.createClazz("Person")
             .withAttribute("name", DataType.STRING);
       
-      bigBrother.withUniDirectionalAssoc(person, "noOne", Card.ONE);
-      bigBrother.withUniDirectionalAssoc(person, "suspects", Card.MANY);
+      bigBrother.withAssoc(person, "noOne", Card.ONE);
+      bigBrother.withAssoc(person, "suspects", Card.MANY);
       
       story.addClassDiagram(model);
       
@@ -59,7 +59,7 @@ public class TestGenModel
       
       Clazz person = model.createClazz(Object.class.getName()).withExternal(true);
       
-      bigBrother.withUniDirectionalAssoc(person, "kids", Card.MANY);
+      bigBrother.withAssoc(person, "kids", Card.MANY);
       
       story.addClassDiagram(model);
       

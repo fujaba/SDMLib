@@ -12,7 +12,7 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
 public class MancalaModel {
@@ -44,8 +44,8 @@ public class MancalaModel {
                 .withAttribute("color", DataType.ref(Color.class));
 
         Clazz point = model.createClazz(Point.class.getName()) //<7>
-                .with(new Attribute("x", DataType.INT).with(Visibility.PUBLIC)) //<8>
-                .with(new Attribute("y", DataType.INT).with(Visibility.PUBLIC))
+                .with(new Attribute("x", DataType.INT).with(Modifier.PUBLIC)) //<8>
+                .with(new Attribute("y", DataType.INT).with(Modifier.PUBLIC))
                 .withExternal(true); //<9>
 
         Clazz pit = model.createClazz("Pit")

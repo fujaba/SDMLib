@@ -12,7 +12,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class GenAttribute extends Generator<Attribute>
@@ -83,7 +83,7 @@ public class GenAttribute extends Generator<Attribute>
             );
 
       if (!entryExist(Parser.ATTRIBUTE + ":PROPERTY_" + model.getName().toUpperCase(), parser)
-            && !model.getClazz().isInterface() && !model.getVisibility().has(Visibility.STATIC))
+            && !model.getClazz().isInterface() && !model.getVisibility().has(Modifier.STATIC))
       {
          text.append("" +
                "\n   public static final String PROPERTY_NAME = \"name\";" +
@@ -98,13 +98,13 @@ public class GenAttribute extends Generator<Attribute>
       }
 
       // if constant field -> return
-      if (model.getVisibility().has(Visibility.PUBLIC)
-            && model.getVisibility().has(Visibility.STATIC)
-            && model.getVisibility().has(Visibility.FINAL)
+      if (model.getVisibility().has(Modifier.PUBLIC)
+            && model.getVisibility().has(Modifier.STATIC)
+            && model.getVisibility().has(Modifier.FINAL)
             && model.getInitialization() != null)
          return text;
 
-      if (model.getVisibility().same(Visibility.PRIVATE))
+      if (model.getVisibility().equals(Modifier.PRIVATE))
       {
          if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName()) + "()", parser)
                && !entryExist(Parser.METHOD + ":is" + StrUtil.upFirstChar(model.getName()) + "()", parser))
@@ -221,9 +221,9 @@ public class GenAttribute extends Generator<Attribute>
    private void insertCaseInToString(Parser parser)
    {
       // if constant field -> return
-      if (model.getVisibility().has(Visibility.PUBLIC)
-            && model.getVisibility().has(Visibility.STATIC)
-            && model.getVisibility().has(Visibility.FINAL)
+      if (model.getVisibility().has(Modifier.PUBLIC)
+            && model.getVisibility().has(Modifier.STATIC)
+            && model.getVisibility().has(Modifier.FINAL)
             && model.getInitialization() != null)
          return;
 
@@ -443,7 +443,7 @@ public class GenAttribute extends Generator<Attribute>
             attrNameGetter = "is" + name + "()";
          }
          String attrNameSetter = "set" + name + "(value)";
-         if (model.getVisibility().same(Visibility.PUBLIC))
+         if (model.getVisibility().equals(Modifier.PUBLIC))
          {
             attrNameGetter = model.getName();
             attrNameSetter = model.getName() + " = value";
@@ -715,7 +715,7 @@ public class GenAttribute extends Generator<Attribute>
             attrNameGetter = "is" + name + "()";
          }
 
-         if (model.getVisibility().same(Visibility.PUBLIC))
+         if (model.getVisibility().equals(Modifier.PUBLIC))
          {
             attrNameGetter = model.getName();
          }
@@ -884,7 +884,7 @@ public class GenAttribute extends Generator<Attribute>
          {
             attrNameGetter = "get" + name + "()";
          }
-         if (model.getVisibility().same(Visibility.PUBLIC))
+         if (model.getVisibility().equals(Modifier.PUBLIC))
          {
             attrNameGetter = model.getName();
          }
@@ -940,7 +940,7 @@ public class GenAttribute extends Generator<Attribute>
 
          String name = StrUtil.upFirstChar(model.getName());
          String attrNameSetter = "set" + name + "(value)";
-         if (model.getVisibility().same(Visibility.PUBLIC))
+         if (model.getVisibility().equals(Modifier.PUBLIC))
          {
             attrNameSetter = model.getName() + " = value";
          }
@@ -961,7 +961,7 @@ public class GenAttribute extends Generator<Attribute>
    private void insertGenericGetSetForWrapperInCreatorClass(Parser parser,
          Clazz ownerClazz)
    {
-      if (model.getVisibility().same(Visibility.PRIVATE))
+      if (model.getVisibility().equals(Modifier.PRIVATE))
       {
          insertCaseInGenericGetForWrapperInCreatorClass(parser, ownerClazz);
          insertCaseInGenericSetForWrapperInCreatorClass(parser, ownerClazz);
@@ -1062,7 +1062,7 @@ public class GenAttribute extends Generator<Attribute>
          {
             attrNameSetter = "with" + name + "(type)";
          }
-         if (model.getVisibility().same(Visibility.PUBLIC))
+         if (model.getVisibility().equals(Modifier.PUBLIC))
          {
             attrNameSetter = model.getName() + " = (type) value";
          }
@@ -1158,7 +1158,7 @@ public class GenAttribute extends Generator<Attribute>
          getGenerator(clazz).printFile();
       }
 
-      if (model.getVisibility().same(Visibility.PRIVATE))
+      if (model.getVisibility().equals(Modifier.PRIVATE))
       {
 
          //    	  if (!isEnumType(model, clazz)) {
