@@ -412,12 +412,13 @@ public class GenMethod extends Generator<Method>
             type = type.substring(0, type.length() - 2);
          }
          String importType = type;
+         if(type.indexOf(".")<0 && type.equals(model.getClazz().getName())) {
+        	 type = model.getClazz().getFullName();
+         }
          GenClass generator = model.getClazz().getClassModel().getGenerator().getOrCreate(model.getClazz());
          if (!("Object".indexOf(type) >= 0))
          {
-            generator.insertImport(parser, importType); // TODO: import might
-                                                        // not be correct for
-                                                        // user defined classes
+            generator.insertImport(parser, importType); 
          }
 
          if (!"void".equals(type))

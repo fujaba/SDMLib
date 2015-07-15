@@ -55,7 +55,6 @@ public class ClassModelTest
 
       Clazz clazzClass = model.createClazz("Clazz").withSuperClazz(sdmLibClazz)
          .withAttribute("interfaze", DataType.BOOLEAN)
-         .withAttribute("abztract", DataType.BOOLEAN)
          .withAttribute("external", DataType.BOOLEAN);
 
       new Association()
@@ -96,31 +95,13 @@ public class ClassModelTest
 
       annotationClass.with(deprecatedAnnotation, overrideAnnotation, safeVarargsAnnotation, suppressWarningsAnnotation);
       
-//      new Association()
-//         .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
-//         .withTarget(annotationClass, "annotations", Card.MANY);
-//
-//      new Association()
-//         .withSource(new Role(methodClass, "method", Card.ONE).withKind(Role.AGGREGATION))
-//         .withTarget(annotationClass, "annotations", Card.MANY);
-//
-//      new Association()
-//      .withSource(new Role(attributeClass, "attribute", Card.ONE).withKind(Role.AGGREGATION))
-//      .withTarget(annotationClass, "annotations", Card.MANY);
-
       // ---- Enumeration ----
 
-      Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz)
-         .withImport("java.util.TreeSet");
-//         .withAttribute("valueNames", DataType.ref("ArrayListSet"), "new ArrayListSet()");
+      Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz);
 
       new Association()
          .withSource(new Role(modelClass, "classModel", Card.ONE).withKind(Role.AGGREGATION))
          .withTarget(enumClass, "enumerations", Card.MANY);
-
-      new Association()
-         .withSource(new Role(enumClass, "enumeration", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(methodClass, "methods", Card.MANY);
 
       // ---- Enumeration END ----
 
