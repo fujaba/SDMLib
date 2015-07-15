@@ -194,13 +194,13 @@ public class ClazzCreator extends EntityFactory
 
       if (Clazz.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
       {
-         ((Clazz) target).withAnnotations((Annotation) value);
+         ((Clazz) target).withAnnotation((Annotation) value);
          return true;
       }
       
       if ((Clazz.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Clazz) target).withoutAnnotations((Annotation) value);
+         ((Clazz) target).withoutAnnotation((Annotation) value);
          return true;
       }
 
@@ -220,5 +220,3 @@ public class ClazzCreator extends EntityFactory
       ((Clazz) entity).removeYou();
    }
 }
-
-

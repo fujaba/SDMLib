@@ -23,7 +23,7 @@ package org.sdmlib.models.classes;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
 
-public class Attribute extends Value
+public class Attribute extends Value implements AnnotationOwner
 {
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final AttributeSet EMPTY_SET = new AttributeSet().withReadOnly(true);
@@ -90,7 +90,7 @@ public class Attribute extends Value
    {
       super.removeYou();
       setClazz(null);
-      withoutAnnotations(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
+      withoutAnnotation(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
@@ -170,7 +170,7 @@ public class Attribute extends Value
       return this.annotations;
    }
 
-   public Attribute withAnnotations(Annotation... value)
+   public Attribute withAnnotation(Annotation... value)
    {
       if(value==null){
          return this;
@@ -188,7 +188,7 @@ public class Attribute extends Value
 
             if (changed)
             {
-               item.withAttribute(this);
+               item.withOwner(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, null, item);
             }
          }
@@ -196,7 +196,7 @@ public class Attribute extends Value
       return this;
    } 
 
-   public Attribute withoutAnnotations(Annotation... value)
+   public Attribute withoutAnnotation(Annotation... value)
    {
       for (Annotation item : value)
       {
@@ -204,7 +204,7 @@ public class Attribute extends Value
          {
             if (this.annotations.remove(item))
             {
-               item.setAttribute(null);
+               item.setOwner(null);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, item, null);
             }
          }
@@ -215,7 +215,7 @@ public class Attribute extends Value
    public Annotation createAnnotations()
    {
       Annotation value = new Annotation();
-      withAnnotations(value);
+      withAnnotation(value);
       return value;
    } 
 }

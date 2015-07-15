@@ -744,7 +744,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withAnnotations(value);
+         obj.withAnnotation(value);
       }
       
       return this;
@@ -754,7 +754,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutAnnotations(value);
+         obj.withoutAnnotation(value);
       }
       
       return this;
@@ -798,7 +798,3 @@ public class ClazzSet extends SDMSet<Clazz>
    }
 
 }
-
-
-
-

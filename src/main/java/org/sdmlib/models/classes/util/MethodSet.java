@@ -349,7 +349,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withAnnotations(value);
+         obj.withAnnotation(value);
       }
       
       return this;
@@ -359,14 +359,10 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withoutAnnotations(value);
+         obj.withoutAnnotation(value);
       }
       
       return this;
    }
 
 }
-
-
-
-

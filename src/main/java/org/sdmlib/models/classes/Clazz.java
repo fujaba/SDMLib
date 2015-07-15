@@ -29,7 +29,11 @@ import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
 
-public class Clazz extends SDMLibClass
+/**
+ * @author Stefan
+ *
+ */
+public class Clazz extends SDMLibClass implements AnnotationOwner
 {
    public static final String PROPERTY_ATTRIBUTES = "attributes";
    public static final String PROPERTY_CLASSMODEL = "classModel";
@@ -72,6 +76,22 @@ public class Clazz extends SDMLibClass
       
       return this;
    }
+
+   
+   public Clazz withAssoc(Clazz tgtClass, String tgtRoleName, Card tgtCard)
+   {      
+      Association assoc = new Association()
+      .withTarget(tgtClass, tgtRoleName, tgtCard)
+      .withSource(this, null, null);
+
+      if (this.getClassModel() != null && this.getClassModel().getGenerator() != null)
+      {
+         this.getClassModel().getGenerator().addToAssociations(assoc);
+      }
+      
+      return this;
+   }
+
    
    public void withUniDirectionalAssoc(Clazz tgtClass, String tgtRoleName, Card tgtCard)
    {
@@ -355,7 +375,7 @@ public class Clazz extends SDMLibClass
       withoutAttributes(this.getAttributes().toArray(new Attribute[this.getAttributes().size()]));
       withoutMethods(this.getMethods().toArray(new Method[this.getMethods().size()]));
       withoutRoles(this.getRoles().toArray(new Role[this.getRoles().size()]));
-      withoutAnnotations(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
+      withoutAnnotation(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
@@ -842,7 +862,7 @@ public class Clazz extends SDMLibClass
       return this.annotations;
    }
 
-   public Clazz withAnnotations(Annotation... value)
+   public Clazz withAnnotation(Annotation... value)
    {
       if(value==null){
          return this;
@@ -860,7 +880,7 @@ public class Clazz extends SDMLibClass
 
             if (changed)
             {
-               item.withClazz(this);
+               item.withOwner(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, null, item);
             }
          }
@@ -868,7 +888,7 @@ public class Clazz extends SDMLibClass
       return this;
    } 
 
-   public Clazz withoutAnnotations(Annotation... value)
+   public Clazz withoutAnnotation(Annotation... value)
    {
       for (Annotation item : value)
       {
@@ -876,7 +896,7 @@ public class Clazz extends SDMLibClass
          {
             if (this.annotations.remove(item))
             {
-               item.setClazz(null);
+               item.setOwner(null);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, item, null);
             }
          }
@@ -887,7 +907,7 @@ public class Clazz extends SDMLibClass
    public Annotation createAnnotations()
    {
       Annotation value = new Annotation();
-      withAnnotations(value);
+      withAnnotation(value);
       return value;
    }
 
@@ -915,5 +935,5 @@ public class Clazz extends SDMLibClass
    {
       setAbztract(value);
       return this;
-   } 
+   }
 }

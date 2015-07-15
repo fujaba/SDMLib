@@ -26,7 +26,7 @@ import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
 
-public class Method extends SDMLibClass
+public class Method extends SDMLibClass implements AnnotationOwner
 {
    public static final String PROPERTY_RETURNTYPE = "returnType";
    public static final String PROPERTY_PARAMETER = "parameter";
@@ -247,7 +247,7 @@ public class Method extends SDMLibClass
       without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       withoutParameter(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       setEnumeration(null);
-      withoutAnnotations(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
+      withoutAnnotation(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -469,7 +469,7 @@ public class Method extends SDMLibClass
       return this.annotations;
    }
 
-   public Method withAnnotations(Annotation... value)
+   public Method withAnnotation(Annotation... value)
    {
       if(value==null){
          return this;
@@ -487,7 +487,7 @@ public class Method extends SDMLibClass
 
             if (changed)
             {
-               item.withMethod(this);
+               item.withOwner(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, null, item);
             }
          }
@@ -495,7 +495,7 @@ public class Method extends SDMLibClass
       return this;
    } 
 
-   public Method withoutAnnotations(Annotation... value)
+   public Method withoutAnnotation(Annotation... value)
    {
       for (Annotation item : value)
       {
@@ -503,7 +503,7 @@ public class Method extends SDMLibClass
          {
             if (this.annotations.remove(item))
             {
-               item.setMethod(null);
+               item.setOwner(null);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, item, null);
             }
          }
@@ -514,7 +514,7 @@ public class Method extends SDMLibClass
    public Annotation createAnnotations()
    {
       Annotation value = new Annotation();
-      withAnnotations(value);
+      withAnnotation(value);
       return value;
    } 
 }

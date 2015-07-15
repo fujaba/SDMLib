@@ -1,6 +1,7 @@
 package org.sdmlib.models.classes.logic;
 
 import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.classes.AnnotationOwner;
 import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
@@ -41,17 +42,15 @@ public abstract class Generator<M>
 
    public GenAnnotation getGenerator(Annotation annotation)
    {
-      if (annotation.getClazz() != null)
-      {
-         return annotation.getClazz().getClassModel().getGenerator().getOrCreate(annotation);
+	   AnnotationOwner owner = annotation.getOwner();
+	   if(owner instanceof Clazz) {
+         return ((Clazz)owner).getClassModel().getGenerator().getOrCreate(annotation);
       }
-      if (annotation.getMethod() != null)
-      {
-         return annotation.getMethod().getClazz().getClassModel().getGenerator().getOrCreate(annotation);
+      if (owner instanceof Method) {
+         return ((Method)owner).getClazz().getClassModel().getGenerator().getOrCreate(annotation);
       }
-      if (annotation.getAttribute() != null)
-      {
-         return annotation.getAttribute().getClazz().getClassModel().getGenerator().getOrCreate(annotation);
+      if (owner instanceof Attribute) {
+         return ((Attribute)owner).getClazz().getClassModel().getGenerator().getOrCreate(annotation);
       }
       return null;
    }

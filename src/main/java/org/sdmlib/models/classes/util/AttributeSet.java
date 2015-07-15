@@ -228,7 +228,7 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.withAnnotations(value);
+         obj.withAnnotation(value);
       }
       
       return this;
@@ -238,14 +238,9 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.withoutAnnotations(value);
+         obj.withoutAnnotation(value);
       }
       
       return this;
    }
-
 }
-
-
-
-

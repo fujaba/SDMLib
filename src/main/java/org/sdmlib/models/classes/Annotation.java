@@ -26,76 +26,25 @@ import java.util.Set;
 
 public class Annotation extends SDMLibClass
 {
+   // ==========================================================================
+   public static final String DEPRECATED = "Deprecated";
 
    // ==========================================================================
+   public static final String OVERRIDE = "Override";
 
+   // ==========================================================================
+   public static final String SAFE_VARGARGS = "SafeVarargs";
+
+   // ==========================================================================
+   public static final String SUPPRESS_WARNINGS = "SuppressWarnings";
+   
+   // ==========================================================================
    @Override
    public void removeYou()
    {
       super.removeYou();
-
-      setClazz(null);
-      setMethod(null);
-      setAttribute(null);
+      setOwner(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
-
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Annotation ----------------------------------- Clazz
-    *              annotations                   clazz
-    * </pre>
-    */
-
-   public static final String PROPERTY_CLAZZ = "clazz";
-
-   private Clazz clazz = null;
-
-   public Clazz getClazz()
-   {
-      return this.clazz;
-   }
-
-   public boolean setClazz(Clazz value)
-   {
-      boolean changed = false;
-
-      if (this.clazz != value)
-      {
-         Clazz oldValue = this.clazz;
-
-         if (this.clazz != null)
-         {
-            this.clazz = null;
-            oldValue.withoutAnnotations(this);
-         }
-
-         this.clazz = value;
-
-         if (value != null)
-         {
-            value.withAnnotations(this);
-         }
-
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLAZZ, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Annotation withClazz(Clazz value)
-   {
-      setClazz(value);
-      return this;
-   }
-
-   public Clazz createClazz()
-   {
-      Clazz value = new Clazz(null);
-      withClazz(value);
-      return value;
    }
 
    /********************************************************************
@@ -106,54 +55,45 @@ public class Annotation extends SDMLibClass
     * </pre>
     */
 
-   public static final String PROPERTY_METHOD = "method";
+   public static final String PROPERTY_OWNER = "owner";
 
-   private Method method = null;
+   private AnnotationOwner owner = null;
 
-   public Method getMethod()
+   public AnnotationOwner getOwner()
    {
-      return this.method;
+      return this.owner;
    }
 
-   public boolean setMethod(Method value)
+   public boolean setOwner(AnnotationOwner value)
    {
       boolean changed = false;
 
-      if (this.method != value)
+      if (this.owner != value)
       {
-         Method oldValue = this.method;
-
-         if (this.method != null)
+    	 AnnotationOwner oldValue = this.owner;
+         if (this.owner != null)
          {
-            this.method = null;
-            oldValue.withoutAnnotations(this);
+            this.owner = null;
+            oldValue.withoutAnnotation(this);
          }
 
-         this.method = value;
+         this.owner = value;
 
          if (value != null)
          {
-            value.withAnnotations(this);
+            value.withAnnotation(this);
          }
 
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_METHOD, oldValue, value);
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNER, oldValue, value);
          changed = true;
       }
-
       return changed;
    }
 
-   public Annotation withMethod(Method value)
+   public Annotation withOwner(AnnotationOwner value)
    {
-      setMethod(value);
+	  setOwner(value);
       return this;
-   }
-
-   public Method createMethod()
-   {
-      Method value = new Method();
-      withMethod(value);
-      return value;
    }
 
    @Override
@@ -201,15 +141,6 @@ public class Annotation extends SDMLibClass
 
    private Set<String> values;
 
-   public Set<String> createValues()
-   {
-      if (values == null)
-      {
-         values = new HashSet<String>();
-      }
-      return values;
-   }
-
    public Set<String> getValues()
    {
       if (values == null)
@@ -256,79 +187,5 @@ public class Annotation extends SDMLibClass
          }
       }
       return this;
-   }
-
-   // ==========================================================================
-
-   public static final String DEPRECATED = "Deprecated";
-
-   // ==========================================================================
-
-   public static final String OVERRIDE = "Override";
-
-   // ==========================================================================
-
-   public static final String SAFE_VARGARGS = "SafeVarargs";
-
-   // ==========================================================================
-
-   public static final String SUPPRESS_WARNINGS = "SuppressWarnings";
-
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Annotation ----------------------------------- Attribute
-    *              annotations                   attribute
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ATTRIBUTE = "attribute";
-
-   private Attribute attribute = null;
-
-   public Attribute getAttribute()
-   {
-      return this.attribute;
-   }
-
-   public boolean setAttribute(Attribute value)
-   {
-      boolean changed = false;
-      
-      if (this.attribute != value)
-      {
-         Attribute oldValue = this.attribute;
-         
-         if (this.attribute != null)
-         {
-            this.attribute = null;
-            oldValue.withoutAnnotations(this);
-         }
-         
-         this.attribute = value;
-         
-         if (value != null)
-         {
-            value.withAnnotations(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ATTRIBUTE, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Annotation withAttribute(Attribute value)
-   {
-      setAttribute(value);
-      return this;
-   } 
-
-   public Attribute createAttribute()
-   {
-      Attribute value = new Attribute(null, null);
-      withAttribute(value);
-      return value;
    }
 }

@@ -23,7 +23,7 @@ public class AnnotationTest {
 		
 		Clazz house = model.createClazz("House").withSuperClazz(cube);
 		house.createMethod("init")
-				.withAnnotations(
+				.withAnnotation(
 						new Annotation().withName("Override")
 				);
 		

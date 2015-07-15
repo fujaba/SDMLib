@@ -453,7 +453,7 @@ public class GenClass extends Generator<Clazz>
 
             for (Method method : interfaze.getMethods())
             {
-               method.withAnnotations(new Annotation().withName("Override"));
+               method.withAnnotation(new Annotation().withName("Override"));
                getGenerator(method).generate(model, rootDir, helpersDir);
             }
 

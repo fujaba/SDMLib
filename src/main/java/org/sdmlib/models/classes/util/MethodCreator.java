@@ -126,13 +126,13 @@ public class MethodCreator extends SDMLibClassCreator
 
       if (Method.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
       {
-         ((Method) target).withAnnotations((Annotation) value);
+         ((Method) target).withAnnotation((Annotation) value);
          return true;
       }
       
       if ((Method.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Method) target).withoutAnnotations((Annotation) value);
+         ((Method) target).withoutAnnotation((Annotation) value);
          return true;
       }
 

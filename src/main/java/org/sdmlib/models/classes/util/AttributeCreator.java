@@ -130,13 +130,13 @@ public class AttributeCreator extends EntityFactory
 
       if (Attribute.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
       {
-         ((Attribute) target).withAnnotations((Annotation) value);
+         ((Attribute) target).withAnnotation((Annotation) value);
          return true;
       }
       
       if ((Attribute.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Attribute) target).withoutAnnotations((Annotation) value);
+         ((Attribute) target).withoutAnnotation((Annotation) value);
          return true;
       }
       
