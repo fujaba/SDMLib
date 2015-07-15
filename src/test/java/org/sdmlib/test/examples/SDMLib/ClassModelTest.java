@@ -111,8 +111,8 @@ public class ClassModelTest
       // ---- Enumeration ----
 
       Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz)
-         .withImport("java.util.TreeSet")
-         .withAttribute("valueNames", DataType.ref("ArrayListSet"), "new ArrayListSet()");
+         .withImport("java.util.TreeSet");
+//         .withAttribute("valueNames", DataType.ref("ArrayListSet"), "new ArrayListSet()");
 
       new Association()
          .withSource(new Role(modelClass, "classModel", Card.ONE).withKind(Role.AGGREGATION))
