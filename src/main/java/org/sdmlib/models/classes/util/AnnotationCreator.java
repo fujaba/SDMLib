@@ -80,7 +80,8 @@ public class AnnotationCreator extends EntityFactory
       return null;
    }
    
-   @Override
+   @SuppressWarnings("unchecked")
+@Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       if (JsonIdMap.REMOVE.equals(type) && value != null)

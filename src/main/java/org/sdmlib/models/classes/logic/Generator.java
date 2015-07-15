@@ -66,10 +66,6 @@ public abstract class Generator<M>
       {
          return method.getClazz().getClassModel().getGenerator().getOrCreate(method);
       }
-      if (method.getEnumeration() != null)
-      {
-         return method.getEnumeration().getClassModel().getGenerator().getOrCreate(method);
-      }
       return null;
    }
 

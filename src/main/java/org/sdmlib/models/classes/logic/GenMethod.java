@@ -212,8 +212,6 @@ public class GenMethod extends Generator<Method>
    {
       if (model.getClazz() != null)
          generate(model.getClazz(), rootDir, helpersDir);
-      if (model.getEnumeration() != null)
-         generate(model.getEnumeration(), rootDir, helpersDir);
    }
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)

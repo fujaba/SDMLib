@@ -462,27 +462,6 @@ public class GenAttribute extends Generator<Attribute>
       }
    }
 
-   private String checkSetImportFor(String type)
-   {
-      //      Clazz findClass = model.getClazz().getClassModel().getGenerator().findClass(type);
-      Clazz clazz = getModel().getClazz().getClassModel().getClazz(type);
-      if (clazz == null)
-         return null;
-      Clazz attributClass = model.getClazz();
-      String packageNameFromFindClass = CGUtil.packageName(clazz.getFullName());
-      String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getFullName());
-      if (clazz.isExternal())
-      {
-    	  return null;
-//         return packageNameFromFindClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(clazz.getFullName()) + "Set";
-      }
-      if (!packageNameFromFindClass.equals(packageNameFromOwnerClass))
-      {
-         return packageNameFromOwnerClass + GenClassModel.UTILPATH + "." + CGUtil.shortClassName(clazz.getFullName()) + "Set";
-      }
-      return null;
-   }
-
    private String checkImportFor(String type)
    {
       Clazz findClass = model.getClazz().getClassModel().getGenerator().findClass(type);
