@@ -32,7 +32,7 @@ public class Template extends TemplateTask{
 		if(condition != null && !model.hasFeature(condition)) {
 			return false;
 		}
-		return parser.indexOf(searchString) >= 0;
+		return parser.indexOf(searchString) <= 0;
 	}
 	
 
@@ -76,7 +76,7 @@ public class Template extends TemplateTask{
 		}
 		return null;
 	}
-	public StringBuilder execute(String... values) {
+	public TemplateResult execute(String... values) {
 		if(model == null) {
 			if(mode==DEBUG) {
 				throw new RuntimeException("model cant be null");
@@ -101,20 +101,28 @@ public class Template extends TemplateTask{
 				continue;
 			}
 			// cool its Variable
-			int end=i+1;
+			i++;
+			int end=i;
 			for(;end<template.length();end++) {
-				if(template.charAt(end) != '}') {
+				if(template.charAt(end) == '}') {
 					break;
 				}
 			}
-			String name=template.substring(i, end -1).toLowerCase();
-			variables.with(new ReplaceText(name));
+			String name=template.substring(i, end);
+			String first = name.substring(0, 1);
+			if(first.toLowerCase() != first) {
+				name = name.toLowerCase();
+			}
+			if(get(name)==null) {
+				variables.with(new ReplaceText(name));
+			}
 			firstFound = false;
 		}
 		
 		for(int i=0;i<values.length;i+=2) {
 			ReplaceText item = get(values[i]);
 			if(item == null) {
+				variables.with(new ReplaceText(values[i], values[i+1]));
 				continue;
 			}
 			if(item.getText(model)!=null){
@@ -146,21 +154,21 @@ public class Template extends TemplateTask{
 			}
 		}
 		for(int i = 0; i < variables.size(); i++) {
-			if(variables.get(i)==null && mode==DEBUG) {
-				throw new RuntimeException("Variable <"+variables.getKeyByIndex(i)+">cant be null: "+values[i]);
+			if(variables.get(i).getText(model)==null && mode==DEBUG) {
+				throw new RuntimeException("Variable <"+variables.get(i).getSearch()+">cant be null: "+values[i]);
 			}
 		}
-		StringBuilder text=new StringBuilder(template.toString());
+		TemplateResult text = new TemplateResult(template.toString()); 
 		// in the second run, replace <$<placeholders>$> by replacement
 	    for (int i = 0; i < variables.size(); i ++) {
 	    	ReplaceText replaceText = variables.get(i);
 	    	String placeholder = "{{" + replaceText.getSearch() + "}}";
 	        int pos = -1 - placeholder.length();
-	        pos = text.indexOf(replaceText.getSearch(), pos + placeholder.length());
+	        pos = text.indexOf(placeholder, pos + placeholder.length());
 	        while (pos >= 0)
 	         {
 	            String newString = replaceText.getText(model);
-	            imports.add(replaceText.getImport(model));
+	            text.addImports(replaceText.getImport(model));
 	            text.replace(pos, pos + placeholder.length(), newString);
 	            pos = text.indexOf(placeholder, pos + newString.length());
 	         }

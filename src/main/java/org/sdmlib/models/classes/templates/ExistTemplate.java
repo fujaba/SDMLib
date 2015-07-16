@@ -22,22 +22,19 @@ public class ExistTemplate extends TemplateTask{
 	}
 	
 	
-	public StringBuilder execute(String... values) {
-		StringBuilder sb=new StringBuilder();
-		sb.append(template);
+	public TemplateResult execute(String... values) {
+		TemplateResult text=new TemplateResult(template);
 		boolean added=false;
 		for(TemplateTask template : templates) {
-			StringBuilder sub = template.execute(values);
-			if(sub!=null) {
-				sb.append(sub.toString());
+			TemplateResult sub = template.execute(values);
+			if(text.append(sub)) {
 				added = true;
-				imports.withList(template.getImports());
 			}
 		}
 		if(!added) {
 			return null;
 		}
-		return sb;
+		return text;
 	}
 
 	public ExistTemplate withTemplate(String value) {

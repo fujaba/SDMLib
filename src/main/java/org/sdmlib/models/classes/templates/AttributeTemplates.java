@@ -42,10 +42,10 @@ public class AttributeTemplates {
 	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
 	    		  .withCondition(!attribute.getClazz().isInterface())
 	    		  .withCondition(!attribute.getVisibility().has(Modifier.STATIC))
-	      		  .withTemplate("\n   public static final String {{PROPERTY_NAME}} = \"{{name}}\";\n   ");
+	      		  .withTemplate("\n   public static final String PROPERTY_{{NAME}} = \"{{name}}\";\n   ");
 		
 		Template attrDecl = new Template(Parser.ATTRIBUTE + ":" + attribute.getName())
-				.withTemplate("\n   {{modifier}} {{type}} {{name}} {{init}};\n");
+				.withTemplate("\n   {{modifier}} {{type}} {{name}}{{init}};\n");
 
 		allTemplates.withTemplates(attrPropertyDecl, attrDecl);
 	      // if constant field -> return
@@ -77,14 +77,14 @@ public class AttributeTemplates {
 		      }
 	    	  
 	    	  Template attrSetter = new Template(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")");
-	    	  attrSetter.withVariable(ReplaceText.create("PGOLD", Feature.PropertyChangeSupport, "\n         type oldValue = this.name;"));
-	    	  attrSetter.withVariable(ReplaceText.create("PROPERTYCHANGE", Feature.PropertyChangeSupport, "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);"));
-	    	  attrSetter.withVariable(ReplaceText.create("valueCompare", "String".equalsIgnoreCase(attribute.getType().getValue()), StrUtil.class.getName(), " ! StrUtil.stringEquals(this.name, value)", "this.name != value"));
+	    	  attrSetter.withVariable(ReplaceText.create("pgold", Feature.PropertyChangeSupport, "\n         {{type}} oldValue = this.{{name}};"));
+	    	  attrSetter.withVariable(ReplaceText.create("propertychange", Feature.PropertyChangeSupport, "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_{{NAME}}, oldValue, value);"));
+	    	  attrSetter.withVariable(ReplaceText.create("valuecompare", "String".equalsIgnoreCase(attribute.getType().getValue()), StrUtil.class.getName(), " ! StrUtil.stringEquals(this.{{name}}, value)", "this.{{name}} != value"));
 	    	  attrSetter.withTemplate("\n   public void set{{Name}}({{type}} value)" +
 	                  "\n   {" +
-	                  "\n      if ({{valueCompare}})" +
-	                  "\n      {{{PGOLD}}" +
-	                  "\n         this.{{name}} = value;{{PROPERTYCHANGE}}" +
+	                  "\n      if ({{valuecompare}}) {" +
+	                  "\n      {{pgold}}" +
+	                  "\n         this.{{name}} = value;{{propertychange}}" +
 	                  "\n      }" +
 	                  "\n   }" +
 	                  "\n   ");

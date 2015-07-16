@@ -37,7 +37,7 @@ public class GenAttribute extends Generator<Attribute>
 			  	"name", model.getName(),
 			  	"type", CGUtil.shortClassName(model.getType().getValue()),
 			  	"modifier", model.getVisibility().getValue(),
-			  	" init", model.getInitialization() == null ? "" : " = " +
+			  	"init", model.getInitialization() == null ? "" : " = " +
                         (DataType.STRING.equals(model.getType()) ? "\"" + model.getInitialization() + "\"" : model.getInitialization()),
                 "ownerClass", CGUtil.shortClassName(clazz.getFullName()));
 

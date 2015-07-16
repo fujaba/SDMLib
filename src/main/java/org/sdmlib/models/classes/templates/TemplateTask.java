@@ -3,11 +3,8 @@ package org.sdmlib.models.classes.templates;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.list.SimpleList;
-
 public abstract class TemplateTask {
 	protected String template;
-	protected SimpleList<String> imports;
 
 	public abstract TemplateTask withTemplate(String value);
 
@@ -15,23 +12,18 @@ public abstract class TemplateTask {
 
 	// public TemplateTask withVariable(String... values);
 	// public TemplateTask withVariable(ReplaceText... values);
-	public abstract StringBuilder execute(String... values);
-
-	public SimpleList<String> getImports() {
-		return imports;
-	}
+	public abstract TemplateResult execute(String... values);
 
 	public boolean insert(Parser parser, String... values) {
-		this.imports = new SimpleList<String>();
-		 StringBuilder text = execute(values);
-		 if(text==null) {
+		TemplateResult text = execute(values);
+		 if(text == null || text.isEmpty()) {
 			 return false;
 		 }
 		 int pos = parser.indexOf(Parser.CLASS_END);
-		 for(String item : imports) {
+         parser.insert(pos, text.getTextValue());
+         for(String item : text.getImports()) {
 			 parser.insertImport(item);
 		 }
-         parser.insert(pos, text.toString());
          return true;
 	}
 }
