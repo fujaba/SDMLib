@@ -58,15 +58,15 @@ public class Template extends TemplateTask{
 		return this;
 	}
 	
-	public Template withVariable(String... values) {
-		if(values==null) {
-			return this;
-		}
-		for(String item : values) {
-			variables.with(new ReplaceText(item));
-		}
-		return this;
-	}
+//	public Template withVariable(String... values) {
+//		if(values==null) {
+//			return this;
+//		}
+//		for(String item : values) {
+//			variables.with(new ReplaceText(item));
+//		}
+//		return this;
+//	}
 	
 	public ReplaceText get(String value) {
 		for(ReplaceText item : variables) {
@@ -89,6 +89,29 @@ public class Template extends TemplateTask{
 			}
 			return null;
 		}
+		// Read all Variables from Template
+		boolean firstFound=false;
+		for(int i=0;i<template.length();i++) {
+			if(template.charAt(i) != '{') {
+				firstFound = false;
+				continue;
+			}
+			if(!firstFound) {
+				firstFound = true;
+				continue;
+			}
+			// cool its Variable
+			int end=i+1;
+			for(;end<template.length();end++) {
+				if(template.charAt(end) != '}') {
+					break;
+				}
+			}
+			String name=template.substring(i, end -1).toLowerCase();
+			variables.with(new ReplaceText(name));
+			firstFound = false;
+		}
+		
 		for(int i=0;i<values.length;i+=2) {
 			ReplaceText item = get(values[i]);
 			if(item == null) {

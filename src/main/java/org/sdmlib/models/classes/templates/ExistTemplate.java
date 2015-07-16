@@ -49,6 +49,7 @@ public class ExistTemplate extends TemplateTask{
 		for(int i=0; i < templates.size(); i++) {
 			if(!templates.get(i).validate(parser, model)) {
 				templates.remove(i);
+				i--;
 				continue;
 			}
 		}

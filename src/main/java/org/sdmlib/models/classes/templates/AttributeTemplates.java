@@ -14,26 +14,18 @@ public class AttributeTemplates {
 	            "\n   ");
 	      Template attrDecl = new Template()
 	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
-	    		  .withVariable("name")
-	      		  .withTemplate("\n   public static final String {{PROPERTY_NAME}} = \"{{name}}\";\n   ");
+	      		  .withTemplate("\n   public static final String PROPERTY_{{NAME}} = \"{{name}}\";\n   ");
 
 	      Template attrGet = new Template()
 	    		  .withSearch(Parser.METHOD + ":get" + StrUtil.upFirstChar(attribute.getName()) + "()")
-	    		  .withVariable( "type" )
-	    		  .withVariable( "name" )
 	    		  .withTemplate( "\n   public {{type}} get{{Name}}();\n" );
 
 	      Template attrSet = new Template()
 	    		  .withSearch(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
-	    		  .withVariable( "name" )
-	    		  .withVariable( "type" )
 	    		  .withTemplate( "\n   public void set{{Name}}({{type}} value);\n" );
 
 	      Template attrWith = new Template()
 	    		  .withSearch(Parser.METHOD + ":with" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
-	    		  .withVariable( "ownerClass" )
-	    		  .withVariable( "name" )
-	    		  .withVariable( "type" )
 	    		  .withTemplate( "\n   public {{ownerClass}} with{{Name}}({{type}} value);\n" );
 	      
 
@@ -50,11 +42,9 @@ public class AttributeTemplates {
 	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
 	    		  .withCondition(!attribute.getClazz().isInterface())
 	    		  .withCondition(!attribute.getVisibility().has(Modifier.STATIC))
-	    		  .withVariable("name")
 	      		  .withTemplate("\n   public static final String {{PROPERTY_NAME}} = \"{{name}}\";\n   ");
 		
 		Template attrDecl = new Template(Parser.ATTRIBUTE + ":" + attribute.getName())
-				.withVariable("modifier", "type", "name", "init")
 				.withTemplate("\n   {{modifier}} {{type}} {{name}} {{init}};\n");
 
 		allTemplates.withTemplates(attrPropertyDecl, attrDecl);
@@ -85,14 +75,12 @@ public class AttributeTemplates {
 					                  "\n   }" +
 					                  "\n   ");
 		      }
-	    	  attrGetter.withVariable("type", "name");
 	    	  
 	    	  Template attrSetter = new Template(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")");
 	    	  attrSetter.withVariable(ReplaceText.create("PGOLD", Feature.PropertyChangeSupport, "\n         type oldValue = this.name;"));
 	    	  attrSetter.withVariable(ReplaceText.create("PROPERTYCHANGE", Feature.PropertyChangeSupport, "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);"));
 	    	  attrSetter.withVariable(ReplaceText.create("valueCompare", "String".equalsIgnoreCase(attribute.getType().getValue()), StrUtil.class.getName(), " ! StrUtil.stringEquals(this.name, value)", "this.name != value"));
-	    	  attrSetter.withVariable("name", "type", "valueCompare")
-	    			  .withTemplate("\n   public void set{{Name}}({{type}} value)" +
+	    	  attrSetter.withTemplate("\n   public void set{{Name}}({{type}} value)" +
 	                  "\n   {" +
 	                  "\n      if ({{valueCompare}})" +
 	                  "\n      {{{PGOLD}}" +
