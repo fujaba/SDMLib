@@ -283,7 +283,6 @@ public class GenMethod extends Generator<Method>
             type = type.substring(0, type.length() - 2);
          }
          String importType = type;
-         GenClass generator = model.getClazz().getClassModel().getGenerator().getOrCreate(model.getClazz());
          if ("void".equals(type))
          {
             type = CGUtil.shortClassName(clazz2.getFullName()) + "Set";
@@ -310,7 +309,7 @@ public class GenMethod extends Generator<Method>
                importType = importType.substring(0, dotpos) + GenClassModel.UTILPATH + "." + type;
             }
 
-            generator.insertImport(parser, importType);
+            parser.insertImport(importType);
 
             returnSetCreate = type + " result = new " + type + "();\n      ";
 
@@ -415,10 +414,9 @@ public class GenMethod extends Generator<Method>
          if(type.indexOf(".")<0 && type.equals(model.getClazz().getName())) {
         	 type = model.getClazz().getFullName();
          }
-         GenClass generator = model.getClazz().getClassModel().getGenerator().getOrCreate(model.getClazz());
          if (!("Object".indexOf(type) >= 0))
          {
-            generator.insertImport(parser, importType); 
+        	 parser.insertImport(importType); 
          }
 
          if (!"void".equals(type))

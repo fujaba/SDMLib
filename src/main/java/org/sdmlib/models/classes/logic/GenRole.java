@@ -436,7 +436,7 @@ public class GenRole extends Generator<Role>
          
          if(generator!=null)
          {
-            generator.insertImport(myParser, kid.getFullName());
+        	 myParser.insertImport(kid.getFullName());
          }
       }
       
@@ -472,7 +472,7 @@ public class GenRole extends Generator<Role>
          "reverseWithoutCall(this)", reverseWithoutCall
          );
       if(generator!=null){
-         generator.insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
+    	  myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
       }
    } 
    
@@ -720,7 +720,7 @@ public class GenRole extends Generator<Role>
       GenClass generator = getGenerator(model.getClazz());
       if (model.getPartnerRole().getCard().equals(Card.MANY.toString())){
          if(generator!=null ){
-            generator.insertImport(myParser, getGenerator(partnerRole.getClazz()).getModelSetClassName());
+        	 myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
          }
       }
    } 
@@ -927,8 +927,8 @@ public class GenRole extends Generator<Role>
             "      return answer;\n" + 
             "   }\n" + 
             "\n");
-            getGenerator(tgtClass).insertImport(parser, Collection.class.getName());
-            getGenerator(tgtClass).insertImport(parser, ObjectSet.class.getName());
+            parser.insertImport(Collection.class.getName());
+            parser.insertImport(ObjectSet.class.getName());
             
             String containsClause = "neighbors.contains(obj.get"
                   + StrUtil.upFirstChar(partnerRole.getName()) + "())";
@@ -937,7 +937,7 @@ public class GenRole extends Generator<Role>
             {
                containsClause = " ! Collections.disjoint(neighbors, obj.get" 
                      + StrUtil.upFirstChar(partnerRole.getName()) + "())";
-               getGenerator(tgtClass).insertImport(parser, Collections.class.getName());
+               parser.insertImport(Collections.class.getName());
             }
             CGUtil.replaceAll(text, "containsClause", containsClause);
             
@@ -1028,7 +1028,7 @@ public class GenRole extends Generator<Role>
             // thus just for real classes that may be in other packages
             String helperClassName = CGUtil.helperClassName(partnerRole.getClazz().getFullName(),"Set");
             
-            getGenerator(tgtClass).insertImport(parser, helperClassName);
+            parser.insertImport(helperClassName);
          }
       }
    }
@@ -1143,7 +1143,7 @@ public class GenRole extends Generator<Role>
          
          parser.insert(classEnd, text.toString());
          if(partnerClass.indexOf(".")<0){
-            getGenerator(partnerRole.getClazz()).insertImport(parser, partnerRole.getClazz().getFullName());
+        	 parser.insertImport(partnerRole.getClazz().getFullName());
          }
       }
    }
@@ -1288,7 +1288,7 @@ public class GenRole extends Generator<Role>
          
          parser.insert(classEnd, text.toString());
          
-         getGenerator(tgtClass).insertImport(parser, partnerRole.getClazz().getFullName());
+         parser.insertImport(partnerRole.getClazz().getFullName());
       }
       
       if (partnerRole.getCard().equals(Card.MANY.toString()))
@@ -1321,7 +1321,7 @@ public class GenRole extends Generator<Role>
             
             parser.insert(classEnd, text.toString());
             
-            getGenerator(tgtClass).insertImport(parser, partnerRole.getClazz().getFullName());
+            parser.insertImport(partnerRole.getClazz().getFullName());
          }
       }
    }
@@ -1362,7 +1362,7 @@ public class GenRole extends Generator<Role>
             );
 
          parser.insert(endOfStringArrayInit, text.toString());
-         getGenerator(clazz).insertImport(parser, model.getClazz().getFullName());
+         parser.insertImport(model.getClazz().getFullName());
       }
    }
    
@@ -1428,9 +1428,8 @@ public class GenRole extends Generator<Role>
 
          parser.insert(lastIfEndPos, text.toString());
          
-         getGenerator(clazz).insertImport(parser, JsonIdMap.class.getName());
-
-         getGenerator(clazz).insertImport(parser, partnerRole.getClazz().getFullName());
+         parser.insertImport(JsonIdMap.class.getName());
+         parser.insertImport(partnerRole.getClazz().getFullName());
          
       }
    }
@@ -1490,8 +1489,7 @@ public class GenRole extends Generator<Role>
             );
 
          parser.insert(lastIfEndPos, text.toString());
-         
-         getGenerator(clazz).insertImport(parser, partnerRole.getClazz().getFullName());
+         parser.insertImport(partnerRole.getClazz().getFullName());
       }
    }
    

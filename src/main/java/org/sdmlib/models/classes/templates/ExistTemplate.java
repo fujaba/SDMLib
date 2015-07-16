@@ -5,9 +5,8 @@ import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.list.SimpleList;
 
-public class ExistTemplate implements TemplateTask{
+public class ExistTemplate extends TemplateTask{
 	public SimpleList<TemplateTask> templates=new SimpleList<TemplateTask>();
-	public String template;
 
 	public ExistTemplate() {
 		
@@ -32,6 +31,7 @@ public class ExistTemplate implements TemplateTask{
 			if(sub!=null) {
 				sb.append(sub.toString());
 				added = true;
+				imports.withList(template.getImports());
 			}
 		}
 		if(!added) {
@@ -40,13 +40,11 @@ public class ExistTemplate implements TemplateTask{
 		return sb;
 	}
 
-	@Override
 	public ExistTemplate withTemplate(String value) {
 		this.template = value;
 		return this;
 	}
 
-	@Override
 	public boolean validate(Parser parser, ClassModel model) {
 		for(int i=0; i < templates.size(); i++) {
 			if(!templates.get(i).validate(parser, model)) {
@@ -55,17 +53,5 @@ public class ExistTemplate implements TemplateTask{
 			}
 		}
 		return true;
-	}
-
-
-	@Override
-	public boolean insert(Parser parser, String... values) {
-		 StringBuilder text = execute(values);
-		 if(text==null) {
-			 return false;
-		 }
-		 int pos = parser.indexOf(Parser.CLASS_END);
-         parser.insert(pos, text.toString());
-         return true;
 	}
 }

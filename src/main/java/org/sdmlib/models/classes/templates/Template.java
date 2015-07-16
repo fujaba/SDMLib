@@ -5,13 +5,11 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 
-import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
 
-public class Template implements TemplateTask{
+public class Template extends TemplateTask{
 	public static final int DEBUG=1;
 	private String searchString;
-	private StringBuilder template;
 	private int mode=DEBUG;
 	private Feature condition;
 	private boolean active=true;
@@ -116,10 +114,10 @@ public class Template implements TemplateTask{
 					}
 					temp = values[i].toUpperCase();
 					item = get(temp); 
-
-					item = variables.indexOf(temp); 
-					if(item < 0 || variables.getValueByIndex(item) == null) {
-						variables.setValueItem(temp, values[i+1].toUpperCase());
+					if(item == null ) {
+						variables.with(new ReplaceText(temp, values[i+1].toUpperCase()));
+					}else if( item.getText(model) == null) {
+						item.withValue(values[i+1].toUpperCase());				
 					}
 				}
 			}
@@ -132,12 +130,14 @@ public class Template implements TemplateTask{
 		StringBuilder text=new StringBuilder(template.toString());
 		// in the second run, replace <$<placeholders>$> by replacement
 	    for (int i = 0; i < variables.size(); i ++) {
-	    	String placeholder = "{{" + variables.getKeyByIndex(i) + "}}";
+	    	ReplaceText replaceText = variables.get(i);
+	    	String placeholder = "{{" + replaceText.getSearch() + "}}";
 	        int pos = -1 - placeholder.length();
-	        pos = text.indexOf(variables.get(i), pos + placeholder.length());
+	        pos = text.indexOf(replaceText.getSearch(), pos + placeholder.length());
 	        while (pos >= 0)
 	         {
-	            String newString = variables.getValueByIndex(i);
+	            String newString = replaceText.getText(model);
+	            imports.add(replaceText.getImport(model));
 	            text.replace(pos, pos + placeholder.length(), newString);
 	            pos = text.indexOf(placeholder, pos + newString.length());
 	         }
@@ -146,23 +146,15 @@ public class Template implements TemplateTask{
 	}
 
 	public Template withTemplate(String value) {
-		this.template = new StringBuilder(value);
+		this.template = value;
 		return this;
 	}
 	public Template addTemplate(String value) {
-		this.template.append(value);
+		if(this.template != null) {
+			this.template += value;
+		}else {
+			this.template = value;
+		}
 		return this;
-	}
-
-
-	@Override
-	public boolean insert(Parser parser, String... values) {
-		 StringBuilder text = execute(values);
-		 if(text==null) {
-			 return false;
-		 }
-		 int pos = parser.indexOf(Parser.CLASS_END);
-         parser.insert(pos, text.toString());
-         return true;
 	}
 }

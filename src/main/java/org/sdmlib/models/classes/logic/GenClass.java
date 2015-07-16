@@ -701,34 +701,7 @@ public class GenClass extends Generator<Clazz>
 
    public void insertImport(String className)
    {
-      insertImport(parser, className);
-   }
-
-   public void insertImport(Parser myParser, String className)
-   {
-      if (className.indexOf("<") > 0)
-      {
-         className = className.substring(0, className.indexOf("<"));
-      }
-      if ("String int double float boolean void".indexOf(className) >= 0)
-      {
-         return;
-      }
-
-      int pos = myParser.indexOf(Parser.IMPORT);
-
-      String prefix = "";
-      if (myParser.search(Parser.IMPORT, pos) < 0)
-      {
-         prefix = "\n";
-      }
-
-      SymTabEntry symTabEntry = myParser.getSymTab().get(Parser.IMPORT + ":" + className);
-      if (symTabEntry == null)
-      {
-         myParser.insert(myParser.getEndOfImports() + 1,
-            prefix + "\nimport " + className + ";");
-      }
+	   parser.insertImport(className);
    }
 
    public void printFile()
@@ -1266,7 +1239,7 @@ public class GenClass extends Generator<Clazz>
 
          parser.insert(pos, text.toString());
 
-         this.insertImport(parser, "java.util.Collection");
+         parser.insertImport("java.util.Collection");
       }
    }
 
@@ -1553,7 +1526,7 @@ public class GenClass extends Generator<Clazz>
 
          if (addImport)
          {
-            insertImport(patternObjectCreatorParser, name);
+        	 patternObjectCreatorParser.insertImport(name);
          }
       }
 
@@ -1632,7 +1605,7 @@ public class GenClass extends Generator<Clazz>
          typeName = typeName.substring(0, pos);
       }
 
-      insertImport(parser, typeName);
+      parser.insertImport(typeName);
 
       return baseName;
    }

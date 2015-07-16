@@ -23,64 +23,28 @@ public class GenAttribute extends Generator<Attribute>
    {
       parser.indexOf(Parser.CLASS_END);
       // add attribute declaration and get, set, with methods in class file
+      ExistTemplate templates;
       if (clazz.isInterface())
       {
-    	  //TODO CHANGE
-    	  ExistTemplate templates = AttributeTemplates.insertPropertyInInterface(model);
-    	  templates.validate(parser, model.getClazz().getClassModel());
-    	  templates.insert(parser, 
-    			  	"name", model.getName(),
-    			  	"type", CGUtil.shortClassName(model.getType().getValue()),
-    			  	"modifier", model.getVisibility().getValue(),
-    			  	" init", model.getInitialization() == null ? "" : " = " +
-                            (DataType.STRING.equals(model.getType()) ? "\"" + model.getInitialization() + "\"" : model.getInitialization()),
-                    "ownerClass", CGUtil.shortClassName(clazz.getFullName()));
-          ArrayList<String> importClassesFromTypes = checkImportClassesFromType(model.getType());
-          for (String typeImport : importClassesFromTypes)
-          {
-             getGenerator(clazz).insertImport(parser, typeImport);
-          }
+    	  templates = AttributeTemplates.insertPropertyInInterface(model);
       }
       else
       {
-         text = insertPropertyInClass(parser);
+    	  templates = AttributeTemplates.insertPropertyInClass(model);
       }
+	  templates.validate(parser, model.getClazz().getClassModel());
+	  templates.insert(parser, 
+			  	"name", model.getName(),
+			  	"type", CGUtil.shortClassName(model.getType().getValue()),
+			  	"modifier", model.getVisibility().getValue(),
+			  	" init", model.getInitialization() == null ? "" : " = " +
+                        (DataType.STRING.equals(model.getType()) ? "\"" + model.getInitialization() + "\"" : model.getInitialization()),
+                "ownerClass", CGUtil.shortClassName(clazz.getFullName()));
 
-      if (text == null)
-         return;
-
-      String valueCompare = "this.name != value";
-      if ("String".equalsIgnoreCase(model.getType().getValue()))
-      {
-         valueCompare = " ! StrUtil.stringEquals(this.name, value)";
-         getGenerator(clazz).insertImport(StrUtil.class.getName());
-      }
-
-      else if ("boolean".equalsIgnoreCase(model.getType().getValue()))
-      {
-         CGUtil.replaceAll(text, "getName()", "isName()");
-      }
-
-      CGUtil.replaceAll(text, "valueCompare", valueCompare);
-
-      CGUtil.replaceAll(text,
-            "type", CGUtil.shortClassName(model.getType().getValue()),
-            "modifier", model.getVisibility().getValue(),
-            "name", model.getName(),
-            "Name", StrUtil.upFirstChar(model.getName()),
-            "NAME", model.getName().toUpperCase(),
-            " init", model.getInitialization() == null ? "" : " = " +
-                  (DataType.STRING.equals(model.getType()) ? "\"" + model.getInitialization() + "\"" : model.getInitialization()),
-            "ownerClass", CGUtil.shortClassName(clazz.getFullName())
-            );
-
-      int pos = parser.indexOf(Parser.CLASS_END);
-
-      parser.insert(pos, text.toString());
       ArrayList<String> importClassesFromTypes = checkImportClassesFromType(model.getType());
       for (String typeImport : importClassesFromTypes)
       {
-         getGenerator(clazz).insertImport(parser, typeImport);
+    	  parser.insertImport(typeImport);
       }
    }
 
@@ -236,7 +200,7 @@ public class GenAttribute extends Generator<Attribute>
                      "   }\n" +
                      "   \n");
 
-         getGenerator(ownerClazz).insertImport(parser, AttributeConstraint.class.getName());
+         parser.insertImport(AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getFullName()) + "PO";
 
          String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser);
@@ -404,7 +368,7 @@ public class GenAttribute extends Generator<Attribute>
                      "   }\n" +
                      "   \n");
 
-         getGenerator(ownerClazz).insertImport(parser, AttributeConstraint.class.getName());
+         parser.insertImport(AttributeConstraint.class.getName());
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getFullName()) + "PO";
 
          String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser);
@@ -454,12 +418,12 @@ public class GenAttribute extends Generator<Attribute>
                      "   }\n" +
                      "   \n");
 
-         getGenerator(ownerClazz).insertImport(parser, AttributeConstraint.class.getName());
+         parser.insertImport(AttributeConstraint.class.getName());
 
          Clazz clazz = model.getClazz().getClassModel().getClazz(model.getType().getValue());
          if (clazz != null)
          {
-            getGenerator(ownerClazz).insertImport(parser, clazz.getFullName());
+        	 parser.insertImport(clazz.getFullName());
          }
          String patternObjectType = CGUtil.shortClassName(ownerClazz.getFullName()) + "PO";
 
@@ -576,7 +540,7 @@ public class GenAttribute extends Generator<Attribute>
             Clazz clazz = model.getClazz().getClassModel().getClazz(model.getType().getValue());
             if (clazz != null)
             {
-               getGenerator(ownerClazz).insertImport(parser, clazz.getFullName());
+            	parser.insertImport(clazz.getFullName());
             }
 
             modelSetType = CGUtil.shortClassName(fullModelSetType) + "Set";
@@ -673,7 +637,7 @@ public class GenAttribute extends Generator<Attribute>
          // getClazz()
          for (String setType : importClassesFromTypes)
          {
-            getGenerator(ownerClazz).insertImport(parser, setType);
+        	 parser.insertImport(setType);
          }
 
       }
@@ -938,19 +902,19 @@ public class GenAttribute extends Generator<Attribute>
             String iMport = checkImportFor(type);
 
             if (iMport != null)
-               getGenerator(ownerClazz).insertImport(parser, iMport);
+            	parser.insertImport(iMport);
          }
 
          if (isEnumType(model, ownerClazz, false))
          {
-            getGenerator(ownerClazz).insertImport(parser, model.getType().getValue());
+        	 parser.insertImport(model.getType().getValue());
          }
          if (modelClass)
          {
             Clazz clazz = model.getClazz().getClassModel().getClazz(model.getType().getValue());
             if (clazz != null)
             {
-               getGenerator(ownerClazz).insertImport(parser, clazz.getFullName());
+            	parser.insertImport(clazz.getFullName());
             }
          }
       }
@@ -1145,7 +1109,7 @@ public class GenAttribute extends Generator<Attribute>
          }
          insertGenericGetSetForWrapperInCreatorClass(parser, ownerClazz);
 
-         getGenerator(ownerClazz).insertImport(parser, model.getClazz().getFullName());
+         parser.insertImport(model.getClazz().getFullName());
       }
    }
 }

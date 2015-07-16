@@ -69,7 +69,6 @@ public class AttributeTemplates {
 	      if (attribute.getVisibility().equals(Modifier.PRIVATE))
 	      {
 	    	  Template attrGetter;
-	    	  String temp;
 	    	  if ("boolean".equalsIgnoreCase(attribute.getType().getValue()))
 		      {
 	    		  attrGetter = new Template(Parser.METHOD + ":is" + StrUtil.upFirstChar(attribute.getName()) + "()")
@@ -88,8 +87,11 @@ public class AttributeTemplates {
 		      }
 	    	  attrGetter.withVariable("type", "name");
 	    	  
-	    	  Template attrSetter = new Template(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
-	    			  .withVariable("name", "type", "valueCompare", "PGOLD", "PROPERTYCHANGE")
+	    	  Template attrSetter = new Template(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")");
+	    	  attrSetter.withVariable(ReplaceText.create("PGOLD", Feature.PropertyChangeSupport, "\n         type oldValue = this.name;"));
+	    	  attrSetter.withVariable(ReplaceText.create("PROPERTYCHANGE", Feature.PropertyChangeSupport, "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);"));
+	    	  attrSetter.withVariable(ReplaceText.create("valueCompare", "String".equalsIgnoreCase(attribute.getType().getValue()), StrUtil.class.getName(), " ! StrUtil.stringEquals(this.name, value)", "this.name != value"));
+	    	  attrSetter.withVariable("name", "type", "valueCompare")
 	    			  .withTemplate("\n   public void set{{Name}}({{type}} value)" +
 	                  "\n   {" +
 	                  "\n      if ({{valueCompare}})" +
@@ -98,42 +100,15 @@ public class AttributeTemplates {
 	                  "\n      }" +
 	                  "\n   }" +
 	                  "\n   ");
-
-	            if (model.getClazz().getClassModel().hasFeature(Feature.PropertyChangeSupport))
-	            {
-	               CGUtil.replaceAll(text,
-	                     "PGOLD", "\n         type oldValue = this.name;",
-	                     "PROPERTYCHANGE", "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);");
-	            }
-	            else
-	            {
-	               CGUtil.replaceAll(text,
-	                     "PGOLD", "",
-	                     "PROPERTYCHANGE", "");
-	            }
-	            hasNewContent = true;
-	         }
-
-	         if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName()) + "(" + CGUtil.shortClassName(model.getType().getValue()) + ")", parser))
-	         {
-	            text.append("\n   public ownerClass withName(type value)" +
+	    	  Template attrWith = new Template(Parser.METHOD + ":with" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")");
+	    	  attrWith.withTemplate("\n   public ownerClass withName(type value)" +
 	                  "\n   {" +
 	                  "\n      setName(value);" +
 	                  "\n      return this;" +
 	                  "\n   } " +
 	                  "\n");
-	            hasNewContent = true;
-	         }
+	    	  allTemplates.withTemplates(attrGetter, attrSetter, attrWith);
 	      }
-
-	      if (hasNewContent)
-	      {
-	         return text;
-	      }
-	      else
-	      {
-	         return null;
-	      }
+	      return allTemplates;
 	}
-	
 }
