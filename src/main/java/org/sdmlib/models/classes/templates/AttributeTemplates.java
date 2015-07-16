@@ -101,9 +101,9 @@ public class AttributeTemplates {
 	                  "\n   }" +
 	                  "\n   ");
 	    	  Template attrWith = new Template(Parser.METHOD + ":with" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")");
-	    	  attrWith.withTemplate("\n   public ownerClass withName(type value)" +
+	    	  attrWith.withTemplate("\n   public {{ownerClass}} with{{Name}}({{type}} value)" +
 	                  "\n   {" +
-	                  "\n      setName(value);" +
+	                  "\n      set{{Name}}(value);" +
 	                  "\n      return this;" +
 	                  "\n   } " +
 	                  "\n");
