@@ -13,21 +13,33 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Modifier;
+import org.sdmlib.models.classes.templates.AttributeTemplates;
+import org.sdmlib.models.classes.templates.ExistTemplate;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class GenAttribute extends Generator<Attribute>
 {
    private void insertAttrDeclPlusAccessors(Clazz clazz, Parser parser)
    {
-      //    int pos = parser.indexOf(Parser.ATTRIBUTE+":" + getName()); //remove
-
       parser.indexOf(Parser.CLASS_END);
       // add attribute declaration and get, set, with methods in class file
-      StringBuilder text = null;
-
       if (clazz.isInterface())
       {
-         text = insertPropertyInInterface(parser);
+    	  //TODO CHANGE
+    	  ExistTemplate templates = AttributeTemplates.insertPropertyInInterface(model);
+    	  templates.validate(parser, model.getClazz().getClassModel());
+    	  templates.insert(parser, 
+    			  	"name", model.getName(),
+    			  	"type", CGUtil.shortClassName(model.getType().getValue()),
+    			  	"modifier", model.getVisibility().getValue(),
+    			  	" init", model.getInitialization() == null ? "" : " = " +
+                            (DataType.STRING.equals(model.getType()) ? "\"" + model.getInitialization() + "\"" : model.getInitialization()),
+                    "ownerClass", CGUtil.shortClassName(clazz.getFullName()));
+          ArrayList<String> importClassesFromTypes = checkImportClassesFromType(model.getType());
+          for (String typeImport : importClassesFromTypes)
+          {
+             getGenerator(clazz).insertImport(parser, typeImport);
+          }
       }
       else
       {
@@ -70,152 +82,6 @@ public class GenAttribute extends Generator<Attribute>
       {
          getGenerator(clazz).insertImport(parser, typeImport);
       }
-   }
-
-   private StringBuilder insertPropertyInClass(Parser parser)
-   {
-      boolean hasNewContent = false;
-      StringBuilder text;
-      text = new StringBuilder("" +
-            "\n   " +
-            "\n   //==========================================================================" +
-            "\n   "
-            );
-
-      if (!entryExist(Parser.ATTRIBUTE + ":PROPERTY_" + model.getName().toUpperCase(), parser)
-            && !model.getClazz().isInterface() && !model.getVisibility().has(Modifier.STATIC))
-      {
-         text.append("" +
-               "\n   public static final String PROPERTY_NAME = \"name\";" +
-               "\n   ");
-         hasNewContent = true;
-      }
-
-      if (!entryExist(Parser.ATTRIBUTE + ":" + model.getName(), parser))
-      {
-         text.append("\n   modifier type name init;\n");
-         hasNewContent = true;
-      }
-
-      // if constant field -> return
-      if (model.getVisibility().has(Modifier.PUBLIC)
-            && model.getVisibility().has(Modifier.STATIC)
-            && model.getVisibility().has(Modifier.FINAL)
-            && model.getInitialization() != null)
-         return text;
-
-      if (model.getVisibility().equals(Modifier.PRIVATE))
-      {
-         if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName()) + "()", parser)
-               && !entryExist(Parser.METHOD + ":is" + StrUtil.upFirstChar(model.getName()) + "()", parser))
-         {
-            text.append("\n   public type getName()" +
-                  "\n   {" +
-                  "\n      return this.name;" +
-                  "\n   }" +
-                  "\n   ");
-
-            hasNewContent = true;
-         }
-         if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(model.getName()) + "(" + CGUtil.shortClassName(model.getType().getValue()) + ")", parser))
-         {
-            text.append("\n   public void setName(type value)" +
-                  "\n   {" +
-                  "\n      if (valueCompare)" +
-                  "\n      {PGOLD" +
-                  "\n         this.name = value;PROPERTYCHANGE" +
-                  "\n      }" +
-                  "\n   }" +
-                  "\n   ");
-
-            if (model.getClazz().getClassModel().hasFeature(Feature.PropertyChangeSupport))
-            {
-               CGUtil.replaceAll(text,
-                     "PGOLD", "\n         type oldValue = this.name;",
-                     "PROPERTYCHANGE", "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);");
-            }
-            else
-            {
-               CGUtil.replaceAll(text,
-                     "PGOLD", "",
-                     "PROPERTYCHANGE", "");
-            }
-            hasNewContent = true;
-         }
-
-         if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName()) + "(" + CGUtil.shortClassName(model.getType().getValue()) + ")", parser))
-         {
-            text.append("\n   public ownerClass withName(type value)" +
-                  "\n   {" +
-                  "\n      setName(value);" +
-                  "\n      return this;" +
-                  "\n   } " +
-                  "\n");
-            hasNewContent = true;
-         }
-      }
-
-      if (hasNewContent)
-      {
-         return text;
-      }
-      else
-      {
-         return null;
-      }
-   }
-
-   private StringBuilder insertPropertyInInterface(Parser parser)
-   {
-      boolean hasNewContent = false;
-      StringBuilder text;
-      text = new StringBuilder("" +
-            "\n   " +
-            "\n   //==========================================================================" +
-            "\n   "
-            );
-
-      if (!entryExist(Parser.ATTRIBUTE + ":PROPERTY_" + model.getName().toUpperCase(), parser))
-      {
-         text.append("" +
-               "\n   public static final String PROPERTY_NAME = \"name\";" +
-               "\n   ");
-         hasNewContent = true;
-      }
-
-      if (!entryExist(Parser.METHOD + ":get" + StrUtil.upFirstChar(model.getName()) + "()", parser))
-      {
-         text.append("\n   public type getName();\n");
-         hasNewContent = true;
-      }
-
-      if (!entryExist(Parser.METHOD + ":set" + StrUtil.upFirstChar(model.getName()) + "(" + CGUtil.shortClassName(model.getType().getValue()) + ")", parser))
-      {
-         text.append("\n   public void setName(type value);\n");
-         hasNewContent = true;
-      }
-
-      if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName()) + "(" + CGUtil.shortClassName(model.getType().getValue()) + ")", parser))
-      {
-         text.append("\n   public ownerClass withName(type value);\n");
-         hasNewContent = true;
-      }
-
-      if (hasNewContent)
-      {
-         return text;
-      }
-      else
-      {
-         return null;
-      }
-   }
-
-   private boolean entryExist(String string, Parser parser)
-   {
-      if (parser.indexOf(string) > -1)
-         return true;
-      return false;
    }
 
    private void insertCaseInToString(Parser parser)

@@ -4,35 +4,35 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.Feature;
+import org.sdmlib.models.classes.Modifier;
 
 public class AttributeTemplates {
-	public static ExistTemplate insertPropertyInInterface(Attribute attribute, Parser parser) {
-		ExistTemplate allTemplates=new ExistTemplate();
-		allTemplates.withTemplate("\n   " +
+	public static ExistTemplate insertPropertyInInterface(Attribute attribute) {
+		ExistTemplate allTemplates=new ExistTemplate("\n   " +
 	            "\n   //==========================================================================" +
 	            "\n   ");
 	      Template attrDecl = new Template()
 	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
-	    		  .withVariable("PROPERTY_NAME")
-	    		  .withVariable( "\"name\"")
+	    		  .withVariable("name")
 	      		  .withTemplate("\n   public static final String {{PROPERTY_NAME}} = \"{{name}}\";\n   ");
 
 	      Template attrGet = new Template()
 	    		  .withSearch(Parser.METHOD + ":get" + StrUtil.upFirstChar(attribute.getName()) + "()")
 	    		  .withVariable( "type" )
-	    		  .withVariable( "Name" )
+	    		  .withVariable( "name" )
 	    		  .withTemplate( "\n   public {{type}} get{{Name}}();\n" );
 
 	      Template attrSet = new Template()
 	    		  .withSearch(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
-	    		  .withVariable( "Name" )
+	    		  .withVariable( "name" )
 	    		  .withVariable( "type" )
 	    		  .withTemplate( "\n   public void set{{Name}}({{type}} value);\n" );
 
 	      Template attrWith = new Template()
 	    		  .withSearch(Parser.METHOD + ":with" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
 	    		  .withVariable( "ownerClass" )
-	    		  .withVariable( "Name" )
+	    		  .withVariable( "name" )
 	    		  .withVariable( "type" )
 	    		  .withTemplate( "\n   public {{ownerClass}} with{{Name}}({{type}} value);\n" );
 	      
@@ -40,4 +40,100 @@ public class AttributeTemplates {
 	      allTemplates.withTemplates(attrDecl, attrGet, attrSet, attrWith);
 	      return allTemplates;
 	}
+	public static ExistTemplate insertPropertyInClass(Attribute attribute) {
+		ExistTemplate allTemplates=new ExistTemplate(
+	            "\n   " +
+	            "\n   //==========================================================================" +
+	            "\n   "
+	            );
+		Template attrPropertyDecl = new Template()
+	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
+	    		  .withCondition(!attribute.getClazz().isInterface())
+	    		  .withCondition(!attribute.getVisibility().has(Modifier.STATIC))
+	    		  .withVariable("name")
+	      		  .withTemplate("\n   public static final String {{PROPERTY_NAME}} = \"{{name}}\";\n   ");
+		
+		Template attrDecl = new Template(Parser.ATTRIBUTE + ":" + attribute.getName())
+				.withVariable("modifier", "type", "name", "init")
+				.withTemplate("\n   {{modifier}} {{type}} {{name}} {{init}};\n");
+
+		allTemplates.withTemplates(attrPropertyDecl, attrDecl);
+	      // if constant field -> return
+	      if (attribute.getVisibility().has(Modifier.PUBLIC)
+	            && attribute.getVisibility().has(Modifier.STATIC)
+	            && attribute.getVisibility().has(Modifier.FINAL)
+	            && attribute.getInitialization() != null)
+	         return allTemplates;
+
+	      
+	      if (attribute.getVisibility().equals(Modifier.PRIVATE))
+	      {
+	    	  Template attrGetter;
+	    	  String temp;
+	    	  if ("boolean".equalsIgnoreCase(attribute.getType().getValue()))
+		      {
+	    		  attrGetter = new Template(Parser.METHOD + ":is" + StrUtil.upFirstChar(attribute.getName()) + "()")
+			  			.withTemplate("\n   public {{type}} is{{Name}}()" +
+				                  "\n   {" +
+				                  "\n      return this.{{name}};" +
+				                  "\n   }" +
+				                  "\n   ");
+		      } else {
+		    	  attrGetter = new Template(Parser.METHOD + ":get" + StrUtil.upFirstChar(attribute.getName()) + "()")
+				  			.withTemplate("\n   public {{type}} get{{Name}}()" +
+					                  "\n   {" +
+					                  "\n      return this.{{name}};" +
+					                  "\n   }" +
+					                  "\n   ");
+		      }
+	    	  attrGetter.withVariable("type", "name");
+	    	  
+	    	  Template attrSetter = new Template(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
+	    			  .withVariable("name", "type", "valueCompare", "PGOLD", "PROPERTYCHANGE")
+	    			  .withTemplate("\n   public void set{{Name}}({{type}} value)" +
+	                  "\n   {" +
+	                  "\n      if ({{valueCompare}})" +
+	                  "\n      {{{PGOLD}}" +
+	                  "\n         this.{{name}} = value;{{PROPERTYCHANGE}}" +
+	                  "\n      }" +
+	                  "\n   }" +
+	                  "\n   ");
+
+	            if (model.getClazz().getClassModel().hasFeature(Feature.PropertyChangeSupport))
+	            {
+	               CGUtil.replaceAll(text,
+	                     "PGOLD", "\n         type oldValue = this.name;",
+	                     "PROPERTYCHANGE", "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);");
+	            }
+	            else
+	            {
+	               CGUtil.replaceAll(text,
+	                     "PGOLD", "",
+	                     "PROPERTYCHANGE", "");
+	            }
+	            hasNewContent = true;
+	         }
+
+	         if (!entryExist(Parser.METHOD + ":with" + StrUtil.upFirstChar(model.getName()) + "(" + CGUtil.shortClassName(model.getType().getValue()) + ")", parser))
+	         {
+	            text.append("\n   public ownerClass withName(type value)" +
+	                  "\n   {" +
+	                  "\n      setName(value);" +
+	                  "\n      return this;" +
+	                  "\n   } " +
+	                  "\n");
+	            hasNewContent = true;
+	         }
+	      }
+
+	      if (hasNewContent)
+	      {
+	         return text;
+	      }
+	      else
+	      {
+	         return null;
+	      }
+	}
+	
 }
