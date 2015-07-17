@@ -13,8 +13,10 @@ import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Modifier;
+import org.sdmlib.models.classes.templates.AddTemplate;
 import org.sdmlib.models.classes.templates.AttributeTemplates;
 import org.sdmlib.models.classes.templates.ExistTemplate;
+import org.sdmlib.models.classes.templates.Template;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class GenAttribute extends Generator<Attribute>
@@ -64,36 +66,16 @@ public class GenAttribute extends Generator<Attribute>
       }
 
       // do we have a toString() method?
-      int pos = parser.indexOf(Parser.METHOD + ":toString()");
-
-      if (pos < 0)
-      {
-         // insert empty toString()
-         StringBuilder text = new StringBuilder(
-               "\n" +
-                     "\n   @Override" +
-                     "\n   public String toString()\n" +
-                     "   {\n" +
-                     "      StringBuilder result = new StringBuilder();\n" +
-                     "      \n" +
-                     "      return result.substring(1);\n" +
-                     "   }\n\n"
-               );
-
-         pos = parser.indexOf(Parser.CLASS_END);
-
-         parser.insert(pos, text.toString());
-
-         pos = parser.indexOf(Parser.METHOD + ":toString()");
-      }
-
+      Template template = AttributeTemplates.insertCaseInToString(model);
+      template.validate(parser, model.getClazz().getClassModel());
+      template.insert(parser);
+      template.searching(parser);
+      
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = parser.getMethodBodyStartPos();
 
-      pos = parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
-
+      int pos = parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
       int attrPos = parser.search("get" + StrUtil.upFirstChar(model.getName()), methodBodyStartPos);
-
       boolean noAttr = attrPos < 0 || attrPos > pos;
 
       if (noAttr)
@@ -105,29 +87,14 @@ public class GenAttribute extends Generator<Attribute>
       if (noAttr)
       {
          // need to add attr to text
-         int returnPos = parser.search("return", methodBodyStartPos);
-
+         AddTemplate templateAttr = new AddTemplate("return").withOffset(methodBodyStartPos);
+         templateAttr.withOffset(pos);
+         templateAttr.withTemplate("result.append(\" \").append(this.get{{Name}}());\n      ");
+         
+         templateAttr.validate(parser, model.getClazz().getClassModel());
+         
+         templateAttr.insert(parser, "name", model.getName());
          // maybe there are multiple returns, search for the last one
-         int secondReturnPos = returnPos;
-         while (secondReturnPos >= 0 && secondReturnPos < pos)
-         {
-            secondReturnPos = parser.search("return", secondReturnPos + 4);
-
-            if (secondReturnPos >= 0 && secondReturnPos < pos)
-            {
-               returnPos = secondReturnPos;
-            }
-         }
-
-         StringBuilder text = new StringBuilder(
-               "result.append(\" \").append(this.getName());\n      "
-               );
-
-         CGUtil.replaceAll(text,
-               "Name", StrUtil.upFirstChar(model.getName())
-               );
-
-         parser.insert(returnPos, text.toString());
       }
    }
 

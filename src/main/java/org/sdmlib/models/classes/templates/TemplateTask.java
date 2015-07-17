@@ -5,8 +5,12 @@ import org.sdmlib.models.classes.ClassModel;
 
 public abstract class TemplateTask {
 	protected String template;
+	protected int pos = -1;
 
-	public abstract TemplateTask withTemplate(String value);
+	public TemplateTask withTemplate(String value) {
+		this.template = value;
+		return this;
+	}
 
 	public abstract boolean validate(Parser parser, ClassModel model);
 
@@ -19,8 +23,11 @@ public abstract class TemplateTask {
 		 if(text == null || text.isEmpty()) {
 			 return false;
 		 }
-		 int pos = parser.indexOf(Parser.CLASS_END);
-         parser.insert(pos, text.getTextValue());
+		 int temp = parser.indexOf(Parser.CLASS_END);
+		 if(pos>=0) {
+			 temp = pos;
+		 }
+         parser.insert(temp, text.getTextValue());
          for(String item : text.getImports()) {
 			 parser.insertImport(item);
 		 }

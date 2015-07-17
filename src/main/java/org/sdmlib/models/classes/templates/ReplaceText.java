@@ -10,6 +10,7 @@ public class ReplaceText {
 	private Feature feature;
 	private String importName;
 	private boolean condition=true;
+	private boolean checked;
 
 	public ReplaceText(String value) {
 		this.search = value;
@@ -55,15 +56,25 @@ public class ReplaceText {
 		return search;
 	}
 
-	public String getText(ClassModel model) {
-		if(condition && (feature == null || model.hasFeature(feature))) {
+	public String getText() {
+		if(checked) {
 			return value;
 		}
 		return otherValue;
 	}
 	
-	public String getImport(ClassModel model) {
-		if(condition && (feature == null || model.hasFeature(feature))) {
+	public ReplaceText withChecked(boolean value) {
+		this.checked = value;
+		return this;
+	}
+	
+	public ReplaceText checking(ClassModel model) {
+		this.checked = condition && (feature == null || model.hasFeature(feature));
+		return this;
+	}
+	
+	public String getImport() {
+		if(checked) {
 			return importName;
 		}
 		return null;

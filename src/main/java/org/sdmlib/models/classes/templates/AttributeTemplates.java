@@ -99,4 +99,19 @@ public class AttributeTemplates {
 	      }
 	      return allTemplates;
 	}
+	
+	public static Template insertCaseInToString(Attribute attribute) {
+		Template attrtoString = new Template(Parser.METHOD + ":toString()");
+		attrtoString.withTemplate(
+	               "\n" +
+	                     "\n   @Override" +
+	                     "\n   public String toString()\n" +
+	                     "   {\n" +
+	                     "      StringBuilder result = new StringBuilder();\n" +
+	                     "      \n" +
+	                     "      return result.substring(1);\n" +
+	                     "   }\n\n"
+	               );
+		return attrtoString;
+	}
 }

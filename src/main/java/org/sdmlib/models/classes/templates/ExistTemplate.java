@@ -37,11 +37,6 @@ public class ExistTemplate extends TemplateTask{
 		return text;
 	}
 
-	public ExistTemplate withTemplate(String value) {
-		this.template = value;
-		return this;
-	}
-
 	public boolean validate(Parser parser, ClassModel model) {
 		for(int i=0; i < templates.size(); i++) {
 			if(!templates.get(i).validate(parser, model)) {
