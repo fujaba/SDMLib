@@ -6,12 +6,13 @@ import java.util.Iterator;
 
 import org.sdmlib.CGUtil;
 
+import de.uniks.networkparser.list.AbstractList;
 import de.uniks.networkparser.list.SimpleIterator;
-import de.uniks.networkparser.list.SimpleList;
+import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.logic.Condition;
 
 
-public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
+public abstract class SDMSet<T> extends SimpleSet<T> implements ModelSet
 {
    // Added to cach iterators. Minor speedup. Serious multi threading problems. Have to think about it, again. Albert
    private SimpleIterator oldIterator = null;
@@ -22,7 +23,7 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
    @SuppressWarnings("unchecked")
    public <ST extends SDMSet> ST withReadOnly(boolean value)  {
 	   if(value) {
-		   addFlag(SimpleList.READONLY);
+		   addFlag(SimpleSet.READONLY);
 	   }
 	   return (ST)this;
    }
@@ -107,6 +108,17 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
       return result;
    }
    
+   @Override
+   @SuppressWarnings("unchecked")
+   public SDMSet<T> getNewList(boolean keyValue) {
+       SDMSet<T> result = null;
+       try {
+           result = this.getClass().newInstance();
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return result;
+   }
    
    @SuppressWarnings("unchecked")
    public <ST extends SDMSet<T>> ST minus(Object other)
@@ -152,18 +164,6 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
    }
    
 	@Override
-	@SuppressWarnings("unchecked")
-	public SDMSet<T> getNewList(boolean keyValue) {
-		SDMSet<T> result = null;
-		try {
-			result = this.getClass().newInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	@Override
 	public boolean remove(Object value) {
 		return removeByObject(value) >= 0;
 	}
@@ -200,19 +200,4 @@ public abstract class SDMSet<T> extends SimpleList<T> implements ModelSet
 		}
 		return super.add(newValue);
 	}
-
-	// Inefficient: the iterator attribute per set instance costs to much memory. 
-	// use a static attribute in model set class instead.
-	//	private  Iterator<T> iterator;
-	//	
-	//	@Override
-	//	public Iterator<T> iterator() {
-	//		if(isReadOnly()) {
-	//			if(iterator==null) {
-	//				iterator = super.iterator();
-	//			}
-	//			return iterator;
-	//		}
-	//		return super.iterator();
-	//	}
 }

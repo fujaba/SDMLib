@@ -50,7 +50,7 @@ public abstract class TemplateItem extends TemplateTask{
 				name = name.toLowerCase();
 			}
 			if(get(name)==null) {
-				variables.with(new ReplaceText(name));
+				variables.with(new ReplaceText(name).withChecked(true));
 			}
 			firstFound = false;
 		}
@@ -61,7 +61,7 @@ public abstract class TemplateItem extends TemplateTask{
 				variables.with(new ReplaceText(values[i], values[i+1]));
 				continue;
 			}
-			if(item.getText()!=null){
+			if(item.getText()!=null && item.getText()!=""){
 				if(mode==DEBUG) {
 					throw new RuntimeException("Variable not overide: "+values[i]);
 				}
@@ -75,14 +75,14 @@ public abstract class TemplateItem extends TemplateTask{
 					String temp = first.toUpperCase() + values[i].substring(1);
 					item = get(temp); 
 					if(item == null ) {
-						variables.with(new ReplaceText(temp, StrUtil.upFirstChar(values[i+1])));
+						variables.with(new ReplaceText(temp, StrUtil.upFirstChar(values[i+1])).withChecked(true));
 					}else if( item.getText() == null) {
 						item.withValue(StrUtil.upFirstChar(values[i+1]));				
 					}
 					temp = values[i].toUpperCase();
 					item = get(temp); 
 					if(item == null ) {
-						variables.with(new ReplaceText(temp, values[i+1].toUpperCase()));
+						variables.with(new ReplaceText(temp, values[i+1].toUpperCase()).withChecked(true));
 					}else if( item.getText() == null) {
 						item.withValue(values[i+1].toUpperCase());				
 					}

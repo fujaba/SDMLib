@@ -67,7 +67,7 @@ public class GenAttribute extends Generator<Attribute>
 
       // do we have a toString() method?
       Template template = AttributeTemplates.insertCaseInToString(model);
-      template.validate(parser, model.getClazz().getClassModel());
+//      template.validate(parser, model.getClazz().getClassModel());
       template.insert(parser);
       template.searching(parser);
       

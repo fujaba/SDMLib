@@ -39,6 +39,13 @@ public class Template extends TemplateItem {
 		return parser.indexOf(searchString) <= 0;
 	}
 	
+	@Override
+	public boolean insert(Parser parser, String... values) {
+		if(!searching(parser)){
+			return false;
+		}
+		return super.insert(parser, values);
+	}
 
 	public Template withSearch(String value) {
 		this.searchString = value;
