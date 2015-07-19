@@ -96,4 +96,9 @@ public class ReplaceText {
 		item.withCondition(condition);
 		return item;
 	}
+	
+	@Override
+	public String toString() {
+		return "ReplaceText "+search +" = "+value;
+	}
 }

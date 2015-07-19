@@ -26,7 +26,7 @@ public class AttributeTemplates {
 
 	      Template attrWith = new Template()
 	    		  .withSearch(Parser.METHOD + ":with" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
-	    		  .withTemplate( "\n   public {{ownerClass}} with{{Name}}({{type}} value);\n" );
+	    		  .withTemplate( "\n   public {{ownerclass}} with{{Name}}({{type}} value);\n" );
 	      
 
 	      allTemplates.withTemplates(attrDecl, attrGet, attrSet, attrWith);
@@ -89,7 +89,7 @@ public class AttributeTemplates {
 	                  "\n   }" +
 	                  "\n   ");
 	    	  Template attrWith = new Template(Parser.METHOD + ":with" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")");
-	    	  attrWith.withTemplate("\n   public {{ownerClass}} with{{Name}}({{type}} value)" +
+	    	  attrWith.withTemplate("\n   public {{ownerclass}} with{{Name}}({{type}} value)" +
 	                  "\n   {" +
 	                  "\n      set{{Name}}(value);" +
 	                  "\n      return this;" +

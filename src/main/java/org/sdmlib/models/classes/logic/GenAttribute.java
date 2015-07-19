@@ -41,7 +41,7 @@ public class GenAttribute extends Generator<Attribute>
 			  	"modifier", model.getVisibility().getValue(),
 			  	"init", model.getInitialization() == null ? "" : " = " +
                         (DataType.STRING.equals(model.getType()) ? "\"" + model.getInitialization() + "\"" : model.getInitialization()),
-                "ownerClass", CGUtil.shortClassName(clazz.getFullName()));
+                "ownerclass", CGUtil.shortClassName(clazz.getFullName()));
 
       ArrayList<String> importClassesFromTypes = checkImportClassesFromType(model.getType());
       for (String typeImport : importClassesFromTypes)
@@ -67,35 +67,18 @@ public class GenAttribute extends Generator<Attribute>
 
       // do we have a toString() method?
       Template template = AttributeTemplates.insertCaseInToString(model);
-//      template.validate(parser, model.getClazz().getClassModel());
       template.insert(parser);
       template.searching(parser);
       
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = parser.getMethodBodyStartPos();
 
-      int pos = parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
-      int attrPos = parser.search("get" + StrUtil.upFirstChar(model.getName()), methodBodyStartPos);
-      boolean noAttr = attrPos < 0 || attrPos > pos;
-
-      if (noAttr)
-      {
-         attrPos = parser.search(".append(" + model.getName() + ")", methodBodyStartPos);
-         noAttr = attrPos < 0 || attrPos > pos;
-      }
-
-      if (noAttr)
-      {
-         // need to add attr to text
-         AddTemplate templateAttr = new AddTemplate("return").withOffset(methodBodyStartPos);
-         templateAttr.withOffset(pos);
-         templateAttr.withTemplate("result.append(\" \").append(this.get{{Name}}());\n      ");
-         
-         templateAttr.validate(parser, model.getClazz().getClassModel());
-         
-         templateAttr.insert(parser, "name", model.getName());
-         // maybe there are multiple returns, search for the last one
-      }
+      
+      AddTemplate templateAttr = new AddTemplate(methodBodyStartPos, "get" + StrUtil.upFirstChar(model.getName()), ".append(" + model.getName() + ")");
+      templateAttr.withLast("return");
+      templateAttr.withTemplate("result.append(\" \").append(this.get{{Name}}());\n      ");
+      templateAttr.validate(parser, model.getClazz().getClassModel());
+      templateAttr.insert(parser, "name", model.getName());
    }
 
    private ArrayList<String> checkImportClassesFromType(DataType value)
@@ -151,41 +134,38 @@ public class GenAttribute extends Generator<Attribute>
    {
       String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
       attrType = CGUtil.shortClassName(attrType);
-      String key = Parser.METHOD + ":create"
-            + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")";
-      int pos = parser.indexOf(key);
-
-      if (pos < 0)
-      {
-         // need to add property to string array
-
-         StringBuilder text = new StringBuilder(
-               "   public PatternObjectType createName(AttrType value)\n" +
-                     "   {\n" +
-                     "      this.startCreate().hasName(value).endCreate();\n" +
-                     "      return this;\n" +
-                     "   }\n" +
-                     "   \n");
-
-         parser.insertImport(AttributeConstraint.class.getName());
-         String patternObjectType = CGUtil.shortClassName(ownerClazz.getFullName()) + "PO";
-
-         String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser);
-
-         if (ownerClazz.isExternal())
-         {
-            modelClass = modelClass + "Creator";
-         }
-
-         CGUtil.replaceAll(text,
-               "PatternObjectType", patternObjectType,
-               "Name", StrUtil.upFirstChar(model.getName()),
-               "AttrType", attrType,
-               "ModelClass", modelClass);
-
-         int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.insert(classEnd, text.toString());
-      }
+      
+      Template template = new Template(Parser.METHOD + ":create" + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")");
+      template.withTemplate("   public {{PatternObjectType}} create{{Name}}({{AttrType}} value)\n" +
+              "   {\n" +
+              "      this.startCreate().has{{Name}}(value).endCreate();\n" +
+              "      return this;\n" +
+              "   }\n" +
+              "   \n");
+      
+      String patternObjectType = CGUtil.shortClassName(ownerClazz.getFullName()) + "PO";
+     template.insert(parser, "PatternObjectType", patternObjectType,
+               "name", StrUtil.upFirstChar(model.getName()),
+               "AttrType", attrType);
+//         parser.insertImport(AttributeConstraint.class.getName());
+//         
+//
+//         String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getFullName(), parser);
+//
+//         if (ownerClazz.isExternal())
+//         {
+//            modelClass = modelClass + "Creator";
+//         }
+//
+//         CGUtil.replaceAll(text,
+//               "PatternObjectType", patternObjectType,
+//               "Name", StrUtil.upFirstChar(model.getName()),
+//               "AttrType", attrType,
+//               "ModelClass", modelClass);
+//
+//         int classEnd = parser.indexOf(Parser.CLASS_END);
+//         parser.insert(classEnd, text.toString());
+//      }
    }
 
    private void insertGetterInPatternObjectClass(Parser parser, Clazz ownerClazz)

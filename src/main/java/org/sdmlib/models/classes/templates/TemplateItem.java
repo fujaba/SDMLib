@@ -45,8 +45,8 @@ public abstract class TemplateItem extends TemplateTask{
 				}
 			}
 			String name=template.substring(i, end);
-			String first = name.substring(0, 1);
-			if(first.toLowerCase() != first) {
+			String firstName = name.substring(0, 1).toLowerCase() + name.substring(1);
+			if(name.toLowerCase().equals(name) || name.toUpperCase().equals(name) || name.toLowerCase().equals(firstName)) {
 				name = name.toLowerCase();
 			}
 			if(get(name)==null) {
@@ -61,7 +61,7 @@ public abstract class TemplateItem extends TemplateTask{
 				variables.with(new ReplaceText(values[i], values[i+1]));
 				continue;
 			}
-			if(item.getText()!=null && item.getText()!=""){
+			if(item.getText()!=null ){
 				if(mode==DEBUG) {
 					throw new RuntimeException("Variable not overide: "+values[i]);
 				}
