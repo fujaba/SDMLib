@@ -22,7 +22,8 @@ public class Template extends TemplateItem {
 		return this;
 	}
 
-	public boolean validate(Parser parser, ClassModel model) {
+	@Override
+	protected boolean validate(Parser parser, ClassModel model, String... values) {
 		if(!active) {
 			return false;
 		}
@@ -32,21 +33,13 @@ public class Template extends TemplateItem {
 		for(int i = 0; i < variables.size(); i++) {
 			variables.get(i).checking(model);
 		}
-		return searching(parser);
-	}
-	
-	public boolean searching(Parser parser) {
-		return parser.indexOf(searchString) <= 0;
-	}
-	
-	@Override
-	public boolean insert(Parser parser, String... values) {
-		if(!searching(parser)){
+		TemplateResult searchText = run(searchString, parser, model, values);
+		if(searchText.isEmpty()) {
 			return false;
 		}
-		return super.insert(parser, values);
+		return parser.indexOf(searchText.getTextValue()) <= 0;
 	}
-
+	
 	public Template withSearch(String value) {
 		this.searchString = value;
 		return this;
@@ -69,17 +62,6 @@ public class Template extends TemplateItem {
 		return this;
 	}
 	
-//	public Template withVariable(String... values) {
-//		if(values==null) {
-//			return this;
-//		}
-//		for(String item : values) {
-//			variables.with(new ReplaceText(item));
-//		}
-//		return this;
-//	}
-	
-
 	public Template addTemplate(String value) {
 		if(this.template != null) {
 			this.template += value;

@@ -21,12 +21,13 @@ public class ExistTemplate extends TemplateTask{
 		return this;
 	}
 	
-	
-	public TemplateResult execute(String... values) {
+
+	@Override
+	public TemplateResult execute(String searchString, Parser parser, ClassModel model, String... values) {
 		TemplateResult text=new TemplateResult(template);
 		boolean added=false;
 		for(TemplateTask template : templates) {
-			TemplateResult sub = template.execute(values);
+			TemplateResult sub = template.execute(template.getTemplate(), parser, model, values);
 			if(text.append(sub)) {
 				added = true;
 			}
@@ -35,16 +36,5 @@ public class ExistTemplate extends TemplateTask{
 			return null;
 		}
 		return text;
-	}
-
-	public boolean validate(Parser parser, ClassModel model) {
-		for(int i=0; i < templates.size(); i++) {
-			if(!templates.get(i).validate(parser, model)) {
-				templates.remove(i);
-				i--;
-				continue;
-			}
-		}
-		return true;
 	}
 }

@@ -38,8 +38,7 @@ public class AddTemplate extends TemplateItem {
 	}
 	
 	@Override
-	public boolean validate(Parser parser, ClassModel model) {
-		
+	protected boolean validate(Parser parser, ClassModel model, String... values) {
 		int methodEnd = parser.methodBodyIndexOf(Parser.METHOD_END, offset);
 		if(lastFound!=null) {
 			methodEnd = getLast(parser, lastFound, offset, methodEnd);
@@ -63,17 +62,6 @@ public class AddTemplate extends TemplateItem {
 		if(max<0) {
 			this.pos = methodEnd;
 		}
-		
-		
-		
-//		int secondReturnPos = pos;
-//		while (secondReturnPos >= 0 && secondReturnPos < lastFound) {
-//			secondReturnPos = parser.search(search, secondReturnPos + 4);
-//			if (secondReturnPos >= 0 && secondReturnPos < pos) {
-//				pos = secondReturnPos;
-//			}
-//		}
-
 		return this.pos>=0;
 	}
 }

@@ -4,7 +4,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.ClassModel;
 
 public abstract class TemplateTask {
-	protected String template;
+	protected String template = "";
 	protected int pos = -1;
 
 	public TemplateTask withTemplate(String value) {
@@ -12,14 +12,18 @@ public abstract class TemplateTask {
 		return this;
 	}
 
-	public abstract boolean validate(Parser parser, ClassModel model);
+	protected boolean validate(Parser parser, ClassModel model, String... values) {
+		return true;
+	}
 
-	// public TemplateTask withVariable(String... values);
-	// public TemplateTask withVariable(ReplaceText... values);
-	public abstract TemplateResult execute(String... values);
+	public abstract TemplateResult execute(String searchString, Parser parser, ClassModel model, String... values);
 
 	public boolean insert(Parser parser, String... values) {
-		TemplateResult text = execute(values);
+		return insert(parser, null, values);
+	}
+
+	public boolean insert(Parser parser, ClassModel model, String... values) {
+		TemplateResult text = execute(template, parser, model, values);
 		 if(text == null || text.isEmpty()) {
 			 return false;
 		 }
@@ -31,6 +35,12 @@ public abstract class TemplateTask {
          for(String item : text.getImports()) {
 			 parser.insertImport(item);
 		 }
+         parser.indexOf(Parser.CLASS_END);
+         
          return true;
+	}
+
+	public String getTemplate() {
+		return template;
 	}
 }

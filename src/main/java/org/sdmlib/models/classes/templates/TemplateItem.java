@@ -1,6 +1,8 @@
 package org.sdmlib.models.classes.templates;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.codegen.Parser;
+import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.list.SimpleList;
 
@@ -18,17 +20,25 @@ public abstract class TemplateItem extends TemplateTask{
 		return null;
 	}
 	
-	public TemplateResult execute(String... values) {
+	@Override
+	public TemplateResult execute(String searchString, Parser parser, ClassModel model, String... values) {
+		if(!this.validate(parser, model, values)) {
+			return new TemplateResult();
+		}
+		return run(searchString, parser, model, values);
+	}	
+	
+	public TemplateResult run(String searchString, Parser parser, ClassModel model, String... values) {
 		if(values==null || values.length%2==1) {
 			if(mode==DEBUG) {
 				throw new RuntimeException("values are: "+values);
 			}
-			return null;
+			return new TemplateResult();
 		}
 		// Read all Variables from Template
 		boolean firstFound=false;
-		for(int i=0;i<template.length();i++) {
-			if(template.charAt(i) != '{') {
+		for(int i=0;i<searchString.length();i++) {
+			if(searchString.charAt(i) != '{') {
 				firstFound = false;
 				continue;
 			}
@@ -39,12 +49,12 @@ public abstract class TemplateItem extends TemplateTask{
 			// cool its Variable
 			i++;
 			int end=i;
-			for(;end<template.length();end++) {
-				if(template.charAt(end) == '}') {
+			for(;end<searchString.length();end++) {
+				if(searchString.charAt(end) == '}') {
 					break;
 				}
 			}
-			String name=template.substring(i, end);
+			String name=searchString.substring(i, end);
 			String firstName = name.substring(0, 1).toLowerCase() + name.substring(1);
 			if(name.toLowerCase().equals(name) || name.toUpperCase().equals(name) || name.toLowerCase().equals(firstName)) {
 				name = name.toLowerCase();
@@ -58,34 +68,28 @@ public abstract class TemplateItem extends TemplateTask{
 		for(int i=0;i<values.length;i+=2) {
 			ReplaceText item = get(values[i]);
 			if(item == null) {
-				variables.with(new ReplaceText(values[i], values[i+1]));
-				continue;
+				item = new ReplaceText(values[i], values[i+1]).withChecked(true);
+				variables.with(item);
 			}
-			if(item.getText()!=null ){
-				if(mode==DEBUG) {
-					throw new RuntimeException("Variable not overide: "+values[i]);
+			if(item.getText()==null ){
+				item.withValue(values[i+1]);
+			}
+			String first = values[i].substring(0, 1);
+			if(first.toLowerCase() == first) {
+				// Maybe autofill
+				String temp = first.toUpperCase() + values[i].substring(1);
+				item = get(temp); 
+				if(item == null ) {
+					variables.with(new ReplaceText(temp, StrUtil.upFirstChar(values[i+1])).withChecked(true));
+				}else if( item.getText() == null) {
+					item.withValue(StrUtil.upFirstChar(values[i+1]));				
 				}
-				item.withValue(values[i+1]);
-			} else {
-				item.withValue(values[i+1]);
-
-				String first = values[i].substring(0, 1);
-				if(first.toLowerCase() == first) {
-					// Maybe autofill
-					String temp = first.toUpperCase() + values[i].substring(1);
-					item = get(temp); 
-					if(item == null ) {
-						variables.with(new ReplaceText(temp, StrUtil.upFirstChar(values[i+1])).withChecked(true));
-					}else if( item.getText() == null) {
-						item.withValue(StrUtil.upFirstChar(values[i+1]));				
-					}
-					temp = values[i].toUpperCase();
-					item = get(temp); 
-					if(item == null ) {
-						variables.with(new ReplaceText(temp, values[i+1].toUpperCase()).withChecked(true));
-					}else if( item.getText() == null) {
-						item.withValue(values[i+1].toUpperCase());				
-					}
+				temp = values[i].toUpperCase();
+				item = get(temp); 
+				if(item == null ) {
+					variables.with(new ReplaceText(temp, values[i+1].toUpperCase()).withChecked(true));
+				}else if( item.getText() == null) {
+					item.withValue(values[i+1].toUpperCase());				
 				}
 			}
 		}
@@ -94,7 +98,7 @@ public abstract class TemplateItem extends TemplateTask{
 				throw new RuntimeException("Variable <"+variables.get(i).getSearch()+">cant be null: "+values[i]);
 			}
 		}
-		TemplateResult text = new TemplateResult(template.toString()); 
+		TemplateResult text = new TemplateResult(searchString.toString()); 
 		// in the second run, replace <$<placeholders>$> by replacement
 	    for (int i = 0; i < variables.size(); i ++) {
 	    	ReplaceText replaceText = variables.get(i);
