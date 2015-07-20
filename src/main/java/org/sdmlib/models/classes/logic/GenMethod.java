@@ -8,6 +8,7 @@ import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Enumeration;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Modifier;
 
@@ -32,9 +33,11 @@ public class GenMethod extends Generator<Method>
       insertMethodInModelSet(clazz, modelSetParser);
       generator.printFile(modelSetParser);
 
-      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
-      insertMethodInPatternObject(clazz, patternObjectParser);
-      generator.printFile(patternObjectParser);
+      if (model.getClazz().getClassModel().hasFeature(Feature.PatternObject)) {
+	      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
+	      insertMethodInPatternObject(clazz, patternObjectParser);
+	      generator.printFile(patternObjectParser);
+      }
 
       return this;
    }

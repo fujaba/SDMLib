@@ -107,7 +107,7 @@ public class ValueSet extends SDMSet<Value>
       return result;
    }
 
-   public ValueSet hasType(org.sdmlib.models.classes.DataType value)
+   public ValueSet hasType(DataType value)
    {
       ValueSet result = new ValueSet();
       
