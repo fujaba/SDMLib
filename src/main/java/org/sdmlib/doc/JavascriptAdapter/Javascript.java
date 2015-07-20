@@ -228,9 +228,11 @@ public class Javascript implements GuiAdapter
 	         Role source = assoc.getSource();
 	         Role target = assoc.getTarget();
 	         
-	         jsonRole.put("cardinality", source.getCard());
-	         jsonRole.put("property", source.getName());
 	         jsonRole.put("id",CGUtil.shortClassName(source.getClazz().getName()));
+	         if(source.getCard() != null) {
+	        	 jsonRole.put("cardinality", source.getCard());
+	        	 jsonRole.put("property", source.getName());
+	         }
 
 	         jsonRole = new JsonObject();
 	         jsonAssoc.put("target", jsonRole);

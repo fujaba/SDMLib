@@ -23,13 +23,13 @@ package org.sdmlib.models.classes;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
 
-public class Attribute extends Value
+public class Attribute extends Value implements AnnotationOwner
 {
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final AttributeSet EMPTY_SET = new AttributeSet().withReadOnly(true);
 
    private Clazz clazz = null;
-   private Visibility visibility = Visibility.PRIVATE;
+   private Modifier visibility = Modifier.PRIVATE;
    
    public Attribute(String name, DataType type)
    {
@@ -90,7 +90,7 @@ public class Attribute extends Value
    {
       super.removeYou();
       setClazz(null);
-      withoutAnnotations(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
+      withoutAnnotation(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
    
@@ -116,12 +116,12 @@ public class Attribute extends Value
       return this;
    }
 
-   public Visibility getVisibility()
+   public Modifier getVisibility()
    {
       return visibility;
    }
 
-   public Attribute with(Visibility... visibility)
+   public Attribute with(Modifier... visibility)
    {
       if(visibility==null){
          return this;
@@ -130,7 +130,7 @@ public class Attribute extends Value
       if(visibility.length==1){
          this.visibility = visibility[0];
       }
-      this.visibility = Visibility.ref(visibility);
+      this.visibility = Modifier.ref(visibility);
       return this;
    }
 
@@ -170,7 +170,7 @@ public class Attribute extends Value
       return this.annotations;
    }
 
-   public Attribute withAnnotations(Annotation... value)
+   public Attribute withAnnotation(Annotation... value)
    {
       if(value==null){
          return this;
@@ -188,7 +188,7 @@ public class Attribute extends Value
 
             if (changed)
             {
-               item.withAttribute(this);
+               item.withOwner(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, null, item);
             }
          }
@@ -196,7 +196,7 @@ public class Attribute extends Value
       return this;
    } 
 
-   public Attribute withoutAnnotations(Annotation... value)
+   public Attribute withoutAnnotation(Annotation... value)
    {
       for (Annotation item : value)
       {
@@ -204,7 +204,7 @@ public class Attribute extends Value
          {
             if (this.annotations.remove(item))
             {
-               item.setAttribute(null);
+               item.setOwner(null);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, item, null);
             }
          }
@@ -215,8 +215,7 @@ public class Attribute extends Value
    public Annotation createAnnotations()
    {
       Annotation value = new Annotation();
-      withAnnotations(value);
+      withAnnotation(value);
       return value;
    } 
 }
-

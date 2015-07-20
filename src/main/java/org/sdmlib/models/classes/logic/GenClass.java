@@ -25,13 +25,13 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 
 /**
  * @author Stefan
@@ -453,7 +453,7 @@ public class GenClass extends Generator<Clazz>
 
             for (Method method : interfaze.getMethods())
             {
-               method.withAnnotations(new Annotation().withName("Override"));
+               method.withAnnotation(new Annotation().withName("Override"));
                getGenerator(method).generate(model, rootDir, helpersDir);
             }
 
@@ -701,34 +701,7 @@ public class GenClass extends Generator<Clazz>
 
    public void insertImport(String className)
    {
-      insertImport(parser, className);
-   }
-
-   public void insertImport(Parser myParser, String className)
-   {
-      if (className.indexOf("<") > 0)
-      {
-         className = className.substring(0, className.indexOf("<"));
-      }
-      if ("String int double float boolean void".indexOf(className) >= 0)
-      {
-         return;
-      }
-
-      int pos = myParser.indexOf(Parser.IMPORT);
-
-      String prefix = "";
-      if (myParser.search(Parser.IMPORT, pos) < 0)
-      {
-         prefix = "\n";
-      }
-
-      SymTabEntry symTabEntry = myParser.getSymTab().get(Parser.IMPORT + ":" + className);
-      if (symTabEntry == null)
-      {
-         myParser.insert(myParser.getEndOfImports() + 1,
-            prefix + "\nimport " + className + ";");
-      }
+	   parser.insertImport(className);
    }
 
    public void printFile()
@@ -837,7 +810,7 @@ public class GenClass extends Generator<Clazz>
          String className = name.substring(pos + 1);
 
          String abztract = "";
-         if(model.isAbztract()) {
+         if(model.hasModifier(Modifier.ABSTRACT)) {
             abztract = "abstract";
          }
          
@@ -1039,7 +1012,7 @@ public class GenClass extends Generator<Clazz>
                   + "()";
             }
             
-            if (model.isAbztract())
+            if (model.hasModifier(Modifier.ABSTRACT))
             {
                instanceCreationClause = "null";
             }
@@ -1192,7 +1165,9 @@ public class GenClass extends Generator<Clazz>
          }
          insertLicense(modelSetParser);
          insertEmptySetDecl(modelSetParser, modelSetClassName);
-         insertSetStartModelPattern(modelSetParser);
+         if(model.hasFeature(Feature.PatternObject)) {
+        	 insertSetStartModelPattern(modelSetParser);
+         }
          insertSetEntryType(modelSetParser);
          insertSetWithWithout(modelSetParser);
       }
@@ -1264,7 +1239,7 @@ public class GenClass extends Generator<Clazz>
 
          parser.insert(pos, text.toString());
 
-         this.insertImport(parser, "java.util.Collection");
+         parser.insertImport("java.util.Collection");
       }
    }
 
@@ -1551,7 +1526,7 @@ public class GenClass extends Generator<Clazz>
 
          if (addImport)
          {
-            insertImport(patternObjectCreatorParser, name);
+        	 patternObjectCreatorParser.insertImport(name);
          }
       }
 
@@ -1630,7 +1605,7 @@ public class GenClass extends Generator<Clazz>
          typeName = typeName.substring(0, pos);
       }
 
-      insertImport(parser, typeName);
+      parser.insertImport(typeName);
 
       return baseName;
    }

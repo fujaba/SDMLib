@@ -26,7 +26,7 @@ import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
 
-public class Method extends SDMLibClass
+public class Method extends SDMLibClass implements AnnotationOwner
 {
    public static final String PROPERTY_RETURNTYPE = "returnType";
    public static final String PROPERTY_PARAMETER = "parameter";
@@ -35,7 +35,7 @@ public class Method extends SDMLibClass
    public static final String PROPERTY_MODIFIER = "modifier";
    public static final MethodSet EMPTY_SET = new MethodSet().withReadOnly(true);
    
-   private Visibility modifier = Visibility.PUBLIC;
+   private Modifier modifier = Modifier.PUBLIC;
    private Clazz clazz = null;
    private String body;
    private ParameterSet parameter = null;
@@ -166,17 +166,17 @@ public class Method extends SDMLibClass
       return this;
    }
 
-   public Visibility getModifier()
+   public Modifier getModifier()
    {
       return this.modifier;
    }
 
-   public void setModifier(Visibility value)
+   public void setModifier(Modifier value)
    {
       this.modifier = value;
    }
 
-   public Method with(Visibility... visibility)
+   public Method with(Modifier... visibility)
    {
       if(visibility==null){
          return this;
@@ -185,7 +185,7 @@ public class Method extends SDMLibClass
       if(visibility.length==1){
          this.modifier = visibility[0];
       }
-      this.modifier = Visibility.ref(visibility);
+      this.modifier = Modifier.ref(visibility);
       return this;
    }
 
@@ -246,8 +246,7 @@ public class Method extends SDMLibClass
       setClazz(null);
       without(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
       withoutParameter(this.getParameter().toArray(new Parameter[this.getParameter().size()]));
-      setEnumeration(null);
-      withoutAnnotations(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
+      withoutAnnotation(this.getAnnotations().toArray(new Annotation[this.getAnnotations().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -387,66 +386,6 @@ public class Method extends SDMLibClass
       return value;
    } 
 
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Method ----------------------------------- Enumeration
-    *              methods                   enumeration
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ENUMERATION = "enumeration";
-
-   private Enumeration enumeration = null;
-
-   public Enumeration getEnumeration()
-   {
-      return this.enumeration;
-   }
-
-   public boolean setEnumeration(Enumeration value)
-   {
-      boolean changed = false;
-      
-      if (this.enumeration != value)
-      {
-         Enumeration oldValue = this.enumeration;
-         
-         if (this.enumeration != null)
-         {
-            this.enumeration = null;
-            oldValue.withoutMethods(this);
-         }
-         
-         this.enumeration = value;
-         
-         if (value != null)
-         {
-            value.withMethods(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMERATION, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Method withEnumeration(Enumeration value)
-   {
-      setEnumeration(value);
-      return this;
-   } 
-
-   public Enumeration createEnumeration()
-   {
-      Enumeration value = new Enumeration();
-      withEnumeration(value);
-      return value;
-   } 
-
-   
    /********************************************************************
     * <pre>
     *              one                       many
@@ -469,7 +408,7 @@ public class Method extends SDMLibClass
       return this.annotations;
    }
 
-   public Method withAnnotations(Annotation... value)
+   public Method withAnnotation(Annotation... value)
    {
       if(value==null){
          return this;
@@ -487,7 +426,7 @@ public class Method extends SDMLibClass
 
             if (changed)
             {
-               item.withMethod(this);
+               item.withOwner(this);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, null, item);
             }
          }
@@ -495,7 +434,7 @@ public class Method extends SDMLibClass
       return this;
    } 
 
-   public Method withoutAnnotations(Annotation... value)
+   public Method withoutAnnotation(Annotation... value)
    {
       for (Annotation item : value)
       {
@@ -503,7 +442,7 @@ public class Method extends SDMLibClass
          {
             if (this.annotations.remove(item))
             {
-               item.setMethod(null);
+               item.setOwner(null);
                getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONS, item, null);
             }
          }
@@ -514,7 +453,7 @@ public class Method extends SDMLibClass
    public Annotation createAnnotations()
    {
       Annotation value = new Annotation();
-      withAnnotations(value);
+      withAnnotation(value);
       return value;
    } 
 }

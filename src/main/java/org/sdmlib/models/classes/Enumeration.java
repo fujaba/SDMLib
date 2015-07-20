@@ -27,7 +27,6 @@ import java.util.Arrays;
 import org.sdmlib.models.classes.util.ArrayListSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
 import org.sdmlib.models.classes.util.MethodSet;
-import java.util.TreeSet;
 
 public class Enumeration extends SDMLibClass {
 
@@ -184,7 +183,6 @@ public class Enumeration extends SDMLibClass {
 				boolean changed = this.methods.add(item);
 
 				if (changed) {
-					item.withEnumeration(this);
 					getPropertyChangeSupport().firePropertyChange(
 							PROPERTY_METHODS, null, item);
 				}
@@ -201,7 +199,6 @@ public class Enumeration extends SDMLibClass {
 		for (Method item : value) {
 			if ((this.methods != null) && (item != null)) {
 				if (this.methods.remove(item)) {
-					item.setEnumeration(null);
 					getPropertyChangeSupport().firePropertyChange(
 							PROPERTY_METHODS, item, null);
 				}

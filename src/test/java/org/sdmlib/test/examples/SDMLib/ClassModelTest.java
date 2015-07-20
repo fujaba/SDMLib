@@ -28,10 +28,11 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -55,7 +56,6 @@ public class ClassModelTest
 
       Clazz clazzClass = model.createClazz("Clazz").withSuperClazz(sdmLibClazz)
          .withAttribute("interfaze", DataType.BOOLEAN)
-         .withAttribute("abztract", DataType.BOOLEAN)
          .withAttribute("external", DataType.BOOLEAN);
 
       new Association()
@@ -89,38 +89,20 @@ public class ClassModelTest
                   new Parameter(DataType.ref("String...")).withName("values")))
          .withMethod("createSafeVarargsAnnotation", DataType.ref(annotationClass));
       
-      Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("Deprecated");
-      Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("Override");
-      Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("SafeVarargs");
-      Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Visibility.PUBLIC, Visibility.STATIC, Visibility.FINAL).withInitialization("SuppressWarnings");
+      Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("Deprecated");
+      Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("Override");
+      Attribute safeVarargsAnnotation = new Attribute("SAFE_VARGARGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("SafeVarargs");
+      Attribute suppressWarningsAnnotation = new Attribute("SUPPRESS_WARNINGS", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withInitialization("SuppressWarnings");
 
       annotationClass.with(deprecatedAnnotation, overrideAnnotation, safeVarargsAnnotation, suppressWarningsAnnotation);
       
-      new Association()
-         .withSource(new Role(clazzClass, "clazz", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(annotationClass, "annotations", Card.MANY);
-
-      new Association()
-         .withSource(new Role(methodClass, "method", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(annotationClass, "annotations", Card.MANY);
-
-      new Association()
-      .withSource(new Role(attributeClass, "attribute", Card.ONE).withKind(Role.AGGREGATION))
-      .withTarget(annotationClass, "annotations", Card.MANY);
-
       // ---- Enumeration ----
 
-      Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz)
-         .withImport("java.util.TreeSet")
-         .withAttribute("valueNames", DataType.ref("ArrayListSet"), "new ArrayListSet()");
+      Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz);
 
       new Association()
          .withSource(new Role(modelClass, "classModel", Card.ONE).withKind(Role.AGGREGATION))
          .withTarget(enumClass, "enumerations", Card.MANY);
-
-      new Association()
-         .withSource(new Role(enumClass, "enumeration", Card.ONE).withKind(Role.AGGREGATION))
-         .withTarget(methodClass, "methods", Card.MANY);
 
       // ---- Enumeration END ----
 
@@ -168,7 +150,7 @@ public class ClassModelTest
 
       Clazz statementEntry = model.createClazz("org.sdmlib.codegen.StatementEntry")
          .withAttribute("kind", DataType.STRING)
-         .withAttribute("tokenList", DataType.ref("ArrayList<String>"))
+         .withAttribute("tokenList", DataType.ref("java.util.ArrayList<String>", true))
          .withAttribute("assignTargetVarName", DataType.STRING)
          .withAttribute("startPos", DataType.INT)
          .withAttribute("endPos", DataType.INT);
@@ -203,6 +185,7 @@ public class ClassModelTest
       // .withIgnoreClazz("org.sdmlib.models.classes.Attribute")
       // .withShowDiff(DIFF.DIFF);
 
+      model.withoutFeature(Feature.PatternObject);
       model.generate("src/main/java");
 
       storyboard.dumpHTML();

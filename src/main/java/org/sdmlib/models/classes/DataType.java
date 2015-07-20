@@ -1,89 +1,87 @@
 package org.sdmlib.models.classes;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 public class DataType
 {
+   public static final DataType VOID = new DataType("void");
+   public static final DataType INT = new DataType("int");
+   public static final DataType LONG = new DataType("long");
+   public static final DataType DOUBLE = new DataType("double");
+   public static final DataType STRING = new DataType("String");
+   public static final DataType BOOLEAN = new DataType("boolean");
+   public static final DataType OBJECT = new DataType("Object");
+   public static final DataType CHAR = new DataType("char");
 
-   private static ConcurrentHashMap<Clazz, DataType> instances = new ConcurrentHashMap<>();
-
-   public static synchronized DataType getInstance(String key)
-   {
-      DataType result = instances.get(key);
-
-      if (result == null)
-      {
-         result = new DataType(key);
-         instances.put(new Clazz(key), result);
-
-      }
-      return result;
-
-   }
-   
-   public static synchronized DataType getInstance(Clazz key)
-   {
-	   return getInstance(key.getFullName());   
-   }
-
-   public static final DataType VOID = getInstance("void");
-   public static final DataType INT = getInstance("int");
-   public static final DataType LONG = getInstance("long");
-   public static final DataType DOUBLE = getInstance("double");
-   public static final DataType STRING = getInstance("String");
-   public static final DataType BOOLEAN = getInstance("boolean");
-   public static final DataType OBJECT = getInstance("Object");
-   public static final DataType CHAR = getInstance("char");
-
-   private String value;
    private Clazz clazzValue;
 
    private DataType ( String value )
    {
-      this.value = value;
+      this.clazzValue = new Clazz(value);
    }
    
    private DataType ( Clazz value )
    {
       this.clazzValue = value;
    }
+   
+   public Clazz getClazz() {
+	   return clazzValue;
+   }
 
-   public String getValue()
-   {
-      return value;
+   public String getValue() {
+	   if(this.clazzValue==null) {
+		   return null;
+	   }
+	   return this.clazzValue.getName();
+   }
+
+
+   public boolean equals(Object obj) {
+	   if(!(obj instanceof DataType)) {
+		   return false;
+	   }
+	   DataType other = (DataType)obj;
+	   if(this.getValue()==null) {
+		   return other.getValue()==null;
+	   }
+	   return getValue().equals(other.getValue());
    }
 
    public static DataType ref(String value)
    {
-      return getInstance(value);
+      return new DataType(value);
    }
-
+   public static DataType ref(String value, boolean external) {
+	   return new DataType(new Clazz(value).withExternal(external));
+   }
    public static DataType ref(Class<?> value)
    {
-      return getInstance(value.getName().replace("$", "."));
+      return new DataType(value.getName().replace("$", "."));
    }
 
+   public static DataType ref(Class<?> value, boolean external) {
+	   Clazz clazz = new Clazz(value.getName().replace("$", ".")).withExternal(external);
+	   return new DataType(clazz);
+   }
    public static DataType ref(Clazz value)
    {
-      return getInstance(value);
+      return new DataType(value);
    }
 
    public static DataType ref(Enumeration value)
    {
-      return getInstance(value.getFullName());
+      return new DataType(value.getFullName());
    }
 
    @Override
    public String toString()
    {
-      if ("void int long double String boolean Object".indexOf(this.value) >= 0)
+      if ("void int long double String boolean Object".indexOf(this.getValue()) >= 0)
       {
-         return "DataType." + value.toUpperCase();
+         return "DataType." + this.getValue().toUpperCase();
       }
       else
       {
-         return "DataType.ref(\"" + value + "\")";
+         return "DataType.ref(\"" + this.getValue() + "\")";
       }
    }
-
 }

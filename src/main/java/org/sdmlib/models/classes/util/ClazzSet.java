@@ -340,12 +340,6 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
-   public ClazzPO startModelPattern()
-   {
-      return new ClazzPO(this.toArray(new Clazz[this.size()]));
-   }
-
-
    @SuppressWarnings("unchecked")
    public ClazzSet with(Object value)
    {
@@ -365,13 +359,6 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       this.remove(value);
       return this;
-   }
-
-
-
-   public ClazzPO hasClazzPO()
-   {
-      return new ClazzPO(this.toArray(new Clazz[this.size()]));
    }
 
    public ClazzSet getInterfacesTransitive()
@@ -744,7 +731,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withAnnotations(value);
+         obj.withAnnotation(value);
       }
       
       return this;
@@ -754,51 +741,9 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutAnnotations(value);
+         obj.withoutAnnotation(value);
       }
       
       return this;
    }
-
-   public booleanList getAbztract()
-   {
-      booleanList result = new booleanList();
-      
-      for (Clazz obj : this)
-      {
-         result.add(obj.isAbztract());
-      }
-      
-      return result;
-   }
-
-   public ClazzSet hasAbztract(boolean value)
-   {
-      ClazzSet result = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         if (value == obj.isAbztract())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ClazzSet withAbztract(boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.setAbztract(value);
-      }
-      
-      return this;
-   }
-
 }
-
-
-
-

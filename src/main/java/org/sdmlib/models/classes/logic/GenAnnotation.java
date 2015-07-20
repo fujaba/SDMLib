@@ -14,12 +14,12 @@ public class GenAnnotation extends Generator<Annotation>
 {
    public GenAnnotation generate(String rootDir, String helperDir)
    {
-      if (model.getClazz() != null)
-         return generate(model.getClazz(), rootDir, helperDir);
-      if (model.getMethod() != null)
-         return generate(model.getMethod(), rootDir, helperDir);
-      if (model.getAttribute() != null)
-         return generate(model.getAttribute(), rootDir, helperDir);
+      if (model.getOwner() instanceof Clazz)
+         return generate((Clazz)model.getOwner(), rootDir, helperDir);
+      if (model.getOwner() instanceof Method)
+         return generate((Method)model.getOwner(), rootDir, helperDir);
+      if (model.getOwner() instanceof Attribute)
+         return generate((Attribute)model.getOwner(), rootDir, helperDir);
       return this;
    }
 
@@ -35,7 +35,7 @@ public class GenAnnotation extends Generator<Annotation>
 
    private int getStartPos(Parser parser)
    {
-      return parser.indexOf(Parser.ATTRIBUTE + ":" + model.getAttribute().getName());
+      return parser.indexOf(Parser.ATTRIBUTE + ":" + model.getOwner().getName());
    }
 
    private GenAnnotation generate(Method method, String rootDir, String helperDir)

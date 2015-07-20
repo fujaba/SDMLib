@@ -30,12 +30,6 @@ import org.sdmlib.models.modelsets.StringList;
 
 public class ValueSet extends SDMSet<Value>
 {
-   public ValuePO hasValuePO()
-   {
-      return new ValuePO(this.toArray(new Value[this.size()]));
-   }
-
-
    @Override
    public String getEntryType()
    {

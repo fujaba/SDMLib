@@ -2727,7 +2727,7 @@ public class GenClassModel
 
          if (!symTabEntry.getAnnotations().isEmpty())
          {
-            method.withAnnotations(new Annotation().withName(symTabEntry.getAnnotations()));
+            method.withAnnotation(new Annotation().withName(symTabEntry.getAnnotations()));
          }
       }
    }

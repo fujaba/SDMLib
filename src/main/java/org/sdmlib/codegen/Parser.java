@@ -2134,4 +2134,30 @@ private String classModifier;
       String posString = "\n"+string1+"^";
       return lineString + posString;
    }
+   
+   public void insertImport(String className)
+   {
+	      if (className.indexOf("<") > 0)
+	      {
+	         className = className.substring(0, className.indexOf("<"));
+	      }
+	      if ("String int double float boolean void".indexOf(className) >= 0)
+	      {
+	         return;
+	      }
+
+	      int pos = indexOf(Parser.IMPORT);
+
+	      String prefix = "";
+	      if (search(Parser.IMPORT, pos) < 0)
+	      {
+	         prefix = "\n";
+	      }
+
+	      SymTabEntry symTabEntry = getSymTab().get(Parser.IMPORT + ":" + className);
+	      if (symTabEntry == null)
+	      {
+	         insert(getEndOfImports() + 1, prefix + "\nimport " + className + ";");
+	      }
+   }
 }

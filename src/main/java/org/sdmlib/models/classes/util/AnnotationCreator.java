@@ -24,13 +24,11 @@ package org.sdmlib.models.classes.util;
 import java.util.Set;
 
 import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.AnnotationOwner;
 import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.Attribute;
 
 public class AnnotationCreator extends EntityFactory
 {
@@ -38,10 +36,8 @@ public class AnnotationCreator extends EntityFactory
    {
       Annotation.PROPERTY_VALUES,
       SDMLibClass.PROPERTY_NAME,
-      Annotation.PROPERTY_CLAZZ,
-      Annotation.PROPERTY_METHOD,
       Annotation.PROPERTY_VALUES,
-      Annotation.PROPERTY_ATTRIBUTE,
+      Annotation.PROPERTY_OWNER,
    };
    
    @Override
@@ -77,25 +73,15 @@ public class AnnotationCreator extends EntityFactory
          return ((SDMLibClass) target).getName();
       }
 
-      if (Annotation.PROPERTY_CLAZZ.equalsIgnoreCase(attribute))
+      if (Annotation.PROPERTY_OWNER.equalsIgnoreCase(attribute))
       {
-         return ((Annotation) target).getClazz();
+         return ((Annotation) target).getOwner();
       }
-
-      if (Annotation.PROPERTY_METHOD.equalsIgnoreCase(attribute))
-      {
-         return ((Annotation) target).getMethod();
-      }
-
-      if (Annotation.PROPERTY_ATTRIBUTE.equalsIgnoreCase(attribute))
-      {
-         return ((Annotation) target).getAttribute();
-      }
-      
       return null;
    }
    
-   @Override
+   @SuppressWarnings("unchecked")
+@Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
       if (JsonIdMap.REMOVE.equals(type) && value != null)
@@ -115,24 +101,11 @@ public class AnnotationCreator extends EntityFactory
          return true;
       }
 
-      if (Annotation.PROPERTY_CLAZZ.equalsIgnoreCase(attrName))
+      if (Annotation.PROPERTY_OWNER.equalsIgnoreCase(attrName))
       {
-         ((Annotation) target).setClazz((Clazz) value);
+         ((Annotation) target).setOwner((AnnotationOwner) value);
          return true;
       }
-
-      if (Annotation.PROPERTY_METHOD.equalsIgnoreCase(attrName))
-      {
-         ((Annotation) target).setMethod((Method) value);
-         return true;
-      }
-
-      if (Annotation.PROPERTY_ATTRIBUTE.equalsIgnoreCase(attrName))
-      {
-         ((Annotation) target).setAttribute((Attribute) value);
-         return true;
-      }
-      
       return false;
    }
    public static JsonIdMap createIdMap(String sessionID)

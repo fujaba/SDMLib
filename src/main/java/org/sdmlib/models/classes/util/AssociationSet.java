@@ -106,13 +106,6 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       return this;
    }
 
-
-   public AssociationPO startModelPattern()
-   {
-      return new AssociationPO(this.toArray(new Association[this.size()]));
-   }
-
-
    @SuppressWarnings("unchecked")
    public AssociationSet with(Object value)
    {
@@ -128,10 +121,6 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       return this;
    }
 
-   public AssociationPO hasAssociationPO()
-   {
-      return new AssociationPO(this.toArray(new Association[this.size()]));
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -171,7 +160,3 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
    
    public static final AssociationSet EMPTY_SET = new AssociationSet().withReadOnly(true);
 }
-
-
-
-

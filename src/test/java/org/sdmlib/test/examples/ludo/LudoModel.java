@@ -9,7 +9,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardManager;
@@ -44,8 +44,8 @@ public class LudoModel
       Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
       
       Clazz point = model.createClazz(Point.class.getName())
-            .with(new Attribute("x", DataType.INT).with(Visibility.PUBLIC))
-            .with(new Attribute("y", DataType.INT).with(Visibility.PUBLIC))
+            .with(new Attribute("x", DataType.INT).with(Modifier.PUBLIC))
+            .with(new Attribute("y", DataType.INT).with(Modifier.PUBLIC))
             .withExternal(true);
       
       Clazz player = model.createClazz("Player")

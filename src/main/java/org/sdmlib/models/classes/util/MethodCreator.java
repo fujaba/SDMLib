@@ -1,12 +1,11 @@
 package org.sdmlib.models.classes.util;
 
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.models.classes.Annotation;
 
 public class MethodCreator extends SDMLibClassCreator
 {
@@ -17,7 +16,6 @@ public class MethodCreator extends SDMLibClassCreator
       Method.PROPERTY_RETURNTYPE,
       Method.PROPERTY_CLAZZ,
       Method.PROPERTY_BODY,
-      Method.PROPERTY_ENUMERATION,
       Method.PROPERTY_ANNOTATIONS,
    };
    
@@ -68,11 +66,6 @@ public class MethodCreator extends SDMLibClassCreator
          return ((Method) target).getParameter();
       }
 
-      if (Method.PROPERTY_ENUMERATION.equalsIgnoreCase(attribute))
-      {
-         return ((Method) target).getEnumeration();
-      }
-
       if (Method.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attribute))
       {
          return ((Method) target).getAnnotations();
@@ -118,21 +111,15 @@ public class MethodCreator extends SDMLibClassCreator
          return true;
       }
 
-      if (Method.PROPERTY_ENUMERATION.equalsIgnoreCase(attrName))
-      {
-         ((Method) target).setEnumeration((Enumeration) value);
-         return true;
-      }
-
       if (Method.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
       {
-         ((Method) target).withAnnotations((Annotation) value);
+         ((Method) target).withAnnotation((Annotation) value);
          return true;
       }
       
       if ((Method.PROPERTY_ANNOTATIONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((Method) target).withoutAnnotations((Annotation) value);
+         ((Method) target).withoutAnnotation((Annotation) value);
          return true;
       }
 

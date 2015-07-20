@@ -29,12 +29,6 @@ import org.sdmlib.models.modelsets.StringList;
 
 public class SDMLibClassSet extends SDMSet<SDMLibClass>
 {
-   public SDMLibClassPO hasSDMLibClassPO()
-   {
-      return new SDMLibClassPO(this.toArray(new SDMLibClass[this.size()]));
-   }
-
-
    @Override
    public String getEntryType()
    {

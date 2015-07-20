@@ -9,7 +9,7 @@ import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Visibility;
+import org.sdmlib.models.classes.Modifier;
 
 public class GenMethod extends Generator<Method>
 {
@@ -129,7 +129,7 @@ public class GenMethod extends Generator<Method>
                   "\n   //==========================================================================" +
                   "\n   modifiers returnType mehodName( parameter )");
 
-         if (clazz.isInterface() || model.getModifier().has(Visibility.ABSTRACT))
+         if (clazz.isInterface() || model.getModifier().has(Modifier.ABSTRACT))
          {
             text.append(";\n");
          }
@@ -212,8 +212,6 @@ public class GenMethod extends Generator<Method>
    {
       if (model.getClazz() != null)
          generate(model.getClazz(), rootDir, helpersDir);
-      if (model.getEnumeration() != null)
-         generate(model.getEnumeration(), rootDir, helpersDir);
    }
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)
@@ -225,7 +223,7 @@ public class GenMethod extends Generator<Method>
       String signature = model.getSignature(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
-      if (pos < 0 && model.getModifier().has(Visibility.PUBLIC))
+      if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
       {
          signature = model.getSignature(true);
          StringBuilder text = new StringBuilder
@@ -285,7 +283,6 @@ public class GenMethod extends Generator<Method>
             type = type.substring(0, type.length() - 2);
          }
          String importType = type;
-         GenClass generator = model.getClazz().getClassModel().getGenerator().getOrCreate(model.getClazz());
          if ("void".equals(type))
          {
             type = CGUtil.shortClassName(clazz2.getFullName()) + "Set";
@@ -312,7 +309,7 @@ public class GenMethod extends Generator<Method>
                importType = importType.substring(0, dotpos) + GenClassModel.UTILPATH + "." + type;
             }
 
-            generator.insertImport(parser, importType);
+            parser.insertImport(importType);
 
             returnSetCreate = type + " result = new " + type + "();\n      ";
 
@@ -321,7 +318,7 @@ public class GenMethod extends Generator<Method>
             returnStat = "return result;";
          }
 
-         if (model.getModifier().has(Visibility.STATIC))
+         if (model.getModifier().has(Modifier.STATIC))
          {
             returnStat = "";
          }
@@ -357,7 +354,7 @@ public class GenMethod extends Generator<Method>
 
       int pos = parser.indexOf(key);
 
-      if (pos < 0 && model.getModifier().has(Visibility.PUBLIC))
+      if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
       {
          signature = model.getSignature(true);
          StringBuilder text = new StringBuilder
@@ -414,12 +411,12 @@ public class GenMethod extends Generator<Method>
             type = type.substring(0, type.length() - 2);
          }
          String importType = type;
-         GenClass generator = model.getClazz().getClassModel().getGenerator().getOrCreate(model.getClazz());
+         if(type.indexOf(".")<0 && type.equals(model.getClazz().getName())) {
+        	 type = model.getClazz().getFullName();
+         }
          if (!("Object".indexOf(type) >= 0))
          {
-            generator.insertImport(parser, importType); // TODO: import might
-                                                        // not be correct for
-                                                        // user defined classes
+        	 parser.insertImport(importType); 
          }
 
          if (!"void".equals(type))

@@ -68,7 +68,7 @@ public class HelloWorldTTC2011
       Clazz greetClass = model.createClazz("org.sdmlib.test.examples.helloworld.Greeting")
             .withAttribute("text", DataType.STRING);
 
-      greetClass.withUniDirectionalAssoc(greetClass, "tgt", Card.ONE);
+      greetClass.withAssoc(greetClass, "tgt", Card.ONE);
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
       model.generate("src/test/java");

@@ -21,62 +21,40 @@
    
 package org.sdmlib.models.classes.util;
 
-import org.sdmlib.serialization.EntityFactory;
+import java.util.Collection;
 
-import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.models.classes.Modifier;
+import org.sdmlib.models.modelsets.SDMSet;
 
-public class ArrayListCreator extends EntityFactory
+public class ModifierSet extends SDMSet<Modifier>
 {
-   private final String[] properties = new String[]
-   {
-   };
-   
    @Override
-   public String[] getProperties()
+   public String getEntryType()
    {
-      return properties;
+      return "org.sdmlib.models.classes.Modifier";
    }
-   
-   @Override
-   public Object getSendableInstance(boolean reference)
+
+
+   @SuppressWarnings("unchecked")
+   public ModifierSet with(Object value)
    {
-      return null;
-   }
-   
-   @Override
-   public Object getValue(Object target, String attrName)
-   {
-//      int pos = attrName.indexOf('.');
-//      String attribute = attrName;
-//      
-//      if (pos > 0)
-//      {
-//         attribute = attrName.substring(0, pos);
-//      }
-      
-      return null;
-   }
-   
-   @Override
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      if (value instanceof java.util.Collection)
       {
-         attrName = attrName + type;
+         this.addAll((Collection<Modifier>)value);
+      }
+      else if (value != null)
+      {
+         this.add((Modifier) value);
       }
       
-      return false;
-   }
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return CreatorCreator.createIdMap(sessionID);
+      return this;
    }
    
-   //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+   public ModifierSet without(Modifier value)
    {
-      // wrapped object has no removeYou method
+      this.remove(value);
+      return this;
    }
+
+   public static final ModifierSet EMPTY_SET = new ModifierSet().withReadOnly(true);
 }

@@ -24,20 +24,15 @@ package org.sdmlib.models.classes.util;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.AnnotationSet;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.util.EnumerationSet;
-import org.sdmlib.models.classes.util.ParameterSet;
-import org.sdmlib.models.classes.util.ClazzSet;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -139,14 +134,6 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return this;
    }
 
-
-
-   public MethodPO startModelPattern()
-   {
-      return new MethodPO(this.toArray(new Method[this.size()]));
-   }
-
-
    @SuppressWarnings("unchecked")
    public MethodSet with(Object value)
    {
@@ -168,10 +155,6 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return this;
    }
 
-   public MethodPO hasMethodPO()
-   {
-      return new MethodPO(this.toArray(new Method[this.size()]));
-   }
    public StringList getName()
    {
       StringList result = new StringList();
@@ -257,55 +240,6 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return this;
    }
 
-   public EnumerationSet getEnumeration()
-   {
-      EnumerationSet result = new EnumerationSet();
-      
-      for (Method obj : this)
-      {
-         result.add(obj.getEnumeration());
-      }
-      
-      return result;
-   }
-
-   public MethodSet hasEnumeration(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      MethodSet answer = new MethodSet();
-      
-      for (Method obj : this)
-      {
-         if (neighbors.contains(obj.getEnumeration()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public MethodSet withEnumeration(Enumeration value)
-   {
-      for (Method obj : this)
-      {
-         obj.withEnumeration(value);
-      }
-      
-      return this;
-   }
-
-
    public static final MethodSet EMPTY_SET = new MethodSet().withReadOnly(true);
    public AnnotationSet getAnnotations()
    {
@@ -349,7 +283,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withAnnotations(value);
+         obj.withAnnotation(value);
       }
       
       return this;
@@ -359,14 +293,10 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withoutAnnotations(value);
+         obj.withoutAnnotation(value);
       }
       
       return this;
    }
 
 }
-
-
-
-
