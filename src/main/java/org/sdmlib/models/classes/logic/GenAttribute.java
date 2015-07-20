@@ -16,6 +16,7 @@ import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.classes.templates.AddTemplate;
 import org.sdmlib.models.classes.templates.AttributeTemplates;
 import org.sdmlib.models.classes.templates.ExistTemplate;
+import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
@@ -142,7 +143,7 @@ public class GenAttribute extends Generator<Attribute>
       String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
       attrType = CGUtil.shortClassName(attrType);
       
-      Template template = new Template(Parser.METHOD + ":create" + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")");
+      Template template = new Template(Parser.METHOD + ":create{{Name}}({{AttrType}})");
       template.withTemplate("   public {{PatternObjectType}} create{{Name}}({{AttrType}} value)\n" +
               "   {\n" +
               "      this.startCreate().has{{Name}}(value).endCreate();\n" +
@@ -197,6 +198,7 @@ public class GenAttribute extends Generator<Attribute>
 			attrNameGetter = model.getName();
 			attrNameSetter = model.getName() + " = value";
 		}
+		
 		template.insert(parser, model.getClazz().getClassModel(),
                "nullValue", nullValue,
                "ValueGet", attrNameGetter,

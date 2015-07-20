@@ -13,7 +13,7 @@ public class AttributeTemplates {
 	            "\n   //==========================================================================" +
 	            "\n   ");
 	      Template attrDecl = new Template()
-	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
+	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_{{NAME}}")
 	      		  .withTemplate("\n   public static final String PROPERTY_{{NAME}} = \"{{name}}\";\n   ");
 
 	      Template attrGet = new Template()
@@ -25,7 +25,7 @@ public class AttributeTemplates {
 	    		  .withTemplate( "\n   public void set{{Name}}({{type}} value);\n" );
 
 	      Template attrWith = new Template()
-	    		  .withSearch(Parser.METHOD + ":with" + StrUtil.upFirstChar(attribute.getName()) + "(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
+	    		  .withSearch(Parser.METHOD + ":with{{Name}}(" + CGUtil.shortClassName(attribute.getType().getValue()) + ")")
 	    		  .withTemplate( "\n   public {{ownerclass}} with{{Name}}({{type}} value);\n" );
 	      
 
