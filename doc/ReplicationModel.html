@@ -102,7 +102,12 @@
          "id":"BoardTask",
          "attributes":[
          "name : String",
-            "status : String"
+            "status : String",
+            "manualExecution : boolean",
+            "stashedPropertyChangeEvent : java.beans.PropertyChangeEvent"
+         ],
+         "methods":[
+         "execute()"
          ]
       },
       {
@@ -127,6 +132,10 @@
       {
          "typ":"node",
          "id":"ReplicationNode"
+      },
+      {
+         "typ":"node",
+         "id":"PropertyChangeEvent"
       },
       {
          "typ":"node",

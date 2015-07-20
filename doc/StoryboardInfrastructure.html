@@ -108,7 +108,8 @@ phase entries will be used for planning, in future</p>
          "typ":"node",
          "id":"C1 : ClassModel",
          "attributes":[
-         "name=org.sdmlib.storyboards"
+         "authorName=zuendorf",
+            "name=org.sdmlib.storyboards"
          ]
       },
       {
@@ -698,6 +699,19 @@ phase entries will be used for planning, in future</p>
             "id":"G24 : GenClassModel"
          },
          "target":{
+            "cardinality":"one",
+            "property":"showDiff",
+            "id":"G25 : GenClassModel$DIFF"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G24 : GenClassModel"
+         },
+         "target":{
             "cardinality":"many",
             "property":"associations",
             "id":"A8 : Association"
@@ -727,19 +741,6 @@ phase entries will be used for planning, in future</p>
             "cardinality":"many",
             "property":"associations",
             "id":"A20 : Association"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"genclassmodel",
-            "id":"G24 : GenClassModel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"showDiff",
-            "id":"G25 : GenClassModel$DIFF"
          }
       }
    ]

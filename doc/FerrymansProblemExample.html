@@ -164,12 +164,27 @@
   "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank",
   "prop":{
     "name":"left",
-    "boat":{"id":"#3"},
-    "river":{"id":"#7"},
+    "boat":{
+      "id":"#3",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat"
+    },
+    "river":{
+      "id":"#7",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River"
+    },
     "cargos":[
-    {"id":"#4"},
-      {"id":"#5"},
-      {"id":"#6"}
+    {
+        "id":"#4",
+        "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+      },
+      {
+        "id":"#5",
+        "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+      },
+      {
+        "id":"#6",
+        "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo"
+      }
     ]
   }
 }*1
@@ -177,44 +192,71 @@
   "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank",
   "prop":{
     "name":"right",
-    "river":{"id":"#7"}
+    "river":{
+      "id":"#7",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River"
+    }
   }
 }*1
 {
   "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat",
   "prop":{
-    "river":{"id":"#7"},
-    "bank":{"id":"#1"}
+    "river":{
+      "id":"#7",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River"
+    },
+    "bank":{
+      "id":"#1",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank"
+    }
   }
 }*1
 {
   "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo",
   "prop":{
     "name":"cabbage",
-    "bank":{"id":"#1"}
+    "bank":{
+      "id":"#1",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank"
+    }
   }
 }*1
 {
   "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo",
   "prop":{
     "name":"goat",
-    "bank":{"id":"#1"}
+    "bank":{
+      "id":"#1",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank"
+    }
   }
 }*1
 {
   "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Cargo",
   "prop":{
     "name":"wolf",
-    "bank":{"id":"#1"}
+    "bank":{
+      "id":"#1",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank"
+    }
   }
 }*1
 {
   "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.River",
   "prop":{
-    "boat":{"id":"#3"},
+    "boat":{
+      "id":"#3",
+      "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Boat"
+    },
     "banks":[
-    {"id":"#1"},
-      {"id":"#2"}
+    {
+        "id":"#1",
+        "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      },
+      {
+        "id":"#2",
+        "class":"org.sdmlib.examples.reachabilitygraphs.ferrymansproblem.Bank"
+      }
     ]
   }
 }*1
@@ -925,17 +967,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B53 : Bank",
+         "id":"s.B55 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B55 : Bank",
+         "id":"s.B53 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -998,17 +1040,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B66 : Bank",
+         "id":"s.B63 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B63 : Bank",
+         "id":"s.B66 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -1168,17 +1210,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B109 : Bank",
+         "id":"s.B112 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B112 : Bank",
+         "id":"s.B109 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -1234,17 +1276,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B149 : Bank",
+         "id":"s.B146 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B146 : Bank",
+         "id":"s.B149 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -1418,17 +1460,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B213 : Bank",
+         "id":"s.B216 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B216 : Bank",
+         "id":"s.B213 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -1484,17 +1526,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B159 : Bank",
+         "id":"s.B156 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B156 : Bank",
+         "id":"s.B159 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -1692,17 +1734,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B127 : Bank",
+         "id":"s.B130 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B130 : Bank",
+         "id":"s.B127 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -1737,17 +1779,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B136 : Bank",
+         "id":"s.B139 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B139 : Bank",
+         "id":"s.B136 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -1827,17 +1869,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B222 : Bank",
+         "id":"s.B225 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B225 : Bank",
+         "id":"s.B222 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -1886,17 +1928,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B234 : Bank",
+         "id":"s.B232 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B232 : Bank",
+         "id":"s.B234 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -2035,17 +2077,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B261 : Bank",
+         "id":"s.B265 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B265 : Bank",
+         "id":"s.B261 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -2125,17 +2167,17 @@
       },
       {
          "typ":"node",
-         "id":"s.B118 : Bank",
+         "id":"s.B121 : Bank",
          "attributes":[
-         "name=right",
+         "name=left",
             "age=0"
          ]
       },
       {
          "typ":"node",
-         "id":"s.B121 : Bank",
+         "id":"s.B118 : Bank",
          "attributes":[
-         "name=left",
+         "name=right",
             "age=0"
          ]
       },
@@ -2978,7 +3020,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B53 : Bank"
+            "id":"s.B55 : Bank"
          }
       },
       {
@@ -2991,7 +3033,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B55 : Bank"
+            "id":"s.B53 : Bank"
          }
       },
       {
@@ -3160,7 +3202,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B66 : Bank"
+            "id":"s.B63 : Bank"
          }
       },
       {
@@ -3173,7 +3215,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B63 : Bank"
+            "id":"s.B66 : Bank"
          }
       },
       {
@@ -3576,7 +3618,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B109 : Bank"
+            "id":"s.B112 : Bank"
          }
       },
       {
@@ -3589,7 +3631,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B112 : Bank"
+            "id":"s.B109 : Bank"
          }
       },
       {
@@ -3732,7 +3774,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B149 : Bank"
+            "id":"s.B146 : Bank"
          }
       },
       {
@@ -3745,7 +3787,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B146 : Bank"
+            "id":"s.B149 : Bank"
          }
       },
       {
@@ -4174,7 +4216,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B213 : Bank"
+            "id":"s.B216 : Bank"
          }
       },
       {
@@ -4187,7 +4229,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B216 : Bank"
+            "id":"s.B213 : Bank"
          }
       },
       {
@@ -4330,7 +4372,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B159 : Bank"
+            "id":"s.B156 : Bank"
          }
       },
       {
@@ -4343,7 +4385,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B156 : Bank"
+            "id":"s.B159 : Bank"
          }
       },
       {
@@ -4876,7 +4918,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B127 : Bank"
+            "id":"s.B130 : Bank"
          }
       },
       {
@@ -4889,7 +4931,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B130 : Bank"
+            "id":"s.B127 : Bank"
          }
       },
       {
@@ -5006,7 +5048,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B136 : Bank"
+            "id":"s.B139 : Bank"
          }
       },
       {
@@ -5019,7 +5061,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B139 : Bank"
+            "id":"s.B136 : Bank"
          }
       },
       {
@@ -5266,7 +5308,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B222 : Bank"
+            "id":"s.B225 : Bank"
          }
       },
       {
@@ -5279,7 +5321,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B225 : Bank"
+            "id":"s.B222 : Bank"
          }
       },
       {
@@ -5422,7 +5464,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B234 : Bank"
+            "id":"s.B232 : Bank"
          }
       },
       {
@@ -5435,7 +5477,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B232 : Bank"
+            "id":"s.B234 : Bank"
          }
       },
       {
@@ -5812,7 +5854,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B261 : Bank"
+            "id":"s.B265 : Bank"
          }
       },
       {
@@ -5825,7 +5867,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B265 : Bank"
+            "id":"s.B261 : Bank"
          }
       },
       {
@@ -6072,7 +6114,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B118 : Bank"
+            "id":"s.B121 : Bank"
          }
       },
       {
@@ -6085,7 +6127,7 @@
          "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"s.B121 : Bank"
+            "id":"s.B118 : Bank"
          }
       },
       {

@@ -33,6 +33,9 @@ import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.util.LogEntrySet;
+import org.sdmlib.replication.util.LaneSet;
+import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
 public class BoardTaskSet extends SDMSet<BoardTask>
 {
@@ -568,6 +571,18 @@ public class BoardTaskSet extends SDMSet<BoardTask>
       }
       
       return this;
+   }
+
+   public PropertyChangeEventSet getStashedPropertyChangeEvent()
+   {
+      PropertyChangeEventSet result = new PropertyChangeEventSet();
+      
+      for (BoardTask obj : this)
+      {
+         result.add(obj.getStashedPropertyChangeEvent());
+      }
+      
+      return result;
    }
 
 }

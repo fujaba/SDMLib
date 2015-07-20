@@ -22,9 +22,9 @@
          "attributes":[
          "lastChangeId=0",
             "spaceId=coverage",
-            "name=Thread-696",
+            "name=Thread-0",
             "threadGroup=java.lang.ThreadGroup[name=main,maxpri=10]",
-            "id=708",
+            "id=11",
             "priority=5",
             "state=NEW",
             "uncaughtExceptionHandler=java.lang.ThreadGroup[name=main,maxpri=10]"
@@ -100,14 +100,16 @@
          "typ":"node",
          "id":"B17 : BoardTask",
          "attributes":[
-         "name=firstTask"
+         "name=firstTask",
+            "manualExecution=false"
          ]
       },
       {
          "typ":"node",
          "id":"B19 : BoardTask",
          "attributes":[
-         "name=secondTask"
+         "name=secondTask",
+            "manualExecution=false"
          ]
       },
       {
@@ -123,6 +125,21 @@
       },
       {
          "typ":"node",
+         "id":"P22 : PropertyChangeEvent"
+      },
+      {
+         "typ":"node",
+         "id":"P21 : PropertyChangeEvent"
+      },
+      {
+         "typ":"node",
+         "id":" : PropertyChangeEvent",
+         "attributes":[
+         "property=lane"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"R5 : ReplicationRoot"
       },
       {
@@ -131,7 +148,7 @@
       },
       {
          "typ":"node",
-         "id":"R21 : ReplicationChange",
+         "id":"R23 : ReplicationChange",
          "attributes":[
          "historyIdPrefix=42",
             "historyIdNumber=0",
@@ -354,6 +371,19 @@
          "source":{
             "cardinality":"one",
             "property":"boardtask",
+            "id":"B17 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"stashedPropertyChangeEvent",
+            "id":"P22 : PropertyChangeEvent"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boardtask",
             "id":"B19 : BoardTask"
          },
          "target":{
@@ -366,13 +396,78 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
+            "property":"boardtask",
+            "id":"B19 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"stashedPropertyChangeEvent",
+            "id":"P21 : PropertyChangeEvent"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"propertychangeevent",
+            "id":" : PropertyChangeEvent"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"source",
+            "id":"B19 : BoardTask"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"propertychangeevent",
+            "id":" : PropertyChangeEvent"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"newValue",
+            "id":"L16 : Lane"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"propertychangeevent",
+            "id":" : PropertyChangeEvent"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"source",
+            "id":"B17 : BoardTask"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"propertychangeevent",
+            "id":" : PropertyChangeEvent"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"newValue",
+            "id":"L16 : Lane"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
             "property":"changehistory",
             "id":"C6 : ChangeHistory"
          },
          "target":{
             "cardinality":"many",
             "property":"changes",
-            "id":"R21 : ReplicationChange"
+            "id":"R23 : ReplicationChange"
          }
       }
    ]

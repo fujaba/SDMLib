@@ -2399,6 +2399,20 @@ Number of migrated Edges: 10</p>
       },
       {
          "typ":"node",
+         "id":"hg.E69 : Edge",
+         "attributes":[
+         "text=e18"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"hg.E71 : Edge",
+         "attributes":[
+         "text=e19"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"hg.E60 : Edge",
          "attributes":[
          "text=e10"
@@ -2434,23 +2448,9 @@ Number of migrated Edges: 10</p>
       },
       {
          "typ":"node",
-         "id":"hg.E69 : Edge",
-         "attributes":[
-         "text=e18"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"hg.E70 : Edge",
          "attributes":[
          "text=e15"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"hg.E71 : Edge",
-         "attributes":[
-         "text=e19"
          ]
       },
       {
@@ -2583,6 +2583,32 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"gcs",
+            "id":"hg.E69 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"hg.G58 : Graph"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"gcs",
+            "id":"hg.E71 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"hg.G58 : Graph"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"gcs",
             "id":"hg.E60 : Edge"
          }
       },
@@ -2648,33 +2674,7 @@ Number of migrated Edges: 10</p>
          "target":{
             "cardinality":"many",
             "property":"gcs",
-            "id":"hg.E69 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"hg.G58 : Graph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"gcs",
             "id":"hg.E70 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"hg.G58 : Graph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"gcs",
-            "id":"hg.E71 : Edge"
          }
       },
       {
