@@ -54,7 +54,12 @@ public class GenEnumeration extends Generator<Enumeration> {
 
 	private void insertMethods(String rootDir, String helpersDir) {
 		for (Method method : model.getMethods()) {
-			getGenerator(method).generate(rootDir, helpersDir);
+			GenMethod generator = getGenerator(method);
+			if(generator==null) {
+				//TODO Its Enumeration skip it
+				continue;
+			}
+			generator.generate(rootDir, helpersDir);
 
 			String signature = method.getSignature(false);
 			parser.parse();

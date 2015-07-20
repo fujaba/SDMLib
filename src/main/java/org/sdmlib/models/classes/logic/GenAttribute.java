@@ -430,7 +430,9 @@ public class GenAttribute extends Generator<Attribute>
            {
               // use an ArrayList<Enum> as ModelSetType
               modelSetType = "ArrayList<ElemType>".replaceAll("ElemType", CGUtil.shortClassName(fullModelSetType));
-              importClassesFromTypes.remove(importClassesFromTypes.size() - 1);
+              if(importClassesFromTypes.size() > 0) {
+            	  importClassesFromTypes.remove(importClassesFromTypes.size() - 1);
+              }
               importClassesFromTypes.add("java.util.ArrayList");
            }
         }

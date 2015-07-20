@@ -26,8 +26,10 @@ public class JVMWraper
          "-classpath myclasspath main args"
             );
 
-      String java = "\"C:\\Program Files\\Java\\jdk1.8.0_31\\bin\\javaw.exe\" ";
-      
+      // Albert not the nice solution
+//      String java = "\"C:\\Program Files\\Java\\jdk1.8.0_31\\bin\\javaw.exe\" ";
+//      String java = System.getProperty("java.home");
+      String java = System.getProperty("java.home").replace("\\", "/") + "/bin/java";
       String classPath = System.getProperty("java.class.path");
       
      CGUtil.replaceAll(command, 
