@@ -2729,6 +2729,8 @@ public class GenClassModel
          {
             method.withAnnotation(new Annotation().withName(symTabEntry.getAnnotations()));
          }
+         method.setThrowsTags(symTabEntry.getThrowsTags());
+         method.setBody(parser.getFileBody().substring(symTabEntry.getBodyStartPos(),  symTabEntry.getEndPos()+1));
       }
    }
 

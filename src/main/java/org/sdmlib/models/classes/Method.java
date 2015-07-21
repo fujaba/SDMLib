@@ -397,6 +397,7 @@ public class Method extends SDMLibClass implements AnnotationOwner
    public static final String PROPERTY_ANNOTATIONS = "annotations";
 
    private AnnotationSet annotations = null;
+private String setThrowsTags;
    
    public AnnotationSet getAnnotations()
    {
@@ -455,6 +456,9 @@ public class Method extends SDMLibClass implements AnnotationOwner
       Annotation value = new Annotation();
       withAnnotation(value);
       return value;
-   } 
+   }
+	public void setThrowsTags(String value) {
+		this.setThrowsTags = value;
+	} 
 }
 

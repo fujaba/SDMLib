@@ -42,6 +42,7 @@ public class SymTabEntry implements PropertyChangeInterface
    private int bodyStartPos;
    private int startPos;
    private String type;
+   private String throwsTags;
    private String memberName;
    private String kind;
    
@@ -216,7 +217,16 @@ public class SymTabEntry implements PropertyChangeInterface
       setModifiers(value);
       return this;
    } 
-
+   
+   public SymTabEntry withThrowsTags(String value)
+   {
+      this.throwsTags = value;
+      return this;
+   } 
+   
+   public String getThrowsTags() {
+		return throwsTags;
+	} 
 
    
    //==========================================================================
@@ -244,5 +254,5 @@ public class SymTabEntry implements PropertyChangeInterface
    {
       setAnnotations(value);
       return this;
-   } 
+   }
 }

@@ -609,9 +609,12 @@ private String classModifier;
             }
 
             // skip throws
+            String throwsTags = null;
             if (currentRealTokenEquals("throws")) 
             {
+            	int temp = currentRealToken.startPos;
                skipTo('{');
+               throwsTags = fileBody.substring(temp, currentRealToken.startPos); 
             }
 
             methodBodyStartPos = currentRealToken.startPos;
@@ -629,6 +632,7 @@ private String classModifier;
                new SymTabEntry()
             .withMemberName(methodSignature)
             .withKind(METHOD)
+            .withThrowsTags(throwsTags)
             .withType(methodSignature + ":" + type)
             .withStartPos(startPos)
             .withEndPos(previousRealToken.startPos)
