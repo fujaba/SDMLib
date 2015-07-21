@@ -280,4 +280,49 @@ public class PawnSet extends SDMSet<Pawn>
 
 
    public static final PawnSet EMPTY_SET = new PawnSet().withReadOnly(true);
+   public PawnSet hasColor(String lower, String upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PawnSet hasX(int lower, int upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PawnSet hasY(int lower, int upper)
+   {
+      PawnSet result = new PawnSet();
+      
+      for (Pawn obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

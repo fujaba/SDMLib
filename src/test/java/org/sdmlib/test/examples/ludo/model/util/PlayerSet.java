@@ -38,6 +38,7 @@ import org.sdmlib.test.examples.ludo.model.util.DiceSet;
 import org.sdmlib.test.examples.ludo.model.util.FieldSet;
 import org.sdmlib.test.examples.ludo.model.util.LudoSet;
 import org.sdmlib.test.examples.ludo.model.util.PawnSet;
+import java.util.ArrayList;
 
 public class PlayerSet extends SDMSet<Player>
 {
@@ -121,21 +122,6 @@ public class PlayerSet extends SDMSet<Player>
       for (Player obj : this)
       {
          result.add(obj.getEnumColor());
-      }
-      
-      return result;
-   }
-
-   public PlayerSet hasEnumColor(org.sdmlib.test.examples.ludo.LudoModel.LudoColor value)
-   {
-      PlayerSet result = new PlayerSet();
-      
-      for (Player obj : this)
-      {
-         if (value == obj.getEnumColor())
-         {
-            result.add(obj);
-         }
       }
       
       return result;
@@ -712,4 +698,79 @@ public class PlayerSet extends SDMSet<Player>
 
 
    public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+   public PlayerSet hasColor(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlayerSet hasEnumColor(LudoColor value)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (value == obj.getEnumColor())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlayerSet hasName(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlayerSet hasX(int lower, int upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlayerSet hasY(int lower, int upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

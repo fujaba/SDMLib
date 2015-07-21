@@ -86,21 +86,6 @@ public class LudoSet extends SDMSet<Ludo>
       return result;
    }
 
-   public LudoSet hasDate(java.util.Date value)
-   {
-      LudoSet result = new LudoSet();
-      
-      for (Ludo obj : this)
-      {
-         if (value == obj.getDate())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public LudoSet withDate(Date value)
    {
       for (Ludo obj : this)
@@ -277,4 +262,19 @@ public class LudoSet extends SDMSet<Ludo>
 
 
    public static final LudoSet EMPTY_SET = new LudoSet().withReadOnly(true);
+   public LudoSet hasDate(Date value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value == obj.getDate())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

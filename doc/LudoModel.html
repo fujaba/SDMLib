@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/ludo/LudoModel.java' type='text/x-java'>LudoModel</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/test/examples/ludo/LudoModel.java' type='text/x-java'>LudoModel</a></p>
 <p>LudoModel</p>
 <script>
    var json = {
@@ -34,7 +34,7 @@
          "id":"Player",
          "attributes":[
          "color : String",
-            "enumColor : org.sdmlib.examples.ludo.LudoModel.LudoColor",
+            "enumColor : org.sdmlib.test.examples.ludo.LudoModel.LudoColor",
             "name : String",
             "x : int",
             "y : int"
@@ -72,9 +72,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Player",
             "cardinality":"many",
-            "property":"players",
-            "id":"Player"
+            "property":"players"
          },
          "target":{
             "id":"Ludo",
@@ -85,9 +85,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Dice",
             "cardinality":"one",
-            "property":"dice",
-            "id":"Dice"
+            "property":"dice"
          },
          "target":{
             "id":"Ludo",
@@ -98,9 +98,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Field",
             "cardinality":"many",
-            "property":"fields",
-            "id":"Field"
+            "property":"fields"
          },
          "target":{
             "id":"Ludo",
@@ -111,9 +111,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Player",
             "cardinality":"one",
-            "property":"prev",
-            "id":"Player"
+            "property":"prev"
          },
          "target":{
             "id":"Player",
@@ -124,9 +124,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Player",
             "cardinality":"one",
-            "property":"player",
-            "id":"Player"
+            "property":"player"
          },
          "target":{
             "id":"Dice",
@@ -137,9 +137,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Player",
             "cardinality":"one",
-            "property":"starter",
-            "id":"Player"
+            "property":"starter"
          },
          "target":{
             "id":"Field",
@@ -150,9 +150,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Player",
             "cardinality":"one",
-            "property":"baseowner",
-            "id":"Player"
+            "property":"baseowner"
          },
          "target":{
             "id":"Field",
@@ -163,9 +163,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Player",
             "cardinality":"one",
-            "property":"lander",
-            "id":"Player"
+            "property":"lander"
          },
          "target":{
             "id":"Field",
@@ -176,9 +176,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Pawn",
             "cardinality":"many",
-            "property":"pawns",
-            "id":"Pawn"
+            "property":"pawns"
          },
          "target":{
             "id":"Player",
@@ -189,9 +189,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Field",
             "cardinality":"one",
-            "property":"prev",
-            "id":"Field"
+            "property":"prev"
          },
          "target":{
             "id":"Field",
@@ -202,9 +202,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Field",
             "cardinality":"one",
-            "property":"entry",
-            "id":"Field"
+            "property":"entry"
          },
          "target":{
             "id":"Field",
@@ -215,9 +215,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Pawn",
             "cardinality":"many",
-            "property":"pawns",
-            "id":"Pawn"
+            "property":"pawns"
          },
          "target":{
             "id":"Field",

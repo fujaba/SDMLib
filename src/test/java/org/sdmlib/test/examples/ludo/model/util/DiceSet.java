@@ -205,4 +205,19 @@ public class DiceSet extends SDMSet<Dice>
 
 
    public static final DiceSet EMPTY_SET = new DiceSet().withReadOnly(true);
+   public DiceSet hasValue(int lower, int upper)
+   {
+      DiceSet result = new DiceSet();
+      
+      for (Dice obj : this)
+      {
+         if (lower <= obj.getValue() && obj.getValue() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

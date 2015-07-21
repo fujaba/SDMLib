@@ -235,21 +235,6 @@ public class FieldSet extends SDMSet<Field>
       return result;
    }
 
-   public FieldSet hasPoint(java.awt.Point value)
-   {
-      FieldSet result = new FieldSet();
-      
-      for (Field obj : this)
-      {
-         if (value == obj.getPoint())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
    public FieldSet withPoint(Point value)
    {
       for (Field obj : this)
@@ -812,4 +797,79 @@ public class FieldSet extends SDMSet<Field>
 
 
    public static final FieldSet EMPTY_SET = new FieldSet().withReadOnly(true);
+   public FieldSet hasColor(String lower, String upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasKind(String lower, String upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasX(int lower, int upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower <= obj.getX() && obj.getX() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasY(int lower, int upper)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (lower <= obj.getY() && obj.getY() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FieldSet hasPoint(Point value)
+   {
+      FieldSet result = new FieldSet();
+      
+      for (Field obj : this)
+      {
+         if (value == obj.getPoint())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
