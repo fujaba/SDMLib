@@ -1132,6 +1132,8 @@ private String classModifier;
           lookAheadRealToken.text.append((int)currentToken.value);
           lookAheadRealToken.startPos = currentToken.startPos;
           lookAheadRealToken.endPos = currentToken.endPos;
+          
+          nextToken();
       }else
       {
          lookAheadRealToken.kind = currentToken.kind;
