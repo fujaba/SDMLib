@@ -27,7 +27,11 @@ public abstract class TemplateItem extends TemplateTask{
 			return new TemplateResult();
 		}
 		return run(searchString, parser, model, values);
-	}	
+	}
+	
+	public TemplateResult execute(String... values) {
+		return run(template, null, null, values);
+	}
 	
 	public TemplateResult run(String searchString, Parser parser, ClassModel model, String... values) {
 		if(values==null || values.length%2==1) {

@@ -36,6 +36,9 @@ public class Template extends TemplateItem {
 		for(int i = 0; i < variables.size(); i++) {
 			variables.get(i).checking(model);
 		}
+		if(searchString==null) {
+			return true;
+		}
 		TemplateResult searchText = run(searchString, parser, model, values);
 		if(searchText.isEmpty()) {
 			return false;
