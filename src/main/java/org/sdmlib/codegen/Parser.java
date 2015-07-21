@@ -679,7 +679,7 @@ private String classModifier;
 				nextRealToken();
 				
 				while (!")".equals(currentRealWord())) {
-					result += currentRealWord();
+					result += currentRealWord(); 
 					nextRealToken();
 				}
 				result += currentRealWord();
@@ -1126,7 +1126,13 @@ private String classModifier;
          lookAheadRealToken.startPos = constStartPos;
          lookAheadRealToken.endPos = previousToken.startPos;
       }
-      else
+      else if (currentToken.kind == '9') {
+    	  //TODO IS IT RIGHT
+          lookAheadRealToken.kind = currentToken.kind;
+          lookAheadRealToken.text.append((int)currentToken.value);
+          lookAheadRealToken.startPos = currentToken.startPos;
+          lookAheadRealToken.endPos = currentToken.endPos;
+      }else
       {
          lookAheadRealToken.kind = currentToken.kind;
          lookAheadRealToken.text.append(currentToken.text.toString());
