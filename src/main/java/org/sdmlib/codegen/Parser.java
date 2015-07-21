@@ -522,7 +522,15 @@ private String classModifier;
       {
          // constructor 
          skip(className);
+         
          String params = parseFormalParamList();
+         
+      // skip throws
+         if (currentRealTokenEquals("throws")) 
+         {
+            skipTo('{');
+         }
+         
          parseBlock();
          
          String constructorSignature = Parser.CONSTRUCTOR + ":" + className + params;
