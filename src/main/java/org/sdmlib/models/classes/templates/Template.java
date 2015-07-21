@@ -22,8 +22,11 @@ public class Template extends TemplateItem {
 		return this;
 	}
 
+	public boolean validate(Parser parser) {
+		return validate(parser, null);
+	}
 	@Override
-	protected boolean validate(Parser parser, ClassModel model, String... values) {
+	public boolean validate(Parser parser, ClassModel model, String... values) {
 		if(!active) {
 			return false;
 		}
@@ -36,6 +39,9 @@ public class Template extends TemplateItem {
 		TemplateResult searchText = run(searchString, parser, model, values);
 		if(searchText.isEmpty()) {
 			return false;
+		}
+		if(pos>=0) {
+			return parser.methodBodyIndexOf(searchText.getTextValue(), offset) <= 0;
 		}
 		return parser.indexOf(searchText.getTextValue()) <= 0;
 	}
@@ -68,6 +74,15 @@ public class Template extends TemplateItem {
 		}else {
 			this.template = value;
 		}
+		return this;
+	}
+
+	public Template withOffset(int value) {
+		this.offset = value;
+		return this;
+	}
+	public Template withPos(int value) {
+		this.pos = value;
 		return this;
 	}
 }

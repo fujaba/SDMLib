@@ -6,7 +6,7 @@ import org.sdmlib.models.classes.ClassModel;
 import de.uniks.networkparser.list.SimpleList;
 
 public class AddTemplate extends TemplateItem {
-	private int offset=-1;
+
 	private SimpleList<String> search = new SimpleList<String>();
 	private String lastFound;
 	
@@ -38,7 +38,7 @@ public class AddTemplate extends TemplateItem {
 	}
 	
 	@Override
-	protected boolean validate(Parser parser, ClassModel model, String... values) {
+	public boolean validate(Parser parser, ClassModel model, String... values) {
 		int methodEnd = parser.methodBodyIndexOf(Parser.METHOD_END, offset);
 		if(lastFound!=null) {
 			methodEnd = getLast(parser, lastFound, offset, methodEnd);

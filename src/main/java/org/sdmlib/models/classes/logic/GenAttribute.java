@@ -16,7 +16,6 @@ import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.classes.templates.AddTemplate;
 import org.sdmlib.models.classes.templates.AttributeTemplates;
 import org.sdmlib.models.classes.templates.ExistTemplate;
-import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
@@ -486,11 +485,8 @@ public class GenAttribute extends Generator<Attribute>
    private void insertCaseInGenericGetForWrapperInCreatorClass(Parser parser,
          Clazz ownerClazz)
    {
-	   //FIXME CHANGE
-      int pos = parser.indexOf(Parser.METHOD + ":getValue(Object,String)");
-
-      if (pos < 0)
-      {
+	   Template template = new Template(Parser.METHOD + ":getValue(Object,String)");
+	   if(template.validate(parser)) {
          if (model.getClazz().isInterface())
             // ups, did not find generic get method. 
             System.err.println("Warning: SDMLib codgen for attribute " + model.getName() + " for class " + CGUtil.shortClassName(model.getClazz().getFullName()) + "Creator"
@@ -499,63 +495,50 @@ public class GenAttribute extends Generator<Attribute>
 
          return;
       }
-
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = parser.getMethodBodyStartPos();
 
-      pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":PROPERTY_" + model.getName().toUpperCase(), methodBodyStartPos);
+		Template templateProperty = new Template(Parser.NAME_TOKEN + ":PROPERTY_{{NAME}});");
 
-      if (pos < 0)
-      {
-         // need to add if block to generic get method
-         parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
-
-         int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to be after \n
-         if (lastIfEndPos - 2 < 0)
-         {
-            lastIfEndPos = methodBodyStartPos + 1;
-         }
-
-         StringBuilder text = new StringBuilder
-               ("\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attribute))" +
+		// need to add if block to generic get method
+		parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
+		int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to
+													// be after \n
+		if (lastIfEndPos - 2 < 0) {
+			lastIfEndPos = methodBodyStartPos + 1;
+		}
+		templateProperty.withOffset(lastIfEndPos);         
+		templateProperty.withTemplate("\n      if ({{entitiyClassName}}.PROPERTY_{{NAME}}.equalsIgnoreCase(attribute))" +
                      "\n      {" +
-                     "\n         return ((entitiyNameClass) target).VALUEGET;" +
+                     "\n         return (({{entitiyNameClass}}) target).{{ValueGet}};" +
                      "\n      }" +
                      "\n"
                );
-
-         String name = StrUtil.upFirstChar(model.getName());
          String attrNameGetter;
-         if ("boolean".equalsIgnoreCase(model.getType().getValue()))
-         {
-            attrNameGetter = "is" + name + "()";
-         }
-         else
-         {
-            attrNameGetter = "get" + name + "()";
-         }
          if (model.getVisibility().equals(Modifier.PUBLIC))
          {
             attrNameGetter = model.getName();
+         }else if ("boolean".equalsIgnoreCase(model.getType().getValue()))
+         {
+            attrNameGetter = "is{{Name}}()";
          }
-
+         else
+         {
+            attrNameGetter = "get{{Name}}()";
+         }
          String entitiyClassName = CGUtil.shortClassName(model.getClazz().getFullName());
          String entitiyNameClass = entitiyClassName;
          if (model.getClazz().isExternal())
          {
             entitiyClassName = CGUtil.shortClassName(model.getClazz().getName() + "Creator");
          }
-
-         CGUtil.replaceAll(text,
-               "VALUEGET", attrNameGetter,
-               "PropertyName", StrUtil.upFirstChar(model.getName()),
-               "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase(),
+         templateProperty.withPos(lastIfEndPos);
+         templateProperty.insert(parser,
+               "ValueGet", attrNameGetter,
+               "name", model.getName(),
                "entitiyClassName", entitiyClassName,
                "entitiyNameClass", entitiyNameClass
                );
-
-         parser.insert(lastIfEndPos, text.toString());
-      }
    }
 
    private void insertSetterInModelSetClass(Parser parser, Clazz ownerClazz)
@@ -564,48 +547,35 @@ public class GenAttribute extends Generator<Attribute>
       {
          return;
       }
+      Template template = new Template(Parser.METHOD + ":with{{Name}}({{AttrType}})");
+      template.withTemplate("   public {{ModelSetType}} with{{Name}}({{AttrType}} value)\n"
+              + "   {\n"
+              + "      for ({{ContentType}} obj : this)\n"
+              + "      {\n"
+              + "         obj.{{ValueSet}};\n"
+              + "      }\n" + "      \n"
+              + "      return this;\n"
+              + "   }\n"
+              + "\n");
+      
       String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getValue(), parser);
       attrType = CGUtil.shortClassName(attrType);
-      String key = Parser.METHOD + ":with"
-            + StrUtil.upFirstChar(model.getName()) + "(" + attrType + ")";
-      int pos = parser.indexOf(key);
 
-      if (pos < 0)
-      {
-         // need to add property to string array
+     //         String fullModelSetType = getType();
+     String modelSetType = CGUtil.shortClassName(ownerClazz.getFullName()) + "Set";
 
-         StringBuilder text = new StringBuilder(
-               "   public ModelSetType withName(AttrType value)\n"
-                     + "   {\n"
-                     + "      for (ContentType obj : this)\n"
-                     + "      {\n"
-                     + "         obj.VALUESET;\n"
-                     + "      }\n" + "      \n"
-                     + "      return this;\n"
-                     + "   }\n"
-                     + "\n");
-
-         //         String fullModelSetType = getType();
-         String modelSetType = CGUtil.shortClassName(ownerClazz.getFullName()) + "Set";
-
-         String name = StrUtil.upFirstChar(model.getName());
-         String attrNameSetter = "set" + name + "(value)";
-         if (model.getVisibility().equals(Modifier.PUBLIC))
-         {
-            attrNameSetter = model.getName() + " = value";
-         }
-
-         CGUtil.replaceAll(text,
-               "VALUESET", attrNameSetter,
+     String name = StrUtil.upFirstChar(model.getName());
+     String attrNameSetter = "set" + name + "(value)";
+     if (model.getVisibility().equals(Modifier.PUBLIC))
+     {
+        attrNameSetter = model.getName() + " = value";
+     }
+     template.insert(parser, 
+               "ValueSet", attrNameSetter,
                "AttrType", attrType,
                "ContentType", CGUtil.shortClassName(ownerClazz.getFullName()),
                "ModelSetType", modelSetType,
-               "Name", StrUtil.upFirstChar(model.getName()));
-
-         // ownerClazz.printFile(true);
-         int classEnd = parser.indexOf(Parser.CLASS_END);
-         parser.insert(classEnd, text.toString());
-      }
+               "name", model.getName());
    }
 
    private void insertGenericGetSetForWrapperInCreatorClass(Parser parser,
@@ -621,10 +591,8 @@ public class GenAttribute extends Generator<Attribute>
    private void insertCaseInGenericSetForWrapperInCreatorClass(Parser parser,
          Clazz ownerClazz)
    {
-      int pos = parser.indexOf(Parser.METHOD + ":setValue(Object,String,Object,String)");
-
-      if (pos < 0)
-      {
+	   Template template = new Template(Parser.METHOD + ":setValue(Object,String,Object,String)");
+	   if(template.validate(parser)) {
          // ups, did not find generic set method. 
          System.err.println("Warning: SDMLib codgen for attribute " + model.getName() + " for wrapped class " + model.getClazz().getFullName()
                + ": \nDid not find method set(Object,String,Object,String) in creator class. Should have been generated by my clazz. "
@@ -632,133 +600,123 @@ public class GenAttribute extends Generator<Attribute>
 
          return;
       }
-
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = parser.getMethodBodyStartPos();
+      
+      Template templateProperty = new Template(Parser.NAME_TOKEN + ":PROPERTY_{{NAME}}");
+      templateProperty.withOffset(methodBodyStartPos);
+      templateProperty.withTemplate("\n      if ({{entitiyClassName}}.PROPERTY_{{NAME}}.equalsIgnoreCase(attrName))" +
+              "\n      {" +
+              "\n         (({{entitiyNameClass}}) target).{{ValueSet}};" +
+              "\n         return true;" +
+              "\n      }" +
+              "\n");
+     // need to add if block to generic set method
+     parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
 
-      pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":PROPERTY_" + model.getName().toUpperCase(), methodBodyStartPos);
+     int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to be after \n
+     if (lastIfEndPos - 2 < 0)
+     {
+        lastIfEndPos = methodBodyStartPos + 1;
+     }
+     String typePlaceholder = "type";
+     DataType dataType = model.getType();
+     String type = dataType.getValue();
+     if(!dataType.getClazz().isExternal()) {
+    	 type = CGUtil.shortClassName(type);
+     }
+     boolean modelClass = true;
+     boolean isEnum = false;
+     if ("int".equals(type))
+     {
+        typePlaceholder = "(type) value";
+        type = "Integer.parseInt(value.toString())";
+        modelClass = false;
+     }
+     else if ("long".equals(type))
+     {
+        typePlaceholder = "(type) value";
+        type = "Long.parseLong(value.toString())";
+        modelClass = false;
+     }
+     else if ("double".equals(type))
+     {
+        typePlaceholder = "(type) value";
+        type = "Double.parseDouble(value.toString())";
+        modelClass = false;
+     }
+     else if ("float".equals(type))
+     {
+        typePlaceholder = "(type) value";
+        type = "Float.parseFloat(value.toString())";
+        modelClass = false;
+     }
+     else if ("boolean".equals(type))
+     {
+        type = "Boolean";
+        modelClass = false;
+     }
+     else if (isEnumType(model, ownerClazz, false))
+     {
+        //Suit.valueOf((String)
+        type = CGUtil.shortClassName(model.getType().getValue()) + ".valueOf((String) value)";
+        modelClass = false;
+        isEnum = true;
+     }
+     else if (isEnumType(model, ownerClazz, true))
+     {
+        type = CGUtil.shortClassName(model.getType().getValue()) + ".valueOf((String) value)";
+        isEnum = true;
+     }
 
-      if (pos < 0)
-      {
-         // need to add if block to generic set method
-         parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
+     String name = StrUtil.upFirstChar(model.getName());
+     String attrNameSetter = "with" + name + "((type) value)";
+     if (isEnum)
+     {
+        attrNameSetter = "with" + name + "(type)";
+     }
+     if (model.getVisibility().equals(Modifier.PUBLIC))
+     {
+        attrNameSetter = model.getName() + " = (type) value";
+     }
 
-         int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to be after \n
-         if (lastIfEndPos - 2 < 0)
-         {
-            lastIfEndPos = methodBodyStartPos + 1;
-         }
+     attrNameSetter = CGUtil.replaceAll(attrNameSetter, typePlaceholder, type);
 
-         StringBuilder text = new StringBuilder
-               ("\n      if (entitiyClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
-                     "\n      {" +
-                     "\n         ((entitiyNameClass) target).VALUESET;" +
-                     "\n         return true;" +
-                     "\n      }" +
-                     "\n"
-               );
-
-         String typePlaceholder = "type";
-         DataType dataType = model.getType();
-         String type = dataType.getValue();
-         if(!dataType.getClazz().isExternal()) {
-        	 type = CGUtil.shortClassName(type);
-         }
-         boolean modelClass = true;
-         boolean isEnum = false;
-         if ("int".equals(type))
-         {
-            typePlaceholder = "(type) value";
-            type = "Integer.parseInt(value.toString())";
-            modelClass = false;
-         }
-         else if ("long".equals(type))
-         {
-            typePlaceholder = "(type) value";
-            type = "Long.parseLong(value.toString())";
-            modelClass = false;
-         }
-         else if ("double".equals(type))
-         {
-            typePlaceholder = "(type) value";
-            type = "Double.parseDouble(value.toString())";
-            modelClass = false;
-         }
-         else if ("float".equals(type))
-         {
-            typePlaceholder = "(type) value";
-            type = "Float.parseFloat(value.toString())";
-            modelClass = false;
-         }
-         else if ("boolean".equals(type))
-         {
-            type = "Boolean";
-            modelClass = false;
-         }
-         else if (isEnumType(model, ownerClazz, false))
-         {
-            //Suit.valueOf((String)
-            type = CGUtil.shortClassName(model.getType().getValue()) + ".valueOf((String) value)";
-            modelClass = false;
-            isEnum = true;
-         }
-         else if (isEnumType(model, ownerClazz, true))
-         {
-            type = CGUtil.shortClassName(model.getType().getValue()) + ".valueOf((String) value)";
-            isEnum = true;
-         }
-
-         String name = StrUtil.upFirstChar(model.getName());
-         String attrNameSetter = "with" + name + "((type) value)";
-         if (isEnum)
-         {
-            attrNameSetter = "with" + name + "(type)";
-         }
-         if (model.getVisibility().equals(Modifier.PUBLIC))
-         {
-            attrNameSetter = model.getName() + " = (type) value";
-         }
-
-         attrNameSetter = CGUtil.replaceAll(attrNameSetter, typePlaceholder, type);
-
-         String entitiyClassName = CGUtil.shortClassName(model.getClazz().getFullName());
-         String entitiyNameClass = entitiyClassName;
-         if (model.getClazz().isExternal())
-         {
-            entitiyClassName += "Creator";
-         }
-
-         CGUtil.replaceAll(text,
-               "VALUESET", attrNameSetter,
-               "PropertyName", StrUtil.upFirstChar(model.getName()),
-               "PROPERTY_NAME", "PROPERTY_" + model.getName().toUpperCase(),
+     String entitiyClassName = CGUtil.shortClassName(model.getClazz().getFullName());
+     String entitiyNameClass = entitiyClassName;
+     if (model.getClazz().isExternal())
+     {
+        entitiyClassName += "Creator";
+     }
+     templateProperty.withPos(lastIfEndPos);
+     templateProperty.insert(parser,
+               "ValueSet", attrNameSetter,
+               "name", model.getName(),
                "entitiyClassName", entitiyClassName,
                "entitiyNameClass", entitiyNameClass
                );
 
-         parser.insert(lastIfEndPos, text.toString());
+     // Is Nessessary??
+     if (checkIsExternalFor(type))
+     {
+        String iMport = checkImportFor(type);
 
-         if (checkIsExternalFor(type))
-         {
-            String iMport = checkImportFor(type);
+        if (iMport != null)
+        	parser.insertImport(iMport);
+     }
 
-            if (iMport != null)
-            	parser.insertImport(iMport);
-         }
-
-         if (isEnumType(model, ownerClazz, false))
-         {
-        	 parser.insertImport(model.getType().getValue());
-         }
-         if (modelClass)
-         {
-            Clazz clazz = model.getClazz().getClassModel().getClazz(model.getType().getValue());
-            if (clazz != null)
-            {
-            	parser.insertImport(clazz.getFullName());
-            }
-         }
-      }
+     if (isEnumType(model, ownerClazz, false))
+     {
+    	 parser.insertImport(model.getType().getValue());
+     }
+     if (modelClass)
+     {
+        Clazz clazz = model.getClazz().getClassModel().getClazz(model.getType().getValue());
+        if (clazz != null)
+        {
+        	parser.insertImport(clazz.getFullName());
+        }
+     }
    }
 
    public GenAttribute generate(String rootDir, String helpersDir)
@@ -892,6 +850,7 @@ public class GenAttribute extends Generator<Attribute>
 
    private void insertPropertyInCreatorClass(Parser parser, Clazz ownerClazz)
    {
+	   //FIXME CHANGE
       String key = Parser.ATTRIBUTE + ":properties";
       int pos = parser.indexOf(key);
 

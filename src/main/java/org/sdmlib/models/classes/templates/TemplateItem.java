@@ -9,6 +9,7 @@ import de.uniks.networkparser.list.SimpleList;
 public abstract class TemplateItem extends TemplateTask{
 	public static final int DEBUG=1;
 	protected int mode=DEBUG;
+	protected int offset=-1;
 	protected SimpleList<ReplaceText> variables=new SimpleList<ReplaceText>();
 	
 	public ReplaceText get(String value) {

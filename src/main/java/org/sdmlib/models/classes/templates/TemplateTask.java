@@ -12,7 +12,7 @@ public abstract class TemplateTask {
 		return this;
 	}
 
-	protected boolean validate(Parser parser, ClassModel model, String... values) {
+	public boolean validate(Parser parser, ClassModel model, String... values) {
 		return true;
 	}
 
