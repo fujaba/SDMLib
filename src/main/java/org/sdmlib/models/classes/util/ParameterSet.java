@@ -29,6 +29,7 @@ import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.MethodSet;
 
 public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -171,4 +172,79 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
    }
 
    public static final ParameterSet EMPTY_SET = new ParameterSet().withReadOnly(true);
+   public ParameterSet hasInitialization(String value)
+   {
+      ParameterSet result = new ParameterSet();
+      
+      for (Parameter obj : this)
+      {
+         if (value.equals(obj.getInitialization()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ParameterSet hasInitialization(String lower, String upper)
+   {
+      ParameterSet result = new ParameterSet();
+      
+      for (Parameter obj : this)
+      {
+         if (lower.compareTo(obj.getInitialization()) <= 0 && obj.getInitialization().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ParameterSet hasType(DataType value)
+   {
+      ParameterSet result = new ParameterSet();
+      
+      for (Parameter obj : this)
+      {
+         if (value == obj.getType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ParameterSet hasName(String value)
+   {
+      ParameterSet result = new ParameterSet();
+      
+      for (Parameter obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ParameterSet hasName(String lower, String upper)
+   {
+      ParameterSet result = new ParameterSet();
+      
+      for (Parameter obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

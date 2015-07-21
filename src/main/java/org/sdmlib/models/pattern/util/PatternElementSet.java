@@ -28,7 +28,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternElementSet extends SDMSet<PatternElement<?>>
 {
@@ -221,4 +220,94 @@ public class PatternElementSet extends SDMSet<PatternElement<?>>
    }
 
    public static final PatternElementSet EMPTY_SET = new PatternElementSet().withReadOnly(true);
+   public PatternElementSet hasModifier(String value)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet hasModifier(String lower, String upper)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet hasHasMatch(boolean value)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet hasPatternObjectName(String value)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet hasPatternObjectName(String lower, String upper)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternElementSet hasDoAllMatches(boolean value)
+   {
+      PatternElementSet result = new PatternElementSet();
+      
+      for (PatternElement obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

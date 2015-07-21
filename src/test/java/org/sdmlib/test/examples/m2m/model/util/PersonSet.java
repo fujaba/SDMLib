@@ -441,4 +441,34 @@ public class PersonSet extends SDMSet<Person>
 
 
    public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public PersonSet hasFirstName(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getFirstName()) <= 0 && obj.getFirstName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PersonSet hasText(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

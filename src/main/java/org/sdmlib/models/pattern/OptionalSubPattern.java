@@ -160,5 +160,13 @@ public class OptionalSubPattern extends Pattern<OptionalSubPattern> implements P
       return s.substring(1);
    }
 
-}
+
+   
+   //==========================================================================
+   
+   public boolean isMatchForward()
+   {
+      return this.matchForward;
+   }
+   }
 

@@ -177,4 +177,124 @@ public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
    }
 
    public static final LocalVarTableEntrySet EMPTY_SET = new LocalVarTableEntrySet().withReadOnly(true);
+   public LocalVarTableEntrySet hasName(String value)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LocalVarTableEntrySet hasName(String lower, String upper)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LocalVarTableEntrySet hasType(String value)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (value.equals(obj.getType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LocalVarTableEntrySet hasType(String lower, String upper)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (lower.compareTo(obj.getType()) <= 0 && obj.getType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LocalVarTableEntrySet hasStartPos(int value)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LocalVarTableEntrySet hasStartPos(int lower, int upper)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LocalVarTableEntrySet hasEndPos(int value)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LocalVarTableEntrySet hasEndPos(int lower, int upper)
+   {
+      LocalVarTableEntrySet result = new LocalVarTableEntrySet();
+      
+      for (LocalVarTableEntry obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

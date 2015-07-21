@@ -206,4 +206,94 @@ public class RoleSet extends SDMSet<Role> implements org.sdmlib.models.modelsets
       return this;
    }
    public static final RoleSet EMPTY_SET = new RoleSet().withReadOnly(true);
+   public RoleSet hasCard(String value)
+   {
+      RoleSet result = new RoleSet();
+      
+      for (Role obj : this)
+      {
+         if (value.equals(obj.getCard()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoleSet hasCard(String lower, String upper)
+   {
+      RoleSet result = new RoleSet();
+      
+      for (Role obj : this)
+      {
+         if (lower.compareTo(obj.getCard()) <= 0 && obj.getCard().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoleSet hasKind(String value)
+   {
+      RoleSet result = new RoleSet();
+      
+      for (Role obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoleSet hasKind(String lower, String upper)
+   {
+      RoleSet result = new RoleSet();
+      
+      for (Role obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoleSet hasName(String value)
+   {
+      RoleSet result = new RoleSet();
+      
+      for (Role obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoleSet hasName(String lower, String upper)
+   {
+      RoleSet result = new RoleSet();
+      
+      for (Role obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

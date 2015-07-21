@@ -32,9 +32,6 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class NegativeApplicationConditionSet extends SDMSet<NegativeApplicationCondition>
 {
@@ -357,4 +354,169 @@ public class NegativeApplicationConditionSet extends SDMSet<NegativeApplicationC
    }
 
    public static final NegativeApplicationConditionSet EMPTY_SET = new NegativeApplicationConditionSet().withReadOnly(true);
+   public NegativeApplicationConditionSet hasCurrentSubPattern(Pattern value)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (value == obj.getCurrentSubPattern())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasDebugMode(int value)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (value == obj.getDebugMode())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasDebugMode(int lower, int upper)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (lower <= obj.getDebugMode() && obj.getDebugMode() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasName(String value)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasName(String lower, String upper)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasModifier(String value)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasModifier(String lower, String upper)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasHasMatch(boolean value)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasPatternObjectName(String value)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasPatternObjectName(String lower, String upper)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NegativeApplicationConditionSet hasDoAllMatches(boolean value)
+   {
+      NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();
+      
+      for (NegativeApplicationCondition obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

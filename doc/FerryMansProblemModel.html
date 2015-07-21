@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../src/test/java/org/sdmlib/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java' type='text/x-java'>FerryMansProblemModel</a></p>
+<p>Storyboard <a href='../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java' type='text/x-java'>FerryMansProblemModel</a></p>
 <p>FerryMansProblemModel</p>
 <script>
    var json = {
@@ -42,9 +42,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"River",
             "cardinality":"one",
-            "property":"river",
-            "id":"River"
+            "property":"river"
          },
          "target":{
             "id":"Boat",
@@ -55,9 +55,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"River",
             "cardinality":"one",
-            "property":"river",
-            "id":"River"
+            "property":"river"
          },
          "target":{
             "id":"Bank",
@@ -68,9 +68,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Boat",
             "cardinality":"one",
-            "property":"boat",
-            "id":"Boat"
+            "property":"boat"
          },
          "target":{
             "id":"Bank",
@@ -81,9 +81,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Cargo",
             "cardinality":"one",
-            "property":"cargo",
-            "id":"Cargo"
+            "property":"cargo"
          },
          "target":{
             "id":"Boat",
@@ -94,9 +94,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Bank",
             "cardinality":"one",
-            "property":"bank",
-            "id":"Bank"
+            "property":"bank"
          },
          "target":{
             "id":"Cargo",

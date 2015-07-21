@@ -255,4 +255,19 @@ public class LectureSet extends SDMSet<Lecture>
 
 
    public static final LectureSet EMPTY_SET = new LectureSet().withReadOnly(true);
+   public LectureSet hasTitle(String lower, String upper)
+   {
+      LectureSet result = new LectureSet();
+      
+      for (Lecture obj : this)
+      {
+         if (lower.compareTo(obj.getTitle()) <= 0 && obj.getTitle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

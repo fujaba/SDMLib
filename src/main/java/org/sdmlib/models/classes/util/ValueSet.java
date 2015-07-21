@@ -170,4 +170,34 @@ public class ValueSet extends SDMSet<Value>
    }
 
    public static final ValueSet EMPTY_SET = new ValueSet().withReadOnly(true);
+   public ValueSet hasInitialization(String lower, String upper)
+   {
+      ValueSet result = new ValueSet();
+      
+      for (Value obj : this)
+      {
+         if (lower.compareTo(obj.getInitialization()) <= 0 && obj.getInitialization().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ValueSet hasName(String lower, String upper)
+   {
+      ValueSet result = new ValueSet();
+      
+      for (Value obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

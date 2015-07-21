@@ -31,8 +31,6 @@ import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class CardinalityConstraintSet extends SDMSet<CardinalityConstraint> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -315,4 +313,199 @@ public class CardinalityConstraintSet extends SDMSet<CardinalityConstraint> impl
    }
 
    public static final CardinalityConstraintSet EMPTY_SET = new CardinalityConstraintSet().withReadOnly(true);
+   public CardinalityConstraintSet hasTgtRoleName(String value)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (value.equals(obj.getTgtRoleName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasTgtRoleName(String lower, String upper)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getTgtRoleName()) <= 0 && obj.getTgtRoleName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasHostGraphSrcObject(Object value)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasMinCard(long value)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (value == obj.getMinCard())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasMinCard(long lower, long upper)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (lower <= obj.getMinCard() && obj.getMinCard() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasMaxCard(long value)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (value == obj.getMaxCard())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasMaxCard(long lower, long upper)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (lower <= obj.getMaxCard() && obj.getMaxCard() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasModifier(String value)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasModifier(String lower, String upper)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasHasMatch(boolean value)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasPatternObjectName(String value)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasPatternObjectName(String lower, String upper)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CardinalityConstraintSet hasDoAllMatches(boolean value)
+   {
+      CardinalityConstraintSet result = new CardinalityConstraintSet();
+      
+      for (CardinalityConstraint obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

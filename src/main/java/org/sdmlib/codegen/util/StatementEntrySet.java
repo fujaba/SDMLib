@@ -312,4 +312,139 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
 
 
    public static final StatementEntrySet EMPTY_SET = new StatementEntrySet().withReadOnly(true);
+   public StatementEntrySet hasKind(String value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value.equals(obj.getKind()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StatementEntrySet hasKind(String lower, String upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StatementEntrySet hasTokenList(ArrayList<String> value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getTokenList())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StatementEntrySet hasAssignTargetVarName(String value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value.equals(obj.getAssignTargetVarName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StatementEntrySet hasAssignTargetVarName(String lower, String upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower.compareTo(obj.getAssignTargetVarName()) <= 0 && obj.getAssignTargetVarName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StatementEntrySet hasStartPos(int value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StatementEntrySet hasStartPos(int lower, int upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower <= obj.getStartPos() && obj.getStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StatementEntrySet hasEndPos(int value)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (value == obj.getEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StatementEntrySet hasEndPos(int lower, int upper)
+   {
+      StatementEntrySet result = new StatementEntrySet();
+      
+      for (StatementEntry obj : this)
+      {
+         if (lower <= obj.getEndPos() && obj.getEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

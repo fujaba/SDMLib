@@ -22,10 +22,9 @@
 package org.sdmlib.test.examples.gofpattern.strategy;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
-
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
 
 public abstract class BombermanStrategy implements PropertyChangeInterface
 {
@@ -65,7 +64,7 @@ public abstract class BombermanStrategy implements PropertyChangeInterface
    
    /********************************************************************
     * <pre>
-    *              one                       one
+    *              many                       one
     * BombermanStrategy ----------------------------------- BombermanStrategy
     *                                 successor
     * </pre>

@@ -159,4 +159,19 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
    }
    
    public static final AssociationSet EMPTY_SET = new AssociationSet().withReadOnly(true);
+   public AssociationSet hasName(String lower, String upper)
+   {
+      AssociationSet result = new AssociationSet();
+      
+      for (Association obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/patternrewriteops/TrainModel.java' type='text/x-java'>TrainModel</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/test/examples/patternrewriteops/TrainModel.java' type='text/x-java'>TrainModel</a></p>
 <p>TrainModel</p>
 <p>Example model for testing destroy with model patterns: </p>
 <script>
@@ -36,9 +36,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Station",
             "cardinality":"one",
-            "property":"station",
-            "id":"Station"
+            "property":"station"
          },
          "target":{
             "id":"Train",
@@ -49,9 +49,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Train",
             "cardinality":"one",
-            "property":"train",
-            "id":"Train"
+            "property":"train"
          },
          "target":{
             "id":"Person",
@@ -62,9 +62,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Station",
             "cardinality":"one",
-            "property":"prev",
-            "id":"Station"
+            "property":"prev"
          },
          "target":{
             "id":"Station",
@@ -75,9 +75,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Person",
             "cardinality":"many",
-            "property":"people",
-            "id":"Person"
+            "property":"people"
          },
          "target":{
             "id":"Station",
@@ -88,9 +88,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"SignalFlag",
             "cardinality":"one",
-            "property":"flag",
-            "id":"SignalFlag"
+            "property":"flag"
          },
          "target":{
             "id":"Station",

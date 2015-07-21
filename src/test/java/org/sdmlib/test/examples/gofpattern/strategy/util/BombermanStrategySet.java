@@ -23,10 +23,9 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
-
 import java.util.Collection;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
 
 public class BombermanStrategySet extends SDMSet<BombermanStrategy>
 {

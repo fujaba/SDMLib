@@ -341,6 +341,36 @@ public class EdgeSet extends SDMSet<Edge>
 
 
    public static final EdgeSet EMPTY_SET = new EdgeSet().withReadOnly(true);
+   public EdgeSet hasName(String lower, String upper)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public EdgeSet hasText(String lower, String upper)
+   {
+      EdgeSet result = new EdgeSet();
+      
+      for (Edge obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

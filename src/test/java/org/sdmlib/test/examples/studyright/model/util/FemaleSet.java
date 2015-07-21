@@ -140,4 +140,19 @@ public class FemaleSet extends SDMSet<Female>
 
 
    public static final FemaleSet EMPTY_SET = new FemaleSet().withReadOnly(true);
+   public FemaleSet hasName(String lower, String upper)
+   {
+      FemaleSet result = new FemaleSet();
+      
+      for (Female obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

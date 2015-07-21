@@ -155,4 +155,19 @@ public class TopicSet extends SDMSet<Topic>
 
 
    public static final TopicSet EMPTY_SET = new TopicSet().withReadOnly(true);
+   public TopicSet hasTitle(String lower, String upper)
+   {
+      TopicSet result = new TopicSet();
+      
+      for (Topic obj : this)
+      {
+         if (lower.compareTo(obj.getTitle()) <= 0 && obj.getTitle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

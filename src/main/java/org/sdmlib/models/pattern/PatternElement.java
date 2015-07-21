@@ -266,5 +266,21 @@ public class PatternElement<PEC> implements PropertyChangeInterface
       return value;
    } 
 
-}
+
+   
+   //==========================================================================
+   
+   public boolean isHasMatch()
+   {
+      return this.hasMatch;
+   }
+   
+   
+   //==========================================================================
+   
+   public boolean isDoAllMatches()
+   {
+      return this.doAllMatches;
+   }
+   }
 

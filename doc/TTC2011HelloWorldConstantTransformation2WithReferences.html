@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldConstantTransformation2WithReferences</a></p>
 <p>TTC2011HelloWorldConstantTransformation2WithReferences</p>
 <p>A constant transformation that creates a Greeting object structure with references</p>
 <p>Create class model and generate implementation:</p>
@@ -39,9 +39,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Greeting",
             "cardinality":"one",
-            "property":"greeting",
-            "id":"Greeting"
+            "property":"greeting"
          },
          "target":{
             "id":"GreetingMessage",
@@ -52,9 +52,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Greeting",
             "cardinality":"one",
-            "property":"greeting",
-            "id":"Greeting"
+            "property":"greeting"
          },
          "target":{
             "id":"Person",
@@ -230,9 +230,9 @@
             "id":"G1 : Greeting"
          },
          "target":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P3 : Person"
+            "cardinality":"many",
+            "property":"tgtTransitive",
+            "id":"G1 : Greeting"
          }
       },
       {
@@ -243,9 +243,9 @@
             "id":"G1 : Greeting"
          },
          "target":{
-            "cardinality":"many",
-            "property":"tgtTransitive",
-            "id":"G1 : Greeting"
+            "cardinality":"one",
+            "property":"person",
+            "id":"P3 : Person"
          }
       }
    ]

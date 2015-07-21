@@ -28,6 +28,7 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
+import org.sdmlib.test.examples.groupaccount.model.Person;
 
 public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {

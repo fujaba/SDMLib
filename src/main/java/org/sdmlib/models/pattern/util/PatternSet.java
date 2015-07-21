@@ -32,9 +32,6 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
 public class PatternSet extends SDMSet<Pattern>
 {
@@ -355,4 +352,169 @@ public class PatternSet extends SDMSet<Pattern>
    }
 
    public static final PatternSet EMPTY_SET = new PatternSet().withReadOnly(true);
+   public PatternSet hasCurrentSubPattern(Pattern value)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (value == obj.getCurrentSubPattern())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasDebugMode(int value)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (value == obj.getDebugMode())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasDebugMode(int lower, int upper)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (lower <= obj.getDebugMode() && obj.getDebugMode() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasName(String value)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasName(String lower, String upper)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasModifier(String value)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasModifier(String lower, String upper)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasHasMatch(boolean value)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasPatternObjectName(String value)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasPatternObjectName(String lower, String upper)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternSet hasDoAllMatches(boolean value)
+   {
+      PatternSet result = new PatternSet();
+      
+      for (Pattern obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -31,8 +31,6 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
 {
@@ -380,4 +378,169 @@ public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
    }
 
    public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet().withReadOnly(true);
+   public AttributeConstraintSet hasAttrName(String lower, String upper)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getAttrName()) <= 0 && obj.getAttrName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasTgtValue(Object value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.getTgtValue())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasCmpOp(String value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value.equals(obj.getCmpOp()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasCmpOp(String lower, String upper)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getCmpOp()) <= 0 && obj.getCmpOp().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasHostGraphSrcObject(Object value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasModifier(String value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasModifier(String lower, String upper)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasHasMatch(boolean value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasPatternObjectName(String value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasPatternObjectName(String lower, String upper)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeConstraintSet hasDoAllMatches(boolean value)
+   {
+      AttributeConstraintSet result = new AttributeConstraintSet();
+      
+      for (AttributeConstraint obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

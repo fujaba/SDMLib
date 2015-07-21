@@ -74,8 +74,8 @@ public  class Student implements PropertyChangeInterface
    
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
+      if ( ! StrUtil.stringEquals(this.name, value)) {
+      
          String oldValue = this.name;
          this.name = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
@@ -117,8 +117,8 @@ public  class Student implements PropertyChangeInterface
    
    public void setId(String value)
    {
-      if ( ! StrUtil.stringEquals(this.id, value))
-      {
+      if ( ! StrUtil.stringEquals(this.id, value)) {
+      
          String oldValue = this.id;
          this.id = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_ID, oldValue, value);
@@ -145,8 +145,8 @@ public  class Student implements PropertyChangeInterface
    
    public void setAssignmentPoints(int value)
    {
-      if (this.assignmentPoints != value)
-      {
+      if (this.assignmentPoints != value) {
+      
          int oldValue = this.assignmentPoints;
          this.assignmentPoints = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_ASSIGNMENTPOINTS, oldValue, value);
@@ -173,8 +173,8 @@ public  class Student implements PropertyChangeInterface
    
    public void setMotivation(int value)
    {
-      if (this.motivation != value)
-      {
+      if (this.motivation != value) {
+      
          int oldValue = this.motivation;
          this.motivation = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_MOTIVATION, oldValue, value);
@@ -201,8 +201,8 @@ public  class Student implements PropertyChangeInterface
    
    public void setCredits(int value)
    {
-      if (this.credits != value)
-      {
+      if (this.credits != value) {
+      
          int oldValue = this.credits;
          this.credits = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS, oldValue, value);

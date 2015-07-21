@@ -28,7 +28,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -201,4 +200,94 @@ public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.mod
    }
 
    public static final CloneOpSet EMPTY_SET = new CloneOpSet().withReadOnly(true);
+   public CloneOpSet hasModifier(String value)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CloneOpSet hasModifier(String lower, String upper)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CloneOpSet hasHasMatch(boolean value)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CloneOpSet hasPatternObjectName(String value)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CloneOpSet hasPatternObjectName(String lower, String upper)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public CloneOpSet hasDoAllMatches(boolean value)
+   {
+      CloneOpSet result = new CloneOpSet();
+      
+      for (CloneOp obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

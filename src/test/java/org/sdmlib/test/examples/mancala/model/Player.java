@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.mancala.model.Kalah;
 import org.sdmlib.test.examples.mancala.model.util.PitSet;
 import org.sdmlib.test.examples.mancala.model.util.PlayerSet;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
+import org.sdmlib.test.examples.mancala.model.PlayerState;
 
 public class Player implements PropertyChangeInterface
 {

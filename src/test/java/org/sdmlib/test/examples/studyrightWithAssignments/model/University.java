@@ -22,13 +22,12 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 
 public  class University implements PropertyChangeInterface
 {
@@ -73,8 +72,8 @@ public  class University implements PropertyChangeInterface
    
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
+      if ( ! StrUtil.stringEquals(this.name, value)) {
+      
          String oldValue = this.name;
          this.name = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);

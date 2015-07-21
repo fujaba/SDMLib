@@ -30,8 +30,6 @@ import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
-import org.sdmlib.models.pattern.util.RuleApplicationSet;
 
 public class ReachableStateSet extends SDMSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -267,4 +265,49 @@ public class ReachableStateSet extends SDMSet<ReachableState> implements org.sdm
    }
 
    public static final ReachableStateSet EMPTY_SET = new ReachableStateSet().withReadOnly(true);
+   public ReachableStateSet hasNumber(long value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.getNumber())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ReachableStateSet hasNumber(long lower, long upper)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (lower <= obj.getNumber() && obj.getNumber() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ReachableStateSet hasGraphRoot(Object value)
+   {
+      ReachableStateSet result = new ReachableStateSet();
+      
+      for (ReachableState obj : this)
+      {
+         if (value == obj.getGraphRoot())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

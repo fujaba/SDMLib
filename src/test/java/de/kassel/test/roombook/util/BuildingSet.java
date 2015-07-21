@@ -165,4 +165,19 @@ public class BuildingSet extends SDMSet<Building>
 
 
    public static final BuildingSet EMPTY_SET = new BuildingSet().withReadOnly(true);
+   public BuildingSet hasName(String lower, String upper)
+   {
+      BuildingSet result = new BuildingSet();
+      
+      for (Building obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -21,6 +21,7 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.DataType;
 
 public abstract class Value extends SDMLibClass
 {

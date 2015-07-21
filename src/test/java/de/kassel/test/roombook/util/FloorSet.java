@@ -228,4 +228,49 @@ public class FloorSet extends SDMSet<Floor>
 
 
    public static final FloorSet EMPTY_SET = new FloorSet().withReadOnly(true);
+   public FloorSet hasLevel(int lower, int upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower <= obj.getLevel() && obj.getLevel() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasName(String lower, String upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FloorSet hasGuest(String lower, String upper)
+   {
+      FloorSet result = new FloorSet();
+      
+      for (Floor obj : this)
+      {
+         if (lower.compareTo(obj.getGuest()) <= 0 && obj.getGuest().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -28,7 +28,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -204,4 +203,94 @@ public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmli
    }
 
    public static final UnifyGraphsOpSet EMPTY_SET = new UnifyGraphsOpSet().withReadOnly(true);
+   public UnifyGraphsOpSet hasModifier(String value)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public UnifyGraphsOpSet hasModifier(String lower, String upper)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public UnifyGraphsOpSet hasHasMatch(boolean value)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public UnifyGraphsOpSet hasPatternObjectName(String value)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public UnifyGraphsOpSet hasPatternObjectName(String lower, String upper)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public UnifyGraphsOpSet hasDoAllMatches(boolean value)
+   {
+      UnifyGraphsOpSet result = new UnifyGraphsOpSet();
+      
+      for (UnifyGraphsOp obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

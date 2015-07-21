@@ -22,21 +22,19 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 import org.sdmlib.models.modelsets.ObjectSet;
-
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import java.util.Collections;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class StudentSet extends SDMSet<Student>
 {

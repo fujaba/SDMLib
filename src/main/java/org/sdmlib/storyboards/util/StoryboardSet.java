@@ -266,6 +266,96 @@ public class StoryboardSet extends SDMSet<Storyboard> implements org.sdmlib.mode
       return this;
    }
 
+   public StoryboardSet hasRootDir(String value)
+   {
+      StoryboardSet result = new StoryboardSet();
+      
+      for (Storyboard obj : this)
+      {
+         if (value.equals(obj.getRootDir()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StoryboardSet hasRootDir(String lower, String upper)
+   {
+      StoryboardSet result = new StoryboardSet();
+      
+      for (Storyboard obj : this)
+      {
+         if (lower.compareTo(obj.getRootDir()) <= 0 && obj.getRootDir().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StoryboardSet hasStepCounter(int value)
+   {
+      StoryboardSet result = new StoryboardSet();
+      
+      for (Storyboard obj : this)
+      {
+         if (value == obj.getStepCounter())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StoryboardSet hasStepCounter(int lower, int upper)
+   {
+      StoryboardSet result = new StoryboardSet();
+      
+      for (Storyboard obj : this)
+      {
+         if (lower <= obj.getStepCounter() && obj.getStepCounter() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StoryboardSet hasStepDoneCounter(int value)
+   {
+      StoryboardSet result = new StoryboardSet();
+      
+      for (Storyboard obj : this)
+      {
+         if (value == obj.getStepDoneCounter())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StoryboardSet hasStepDoneCounter(int lower, int upper)
+   {
+      StoryboardSet result = new StoryboardSet();
+      
+      for (Storyboard obj : this)
+      {
+         if (lower <= obj.getStepDoneCounter() && obj.getStepDoneCounter() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

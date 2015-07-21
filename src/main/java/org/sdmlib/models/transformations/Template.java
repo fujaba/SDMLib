@@ -1409,4 +1409,12 @@ public class Template implements PropertyChangeInterface
       setName(value);
       return this;
    }
-}
+
+   
+   //==========================================================================
+   
+   public boolean isReferenceLookup()
+   {
+      return this.referenceLookup;
+   }
+   }

@@ -31,9 +31,6 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
 {
@@ -368,4 +365,184 @@ public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
    }
 
    public static final OptionalSubPatternSet EMPTY_SET = new OptionalSubPatternSet().withReadOnly(true);
+   public OptionalSubPatternSet hasMatchForward(boolean value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.isMatchForward())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasCurrentSubPattern(Pattern value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.getCurrentSubPattern())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasDebugMode(int value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.getDebugMode())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasDebugMode(int lower, int upper)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (lower <= obj.getDebugMode() && obj.getDebugMode() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasName(String value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasName(String lower, String upper)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasModifier(String value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasModifier(String lower, String upper)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasHasMatch(boolean value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasPatternObjectName(String value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasPatternObjectName(String lower, String upper)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public OptionalSubPatternSet hasDoAllMatches(boolean value)
+   {
+      OptionalSubPatternSet result = new OptionalSubPatternSet();
+      
+      for (OptionalSubPattern obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

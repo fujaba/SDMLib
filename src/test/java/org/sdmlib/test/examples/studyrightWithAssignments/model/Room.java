@@ -22,15 +22,14 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
-
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 
 public  class Room implements PropertyChangeInterface
 {
@@ -85,8 +84,8 @@ public  class Room implements PropertyChangeInterface
    
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value))
-      {
+      if ( ! StrUtil.stringEquals(this.name, value)) {
+      
          String oldValue = this.name;
          this.name = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
@@ -126,8 +125,8 @@ public  class Room implements PropertyChangeInterface
    
    public void setTopic(String value)
    {
-      if ( ! StrUtil.stringEquals(this.topic, value))
-      {
+      if ( ! StrUtil.stringEquals(this.topic, value)) {
+      
          String oldValue = this.topic;
          this.topic = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_TOPIC, oldValue, value);
@@ -154,8 +153,8 @@ public  class Room implements PropertyChangeInterface
    
    public void setCredits(int value)
    {
-      if (this.credits != value)
-      {
+      if (this.credits != value) {
+      
          int oldValue = this.credits;
          this.credits = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CREDITS, oldValue, value);

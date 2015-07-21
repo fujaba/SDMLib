@@ -1,9 +1,8 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 
 public class TeachingAssistantPOCreator extends PatternObjectCreator
 {

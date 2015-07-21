@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldCountNumberOfNodes</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldCountNumberOfNodes</a></p>
 <p>TTC2011HelloWorldCountNumberOfNodes</p>
 <hr/><p>Simple Graph application classes: </p>
 <embed type="image/svg+xml" src='<script>
@@ -38,9 +38,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Graph",
             "cardinality":"one",
-            "property":"graph",
-            "id":"Graph"
+            "property":"graph"
          },
          "target":{
             "id":"Node",
@@ -51,9 +51,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Graph",
             "cardinality":"one",
-            "property":"graph",
-            "id":"Graph"
+            "property":"graph"
          },
          "target":{
             "id":"Edge",
@@ -64,9 +64,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Edge",
             "cardinality":"many",
-            "property":"outEdges",
-            "id":"Edge"
+            "property":"outEdges"
          },
          "target":{
             "id":"Node",
@@ -77,9 +77,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Edge",
             "cardinality":"many",
-            "property":"inEdges",
-            "id":"Edge"
+            "property":"inEdges"
          },
          "target":{
             "id":"Node",
@@ -111,10 +111,10 @@
    json["options"]={"canvasid":"canvasTTC2011HelloWorldCountNumberOfNodes7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<hr/><h2>Count nodes in graph direct: </h2><p>did not find method countNodesInJava(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Count nodes in graph direct: </h2><p>did not find method countNodesInJava(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <p>systemout: Number of nodes: 8</p>
 <p>Count nodes in graph per pattern: </p>
-<p>did not find method countNodesPerPattern(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<p>did not find method countNodesPerPattern(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -187,7 +187,7 @@
 </script>
 <p>systemout: Number of nodes: 8</p>
 <p>Retrieve set of matching nodes per pattern and count its elements: </p>
-<p>did not find method countNodesPerNodeSet(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<p>did not find method countNodesPerNodeSet(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -259,7 +259,7 @@
    g.layout(100,100);
 </script>
 <p>systemout: Nodes: n1, n2, n3, n4, n5, n6, n7, n8 Number of nodes: 8</p>
-<hr/><h2>Retrieve set of looping edges per pattern and count its elements: </h2><p>did not find method countLoopingEdgesPerPattern(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Retrieve set of looping edges per pattern and count its elements: </h2><p>did not find method countLoopingEdgesPerPattern(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -386,9 +386,9 @@
 </script>
 <p>systemout: Looping Edges: e16, e17 Number of looping edges: 2</p>
 <p>For comparison a Java solution: </p>
-<p>did not find method countLoopingEdgesInJava(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<p>did not find method countLoopingEdgesInJava(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <p>systemout: Looping Edges: e16, e17 Number of looping edges: 2</p>
-<hr/><h2>Retrieve isolated nodes and count them: </h2><p>did not find method countIsolatedNodesPerPattern(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Retrieve isolated nodes and count them: </h2><p>did not find method countIsolatedNodesPerPattern(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -553,9 +553,9 @@
 </script>
 <p>systemout: Isolated nodes: n6, n7 Number of isolated nodes: 2</p>
 <p>For comparison a Java solution: </p>
-<p>did not find method countIsolatedNodesInJava(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<p>did not find method countIsolatedNodesInJava(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <p>systemout: Isolated nodes: n6, n7 Number of isolated nodes: 2</p>
-<hr/><h2>Count circles of three nodes: </h2><p>did not find method countCirclesOfThreeNodesPerPattern(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Count circles of three nodes: </h2><p>did not find method countCirclesOfThreeNodesPerPattern(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -810,7 +810,7 @@
 </script>
 <p>systemout: Circles found: 6</p>
 <p>If you want to print the matched nodes for each circle, you need to iterate through the matches: </p>
-<p>did not find method countCirclesOfThreeNodesPerPatternReportMatches(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<p>did not find method countCirclesOfThreeNodesPerPatternReportMatches(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -1072,7 +1072,7 @@ n4 --> n5 --> n3 -->
 n5 --> n3 --> n4 --> 
 6 circles found</p>
 <p>Just for comparison, a plain java implementation: </p>
-<p>did not find method countCirclesOfThreeNodesInJava(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<p>did not find method countCirclesOfThreeNodesInJava(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <p>systemout: Circles found: 
 n1 --> n2 --> n3 --> 
 n2 --> n3 --> n1 --> 
@@ -1081,7 +1081,7 @@ n3 --> n4 --> n5 -->
 n4 --> n5 --> n3 --> 
 n5 --> n3 --> n4 --> 
 6 circles found</p>
-<hr/><h2>Count dangling edges per pattern: </h2><p>did not find method countDanglingEdgesPerPattern(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Count dangling edges per pattern: </h2><p>did not find method countDanglingEdgesPerPattern(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -1232,7 +1232,7 @@ n5 --> n3 --> n4 -->
 </script>
 <p>systemout: Dangling edges e18, e19 number: 2</p>
 <p>Count dangling edges in Java: </p>
-<p>did not find method countDanglingEdgesInJava(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<p>did not find method countDanglingEdgesInJava(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <p>systemout: Dangling edges e18, e19 number: 2</p>
 
 </body>

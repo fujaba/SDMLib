@@ -197,5 +197,65 @@ public class GenericLinkSet extends SDMSet<GenericLink>
    }
 
    public static final GenericLinkSet EMPTY_SET = new GenericLinkSet().withReadOnly(true);
+   public GenericLinkSet hasTgtLabel(String value)
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericLink obj : this)
+      {
+         if (value.equals(obj.getTgtLabel()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericLinkSet hasTgtLabel(String lower, String upper)
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericLink obj : this)
+      {
+         if (lower.compareTo(obj.getTgtLabel()) <= 0 && obj.getTgtLabel().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericLinkSet hasSrcLabel(String value)
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericLink obj : this)
+      {
+         if (value.equals(obj.getSrcLabel()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericLinkSet hasSrcLabel(String lower, String upper)
+   {
+      GenericLinkSet result = new GenericLinkSet();
+      
+      for (GenericLink obj : this)
+      {
+         if (lower.compareTo(obj.getSrcLabel()) <= 0 && obj.getSrcLabel().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 

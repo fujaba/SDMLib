@@ -193,4 +193,34 @@ public class LudoSet extends SDMSet<Ludo>
 
 
    public static final LudoSet EMPTY_SET = new LudoSet().withReadOnly(true);
+   public LudoSet hasStyle(String lower, String upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower.compareTo(obj.getStyle()) <= 0 && obj.getStyle().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LudoSet hasAge(int lower, int upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower <= obj.getAge() && obj.getAge() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -203,4 +203,34 @@ public class PlayerSet extends SDMSet<Player>
 
 
    public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+   public PlayerSet hasName(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PlayerSet hasColor(String lower, String upper)
+   {
+      PlayerSet result = new PlayerSet();
+      
+      for (Player obj : this)
+      {
+         if (lower.compareTo(obj.getColor()) <= 0 && obj.getColor().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

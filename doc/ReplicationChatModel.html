@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../src/test/java/org/sdmlib/examples/replication/chat/ReplicationChatModel.java' type='text/x-java'>ReplicationChatModel</a></p>
+<p>Storyboard <a href='../src/test/java/org/sdmlib/test/examples/replication/chat/ReplicationChatModel.java' type='text/x-java'>ReplicationChatModel</a></p>
 <p>ReplicationChatModel</p>
 <script>
    var json = {
@@ -43,9 +43,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"ChatRoot",
             "cardinality":"one",
-            "property":"chatRoot",
-            "id":"ChatRoot"
+            "property":"chatRoot"
          },
          "target":{
             "id":"ChatUser",
@@ -56,9 +56,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ChatUser",
             "cardinality":"many",
-            "property":"users",
-            "id":"ChatUser"
+            "property":"users"
          },
          "target":{
             "id":"ChatChannel",
@@ -69,9 +69,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ChatChannel",
             "cardinality":"one",
-            "property":"channel",
-            "id":"ChatChannel"
+            "property":"channel"
          },
          "target":{
             "id":"ChatMsg",

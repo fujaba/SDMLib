@@ -56,8 +56,8 @@ public  class TeachingAssistant extends Student
    
    public void setCertified(boolean value)
    {
-      if (this.certified != value)
-      {
+      if (this.certified != value) {
+      
          boolean oldValue = this.certified;
          this.certified = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CERTIFIED, oldValue, value);

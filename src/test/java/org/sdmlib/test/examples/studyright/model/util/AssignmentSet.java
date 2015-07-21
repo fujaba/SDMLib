@@ -254,4 +254,34 @@ public class AssignmentSet extends SDMSet<Assignment>
 
 
    public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadOnly(true);
+   public AssignmentSet hasName(String lower, String upper)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AssignmentSet hasPoints(int lower, int upper)
+   {
+      AssignmentSet result = new AssignmentSet();
+      
+      for (Assignment obj : this)
+      {
+         if (lower <= obj.getPoints() && obj.getPoints() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

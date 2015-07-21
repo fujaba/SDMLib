@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldModelToText</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011HelloWorldModelToText</a></p>
 <p>TTC2011HelloWorldModelToText</p>
 <p>For model to text transformation we provide a simple template mechanism. </p>
 <p>The model transformation that builds our object model looks like: </p>
@@ -59,9 +59,9 @@
             "id":"G1 : Greeting"
          },
          "target":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P3 : Person"
+            "cardinality":"many",
+            "property":"tgtTransitive",
+            "id":"G1 : Greeting"
          }
       },
       {
@@ -72,9 +72,9 @@
             "id":"G1 : Greeting"
          },
          "target":{
-            "cardinality":"many",
-            "property":"tgtTransitive",
-            "id":"G1 : Greeting"
+            "cardinality":"one",
+            "property":"person",
+            "id":"P3 : Person"
          }
       }
    ]
@@ -132,9 +132,9 @@ Hello TTC Participants</p>
             "id":"G1 : Greeting"
          },
          "target":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P3 : Person"
+            "cardinality":"many",
+            "property":"tgtTransitive",
+            "id":"G1 : Greeting"
          }
       },
       {
@@ -145,9 +145,9 @@ Hello TTC Participants</p>
             "id":"G1 : Greeting"
          },
          "target":{
-            "cardinality":"many",
-            "property":"tgtTransitive",
-            "id":"G1 : Greeting"
+            "cardinality":"one",
+            "property":"person",
+            "id":"P3 : Person"
          }
       }
    ]

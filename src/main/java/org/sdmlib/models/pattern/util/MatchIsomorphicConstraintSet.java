@@ -28,7 +28,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class MatchIsomorphicConstraintSet extends SDMSet<MatchIsomorphicConstraint>
 {
@@ -200,4 +199,94 @@ public class MatchIsomorphicConstraintSet extends SDMSet<MatchIsomorphicConstrai
    }
 
    public static final MatchIsomorphicConstraintSet EMPTY_SET = new MatchIsomorphicConstraintSet().withReadOnly(true);
+   public MatchIsomorphicConstraintSet hasModifier(String value)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchIsomorphicConstraintSet hasModifier(String lower, String upper)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchIsomorphicConstraintSet hasHasMatch(boolean value)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchIsomorphicConstraintSet hasPatternObjectName(String value)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchIsomorphicConstraintSet hasPatternObjectName(String lower, String upper)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchIsomorphicConstraintSet hasDoAllMatches(boolean value)
+   {
+      MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();
+      
+      for (MatchIsomorphicConstraint obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

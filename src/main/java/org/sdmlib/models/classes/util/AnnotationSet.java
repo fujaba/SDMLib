@@ -28,6 +28,7 @@ import java.util.Set;
 import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.AnnotationSet;
 
 public class AnnotationSet extends SDMSet<Annotation>
 {
@@ -150,4 +151,56 @@ public class AnnotationSet extends SDMSet<Annotation>
       
       return this;
    }
+   
+   //==========================================================================
+   
+   public AnnotationSet createOverrideAnnotation()
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createOverrideAnnotation());
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createDeprecatedAnnotation()
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createDeprecatedAnnotation());
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createSuppressWarningsAnnotation(String... values)
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createSuppressWarningsAnnotation(values));
+      }
+      return result;
+   }
+
+   
+   //==========================================================================
+   
+   public AnnotationSet createSafeVarargsAnnotation()
+   {
+      AnnotationSet result = new AnnotationSet();
+      for (Annotation obj : this)
+      {
+         result.add(obj.createSafeVarargsAnnotation());
+      }
+      return result;
+   }
+
 }

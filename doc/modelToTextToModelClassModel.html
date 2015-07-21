@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/templates/ModelToTextToModelClassModel.java' type='text/x-java'>modelToTextToModelClassModel</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java' type='text/x-java'>modelToTextToModelClassModel</a></p>
 <p>modelToTextToModelClassModel</p>
 <script>
    var json = {
@@ -60,9 +60,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"PlaceHolderDescription",
             "cardinality":"many",
-            "property":"placeholders",
-            "id":"PlaceHolderDescription"
+            "property":"placeholders"
          },
          "target":{
             "id":"Template",
@@ -73,9 +73,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ChoiceTemplate",
             "cardinality":"one",
-            "property":"chooser",
-            "id":"ChoiceTemplate"
+            "property":"chooser"
          },
          "target":{
             "id":"Template",
@@ -86,9 +86,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Match",
             "cardinality":"many",
-            "property":"matches",
-            "id":"Match"
+            "property":"matches"
          },
          "target":{
             "id":"Template",
@@ -99,9 +99,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"PlaceHolderDescription",
             "cardinality":"many",
-            "property":"parents",
-            "id":"PlaceHolderDescription"
+            "property":"parents"
          },
          "target":{
             "id":"Template",
@@ -112,9 +112,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Match",
             "cardinality":"many",
-            "property":"matches",
-            "id":"Match"
+            "property":"matches"
          },
          "target":{
             "id":"PlaceHolderDescription",
@@ -125,9 +125,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Match",
             "cardinality":"one",
-            "property":"parentMatch",
-            "id":"Match"
+            "property":"parentMatch"
          },
          "target":{
             "id":"Match",

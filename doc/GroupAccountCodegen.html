@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/groupAccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
 <p>GroupAccountCodegen</p>
 <p>Start situation: Nothing here yet. Generate classes</p>
 <script>
@@ -44,9 +44,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"GroupAccount",
             "cardinality":"one",
-            "property":"parent",
-            "id":"GroupAccount"
+            "property":"parent"
          },
          "target":{
             "id":"Person",
@@ -57,9 +57,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"GroupAccount",
             "cardinality":"one",
-            "property":"parent",
-            "id":"GroupAccount"
+            "property":"parent"
          },
          "target":{
             "id":"Item",
@@ -70,9 +70,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Person",
             "cardinality":"one",
-            "property":"buyer",
-            "id":"Person"
+            "property":"buyer"
          },
          "target":{
             "id":"Item",

@@ -22,12 +22,11 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public  class Assignment implements PropertyChangeInterface
 {
@@ -72,8 +71,8 @@ public  class Assignment implements PropertyChangeInterface
    
    public void setContent(String value)
    {
-      if ( ! StrUtil.stringEquals(this.content, value))
-      {
+      if ( ! StrUtil.stringEquals(this.content, value)) {
+      
          String oldValue = this.content;
          this.content = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_CONTENT, oldValue, value);
@@ -112,8 +111,8 @@ public  class Assignment implements PropertyChangeInterface
    
    public void setPoints(int value)
    {
-      if (this.points != value)
-      {
+      if (this.points != value) {
+      
          int oldValue = this.points;
          this.points = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_POINTS, oldValue, value);

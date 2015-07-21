@@ -672,6 +672,36 @@ public class NodeSet extends SDMSet<Node>
 
 
    public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
+   public NodeSet hasName(String lower, String upper)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public NodeSet hasText(String lower, String upper)
+   {
+      NodeSet result = new NodeSet();
+      
+      for (Node obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

@@ -8,10 +8,10 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../src/test/java/org/sdmlib/examples/studyrightWithAssignments/GenerateClasses.java' type='text/x-java'>StudyRight with assignments class generation</a></p>
+<p>Storyboard <a href='../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java' type='text/x-java'>StudyRight with assignments class generation</a></p>
 <p>StudyRight with assignments class generation</p>
 <p>1. generate class University</p>
-<pre>      ClassModel model = new ClassModel(&quot;org.sdmlib.examples.studyrightWithAssignments.model&quot;);
+<pre>      ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
 
       Clazz universityClass = model.createClazz(&quot;University&quot;)
             .withAttribute(&quot;name&quot;, DataType.STRING);
@@ -94,9 +94,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"University",
             "cardinality":"one",
-            "property":"university",
-            "id":"University"
+            "property":"university"
          },
          "target":{
             "id":"Student",
@@ -163,9 +163,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"University",
             "cardinality":"one",
-            "property":"university",
-            "id":"University"
+            "property":"university"
          },
          "target":{
             "id":"Student",
@@ -176,9 +176,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"University",
             "cardinality":"one",
-            "property":"university",
-            "id":"University"
+            "property":"university"
          },
          "target":{
             "id":"Room",
@@ -189,9 +189,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Student",
             "cardinality":"many",
-            "property":"students",
-            "id":"Student"
+            "property":"students"
          },
          "target":{
             "id":"Room",
@@ -202,9 +202,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Room",
             "cardinality":"many",
-            "property":"doors",
-            "id":"Room"
+            "property":"doors"
          },
          "target":{
             "id":"Room",
@@ -270,9 +270,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"University",
             "cardinality":"one",
-            "property":"university",
-            "id":"University"
+            "property":"university"
          },
          "target":{
             "id":"Student",
@@ -283,9 +283,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"University",
             "cardinality":"one",
-            "property":"university",
-            "id":"University"
+            "property":"university"
          },
          "target":{
             "id":"Room",
@@ -296,9 +296,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Student",
             "cardinality":"many",
-            "property":"students",
-            "id":"Student"
+            "property":"students"
          },
          "target":{
             "id":"Room",
@@ -309,9 +309,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Student",
             "cardinality":"many",
-            "property":"students",
-            "id":"Student"
+            "property":"students"
          },
          "target":{
             "id":"Assignment",
@@ -322,9 +322,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Room",
             "cardinality":"many",
-            "property":"doors",
-            "id":"Room"
+            "property":"doors"
          },
          "target":{
             "id":"Room",
@@ -335,9 +335,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Assignment",
             "cardinality":"many",
-            "property":"assignments",
-            "id":"Assignment"
+            "property":"assignments"
          },
          "target":{
             "id":"Room",

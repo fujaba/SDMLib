@@ -153,6 +153,66 @@ public class GenericAttributeSet extends SDMSet<GenericAttribute>
    }
 
    public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet().withReadOnly(true);
+   public GenericAttributeSet hasName(String value)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericAttributeSet hasName(String lower, String upper)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericAttributeSet hasValue(String value)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (value.equals(obj.getValue()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericAttributeSet hasValue(String lower, String upper)
+   {
+      GenericAttributeSet result = new GenericAttributeSet();
+      
+      for (GenericAttribute obj : this)
+      {
+         if (lower.compareTo(obj.getValue()) <= 0 && obj.getValue().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

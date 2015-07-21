@@ -27,7 +27,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.util.ReachableStateSet;
 
 public class RuleApplicationSet extends SDMSet<RuleApplication> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -156,4 +155,34 @@ public class RuleApplicationSet extends SDMSet<RuleApplication> implements org.s
    }
 
    public static final RuleApplicationSet EMPTY_SET = new RuleApplicationSet().withReadOnly(true);
+   public RuleApplicationSet hasDescription(String value)
+   {
+      RuleApplicationSet result = new RuleApplicationSet();
+      
+      for (RuleApplication obj : this)
+      {
+         if (value.equals(obj.getDescription()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RuleApplicationSet hasDescription(String lower, String upper)
+   {
+      RuleApplicationSet result = new RuleApplicationSet();
+      
+      for (RuleApplication obj : this)
+      {
+         if (lower.compareTo(obj.getDescription()) <= 0 && obj.getDescription().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

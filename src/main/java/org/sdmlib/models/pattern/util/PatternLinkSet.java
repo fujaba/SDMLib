@@ -31,7 +31,6 @@ import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternLinkSet extends SDMSet<PatternLink>
 {
@@ -300,4 +299,139 @@ public class PatternLinkSet extends SDMSet<PatternLink>
    }
 
    public static final PatternLinkSet EMPTY_SET = new PatternLinkSet().withReadOnly(true);
+   public PatternLinkSet hasTgtRoleName(String value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value.equals(obj.getTgtRoleName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet hasTgtRoleName(String lower, String upper)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (lower.compareTo(obj.getTgtRoleName()) <= 0 && obj.getTgtRoleName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet hasHostGraphSrcObject(Object value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet hasModifier(String value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet hasModifier(String lower, String upper)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet hasHasMatch(boolean value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet hasPatternObjectName(String value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet hasPatternObjectName(String lower, String upper)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternLinkSet hasDoAllMatches(boolean value)
+   {
+      PatternLinkSet result = new PatternLinkSet();
+      
+      for (PatternLink obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -155,6 +155,21 @@ public class GreetingMessageSet extends SDMSet<GreetingMessage>
 
 
    public static final GreetingMessageSet EMPTY_SET = new GreetingMessageSet().withReadOnly(true);
+   public GreetingMessageSet hasText(String lower, String upper)
+   {
+      GreetingMessageSet result = new GreetingMessageSet();
+      
+      for (GreetingMessage obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

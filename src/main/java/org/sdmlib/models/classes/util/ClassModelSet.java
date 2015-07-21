@@ -191,4 +191,34 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
 
 
    public static final ClassModelSet EMPTY_SET = new ClassModelSet().withReadOnly(true);
+   public ClassModelSet hasName(String value)
+   {
+      ClassModelSet result = new ClassModelSet();
+      
+      for (ClassModel obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ClassModelSet hasName(String lower, String upper)
+   {
+      ClassModelSet result = new ClassModelSet();
+      
+      for (ClassModel obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

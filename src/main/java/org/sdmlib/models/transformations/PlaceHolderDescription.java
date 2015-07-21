@@ -484,4 +484,12 @@ public class PlaceHolderDescription implements PropertyChangeInterface
       return value;
    }
 
-}
+
+   
+   //==========================================================================
+   
+   public boolean isIsKeyAttribute()
+   {
+      return this.isKeyAttribute;
+   }
+   }

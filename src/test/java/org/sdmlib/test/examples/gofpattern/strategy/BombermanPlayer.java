@@ -73,8 +73,8 @@ public  class BombermanPlayer implements PropertyChangeInterface
    
    public void setXPosition(int value)
    {
-      if (this.xPosition != value)
-      {
+      if (this.xPosition != value) {
+      
          int oldValue = this.xPosition;
          this.xPosition = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_XPOSITION, oldValue, value);
@@ -114,8 +114,8 @@ public  class BombermanPlayer implements PropertyChangeInterface
    
    public void setYPosition(int value)
    {
-      if (this.yPosition != value)
-      {
+      if (this.yPosition != value) {
+      
          int oldValue = this.yPosition;
          this.yPosition = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_YPOSITION, oldValue, value);
@@ -142,8 +142,8 @@ public  class BombermanPlayer implements PropertyChangeInterface
    
    public void setNumberOfBombs(int value)
    {
-      if (this.numberOfBombs != value)
-      {
+      if (this.numberOfBombs != value) {
+      
          int oldValue = this.numberOfBombs;
          this.numberOfBombs = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_NUMBEROFBOMBS, oldValue, value);
@@ -170,8 +170,8 @@ public  class BombermanPlayer implements PropertyChangeInterface
    
    public void setLastKey(char value)
    {
-      if (this.lastKey != value)
-      {
+      if (this.lastKey != value) {
+      
          char oldValue = this.lastKey;
          this.lastKey = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_LASTKEY, oldValue, value);
@@ -198,8 +198,8 @@ public  class BombermanPlayer implements PropertyChangeInterface
    
    public void setShortTest(short value)
    {
-      if (this.shortTest != value)
-      {
+      if (this.shortTest != value) {
+      
          short oldValue = this.shortTest;
          this.shortTest = value;
          getPropertyChangeSupport().firePropertyChange(PROPERTY_SHORTTEST, oldValue, value);

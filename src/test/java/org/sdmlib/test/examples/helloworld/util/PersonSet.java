@@ -157,6 +157,21 @@ public class PersonSet extends SDMSet<Person>
 
 
    public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public PersonSet hasName(String lower, String upper)
+   {
+      PersonSet result = new PersonSet();
+      
+      for (Person obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

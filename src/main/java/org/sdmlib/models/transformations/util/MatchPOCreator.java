@@ -1,8 +1,9 @@
 package org.sdmlib.models.transformations.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.models.transformations.Match;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class MatchPOCreator extends PatternObjectCreator
 {

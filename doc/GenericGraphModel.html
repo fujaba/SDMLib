@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/models/objects/GenericGraphModel.java' type='text/x-java'>GenericGraphModel</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java' type='text/x-java'>GenericGraphModel</a></p>
 <p>GenericGraphModel</p>
 <script>
    var json = {
@@ -48,9 +48,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"GenericGraph",
             "cardinality":"one",
-            "property":"graph",
-            "id":"GenericGraph"
+            "property":"graph"
          },
          "target":{
             "id":"GenericObject",
@@ -61,9 +61,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"GenericGraph",
             "cardinality":"one",
-            "property":"graph",
-            "id":"GenericGraph"
+            "property":"graph"
          },
          "target":{
             "id":"GenericLink",
@@ -74,9 +74,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"GenericObject",
             "cardinality":"one",
-            "property":"owner",
-            "id":"GenericObject"
+            "property":"owner"
          },
          "target":{
             "id":"GenericAttribute",
@@ -87,9 +87,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"GenericObject",
             "cardinality":"one",
-            "property":"src",
-            "id":"GenericObject"
+            "property":"src"
          },
          "target":{
             "id":"GenericLink",
@@ -100,9 +100,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"GenericObject",
             "cardinality":"one",
-            "property":"tgt",
-            "id":"GenericObject"
+            "property":"tgt"
          },
          "target":{
             "id":"GenericLink",

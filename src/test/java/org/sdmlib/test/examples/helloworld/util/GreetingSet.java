@@ -287,6 +287,21 @@ public class GreetingSet extends SDMSet<Greeting>
       return this;
    }
 
+   public GreetingSet hasText(String lower, String upper)
+   {
+      GreetingSet result = new GreetingSet();
+      
+      for (Greeting obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

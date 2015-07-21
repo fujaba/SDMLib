@@ -471,4 +471,34 @@ public class RoomSet extends SDMSet<Room>
 
 
    public static final RoomSet EMPTY_SET = new RoomSet().withReadOnly(true);
+   public RoomSet hasRoomNo(String lower, String upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower.compareTo(obj.getRoomNo()) <= 0 && obj.getRoomNo().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RoomSet hasCredits(int lower, int upper)
+   {
+      RoomSet result = new RoomSet();
+      
+      for (Room obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

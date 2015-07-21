@@ -34,11 +34,6 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.AttributeConstraintSet;
-import org.sdmlib.models.pattern.util.DestroyObjectElemSet;
-import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
-import org.sdmlib.models.pattern.util.MatchOtherThenSet;
 
 public class PatternObjectSet extends SDMSet<PatternObject>
 {
@@ -499,4 +494,124 @@ public class PatternObjectSet extends SDMSet<PatternObject>
    }
 
    public static final PatternObjectSet EMPTY_SET = new PatternObjectSet().withReadOnly(true);
+   public PatternObjectSet hasCurrentMatch(Object value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value == obj.getCurrentMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet hasCandidates(Object value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value == obj.getCandidates())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet hasModifier(String value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet hasModifier(String lower, String upper)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet hasHasMatch(boolean value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet hasPatternObjectName(String value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet hasPatternObjectName(String lower, String upper)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public PatternObjectSet hasDoAllMatches(boolean value)
+   {
+      PatternObjectSet result = new PatternObjectSet();
+      
+      for (PatternObject obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='.././src/test/java/org/sdmlib/examples/SDMLib/PatternModelCodeGen.java' type='text/x-java'>PatternModelCodegen</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java' type='text/x-java'>PatternModelCodegen</a></p>
 <p>PatternModelCodegen</p>
 <p>Start situation: </p>
 <script>
@@ -140,9 +140,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Pattern",
             "cardinality":"one",
-            "property":"pattern",
-            "id":"Pattern"
+            "property":"pattern"
          },
          "target":{
             "id":"PatternElement",
@@ -153,9 +153,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ReachabilityGraph",
             "cardinality":"one",
-            "property":"rgraph",
-            "id":"ReachabilityGraph"
+            "property":"rgraph"
          },
          "target":{
             "id":"Pattern",
@@ -166,9 +166,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"AttributeConstraint",
             "cardinality":"many",
-            "property":"attrConstraints",
-            "id":"AttributeConstraint"
+            "property":"attrConstraints"
          },
          "target":{
             "id":"PatternObject",
@@ -179,9 +179,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"DestroyObjectElem",
             "cardinality":"one",
-            "property":"destroyElem",
-            "id":"DestroyObjectElem"
+            "property":"destroyElem"
          },
          "target":{
             "id":"PatternObject",
@@ -192,9 +192,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"CardinalityConstraint",
             "cardinality":"many",
-            "property":"cardConstraints",
-            "id":"CardinalityConstraint"
+            "property":"cardConstraints"
          },
          "target":{
             "id":"PatternObject",
@@ -205,9 +205,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"MatchOtherThen",
             "cardinality":"many",
-            "property":"matchOtherThen",
-            "id":"MatchOtherThen"
+            "property":"matchOtherThen"
          },
          "target":{
             "id":"PatternObject",
@@ -218,9 +218,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"MatchOtherThen",
             "cardinality":"many",
-            "property":"excluders",
-            "id":"MatchOtherThen"
+            "property":"excluders"
          },
          "target":{
             "id":"PatternObject",
@@ -231,9 +231,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ReachabilityGraph",
             "cardinality":"one",
-            "property":"parent",
-            "id":"ReachabilityGraph"
+            "property":"parent"
          },
          "target":{
             "id":"ReachableState",
@@ -244,9 +244,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ReachabilityGraph",
             "cardinality":"one",
-            "property":"master",
-            "id":"ReachabilityGraph"
+            "property":"master"
          },
          "target":{
             "id":"ReachableState",
@@ -257,9 +257,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"RuleApplication",
             "cardinality":"many",
-            "property":"ruleapplications",
-            "id":"RuleApplication"
+            "property":"ruleapplications"
          },
          "target":{
             "id":"ReachableState",
@@ -270,9 +270,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"RuleApplication",
             "cardinality":"many",
-            "property":"resultOf",
-            "id":"RuleApplication"
+            "property":"resultOf"
          },
          "target":{
             "id":"ReachableState",

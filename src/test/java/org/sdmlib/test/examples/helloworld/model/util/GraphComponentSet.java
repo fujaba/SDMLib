@@ -158,6 +158,21 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
 
 
    public static final GraphComponentSet EMPTY_SET = new GraphComponentSet().withReadOnly(true);
+   public GraphComponentSet hasText(String lower, String upper)
+   {
+      GraphComponentSet result = new GraphComponentSet();
+      
+      for (GraphComponent obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

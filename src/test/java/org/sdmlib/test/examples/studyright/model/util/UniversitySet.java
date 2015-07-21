@@ -226,4 +226,19 @@ public class UniversitySet extends SDMSet<University>
 
 
    public static final UniversitySet EMPTY_SET = new UniversitySet().withReadOnly(true);
+   public UniversitySet hasName(String lower, String upper)
+   {
+      UniversitySet result = new UniversitySet();
+      
+      for (University obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

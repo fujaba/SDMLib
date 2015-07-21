@@ -29,8 +29,6 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class DestroyObjectElemSet extends SDMSet<DestroyObjectElem>
 {
@@ -225,4 +223,94 @@ public class DestroyObjectElemSet extends SDMSet<DestroyObjectElem>
    }
 
    public static final DestroyObjectElemSet EMPTY_SET = new DestroyObjectElemSet().withReadOnly(true);
+   public DestroyObjectElemSet hasModifier(String value)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DestroyObjectElemSet hasModifier(String lower, String upper)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DestroyObjectElemSet hasHasMatch(boolean value)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DestroyObjectElemSet hasPatternObjectName(String value)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DestroyObjectElemSet hasPatternObjectName(String lower, String upper)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public DestroyObjectElemSet hasDoAllMatches(boolean value)
+   {
+      DestroyObjectElemSet result = new DestroyObjectElemSet();
+      
+      for (DestroyObjectElem obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

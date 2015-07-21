@@ -29,7 +29,6 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class GenericConstraintSet extends SDMSet<GenericConstraint>
 {
@@ -337,6 +336,36 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
 
 
    public static final GenericConstraintSet EMPTY_SET = new GenericConstraintSet().withReadOnly(true);
+   public GenericConstraintSet hasModifier(String lower, String upper)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericConstraintSet hasPatternObjectName(String lower, String upper)
+   {
+      GenericConstraintSet result = new GenericConstraintSet();
+      
+      for (GenericConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

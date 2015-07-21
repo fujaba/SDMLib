@@ -32,9 +32,6 @@ import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.util.ChoiceTemplateSet;
-import org.sdmlib.models.transformations.util.MatchSet;
 
 public class TemplateSet extends SDMSet<Template>
 {

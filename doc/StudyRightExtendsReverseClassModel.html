@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightExtendsReverseClassModel</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/test/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightExtendsReverseClassModel</a></p>
 <p>StudyRightExtendsReverseClassModel</p>
 <p>Start situation: There are some java files. We parse them and generate a class model: </p>
 <script>
@@ -90,9 +90,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Lecture",
             "cardinality":"many",
-            "property":"lecture",
-            "id":"Lecture"
+            "property":"lecture"
          },
          "target":{
             "id":"Room",
@@ -103,9 +103,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Lecture",
             "cardinality":"many",
-            "property":"lecture",
-            "id":"Lecture"
+            "property":"lecture"
          },
          "target":{
             "id":"Professor",
@@ -116,9 +116,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Lecture",
             "cardinality":"many",
-            "property":"lecture",
-            "id":"Lecture"
+            "property":"lecture"
          },
          "target":{
             "id":"Student",
@@ -129,9 +129,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Room",
             "cardinality":"many",
-            "property":"neighbors",
-            "id":"Room"
+            "property":"neighbors"
          },
          "target":{
             "id":"Room",
@@ -142,9 +142,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Room",
             "cardinality":"many",
-            "property":"rooms",
-            "id":"Room"
+            "property":"rooms"
          },
          "target":{
             "id":"University",

@@ -22,12 +22,11 @@
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-
+import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.modelsets.charList;
 import org.sdmlib.models.modelsets.shortList;
-import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
 
 public class BombermanPlayerSet extends SDMSet<BombermanPlayer>
 {

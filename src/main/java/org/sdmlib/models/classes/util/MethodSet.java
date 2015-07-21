@@ -33,6 +33,8 @@ import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.classes.util.ParameterSet;
+import org.sdmlib.models.classes.util.ClazzSet;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -297,6 +299,66 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       }
       
       return this;
+   }
+
+   public MethodSet hasReturnType(DataType value)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (value == obj.getReturnType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MethodSet hasBody(String value)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (value.equals(obj.getBody()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MethodSet hasBody(String lower, String upper)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (lower.compareTo(obj.getBody()) <= 0 && obj.getBody().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MethodSet hasName(String lower, String upper)
+   {
+      MethodSet result = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
    }
 
 }

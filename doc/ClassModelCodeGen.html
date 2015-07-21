@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../src/test/java/org/sdmlib/examples/SDMLib/ClassModelTest.java' type='text/x-java'>ClassModelCodeGen</a></p>
+<p>Storyboard <a href='../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java' type='text/x-java'>ClassModelCodeGen</a></p>
 <p>ClassModelCodeGen</p>
 <p>We start by bootstrapping org.sdmlib.model.classes.ClassModel. </p>
 <p>Basic bootstrap done.</p>
@@ -32,7 +32,6 @@
          "id":"Clazz",
          "attributes":[
          "interfaze : boolean",
-            "abztract : boolean",
             "external : boolean"
          ]
       },
@@ -41,7 +40,7 @@
          "id":"Value",
          "attributes":[
          "initialization : String",
-            "type : org.sdmlib.models.classes.DataType"
+            "type : DataType"
          ]
       },
       {
@@ -52,7 +51,7 @@
          "typ":"node",
          "id":"Method",
          "attributes":[
-         "returnType : org.sdmlib.models.classes.DataType",
+         "returnType : DataType",
             "body : String"
          ]
       },
@@ -66,18 +65,15 @@
             "SUPPRESS_WARNINGS : String"
          ],
          "methods":[
-         "createOverrideAnnotation() org.sdmlib.models.classes.Annotation",
-            "createDeprecatedAnnotation() org.sdmlib.models.classes.Annotation",
-            "createSuppressWarningsAnnotation(String... values) org.sdmlib.models.classes.Annotation",
-            "createSafeVarargsAnnotation() org.sdmlib.models.classes.Annotation"
+         "createOverrideAnnotation() Annotation",
+            "createDeprecatedAnnotation() Annotation",
+            "createSuppressWarningsAnnotation(String... values) Annotation",
+            "createSafeVarargsAnnotation() Annotation"
          ]
       },
       {
          "typ":"node",
-         "id":"Enumeration",
-         "attributes":[
-         "valueNames : ArrayListSet"
-         ]
+         "id":"Enumeration"
       },
       {
          "typ":"node",
@@ -135,9 +131,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"ClassModel",
             "cardinality":"one",
-            "property":"classModel",
-            "id":"ClassModel"
+            "property":"classModel"
          },
          "target":{
             "id":"Clazz",
@@ -148,9 +144,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"ClassModel",
             "cardinality":"one",
-            "property":"classModel",
-            "id":"ClassModel"
+            "property":"classModel"
          },
          "target":{
             "id":"Enumeration",
@@ -161,9 +157,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Clazz",
             "cardinality":"many",
-            "property":"superClazzes",
-            "id":"Clazz"
+            "property":"superClazzes"
          },
          "target":{
             "id":"Clazz",
@@ -174,9 +170,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Clazz",
             "cardinality":"one",
-            "property":"clazz",
-            "id":"Clazz"
+            "property":"clazz"
          },
          "target":{
             "id":"Attribute",
@@ -187,22 +183,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Clazz",
             "cardinality":"one",
-            "property":"clazz",
-            "id":"Clazz"
-         },
-         "target":{
-            "id":"Annotation",
-            "cardinality":"many",
-            "property":"annotations"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"clazz",
-            "id":"Clazz"
+            "property":"clazz"
          },
          "target":{
             "id":"Method",
@@ -213,9 +196,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Clazz",
             "cardinality":"one",
-            "property":"clazz",
-            "id":"Clazz"
+            "property":"clazz"
          },
          "target":{
             "id":"Role",
@@ -226,48 +209,9 @@
       {
          "typ":"edge",
          "source":{
-            "cardinality":"one",
-            "property":"attribute",
-            "id":"Attribute"
-         },
-         "target":{
-            "id":"Annotation",
+            "id":"Parameter",
             "cardinality":"many",
-            "property":"annotations"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"method",
-            "id":"Method"
-         },
-         "target":{
-            "id":"Annotation",
-            "cardinality":"many",
-            "property":"annotations"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "cardinality":"one",
-            "property":"enumeration",
-            "id":"Enumeration"
-         },
-         "target":{
-            "id":"Method",
-            "cardinality":"many",
-            "property":"methods"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "cardinality":"many",
-            "property":"parameter",
-            "id":"Parameter"
+            "property":"parameter"
          },
          "target":{
             "id":"Method",
@@ -278,9 +222,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Association",
             "cardinality":"one",
-            "property":"assoc",
-            "id":"Association"
+            "property":"assoc"
          },
          "target":{
             "id":"Role",
@@ -291,9 +235,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Association",
             "cardinality":"one",
-            "property":"assoc",
-            "id":"Association"
+            "property":"assoc"
          },
          "target":{
             "id":"Role",
@@ -304,9 +248,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"StatementEntry",
             "cardinality":"one",
-            "property":"parent",
-            "id":"StatementEntry"
+            "property":"parent"
          },
          "target":{
             "id":"StatementEntry",

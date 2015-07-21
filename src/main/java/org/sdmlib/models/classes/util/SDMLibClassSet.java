@@ -95,4 +95,19 @@ public class SDMLibClassSet extends SDMSet<SDMLibClass>
    }
 
    public static final SDMLibClassSet EMPTY_SET = new SDMLibClassSet().withReadOnly(true);
+   public SDMLibClassSet hasName(String lower, String upper)
+   {
+      SDMLibClassSet result = new SDMLibClassSet();
+      
+      for (SDMLibClass obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

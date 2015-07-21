@@ -338,4 +338,34 @@ public class RelationSet extends SDMSet<Relation>
 
 
    public static final RelationSet EMPTY_SET = new RelationSet().withReadOnly(true);
+   public RelationSet hasKind(String lower, String upper)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (lower.compareTo(obj.getKind()) <= 0 && obj.getKind().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public RelationSet hasText(String lower, String upper)
+   {
+      RelationSet result = new RelationSet();
+      
+      for (Relation obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

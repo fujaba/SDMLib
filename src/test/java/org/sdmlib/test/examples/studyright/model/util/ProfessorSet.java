@@ -254,4 +254,34 @@ public class ProfessorSet extends SDMSet<Professor>
 
 
    public static final ProfessorSet EMPTY_SET = new ProfessorSet().withReadOnly(true);
+   public ProfessorSet hasPersNr(int lower, int upper)
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (lower <= obj.getPersNr() && obj.getPersNr() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ProfessorSet hasName(String lower, String upper)
+   {
+      ProfessorSet result = new ProfessorSet();
+      
+      for (Professor obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

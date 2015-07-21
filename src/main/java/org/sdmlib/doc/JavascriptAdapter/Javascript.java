@@ -197,7 +197,7 @@ public class Javascript implements GuiAdapter
 	         JsonArray jsonAttrs = new JsonArray();
 	         for (Attribute attr : clazz.getAttributes())
 	         {
-	            jsonAttrs.add("" + attr.getName() + " : " + attr.getType().getValue());
+	            jsonAttrs.add("" + attr.getName() + " : " + CGUtil.shortClassName(attr.getType().getValue()));
 	         }
 	         if(jsonAttrs.size()>0){
 	        	 jsonClazz.put("attributes", jsonAttrs);

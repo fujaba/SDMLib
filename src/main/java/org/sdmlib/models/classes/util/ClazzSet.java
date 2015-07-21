@@ -746,4 +746,19 @@ public class ClazzSet extends SDMSet<Clazz>
       
       return this;
    }
+   public ClazzSet hasName(String lower, String upper)
+   {
+      ClazzSet result = new ClazzSet();
+      
+      for (Clazz obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -30,7 +30,6 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
 
 public class LinkConstraintSet extends SDMSet<LinkConstraint>
 {
@@ -291,4 +290,139 @@ public class LinkConstraintSet extends SDMSet<LinkConstraint>
    }
 
    public static final LinkConstraintSet EMPTY_SET = new LinkConstraintSet().withReadOnly(true);
+   public LinkConstraintSet hasTgtRoleName(String value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value.equals(obj.getTgtRoleName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet hasTgtRoleName(String lower, String upper)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getTgtRoleName()) <= 0 && obj.getTgtRoleName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet hasHostGraphSrcObject(Object value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet hasModifier(String value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet hasModifier(String lower, String upper)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet hasHasMatch(boolean value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet hasPatternObjectName(String value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet hasPatternObjectName(String lower, String upper)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public LinkConstraintSet hasDoAllMatches(boolean value)
+   {
+      LinkConstraintSet result = new LinkConstraintSet();
+      
+      for (LinkConstraint obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

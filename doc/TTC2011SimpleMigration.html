@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigration</a></p>
+<p>Storyboard <a href='../examples/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigration</a></p>
 <p>TTC2011SimpleMigration</p>
 <hr/><p>Source model:</p>
 <script>
@@ -38,9 +38,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Graph",
             "cardinality":"one",
-            "property":"graph",
-            "id":"Graph"
+            "property":"graph"
          },
          "target":{
             "id":"Node",
@@ -51,9 +51,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Graph",
             "cardinality":"one",
-            "property":"graph",
-            "id":"Graph"
+            "property":"graph"
          },
          "target":{
             "id":"Edge",
@@ -64,9 +64,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Edge",
             "cardinality":"many",
-            "property":"outEdges",
-            "id":"Edge"
+            "property":"outEdges"
          },
          "target":{
             "id":"Node",
@@ -77,9 +77,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Edge",
             "cardinality":"many",
-            "property":"inEdges",
-            "id":"Edge"
+            "property":"inEdges"
          },
          "target":{
             "id":"Node",
@@ -120,9 +120,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Graph",
             "cardinality":"one",
-            "property":"parent",
-            "id":"Graph"
+            "property":"parent"
          },
          "target":{
             "id":"GraphComponent",
@@ -133,9 +133,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Edge",
             "cardinality":"many",
-            "property":"outEdges",
-            "id":"Edge"
+            "property":"outEdges"
          },
          "target":{
             "id":"Node",
@@ -146,9 +146,9 @@
       {
          "typ":"edge",
          "source":{
+            "id":"Edge",
             "cardinality":"many",
-            "property":"inEdges",
-            "id":"Edge"
+            "property":"inEdges"
          },
          "target":{
             "id":"Node",
@@ -184,9 +184,9 @@
    {
          "typ":"edge",
          "source":{
+            "id":"Node",
             "cardinality":"one",
-            "property":"orig",
-            "id":"Node"
+            "property":"orig"
          },
          "target":{
             "id":"Node",
@@ -809,7 +809,7 @@
    json["options"]={"canvasid":"canvasTTC2011SimpleMigration13", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<hr/><h2>Migrate per pattern: </h2><p>did not find method simpleMigrationPerPattern(Graph,Storyboard) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Migrate per pattern: </h2><p>did not find method simpleMigrationPerPattern(Graph,Storyboard) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -1717,7 +1717,7 @@
 </script>
 <p>Number of migrated nodes: 8
 Number of migrated Edges: 10</p>
-<hr/><h2>Migrate in Java: </h2><p>did not find method simpleMigrationInJava(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Migrate in Java: </h2><p>did not find method simpleMigrationInJava(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <p>Result graph: </p>
 <script>
    var json = {
@@ -2330,7 +2330,7 @@ Number of migrated Edges: 10</p>
    g.layout(100,100);
 </script>
 <p>Number of migrated nodes: 8</p>
-<hr/><h2>Migrate using Serialisation / Clone : </h2><p>did not find method simpleMigrationByCloning(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Migrate using Serialisation / Clone : </h2><p>did not find method simpleMigrationByCloning(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <p>Result graph: </p>
 <script>
    var json = {
@@ -2942,7 +2942,7 @@ Number of migrated Edges: 10</p>
    json["options"]={"canvasid":"canvasTTC2011SimpleMigration35", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<hr/><h2>Migrate using JSON Array representation : </h2><p>did not find method simpleMigrationByJsonArray(Graph) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Migrate using JSON Array representation : </h2><p>did not find method simpleMigrationByJsonArray(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <p>Result graph: </p>
 <script>
    var json = {
@@ -2959,7 +2959,7 @@ Number of migrated Edges: 10</p>
    json["options"]={"canvasid":"canvasTTC2011SimpleMigration40", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<hr/><h2>Migrate using Generic Graph representation : </h2><p>did not find method simpleMigrationByGenericGraph(Graph,Storyboard) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<hr/><h2>Migrate using Generic Graph representation : </h2><p>did not find method simpleMigrationByGenericGraph(Graph,Storyboard) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -2970,7 +2970,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G78 : GenericObject",
          "attributes":[
          "name=g1.G1",
-            "type=org.sdmlib.examples.helloworld.model.Graph"
+            "type=org.sdmlib.test.examples.helloworld.model.Graph"
          ]
       },
       {
@@ -3122,7 +3122,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G81 : GenericObject",
          "attributes":[
          "name=g1.N2",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -3154,7 +3154,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G83 : GenericObject",
          "attributes":[
          "name=g1.E3",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3178,7 +3178,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G87 : GenericObject",
          "attributes":[
          "name=g1.N4",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -3202,7 +3202,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G91 : GenericObject",
          "attributes":[
          "name=g1.E5",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3226,7 +3226,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G95 : GenericObject",
          "attributes":[
          "name=g1.N6",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -3266,7 +3266,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G99 : GenericObject",
          "attributes":[
          "name=g1.E7",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3282,7 +3282,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G104 : GenericObject",
          "attributes":[
          "name=g1.E8",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3306,7 +3306,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G108 : GenericObject",
          "attributes":[
          "name=g1.N9",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -3330,7 +3330,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G112 : GenericObject",
          "attributes":[
          "name=g1.E10",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3354,7 +3354,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G116 : GenericObject",
          "attributes":[
          "name=g1.N11",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -3394,7 +3394,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G120 : GenericObject",
          "attributes":[
          "name=g1.E12",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3410,7 +3410,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G124 : GenericObject",
          "attributes":[
          "name=g1.E13",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3426,7 +3426,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G129 : GenericObject",
          "attributes":[
          "name=g1.E14",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3442,7 +3442,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G133 : GenericObject",
          "attributes":[
          "name=g1.N15",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -3458,7 +3458,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G136 : GenericObject",
          "attributes":[
          "name=g1.N16",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -3474,7 +3474,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G139 : GenericObject",
          "attributes":[
          "name=g1.N17",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -3522,7 +3522,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G142 : GenericObject",
          "attributes":[
          "name=g1.E18",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -3538,7 +3538,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G147 : GenericObject",
          "attributes":[
          "name=g1.E19",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -4868,7 +4868,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G78 : GenericObject",
          "attributes":[
          "name=g1.G1",
-            "type=org.sdmlib.examples.helloworld.model.Graph"
+            "type=org.sdmlib.test.examples.helloworld.model.Graph"
          ]
       },
       {
@@ -5020,7 +5020,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G81 : GenericObject",
          "attributes":[
          "name=g1.N2",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -5052,7 +5052,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G83 : GenericObject",
          "attributes":[
          "name=g1.E3",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5076,7 +5076,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G87 : GenericObject",
          "attributes":[
          "name=g1.N4",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -5100,7 +5100,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G91 : GenericObject",
          "attributes":[
          "name=g1.E5",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5124,7 +5124,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G95 : GenericObject",
          "attributes":[
          "name=g1.N6",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -5164,7 +5164,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G99 : GenericObject",
          "attributes":[
          "name=g1.E7",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5180,7 +5180,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G104 : GenericObject",
          "attributes":[
          "name=g1.E8",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5204,7 +5204,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G108 : GenericObject",
          "attributes":[
          "name=g1.N9",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -5228,7 +5228,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G112 : GenericObject",
          "attributes":[
          "name=g1.E10",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5252,7 +5252,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G116 : GenericObject",
          "attributes":[
          "name=g1.N11",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -5292,7 +5292,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G120 : GenericObject",
          "attributes":[
          "name=g1.E12",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5308,7 +5308,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G124 : GenericObject",
          "attributes":[
          "name=g1.E13",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5324,7 +5324,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G129 : GenericObject",
          "attributes":[
          "name=g1.E14",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5340,7 +5340,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G133 : GenericObject",
          "attributes":[
          "name=g1.N15",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -5356,7 +5356,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G136 : GenericObject",
          "attributes":[
          "name=g1.N16",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -5372,7 +5372,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G139 : GenericObject",
          "attributes":[
          "name=g1.N17",
-            "type=org.sdmlib.examples.helloworld.model.Node"
+            "type=org.sdmlib.test.examples.helloworld.model.Node"
          ]
       },
       {
@@ -5420,7 +5420,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G142 : GenericObject",
          "attributes":[
          "name=g1.E18",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -5436,7 +5436,7 @@ Number of migrated Edges: 10</p>
          "id":"hg.G147 : GenericObject",
          "attributes":[
          "name=g1.E19",
-            "type=org.sdmlib.examples.helloworld.model.Edge"
+            "type=org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -7255,9 +7255,9 @@ Number of migrated Edges: 10</p>
    {
          "typ":"edge",
          "source":{
+            "id":"Graph",
             "cardinality":"one",
-            "property":"graph",
-            "id":"Graph"
+            "property":"graph"
          },
          "target":{
             "id":"Node",
@@ -7268,9 +7268,9 @@ Number of migrated Edges: 10</p>
       {
          "typ":"edge",
          "source":{
+            "id":"Node",
             "cardinality":"many",
-            "property":"linksFrom",
-            "id":"Node"
+            "property":"linksFrom"
          },
          "target":{
             "id":"Node",
@@ -7892,7 +7892,7 @@ Number of migrated Edges: 10</p>
    json["options"]={"canvasid":"canvasTTC2011SimpleMigration54", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>did not find method simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard) in class org.sdmlib.examples.helloworld.HelloWorldTTC2011</p>
+<p>did not find method simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
 <script>
    var json = {
    "typ":"object",
@@ -7963,7 +7963,7 @@ Number of migrated Edges: 10</p>
          "typ":"patternObject",
          "id":"g2 : GenericObjectPO",
          "attributes":[
-         "type == org.sdmlib.examples.helloworld.model.Edge"
+         "type == org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       },
       {
@@ -8081,7 +8081,7 @@ Number of migrated Edges: 10</p>
          "typ":"patternObject",
          "id":"g2 : GenericObjectPO",
          "attributes":[
-         "type == org.sdmlib.examples.helloworld.model.Edge"
+         "type == org.sdmlib.test.examples.helloworld.model.Edge"
          ]
       }
    ],

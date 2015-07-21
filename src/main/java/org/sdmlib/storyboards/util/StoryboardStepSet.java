@@ -162,6 +162,36 @@ public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdm
    }
 
    public static final StoryboardStepSet EMPTY_SET = new StoryboardStepSet().withReadOnly(true);
+   public StoryboardStepSet hasText(String value)
+   {
+      StoryboardStepSet result = new StoryboardStepSet();
+      
+      for (StoryboardStep obj : this)
+      {
+         if (value.equals(obj.getText()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StoryboardStepSet hasText(String lower, String upper)
+   {
+      StoryboardStepSet result = new StoryboardStepSet();
+      
+      for (StoryboardStep obj : this)
+      {
+         if (lower.compareTo(obj.getText()) <= 0 && obj.getText().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

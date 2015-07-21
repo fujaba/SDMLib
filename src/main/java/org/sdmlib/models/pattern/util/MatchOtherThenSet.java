@@ -30,8 +30,6 @@ import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
 public class MatchOtherThenSet extends SDMSet<MatchOtherThen> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -270,4 +268,109 @@ public class MatchOtherThenSet extends SDMSet<MatchOtherThen> implements org.sdm
    }
 
    public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet().withReadOnly(true);
+   public MatchOtherThenSet hasHostGraphSrcObject(Object value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value == obj.getHostGraphSrcObject())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchOtherThenSet hasModifier(String value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value.equals(obj.getModifier()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchOtherThenSet hasModifier(String lower, String upper)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (lower.compareTo(obj.getModifier()) <= 0 && obj.getModifier().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchOtherThenSet hasHasMatch(boolean value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value == obj.isHasMatch())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchOtherThenSet hasPatternObjectName(String value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value.equals(obj.getPatternObjectName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchOtherThenSet hasPatternObjectName(String lower, String upper)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (lower.compareTo(obj.getPatternObjectName()) <= 0 && obj.getPatternObjectName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MatchOtherThenSet hasDoAllMatches(boolean value)
+   {
+      MatchOtherThenSet result = new MatchOtherThenSet();
+      
+      for (MatchOtherThen obj : this)
+      {
+         if (value == obj.isDoAllMatches())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

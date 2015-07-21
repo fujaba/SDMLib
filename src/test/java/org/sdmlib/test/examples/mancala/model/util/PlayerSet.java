@@ -391,4 +391,16 @@ public class PlayerSet extends SDMSet<Player>
 
 
    public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+   public PlayerStateSet getState()
+   {
+      PlayerStateSet result = new PlayerStateSet();
+      
+      for (Player obj : this)
+      {
+         result.add(obj.getState());
+      }
+      
+      return result;
+   }
+
 }

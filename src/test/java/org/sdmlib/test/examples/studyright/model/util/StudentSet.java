@@ -474,4 +474,64 @@ public class StudentSet extends SDMSet<Student>
 
 
    public static final StudentSet EMPTY_SET = new StudentSet().withReadOnly(true);
+   public StudentSet hasName(String lower, String upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasMatrNo(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getMatrNo() && obj.getMatrNo() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasCredits(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getCredits() && obj.getCredits() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public StudentSet hasMotivation(int lower, int upper)
+   {
+      StudentSet result = new StudentSet();
+      
+      for (Student obj : this)
+      {
+         if (lower <= obj.getMotivation() && obj.getMotivation() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

@@ -231,4 +231,79 @@ public class AttributeSet extends SDMSet<Attribute>
       
       return this;
    }
+   public AttributeSet hasInitialization(String value)
+   {
+      AttributeSet result = new AttributeSet();
+      
+      for (Attribute obj : this)
+      {
+         if (value.equals(obj.getInitialization()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeSet hasInitialization(String lower, String upper)
+   {
+      AttributeSet result = new AttributeSet();
+      
+      for (Attribute obj : this)
+      {
+         if (lower.compareTo(obj.getInitialization()) <= 0 && obj.getInitialization().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeSet hasType(DataType value)
+   {
+      AttributeSet result = new AttributeSet();
+      
+      for (Attribute obj : this)
+      {
+         if (value == obj.getType())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeSet hasName(String value)
+   {
+      AttributeSet result = new AttributeSet();
+      
+      for (Attribute obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public AttributeSet hasName(String lower, String upper)
+   {
+      AttributeSet result = new AttributeSet();
+      
+      for (Attribute obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }

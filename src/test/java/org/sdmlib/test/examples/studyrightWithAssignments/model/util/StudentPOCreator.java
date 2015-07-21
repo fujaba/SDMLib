@@ -1,9 +1,8 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 
 public class StudentPOCreator extends PatternObjectCreator
 {

@@ -197,6 +197,36 @@ public class KanbanEntrySet extends SDMSet<KanbanEntry> implements org.sdmlib.mo
    }
 
    public static final KanbanEntrySet EMPTY_SET = new KanbanEntrySet().withReadOnly(true);
+   public KanbanEntrySet hasOldNoOfLogEntries(int value)
+   {
+      KanbanEntrySet result = new KanbanEntrySet();
+      
+      for (KanbanEntry obj : this)
+      {
+         if (value == obj.getOldNoOfLogEntries())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public KanbanEntrySet hasOldNoOfLogEntries(int lower, int upper)
+   {
+      KanbanEntrySet result = new KanbanEntrySet();
+      
+      for (KanbanEntry obj : this)
+      {
+         if (lower <= obj.getOldNoOfLogEntries() && obj.getOldNoOfLogEntries() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 
 

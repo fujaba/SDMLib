@@ -272,5 +272,95 @@ public class GenericObjectSet extends SDMSet<GenericObject>
    }
 
    public static final GenericObjectSet EMPTY_SET = new GenericObjectSet().withReadOnly(true);
+   public GenericObjectSet hasName(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericObjectSet hasName(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericObjectSet hasType(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getType()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericObjectSet hasType(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getType()) <= 0 && obj.getType().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericObjectSet hasIcon(String value)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (value.equals(obj.getIcon()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GenericObjectSet hasIcon(String lower, String upper)
+   {
+      GenericObjectSet result = new GenericObjectSet();
+      
+      for (GenericObject obj : this)
+      {
+         if (lower.compareTo(obj.getIcon()) <= 0 && obj.getIcon().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
 }
 

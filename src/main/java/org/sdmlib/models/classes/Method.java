@@ -25,6 +25,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
+import org.sdmlib.models.classes.DataType;
 
 public class Method extends SDMLibClass implements AnnotationOwner
 {
