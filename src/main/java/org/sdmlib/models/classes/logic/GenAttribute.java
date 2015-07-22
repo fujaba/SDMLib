@@ -411,7 +411,9 @@ public class GenAttribute extends Generator<Attribute>
 
      if (CGUtil.isPrimitiveType(fullModelSetType))
      {
-        modelSetType = CGUtil.shortClassName(fullModelSetType) + "List";
+    	 if(!fullModelSetType.equalsIgnoreCase("object")) {
+    		 modelSetType = CGUtil.shortClassName(fullModelSetType) + "List";
+    	 }
         fullModelSetType = "org.sdmlib.models.modelsets."
               + modelSetType;
         importClassesFromTypes.add(fullModelSetType);

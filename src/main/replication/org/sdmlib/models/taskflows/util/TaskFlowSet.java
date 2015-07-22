@@ -131,7 +131,7 @@ public class TaskFlowSet extends SDMSet<TaskFlow>
       return result;
    }
 
-   public TaskFlowSet hasIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public TaskFlowSet hasIdMap(SDMLibJsonIdMap value)
    {
       TaskFlowSet result = new TaskFlowSet();
       

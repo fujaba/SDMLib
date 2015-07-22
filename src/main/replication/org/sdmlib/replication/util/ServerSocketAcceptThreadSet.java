@@ -130,7 +130,7 @@ public class ServerSocketAcceptThreadSet extends SDMSet<ServerSocketAcceptThread
       return result;
    }
 
-   public ServerSocketAcceptThreadSet hasReplicationNode(org.sdmlib.replication.ReplicationNode value)
+   public ServerSocketAcceptThreadSet hasReplicationNode(ReplicationNode value)
    {
       ServerSocketAcceptThreadSet result = new ServerSocketAcceptThreadSet();
       

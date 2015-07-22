@@ -183,7 +183,7 @@ public class PeerProxySet extends SDMSet<PeerProxy>
       return result;
    }
 
-   public PeerProxySet hasIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public PeerProxySet hasIdMap(SDMLibJsonIdMap value)
    {
       PeerProxySet result = new PeerProxySet();
       

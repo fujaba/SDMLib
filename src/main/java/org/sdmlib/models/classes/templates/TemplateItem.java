@@ -60,12 +60,17 @@ public abstract class TemplateItem extends TemplateTask{
 				}
 			}
 			String name=searchString.substring(i, end);
-			String firstName = name.substring(0, 1).toLowerCase() + name.substring(1);
+			String firstName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+			ReplaceText item = get(name);
 			if(name.toLowerCase().equals(name) || name.toUpperCase().equals(name) || name.toLowerCase().equals(firstName)) {
 				name = name.toLowerCase();
 			}
 			if(get(name)==null) {
-				variables.with(new ReplaceText(name).withChecked(true));
+				String value = null;
+				if(item!=null) {
+					value = item.getText();
+				}
+				variables.with(new ReplaceText(name).withValue(value).withChecked(true));
 			}
 			firstFound = false;
 		}
@@ -81,7 +86,7 @@ public abstract class TemplateItem extends TemplateTask{
 			}
 			
 			String name = values[i];
-			String firstName = name.substring(0, 1).toLowerCase() + name.substring(1);
+			String firstName = name.substring(0, 1).toUpperCase() + name.substring(1);
 			boolean small=false;
 			boolean firstUpper=false;
 			boolean upper=false;
@@ -99,7 +104,7 @@ public abstract class TemplateItem extends TemplateTask{
 			if(small) {
 				item = get(name.toLowerCase());
 				if(item == null ) {
-					variables.with(new ReplaceText(name.toLowerCase(), StrUtil.upFirstChar(values[i+1])).withChecked(true));
+					variables.with(new ReplaceText(name.toLowerCase(), values[i+1].toLowerCase()).withChecked(true));
 				}else if( item.getText() == null) {
 					item.withValue(values[i+1].toLowerCase());				
 				}
@@ -115,7 +120,7 @@ public abstract class TemplateItem extends TemplateTask{
 			if(upper) {
 				item = get(name.toUpperCase());
 				if(item == null ) {
-					variables.with(new ReplaceText(name.toUpperCase(), StrUtil.upFirstChar(values[i+1])).withChecked(true));
+					variables.with(new ReplaceText(name.toUpperCase(), values[i+1].toUpperCase()).withChecked(true));
 				}else if( item.getText() == null) {
 					item.withValue(values[i+1].toUpperCase());				
 				}
@@ -123,7 +128,7 @@ public abstract class TemplateItem extends TemplateTask{
 		}
 		for(int i = 0; i < variables.size(); i++) {
 			if(variables.get(i).getText()==null && mode==DEBUG) {
-				throw new RuntimeException("Variable <"+variables.get(i).getSearch()+">cant be null: "+values[i]);
+				throw new RuntimeException("Variable <"+variables.get(i).getSearch()+">cant be null!");
 			}
 		}
 		TemplateResult text = new TemplateResult(searchString.toString()); 

@@ -184,7 +184,7 @@ public class SocketThreadSet extends SDMSet<SocketThread>
       return result;
    }
 
-   public SocketThreadSet hasIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public SocketThreadSet hasIdMap(SDMLibJsonIdMap value)
    {
       SocketThreadSet result = new SocketThreadSet();
       

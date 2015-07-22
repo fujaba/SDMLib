@@ -94,7 +94,7 @@ public class FetchFileFlowSet extends SDMSet<FetchFileFlow>
       return result;
    }
 
-   public FetchFileFlowSet hasFileServer(org.sdmlib.models.taskflows.PeerProxy value)
+   public FetchFileFlowSet hasFileServer(PeerProxy value)
    {
       FetchFileFlowSet result = new FetchFileFlowSet();
       
@@ -131,7 +131,7 @@ public class FetchFileFlowSet extends SDMSet<FetchFileFlow>
       return result;
    }
 
-   public FetchFileFlowSet hasIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public FetchFileFlowSet hasIdMap(SDMLibJsonIdMap value)
    {
       FetchFileFlowSet result = new FetchFileFlowSet();
       

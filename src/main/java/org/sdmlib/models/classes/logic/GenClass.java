@@ -350,13 +350,16 @@ public class GenClass extends Generator<Clazz>
 			}
 
 			Parser creatorcreator = getOrCreateCreatorCreator(clazz, rootDir);
-			if(isMultiCreator(creatorcreator)){
+			boolean isMulti =isMultiCreator(creatorcreator);
+			if(isMulti){
 				if(!creatorcreator.getClassModifier().contains("public")) {
 					CGUtil.replaceAll(creatorcreator.getFileBody(), "class CreatorCreator", "public class CreatorCreator");
 					creatorcreator.withFileChanged(true);
 				}
+			}else {
+				creatorName = CGUtil.shortClassName(creatorName);
 			}
-			StringBuilder creators=new StringBuilder(); 
+			StringBuilder creators=new StringBuilder();
 			creators.append("      jsonIdMap.withCreator(new " + creatorName + "Creator());\n");
 			if (clazz.hasFeature(Feature.PatternObject)) {
 				creators.append("      jsonIdMap.withCreator(new " + creatorName + "POCreator());\n");
@@ -366,7 +369,7 @@ public class GenClass extends Generator<Clazz>
 				SymTabEntry symTabEntry = symTabEntriesFor.get(0);
 				String lines = creatorcreator.getFileBody().substring(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
 				
-				CGUtil.replaceAll("      return jsonIdMap;", creators+"\n      return jsonIdMap;");
+				lines = CGUtil.replaceAll(lines, "      return jsonIdMap;", creators+"      return jsonIdMap;");
 				creatorcreator.replace(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos(), lines);
 				creatorcreator.withFileChanged(true);
 				printFile(creatorcreator);
@@ -577,7 +580,8 @@ public class GenClass extends Generator<Clazz>
 	               "\n   //==========================================================================" +
 	               "\n   " +
 	               "\n   {{Override}}" +
-	               "\n   public void removeYou() {" +
+	               "\n   public void removeYou()" +
+	               "\n   {" +
 	               "\n   {{Super}}" +
 	               "\n      " + propChSupport +              
 	               "\n   }" +

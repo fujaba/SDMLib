@@ -84,7 +84,7 @@ public class LoggerSet extends SDMSet<Logger>
       return result;
    }
 
-   public LoggerSet hasStartPeer(org.sdmlib.models.taskflows.PeerProxy value)
+   public LoggerSet hasStartPeer(PeerProxy value)
    {
       LoggerSet result = new LoggerSet();
       
@@ -173,7 +173,7 @@ public class LoggerSet extends SDMSet<Logger>
       return result;
    }
 
-   public LoggerSet hasIdMap(org.sdmlib.serialization.SDMLibJsonIdMap value)
+   public LoggerSet hasIdMap(SDMLibJsonIdMap value)
    {
       LoggerSet result = new LoggerSet();
       
