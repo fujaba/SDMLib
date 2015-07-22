@@ -27,6 +27,14 @@ public class ReplaceText {
 		this.value = value;
 	}
 
+	public ReplaceText(String search, boolean condition, String value, String otherText) {
+		this.search = search;
+		this.condition = condition;
+		this.value = value;
+		this.otherValue = otherText;
+	}
+
+	
 	public ReplaceText withFeature(Feature value) {
 		this.feature = value;
 		return this;

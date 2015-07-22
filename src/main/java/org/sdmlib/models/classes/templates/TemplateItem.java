@@ -79,20 +79,43 @@ public abstract class TemplateItem extends TemplateTask{
 			if(item.getText()==null ){
 				item.withValue(values[i+1]);
 			}
-			String first = values[i].substring(0, 1);
-			if(first.toLowerCase() == first) {
-				// Maybe autofill
-				String temp = first.toUpperCase() + values[i].substring(1);
-				item = get(temp); 
+			
+			String name = values[i];
+			String firstName = name.substring(0, 1).toLowerCase() + name.substring(1);
+			boolean small=false;
+			boolean firstUpper=false;
+			boolean upper=false;
+			if(name.toLowerCase().equals(name)) {
+				firstUpper = true;
+				upper = true;
+			} else if(name.toUpperCase().equals(name)) {
+				small=true;
+				firstUpper = true;
+			} else if(name.toLowerCase().equals(firstName)) {
+				small=true;
+				upper = true;
+			}
+			// Maybe autofill
+			if(small) {
+				item = get(name.toLowerCase());
 				if(item == null ) {
-					variables.with(new ReplaceText(temp, StrUtil.upFirstChar(values[i+1])).withChecked(true));
+					variables.with(new ReplaceText(name.toLowerCase(), StrUtil.upFirstChar(values[i+1])).withChecked(true));
+				}else if( item.getText() == null) {
+					item.withValue(values[i+1].toLowerCase());				
+				}
+			}
+			if(firstUpper) {
+				item = get(firstName);
+				if(item == null ) {
+					variables.with(new ReplaceText(firstName, StrUtil.upFirstChar(values[i+1])).withChecked(true));
 				}else if( item.getText() == null) {
 					item.withValue(StrUtil.upFirstChar(values[i+1]));				
 				}
-				temp = values[i].toUpperCase();
-				item = get(temp); 
+			}
+			if(upper) {
+				item = get(name.toUpperCase());
 				if(item == null ) {
-					variables.with(new ReplaceText(temp, values[i+1].toUpperCase()).withChecked(true));
+					variables.with(new ReplaceText(name.toUpperCase(), StrUtil.upFirstChar(values[i+1])).withChecked(true));
 				}else if( item.getText() == null) {
 					item.withValue(values[i+1].toUpperCase());				
 				}

@@ -28,6 +28,8 @@ import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+import org.sdmlib.models.classes.templates.ReplaceText;
+import org.sdmlib.models.classes.templates.Template;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
@@ -528,77 +530,59 @@ public class GenClass extends Generator<Clazz>
       {
          return;
       }
-      if (creatorParser.indexOf(Parser.METHOD + ":removeObject(Object)") < 0)
-      {
-         // add removeObject method
-
-         StringBuilder template = creatorParser.replace(
-            "\n   " +
-               "\n   //==========================================================================" +
-               "\n   " +
-               "\n   @Override\n" +
-               "   public void removeObject(Object entity)\n" +
-               "   {\n" +
-               "      BODY\n" +
-               "   }" +
-               "\n"
-            ,
-            "BODY", (model.isExternal() ? "// wrapped object has no removeYou method"
-                  : "((ModelClass) entity).removeYou();")
-            );
-
-         creatorParser.replaceAll(template,
-            "ModelClass", CGUtil.shortClassName(model.getFullName()));
-      }
+      
+      // add removeObject method
+      Template template = new Template(Parser.METHOD + ":removeObject(Object)");
+      template.withTemplate("\n   " +
+              "\n   //==========================================================================" +
+              "\n   " +
+              "\n   @Override\n" +
+              "   public void removeObject(Object entity)\n" +
+              "   {\n" +
+              "      {{Body}}\n" +
+              "   }" +
+              "\n");
+        template.withVariable(new ReplaceText("Body", model.isExternal(), "// wrapped object has no removeYou method", "(({{ModelClass}}) entity).removeYou();"));
+    	template.insert(creatorParser, "ModelClass", CGUtil.shortClassName(model.getFullName()));
    }
 
    private void insertRemoveYouMethod(String rootDir)
    {
 	   // TODO : alternative removeYou() 
-	  String propChSupport = "getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);";
-	  
-      if(!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)){
-//         return;
-    	  propChSupport = "";
-      }
-      String searchString = Parser.METHOD + ":removeYou()";
-      if (parser.indexOf(searchString) < 0)
-      {
-         // add removeYou method
-         String overrideText = "";
-         for (Clazz clazz : model.getSuperClazzesTransitive().minus(model))
-         {
-            if (clazz.isInterface())
-            {
-               continue;
-            }
-            if (!clazz.isExternal())
-            {
-               overrideText = "@Override";
-            }
-            if (getGenerator(clazz).getOrCreateParser(rootDir).indexOf(searchString) >= 0)
-            {
-               overrideText = "@Override";
-               break;
-            }
-         }
-         String superReplacement = "";
-         if (model.getSuperClass() != null && !model.getSuperClass().isExternal())
-         {
-            superReplacement = "\n      super.removeYou();\n";
-         }
-		parser.replaceAll("\n   " +
-               "\n   //==========================================================================" +
-               "\n   " +
-               "\n   OVERRIDE" +
-               "\n   public void removeYou()" +
-               "\n   {SUPER" +
-               "\n      " + propChSupport +              
-               "\n   }" +
-               "\n", 
-               "OVERRIDE",  overrideText,
-               "SUPER", superReplacement);
-      }
+		String propChSupport = "getPropertyChangeSupport().firePropertyChange(\"REMOVE_YOU\", this, null);";
+		if (!getRepairClassModel().hasFeature(Feature.PropertyChangeSupport)) {
+			// return;
+			propChSupport = "";
+		}
+		Template template = new Template(Parser.METHOD + ":removeYou()");
+		// add removeYou method
+		String overrideText = "";
+		for (Clazz clazz : model.getSuperClazzesTransitive().minus(model)) {
+			if (clazz.isInterface()) {
+				continue;
+			}
+			if (!clazz.isExternal()) {
+				overrideText = "@Override";
+			}
+			if (getGenerator(clazz).getOrCreateParser(rootDir).indexOf(searchString) >= 0) {
+				overrideText = "@Override";
+				break;
+			}
+		}
+		String superReplacement = "";
+		if (model.getSuperClass() != null && !model.getSuperClass().isExternal()) {
+			superReplacement = "\n      super.removeYou();\n";
+		}
+		template.withTemplate("\n   " +
+	               "\n   //==========================================================================" +
+	               "\n   " +
+	               "\n   {{Override}}" +
+	               "\n   public void removeYou() {" +
+	               "\n   {{Super}}" +
+	               "\n      " + propChSupport +              
+	               "\n   }" +
+	               "\n");
+		template.insert(parser, "Override",  overrideText, "Super", superReplacement);
    }
 
    private void insertPropertyChangeSupport(String rootDir)
@@ -631,7 +615,7 @@ public class GenClass extends Generator<Clazz>
       // does it implement PropertyChangeSupportClient?
 
       int pos = parser.indexOf(searchString);
-
+//TODO CHANGE
       if (pos < 0)
       {
          // add property change implementation
