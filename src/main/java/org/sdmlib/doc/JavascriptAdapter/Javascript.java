@@ -132,7 +132,7 @@ public class Javascript implements GuiAdapter
          // Attributes
          for (Attribute attr : clazz.getAttributes())
          {
-        	 node.add(new GraphAttribute(attr.getName(), GraphDataType.ref(attr.getType().getValue())));
+        	 node.with(new GraphAttribute(attr.getName(), GraphDataType.ref(attr.getType().getValue())));
          }
          // Methods
          for (Method method : clazz.getMethods())
@@ -141,7 +141,7 @@ public class Javascript implements GuiAdapter
         	 for(Parameter param : method.getParameter()){
         		 newMethod.withParameter(param.getName(), GraphDataType.ref(param.getType().getValue()));
         	 }
-        	 node.add(newMethod);
+        	 node.with(newMethod);
          }
          list.with(node);
          nodes.put(node.getId(), node);

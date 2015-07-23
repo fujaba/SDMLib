@@ -35,10 +35,11 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.util.ClazzSet;
 
-public class GenEnumeration extends Generator<Enumeration> {
+public class GenEnumeration extends Generator<Enumeration>{
 	private Parser parser = null;
 
 	public void generate(String rootDir, String helpersDir) {
@@ -261,5 +262,4 @@ public class GenEnumeration extends Generator<Enumeration> {
 			CGUtil.printFile(parser);
 		}
 	}
-
 }

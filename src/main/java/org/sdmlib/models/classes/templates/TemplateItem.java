@@ -70,7 +70,7 @@ public abstract class TemplateItem extends TemplateTask{
 				if(item!=null) {
 					value = item.getText();
 				}
-				variables.with(new ReplaceText(name).withValue(value).withChecked(true));
+				variables.with(new ReplaceText(name).withValue(value));
 			}
 			firstFound = false;
 		}
@@ -78,7 +78,7 @@ public abstract class TemplateItem extends TemplateTask{
 		for(int i=0;i<values.length;i+=2) {
 			ReplaceText item = get(values[i]);
 			if(item == null) {
-				item = new ReplaceText(values[i], values[i+1]).withChecked(true);
+				item = new ReplaceText(values[i], values[i+1]);
 				variables.with(item);
 			}
 			if(item.getText()==null ){
@@ -104,7 +104,7 @@ public abstract class TemplateItem extends TemplateTask{
 			if(small) {
 				item = get(name.toLowerCase());
 				if(item == null ) {
-					variables.with(new ReplaceText(name.toLowerCase(), values[i+1].toLowerCase()).withChecked(true));
+					variables.with(new ReplaceText(name.toLowerCase(), values[i+1].toLowerCase()));
 				}else if( item.getText() == null) {
 					item.withValue(values[i+1].toLowerCase());				
 				}
@@ -112,7 +112,7 @@ public abstract class TemplateItem extends TemplateTask{
 			if(firstUpper) {
 				item = get(firstName);
 				if(item == null ) {
-					variables.with(new ReplaceText(firstName, StrUtil.upFirstChar(values[i+1])).withChecked(true));
+					variables.with(new ReplaceText(firstName, StrUtil.upFirstChar(values[i+1])));
 				}else if( item.getText() == null) {
 					item.withValue(StrUtil.upFirstChar(values[i+1]));				
 				}
@@ -120,7 +120,7 @@ public abstract class TemplateItem extends TemplateTask{
 			if(upper) {
 				item = get(name.toUpperCase());
 				if(item == null ) {
-					variables.with(new ReplaceText(name.toUpperCase(), values[i+1].toUpperCase()).withChecked(true));
+					variables.with(new ReplaceText(name.toUpperCase(), values[i+1].toUpperCase()));
 				}else if( item.getText() == null) {
 					item.withValue(values[i+1].toUpperCase());				
 				}
@@ -142,6 +142,8 @@ public abstract class TemplateItem extends TemplateTask{
 	         {
 	            String newString = replaceText.getText();
 	            text.addImports(replaceText.getImport());
+	            
+	            variables.get(i).run(pos, newString);
 	            text.replace(pos, pos + placeholder.length(), newString);
 	            pos = text.indexOf(placeholder, pos + newString.length());
 	         }

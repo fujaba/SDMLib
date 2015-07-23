@@ -10,7 +10,7 @@ public class ReplaceText {
 	private Feature feature;
 	private String importName;
 	private boolean condition=true;
-	private boolean checked;
+	private TemplateListener runnable;
 
 	public ReplaceText(String value) {
 		this.search = value;
@@ -65,24 +65,20 @@ public class ReplaceText {
 	}
 
 	public String getText() {
-		if(checked) {
+		if(condition) {
 			return value;
 		}
 		return otherValue;
 	}
 	
-	public ReplaceText withChecked(boolean value) {
-		this.checked = value;
-		return this;
-	}
 	
 	public ReplaceText checking(ClassModel model) {
-		this.checked = condition && (feature == null || model.hasFeature(feature));
+		this.condition = condition && (feature == null || model.hasFeature(feature));
 		return this;
 	}
 	
 	public String getImport() {
-		if(checked) {
+		if(condition) {
 			return importName;
 		}
 		return null;
@@ -108,5 +104,20 @@ public class ReplaceText {
 	@Override
 	public String toString() {
 		return "ReplaceText "+search +" = "+value;
+	}
+
+	public TemplateListener getRunnable() {
+		return runnable;
+	}
+
+	public ReplaceText withRunnable(TemplateListener runnable) {
+		this.runnable = runnable;
+		return this;
+	}
+
+	public void run(int pos, String text) {
+		if(this.runnable != null) {
+			this.runnable.run(this, pos, text);
+		}
 	}
 }
