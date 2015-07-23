@@ -99,7 +99,9 @@ public class GenAnnotation extends Generator<Annotation>
       }
 
       StringBuilder sb = new StringBuilder();
-      sb.append("@");
+      if(!model.getName().startsWith("@")) {
+    	  sb.append("@");
+      }
       sb.append(model.getName());
 
       Set<String> values = model.getValues();
