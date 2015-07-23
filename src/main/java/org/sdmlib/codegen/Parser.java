@@ -194,12 +194,15 @@ private String classModifier;
       return methodBodyStartPos;
    }
 
-   public int insert(int offset, String text)
-   {
-      this.fileBody.insert(offset, text);
-      this.fileBodyHasChanged = true;
-      return offset+ text.length();
-   }
+	public int insert(int offset, String text) {
+		if (this.fileBody == null) {
+			this.fileBody = new StringBuilder(text);
+		} else {
+			this.fileBody.insert(offset, text);
+		}
+		this.fileBodyHasChanged = true;
+		return offset + text.length();
+	}
    
    public int search(String searchText, int pos)
    {

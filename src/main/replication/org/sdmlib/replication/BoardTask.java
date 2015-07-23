@@ -41,7 +41,7 @@ public class BoardTask extends Task implements PropertyChangeInterface
    
    /**
     * 
-    * @param manualExecution
+    * @param manualExecution boolean for Execution 
     */
    public BoardTask(boolean manualExecution) {
       this(null, manualExecution);
@@ -49,7 +49,7 @@ public class BoardTask extends Task implements PropertyChangeInterface
    
    /**
     * 
-    * @param name
+    * @param name The Board name
     */
    public BoardTask(String name) {
       this(name, false);
@@ -57,8 +57,8 @@ public class BoardTask extends Task implements PropertyChangeInterface
    
    /**
     * 
-    * @param name
-    * @param manualExecution
+    * @param name The Board name
+    * @param manualExecution boolean for Execution 
     */
    public BoardTask(String name, boolean manualExecution)
    {
