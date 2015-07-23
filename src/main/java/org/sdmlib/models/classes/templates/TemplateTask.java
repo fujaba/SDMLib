@@ -32,6 +32,8 @@ public abstract class TemplateTask {
 			 temp = pos;
 		 }
          parser.insert(temp, text.getTextValue());
+         parser.indexOf(Parser.CLASS_END);
+         
          for(String item : text.getImports()) {
 			 parser.insertImport(item);
 		 }

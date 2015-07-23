@@ -2825,12 +2825,21 @@ public class GenClassModel
    {
       int pos = filePath.indexOf('.');
       // split off source folder
+      String rootDir="";
+//      boolean commonPrefix=false;
       for (String packageName : packages)
       {
          pos = filePath.indexOf(packageName) - 1;
+         if (pos == -1) { // It is 0 - 1
+//        	 pos = 0;
+//        	 commonPrefix = true;
+         }
          break;
       }
-      String rootDir = filePath.substring(0, pos);
+      if(pos > 0) {
+		rootDir = filePath.substring(0, pos);
+      }
+      
       filePath = filePath.substring(pos + 1);
       if (commonPrefix(filePath, packages))
       {
