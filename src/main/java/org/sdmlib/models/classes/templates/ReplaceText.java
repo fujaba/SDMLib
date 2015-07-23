@@ -4,7 +4,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 
 public class ReplaceText {
-	private String value;
+	private String value = "";
 	private String otherValue = "";
 	private String search;
 	private Feature feature;
@@ -119,5 +119,9 @@ public class ReplaceText {
 		if(this.runnable != null) {
 			this.runnable.run(this, pos, text);
 		}
+	}
+	public ReplaceText withTemplate(Template template) {
+		template.withVariable(this);
+		return this;
 	}
 }
