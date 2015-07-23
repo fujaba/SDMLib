@@ -9,16 +9,15 @@ class CreatorCreator{
    public static JsonIdMap createIdMap(String sessionID)
    {
       JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
-      
-      jsonIdMap.withCreator(new org.sdmlib.models.objects.util.GenericGraphCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.objects.util.GenericGraphPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.objects.util.GenericObjectCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.objects.util.GenericObjectPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.objects.util.GenericAttributeCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.objects.util.GenericAttributePOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.objects.util.GenericLinkCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.objects.util.GenericLinkPOCreator());
 
+      jsonIdMap.withCreator(new GenericGraphCreator());
+      jsonIdMap.withCreator(new GenericGraphPOCreator());
+      jsonIdMap.withCreator(new GenericObjectCreator());
+      jsonIdMap.withCreator(new GenericObjectPOCreator());
+      jsonIdMap.withCreator(new GenericAttributeCreator());
+      jsonIdMap.withCreator(new GenericAttributePOCreator());
+      jsonIdMap.withCreator(new GenericLinkCreator());
+      jsonIdMap.withCreator(new GenericLinkPOCreator());
       return jsonIdMap;
    }
 }

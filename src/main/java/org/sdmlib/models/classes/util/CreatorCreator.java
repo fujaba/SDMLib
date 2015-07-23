@@ -14,19 +14,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new AttributeCreator());
       jsonIdMap.withCreator(new ClassModelCreator());
       jsonIdMap.withCreator(new ClazzCreator());
-      jsonIdMap.withCreator(new MethodCreator());
       jsonIdMap.withCreator(new ParameterCreator());
       jsonIdMap.withCreator(new RoleCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.SDMLibClassCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.ValueCreator());
-      jsonIdMap.withCreator(new org.sdmlib.codegen.util.SymTabEntryCreator());
-      jsonIdMap.withCreator(new org.sdmlib.codegen.util.SymTabEntryPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.codegen.util.LocalVarTableEntryCreator());
-      jsonIdMap.withCreator(new org.sdmlib.codegen.util.LocalVarTableEntryPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.codegen.util.StatementEntryCreator());
-      jsonIdMap.withCreator(new org.sdmlib.codegen.util.StatementEntryPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.EnumerationCreator());
-      jsonIdMap.withCreator(new org.sdmlib.models.classes.util.AnnotationCreator());
+      jsonIdMap.withCreator(new ValueCreator());
+      jsonIdMap.withCreator(new MethodCreator());
+      jsonIdMap.withCreator(new AnnotationCreator());
+      jsonIdMap.withCreator(new EnumerationCreator());
+      jsonIdMap.withCreator(new DataTypeCreator());
+      jsonIdMap.withCreator(new ArrayListCreator());
       return jsonIdMap;
    }
 }
