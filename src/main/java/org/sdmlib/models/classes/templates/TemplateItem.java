@@ -161,6 +161,9 @@ public abstract class TemplateItem extends TemplateTask{
 		// in the second run, replace <$<placeholders>$> by replacement
 		for (int i = 0; i < variables.size(); i ++) {
 	    	ReplaceText replaceText = variables.get(i);
+	    	if(replaceText.isActive() == false) {
+	    		continue;
+	    	}
 	    	String placeholder = "{{" + replaceText.getSearch() + "}}";
 	        int pos = -1 - placeholder.length();
 	        pos = text.indexOf(placeholder, pos + placeholder.length());

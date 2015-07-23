@@ -11,6 +11,7 @@ public class ReplaceText {
 	private String importName;
 	private boolean condition=true;
 	private TemplateListener runnable;
+	private boolean active = true;
 
 	public ReplaceText(String value) {
 		this.search = value;
@@ -71,6 +72,14 @@ public class ReplaceText {
 		return otherValue;
 	}
 	
+	public ReplaceText withActive(boolean value){
+		this.active = value;
+		return this;
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
 	
 	public ReplaceText checking(ClassModel model) {
 		this.condition = condition && (feature == null || model.hasFeature(feature));
