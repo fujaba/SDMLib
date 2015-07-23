@@ -131,9 +131,34 @@ public abstract class TemplateItem extends TemplateTask{
 				throw new RuntimeException("Variable <"+variables.get(i).getSearch()+">cant be null!");
 			}
 		}
-		TemplateResult text = new TemplateResult(searchString.toString()); 
+		TemplateResult text = new TemplateResult(searchString.toString());
+		
+		boolean foundVar = true;
+		while(foundVar) {
+			replacePlaceHolder(text);
+			firstFound=false;
+			foundVar = false;			
+			for(int i=0;i<searchString.length();i++) {
+				if(searchString.charAt(i) != '{') {
+					firstFound = false;
+					continue;
+				}
+				if(!firstFound) {
+					firstFound = true;
+					continue;
+				}
+				// cool its Variable
+				foundVar= true;
+				break;
+			}
+		}
+		return text;
+	}
+	
+	private TemplateResult replacePlaceHolder(TemplateResult text) {
+		// Read all Variables from Template
 		// in the second run, replace <$<placeholders>$> by replacement
-	    for (int i = 0; i < variables.size(); i ++) {
+		for (int i = 0; i < variables.size(); i ++) {
 	    	ReplaceText replaceText = variables.get(i);
 	    	String placeholder = "{{" + replaceText.getSearch() + "}}";
 	        int pos = -1 - placeholder.length();
