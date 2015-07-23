@@ -137,8 +137,9 @@ public abstract class TemplateItem extends TemplateTask{
 		while(foundVar) {
 			replacePlaceHolder(text);
 			firstFound=false;
-			foundVar = false;			
-			for(int i=0;i<searchString.length();i++) {
+			foundVar = false;
+			searchString = text.getTextValue();
+			for(int i=0;i<text.getTextValue().length();i++) {
 				if(searchString.charAt(i) != '{') {
 					firstFound = false;
 					continue;
