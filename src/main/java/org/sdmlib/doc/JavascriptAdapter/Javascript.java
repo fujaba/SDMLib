@@ -156,9 +156,9 @@ public class Javascript implements GuiAdapter
          sourceEdge.with(targetEdge);
          
          
-         sourceEdge.withInfo(new GraphLabel().withValue(source.getName()));
+         sourceEdge.withInfo(new GraphLabel().withId(source.getName()));
          sourceEdge.with(nodes.get(CGUtil.shortClassName(source.getClazz().getName())));
-         targetEdge.withInfo(new GraphLabel().withValue(target.getName()));
+         targetEdge.withInfo(new GraphLabel().withId(target.getName()));
          targetEdge.with(nodes.get(CGUtil.shortClassName(target.getClazz().getName())));
          list.with(sourceEdge);
       }
