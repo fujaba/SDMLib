@@ -62,6 +62,7 @@ public  class Room implements PropertyChangeInterface
    
    public void removeYou()
    {
+   
       setUniversity(null);
       withoutDoors(this.getDoors().toArray(new Room[this.getDoors().size()]));
       withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));

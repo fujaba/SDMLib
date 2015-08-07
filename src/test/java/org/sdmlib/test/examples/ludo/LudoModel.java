@@ -107,11 +107,7 @@ public class LudoModel
       
       model.generate("src/test/java");
       
-      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "15.07.2012 13:30:42 EST", 20, 0, "The famous ludo example.");
-      
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
       
    }
 }

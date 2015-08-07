@@ -142,7 +142,7 @@ GraphUtil.prototype.create = function(node){
 			continue;
 		}
 		if(k=='rotate'){
-			item.setAttribute("transform", "rotate("+node[key]+","+node.x+","+node.y+")");
+			item.setAttribute("transform", "rotate("+node[key]+","+node.model.x+","+node.model.y+")");
 			continue;
 		}
 		if(k=='value'){
@@ -1384,31 +1384,31 @@ Edge.prototype.calcMoveLine = function(size, angle, move){
 		this.endPos().target = new Pos((this._top.x + this._bot.x) / 2, (this._top.y + this._bot.y) / 2);
 	}
 };
-var Generalization = function() { this.init();this.typ="Generalization";};
-Generalization.prototype = Object_create(Edge.prototype);
-Generalization.prototype.calculateEdge = Generalization.prototype.calculate;
-Generalization.prototype.calculate = function(board, drawer){
+var Generalisation = function() { this.init();this.typ="Generalisation";};
+Generalisation.prototype = Object_create(Edge.prototype);
+Generalisation.prototype.calculateEdge = Generalisation.prototype.calculate;
+Generalisation.prototype.calculate = function(board, drawer){
 	if(!this.calculateEdge(board, drawer)){
 		return false;
 	}
 	this.calcMoveLine(16, 50, true);
 	return true;
 };
-Generalization.prototype.drawSuper = Generalization.prototype.draw;
-Generalization.prototype.draw = function(board, drawer){
+Generalisation.prototype.drawSuper = Generalisation.prototype.draw;
+Generalisation.prototype.draw = function(board, drawer){
 	this.drawSuper(board, drawer);
 	this.addElement(board, drawer.createLine(this._top.x, this._top.y, this._end.x, this._end.y, this._lineStyle));
 	this.addElement(board, drawer.createLine(this._bot.x, this._bot.y, this._end.x, this._end.y, this._lineStyle));
 	this.addElement(board, drawer.createLine(this._top.x, this._top.y, this._bot.x, this._bot.y, this._lineStyle));
 };
-Generalization.prototype.drawSourceText = function(board, drawer, options){};
-Generalization.prototype.drawTargetText = function(board, drawer, options){};
+Generalisation.prototype.drawSourceText = function(board, drawer, options){};
+Generalisation.prototype.drawTargetText = function(board, drawer, options){};
 
 var Implements = function() { this.init();this.typ="Implements";this._lineStyle = Line.Format.DOTTED;};
-Implements.prototype = Object_create(Generalization.prototype);
+Implements.prototype = Object_create(Generalisation.prototype);
 
 var Unidirectional = function() { this.init();this.typ="Unidirectional";};
-Unidirectional.prototype = Object_create(Generalization.prototype);
+Unidirectional.prototype = Object_create(Generalisation.prototype);
 Unidirectional.prototype.calculate = function(board, drawer){
 	if(!this.calculateEdge(board, drawer)){
 		return false;
@@ -1422,7 +1422,7 @@ Unidirectional.prototype.draw = function(board, drawer){
 	this.addElement(board, drawer.createLine(this._bot.x, this._bot.y, this._end.x, this._end.y, this._lineStyle));
 };
 var Aggregation = function() { this.init();this.typ="Aggregation";};
-Aggregation.prototype = Object_create(Generalization.prototype);
+Aggregation.prototype = Object_create(Generalisation.prototype);
 Aggregation.prototype.calculate = function(board, drawer){
 	if(!this.calculateEdge(board, drawer)){
 		return false;
@@ -2345,7 +2345,7 @@ CreateEdge.prototype.up = function(e, element, node) {
 	if(this.div){
 		return;
 	}
-	this.list = ["Generalization", "Assoziation", "Abort"];
+	this.list = ["Generalisation", "Assoziation", "Abort"];
 	
 	var div = this.create({tag:"div", "class":"ChoiceBox", style:{left:e.x,top:e.y, "width":width,zIndex:6000}});
 	var that = this;
@@ -2370,7 +2370,7 @@ CreateEdge.prototype.select = function(e) {
 	var t = e.innerHTML;
 	var edge;
 	if(t==this.list[0]) {
-		edge = this.graph.model.addEdgeModel({"typ":"Generalization", "source":{id:this.fromNode.id}, target:{id:this.toNode.id}});
+		edge = this.graph.model.addEdgeModel({"typ":"Generalisation", "source":{id:this.fromNode.id}, target:{id:this.toNode.id}});
 		this.graph.drawlines();
 	}
 	if(t==this.list[1]) {

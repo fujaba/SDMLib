@@ -132,9 +132,7 @@ public class LudoStoryboard
       
       System.out.println("pattern has match is " + pawnPO.getPattern().getHasMatch());
       
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
    }
 
    @Test
@@ -209,9 +207,7 @@ public class LudoStoryboard
       
       storyboard.addObjectDiagram(tom);
       
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
    }
 }
 

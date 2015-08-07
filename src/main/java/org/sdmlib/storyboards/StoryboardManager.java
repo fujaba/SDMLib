@@ -106,26 +106,27 @@ public class StoryboardManager
 
    public void dumpHTML()
    {
-      loadOldKanbanEntries();
-
-      if (this.toBeRemoved != null)
-      {
-         KanbanEntry oldEntry = kanbanBoard.findOldEntry(this.toBeRemoved.getName());
-
-         if (oldEntry != null)
-         {
-            oldEntry.removeYou();
-         }
-
-         this.toBeRemoved = null;
-      }
-
-      new DocEnvironment().copyJS("doc");
-
-      // add javascript files
-      
-
-      dumpKanban();
+      throw new UnsupportedOperationException("Storyboardmanager is no longer used");
+//      loadOldKanbanEntries();
+//
+//      if (this.toBeRemoved != null)
+//      {
+//         KanbanEntry oldEntry = kanbanBoard.findOldEntry(this.toBeRemoved.getName());
+//
+//         if (oldEntry != null)
+//         {
+//            oldEntry.removeYou();
+//         }
+//
+//         this.toBeRemoved = null;
+//      }
+//
+//      new DocEnvironment().copyJS("doc");
+//
+//      // add javascript files
+//      
+//
+//      dumpKanban();
    }
 
    

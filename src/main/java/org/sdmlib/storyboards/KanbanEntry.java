@@ -380,11 +380,11 @@ public class KanbanEntry implements PropertyChangeInterface, Comparable<KanbanEn
 
                CGUtil.replace(fileBody, "<developer>", System.getProperty("user.name"));
                
-               StoryboardManager.get().printFile(javaFile, fileBody.toString());
+               CGUtil.printFile(javaFile, fileBody.toString());
       }
 
       // find or create test method
-      String fileBody = StoryboardManager.get().readFile(javaFile);
+      String fileBody = CGUtil.readFile(javaFile).toString();
 
       String methodName = "test" + testName;
 

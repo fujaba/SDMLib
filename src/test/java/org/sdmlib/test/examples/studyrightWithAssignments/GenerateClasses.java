@@ -144,9 +144,7 @@ public class GenerateClasses {
       storyboard.addCode();
       
 
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
    }
 
    @Test

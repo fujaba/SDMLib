@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head>
+<body>
+
+<p>Welcome to SDMLib</p>
+
+<p>SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor. </p>
+
+<p>The idea is that you <em>code</em> your model: </p>
+
+<pre><code>
+
+ClassModel model = new ClassModel();
+
+Clazz uni = model.createClazz("University");
+
+Clazz stud = model.createClazz("Student").withAttribute("name", DataType.STRING);
+
+uni.withAssoc(stud, "students", Card.MANY, "university", Card.ONE);
+
+model.generate();
+
+</code></pre>
+
+<p>By running model.generate() SDMLib will generate source code from your class model. 
+If you extend your model later on and regenerate, the code generation will identify 
+already existing classes and fields and attributes and leave them untouched. Only new 
+elements will be inserted, carefully. </p>
+
+<p>In addition to class models, SDMLib will also support object diagrams, storyboards and model transformations. </p>
+
+<p>Start with <a href="StudyRight%20with%20assignments%20class%20generation.html">StudyRight with assignments class generation</a>
+and than look at <a href="StudyRight%20with%20assignments%20storyboard.html">StudyRight with assignments storyboard</a></p>
+<p>For advanced model navigation and model transformations have a look at 
+   <a href="StudyRightObjectModelNavigationAndQueries.html">StudyRightObjectModelNavigationAndQueries</a></p>
+
+<p>SDMLib comes with [MIT licence]</p>
+
+<p>Have fun </p>
+
+<p>The [SDMLib team]</p>
+</body>
+</html>

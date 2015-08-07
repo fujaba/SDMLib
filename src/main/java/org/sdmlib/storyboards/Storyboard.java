@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +49,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.ClassModel;
@@ -1420,10 +1423,177 @@ public class Storyboard implements PropertyChangeInterface
 
    public void dumpHTML()
    {
-      StoryboardManager.get()
-         .add(this)
-         .dumpHTML();
+      // copy Javascript files
+      dumpIndexHtml();
+      
+      // generate the html text
+      String htmlText = "<!DOCTYPE html>\n"
+         + "<html>\n" +
+            "<head>" +
+            "<meta charset=\"utf-8\">\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+            "\n" +
+            "<script src=\"includes/dagre.min.js\"></script>\n" +
+            "<script src=\"includes/drawer.js\"></script>\n" +
+            "<script src=\"includes/graph.js\"></script>\n" +
+            "</head>" +
+            "<body>\n" +
+            "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
+            "$text\n" +
+            "</body>\n" +
+            "</html>\n";
+
+      String storyboardName = this.getName();
+
+      htmlText = htmlText.replaceFirst("storyboardName", storyboardName);
+      htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
+      
+      String shortFileName = "" + storyboardName + ".html";
+      String pathname = "doc/" + shortFileName;
+
+      StringBuffer text = new StringBuffer();
+
+      for (StoryboardStep step : this.getStoryboardSteps())
+      {
+         String content = step.getText();
+
+         if (content.startsWith("<"))
+         {
+            // already html
+            text.append(content);
+         }
+         else if (content.startsWith("screendump="))
+         {
+            String[] split = content.split("=");
+            content = split.clone()[1];
+            String imgText = "<img src='" + content + "' />\n";
+
+            text.append(imgText);
+         }
+         else
+         {
+            text.append("<p>" + content + "</p>\n");
+         }
+      } // for
+
+      int pos = htmlText.indexOf("$text");
+
+      htmlText = htmlText.substring(0, pos)
+         + text.toString()
+         + htmlText.substring(pos + "$text".length());
+
+      writeToFile(shortFileName, htmlText);
+      
+      // add entry to refs.html
+      try
+      {
+         byte[] readAllBytes = Files.readAllBytes(Paths.get("doc/refs.html"));
+         String refsText = new String(readAllBytes);
+         
+         String entry = refForFile(storyboardName);
+         
+         pos = refsText.indexOf(entry);
+         
+         if (pos < 0)
+         {
+            String newText = CGUtil.replaceAll(refsText, "</body>", entry + "</body>");
+            
+            writeToFile("refs.html", newText);
+         }
+      }
+      catch (IOException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      
+
+      coverage4GeneratedModelCode(largestRoot);
    }
+   
+   
+   private void dumpIndexHtml()
+   {
+      new File("doc").mkdirs();
+
+      new DocEnvironment().copyJS("doc");
+
+      // ensure style file
+      File styleFile = new File("doc/style.css");
+
+      if ( ! styleFile.exists())
+      {
+         String text = "" + 
+               "BODY {color:#000000;background-color:#ffffff;font-family:Arial,Helvetica,Geneva,Sans-Serif}\n" + 
+               "B {font-weight:bold;}\n" + 
+               "\n" + 
+               "H1 {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
+               "H2 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
+               "H3 {color:#000000;font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
+               "\n" + 
+               "P {font-family:Arial,Helvetica,Geneva,Sans-Serif;text-align:left;}\n" + 
+               "PRE {font-family:Courier;text-align:left;font-size:12pt}\n" + 
+               "\n" + 
+               "TD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
+               "TH {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
+               "\n" + 
+               "DD {font-family:Arial,Helvetica,Geneva,Sans-Serif;}\n" + 
+               "";
+
+         writeToFile("style.css", text);
+      }
+
+      // ensure index.html
+      File file = new File("doc/index.html");
+
+      if ( ! file.exists())
+      {
+         String text = 
+               "<html>\n" +
+                     "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+                     "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" +
+                     "<frameset cols='250,*'>\n" +
+                     "<frame src='refs.html' name='Index'>\n" +
+                     "<frame name='Main'>a</frame>\n" +
+                     "<noframes>\n" +
+                     "  <body>\n" +
+                     "        <p><a href='refs.html'>Index</a> <a href='refs.html'>Main</a></p>\n" +
+                     "  </body>\n" +
+                     "</noframes>\n" +
+                     "</frameset>\n" +
+                     "</html>\n";
+
+         
+         writeToFile("index.html", text);
+      }
+
+      // ensure refs.html
+      file = new File("doc/refs.html");
+
+      if ( ! file.exists())
+      {
+         // build index 
+         String refHtml = "<html>\n" +
+               "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=9\">\n" +
+               "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
+               "<body>\n" + 
+               "</body>\n" + 
+               "</html>\n";
+         
+         writeToFile("refs.html", refHtml);
+      }
+
+   }
+   
+
+   public String refForFile(String filename) {
+      String ref = "<a href=\"filename.html\" target=\"Main\">filename</a><br>\n ";
+      ref = ref.replaceAll("filename", filename);
+      return ref;
+   }
+
+
 
    public void assertEquals(String message, double expected, double actual, double delta)
    {

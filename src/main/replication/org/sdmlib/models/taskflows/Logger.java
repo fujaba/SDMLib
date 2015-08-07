@@ -25,6 +25,7 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
+import org.sdmlib.CGUtil;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.models.taskflows.util.LoggerSet;
@@ -86,7 +87,7 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
          JsonArray jsonArray = getSubFlow().getIdMap().toJsonArray(this);
 
          //dump json file
-         StoryboardManager.printFile(new File("doc/Logger.json"), jsonArray.toString(3));
+         CGUtil.printFile(new File("doc/Logger.json"), jsonArray.toString(3));
 
          dumpDiagram();
          break;
