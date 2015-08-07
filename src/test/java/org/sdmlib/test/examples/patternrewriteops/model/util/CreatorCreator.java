@@ -19,6 +19,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.patternrewriteops.model.util.SignalFlagPOCreator());
 
+      jsonIdMap.withCreator(new TrainCreator());
+      jsonIdMap.withCreator(new TrainPOCreator());
+      jsonIdMap.withCreator(new StationCreator());
+      jsonIdMap.withCreator(new StationPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new SignalFlagCreator());
+      jsonIdMap.withCreator(new SignalFlagPOCreator());
       return jsonIdMap;
    }
 }

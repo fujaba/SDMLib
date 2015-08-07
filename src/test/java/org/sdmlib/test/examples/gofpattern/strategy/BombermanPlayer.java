@@ -56,6 +56,7 @@ public  class BombermanPlayer implements PropertyChangeInterface
    
    public void removeYou()
    {
+   
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 

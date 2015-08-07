@@ -31,90 +31,15 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.storyboards.KanbanEntry;
-import org.sdmlib.storyboards.LogEntryStoryBoard;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardWall;
 
 public class ProjectBoard
 {
-      @Test
-      public void testProjectManagement()
-      {
-         Storyboard story;
-   
-         story = new Storyboard("src/main/java", "MiniTutorials");
-         story.setSprint("ToDo");
-         story.addLogEntry(Kanban.BACKLOG, "zuendorf", "06.03.2014 14:13:42", 0, 12, "high priority");
-         story.dumpHTML();
-         
-         story = new Storyboard("src/main/java", "FeatureList");
-         story.setSprint("ToDo");
-         story.addLogEntry(Kanban.BACKLOG, "zuendorf", "06.03.2014 14:25:42", 0, 6, "medium priority");
-         story.dumpHTML();
-         
-         story = new Storyboard("src/main/java", "POJO Code enhancer");
-         story.setSprint("ToDo");
-         story.addLogEntry(Kanban.BACKLOG, "zuendorf", "06.03.2014 22:25:42", 0, 6, "high priority");
-         
-         story.dumpHTML();
-      }
-      
-
-      @Test
-      public void testFeatures()
-      {
-         Storyboard story = new Storyboard();
-
-         story = new Storyboard("src/main/java", "GenerateTransitiveClosureGetter");
-         story.setSprint("Features");
-         story.add("This feature has been tested within <a href='StudyRight%20with%20assignments%20class%20generation.html'>StudyRight with assignments class generation</a> ");
-         story.addLogEntry(Kanban.BACKLOG, "zuendorf", "06.03.2014 14:05:42", 0, 4, "high priority");
-         story.addLogEntry(Kanban.DONE, "zuendorf", "11.03.2014 12:55:42", 4, 0, "works like a charm");
-         story.addLogEntry(Kanban.DONE, "zuendorf", "11.03.2014 18:12:42", 2, 0, "well some legacy problems had to be fixed");
-         story.dumpHTML();
-
-      }
-
-
-      @Test
-      public void testExtendStoryboardByAddToDoMethod()
-      {
-         Storyboard storyboard = new Storyboard();
-         
-         storyboard.add("Start situation: ",
-            Kanban.DONE, "zuendorf", "01.11.2012 12:33:42", 1, 0);
-         
-         storyboard.dumpHTML();
-      }
-   
-   
-      @Test
-      public void testTodoEntries()
-      {
-         Storyboard story = new Storyboard();
-         
-         story.add("Internal things.");
-         
-         story.add("It should be possible to add todo entries to the kanban board without adding a storyboard for them. "
-            , Kanban.DONE, "zuendorf", "08.10.2013 13:30:42", 1, 0);
-         
-         story.addToDo("ExtendStoryboardByAddToDoMethod", Kanban.DONE, "zuendorf", "21.08.2012 17:53:42", 2, 0)
-         .linkToTest("src/test/java", this.getClass().getName());
-         
-         story.dumpHTML();
-         
-      }
-      
-
    @Test
    public void testStoryboardInfrastructure()
    {
       Storyboard storyboard = new Storyboard();
-
-      storyboard.setProjectName("SDMLibProject");
-
-      storyboard.setSprint("Sprint.001.Booting");
 
       storyboard.add("This storyboard tests the storyboard infrastructure. ");
       storyboard.addStep("At first creating the html file just with text should work. ");
@@ -158,56 +83,15 @@ public class ProjectBoard
       
       model.generate();
 
-      storyboard.add(" Editing the log entries works now fine as part of the add method. " , 
-         Kanban.DONE, "zuendorf", "07.05.2012 23:36:42", 0, 0);
-
-      storyboard.add("Seems that we have solved the problem with the sorting of log entries after loading. " , 
-         Kanban.DONE, "zuendorf", "19.05.2012 19:22:42", 1, 0);
-
       storyboard.addStep("Show some internals");
 
       storyboard.add("Internally, the class model looks like:");
 
       storyboard.addObjectDiagram(model);
 
-      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "24.02.2014 18:38:00", 1, 0, "resolved old style admin to new storyboard features.");
-      storyboard.addLogEntry(Kanban.DONE, "stefan, zuendorf", "28.02.2014 18:31:42", 23, 0, "switched to open source charts.");
-
       storyboard.dumpHTML();
    }
 
-      @Test
-      public void testStoryboardInfrastructureInternals()
-      {
-         Storyboard storyboard = new Storyboard();
-         
-         storyboard.add("Internals.");
-         
-         storyboard.add("Object diagram for storyboard and KanbanEntry:" , 
-            Kanban.DONE, "zuendorf", "08.10.2013 13:22:42", 1, 0);
-         
-         StoryboardWall storyboardWall = new StoryboardWall().withStoryboard(storyboard);
-         
-         KanbanEntry parent = new KanbanEntry();
-         
-         KanbanEntry kanbanEntry = new KanbanEntry()
-         .withHoursRemaining(1)
-         .withHoursSpend(2)
-         .withLastDeveloper("zuendorf")
-         .withName("name")
-         .withPhase(Kanban.DONE)
-         .withParent(parent);
-         
-         LinkedHashMap<String, LogEntryStoryBoard> newLogEntries = storyboard.getNewLogEntries();
-         for (LogEntryStoryBoard entry : newLogEntries.values())
-         {
-            kanbanEntry.addToLogEntries(entry);
-         }
-         
-         storyboard.addObjectDiagram(storyboardWall, kanbanEntry);
-         
-         storyboard.dumpHTML();
-      }
 }
 
 

@@ -21,6 +21,20 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.simpleModel.model.util.PersonPOCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.simpleModel.model.util.ItemCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.simpleModel.model.util.ItemPOCreator());
+      jsonIdMap.withCreator(new ItemCreator());
+      jsonIdMap.withCreator(new ItemPOCreator());
+      jsonIdMap.withCreator(new ArrayListCreator());
+      jsonIdMap.withCreator(new ArrayListPOCreator());
+      jsonIdMap.withCreator(new MacListCreator());
+      jsonIdMap.withCreator(new MacListPOCreator());
+      jsonIdMap.withCreator(new BigBrotherCreator());
+      jsonIdMap.withCreator(new BigBrotherPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new BigBrotherCreator());
+      jsonIdMap.withCreator(new BigBrotherPOCreator());
+      jsonIdMap.withCreator(new ObjectCreator());
+      jsonIdMap.withCreator(new ObjectPOCreator());
       return jsonIdMap;
    }
 }

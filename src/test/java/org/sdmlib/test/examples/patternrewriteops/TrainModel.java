@@ -14,8 +14,7 @@ public class TrainModel
 	{
       Storyboard storyboard = new Storyboard("examples", "TrainModel");
       
-      storyboard.add("Example model for testing destroy with model patterns: ",
-      		Storyboard.DONE, "zuendorf", "07.02.2013 16:20:42", 3, 0);
+      storyboard.add("Example model for testing destroy with model patterns: ");
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.patternrewriteops.model");
             

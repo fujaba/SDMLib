@@ -67,12 +67,6 @@ public class TaskFlowModel
 
       model.generate("src/main/replication");
 
-      storyboard.addToDo("WrapExistingClasses", "backlog", "zuendorf",
-         "02.11.2012 13:42:42", 5, 0);
-
-      storyboard.addToDo("SortIndex", "done", "zuendorf",
-         "01.11.2012 14:43:42", 1, 0);
-
       storyboard.dumpHTML();
    }
 

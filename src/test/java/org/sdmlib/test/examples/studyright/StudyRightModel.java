@@ -37,7 +37,6 @@ import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardManager;
 
 public class StudyRightModel implements PropertyChangeInterface 
 {
@@ -47,9 +46,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       Storyboard storyboard = new Storyboard("examples", "StudyRightReverseClassModel");
 
-      storyboard.setSprint("Sprint.001.Booting");
-      
-      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
+      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ");
 
       ClassModel model = new ClassModel("org.sdmlib.test.examples.studyright.model");
 
@@ -100,14 +97,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.addClassDiagram(model);
 
-      storyboard.add("Bug: running the test multiple times inserts the code multiple times <br>" +
-            "Bug solved: there was no bug, there were just two classes with the same name in different packages. <br>" +
-            "Hm, might be added to future work. ", DONE, "zuendorf", "19.05.2012 19:39:42", 1, 0);
-
-
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
    }
 
    @Test
@@ -116,7 +106,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       Storyboard storyboard = new Storyboard("examples", "StudyRightExtendsReverseClassModel");
 
-      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ", BACKLOG, "ajahl", "02.04.2012 14:58:18", 0, 0);
+      storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ");
 
       ClassModel model = new ClassModel("org.sdmlib.test.examples.studyright.model");
 
@@ -207,9 +197,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.addClassDiagram(model);
 
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
    }
 
    @Test
@@ -217,8 +205,6 @@ public class StudyRightModel implements PropertyChangeInterface
    {
       Storyboard storyboard = new Storyboard("examples", "StudyRightClassesCodeGen");
 
-      storyboard.setSprint("Sprint.001.Booting");
-      
       //============================================================
       storyboard.add("1. generate class University");
 
@@ -231,8 +217,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
 
       //============================================================
-      storyboard.add("2. generate class Student with new notation", 
-         IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
+      storyboard.add("2. generate class Student with new notation");
 
       Clazz studClass = model.createClazz("Student")
       .withAttribute("name", DataType.STRING)
@@ -296,8 +281,7 @@ public class StudyRightModel implements PropertyChangeInterface
       //============================================================
       model.generate("src/test/java");
 
-      storyboard.add("5. generate generic set for attributes and assocs", 
-         IMPLEMENTATION, "zuendorf", "18.03.2012 23:05:42", 1, 0);
+      storyboard.add("5. generate generic set for attributes and assocs");
 
       GenClass genCLazz = model.getGenerator().getOrCreate(studClass);
       Parser parser = genCLazz.getOrCreateParser("examples");
@@ -317,8 +301,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
 
       //============================================================
-      storyboard.add("6. generate generic get for attributes and assocs", 
-         IMPLEMENTATION, "zuendorf", "22.03.2012 14:40:42", 1, 0);
+      storyboard.add("6. generate generic get for attributes and assocs");
 
       pos = parser.indexOf(Parser.METHOD + ":get(String)");
 
@@ -333,14 +316,12 @@ public class StudyRightModel implements PropertyChangeInterface
 //      storyboard.add(methodText);
 
       //============================================================
-      storyboard.add("7. generate creator classes", 
-         IMPLEMENTATION, "zuendorf joern alex", "25.03.2012 22:32:42", 1, 0);
+      storyboard.add("7. generate creator classes");
 
       storyboard.add("<a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br>");
 
       //============================================================
-      storyboard.add("8. generate imports", 
-         IMPLEMENTATION, "zuendorf", "25.03.2012 22:37:42", 1, 0);
+      storyboard.add("8. generate imports");
 
       pos = parser.indexOf(Parser.IMPORT);
       String methodText = parser.getText().substring(pos, parser.getEndOfImports() + 1);
@@ -348,14 +329,12 @@ public class StudyRightModel implements PropertyChangeInterface
       storyboard.add(methodText);
 
       //============================================================
-      storyboard.add("9. generate property change support", 
-         IMPLEMENTATION, "zuendorf", "25.03.2012 22:39:42", 2, 0);      
+      storyboard.add("9. generate property change support");      
 
       storyboard.add("Caution: property change support needs not to be generated if the parent class does this already.");
 
       //============================================================
-      storyboard.add("10. generate removeYou method", 
-         IMPLEMENTATION, "zuendorf", "26.03.2012 22:20:42", 2, 0);
+      storyboard.add("10. generate removeYou method");
 
       pos = parser.indexOf(Parser.METHOD + ":removeYou()");
 
@@ -371,17 +350,14 @@ public class StudyRightModel implements PropertyChangeInterface
 
 
       //============================================================
-      storyboard.add("Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel", 
-         IMPLEMENTATION, "zuendorf", "19.05.2012 19:59:42", 1, 0);
+      storyboard.add("Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel");
 
 
-      storyboard.add("generic set now works for double. Perhabs boolean and other are still missing", 
-         IMPLEMENTATION, "zuendorf", "19.05.2012 13:51:42", 1, 0);
+      storyboard.add("generic set now works for double. Perhabs boolean and other are still missing");
 
 
       //============================================================
-      storyboard.add("Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets", 
-         DONE, "zuendorf", "20.05.2012 20:01:42", 2, 0);
+      storyboard.add("Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets");
 
       // removed compile to get rid of tools.jar dependency. AZ
       //      storyboard.add("next. compile University.java");
@@ -400,9 +376,7 @@ public class StudyRightModel implements PropertyChangeInterface
       //
       //      Assert.assertEquals("compile did not work: ", 0, compResult);
 
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
    }
 
    @Test
@@ -427,11 +401,9 @@ public class StudyRightModel implements PropertyChangeInterface
 
       model.generate("src/test/java");
 
-      storyboard.add("One to one assocs now work. ", DONE, "zuendorf", "20.05.2012 15:19:42", 1, 0);
+      storyboard.add("One to one assocs now work. ");
 
-      StoryboardManager.get()
-      .add(storyboard)
-      .dumpHTML();
+      storyboard.dumpHTML();
    }
 
 

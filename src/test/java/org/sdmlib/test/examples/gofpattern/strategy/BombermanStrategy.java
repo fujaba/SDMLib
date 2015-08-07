@@ -57,6 +57,7 @@ public abstract class BombermanStrategy implements PropertyChangeInterface
    
    public void removeYou()
    {
+   
       setSuccessor(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }

@@ -30,7 +30,6 @@ import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.models.taskflows.util.LoggerSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.StoryboardManager;
 
 import de.uniks.networkparser.json.JsonArray;
 

@@ -19,6 +19,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.replication.chat.util.ChatMsgCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.replication.chat.util.ChatMsgPOCreator());
 
+      jsonIdMap.withCreator(new ChatRootCreator());
+      jsonIdMap.withCreator(new ChatRootPOCreator());
+      jsonIdMap.withCreator(new ChatUserCreator());
+      jsonIdMap.withCreator(new ChatUserPOCreator());
+      jsonIdMap.withCreator(new ChatChannelCreator());
+      jsonIdMap.withCreator(new ChatChannelPOCreator());
+      jsonIdMap.withCreator(new ChatMsgCreator());
+      jsonIdMap.withCreator(new ChatMsgPOCreator());
       return jsonIdMap;
    }
 }

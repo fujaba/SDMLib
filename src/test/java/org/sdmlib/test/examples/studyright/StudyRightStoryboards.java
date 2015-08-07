@@ -18,11 +18,8 @@ public class StudyRightStoryboards
    {
       Storyboard storyboard = new Storyboard();
 
-      storyboard.setSprint("Sprint.001.Booting");
-      
       //=============================================================
-      storyboard.add("Start situation: use University class to build object structure",
-         DONE, "zuendorf", "06.10.2013 21:37:46", 0, 0);
+      storyboard.add("Start situation: use University class to build object structure");
 
       University uni = new University()
       .withName("StudyRight");
@@ -73,19 +70,9 @@ public class StudyRightStoryboards
       int sum = albert.getUni().getRooms().getCredits().sum();
       storyboard.addCode("examples");
 
-      storyboard.add(
-         "shall compute to 88.", 
-         DONE, "zuendorf joern alex", "19.05.2012 20:40:42", 1, 0);
+      storyboard.add("shall compute to 88.");
 
       // Assert.assertEquals("credits sum error", 88, sum);
-
-      storyboard.add( "Feature Request: model sets need to provide a navigation to any neighbors\n" +
-            "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
-            BACKLOG, "zuendorf", "17.01.2014 16:42:42", 2, 0);
-
-      storyboard.add( "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
-            "e.g.: room.getNeighbors().findPath(path, motivation); ", 
-            DONE, "zuendorf", "19.08.2012 23:04:42", 4, 0);
 
       // storyboard.assertEquals("Number of neighbors for Albert is now ", 2, any.size());
 
@@ -116,8 +103,7 @@ public class StudyRightStoryboards
 
 
       //=============================================================
-      storyboard.add("Start situation: use University class to build object structure",
-         DONE, "zuendorf", "06.10.2013 21:37:46", 0, 0);
+      storyboard.add("Start situation: use University class to build object structure");
 
       University uni = new University()
       .withName("StudyRight");
@@ -184,20 +170,10 @@ public class StudyRightStoryboards
       int sum = albert.getUni().getRooms().getCredits().sum();
       storyboard.addCode("examples");
 
-      storyboard.add(
-         "      shall compute to 88\n" +
-               "      Path classes are generated.", 
-               DONE, "zuendorf joern alex", "19.05.2012 20:40:42", 1, 0);
+      storyboard.add("      shall compute to 88\n" +
+               "      Path classes are generated.");
 
       // Assert.assertEquals("credits sum error", 88, sum);
-
-      storyboard.add( "Feature Request: model sets need to provide a navigation to any neighbors\n" +
-            "e.g.: ModelSet any = ModelSet.startWith(albert).getAny(); ", 
-            BACKLOG, "zuendorf", "19.05.2012 20:42:42", 0, 2);
-
-      storyboard.add( "Feature Request (DONE): model sets need to provide set methods and other methods. These methods shall be forwarded to each set member. \n" +
-            "e.g.: room.getNeighbors().findPath(path, motivation); ", 
-            DONE, "zuendorf", "19.08.2012 23:04:42", 4, 0);
 
       // storyboard.assertEquals("Number of neighbors for Albert is now ", 2, any.size());
 
@@ -327,10 +303,6 @@ public class StudyRightStoryboards
       storyboard.addCode();
       
       storyboard.addObjectDiagram(rootTemplate.getModelObject());
-
-      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "11.11.2013 18:06:42 EST", 40, 0, "Using attribute names for parsing and generation");
-
-      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "23.02.2014 18:06:42 EST", 2, 0, "Reenabled parsing with references");
       
       storyboard.dumpHTML();
    }

@@ -18,6 +18,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.WindowCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.annotations.model.simple.util.WindowPOCreator());
 
+      jsonIdMap.withCreator(new CubeCreator());
+      jsonIdMap.withCreator(new CubePOCreator());
+      jsonIdMap.withCreator(new HouseCreator());
+      jsonIdMap.withCreator(new HousePOCreator());
+      jsonIdMap.withCreator(new DoorCreator());
+      jsonIdMap.withCreator(new DoorPOCreator());
+      jsonIdMap.withCreator(new WindowCreator());
+      jsonIdMap.withCreator(new WindowPOCreator());
       return jsonIdMap;
    }
 }

@@ -72,8 +72,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       // JsonIdMap createIdMap = org.sdmlib.test.examples.groupAccount.creators.GroupAccountCreator.createIdMap("az42");
       storyboard.addObjectDiagram(g1);
       
-      storyboard.add("We call updateBalances() to compute the correct balances.\n",
-         Kanban.DONE, "zuendorf", "17.01.2014 16:39:42", 4, 0);
+      storyboard.add("We call updateBalances() to compute the correct balances.\n");
       
       storyboard.markCodeStart();
       g1.updateBalances();

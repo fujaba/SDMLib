@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
+<p>GroupAccountCodegen</p>
+<p>Start situation: Nothing here yet. Generate classes</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"GroupAccount",
+         "methods":[
+         "getTaskNames(double p0, String p1) double",
+            "updateBalances()"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Person",
+         "attributes":[
+         "name : String",
+            "balance : double"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Item",
+         "attributes":[
+         "description : String",
+            "value : double"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"GroupAccount",
+            "cardinality":"one",
+            "property":"parent"
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"persons"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"GroupAccount",
+            "cardinality":"one",
+            "property":"parent"
+         },
+         "target":{
+            "id":"Item",
+            "cardinality":"many",
+            "property":"item"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"buyer"
+         },
+         "target":{
+            "id":"Item",
+            "cardinality":"many",
+            "property":"item"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasGroupAccountCodegenClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+
+</body>
+</html>

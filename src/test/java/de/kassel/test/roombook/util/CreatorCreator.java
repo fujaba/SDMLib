@@ -15,6 +15,10 @@ class CreatorCreator{
       jsonIdMap.withCreator(new de.kassel.test.roombook.util.FloorCreator());
       jsonIdMap.withCreator(new de.kassel.test.roombook.util.FloorPOCreator());
 
+      jsonIdMap.withCreator(new BuildingCreator());
+      jsonIdMap.withCreator(new BuildingPOCreator());
+      jsonIdMap.withCreator(new FloorCreator());
+      jsonIdMap.withCreator(new FloorPOCreator());
       return jsonIdMap;
    }
 }

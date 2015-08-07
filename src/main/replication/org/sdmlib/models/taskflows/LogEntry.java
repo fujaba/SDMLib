@@ -27,10 +27,8 @@ import java.util.LinkedHashSet;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import java.beans.PropertyChangeListener;
 
 public class LogEntry implements PropertyChangeInterface
 {
@@ -198,9 +196,6 @@ public class LogEntry implements PropertyChangeInterface
       setTaskName(value);
       return this;
    } 
-
-   
-   public static final LogEntryStoryBoardSet EMPTY_SET = new LogEntryStoryBoardSet();
 
    
    /********************************************************************

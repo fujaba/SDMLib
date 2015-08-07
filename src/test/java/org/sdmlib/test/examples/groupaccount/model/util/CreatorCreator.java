@@ -17,6 +17,12 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.groupaccount.model.util.ItemCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.groupaccount.model.util.ItemPOCreator());
 
+      jsonIdMap.withCreator(new GroupAccountCreator());
+      jsonIdMap.withCreator(new GroupAccountPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new ItemCreator());
+      jsonIdMap.withCreator(new ItemPOCreator());
       return jsonIdMap;
    }
 }

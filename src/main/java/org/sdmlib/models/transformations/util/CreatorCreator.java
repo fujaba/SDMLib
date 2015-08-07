@@ -19,6 +19,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.MatchCreator());
       jsonIdMap.withCreator(new org.sdmlib.models.transformations.util.MatchPOCreator());
 
+      jsonIdMap.withCreator(new TemplateCreator());
+      jsonIdMap.withCreator(new TemplatePOCreator());
+      jsonIdMap.withCreator(new PlaceHolderDescriptionCreator());
+      jsonIdMap.withCreator(new PlaceHolderDescriptionPOCreator());
+      jsonIdMap.withCreator(new ChoiceTemplateCreator());
+      jsonIdMap.withCreator(new ChoiceTemplatePOCreator());
+      jsonIdMap.withCreator(new MatchCreator());
+      jsonIdMap.withCreator(new MatchPOCreator());
       return jsonIdMap;
    }
 }

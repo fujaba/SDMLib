@@ -24,7 +24,6 @@ package org.sdmlib.test.examples.ludo;
 import org.junit.Test;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardManager;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Field;
@@ -51,10 +50,7 @@ public class LudoStoryboard
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/LudoStoryboard.html
       Storyboard storyboard = new Storyboard("examples", "LudoStoryboard");
       
-      storyboard.setSprint("Sprint.002.Examples");
-      
-      storyboard.add("Start situation: ",
-         Kanban.DONE, "zuendorf", "19.08.2012 22:59:05", 40, 0);
+      storyboard.add("Start situation: ");
       
       JsonIdMap jsonIdMap = LudoCreator.createIdMap("l1");
       
@@ -140,10 +136,7 @@ public class LudoStoryboard
    {
       Storyboard storyboard = new Storyboard("examples", "LudoStoryboardManual");
       
-      storyboard.setSprint("Sprint.002.Examples");
-      
-      storyboard.add("Start situation: ",
-         Kanban.DONE, "zuendorf", "19.07.2012 14:41:05", 1, 0);
+      storyboard.add("Start situation: ");
       
       // create a simple ludo storyboard
       

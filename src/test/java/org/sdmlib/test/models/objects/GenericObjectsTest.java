@@ -47,10 +47,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       //====================================================================================================
       Storyboard storyboard = new Storyboard();
 
-      storyboard.setSprint("Sprint.001.Booting");
-
-      storyboard.add("Start situation: we do not yet have a class diagram but want to start with some example object models",
-         DONE, "zuendorf", "28.05.2012 23:51:42", 4, 0);
+      storyboard.add("Start situation: we do not yet have a class diagram but want to start with some example object models");
 
 
       storyboard.add("Step 1: We build a generic class model for object structures: ");
@@ -111,8 +108,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       storyboard.addClassDiagram(learnedModel);
 
       //====================================================================================================
-      storyboard.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ",
-         DONE, "zuendorf", "31.05.2012 13:51:42", 1, 0);
+      storyboard.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ");
 
       storyboard.markCodeStart();
       ClassModel model = new ClassModel();
@@ -140,8 +136,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       model.generate("src/test/java");
 
       //====================================================================================================
-      storyboard.add("Step 7: derive non-generic objects from the generic objects ",
-         DONE, "zuendorf", "31.05.2012 15:15:42", 1, 0);
+      storyboard.add("Step 7: derive non-generic objects from the generic objects ");
 
       JsonIdMap createIdMap = de.kassel.test.roombook.util.BuildingCreator.createIdMap("gen2spec");
 
@@ -149,18 +144,10 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
       storyboard.addObjectDiagram(specificBuilding);
 
-      storyboard.add("BUG REPORT: if an object has a (String) attribute with name 'id', this attribute is not shown in the object diagram ",
-         BUG, "zuendorf", "31.05.2012 15:22:42", 0, 0);
-
-      storyboard.add("New Feature: just for completeness and for later model migration provide a conversion from a specific model to a generic model ",
-         IMPLEMENTATION, "zuendorf", "05.08.2012 15:43:42", 4, 0);
-
       GenericGraph gengraph = new Specific2Generic()
       .convert(de.kassel.test.roombook.util.BuildingCreator.createIdMap("spec2gen"), specificBuilding);
 
       storyboard.addObjectDiagram(gengraph);
-
-      storyboard.addLogEntry(Kanban.DONE, "zuendorf", "31.07.2012 15:22:42", 20, 0, "works great");
 
       storyboard.dumpHTML();
    }

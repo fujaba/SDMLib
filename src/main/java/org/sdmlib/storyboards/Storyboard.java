@@ -92,10 +92,7 @@ public class Storyboard implements PropertyChangeInterface
    private String javaTestFileName = "";
    private JsonArray largestJsonArray = null;
    private Object largestRoot = null;
-   private String kanbanWorkFlow = null;
-   private String projectName = null;
    private int stepDoneCounter;
-   private String sprintName = null;
    private int stepCounter;
    private String modelRootDir = null;
    private String rootDir = null;
@@ -282,177 +279,7 @@ public class Storyboard implements PropertyChangeInterface
       javaTestFileName = "../" + rootDir + "/" + callEntry.getClassName().replaceAll("\\.", "/") + ".java";
    }
 
-   public void dumpHTML(KanbanEntry kanbanBoard)
-   {
-      // get kanbanEntry
-      KanbanEntry kanbanEntry = kanbanBoard.findOldEntry(this.getName());
 
-      if (kanbanEntry == null)
-      {
-         Date today = new Date(System.currentTimeMillis());
-         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss z");
-
-         String todayString = dateFormat.format(today);
-         kanbanEntry = new KanbanEntry()
-            .withName(this.getName())
-            .withPhase(BACKLOG)
-            .withParent(kanbanBoard)
-            .withLogEntries(
-               new LogEntryStoryBoard()
-                  .withDate(todayString)
-                  .withPhase(BACKLOG)
-                  .withDeveloper(System.getProperty("user.name"))
-                  .withHoursRemainingInTotal(0.0));
-      }
-
-      if (kanbanEntry.getPhase() == null)
-      {
-         kanbanEntry.setPhase(Kanban.BACKLOG);
-      }
-
-      if (this.kanbanWorkFlow != null)
-      {
-         kanbanEntry.setPhases(this.kanbanWorkFlow);
-
-         KanbanEntry parent = kanbanEntry.getParent();
-
-         while (parent != null)
-         {
-            parent.setPhases(this.kanbanWorkFlow);
-            parent = parent.getParent();
-         }
-      }
-
-      if (this.projectName != null)
-      {
-         kanbanBoard.setName(projectName);
-      }
-
-      if (sprintName != null)
-      {
-         KanbanEntry sprintEntry = kanbanBoard.findOrCreate(sprintName);
-         kanbanEntry.setParent(sprintEntry);
-
-         if (sprintEntry.getParent() == null)
-         {
-            sprintEntry.setParent(kanbanBoard);
-         }
-
-         if (sprintEntry.getPhase() == null)
-         {
-            sprintEntry.setPhase(ACTIVE);
-         }
-      }
-
-      // reuse old logentries to keep kanban.json stable
-      double remainingTime = 0.0;
-      double hoursSpend = 0.0;
-      Iterator<LogEntryStoryBoard> oldLogEntriesIter = kanbanEntry.getLogEntries()
-         .clone().iterator();
-      Date latestEntryTime = null;
-
-      for (LogEntryStoryBoard newEntry : newLogEntries.values())
-      {
-         if (latestEntryTime == null)
-         {
-            latestEntryTime = newEntry.getParsedDate();
-            remainingTime = newEntry.getHoursRemainingInTotal();
-         }
-         else if (latestEntryTime.compareTo(newEntry.getParsedDate()) < 0)
-         {
-            latestEntryTime = newEntry.getParsedDate();
-            remainingTime = newEntry.getHoursRemainingInTotal();
-         }
-
-         hoursSpend += newEntry.getHoursSpend();
-
-         if (oldLogEntriesIter.hasNext())
-         {
-            LogEntryStoryBoard oldEntry = oldLogEntriesIter.next();
-            oldEntry.withDeveloper(newEntry.getDeveloper())
-               .withDate(newEntry.getDate())
-               .withHoursRemainingInTotal(newEntry.getHoursRemainingInTotal())
-               .withHoursSpend(newEntry.getHoursSpend())
-               .withPhase(newEntry.getPhase());
-         }
-         else
-         {
-            // out of old entries, just add new entry
-            kanbanEntry.addToLogEntries(newEntry);
-         }
-      }
-
-      kanbanEntry.setHoursRemaining(remainingTime);
-
-      // remove obsolet oldLogEntries
-      while (oldLogEntriesIter.hasNext())
-      {
-         LogEntryStoryBoard oldEntry = oldLogEntriesIter.next();
-         kanbanEntry.removeFromLogEntries(oldEntry);
-      }
-
-      // generate the html text
-      String htmlText = "<!DOCTYPE html>\n"
-         + "<html>\n" +
-            "<head>" +
-            "<meta charset=\"utf-8\">\n" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n" +
-            "<link href=\"includes/diagramstyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
-            "\n" +
-            "<script src=\"includes/dagre.min.js\"></script>\n" +
-            "<script src=\"includes/drawer.js\"></script>\n" +
-            "<script src=\"includes/graph.js\"></script>\n" +
-            "</head>" +
-            "<body>\n" +
-            "<p>Storyboard <a href='testfilename' type='text/x-java'>storyboardName</a></p>\n" +
-            "$text\n" +
-            "</body>\n" +
-            "</html>\n";
-
-      String storyboardName = this.getName();
-
-      htmlText = htmlText.replaceFirst("storyboardName", storyboardName);
-      htmlText = htmlText.replaceFirst("testfilename", javaTestFileName);
-      kanbanEntry.setName(storyboardName);
-
-      String shortFileName = "" + storyboardName + ".html";
-      String pathname = "doc/" + shortFileName;
-
-      StringBuffer text = new StringBuffer();
-
-      for (StoryboardStep step : this.getStoryboardSteps())
-      {
-         String content = step.getText();
-
-         if (content.startsWith("<"))
-         {
-            // already html
-            text.append(content);
-         }
-         else if (content.startsWith("screendump="))
-         {
-            String[] split = content.split("=");
-            content = split.clone()[1];
-            String imgText = "<img src='" + content + "' />\n";
-
-            text.append(imgText);
-         }
-         else
-         {
-            text.append("<p>" + content + "</p>\n");
-         }
-      } // for
-
-      int pos = htmlText.indexOf("$text");
-
-      htmlText = htmlText.substring(0, pos)
-         + text.toString()
-         + htmlText.substring(pos + "$text".length());
-
-      writeToFile(shortFileName, htmlText);
-
-      coverage4GeneratedModelCode(largestRoot);
-   }
 
    private void writeToFile(String imgName, String fileText)
    {
@@ -1182,38 +1009,6 @@ public class Storyboard implements PropertyChangeInterface
       // this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
 
-   public void setKanbanPhase(String string)
-   {
-      // TODO Auto-generated method stub
-
-   }
-
-   private LinkedHashMap<String, LogEntryStoryBoard> newLogEntries = new LinkedHashMap<String, LogEntryStoryBoard>();
-
-   public LinkedHashMap<String, LogEntryStoryBoard> getNewLogEntries()
-   {
-      return newLogEntries;
-   }
-
-   public void addLogEntry(String phase, String developer, String date, double hoursSpend, double hoursRemaining,
-         String comment)
-   {
-      LogEntryStoryBoard logEntry = new LogEntryStoryBoard()
-         .withDate(date)
-         .withPhase(phase)
-         .withDeveloper(developer)
-         .withHoursSpend(hoursSpend)
-         .withHoursRemainingInTotal(hoursRemaining)
-         .withComment(comment);
-
-      this.addLogEntry(logEntry);
-   }
-
-   public void addLogEntry(LogEntryStoryBoard entry)
-   {
-      newLogEntries.put(entry.getDate(), entry);
-   }
-
    /**
     * Add an image to your storyboard. Example:
     * storyboard.addImage(model.dumpClassDiag("examples",
@@ -1230,53 +1025,6 @@ public class Storyboard implements PropertyChangeInterface
    public void addImage(String imageFile)
    {
       this.addToSteps("<img src='" + imageFile + "'>");
-   }
-
-   /**
-    * Add an entry to your Kanban board TODO: document this, add phase entries
-    * to some generic class not into the example!!! Example
-    * storyboard.add("ExtendStoryboardByAddToDoMethod", BACKLOG, "zuendorf",
-    * "21.08.2012 15:57:42", 0, 1);
-    * 
-    * @param string The Description
-    * @param phase The Phase of Project
-    * @param developer The Developer
-    * @param date The Current Date
-    * @param hoursSpend Value of Time to Spend
-    * @param hoursRemaining Value of remaining Hours
-    */
-   public void add(String string, String phase, String developer, String date, double hoursSpend, double hoursRemaining)
-   {
-      add(string);
-      addLogEntry(new LogEntryStoryBoard()
-         .withDate(date)
-         .withPhase(phase)
-         .withDeveloper(developer)
-         .withHoursSpend(hoursSpend)
-         .withHoursRemainingInTotal(hoursRemaining)
-         .withComment("Achieved: " + string));
-   }
-
-   public KanbanEntry addToDo(String entryName, String phase, String developer,
-         String date, double hoursSpend, double hoursRemaining)
-   {
-      StoryboardManager man = StoryboardManager.get();
-
-      KanbanEntry kanbanBoard = man.loadOldKanbanEntries();
-
-      KanbanEntry todoEntry = kanbanBoard.findOrCreate(entryName)
-         .withLastDeveloper(developer)
-         .withPhase(phase)
-         .withParent(kanbanBoard);
-
-      LogEntryStoryBoard logEntry = todoEntry.findOrCreateLogEntry(date, phase)
-         .withPhase(phase)
-         .withHoursRemainingInTotal(hoursRemaining)
-         .withHoursSpend(hoursSpend);
-
-      man.dumpKanban();
-
-      return todoEntry;
    }
 
    public ByteArrayOutputStream getSystemOut()
@@ -1966,29 +1714,6 @@ public class Storyboard implements PropertyChangeInterface
 
       String link = pattern.dumpDiagram(diagName, b);
       this.add(link);
-   }
-
-   public void setSprint(String string)
-   {
-      this.sprintName = string;
-   }
-
-   public void removeFromProject()
-   {
-      // load the kanban board and remove entry and logs and generate and store
-      StoryboardManager.get()
-         .remove(this)
-         .dumpHTML();
-   }
-
-   public void setKanbanWorkFlow(String string)
-   {
-      this.kanbanWorkFlow = string;
-   }
-
-   public void setProjectName(String string)
-   {
-      this.projectName = string;
    }
 
    public void dumpDiagram(PatternObject<?, ?> po, String name)

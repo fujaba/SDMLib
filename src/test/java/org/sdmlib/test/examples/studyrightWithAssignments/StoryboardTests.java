@@ -290,8 +290,6 @@ public class StoryboardTests {
       
       storyboard.addObjectDiagram(rootObject);
       
-      storyboard.addLogEntry(Kanban.DONE, "stefan", "11.11.2012 12:00:00 EST", 80, 0, "Serialisation via JSON works great.");
-      
       storyboard.dumpHTML();
    }
 
@@ -300,7 +298,7 @@ public class StoryboardTests {
    {
       Storyboard story = new Storyboard();
       
-      story.add("Extend the class model:", Storyboard.DONE, "zuendorf", "17.01.2014 16:35:42", 40, 0);
+      story.add("Extend the class model:");
       
       ClassModel model = new ClassModel();
       
@@ -627,10 +625,6 @@ public class StoryboardTests {
       
       story.addObjectDiagramWith(university.getStudents(), university.getStudents().getIn());
       
-      story.addLogEntry(Kanban.DONE, "zuendorf", "24.02.2014 20:03:42 EST", 2, 0, "added createXY shortcuts for patterns");
-      story.addLogEntry(Kanban.DONE, "zuendorf", "25.02.2014 22:11:42 EST", 2, 0, "switched to roomSet.hasRoomPO()");
-
-
       story.dumpHTML();
    }
 

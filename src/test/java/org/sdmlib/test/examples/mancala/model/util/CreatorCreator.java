@@ -25,6 +25,8 @@ class CreatorCreator{
 
       jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.StoneCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.model.util.StonePOCreator());
+      jsonIdMap.withCreator(new StoneCreator());
+      jsonIdMap.withCreator(new StonePOCreator());
       return jsonIdMap;
    }
 }

@@ -15,6 +15,10 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodePOCreator());
 
+      jsonIdMap.withCreator(new SimpleStateCreator());
+      jsonIdMap.withCreator(new SimpleStatePOCreator());
+      jsonIdMap.withCreator(new NodeCreator());
+      jsonIdMap.withCreator(new NodePOCreator());
       return jsonIdMap;
    }
 }

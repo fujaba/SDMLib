@@ -17,10 +17,7 @@ public class GroupAccountClassModel
    {
       Storyboard storyboard = new Storyboard();
       
-      storyboard.setSprint("Sprint.002.Examples"); 
-      
-      storyboard.add("Start situation: Nothing here yet. Generate classes",
-         Kanban.DONE, "zuendorf", "04.04.2012 00:11:32", 1, 0);
+      storyboard.add("Start situation: Nothing here yet. Generate classes");
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
       

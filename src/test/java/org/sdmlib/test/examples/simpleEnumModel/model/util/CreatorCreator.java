@@ -15,6 +15,10 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.simpleEnumModel.model.util.MacCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.simpleEnumModel.model.util.MacPOCreator());
 
+      jsonIdMap.withCreator(new AlexCreator());
+      jsonIdMap.withCreator(new AlexPOCreator());
+      jsonIdMap.withCreator(new MacCreator());
+      jsonIdMap.withCreator(new MacPOCreator());
       return jsonIdMap;
    }
 }

@@ -17,6 +17,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.helloworld.util.GreetingMessagePOCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.helloworld.util.PersonCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.helloworld.util.PersonPOCreator());
+      jsonIdMap.withCreator(new GreetingCreator());
+      jsonIdMap.withCreator(new GreetingPOCreator());
+      jsonIdMap.withCreator(new GreetingCreator());
+      jsonIdMap.withCreator(new GreetingPOCreator());
+      jsonIdMap.withCreator(new GreetingMessageCreator());
+      jsonIdMap.withCreator(new GreetingMessagePOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
       return jsonIdMap;
    }
 }

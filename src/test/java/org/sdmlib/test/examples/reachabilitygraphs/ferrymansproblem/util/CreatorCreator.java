@@ -19,6 +19,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoPOCreator());
 
+      jsonIdMap.withCreator(new RiverCreator());
+      jsonIdMap.withCreator(new RiverPOCreator());
+      jsonIdMap.withCreator(new BoatCreator());
+      jsonIdMap.withCreator(new BoatPOCreator());
+      jsonIdMap.withCreator(new BankCreator());
+      jsonIdMap.withCreator(new BankPOCreator());
+      jsonIdMap.withCreator(new CargoCreator());
+      jsonIdMap.withCreator(new CargoPOCreator());
       return jsonIdMap;
    }
 }

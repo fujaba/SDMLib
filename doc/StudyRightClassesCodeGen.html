@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='../examples/org/sdmlib/test/examples/studyright/StudyRightModel.java' type='text/x-java'>StudyRightClassesCodeGen</a></p>
+<p>StudyRightClassesCodeGen</p>
+<p>1. generate class University</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      }
+   ],
+   "edges":[]
+}   ;
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+<p>2. generate class Student with new notation</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int"
+         ]
+      }
+   ],
+   "edges":[]
+}   ;
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram4", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+<p>3. add uni --> stud assoc</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"uni"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram6", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+<p>4. add uni --> room</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Room",
+         "attributes":[
+         "roomNo : String",
+            "credits : int"
+         ],
+         "methods":[
+         "findPath(String p0, int p1)"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"uni"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"uni"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"rooms"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"in"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"neighbors"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"neighbors"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram8", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+<p>add assignments:</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"University",
+         "attributes":[
+         "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Student",
+         "attributes":[
+         "name : String",
+            "matrNo : int",
+            "credits : int",
+            "motivation : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Room",
+         "attributes":[
+         "roomNo : String",
+            "credits : int"
+         ],
+         "methods":[
+         "findPath(String p0, int p1)"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Assignment",
+         "attributes":[
+         "name : String",
+            "points : int"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"uni"
+         },
+         "target":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"University",
+            "cardinality":"one",
+            "property":"uni"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"rooms"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"many",
+            "property":"students"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"one",
+            "property":"in"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Student",
+            "cardinality":"one",
+            "property":"students"
+         },
+         "target":{
+            "id":"Assignment",
+            "cardinality":"many",
+            "property":"done"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"neighbors"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"neighbors"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Assignment",
+            "cardinality":"one",
+            "property":"room"
+         },
+         "target":{
+            "id":"Room",
+            "cardinality":"many",
+            "property":"assignments"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasStudyRightClassesCodeGenClassDiagram10", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+<p>5. generate generic set for attributes and assocs</p>
+<p>Check: found method set(String,Object) in class student true</p>
+<p>6. generate generic get for attributes and assocs</p>
+<p>7. generate creator classes</p>
+<a href='../examplehelpers/org/sdmlib/examples/studyright/creators/StudentCreator.java'>StudentCreator.java</a><br><p>8. generate imports</p>
+<p>import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.LinkedHashSet;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyright.model.util.LectureSet;
+import org.sdmlib.test.examples.studyright.model.util.StudentSet;</p>
+<p>9. generate property change support</p>
+<p>Caution: property change support needs not to be generated if the parent class does this already.</p>
+<p>10. generate removeYou method</p>
+<p>Check: found method removeYou) in class student true</p>
+<p>Check: found symtab entry for method removeYou()  method:removeYou():void</p>
+<pre>   public void removeYou()
+   {
+      super.removeYou();
+      withoutLecture(this.getLecture().toArray(new Lecture[this.getLecture().size()]));
+      setUni(null);
+      setIn(null);
+      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+   }</pre><p>Alexander Jahl has added some support for inheritance. See StudyRightExtendsReverseClassModel</p>
+<p>generic set now works for double. Perhabs boolean and other are still missing</p>
+<p>Solved: one to one assoc generate code that compiles. Also solved some import problems with ModelSets</p>
+
+</body>
+</html>

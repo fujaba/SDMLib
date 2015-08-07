@@ -19,6 +19,34 @@ class CreatorCreator{
       jsonIdMap.withCreator(new org.sdmlib.test.examples.m2m.model.util.RelationCreator());
       jsonIdMap.withCreator(new org.sdmlib.test.examples.m2m.model.util.RelationPOCreator());
 
+      jsonIdMap.withCreator(new GraphComponentCreator());
+      jsonIdMap.withCreator(new GraphComponentPOCreator());
+      jsonIdMap.withCreator(new GraphCreator());
+      jsonIdMap.withCreator(new GraphPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new RelationCreator());
+      jsonIdMap.withCreator(new RelationPOCreator());
+      jsonIdMap.withCreator(new GraphCreator());
+      jsonIdMap.withCreator(new GraphPOCreator());
+      jsonIdMap.withCreator(new GraphComponentCreator());
+      jsonIdMap.withCreator(new GraphComponentPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new RelationCreator());
+      jsonIdMap.withCreator(new RelationPOCreator());
+      jsonIdMap.withCreator(new GraphCreator());
+      jsonIdMap.withCreator(new GraphPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new GraphComponentCreator());
+      jsonIdMap.withCreator(new GraphComponentPOCreator());
+      jsonIdMap.withCreator(new GraphCreator());
+      jsonIdMap.withCreator(new GraphPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new RelationCreator());
+      jsonIdMap.withCreator(new RelationPOCreator());
       return jsonIdMap;
    }
 }

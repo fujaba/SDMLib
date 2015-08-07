@@ -10,9 +10,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Modifier;
-import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardManager;
 
 public class LudoModel
 {
@@ -35,10 +33,7 @@ public class LudoModel
    {
       Storyboard storyboard = new Storyboard("examples", "LudoModel");
       
-      storyboard.setSprint("Sprint.002.Examples");
-      
-      //      storyboard.add("The model: ",
-      //         MODELING, "zuendorf", "15.07.2012 15:40:33", 2, 0);
+      storyboard.add("The model: ");
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.ludo.model");
       Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
