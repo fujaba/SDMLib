@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: SDMLib
 Bundle-SymbolicName: SDMLib;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: SDMLib.jar
 Main-Class: org.sdmlib.models.classes.gui.SDMDiagramEditor
 Require-Bundle: NetworkParser;bundle-version="1.0.0";visibility:=reexport
 Export-Package: org.sdmlib,
