@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
+import java.lang.Object;
 
 public class MatchOtherThenPO extends PatternObject<MatchOtherThenPO, MatchOtherThen>
 {

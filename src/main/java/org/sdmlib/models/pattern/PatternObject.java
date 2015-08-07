@@ -37,6 +37,7 @@ import org.sdmlib.storyboards.Kanban;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.logic.Condition;
+import java.lang.Object;
 
 public class PatternObject<POC, MC> extends PatternElement<POC>
 {

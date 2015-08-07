@@ -40,9 +40,9 @@
          "id":"S2 : StatementEntry",
          "attributes":[
          "kind=polite",
+            "assignTargetVarName=x",
             "startPos=42",
-            "endPos=77",
-            "assignTargetVarName=x"
+            "endPos=77"
          ]
       },
       {
@@ -79,12 +79,12 @@
          "typ":"node",
          "id":"S4 : SymTabEntry",
          "attributes":[
-         "modifiers=grow",
-            "kind=cool",
+         "kind=cool",
+            "memberName=me",
             "startPos=43",
-            "endPos=84",
             "bodyStartPos=42",
-            "memberName=me"
+            "endPos=84",
+            "modifiers=grow"
          ]
       }
    ],
@@ -131,39 +131,13 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"parentTransitive",
+            "cardinality":"one",
+            "property":"parent",
             "id":"S2 : StatementEntry"
          },
          "target":{
             "cardinality":"many",
             "property":"bodyStats",
-            "id":"S8 : StatementEntry"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"bodyStatsTransitive",
-            "id":"S2 : StatementEntry"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"parentTransitive",
-            "id":"S2 : StatementEntry"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"statemententry",
-            "id":"S2 : StatementEntry"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"bodyStatsTransitive",
             "id":"S8 : StatementEntry"
          }
       },
@@ -178,19 +152,6 @@
             "cardinality":"one",
             "property":"tokenList",
             "id":"A9 : ArrayList"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"bodyStatsTransitive",
-            "id":"S8 : StatementEntry"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"parentTransitive",
-            "id":"S8 : StatementEntry"
          }
       },
       {

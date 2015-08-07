@@ -27,6 +27,24 @@ class CreatorCreator{
       jsonIdMap.withCreator(new ChoiceTemplatePOCreator());
       jsonIdMap.withCreator(new MatchCreator());
       jsonIdMap.withCreator(new MatchPOCreator());
+      jsonIdMap.withCreator(new TemplateCreator());
+      jsonIdMap.withCreator(new TemplatePOCreator());
+      jsonIdMap.withCreator(new PlaceHolderDescriptionCreator());
+      jsonIdMap.withCreator(new PlaceHolderDescriptionPOCreator());
+      jsonIdMap.withCreator(new ChoiceTemplateCreator());
+      jsonIdMap.withCreator(new ChoiceTemplatePOCreator());
+      jsonIdMap.withCreator(new MatchCreator());
+      jsonIdMap.withCreator(new MatchPOCreator());
+      jsonIdMap.withCreator(new TemplateCreator());
+      jsonIdMap.withCreator(new TemplatePOCreator());
+      jsonIdMap.withCreator(new PlaceHolderDescriptionCreator());
+      jsonIdMap.withCreator(new PlaceHolderDescriptionPOCreator());
+      jsonIdMap.withCreator(new ChoiceTemplateCreator());
+      jsonIdMap.withCreator(new ChoiceTemplatePOCreator());
+      jsonIdMap.withCreator(new MatchCreator());
+      jsonIdMap.withCreator(new MatchPOCreator());
+      jsonIdMap.withCreator(new ObjectCreator());
+      jsonIdMap.withCreator(new ObjectPOCreator());
       return jsonIdMap;
    }
 }

@@ -38,6 +38,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import java.beans.PropertyChangeListener;
+import java.lang.Object;
 
 public class ReachableState implements PropertyChangeInterface
 {

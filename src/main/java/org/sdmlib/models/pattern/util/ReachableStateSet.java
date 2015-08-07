@@ -30,6 +30,9 @@ import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
+import java.lang.Object;
+import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 
 public class ReachableStateSet extends SDMSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {

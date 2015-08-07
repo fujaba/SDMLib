@@ -26,6 +26,26 @@ class CreatorCreator{
       jsonIdMap.withCreator(new StoryboardPOCreator());
       jsonIdMap.withCreator(new StoryboardStepCreator());
       jsonIdMap.withCreator(new StoryboardStepPOCreator());
+      jsonIdMap.withCreator(new KanbanEntryCreator());
+      jsonIdMap.withCreator(new KanbanEntryPOCreator());
+      jsonIdMap.withCreator(new LogEntryStoryBoardCreator());
+      jsonIdMap.withCreator(new LogEntryStoryBoardPOCreator());
+      jsonIdMap.withCreator(new StoryboardWallCreator());
+      jsonIdMap.withCreator(new StoryboardWallPOCreator());
+      jsonIdMap.withCreator(new StoryboardCreator());
+      jsonIdMap.withCreator(new StoryboardPOCreator());
+      jsonIdMap.withCreator(new StoryboardStepCreator());
+      jsonIdMap.withCreator(new StoryboardStepPOCreator());
+      jsonIdMap.withCreator(new KanbanEntryCreator());
+      jsonIdMap.withCreator(new KanbanEntryPOCreator());
+      jsonIdMap.withCreator(new LogEntryStoryBoardCreator());
+      jsonIdMap.withCreator(new LogEntryStoryBoardPOCreator());
+      jsonIdMap.withCreator(new StoryboardWallCreator());
+      jsonIdMap.withCreator(new StoryboardWallPOCreator());
+      jsonIdMap.withCreator(new StoryboardCreator());
+      jsonIdMap.withCreator(new StoryboardPOCreator());
+      jsonIdMap.withCreator(new StoryboardStepCreator());
+      jsonIdMap.withCreator(new StoryboardStepPOCreator());
       return jsonIdMap;
    }
 }

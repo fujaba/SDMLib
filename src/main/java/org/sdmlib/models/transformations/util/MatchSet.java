@@ -31,6 +31,9 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
+import java.lang.Object;
+import org.sdmlib.models.transformations.util.TemplateSet;
+import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 
 public class MatchSet extends SDMSet<Match>
 {

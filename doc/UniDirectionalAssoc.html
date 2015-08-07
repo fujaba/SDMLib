@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java' type='text/x-java'>UniDirectionalAssoc</a></p>
+<p>UniDirectionalAssoc</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"BigBrother"
+      },
+      {
+         "typ":"node",
+         "id":"Person",
+         "attributes":[
+         "name : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"BigBrother",
+            "cardinality":"many",
+            "property":""
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"one",
+            "property":"noOne"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"BigBrother",
+            "cardinality":"many",
+            "property":""
+         },
+         "target":{
+            "id":"Person",
+            "cardinality":"many",
+            "property":"suspects"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasUniDirectionalAssocClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+
+</body>
+</html>

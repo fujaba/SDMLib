@@ -29,6 +29,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class GenericConstraintSet extends SDMSet<GenericConstraint>
 {

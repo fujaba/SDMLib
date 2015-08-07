@@ -31,6 +31,8 @@ import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import java.lang.Object;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class PatternLinkSet extends SDMSet<PatternLink>
 {

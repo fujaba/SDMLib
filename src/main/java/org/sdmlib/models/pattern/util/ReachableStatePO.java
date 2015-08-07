@@ -5,6 +5,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
+import java.lang.Object;
 
 public class ReachableStatePO extends PatternObject<ReachableStatePO, ReachableState>
 {

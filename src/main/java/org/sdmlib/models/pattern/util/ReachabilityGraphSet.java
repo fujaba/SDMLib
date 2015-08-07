@@ -28,6 +28,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
+import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.util.PatternSet;
 
 public class ReachabilityGraphSet extends SDMSet<ReachabilityGraph> implements org.sdmlib.models.modelsets.ModelSet
 {

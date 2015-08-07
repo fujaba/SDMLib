@@ -8,7 +8,7 @@ public class DataType
    public static final DataType DOUBLE = new DataType("double");
    public static final DataType STRING = new DataType("String");
    public static final DataType BOOLEAN = new DataType("boolean");
-   public static final DataType OBJECT = new DataType("Object");
+   public static final DataType OBJECT = new DataType("java.lang.Object");
    public static final DataType CHAR = new DataType("char");
 
    private Clazz clazzValue;

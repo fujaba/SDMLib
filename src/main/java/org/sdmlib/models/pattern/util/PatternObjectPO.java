@@ -7,6 +7,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
+import java.lang.Object;
 
 
 public class PatternObjectPO extends PatternObject<PatternObjectPO, PatternObject>

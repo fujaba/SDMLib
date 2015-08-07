@@ -19,6 +19,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new BuildingPOCreator());
       jsonIdMap.withCreator(new FloorCreator());
       jsonIdMap.withCreator(new FloorPOCreator());
+      jsonIdMap.withCreator(new BuildingCreator());
+      jsonIdMap.withCreator(new BuildingPOCreator());
+      jsonIdMap.withCreator(new FloorCreator());
+      jsonIdMap.withCreator(new FloorPOCreator());
+      jsonIdMap.withCreator(new BuildingCreator());
+      jsonIdMap.withCreator(new BuildingPOCreator());
+      jsonIdMap.withCreator(new FloorCreator());
+      jsonIdMap.withCreator(new FloorPOCreator());
       return jsonIdMap;
    }
 }

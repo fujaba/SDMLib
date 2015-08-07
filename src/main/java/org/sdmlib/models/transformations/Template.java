@@ -41,6 +41,7 @@ import org.sdmlib.storyboards.GenericIdMap;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import java.lang.Object;
 
 public class Template implements PropertyChangeInterface
 {
