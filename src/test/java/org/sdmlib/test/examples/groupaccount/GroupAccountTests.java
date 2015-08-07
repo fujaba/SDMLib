@@ -80,7 +80,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       storyboard.add("Now see updateBalances() as code: ");
       
-      String methodText = storyboard.getMethodText("examples", "org.sdmlib.test.examples.groupAccount.model.GroupAccount", "updateBalances()");
+      String methodText = storyboard.getMethodText("src/test/java", "org.sdmlib.test.examples.groupAccount.model.GroupAccount", "updateBalances()");
       
       storyboard.add(methodText);
       
