@@ -31,6 +31,7 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.list.AbstractList;
 
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
@@ -470,9 +471,10 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
    {
       Object value = creator.getValue(object, property);
 
-      if (value != null && value instanceof List)
+      if (value != null && value instanceof AbstractList)
       {
-         List<Object> valueList = (List<Object>) value;
+         AbstractList valueList = (AbstractList) value;
+         
          int indexOf = valueList.indexOf(targetObject);
 
          if (indexOf != historyPos)

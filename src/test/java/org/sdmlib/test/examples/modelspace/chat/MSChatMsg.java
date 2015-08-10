@@ -87,7 +87,7 @@ public  class MSChatMsg implements PropertyChangeInterface
       return this;
    } 
 
-   private SimpleDateFormat dateFormat = new SimpleDateFormat("H:m:s");
+   private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
    @Override
    public String toString()
