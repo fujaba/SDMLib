@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java' type='text/x-java'>ModelSpaceChatModel</a></p>
+<p>ModelSpaceChatModel</p>
+<p>Chatting via model space, i.e. shared files</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"MSChatChannel"
+      },
+      {
+         "typ":"node",
+         "id":"MSChatMsg",
+         "attributes":[
+         "text : String",
+            "time : long",
+            "sender : String"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"MSChatChannel",
+            "cardinality":"one",
+            "property":"channel"
+         },
+         "target":{
+            "id":"MSChatMsg",
+            "cardinality":"many",
+            "property":"msgs"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasModelSpaceChatModelClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+
+</body>
+</html>

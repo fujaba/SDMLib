@@ -59,6 +59,20 @@ public abstract class SDMSet<T> extends SimpleSet<T> implements ModelSet
       return "(" + stringList.concat(", ") + ")";
    }
    
+   
+   public String toString(String separator)
+   {
+      StringList stringList = new StringList();
+      
+      for (T elem : this)
+      {
+         stringList.add(elem.toString());
+      }
+      
+      return stringList.concat(separator);
+   }
+   
+   
    public <ST extends SDMSet> ST instanceOf(ST target)
    {
 	   String className;

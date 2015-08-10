@@ -30,7 +30,6 @@ public class ChangeEventCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       ChangeEvent.PROPERTY_OBJECTID,
-      ChangeEvent.PROPERTY_OBJECTTYPE,
       ChangeEvent.PROPERTY_PROPERTY,
       ChangeEvent.PROPERTY_NEWVALUE,
       ChangeEvent.PROPERTY_OLDVALUE,
@@ -38,6 +37,7 @@ public class ChangeEventCreator extends EntityFactory
       ChangeEvent.PROPERTY_CHANGENO,
       ChangeEvent.PROPERTY_SESSIONID,
       ChangeEvent.PROPERTY_PROPERTYKIND,
+      ChangeEvent.PROPERTY_OBJECTTYPE,
    };
    
    @Override

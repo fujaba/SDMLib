@@ -798,13 +798,6 @@ public class Storyboard implements PropertyChangeInterface
       this.add(diagName);
    }
 
-   public void addClassDiagram(ClassModel model, String rootDir)
-   {
-      String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
-      diagName = model.dumpClassDiagram(diagName);
-      this.addSVGImage(diagName);
-   }
-
    public void addObjectDiagramWith(Object... elems)
    {
       ArrayList<Object> tempElems = new ArrayList<Object>(Arrays.asList((Object[]) elems));

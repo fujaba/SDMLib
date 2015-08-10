@@ -73,7 +73,7 @@ public class HelloWorldTTC2011
 
       model.generate("src/test/java");
 
-      storyboard.addClassDiagram(model, "examples");
+      storyboard.addClassDiagram(model);
 
 
       //==========================================================================
@@ -304,7 +304,7 @@ public class HelloWorldTTC2011
 
       model.generate("src/test/java");
 
-      storyboard.addClassDiagram(model, "examples");
+      storyboard.addClassDiagram(model);
 
 
       //==========================================================================
