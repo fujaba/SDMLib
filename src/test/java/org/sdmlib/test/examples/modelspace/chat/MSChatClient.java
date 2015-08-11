@@ -114,7 +114,7 @@ public class MSChatClient  extends Application
          new PropertyChangeListener()
          {
             @Override
-            public void propertyChange(PropertyChangeEvent evt)
+            public void propertyChange(final PropertyChangeEvent evt)
             {
                Platform.runLater(new Runnable()
                {
