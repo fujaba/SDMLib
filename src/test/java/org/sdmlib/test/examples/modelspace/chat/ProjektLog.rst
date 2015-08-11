@@ -6,7 +6,9 @@ ModelSpace Chat
 Bugs
 ----
 
-
+b5. Parser Problem: 'v' : but '{' expected in TeachingAssistantCreator.java  at line 58
+    "      return null;"
+          ^
 
 Backlog
 -------
@@ -15,6 +17,8 @@ f2. horizontal and vertical model splitting
 
 Done
 ----
+
+f3. testing multiple chat clients
 
 b1. Some changes are stored twice. 
     Does not happen if you use it right.

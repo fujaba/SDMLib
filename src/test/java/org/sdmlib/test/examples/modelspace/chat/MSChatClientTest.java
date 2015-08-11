@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -29,6 +30,8 @@ public class MSChatClientTest
    @Test
    public void testDirectChat() throws Exception
    {
+      System.out.println("Testing model space");
+
       story = new Storyboard();
       
       // remove old json files
@@ -76,7 +79,13 @@ public class MSChatClientTest
       while ( ! done)
       {
          // read changes of others, maybe react
-         BufferedReader buf = space.changeQueue.take();
+         BufferedReader buf = space.changeQueue.poll(30, TimeUnit.SECONDS);
+         
+         if (buf == null) 
+         {
+            System.out.println("time out waiting for change: ");
+            continue;
+         }
          
          space.readChanges(buf);
          
