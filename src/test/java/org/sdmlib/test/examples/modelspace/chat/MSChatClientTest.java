@@ -135,6 +135,11 @@ public class MSChatClientTest
          }         
       }
       
+      MSChatMsg msg = new MSChatMsg().withSender(userName).withText("Thank you for your cooperation");
+      
+      channel.withMsgs(msg);
+      
+      story.addObjectDiagram(channel);
 
       story.dumpHTML();
    }
