@@ -84,7 +84,8 @@ public class MSChatClientTest
          if (buf == null) 
          {
             System.out.println("time out waiting for change: ");
-            continue;
+            story.add("time out waiting for change: ");
+            break;
          }
          
          space.readChanges(buf);
