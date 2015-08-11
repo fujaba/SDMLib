@@ -20,6 +20,10 @@ class CreatorCreator{
       jsonIdMap.withCreator(new MSChatChannelPOCreator());
       jsonIdMap.withCreator(new MSChatMsgCreator());
       jsonIdMap.withCreator(new MSChatMsgPOCreator());
+      jsonIdMap.withCreator(new MSChatChannelCreator());
+      jsonIdMap.withCreator(new MSChatChannelPOCreator());
+      jsonIdMap.withCreator(new MSChatMsgCreator());
+      jsonIdMap.withCreator(new MSChatMsgPOCreator());
       return jsonIdMap;
    }
 }

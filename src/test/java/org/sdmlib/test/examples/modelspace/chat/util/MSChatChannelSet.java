@@ -28,6 +28,7 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
+import org.sdmlib.models.modelsets.StringList;
 
 public class MSChatChannelSet extends SDMSet<MSChatChannel>
 {
@@ -121,6 +122,58 @@ public class MSChatChannelSet extends SDMSet<MSChatChannel>
       for (MSChatChannel obj : this)
       {
          obj.withoutMsgs(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getTask()
+   {
+      StringList result = new StringList();
+      
+      for (MSChatChannel obj : this)
+      {
+         result.add(obj.getTask());
+      }
+      
+      return result;
+   }
+
+   public MSChatChannelSet hasTask(String value)
+   {
+      MSChatChannelSet result = new MSChatChannelSet();
+      
+      for (MSChatChannel obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MSChatChannelSet hasTask(String lower, String upper)
+   {
+      MSChatChannelSet result = new MSChatChannelSet();
+      
+      for (MSChatChannel obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MSChatChannelSet withTask(String value)
+   {
+      for (MSChatChannel obj : this)
+      {
+         obj.setTask(value);
       }
       
       return this;

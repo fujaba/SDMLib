@@ -20,7 +20,8 @@ public class ModelSpaceChatModel
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.modelspace.chat");
 
-      Clazz chatChannel = model.createClazz("MSChatChannel");
+      Clazz chatChannel = model.createClazz("MSChatChannel")
+            .withAttribute("task", DataType.STRING);
       
       Clazz chatMsg = model.createClazz("MSChatMsg") 
             .withAttribute("text", DataType.STRING) 

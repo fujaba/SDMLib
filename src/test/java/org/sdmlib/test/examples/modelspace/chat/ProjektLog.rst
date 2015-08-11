@@ -6,7 +6,6 @@ ModelSpace Chat
 Bugs
 ----
 
-b1. Some changes are stored twice. 
 
 
 Backlog
@@ -16,6 +15,9 @@ f2. horizontal and vertical model splitting
 
 Done
 ----
+
+b1. Some changes are stored twice. 
+    Does not happen if you use it right.
 
 b3. Message order seems wrong
     (Bug in Networkparser AbstractArray)

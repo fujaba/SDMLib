@@ -27,7 +27,7 @@ public class ChatButtonAction implements EventHandler<ActionEvent>
       
       MSChatMsg msg = new MSChatMsg().withText(text).withSender(app.getUserName()).withTime(System.currentTimeMillis());
       
-      msg.withChannel(currentChannel);
+      currentChannel.withMsgs(msg);
       
       System.out.println("new message: " + text);
    }

@@ -21,23 +21,15 @@
 
 package org.sdmlib.modelspace;
 
-import org.sdmlib.replication.ChangeEvent;
-import org.sdmlib.replication.ChangeEventList;
-import org.sdmlib.serialization.PropertyChangeInterface;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
-import de.uniks.networkparser.interfaces.BaseItem;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.interfaces.UpdateListener;
-import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.list.AbstractList;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -50,13 +42,23 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.FileTime;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javafx.application.Platform;
-import static java.nio.file.StandardWatchEventKinds.*;
+
+import org.sdmlib.replication.ChangeEvent;
+import org.sdmlib.replication.ChangeEventList;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.interfaces.BaseItem;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.interfaces.UpdateListener;
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.list.AbstractList;
 
 
 public  class ModelSpace implements PropertyChangeInterface, UpdateListener
@@ -84,6 +86,8 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
    private long lastChangeId = 0;
    private Path logPath;
 
+   public LinkedBlockingQueue<BufferedReader> changeQueue = new LinkedBlockingQueue<BufferedReader>();
+   
    public ChangeEventList getHistory()
    {
       return this.history;
@@ -290,9 +294,20 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
             }
          });
       }
+      else
+      {
+         try
+         {
+            changeQueue.put(buf);
+         }
+         catch (InterruptedException e)
+         {
+            e.printStackTrace();
+         }
+      }
    }
 
-   private void readChanges(BufferedReader buf)
+   public void readChanges(BufferedReader buf)
    {
       String line;
       try

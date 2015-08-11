@@ -6,6 +6,7 @@ import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgPO;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelPO;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
+import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChannel>
 {
@@ -71,4 +72,57 @@ public class MSChatChannelPO extends PatternObject<MSChatChannelPO, MSChatChanne
       return null;
    }
 
+   public MSChatChannelPO hasTask(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatChannel.PROPERTY_TASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public MSChatChannelPO hasTask(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(MSChatChannel.PROPERTY_TASK)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public MSChatChannelPO createTask(String value)
+   {
+      this.startCreate().hasTask(value).endCreate();
+      return this;
+   }
+   
+   public String getTask()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((MSChatChannel) getCurrentMatch()).getTask();
+      }
+      return null;
+   }
+   
+   public MSChatChannelPO withTask(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((MSChatChannel) getCurrentMatch()).setTask(value);
+      }
+      return this;
+   }
+   
 }

@@ -31,6 +31,7 @@ public class MSChatChannelCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       MSChatChannel.PROPERTY_MSGS,
+      MSChatChannel.PROPERTY_TASK,
    };
    
    @Override
@@ -60,6 +61,11 @@ public class MSChatChannelCreator extends EntityFactory
       {
          return ((MSChatChannel) target).getMsgs();
       }
+
+      if (MSChatChannel.PROPERTY_TASK.equalsIgnoreCase(attribute))
+      {
+         return ((MSChatChannel) target).getTask();
+      }
       
       return null;
    }
@@ -81,6 +87,12 @@ public class MSChatChannelCreator extends EntityFactory
       if ((MSChatChannel.PROPERTY_MSGS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((MSChatChannel) target).withoutMsgs((MSChatMsg) value);
+         return true;
+      }
+
+      if (MSChatChannel.PROPERTY_TASK.equalsIgnoreCase(attrName))
+      {
+         ((MSChatChannel) target).withTask((String) value);
          return true;
       }
       

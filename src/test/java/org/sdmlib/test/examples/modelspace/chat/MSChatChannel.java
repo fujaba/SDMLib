@@ -25,6 +25,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
+import org.sdmlib.StrUtil;
 
 public  class MSChatChannel implements PropertyChangeInterface
 {
@@ -126,4 +127,43 @@ public  class MSChatChannel implements PropertyChangeInterface
       withMsgs(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TASK = "task";
+   
+   private String task;
+
+   public String getTask()
+   {
+      return this.task;
+   }
+   
+   public void setTask(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.task, value)) {
+      
+         String oldValue = this.task;
+         this.task = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TASK, oldValue, value);
+      }
+   }
+   
+   public MSChatChannel withTask(String value)
+   {
+      setTask(value);
+      return this;
+   } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+      
+      result.append(" ").append(this.getTask());
+      return result.substring(1);
+   }
+
 }

@@ -1,5 +1,7 @@
 package org.sdmlib.test.examples.modelspace.chat;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import javafx.application.Application;
@@ -25,21 +27,28 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class MSChatClient  extends Application
 {
-   /**
-    * Launch the application.
-    * @param args
-    */
-   public static void main(String[] args)
+   public MSChatClient()
+   {
+      
+   }
+   
+   public MSChatClient(String channelName, String userName)
+   {
+      this.channelName = channelName;
+      this.userName = userName;
+   }
+   
+   public static void main(String... args)
    {
       launch(args);
    }
 
    private Stage stage;
-   private String userName;
+   private String userName = null;
    private TextField chatInput;
    private Button chatButton;
    private Text chatText;
-   private String channelName;
+   private String channelName = null;
    private JsonIdMap idMap;
    private MSChatChannel channel;
    private ModelSpace space;
@@ -75,10 +84,12 @@ public class MSChatClient  extends Application
    {
       this.stage = stage;
       
-      List<String> parameters = this.getParameters().getRaw();
-      
-      channelName = parameters.get(0);
-      userName = parameters.get(1);
+      if (channelName == null)
+      {
+         List<String> parameters = this.getParameters().getRaw();
+         channelName = parameters.get(0);
+         userName = parameters.get(1);
+      }
       
       sessionId = userName + System.currentTimeMillis();
 
@@ -99,6 +110,22 @@ public class MSChatClient  extends Application
       }
       
       channel.addPropertyChangeListener(new ChatTextUpdater(this, channel));
+      channel.getPropertyChangeSupport().addPropertyChangeListener(MSChatChannel.PROPERTY_TASK, 
+         new PropertyChangeListener()
+         {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt)
+            {
+               Platform.runLater(new Runnable()
+               {
+                  @Override
+                  public void run()
+                  {
+                     handleTaskChange(evt);
+                  }
+               });
+            }
+         });
       
       ScrollPane scrollPane = new ScrollPane(chatText);
       scrollPane.setPrefHeight(400);
@@ -134,5 +161,24 @@ public class MSChatClient  extends Application
       });
 
       this.stage.show();
+      
+      handleTaskChange(null);
+   }
+   
+   public void handleTaskChange(PropertyChangeEvent evt)
+   {
+      String newTask = channel.getTask();
+            
+      if (evt != null) 
+      {
+         newTask = (String) evt.getNewValue();
+      }
+      
+      if (newTask == null) return;
+      
+      if (newTask.equals(userName + " sendready"))
+      {
+         channel.setTask("testDirectChat " + userName + " is ready");
+      }
    }
 }
