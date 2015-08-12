@@ -79,7 +79,7 @@ public class MSChatClientTest
       while ( ! done)
       {
          // read changes of others, maybe react
-         BufferedReader buf = space.changeQueue.poll(30, TimeUnit.SECONDS);
+         BufferedReader buf = space.changeQueue.take(); // .poll(30, TimeUnit.SECONDS);
          
          if (buf == null) 
          {
