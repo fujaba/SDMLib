@@ -1,9 +1,13 @@
 package org.sdmlib.test.examples.groupaccount.gui;
 
+import org.sdmlib.modelspace.ModelSpace;
+import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
 
+import de.uniks.networkparser.json.JsonIdMap;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -30,6 +34,8 @@ public class GroupAccountApp extends Application
    }
    
    private Group guiRoot;
+   private JsonIdMap idMap;
+   private ModelSpace space;
    
    public Group getGuiRoot()
    {
@@ -60,14 +66,24 @@ public class GroupAccountApp extends Application
 
    public ScrollPane buildRootNode()
    {
+      // add model space
+      idMap = GroupAccountCreator.createIdMap("dummy");
+      
       dataRoot = new GroupAccount();
       
-      Item dummyItem = dataRoot.createItem();
+      idMap.put("dataRoot", dataRoot);
       
-      Person dummyPerson = dataRoot.createPersons().withItem(dummyItem);
+      space = new ModelSpace(idMap, "dummy", ApplicationType.JavaFX).open("modeldata/groupaccount/test");
+
+      if (dataRoot.getPersons().isEmpty())
+      {
+         Item dummyItem = dataRoot.createItem();
+      
+         Person dummyPerson = dataRoot.createPersons().withItem(dummyItem);
+      }
       
       guiRoot = new Group();
-
+         
       ScrollPane scrollPane = new ScrollPane(guiRoot);
       
       scrollPane.setStyle("-fx-background: white;");
