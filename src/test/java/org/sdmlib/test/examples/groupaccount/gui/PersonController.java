@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -95,9 +96,15 @@ public class PersonController implements PropertyChangeListener
          
 
          nameField = javafxUtils.createTextField(view);
-         nameField.textProperty().addListener((ChangeListener<String>) (arg0, arg1, arg2) -> {
-            person.setName(nameField.getText());
+         nameField.textProperty().addListener(new ChangeListener<String>()
+         {
+            @Override
+            public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2)
+            {
+               person.setName(nameField.getText());
+            }
          });
+         
          // javafxUtils.bindString(nameField, person, Person.PROPERTY_NAME);
        
          content = new VBox();
