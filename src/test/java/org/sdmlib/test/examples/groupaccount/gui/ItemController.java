@@ -98,7 +98,7 @@ public class ItemController implements PropertyChangeListener
       }
    }
 
-   private void bindItemValue(TextField textField)
+   private void bindItemValue(final TextField textField)
    {
       item.getPropertyChangeSupport().addPropertyChangeListener(Item.PROPERTY_VALUE, new PropertyChangeListener()
       {
