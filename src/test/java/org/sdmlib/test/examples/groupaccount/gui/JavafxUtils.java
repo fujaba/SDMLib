@@ -171,7 +171,7 @@ public class JavafxUtils
    
    
    
-   public void addVisibilityToggle(Pane participantsListPlusButton, Button button, Button... moreButtons)
+   public void addVisibilityToggle(Pane participantsListPlusButton, final Button button, final Button... moreButtons)
    {
       participantsListPlusButton.setOnMouseEntered(new EventHandler<Event>()
       {
