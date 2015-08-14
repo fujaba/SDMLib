@@ -31,6 +31,8 @@ class CreatorCreator{
       jsonIdMap.withCreator(new StonePOCreator());
       jsonIdMap.withCreator(new StoneCreator());
       jsonIdMap.withCreator(new StonePOCreator());
+      jsonIdMap.withCreator(new StoneCreator());
+      jsonIdMap.withCreator(new StonePOCreator());
       return jsonIdMap;
    }
 }

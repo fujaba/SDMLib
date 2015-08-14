@@ -35,6 +35,12 @@ class CreatorCreator {
       jsonIdMap.withCreator(new PointPOCreator());
       jsonIdMap.withCreator(new PlayerCreator());
       jsonIdMap.withCreator(new PlayerPOCreator());
+      jsonIdMap.withCreator(new LudoCreator());
+      jsonIdMap.withCreator(new LudoPOCreator());
+      jsonIdMap.withCreator(new PointCreator());
+      jsonIdMap.withCreator(new PointPOCreator());
+      jsonIdMap.withCreator(new PlayerCreator());
+      jsonIdMap.withCreator(new PlayerPOCreator());
       return jsonIdMap;
    }
 }

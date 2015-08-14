@@ -35,6 +35,12 @@ class CreatorCreator{
       jsonIdMap.withCreator(new PersonPOCreator());
       jsonIdMap.withCreator(new ItemCreator());
       jsonIdMap.withCreator(new ItemPOCreator());
+      jsonIdMap.withCreator(new GroupAccountCreator());
+      jsonIdMap.withCreator(new GroupAccountPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new ItemCreator());
+      jsonIdMap.withCreator(new ItemPOCreator());
       return jsonIdMap;
    }
 }

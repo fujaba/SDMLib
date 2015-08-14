@@ -42,6 +42,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new DoorPOCreator());
       jsonIdMap.withCreator(new WindowCreator());
       jsonIdMap.withCreator(new WindowPOCreator());
+      jsonIdMap.withCreator(new CubeCreator());
+      jsonIdMap.withCreator(new CubePOCreator());
+      jsonIdMap.withCreator(new HouseCreator());
+      jsonIdMap.withCreator(new HousePOCreator());
+      jsonIdMap.withCreator(new DoorCreator());
+      jsonIdMap.withCreator(new DoorPOCreator());
+      jsonIdMap.withCreator(new WindowCreator());
+      jsonIdMap.withCreator(new WindowPOCreator());
       return jsonIdMap;
    }
 }

@@ -21,14 +21,21 @@
          "id":"P1 : Player",
          "attributes":[
          "name=Tom",
+            "y=0",
             "x=0",
-            "color=blue",
-            "y=0"
+            "color=blue"
          ]
       },
       {
          "typ":"node",
-         "id":"F2 : Field",
+         "id":"D2 : Dice",
+         "attributes":[
+         "value=6"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"F3 : Field",
          "attributes":[
          "color=blue",
             "kind=base",
@@ -38,14 +45,7 @@
       },
       {
          "typ":"node",
-         "id":"D4 : Dice",
-         "attributes":[
-         "value=6"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P3 : Pawn",
+         "id":"P4 : Pawn",
          "attributes":[
          "color=blue",
             "x=0",
@@ -108,27 +108,14 @@
          "id":"P11 : Player",
          "attributes":[
          "name=Sabine",
+            "y=0",
             "x=0",
-            "color=red",
-            "y=0"
+            "color=red"
          ]
       }
    ],
    "edges":[
    {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"baseowner",
-            "id":"P1 : Player"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"base",
-            "id":"F2 : Field"
-         }
-      },
-      {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
@@ -138,7 +125,20 @@
          "target":{
             "cardinality":"one",
             "property":"dice",
-            "id":"D4 : Dice"
+            "id":"D2 : Dice"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"baseowner",
+            "id":"P1 : Player"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"base",
+            "id":"F3 : Field"
          }
       },
       {
@@ -151,7 +151,7 @@
          "target":{
             "cardinality":"many",
             "property":"pawns",
-            "id":"P3 : Pawn"
+            "id":"P4 : Pawn"
          }
       },
       {
@@ -185,12 +185,12 @@
          "source":{
             "cardinality":"one",
             "property":"pos",
-            "id":"F2 : Field"
+            "id":"F3 : Field"
          },
          "target":{
             "cardinality":"many",
             "property":"pawns",
-            "id":"P3 : Pawn"
+            "id":"P4 : Pawn"
          }
       },
       {
@@ -300,14 +300,21 @@
          "id":"P1 : Player",
          "attributes":[
          "name=Tom",
+            "y=0",
             "x=0",
-            "color=blue",
-            "y=0"
+            "color=blue"
          ]
       },
       {
          "typ":"node",
-         "id":"F2 : Field",
+         "id":"D2 : Dice",
+         "attributes":[
+         "value=6"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"F3 : Field",
          "attributes":[
          "color=blue",
             "kind=base",
@@ -317,14 +324,7 @@
       },
       {
          "typ":"node",
-         "id":"D4 : Dice",
-         "attributes":[
-         "value=6"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P3 : Pawn",
+         "id":"P4 : Pawn",
          "attributes":[
          "color=blue",
             "x=0",
@@ -387,27 +387,14 @@
          "id":"P11 : Player",
          "attributes":[
          "name=Sabine",
+            "y=0",
             "x=0",
-            "color=red",
-            "y=0"
+            "color=red"
          ]
       }
    ],
    "edges":[
    {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"baseowner",
-            "id":"P1 : Player"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"base",
-            "id":"F2 : Field"
-         }
-      },
-      {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
@@ -417,7 +404,20 @@
          "target":{
             "cardinality":"one",
             "property":"dice",
-            "id":"D4 : Dice"
+            "id":"D2 : Dice"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"baseowner",
+            "id":"P1 : Player"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"base",
+            "id":"F3 : Field"
          }
       },
       {
@@ -430,7 +430,7 @@
          "target":{
             "cardinality":"many",
             "property":"pawns",
-            "id":"P3 : Pawn"
+            "id":"P4 : Pawn"
          }
       },
       {
@@ -464,7 +464,7 @@
          "source":{
             "cardinality":"many",
             "property":"pawns",
-            "id":"P3 : Pawn"
+            "id":"P4 : Pawn"
          },
          "target":{
             "cardinality":"one",

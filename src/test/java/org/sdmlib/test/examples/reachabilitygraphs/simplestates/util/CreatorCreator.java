@@ -27,6 +27,10 @@ class CreatorCreator{
       jsonIdMap.withCreator(new SimpleStatePOCreator());
       jsonIdMap.withCreator(new NodeCreator());
       jsonIdMap.withCreator(new NodePOCreator());
+      jsonIdMap.withCreator(new SimpleStateCreator());
+      jsonIdMap.withCreator(new SimpleStatePOCreator());
+      jsonIdMap.withCreator(new NodeCreator());
+      jsonIdMap.withCreator(new NodePOCreator());
       return jsonIdMap;
    }
 }

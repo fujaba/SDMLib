@@ -49,6 +49,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new GreetingMessagePOCreator());
       jsonIdMap.withCreator(new PersonCreator());
       jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new GreetingCreator());
+      jsonIdMap.withCreator(new GreetingPOCreator());
+      jsonIdMap.withCreator(new GreetingCreator());
+      jsonIdMap.withCreator(new GreetingPOCreator());
+      jsonIdMap.withCreator(new GreetingMessageCreator());
+      jsonIdMap.withCreator(new GreetingMessagePOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
       return jsonIdMap;
    }
 }

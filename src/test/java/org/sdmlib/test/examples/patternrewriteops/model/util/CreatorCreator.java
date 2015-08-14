@@ -43,6 +43,14 @@ class CreatorCreator{
       jsonIdMap.withCreator(new PersonPOCreator());
       jsonIdMap.withCreator(new SignalFlagCreator());
       jsonIdMap.withCreator(new SignalFlagPOCreator());
+      jsonIdMap.withCreator(new TrainCreator());
+      jsonIdMap.withCreator(new TrainPOCreator());
+      jsonIdMap.withCreator(new StationCreator());
+      jsonIdMap.withCreator(new StationPOCreator());
+      jsonIdMap.withCreator(new PersonCreator());
+      jsonIdMap.withCreator(new PersonPOCreator());
+      jsonIdMap.withCreator(new SignalFlagCreator());
+      jsonIdMap.withCreator(new SignalFlagPOCreator());
       return jsonIdMap;
    }
 }

@@ -28,23 +28,23 @@ public abstract class SDMSet<T> extends SimpleSet<T> implements ModelSet
 	   return (ST)this;
    }
    
-   @Override
-   public Iterator<T> iterator()
-   {
-      // noOfIteratorRequests++;
-
-      // try to reuse old iterator 
-      if (oldIterator == null || ! oldIterator.isReusable())
-      {
-         oldIterator = (SimpleIterator) super.iterator();
-         return oldIterator;
-      }
-
-      // may reuse old
-      // noOfIteratorReuses++;
-      oldIterator.withList(this);
-      return oldIterator;
-   }
+   //   @Override
+   //   public Iterator<T> iterator()
+   //   {
+   //      // noOfIteratorRequests++;
+   //
+   //      // try to reuse old iterator 
+   //      if (oldIterator == null || ! oldIterator.isReusable())
+   //      {
+   //         oldIterator = (SimpleIterator) super.iterator();
+   //         return oldIterator;
+   //      }
+   //
+   //      // may reuse old
+   //      // noOfIteratorReuses++;
+   //      oldIterator.withList(this);
+   //      return oldIterator;
+   //   }
    
    @Override
    public String toString()

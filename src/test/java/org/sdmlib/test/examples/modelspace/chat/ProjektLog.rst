@@ -8,15 +8,23 @@ Bugs
 
 b5. Parser Problem: 'v' : but '{' expected in TeachingAssistantCreator.java  at line 58
     "      return null;"
-          ^
+    Caused by Templeates --> Stefan
 
 Backlog
 -------
 
+Active
+------
 f2. horizontal and vertical model splitting
+
+    f2.2 vertical model splitting
+
+f3. MSChatGroupClient tests
 
 Done
 ----
+
+f2.1 horizontal model splitting 
 
 f3. testing multiple chat clients
 

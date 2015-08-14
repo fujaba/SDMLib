@@ -30,6 +30,28 @@
             "time : long",
             "sender : String"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"MSChatGroup",
+         "attributes":[
+         "task : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"MSChatMember",
+         "attributes":[
+         "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"MSChatChannelDescription",
+         "attributes":[
+         "name : String",
+            "location : String"
+         ]
       }
    ],
    "edges":[
@@ -44,6 +66,45 @@
             "id":"MSChatMsg",
             "cardinality":"many",
             "property":"msgs"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MSChatGroup",
+            "cardinality":"one",
+            "property":"group"
+         },
+         "target":{
+            "id":"MSChatMember",
+            "cardinality":"many",
+            "property":"members"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MSChatGroup",
+            "cardinality":"one",
+            "property":"group"
+         },
+         "target":{
+            "id":"MSChatChannelDescription",
+            "cardinality":"many",
+            "property":"channels"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"MSChatMember",
+            "cardinality":"many",
+            "property":"members"
+         },
+         "target":{
+            "id":"MSChatChannelDescription",
+            "cardinality":"many",
+            "property":"channels"
          }
       }
    ]
