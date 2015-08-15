@@ -67,7 +67,31 @@ public class ItemController implements PropertyChangeListener
          
          textField = javafxUtils.createTextField(view);
          textField.setPrefWidth(200);
-         javafxUtils.bindString(textField, item, Item.PROPERTY_DESCRIPTION);
+         
+         PropertyChangeListener listener = new PropertyChangeListener()
+         {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt)
+            {
+               textField.setText(item.getDescription());
+            }
+         };
+         
+         item.getPropertyChangeSupport().addPropertyChangeListener(Item.PROPERTY_DESCRIPTION, listener);
+         
+         listener.propertyChange(null);
+         
+         textField.textProperty().addListener(new ChangeListener<String>()
+            {
+               @Override
+               public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2)
+               {
+                  item.setDescription(textField.getText());
+               }
+            });
+         
+         
+         // javafxUtils.bindString(textField, item, Item.PROPERTY_DESCRIPTION);
          textField.requestFocus();
          textField.selectAll();
          
@@ -100,7 +124,7 @@ public class ItemController implements PropertyChangeListener
 
    private void bindItemValue(final TextField textField)
    {
-      item.getPropertyChangeSupport().addPropertyChangeListener(Item.PROPERTY_VALUE, new PropertyChangeListener()
+      PropertyChangeListener listener = new PropertyChangeListener()
       {
          @Override
          public void propertyChange(PropertyChangeEvent evt)
@@ -108,9 +132,10 @@ public class ItemController implements PropertyChangeListener
             String text = String.format(Locale.ENGLISH, "%.2f €", item.getValue());
             textField.setText(text);
          }
-      });
+      };
+      item.getPropertyChangeSupport().addPropertyChangeListener(Item.PROPERTY_VALUE, listener);
          
-      item.getPropertyChangeSupport().firePropertyChange(Item.PROPERTY_VALUE, 42.0, 0.0);
+      listener.propertyChange(null);
       
       textField.focusedProperty().addListener(new ChangeListener<Boolean>()
       {

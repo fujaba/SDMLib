@@ -4,6 +4,7 @@ package org.sdmlib.test.examples.groupaccount.gui;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -78,6 +79,7 @@ public class PersonController implements PropertyChangeListener
    private VBox content;
    private VBox itemList;
    private Button addItemButton;
+   private Label balanceLabel;
    
    public VBox getContent()
    {
@@ -96,6 +98,7 @@ public class PersonController implements PropertyChangeListener
          
 
          nameField = javafxUtils.createTextField(view);
+         nameField.setText(person.getName());
          nameField.textProperty().addListener(new ChangeListener<String>()
          {
             @Override
@@ -147,8 +150,22 @@ public class PersonController implements PropertyChangeListener
          
          label = javafxUtils.createLabel(hBox, "Account balance:", 200);
 
-         label = javafxUtils.createLabel(hBox, "0,00 €", 68);
-         javafxUtils.bindDouble(label, person, Person.PROPERTY_BALANCE);
+         balanceLabel = javafxUtils.createLabel(hBox, "0,00 €", 68);
+
+         PropertyChangeListener listener = new PropertyChangeListener()
+         {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt)
+            {
+               String text = String.format(Locale.ENGLISH, "%.2f €", person.getBalance());
+               balanceLabel.setText(text);  
+            }
+         };
+         
+         listener.propertyChange(null);
+         
+         person.getPropertyChangeSupport().addPropertyChangeListener(Person.PROPERTY_BALANCE, listener);
+         // javafxUtils.bindDouble(label, person, Person.PROPERTY_BALANCE);
          
          Button button = javafxUtils.createButtonInBox("Del Person", hBox, 8);
 
