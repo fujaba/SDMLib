@@ -10,6 +10,12 @@ class CreatorCreator{
       JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       jsonIdMap.withCreator(new ModelSpaceCreator());
       jsonIdMap.withCreator(new ModelSpacePOCreator());
+      jsonIdMap.withCreator(new ModelSpaceCreator());
+      jsonIdMap.withCreator(new ModelSpacePOCreator());
+      jsonIdMap.withCreator(new ModelCloudCreator());
+      jsonIdMap.withCreator(new ModelCloudPOCreator());
+      jsonIdMap.withCreator(new ModelCloudProxyCreator());
+      jsonIdMap.withCreator(new ModelCloudProxyPOCreator());
       return jsonIdMap;
    }
 }

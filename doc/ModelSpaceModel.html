@@ -18,9 +18,38 @@
    {
          "typ":"node",
          "id":"ModelSpace"
+      },
+      {
+         "typ":"node",
+         "id":"ModelCloud",
+         "attributes":[
+         "acceptPort : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"ModelCloudProxy",
+         "attributes":[
+         "hostName : String",
+            "portNo : int"
+         ]
       }
    ],
-   "edges":[]
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"ModelCloud",
+            "cardinality":"one",
+            "property":"root"
+         },
+         "target":{
+            "id":"ModelCloudProxy",
+            "cardinality":"many",
+            "property":"servers"
+         }
+      }
+   ]
 }   ;
    new Graph(json, {"canvasid":"canvasModelSpaceModelClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
