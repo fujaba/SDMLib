@@ -13,6 +13,14 @@ b5. Parser Problem: 'v' : but '{' expected in TeachingAssistantCreator.java  at 
 Backlog
 -------
 
+f5. Model cloud replication 
+
+	f5.2 listen to all contained model spaces
+	
+	f5.3 publish model space changes
+	
+	f5.4 subscribe for model space changes
+
 Active
 ------
 
@@ -22,12 +30,21 @@ f2. horizontal and vertical model splitting
 
 f3. MSChatGroupClient tests
 
-f4. GroupAccount multi user
+f5. Model cloud replication 
 
+	f5.1 gui for model cloud server
+	
+	f5.5 connect cloud servers with each other
+	
+	
 Done
 ----
 
-f2.1 horizontal model splitting 
+f4. GroupAccount multi user
+
+f2. horizontal and vertical model splitting
+
+	f2.1 horizontal model splitting 
 
 f3. testing multiple chat clients
 
