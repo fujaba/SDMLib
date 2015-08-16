@@ -22,8 +22,10 @@
 package org.sdmlib.modelspace;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+
 import org.sdmlib.modelspace.util.ModelCloudProxySet;
 
 public  class ModelCloud implements PropertyChangeInterface
@@ -164,5 +166,18 @@ public  class ModelCloud implements PropertyChangeInterface
       ModelCloudProxy value = new ModelCloudProxy();
       withServers(value);
       return value;
+   }
+
+   public ModelCloudProxy getProxy(String hostName, int portNo)
+   {
+      for (ModelCloudProxy proxy : this.getServers())
+      {
+         if (proxy.getHostName().equals(hostName) && proxy.getPortNo() == portNo)
+         {
+            return proxy;
+         }
+      }
+      
+      return null;
    } 
 }

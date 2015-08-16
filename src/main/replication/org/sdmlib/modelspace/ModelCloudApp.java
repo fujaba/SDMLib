@@ -1,5 +1,7 @@
 package org.sdmlib.modelspace;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import org.sdmlib.javafx.FX;
@@ -135,6 +137,27 @@ public class ModelCloudApp extends Application
          });
 
       stage.show();
+      
+      // open server socket
+      PropertyChangeListener listener = new PropertyChangeListener()
+      {
+         @Override
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            if (modelCloud.getAcceptPort() > 0)
+            {
+               ServerSocketHandler serverSocketHandler = new ServerSocketHandler(modelCloud);
+               serverSocketHandler.start();
+            }
+         }
+      };
+      
+      modelCloud.getPropertyChangeSupport().addPropertyChangeListener(ModelCloud.PROPERTY_ACCEPTPORT, listener);
+      
+      listener.propertyChange(null);
+      
+      // connect to other servers
+      modelCloud.getPropertyChangeSupport().addPropertyChangeListener(ModelCloud.PROPERTY_SERVERS, new OtherServersListener(modelCloud));
    }
 
 }

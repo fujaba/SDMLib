@@ -84,6 +84,34 @@ public  class ModelCloudProxy implements PropertyChangeInterface
    } 
 
 
+   //==========================================================================
+   
+   public static final String PROPERTY_STATE = "state";
+   
+   private String state = "offline";
+
+   public String getState()
+   {
+      return this.state;
+   }
+   
+   public void setState(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.state, value)) {
+      
+         String oldValue = this.state;
+         this.state = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_STATE, oldValue, value);
+      }
+   }
+   
+   public ModelCloudProxy withState(String value)
+   {
+      setState(value);
+      return this;
+   } 
+
+
    @Override
    public String toString()
    {
@@ -91,6 +119,7 @@ public  class ModelCloudProxy implements PropertyChangeInterface
       
       result.append(" ").append(this.getHostName());
       result.append(" ").append(this.getPortNo());
+      result.append(" ").append(this.getState());
       return result.substring(1);
    }
 
@@ -136,6 +165,8 @@ public  class ModelCloudProxy implements PropertyChangeInterface
 
    private ModelCloud root = null;
 
+   private ModelCloudChannel channel;
+
    public ModelCloud getRoot()
    {
       return this.root;
@@ -180,5 +211,15 @@ public  class ModelCloudProxy implements PropertyChangeInterface
       ModelCloud value = new ModelCloud();
       withRoot(value);
       return value;
+   }
+
+   public void setChannel(ModelCloudChannel modelCloudChannel)
+   {
+      this.channel = modelCloudChannel;
    } 
+   
+   public ModelCloudChannel getChannel()
+   {
+      return channel;
+   }
 }
