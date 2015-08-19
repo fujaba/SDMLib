@@ -66,9 +66,9 @@ public class GroupAccountApp extends Application
       if (location == null)
       {
          Parameters params = this.getParameters();
-         if (params != null)
+         List<String> parameters = params.getRaw();
+         if (parameters.size() >= 2)
          {
-            List<String> parameters = params.getRaw();
             location = parameters.get(0);
             userName = parameters.get(1);
             

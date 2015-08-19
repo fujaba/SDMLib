@@ -144,5 +144,7 @@ public class MSChatClientTest
       story.dumpHTML();
       
       System.out.println("Testing model Space done");
+      
+      Platform.exit();
    }
 }

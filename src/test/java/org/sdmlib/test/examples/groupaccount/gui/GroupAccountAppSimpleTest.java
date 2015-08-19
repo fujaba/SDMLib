@@ -13,7 +13,8 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
 public class GroupAccountAppSimpleTest
 {
    LinkedBlockingQueue<Object> testResults = new LinkedBlockingQueue<>();
-   @Test
+   
+   // @Test
    public void testGroupAccountGui()
    {
       new Thread() {
