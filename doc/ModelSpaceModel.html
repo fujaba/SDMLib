@@ -33,6 +33,13 @@
          "hostName : String",
             "portNo : int"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"ModelSpaceProxy",
+         "attributes":[
+         "location : String"
+         ]
       }
    ],
    "edges":[
@@ -47,6 +54,32 @@
             "id":"ModelCloudProxy",
             "cardinality":"many",
             "property":"servers"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ModelCloud",
+            "cardinality":"one",
+            "property":"cloud"
+         },
+         "target":{
+            "id":"ModelSpaceProxy",
+            "cardinality":"many",
+            "property":"modelSpaces"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ModelCloudProxy",
+            "cardinality":"many",
+            "property":"providingClouds"
+         },
+         "target":{
+            "id":"ModelSpaceProxy",
+            "cardinality":"many",
+            "property":"providedSpaces"
          }
       }
    ]

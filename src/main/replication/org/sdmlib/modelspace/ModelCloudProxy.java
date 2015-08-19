@@ -25,6 +25,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
+import org.sdmlib.modelspace.util.ModelSpaceProxySet;
 
 public  class ModelCloudProxy implements PropertyChangeInterface
 {
@@ -52,6 +53,7 @@ public  class ModelCloudProxy implements PropertyChangeInterface
    {
    
       setRoot(null);
+      withoutProvidedSpaces(this.getProvidedSpaces().toArray(new ModelSpaceProxy[this.getProvidedSpaces().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -222,4 +224,76 @@ public  class ModelCloudProxy implements PropertyChangeInterface
    {
       return channel;
    }
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       many
+    * ModelCloudProxy ----------------------------------- ModelSpaceProxy
+    *              providingClouds                   providedSpaces
+    * </pre>
+    */
+   
+   public static final String PROPERTY_PROVIDEDSPACES = "providedSpaces";
+
+   private ModelSpaceProxySet providedSpaces = null;
+   
+   public ModelSpaceProxySet getProvidedSpaces()
+   {
+      if (this.providedSpaces == null)
+      {
+         return ModelSpaceProxySet.EMPTY_SET;
+      }
+   
+      return this.providedSpaces;
+   }
+
+   public ModelCloudProxy withProvidedSpaces(ModelSpaceProxy... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (ModelSpaceProxy item : value)
+      {
+         if (item != null)
+         {
+            if (this.providedSpaces == null)
+            {
+               this.providedSpaces = new ModelSpaceProxySet();
+            }
+            
+            boolean changed = this.providedSpaces.add (item);
+
+            if (changed)
+            {
+               item.withProvidingClouds(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PROVIDEDSPACES, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public ModelCloudProxy withoutProvidedSpaces(ModelSpaceProxy... value)
+   {
+      for (ModelSpaceProxy item : value)
+      {
+         if ((this.providedSpaces != null) && (item != null))
+         {
+            if (this.providedSpaces.remove(item))
+            {
+               item.withoutProvidingClouds(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PROVIDEDSPACES, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public ModelSpaceProxy createProvidedSpaces()
+   {
+      ModelSpaceProxy value = new ModelSpaceProxy();
+      withProvidedSpaces(value);
+      return value;
+   } 
 }

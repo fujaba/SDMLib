@@ -29,6 +29,9 @@ import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.modelspace.util.ModelCloudSet;
 import org.sdmlib.modelspace.ModelCloud;
+import java.util.Collections;
+import org.sdmlib.modelspace.util.ModelSpaceProxySet;
+import org.sdmlib.modelspace.ModelSpaceProxy;
 
 public class ModelCloudProxySet extends SDMSet<ModelCloudProxy>
 {
@@ -216,6 +219,64 @@ public class ModelCloudProxySet extends SDMSet<ModelCloudProxy>
       for (ModelCloudProxy obj : this)
       {
          obj.withRoot(value);
+      }
+      
+      return this;
+   }
+
+   public ModelSpaceProxySet getProvidedSpaces()
+   {
+      ModelSpaceProxySet result = new ModelSpaceProxySet();
+      
+      for (ModelCloudProxy obj : this)
+      {
+         result.addAll(obj.getProvidedSpaces());
+      }
+      
+      return result;
+   }
+
+   public ModelCloudProxySet hasProvidedSpaces(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ModelCloudProxySet answer = new ModelCloudProxySet();
+      
+      for (ModelCloudProxy obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getProvidedSpaces()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ModelCloudProxySet withProvidedSpaces(ModelSpaceProxy value)
+   {
+      for (ModelCloudProxy obj : this)
+      {
+         obj.withProvidedSpaces(value);
+      }
+      
+      return this;
+   }
+
+   public ModelCloudProxySet withoutProvidedSpaces(ModelSpaceProxy value)
+   {
+      for (ModelCloudProxy obj : this)
+      {
+         obj.withoutProvidedSpaces(value);
       }
       
       return this;

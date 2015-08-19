@@ -43,6 +43,7 @@ public class GroupAccountApp extends Application
    private ModelSpace space;
    private String location;
    private String userName;
+   private String cloudLocation;
    
    public Group getGuiRoot()
    {
@@ -60,6 +61,8 @@ public class GroupAccountApp extends Application
       System.out.println("starting");
       theApp = this;
       
+      cloudLocation = "modeldata";
+      
       if (location == null)
       {
          Parameters params = this.getParameters();
@@ -68,10 +71,15 @@ public class GroupAccountApp extends Application
             List<String> parameters = params.getRaw();
             location = parameters.get(0);
             userName = parameters.get(1);
+            
+            if (parameters.size() >= 3)
+            {
+               cloudLocation = parameters.get(2);
+            }
          }
          else
          {
-            location = "modeldata/groupaccount/test";
+            location = cloudLocation + "/groupaccount/test";
             userName = "dummy";
          }
       }

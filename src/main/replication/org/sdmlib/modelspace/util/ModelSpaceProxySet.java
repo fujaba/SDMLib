@@ -22,178 +22,120 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.ModelCloud;
+import org.sdmlib.modelspace.ModelSpaceProxy;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.modelspace.util.ModelCloudSet;
+import org.sdmlib.modelspace.ModelCloud;
 import java.util.Collections;
 import org.sdmlib.modelspace.util.ModelCloudProxySet;
 import org.sdmlib.modelspace.ModelCloudProxy;
-import org.sdmlib.modelspace.util.ModelSpaceProxySet;
-import org.sdmlib.modelspace.ModelSpaceProxy;
 
-public class ModelCloudSet extends SDMSet<ModelCloud>
+public class ModelSpaceProxySet extends SDMSet<ModelSpaceProxy>
 {
 
-   public static final ModelCloudSet EMPTY_SET = new ModelCloudSet().withReadOnly(true);
+   public static final ModelSpaceProxySet EMPTY_SET = new ModelSpaceProxySet().withReadOnly(true);
 
 
-   public ModelCloudPO hasModelCloudPO()
+   public ModelSpaceProxyPO hasModelSpaceProxyPO()
    {
-      return new ModelCloudPO(this.toArray(new ModelCloud[this.size()]));
+      return new ModelSpaceProxyPO(this.toArray(new ModelSpaceProxy[this.size()]));
    }
 
 
    public String getEntryType()
    {
-      return "org.sdmlib.modelspace.ModelCloud";
+      return "org.sdmlib.modelspace.ModelSpaceProxy";
    }
 
 
    @SuppressWarnings("unchecked")
-   public ModelCloudSet with(Object value)
+   public ModelSpaceProxySet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ModelCloud>)value);
+         this.addAll((Collection<ModelSpaceProxy>)value);
       }
       else if (value != null)
       {
-         this.add((ModelCloud) value);
+         this.add((ModelSpaceProxy) value);
       }
       
       return this;
    }
    
-   public ModelCloudSet without(ModelCloud value)
+   public ModelSpaceProxySet without(ModelSpaceProxy value)
    {
       this.remove(value);
       return this;
    }
 
-   public intList getAcceptPort()
+   public StringList getLocation()
    {
-      intList result = new intList();
+      StringList result = new StringList();
       
-      for (ModelCloud obj : this)
+      for (ModelSpaceProxy obj : this)
       {
-         result.add(obj.getAcceptPort());
+         result.add(obj.getLocation());
       }
       
       return result;
    }
 
-   public ModelCloudSet hasAcceptPort(int value)
-   {
-      ModelCloudSet result = new ModelCloudSet();
-      
-      for (ModelCloud obj : this)
-      {
-         if (value == obj.getAcceptPort())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ModelCloudSet hasAcceptPort(int lower, int upper)
-   {
-      ModelCloudSet result = new ModelCloudSet();
-      
-      for (ModelCloud obj : this)
-      {
-         if (lower <= obj.getAcceptPort() && obj.getAcceptPort() <= upper)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public ModelCloudSet withAcceptPort(int value)
-   {
-      for (ModelCloud obj : this)
-      {
-         obj.setAcceptPort(value);
-      }
-      
-      return this;
-   }
-
-   public ModelCloudProxySet getServers()
-   {
-      ModelCloudProxySet result = new ModelCloudProxySet();
-      
-      for (ModelCloud obj : this)
-      {
-         result.addAll(obj.getServers());
-      }
-      
-      return result;
-   }
-
-   public ModelCloudSet hasServers(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ModelCloudSet answer = new ModelCloudSet();
-      
-      for (ModelCloud obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getServers()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public ModelCloudSet withServers(ModelCloudProxy value)
-   {
-      for (ModelCloud obj : this)
-      {
-         obj.withServers(value);
-      }
-      
-      return this;
-   }
-
-   public ModelCloudSet withoutServers(ModelCloudProxy value)
-   {
-      for (ModelCloud obj : this)
-      {
-         obj.withoutServers(value);
-      }
-      
-      return this;
-   }
-
-   public ModelSpaceProxySet getModelSpaces()
+   public ModelSpaceProxySet hasLocation(String value)
    {
       ModelSpaceProxySet result = new ModelSpaceProxySet();
       
-      for (ModelCloud obj : this)
+      for (ModelSpaceProxy obj : this)
       {
-         result.addAll(obj.getModelSpaces());
+         if (value.equals(obj.getLocation()))
+         {
+            result.add(obj);
+         }
       }
       
       return result;
    }
 
-   public ModelCloudSet hasModelSpaces(Object value)
+   public ModelSpaceProxySet hasLocation(String lower, String upper)
+   {
+      ModelSpaceProxySet result = new ModelSpaceProxySet();
+      
+      for (ModelSpaceProxy obj : this)
+      {
+         if (lower.compareTo(obj.getLocation()) <= 0 && obj.getLocation().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ModelSpaceProxySet withLocation(String value)
+   {
+      for (ModelSpaceProxy obj : this)
+      {
+         obj.setLocation(value);
+      }
+      
+      return this;
+   }
+
+   public ModelCloudSet getCloud()
+   {
+      ModelCloudSet result = new ModelCloudSet();
+      
+      for (ModelSpaceProxy obj : this)
+      {
+         result.add(obj.getCloud());
+      }
+      
+      return result;
+   }
+
+   public ModelSpaceProxySet hasCloud(Object value)
    {
       ObjectSet neighbors = new ObjectSet();
 
@@ -206,11 +148,11 @@ public class ModelCloudSet extends SDMSet<ModelCloud>
          neighbors.add(value);
       }
       
-      ModelCloudSet answer = new ModelCloudSet();
+      ModelSpaceProxySet answer = new ModelSpaceProxySet();
       
-      for (ModelCloud obj : this)
+      for (ModelSpaceProxy obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getModelSpaces()))
+         if (neighbors.contains(obj.getCloud()))
          {
             answer.add(obj);
          }
@@ -219,21 +161,69 @@ public class ModelCloudSet extends SDMSet<ModelCloud>
       return answer;
    }
 
-   public ModelCloudSet withModelSpaces(ModelSpaceProxy value)
+   public ModelSpaceProxySet withCloud(ModelCloud value)
    {
-      for (ModelCloud obj : this)
+      for (ModelSpaceProxy obj : this)
       {
-         obj.withModelSpaces(value);
+         obj.withCloud(value);
       }
       
       return this;
    }
 
-   public ModelCloudSet withoutModelSpaces(ModelSpaceProxy value)
+   public ModelCloudProxySet getProvidingClouds()
    {
-      for (ModelCloud obj : this)
+      ModelCloudProxySet result = new ModelCloudProxySet();
+      
+      for (ModelSpaceProxy obj : this)
       {
-         obj.withoutModelSpaces(value);
+         result.addAll(obj.getProvidingClouds());
+      }
+      
+      return result;
+   }
+
+   public ModelSpaceProxySet hasProvidingClouds(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ModelSpaceProxySet answer = new ModelSpaceProxySet();
+      
+      for (ModelSpaceProxy obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getProvidingClouds()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   public ModelSpaceProxySet withProvidingClouds(ModelCloudProxy value)
+   {
+      for (ModelSpaceProxy obj : this)
+      {
+         obj.withProvidingClouds(value);
+      }
+      
+      return this;
+   }
+
+   public ModelSpaceProxySet withoutProvidingClouds(ModelCloudProxy value)
+   {
+      for (ModelSpaceProxy obj : this)
+      {
+         obj.withoutProvidingClouds(value);
       }
       
       return this;

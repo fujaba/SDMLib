@@ -77,7 +77,7 @@ public class ChangeEventList implements PropertyChangeInterface
          if (ChangeEvent.PLAIN.equals(propertyKind) || ChangeEvent.TO_ONE.equals(propertyKind))
          {
             ChangeEvent oldEvent = (ChangeEvent) attrChange;
-            if (oldEvent.compareTo(change) <= 0)
+            if (oldEvent.compareTo(change) < 0)
             {
                // new change is newer
                attrTable.put(property, change);
@@ -106,7 +106,7 @@ public class ChangeEventList implements PropertyChangeInterface
             else
             {
                // yes this target object has been here before
-               if (oldChange.compareTo(change) <= 0)
+               if (oldChange.compareTo(change) < 0)
                {
                   // new change is newer
                   eventList.remove(oldChange);

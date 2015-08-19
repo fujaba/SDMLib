@@ -29,7 +29,13 @@ public class ModelSpaceModel
             .withAttribute("hostName", DataType.STRING)
             .withAttribute("portNo", DataType.INT);
       
+      Clazz spaceProxy = model.createClazz("ModelSpaceProxy")
+            .withAttribute("location", DataType.STRING);
+      
       cloud.withAssoc(cloudProxy, "servers", Card.MANY, "root", Card.ONE);
+      cloud.withAssoc(spaceProxy, "modelSpaces", Card.MANY, "cloud", Card.ONE);
+      
+      cloudProxy.withAssoc(spaceProxy, "providedSpaces", Card.MANY, "providingClouds", Card.MANY);
       
       model.generate("src/main/replication");
       

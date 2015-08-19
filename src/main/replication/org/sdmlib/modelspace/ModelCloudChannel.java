@@ -50,6 +50,8 @@ public class ModelCloudChannel implements PropertyChangeListener
             
             // first send my own data
             sendMyProxyAddress();
+            
+            
          }
          catch (IOException e)
          {
@@ -78,6 +80,19 @@ public class ModelCloudChannel implements PropertyChangeListener
       out.flush();
       
       proxy.setState("online");
+   }
+
+   public void send(String msg)
+   {
+      try
+      {
+         out.write(msg + "\n");
+         out.flush();
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
    }
 
 

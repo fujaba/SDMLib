@@ -23,18 +23,17 @@ package org.sdmlib.modelspace.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.modelspace.ModelCloudProxy;
-import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelSpaceProxy;
+import org.sdmlib.modelspace.ModelCloud;
+import org.sdmlib.modelspace.ModelCloudProxy;
 
-public class ModelCloudProxyCreator extends EntityFactory
+public class ModelSpaceProxyCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      ModelCloudProxy.PROPERTY_HOSTNAME,
-      ModelCloudProxy.PROPERTY_PORTNO,
-      ModelCloudProxy.PROPERTY_ROOT,
-      // ModelCloudProxy.PROPERTY_PROVIDEDSPACES,
+      ModelSpaceProxy.PROPERTY_LOCATION,
+      ModelSpaceProxy.PROPERTY_CLOUD,
+      ModelSpaceProxy.PROPERTY_PROVIDINGCLOUDS,
    };
    
    @Override
@@ -46,7 +45,7 @@ public class ModelCloudProxyCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ModelCloudProxy();
+      return new ModelSpaceProxy();
    }
    
    @Override
@@ -60,24 +59,19 @@ public class ModelCloudProxyCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (ModelCloudProxy.PROPERTY_HOSTNAME.equalsIgnoreCase(attribute))
+      if (ModelSpaceProxy.PROPERTY_LOCATION.equalsIgnoreCase(attribute))
       {
-         return ((ModelCloudProxy) target).getHostName();
+         return ((ModelSpaceProxy) target).getLocation();
       }
 
-      if (ModelCloudProxy.PROPERTY_PORTNO.equalsIgnoreCase(attribute))
+      if (ModelSpaceProxy.PROPERTY_CLOUD.equalsIgnoreCase(attribute))
       {
-         return ((ModelCloudProxy) target).getPortNo();
+         return ((ModelSpaceProxy) target).getCloud();
       }
 
-      if (ModelCloudProxy.PROPERTY_ROOT.equalsIgnoreCase(attribute))
+      if (ModelSpaceProxy.PROPERTY_PROVIDINGCLOUDS.equalsIgnoreCase(attribute))
       {
-         return ((ModelCloudProxy) target).getRoot();
-      }
-
-      if (ModelCloudProxy.PROPERTY_PROVIDEDSPACES.equalsIgnoreCase(attribute))
-      {
-         return ((ModelCloudProxy) target).getProvidedSpaces();
+         return ((ModelSpaceProxy) target).getProvidingClouds();
       }
       
       return null;
@@ -91,33 +85,27 @@ public class ModelCloudProxyCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (ModelCloudProxy.PROPERTY_HOSTNAME.equalsIgnoreCase(attrName))
+      if (ModelSpaceProxy.PROPERTY_LOCATION.equalsIgnoreCase(attrName))
       {
-         ((ModelCloudProxy) target).withHostName((String) value);
+         ((ModelSpaceProxy) target).withLocation((String) value);
          return true;
       }
 
-      if (ModelCloudProxy.PROPERTY_PORTNO.equalsIgnoreCase(attrName))
+      if (ModelSpaceProxy.PROPERTY_CLOUD.equalsIgnoreCase(attrName))
       {
-         ((ModelCloudProxy) target).withPortNo(Integer.parseInt(value.toString()));
+         ((ModelSpaceProxy) target).setCloud((ModelCloud) value);
          return true;
       }
 
-      if (ModelCloudProxy.PROPERTY_ROOT.equalsIgnoreCase(attrName))
+      if (ModelSpaceProxy.PROPERTY_PROVIDINGCLOUDS.equalsIgnoreCase(attrName))
       {
-         ((ModelCloudProxy) target).setRoot((ModelCloud) value);
-         return true;
-      }
-
-      if (ModelCloudProxy.PROPERTY_PROVIDEDSPACES.equalsIgnoreCase(attrName))
-      {
-         ((ModelCloudProxy) target).withProvidedSpaces((ModelSpaceProxy) value);
+         ((ModelSpaceProxy) target).withProvidingClouds((ModelCloudProxy) value);
          return true;
       }
       
-      if ((ModelCloudProxy.PROPERTY_PROVIDEDSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((ModelSpaceProxy.PROPERTY_PROVIDINGCLOUDS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ModelCloudProxy) target).withoutProvidedSpaces((ModelSpaceProxy) value);
+         ((ModelSpaceProxy) target).withoutProvidingClouds((ModelCloudProxy) value);
          return true;
       }
       
@@ -133,6 +121,6 @@ public class ModelCloudProxyCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((ModelCloudProxy) entity).removeYou();
+      ((ModelSpaceProxy) entity).removeYou();
    }
 }

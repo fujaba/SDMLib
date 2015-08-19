@@ -44,6 +44,7 @@ public class ModelCloudApp extends Application
    private HBox addServerBox;
    private TextField hostNameField;
    private TextField portNoField;
+   private VBox modelSpaceProxiesVbox;
    
    @Override
    public void start(Stage stage) throws Exception
@@ -111,9 +112,16 @@ public class ModelCloudApp extends Application
       addServerBox = new HBox(8);
       addServerBox.getChildren().addAll(hostNameField, portNoField, button);
       
+      // add listener for model space proxies
+      
+      modelSpaceProxiesVbox = new VBox(8);
+      
+      modelCloud.getPropertyChangeSupport().addPropertyChangeListener(ModelCloud.PROPERTY_MODELSPACES, 
+         new ModelSpaceProxyListener(modelCloud, modelSpaceProxiesVbox));
+      
       root = new VBox(8);
       root.setPadding(new Insets(24));
-      root.getChildren().addAll(hBox, otherServersLabel, otherSeversVBox, addServerBox);
+      root.getChildren().addAll(hBox, otherServersLabel, otherSeversVBox, addServerBox, modelSpaceProxiesVbox);
       
       ScrollPane scrollPane = new ScrollPane(root);
       
@@ -158,6 +166,10 @@ public class ModelCloudApp extends Application
       
       // connect to other servers
       modelCloud.getPropertyChangeSupport().addPropertyChangeListener(ModelCloud.PROPERTY_SERVERS, new OtherServersListener(modelCloud));
+      
+      // open listener for root directory
+      ModelDirListener modelDirListener = new ModelDirListener(modelCloud, location, "");
+      modelDirListener.start();
    }
 
 }

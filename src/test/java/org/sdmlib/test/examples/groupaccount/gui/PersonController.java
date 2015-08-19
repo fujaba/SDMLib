@@ -108,6 +108,16 @@ public class PersonController implements PropertyChangeListener
             }
          });
          
+         person.getPropertyChangeSupport().addPropertyChangeListener(Person.PROPERTY_NAME, new PropertyChangeListener()
+         {
+            
+            @Override
+            public void propertyChange(PropertyChangeEvent evt)
+            {
+               nameField.setText(person.getName());
+            }
+         });
+         
          // javafxUtils.bindString(nameField, person, Person.PROPERTY_NAME);
        
          content = new VBox();
@@ -188,6 +198,8 @@ public class PersonController implements PropertyChangeListener
          javafxUtils.createLabel(content, " ");
          
       }
+      
+      // update name field
       
       for (Item item : person.getItem())
       {

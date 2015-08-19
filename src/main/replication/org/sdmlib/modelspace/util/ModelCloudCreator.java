@@ -25,6 +25,7 @@ import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
+import org.sdmlib.modelspace.ModelSpaceProxy;
 
 public class ModelCloudCreator extends EntityFactory
 {
@@ -32,6 +33,7 @@ public class ModelCloudCreator extends EntityFactory
    {
       ModelCloud.PROPERTY_ACCEPTPORT,
       ModelCloud.PROPERTY_SERVERS,
+      // ModelCloud.PROPERTY_MODELSPACES,
    };
    
    @Override
@@ -66,6 +68,11 @@ public class ModelCloudCreator extends EntityFactory
       {
          return ((ModelCloud) target).getServers();
       }
+
+      if (ModelCloud.PROPERTY_MODELSPACES.equalsIgnoreCase(attribute))
+      {
+         return ((ModelCloud) target).getModelSpaces();
+      }
       
       return null;
    }
@@ -93,6 +100,18 @@ public class ModelCloudCreator extends EntityFactory
       if ((ModelCloud.PROPERTY_SERVERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((ModelCloud) target).withoutServers((ModelCloudProxy) value);
+         return true;
+      }
+
+      if (ModelCloud.PROPERTY_MODELSPACES.equalsIgnoreCase(attrName))
+      {
+         ((ModelCloud) target).withModelSpaces((ModelSpaceProxy) value);
+         return true;
+      }
+      
+      if ((ModelCloud.PROPERTY_MODELSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((ModelCloud) target).withoutModelSpaces((ModelSpaceProxy) value);
          return true;
       }
       

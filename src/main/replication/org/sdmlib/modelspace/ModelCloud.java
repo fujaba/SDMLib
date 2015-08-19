@@ -25,8 +25,15 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 import org.sdmlib.modelspace.util.ModelCloudProxySet;
+import org.sdmlib.modelspace.util.ModelSpaceProxySet;
+
+import com.sun.media.sound.ModelConnectionBlock;
+
+import de.uniks.networkparser.json.JsonObject;
 
 public  class ModelCloud implements PropertyChangeInterface
 {
@@ -54,6 +61,7 @@ public  class ModelCloud implements PropertyChangeInterface
    {
    
       withoutServers(this.getServers().toArray(new ModelCloudProxy[this.getServers().size()]));
+      withoutModelSpaces(this.getModelSpaces().toArray(new ModelSpaceProxy[this.getModelSpaces().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -179,5 +187,140 @@ public  class ModelCloud implements PropertyChangeInterface
       }
       
       return null;
+   }
+
+   public ModelSpaceProxy getOrCreateModelSpaceProxy(String location, ModelDirListener modelDirListener)
+   {
+      for (ModelSpaceProxy proxy : this.getModelSpaces())
+      {
+         if (proxy.getLocation().equals(location))
+         {
+            if (modelDirListener != null)
+            {
+               proxy.setModelDirListener(modelDirListener); 
+            }
+            
+            return proxy;
+         }
+      }
+      
+      ModelSpaceProxy proxy = new ModelSpaceProxy().withLocation(location).withCloud(this);
+      
+      if (modelDirListener != null)
+      {
+         proxy.setModelDirListener(modelDirListener); 
+      }
+      
+      return proxy;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       many
+    * ModelCloud ----------------------------------- ModelSpaceProxy
+    *              cloud                   modelSpaces
+    * </pre>
+    */
+   
+   public static final String PROPERTY_MODELSPACES = "modelSpaces";
+
+   private ModelSpaceProxySet modelSpaces = null;
+   
+   public ModelSpaceProxySet getModelSpaces()
+   {
+      if (this.modelSpaces == null)
+      {
+         return ModelSpaceProxySet.EMPTY_SET;
+      }
+   
+      return this.modelSpaces;
+   }
+
+   public ModelCloud withModelSpaces(ModelSpaceProxy... value)
+   {
+      if(value==null){
+         return this;
+      }
+      for (ModelSpaceProxy item : value)
+      {
+         if (item != null)
+         {
+            if (this.modelSpaces == null)
+            {
+               this.modelSpaces = new ModelSpaceProxySet();
+            }
+            
+            boolean changed = this.modelSpaces.add (item);
+
+            if (changed)
+            {
+               item.withCloud(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELSPACES, null, item);
+            }
+         }
+      }
+      return this;
+   } 
+
+   public ModelCloud withoutModelSpaces(ModelSpaceProxy... value)
+   {
+      for (ModelSpaceProxy item : value)
+      {
+         if ((this.modelSpaces != null) && (item != null))
+         {
+            if (this.modelSpaces.remove(item))
+            {
+               item.setCloud(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELSPACES, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public ModelSpaceProxy createModelSpaces()
+   {
+      ModelSpaceProxy value = new ModelSpaceProxy();
+      withModelSpaces(value);
+      return value;
+   }
+   
+
+   public void subscribeForModelSpace(String modelSpaceName)
+   {
+      for (ModelCloudProxy cloudProxy : this.getServers())
+      {
+         if (cloudProxy.getState().equals("online"))
+         {
+            ModelCloudChannel channel = cloudProxy.getChannel();
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.withKeyValue("msgtype", "subscribe")
+            .withKeyValue("hostName", "localhost")
+            .withKeyValue("portNo", this.getAcceptPort())
+            .withKeyValue("modelSpaceName", modelSpaceName);
+            
+            String msg = jsonObject.toString();
+            
+            channel.send(msg);
+         }
+         
+      }
+      
+   }
+
+   
+   public void subscribeForExistingModelSpaces()
+   {
+      for (ModelSpaceProxy spaceProxy : this.getModelSpaces())
+      {
+         if (spaceProxy.getModelDirListener() != null)
+         {
+            String location = spaceProxy.getLocation();
+            
+            this.subscribeForModelSpace(location);
+         }
+      }
    } 
 }

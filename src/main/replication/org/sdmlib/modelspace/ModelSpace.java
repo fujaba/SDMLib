@@ -141,8 +141,6 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
             {
                WatchKey watchKey = watcher.take();
                
-               System.out.println("got dir change " + watchKey);
-
                for (WatchEvent<?> event : watchKey.pollEvents())
                {
                   WatchEvent.Kind<?> kind = event.kind();
@@ -210,7 +208,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
                
                boolean reset = watchKey.reset();
                
-               System.out.println("reset: " + reset);
+               // System.out.println("reset: " + reset);
             }
             catch (Exception e)
             {
@@ -317,7 +315,6 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
          while (line != null)
          {
             // process change
-            System.out.println(userName + " reads: " + line);
             handleChange(line);
             line = buf.readLine();
          }

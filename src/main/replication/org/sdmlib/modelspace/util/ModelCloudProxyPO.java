@@ -6,6 +6,9 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.modelspace.util.ModelCloudPO;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.util.ModelCloudProxyPO;
+import org.sdmlib.modelspace.util.ModelSpaceProxyPO;
+import org.sdmlib.modelspace.ModelSpaceProxy;
+import org.sdmlib.modelspace.util.ModelSpaceProxySet;
 
 public class ModelCloudProxyPO extends PatternObject<ModelCloudProxyPO, ModelCloudProxy>
 {
@@ -173,6 +176,40 @@ public class ModelCloudProxyPO extends PatternObject<ModelCloudProxyPO, ModelClo
       if (this.getPattern().getHasMatch())
       {
          return ((ModelCloudProxy) this.getCurrentMatch()).getRoot();
+      }
+      return null;
+   }
+
+   public ModelSpaceProxyPO hasProvidedSpaces()
+   {
+      ModelSpaceProxyPO result = new ModelSpaceProxyPO(new ModelSpaceProxy[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCloudProxy.PROPERTY_PROVIDEDSPACES, result);
+      
+      return result;
+   }
+
+   public ModelSpaceProxyPO createProvidedSpaces()
+   {
+      return this.startCreate().hasProvidedSpaces().endCreate();
+   }
+
+   public ModelCloudProxyPO hasProvidedSpaces(ModelSpaceProxyPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCloudProxy.PROPERTY_PROVIDEDSPACES);
+   }
+
+   public ModelCloudProxyPO createProvidedSpaces(ModelSpaceProxyPO tgt)
+   {
+      return this.startCreate().hasProvidedSpaces(tgt).endCreate();
+   }
+
+   public ModelSpaceProxySet getProvidedSpaces()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ModelCloudProxy) this.getCurrentMatch()).getProvidedSpaces();
       }
       return null;
    }

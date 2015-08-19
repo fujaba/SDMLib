@@ -16,6 +16,22 @@ class CreatorCreator{
       jsonIdMap.withCreator(new ModelCloudPOCreator());
       jsonIdMap.withCreator(new ModelCloudProxyCreator());
       jsonIdMap.withCreator(new ModelCloudProxyPOCreator());
+      jsonIdMap.withCreator(new ModelSpaceCreator());
+      jsonIdMap.withCreator(new ModelSpacePOCreator());
+      jsonIdMap.withCreator(new ModelCloudCreator());
+      jsonIdMap.withCreator(new ModelCloudPOCreator());
+      jsonIdMap.withCreator(new ModelCloudProxyCreator());
+      jsonIdMap.withCreator(new ModelCloudProxyPOCreator());
+      jsonIdMap.withCreator(new ModelSpaceProxyCreator());
+      jsonIdMap.withCreator(new ModelSpaceProxyPOCreator());
+      jsonIdMap.withCreator(new ModelSpaceCreator());
+      jsonIdMap.withCreator(new ModelSpacePOCreator());
+      jsonIdMap.withCreator(new ModelCloudCreator());
+      jsonIdMap.withCreator(new ModelCloudPOCreator());
+      jsonIdMap.withCreator(new ModelCloudProxyCreator());
+      jsonIdMap.withCreator(new ModelCloudProxyPOCreator());
+      jsonIdMap.withCreator(new ModelSpaceProxyCreator());
+      jsonIdMap.withCreator(new ModelSpaceProxyPOCreator());
       return jsonIdMap;
    }
 }
