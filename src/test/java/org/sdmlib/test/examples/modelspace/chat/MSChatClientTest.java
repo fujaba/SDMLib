@@ -142,5 +142,7 @@ public class MSChatClientTest
       story.addObjectDiagram(channel);
 
       story.dumpHTML();
+      
+      System.out.println("Testing model Space done");
    }
 }
