@@ -4,13 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import org.sdmlib.javafx.FX;
-import org.sdmlib.modelspace.ModelSpace.ApplicationType;
-import org.sdmlib.modelspace.util.ModelCloudCreator;
-import org.sdmlib.test.examples.modelspace.chat.MSChatGroup;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupCreator;
-
-import de.uniks.networkparser.json.JsonIdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,6 +18,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import org.sdmlib.javafx.FX;
+import org.sdmlib.modelspace.ModelSpace.ApplicationType;
+import org.sdmlib.modelspace.util.ModelCloudCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class ModelCloudApp extends Application
 {
