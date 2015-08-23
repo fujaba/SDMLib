@@ -41,7 +41,10 @@ public class MSChatClientTest
       {
          for (File f : file.listFiles())
          {
-            f.delete();
+            if ( ! f.getName().endsWith(".gitignore"))
+            {
+               f.delete();
+            }
          }
       }
       

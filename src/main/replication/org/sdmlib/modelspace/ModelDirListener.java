@@ -141,7 +141,7 @@ public class ModelDirListener extends Thread
 
          String fileName = location + "/" + filepath.toString();
 
-         if (fileName.endsWith(".json"))
+         if (fileName.endsWith(ModelSpace.JSONCHGS))
          {
             addJsonFile(fileName);
          }
@@ -166,7 +166,7 @@ public class ModelDirListener extends Thread
 
          String fileName = location + "/" + filepath.toString();
          
-         if (fileName.endsWith(".json"))
+         if (fileName.endsWith(ModelSpace.JSONCHGS))
          {
             addJsonFile(fileName);
          }
@@ -221,7 +221,7 @@ public class ModelDirListener extends Thread
                continue;
             }
             
-            if (fileName.endsWith(".json"))
+            if (fileName.endsWith(ModelSpace.JSONCHGS))
             {
                addJsonFile(location + "/" + fileName);
             }
@@ -342,7 +342,7 @@ public class ModelDirListener extends Thread
       {
          // new change, write it to file 
          String fileName = jsonObject.getString(ChangeEvent.PROPERTY_SESSIONID);
-         fileName = location + "/" + fileName + ".json";
+         fileName = location + "/" + fileName + ModelSpace.JSONCHGS;
          File file = new File(fileName);
          try
          {

@@ -63,6 +63,8 @@ import de.uniks.networkparser.list.AbstractList;
 
 public  class ModelSpace implements PropertyChangeInterface, UpdateListener
 {
+   public static final String JSONCHGS = ".jsonchgs";
+
    public enum ApplicationType {StandAlone, JavaFX};
    //==========================================================================
 
@@ -131,6 +133,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
 
    private class DirChangeListener extends Thread
    {
+
       @Override
       public void run()
       {
@@ -158,7 +161,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
                      
                      String filename = modelDir + "/" + filepath.toString();
                      
-                     if (filename.endsWith(".json") && ! filename.endsWith(userName + ".json"))
+                     if (filename.endsWith(JSONCHGS) && ! filename.endsWith(userName + JSONCHGS))
                      {
                         File file = new File(filename);
                         
@@ -254,14 +257,14 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
       // load all json files, subscribe readers for other user files
       for (File f : modelDir.listFiles())
       {
-         if (f.getName().endsWith(".json"))
+         if (f.getName().endsWith(ModelSpace.JSONCHGS))
          {
             try
             {
                FileReader fileReader = new FileReader(f);
                BufferedReader buf = new BufferedReader(fileReader);
 
-               if (! f.getName().equals(userName + ".json"))
+               if (! f.getName().equals(userName + ModelSpace.JSONCHGS))
                {
                   fileReaders.put(f.getCanonicalPath(), buf);
                }
@@ -450,7 +453,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
       {
          if (logFile == null)
          {
-            logFile = new File(modelDir.getCanonicalPath() + "/" + userName + ".json");
+            logFile = new File(modelDir.getCanonicalPath() + "/" + userName + ModelSpace.JSONCHGS);
 
             logFile.createNewFile();
          }
@@ -466,7 +469,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
          
          if (logPath == null)
          {
-            logPath = Paths.get(modelDir.getCanonicalPath() + "/" + userName + ".json");
+            logPath = Paths.get(modelDir.getCanonicalPath() + "/" + userName + ModelSpace.JSONCHGS);
          }
          
          Files.setLastModifiedTime(logPath, FileTime.fromMillis(System.currentTimeMillis()));

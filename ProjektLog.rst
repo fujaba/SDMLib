@@ -10,10 +10,15 @@ b5. Parser Problem: 'v' : but '{' expected in TeachingAssistantCreator.java  at 
     "      return null;"
     Caused by Templeates --> Stefan
 
+
+b6. Seconde GUI Test of SDMLib does not run. Application seems already be running;
+
+
 Backlog
 -------
 
 f3. MSChatGroupClient tests
+
 
 
 Active
@@ -23,9 +28,17 @@ f2. horizontal and vertical model splitting
 
     f2.2 vertical model splitting
 
+
+f5. Model cloud replication 
+
+	f5.6 replicate user files
+
 	
 Done
 ----
+
+f6. Change file ending from .json to .jsonchgs
+    1 hour
 
 f5. Model cloud replication 
 
