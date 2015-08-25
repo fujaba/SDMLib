@@ -5,6 +5,8 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,15 +23,18 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.modelspace.ModelSpace.ApplicationType;
+import org.sdmlib.modelspace.util.CloudModelDirectoryCreator;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 
+import com.oracle.webservices.internal.api.message.MessageContextFactory;
+
+import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import javafx.application.Platform;
 
-public class ModelDirListener extends Thread
+public class ModelDirListener extends Thread implements PropertyChangeListener
 {
-
    private ModelCloud modelCloud;
    private String location;
    private WatchService watcher;
@@ -38,14 +43,24 @@ public class ModelDirListener extends Thread
    private String spaceName;
    private ChangeEventList history;
    private ModelSpaceProxy spaceProxy;
+   private LinkedHashMap<String, ModelDirListener> dirListenerMap;
    
    public ChangeEventList getHistory()
    {
       return history;
    }
 
-   public ModelDirListener(ModelCloud modelCloud, String location, String spaceName)
+   public ModelDirListener(LinkedHashMap<String, ModelDirListener> dirListenerMap, ModelCloud modelCloud, String location, String spaceName)
    {
+      this.dirListenerMap = dirListenerMap;
+      
+      if (this.dirListenerMap == null)
+      {
+         this.dirListenerMap = new LinkedHashMap<String, ModelDirListener>();
+      }
+      
+      this.dirListenerMap.put(location, this);
+      
       this.modelCloud = modelCloud;
       this.location = location;
       this.spaceName = spaceName;
@@ -139,7 +154,9 @@ public class ModelDirListener extends Thread
 
          Path filepath = ev.context();
 
-         String fileName = location + "/" + filepath.toString();
+         String shortFileName = filepath.toString();
+         
+         String fileName = location + "/" + shortFileName;
 
          if (fileName.endsWith(ModelSpace.JSONCHGS))
          {
@@ -151,8 +168,16 @@ public class ModelDirListener extends Thread
             if (f.isDirectory())
             {
                // recursion
-               ModelDirListener modelDirListener = new ModelDirListener(modelCloud, location + "/" + fileName, spaceName + "/" + fileName);
-               modelDirListener.start();
+               String newLocation = location + "/" + shortFileName;
+               if (this.dirListenerMap.get(newLocation) == null)
+               {
+                  ModelDirListener modelDirListener = new ModelDirListener(this.dirListenerMap, modelCloud, newLocation, spaceName + "/" + shortFileName);
+                  modelDirListener.start();
+               }
+            }
+            else
+            {
+               updateCloudFile(shortFileName, f);
             }
 
          }
@@ -164,7 +189,8 @@ public class ModelDirListener extends Thread
 
          Path filepath = ev.context();
 
-         String fileName = location + "/" + filepath.toString();
+         String shortFileName = filepath.toString();
+         String fileName = location + "/" + shortFileName;
          
          if (fileName.endsWith(ModelSpace.JSONCHGS))
          {
@@ -180,6 +206,23 @@ public class ModelDirListener extends Thread
          if (buf != null)
          {
             readChanges(buf);
+         }
+         else
+         {
+            if (file.isDirectory())
+            {
+               // recursion
+               String newLocation = location + "/" + shortFileName;
+               if (this.dirListenerMap.get(newLocation) == null)
+               {
+                  ModelDirListener modelDirListener = new ModelDirListener(this.dirListenerMap, modelCloud, newLocation, spaceName + "/" + shortFileName);
+                  modelDirListener.start();
+               }
+            }
+            else
+            {
+               updateCloudFile(shortFileName, file);
+            }  
          }
       }
       else if (kind == ENTRY_DELETE)
@@ -203,6 +246,10 @@ public class ModelDirListener extends Thread
       }
    
    }
+   
+   public ModelSpace fileDataModelSpace = null;
+   private JsonIdMap fileDataIdMap;
+   private CloudModelDirectory cloudModelDirectory;
 
 
    private void scanDir()
@@ -231,11 +278,46 @@ public class ModelDirListener extends Thread
                if (f.isDirectory())
                {
                   // recursion
-                  ModelDirListener modelDirListener = new ModelDirListener(modelCloud, location + "/" + fileName, spaceName + "/" + fileName);
-                  modelDirListener.start();
+                  String newLocation = location + "/" + fileName;
+                  if (this.dirListenerMap.get(newLocation) == null)
+                  {
+                     ModelDirListener modelDirListener = new ModelDirListener(this.dirListenerMap, modelCloud, newLocation, spaceName + "/" + fileName);
+                     modelDirListener.start();
+                  }
+               }
+               else 
+               {
+                  // usual file, create or open .filedata model space and add this file to it. 
+                  updateCloudFile(fileName, f);
                }
             }
          }
+      }
+   }
+
+   private void updateCloudFile(String fileName, File f)
+   {
+      if (fileDataModelSpace == null)
+      {
+         fileDataIdMap = CloudModelDirectoryCreator.createIdMap("" + modelCloud.getHostName() + modelCloud.getAcceptPort());
+         
+         cloudModelDirectory = new CloudModelDirectory();
+         
+         fileDataIdMap.put("cloudModelDirectory", cloudModelDirectory);
+         
+         fileDataModelSpace = new ModelSpace(fileDataIdMap, "" + modelCloud.getHostName() + modelCloud.getAcceptPort(), ApplicationType.JavaFX);
+         fileDataModelSpace.open(location + "/.fileData");
+         
+         cloudModelDirectory.getPropertyChangeSupport().addPropertyChangeListener(this);
+      }
+      
+      CloudModelFile cloudFile = cloudModelDirectory.getOrCreateFiles(fileDataIdMap, fileName);
+      
+      long lastModified = f.lastModified();
+      
+      if (lastModified > cloudFile.getLastModifiedTime())
+      {
+         cloudFile.setLastModifiedTime(lastModified);
       }
    }
 
@@ -358,6 +440,66 @@ public class ModelDirListener extends Thread
             e.printStackTrace();
          }
       }
+   }
+
+   @Override
+   public void propertyChange(final PropertyChangeEvent evt)
+   {
+      if (evt == null)
+      {
+         // init
+         for (CloudModelFile cloudFile : cloudModelDirectory.getFiles())
+         {
+            cloudFile.getPropertyChangeSupport().addPropertyChangeListener(this);
+         }
+      }
+      else if (evt.getNewValue() != null && evt.getNewValue() instanceof CloudModelFile)
+      {
+         CloudModelFile cloudFile = (CloudModelFile) evt.getNewValue();
+         cloudFile.getPropertyChangeSupport().addPropertyChangeListener(this);
+      }
+      
+      handleCloudFileChange(evt);
+   }
+
+   public void handleCloudFileChange(PropertyChangeEvent evt)
+   {
+      // try to make file and cloudFile consistent
+      if (evt == null)
+      {
+         for (CloudModelFile cloudFile : cloudModelDirectory.getFiles())
+         {
+            makeCloudFileConsistent(cloudFile);
+         }
+      }
+      else if (evt.getSource() instanceof CloudModelFile)
+      {
+         makeCloudFileConsistent((CloudModelFile) evt.getSource()); 
+      }
+   }
+
+   private void makeCloudFileConsistent(CloudModelFile cloudFile)
+   {
+      // is the cloudFile information complete
+      if (cloudFile.getFileName() == null || cloudFile.getLastModifiedTime() <= 0)
+      {
+         return;
+      }
+      
+      // do I have the file on disk?
+      File diskFile = new File(location + "/" + cloudFile.getFileName());
+      
+      if (! diskFile.exists() || diskFile.lastModified() < cloudFile.getLastModifiedTime())
+      {
+         // create load file task
+         Task loadFileTask = modelCloud.getOrCreateFileTask(
+            spaceName, 
+            cloudFile.getFileName(),
+            cloudFile.getLastModifiedTime());
+         
+         
+      }
+      
    }
 
 }

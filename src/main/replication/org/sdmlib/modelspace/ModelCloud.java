@@ -32,6 +32,8 @@ import org.sdmlib.modelspace.util.ModelSpaceProxySet;
 
 import de.uniks.networkparser.json.JsonObject;
 
+import org.sdmlib.StrUtil;
+
 public  class ModelCloud implements PropertyChangeInterface
 {
 
@@ -97,6 +99,7 @@ public  class ModelCloud implements PropertyChangeInterface
       StringBuilder result = new StringBuilder();
       
       result.append(" ").append(this.getAcceptPort());
+      result.append(" ").append(this.getHostName());
       return result.substring(1);
    }
 
@@ -185,7 +188,22 @@ public  class ModelCloud implements PropertyChangeInterface
       
       return null;
    }
+   
+   
+   public ModelSpaceProxy getFromModelSpaces(String spaceName)
+   {
+      for (ModelSpaceProxy proxy : this.getModelSpaces())
+      {
+         if (proxy.getLocation().equals(spaceName))
+         {
+            return proxy;
+         }
+      }
+      
+      return null;
+   }
 
+   
    public ModelSpaceProxy getOrCreateModelSpaceProxy(String location, ModelDirListener modelDirListener)
    {
       for (ModelSpaceProxy proxy : this.getModelSpaces())
@@ -320,4 +338,99 @@ public  class ModelCloud implements PropertyChangeInterface
          }
       }
    } 
+
+   
+   //==========================================================================
+   private TaskBoard taskBoard;
+
+   private TaskLane myTaskLane;
+
+   public void setTaskBoard(TaskBoard taskBoard)
+   {
+      this.taskBoard = taskBoard;
+   } 
+   
+   public void setMyTaskLane(TaskLane myTaskLane)
+   {
+      this.myTaskLane = myTaskLane;
+   }
+
+
+
+   //==========================================================================
+   
+   public static final String PROPERTY_HOSTNAME = "hostName";
+   
+   private String hostName;
+
+   public String getHostName()
+   {
+      return this.hostName;
+   }
+   
+
+   public void setHostName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.hostName, value)) {
+      
+         String oldValue = this.hostName;
+         this.hostName = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOSTNAME, oldValue, value);
+      }
+   }
+   
+
+   public ModelCloud withHostName(String value)
+   {
+      setHostName(value);
+      return this;
+   }
+
+   
+   public Task getOrCreateFileTask(String spaceName, String fileName, long lastModified)
+   {
+      // search through task board
+      for (Task task : myTaskLane.getMyRequests())
+      {
+         if (task.getSpaceName().equals(spaceName)
+               && task.getFileName().equals(fileName)
+               && task.getLastModified() == lastModified)
+         {
+            return task;
+         }
+      }
+            
+      Task task = new Task()
+         .withSpaceName(spaceName)
+         .withFileName(fileName)
+         .withLastModified(lastModified)
+         .withState("init")
+         .withFileTargetCloud(myTaskLane)
+         .withLane(myTaskLane);
+      
+      return task;
+   }
+
+
+   public void handleTask(Task task)
+   {
+      if (task.getState().equals("init"))
+      {
+         // look for provider and forward task
+         ModelSpaceProxy spaceProxy = getFromModelSpaces(task.getSpaceName());
+         
+         for (ModelCloudProxy cloudProxy : spaceProxy.getProvidingClouds())
+         {
+            if (cloudProxy.getState().equals("online"))
+            {
+               // got a provider, find its task lane
+               TaskLane providerLane = taskBoard.getOrCreateLane(cloudProxy.getHostName(), cloudProxy.getPortNo());
+               task.setLane(null);
+               task.setState("sendFileToTarget");
+               task.setLane(providerLane);
+            }
+         }
+      }
+   }
+
 }

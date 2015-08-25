@@ -2,6 +2,7 @@ package org.sdmlib.modelspace;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.InetAddress;
 import java.util.List;
 
 import javafx.application.Application;
@@ -22,6 +23,7 @@ import javafx.stage.WindowEvent;
 import org.sdmlib.javafx.FX;
 import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.modelspace.util.ModelCloudCreator;
+import org.sdmlib.modelspace.util.TaskBoardCreator;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -44,6 +46,9 @@ public class ModelCloudApp extends Application
    private TextField hostNameField;
    private TextField portNoField;
    private VBox modelSpaceProxiesVbox;
+   private TaskBoard taskBoard;
+   private ModelSpace taskSpace;
+   private TaskLane myTaskLane;
    
    @Override
    public void start(Stage stage) throws Exception
@@ -74,7 +79,16 @@ public class ModelCloudApp extends Application
       idMap.put(location, modelCloud);
 
       space = new ModelSpace(idMap, userName, ApplicationType.JavaFX).open(location + "/.cloudData");
-
+      
+      
+      InetAddress ip = InetAddress.getLocalHost();
+      String hostname = ip.getHostName();
+      System.out.println("Your current IP address : " + ip);
+      System.out.println("Your current Hostname : " + hostname);
+      
+      modelCloud.setHostName(hostname);
+      
+      Label hostNameLabel = new Label("Host name: " + hostname);
       
       Label label = new Label("accept port:");
       
@@ -118,9 +132,37 @@ public class ModelCloudApp extends Application
       modelCloud.getPropertyChangeSupport().addPropertyChangeListener(ModelCloud.PROPERTY_MODELSPACES, 
          new ModelSpaceProxyListener(modelCloud, modelSpaceProxiesVbox));
       
+
+      // open task board
+      String laneName = modelCloud.getHostName() + modelCloud.getAcceptPort();
+      
+      String taskSessionId = laneName + "_" + System.currentTimeMillis();
+
+      JsonIdMap taskIdMap = TaskBoardCreator.createIdMap(taskSessionId);
+      
+      taskBoard = new TaskBoard(modelCloud, taskIdMap);
+      modelCloud.setTaskBoard(taskBoard);
+
+      taskIdMap.put("taskBoard", taskBoard);
+
+      taskSpace = new ModelSpace(taskIdMap, userName, ApplicationType.JavaFX)
+      .open(location + "/.cloudTasks");
+      
+      myTaskLane = taskBoard.getOrCreateLane(modelCloud.getHostName(), modelCloud.getAcceptPort());
+      modelCloud.setMyTaskLane(myTaskLane);
+      
+      VBox tasksVBox = new VBox(8);
+      
+      TaskLaneListener taskLaneListener = new TaskLaneListener(modelCloud, myTaskLane, tasksVBox);
+      
+      myTaskLane.getPropertyChangeSupport().addPropertyChangeListener(
+         taskLaneListener);
+      
+      taskLaneListener.propertyChange(null);
+      
       root = new VBox(8);
       root.setPadding(new Insets(24));
-      root.getChildren().addAll(hBox, otherServersLabel, otherSeversVBox, addServerBox, modelSpaceProxiesVbox);
+      root.getChildren().addAll(hostNameLabel, hBox, otherServersLabel, otherSeversVBox, addServerBox, modelSpaceProxiesVbox, tasksVBox);
       
       ScrollPane scrollPane = new ScrollPane(root);
       
@@ -167,7 +209,7 @@ public class ModelCloudApp extends Application
       modelCloud.getPropertyChangeSupport().addPropertyChangeListener(ModelCloud.PROPERTY_SERVERS, new OtherServersListener(modelCloud));
       
       // open listener for root directory
-      ModelDirListener modelDirListener = new ModelDirListener(modelCloud, location, "");
+      ModelDirListener modelDirListener = new ModelDirListener(null, modelCloud, location, "");
       modelDirListener.start();
    }
 

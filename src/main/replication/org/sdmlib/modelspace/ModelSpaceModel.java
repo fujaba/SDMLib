@@ -23,6 +23,7 @@ public class ModelSpaceModel
       model.createClazz("ModelSpace");
       
       Clazz cloud = model.createClazz("ModelCloud")
+            .withAttribute("hostName", DataType.STRING)
             .withAttribute("acceptPort", DataType.INT); 
       
       Clazz cloudProxy = model.createClazz("ModelCloudProxy")
@@ -36,6 +37,31 @@ public class ModelSpaceModel
       cloud.withAssoc(spaceProxy, "modelSpaces", Card.MANY, "cloud", Card.ONE);
       
       cloudProxy.withAssoc(spaceProxy, "providedSpaces", Card.MANY, "providingClouds", Card.MANY);
+      
+      Clazz modelDir = model.createClazz("CloudModelDirectory");
+      Clazz modelFile = model.createClazz("CloudModelFile")
+            .withAttribute("fileName", DataType.STRING)
+            .withAttribute("lastModifiedTime", DataType.LONG);
+      
+      modelDir.withAssoc(modelFile, "files", Card.MANY, "dir", Card.ONE);
+      
+      Clazz taskBoard = model.createClazz("TaskBoard");
+      
+      Clazz taskLane = model.createClazz("TaskLane")
+            .withAttribute("hostName", DataType.STRING)
+            .withAttribute("portNo", DataType.LONG);
+      
+      Clazz task = model.createClazz("Task")
+            .withAttribute("state", DataType.STRING)
+            .withAttribute("spaceName", DataType.STRING)
+            .withAttribute("fileName", DataType.STRING)
+            .withAttribute("lastModified", DataType.LONG);
+      
+      taskBoard.withAssoc(taskLane, "lanes", Card.MANY, "board", Card.ONE);
+      
+      taskLane.withAssoc(task, "tasks", Card.MANY, "lane", Card.ONE);
+      
+      task.withAssoc(taskLane, "fileTargetCloud", Card.ONE, "myRequests", Card.MANY);
       
       model.generate("src/main/replication");
       

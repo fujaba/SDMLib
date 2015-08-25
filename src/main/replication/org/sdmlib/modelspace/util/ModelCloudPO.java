@@ -162,4 +162,57 @@ public class ModelCloudPO extends PatternObject<ModelCloudPO, ModelCloud>
       return null;
    }
 
+   public ModelCloudPO hasHostName(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloud.PROPERTY_HOSTNAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudPO hasHostName(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(ModelCloud.PROPERTY_HOSTNAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public ModelCloudPO createHostName(String value)
+   {
+      this.startCreate().hasHostName(value).endCreate();
+      return this;
+   }
+   
+   public String getHostName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ModelCloud) getCurrentMatch()).getHostName();
+      }
+      return null;
+   }
+   
+   public ModelCloudPO withHostName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((ModelCloud) getCurrentMatch()).setHostName(value);
+      }
+      return this;
+   }
+   
 }

@@ -23,18 +23,14 @@ package org.sdmlib.modelspace.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.modelspace.ModelCloud;
-import org.sdmlib.modelspace.ModelCloudProxy;
-import org.sdmlib.modelspace.ModelSpaceProxy;
+import org.sdmlib.modelspace.CloudModelDirectory;
+import org.sdmlib.modelspace.CloudModelFile;
 
-public class ModelCloudCreator extends EntityFactory
+public class CloudModelDirectoryCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      ModelCloud.PROPERTY_ACCEPTPORT,
-      ModelCloud.PROPERTY_SERVERS,
-      // ModelCloud.PROPERTY_MODELSPACES,
-      ModelCloud.PROPERTY_HOSTNAME,
+      CloudModelDirectory.PROPERTY_FILES,
    };
    
    @Override
@@ -46,7 +42,7 @@ public class ModelCloudCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ModelCloud();
+      return new CloudModelDirectory();
    }
    
    @Override
@@ -60,24 +56,9 @@ public class ModelCloudCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (ModelCloud.PROPERTY_ACCEPTPORT.equalsIgnoreCase(attribute))
+      if (CloudModelDirectory.PROPERTY_FILES.equalsIgnoreCase(attribute))
       {
-         return ((ModelCloud) target).getAcceptPort();
-      }
-
-      if (ModelCloud.PROPERTY_SERVERS.equalsIgnoreCase(attribute))
-      {
-         return ((ModelCloud) target).getServers();
-      }
-
-      if (ModelCloud.PROPERTY_MODELSPACES.equalsIgnoreCase(attribute))
-      {
-         return ((ModelCloud) target).getModelSpaces();
-      }
-
-      if (ModelCloud.PROPERTY_HOSTNAME.equalsIgnoreCase(attribute))
-      {
-         return ((ModelCloud) target).getHostName();
+         return ((CloudModelDirectory) target).getFiles();
       }
       
       return null;
@@ -91,39 +72,15 @@ public class ModelCloudCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (ModelCloud.PROPERTY_ACCEPTPORT.equalsIgnoreCase(attrName))
+      if (CloudModelDirectory.PROPERTY_FILES.equalsIgnoreCase(attrName))
       {
-         ((ModelCloud) target).withAcceptPort(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (ModelCloud.PROPERTY_SERVERS.equalsIgnoreCase(attrName))
-      {
-         ((ModelCloud) target).withServers((ModelCloudProxy) value);
+         ((CloudModelDirectory) target).withFiles((CloudModelFile) value);
          return true;
       }
       
-      if ((ModelCloud.PROPERTY_SERVERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((CloudModelDirectory.PROPERTY_FILES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ModelCloud) target).withoutServers((ModelCloudProxy) value);
-         return true;
-      }
-
-      if (ModelCloud.PROPERTY_MODELSPACES.equalsIgnoreCase(attrName))
-      {
-         ((ModelCloud) target).withModelSpaces((ModelSpaceProxy) value);
-         return true;
-      }
-      
-      if ((ModelCloud.PROPERTY_MODELSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((ModelCloud) target).withoutModelSpaces((ModelSpaceProxy) value);
-         return true;
-      }
-
-      if (ModelCloud.PROPERTY_HOSTNAME.equalsIgnoreCase(attrName))
-      {
-         ((ModelCloud) target).withHostName((String) value);
+         ((CloudModelDirectory) target).withoutFiles((CloudModelFile) value);
          return true;
       }
       
@@ -139,6 +96,6 @@ public class ModelCloudCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((ModelCloud) entity).removeYou();
+      ((CloudModelDirectory) entity).removeYou();
    }
 }

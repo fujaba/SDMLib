@@ -23,7 +23,8 @@
          "typ":"node",
          "id":"ModelCloud",
          "attributes":[
-         "acceptPort : int"
+         "hostName : String",
+            "acceptPort : int"
          ]
       },
       {
@@ -39,6 +40,40 @@
          "id":"ModelSpaceProxy",
          "attributes":[
          "location : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"CloudModelDirectory"
+      },
+      {
+         "typ":"node",
+         "id":"CloudModelFile",
+         "attributes":[
+         "fileName : String",
+            "lastModifiedTime : long"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"TaskBoard"
+      },
+      {
+         "typ":"node",
+         "id":"TaskLane",
+         "attributes":[
+         "hostName : String",
+            "portNo : long"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Task",
+         "attributes":[
+         "state : String",
+            "spaceName : String",
+            "fileName : String",
+            "lastModified : long"
          ]
       }
    ],
@@ -80,6 +115,58 @@
             "id":"ModelSpaceProxy",
             "cardinality":"many",
             "property":"providedSpaces"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"CloudModelDirectory",
+            "cardinality":"one",
+            "property":"dir"
+         },
+         "target":{
+            "id":"CloudModelFile",
+            "cardinality":"many",
+            "property":"files"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TaskBoard",
+            "cardinality":"one",
+            "property":"board"
+         },
+         "target":{
+            "id":"TaskLane",
+            "cardinality":"many",
+            "property":"lanes"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"TaskLane",
+            "cardinality":"one",
+            "property":"lane"
+         },
+         "target":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"tasks"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Task",
+            "cardinality":"many",
+            "property":"myRequests"
+         },
+         "target":{
+            "id":"TaskLane",
+            "cardinality":"one",
+            "property":"fileTargetCloud"
          }
       }
    ]

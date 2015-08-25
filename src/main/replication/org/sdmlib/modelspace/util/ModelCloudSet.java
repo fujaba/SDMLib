@@ -31,6 +31,7 @@ import org.sdmlib.modelspace.util.ModelCloudProxySet;
 import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.util.ModelSpaceProxySet;
 import org.sdmlib.modelspace.ModelSpaceProxy;
+import org.sdmlib.models.modelsets.StringList;
 
 public class ModelCloudSet extends SDMSet<ModelCloud>
 {
@@ -234,6 +235,58 @@ public class ModelCloudSet extends SDMSet<ModelCloud>
       for (ModelCloud obj : this)
       {
          obj.withoutModelSpaces(value);
+      }
+      
+      return this;
+   }
+
+   public StringList getHostName()
+   {
+      StringList result = new StringList();
+      
+      for (ModelCloud obj : this)
+      {
+         result.add(obj.getHostName());
+      }
+      
+      return result;
+   }
+
+   public ModelCloudSet hasHostName(String value)
+   {
+      ModelCloudSet result = new ModelCloudSet();
+      
+      for (ModelCloud obj : this)
+      {
+         if (value.equals(obj.getHostName()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ModelCloudSet hasHostName(String lower, String upper)
+   {
+      ModelCloudSet result = new ModelCloudSet();
+      
+      for (ModelCloud obj : this)
+      {
+         if (lower.compareTo(obj.getHostName()) <= 0 && obj.getHostName().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ModelCloudSet withHostName(String value)
+   {
+      for (ModelCloud obj : this)
+      {
+         obj.setHostName(value);
       }
       
       return this;

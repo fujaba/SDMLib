@@ -23,18 +23,19 @@ package org.sdmlib.modelspace.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.modelspace.ModelCloud;
-import org.sdmlib.modelspace.ModelCloudProxy;
-import org.sdmlib.modelspace.ModelSpaceProxy;
+import org.sdmlib.modelspace.TaskLane;
+import org.sdmlib.modelspace.TaskBoard;
+import org.sdmlib.modelspace.Task;
 
-public class ModelCloudCreator extends EntityFactory
+public class TaskLaneCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      ModelCloud.PROPERTY_ACCEPTPORT,
-      ModelCloud.PROPERTY_SERVERS,
-      // ModelCloud.PROPERTY_MODELSPACES,
-      ModelCloud.PROPERTY_HOSTNAME,
+      TaskLane.PROPERTY_HOSTNAME,
+      TaskLane.PROPERTY_PORTNO,
+      TaskLane.PROPERTY_BOARD,
+      TaskLane.PROPERTY_TASKS,
+      TaskLane.PROPERTY_MYREQUESTS,
    };
    
    @Override
@@ -46,7 +47,7 @@ public class ModelCloudCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ModelCloud();
+      return new TaskLane();
    }
    
    @Override
@@ -60,24 +61,29 @@ public class ModelCloudCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (ModelCloud.PROPERTY_ACCEPTPORT.equalsIgnoreCase(attribute))
+      if (TaskLane.PROPERTY_HOSTNAME.equalsIgnoreCase(attribute))
       {
-         return ((ModelCloud) target).getAcceptPort();
+         return ((TaskLane) target).getHostName();
       }
 
-      if (ModelCloud.PROPERTY_SERVERS.equalsIgnoreCase(attribute))
+      if (TaskLane.PROPERTY_PORTNO.equalsIgnoreCase(attribute))
       {
-         return ((ModelCloud) target).getServers();
+         return ((TaskLane) target).getPortNo();
       }
 
-      if (ModelCloud.PROPERTY_MODELSPACES.equalsIgnoreCase(attribute))
+      if (TaskLane.PROPERTY_BOARD.equalsIgnoreCase(attribute))
       {
-         return ((ModelCloud) target).getModelSpaces();
+         return ((TaskLane) target).getBoard();
       }
 
-      if (ModelCloud.PROPERTY_HOSTNAME.equalsIgnoreCase(attribute))
+      if (TaskLane.PROPERTY_TASKS.equalsIgnoreCase(attribute))
       {
-         return ((ModelCloud) target).getHostName();
+         return ((TaskLane) target).getTasks();
+      }
+
+      if (TaskLane.PROPERTY_MYREQUESTS.equalsIgnoreCase(attribute))
+      {
+         return ((TaskLane) target).getMyRequests();
       }
       
       return null;
@@ -91,39 +97,45 @@ public class ModelCloudCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (ModelCloud.PROPERTY_ACCEPTPORT.equalsIgnoreCase(attrName))
+      if (TaskLane.PROPERTY_HOSTNAME.equalsIgnoreCase(attrName))
       {
-         ((ModelCloud) target).withAcceptPort(Integer.parseInt(value.toString()));
+         ((TaskLane) target).withHostName((String) value);
          return true;
       }
 
-      if (ModelCloud.PROPERTY_SERVERS.equalsIgnoreCase(attrName))
+      if (TaskLane.PROPERTY_PORTNO.equalsIgnoreCase(attrName))
       {
-         ((ModelCloud) target).withServers((ModelCloudProxy) value);
+         ((TaskLane) target).withPortNo(Long.parseLong(value.toString()));
+         return true;
+      }
+
+      if (TaskLane.PROPERTY_BOARD.equalsIgnoreCase(attrName))
+      {
+         ((TaskLane) target).setBoard((TaskBoard) value);
+         return true;
+      }
+
+      if (TaskLane.PROPERTY_TASKS.equalsIgnoreCase(attrName))
+      {
+         ((TaskLane) target).withTasks((Task) value);
          return true;
       }
       
-      if ((ModelCloud.PROPERTY_SERVERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TaskLane.PROPERTY_TASKS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ModelCloud) target).withoutServers((ModelCloudProxy) value);
+         ((TaskLane) target).withoutTasks((Task) value);
          return true;
       }
 
-      if (ModelCloud.PROPERTY_MODELSPACES.equalsIgnoreCase(attrName))
+      if (TaskLane.PROPERTY_MYREQUESTS.equalsIgnoreCase(attrName))
       {
-         ((ModelCloud) target).withModelSpaces((ModelSpaceProxy) value);
+         ((TaskLane) target).withMyRequests((Task) value);
          return true;
       }
       
-      if ((ModelCloud.PROPERTY_MODELSPACES + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((TaskLane.PROPERTY_MYREQUESTS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
-         ((ModelCloud) target).withoutModelSpaces((ModelSpaceProxy) value);
-         return true;
-      }
-
-      if (ModelCloud.PROPERTY_HOSTNAME.equalsIgnoreCase(attrName))
-      {
-         ((ModelCloud) target).withHostName((String) value);
+         ((TaskLane) target).withoutMyRequests((Task) value);
          return true;
       }
       
@@ -139,6 +151,6 @@ public class ModelCloudCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((ModelCloud) entity).removeYou();
+      ((TaskLane) entity).removeYou();
    }
 }
