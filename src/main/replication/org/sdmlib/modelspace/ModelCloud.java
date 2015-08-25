@@ -25,13 +25,10 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 
 import org.sdmlib.modelspace.util.ModelCloudProxySet;
 import org.sdmlib.modelspace.util.ModelSpaceProxySet;
 
-import com.sun.media.sound.ModelConnectionBlock;
 
 import de.uniks.networkparser.json.JsonObject;
 
