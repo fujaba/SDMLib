@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 import org.sdmlib.CGUtil;
 
-import de.uniks.networkparser.list.AbstractList;
 import de.uniks.networkparser.list.SimpleIterator;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.logic.Condition;
@@ -23,7 +22,7 @@ public abstract class SDMSet<T> extends SimpleSet<T> implements ModelSet
    @SuppressWarnings("unchecked")
    public <ST extends SDMSet> ST withReadOnly(boolean value)  {
 	   if(value) {
-		   addFlag(SimpleSet.READONLY);
+		   withFlag(SimpleSet.READONLY);
 	   }
 	   return (ST)this;
    }
