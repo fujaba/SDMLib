@@ -21,18 +21,19 @@
    
 package org.sdmlib.modelspace;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-
-import org.sdmlib.modelspace.util.ModelCloudProxySet;
-import org.sdmlib.modelspace.util.ModelSpaceProxySet;
-
-
-import de.uniks.networkparser.json.JsonObject;
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.modelspace.util.ModelCloudProxySet;
+import org.sdmlib.modelspace.util.ModelSpaceProxySet;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
+import de.uniks.networkparser.json.JsonObject;
 
 public  class ModelCloud implements PropertyChangeInterface
 {
@@ -176,7 +177,7 @@ public  class ModelCloud implements PropertyChangeInterface
       return value;
    }
 
-   public ModelCloudProxy getProxy(String hostName, int portNo)
+   public ModelCloudProxy getProxy(String hostName, long portNo)
    {
       for (ModelCloudProxy proxy : this.getServers())
       {
@@ -312,7 +313,7 @@ public  class ModelCloud implements PropertyChangeInterface
 
             JsonObject jsonObject = new JsonObject();
             jsonObject.withKeyValue("msgtype", "subscribe")
-            .withKeyValue("hostName", "localhost")
+            .withKeyValue("hostName", this.getHostName())
             .withKeyValue("portNo", this.getAcceptPort())
             .withKeyValue("modelSpaceName", modelSpaceName);
             
@@ -356,6 +357,18 @@ public  class ModelCloud implements PropertyChangeInterface
    }
 
 
+   private String location;
+   
+   public void setLocation(String location)
+   {
+      this.location = location;
+   }
+   
+   public String getLocation()
+   {
+      return location;
+   }
+
 
    //==========================================================================
    
@@ -368,7 +381,6 @@ public  class ModelCloud implements PropertyChangeInterface
       return this.hostName;
    }
    
-
    public void setHostName(String value)
    {
       if ( ! StrUtil.stringEquals(this.hostName, value)) {
@@ -378,7 +390,6 @@ public  class ModelCloud implements PropertyChangeInterface
          getPropertyChangeSupport().firePropertyChange(PROPERTY_HOSTNAME, oldValue, value);
       }
    }
-   
 
    public ModelCloud withHostName(String value)
    {
@@ -431,6 +442,29 @@ public  class ModelCloud implements PropertyChangeInterface
             }
          }
       }
+      else if (task.getState().equals("sendFileToTarget") && task.getLane() == myTaskLane)
+      {
+         // I shall send the file to my partner
+         TaskLane targetCloudLane = task.getFileTargetCloud();
+         ModelCloudProxy targetCloudProxy = this.getProxy(targetCloudLane.getHostName(), targetCloudLane.getPortNo());
+         if (targetCloudProxy.getState().equals("online"))
+         {
+            ModelCloudChannel channel = targetCloudProxy.getChannel();
+            
+            // open file
+            Path path = Paths.get(this.location + "/" + task.getSpaceName() + "/" + task.getFileName());
+            try
+            {
+               byte[] allBytes = Files.readAllBytes(path);
+               channel.sendFile(task.getSpaceName() + "/" + task.getFileName(), task.getLastModified(), allBytes);
+               task.setState("prepareToReceive");
+            }
+            catch (IOException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
+         }
+      }
    }
-
 }

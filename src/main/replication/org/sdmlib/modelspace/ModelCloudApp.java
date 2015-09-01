@@ -80,6 +80,7 @@ public class ModelCloudApp extends Application
 
       space = new ModelSpace(idMap, userName, ApplicationType.JavaFX).open(location + "/.cloudData");
       
+      modelCloud.setLocation(location);
       
       InetAddress ip = InetAddress.getLocalHost();
       String hostname = ip.getHostName();
@@ -97,12 +98,15 @@ public class ModelCloudApp extends Application
       
       
       HBox hBox = new HBox(8);
+      hBox.setPadding(new Insets(0, 0, 0, 24));
       hBox.getChildren().addAll(label, acceptPortField);
       
       Label otherServersLabel = new Label ("Other cloud servers:");
       
-      VBox otherSeversVBox = new VBox(8);
-      FX.bindListProperty(idMap, otherSeversVBox, modelCloud, ModelCloud.PROPERTY_SERVERS, ModelCloudProxyController.class);
+      VBox otherServersVBox = new VBox(8);
+      otherServersVBox.setPadding(new Insets(0, 0, 0, 24));
+      
+      FX.bindListProperty(idMap, otherServersVBox, modelCloud, ModelCloud.PROPERTY_SERVERS, ModelCloudProxyController.class);
 
       hostNameField = new TextField("hostName?");
       portNoField = new TextField("portNo?");
@@ -123,6 +127,7 @@ public class ModelCloudApp extends Application
       });
       
       addServerBox = new HBox(8);
+      addServerBox.setPadding(new Insets(0, 0, 0, 24));
       addServerBox.getChildren().addAll(hostNameField, portNoField, button);
       
       // add listener for model space proxies
@@ -145,7 +150,7 @@ public class ModelCloudApp extends Application
 
       taskIdMap.put("taskBoard", taskBoard);
 
-      taskSpace = new ModelSpace(taskIdMap, userName, ApplicationType.JavaFX)
+      taskSpace = new ModelSpace(taskIdMap, laneName, ApplicationType.JavaFX)
       .open(location + "/.cloudTasks");
       
       myTaskLane = taskBoard.getOrCreateLane(modelCloud.getHostName(), modelCloud.getAcceptPort());
@@ -162,13 +167,13 @@ public class ModelCloudApp extends Application
       
       root = new VBox(8);
       root.setPadding(new Insets(24));
-      root.getChildren().addAll(hostNameLabel, hBox, otherServersLabel, otherSeversVBox, addServerBox, modelSpaceProxiesVbox, tasksVBox);
+      root.getChildren().addAll(hostNameLabel, hBox, otherServersLabel, otherServersVBox, addServerBox, modelSpaceProxiesVbox, tasksVBox);
       
       ScrollPane scrollPane = new ScrollPane(root);
       
       scrollPane.setStyle("-fx-background: white;");
       
-      Scene scene = new Scene(scrollPane, 400, 600);
+      Scene scene = new Scene(scrollPane, 450, 600);
       
       stage.setScene(scene);
       

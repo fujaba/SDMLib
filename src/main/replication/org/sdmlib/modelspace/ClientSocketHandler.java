@@ -1,10 +1,18 @@
 package org.sdmlib.modelspace;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.management.RuntimeErrorException;
 
 import org.sdmlib.replication.ChangeEvent;
 
@@ -53,7 +61,8 @@ public class ClientSocketHandler extends Thread
    private Socket clientSocket;
    private BufferedReader in;
    private String line;
-   ModelCloudProxy proxy; 
+   ModelCloudProxy proxy;
+   private InputStream inputStream; 
 
    public ClientSocketHandler(ModelCloud modelCloud, Socket clientSocket)
    {
@@ -67,7 +76,7 @@ public class ClientSocketHandler extends Thread
       // open clientSocket and read messages
       try
       {
-         InputStream inputStream = clientSocket.getInputStream();
+         inputStream = clientSocket.getInputStream();
          InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
          in = new BufferedReader(inputStreamReader);
          
@@ -75,9 +84,104 @@ public class ClientSocketHandler extends Thread
                   
          while (line != null)
          {
-            Platform.runLater(new HandleLineRunnable(line));
-            
-            System.out.println(line);
+            if (line.startsWith("{"))
+            {
+               try {
+                  
+                  final JsonObject jsonObject = new JsonObject();
+                  jsonObject.withValue(line);
+                  
+                  if (jsonObject.has("msgtype"))
+                  {
+                     String msgtype = jsonObject.getString("msgtype");
+                     if (msgtype.equals("fileTransfer"))
+                     {
+                        // read the file content
+                        int fileSize = jsonObject.getInt("fileSize");
+                        final byte[] content = new byte[fileSize];
+                        
+                        int readSize = 0;
+                        
+                        while (readSize < fileSize)
+                        {
+                           int blockSize = inputStream.read(content, readSize, fileSize-readSize);
+                           
+                           if (blockSize == -1)
+                           {
+                              // something did not work.
+                              throw new RuntimeException("Receiving file data problem occured");
+                           }
+                           readSize += blockSize;
+                        }
+                        
+                        System.out.println("Received " + jsonObject.getString("fileName") + " " + readSize + " of " + fileSize + " bytes.");
+                        
+                        if (readSize == fileSize)
+                        {
+                           Platform.runLater(new Runnable()
+                           {
+                              @Override
+                              public void run()
+                              {
+                                 String fileName = modelCloud.getLocation() + "/" + jsonObject.getString("fileName");
+                                 long lastModified = (long) jsonObject.get("lastModified");
+                                 // got it, write the file
+                                 try
+                                 {
+                                    Path path = Paths.get(fileName);
+                                    
+                                    if (Files.exists(path))
+                                    {
+                                       // mv old version to .fileData
+                                       Path targetPath = path.getParent();
+                                       String targetFileDir = targetPath.toString();
+                                       Path plainNamePath = path.getName(path.getNameCount()-1);
+                                       String plainName = plainNamePath.toString();
+                                       
+                                       Date date = new Date(lastModified);
+                                       SimpleDateFormat simpleDateFormat = new SimpleDateFormat(".yyyy.MM.dd_HH.mm.ss");
+                                       String dateString = simpleDateFormat.format(date);
+                                       
+                                       String fullTargetFileName = targetFileDir + "/.fileData/" + plainName + dateString;
+                                       
+                                       targetPath = Paths.get(fullTargetFileName);
+                                       
+                                       Files.move(path, targetPath);
+                                    }
+                                    
+                                    // write new file
+                                    Files.write(path, content);
+                                    new File(fileName).setLastModified(lastModified);
+                                 }
+                                 catch (IOException e)
+                                 {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                 }
+                              }
+                           });
+                        }
+                     }
+                     else
+                     {
+                        Platform.runLater(new HandleLineRunnable(line));
+                     }
+                  }
+                  else
+                  {
+                     Platform.runLater(new HandleLineRunnable(line));
+                  }
+               }
+               catch (Exception e)
+               {
+                  e.printStackTrace();
+               }
+            }
+            else
+            {
+               // only json messages are accepted
+               System.out.println("only json messages are accepted\n" + line);
+            }
             
             line = in.readLine();
          }

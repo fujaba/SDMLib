@@ -93,6 +93,7 @@ public  class TaskLane implements PropertyChangeInterface
       StringBuilder result = new StringBuilder();
       
       result.append(" ").append(this.getHostName());
+      result.append(" ").append(this.getPortNo());
       return result.substring(1);
    }
 

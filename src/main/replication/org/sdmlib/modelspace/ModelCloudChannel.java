@@ -16,6 +16,7 @@ public class ModelCloudChannel implements PropertyChangeListener
    private ModelCloudProxy proxy;
    private Socket socket;
    private BufferedWriter out;
+   private OutputStream outputStream;
    
    public void setSocket(Socket socket)
    {
@@ -63,15 +64,16 @@ public class ModelCloudChannel implements PropertyChangeListener
       
    }
 
+   
    public void sendMyProxyAddress() throws IOException
    {
-      OutputStream outputStream = socket.getOutputStream();
+      outputStream = socket.getOutputStream();
       OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
       out = new BufferedWriter(outputStreamWriter);
       
       JsonObject jsonObject = new JsonObject();
       jsonObject.withKeyValue("msgtype", ModelCloudProxy.class.getSimpleName())
-      .withKeyValue("hostName", "localhost")
+      .withKeyValue("hostName", modelCloud.getHostName())
       .withKeyValue("portNo", modelCloud.getAcceptPort());
       
       String message = jsonObject.toString();
@@ -82,6 +84,7 @@ public class ModelCloudChannel implements PropertyChangeListener
       proxy.setState("online");
    }
 
+   
    public void send(String msg)
    {
       try
@@ -93,6 +96,34 @@ public class ModelCloudChannel implements PropertyChangeListener
       {
          e.printStackTrace();
       }
+   }
+
+   
+   public void sendFile(String string, long lastModified, byte[] allBytes)
+   {
+      JsonObject jsonObject = new JsonObject();
+      jsonObject.withKeyValue("msgtype", "fileTransfer")
+      .withKeyValue("fileName", string)
+      .withKeyValue("fileSize", allBytes.length)
+      .withKeyValue("lastModified", lastModified);
+      
+      String message = jsonObject.toString();
+      
+      try
+      {
+         out.write(message + "\n");
+         out.flush();
+         outputStream.write(allBytes);
+         outputStream.flush();
+         out.write("There might be a problem with file end, thus I send some garbage here. \n\n\n");
+         out.flush();
+      }
+      catch (IOException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      
    }
 
 

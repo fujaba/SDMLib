@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedHashSet;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -18,6 +19,9 @@ public class ModelSpaceProxyListener implements PropertyChangeListener
       this.modelCloud = modelCloud;
       this.modelSpaceProxiesVbox = modelSpaceProxiesVbox;
       
+      Label label = new Label("model spaces:");
+      modelSpaceProxiesVbox.getChildren().add(label);
+      
       this.propertyChange(null); 
    }
 
@@ -31,6 +35,7 @@ public class ModelSpaceProxyListener implements PropertyChangeListener
             observedModelSpaceProxies.add(proxy);
 
             Label label = new Label(proxy.getLocation());
+            label.setPadding(new Insets(0, 0, 0, 24));
             modelSpaceProxiesVbox.getChildren().add(label);
          }
       }

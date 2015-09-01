@@ -175,7 +175,7 @@ public class ModelDirListener extends Thread implements PropertyChangeListener
                   modelDirListener.start();
                }
             }
-            else
+            else  if (! location.endsWith(".fileData"))
             {
                updateCloudFile(shortFileName, f);
             }
@@ -219,7 +219,7 @@ public class ModelDirListener extends Thread implements PropertyChangeListener
                   modelDirListener.start();
                }
             }
-            else
+            else  if (! location.endsWith(".fileData"))
             {
                updateCloudFile(shortFileName, file);
             }  
@@ -285,7 +285,7 @@ public class ModelDirListener extends Thread implements PropertyChangeListener
                      modelDirListener.start();
                   }
                }
-               else 
+               else if (! location.endsWith(".fileData"))
                {
                   // usual file, create or open .filedata model space and add this file to it. 
                   updateCloudFile(fileName, f);
@@ -299,7 +299,7 @@ public class ModelDirListener extends Thread implements PropertyChangeListener
    {
       if (fileDataModelSpace == null)
       {
-         fileDataIdMap = CloudModelDirectoryCreator.createIdMap("" + modelCloud.getHostName() + modelCloud.getAcceptPort());
+         fileDataIdMap = CloudModelDirectoryCreator.createIdMap("" + modelCloud.getHostName() + modelCloud.getAcceptPort() + "_" + System.currentTimeMillis());
          
          cloudModelDirectory = new CloudModelDirectory();
          
@@ -309,6 +309,7 @@ public class ModelDirListener extends Thread implements PropertyChangeListener
          fileDataModelSpace.open(location + "/.fileData");
          
          cloudModelDirectory.getPropertyChangeSupport().addPropertyChangeListener(this);
+         this.propertyChange(null);
       }
       
       CloudModelFile cloudFile = cloudModelDirectory.getOrCreateFiles(fileDataIdMap, fileName);
@@ -475,6 +476,10 @@ public class ModelDirListener extends Thread implements PropertyChangeListener
       else if (evt.getSource() instanceof CloudModelFile)
       {
          makeCloudFileConsistent((CloudModelFile) evt.getSource()); 
+      }
+      else if (evt.getNewValue() instanceof CloudModelFile)
+      {
+         makeCloudFileConsistent((CloudModelFile) evt.getNewValue()); 
       }
    }
 
