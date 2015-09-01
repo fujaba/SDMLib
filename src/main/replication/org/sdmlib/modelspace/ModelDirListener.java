@@ -20,18 +20,16 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
+
+import javafx.application.Platform;
 
 import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.modelspace.util.CloudModelDirectoryCreator;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 
-import com.oracle.webservices.internal.api.message.MessageContextFactory;
-
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import javafx.application.Platform;
 
 public class ModelDirListener extends Thread implements PropertyChangeListener
 {
