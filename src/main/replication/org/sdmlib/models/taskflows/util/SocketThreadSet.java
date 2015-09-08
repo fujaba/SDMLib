@@ -29,6 +29,7 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.SocketThread;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import java.lang.Object;
 
 public class SocketThreadSet extends SDMSet<SocketThread>
 {

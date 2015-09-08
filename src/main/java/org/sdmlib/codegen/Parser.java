@@ -502,11 +502,13 @@ private String classModifier;
             nextRealToken();
          }
          skipBody();
-         if (currentRealTokenEquals("}")) 
-         {
-            return;
-         }
-         modifiers = parseModifiers();
+         
+         return;
+         //         if (currentRealTokenEquals("}")) 
+         //         {
+         //            return;
+         //         }
+         //         modifiers = parseModifiers();
       }
       else if (currentRealTokenEquals(ENUM))
       {
@@ -514,11 +516,14 @@ private String classModifier;
          skip(ENUM);
          nextRealToken(); // name
          skipBody();
-         if (currentRealTokenEquals("}")) 
-         {
-            return;
-         }
-         modifiers = parseModifiers();
+         
+         return;
+         
+         //         if (currentRealTokenEquals("}")) 
+         //         {
+         //            return;
+         //         }
+         //         modifiers = parseModifiers();
       }
 
       if (currentRealTokenEquals(className) && lookAheadRealToken.kind == '(')
@@ -702,7 +707,7 @@ private String classModifier;
 
    private void skipBody() {
       int index = 1;
-      nextRealToken();
+      // nextRealToken();
       while (index > 0 && ! currentRealKindEquals(EOF)) {
          nextRealToken();
          if (currentRealTokenEquals("{"))

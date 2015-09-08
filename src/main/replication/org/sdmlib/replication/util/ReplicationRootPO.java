@@ -3,6 +3,7 @@ package org.sdmlib.replication.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ReplicationRoot;
+import java.lang.Object;
 
 public class ReplicationRootPO extends PatternObject<ReplicationRootPO, ReplicationRoot>
 {

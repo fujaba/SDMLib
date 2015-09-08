@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.taskflows.SocketThread;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import java.lang.Object;
 
 public class SocketThreadPO extends PatternObject<SocketThreadPO, SocketThread>
 {

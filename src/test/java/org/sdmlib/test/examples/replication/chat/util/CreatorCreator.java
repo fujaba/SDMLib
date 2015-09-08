@@ -51,6 +51,38 @@ class CreatorCreator{
       jsonIdMap.withCreator(new ChatChannelPOCreator());
       jsonIdMap.withCreator(new ChatMsgCreator());
       jsonIdMap.withCreator(new ChatMsgPOCreator());
+      jsonIdMap.withCreator(new ChatRootCreator());
+      jsonIdMap.withCreator(new ChatRootPOCreator());
+      jsonIdMap.withCreator(new ChatUserCreator());
+      jsonIdMap.withCreator(new ChatUserPOCreator());
+      jsonIdMap.withCreator(new ChatChannelCreator());
+      jsonIdMap.withCreator(new ChatChannelPOCreator());
+      jsonIdMap.withCreator(new ChatMsgCreator());
+      jsonIdMap.withCreator(new ChatMsgPOCreator());
+      jsonIdMap.withCreator(new ChatRootCreator());
+      jsonIdMap.withCreator(new ChatRootPOCreator());
+      jsonIdMap.withCreator(new ChatUserCreator());
+      jsonIdMap.withCreator(new ChatUserPOCreator());
+      jsonIdMap.withCreator(new ChatChannelCreator());
+      jsonIdMap.withCreator(new ChatChannelPOCreator());
+      jsonIdMap.withCreator(new ChatMsgCreator());
+      jsonIdMap.withCreator(new ChatMsgPOCreator());
+      jsonIdMap.withCreator(new ChatRootCreator());
+      jsonIdMap.withCreator(new ChatRootPOCreator());
+      jsonIdMap.withCreator(new ChatUserCreator());
+      jsonIdMap.withCreator(new ChatUserPOCreator());
+      jsonIdMap.withCreator(new ChatChannelCreator());
+      jsonIdMap.withCreator(new ChatChannelPOCreator());
+      jsonIdMap.withCreator(new ChatMsgCreator());
+      jsonIdMap.withCreator(new ChatMsgPOCreator());
+      jsonIdMap.withCreator(new ChatRootCreator());
+      jsonIdMap.withCreator(new ChatRootPOCreator());
+      jsonIdMap.withCreator(new ChatUserCreator());
+      jsonIdMap.withCreator(new ChatUserPOCreator());
+      jsonIdMap.withCreator(new ChatChannelCreator());
+      jsonIdMap.withCreator(new ChatChannelPOCreator());
+      jsonIdMap.withCreator(new ChatMsgCreator());
+      jsonIdMap.withCreator(new ChatMsgPOCreator());
       return jsonIdMap;
    }
 }

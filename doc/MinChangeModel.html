@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/main/replication/org/sdmlib/replication/ReplicationModel.java' type='text/x-java'>MinChangeModel</a></p>
+<p>MinChangeModel</p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"ChangeEvent",
+         "attributes":[
+         "objectId : String",
+            "objectType : String",
+            "property : String",
+            "newValue : String",
+            "oldValue : String",
+            "valueType : String",
+            "propertyKind : String",
+            "changeNo : String",
+            "sessionId : String"
+         ]
+      }
+   ],
+   "edges":[]
+}   ;
+   new Graph(json, {"canvasid":"canvasMinChangeModelClassDiagram1", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+
+</body>
+</html>

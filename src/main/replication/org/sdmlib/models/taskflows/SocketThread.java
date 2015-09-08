@@ -32,6 +32,7 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
+import java.lang.Object;
 
 public class SocketThread extends Thread implements PropertyChangeInterface
 {

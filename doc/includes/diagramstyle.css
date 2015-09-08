@@ -61,6 +61,18 @@
 	position:fixed;
 	bottom:6px;
 }
+.Itembar {
+	background : #F4F4F4;
+	background-image: linear-gradient(#696969 1px, rgba(255,255,255,0) 0%);
+	background-position: 3px 2px;
+	background-size: 1px 5px;
+	background-repeat: repeat-y;
+	border-bottom: 1px solid #696969;
+	border-right: 1px solid #999999;
+	position:fixed;
+	right:6px;
+	top:30px;
+}
 .CodeView {
 	background : #F4F4F4;
 	position:fixed;

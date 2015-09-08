@@ -31,6 +31,26 @@ class CreatorCreator{
       jsonIdMap.withCreator(new AlexPOCreator());
       jsonIdMap.withCreator(new MacCreator());
       jsonIdMap.withCreator(new MacPOCreator());
+      jsonIdMap.withCreator(new AlexCreator());
+      jsonIdMap.withCreator(new AlexPOCreator());
+      jsonIdMap.withCreator(new MacCreator());
+      jsonIdMap.withCreator(new MacPOCreator());
+      jsonIdMap.withCreator(new AlexCreator());
+      jsonIdMap.withCreator(new AlexPOCreator());
+      jsonIdMap.withCreator(new MacCreator());
+      jsonIdMap.withCreator(new MacPOCreator());
+      jsonIdMap.withCreator(new AlexCreator());
+      jsonIdMap.withCreator(new AlexPOCreator());
+      jsonIdMap.withCreator(new MacCreator());
+      jsonIdMap.withCreator(new MacPOCreator());
+      jsonIdMap.withCreator(new AlexCreator());
+      jsonIdMap.withCreator(new AlexPOCreator());
+      jsonIdMap.withCreator(new MacCreator());
+      jsonIdMap.withCreator(new MacPOCreator());
+      jsonIdMap.withCreator(new AlexCreator());
+      jsonIdMap.withCreator(new AlexPOCreator());
+      jsonIdMap.withCreator(new MacCreator());
+      jsonIdMap.withCreator(new MacPOCreator());
       return jsonIdMap;
    }
 }

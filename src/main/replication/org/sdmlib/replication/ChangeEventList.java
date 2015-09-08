@@ -226,4 +226,3 @@ public class ChangeEventList implements PropertyChangeInterface
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 }
-

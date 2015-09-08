@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java' type='text/x-java'>TaskFlowObjectScenarioForCoverage</a></p>
+<p>TaskFlowObjectScenarioForCoverage</p>
+<p>Create some objects just for coverage. This does not serve as an usage example.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"F1 : FetchFileFlow",
+         "attributes":[
+         "taskNo=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P4 : PeerProxy",
+         "attributes":[
+         "port=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"F5 : FetchFileFlow$TaskNames;"
+      },
+      {
+         "typ":"node",
+         "id":"L6 : Logger",
+         "attributes":[
+         "taskNo=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"L7 : LogEntry"
+      },
+      {
+         "typ":"node",
+         "id":"L9 : LogEntry"
+      },
+      {
+         "typ":"node",
+         "id":"L8 : LogEntry"
+      },
+      {
+         "typ":"node",
+         "id":"S2 : SocketThread",
+         "attributes":[
+         "port=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"S3 : SDMTimer"
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"fileServer",
+            "id":"P4 : PeerProxy"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"taskNames",
+            "id":"F5 : FetchFileFlow$TaskNames;"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"parentTransitive",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"rootParent",
+            "id":"F1 : FetchFileFlow"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"subFlow",
+            "id":"L6 : Logger"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"fetchfileflow",
+            "id":"F1 : FetchFileFlow"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"subFlowTransitive",
+            "id":"L6 : Logger"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"logger",
+            "id":"L6 : Logger"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"entries",
+            "id":"L7 : LogEntry"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"logger",
+            "id":"L6 : Logger"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"entries",
+            "id":"L9 : LogEntry"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"L7 : LogEntry"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"children",
+            "id":"L8 : LogEntry"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTaskFlowObjectScenarioForCoverage3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+
+</body>
+</html>

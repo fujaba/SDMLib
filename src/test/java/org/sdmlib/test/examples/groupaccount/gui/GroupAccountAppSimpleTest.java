@@ -7,12 +7,26 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import javafx.application.Platform;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 
 public class GroupAccountAppSimpleTest
 {
    LinkedBlockingQueue<Object> testResults = new LinkedBlockingQueue<>();
+   
+   
+   
+   @Test
+   public void testGroupAccountMultiUserGui()
+   {
+      Storyboard story = new Storyboard();
+      
+      
+      
+      story.dumpHTML();
+   }
    
    // @Test
    public void testGroupAccountGui()

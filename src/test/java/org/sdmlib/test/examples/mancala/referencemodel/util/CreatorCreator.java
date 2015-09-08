@@ -21,6 +21,18 @@ class CreatorCreator{
       jsonIdMap.withCreator(new ColorPOCreator());
       jsonIdMap.withCreator(new ColorCreator());
       jsonIdMap.withCreator(new ColorPOCreator());
+      jsonIdMap.withCreator(new ColorCreator());
+      jsonIdMap.withCreator(new ColorPOCreator());
+      jsonIdMap.withCreator(new ColorCreator());
+      jsonIdMap.withCreator(new ColorPOCreator());
+      jsonIdMap.withCreator(new ColorCreator());
+      jsonIdMap.withCreator(new ColorPOCreator());
+      jsonIdMap.withCreator(new ColorCreator());
+      jsonIdMap.withCreator(new ColorPOCreator());
+      jsonIdMap.withCreator(new ColorCreator());
+      jsonIdMap.withCreator(new ColorPOCreator());
+      jsonIdMap.withCreator(new ColorCreator());
+      jsonIdMap.withCreator(new ColorPOCreator());
       return jsonIdMap;
    }
 }

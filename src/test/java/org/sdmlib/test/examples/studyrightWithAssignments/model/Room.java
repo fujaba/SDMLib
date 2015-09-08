@@ -298,6 +298,7 @@ public  class Room implements PropertyChangeInterface
       return this;
    }
 
+
    public Room createDoors()
    {
       Room value = new Room();

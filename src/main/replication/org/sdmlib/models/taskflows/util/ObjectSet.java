@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014 christian 
+   Copyright (c) 2015 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -19,51 +19,48 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
    
-package org.sdmlib.replication;
+package org.sdmlib.models.taskflows.util;
 
-import org.sdmlib.replication.BoardTask;
+import org.sdmlib.models.modelsets.SDMSet;
+import java.lang.Object;
+import java.util.Collection;
 
-
-public abstract class RemoteTask extends Task implements Runnable
+public class ObjectSet extends SDMSet<Object>
 {
 
-   
-   //==========================================================================
-   
-   @Override
-   public void removeYou()
-   {
-      super.removeYou();
+   public static final ObjectSet EMPTY_SET = new ObjectSet().withReadOnly(true);
 
-      withoutLogEntries(this.getLogEntries().toArray(new LogEntry[this.getLogEntries().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+
+   public ObjectPO hasObjectPO()
+   {
+      return new ObjectPO(this.toArray(new Object[this.size()]));
    }
 
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_BOARDTASK = "boardTask";
-   
-   private BoardTask boardTask;
 
-   public BoardTask getBoardTask()
+   public String getEntryType()
    {
-      return this.boardTask;
+      return "java.lang.Object";
    }
-   
-   public void setBoardTask(BoardTask value)
+
+
+   @SuppressWarnings("unchecked")
+   public ObjectSet with(Object value)
    {
-      if (this.boardTask != value)
+      if (value instanceof java.util.Collection)
       {
-         BoardTask oldValue = this.boardTask;
-         this.boardTask = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_BOARDTASK, oldValue, value);
+         this.addAll((Collection<Object>)value);
       }
+      else if (value != null)
+      {
+         this.add((Object) value);
+      }
+      
+      return this;
    }
    
-   public RemoteTask withBoardTask(BoardTask value)
+   public ObjectSet without(Object value)
    {
-      setBoardTask(value);
+      this.remove(value);
       return this;
    }
 

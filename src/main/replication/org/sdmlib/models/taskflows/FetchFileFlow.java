@@ -31,6 +31,7 @@ import java.io.OutputStream;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.models.taskflows.PeerProxy;
 
 public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 {

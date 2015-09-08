@@ -21,19 +21,19 @@
    
 package org.sdmlib.replication.util;
 
+import java.beans.PropertyChangeEvent;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
+import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.Task;
 import org.sdmlib.serialization.EntityFactory;
 
 import de.uniks.networkparser.event.ObjectMapEntry;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.replication.SeppelSpaceProxy;
-import java.beans.PropertyChangeEvent;
 
 public class BoardTaskCreator extends EntityFactory
 {

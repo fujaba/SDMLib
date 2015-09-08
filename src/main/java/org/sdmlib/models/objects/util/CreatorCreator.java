@@ -50,6 +50,38 @@ class CreatorCreator{
       jsonIdMap.withCreator(new GenericAttributePOCreator());
       jsonIdMap.withCreator(new GenericLinkCreator());
       jsonIdMap.withCreator(new GenericLinkPOCreator());
+      jsonIdMap.withCreator(new GenericGraphCreator());
+      jsonIdMap.withCreator(new GenericGraphPOCreator());
+      jsonIdMap.withCreator(new GenericObjectCreator());
+      jsonIdMap.withCreator(new GenericObjectPOCreator());
+      jsonIdMap.withCreator(new GenericAttributeCreator());
+      jsonIdMap.withCreator(new GenericAttributePOCreator());
+      jsonIdMap.withCreator(new GenericLinkCreator());
+      jsonIdMap.withCreator(new GenericLinkPOCreator());
+      jsonIdMap.withCreator(new GenericGraphCreator());
+      jsonIdMap.withCreator(new GenericGraphPOCreator());
+      jsonIdMap.withCreator(new GenericObjectCreator());
+      jsonIdMap.withCreator(new GenericObjectPOCreator());
+      jsonIdMap.withCreator(new GenericAttributeCreator());
+      jsonIdMap.withCreator(new GenericAttributePOCreator());
+      jsonIdMap.withCreator(new GenericLinkCreator());
+      jsonIdMap.withCreator(new GenericLinkPOCreator());
+      jsonIdMap.withCreator(new GenericGraphCreator());
+      jsonIdMap.withCreator(new GenericGraphPOCreator());
+      jsonIdMap.withCreator(new GenericObjectCreator());
+      jsonIdMap.withCreator(new GenericObjectPOCreator());
+      jsonIdMap.withCreator(new GenericAttributeCreator());
+      jsonIdMap.withCreator(new GenericAttributePOCreator());
+      jsonIdMap.withCreator(new GenericLinkCreator());
+      jsonIdMap.withCreator(new GenericLinkPOCreator());
+      jsonIdMap.withCreator(new GenericGraphCreator());
+      jsonIdMap.withCreator(new GenericGraphPOCreator());
+      jsonIdMap.withCreator(new GenericObjectCreator());
+      jsonIdMap.withCreator(new GenericObjectPOCreator());
+      jsonIdMap.withCreator(new GenericAttributeCreator());
+      jsonIdMap.withCreator(new GenericAttributePOCreator());
+      jsonIdMap.withCreator(new GenericLinkCreator());
+      jsonIdMap.withCreator(new GenericLinkPOCreator());
       return jsonIdMap;
    }
 }

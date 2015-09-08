@@ -220,7 +220,7 @@ public class Lane implements PropertyChangeInterface
    {
       if (this.tasks == null)
       {
-         return BoardTask.EMPTY_SET;
+         return BoardTaskSet.EMPTY_SET;
       }
 
       return this.tasks;

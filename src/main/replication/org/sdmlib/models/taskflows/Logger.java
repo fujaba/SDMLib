@@ -32,6 +32,7 @@ import org.sdmlib.models.taskflows.util.LoggerSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
+import org.sdmlib.models.taskflows.PeerProxy;
 
 public class Logger extends TaskFlow implements PropertyChangeInterface
 {

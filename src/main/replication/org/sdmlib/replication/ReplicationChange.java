@@ -429,5 +429,13 @@ public class ReplicationChange extends Task implements PropertyChangeInterface,
       this.createLogEntries().withStepName(string).withExecutedBy(name)
          .withTimeStamp(System.currentTimeMillis());
    }
-}
+
+   
+   //==========================================================================
+   
+   public boolean isIsToManyProperty()
+   {
+      return this.isToManyProperty;
+   }
+   }
 
