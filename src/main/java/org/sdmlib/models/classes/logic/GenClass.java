@@ -368,11 +368,14 @@ public class GenClass extends Generator<Clazz>
 			if(symTabEntriesFor.size()>0) {
 				SymTabEntry symTabEntry = symTabEntriesFor.get(0);
 				String lines = creatorcreator.getFileBody().substring(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos());
-				
-				lines = CGUtil.replaceAll(lines, "      return jsonIdMap;", creators+"      return jsonIdMap;");
-				creatorcreator.replace(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos(), lines);
-				creatorcreator.withFileChanged(true);
-				printFile(creatorcreator);
+				String newCreators = creators.toString();
+				if (lines.indexOf(newCreators) < 0) 
+				{
+				   lines = CGUtil.replaceAll(lines, "      return jsonIdMap;", creators+"      return jsonIdMap;");
+				   creatorcreator.replace(symTabEntry.getBodyStartPos(), symTabEntry.getEndPos(), lines);
+				   creatorcreator.withFileChanged(true);
+				   printFile(creatorcreator);
+				}
 			}
 		}
 	}
