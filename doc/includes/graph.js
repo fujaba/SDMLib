@@ -19,7 +19,7 @@
  See the Licence for the specific language governing
  permissions and limitations under the Licence.
 */
-// VERSION: 2015.08.26 16:40 
+// VERSION: 2015.08.26 16:40
 
 //var uniId = 0;
 //function generateId() { return uniId++; };
@@ -28,8 +28,8 @@
 //	this.uniId = function () { return newId; };
 //	return newId;
 //};
-/*jslint forin:true, newcap:true, node: true, evil: true, nomen: true, continue: true, vars: true */
-/*jshint forin:true, laxbreak: true, newcap: false, node: true, evil: true, nomen: true, onevar: true, -W089, -W079 */
+/*jslint forin:true, newcap:true, node: true, nomen: true, continue: true, vars: true */
+/*jshint forin:true, laxbreak: true, newcap: false, node: true, nomen: true, onevar: true, -W089, -W079 */
 
 /*global document: false, window: false, Options: false, navigator: false, unescape: false, Edge: false, Info: false, Loader: false, HTMLDrawer: false, DagreLayout: false, SVGDrawer: false */
 /*global jsPDF: false, svgConverter: false, jsEPS: false, Image: false, Blob: false, dagre: false, SymbolLibary: false, InputNode: false */
@@ -334,7 +334,7 @@ GraphModel.prototype.addEdgeModel = function (e) {
 	var typ = e.typ.charAt(0).toUpperCase() + e.typ.substring(1).toLowerCase();
 	var edge;
 	if (typeof window[typ] === "function") {
-		edge = eval("new " + typ + "()");
+		edge = new window[typ]();
 	} else {
 		edge = new Edge();
 	}
@@ -1683,12 +1683,12 @@ ClassEditor.prototype.dropFile =  function (content, file) {
 };
 ClassEditor.prototype.dropModel = function (e) {
 	this.dragStyler(e, "dragleave");
-	
-	var data = event.dataTransfer.getData("Text");
-	if(data) {
+
+	var data = e.dataTransfer.getData("Text");
+	if (data) {
 		var x = this.getEventX(e);
 		var y = this.getEventY(e);
-		this.getAction("CreateNode").setValue(x, y, x+100, y+100);
+		this.getAction("CreateNode").setValue(x, y, x + 100, y + 100);
 		return;
 	}
 
@@ -1724,7 +1724,8 @@ ClassEditor.prototype.save = function () {
 	var result = {};
 	this.copy(result, this.model);
 	var data = JSON.stringify(result, null, "\t");
-	if (java !== undefined) {
+	var hasJava = typeof (java);
+	if (hasJava !== 'undefined') {
 		java.save(data);
 	} else {
 		this.download("text/json", data, "model.json");
@@ -1782,7 +1783,7 @@ ClassEditor.prototype.minCodeView = function () {
 };
 ClassEditor.prototype.createCell = function (node, table) {
 	var tr = this.create({tag: 'tr', _parent: table});
-	node["_parent"] = tr;
+	node._parent = tr;
 	return this.create(node);
 };
 ClassEditor.prototype.maxToolbar = function () {
@@ -1803,7 +1804,8 @@ ClassEditor.prototype.maxToolbar = function () {
 
 	cell = this.createCell({"tag": "td", colspan: 2, style: "text-align:right;padding:10px 10px 0 0"}, table);
 	this.create({tag: 'button', _parent: cell, style: "margin-left:10px;", value: "Save", onClick: function () {that.save(); }});
-	if (typeof(java) != "undefined") {
+	var hasJava = typeof (java);
+	if (hasJava !== 'undefined') {
 		this.create({tag: 'button', _parent: cell, style: "margin-left:10px;", value: "Generate", onClick: function () {that.generate(); }});
 		this.create({tag: 'button', _parent: cell, style: "margin-left:10px;", value: "Exit", onClick: function () {that.close(); }});
 	}
@@ -1820,27 +1822,27 @@ ClassEditor.prototype.maxItembar = function () {
 	var table = this.create({tag: "table", style: "padding-left:10px", _parent: this.itembar});
 	this.createCell({"tag": "th", value: "Item"}, table);
 	var th = this.createCell({"tag": "th"}, table);
-	var item = this.create({"tag": "table", id: "node", draggable: "true", cellspacing: "0", ondragstart: function (e) {that.startDrag(e);}, style: "border:1px solid #000;width:30px;height:30px;cursor: pointer", _parent: th});
+	var item = this.create({"tag": "table", id: "node", draggable: "true", cellspacing: "0", ondragstart: function (e) {that.startDrag(e); }, style: "border:1px solid #000;width:30px;height:30px;cursor: pointer", _parent: th});
 	this.createCell({"tag": "td", style: "height:10px;border-bottom:1px solid #000;"}, item);
 	this.createCell({"tag": "td"}, item);
-	var node = this.getAction("Selector").node
+	var node = this.getAction("Selector").node;
 
-	if(node) {
+	if (node) {
 		th = this.createCell({"tag": "th"}, table);
-		this.create({tag: "button", id: "Attribute", value: "Attribute", onclick: function(e){that.executeClassAdd(e);}, "style": "margin-top:5px;", _parent: th});
-		this.create({tag: "button", id: "Method", value: "Method", onclick: function(e){that.executeClassAdd(e);}, "style": "margin-top:5px;", _parent: th});
+		this.create({tag: "button", id: "Attribute", value: "Attribute", onclick: function (e) {that.executeClassAdd(e); }, "style": "margin-top:5px;", _parent: th});
+		this.create({tag: "button", id: "Method", value: "Method", onclick: function (e) {that.executeClassAdd(e); }, "style": "margin-top:5px;", _parent: th});
 	}
 };
 ClassEditor.prototype.executeClassAdd = function (e) {
-	var node = this.getAction("Selector").node
-	if(e.target.id === "Attribute") {
+	var node = this.getAction("Selector").node;
+	if (e.target.id === "Attribute") {
 		this.inputNode.accept("attribute:Object", node);
-	} else if(e.target.id === "Method") {
+	} else if (e.target.id === "Method") {
 		this.inputNode.accept("methods()", node);
 	}
 
 };
-ClassEditor.prototype.startDrag = function (e) {e.dataTransfer.setData("Text", e.target.id);}
+ClassEditor.prototype.startDrag = function (e) {e.dataTransfer.setData("Text", e.target.id); };
 ClassEditor.prototype.createInputField = function (option) {
 	var that = this;
 	var node = this.copy({tag: "input", type: "text", width: "100%", onFocus: function () {that.inputEvent = false; }, onBlur: function () {that.inputEvent = true; }}, option);
@@ -1879,7 +1881,7 @@ ClassEditor.prototype.minItembar = function (e) {
 };
 
 ClassEditor.prototype.getId = function (element, id) {
-	if(element == null) {
+	if (element === null) {
 		return false;
 	}
 	if (element.id === id) {
@@ -2300,7 +2302,7 @@ InputNode.prototype.keyup = function (e) {
 InputNode.prototype.accept = function (text, n) {
 	var model = n.model;
 	var id = n.model.id;
-	if( this.addValue(text, model) ) {
+	if (this.addValue(text, model)) {
 		if (id !== n.model.id) {
 			this._parent.removeNode(id);
 			this._parent.addNode(n.model);
