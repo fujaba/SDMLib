@@ -46,6 +46,19 @@
             "id":"G1 : Greeting"
          },
          "target":{
+            "cardinality":"many",
+            "property":"tgtTransitive",
+            "id":"G1 : Greeting"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
+         },
+         "target":{
             "cardinality":"one",
             "property":"greetingMessage",
             "id":"G2 : GreetingMessage"
@@ -62,19 +75,6 @@
             "cardinality":"one",
             "property":"person",
             "id":"P3 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"greeting",
-            "id":"G1 : Greeting"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"tgtTransitive",
-            "id":"G1 : Greeting"
          }
       }
    ]
@@ -119,6 +119,19 @@ Hello TTC Participants</p>
             "id":"G1 : Greeting"
          },
          "target":{
+            "cardinality":"many",
+            "property":"tgtTransitive",
+            "id":"G1 : Greeting"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"greeting",
+            "id":"G1 : Greeting"
+         },
+         "target":{
             "cardinality":"one",
             "property":"greetingMessage",
             "id":"G2 : GreetingMessage"
@@ -135,19 +148,6 @@ Hello TTC Participants</p>
             "cardinality":"one",
             "property":"person",
             "id":"P3 : Person"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"greeting",
-            "id":"G1 : Greeting"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"tgtTransitive",
-            "id":"G1 : Greeting"
          }
       }
    ]

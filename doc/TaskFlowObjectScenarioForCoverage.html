@@ -95,13 +95,13 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"parentTransitive",
+            "cardinality":"one",
+            "property":"rootParent",
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"one",
-            "property":"rootParent",
+            "cardinality":"many",
+            "property":"parentTransitive",
             "id":"F1 : FetchFileFlow"
          }
       },
@@ -113,8 +113,8 @@
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"one",
-            "property":"subFlow",
+            "cardinality":"many",
+            "property":"subFlowTransitive",
             "id":"L6 : Logger"
          }
       },
@@ -126,8 +126,8 @@
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"many",
-            "property":"subFlowTransitive",
+            "cardinality":"one",
+            "property":"subFlow",
             "id":"L6 : Logger"
          }
       },
