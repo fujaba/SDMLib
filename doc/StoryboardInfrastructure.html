@@ -734,6 +734,19 @@ phase entries will be used for planning, in future</p>
             "id":"G26 : GenClassModel"
          },
          "target":{
+            "cardinality":"one",
+            "property":"showDiff",
+            "id":"G27 : GenClassModel$DIFF"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"genclassmodel",
+            "id":"G26 : GenClassModel"
+         },
+         "target":{
             "cardinality":"many",
             "property":"associations",
             "id":"A10 : Association"
@@ -763,19 +776,6 @@ phase entries will be used for planning, in future</p>
             "cardinality":"many",
             "property":"associations",
             "id":"A22 : Association"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"genclassmodel",
-            "id":"G26 : GenClassModel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"showDiff",
-            "id":"G27 : GenClassModel$DIFF"
          }
       }
    ]

@@ -25,14 +25,14 @@
       },
       {
          "typ":"node",
-         "id":"P4 : PeerProxy",
-         "attributes":[
-         "port=0"
-         ]
+         "id":"F4 : FetchFileFlow$TaskNames;"
       },
       {
          "typ":"node",
-         "id":"F5 : FetchFileFlow$TaskNames;"
+         "id":"P5 : PeerProxy",
+         "attributes":[
+         "port=0"
+         ]
       },
       {
          "typ":"node",
@@ -75,8 +75,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"fileServer",
-            "id":"P4 : PeerProxy"
+            "property":"taskNames",
+            "id":"F4 : FetchFileFlow$TaskNames;"
          }
       },
       {
@@ -88,20 +88,20 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"taskNames",
-            "id":"F5 : FetchFileFlow$TaskNames;"
+            "property":"fileServer",
+            "id":"P5 : PeerProxy"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"parentTransitive",
+            "cardinality":"one",
+            "property":"rootParent",
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"one",
-            "property":"rootParent",
+            "cardinality":"many",
+            "property":"subFlowTransitive",
             "id":"F1 : FetchFileFlow"
          }
       },
@@ -113,8 +113,8 @@
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"one",
-            "property":"subFlow",
+            "cardinality":"many",
+            "property":"subFlowTransitive",
             "id":"L6 : Logger"
          }
       },
@@ -126,8 +126,8 @@
             "id":"F1 : FetchFileFlow"
          },
          "target":{
-            "cardinality":"many",
-            "property":"subFlowTransitive",
+            "cardinality":"one",
+            "property":"subFlow",
             "id":"L6 : Logger"
          }
       },

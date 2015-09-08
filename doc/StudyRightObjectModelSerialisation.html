@@ -26,20 +26,8 @@
       },
       {
          "typ":"node",
-         "id":"karli : Student",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@6a47b187",
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"node",
          "id":"mathRoom : Room",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@2049a9c1",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@4d2a1da3",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -84,8 +72,20 @@
       },
       {
          "typ":"node",
+         "id":"karli : Student",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@252f626c",
+         "attributes":[
+         "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
+         ]
+      },
+      {
+         "typ":"node",
          "id":"A1 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@1ef6d34c",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@33f98231",
          "attributes":[
          "content=Matrix Multiplication",
             "points=5"
@@ -94,7 +94,7 @@
       {
          "typ":"node",
          "id":"A2 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@46271dd6",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@48284d0e",
          "attributes":[
          "content=Series",
             "points=6"
@@ -103,7 +103,7 @@
       {
          "typ":"node",
          "id":"A3 : Assignment",
-         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@11bb571c",
+         "headimage":"de.uniks.networkparser.graph.GraphNodeImage@557286ad",
          "attributes":[
          "content=Integrals",
             "points=8"
@@ -112,19 +112,6 @@
    ],
    "edges":[
    {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"university",
-            "id":"studyRight : University"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"students",
-            "id":"karli : Student"
-         }
-      },
-      {
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
@@ -192,14 +179,14 @@
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"one",
+            "property":"university",
+            "id":"studyRight : University"
+         },
+         "target":{
             "cardinality":"many",
             "property":"students",
             "id":"karli : Student"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"in",
-            "id":"mathRoom : Room"
          }
       },
       {
@@ -226,6 +213,19 @@
             "cardinality":"many",
             "property":"doors",
             "id":"sportsRoom : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"in",
+            "id":"mathRoom : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"students",
+            "id":"karli : Student"
          }
       },
       {
@@ -596,18 +596,7 @@
       },
       {
          "typ":"node",
-         "id":"S5 : Student",
-         "attributes":[
-         "name=Karli",
-            "id=4242",
-            "assignmentPoints=0",
-            "motivation=0",
-            "credits=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"R6 : Room",
+         "id":"R5 : Room",
          "attributes":[
          "name=senate",
             "topic=math",
@@ -616,7 +605,7 @@
       },
       {
          "typ":"node",
-         "id":"R7 : Room",
+         "id":"R6 : Room",
          "attributes":[
          "name=7522",
             "topic=arts",
@@ -625,7 +614,7 @@
       },
       {
          "typ":"node",
-         "id":"R8 : Room",
+         "id":"R7 : Room",
          "attributes":[
          "name=gymnasium",
             "topic=sports",
@@ -634,7 +623,7 @@
       },
       {
          "typ":"node",
-         "id":"R9 : Room",
+         "id":"R8 : Room",
          "attributes":[
          "name=The End",
             "topic=exam",
@@ -643,11 +632,22 @@
       },
       {
          "typ":"node",
-         "id":"R10 : Room",
+         "id":"R9 : Room",
          "attributes":[
          "name=7422",
             "topic=Software Engineering",
             "credits=42"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"S10 : Student",
+         "attributes":[
+         "name=Karli",
+            "id=4242",
+            "assignmentPoints=0",
+            "motivation=0",
+            "credits=0"
          ]
       },
       {
@@ -685,8 +685,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"students",
-            "id":"S5 : Student"
+            "property":"rooms",
+            "id":"R5 : Room"
          }
       },
       {
@@ -750,20 +750,20 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"rooms",
-            "id":"R10 : Room"
+            "property":"students",
+            "id":"S10 : Student"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"students",
-            "id":"S5 : Student"
+            "property":"doors",
+            "id":"R5 : Room"
          },
          "target":{
-            "cardinality":"one",
-            "property":"in",
+            "cardinality":"many",
+            "property":"doors",
             "id":"R6 : Room"
          }
       },
@@ -772,7 +772,7 @@
          "source":{
             "cardinality":"many",
             "property":"doors",
-            "id":"R6 : Room"
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
@@ -783,14 +783,14 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R6 : Room"
+            "cardinality":"one",
+            "property":"in",
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
-            "property":"doors",
-            "id":"R8 : Room"
+            "property":"students",
+            "id":"S10 : Student"
          }
       },
       {
@@ -798,7 +798,7 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"R6 : Room"
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
@@ -811,7 +811,7 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"R6 : Room"
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
@@ -824,7 +824,7 @@
          "source":{
             "cardinality":"one",
             "property":"room",
-            "id":"R6 : Room"
+            "id":"R5 : Room"
          },
          "target":{
             "cardinality":"many",
@@ -837,6 +837,45 @@
          "source":{
             "cardinality":"many",
             "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R7 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R8 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R6 : Room"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"doors",
+            "id":"R9 : Room"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"doors",
             "id":"R7 : Room"
          },
          "target":{
@@ -850,51 +889,12 @@
          "source":{
             "cardinality":"many",
             "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R9 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R7 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R10 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
             "id":"R8 : Room"
          },
          "target":{
             "cardinality":"many",
             "property":"doors",
             "id":"R9 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R9 : Room"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"doors",
-            "id":"R10 : Room"
          }
       }
    ]

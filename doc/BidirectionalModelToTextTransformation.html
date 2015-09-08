@@ -294,19 +294,12 @@
          "typ":"node",
          "id":"T9 : Template",
          "attributes":[
-         "referenceLookup=false",
-            "listEnd=",
-            "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList ",
+         "listEnd=",
+            "valueStartPos=0",
             "listStart=",
+            "templateText=The example University has 99 rooms and 88 students: \u000aroomList The students are: \u000astudentList ",
             "listSeparator=",
-            "valueStartPos=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"U1 : University",
-         "attributes":[
-         "name=StudyRight"
+            "referenceLookup=false"
          ]
       },
       {
@@ -351,6 +344,103 @@
          "attributes":[
          "textFragment=studentList",
             "attrName=students",
+            "isKeyAttribute=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"U1 : University",
+         "attributes":[
+         "name=StudyRight"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"T14 : Template",
+         "attributes":[
+         "listEnd=\u000a",
+            "valueStartPos=0",
+            "listStart=",
+            "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors",
+            "listSeparator=\u000a",
+            "referenceLookup=true"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P15 : PlaceHolderDescription",
+         "attributes":[
+         "textFragment=xy",
+            "attrName=roomNo",
+            "isKeyAttribute=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P16 : PlaceHolderDescription",
+         "attributes":[
+         "textFragment=42",
+            "attrName=credits",
+            "isKeyAttribute=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P17 : PlaceHolderDescription",
+         "attributes":[
+         "textFragment=neighbors",
+            "attrName=neighbors",
+            "isKeyAttribute=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"T18 : Template",
+         "attributes":[
+         "listEnd=.",
+            "valueStartPos=0",
+            "listStart=",
+            "templateText=name",
+            "listSeparator=, ",
+            "referenceLookup=true"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P19 : PlaceHolderDescription",
+         "attributes":[
+         "textFragment=name",
+            "attrName=roomNo",
+            "isKeyAttribute=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"T21 : Template",
+         "attributes":[
+         "listEnd=\u000a",
+            "valueStartPos=0",
+            "listStart=",
+            "templateText= - Stud has student number 1234.",
+            "listSeparator=\u000a",
+            "referenceLookup=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P22 : PlaceHolderDescription",
+         "attributes":[
+         "textFragment=Stud",
+            "attrName=name",
+            "isKeyAttribute=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P23 : PlaceHolderDescription",
+         "attributes":[
+         "textFragment=1234",
+            "attrName=matrNo",
             "isKeyAttribute=false"
          ]
       },
@@ -413,113 +503,10 @@
             "credits=0",
             "motivation=0"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"T14 : Template",
-         "attributes":[
-         "referenceLookup=true",
-            "listEnd=\u000a",
-            "templateText= - The xy room has 42 credits. It is connected to rooms: neighbors",
-            "listStart=",
-            "listSeparator=\u000a",
-            "valueStartPos=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P15 : PlaceHolderDescription",
-         "attributes":[
-         "textFragment=xy",
-            "attrName=roomNo",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P16 : PlaceHolderDescription",
-         "attributes":[
-         "textFragment=42",
-            "attrName=credits",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P17 : PlaceHolderDescription",
-         "attributes":[
-         "textFragment=neighbors",
-            "attrName=neighbors",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"T18 : Template",
-         "attributes":[
-         "referenceLookup=true",
-            "listEnd=.",
-            "templateText=name",
-            "listStart=",
-            "listSeparator=, ",
-            "valueStartPos=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P19 : PlaceHolderDescription",
-         "attributes":[
-         "textFragment=name",
-            "attrName=roomNo",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"T21 : Template",
-         "attributes":[
-         "referenceLookup=false",
-            "listEnd=\u000a",
-            "templateText= - Stud has student number 1234.",
-            "listStart=",
-            "listSeparator=\u000a",
-            "valueStartPos=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P22 : PlaceHolderDescription",
-         "attributes":[
-         "textFragment=Stud",
-            "attrName=name",
-            "isKeyAttribute=false"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P23 : PlaceHolderDescription",
-         "attributes":[
-         "textFragment=1234",
-            "attrName=matrNo",
-            "isKeyAttribute=false"
-         ]
       }
    ],
    "edges":[
    {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"template",
-            "id":"T9 : Template"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"modelObject",
-            "id":"U1 : University"
-         }
-      },
-      {
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
@@ -582,6 +569,136 @@
             "cardinality":"many",
             "property":"placeholders",
             "id":"P20 : PlaceHolderDescription"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"template",
+            "id":"T9 : Template"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"modelObject",
+            "id":"U1 : University"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"P13 : PlaceHolderDescription"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"subTemplate",
+            "id":"T14 : Template"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"owners",
+            "id":"T14 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"placeholders",
+            "id":"P15 : PlaceHolderDescription"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"owners",
+            "id":"T14 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"placeholders",
+            "id":"P16 : PlaceHolderDescription"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"owners",
+            "id":"T14 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"placeholders",
+            "id":"P17 : PlaceHolderDescription"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"P17 : PlaceHolderDescription"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"subTemplate",
+            "id":"T18 : Template"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"owners",
+            "id":"T18 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"placeholders",
+            "id":"P19 : PlaceHolderDescription"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"parents",
+            "id":"P20 : PlaceHolderDescription"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"subTemplate",
+            "id":"T21 : Template"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"owners",
+            "id":"T21 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"placeholders",
+            "id":"P22 : PlaceHolderDescription"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"owners",
+            "id":"T21 : Template"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"placeholders",
+            "id":"P23 : PlaceHolderDescription"
          }
       },
       {
@@ -777,123 +894,6 @@
             "cardinality":"many",
             "property":"neighbors",
             "id":"R6 : Room"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"parents",
-            "id":"P13 : PlaceHolderDescription"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"subTemplate",
-            "id":"T14 : Template"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"owners",
-            "id":"T14 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"placeholders",
-            "id":"P15 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"owners",
-            "id":"T14 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"placeholders",
-            "id":"P16 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"owners",
-            "id":"T14 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"placeholders",
-            "id":"P17 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"parents",
-            "id":"P17 : PlaceHolderDescription"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"subTemplate",
-            "id":"T18 : Template"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"owners",
-            "id":"T18 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"placeholders",
-            "id":"P19 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"parents",
-            "id":"P20 : PlaceHolderDescription"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"subTemplate",
-            "id":"T21 : Template"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"owners",
-            "id":"T21 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"placeholders",
-            "id":"P22 : PlaceHolderDescription"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"owners",
-            "id":"T21 : Template"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"placeholders",
-            "id":"P23 : PlaceHolderDescription"
          }
       }
    ]

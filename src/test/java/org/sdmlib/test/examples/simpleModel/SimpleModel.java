@@ -19,7 +19,7 @@ public class SimpleModel
       Clazz macClazz = model.createClazz("Mac");
       macClazz.withAttribute("Name", DataType.STRING);
       
-      // Enable Special Thinks
+      // Enable Special Things
       model.getGenerator().withShowDiff(DIFF.FULL);
       model.generate("src/test/java");
    }

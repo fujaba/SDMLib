@@ -20,11 +20,11 @@
          "typ":"node",
          "id":"R1 : ReplicationNode",
          "attributes":[
-         "spaceId=coverage",
-            "lastChangeId=0",
-            "name=Thread-135",
+         "lastChangeId=0",
+            "spaceId=coverage",
+            "name=Thread-11",
             "threadGroup=java.lang.ThreadGroup[name=main,maxpri=10]",
-            "id=145",
+            "id=28",
             "priority=5",
             "state=NEW",
             "uncaughtExceptionHandler=java.lang.ThreadGroup[name=main,maxpri=10]"
@@ -35,95 +35,88 @@
          "id":"S7 : SharedSpace",
          "attributes":[
          "lastChangeId=0",
-            "newHistoryIdNumber=1",
-            "name=Thread-136",
-            "threadGroup=java.lang.ThreadGroup[name=main,maxpri=10]",
-            "id=146",
-            "priority=5",
-            "state=NEW",
-            "uncaughtExceptionHandler=java.lang.ThreadGroup[name=main,maxpri=10]"
+            "javaFXApplication=false"
          ]
       },
       {
          "typ":"node",
-         "id":"S9 : StackTraceElement;"
+         "id":"S10 : StackTraceElement;"
       },
       {
          "typ":"node",
-         "id":"H18 : HashMap"
+         "id":"H11 : HashMap"
       },
       {
          "typ":"node",
-         "id":"L11 : Launcher$AppClassLoader"
+         "id":"L12 : Launcher$AppClassLoader"
       },
       {
          "typ":"node",
-         "id":"R8 : ReplicationChannel",
-         "attributes":[
-         "name=Thread-137",
-            "threadGroup=java.lang.ThreadGroup[name=main,maxpri=10]",
-            "id=147",
-            "priority=5",
-            "state=NEW",
-            "uncaughtExceptionHandler=java.lang.ThreadGroup[name=main,maxpri=10]"
-         ]
+         "id":"R8 : ReplicationChannel"
       },
       {
          "typ":"node",
-         "id":"C15 : ChangeHistory"
+         "id":"C9 : ChangeHistory"
       },
       {
          "typ":"node",
-         "id":"H17 : HashMap"
+         "id":"U13 : URL;"
       },
       {
          "typ":"node",
-         "id":"H10 : HashMap"
+         "id":"L14 : Launcher$ExtClassLoader"
       },
       {
          "typ":"node",
-         "id":"U12 : URL;"
-      },
-      {
-         "typ":"node",
-         "id":"L13 : Launcher$ExtClassLoader"
-      },
-      {
-         "typ":"node",
-         "id":"U14 : URL;"
-      },
-      {
-         "typ":"node",
-         "id":"L16 : LinkedHashMap"
+         "id":"U15 : URL;"
       },
       {
          "typ":"node",
          "id":"R2 : ReplicationServer",
          "attributes":[
          "lastChangeId=0",
-            "name=Thread-138",
-            "threadGroup=java.lang.ThreadGroup[name=main,maxpri=10]",
-            "id=148",
-            "priority=5",
-            "state=NEW",
-            "uncaughtExceptionHandler=java.lang.ThreadGroup[name=main,maxpri=10]"
+            "javaFXApplication=false"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"H19 : HashMap"
       },
       {
          "typ":"node",
          "id":"S3 : ServerSocketAcceptThread",
          "attributes":[
-         "port=0",
-            "name=Thread-139",
-            "threadGroup=java.lang.ThreadGroup[name=main,maxpri=10]",
-            "id=149",
-            "priority=5",
-            "state=NEW",
-            "uncaughtExceptionHandler=java.lang.ThreadGroup[name=main,maxpri=10]"
+         "port=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"R4 : RemoteTaskBoard"
+      },
+      {
+         "typ":"node",
+         "id":"L16 : Lane",
+         "attributes":[
+         "name=todo"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"B17 : BoardTask",
+         "attributes":[
+         "name=firstTask",
+            "manualExecution=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"B19 : BoardTask",
+         "attributes":[
+         "name=secondTask",
+            "manualExecution=false"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"L18 : LogEntry",
+         "attributes":[
+         "timeStamp=0"
          ]
       },
       {
@@ -132,48 +125,17 @@
       },
       {
          "typ":"node",
-         "id":"R4 : RemoteTaskBoard"
+         "id":"P22 : PropertyChangeEvent"
       },
       {
          "typ":"node",
-         "id":"L21 : Lane",
-         "attributes":[
-         "name=todo"
-         ]
+         "id":"P21 : PropertyChangeEvent"
       },
       {
          "typ":"node",
-         "id":"B22 : BoardTask",
+         "id":" : PropertyChangeEvent",
          "attributes":[
-         "name=firstTask"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"B23 : BoardTask",
-         "attributes":[
-         "name=secondTask"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P25 : PropertyChangeEvent",
-         "attributes":[
-         "propertyName=lane"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"L26 : LogEntry",
-         "attributes":[
-         "timeStamp=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P24 : PropertyChangeEvent",
-         "attributes":[
-         "propertyName=lane"
+         "property=lane"
          ]
       },
       {
@@ -186,12 +148,12 @@
       },
       {
          "typ":"node",
-         "id":"R27 : ReplicationChange",
+         "id":"R23 : ReplicationChange",
          "attributes":[
-         "changeMsg={}",
-            "historyIdPrefix=42",
+         "historyIdPrefix=42",
             "historyIdNumber=0",
-            "isToManyProperty=false"
+            "isToManyProperty=false",
+            "changeMsg={}"
          ]
       }
    ],
@@ -219,7 +181,7 @@
          "target":{
             "cardinality":"one",
             "property":"stackTrace",
-            "id":"S9 : StackTraceElement;"
+            "id":"S10 : StackTraceElement;"
          }
       },
       {
@@ -232,7 +194,7 @@
          "target":{
             "cardinality":"one",
             "property":"allStackTraces",
-            "id":"H18 : HashMap"
+            "id":"H11 : HashMap"
          }
       },
       {
@@ -245,7 +207,7 @@
          "target":{
             "cardinality":"one",
             "property":"contextClassLoader",
-            "id":"L11 : Launcher$AppClassLoader"
+            "id":"L12 : Launcher$AppClassLoader"
          }
       },
       {
@@ -271,85 +233,7 @@
          "target":{
             "cardinality":"one",
             "property":"history",
-            "id":"C15 : ChangeHistory"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"sharedspace",
-            "id":"S7 : SharedSpace"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"stackTrace",
-            "id":"S9 : StackTraceElement;"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"sharedspace",
-            "id":"S7 : SharedSpace"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"allStackTraces",
-            "id":"H17 : HashMap"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"sharedspace",
-            "id":"S7 : SharedSpace"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"contextClassLoader",
-            "id":"L11 : Launcher$AppClassLoader"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"replicationchannel",
-            "id":"R8 : ReplicationChannel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"stackTrace",
-            "id":"S9 : StackTraceElement;"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"replicationchannel",
-            "id":"R8 : ReplicationChannel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"allStackTraces",
-            "id":"H10 : HashMap"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"replicationchannel",
-            "id":"R8 : ReplicationChannel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"contextClassLoader",
-            "id":"L11 : Launcher$AppClassLoader"
+            "id":"C9 : ChangeHistory"
          }
       },
       {
@@ -357,12 +241,12 @@
          "source":{
             "cardinality":"one",
             "property":"launcher$appclassloader",
-            "id":"L11 : Launcher$AppClassLoader"
+            "id":"L12 : Launcher$AppClassLoader"
          },
          "target":{
             "cardinality":"one",
             "property":"uRLs",
-            "id":"U12 : URL;"
+            "id":"U13 : URL;"
          }
       },
       {
@@ -370,12 +254,12 @@
          "source":{
             "cardinality":"one",
             "property":"launcher$appclassloader",
-            "id":"L11 : Launcher$AppClassLoader"
+            "id":"L12 : Launcher$AppClassLoader"
          },
          "target":{
             "cardinality":"one",
             "property":"systemClassLoader",
-            "id":"L11 : Launcher$AppClassLoader"
+            "id":"L12 : Launcher$AppClassLoader"
          }
       },
       {
@@ -383,12 +267,12 @@
          "source":{
             "cardinality":"one",
             "property":"systemClassLoader",
-            "id":"L11 : Launcher$AppClassLoader"
+            "id":"L12 : Launcher$AppClassLoader"
          },
          "target":{
             "cardinality":"one",
             "property":"parent",
-            "id":"L13 : Launcher$ExtClassLoader"
+            "id":"L14 : Launcher$ExtClassLoader"
          }
       },
       {
@@ -396,103 +280,12 @@
          "source":{
             "cardinality":"one",
             "property":"launcher$extclassloader",
-            "id":"L13 : Launcher$ExtClassLoader"
+            "id":"L14 : Launcher$ExtClassLoader"
          },
          "target":{
             "cardinality":"one",
             "property":"uRLs",
-            "id":"U14 : URL;"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"changehistory",
-            "id":"C15 : ChangeHistory"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"changeMap",
-            "id":"L16 : LinkedHashMap"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"replicationserver",
-            "id":"R2 : ReplicationServer"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"stackTrace",
-            "id":"S9 : StackTraceElement;"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"replicationserver",
-            "id":"R2 : ReplicationServer"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"allStackTraces",
-            "id":"H19 : HashMap"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"replicationserver",
-            "id":"R2 : ReplicationServer"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"contextClassLoader",
-            "id":"L11 : Launcher$AppClassLoader"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"serversocketacceptthread",
-            "id":"S3 : ServerSocketAcceptThread"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"stackTrace",
-            "id":"S9 : StackTraceElement;"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"serversocketacceptthread",
-            "id":"S3 : ServerSocketAcceptThread"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"allStackTraces",
-            "id":"H20 : HashMap"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"serversocketacceptthread",
-            "id":"S3 : ServerSocketAcceptThread"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"contextClassLoader",
-            "id":"L11 : Launcher$AppClassLoader"
+            "id":"U15 : URL;"
          }
       },
       {
@@ -505,7 +298,7 @@
          "target":{
             "cardinality":"many",
             "property":"lanes",
-            "id":"L21 : Lane"
+            "id":"L16 : Lane"
          }
       },
       {
@@ -513,12 +306,12 @@
          "source":{
             "cardinality":"one",
             "property":"lane",
-            "id":"L21 : Lane"
+            "id":"L16 : Lane"
          },
          "target":{
             "cardinality":"many",
             "property":"tasks",
-            "id":"B22 : BoardTask"
+            "id":"B17 : BoardTask"
          }
       },
       {
@@ -526,77 +319,12 @@
          "source":{
             "cardinality":"one",
             "property":"lane",
-            "id":"L21 : Lane"
+            "id":"L16 : Lane"
          },
          "target":{
             "cardinality":"many",
             "property":"tasks",
-            "id":"B23 : BoardTask"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"prev",
-            "id":"B22 : BoardTask"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"next",
-            "id":"B23 : BoardTask"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"nextTransitive",
-            "id":"B22 : BoardTask"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"prevTransitive",
-            "id":"B22 : BoardTask"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boardtask",
-            "id":"B22 : BoardTask"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"nextTransitive",
-            "id":"B23 : BoardTask"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"source",
-            "id":"B22 : BoardTask"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"stashedPropertyChangeEvent",
-            "id":"P25 : PropertyChangeEvent"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"boardtask",
-            "id":"B22 : BoardTask"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"taskObjects",
-            "id":"L16 : LinkedHashMap"
+            "id":"B19 : BoardTask"
          }
       },
       {
@@ -604,38 +332,25 @@
          "source":{
             "cardinality":"one",
             "property":"task",
-            "id":"B22 : BoardTask"
+            "id":"B17 : BoardTask"
          },
          "target":{
             "cardinality":"many",
             "property":"logEntries",
-            "id":"L26 : LogEntry"
+            "id":"L18 : LogEntry"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"nextTransitive",
-            "id":"B23 : BoardTask"
+            "property":"prev",
+            "id":"B17 : BoardTask"
          },
          "target":{
             "cardinality":"many",
-            "property":"prevTransitive",
-            "id":"B23 : BoardTask"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"source",
-            "id":"B23 : BoardTask"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"stashedPropertyChangeEvent",
-            "id":"P24 : PropertyChangeEvent"
+            "property":"next",
+            "id":"B19 : BoardTask"
          }
       },
       {
@@ -643,12 +358,51 @@
          "source":{
             "cardinality":"one",
             "property":"boardtask",
-            "id":"B23 : BoardTask"
+            "id":"B17 : BoardTask"
          },
          "target":{
             "cardinality":"one",
             "property":"taskObjects",
-            "id":"L16 : LinkedHashMap"
+            "id":"H20 : HashMap"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boardtask",
+            "id":"B17 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"stashedPropertyChangeEvent",
+            "id":"P22 : PropertyChangeEvent"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boardtask",
+            "id":"B19 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"taskObjects",
+            "id":"H20 : HashMap"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"boardtask",
+            "id":"B19 : BoardTask"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"stashedPropertyChangeEvent",
+            "id":"P21 : PropertyChangeEvent"
          }
       },
       {
@@ -656,12 +410,12 @@
          "source":{
             "cardinality":"one",
             "property":"propertychangeevent",
-            "id":"P24 : PropertyChangeEvent"
+            "id":" : PropertyChangeEvent"
          },
          "target":{
             "cardinality":"one",
-            "property":"newValue",
-            "id":"L21 : Lane"
+            "property":"source",
+            "id":"B19 : BoardTask"
          }
       },
       {
@@ -669,25 +423,38 @@
          "source":{
             "cardinality":"one",
             "property":"propertychangeevent",
-            "id":"P25 : PropertyChangeEvent"
+            "id":" : PropertyChangeEvent"
          },
          "target":{
             "cardinality":"one",
             "property":"newValue",
-            "id":"L21 : Lane"
+            "id":"L16 : Lane"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"kidsTransitive",
-            "id":"R5 : ReplicationRoot"
+            "cardinality":"one",
+            "property":"propertychangeevent",
+            "id":" : PropertyChangeEvent"
          },
          "target":{
-            "cardinality":"many",
-            "property":"parentTransitive",
-            "id":"R5 : ReplicationRoot"
+            "cardinality":"one",
+            "property":"source",
+            "id":"B17 : BoardTask"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"propertychangeevent",
+            "id":" : PropertyChangeEvent"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"newValue",
+            "id":"L16 : Lane"
          }
       },
       {
@@ -698,22 +465,9 @@
             "id":"C6 : ChangeHistory"
          },
          "target":{
-            "cardinality":"one",
-            "property":"changeMap",
-            "id":"L16 : LinkedHashMap"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"history",
-            "id":"C6 : ChangeHistory"
-         },
-         "target":{
             "cardinality":"many",
             "property":"changes",
-            "id":"R27 : ReplicationChange"
+            "id":"R23 : ReplicationChange"
          }
       }
    ]
