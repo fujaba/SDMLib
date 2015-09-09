@@ -2,30 +2,113 @@ package org.sdmlib.test.examples.groupaccount.gui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.sdmlib.modelspace.ModelSpace;
+import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
+import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
+import org.sdmlib.test.examples.modelspace.chat.MSChatClient;
+
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GroupAccountAppSimpleTest
 {
    LinkedBlockingQueue<Object> testResults = new LinkedBlockingQueue<>();
+   private JsonIdMap idMap;
+   private GroupAccount dataRoot;
+   private ModelSpace space;
    
    
    
    @Test
-   public void testGroupAccountMultiUserGui()
+   public void testGroupAccountMultiUserGui() throws InterruptedException
    {
       Storyboard story = new Storyboard();
       
+      // clean chat directory from .jsonchgs
+      String location = "modeldata/groupaccount/junitest";
       
+      File file = new File(location);
+      
+      if (file.exists() && file.isDirectory())
+      {
+         for (File f : file.listFiles())
+         {
+            if ( f.getName().endsWith(".jsonchgs"))
+            {
+               f.delete();
+            }
+         }
+      }
+       
+      String userName = "junit";
+      // add model space
+      idMap = GroupAccountCreator.createIdMap(userName + System.currentTimeMillis());
+      
+      dataRoot = new GroupAccount();
+      
+      idMap.put("dataRoot", dataRoot);
+      
+      space = new ModelSpace(idMap, userName).open(location );
+      
+      story.addStep("Albert buys beer for 12 Euro");
+
+      dataRoot.setTask("Albert buy beer");
+      
+      // start grouptaccount app for albert
+      Thread firstClient = new Thread()
+      {
+         @Override
+         public void run()
+         {
+            GroupAccountApp.main(location, "Albert");
+         }
+      };
+      
+      firstClient.start();
+      
+      boolean done = false;
+      while ( ! done)
+      {
+         // read changes of others, maybe react
+         BufferedReader buf = space.changeQueue.poll(10, TimeUnit.SECONDS); // changeQueue.take(); // ;
+         
+         if (buf == null) 
+         {
+            System.out.println("time out waiting for change: ");
+            story.add("time out waiting for change: ");
+            Assert.fail();
+            break;
+         }
+         
+         space.readChanges(buf);
+         
+         if (dataRoot.getTask().startsWith("Test start Sabine"))
+         {
+            story.addImage("GroupAccountAlbertBuysBeerImage.png");
+            done = true; 
+         }
+      }
+      
+      Thread.sleep(4000);
+      
+      Platform.exit();
       
       story.dumpHTML();
+      
+      System.out.println("done");
+      
    }
    
    // @Test

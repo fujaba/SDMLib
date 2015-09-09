@@ -21,7 +21,8 @@ public class GroupAccountClassModel
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
       
-      Clazz groupAccountClass = model.createClazz("GroupAccount");
+      Clazz groupAccountClass = model.createClazz("GroupAccount")
+            .withAttribute("task", DataType.STRING);
             
       groupAccountClass.createMethod("getTaskNames")
             .with(new Parameter(DataType.DOUBLE))

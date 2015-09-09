@@ -8,7 +8,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sdmlib.doc.GraphVizAdapter.GraphViz;
 import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
@@ -29,7 +28,7 @@ public class GraphFactory
    private GraphFactory(){
       // Add Defaults
       this.with(new Javascript());
-      this.with(new GraphViz());
+      // this.with(new GraphViz());
       generate(".");
    }
 

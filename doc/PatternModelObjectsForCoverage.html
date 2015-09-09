@@ -21,14 +21,22 @@
          "id":"P1 : PatternObject",
          "attributes":[
          "currentMatch=match",
-            "modifier=bound",
+            "doAllMatches=false",
             "hasMatch=false",
+            "modifier=bound"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P4 : PatternLink",
+         "attributes":[
+         "hasMatch=false",
             "doAllMatches=false"
          ]
       },
       {
          "typ":"node",
-         "id":"A4 : AttributeConstraint",
+         "id":"A7 : AttributeConstraint",
          "attributes":[
          "attrName=attr1",
             "hasMatch=false",
@@ -37,25 +45,17 @@
       },
       {
          "typ":"node",
-         "id":"P6 : PatternLink",
-         "attributes":[
-         "hasMatch=false",
-            "doAllMatches=false"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P5 : Pattern",
+         "id":"P6 : Pattern",
          "attributes":[
          "debugMode=0"
          ]
       },
       {
          "typ":"node",
-         "id":"P7 : PatternObject",
+         "id":"P5 : PatternObject",
          "attributes":[
-         "hasMatch=false",
-            "doAllMatches=false"
+         "doAllMatches=false",
+            "hasMatch=false"
          ]
       },
       {
@@ -236,8 +236,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"attrConstraints",
-            "id":"A4 : AttributeConstraint"
+            "property":"outgoing",
+            "id":"P4 : PatternLink"
          }
       },
       {
@@ -249,8 +249,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outgoing",
-            "id":"P6 : PatternLink"
+            "property":"attrConstraints",
+            "id":"A7 : AttributeConstraint"
          }
       },
       {
@@ -263,7 +263,7 @@
          "target":{
             "cardinality":"one",
             "property":"pattern",
-            "id":"P5 : Pattern"
+            "id":"P6 : Pattern"
          }
       },
       {
@@ -276,59 +276,7 @@
          "target":{
             "cardinality":"one",
             "property":"topPattern",
-            "id":"P5 : Pattern"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"elements",
-            "id":"A4 : AttributeConstraint"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"pattern",
-            "id":"P5 : Pattern"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"pattern",
-            "id":"P5 : Pattern"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"elements",
-            "id":"P6 : PatternLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"topPattern",
-            "id":"P5 : Pattern"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"elements",
-            "id":"P7 : PatternObject"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"pattern",
-            "id":"P5 : Pattern"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"rgraph",
-            "id":"R2 : ReachabilityGraph"
+            "id":"P6 : Pattern"
          }
       },
       {
@@ -336,12 +284,77 @@
          "source":{
             "cardinality":"many",
             "property":"incomming",
-            "id":"P6 : PatternLink"
+            "id":"P4 : PatternLink"
          },
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"P7 : PatternObject"
+            "id":"P5 : PatternObject"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"P4 : PatternLink"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P6 : Pattern"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"P5 : PatternObject"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P6 : Pattern"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"patternobject",
+            "id":"P5 : PatternObject"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"topPattern",
+            "id":"P6 : Pattern"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P6 : Pattern"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"A7 : AttributeConstraint"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P6 : Pattern"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"rgraph",
+            "id":"R2 : ReachabilityGraph"
          }
       },
       {

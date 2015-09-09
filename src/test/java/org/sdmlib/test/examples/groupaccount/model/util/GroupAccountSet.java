@@ -32,6 +32,7 @@ import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
+import org.sdmlib.models.modelsets.StringList;
 
 public class GroupAccountSet extends SDMSet<GroupAccount>
 {
@@ -214,4 +215,56 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
 
 
    public static final GroupAccountSet EMPTY_SET = new GroupAccountSet().withReadOnly(true);
+   public StringList getTask()
+   {
+      StringList result = new StringList();
+      
+      for (GroupAccount obj : this)
+      {
+         result.add(obj.getTask());
+      }
+      
+      return result;
+   }
+
+   public GroupAccountSet hasTask(String value)
+   {
+      GroupAccountSet result = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if (value.equals(obj.getTask()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GroupAccountSet hasTask(String lower, String upper)
+   {
+      GroupAccountSet result = new GroupAccountSet();
+      
+      for (GroupAccount obj : this)
+      {
+         if (lower.compareTo(obj.getTask()) <= 0 && obj.getTask().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public GroupAccountSet withTask(String value)
+   {
+      for (GroupAccount obj : this)
+      {
+         obj.setTask(value);
+      }
+      
+      return this;
+   }
+
 }

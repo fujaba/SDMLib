@@ -29,6 +29,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.StrUtil;
 
 public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {
@@ -291,4 +292,43 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
    {
       // this.totalPurchase = totalPurchase;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TASK = "task";
+   
+   private String task = "";
+
+   public String getTask()
+   {
+      return this.task;
+   }
+   
+   public void setTask(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.task, value)) {
+      
+         String oldValue = this.task;
+         this.task = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TASK, oldValue, value);
+      }
+   }
+   
+   public GroupAccount withTask(String value)
+   {
+      setTask(value);
+      return this;
+   } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+      
+      result.append(" ").append(this.getTask());
+      return result.substring(1);
+   }
+
 }

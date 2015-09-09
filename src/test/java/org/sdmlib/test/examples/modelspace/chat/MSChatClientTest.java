@@ -30,7 +30,7 @@ public class MSChatClientTest
    @Test
    public void testDirectChat() throws Exception
    {
-      System.out.println("Testing model space");
+      // System.out.println("Testing model space");
 
       story = new Storyboard();
       

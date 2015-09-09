@@ -34,6 +34,7 @@ public class GroupAccountCreator extends EntityFactory
    {
       GroupAccount.PROPERTY_PERSONS,
       GroupAccount.PROPERTY_ITEM,
+      GroupAccount.PROPERTY_TASK,
    };
    
    @Override
@@ -68,6 +69,11 @@ public class GroupAccountCreator extends EntityFactory
       {
          return ((GroupAccount) target).getItem();
       }
+
+      if (GroupAccount.PROPERTY_TASK.equalsIgnoreCase(attribute))
+      {
+         return ((GroupAccount) target).getTask();
+      }
       
       return null;
    }
@@ -101,6 +107,12 @@ public class GroupAccountCreator extends EntityFactory
       if ((GroupAccount.PROPERTY_ITEM + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((GroupAccount) target).withoutItem((Item) value);
+         return true;
+      }
+
+      if (GroupAccount.PROPERTY_TASK.equalsIgnoreCase(attrName))
+      {
+         ((GroupAccount) target).withTask((String) value);
          return true;
       }
       

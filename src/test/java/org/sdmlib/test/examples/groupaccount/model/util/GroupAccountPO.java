@@ -4,6 +4,7 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+import org.sdmlib.models.pattern.AttributeConstraint;
 
 public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
 {
@@ -126,4 +127,57 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
       return null;
    }
 
+   public GroupAccountPO hasTask(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(GroupAccount.PROPERTY_TASK)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public GroupAccountPO hasTask(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(GroupAccount.PROPERTY_TASK)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public GroupAccountPO createTask(String value)
+   {
+      this.startCreate().hasTask(value).endCreate();
+      return this;
+   }
+   
+   public String getTask()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((GroupAccount) getCurrentMatch()).getTask();
+      }
+      return null;
+   }
+   
+   public GroupAccountPO withTask(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((GroupAccount) getCurrentMatch()).setTask(value);
+      }
+      return this;
+   }
+   
 }
