@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -103,7 +104,11 @@ public class GroupAccountApp extends Application
          else
          {
             location = cloudLocation + "/groupaccount/test";
-            userName = "dummy";
+            
+            InetAddress ip = InetAddress.getLocalHost();
+            String hostname = ip.getHostName();
+            
+            userName = hostname;
          }
       }
 
