@@ -19,38 +19,14 @@
          "typ":"node",
          "id":"G1 : GroupAccount",
          "attributes":[
-         "task=",
+         "totalPurchase=21.0",
             "averagePurchase=7.0",
-            "totalPurchase=21.0"
+            "task="
          ]
       },
       {
          "typ":"node",
-         "id":"P2 : Person",
-         "attributes":[
-         "name=Albert",
-            "balance=5.0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P4 : Person",
-         "attributes":[
-         "name=Nina",
-            "balance=-4.0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P6 : Person",
-         "attributes":[
-         "name=Artjom",
-            "balance=-1.0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"I3 : Item",
+         "id":"I2 : Item",
          "attributes":[
          "description=Beer",
             "value=12.0"
@@ -58,7 +34,7 @@
       },
       {
          "typ":"node",
-         "id":"I5 : Item",
+         "id":"I4 : Item",
          "attributes":[
          "description=Bread",
             "value=3.0"
@@ -66,10 +42,34 @@
       },
       {
          "typ":"node",
-         "id":"I7 : Item",
+         "id":"I6 : Item",
          "attributes":[
          "description=Meat",
             "value=6.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P3 : Person",
+         "attributes":[
+         "name=Albert",
+            "balance=5.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P5 : Person",
+         "attributes":[
+         "name=Nina",
+            "balance=-4.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P7 : Person",
+         "attributes":[
+         "name=Artjom",
+            "balance=-1.0"
          ]
       }
    ],
@@ -83,8 +83,34 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"persons",
-            "id":"P2 : Person"
+            "property":"item",
+            "id":"I2 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I4 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I6 : Item"
          }
       },
       {
@@ -97,7 +123,7 @@
          "target":{
             "cardinality":"many",
             "property":"persons",
-            "id":"P4 : Person"
+            "id":"P3 : Person"
          }
       },
       {
@@ -110,7 +136,7 @@
          "target":{
             "cardinality":"many",
             "property":"persons",
-            "id":"P6 : Person"
+            "id":"P5 : Person"
          }
       },
       {
@@ -122,73 +148,47 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"item",
-            "id":"I3 : Item"
+            "property":"persons",
+            "id":"P7 : Person"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
-         },
-         "target":{
             "cardinality":"many",
             "property":"item",
-            "id":"I5 : Item"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
+            "id":"I2 : Item"
          },
          "target":{
-            "cardinality":"many",
-            "property":"item",
-            "id":"I7 : Item"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
             "cardinality":"one",
             "property":"buyer",
-            "id":"P2 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"item",
-            "id":"I3 : Item"
+            "id":"P3 : Person"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"buyer",
-            "id":"P4 : Person"
-         },
-         "target":{
             "cardinality":"many",
             "property":"item",
-            "id":"I5 : Item"
+            "id":"I4 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P5 : Person"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"buyer",
-            "id":"P6 : Person"
-         },
-         "target":{
             "cardinality":"many",
             "property":"item",
-            "id":"I7 : Item"
+            "id":"I6 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P7 : Person"
          }
       }
    ]
@@ -219,38 +219,14 @@
          "typ":"node",
          "id":"G1 : GroupAccount",
          "attributes":[
-         "task=",
+         "totalPurchase=21.0",
             "averagePurchase=7.0",
-            "totalPurchase=21.0"
+            "task="
          ]
       },
       {
          "typ":"node",
-         "id":"P2 : Person",
-         "attributes":[
-         "name=Albert",
-            "balance=5.0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P4 : Person",
-         "attributes":[
-         "name=Nina",
-            "balance=-4.0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P6 : Person",
-         "attributes":[
-         "name=Artjom",
-            "balance=-1.0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"I3 : Item",
+         "id":"I2 : Item",
          "attributes":[
          "description=Beer",
             "value=12.0"
@@ -258,7 +234,7 @@
       },
       {
          "typ":"node",
-         "id":"I5 : Item",
+         "id":"I4 : Item",
          "attributes":[
          "description=Bread",
             "value=3.0"
@@ -266,10 +242,34 @@
       },
       {
          "typ":"node",
-         "id":"I7 : Item",
+         "id":"I6 : Item",
          "attributes":[
          "description=Meat",
             "value=6.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P3 : Person",
+         "attributes":[
+         "name=Albert",
+            "balance=5.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P5 : Person",
+         "attributes":[
+         "name=Nina",
+            "balance=-4.0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P7 : Person",
+         "attributes":[
+         "name=Artjom",
+            "balance=-1.0"
          ]
       }
    ],
@@ -283,8 +283,34 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"persons",
-            "id":"P2 : Person"
+            "property":"item",
+            "id":"I2 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I4 : Item"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G1 : GroupAccount"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"item",
+            "id":"I6 : Item"
          }
       },
       {
@@ -297,7 +323,7 @@
          "target":{
             "cardinality":"many",
             "property":"persons",
-            "id":"P4 : Person"
+            "id":"P3 : Person"
          }
       },
       {
@@ -310,7 +336,7 @@
          "target":{
             "cardinality":"many",
             "property":"persons",
-            "id":"P6 : Person"
+            "id":"P5 : Person"
          }
       },
       {
@@ -322,73 +348,47 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"item",
-            "id":"I3 : Item"
+            "property":"persons",
+            "id":"P7 : Person"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
-         },
-         "target":{
             "cardinality":"many",
             "property":"item",
-            "id":"I5 : Item"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G1 : GroupAccount"
+            "id":"I2 : Item"
          },
          "target":{
-            "cardinality":"many",
-            "property":"item",
-            "id":"I7 : Item"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
             "cardinality":"one",
             "property":"buyer",
-            "id":"P2 : Person"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"item",
-            "id":"I3 : Item"
+            "id":"P3 : Person"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"buyer",
-            "id":"P4 : Person"
-         },
-         "target":{
             "cardinality":"many",
             "property":"item",
-            "id":"I5 : Item"
+            "id":"I4 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P5 : Person"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"buyer",
-            "id":"P6 : Person"
-         },
-         "target":{
             "cardinality":"many",
             "property":"item",
-            "id":"I7 : Item"
+            "id":"I6 : Item"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"buyer",
+            "id":"P7 : Person"
          }
       }
    ]

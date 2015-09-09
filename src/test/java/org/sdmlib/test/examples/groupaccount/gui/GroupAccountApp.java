@@ -37,6 +37,17 @@ public class GroupAccountApp extends Application
    public static GroupAccountApp theApp = null; 
    private GroupAccount dataRoot;
    
+   public GroupAccountApp(String location2, String userName2)
+   {
+      this.location = location2;
+      this.userName = userName2;
+   }
+   
+   public GroupAccountApp()
+   {
+      // empty
+   }
+
    public GroupAccount getDataRoot()
    {
       return dataRoot;

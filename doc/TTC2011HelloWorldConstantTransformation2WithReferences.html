@@ -195,16 +195,16 @@
       },
       {
          "typ":"node",
-         "id":"G2 : GreetingMessage",
+         "id":"P2 : Person",
          "attributes":[
-         "text=Hello"
+         "name=TTC Participants"
          ]
       },
       {
          "typ":"node",
-         "id":"P3 : Person",
+         "id":"G3 : GreetingMessage",
          "attributes":[
-         "name=TTC Participants"
+         "text=Hello"
          ]
       }
    ],
@@ -217,9 +217,9 @@
             "id":"G1 : Greeting"
          },
          "target":{
-            "cardinality":"many",
-            "property":"tgtTransitive",
-            "id":"G1 : Greeting"
+            "cardinality":"one",
+            "property":"person",
+            "id":"P2 : Person"
          }
       },
       {
@@ -232,7 +232,7 @@
          "target":{
             "cardinality":"one",
             "property":"greetingMessage",
-            "id":"G2 : GreetingMessage"
+            "id":"G3 : GreetingMessage"
          }
       },
       {
@@ -243,9 +243,9 @@
             "id":"G1 : Greeting"
          },
          "target":{
-            "cardinality":"one",
-            "property":"person",
-            "id":"P3 : Person"
+            "cardinality":"many",
+            "property":"tgtTransitive",
+            "id":"G1 : Greeting"
          }
       }
    ]

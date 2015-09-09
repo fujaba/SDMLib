@@ -187,21 +187,21 @@
          "typ":"node",
          "id":"E3 : Edge",
          "attributes":[
-         "name=e12"
+         "name=e10"
          ]
       },
       {
          "typ":"node",
          "id":"E7 : Edge",
          "attributes":[
-         "name=e10"
+         "name=e12"
          ]
       },
       {
          "typ":"node",
          "id":"N4 : Node",
          "attributes":[
-         "name=n3"
+         "name=n2"
          ]
       },
       {
@@ -213,44 +213,44 @@
       },
       {
          "typ":"node",
-         "id":"E8 : Edge",
+         "id":"N6 : Node",
          "attributes":[
-         "name=e15"
+         "name=n3"
          ]
       },
       {
          "typ":"node",
-         "id":"E13 : Edge",
+         "id":"E8 : Edge",
          "attributes":[
          "name=e13"
          ]
       },
       {
          "typ":"node",
-         "id":"N6 : Node",
+         "id":"E12 : Edge",
          "attributes":[
-         "name=n2"
+         "name=e15"
          ]
       },
       {
          "typ":"node",
          "id":"N9 : Node",
          "attributes":[
-         "name=n5"
+         "name=n4"
          ]
       },
       {
          "typ":"node",
          "id":"E10 : Edge",
          "attributes":[
-         "name=e19"
+         "name=e14"
          ]
       },
       {
          "typ":"node",
-         "id":"E11 : Edge",
+         "id":"N11 : Node",
          "attributes":[
-         "name=e14"
+         "name=n5"
          ]
       },
       {
@@ -262,9 +262,9 @@
       },
       {
          "typ":"node",
-         "id":"N12 : Node",
+         "id":"E13 : Edge",
          "attributes":[
-         "name=n4"
+         "name=e19"
          ]
       },
       {
@@ -308,12 +308,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"tgt",
+            "property":"src",
             "id":"N1 : Node"
          },
          "target":{
             "cardinality":"many",
-            "property":"inEdges",
+            "property":"outEdges",
             "id":"E3 : Edge"
          }
       },
@@ -321,112 +321,8 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"src",
-            "id":"N1 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E7 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N1 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N1 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E3 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N4 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E5 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E8 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E13 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N4 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N4 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E5 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N6 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N6 : Node"
+            "id":"N1 : Node"
          },
          "target":{
             "cardinality":"many",
@@ -438,7 +334,111 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
+            "id":"N1 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N1 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E3 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N4 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E5 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"origTransitive",
+            "id":"N4 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N4 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E5 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N6 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E7 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N6 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E8 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N6 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E12 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"origTransitive",
             "id":"N6 : Node"
          },
          "target":{
@@ -451,12 +451,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"outEdges",
+            "property":"inEdges",
             "id":"E8 : Edge"
          },
          "target":{
             "cardinality":"one",
-            "property":"src",
+            "property":"tgt",
             "id":"N9 : Node"
          }
       },
@@ -464,26 +464,39 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"tgt",
+            "property":"src",
             "id":"N9 : Node"
          },
          "target":{
             "cardinality":"many",
-            "property":"inEdges",
+            "property":"outEdges",
             "id":"E10 : Edge"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"tgt",
+            "cardinality":"many",
+            "property":"origTransitive",
             "id":"N9 : Node"
          },
          "target":{
             "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N9 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
             "property":"inEdges",
-            "id":"E11 : Edge"
+            "id":"E10 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N11 : Node"
          }
       },
       {
@@ -491,7 +504,7 @@
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"N9 : Node"
+            "id":"N11 : Node"
          },
          "target":{
             "cardinality":"many",
@@ -502,27 +515,14 @@
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N9 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N9 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E11 : Edge"
-         },
-         "target":{
             "cardinality":"one",
             "property":"src",
-            "id":"N12 : Node"
+            "id":"N11 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E12 : Edge"
          }
       },
       {
@@ -530,7 +530,7 @@
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"N12 : Node"
+            "id":"N11 : Node"
          },
          "target":{
             "cardinality":"many",
@@ -542,20 +542,20 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N12 : Node"
+            "property":"origTransitive",
+            "id":"N11 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"linksFromTransitive",
-            "id":"N12 : Node"
+            "id":"N11 : Node"
          }
       },
       {
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N14 : Node"
          },
          "target":{
@@ -568,7 +568,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N15 : Node"
          },
          "target":{
@@ -586,7 +586,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"inEdges",
+            "property":"outEdges",
             "id":"E17 : Edge"
          }
       },
@@ -599,7 +599,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"inEdges",
+            "property":"outEdges",
             "id":"E18 : Edge"
          }
       },
@@ -612,7 +612,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outEdges",
+            "property":"inEdges",
             "id":"E17 : Edge"
          }
       },
@@ -625,7 +625,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outEdges",
+            "property":"inEdges",
             "id":"E18 : Edge"
          }
       },
@@ -633,7 +633,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N16 : Node"
          },
          "target":{
@@ -4331,14 +4331,14 @@
       },
       {
          "typ":"node",
-         "id":"E99 : Edge",
+         "id":"E95 : Edge",
          "attributes":[
          "text=e10"
          ]
       },
       {
          "typ":"node",
-         "id":"N98 : Node",
+         "id":"N96 : Node",
          "attributes":[
          "text=n2"
          ]
@@ -4352,28 +4352,28 @@
       },
       {
          "typ":"node",
-         "id":"N96 : Node",
+         "id":"N98 : Node",
          "attributes":[
          "text=n3"
          ]
       },
       {
          "typ":"node",
-         "id":"E95 : Edge",
+         "id":"E99 : Edge",
          "attributes":[
          "text=e12"
          ]
       },
       {
          "typ":"node",
-         "id":"E104 : Edge",
+         "id":"E100 : Edge",
          "attributes":[
          "text=e13"
          ]
       },
       {
          "typ":"node",
-         "id":"N103 : Node",
+         "id":"N101 : Node",
          "attributes":[
          "text=n4"
          ]
@@ -4387,28 +4387,28 @@
       },
       {
          "typ":"node",
-         "id":"N101 : Node",
+         "id":"N103 : Node",
          "attributes":[
          "text=n5"
          ]
       },
       {
          "typ":"node",
-         "id":"E106 : Edge",
+         "id":"E104 : Edge",
          "attributes":[
          "text=e18"
          ]
       },
       {
          "typ":"node",
-         "id":"E100 : Edge",
+         "id":"E105 : Edge",
          "attributes":[
          "text=e15"
          ]
       },
       {
          "typ":"node",
-         "id":"E105 : Edge",
+         "id":"E106 : Edge",
          "attributes":[
          "text=e19"
          ]
@@ -4473,33 +4473,7 @@
          "target":{
             "cardinality":"many",
             "property":"gcs",
-            "id":"E99 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G93 : Graph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"gcs",
-            "id":"N98 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"parent",
-            "id":"G93 : Graph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"gcs",
-            "id":"E97 : Edge"
+            "id":"E95 : Edge"
          }
       },
       {
@@ -4525,7 +4499,7 @@
          "target":{
             "cardinality":"many",
             "property":"gcs",
-            "id":"E95 : Edge"
+            "id":"E97 : Edge"
          }
       },
       {
@@ -4538,7 +4512,7 @@
          "target":{
             "cardinality":"many",
             "property":"gcs",
-            "id":"E104 : Edge"
+            "id":"N98 : Node"
          }
       },
       {
@@ -4551,7 +4525,7 @@
          "target":{
             "cardinality":"many",
             "property":"gcs",
-            "id":"N103 : Node"
+            "id":"E99 : Edge"
          }
       },
       {
@@ -4564,7 +4538,7 @@
          "target":{
             "cardinality":"many",
             "property":"gcs",
-            "id":"E102 : Edge"
+            "id":"E100 : Edge"
          }
       },
       {
@@ -4590,7 +4564,7 @@
          "target":{
             "cardinality":"many",
             "property":"gcs",
-            "id":"E106 : Edge"
+            "id":"E102 : Edge"
          }
       },
       {
@@ -4603,7 +4577,20 @@
          "target":{
             "cardinality":"many",
             "property":"gcs",
-            "id":"E100 : Edge"
+            "id":"N103 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G93 : Graph"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"gcs",
+            "id":"E104 : Edge"
          }
       },
       {
@@ -4629,6 +4616,19 @@
          "target":{
             "cardinality":"many",
             "property":"gcs",
+            "id":"E106 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"parent",
+            "id":"G93 : Graph"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"gcs",
             "id":"N107 : Node"
          }
       },
@@ -4688,12 +4688,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"tgt",
+            "property":"src",
             "id":"N94 : Node"
          },
          "target":{
             "cardinality":"many",
-            "property":"inEdges",
+            "property":"outEdges",
             "id":"E95 : Edge"
          }
       },
@@ -4701,112 +4701,8 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"src",
-            "id":"N94 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E99 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N94 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N94 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E95 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N96 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"tgt",
-            "id":"N96 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E97 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N96 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E100 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N96 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E104 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N96 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N96 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E97 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N98 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N98 : Node"
+            "id":"N94 : Node"
          },
          "target":{
             "cardinality":"many",
@@ -4818,26 +4714,91 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N98 : Node"
+            "property":"origTransitive",
+            "id":"N94 : Node"
          },
          "target":{
             "cardinality":"many",
             "property":"linksFromTransitive",
+            "id":"N94 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E95 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N96 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N96 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E97 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"origTransitive",
+            "id":"N96 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N96 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E97 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
             "id":"N98 : Node"
          }
       },
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N98 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E99 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N98 : Node"
+         },
+         "target":{
             "cardinality":"many",
             "property":"outEdges",
             "id":"E100 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N101 : Node"
          }
       },
       {
@@ -4845,20 +4806,7 @@
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"N101 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E102 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N101 : Node"
+            "id":"N98 : Node"
          },
          "target":{
             "cardinality":"many",
@@ -4869,6 +4817,32 @@
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"many",
+            "property":"origTransitive",
+            "id":"N98 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N98 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E100 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N101 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"one",
             "property":"src",
             "id":"N101 : Node"
@@ -4876,6 +4850,71 @@
          "target":{
             "cardinality":"many",
             "property":"outEdges",
+            "id":"E102 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"origTransitive",
+            "id":"N101 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N101 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"inEdges",
+            "id":"E102 : Edge"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N103 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N103 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E104 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"N103 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"outEdges",
+            "id":"E105 : Edge"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"N103 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"inEdges",
             "id":"E106 : Edge"
          }
       },
@@ -4883,46 +4922,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N101 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N101 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"outEdges",
-            "id":"E102 : Edge"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"N103 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"N103 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"inEdges",
-            "id":"E104 : Edge"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N103 : Node"
          },
          "target":{
@@ -4935,7 +4935,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N107 : Node"
          },
          "target":{
@@ -4948,7 +4948,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N108 : Node"
          },
          "target":{
@@ -4966,7 +4966,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"inEdges",
+            "property":"outEdges",
             "id":"E110 : Edge"
          }
       },
@@ -4979,7 +4979,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"inEdges",
+            "property":"outEdges",
             "id":"E111 : Edge"
          }
       },
@@ -4992,7 +4992,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outEdges",
+            "property":"inEdges",
             "id":"E110 : Edge"
          }
       },
@@ -5005,7 +5005,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"outEdges",
+            "property":"inEdges",
             "id":"E111 : Edge"
          }
       },
@@ -5013,7 +5013,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N109 : Node"
          },
          "target":{
@@ -5303,28 +5303,28 @@
       },
       {
          "typ":"node",
-         "id":"N114 : Node",
+         "id":"N115 : Node",
          "attributes":[
          "text=n2"
          ]
       },
       {
          "typ":"node",
-         "id":"N115 : Node",
+         "id":"N114 : Node",
          "attributes":[
          "text=n3"
          ]
       },
       {
          "typ":"node",
-         "id":"N116 : Node",
+         "id":"N117 : Node",
          "attributes":[
          "text=n4"
          ]
       },
       {
          "typ":"node",
-         "id":"N117 : Node",
+         "id":"N116 : Node",
          "attributes":[
          "text=n5"
          ]
@@ -5375,19 +5375,6 @@
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"N114 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"graph",
-            "id":"G112 : Graph"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"nodes",
             "id":"N115 : Node"
          }
       },
@@ -5401,7 +5388,7 @@
          "target":{
             "cardinality":"many",
             "property":"nodes",
-            "id":"N116 : Node"
+            "id":"N114 : Node"
          }
       },
       {
@@ -5415,6 +5402,19 @@
             "cardinality":"many",
             "property":"nodes",
             "id":"N117 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"graph",
+            "id":"G112 : Graph"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"nodes",
+            "id":"N116 : Node"
          }
       },
       {
@@ -5465,7 +5465,7 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"linksTo",
+            "property":"linksFrom",
             "id":"N114 : Node"
          }
       },
@@ -5475,6 +5475,136 @@
             "cardinality":"many",
             "property":"linksToTransitive",
             "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksTo",
+            "id":"N115 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"origTransitive",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N113 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N114 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N115 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N116 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N117 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N115 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N114 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N117 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N113 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N116 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N114 : Node"
          },
          "target":{
             "cardinality":"many",
@@ -5486,117 +5616,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N113 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N113 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N113 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N115 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N113 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N114 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N113 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N117 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N113 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N116 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N113 : Node"
-         },
-         "target":{
-            "cardinality":"many",
             "property":"linksToTransitive",
             "id":"N114 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N113 : Node"
          },
          "target":{
             "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N115 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N113 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
+            "property":"linksFrom",
             "id":"N116 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N113 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N117 : Node"
          }
       },
       {
@@ -5609,45 +5635,6 @@
          "target":{
             "cardinality":"many",
             "property":"linksTo",
-            "id":"N115 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N114 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N114 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N114 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N115 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N114 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
             "id":"N117 : Node"
          }
       },
@@ -5655,7 +5642,33 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"linksToTransitive",
+            "property":"origTransitive",
+            "id":"N114 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N114 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N114 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N115 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
             "id":"N114 : Node"
          },
          "target":{
@@ -5673,21 +5686,8 @@
          },
          "target":{
             "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N115 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N114 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N116 : Node"
+            "property":"linksFromTransitive",
+            "id":"N117 : Node"
          }
       },
       {
@@ -5706,13 +5706,52 @@
       {
          "typ":"EDGE",
          "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N114 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N115 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N114 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N116 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"origTransitive",
+            "id":"N115 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N115 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
             "cardinality":"many",
             "property":"linksToTransitive",
             "id":"N115 : Node"
          },
          "target":{
             "cardinality":"many",
-            "property":"linksTo",
+            "property":"linksFromTransitive",
             "id":"N116 : Node"
          }
       },
@@ -5722,6 +5761,45 @@
             "cardinality":"many",
             "property":"linksToTransitive",
             "id":"N115 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksFromTransitive",
+            "id":"N117 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N115 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N117 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"node",
+            "id":"N115 : Node"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N116 : Node"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"linksToTransitive",
+            "id":"N116 : Node"
          },
          "target":{
             "cardinality":"many",
@@ -5733,85 +5811,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
-            "id":"N115 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N115 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N115 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N117 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N115 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksFromTransitive",
-            "id":"N116 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N115 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N116 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"node",
-            "id":"N115 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N117 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"linksToTransitive",
-            "id":"N116 : Node"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"linksTo",
-            "id":"N117 : Node"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N116 : Node"
          },
          "target":{
@@ -5850,7 +5850,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N117 : Node"
          },
          "target":{
@@ -5863,7 +5863,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N118 : Node"
          },
          "target":{
@@ -5876,7 +5876,7 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N119 : Node"
          },
          "target":{
@@ -5889,12 +5889,12 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"many",
-            "property":"copyTransitive",
+            "property":"origTransitive",
             "id":"N120 : Node"
          },
          "target":{
             "cardinality":"many",
-            "property":"linksTo",
+            "property":"linksFrom",
             "id":"N120 : Node"
          }
       }

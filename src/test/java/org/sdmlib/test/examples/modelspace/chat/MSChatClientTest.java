@@ -148,6 +148,7 @@ public class MSChatClientTest
       
       System.out.println("Testing model Space done");
       
-      Platform.exit();
+      // Platform.exit();
+      // System.exit(0);
    }
 }

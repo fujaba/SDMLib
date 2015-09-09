@@ -9,6 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -66,23 +67,62 @@ public class GroupAccountAppSimpleTest
 
       dataRoot.setTask("Albert buy beer");
       
-      // start grouptaccount app for albert
-      Thread firstClient = new Thread()
+      // first try whether javafx is already running
+      try
       {
-         @Override
-         public void run()
+         Platform.runLater(new Runnable()
          {
-            GroupAccountApp.main(location, "Albert");
-         }
-      };
+            @Override
+            public void run()
+            {
+               Stage stage = new Stage();
+               GroupAccountApp groupAccountApp = new GroupAccountApp(location, "Albert");
+               try
+               {
+                  groupAccountApp.start(stage);
+               }
+               catch (Exception e1)
+               {
+                  // TODO Auto-generated catch block
+                  e1.printStackTrace();
+               }
+            }
+         });
+      }
+      catch (Exception e1)
+      {
+         // TODO Auto-generated catch block
+         e1.printStackTrace();
+         // start grouptaccount app for albert
+         Thread firstClient = new Thread()
+         {
+            @Override
+            public void run()
+            {
+               try
+               {
+                  GroupAccountApp.main(location, "Albert");
+               }
+               catch (Exception e)
+               {
+                  // probably the platform is alread running
+                  // just call start and we are done
+                  System.out.println("CAUTION: GroupAccountApp.main did not start, trying new Stage!!!");
+                  
+               }
+            }
+         };
+         
+         firstClient.start();
+      }
       
-      firstClient.start();
+      
       
       boolean done = false;
       while ( ! done)
       {
          // read changes of others, maybe react
-         BufferedReader buf = space.changeQueue.poll(10, TimeUnit.SECONDS); // changeQueue.take(); // ;
+         BufferedReader buf = space.changeQueue.poll(30, TimeUnit.SECONDS); // changeQueue.take(); // ;
          
          if (buf == null) 
          {
@@ -103,9 +143,9 @@ public class GroupAccountAppSimpleTest
       
       story.addObjectDiagram(dataRoot);
       
-      Thread.sleep(4000);
+      Thread.sleep(6000);
       
-      Platform.exit();
+      // Platform.exit();
       
       story.dumpHTML();
       
