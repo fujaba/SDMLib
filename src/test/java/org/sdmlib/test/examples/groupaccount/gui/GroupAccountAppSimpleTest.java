@@ -101,6 +101,8 @@ public class GroupAccountAppSimpleTest
          }
       }
       
+      story.addObjectDiagram(dataRoot);
+      
       Thread.sleep(4000);
       
       Platform.exit();
