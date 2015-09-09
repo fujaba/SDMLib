@@ -37,7 +37,7 @@ public class GroupAccountAppSimpleTest
       Storyboard story = new Storyboard();
       
       // clean chat directory from .jsonchgs
-      String location = "modeldata/groupaccount/junitest";
+      final String location = "modeldata/groupaccount/junitest";
       
       File file = new File(location);
       
