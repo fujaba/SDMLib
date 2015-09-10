@@ -69,7 +69,7 @@ public class Javascript implements GuiAdapter
 
          if (jsonObject != null)
          {
-            jsonObject.put("head_src", entry.getValue());
+            jsonObject.put("head", new JsonObject().withKeyValue("src", entry.getValue()));
          }
       }
 
