@@ -159,6 +159,9 @@ GraphUtil.prototype.create = function (node) {
 			continue;
 		}
 		if (k === 'value') {
+			if (!node[key]) {
+				continue;
+			}
 			if (tag !== "input") {
 				if (tag === "text") {// SVG
 					item.appendChild(document.createTextNode(node[key]));
@@ -547,7 +550,9 @@ Graph.prototype.clearBoard = function () {
 				continue;
 			}
 			var n = this.model.nodes[i];
-			n.removeFromBoard(this.board);
+			if (this.board.children.length > 0) {
+				n.removeFromBoard(this.board);
+			}
 			n._RIGHT = n._LEFT = n._UP = n._DOWN = 0;
 		}
 		this.root.removeChild(this.board);
