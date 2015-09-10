@@ -22,7 +22,11 @@
       },
       {
          "typ":"node",
-         "id":"B2 : Bank",
+         "id":"B2 : Boat"
+      },
+      {
+         "typ":"node",
+         "id":"B3 : Bank",
          "attributes":[
          "name=left",
             "age=0"
@@ -35,10 +39,6 @@
          "name=right",
             "age=0"
          ]
-      },
-      {
-         "typ":"node",
-         "id":"B3 : Boat"
       },
       {
          "typ":"node",
@@ -71,9 +71,22 @@
             "id":"R1 : River"
          },
          "target":{
+            "cardinality":"one",
+            "property":"boat",
+            "id":"B2 : Boat"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"river",
+            "id":"R1 : River"
+         },
+         "target":{
             "cardinality":"many",
             "property":"banks",
-            "id":"B2 : Bank"
+            "id":"B3 : Bank"
          }
       },
       {
@@ -93,13 +106,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"river",
-            "id":"R1 : River"
+            "property":"boat",
+            "id":"B2 : Boat"
          },
          "target":{
             "cardinality":"one",
-            "property":"boat",
-            "id":"B3 : Boat"
+            "property":"bank",
+            "id":"B3 : Bank"
          }
       },
       {
@@ -107,20 +120,7 @@
          "source":{
             "cardinality":"one",
             "property":"bank",
-            "id":"B2 : Bank"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"boat",
-            "id":"B3 : Boat"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"bank",
-            "id":"B2 : Bank"
+            "id":"B3 : Bank"
          },
          "target":{
             "cardinality":"many",
@@ -133,7 +133,7 @@
          "source":{
             "cardinality":"one",
             "property":"bank",
-            "id":"B2 : Bank"
+            "id":"B3 : Bank"
          },
          "target":{
             "cardinality":"many",
@@ -146,7 +146,7 @@
          "source":{
             "cardinality":"one",
             "property":"bank",
-            "id":"B2 : Bank"
+            "id":"B3 : Bank"
          },
          "target":{
             "cardinality":"many",

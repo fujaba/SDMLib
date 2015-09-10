@@ -898,48 +898,6 @@ public class Storyboard implements PropertyChangeInterface
          {
             jsonIdMap = (JsonIdMap) new GenericIdMap().withSessionId(null);
             jsonIdMap.getLogger().withError(false);
-
-            // try to infer creator class
-            String className = object.getClass().getName();
-            String creatorClassName = CGUtil.helperClassName(className, "Creator");
-            try
-            {
-               Class<?> creatorClass = this.getClass().getClassLoader().loadClass(creatorClassName);
-               Method createIdMapMethod = creatorClass.getDeclaredMethod("createIdMap", String.class);
-               jsonIdMap = (JsonIdMap) createIdMapMethod.invoke(null, new Object[0]);
-               jsonIdMap.getLogger().withError(false);
-            }
-            catch (Exception e)
-            {
-               // did not work, thus generic must be enough
-            }
-
-         }
-
-         SendableEntityCreator objectCreator = jsonIdMap.getCreatorClass(object);
-
-         if (objectCreator == null || objectCreator instanceof GenericCreator)
-         {
-            String className = object.getClass().getName();
-            String packageName = CGUtil.packageName(className) + ".util";
-            className = CGUtil.helperClassName(className, "Creator");
-
-            Object idMap = null;
-            try
-            {
-               Class<?> creatorClass = Class.forName(className);
-               Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
-
-               idMap = method.invoke(null, "debug");
-
-               jsonIdMap.withCreator((((JsonIdMap) idMap)));
-            }
-            catch (Exception e)
-            {
-               // cannot find creator creator class, use generic idMap instead;
-               System.out.println("Could not find creator class for " + className);
-               e.printStackTrace();
-            }
          }
 
          // add to jsonIdMap

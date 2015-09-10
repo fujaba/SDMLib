@@ -25,33 +25,29 @@
       },
       {
          "typ":"node",
-         "id":"F4 : FetchFileFlow$TaskNames;"
-      },
-      {
-         "typ":"node",
-         "id":"P5 : PeerProxy",
+         "id":"P4 : PeerProxy",
          "attributes":[
          "port=0"
          ]
       },
       {
          "typ":"node",
-         "id":"L6 : Logger",
+         "id":"L5 : Logger",
          "attributes":[
          "taskNo=0"
          ]
       },
       {
          "typ":"node",
-         "id":"L7 : LogEntry"
-      },
-      {
-         "typ":"node",
-         "id":"L9 : LogEntry"
+         "id":"L6 : LogEntry"
       },
       {
          "typ":"node",
          "id":"L8 : LogEntry"
+      },
+      {
+         "typ":"node",
+         "id":"L7 : LogEntry"
       },
       {
          "typ":"node",
@@ -75,34 +71,8 @@
          },
          "target":{
             "cardinality":"one",
-            "property":"taskNames",
-            "id":"F4 : FetchFileFlow$TaskNames;"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"fetchfileflow",
-            "id":"F1 : FetchFileFlow"
-         },
-         "target":{
-            "cardinality":"one",
             "property":"fileServer",
-            "id":"P5 : PeerProxy"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"many",
-            "property":"parentTransitive",
-            "id":"F1 : FetchFileFlow"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"rootParent",
-            "id":"F1 : FetchFileFlow"
+            "id":"P4 : PeerProxy"
          }
       },
       {
@@ -115,20 +85,7 @@
          "target":{
             "cardinality":"one",
             "property":"subFlow",
-            "id":"L6 : Logger"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"fetchfileflow",
-            "id":"F1 : FetchFileFlow"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"subFlowTransitive",
-            "id":"L6 : Logger"
+            "id":"L5 : Logger"
          }
       },
       {
@@ -136,12 +93,12 @@
          "source":{
             "cardinality":"one",
             "property":"logger",
-            "id":"L6 : Logger"
+            "id":"L5 : Logger"
          },
          "target":{
             "cardinality":"many",
             "property":"entries",
-            "id":"L7 : LogEntry"
+            "id":"L6 : LogEntry"
          }
       },
       {
@@ -149,12 +106,12 @@
          "source":{
             "cardinality":"one",
             "property":"logger",
-            "id":"L6 : Logger"
+            "id":"L5 : Logger"
          },
          "target":{
             "cardinality":"many",
             "property":"entries",
-            "id":"L9 : LogEntry"
+            "id":"L8 : LogEntry"
          }
       },
       {
@@ -162,12 +119,12 @@
          "source":{
             "cardinality":"one",
             "property":"parent",
-            "id":"L7 : LogEntry"
+            "id":"L6 : LogEntry"
          },
          "target":{
             "cardinality":"many",
             "property":"children",
-            "id":"L8 : LogEntry"
+            "id":"L7 : LogEntry"
          }
       }
    ]

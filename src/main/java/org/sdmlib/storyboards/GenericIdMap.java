@@ -1,9 +1,12 @@
 package org.sdmlib.storyboards;
 
+import java.lang.reflect.Method;
+
 import org.sdmlib.CGUtil;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenericIdMap extends SDMLibJsonIdMap
 {
@@ -33,9 +36,25 @@ public class GenericIdMap extends SDMLibJsonIdMap
       
       if (sendableEntityCreator == null)
       {
-         // create generic creator
-         sendableEntityCreator = new GenericCreator().withClassName(className);
-         
+         // try to infer creator class
+         String creatorClassName = CGUtil.helperClassName(className, "Creator");
+         try
+         {
+            Class<?> creatorClass = this.getClass().getClassLoader().loadClass(creatorClassName);
+            sendableEntityCreator = (SendableEntityCreator) creatorClass.newInstance();
+         }
+         catch (Exception e)
+         {
+            // did not work, thus generic must be enough
+            e.printStackTrace();
+         }
+
+         if (sendableEntityCreator == null)
+         {
+            // create generic creator
+            sendableEntityCreator = new GenericCreator().withClassName(className);
+         }
+
          this.creators.put(className, sendableEntityCreator);
       }
       
