@@ -230,13 +230,17 @@ HTMLDrawer.prototype.getNode = function (node, draw) {
 	var cell;
 	if (node.head_src) {
 		cell = this.createCell(table, "td", node);
+		cell.style.textAlign = "center";
 		if (!node.head_img) {
 			node.head_img = {};
 			node.head_img.src = node.head_src;
 			node.head_img.width = node.head_width;
 			node.head_img.height = node.head_height;
 		}
-		cell.appendChild(this.util.createImage(node.head_img));
+		var img = this.createImage(node.head_img);
+		if(img) {
+			cell.appendChild(img);
+		}
 	}
 	if (node.headinfo) {
 		this.createCell(table, "td", node, node.headinfo).className = "head";
