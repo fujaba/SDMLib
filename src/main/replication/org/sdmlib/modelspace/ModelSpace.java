@@ -33,10 +33,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
@@ -163,12 +166,14 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
                      
                      if (filename.endsWith(JSONCHGS) && ! filename.endsWith(userName + JSONCHGS))
                      {
-                        File file = new File(filename);
+                        InputStream newInputStream = Files.newInputStream(Paths.get(filename), StandardOpenOption.READ);
                         
-                        FileReader fileReader = new FileReader(file);
+                        InputStreamReader reader = new InputStreamReader(newInputStream);
                         
-                        BufferedReader buf = new BufferedReader(fileReader);
+                        BufferedReader buf = new BufferedReader(reader);
 
+                        File file = new File (filename);
+                        
                         fileReaders.put(file.getCanonicalPath(), buf);
 
                         readChangesTask(buf);
@@ -261,8 +266,9 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
          {
             try
             {
-               FileReader fileReader = new FileReader(f);
-               BufferedReader buf = new BufferedReader(fileReader);
+               InputStream newInputStream = Files.newInputStream(Paths.get(f.getAbsolutePath()), StandardOpenOption.READ);
+               InputStreamReader reader = new InputStreamReader(newInputStream);
+               BufferedReader buf = new BufferedReader(reader);
 
                if (! f.getName().equals(userName + ModelSpace.JSONCHGS))
                {

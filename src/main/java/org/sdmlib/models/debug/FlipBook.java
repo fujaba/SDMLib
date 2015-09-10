@@ -117,7 +117,7 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
                if (key.equals(property))
                {
                   // print stacktrace
-                  stepInfo.e.printStackTrace();
+                  // stepInfo.e.printStackTrace();
                   return this;
                }
             }

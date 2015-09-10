@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project SDMLib">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="C:/Users/zuendorf/ownCloud/Shared/se-mitarbeiter/Projekte/GroupAccount/GroupAccount.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="org.sdmlib.test.examples.groupaccount.gui.GroupAccountApp"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/ProgrammeAlbert/eclipse4.4/plugins/org.junit_4.11.0.v201303080030/junit.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/ProgrammeAlbert/eclipse4.4/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+            <fileset dir="C:/Users/zuendorf/eclipseworkspaces/indigo/NetworkParser/bin"/>
+        </jar>
+    </target>
+</project>
