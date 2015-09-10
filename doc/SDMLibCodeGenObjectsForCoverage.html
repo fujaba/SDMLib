@@ -20,19 +20,7 @@
          "typ":"node",
          "id":"C1 : ClassModel",
          "attributes":[
-         "authorName=zuendorf",
-            "name=org.sdmlib"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"G5 : GenClassModel"
-      },
-      {
-         "typ":"node",
-         "id":"G6 : GenClassModel$DIFF",
-         "attributes":[
-         "declaringClass=class org.sdmlib.models.classes.logic.GenClassModel$DIFF"
+         "name=org.sdmlib"
          ]
       },
       {
@@ -47,11 +35,11 @@
       },
       {
          "typ":"node",
-         "id":"A7 : ArrayList"
+         "id":"A5 : ArrayList"
       },
       {
          "typ":"node",
-         "id":"S8 : StatementEntry",
+         "id":"S6 : StatementEntry",
          "attributes":[
          "startPos=0",
             "endPos=0"
@@ -59,7 +47,7 @@
       },
       {
          "typ":"node",
-         "id":"A9 : ArrayList"
+         "id":"A7 : ArrayList"
       },
       {
          "typ":"node",
@@ -73,7 +61,7 @@
       },
       {
          "typ":"node",
-         "id":"A10 : ArrayList"
+         "id":"A8 : ArrayList"
       },
       {
          "typ":"node",
@@ -93,39 +81,13 @@
          "typ":"EDGE",
          "source":{
             "cardinality":"one",
-            "property":"model",
-            "id":"C1 : ClassModel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"generator",
-            "id":"G5 : GenClassModel"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"genclassmodel",
-            "id":"G5 : GenClassModel"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"showDiff",
-            "id":"G6 : GenClassModel$DIFF"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
             "property":"statemententry",
             "id":"S2 : StatementEntry"
          },
          "target":{
             "cardinality":"one",
             "property":"tokenList",
-            "id":"A7 : ArrayList"
+            "id":"A5 : ArrayList"
          }
       },
       {
@@ -138,7 +100,7 @@
          "target":{
             "cardinality":"many",
             "property":"bodyStats",
-            "id":"S8 : StatementEntry"
+            "id":"S6 : StatementEntry"
          }
       },
       {
@@ -146,12 +108,12 @@
          "source":{
             "cardinality":"one",
             "property":"statemententry",
-            "id":"S8 : StatementEntry"
+            "id":"S6 : StatementEntry"
          },
          "target":{
             "cardinality":"one",
             "property":"tokenList",
-            "id":"A9 : ArrayList"
+            "id":"A7 : ArrayList"
          }
       },
       {
@@ -164,7 +126,7 @@
          "target":{
             "cardinality":"one",
             "property":"initSequence",
-            "id":"A10 : ArrayList"
+            "id":"A8 : ArrayList"
          }
       }
    ]

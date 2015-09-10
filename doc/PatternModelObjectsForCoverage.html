@@ -20,15 +20,30 @@
          "typ":"node",
          "id":"P1 : PatternObject",
          "attributes":[
-         "currentMatch=match",
-            "modifier=bound",
+         "modifier=bound",
             "hasMatch=false",
+            "doAllMatches=false",
+            "currentMatch=match"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P4 : Pattern",
+         "attributes":[
+         "debugMode=0"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"P5 : PatternLink",
+         "attributes":[
+         "hasMatch=false",
             "doAllMatches=false"
          ]
       },
       {
          "typ":"node",
-         "id":"A4 : AttributeConstraint",
+         "id":"A7 : AttributeConstraint",
          "attributes":[
          "attrName=attr1",
             "hasMatch=false",
@@ -37,22 +52,7 @@
       },
       {
          "typ":"node",
-         "id":"P6 : PatternLink",
-         "attributes":[
-         "hasMatch=false",
-            "doAllMatches=false"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P5 : Pattern",
-         "attributes":[
-         "debugMode=0"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"P7 : PatternObject",
+         "id":"P6 : PatternObject",
          "attributes":[
          "hasMatch=false",
             "doAllMatches=false"
@@ -230,14 +230,14 @@
    {
          "typ":"EDGE",
          "source":{
-            "cardinality":"one",
-            "property":"src",
+            "cardinality":"many",
+            "property":"elements",
             "id":"P1 : PatternObject"
          },
          "target":{
-            "cardinality":"many",
-            "property":"attrConstraints",
-            "id":"A4 : AttributeConstraint"
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P4 : Pattern"
          }
       },
       {
@@ -250,46 +250,20 @@
          "target":{
             "cardinality":"many",
             "property":"outgoing",
-            "id":"P6 : PatternLink"
+            "id":"P5 : PatternLink"
          }
       },
       {
          "typ":"EDGE",
          "source":{
-            "cardinality":"many",
-            "property":"elements",
+            "cardinality":"one",
+            "property":"src",
             "id":"P1 : PatternObject"
          },
          "target":{
-            "cardinality":"one",
-            "property":"pattern",
-            "id":"P5 : Pattern"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"patternobject",
-            "id":"P1 : PatternObject"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"topPattern",
-            "id":"P5 : Pattern"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
             "cardinality":"many",
-            "property":"elements",
-            "id":"A4 : AttributeConstraint"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"pattern",
-            "id":"P5 : Pattern"
+            "property":"attrConstraints",
+            "id":"A7 : AttributeConstraint"
          }
       },
       {
@@ -297,25 +271,12 @@
          "source":{
             "cardinality":"one",
             "property":"pattern",
-            "id":"P5 : Pattern"
+            "id":"P4 : Pattern"
          },
          "target":{
             "cardinality":"many",
             "property":"elements",
-            "id":"P6 : PatternLink"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "cardinality":"one",
-            "property":"topPattern",
-            "id":"P5 : Pattern"
-         },
-         "target":{
-            "cardinality":"many",
-            "property":"elements",
-            "id":"P7 : PatternObject"
+            "id":"P5 : PatternLink"
          }
       },
       {
@@ -323,7 +284,33 @@
          "source":{
             "cardinality":"one",
             "property":"pattern",
-            "id":"P5 : Pattern"
+            "id":"P4 : Pattern"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"P6 : PatternObject"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P4 : Pattern"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"elements",
+            "id":"A7 : AttributeConstraint"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"pattern",
+            "id":"P4 : Pattern"
          },
          "target":{
             "cardinality":"one",
@@ -336,12 +323,12 @@
          "source":{
             "cardinality":"many",
             "property":"incomming",
-            "id":"P6 : PatternLink"
+            "id":"P5 : PatternLink"
          },
          "target":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"P7 : PatternObject"
+            "id":"P6 : PatternObject"
          }
       },
       {

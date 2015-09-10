@@ -17,6 +17,7 @@ import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectPO;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.storyboards.GenericIdMap;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
@@ -644,7 +645,7 @@ public class HelloWorldTTC2011
 
       Graph graph = createExampleGraph();
 
-      storyboard.withJsonIdMap(GraphCreator.createIdMap("hg"));
+      storyboard.withJsonIdMap((JsonIdMap) new GenericIdMap().withSessionId("hg"));
 
       storyboard.addObjectDiagram(graph);
 

@@ -814,6 +814,15 @@ public class Storyboard implements PropertyChangeInterface
       Object root = null;
       LinkedHashSet<Object> explicitElems = new LinkedHashSet<Object>();
       boolean restrictToExplicitElems = false;
+      
+      // do we have a JsonIdMap?
+      if (jsonIdMap == null)
+      {
+         jsonIdMap = (JsonIdMap) new GenericIdMap().withSessionId(null);
+         jsonIdMap.getLogger().withError(false);
+      }
+
+
 
       // go through all diagram elems
       int i = 0;
@@ -891,13 +900,6 @@ public class Storyboard implements PropertyChangeInterface
          if (root == null)
          {
             root = object;
-         }
-
-         // do we have a JsonIdMap?
-         if (jsonIdMap == null)
-         {
-            jsonIdMap = (JsonIdMap) new GenericIdMap().withSessionId(null);
-            jsonIdMap.getLogger().withError(false);
          }
 
          // add to jsonIdMap
