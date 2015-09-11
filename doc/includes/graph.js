@@ -127,16 +127,24 @@ GraphUtil.prototype.bind = function (el, eventName, eventHandler) {
 	}
 };
 GraphUtil.prototype.create = function (node) {
-	var item;
+	var item, xmlns;
 	if (document.createElementNS && (node.xmlns || this.ns)) {
 		if (node.xmlns) {
-			item = document.createElementNS(node.xmlns, node.tag);
+			xmlns = node.xmlns;
 		} else {
-			item = document.createElementNS(this.ns, node.tag);
+			xmlns = this.ns;
+		}
+		if (node.tag === "img" && xmlns === "http://www.w3.org/2000/svg") {
+			item = document.createElementNS(xmlns, "image");
+			item.setAttribute('xmlns:xlink', "http://www.w3.org/1999/xlink");
+			item.setAttributeNS("http://www.w3.org/1999/xlink", 'href', node.src);
+		} else {
+			item = document.createElementNS(xmlns, node.tag);
 		}
 	} else {
 		item = document.createElement(node.tag);
 	}
+
 	var tag = node.tag.toLowerCase();
 	var key;
 	for (key in node) {
@@ -147,7 +155,7 @@ GraphUtil.prototype.create = function (node) {
 		if (node[key] === null) {
 			continue;
 		}
-		if (k === 'tag' || k === 'content_src' || k.charAt(0) === '_' || k === 'model') {
+		if (k === 'tag' || k.charAt(0) === '_' || k === 'model') {
 			continue;
 		}
 		if (k.charAt(0) === '#') {
@@ -219,10 +227,7 @@ GraphUtil.prototype.create = function (node) {
 	if (node._parent) {
 		node._parent.appendChild(item);
 	}
-	if (tag === "image" && node.content_src) {
-		item.setAttribute('xmlns:xlink', "http://www.w3.org/1999/xlink");
-		item.setAttributeNS("http://www.w3.org/1999/xlink", 'href', node.content_src);
-	}
+
 	if (node.model) {
 		item.model = node.model;
 	}
@@ -521,7 +526,13 @@ var Graph = function (json, options) {
 	if (this.model.options.canvasid) {
 		this.root = document.getElementById(this.model.options.canvasid);
 	}
-	if (!this.root) {
+	if (this.root) {
+		if(this.model.options.clearCanvas) {
+			for (i = this.root.children.length - 1; i >= 0; i -= 1) {
+				this.root.removeChild(this.root.children[i]);
+			}
+		}
+	} else {
 		this.root = document.createElement("div");
 		if (this.model.options.canvasid) {
 			this.root.id = this.model.options.canvasid;
@@ -1110,7 +1121,7 @@ Edge.prototype.calculate = function () {
 			}
 		}
 		var result = false;
-		if (linetyp === "Square") {
+		if (linetyp === "square") {
 			result = this.calcSquareLine();
 		}
 		if (!result) {

@@ -99,6 +99,7 @@ public class GroupAccountApp extends Application
             if (parameters.size() >= 3)
             {
                cloudLocation = parameters.get(2);
+               location = cloudLocation + "/" + location;
             }
          }
          else
@@ -221,7 +222,7 @@ public class GroupAccountApp extends Application
                   }
                });
 
-               dataRoot.setTask("Test start Sabine");
+               dataRoot.setTask("Test start Sabine"); 
             }
             
          }

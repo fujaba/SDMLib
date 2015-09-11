@@ -35,8 +35,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -54,6 +57,10 @@ import javafx.application.Platform;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 import org.sdmlib.serialization.PropertyChangeInterface;
+
+
+
+
 
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
@@ -76,7 +83,8 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
    private String userName;
    private File modelDir;
    private WatchService watcher;
-   private LinkedHashMap<String, BufferedReader> fileReaders = new LinkedHashMap<String, BufferedReader>();
+
+   private LinkedHashMap<String, Long> fileReaders = new LinkedHashMap<String, Long>();
    private boolean isApplyingChangeMsg;
 
    //==========================================================================
@@ -91,8 +99,8 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
    private long lastChangeId = 0;
    private Path logPath;
 
-   public LinkedBlockingQueue<BufferedReader> changeQueue = new LinkedBlockingQueue<BufferedReader>();
-   
+   public LinkedBlockingQueue<String> changeQueue = new LinkedBlockingQueue<String>();
+
    public ChangeEventList getHistory()
    {
       return this.history;
@@ -102,7 +110,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
    {
       this (idMap, userName, ApplicationType.StandAlone);
    }
-   
+
    public ModelSpace(JsonIdMap idMap, String userName, ApplicationType appType)
    {
       this.idMap = idMap;
@@ -137,16 +145,18 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
    private class DirChangeListener extends Thread
    {
 
+      private InputStreamReader reader;
+
       @Override
       public void run()
       {
          this.setName("DirChangeListener");
          while (true)
          {
+            WatchKey watchKey = null;
             try
             {
-               WatchKey watchKey = watcher.take();
-               
+               watchKey = watcher.take();
                for (WatchEvent<?> event : watchKey.pollEvents())
                {
                   WatchEvent.Kind<?> kind = event.kind();
@@ -159,69 +169,45 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
                   {
                      // if its a new json file, read it
                      WatchEvent<Path> ev = (WatchEvent<Path>)event;
-                     
+
                      Path filepath = ev.context();
-                     
+
                      String filename = modelDir + "/" + filepath.toString();
-                     
+
                      if (filename.endsWith(JSONCHGS) && ! filename.endsWith(userName + JSONCHGS))
                      {
-                        InputStream newInputStream = Files.newInputStream(Paths.get(filename), StandardOpenOption.READ);
-                        
-                        InputStreamReader reader = new InputStreamReader(newInputStream);
-                        
-                        BufferedReader buf = new BufferedReader(reader);
+                        System.out.println("New (version of) file " + filename + " detected");
 
-                        File file = new File (filename);
-                        
-                        fileReaders.put(file.getCanonicalPath(), buf);
-
-                        readChangesTask(buf);
+                        readChangesTask(filename);
                      }
                   }
                   else if (kind == ENTRY_MODIFY)
                   {
                      // do I have a buf for this one, then read
                      WatchEvent<Path> ev = (WatchEvent<Path>)event;
-                     
+
                      Path filepath = ev.context();
-                     
+
                      String filename = modelDir + "/" + filepath.toString();
-                     
-                     File file = new File(filename);
-                     
-                     String name = file.getCanonicalPath();
-                     
-                     BufferedReader buf = fileReaders.get(name);
-                     
-                     if (buf != null)
-                     {
-                        readChangesTask(buf);
-                     }
+
+                     readChangesTask(filename);
+
                   }
                   else if (kind == ENTRY_DELETE)
                   {
-                     // do I have a buf for this one, then read
-                     WatchEvent<Path> ev = (WatchEvent<Path>)event;
-                     
-                     Path filename = ev.context();
-                     
-                     File file = filename.toFile();
-                     
-                     String name = file.getCanonicalPath();
-                     
-                     fileReaders.remove(name);
-                  }
+                     continue;
+                  }                                     
                }
-               
-               boolean reset = watchKey.reset();
-               
-               // System.out.println("reset: " + reset);
             }
             catch (Exception e)
             {
-               // TODO Auto-generated catch block
                e.printStackTrace();
+            }
+            finally {
+               if (watchKey != null)
+               {
+                  boolean reset = watchKey.reset();
+               }
             }
          }
       }
@@ -255,40 +241,22 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
       }
       catch (IOException e)
       {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
-      // load all json files, subscribe readers for other user files
+      // load all json files, store read positions
       for (File f : modelDir.listFiles())
       {
          if (f.getName().endsWith(ModelSpace.JSONCHGS))
          {
-            try
-            {
-               InputStream newInputStream = Files.newInputStream(Paths.get(f.getAbsolutePath()), StandardOpenOption.READ);
-               InputStreamReader reader = new InputStreamReader(newInputStream);
-               BufferedReader buf = new BufferedReader(reader);
-
-               if (! f.getName().equals(userName + ModelSpace.JSONCHGS))
-               {
-                  fileReaders.put(f.getCanonicalPath(), buf);
-               }
-
-               readChanges(buf);
-            }
-            catch (IOException e)
-            {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-            }
+            readChanges(path + "/" + f.getName());
          }
       }
 
       return this;
    }
 
-   public void readChangesTask(final BufferedReader buf)
+   public void readChangesTask(final String filename)
    {
       if (appType == ApplicationType.JavaFX)
       {
@@ -297,7 +265,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
             @Override
             public void run()
             {
-               readChanges(buf);
+               readChanges(filename);
             }
          });
       }
@@ -305,7 +273,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
       {
          try
          {
-            changeQueue.put(buf);
+            changeQueue.put(filename);
          }
          catch (InterruptedException e)
          {
@@ -314,21 +282,71 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
       }
    }
 
-   public void readChanges(BufferedReader buf)
+   public void readChanges(String fileName)
    {
-      String line;
-      try
+      try 
       {
-         line = buf.readLine();
-
-         while (line != null)
+         File file = new File(fileName);
+         
+         String canonicalPath = file.getCanonicalPath();
+      
+         if (file.exists())
          {
-            // process change
-            handleChange(line);
-            line = buf.readLine();
+            long filePos = 0; 
+            
+            Long oldFilePos = fileReaders.get(canonicalPath);
+            
+            if (oldFilePos != null)
+            {
+               filePos = oldFilePos;
+            }
+
+            long fileLength = file.length();
+            
+            if (fileLength == filePos)
+            {
+               return;
+            }
+            else if (fileLength < filePos)
+            {
+               oldFilePos = 0L;
+               filePos = 0;
+            }
+            
+            FileChannel fileChannel = FileChannel.open(Paths.get(canonicalPath), StandardOpenOption.READ);
+            
+            fileChannel.position(filePos);
+            
+            
+            int bytesToRead = (int) (fileLength - filePos);
+            
+            ByteBuffer byteBuf = ByteBuffer.allocate(bytesToRead);
+
+            int read = -1;
+            do {
+               read = fileChannel.read(byteBuf);
+            }
+            while (read >= 0 && fileChannel.position() < fileLength);
+            
+            long newFilePos = fileChannel.position();
+            
+            fileReaders.put(canonicalPath, newFilePos);
+            
+            fileChannel.close();
+            
+            // byteBuf should contain new content, turn into String
+            String fileContent = new String(byteBuf.array());
+            String[] lines = fileContent.split("\n");
+            
+            System.out.println("Read from " + canonicalPath + "\n" + fileContent);
+            
+            for (String line : lines)
+            {
+               handleChange(line);
+            }
          }
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          e.printStackTrace();
       }
@@ -353,6 +371,10 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
 
          // try to apply change
          applyChange(change);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
       }
       finally
       {
@@ -472,12 +494,12 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
          JsonObject jsonObject = change.toJson();
          logFileWriter.write(jsonObject.toString() + "\n");
          logFileWriter.flush();
-         
+
          if (logPath == null)
          {
             logPath = Paths.get(modelDir.getCanonicalPath() + "/" + userName + ModelSpace.JSONCHGS);
          }
-         
+
          Files.setLastModifiedTime(logPath, FileTime.fromMillis(System.currentTimeMillis()));
       }
       catch (IOException e)
@@ -495,7 +517,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
       if (value != null && value instanceof AbstractList)
       {
          AbstractList valueList = (AbstractList) value;
-         
+
          int indexOf = valueList.indexOf(targetObject);
 
          if (indexOf != historyPos)
@@ -511,12 +533,12 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
    public long getNewHistoryIdNumber()
    {
       long result = System.currentTimeMillis();
-      
+
       if (result <= lastChangeId)
       {
          result = lastChangeId + 1;
       }
-      
+
       lastChangeId = result;
 
       return result;
@@ -531,9 +553,9 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
          // ignore
          return true;
       }
-      
+
       JsonObject jsonObject = (JsonObject) source;
-      
+
       // {"id":"testerProxy",
       //  "class":"org.sdmlib.replication.SeppelSpaceProxy",
       //  "upd":{"scopes":{"class":"org.sdmlib.replication.SeppelScope",
@@ -542,14 +564,14 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
       //                           "spaces":[{"id":"testerProxy"}]}}}}
 
       String opCode = JsonIdMap.UPDATE;
-      
+
       Object attributes = jsonObject.get(JsonIdMap.UPDATE);
-      
+
       if (attributes == null)
       {
          attributes = jsonObject.get(JsonIdMap.REMOVE);
          opCode = JsonIdMap.REMOVE;
-         
+
          if (attributes == null)
          {
             attributes = jsonObject.get("prop");
@@ -560,11 +582,11 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
       JsonObject valueJsonObject = null;
       JsonObject attributesJson = null;
       String prop = null;
-      
+
       if (attributes != null)
       {
          attributesJson = (JsonObject) attributes;
-         
+
          Iterator<String> iter = attributesJson.keyIterator();
          while ( iter.hasNext())
          {
@@ -576,26 +598,26 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
             .withObjectId(jsonObject.getString(JsonIdMap.ID))
             .withObjectType(jsonObject.getString(JsonIdMap.CLASS))
             .withProperty(prop);
-            
+
             Object attrValue = attributesJson.get(prop);
-            
+
             if (attrValue instanceof JsonObject)
             {
                JsonArray valueJsonArray = new JsonArray();
                valueJsonArray.add(attrValue);
                attrValue = valueJsonArray;
             }
-            
+
             if (attrValue instanceof JsonArray)
             {
                JsonArray valueJsonArray = (JsonArray) attrValue;
-               
+
                for (Object arrayElem : valueJsonArray)
                {
                   valueJsonObject = (JsonObject) arrayElem;
 
                   String valueObjectId = (String) valueJsonObject.get(JsonIdMap.ID);
-               
+
                   String valueObjectType = (String) valueJsonObject.get(JsonIdMap.CLASS);
 
                   Object valueObject = idMap.getObject(valueObjectId);
@@ -635,7 +657,7 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
                   // store it
                   getHistory().addChange(change);
                   writeChange(change);
-                  
+
                   // does the value have properties?
                   if (valueJsonObject.get("prop") != null)
                   {
@@ -651,12 +673,12 @@ public  class ModelSpace implements PropertyChangeInterface, UpdateListener
                {
                   oldValueString = null;
                }
-               
+
                // plain attribute
                change.withPropertyKind(ChangeEvent.PLAIN)
                .withNewValue("" + attrValue)
                .withOldValue(oldValueString);
-               
+
                getHistory().addChange(change);
                writeChange(change);
             }

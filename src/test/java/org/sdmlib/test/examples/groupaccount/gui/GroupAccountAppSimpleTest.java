@@ -92,7 +92,7 @@ public class GroupAccountAppSimpleTest
       catch (Exception e1)
       {
          // TODO Auto-generated catch block
-         e1.printStackTrace();
+         System.out.println("Starting via main. ");
          // start grouptaccount app for albert
          Thread firstClient = new Thread()
          {
@@ -107,7 +107,7 @@ public class GroupAccountAppSimpleTest
                {
                   // probably the platform is alread running
                   // just call start and we are done
-                  System.out.println("CAUTION: GroupAccountApp.main did not start, trying new Stage!!!");
+                  System.out.println("CAUTION: GroupAccountApp.main did not start");
                   
                }
             }
@@ -122,7 +122,7 @@ public class GroupAccountAppSimpleTest
       while ( ! done)
       {
          // read changes of others, maybe react
-         BufferedReader buf = space.changeQueue.poll(30, TimeUnit.SECONDS); // changeQueue.take(); // ;
+         String buf = space.changeQueue.take(); // changeQueue.poll(5, TimeUnit.SECONDS); // changeQueue.take(); // ;
          
          if (buf == null) 
          {
