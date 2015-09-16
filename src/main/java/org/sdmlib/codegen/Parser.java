@@ -346,7 +346,11 @@ private String classModifier;
 
    private void parseClassDecl()
    {
-      // modifiers class name classbody
+	   //FIXME skip all Annotations
+	   parseAnnotations();
+	   
+	   
+	    // modifiers class name classbody
 	   int startPosClazz = currentRealToken.startPos;
       classModifier = parseModifiers();
 
@@ -684,8 +688,9 @@ private String classModifier;
 
 		while ("@".equals(currentRealWord())) {
 			result += currentRealWord();
-			nextRealToken();
-			result += currentRealWord();
+//			nextRealToken();
+			result += parseQualifiedName();
+//			result += currentRealWord();
 			nextRealToken();
 
 			if("(".equals(currentRealWord())) {
