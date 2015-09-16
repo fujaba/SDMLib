@@ -347,16 +347,22 @@ private String classModifier;
    private void parseClassDecl()
    {
       // modifiers class name classbody
+	   int startPosClazz = currentRealToken.startPos;
       classModifier = parseModifiers();
 
       // skip keyword
       //      skip ("class");
 
       //class or interface or enum
-      parseClassType();
-
+      String classTyp = parseClassType();
       className = currentRealWord();
       endOfClassName = currentRealToken.endPos;
+      
+      symTab.put(classTyp + ":" + className, 
+              new SymTabEntry().withStartPos(startPosClazz)
+              .withKind(classTyp)
+              .withMemberName(className)
+              .withEndPos(endOfClassName));
 
       // skip name
       nextRealToken();

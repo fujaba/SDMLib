@@ -52,7 +52,7 @@ public class GenAnnotation extends Generator<Annotation>
       Parser parser = getGenerator(clazz).getOrCreateParser(rootDir);
       parser.parse();
 
-      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(clazz.getFullName());
+      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(clazz.getName());
       return generate(parser, getStartPos(tabEntries));
    }
 
