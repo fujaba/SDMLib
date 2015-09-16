@@ -14,7 +14,7 @@ import org.sdmlib.replication.Lane;
 public class GenModel {
 	@Test
 	public void genModel() {
-		ClassModel model = new ClassModel("org.sdmlib.tfd.examples.maumau.shared.model");
+		ClassModel model = new ClassModel("org.sdmlib.test.examples.maumau.model");
 		Clazz mauMauClass = model.createClazz("MauMau");
 		Enumeration suitEnum = model.createEnumeration("Suit").withValueNames("Clubs", "Spades", "Hearts", "Diamonds");
 		Enumeration valueEnum = model.createEnumeration("Value").withValueNames("7", "8", "9", "10", "Jack", "Queen",

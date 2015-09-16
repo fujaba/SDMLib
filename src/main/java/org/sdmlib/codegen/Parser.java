@@ -688,10 +688,17 @@ private String classModifier;
 
 		while ("@".equals(currentRealWord())) {
 			result += currentRealWord();
-//			nextRealToken();
-			result += parseQualifiedName();
-//			result += currentRealWord();
 			nextRealToken();
+			result += currentRealWord();
+			nextRealToken();
+			while(currentRealWord().equals(".")) {
+				result += currentRealWord();
+				nextRealToken();
+				result += currentRealWord();
+				nextRealToken();
+			}
+//			result += parseQualifiedName();
+//			result += currentRealWord();
 
 			if("(".equals(currentRealWord())) {
 				result += currentRealWord();
