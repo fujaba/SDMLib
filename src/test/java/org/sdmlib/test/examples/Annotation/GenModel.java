@@ -11,7 +11,7 @@ public class GenModel {
 	public void genModel() {
 		ClassModel model = new ClassModel("org.sdmlib.test.examples.Annotation");
 		Clazz person = model.createClazz("Person");
-		person.withAnnotation(new Annotation().withName(Annotation.OVERRIDE));
+//		person.withAnnotation(new Annotation().withName(Annotation.OVERRIDE));
 		
 		model.generate("src/test/java");
 		
