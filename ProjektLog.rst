@@ -33,6 +33,11 @@ f5. Model cloud replication
 
 	f5.6 replicate user files
 
+f7. Multi User GroupAccount Test  
+	
+b8. Removing Elements from lists and adding a new Element to such a list causes a 
+    nullpointerexception in the SimpleList implementation due to a hole in the 
+    underlying array. After removal, ChangeHistory delivers wrong positions. 	
 	
 Done
 ----
@@ -55,6 +60,8 @@ f5. Model cloud replication
 	f5.1 gui for model cloud server
 
 f4. GroupAccount multi user
+
+    f4. tested under owncloud. No more file locking problems.
 
 f2. horizontal and vertical model splitting
 

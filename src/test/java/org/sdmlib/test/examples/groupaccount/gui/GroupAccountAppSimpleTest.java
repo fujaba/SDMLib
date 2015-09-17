@@ -18,6 +18,7 @@ import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
+import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
 import org.sdmlib.test.examples.modelspace.chat.MSChatClient;
 
@@ -137,6 +138,17 @@ public class GroupAccountAppSimpleTest
          if (dataRoot.getTask().startsWith("Test start Sabine"))
          {
             story.addImage("GroupAccountAlbertBuysBeerImage.png");
+            
+            Person albert = dataRoot.getPersons().first();
+            
+            Item beer = albert.getItem().first();
+            
+            albert.createItem().withDescription("Beef").withValue(42);
+            
+            albert.withoutItem(beer);
+            
+            albert.createItem().withDescription("Coal").withValue(7);
+            
             done = true; 
          }
       }
