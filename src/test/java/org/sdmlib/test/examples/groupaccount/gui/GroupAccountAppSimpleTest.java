@@ -145,7 +145,7 @@ public class GroupAccountAppSimpleTest
             
             albert.createItem().withDescription("Beef").withValue(42);
             
-            albert.withoutItem(beer);
+            beer.removeYou();
             
             albert.createItem().withDescription("Coal").withValue(7);
             
@@ -155,7 +155,7 @@ public class GroupAccountAppSimpleTest
       
       story.addObjectDiagram(dataRoot);
       
-      Thread.sleep(6000);
+      Thread.sleep(3000);
       
       // Platform.exit();
       

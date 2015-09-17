@@ -155,6 +155,23 @@ public class ChangeEventList implements PropertyChangeInterface
       {
          this.add(change);
          Collections.sort(this);
+         
+         int pos = 0;
+         
+         for (ChangeEvent e : this)
+         {
+            if (e == change)
+            {
+               return pos;
+            }
+            
+            if (e.getNewValue() != null)
+            {
+               pos++;
+            }
+         }
+         
+         // should not be reached. 
          return this.indexOf(change);
       }
    }

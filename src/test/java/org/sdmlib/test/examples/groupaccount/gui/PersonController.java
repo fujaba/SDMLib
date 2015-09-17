@@ -80,6 +80,7 @@ public class PersonController implements PropertyChangeListener
    private VBox itemList;
    private Button addItemButton;
    private Label balanceLabel;
+   private Label totalPurchaseLabel;
    
    public VBox getContent()
    {
@@ -135,9 +136,22 @@ public class PersonController implements PropertyChangeListener
          
          Label label = javafxUtils.createLabel(hBox, "Total purchase:", 200);
 
-         label = javafxUtils.createLabel(hBox, "0,00 €", 68);
-
-         javafxUtils.bindDouble(label, person, Person.PROPERTY_TOTALPURCHASE);
+         totalPurchaseLabel = javafxUtils.createLabel(hBox, "0,00 €", 68);
+         
+         PropertyChangeListener listener = new PropertyChangeListener()
+         {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt)
+            {
+               String text = String.format(Locale.ENGLISH, "%.2f €", person.getTotalPurchase());
+               totalPurchaseLabel.setText(text);  
+            }
+         };
+         
+         listener.propertyChange(null);
+         
+         person.getPropertyChangeSupport().addPropertyChangeListener(Person.PROPERTY_TOTALPURCHASE, listener);
+         // javafxUtils.bindDouble(label, person, Person.PROPERTY_TOTALPURCHASE);
          
          addItemButton = javafxUtils.createButtonInBox("Add Item", hBox, 8);
          javafxUtils.addVisibilityToggle(content, addItemButton, addPersonButton);
@@ -162,7 +176,7 @@ public class PersonController implements PropertyChangeListener
 
          balanceLabel = javafxUtils.createLabel(hBox, "0,00 €", 68);
 
-         PropertyChangeListener listener = new PropertyChangeListener()
+         listener = new PropertyChangeListener()
          {
             @Override
             public void propertyChange(PropertyChangeEvent evt)
@@ -211,6 +225,23 @@ public class PersonController implements PropertyChangeListener
             itemControllers.put(item, itemControl);
          }
       }
+      
+      person.getPropertyChangeSupport().addPropertyChangeListener(Person.PROPERTY_ITEM, new PropertyChangeListener()
+      {
+         
+         @Override
+         public void propertyChange(PropertyChangeEvent evt)
+         {
+            // if an item is removed, remove its label
+            if (evt.getNewValue() == null)
+            {
+               System.out.println("should remove " + evt.getOldValue());
+               Item lostItem = (Item) evt.getOldValue();
+               ItemController lostController = itemControllers.get(lostItem);
+               lostController.getItemList().getChildren().remove(lostController.getView());
+            }
+         }
+      });
       
       if (doCreate)
       {

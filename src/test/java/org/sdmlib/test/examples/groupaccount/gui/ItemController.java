@@ -24,8 +24,21 @@ public class ItemController implements PropertyChangeListener
 
    private PersonController personController;
    private Item item;
+   
    private HBox view = null;
+   
+   public HBox getView()
+   {
+      return view;
+   }
+   
    private VBox itemList;
+   
+   public VBox getItemList()
+   {
+      return itemList;
+   }
+   
    private Button addItemButton;
 
    public ItemController(PersonController personController, Item item, VBox itemList, Button addItemButton)
