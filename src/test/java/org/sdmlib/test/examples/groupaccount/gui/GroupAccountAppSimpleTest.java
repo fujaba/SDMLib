@@ -60,6 +60,8 @@ public class GroupAccountAppSimpleTest
       
       dataRoot = new GroupAccount();
       
+      dataRoot.updateBalances();
+      
       idMap.put("dataRoot", dataRoot);
       
       space = new ModelSpace(idMap, userName).open(location );
@@ -149,7 +151,7 @@ public class GroupAccountAppSimpleTest
             
             albert.createItem().withDescription("Coal").withValue(7);
             
-            done = true; 
+            done = true;  
          }
       }
       

@@ -38,7 +38,7 @@ public class GroupAccountTests implements PropertyChangeInterface
    @Test
    public void testGroupAccountStoryboard1()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard story = new Storyboard();
       
       GroupAccount g1 = new GroupAccount();
       
@@ -70,38 +70,39 @@ public class GroupAccountTests implements PropertyChangeInterface
       .withParent(g1);
 
       // JsonIdMap createIdMap = org.sdmlib.test.examples.groupAccount.creators.GroupAccountCreator.createIdMap("az42");
-      storyboard.addObjectDiagram(g1);
+      story.addObjectDiagram(g1);
       
-      storyboard.add("We call updateBalances() to compute the correct balances.\n");
+      story.add("We call updateBalances() to compute the correct balances.\n");
       
-      storyboard.markCodeStart();
+      story.markCodeStart();
       g1.updateBalances();
-      storyboard.addCode("examples");
+      story.addCode("examples");
       
-      storyboard.add("Now see updateBalances() as code: ");
+      story.add("Now see updateBalances() as code: ");
       
-      String methodText = storyboard.getMethodText("src/test/java", "org.sdmlib.test.examples.groupAccount.model.GroupAccount", "updateBalances()");
+      String methodText = story.getMethodText("src/test/java", "org.sdmlib.test.examples.groupAccount.model.GroupAccount", "updateBalances()");
       
-      storyboard.add(methodText);
+      story.add(methodText);
       
-      storyboard.add("The effects of executing updateBalances() is shown in: ");
       
-      storyboard.addObjectDiagram(g1);
+      story.add("The effects of executing updateBalances() is shown in: ");
+      
+      story.addObjectDiagram(g1);
 
-      storyboard.assertEquals("Balance for Albert is now ", 5, albert.getBalance(), 0.0001);
+      story.assertEquals("Balance for Albert is now ", 5, albert.getBalance(), 0.0001);
 
-      storyboard.assertEquals("The sum of all balances is ", 0, g1.getPersons().getBalance().sum(), 0.0001);
+      story.assertEquals("The sum of all balances is ", 0, g1.getPersons().getBalance().sum(), 0.0001);
       
-      storyboard.assertEquals("Found one person with name Albert ", 1,
+      story.assertEquals("Found one person with name Albert ", 1,
          g1.getPersons().hasName("Albert").size(), 0.0001);
       
-      storyboard.assertTrue("Albert has name Albert", g1.getPersons().hasName("Albert").first() == albert);
+      story.assertTrue("Albert has name Albert", g1.getPersons().hasName("Albert").first() == albert);
       
       PersonSet contributors = g1.getPersons().hasItem(g1.getItem());
       
-      storyboard.add("Persons that have bought at least one item: " + contributors.toString());
+      story.add("Persons that have bought at least one item: " + contributors.toString());
       
-      storyboard.dumpHTML();
+      story.dumpHTML();
    }
    
    //==========================================================================
