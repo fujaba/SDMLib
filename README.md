@@ -1,7 +1,9 @@
 SDMLib
 ======
 
-[![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)](https://travis-ci.org/fujaba/SDMLib)
+master : [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)](https://travis-ci.org/fujaba/SDMLib)
+
+develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop)](https://travis-ci.org/fujaba/SDMLib)
 
 Welcome to SDMLib
 
