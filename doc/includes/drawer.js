@@ -23,7 +23,7 @@
 /*jslint node: true, newcap:true, nomen: true, continue: true */
 
 // VERSION: 2015.09.15 10:40
-/*global GraphUtil: false, SymbolLibary: false, svgConverter: false, jsEPS: false, jsPDF: false, document:false */
+/*global GraphUtil: false, SymbolLibary: false, svgConverter: false, jsPDF: false, document:false */
 "use strict";
 var ObjectCreate = Object.create || function (o) { var F = function () {}; F.prototype = o; return new F(); };
 
@@ -170,7 +170,7 @@ Drawer.prototype.getButtons = function (graph, notTyp) {
 			}
 		}
 	}
-	if (notTyp === "HTML") {
+	if (notTyp === "HTML" && !graph.noButtons) {
 		func = function (e) {
 			var t = e.currentTarget.value;
 			if (t === "Save") {
@@ -187,15 +187,15 @@ Drawer.prototype.getButtons = function (graph, notTyp) {
 	return buttons;
 };
 //				###################################################### HTMLDrawer ####################################################################################
-var HTMLDrawer = function () { this.init(); };
-HTMLDrawer.prototype = ObjectCreate(Drawer.prototype);
-HTMLDrawer.prototype.setPos = function (item, x, y) {item.style.left = x + "px"; item.style.top = y + "px"; };
-HTMLDrawer.prototype.setSize = function (item, x, y) {item.style.width = x + "px"; item.style.height = y + "px"; };
-HTMLDrawer.prototype.getSize = function (item) {return {x: item.clientWidth, y: item.clientHeight}; };
-HTMLDrawer.prototype.getBoard = function (graph) {
+Drawer.HTMLDrawer = function () { this.init(); };
+Drawer.HTMLDrawer.prototype = ObjectCreate(Drawer.prototype);
+Drawer.HTMLDrawer.prototype.setPos = function (item, x, y) {item.style.left = x + "px"; item.style.top = y + "px"; };
+Drawer.HTMLDrawer.prototype.setSize = function (item, x, y) {item.style.width = x + "px"; item.style.height = y + "px"; };
+Drawer.HTMLDrawer.prototype.getSize = function (item) {return {x: item.clientWidth, y: item.clientHeight}; };
+Drawer.HTMLDrawer.prototype.getBoard = function (graph) {
 	return this.createBoard({tag: "div"}, graph, this.getButtons(graph, "HTML"));
 };
-HTMLDrawer.prototype.createCell = function (parent, tag, node, innerHTML, typ) {
+Drawer.HTMLDrawer.prototype.createCell = function (parent, tag, node, innerHTML, typ) {
 	var tr = this.util.create({"tag": 'tr'}), cell;
 	cell = this.util.create({"tag": tag, $font: true, value: innerHTML});
 	this.model.createElement(cell, typ, node);
@@ -203,7 +203,7 @@ HTMLDrawer.prototype.createCell = function (parent, tag, node, innerHTML, typ) {
 	parent.appendChild(tr);
 	return cell;
 };
-HTMLDrawer.prototype.getNode = function (node, draw) {
+Drawer.HTMLDrawer.prototype.getNode = function (node, draw) {
 	var first, z, cell, item, model, htmlElement = this.util.create({tag: "div", model: node});
 	model = this.model.model;
 	if (node.typ === "patternobject") {
@@ -322,7 +322,7 @@ HTMLDrawer.prototype.getNode = function (node, draw) {
 	node.$gui = htmlElement;
 	return htmlElement;
 };
-HTMLDrawer.prototype.getInfo = function (item, text, angle, style) {
+Drawer.HTMLDrawer.prototype.getInfo = function (item, text, angle, style) {
 	var info = this.util.create({tag: "div", $font: true, model: item, "class": "EdgeInfo", value: text, style: "color:" + this.getColor(style, "#CCC")});
 
 	if (angle !== 0) {
@@ -333,7 +333,7 @@ HTMLDrawer.prototype.getInfo = function (item, text, angle, style) {
 	this.model.createElement(info, "info", item);
 	return info;
 };
-HTMLDrawer.prototype.getLine = function (x1, y1, x2, y2, lineStyle) {
+Drawer.HTMLDrawer.prototype.getLine = function (x1, y1, x2, y2, lineStyle) {
 	var temp, angle, length, line;
 	if (x2 < x1) {
 		temp = x1;
@@ -360,7 +360,7 @@ HTMLDrawer.prototype.getLine = function (x1, y1, x2, y2, lineStyle) {
 	line.style.msTransform = line.style.MozTransform = line.style.WebkitTransform = line.style.OTransform = "rotate(" + angle + "rad)";
 	return line;
 };
-HTMLDrawer.prototype.createPath = function (close, fill, path, angle) {
+Drawer.HTMLDrawer.prototype.createPath = function (close, fill, path, angle) {
 	var line, i;
 	if (fill === "none") {
 		line = this.util.create({tag: "div"});
@@ -372,14 +372,14 @@ HTMLDrawer.prototype.createPath = function (close, fill, path, angle) {
 		}
 		return line;
 	}
-	line = this.util.create({tag: "div", style: {position: "absolute", left: path[0].x, top: path[0].y, transform: "rotate(" + angle + "rad)"}});
+	line = this.util.create({tag: "div", style: {position: "absolute", left: path[0].x - 8, top: path[0].y, transform: "rotate(" + angle + "rad)"}});
 	line.appendChild(this.util.create({tag: "div", style: {background: "#000", width: 8, height: 8, transform: "rotate(45rad) skew(170deg, 170deg)"}}));
 	return line;
 };
 //				###################################################### SVG ####################################################################################
-var SVGDrawer = function () {this.init("http://www.w3.org/2000/svg"); this.showButton = true; };
-SVGDrawer.prototype = ObjectCreate(Drawer.prototype);
-SVGDrawer.prototype.getWidth = function (label) {
+Drawer.SVGDrawer = function () {this.init("http://www.w3.org/2000/svg"); this.showButton = true; };
+Drawer.SVGDrawer.prototype = ObjectCreate(Drawer.prototype);
+Drawer.SVGDrawer.prototype.getWidth = function (label) {
 	var board, width, text = this.util.create({tag: "text", $font: true, value: label});
 	text.setAttribute("width", "5px");
 	board = this.model.board;
@@ -388,7 +388,7 @@ SVGDrawer.prototype.getWidth = function (label) {
 	board.removeChild(text);
 	return width;
 };
-SVGDrawer.prototype.drawDef = function () {
+Drawer.SVGDrawer.prototype.drawDef = function () {
 	var child, def = this.util.create({tag: "defs"});
 
 	child = this.util.create({tag: "filter", id: "drop-shadow"});
@@ -408,12 +408,12 @@ SVGDrawer.prototype.drawDef = function () {
 	return def;
 
 };
-SVGDrawer.prototype.getBoard = function (graph) {
+Drawer.SVGDrawer.prototype.getBoard = function (graph) {
 	var hasJS, buttons, board, node, list, that = this;
 	list = ["HTML", "SVG", "PNG"];
 	hasJS = typeof (svgConverter);
 	if (hasJS !== "undefined") {
-		hasJS = typeof (jsEPS);
+		hasJS = typeof (svgConverter);
 		list.push(hasJS !== "undefined" ? "EPS" : "");
 		hasJS = typeof (jsPDF);
 		list.push(hasJS !== "undefined" ? "PDF" : "");
@@ -432,7 +432,7 @@ SVGDrawer.prototype.getBoard = function (graph) {
 
 	return board;
 };
-SVGDrawer.prototype.setSize = function (item, x, y) {
+Drawer.SVGDrawer.prototype.setSize = function (item, x, y) {
 	x = this.util.getValue(x);
 	y = this.util.getValue(y);
 	item.setAttribute("width", x);
@@ -440,7 +440,7 @@ SVGDrawer.prototype.setSize = function (item, x, y) {
 	item.style.width = Math.ceil(x);
 	item.style.height = Math.ceil(y);
 };
-SVGDrawer.prototype.getNode = function (node, draw) {
+Drawer.SVGDrawer.prototype.getNode = function (node, draw) {
 	var rect, typ, z, x, y, id, textWidth, g, item, width, height, that = this, symbolLib = new SymbolLibary();
 	if (symbolLib.isSymbol(node)) {
 		return symbolLib.draw(this, node);
@@ -468,9 +468,9 @@ SVGDrawer.prototype.getNode = function (node, draw) {
 	g = this.util.create({tag: "g", model: node});
 	if (node.typ === "objectdiagram" || node.typ === "classdiagram") {
 		if (node.status === "close") {
-			width = this.getWidth(node.id) + 30;
+			width = this.getWidth(node.minid || node.id) + 30;
 			height = 40;
-			this.addChild(node, g, this.util.create({tag: "text", $font: true, "text-anchor": "left", "x": (node.x + 2), "y": node.y + 12, value: node.id}));
+			this.addChild(node, g, this.util.create({tag: "text", $font: true, "text-anchor": "left", "x": (node.x + 2), "y": node.y + 12, value: node.minid || node.id }));
 		} else {
 			node.left = node.top = 30;
 			node.$gui = g;
@@ -492,17 +492,25 @@ SVGDrawer.prototype.getNode = function (node, draw) {
 		if (node.status === "close") {
 			// Open Button
 			item = this.createGroup(node, symbolLib.drawMax({x: (node.x + width - 20), y: node.y}));
+			node.height = height;
 		} else {
 			item = this.createGroup(node, symbolLib.drawMin({x: (node.x + width - 20), y: node.y}));
 		}
 		item.setAttribute("class", "hand");
 
 		this.util.bind(item, "mousedown", function (e) {
+			var name;
 			if (node.status === "close") {
 				node.status = "open";
 				that.model.redrawNode(node);
 			} else {
 				node.status = "close";
+				// try to cleanup
+				for (name in node.nodes) {
+					if (node.nodes.hasOwnProperty(name)) {
+						node.nodes[name].$gui = null;
+					}
+				}
 				that.model.redrawNode(node);
 			}
 			if (e.stopPropagation) {e.stopPropagation(); }
@@ -594,12 +602,12 @@ SVGDrawer.prototype.getNode = function (node, draw) {
 	}
 	return g;
 };
-SVGDrawer.prototype.addChild = function (node, parent, child) {
+Drawer.SVGDrawer.prototype.addChild = function (node, parent, child) {
 	child.setAttribute("class", "draggable");
 	parent.appendChild(child);
 	this.model.createElement(child, "class", node);
 };
-SVGDrawer.prototype.getInfo = function (item, text, angle, style) {
+Drawer.SVGDrawer.prototype.getInfo = function (item, text, angle, style) {
 	var child, group, i, items = text.split("\n");
 	if (items.length > 1) {
 		group = this.util.create({tag: "g", "class": "draggable", rotate: angle, model: item});
@@ -615,7 +623,7 @@ SVGDrawer.prototype.getInfo = function (item, text, angle, style) {
 	this.model.createElement(group, "info", item);
 	return group;
 };
-SVGDrawer.prototype.getLine = function (x1, y1, x2, y2, lineStyle, style) {
+Drawer.SVGDrawer.prototype.getLine = function (x1, y1, x2, y2, lineStyle, style) {
 	var line = this.util.create({tag: "line", 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2, "stroke": this.getColor(style)});
 	if (lineStyle && lineStyle.toLowerCase() === "dotted") {
 		line.setAttribute("stroke-miterlimit", "4");
@@ -623,7 +631,7 @@ SVGDrawer.prototype.getLine = function (x1, y1, x2, y2, lineStyle, style) {
 	}
 	return line;
 };
-SVGDrawer.prototype.createPath = function (close, fill, path) {
+Drawer.SVGDrawer.prototype.createPath = function (close, fill, path, angle) {
 	var i, d = "M" + path[0].x + " " + path[0].y;
 	for (i = 1; i < path.length; i += 1) {
 		d = d + "L " + path[i].x + " " + path[i].y;
@@ -633,7 +641,7 @@ SVGDrawer.prototype.createPath = function (close, fill, path) {
 	}
 	return this.util.create({tag: "path", "d": d, "fill": fill, stroke: "#000", "stroke-width": "1px"});
 };
-SVGDrawer.prototype.createGroup = function (node, group, parent) {
+Drawer.SVGDrawer.prototype.createGroup = function (node, group, parent) {
 	var func, y, yr, z, box, item, transform, that = this, i, g = this.util.create({tag: "g"}), offsetX = 0, offsetY = 0;
 	if (parent) {
 		offsetX = group.x;
@@ -713,6 +721,9 @@ SVGDrawer.prototype.createGroup = function (node, group, parent) {
 		that.setSize(parent, parent.tool.width + parent.tool.x + 10, parent.tool.height + parent.tool.y + 10);
 	};
 	parent.open = function () {
+		if (this.tagName === "svg") {
+			return;
+		}
 		if (parent.status === "close") {
 			this.appendChild(parent.choicebox);
 		}
@@ -758,7 +769,7 @@ SymbolLibary.prototype.draw = function (drawer, node) {
 	if (typeof fn === "function") {
 		group = fn.apply(this, [node]);
 		if (!drawer || typeof drawer.createGroup !== "function") {
-			drawer = new SVGDrawer();
+			drawer = new Drawer.SVGDrawer();
 			drawer.showButton = false;
 			board = drawer.getBoard(null);
 			board.setAttribute("style", "border:none;");
@@ -894,7 +905,7 @@ SymbolLibary.prototype.drawMin = function (node) {
 		width: 20,
 		height: 20,
 		items: [
-			{tag: "path", fill: "none", stroke: "#000", "stroke-width": 0.2, "stroke-linejoin": "round", d: "m 0,0 19,0 0,19 -19,0 z"},
+			{tag: "path", fill: "white", stroke: "#000", "stroke-width": 0.2, "stroke-linejoin": "round", d: "m 0,0 19,0 0,19 -19,0 z"},
 			{tag: "path", fill: "none", stroke: "#000", "stroke-width": "1px", "stroke-linejoin": "miter", d: "m 4,10 13,-0.04"}
 		]
 	};
@@ -918,7 +929,7 @@ SymbolLibary.prototype.drawMax = function (node) {
 		width: 20,
 		height: 20,
 		items: [
-			{tag: "path", fill: "none", stroke: "#000", "stroke-width": 0.2, "stroke-linejoin": "round", "stroke-dashoffset": 2, "stroke-dasharray": "4.8,4.8", d: "m 0,0 4.91187,0 5.44643,0 9.11886,0 0,19.47716 -19.47716,0 0,-15.88809 z"},
+			{tag: "path", fill: "white", stroke: "#000", "stroke-width": 0.2, "stroke-linejoin": "round", "stroke-dashoffset": 2, "stroke-dasharray": "4.8,4.8", d: "m 0,0 4.91187,0 5.44643,0 9.11886,0 0,19.47716 -19.47716,0 0,-15.88809 z"},
 			{tag: "path", fill: "none", stroke: "#000", "stroke-width": "1px", "stroke-linejoin": "miter", d: "m 4,10 6,0.006 0.02,5 0.01,-11 -0.03,6.02 c 2,-0.01 4,-0.002 6,0.01"}
 		]
 	};
@@ -958,6 +969,42 @@ SymbolLibary.prototype.drawDropdown = function (node) {
 			{tag: "rect", rx: 0, x: 0, y: 0, width: btnWidth - 20, height: btnHeight, stroke: "#000", fill: "none"},
 			{tag: "rect", rx: 2, x: btnWidth - 20, y: 0, width: 20, height: 28, stroke: "#000", "class": "saveBtn"},
 			{tag: "path", style: "fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1", d: "m " + (btnWidth - 15) + ",13 10,0 L " + (btnWidth - 10) + ",20 z"}
+		]
+	};
+};
+SymbolLibary.prototype.drawClassicon = function (node) {
+	var btnX, btnY, btnWidth, btnHeight;
+
+	btnX = node.x || 0;
+	btnY = node.y || 0;
+	btnWidth = node.width || 60;
+	btnHeight = node.height || 28;
+	return {
+		x: btnX,
+		y: btnY,
+		width: btnWidth,
+		height: btnHeight,
+		items: [
+			{tag: "path", d: "m0,0l10.78832,0l0,4.49982l-10.78832,0.19999l0,9.19963l10.78832,0l0,-9.49962l-10.78832,0.19999l0,-4.59982z", style: "fill:none;stroke:#000000;"},
+			{tag: "path", d: "m25.68807,0l10.78832,0l0,4.49982l-10.78832,0.19999l0,9.19963l10.78832,0l0,-9.49962l-10.78832,0.2l0,-4.59982z", style: "fill:none;stroke:#000000;"},
+			{tag: "line", x1: 11, y1: 7, x2: 25, y2: 7, stroke: "#000"}
+		]
+	};
+};
+SymbolLibary.prototype.drawEdgeicon = function (node) {
+	var btnX, btnY, btnWidth, btnHeight;
+
+	btnX = node.x || 0;
+	btnY = node.y || 0;
+	btnWidth = node.width || 30;
+	btnHeight = node.height || 35;
+	return {
+		x: btnX,
+		y: btnY,
+		width: btnWidth,
+		height: btnHeight,
+		items: [
+			{tag: "path", d: "M2,10 20,10 20,35 2,35 Z M2,17 20,17 M20,10 28,5 28,9 M 28.5,4.7 24,4", style: "fill:none;stroke:#000000;transform:scale(0.4);"}
 		]
 	};
 };

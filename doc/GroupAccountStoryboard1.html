@@ -207,6 +207,8 @@
          double personExpenses  = person.getItem().getValue().sum();
          person.setBalance(personExpenses - share);
       }
+      
+      Assert.assertEquals(&quot;Balance should sum up to zero&quot;, 0.0, this.getPersons().getBalance().sum(), 0.00001);
    }</pre><p>The effects of executing updateBalances() is shown in: </p>
 <script>
    var json = {

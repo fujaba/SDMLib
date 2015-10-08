@@ -1,4 +1,15 @@
 
+
+Storyboards
+===========
+
+Backlog
+-------
+
+f1. Connect Storyboard html with JavaDoc for contained methods. 
+
+
+
 ModelSpace Chat
 ===============
 
@@ -19,7 +30,9 @@ Backlog
 
 f3. MSChatGroupClient tests
 
+f9. Event history compactification 
 
+f10. Event history handle remove object 
 
 Active
 ------

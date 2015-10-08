@@ -36,6 +36,8 @@ import de.uniks.networkparser.list.SimpleKeyValueList;
 public class Parser
 {
 
+   private static final String ANNOTATION = "annotation";
+
    public static final char EOF = Character.MIN_VALUE;
 
    public static final String VOID = "void";
@@ -53,9 +55,9 @@ public class Parser
    public static final char LONG_COMMENT_END = 'd';
 
    public static final String CONSTRUCTOR = "constructor";
-   
+
    public static final String ATTRIBUTE = "attribute";
-   
+
    public static final String ENUMVALUE = "enumvalue";
 
    public static final String METHOD = "method";
@@ -81,14 +83,14 @@ public class Parser
    public static char NEW_LINE = '\n';
 
    private StringBuilder fileBody = null;
-   
+
    private boolean fileBodyHasChanged = false;
-   
+
    public boolean isFileBodyChanged()
    {
       return fileBodyHasChanged;
    }
-   
+
    private Token lookAheadToken = null;
 
    private Token currentToken;
@@ -108,7 +110,7 @@ public class Parser
 
    private StatementEntry currentParentStatement;
 
-   private StatementEntry currentStatement = null; 
+   private StatementEntry currentStatement = null;
 
    public StatementEntry getCurrentStatement()
    {
@@ -124,7 +126,7 @@ public class Parser
    {
       return localVarTable;
    }
-   
+
    public HashMap<StatementEntry, Integer> getReturnStatements()
    {
       return returnStatements;
@@ -162,7 +164,7 @@ public class Parser
 
    private int endOfImports;
 
-private String classModifier;  
+   private String classModifier;
 
    public int getEndOfImports()
    {
@@ -194,35 +196,38 @@ private String classModifier;
       return methodBodyStartPos;
    }
 
-	public int insert(int offset, String text) {
-		if (this.fileBody == null) {
-			this.fileBody = new StringBuilder(text);
-		} else {
-			this.fileBody.insert(offset, text);
-		}
-		this.fileBodyHasChanged = true;
-		return offset + text.length();
-	}
-   
+   public int insert(int offset, String text)
+   {
+      if (this.fileBody == null)
+      {
+         this.fileBody = new StringBuilder(text);
+      }
+      else
+      {
+         this.fileBody.insert(offset, text);
+      }
+      this.fileBodyHasChanged = true;
+      return offset + text.length();
+   }
+
    public int search(String searchText, int pos)
    {
       return this.fileBody.indexOf(searchText, pos);
    }
-   
+
    public int search(String searchText)
    {
       return this.fileBody.indexOf(searchText);
    }
-   
+
    public String getClassName()
    {
       return className;
    }
-   
-   
-   class SearchStringFoundException extends RuntimeException 
+
+   class SearchStringFoundException extends RuntimeException
    {
-      private static final long serialVersionUID = 1L; 
+      private static final long serialVersionUID = 1L;
    }
 
    public Parser withFileBody(StringBuilder fileBody)
@@ -231,7 +236,7 @@ private String classModifier;
       return this;
    }
 
-   private Parser withInit(int startPos, int endPos) 
+   private Parser withInit(int startPos, int endPos)
    {
       if (symTab == null)
       {
@@ -250,7 +255,7 @@ private String classModifier;
       {
          localVarTable.clear();
       }
-      
+
       if (returnStatements == null)
       {
          returnStatements = new HashMap<>();
@@ -264,20 +269,19 @@ private String classModifier;
 
       methodBodyQualifiedNames.clear();
 
-
       currentChar = 0;
 
-      index = startPos-1;
-      lookAheadIndex = startPos-1;
+      index = startPos - 1;
+      lookAheadIndex = startPos - 1;
 
       this.endPos = endPos;
 
-      nextChar(); 
+      nextChar();
       nextChar();
 
-      currentToken = new Token ();
-      lookAheadToken = new Token ();
-      previousToken = new Token ();
+      currentToken = new Token();
+      lookAheadToken = new Token();
+      previousToken = new Token();
 
       nextToken();
       nextToken();
@@ -308,7 +312,7 @@ private String classModifier;
       {
          // found it, return indexOfResult
       }
-      catch (Exception e) 
+      catch (Exception e)
       {
          // problem with parsing. Return not found
          e.printStackTrace();
@@ -316,8 +320,9 @@ private String classModifier;
 
       return indexOfResult;
    }
-   
-   public Parser parse(){
+
+   public Parser parse()
+   {
       indexOf(CLASS_END);
       return this;
    }
@@ -346,71 +351,80 @@ private String classModifier;
 
    private void parseClassDecl()
    {
-	   //FIXME skip all Annotations
-	   parseAnnotations();
-	   
-	   
-	    // modifiers class name classbody
-	   int startPosClazz = currentRealToken.startPos;
+      // FIXME skip all Annotations
+      int startPosAnnotations = currentRealToken.startPos;
+      int endPosAnnotation = currentRealToken.endPos;
+      String annos = parseAnnotations();
+
+      //FIXME please
+      if (annos != "")
+      {
+         symTab.put(ANNOTATION + ":" + annos.substring(1),
+            new SymTabEntry().withKind(ANNOTATION).withMemberName(annos.substring(1))
+               .withEndPos(endPosAnnotation).withStartPos(startPosAnnotations));
+      }
+
+      // modifiers class name classbody
+      int startPosClazz = currentRealToken.startPos;
       classModifier = parseModifiers();
 
       // skip keyword
-      //      skip ("class");
+      // skip ("class");
 
-      //class or interface or enum
+      // class or interface or enum
       String classTyp = parseClassType();
       className = currentRealWord();
       endOfClassName = currentRealToken.endPos;
-      
-      symTab.put(classTyp + ":" + className, 
-              new SymTabEntry().withStartPos(startPosClazz)
-              .withKind(classTyp)
-              .withMemberName(className)
-              .withEndPos(endOfClassName));
+
+      symTab.put(classTyp + ":" + className,
+         new SymTabEntry().withStartPos(startPosClazz)
+            .withKind(classTyp)
+            .withMemberName(className)
+            .withEndPos(endOfClassName));
 
       // skip name
       nextRealToken();
 
       parseGenericTypeSpec();
 
-      // extends 
+      // extends
       if ("extends".equals(currentRealWord()))
       {
          int startPos = currentRealToken.startPos;
 
-         skip ("extends");
+         skip("extends");
 
-         symTab.put(EXTENDS + ":" + currentRealWord(), 
+         symTab.put(EXTENDS + ":" + currentRealWord(),
             new SymTabEntry().withBodyStartPos(currentRealToken.startPos)
-            .withKind(EXTENDS)
-            .withMemberName(currentRealWord())
-            .withEndPos(currentRealToken.endPos));
+               .withKind(EXTENDS)
+               .withMemberName(currentRealWord())
+               .withEndPos(currentRealToken.endPos));
 
          // skip superclass name
-         parseTypeRef(); 
+         parseTypeRef();
 
          endOfExtendsClause = previousRealToken.endPos;
 
          checkSearchStringFound(EXTENDS, startPos);
       }
 
-      // implements 
+      // implements
       if ("implements".equals(currentRealWord()))
       {
          int startPos = currentRealToken.startPos;
 
-         skip ("implements");
+         skip("implements");
 
-         while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('{'))
+         while (!currentRealKindEquals(EOF) && !currentRealKindEquals('{'))
          {
-            symTab.put(IMPLEMENTS + ":" + currentRealWord(), 
+            symTab.put(IMPLEMENTS + ":" + currentRealWord(),
                new SymTabEntry().withBodyStartPos(currentRealToken.startPos)
-               .withKind(IMPLEMENTS)
-               .withMemberName(currentRealWord())
-               .withEndPos(currentRealToken.endPos));
+                  .withKind(IMPLEMENTS)
+                  .withMemberName(currentRealWord())
+                  .withEndPos(currentRealToken.endPos));
 
             // skip interface name
-            nextRealToken(); 
+            nextRealToken();
 
             if (currentRealKindEquals(','))
             {
@@ -423,7 +437,7 @@ private String classModifier;
          checkSearchStringFound(IMPLEMENTS, startPos);
       }
 
-      parseClassBody();     
+      parseClassBody();
    }
 
    private void parseGenericTypeSpec()
@@ -440,19 +454,22 @@ private String classModifier;
    private String parseClassType()
    {
 
-      if ("class".equals(currentRealWord()) ) {
+      if ("class".equals(currentRealWord()))
+      {
          skip("class");
          classType = "class";
       }
 
-      else if ("interface".equals(currentRealWord()) ) {
+      else if ("interface".equals(currentRealWord()))
+      {
          skip("interface");
          classType = "interface";
       }
-      
-      else if ("enum".equals(currentRealWord()) ) {
-    	  skip("enum");
-    	  classType = "enum";
+
+      else if ("enum".equals(currentRealWord()))
+      {
+         skip("enum");
+         classType = "enum";
       }
 
       return classType;
@@ -463,7 +480,7 @@ private String classModifier;
       // { classBodyDecl* }
       skip("{");
       checkSearchStringFound(CLASS_BODY, currentRealToken.startPos);
-      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
+      while (!currentRealKindEquals(EOF) && !currentRealKindEquals('}'))
       {
          parseMemberDecl();
       }
@@ -472,21 +489,24 @@ private String classModifier;
       {
          checkSearchStringFound(CLASS_END, currentRealToken.startPos);
       }
-      
-      if (!currentRealKindEquals(EOF)) {
-    	  skip("}"); 
+
+      if (!currentRealKindEquals(EOF))
+      {
+         skip("}");
       }
-      else {
-    	  checkSearchStringFound(CLASS_END, currentRealToken.startPos);
+      else
+      {
+         checkSearchStringFound(CLASS_END, currentRealToken.startPos);
       }
    }
 
    private void parseMemberDecl()
    {
-      // annotations modifiers (genericsDecl) ( typeRef name [= expression ] | typeRef name '(' params ')' | classdecl ) ; 
+      // annotations modifiers (genericsDecl) ( typeRef name [= expression ] |
+      // typeRef name '(' params ')' | classdecl ) ;
 
       // TODO: annotations
-	   String annotations = parseAnnotations();
+      String annotations = parseAnnotations();
 
       int startPos = currentRealToken.startPos;
 
@@ -496,7 +516,7 @@ private String classModifier;
       {
          // generic type decl
          skip("<");
-         while  (!currentRealTokenEquals(">"))
+         while (!currentRealTokenEquals(">"))
          {
             nextRealToken();
          }
@@ -506,19 +526,24 @@ private String classModifier;
       if (currentRealTokenEquals(CLASS))
       {
          // parse nested class
-         // throw new RuntimeException("class "  + className + " has nested class. " + " Can't parse it.");
-         // System.err.println("class "  + fileName + " has nested class in line " + getLineIndexOf(currentRealToken.startPos) + "  Can't parse it. Skip it.");
-         while (!currentRealTokenEquals("{")) {
+         // throw new RuntimeException("class " + className +
+         // " has nested class. " + " Can't parse it.");
+         // System.err.println("class " + fileName +
+         // " has nested class in line " +
+         // getLineIndexOf(currentRealToken.startPos) +
+         // "  Can't parse it. Skip it.");
+         while (!currentRealTokenEquals("{"))
+         {
             nextRealToken();
          }
          skipBody();
-         
+
          return;
-         //         if (currentRealTokenEquals("}")) 
-         //         {
-         //            return;
-         //         }
-         //         modifiers = parseModifiers();
+         // if (currentRealTokenEquals("}"))
+         // {
+         // return;
+         // }
+         // modifiers = parseModifiers();
       }
       else if (currentRealTokenEquals(ENUM))
       {
@@ -526,45 +551,45 @@ private String classModifier;
          skip(ENUM);
          nextRealToken(); // name
          skipBody();
-         
+
          return;
-         
-         //         if (currentRealTokenEquals("}")) 
-         //         {
-         //            return;
-         //         }
-         //         modifiers = parseModifiers();
+
+         // if (currentRealTokenEquals("}"))
+         // {
+         // return;
+         // }
+         // modifiers = parseModifiers();
       }
 
       if (currentRealTokenEquals(className) && lookAheadRealToken.kind == '(')
       {
-         // constructor 
+         // constructor
          skip(className);
-         
+
          String params = parseFormalParamList();
-         
-      // skip throws
-         if (currentRealTokenEquals("throws")) 
+
+         // skip throws
+         if (currentRealTokenEquals("throws"))
          {
             skipTo('{');
          }
-         
+
          parseBlock();
-         
+
          String constructorSignature = Parser.CONSTRUCTOR + ":" + className + params;
-         symTab.put(constructorSignature, 
+         symTab.put(constructorSignature,
             new SymTabEntry()
-         .withMemberName(constructorSignature)
-         .withKind(CONSTRUCTOR)
-         .withType(constructorSignature + ":" + CONSTRUCTOR)
-         .withStartPos(startPos)
-         .withEndPos(previousRealToken.startPos)
-         .withBodyStartPos(methodBodyStartPos)
-         .withModifiers(modifiers)
-          );
+               .withMemberName(constructorSignature)
+               .withKind(CONSTRUCTOR)
+               .withType(constructorSignature + ":" + CONSTRUCTOR)
+               .withStartPos(startPos)
+               .withEndPos(previousRealToken.startPos)
+               .withBodyStartPos(methodBodyStartPos)
+               .withModifiers(modifiers)
+            );
 
          checkSearchStringFound(constructorSignature, startPos);
-         
+
       }
       else
       {
@@ -585,18 +610,18 @@ private String classModifier;
             endOfAttributeInitialization = previousRealToken.startPos;
 
             skip(";");
-       
-            symTab.put(ATTRIBUTE+":"+memberName, 
-               new SymTabEntry()
-            .withMemberName(memberName)
-            .withKind(ATTRIBUTE)
-            .withType(type)
-            .withStartPos(startPos)
-            .withEndPos(previousRealToken.startPos)
-            .withModifiers(modifiers)
-                  );
 
-            checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
+            symTab.put(ATTRIBUTE + ":" + memberName,
+               new SymTabEntry()
+                  .withMemberName(memberName)
+                  .withKind(ATTRIBUTE)
+                  .withType(type)
+                  .withStartPos(startPos)
+                  .withEndPos(previousRealToken.startPos)
+                  .withModifiers(modifiers)
+               );
+
+            checkSearchStringFound(ATTRIBUTE + ":" + memberName, startPos);
          }
          else if (currentRealKindEquals(';') && !",".equals(memberName))
          {
@@ -604,35 +629,36 @@ private String classModifier;
             checkSearchStringFound(NAME_TOKEN + ":" + searchString, startPos);
             skip(";");
 
-            symTab.put(ATTRIBUTE+":"+memberName, 
+            symTab.put(ATTRIBUTE + ":" + memberName,
                new SymTabEntry()
-            .withMemberName(memberName)
-            .withKind(ATTRIBUTE)
-            .withType(type)
-            .withStartPos(startPos)
-            .withEndPos(previousRealToken.startPos)
-            .withModifiers(modifiers)
-                  );
+                  .withMemberName(memberName)
+                  .withKind(ATTRIBUTE)
+                  .withType(type)
+                  .withStartPos(startPos)
+                  .withEndPos(previousRealToken.startPos)
+                  .withModifiers(modifiers)
+               );
 
-            checkSearchStringFound(ATTRIBUTE+":"+memberName, startPos);
+            checkSearchStringFound(ATTRIBUTE + ":" + memberName, startPos);
          }
          else if (currentRealKindEquals('('))
          {
 
             String params = parseFormalParamList();
 
-            // FIXME : skip annotations 
-            if(type.startsWith("@")) {
-            	return;
+            // FIXME : skip annotations
+            if (type.startsWith("@"))
+            {
+               return;
             }
 
             // skip throws
             String throwsTags = null;
-            if (currentRealTokenEquals("throws")) 
+            if (currentRealTokenEquals("throws"))
             {
-            	int temp = currentRealToken.startPos;
+               int temp = currentRealToken.startPos;
                skipTo('{');
-               throwsTags = fileBody.substring(temp, currentRealToken.startPos); 
+               throwsTags = fileBody.substring(temp, currentRealToken.startPos);
             }
 
             methodBodyStartPos = currentRealToken.startPos;
@@ -646,93 +672,105 @@ private String classModifier;
                skip(';');
 
             String methodSignature = Parser.METHOD + ":" + memberName + params;
-            symTab.put(methodSignature, 
+            symTab.put(methodSignature,
                new SymTabEntry()
-            .withMemberName(methodSignature)
-            .withKind(METHOD)
-            .withThrowsTags(throwsTags)
-            .withType(methodSignature + ":" + type)
-            .withStartPos(startPos)
-            .withEndPos(previousRealToken.startPos)
-            .withBodyStartPos(methodBodyStartPos)
-            .withAnnotations(annotations)
-            .withModifiers(modifiers)
-                  );
+                  .withMemberName(methodSignature)
+                  .withKind(METHOD)
+                  .withThrowsTags(throwsTags)
+                  .withType(methodSignature + ":" + type)
+                  .withStartPos(startPos)
+                  .withEndPos(previousRealToken.startPos)
+                  .withBodyStartPos(methodBodyStartPos)
+                  .withAnnotations(annotations)
+                  .withModifiers(modifiers)
+               );
 
             checkSearchStringFound(methodSignature, startPos);
-            //System.out.println(className + " :  " +  methodSignature);
+            // System.out.println(className + " :  " + methodSignature);
          }
-         else if (ENUM.equals(classType)) {
+         else if (ENUM.equals(classType))
+         {
 
-        	 if (  ",".equalsIgnoreCase(memberName) || ";".equalsIgnoreCase(memberName) || !";".equals(type) && currentRealKindEquals(EOF)) {
-        		 
-        		 String enumSignature = Parser.ENUMVALUE + ":" + type;
-                 symTab.put(enumSignature, 
-                    new SymTabEntry()
-                 .withMemberName(type)
-                 .withKind(ENUMVALUE)
-                 .withType(enumSignature + ":" + className)
-                 .withStartPos(startPos)
-                 .withEndPos(previousRealToken.startPos)
-                 .withBodyStartPos(methodBodyStartPos)
-                 .withModifiers(modifiers)
-                       );
-        		 
-        	 }
+            if (",".equalsIgnoreCase(memberName) || ";".equalsIgnoreCase(memberName) || !";".equals(type)
+               && currentRealKindEquals(EOF))
+            {
+
+               String enumSignature = Parser.ENUMVALUE + ":" + type;
+               symTab.put(enumSignature,
+                  new SymTabEntry()
+                     .withMemberName(type)
+                     .withKind(ENUMVALUE)
+                     .withType(enumSignature + ":" + className)
+                     .withStartPos(startPos)
+                     .withEndPos(previousRealToken.startPos)
+                     .withBodyStartPos(methodBodyStartPos)
+                     .withModifiers(modifiers)
+                  );
+
+            }
          }
       }
    }
 
-	private String parseAnnotations() {
-		String result = "";
+   private String parseAnnotations()
+   {
+      String result = "";
 
-		while ("@".equals(currentRealWord())) {
-			result += currentRealWord();
-			nextRealToken();
-			result += currentRealWord();
-			nextRealToken();
-			while(currentRealWord().equals(".")) {
-				result += currentRealWord();
-				nextRealToken();
-				result += currentRealWord();
-				nextRealToken();
-			}
-//			result += parseQualifiedName();
-//			result += currentRealWord();
+      while ("@".equals(currentRealWord()))
+      {
+         result += currentRealWord();
+         nextRealToken();
+         result += currentRealWord();
+         nextRealToken();
+         while (currentRealWord().equals("."))
+         {
+            result += currentRealWord();
+            nextRealToken();
+            result += currentRealWord();
+            nextRealToken();
+         }
+         // result += parseQualifiedName();
+         // result += currentRealWord();
 
-			if("(".equals(currentRealWord())) {
-				result += currentRealWord();
-				nextRealToken();
-				
-				while (!")".equals(currentRealWord())) {
-					result += currentRealWord(); 
-					nextRealToken();
-				}
-				result += currentRealWord();
-				nextRealToken();
-			}
-		}
-		
-//		if (!result.isEmpty()) System.out.println(result);
-		return result;
-	}
+         if ("(".equals(currentRealWord()))
+         {
+            result += currentRealWord();
+            nextRealToken();
 
-	private void skipTo(char c) {
-      while (!currentRealKindEquals(c) && ! currentRealKindEquals(EOF)) {
+            while (!")".equals(currentRealWord()))
+            {
+               result += currentRealWord();
+               nextRealToken();
+            }
+            result += currentRealWord();
+            nextRealToken();
+         }
+      }
+
+      // if (!result.isEmpty()) System.out.println(result);
+      return result;
+   }
+
+   private void skipTo(char c)
+   {
+      while (!currentRealKindEquals(c) && !currentRealKindEquals(EOF))
+      {
          nextRealToken();
       }
    }
 
-   private void skipBody() {
+   private void skipBody()
+   {
       int index = 1;
       // nextRealToken();
-      while (index > 0 && ! currentRealKindEquals(EOF)) {
+      while (index > 0 && !currentRealKindEquals(EOF))
+      {
          nextRealToken();
          if (currentRealTokenEquals("{"))
             index++;
          else if (currentRealTokenEquals("}"))
             index--;
-      }   
+      }
       nextRealToken();
    }
 
@@ -747,7 +785,7 @@ private String classModifier;
    private void parseExpression()
    {
       // ... { ;;; } ;
-      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals(';'))
+      while (!currentRealKindEquals(EOF) && !currentRealKindEquals(';'))
       {
          if (currentRealKindEquals('{'))
          {
@@ -765,7 +803,7 @@ private String classModifier;
       // { stat ... }
       skip("{");
 
-      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
+      while (!currentRealKindEquals(EOF) && !currentRealKindEquals('}'))
       {
          if (currentRealKindEquals('{'))
          {
@@ -777,14 +815,14 @@ private String classModifier;
          }
       }
 
-      skip("}");      
+      skip("}");
    }
 
    private String parseTypeRef()
    {
       StringBuilder typeString = new StringBuilder();
 
-      // (void | qualifiedName) <T1, T2> [] ...  
+      // (void | qualifiedName) <T1, T2> [] ...
       String typeName = VOID;
       if (currentRealTokenEquals(VOID))
       {
@@ -807,7 +845,7 @@ private String classModifier;
       {
          typeString.append("[]");
          skip("[");
-         while (! "]".equals(currentRealWord()) && ! currentRealKindEquals(EOF))
+         while (!"]".equals(currentRealWord()) && !currentRealKindEquals(EOF))
          {
             nextRealToken();
          }
@@ -822,7 +860,7 @@ private String classModifier;
          skip(".");
       }
 
-      if ("extends".equals(lookAheadRealToken.text.toString()) )
+      if ("extends".equals(lookAheadRealToken.text.toString()))
       {
          typeString.append(currentRealToken.text);
          nextRealToken();
@@ -833,8 +871,9 @@ private String classModifier;
          typeString.append(currentRealToken.text);
 
       }
-      if("@".equals(typeString.toString())) {
-    	  typeString.append(currentRealToken.text);
+      if ("@".equals(typeString.toString()))
+      {
+         typeString.append(currentRealToken.text);
       }
       // phew
       return typeString.toString();
@@ -843,9 +882,10 @@ private String classModifier;
    private void parseGenericTypeDefPart(StringBuilder typeString)
    {
       // <T, T, ...>
-      skip("<"); typeString.append('<');
+      skip("<");
+      typeString.append('<');
 
-      while (! currentRealKindEquals('>') && ! currentRealKindEquals(EOF))
+      while (!currentRealKindEquals('>') && !currentRealKindEquals(EOF))
       {
          if (currentRealKindEquals('<'))
          {
@@ -867,16 +907,16 @@ private String classModifier;
    {
       StringBuilder paramList = new StringBuilder().append('(');
 
-      // '(' (type name[,] )* ') [throws type , (type,)*] 
+      // '(' (type name[,] )* ') [throws type , (type,)*]
       skip("(");
 
-      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals(')'))
+      while (!currentRealKindEquals(EOF) && !currentRealKindEquals(')'))
       {
          int typeStartPos = currentRealToken.startPos;
 
          parseTypeRef();
 
-         int typeEndPos = currentRealToken.startPos-1;
+         int typeEndPos = currentRealToken.startPos - 1;
 
          paramList.append(fileBody.substring(typeStartPos, typeEndPos));
 
@@ -939,7 +979,7 @@ private String classModifier;
       String modifier = parseModifiers();
 
       // if (!modifier.isEmpty())
-      //  System.out.println("static import");
+      // System.out.println("static import");
 
       String importName = parseQualifiedName();
 
@@ -947,17 +987,17 @@ private String classModifier;
       {
          skip("*");
       }
-//      if (currentRealToken.kind == '$'){
-//         nextRealToken();
-//         importName += "$"+currentRealWord();
-//         nextRealToken();
-//      }
+      // if (currentRealToken.kind == '$'){
+      // nextRealToken();
+      // importName += "$"+currentRealWord();
+      // nextRealToken();
+      // }
 
-      symTab.put(IMPORT + ":" + importName, 
+      symTab.put(IMPORT + ":" + importName,
          new SymTabEntry().withMemberName(importName)
-         .withModifiers(modifier)
-         .withStartPos(startPos)
-         .withEndPos(previousRealToken.endPos));
+            .withModifiers(modifier)
+            .withStartPos(startPos)
+            .withEndPos(previousRealToken.endPos));
 
       skip(";");
    }
@@ -989,7 +1029,7 @@ private String classModifier;
       checkSearchStringFound(NAME_TOKEN + ":" + currentRealWord(), currentToken.startPos);
       nextRealToken();
 
-      while (currentRealKindEquals('.') && ! (lookAheadRealToken.kind == '.') && ! currentRealKindEquals(EOF))
+      while (currentRealKindEquals('.') && !(lookAheadRealToken.kind == '.') && !currentRealKindEquals(EOF))
       {
          skip(".");
 
@@ -1009,12 +1049,12 @@ private String classModifier;
          nextRealToken();
       }
       else
-      { 
-         System.out.println( "Parser Problem: \'" + currentRealToken.kind + "\' :"  
-               +  " but \'" + c + "\' expected in " + className + ".java  at line " 
-               + getLineIndexOf(currentRealToken.startPos)
-               + "\n"+getLineForPos(currentRealToken.startPos));
-//         throw new RuntimeException("parse error");
+      {
+         System.out.println("Parser Problem: \'" + currentRealToken.kind + "\' :"
+            + " but \'" + c + "\' expected in " + className + ".java  at line "
+            + getLineIndexOf(currentRealToken.startPos)
+            + "\n" + getLineForPos(currentRealToken.startPos));
+         // throw new RuntimeException("parse error");
       }
    }
 
@@ -1027,8 +1067,9 @@ private String classModifier;
       else
       {
 
-         System.err.println("Parser Error: expected token " + string + " found " + currentRealWord() 
-            + " at pos " + currentRealToken.startPos + " at line " + getLineIndexOf(currentRealToken.startPos, fileBody)
+         System.err.println("Parser Error: expected token " + string + " found " + currentRealWord()
+            + " at pos " + currentRealToken.startPos + " at line "
+            + getLineIndexOf(currentRealToken.startPos, fileBody)
             + " in file \n" + fileName);
 
          throw new RuntimeException("parse error");
@@ -1050,7 +1091,7 @@ private String classModifier;
 
    public long getLineIndexOf(int startPos)
    {
-      if(startPos < 0)
+      if (startPos < 0)
          return -1;
       long count = 1;
       String substring = fileBody.substring(0, startPos);
@@ -1063,7 +1104,7 @@ private String classModifier;
       return count;
    }
 
-   public Token currentRealToken; 
+   public Token currentRealToken;
    public Token lookAheadRealToken;
    public Token previousRealToken;
 
@@ -1073,6 +1114,7 @@ private String classModifier;
 
    private String className;
    private String classType;
+
    public String getClassType()
    {
       return classType;
@@ -1083,15 +1125,17 @@ private String classModifier;
 
    private int lastReturnStart;
 
-   private LinkedHashMap<String, Integer > methodBodyQualifiedNames = new LinkedHashMap<String, Integer >();
+   private LinkedHashMap<String, Integer> methodBodyQualifiedNames = new LinkedHashMap<String, Integer>();
 
    private HashMap<StatementEntry, Integer> returnStatements = new HashMap<>();
 
-   public LinkedHashMap<String, Integer> getMethodBodyQualifiedNamesMap() {
+   public LinkedHashMap<String, Integer> getMethodBodyQualifiedNamesMap()
+   {
       return methodBodyQualifiedNames;
    }
 
-   public Set<String> getMethodBodyQualifiedNames() {
+   public Set<String> getMethodBodyQualifiedNames()
+   {
       return methodBodyQualifiedNames.keySet();
    }
 
@@ -1099,8 +1143,6 @@ private String classModifier;
    {
       return lastReturnStart;
    }
-
-
 
    private void nextRealToken()
    {
@@ -1111,11 +1153,10 @@ private String classModifier;
       lookAheadRealToken.kind = EOF;
       lookAheadRealToken.text.delete(0, lookAheadRealToken.text.length());
 
-
       // parse comments and skip new lines
       while (currentToken.kind == COMMENT_START || currentToken.kind == NEW_LINE)
       {
-         if (currentToken.text.indexOf("/*") == 0 )
+         if (currentToken.text.indexOf("/*") == 0)
          {
             parseLongComment();
          }
@@ -1137,7 +1178,7 @@ private String classModifier;
          parseStringConstant();
 
          lookAheadRealToken.kind = '"';
-         lookAheadRealToken.text.append(fileBody.substring(constStartPos, previousToken.startPos+1));
+         lookAheadRealToken.text.append(fileBody.substring(constStartPos, previousToken.startPos + 1));
          lookAheadRealToken.startPos = constStartPos;
          lookAheadRealToken.endPos = previousToken.startPos;
       }
@@ -1148,19 +1189,21 @@ private String classModifier;
          parseCharConstant();
 
          lookAheadRealToken.kind = '\'';
-         lookAheadRealToken.text.append(fileBody.substring(constStartPos, previousToken.startPos+1));
+         lookAheadRealToken.text.append(fileBody.substring(constStartPos, previousToken.startPos + 1));
          lookAheadRealToken.startPos = constStartPos;
          lookAheadRealToken.endPos = previousToken.startPos;
       }
-      else if (currentToken.kind == '9') {
-    	  //TODO IS IT RIGHT
-          lookAheadRealToken.kind = currentToken.kind;
-          lookAheadRealToken.text.append((int)currentToken.value);
-          lookAheadRealToken.startPos = currentToken.startPos;
-          lookAheadRealToken.endPos = currentToken.endPos;
-          
-          nextToken();
-      }else
+      else if (currentToken.kind == '9')
+      {
+         // TODO IS IT RIGHT
+         lookAheadRealToken.kind = currentToken.kind;
+         lookAheadRealToken.text.append((int) currentToken.value);
+         lookAheadRealToken.startPos = currentToken.startPos;
+         lookAheadRealToken.endPos = currentToken.endPos;
+
+         nextToken();
+      }
+      else
       {
          lookAheadRealToken.kind = currentToken.kind;
          lookAheadRealToken.text.append(currentToken.text.toString());
@@ -1176,7 +1219,7 @@ private String classModifier;
       // " 'c' or '\c' "
       skipBasicToken('\'');
 
-      // skip \ 
+      // skip \
       if (currentToken.kind == '\\')
       {
          nextToken();
@@ -1200,7 +1243,7 @@ private String classModifier;
          nextToken();
       }
 
-      // skip \n 
+      // skip \n
       nextToken();
    }
 
@@ -1233,7 +1276,7 @@ private String classModifier;
 
    private void parseLongComment()
    {
-      // parse /* ... */ (nested?) 
+      // parse /* ... */ (nested?)
 
       // skip /*
       nextToken();
@@ -1260,7 +1303,7 @@ private String classModifier;
 
       while (true)
       {
-         switch (state) 
+         switch (state)
          {
          case 'i':
             if (Character.isLetter(currentChar) || (currentChar == '_'))
@@ -1340,30 +1383,30 @@ private String classModifier;
             }
             else
             {
-               lookAheadToken.endPos = index-1;
+               lookAheadToken.endPos = index - 1;
                return;
             }
             break;
 
          case '8':
-            if ( ! Character.isDigit(currentChar))
+            if (!Character.isDigit(currentChar))
             {
-               lookAheadToken.endPos = index-1;
+               lookAheadToken.endPos = index - 1;
                return;
             }
             break;
 
          case 'v':
-            if (Character.isLetter(currentChar) 
-                  || Character.isDigit(currentChar)
-                  || currentChar == '_')
+            if (Character.isLetter(currentChar)
+               || Character.isDigit(currentChar)
+               || currentChar == '_')
             {
                // keep reading
                lookAheadToken.text.append(currentChar);
             }
             else
             {
-               lookAheadToken.endPos = index-1;
+               lookAheadToken.endPos = index - 1;
                return; // <==== sudden death
             }
             break;
@@ -1372,22 +1415,21 @@ private String classModifier;
             break;
          }
 
-
          nextChar();
       }
    }
 
-   private void nextChar() 
+   private void nextChar()
    {
       currentChar = lookAheadChar;
       index = lookAheadIndex;
       lookAheadChar = 0;
 
-      while ( lookAheadChar == 0 && lookAheadIndex < endPos-1) 
+      while (lookAheadChar == 0 && lookAheadIndex < endPos - 1)
       {
-         lookAheadIndex++;    
+         lookAheadIndex++;
 
-         lookAheadChar = fileBody.charAt(lookAheadIndex);         
+         lookAheadChar = fileBody.charAt(lookAheadIndex);
       }
    }
 
@@ -1411,7 +1453,7 @@ private String classModifier;
       {
          // found it, return indexOfResult
       }
-      catch (Exception e) 
+      catch (Exception e)
       {
          // problem with parsing. Return not found
          e.printStackTrace();
@@ -1440,7 +1482,7 @@ private String classModifier;
       {
          // found it, return indexOfResult
       }
-      catch (Exception e) 
+      catch (Exception e)
       {
          // problem with parsing. Return not found
          e.printStackTrace();
@@ -1469,7 +1511,7 @@ private String classModifier;
       {
          // found it, return indexOfResult
       }
-      catch (Exception e) 
+      catch (Exception e)
       {
          // problem with parsing. Return not found
          e.printStackTrace();
@@ -1491,9 +1533,9 @@ private String classModifier;
    private void parseSimpleStatementDetails()
    {
       currentStatement = new StatementEntry()
-      .withKind("simple")
-      .withStartPos(currentRealToken.startPos)
-      .withParent(currentParentStatement);
+         .withKind("simple")
+         .withStartPos(currentRealToken.startPos)
+         .withParent(currentParentStatement);
 
       parseExpressionDetails();
 
@@ -1549,17 +1591,17 @@ private String classModifier;
       }
    }
 
-
    private void parseInnerBlockDetails()
    {
-      while ( ! currentRealKindEquals(EOF) && ! currentRealKindEquals('}'))
+      while (!currentRealKindEquals(EOF) && !currentRealKindEquals('}'))
       {
          int startPos = currentRealToken.startPos;
-         if (" if while catch ".indexOf( " " + currentRealWord() + " ") >= 0)
+         if (" if while catch ".indexOf(" " + currentRealWord() + " ") >= 0)
          {
             lastIfStart = startPos;
 
-            currentStatement = new StatementEntry().withKind(currentRealWord()).withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
+            currentStatement = new StatementEntry().withKind(currentRealWord()).withParent(currentParentStatement)
+               .withStartPos(currentRealToken.startPos);
 
             readToken();
 
@@ -1582,19 +1624,21 @@ private String classModifier;
          }
          else if (currentRealTokenEquals("for"))
          {
-            currentStatement = new StatementEntry().withKind("for").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
+            currentStatement = new StatementEntry().withKind("for").withParent(currentParentStatement)
+               .withStartPos(currentRealToken.startPos);
             parseForLoopDetails();
          }
          else if (currentRealTokenEquals("return"))
          {
-            currentStatement = new StatementEntry().withKind("return").withParent(currentParentStatement).withStartPos(currentRealToken.startPos);
+            currentStatement = new StatementEntry().withKind("return").withParent(currentParentStatement)
+               .withStartPos(currentRealToken.startPos);
 
             lastReturnStart = startPos;
 
             readToken("return");
 
             parseExpressionDetails();
-            
+
             returnStatements.put(currentStatement, lastReturnStart);
 
             skip(';');
@@ -1604,26 +1648,26 @@ private String classModifier;
             parseSimpleStatementDetails();
          }
          else if (currentRealKindEquals('v')
-               && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '=' || lookAheadRealToken.kind == '<'))
+            && (lookAheadRealToken.kind == 'v' || lookAheadRealToken.kind == '=' || lookAheadRealToken.kind == '<'))
          {
             // local var decl with simple type
             parseLocalVarDeclDetails();
          }
-         else if (currentRealKindEquals('v') 
-               && lookAheadRealToken.kind == '{')
+         else if (currentRealKindEquals('v')
+            && lookAheadRealToken.kind == '{')
          {
             // skip keyword
             readToken();
             parseBlockDetails();
          }
-         else if (currentRealKindEquals('v') 
-               && lookAheadRealToken.kind == ':')
+         else if (currentRealKindEquals('v')
+            && lookAheadRealToken.kind == ':')
          {
             // skip keyword
             readToken();
-            
+
             // skip colon
-            readToken();            
+            readToken();
          }
          else if (currentRealKindEquals('v'))
          {
@@ -1631,8 +1675,8 @@ private String classModifier;
 
             parseSimpleStatementDetails();
 
-            //	        String qualifiedName = parseQualifiedName();   
-            //	        methodBodyQualifiedNames.put(qualifiedName, startPos);
+            // String qualifiedName = parseQualifiedName();
+            // methodBodyQualifiedNames.put(qualifiedName, startPos);
          }
          else if (currentRealKindEquals('{'))
          {
@@ -1658,7 +1702,7 @@ private String classModifier;
    {
       // skip static and or final
       while ("static final".indexOf(currentRealWord()) >= 0
-            && ! currentRealKindEquals(Parser.EOF))
+         && !currentRealKindEquals(Parser.EOF))
       {
          nextRealToken();
       }
@@ -1681,17 +1725,17 @@ private String classModifier;
       if (currentRealKindEquals('='))
       {
          currentStatement = new StatementEntry()
-         .withKind("assign")
-         .withAssignTargetVarName(varName)
-         .withStartPos(currentRealToken.startPos)
-         .withParent(currentParentStatement);
+            .withKind("assign")
+            .withAssignTargetVarName(varName)
+            .withStartPos(currentRealToken.startPos)
+            .withParent(currentParentStatement);
 
          skip('=');
 
          ArrayList<ArrayList<String>> initCallSequence = new ArrayList<ArrayList<String>>();
 
-         while (! currentRealKindEquals(Parser.EOF)
-               && ! currentRealKindEquals(';'))
+         while (!currentRealKindEquals(Parser.EOF)
+            && !currentRealKindEquals(';'))
          {
             if (currentRealKindEquals('v'))
             {
@@ -1701,21 +1745,23 @@ private String classModifier;
                   initCallSequence.add(methodClassDetails);
                   methodBodyQualifiedNames.clear();
                }
-            } else if ( ! currentRealKindEquals(';'))
+            }
+            else if (!currentRealKindEquals(';'))
             {
                readToken();
             }
          }
 
-         if (!initCallSequence.isEmpty()) { 
-            LocalVarTableEntry initSequence = 
+         if (!initCallSequence.isEmpty())
+         {
+            LocalVarTableEntry initSequence =
                   new LocalVarTableEntry()
-            .withName(varName)
-            .withType(type)
-            .withInitSequence(initCallSequence)
-            .withStartPos(startPos)
-            .withEndPos(previousRealToken.endPos);
-            localVarTable.put(varName, initSequence);	
+                     .withName(varName)
+                     .withType(type)
+                     .withInitSequence(initCallSequence)
+                     .withStartPos(startPos)
+                     .withEndPos(previousRealToken.endPos);
+            localVarTable.put(varName, initSequence);
          }
 
          checkSearchStringFound(NAME_TOKEN + ":;", currentRealToken.startPos);
@@ -1754,18 +1800,18 @@ private String classModifier;
             if (!methodInitDetails.isEmpty())
             {
                initElements.add(methodInitDetails);
-            }		
+            }
          }
 
-         LocalVarTableEntry initSequence = 
+         LocalVarTableEntry initSequence =
                new LocalVarTableEntry()
-         .withName(initElements.get(0).get(0))
-         .withType(varName)
-         .withInitSequence(initElements)
-         .withStartPos(startPos)
-         .withEndPos(previousRealToken.endPos);
+                  .withName(initElements.get(0).get(0))
+                  .withType(varName)
+                  .withInitSequence(initElements)
+                  .withStartPos(startPos)
+                  .withEndPos(previousRealToken.endPos);
 
-         String nameString = varName+"_"+initSequence.hashCode();
+         String nameString = varName + "_" + initSequence.hashCode();
          localVarTable.put(nameString, initSequence);
 
       }
@@ -1778,7 +1824,7 @@ private String classModifier;
       while (!currentRealKindEquals(Parser.EOF) && !currentRealKindEquals(')'))
       {
          String text = currentRealToken.text.toString();
-         //			System.out.println(text);
+         // System.out.println(text);
          methodInitDetails.add(text);
          nextRealToken();
       }
@@ -1800,12 +1846,12 @@ private String classModifier;
          methodCallElements.add("new " + type);
          currentStatement.withToken(type, currentRealToken.endPos);
 
-         if ( currentRealKindEquals('('))
+         if (currentRealKindEquals('('))
          {
             readToken('(');
 
-            while (! currentRealKindEquals(Parser.EOF)
-                  && ! currentRealKindEquals(')'))
+            while (!currentRealKindEquals(Parser.EOF)
+               && !currentRealKindEquals(')'))
             {
                int paramStartPos = currentRealToken.startPos;
                parseExpressionDetails();
@@ -1815,11 +1861,11 @@ private String classModifier;
 
                if (currentRealKindEquals(','))
                {
-                  readToken (',');
+                  readToken(',');
                }
             }
 
-            readToken (')');
+            readToken(')');
          }
       }
       else if (currentRealKindEquals('v'))
@@ -1834,18 +1880,18 @@ private String classModifier;
 
             readToken('(');
 
-            while (! currentRealKindEquals(Parser.EOF)
-                  && ! currentRealKindEquals(')'))
+            while (!currentRealKindEquals(Parser.EOF)
+               && !currentRealKindEquals(')'))
             {
                methodBodyQualifiedNames.clear();
-//               int paramStartPos = currentRealToken.startPos;
+               // int paramStartPos = currentRealToken.startPos;
                parseExpressionDetails();
-//               int paramEndPos = previousRealToken.endPos;
+               // int paramEndPos = previousRealToken.endPos;
 
-               if ( !(methodBodyQualifiedNames.keySet().isEmpty() )
-                     && 
-                        !(methodBodyQualifiedNames.keySet().size() == 1 
-                        && methodBodyQualifiedNames.keySet().toArray()[0].equals(previousRealToken.text.toString())) )
+               if (!(methodBodyQualifiedNames.keySet().isEmpty())
+                  &&
+                  !(methodBodyQualifiedNames.keySet().size() == 1
+                  && methodBodyQualifiedNames.keySet().toArray()[0].equals(previousRealToken.text.toString())))
                {
                   methodCallElements.add("[");
                   methodCallElements.addAll(methodBodyQualifiedNames.keySet());
@@ -1855,15 +1901,16 @@ private String classModifier;
 
                if (currentRealKindEquals(','))
                {
-                  readToken (',');
+                  readToken(',');
                }
-               else {
-                  
+               else
+               {
+
                   return methodCallElements;
                }
             }
 
-            readToken (')');
+            readToken(')');
          }
       }
       else
@@ -1878,10 +1925,10 @@ private String classModifier;
    private void parseExpressionDetails()
    {
       // ... { ;;; } ;
-      while ( ! currentRealKindEquals(EOF) 
-            && ! currentRealKindEquals(';')
-            && ! currentRealKindEquals(',')
-            && ! currentRealKindEquals(')'))
+      while (!currentRealKindEquals(EOF)
+         && !currentRealKindEquals(';')
+         && !currentRealKindEquals(',')
+         && !currentRealKindEquals(')'))
       {
          if (currentRealKindEquals('{'))
          {
@@ -1907,13 +1954,12 @@ private String classModifier;
       }
    }
 
-
    private void parseBracketExpressionDetails()
    {
       readToken('(');
 
-      while ( ! currentRealKindEquals(EOF) 
-            && ! currentRealKindEquals(')'))
+      while (!currentRealKindEquals(EOF)
+         && !currentRealKindEquals(')'))
       {
          if (currentRealKindEquals('('))
          {
@@ -1938,12 +1984,12 @@ private String classModifier;
             currentStatement.withToken(qualifiedName, currentRealToken.endPos);
          }
          else
-         {            
+         {
             readToken();
          }
       }
 
-      readToken(')');      
+      readToken(')');
    }
 
    private void readToken()
@@ -1983,65 +2029,75 @@ private String classModifier;
       return this;
    }
 
-   public boolean exists() {
-	   return new File(fileName).exists();
-   }
-   
-   public boolean loadFile() {
-	   File file = new File(fileName);
-	   if(file.exists()) {
-		   this.withFileBody(CGUtil.readFile(file));
-		   return true;
-	   }
-	   return false;
-   }
-   
-   public void parseMethodBody(SymTabEntry symTabEntry)
+   public boolean exists()
    {
-      if ( symTabEntry.getMemberName().startsWith(METHOD+":") )
-         indexOfInMethodBody(METHOD_END, symTabEntry.getBodyStartPos() +1, symTabEntry.getEndPos() -1); 
+      return new File(fileName).exists();
    }
 
-   public ArrayList<SymTabEntry> getSymTabEntriesFor(String signature) {
+   public boolean loadFile()
+   {
+      File file = new File(fileName);
+      if (file.exists())
+      {
+         this.withFileBody(CGUtil.readFile(file));
+         return true;
+      }
+      return false;
+   }
+
+   public void parseMethodBody(SymTabEntry symTabEntry)
+   {
+      if (symTabEntry.getMemberName().startsWith(METHOD + ":"))
+         indexOfInMethodBody(METHOD_END, symTabEntry.getBodyStartPos() + 1, symTabEntry.getEndPos() - 1);
+   }
+
+   public ArrayList<SymTabEntry> getSymTabEntriesFor(String signature)
+   {
       ArrayList<SymTabEntry> entries = new ArrayList<SymTabEntry>();
       Set<String> keySet = symTab.keySet();
-      for (String key : keySet) {
+      for (String key : keySet)
+      {
          if (key.contains(signature))
             entries.add(symTab.get(key));
       }
       return entries;
    }
-   
-   public SymTabEntry getSymTabEntry(String signature) {
+
+   public SymTabEntry getSymTabEntry(String signature)
+   {
       return symTab.get(signature);
    }
 
-
-   public SymTabEntry getMethodEntryWithLineNumber(String signature, long callMethodLineNumber) {
+   public SymTabEntry getMethodEntryWithLineNumber(String signature, long callMethodLineNumber)
+   {
       ArrayList<SymTabEntry> symTabEntries = getSymTabEntriesFor(signature);
-      for (SymTabEntry symTabEntry : symTabEntries) {
+      for (SymTabEntry symTabEntry : symTabEntries)
+      {
          long lineIndexOfStart = getLineIndexOf(symTabEntry.getStartPos());
          long lineIndexOfEnd = getLineIndexOf(symTabEntry.getEndPos());
-         if ( lineIndexOfStart <= callMethodLineNumber && lineIndexOfEnd >= callMethodLineNumber) {
+         if (lineIndexOfStart <= callMethodLineNumber && lineIndexOfEnd >= callMethodLineNumber)
+         {
             return symTabEntry;
          }
       }
       return null;
    }
 
-   public String getSignatureFor(SymTabEntry symTabEntry) {	
+   public String getSignatureFor(SymTabEntry symTabEntry)
+   {
       Set<String> keySet = symTab.keySet();
-      for (String key : keySet) {
+      for (String key : keySet)
+      {
          if (symTab.get(key) == symTabEntry)
             return key;
       }
       return "";
    }
 
-    public void replace(int start, int end, String text)
+   public void replace(int start, int end, String text)
    {
-       this.fileBody.replace(start, end, text);
-       this.fileBodyHasChanged = true;
+      this.fileBody.replace(start, end, text);
+      this.fileBodyHasChanged = true;
    }
 
    public Parser withFileChanged(boolean value)
@@ -2049,92 +2105,100 @@ private String classModifier;
       this.fileBodyHasChanged = value;
       return this;
    }
-   
-   public StringBuilder getText(){
+
+   public StringBuilder getText()
+   {
       return fileBody;
    }
 
-   
-   public StringBuilder replaceAll(String text, Object... args){
+   public StringBuilder replaceAll(String text, Object... args)
+   {
       return replaceAll(-1, text, args);
    }
-   
-   public StringBuilder replaceAll(StringBuilder text, Object... args){
+
+   public StringBuilder replaceAll(StringBuilder text, Object... args)
+   {
       return replaceAll(-1, text, args);
    }
+
    public StringBuilder replaceAll(int insertPos, String text, Object... args)
    {
-      return replaceAll(insertPos, new StringBuilder(text), args);      
+      return replaceAll(insertPos, new StringBuilder(text), args);
    }
-   
+
    public StringBuilder replaceAll(int insertPos, StringBuilder text, Object... args)
    {
       replace(text, args);
-       
-      if(this.fileBody==null)
+
+      if (this.fileBody == null)
       {
          this.fileBody = text;
       }
       else
       {
-         if(insertPos==-1)
+         if (insertPos == -1)
          {
-            insertPos = indexOf(Parser.CLASS_END); 
+            insertPos = indexOf(Parser.CLASS_END);
          }
-         if(insertPos>=0){
-        	 this.fileBody.insert(insertPos, text.toString());
-         }else{
-        	 System.out.println("ERROR WHILE PARSING");
+         if (insertPos >= 0)
+         {
+            this.fileBody.insert(insertPos, text.toString());
+         }
+         else
+         {
+            System.out.println("ERROR WHILE PARSING");
          }
       }
-      
+
       this.fileBodyHasChanged = true;
-      
+
       return text;
    }
-   
+
    public StringBuilder replace(String text, Object... args)
    {
       return replace(new StringBuilder(text), args);
    }
 
-   public StringBuilder replace(StringBuilder text, Object... args){
+   public StringBuilder replace(StringBuilder text, Object... args)
+   {
       if ((args == null) || (args.length < 1))
       {
          return text;
       }
-      
+
       int pos = -1 - args[0].toString().length();
       String placeholder;
       // args are pairs of placeholder, replacement
-      
-      // in the first run, replace placeholders by <$<placeholders>$> to mark them uniquely
+
+      // in the first run, replace placeholders by <$<placeholders>$> to mark
+      // them uniquely
       for (int i = 0; i < args.length; i += 2)
       {
          placeholder = args[i].toString();
          pos = -1 - placeholder.length();
-         
+
          pos = text.indexOf(placeholder, pos + placeholder.length());
-         
+
          while (pos >= 0)
          {
             text.replace(pos, pos + placeholder.length(), "<$<" + placeholder + ">$>");
-            pos = text.indexOf(placeholder, pos + placeholder.length()+6);
+            pos = text.indexOf(placeholder, pos + placeholder.length() + 6);
          }
       }
-      
+
       // in the second run, replace <$<placeholders>$> by replacement
       for (int i = 0; i < args.length; i += 2)
       {
          placeholder = "<$<" + args[i] + ">$>";
          pos = -1 - placeholder.length();
-           
+
          pos = text.indexOf(placeholder, pos + placeholder.length());
-         
+
          while (pos >= 0)
          {
-            text.replace(pos, pos + placeholder.length(), args[i+1].toString());
-            pos = text.indexOf(placeholder, pos + args[i+1].toString().length());
+            text.replace(pos, pos + placeholder.length(), args[i + 1].toString());
+            pos = text.indexOf(placeholder, pos + args[i + 1].toString().length());
          }
       }
       return text;
@@ -2144,66 +2208,70 @@ private String classModifier;
    {
       for (String key : localVarTable.keySet())
       {
-         if (name.equals(key)) {
+         if (name.equals(key))
+         {
             LocalVarTableEntry tableEntry = localVarTable.get(key);
-            if ("Clazz".equals(tableEntry.getType())) {
-                
-                return tableEntry;
+            if ("Clazz".equals(tableEntry.getType()))
+            {
+
+               return tableEntry;
             }
          }
-      }    
+      }
       return null;
    }
-   
+
    public StringBuilder getFileBody()
    {
       return fileBody;
    }
 
-	public String getClassModifier() {
-		return classModifier;
-	}
+   public String getClassModifier()
+   {
+      return classModifier;
+   }
+
    public String getLineForPos(int currentInsertPos)
    {
       String part1 = fileBody.substring(0, currentInsertPos);
       String part2 = fileBody.substring(currentInsertPos);
       int startPos = 1 + part1.lastIndexOf("\n");
       int endPos = currentInsertPos + part2.indexOf("\n");
-    
-      String lineString = "\""+fileBody.substring(startPos, endPos ).toString()+"\"";
-      
+
+      String lineString = "\"" + fileBody.substring(startPos, endPos).toString() + "\"";
+
       int index = currentInsertPos - startPos;
       char[] chars1 = new char[index];
       Arrays.fill(chars1, ' ');
       String string1 = new String(chars1);
-      
-      String posString = "\n"+string1+"^";
+
+      String posString = "\n" + string1 + "^";
       return lineString + posString;
    }
-   
+
    public void insertImport(String className)
    {
-	      if (className.indexOf("<") > 0)
-	      {
-	         className = className.substring(0, className.indexOf("<"));
-	      }
-	      if ("String int double float boolean void".indexOf(className) >= 0)
-	      {
-	         return;
-	      }
+      if (className.indexOf("<") > 0)
+      {
+         className = className.substring(0, className.indexOf("<"));
+      }
+      if ("String int double float boolean void".indexOf(className) >= 0)
+      {
+         return;
+      }
 
-	      int pos = indexOf(Parser.IMPORT);
+      int pos = indexOf(Parser.IMPORT);
 
-	      String prefix = "";
-	      if (search(Parser.IMPORT, pos) < 0)
-	      {
-	         prefix = "\n";
-	      }
+      String prefix = "";
+      if (search(Parser.IMPORT, pos) < 0)
+      {
+         prefix = "\n";
+      }
 
-	      SymTabEntry symTabEntry = getSymTab().get(Parser.IMPORT + ":" + className);
-	      if (symTabEntry == null)
-	      {
-	         insert(getEndOfImports() + 1, prefix + "\nimport " + className + ";");
-	      }
+      SymTabEntry symTabEntry = getSymTab().get(Parser.IMPORT + ":" + className);
+      if (symTabEntry == null)
+      {
+         insert(getEndOfImports() + 1, prefix + "\nimport " + className + ";");
+      }
    }
 }

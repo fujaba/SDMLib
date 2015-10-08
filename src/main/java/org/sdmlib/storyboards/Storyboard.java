@@ -48,6 +48,7 @@ import org.junit.Assert;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
@@ -69,9 +70,19 @@ import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.logic.ConditionMap;
 import de.uniks.networkparser.logic.ValuesMap;
 
+/**
+ * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
+ * This html page will be named like the story, i.e. like the method that created the Storyboard. 
+ * It will be added to the refs.html and thus become part of the index.html.
+ * All these html files are stored in an directory "doc" located in the project root directory. 
+ * 
+ * @see #dumpHTML()
+ * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
+ */
 public class Storyboard implements PropertyChangeInterface
 {
    public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
@@ -791,6 +802,10 @@ public class Storyboard implements PropertyChangeInterface
 
    }
 
+   /**
+    * Add a class diagram to the generated html page.
+    * @param model
+    */
    public void addClassDiagram(ClassModel model)
    {
       String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
@@ -1122,6 +1137,14 @@ public class Storyboard implements PropertyChangeInterface
       return this;
    }
 
+   /**
+    * Generate an html page from this story. 
+    * This html file will be named like the story, i.e. like the method that created the Storyboard. 
+    * It will be added to the refs.html and thus become part of the index.html.
+    * All these html files are stored in an directory "doc" located in the project root directory. 
+    * 
+    * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
+    */
    public void dumpHTML()
    {
       // copy Javascript files
@@ -1744,5 +1767,114 @@ public class Storyboard implements PropertyChangeInterface
       StoryboardWall value = new StoryboardWall();
       withWall(value);
       return value;
+   }
+
+   public void generateJavaDoc()
+   {
+      // search the (test) method that creates this story for methods it calls / tests. 
+      // create a javadoc on such methods that refers to the test method.
+      
+      // where am I called?
+      Exception e = new RuntimeException();
+      StackTraceElement[] stackTrace = e.getStackTrace();
+      StackTraceElement callEntry = stackTrace[1];
+      if (callEntry.getMethodName().startsWith("dumpHTML"))
+      {
+         callEntry = stackTrace[2];
+      }
+      
+      String methodName = callEntry.getMethodName();
+      String className = callEntry.getClassName();
+      String classFileName = className.replaceAll("\\.",  "/")+".java";
+      String fullFileName = this.rootDir + "/" + classFileName;
+      
+      // parse the test method body
+      Parser parser = new Parser().withFileName(fullFileName);
+      File javaFile = new File(fullFileName);
+
+      parser.withFileBody(CGUtil.readFile(javaFile));
+      
+      int indexOf = parser.indexOf(Parser.METHOD + ":" + methodName+"()");
+      
+      SymTabEntry symTabEntry = parser.getSymTabEntry(Parser.METHOD + ":" + methodName+"()");
+      
+      parser.parseMethodBody(symTabEntry);
+      
+      StatementEntry parentStatement = parser.getCurrentStatement().getParent();
+      
+      // loop through top level statements and look for interesting method calls
+      for (StatementEntry statement : parentStatement.getBodyStatsTransitive())
+      {
+         // is it interesting?
+         if (statement.toString().startsWith(" new Storyboard"))
+         {
+            continue;
+         }
+         
+         if (statement.toString().startsWith(" new"))
+         {
+            // yes, an object is created try to refer to it
+            String classUnderTestName = statement.getTokenList().get(1);
+            String fullName = findJavaFile(classUnderTestName);
+            // add reference to javadoc
+            addReferenceToJavaDoc(fullName, Parser.CONSTRUCTOR+":"+classUnderTestName+"()", fullFileName);
+            System.out.println();
+         }
+         System.out.println(statement);
+      }
+      
+      System.out.println(indexOf);
+   }
+
+   private void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
+   {
+      // parse the class under test
+      Parser parser = new Parser().withFileName(classUnderTestName);
+      File javaFile = new File(classUnderTestName);
+      parser.withFileBody(CGUtil.readFile(javaFile));
+      
+      parser.indexOf(Parser.CLASS_END);
+      
+      SymTabEntry symTabEntry = parser.getSymTabEntry(methodUnderTestName);
+         
+      if (symTabEntry != null)
+      {
+         int startPos = symTabEntry.getStartPos();
+            
+         System.out.println();
+      }
+      
+   }
+
+   private LinkedHashMap<String, String> javaFileTable = null;
+   
+   private String findJavaFile(String classUnderTestName)
+   {
+      if (javaFileTable == null)
+      {
+         javaFileTable = new LinkedHashMap<String, String>();
+         
+         searchJavaFiles(".", this.getRootDir());
+      }
+      
+      return javaFileTable.get(classUnderTestName+".java");
+   }
+
+   private void searchJavaFiles(String rootDir2, String fileName)
+   {
+      File dir = new File(rootDir2+"/"+fileName);
+      
+      if (fileName.endsWith(".java"))
+      {
+         javaFileTable.put(fileName, rootDir2+"/"+fileName);
+      }
+      else if (dir.isDirectory())
+      {
+         for (String kidName : dir.list())
+         {
+            searchJavaFiles(rootDir2+"/"+fileName, kidName);
+         }
+      }
+         
    } 
 }

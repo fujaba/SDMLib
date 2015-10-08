@@ -6,8 +6,10 @@ import java.util.List;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -159,6 +162,21 @@ public class MSChatClient  extends Application
             System.exit(0);
          }
       });
+      
+      ObservableList<Screen> screens = Screen.getScreens();
+      
+      Screen screen = screens.get(0);
+      
+      if (screens.size() > 1)
+      {
+         screen = screens.get(1);
+      }
+      
+      Rectangle2D bounds = screen.getBounds();
+
+      
+      stage.setX(bounds.getMinX());
+      stage.setY(0);
 
       this.stage.show();
       

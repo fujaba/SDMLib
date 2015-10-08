@@ -2354,6 +2354,11 @@ public class GenClassModel
 
    private void addMemberToModel(Clazz clazz, Parser parser, String memberName, String rootDir)
    {
+      //add annotations
+      if(memberName.startsWith("annotation")) {
+         addMemberAsAnnotation(clazz, memberName, parser);
+      }
+      
       // add new methods
       if (memberName.startsWith(Parser.METHOD))
       {
@@ -2386,6 +2391,12 @@ public class GenClassModel
          addMemberAsInterface(clazz, memberName, parser);
       }
 
+   }
+
+   private void addMemberAsAnnotation(Clazz clazz, String memberName, Parser parser)
+   {
+      String[] split = memberName.split(":");
+      clazz.withAnnotation(new Annotation().withName(split[1]));
    }
 
    private void addMemberAsAttribut(Clazz clazz, String attrName, SymTabEntry symTabEntry, String rootDir)

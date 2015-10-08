@@ -22,14 +22,17 @@ import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -132,6 +135,21 @@ public class GroupAccountApp extends Application
             System.exit(0);
          }
          });
+      
+      ObservableList<Screen> screens = Screen.getScreens();
+      
+      Screen screen = screens.get(0);
+      
+      if (screens.size() > 1)
+      {
+         screen = screens.get(1);
+      }
+      
+      Rectangle2D bounds = screen.getBounds();
+
+      
+      stage.setX(bounds.getMinX());
+      stage.setY(0);
       
       stage.show();
    }

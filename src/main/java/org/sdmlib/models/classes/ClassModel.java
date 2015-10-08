@@ -53,13 +53,75 @@ public class ClassModel extends SDMLibClass
 		Feature.reset();
    }
    
+   /**
+    * Root of an SDMLib class model. May be used to generate code or a class diagram.
+    * May also be used to create Clazz objects, with attibutes and assocications.
+    * 
+    * <pre>
+    *    ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
+    * 
+    *    Clazz groupAccountClass = model.createClazz("GroupAccount")
+    *       .withAttribute("task", DataType.STRING);
+    *                
+    *    groupAccountClass.createMethod("getTaskNames")
+    *       .with(new Parameter(DataType.DOUBLE))
+    *       .with(new Parameter(DataType.STRING))
+    *       .withReturnType(DataType.DOUBLE);
+    *       
+    *    Clazz personClass = model.createClazz("Person")
+    *       .withAttribute("name", DataType.STRING)
+    *       .withAttribute("balance", DataType.DOUBLE);
+    *  
+    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    * 
+    *    model.generate();
+    *    
+    *    model.dumpClassDiagram("GroupAccountClassDiag");
+    * </pre>
+    * 
+    * @param packageName
+    * 
+    * @see <a href="../GroupAccountClassModel.java">GroupAccountClassModel.java</a> 
+    * 
+    * @see #generate()
+    * @see #dumpClassDiagram(String)
+    */
    public ClassModel(String packageName)
    {
 	  this();
       withName(packageName);
    }
    
-	public ClassModel generate()
+   /**
+    * Generate Java code from a class model:
+    * 
+    * <pre>
+    *    ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
+    * 
+    *    Clazz groupAccountClass = model.createClazz("GroupAccount")
+    *       .withAttribute("task", DataType.STRING);
+    *                
+    *    groupAccountClass.createMethod("getTaskNames")
+    *       .with(new Parameter(DataType.DOUBLE))
+    *       .with(new Parameter(DataType.STRING))
+    *       .withReturnType(DataType.DOUBLE);
+    *       
+    *    Clazz personClass = model.createClazz("Person")
+    *       .withAttribute("name", DataType.STRING)
+    *       .withAttribute("balance", DataType.DOUBLE);
+    *  
+    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    * 
+    *    model.generate();
+    *    
+    *    model.dumpClassDiagram("GroupAccountClassDiag");
+    * </pre>
+    * 
+    * @return this for fluent code style
+    * 
+    * @see #dumpClassDiagram(String)
+    */
+   public ClassModel generate()
 	{
 	   File srcDir = new File("src/main/java");
 	   
@@ -73,7 +135,38 @@ public class ClassModel extends SDMLibClass
 	   }
 	}
 
-	public ClassModel generate(String rootDir)
+   /**
+    * Generate Java code from a class model:
+    * 
+    * <pre>
+    *    ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
+    * 
+    *    Clazz groupAccountClass = model.createClazz("GroupAccount")
+    *       .withAttribute("task", DataType.STRING);
+    *                
+    *    groupAccountClass.createMethod("getTaskNames")
+    *       .with(new Parameter(DataType.DOUBLE))
+    *       .with(new Parameter(DataType.STRING))
+    *       .withReturnType(DataType.DOUBLE);
+    *       
+    *    Clazz personClass = model.createClazz("Person")
+    *       .withAttribute("name", DataType.STRING)
+    *       .withAttribute("balance", DataType.DOUBLE);
+    *  
+    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    * 
+    *    model.generate("src/test/java");
+    *    
+    *    model.dumpClassDiagram("GroupAccountClassDiag");
+    * </pre>
+    * 
+    * @param rootDir
+    * 
+    * @return this for fluent code style
+    * 
+    * @see #dumpClassDiagram(String)
+    */
+   public ClassModel generate(String rootDir)
 	{
 	   getGenerator().generate(rootDir);
 	   return this;
@@ -154,11 +247,20 @@ public class ClassModel extends SDMLibClass
 		return enumeration;
 	} 
 
-	 public String dumpClassDiagram(String diagName)
+	/**
+	 * Not for public use. 
+	 * Use
+	 *  
+	 * @see org.sdmlib.storyboards.Storyboard#addClassDiagram(ClassModel model)
+	 * 
+	 * @param diagName
+	 * @return json script to be embedded in an html page to display a class diagram 
+	 */
+	public String dumpClassDiagram(String diagName)
 	{
-		GuiAdapter graphViz = GraphFactory.getAdapter();
-		
-		return graphViz.dumpClassDiagram(diagName, this);
+	   GuiAdapter graphViz = GraphFactory.getAdapter();
+
+	   return graphViz.dumpClassDiagram(diagName, this);
 	}
 	 
 	 private String dumpClassDiagram(String diagName, String outputType)
