@@ -72,6 +72,15 @@ import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.logic.ConditionMap;
 import de.uniks.networkparser.logic.ValuesMap;
 
+/**
+ * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
+ * This html page will be named like the story, i.e. like the method that created the Storyboard. 
+ * It will be added to the refs.html and thus become part of the index.html.
+ * All these html files are stored in an directory "doc" located in the project root directory. 
+ * 
+ * @see #dumpHTML()
+ * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
+ */
 public class Storyboard implements PropertyChangeInterface
 {
    public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";
@@ -791,6 +800,10 @@ public class Storyboard implements PropertyChangeInterface
 
    }
 
+   /**
+    * Add a class diagram to the generated html page.
+    * @param model
+    */
    public void addClassDiagram(ClassModel model)
    {
       String diagName = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
@@ -1122,6 +1135,14 @@ public class Storyboard implements PropertyChangeInterface
       return this;
    }
 
+   /**
+    * Generate an html page from this story. 
+    * This html file will be named like the story, i.e. like the method that created the Storyboard. 
+    * It will be added to the refs.html and thus become part of the index.html.
+    * All these html files are stored in an directory "doc" located in the project root directory. 
+    * 
+    * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
+    */
    public void dumpHTML()
    {
       // copy Javascript files

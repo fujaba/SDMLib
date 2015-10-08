@@ -1,3 +1,4 @@
+@charset 'UTF-8';
 .Board{
 	position: relative;
 	overflow: hidden;
@@ -8,13 +9,8 @@
 	width: 100%;
 	height: 100%;
 	min-height: 100%;
+	min-width: 100%;
 	border: 1px solid black;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 	vertical-align: middle;
 	text-align:center;
 }
@@ -46,7 +42,6 @@
 	border: solid transparent;
 	content: " ";
 	position: absolute;
-	pointer-events: none;
 	border-top-color: #c2e1f5;
 	border-width: 20px;
 }

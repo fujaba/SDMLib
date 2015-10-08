@@ -25,6 +25,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import org.junit.Assert;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
@@ -47,7 +48,17 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
 
    
    //==========================================================================
-   
+ 
+   /**
+    * Use like:<br><pre>
+    *    GroupAccount g1 = new GroupAccount();
+    *    ...
+    *    g1.updateBalances();
+    *</pre>    
+    * @see <a href="../GroupAccountTests.java">GroupAccountTests.java</a> 
+    * 
+    */
+   @SuppressWarnings("deprecation")
    public void updateBalances(  )
    {
       // compute share
@@ -58,6 +69,8 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
          double personExpenses  = person.getItem().getValue().sum();
          person.setBalance(personExpenses - share);
       }
+      
+      Assert.assertEquals("Balance should sum up to zero", 0.0, this.getPersons().getBalance().sum(), 0.00001);
    }
 
    
