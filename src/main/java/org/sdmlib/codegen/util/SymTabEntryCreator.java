@@ -15,6 +15,9 @@ public class SymTabEntryCreator extends EntityFactory
       SymTabEntry.PROPERTY_ENDPOS,
       SymTabEntry.PROPERTY_MODIFIERS,
       SymTabEntry.PROPERTY_ANNOTATIONS,
+      SymTabEntry.PROPERTY_PRECOMMENTSTARTPOS,
+      SymTabEntry.PROPERTY_PRECOMMENTENDPOS,
+      SymTabEntry.PROPERTY_ANNOTATIONSSTARTPOS,
    };
    
    @Override
@@ -71,6 +74,21 @@ public class SymTabEntryCreator extends EntityFactory
       {
          return ((SymTabEntry) target).getAnnotations();
       }
+
+      if (SymTabEntry.PROPERTY_PRECOMMENTSTARTPOS.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry) target).getPreCommentStartPos();
+      }
+
+      if (SymTabEntry.PROPERTY_PRECOMMENTENDPOS.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry) target).getPreCommentEndPos();
+      }
+
+      if (SymTabEntry.PROPERTY_ANNOTATIONSSTARTPOS.equalsIgnoreCase(attrName))
+      {
+         return ((SymTabEntry) target).getAnnotationsStartPos();
+      }
       return super.getValue(target, attrName);
    }
    
@@ -122,6 +140,24 @@ public class SymTabEntryCreator extends EntityFactory
       if (SymTabEntry.PROPERTY_ANNOTATIONS.equalsIgnoreCase(attrName))
       {
          ((SymTabEntry) target).withAnnotations((String) value);
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_PRECOMMENTSTARTPOS.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry) target).withPreCommentStartPos(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_PRECOMMENTENDPOS.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry) target).withPreCommentEndPos(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (SymTabEntry.PROPERTY_ANNOTATIONSSTARTPOS.equalsIgnoreCase(attrName))
+      {
+         ((SymTabEntry) target).withAnnotationsStartPos(Integer.parseInt(value.toString()));
          return true;
       }
       return super.setValue(target, attrName, value, type);

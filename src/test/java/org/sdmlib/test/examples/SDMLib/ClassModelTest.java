@@ -138,7 +138,11 @@ public class ClassModelTest
          .withAttribute("bodyStartPos", DataType.INT)
          .withAttribute("endPos", DataType.INT)
          .withAttribute("annotations", DataType.STRING)
-         .withAttribute("modifiers", DataType.STRING);
+         .withAttribute("modifiers", DataType.STRING)
+         .withAttribute("annotationsStartPos", DataType.INT)
+         .withAttribute("preCommentStartPos", DataType.INT)
+         .withAttribute("preCommentEndPos", DataType.INT)
+         ;
 
       model.createClazz("org.sdmlib.codegen.LocalVarTableEntry")
          .withAttribute("name", DataType.STRING)

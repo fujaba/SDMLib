@@ -509,4 +509,160 @@ public class SymTabEntrySet extends SDMSet<SymTabEntry>
       return result;
    }
 
+   public intList getPreCommentStartPos()
+   {
+      intList result = new intList();
+      
+      for (SymTabEntry obj : this)
+      {
+         result.add(obj.getPreCommentStartPos());
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet hasPreCommentStartPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getPreCommentStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet hasPreCommentStartPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getPreCommentStartPos() && obj.getPreCommentStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet withPreCommentStartPos(int value)
+   {
+      for (SymTabEntry obj : this)
+      {
+         obj.setPreCommentStartPos(value);
+      }
+      
+      return this;
+   }
+
+   public intList getPreCommentEndPos()
+   {
+      intList result = new intList();
+      
+      for (SymTabEntry obj : this)
+      {
+         result.add(obj.getPreCommentEndPos());
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet hasPreCommentEndPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getPreCommentEndPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet hasPreCommentEndPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getPreCommentEndPos() && obj.getPreCommentEndPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet withPreCommentEndPos(int value)
+   {
+      for (SymTabEntry obj : this)
+      {
+         obj.setPreCommentEndPos(value);
+      }
+      
+      return this;
+   }
+
+   public intList getAnnotationsStartPos()
+   {
+      intList result = new intList();
+      
+      for (SymTabEntry obj : this)
+      {
+         result.add(obj.getAnnotationsStartPos());
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet hasAnnotationsStartPos(int value)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (value == obj.getAnnotationsStartPos())
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet hasAnnotationsStartPos(int lower, int upper)
+   {
+      SymTabEntrySet result = new SymTabEntrySet();
+      
+      for (SymTabEntry obj : this)
+      {
+         if (lower <= obj.getAnnotationsStartPos() && obj.getAnnotationsStartPos() <= upper)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public SymTabEntrySet withAnnotationsStartPos(int value)
+   {
+      for (SymTabEntry obj : this)
+      {
+         obj.setAnnotationsStartPos(value);
+      }
+      
+      return this;
+   }
+
 }

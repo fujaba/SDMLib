@@ -351,6 +351,9 @@ public class Parser
 
    private void parseClassDecl()
    {
+      int preCommentStartPos = currentRealToken.preCommentStartPos;
+      int preCommentEndPos = currentRealToken.preCommentEndPos;
+      
       // FIXME skip all Annotations
       int startPosAnnotations = currentRealToken.startPos;
       int endPosAnnotation = currentRealToken.endPos;
@@ -380,7 +383,11 @@ public class Parser
          new SymTabEntry().withStartPos(startPosClazz)
             .withKind(classTyp)
             .withMemberName(className)
-            .withEndPos(endOfClassName));
+            .withEndPos(endOfClassName))
+            .withAnnotationsStartPos(startPosAnnotations)
+            .withPreCommentStartPos(preCommentStartPos)
+            .withPreCommentEndPos(preCommentEndPos)
+            ;
 
       // skip name
       nextRealToken();
@@ -505,7 +512,14 @@ public class Parser
       // annotations modifiers (genericsDecl) ( typeRef name [= expression ] |
       // typeRef name '(' params ')' | classdecl ) ;
 
-      // TODO: annotations
+      // (javadoc) comment?
+      int preCommentStartPos = currentRealToken.preCommentStartPos;
+      int preCommentEndPos = currentRealToken.preCommentEndPos;
+      
+      
+      // annotations
+      int annotationsStartPos = currentRealToken.startPos;
+      
       String annotations = parseAnnotations();
 
       int startPos = currentRealToken.startPos;
@@ -586,6 +600,9 @@ public class Parser
                .withEndPos(previousRealToken.startPos)
                .withBodyStartPos(methodBodyStartPos)
                .withModifiers(modifiers)
+               .withPreCommentStartPos(preCommentStartPos)
+               .withPreCommentEndPos(preCommentEndPos)
+               .withAnnotationsStartPos(annotationsStartPos)
             );
 
          checkSearchStringFound(constructorSignature, startPos);
@@ -618,7 +635,11 @@ public class Parser
                   .withType(type)
                   .withStartPos(startPos)
                   .withEndPos(previousRealToken.startPos)
-                  .withModifiers(modifiers)
+                  .withModifiers(modifiers)               
+                  .withPreCommentStartPos(preCommentStartPos)
+                  .withPreCommentEndPos(preCommentEndPos)
+                  .withAnnotationsStartPos(annotationsStartPos)
+
                );
 
             checkSearchStringFound(ATTRIBUTE + ":" + memberName, startPos);
@@ -636,7 +657,10 @@ public class Parser
                   .withType(type)
                   .withStartPos(startPos)
                   .withEndPos(previousRealToken.startPos)
-                  .withModifiers(modifiers)
+                  .withModifiers(modifiers)               
+                  .withPreCommentStartPos(preCommentStartPos)
+                  .withPreCommentEndPos(preCommentEndPos)
+                  .withAnnotationsStartPos(annotationsStartPos)
                );
 
             checkSearchStringFound(ATTRIBUTE + ":" + memberName, startPos);
@@ -682,7 +706,10 @@ public class Parser
                   .withEndPos(previousRealToken.startPos)
                   .withBodyStartPos(methodBodyStartPos)
                   .withAnnotations(annotations)
-                  .withModifiers(modifiers)
+                  .withModifiers(modifiers)               
+                  .withPreCommentStartPos(preCommentStartPos)
+                  .withPreCommentEndPos(preCommentEndPos)
+                  .withAnnotationsStartPos(annotationsStartPos)
                );
 
             checkSearchStringFound(methodSignature, startPos);
@@ -704,7 +731,10 @@ public class Parser
                      .withStartPos(startPos)
                      .withEndPos(previousRealToken.startPos)
                      .withBodyStartPos(methodBodyStartPos)
-                     .withModifiers(modifiers)
+                     .withModifiers(modifiers)               
+                     .withPreCommentStartPos(preCommentStartPos)
+                     .withPreCommentEndPos(preCommentEndPos)
+                     .withAnnotationsStartPos(annotationsStartPos)
                   );
 
             }
@@ -1151,6 +1181,8 @@ public class Parser
       currentRealToken = lookAheadRealToken;
       lookAheadRealToken = tmp;
       lookAheadRealToken.kind = EOF;
+      lookAheadRealToken.preCommentStartPos = 0;
+      lookAheadRealToken.preCommentEndPos = 0;
       lookAheadRealToken.text.delete(0, lookAheadRealToken.text.length());
 
       // parse comments and skip new lines
@@ -1235,6 +1267,7 @@ public class Parser
    {
       // '//' ... \n
 
+      lookAheadRealToken.preCommentStartPos = currentToken.startPos;
       // skip //
       nextToken();
 
@@ -1243,6 +1276,7 @@ public class Parser
          nextToken();
       }
 
+      lookAheadRealToken.preCommentEndPos = currentToken.endPos;
       // skip \n
       nextToken();
    }
@@ -1279,12 +1313,15 @@ public class Parser
       // parse /* ... */ (nested?)
 
       // skip /*
+      lookAheadRealToken.preCommentStartPos = currentToken.startPos;
+
       nextToken();
       while (currentToken.kind != EOF && currentToken.kind != LONG_COMMENT_END)
       {
          nextToken();
       }
 
+      lookAheadRealToken.preCommentEndPos = currentToken.endPos;
       // skip */
       nextToken();
    }
@@ -1335,6 +1372,7 @@ public class Parser
                lookAheadToken.text.append(currentChar);
                nextChar();
                lookAheadToken.text.append(currentChar);
+               lookAheadToken.endPos = index;
                nextChar();
                return;
             }
@@ -1346,6 +1384,7 @@ public class Parser
                lookAheadToken.text.append(currentChar);
                nextChar();
                lookAheadToken.text.append(currentChar);
+               lookAheadToken.endPos = index;
                nextChar();
                return;
             }

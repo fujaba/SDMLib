@@ -1818,12 +1818,23 @@ public class Storyboard implements PropertyChangeInterface
             String fullName = findJavaFile(classUnderTestName);
             // add reference to javadoc
             addReferenceToJavaDoc(fullName, Parser.CONSTRUCTOR+":"+classUnderTestName+"()", fullFileName);
+            addReferenceToJavaDoc(fullName, Parser.CLASS+":"+classUnderTestName, fullFileName);
             System.out.println();
          }
-         System.out.println(statement);
+         else if (statement.toString().indexOf(".create") >= 0)
+         {
+            // this is something like var1.createC1()
+            // get the class of var1 and add a reference to its createC1() method.
+            
+            String varName = statement.getTokenList().get(0);
+            
+            // add another refrerence to the class C1, itself. 
+            
+            System.out.println(statement);
+         }
+         
+         
       }
-      
-      System.out.println(indexOf);
    }
 
    private void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
@@ -1839,8 +1850,52 @@ public class Storyboard implements PropertyChangeInterface
          
       if (symTabEntry != null)
       {
-         int startPos = symTabEntry.getStartPos();
+         int javaDocStartPos = symTabEntry.getPreCommentStartPos();
+         int javaDocEndPos = symTabEntry.getPreCommentEndPos();
+         String javaDocText = null; 
+         if (javaDocStartPos == 0)
+         {
+            // no javadoc yet
+            javaDocStartPos = javaDocEndPos = symTabEntry.getAnnotationsStartPos()-1;
+            javaDocText = "   /**\n"
+               + "    * \n"
+               + "    */\n"
+               + "   ";
+         }
+         else
+         {
+            javaDocText = parser.getFileBody().substring(javaDocStartPos, javaDocEndPos+1);
+         }
+         
+         // compute reference
+         String[] split = testFileName.split("/");
+         
+         String href = "";
+         for (int i = 0; i < split.length - 1; i++)
+         {
+            href += "../";
+         }
+         
+         href += testFileName;
+
+         String hrefText = "* @see <a href='" + href + "'>" + split[split.length-1] + "</a>\n";
+
+         if (javaDocText.indexOf(hrefText) < 0)
+         {
+            // add reference
             
+            int insertPos = javaDocText.indexOf("*/");
+            javaDocText = javaDocText.substring(0, insertPos) 
+                  + hrefText + javaDocText.substring(insertPos);
+         
+            // write new javadoc
+            parser.getFileBody().replace(javaDocStartPos, javaDocEndPos+1, javaDocText);
+            parser.withFileChanged(true);
+            CGUtil.printFile(parser);
+            
+         }
+         
+         
          System.out.println();
       }
       

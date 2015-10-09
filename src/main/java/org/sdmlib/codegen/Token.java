@@ -32,6 +32,9 @@ public class Token
 	public int startPos;
 	public int endPos;
 	
+	public int preCommentStartPos;
+	public int preCommentEndPos;
+	
 	public String name ()
 	{
 		return this.text.toString();

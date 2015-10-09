@@ -59,6 +59,9 @@ public class SymTabEntry implements PropertyChangeInterface
 //      s.append(" ").append(this.getEndPos());
 //      s.append(" ").append(this.getModifiers());
 //      result.append(" ").append(this.getAnnotations());
+//      result.append(" ").append(this.getPreCommentStartPos());
+//      result.append(" ").append(this.getPreCommentEndPos());
+//      result.append(" ").append(this.getAnnotationsStartPos());
       return "" + type;
    }   
    //==========================================================================
@@ -255,4 +258,88 @@ public class SymTabEntry implements PropertyChangeInterface
       setAnnotations(value);
       return this;
    }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PRECOMMENTSTARTPOS = "preCommentStartPos";
+   
+   private int preCommentStartPos;
+
+   public int getPreCommentStartPos()
+   {
+      return this.preCommentStartPos;
+   }
+   
+   public void setPreCommentStartPos(int value)
+   {
+      if (this.preCommentStartPos != value) {
+      
+         int oldValue = this.preCommentStartPos;
+         this.preCommentStartPos = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PRECOMMENTSTARTPOS, oldValue, value);
+      }
+   }
+   
+   public SymTabEntry withPreCommentStartPos(int value)
+   {
+      setPreCommentStartPos(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_PRECOMMENTENDPOS = "preCommentEndPos";
+   
+   private int preCommentEndPos;
+
+   public int getPreCommentEndPos()
+   {
+      return this.preCommentEndPos;
+   }
+   
+   public void setPreCommentEndPos(int value)
+   {
+      if (this.preCommentEndPos != value) {
+      
+         int oldValue = this.preCommentEndPos;
+         this.preCommentEndPos = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PRECOMMENTENDPOS, oldValue, value);
+      }
+   }
+   
+   public SymTabEntry withPreCommentEndPos(int value)
+   {
+      setPreCommentEndPos(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_ANNOTATIONSSTARTPOS = "annotationsStartPos";
+   
+   private int annotationsStartPos;
+
+   public int getAnnotationsStartPos()
+   {
+      return this.annotationsStartPos;
+   }
+   
+   public void setAnnotationsStartPos(int value)
+   {
+      if (this.annotationsStartPos != value) {
+      
+         int oldValue = this.annotationsStartPos;
+         this.annotationsStartPos = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_ANNOTATIONSSTARTPOS, oldValue, value);
+      }
+   }
+   
+   public SymTabEntry withAnnotationsStartPos(int value)
+   {
+      setAnnotationsStartPos(value);
+      return this;
+   } 
 }

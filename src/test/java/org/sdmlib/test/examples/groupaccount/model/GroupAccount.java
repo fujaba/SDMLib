@@ -32,26 +32,30 @@ import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.StrUtil;
 
+/**
+ * 
+ * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+*/
 public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {
    /**
-    * How is this used?
+    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
     */
    public GroupAccount()
    {
       this.getPropertyChangeSupport().addPropertyChangeListener(PROPERTY_PERSONS, this);
    }
-   
+
    //==========================================================================
-   
+
    public double getTaskNames( double p0, String p1 )
    {
       return 0;
    }
 
-   
+
    //==========================================================================
- 
+
    /**
     * Use like:<br><pre>
     *    GroupAccount g1 = new GroupAccount();
