@@ -34,6 +34,9 @@ import org.sdmlib.StrUtil;
 
 public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {
+   /**
+    * How is this used?
+    */
    public GroupAccount()
    {
       this.getPropertyChangeSupport().addPropertyChangeListener(PROPERTY_PERSONS, this);

@@ -1,6 +1,10 @@
 SDMLib
 ======
 
+master : [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)](https://travis-ci.org/fujaba/SDMLib)
+
+develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop)](https://travis-ci.org/fujaba/SDMLib)
+
 Welcome to SDMLib
 
 SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor. 
