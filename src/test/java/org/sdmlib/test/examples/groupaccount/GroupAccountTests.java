@@ -26,7 +26,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.storyboards.*;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
@@ -52,22 +52,19 @@ public class GroupAccountTests implements PropertyChangeInterface
       .withName("Artjom")
       .withParent(g1);
 
-      Item beer = g1.createItem()
-      .withBuyer(albert)
+      Item beer = albert.createItem()
       .withDescription("Beer")
       .withValue(12);
       
       Item bread = new Item()
       .withBuyer(nina)
       .withDescription("Bread")
-      .withValue(3)
-      .withParent(g1);
+      .withValue(3);
       
       Item meat = new Item()
       .withBuyer(artjom)
       .withDescription("Meat")
-      .withValue(6)
-      .withParent(g1);
+      .withValue(6);
 
       // JsonIdMap createIdMap = org.sdmlib.test.examples.groupAccount.creators.GroupAccountCreator.createIdMap("az42");
       story.addObjectDiagram(g1);
@@ -98,7 +95,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       story.assertTrue("Albert has name Albert", g1.getPersons().hasName("Albert").first() == albert);
       
-      PersonSet contributors = g1.getPersons().hasItem(g1.getItem());
+      PersonSet contributors = g1.getPersons().getItem().getBuyer();
       
       story.add("Persons that have bought at least one item: " + contributors.toString());
       

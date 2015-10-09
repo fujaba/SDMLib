@@ -155,66 +155,8 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return this;
    }
 
-   public ItemSet getItem()
-   {
-      ItemSet result = new ItemSet();
-      
-      for (GroupAccount obj : this)
-      {
-         result.addAll(obj.getItem());
-      }
-      
-      return result;
-   }
-
-   public GroupAccountSet hasItem(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      GroupAccountSet answer = new GroupAccountSet();
-      
-      for (GroupAccount obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getItem()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public GroupAccountSet withItem(Item value)
-   {
-      for (GroupAccount obj : this)
-      {
-         obj.withItem(value);
-      }
-      
-      return this;
-   }
-
-   public GroupAccountSet withoutItem(Item value)
-   {
-      for (GroupAccount obj : this)
-      {
-         obj.withoutItem(value);
-      }
-      
-      return this;
-   }
-
-
    public static final GroupAccountSet EMPTY_SET = new GroupAccountSet().withReadOnly(true);
+
    public StringList getTask()
    {
       StringList result = new StringList();

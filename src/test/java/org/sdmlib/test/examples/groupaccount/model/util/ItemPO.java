@@ -142,40 +142,6 @@ public class ItemPO extends PatternObject<ItemPO, Item>
       return this;
    }
    
-   public GroupAccountPO hasParent()
-   {
-      GroupAccountPO result = new GroupAccountPO(new GroupAccount[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Item.PROPERTY_PARENT, result);
-      
-      return result;
-   }
-
-   public GroupAccountPO createParent()
-   {
-      return this.startCreate().hasParent().endCreate();
-   }
-
-   public ItemPO hasParent(GroupAccountPO tgt)
-   {
-      return hasLinkConstraint(tgt, Item.PROPERTY_PARENT);
-   }
-
-   public ItemPO createParent(GroupAccountPO tgt)
-   {
-      return this.startCreate().hasParent(tgt).endCreate();
-   }
-
-   public GroupAccount getParent()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Item) this.getCurrentMatch()).getParent();
-      }
-      return null;
-   }
-
    public PersonPO hasBuyer()
    {
       PersonPO result = new PersonPO(new Person[]{});

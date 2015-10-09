@@ -34,7 +34,6 @@ public class ItemCreator extends EntityFactory
    {
       Item.PROPERTY_DESCRIPTION,
       Item.PROPERTY_VALUE,
-      Item.PROPERTY_PARENT,
       Item.PROPERTY_BUYER,
    };
    
@@ -71,11 +70,6 @@ public class ItemCreator extends EntityFactory
          return ((Item) target).getValue();
       }
 
-      if (Item.PROPERTY_PARENT.equalsIgnoreCase(attribute))
-      {
-         return ((Item) target).getParent();
-      }
-
       if (Item.PROPERTY_BUYER.equalsIgnoreCase(attribute))
       {
          return ((Item) target).getBuyer();
@@ -101,12 +95,6 @@ public class ItemCreator extends EntityFactory
       if (Item.PROPERTY_VALUE.equalsIgnoreCase(attrName))
       {
          ((Item) target).withValue(Double.parseDouble(value.toString()));
-         return true;
-      }
-
-      if (Item.PROPERTY_PARENT.equalsIgnoreCase(attrName))
-      {
-         ((Item) target).setParent((GroupAccount) value);
          return true;
       }
 

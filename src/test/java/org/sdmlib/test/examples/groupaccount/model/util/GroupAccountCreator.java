@@ -33,7 +33,6 @@ public class GroupAccountCreator extends EntityFactory
    private final String[] properties = new String[]
    {
       GroupAccount.PROPERTY_PERSONS,
-      GroupAccount.PROPERTY_ITEM,
       GroupAccount.PROPERTY_TASK,
    };
    
@@ -65,11 +64,6 @@ public class GroupAccountCreator extends EntityFactory
          return ((GroupAccount) target).getPersons();
       }
 
-      if (GroupAccount.PROPERTY_ITEM.equalsIgnoreCase(attribute))
-      {
-         return ((GroupAccount) target).getItem();
-      }
-
       if (GroupAccount.PROPERTY_TASK.equalsIgnoreCase(attribute))
       {
          return ((GroupAccount) target).getTask();
@@ -95,18 +89,6 @@ public class GroupAccountCreator extends EntityFactory
       if ((GroupAccount.PROPERTY_PERSONS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((GroupAccount) target).withoutPersons((Person) value);
-         return true;
-      }
-
-      if (GroupAccount.PROPERTY_ITEM.equalsIgnoreCase(attrName))
-      {
-         ((GroupAccount) target).withItem((Item) value);
-         return true;
-      }
-      
-      if ((GroupAccount.PROPERTY_ITEM + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((GroupAccount) target).withoutItem((Item) value);
          return true;
       }
 

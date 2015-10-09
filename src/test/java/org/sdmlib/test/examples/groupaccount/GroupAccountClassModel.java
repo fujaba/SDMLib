@@ -46,8 +46,6 @@ public class GroupAccountClassModel
             .withAttribute("description", DataType.STRING)
             .withAttribute("value", DataType.DOUBLE);
       
-      groupAccountClass.withAssoc(itemClass, "item", Card.MANY, "parent", Card.ONE);
-      
       personClass.withAssoc(itemClass, "item", Card.MANY, "buyer", Card.ONE);
 
       // model.updateFromCode("examples", "examples", "org.sdmlib.test.examples.groupAccount");

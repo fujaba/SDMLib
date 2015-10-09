@@ -27,8 +27,11 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
-
-public class Item implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+*/
+   public class Item implements PropertyChangeInterface
 {
 
    
@@ -53,7 +56,6 @@ public class Item implements PropertyChangeInterface
    
    public void removeYou()
    {
-      setParent(null);
       setBuyer(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -128,65 +130,6 @@ public class Item implements PropertyChangeInterface
 
    
    public static final ItemSet EMPTY_SET = new ItemSet().withReadOnly(true);
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Item ----------------------------------- GroupAccount
-    *              item                   parent
-    * </pre>
-    */
-   
-   public static final String PROPERTY_PARENT = "parent";
-
-   private GroupAccount parent = null;
-
-   public GroupAccount getParent()
-   {
-      return this.parent;
-   }
-
-   public boolean setParent(GroupAccount value)
-   {
-      boolean changed = false;
-      
-      if (this.parent != value)
-      {
-         GroupAccount oldValue = this.parent;
-         
-         if (this.parent != null)
-         {
-            this.parent = null;
-            oldValue.withoutItem(this);
-         }
-         
-         this.parent = value;
-         
-         if (value != null)
-         {
-            value.withItem(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENT, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Item withParent(GroupAccount value)
-   {
-      setParent(value);
-      return this;
-   } 
-
-   public GroupAccount createParent()
-   {
-      GroupAccount value = new GroupAccount();
-      withParent(value);
-      return value;
-   } 
 
    
    /********************************************************************

@@ -47,6 +47,7 @@ import java.util.LinkedHashSet;
 import org.junit.Assert;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
+import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
@@ -70,6 +71,7 @@ import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.logic.ConditionMap;
 import de.uniks.networkparser.logic.ValuesMap;
@@ -1796,6 +1798,8 @@ public class Storyboard implements PropertyChangeInterface
       
       int indexOf = parser.indexOf(Parser.METHOD + ":" + methodName+"()");
       
+      SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+      
       SymTabEntry symTabEntry = parser.getSymTabEntry(Parser.METHOD + ":" + methodName+"()");
       
       parser.parseMethodBody(symTabEntry);
@@ -1815,25 +1819,44 @@ public class Storyboard implements PropertyChangeInterface
          {
             // yes, an object is created try to refer to it
             String classUnderTestName = statement.getTokenList().get(1);
-            String fullName = findJavaFile(classUnderTestName);
-            // add reference to javadoc
-            addReferenceToJavaDoc(fullName, Parser.CONSTRUCTOR+":"+classUnderTestName+"()", fullFileName);
-            addReferenceToJavaDoc(fullName, Parser.CLASS+":"+classUnderTestName, fullFileName);
-            System.out.println();
+            String fullClassUnderTestName = findJavaFile(classUnderTestName, symTab);
+            if (fullClassUnderTestName != null)
+            {
+               // add reference to javadoc
+               addReferenceToJavaDoc(fullClassUnderTestName, Parser.CONSTRUCTOR + ":" + classUnderTestName + "()",
+                  fullFileName);
+               addReferenceToJavaDoc(fullClassUnderTestName, Parser.CLASS + ":" + classUnderTestName, fullFileName);
+            }
          }
-         else if (statement.toString().indexOf(".create") >= 0)
+         else
          {
-            // this is something like var1.createC1()
-            // get the class of var1 and add a reference to its createC1() method.
+            // try to find simple method calls
+            ArrayList<String> tokenList = statement.getTokenList();
             
-            String varName = statement.getTokenList().get(0);
+            if (tokenList.size() < 3) continue; // <==== sudden death
             
-            // add another refrerence to the class C1, itself. 
+            String callString = tokenList.get(0);
+            String[] split = callString.split("\\.");
+            
+            if (split.length != 2 
+                  || ! tokenList.get(1).equals("(") 
+                  || ! tokenList.get(2).equals(")") )  continue; // <==== sudden death
+            
+            String varName = split[0];
+            String methodUnderTestName = split[1];
+
+            LocalVarTableEntry localVarTableEntry = parser.getLocalVarTable().get(varName);
+
+            String classUnderTestName = localVarTableEntry.getType();
+            
+            String fullClassUnderTestName = findJavaFile(classUnderTestName, symTab);
+
+            if (fullClassUnderTestName == null)   continue; // <==== sudden death
+            
+            addReferenceToJavaDoc(fullClassUnderTestName, Parser.METHOD+":"+methodUnderTestName+"()", fullFileName);
             
             System.out.println(statement);
          }
-         
-         
       }
    }
 
@@ -1903,31 +1926,60 @@ public class Storyboard implements PropertyChangeInterface
 
    private LinkedHashMap<String, String> javaFileTable = null;
    
-   private String findJavaFile(String classUnderTestName)
+   private String findJavaFile(String classUnderTestName, SimpleKeyValueList<String, SymTabEntry> symTab)
    {
       if (javaFileTable == null)
       {
+         LinkedHashSet<String> importedPackages = new LinkedHashSet<String>();
+         // create list of imports
+         for (String key : symTab.keySet())
+         {
+            if (key.startsWith("import:"))
+            {
+               String fullImportName = key.substring("import:".length());
+
+               fullImportName = CGUtil.packageName(fullImportName);
+               
+               importedPackages.add(fullImportName);
+            }
+            else if (key.startsWith("package:"))
+            {
+               String fullImportName = key.substring("package:".length());
+
+               importedPackages.add(fullImportName);
+            }
+         }
+         
+         // add package of test class
+         
+
          javaFileTable = new LinkedHashMap<String, String>();
          
-         searchJavaFiles(".", this.getRootDir());
+         searchJavaFiles(".", this.getRootDir(), "", importedPackages);
       }
       
       return javaFileTable.get(classUnderTestName+".java");
    }
 
-   private void searchJavaFiles(String rootDir2, String fileName)
+   private void searchJavaFiles(String rootDir2, String fileName, String packageName, LinkedHashSet<String> importedPackages)
    {
       File dir = new File(rootDir2+"/"+fileName);
       
       if (fileName.endsWith(".java"))
       {
-         javaFileTable.put(fileName, rootDir2+"/"+fileName);
+         // does it fit to imports?
+         String filePackageName = packageName.substring(1, packageName.length() - fileName.length()-1);
+         
+         if (importedPackages.contains(filePackageName))
+         {
+            javaFileTable.put(fileName, rootDir2+"/"+fileName);
+         }
       }
       else if (dir.isDirectory())
       {
          for (String kidName : dir.list())
          {
-            searchJavaFiles(rootDir2+"/"+fileName, kidName);
+            searchJavaFiles(rootDir2+"/"+fileName, kidName, packageName + "." + kidName, importedPackages);
          }
       }
          

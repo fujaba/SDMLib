@@ -238,15 +238,8 @@ public class Parser
 
    private Parser withInit(int startPos, int endPos)
    {
-      if (symTab == null)
-      {
-         symTab = new SimpleKeyValueList<String, SymTabEntry>();
-      }
-      else
-      {
-         symTab.clear();
-      }
-
+      symTab = new SimpleKeyValueList<String, SymTabEntry>();
+      
       if (localVarTable == null)
       {
          localVarTable = new LinkedHashMap<String, LocalVarTableEntry>();
@@ -1036,9 +1029,14 @@ public class Parser
    {
       int startPos = currentRealToken.startPos;
       nextRealToken();
-      parseQualifiedName();
+      String packageName = parseQualifiedName();
       skip(";");
       checkSearchStringFound(PACKAGE, startPos);
+      
+      symTab.put(PACKAGE + ":" + packageName,
+         new SymTabEntry().withMemberName(packageName)
+            .withStartPos(startPos)
+            .withEndPos(previousRealToken.endPos));
    }
 
    private void checkSearchStringFound(String foundElem, int startPos)

@@ -39,8 +39,9 @@ import org.sdmlib.StrUtil;
 public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {
    /**
+    * 
     * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-    */
+*/
    public GroupAccount()
    {
       this.getPropertyChangeSupport().addPropertyChangeListener(PROPERTY_PERSONS, this);
@@ -62,9 +63,9 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
     *    ...
     *    g1.updateBalances();
     *</pre>    
-    * @see <a href="../GroupAccountTests.java">GroupAccountTests.java</a> 
     * 
-    */
+    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+*/
    @SuppressWarnings("deprecation")
    public void updateBalances(  )
    {
@@ -103,8 +104,7 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
    public void removeYou()
    {
        withoutPersons(this.getPersons().toArray(new Person[this.getPersons().size()]));
-       withoutItem(this.getItem().toArray(new Item[this.getItem().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -120,6 +120,10 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
 
    private PersonSet persons = null;
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+*/
    public PersonSet getPersons()
    {
       if (this.persons == null)
@@ -173,6 +177,10 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
       return this;
    }
 
+   /**
+    * 
+    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+*/
    public Person createPersons()
    {
       Person value = new Person();
@@ -180,79 +188,6 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
       return value;
    } 
 
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * GroupAccount ----------------------------------- Item
-    *              parent                   item
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ITEM = "item";
-
-   private ItemSet item = null;
-   
-   public ItemSet getItem()
-   {
-      if (this.item == null)
-      {
-         return Item.EMPTY_SET;
-      }
-   
-      return this.item;
-   }
-
-   public GroupAccount withItem(Item... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Item item : value)
-      {
-         if (item != null)
-         {
-            if (this.item == null)
-            {
-               this.item = new ItemSet();
-            }
-            
-            boolean changed = this.item.add (item);
-
-            if (changed)
-            {
-               item.withParent(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEM, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public GroupAccount withoutItem(Item... value)
-   {
-      for (Item item : value)
-      {
-         if ((this.item != null) && (item != null))
-         {
-            if (this.item.remove(item))
-            {
-               item.setParent(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ITEM, item, null);
-            }
-         }
-         
-      }
-      return this;
-   }
-
-   public Item createItem()
-   {
-      Item value = new Item();
-      withItem(value);
-      return value;
-   } 
-   
    
    //==========================================================================
    

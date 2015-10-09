@@ -175,54 +175,6 @@ public class ItemSet extends SDMSet<Item>
       return this;
    }
 
-   public GroupAccountSet getParent()
-   {
-      GroupAccountSet result = new GroupAccountSet();
-      
-      for (Item obj : this)
-      {
-         result.add(obj.getParent());
-      }
-      
-      return result;
-   }
-
-   public ItemSet hasParent(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ItemSet answer = new ItemSet();
-      
-      for (Item obj : this)
-      {
-         if (neighbors.contains(obj.getParent()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public ItemSet withParent(GroupAccount value)
-   {
-      for (Item obj : this)
-      {
-         obj.withParent(value);
-      }
-      
-      return this;
-   }
-
    public PersonSet getBuyer()
    {
       PersonSet result = new PersonSet();

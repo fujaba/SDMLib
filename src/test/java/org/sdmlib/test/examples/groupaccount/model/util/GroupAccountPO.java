@@ -93,40 +93,6 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
       return null;
    }
 
-   public ItemPO hasItem()
-   {
-      ItemPO result = new ItemPO(new Item[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(GroupAccount.PROPERTY_ITEM, result);
-      
-      return result;
-   }
-
-   public ItemPO createItem()
-   {
-      return this.startCreate().hasItem().endCreate();
-   }
-
-   public GroupAccountPO hasItem(ItemPO tgt)
-   {
-      return hasLinkConstraint(tgt, GroupAccount.PROPERTY_ITEM);
-   }
-
-   public GroupAccountPO createItem(ItemPO tgt)
-   {
-      return this.startCreate().hasItem(tgt).endCreate();
-   }
-
-   public ItemSet getItem()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((GroupAccount) this.getCurrentMatch()).getItem();
-      }
-      return null;
-   }
-
    public GroupAccountPO hasTask(String value)
    {
       new AttributeConstraint()
