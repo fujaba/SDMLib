@@ -12,6 +12,10 @@ public class GenAssociation extends Generator<Association>
       GenRole sourceGenRole = generator.getOrCreate(model.getSource());
       sourceGenRole.generate(rootDir, helperDir, model.getTarget());
       
+      if(model.getTarget().getName().toLowerCase().equals("maummau")) {
+    	  System.out.println();
+      }
+      
       // also for subclasses
       for (Clazz kidClass : model.getSource().getClazz().getKidClazzesTransitive())
       {
