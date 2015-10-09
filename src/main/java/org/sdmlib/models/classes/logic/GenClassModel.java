@@ -2283,7 +2283,7 @@ public class GenClassModel
 
       for (String memberName : symTab.keySet())
       {
-         addMemberToModel(clazz, parser, memberName, rootDir);
+         addMemberToModel(clazz, parser, memberName, projectRoot + "/" + rootDir);
       }
 
       return clazz;

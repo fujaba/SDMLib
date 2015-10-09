@@ -329,7 +329,7 @@ public class Parser
       }
 
       int startPos = currentRealToken.startPos;
-
+      
       while (currentRealTokenEquals(IMPORT))
       {
          parseImport();
@@ -348,16 +348,21 @@ public class Parser
       int preCommentEndPos = currentRealToken.preCommentEndPos;
       
       // FIXME skip all Annotations
-      int startPosAnnotations = currentRealToken.startPos;
-      int endPosAnnotation = currentRealToken.endPos;
-      String annos = parseAnnotations();
-
-      //FIXME please
-      if (annos != "")
+      while ("@".equals(currentRealWord()))
       {
-         symTab.put(ANNOTATION + ":" + annos.substring(1),
-            new SymTabEntry().withKind(ANNOTATION).withMemberName(annos.substring(1))
-               .withEndPos(endPosAnnotation).withStartPos(startPosAnnotations));
+         int startPosAnnotations = currentRealToken.startPos;
+         int endPosAnnotation = currentRealToken.endPos;
+         String annotation = parseAnnotations();
+
+         // FIXME please
+         if (annotation != "")
+         {
+            symTab.put(ANNOTATION + ":" + annotation.substring(1),
+               new SymTabEntry().withKind(ANNOTATION).withMemberName(annotation.substring(1))
+                  .withEndPos(endPosAnnotation).withStartPos(startPosAnnotations));
+         }
+         
+         nextRealToken();
       }
 
       // modifiers class name classbody

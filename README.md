@@ -1,7 +1,9 @@
 SDMLib
 ======
 
-[![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)](https://travis-ci.org/fujaba/SDMLib)
+master : [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)](https://travis-ci.org/fujaba/SDMLib)
+
+develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop)](https://travis-ci.org/fujaba/SDMLib)
 
 Welcome to SDMLib
 
@@ -9,17 +11,16 @@ SDMLib is a light weight modeling library. SDMLib intentionally comes without an
 
 The idea is that you _code_ your model: 
 
-    ClassModel model = new ClassModel();
+    ClassModel model = new ClassModel("org.sdmlib.sample");
 
     Clazz uni = model.createClazz("University");
 
-    Clazz stud = model.createClazz("Student");
+    Clazz student = model.createClazz("Student")
+        .withAttribute("studentID", DataType.STRING);
 
-    Association uniHasStuds = new Association()
-        .withSource(uni, ONE, AGGREGATION)
-        .withTarget(stud, MANY);
+    uni.withAssoc(student, "students", Card.MANY, "almaMater", Card.ONE);
 
-    model.generate("../StudyRightUni/src");
+    model.generate();
 
 By running model.generate() SDMLib will generate source code from your class model. 
 If you extend your model later on and regenerate, the code generation will identify 

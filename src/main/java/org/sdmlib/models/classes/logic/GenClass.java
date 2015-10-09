@@ -787,8 +787,10 @@ public class GenClass extends Generator<Clazz>
    {
       if (parser == null)
       {
+    	
          // try to find existing file
          String name = model.getFullName();
+         
          int pos = name.lastIndexOf('.');
 
          String packageName = "";
