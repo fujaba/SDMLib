@@ -1833,7 +1833,7 @@ public class Storyboard implements PropertyChangeInterface
             if (fullClassUnderTestName != null)
             {
                // add reference to javadoc
-               addReferenceToJavaDoc(fullClassUnderTestName, Parser.CONSTRUCTOR + ":" + classUnderTestName + "()",
+               addReferenceToJavaDoc(fullClassUnderTestName, Parser.CONSTRUCTOR + ":" + classUnderTestName,
                   fullFileName);
                addReferenceToJavaDoc(fullClassUnderTestName, Parser.CLASS + ":" + classUnderTestName, fullFileName);
             }
@@ -1848,9 +1848,8 @@ public class Storyboard implements PropertyChangeInterface
             String callString = tokenList.get(0);
             String[] split = callString.split("\\.");
             
-            if (split.length != 2 
-                  || ! tokenList.get(1).equals("(") 
-                  || ! tokenList.get(2).equals(")") )  continue; // <==== sudden death
+            if (split.length < 2 
+                  || ! tokenList.get(1).equals("("))  continue; // <==== sudden death
             
             String varName = split[0];
             String methodUnderTestName = split[1];
@@ -1865,7 +1864,7 @@ public class Storyboard implements PropertyChangeInterface
 
             if (fullClassUnderTestName == null)   continue; // <==== sudden death
             
-            addReferenceToJavaDoc(fullClassUnderTestName, Parser.METHOD+":"+methodUnderTestName+"()", fullFileName);
+            addReferenceToJavaDoc(fullClassUnderTestName, Parser.METHOD+":"+methodUnderTestName, fullFileName);
          }
       }
    }
@@ -1879,9 +1878,9 @@ public class Storyboard implements PropertyChangeInterface
       
       parser.indexOf(Parser.CLASS_END);
       
-      SymTabEntry symTabEntry = parser.getSymTabEntry(methodUnderTestName);
-         
-      if (symTabEntry != null)
+      ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
+      
+      for (SymTabEntry symTabEntry : symTabEntries)
       {
          int javaDocStartPos = symTabEntry.getPreCommentStartPos();
          int javaDocEndPos = symTabEntry.getPreCommentEndPos();

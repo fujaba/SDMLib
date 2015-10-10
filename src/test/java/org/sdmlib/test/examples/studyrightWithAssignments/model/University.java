@@ -129,6 +129,10 @@ public  class University implements PropertyChangeInterface
       return this.students;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+*/
    public University withStudents(Student... value)
    {
       if(value==null){
@@ -182,6 +186,10 @@ public  class University implements PropertyChangeInterface
       return value;
    } 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+*/
    public TeachingAssistant createStudentsTeachingAssistant()
    {
       TeachingAssistant value = new TeachingAssistant();
