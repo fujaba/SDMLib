@@ -576,10 +576,10 @@
       &#x2F;&#x2F; (Room elem) -&gt; elem.getCredits() &gt; 20
       
       RoomSet roomsEven = university.getRooms().has(new Condition&lt;Room&gt;() {
-		@Override
-		public boolean check(Room value) {
-			return value.getCredits() % 2 == 0;
-		}
+         @Override
+         public boolean check(Room value) {
+            return value.getCredits() % 2 == 0;
+         }
       });
       
 </pre><p>Results in:</p>
