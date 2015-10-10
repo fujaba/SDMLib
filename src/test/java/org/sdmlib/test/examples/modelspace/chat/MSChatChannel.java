@@ -27,6 +27,10 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
 import org.sdmlib.StrUtil;
 
+/**
+ * 
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/MSChatClientTest.java'>MSChatClientTest.java</a>
+ */
 public  class MSChatChannel implements PropertyChangeInterface
 {
 
