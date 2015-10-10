@@ -126,9 +126,15 @@ public class GenAnnotation extends Generator<Annotation>
 
       sb.append("\n");
       // CGUtil
+      
+      String newAnnotation = sb.toString();
+      int indexOf = parser.getFileBody().indexOf(newAnnotation, startPos-newAnnotation.length()-5);
+      if (indexOf < 0 || indexOf > startPos)
+      {
+         parser.insert(startPos, newAnnotation);
+         parser.parse();
+      }
 
-      parser.insert(startPos, sb.toString());
-      parser.parse();
       return this;
    }
 

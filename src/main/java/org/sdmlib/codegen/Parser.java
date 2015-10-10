@@ -351,8 +351,9 @@ public class Parser
       int startPosAnnotations = currentRealToken.startPos;
       while ("@".equals(currentRealWord()))
       {
-         int endPosAnnotation = currentRealToken.endPos;
          String annotation = parseAnnotations();
+
+         int endPosAnnotation = currentRealToken.startPos - 1;
 
          // FIXME please
          if (annotation != "")
@@ -362,7 +363,7 @@ public class Parser
                   .withEndPos(endPosAnnotation).withStartPos(startPosAnnotations));
          }
          
-         nextRealToken();
+         // nextRealToken();
       }
 
       // modifiers class name classbody

@@ -30,7 +30,7 @@ import org.sdmlib.test.examples.maumau.model.util.CardSet;
 import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
 
 @org.sdmlib.replication.ApplicationObject
-public  class MauMau implements PropertyChangeInterface
+public class MauMau implements PropertyChangeInterface
 {
 
    
