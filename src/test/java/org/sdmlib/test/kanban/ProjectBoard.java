@@ -39,17 +39,13 @@ public class ProjectBoard
    @Test
    public void testStoryboardInfrastructure()
    {
-      Storyboard storyboard = new Storyboard();
+      Storyboard story = new Storyboard();
 
-      storyboard.add("This storyboard tests the storyboard infrastructure. ");
-      storyboard.addStep("At first creating the html file just with text should work. ");
-      storyboard.addStep("Next we need to create some class model. This will be done in a parallel activity.");
-      storyboard.addStep("With the class model we create an object model and try to dump it here.");
-      storyboard.addStep("Well, dumping the class model would be great, either.");
-
-      storyboard.add("need to restructure design: logentries shall be direct kids of kanbanentries. \n" +
-            "(has been below phase entries before.)\n" +
-            "phase entries will be used for planning, in future");
+      story.add("This storyboard tests the storyboard infrastructure. ");
+      story.addStep("At first creating the html file just with text should work. ");
+      story.addStep("Next we need to create some class model. This will be done in a parallel activity.");
+      story.addStep("With the class model we create an object model and try to dump it here.");
+      story.addStep("Well, dumping the class model would be great, either.");
 
       ClassModel model = new ClassModel("org.sdmlib.storyboards"); 
 
@@ -77,19 +73,19 @@ public class ProjectBoard
 
       storyboardClass.withAssoc(storyboardStepClass, "storyboardSteps", Card.MANY, "storyboard", Card.ONE);
 
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
 
       // model.getGenerator().withShowDiff(true);
       
       model.generate();
 
-      storyboard.addStep("Show some internals");
+      story.addStep("Show some internals");
 
-      storyboard.add("Internally, the class model looks like:");
+      story.add("Internally, the class model looks like:");
 
-      storyboard.addObjectDiagram(model);
+      story.addObjectDiagram(model);
 
-      storyboard.dumpHTML();
+      story.dumpHTML();
    }
 
 }
