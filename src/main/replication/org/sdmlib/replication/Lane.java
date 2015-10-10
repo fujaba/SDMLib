@@ -293,6 +293,10 @@ public class Lane implements PropertyChangeInterface
    }
 
 
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+    */
    public BoardTask createTasks()
    {
       BoardTask value = new BoardTask();
@@ -300,6 +304,10 @@ public class Lane implements PropertyChangeInterface
       return value;
    }
 
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+    */
    public BoardTask createTask(String taskName)
    {
       BoardTask task = new BoardTask().withName(taskName);

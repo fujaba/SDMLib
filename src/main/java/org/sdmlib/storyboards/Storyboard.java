@@ -1804,7 +1804,7 @@ public class Storyboard implements PropertyChangeInterface
 
       parser.withFileBody(CGUtil.readFile(javaFile));
       
-      int indexOf = parser.indexOf(Parser.METHOD + ":" + methodName+"()");
+      parser.parse();
       
       SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
       
@@ -1876,12 +1876,14 @@ public class Storyboard implements PropertyChangeInterface
       File javaFile = new File(classUnderTestName);
       parser.withFileBody(CGUtil.readFile(javaFile));
       
-      parser.indexOf(Parser.CLASS_END);
+      parser.parse();
       
       ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
       
-      for (SymTabEntry symTabEntry : symTabEntries)
+      for (int k = symTabEntries.size()-1; k >= 0; k--)
       {
+         SymTabEntry symTabEntry = symTabEntries.get(k);
+         
          int javaDocStartPos = symTabEntry.getPreCommentStartPos();
          int javaDocEndPos = symTabEntry.getPreCommentEndPos();
          String javaDocText = null; 
