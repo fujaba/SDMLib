@@ -20,7 +20,7 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
 
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
     */
    public TeachingAssistantSet allMatches()
    {
