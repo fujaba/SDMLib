@@ -450,6 +450,10 @@ public  class Room implements PropertyChangeInterface
       return this;
    }
 
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+    */
    public Assignment createAssignments()
    {
       Assignment value = new Assignment();

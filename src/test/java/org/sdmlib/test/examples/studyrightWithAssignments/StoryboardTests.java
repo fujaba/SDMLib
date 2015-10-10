@@ -467,10 +467,10 @@ public class StoryboardTests {
       // (Room elem) -> elem.getCredits() > 20
       
       RoomSet roomsEven = university.getRooms().has(new Condition<Room>() {
-		@Override
-		public boolean check(Room value) {
-			return value.getCredits() % 2 == 0;
-		}
+         @Override
+         public boolean check(Room value) {
+            return value.getCredits() % 2 == 0;
+         }
       });
       
       story.addCode();

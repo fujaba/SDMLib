@@ -18,7 +18,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, TeachingAssistant>
 {
 
-    public TeachingAssistantSet allMatches()
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+    */
+   public TeachingAssistantSet allMatches()
    {
       this.setDoAllMatches(true);
       

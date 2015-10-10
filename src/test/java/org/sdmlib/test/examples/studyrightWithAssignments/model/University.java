@@ -28,11 +28,12 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
-*/
-   public  class University implements PropertyChangeInterface
+
+/**
+ * 
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ */
+public  class University implements PropertyChangeInterface
 {
 
    
@@ -114,6 +115,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 
    private StudentSet students = null;
    
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+    */
    public StudentSet getStudents()
    {
       if (this.students == null)
@@ -197,6 +202,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 
    private RoomSet rooms = null;
    
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+    */
    public RoomSet getRooms()
    {
       if (this.rooms == null)

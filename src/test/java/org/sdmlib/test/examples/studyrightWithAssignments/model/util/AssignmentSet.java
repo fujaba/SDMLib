@@ -176,6 +176,10 @@ public class AssignmentSet extends SDMSet<Assignment>
       return this;
    }
 
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+    */
    public RoomSet getRoom()
    {
       RoomSet result = new RoomSet();
