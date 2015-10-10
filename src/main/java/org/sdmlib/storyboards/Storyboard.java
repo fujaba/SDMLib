@@ -1795,6 +1795,8 @@ public class Storyboard implements PropertyChangeInterface
       
       SymTabEntry symTabEntry = parser.getSymTabEntry(Parser.METHOD + ":" + methodName+"()");
       
+      if (symTabEntry == null)   return; // <========== sudden death
+      
       parser.parseMethodBody(symTabEntry);
       
       StatementEntry parentStatement = parser.getCurrentStatement().getParent();
