@@ -29,8 +29,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.RoomSet;
 import org.sdmlib.test.examples.studyright.model.util.StudentSet;
-
-public class University implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
+*/
+   public class University implements PropertyChangeInterface
 {
 
    
@@ -194,6 +197,10 @@ public class University implements PropertyChangeInterface
       }
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
+*/
    public Room createRooms()
    {
       Room value = new Room();
@@ -296,6 +303,10 @@ public class University implements PropertyChangeInterface
       }
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
+*/
    public Student createStudents()
    {
       Student value = new Student();

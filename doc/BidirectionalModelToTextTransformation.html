@@ -8,7 +8,7 @@
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
 </head><body>
-<p>Storyboard <a href='../examples/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation</a></p>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation</a></p>
 <p>BidirectionalModelToTextTransformation</p>
 <p>Start: We start with the usual StudyRight object model.</p>
 <script>
@@ -907,7 +907,19 @@
  The students are: 
  - Tom has student number 4242.
  - Nina has student number 2323.
- </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p><script>
+ </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p><pre>
+      rootTemplate.setExpandedText(
+         &quot;The Study False University has many rooms and some students: \n&quot; + 
+               &quot; - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n&quot; + 
+               &quot; - The laws room has 24 credits. It is connected to rooms: class diagrams, business.\n&quot; + 
+               &quot; - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n &quot; + 
+               &quot;The students are: \n&quot; + 
+               &quot; - Bart has student number 111.\n&quot; + 
+               &quot; - Meggie has student number 112.\n &quot;);
+
+      rootTemplate.parse();
+      
+</pre><script>
    var json = {
    "typ":"objectdiagram",
    "style":null,
@@ -921,7 +933,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

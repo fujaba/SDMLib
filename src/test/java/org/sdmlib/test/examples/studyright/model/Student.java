@@ -332,6 +332,10 @@ public class Student extends Female implements Male, PropertyChangeInterface
 
    private University uni = null;
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
+*/
    public University getUni()
    {
       return this.uni;

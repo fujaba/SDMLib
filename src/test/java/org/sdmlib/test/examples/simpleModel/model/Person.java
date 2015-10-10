@@ -26,8 +26,11 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-
-public class Person implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
+*/
+   public class Person implements PropertyChangeInterface
 {
 
    

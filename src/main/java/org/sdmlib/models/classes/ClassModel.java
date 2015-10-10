@@ -46,6 +46,10 @@ public class ClassModel extends SDMLibClass
    private ClazzSet classes;
    private GenClassModel generator;
 
+   /**
+    * @deprecated Use new ClassModel(packageName) instead
+    */
+   @Deprecated
    public ClassModel()
    {
 		name = DEFAULTPACKAGE;
