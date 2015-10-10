@@ -90,6 +90,10 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return this;
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
+*/
    public GreetingMessagePO hasGreetingMessage()
    {
       GreetingMessagePO result = new GreetingMessagePO();
@@ -124,6 +128,10 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
+*/
    public PersonPO hasPerson()
    {
       PersonPO result = new PersonPO();

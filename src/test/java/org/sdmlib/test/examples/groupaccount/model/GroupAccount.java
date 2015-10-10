@@ -31,11 +31,11 @@ import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.StrUtil;
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-    */
-   public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
+/**
+ * 
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+ */
+public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {
    /**
     * 

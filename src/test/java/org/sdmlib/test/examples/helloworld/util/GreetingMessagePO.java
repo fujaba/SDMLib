@@ -70,6 +70,10 @@ public class GreetingMessagePO extends PatternObject<GreetingMessagePO, Greeting
       return this;
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
+*/
    public String getText()
    {
       if (this.getPattern().getHasMatch())

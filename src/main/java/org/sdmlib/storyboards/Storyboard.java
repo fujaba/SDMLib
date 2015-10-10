@@ -1884,21 +1884,29 @@ public class Storyboard implements PropertyChangeInterface
          }
          
          // compute reference
-         if (testFileName.startsWith("./"))
+         while (testFileName.startsWith("./"))
          {
             testFileName = testFileName.substring(2);
          }
-         String[] split = testFileName.split("/");
+
+         while (classUnderTestName.startsWith("./"))
+         {
+            classUnderTestName = classUnderTestName.substring(2);
+         }
+
+         String[] split = classUnderTestName.split("/");
          
          String href = "";
-         for (int i = 0; i < split.length; i++)
+         for (int i = 0; i < split.length-1; i++)
          {
             href += "../";
          }
          
          href += testFileName;
+         
+         String[] testFileSplit = testFileName.split("/");
 
-         String hrefText = "* @see <a href='" + href + "'>" + split[split.length-1] + "</a>\n";
+         String hrefText = "* @see <a href='" + href + "'>" + testFileSplit[testFileSplit.length-1] + "</a>\n";
 
          if (javaDocText.indexOf(hrefText) < 0)
          {
