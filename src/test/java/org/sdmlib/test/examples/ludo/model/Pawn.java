@@ -27,8 +27,11 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.ludo.model.util.PawnSet;
-
-public class Pawn implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+*/
+   public class Pawn implements PropertyChangeInterface
 {
 
    
@@ -168,6 +171,10 @@ public class Pawn implements PropertyChangeInterface
 
    private Player player = null;
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+*/
    public Player getPlayer()
    {
       return this.player;

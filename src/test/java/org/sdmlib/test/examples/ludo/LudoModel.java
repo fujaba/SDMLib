@@ -31,7 +31,7 @@ public class LudoModel
    @Test
    public void testLudoModel()
    {
-      Storyboard storyboard = new Storyboard("examples", "LudoModel");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("The model: ");
       

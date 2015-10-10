@@ -5,8 +5,11 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
-
-public class PawnPO extends PatternObject<PawnPO, Pawn>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+*/
+   public class PawnPO extends PatternObject<PawnPO, Pawn>
 {
 
     public PawnSet allMatches()
@@ -26,6 +29,10 @@ public class PawnPO extends PatternObject<PawnPO, Pawn>
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+*/
    public PawnPO(){
       newInstance(CreatorCreator.createIdMap("PatternObjectType"));
    }
@@ -195,6 +202,10 @@ public class PawnPO extends PatternObject<PawnPO, Pawn>
       return this;
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+*/
    public PlayerPO hasPlayer()
    {
       PlayerPO result = new PlayerPO(new Player[]{});
@@ -229,6 +240,10 @@ public class PawnPO extends PatternObject<PawnPO, Pawn>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+*/
    public FieldPO hasPos()
    {
       FieldPO result = new FieldPO(new Field[]{});

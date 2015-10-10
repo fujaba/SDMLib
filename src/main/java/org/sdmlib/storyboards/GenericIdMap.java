@@ -46,7 +46,7 @@ public class GenericIdMap extends SDMLibJsonIdMap
          catch (Exception e)
          {
             // did not work, thus generic must be enough
-            e.printStackTrace();
+            // e.printStackTrace();
          }
 
          if (sendableEntityCreator == null)

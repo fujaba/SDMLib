@@ -391,6 +391,10 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+*/
    public DicePO hasDice()
    {
       DicePO result = new DicePO(new Dice[]{});
@@ -425,6 +429,10 @@ public class PlayerPO extends PatternObject<PlayerPO, Player>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+*/
    public FieldPO hasStart()
    {
       FieldPO result = new FieldPO(new Field[]{});

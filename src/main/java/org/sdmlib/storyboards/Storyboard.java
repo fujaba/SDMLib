@@ -249,6 +249,11 @@ public class Storyboard implements PropertyChangeInterface
 
    // private String rootDir = null;
 
+   /**
+    * @deprecated Storyboards search for their root dir (like src or src/test/java) themself. Thus use the version without parameters. 
+    * @param rootDir
+    */
+   @Deprecated 
    public Storyboard(String rootDir)
    {
       if (rootDir == null)
@@ -278,6 +283,16 @@ public class Storyboard implements PropertyChangeInterface
 
    }
 
+   
+   /**
+    * @deprecated Storyboards search for their root dir (like src or src/test/java) themself. 
+    *             Similarly, Storyboards get their name from the method they are used in. Name that method appropriately. 
+    *             Use the version without parameters.
+    *              
+    * @param rootDir
+    * @param name Name of the html file and page title to be generated. 
+    */
+   @Deprecated 
    public Storyboard(String rootDir, String name)
    {
       this.rootDir = rootDir;

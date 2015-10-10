@@ -48,7 +48,7 @@ public class LudoStoryboard
    public void testLudoStoryboard()
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/LudoStoryboard.html
-      Storyboard storyboard = new Storyboard("examples", "LudoStoryboard");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Start situation: ");
       
@@ -62,7 +62,7 @@ public class LudoStoryboard
       
       JsonArray jsonArray = jsonIdMap.toJsonArray(tom);
       
-      System.out.println(jsonArray.toString(3));
+      // System.out.println(jsonArray.toString(3));
       
       
       Player sabine = ludo.createPlayers().withName("Sabine").withColor(RED).withEnumColor(LudoColor.red);
@@ -126,7 +126,7 @@ public class LudoStoryboard
       //storyboard.addObjectDiag(jsonIdMap, pawnPO);
       storyboard.addPattern(pawnPO, true);
       
-      System.out.println("pattern has match is " + pawnPO.getPattern().getHasMatch());
+      storyboard.assertTrue("Pattern has match:", pawnPO.getPattern().getHasMatch());
       
       storyboard.dumpHTML();
    }
@@ -134,7 +134,7 @@ public class LudoStoryboard
    @Test
    public void testLudoStoryboardManual()
    {
-      Storyboard storyboard = new Storyboard("examples", "LudoStoryboardManual");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Start situation: ");
       
