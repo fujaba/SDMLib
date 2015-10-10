@@ -8,7 +8,7 @@ public class TaskFlowObjectScenarioForCoverage
    @Test
    public void testTaskFlowObjectScenarioForCoverage()
    {
-      Storyboard story = new Storyboard("src/main/replication");
+      Storyboard story = new Storyboard();
       
       story.add("Create some objects just for coverage. This does not serve as an usage example.");
       

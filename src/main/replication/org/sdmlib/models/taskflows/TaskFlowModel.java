@@ -17,7 +17,7 @@ public class TaskFlowModel
    @Test
    public void taskFlowModel()
    {
-      Storyboard storyboard = new Storyboard("src/main/replication");
+      Storyboard storyboard = new Storyboard();
 
       ClassModel model = new ClassModel("org.sdmlib.models.taskflows");
 

@@ -24,7 +24,7 @@ public class ReachabilityGraphFerrymansProblemExample
    @Test
    public void FerrymansProblemExample()
    {
-      Storyboard storyboard = new Storyboard("src/test/java");
+      Storyboard storyboard = new Storyboard();
       
       
       //================================================

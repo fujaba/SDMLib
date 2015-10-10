@@ -10,9 +10,9 @@ public class TrainModel
 {
 	
 	@Test 
-	public void makeModel()
+	public void TrainModel()
 	{
-      Storyboard storyboard = new Storyboard("examples", "TrainModel");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Example model for testing destroy with model patterns: ");
       

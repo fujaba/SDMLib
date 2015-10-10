@@ -12,7 +12,7 @@ public class ReachabilityGraphExampleModels
    @Test
    public void SimpleReachabilityGraphModel()
    {
-      Storyboard storyboard = new Storyboard("src/test/java");
+      Storyboard storyboard = new Storyboard();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.simplestates");
       
@@ -35,7 +35,7 @@ public class ReachabilityGraphExampleModels
    @Test
    public void FerryMansProblemModel()
    {
-      Storyboard storyboard = new Storyboard("src/test/java");
+      Storyboard storyboard = new Storyboard();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem");
       

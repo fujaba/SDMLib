@@ -92,7 +92,7 @@ public class StudyRightStoryboards
    @Test
    public void testFlipbook()
    {
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
 
       //=============================================================
@@ -194,7 +194,7 @@ public class StudyRightStoryboards
    @Test
    public void testBidirectionalModelToTextTransformation()
    {
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
 
       //=============================================================

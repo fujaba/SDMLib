@@ -147,6 +147,10 @@ public class StationPO extends PatternObject<StationPO, Station>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public PersonPO hasPeople()
    {
       PersonPO result = new PersonPO(new Person[]{});
@@ -181,6 +185,10 @@ public class StationPO extends PatternObject<StationPO, Station>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public SignalFlagPO hasFlag()
    {
       SignalFlagPO result = new SignalFlagPO(new SignalFlag[]{});

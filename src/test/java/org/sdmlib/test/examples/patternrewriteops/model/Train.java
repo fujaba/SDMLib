@@ -28,8 +28,11 @@ import java.util.LinkedHashSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
-
-public class Train implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
+   public class Train implements PropertyChangeInterface
 {
 
    
@@ -114,6 +117,10 @@ public class Train implements PropertyChangeInterface
       return this;
    } 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public Station createStation()
    {
       Station value = new Station();

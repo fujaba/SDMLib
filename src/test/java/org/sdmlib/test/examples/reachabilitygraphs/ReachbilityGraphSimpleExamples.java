@@ -17,7 +17,7 @@ public class ReachbilityGraphSimpleExamples
    @Test
    public void ReachabilityGraphSimpleIsomorphismTest()
    {
-      Storyboard storyboard = new Storyboard("test");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("Create two rings of three nodes with a mark at one node.");
       
@@ -94,7 +94,7 @@ public class ReachbilityGraphSimpleExamples
    @Test
    public void ReachabilitGraphSameCertificatesNonIsomorphic()
    {
-      Storyboard storyboard = new Storyboard("test");
+      Storyboard storyboard = new Storyboard();
       
       storyboard.add("graph 1 two rings of two nodes");
       storyboard.add("graph 2 one ring of four nodes");

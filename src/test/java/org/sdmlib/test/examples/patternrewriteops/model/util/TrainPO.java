@@ -5,8 +5,11 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
-
-public class TrainPO extends PatternObject<TrainPO, Train>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
+   public class TrainPO extends PatternObject<TrainPO, Train>
 {
 
     public TrainSet allMatches()
@@ -26,6 +29,10 @@ public class TrainPO extends PatternObject<TrainPO, Train>
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public TrainPO(){
       Pattern<Object> pattern = new Pattern<Object>(CreatorCreator.createIdMap("PatternObjectType"));
       pattern.addToElements(this);
@@ -44,6 +51,10 @@ public class TrainPO extends PatternObject<TrainPO, Train>
       }
       pattern.findMatch();
   }
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public StationPO hasStation()
    {
       StationPO result = new StationPO(new Station[]{});

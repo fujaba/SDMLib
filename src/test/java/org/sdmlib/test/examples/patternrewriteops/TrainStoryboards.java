@@ -21,7 +21,7 @@ public class TrainStoryboards
    @Test 
    public void trainCollectPassengers()
    {
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
       Train train = new Train();
 

@@ -44,7 +44,7 @@ public class StudyRightModel implements PropertyChangeInterface
    public void testStudyRightReverseClassModel()
    {
 
-      Storyboard storyboard = new Storyboard("examples", "StudyRightReverseClassModel");
+      Storyboard storyboard = new Storyboard();
 
       storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ");
 
@@ -104,7 +104,7 @@ public class StudyRightModel implements PropertyChangeInterface
    public void testStudyRightExtendsReverseClassModel()
    {
 
-      Storyboard storyboard = new Storyboard("examples", "StudyRightExtendsReverseClassModel");
+      Storyboard storyboard = new Storyboard();
 
       storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ");
 
@@ -203,7 +203,7 @@ public class StudyRightModel implements PropertyChangeInterface
    @Test
    public void testStudyRightClassesCodeGen()
    {
-      Storyboard storyboard = new Storyboard("examples", "StudyRightClassesCodeGen");
+      Storyboard storyboard = new Storyboard();
 
       //============================================================
       storyboard.add("1. generate class University");
@@ -382,7 +382,7 @@ public class StudyRightModel implements PropertyChangeInterface
    @Test
    public void testStudyRightOneToOneAssoc()
    {
-      Storyboard storyboard = new Storyboard("examples", "StudyRightOneToOneAssoc");
+      Storyboard storyboard = new Storyboard();
 
       //============================================================
       storyboard.add("Add class Prof --gives-- Topic");

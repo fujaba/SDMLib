@@ -22,7 +22,7 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
    @Test
    public void testPatternModelObjectsForCoverage()
    {
-      Storyboard story = new Storyboard("src/test/java");
+      Storyboard story = new Storyboard();
       
       story.add("Create some objects just for coverage. This does not serve as an usage example.");
       
@@ -80,7 +80,7 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
    @Test
    public void testSDMLibCodeGenObjectsForCoverage()
    {
-      Storyboard story = new Storyboard("src/test/java");
+      Storyboard story = new Storyboard();
       
       story.add("Create some objects just for coverage. This does not serve as an usage example.");
       

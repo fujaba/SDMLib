@@ -41,7 +41,7 @@ public class ClassModelTest
    @Test
    public void testClassModelCodeGen()
    {
-      Storyboard storyboard = new Storyboard("src/test/java", "ClassModelCodeGen");
+      Storyboard storyboard = new Storyboard();
       
       // =======================================================================
       // storyboard.add("This test generates some classes with some elements. ");
