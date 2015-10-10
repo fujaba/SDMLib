@@ -1856,6 +1856,8 @@ public class Storyboard implements PropertyChangeInterface
             String methodUnderTestName = split[1];
 
             LocalVarTableEntry localVarTableEntry = parser.getLocalVarTable().get(varName);
+            
+            if (localVarTableEntry == null) return; // <=========== sudden death
 
             String classUnderTestName = localVarTableEntry.getType();
             
