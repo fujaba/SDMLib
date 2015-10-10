@@ -230,6 +230,10 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return this.startCreate().hasCargos().endCreate();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
    public BankPO hasCargos(CargoPO tgt)
    {
       return hasLinkConstraint(tgt, Bank.PROPERTY_CARGOS);

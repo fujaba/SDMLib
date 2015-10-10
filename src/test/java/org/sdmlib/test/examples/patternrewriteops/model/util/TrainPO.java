@@ -38,6 +38,10 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
       pattern.addToElements(this);
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public TrainPO(Train... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
           return;
@@ -70,6 +74,10 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
       return this.startCreate().hasStation().endCreate();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public TrainPO hasStation(StationPO tgt)
    {
       return hasLinkConstraint(tgt, Train.PROPERTY_STATION);

@@ -36,6 +36,10 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
       newInstance(org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
    public RiverPO(River... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;

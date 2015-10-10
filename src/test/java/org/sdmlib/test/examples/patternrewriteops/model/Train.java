@@ -83,6 +83,10 @@ import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
       return this.station;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public boolean setStation(Station value)
    {
       boolean changed = false;

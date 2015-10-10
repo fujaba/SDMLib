@@ -166,6 +166,10 @@ public class StationPO extends PatternObject<StationPO, Station>
       return this.startCreate().hasPeople().endCreate();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public StationPO hasPeople(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Station.PROPERTY_PEOPLE);
@@ -204,6 +208,10 @@ public class StationPO extends PatternObject<StationPO, Station>
       return this.startCreate().hasFlag().endCreate();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainStoryboards.java'>TrainStoryboards.java</a>
+*/
    public StationPO hasFlag(SignalFlagPO tgt)
    {
       return hasLinkConstraint(tgt, Station.PROPERTY_FLAG);
