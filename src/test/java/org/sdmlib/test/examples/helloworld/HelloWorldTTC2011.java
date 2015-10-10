@@ -54,9 +54,9 @@ public class HelloWorldTTC2011
 
 
    @Test
-   public void testConstantTransformation1()
+   public void testTTC2011HelloWorldConstantTransformation1()
    {
-      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldConstantTransformation1")
+      Storyboard storyboard = new Storyboard()
       .with("A constant transformation that creates a Greeting object");
 
 
@@ -125,9 +125,9 @@ public class HelloWorldTTC2011
 
    //==========================================================================
    @Test
-   public void testConstantTransformation2()
+   public void testTTC2011HelloWorldConstantTransformation2WithReferences()
    {
-      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldConstantTransformation2WithReferences")
+      Storyboard storyboard = new Storyboard()
       .with("A constant transformation that creates a Greeting object structure with references");
 
 
@@ -206,9 +206,9 @@ public class HelloWorldTTC2011
 
    //==========================================================================
    @Test
-   public void testModelToTextTransformation()
+   public void testTTC2011HelloWorldModelToText()
    {  
-      Storyboard storyboard = new Storyboard("examples", "TTC2011HelloWorldModelToText")
+      Storyboard storyboard = new Storyboard()
       .with("For model to text transformation we provide a simple template mechanism. ");
 
       storyboard.add("The model transformation that builds our object model looks like: ");
@@ -268,7 +268,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldCountNumberOfNodes()
    {  
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
       //==========================================================================
 
@@ -491,7 +491,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldReverseEdges()
    {  
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
       //==========================================================================
 
@@ -545,7 +545,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011SimpleMigration()
    {  
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
       storyboard.add("<hr/>");
       storyboard.add("Source model:");
@@ -915,7 +915,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011DeleteNodeWithSpecificName()
    {  
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
       storyboard.add("<hr/>");
       storyboard.add("Delete node with name n1 and its incidemnt edges.");
@@ -949,7 +949,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011InsertTransitiveEdges()
    {  
-      Storyboard storyboard = new Storyboard("examples");
+      Storyboard storyboard = new Storyboard();
 
       storyboard.add("<hr/>");
       storyboard.add("Insert transitive edges.");
