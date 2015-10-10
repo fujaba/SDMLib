@@ -87,6 +87,10 @@ import java.lang.Object;
       return this.kids;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
+*/
    public BigBrother withKids(Object... value)
    {
       if(value==null){

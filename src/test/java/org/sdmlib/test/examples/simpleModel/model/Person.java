@@ -80,6 +80,10 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       }
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>
+*/
    public Person withName(String value)
    {
       setName(value);

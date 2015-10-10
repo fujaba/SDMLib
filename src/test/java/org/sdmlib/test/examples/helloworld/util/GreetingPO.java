@@ -37,6 +37,10 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return matches;
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
+*/
    public GreetingPO hasText(String value)
    {
       new AttributeConstraint()
@@ -51,6 +55,10 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return this;
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
+*/
    public GreetingPO hasText(String lower, String upper)
    {
       new AttributeConstraint()
