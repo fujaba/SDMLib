@@ -1882,10 +1882,14 @@ public class Storyboard implements PropertyChangeInterface
          }
          
          // compute reference
+         if (testFileName.startsWith("./"))
+         {
+            testFileName = testFileName.substring(2);
+         }
          String[] split = testFileName.split("/");
          
          String href = "";
-         for (int i = 0; i < split.length - 1; i++)
+         for (int i = 0; i < split.length; i++)
          {
             href += "../";
          }

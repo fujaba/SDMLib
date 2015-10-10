@@ -31,17 +31,16 @@ import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.StrUtil;
-
-/**
- * 
- * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-*/
-public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+    */
+   public class GroupAccount implements PropertyChangeInterface, PropertyChangeListener
 {
    /**
     * 
-    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-*/
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+    */
    public GroupAccount()
    {
       this.getPropertyChangeSupport().addPropertyChangeListener(PROPERTY_PERSONS, this);
@@ -64,8 +63,8 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
     *    g1.updateBalances();
     *</pre>    
     * 
-    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-*/
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+    */
    @SuppressWarnings("deprecation")
    public void updateBalances(  )
    {
@@ -123,6 +122,7 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
      /**
     * 
     * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
 */
    public PersonSet getPersons()
    {
@@ -180,6 +180,7 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
    /**
     * 
     * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
 */
    public Person createPersons()
    {

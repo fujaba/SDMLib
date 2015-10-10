@@ -29,17 +29,17 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
-   /**
-    * 
-    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-*/
-   public class Person implements PropertyChangeInterface, PropertyChangeListener
+/**
+ * 
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+ */
+public class Person implements PropertyChangeInterface, PropertyChangeListener
 {
 
-     /**
+   /**
     * 
-    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-*/
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+    */
    public Person()
    {
       this.getPropertyChangeSupport().addPropertyChangeListener(PROPERTY_ITEM, this);
@@ -271,6 +271,7 @@ import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
      /**
     * 
     * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
 */
    public Item createItem()
    {

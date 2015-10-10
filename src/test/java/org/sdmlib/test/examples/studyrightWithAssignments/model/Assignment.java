@@ -28,6 +28,10 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
+/**
+ * 
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
+ */
 public  class Assignment implements PropertyChangeInterface
 {
 
