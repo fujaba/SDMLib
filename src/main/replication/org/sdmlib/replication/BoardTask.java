@@ -286,6 +286,10 @@ public class BoardTask extends Task implements PropertyChangeInterface
       return changed;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
    public BoardTask withNext(BoardTask... value)
    {
       for (BoardTask item : value)

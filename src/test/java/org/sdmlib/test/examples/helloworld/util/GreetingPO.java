@@ -109,6 +109,10 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return this.startCreate().hasGreetingMessage().endCreate();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
+*/
    public GreetingPO hasGreetingMessage(GreetingMessagePO tgt)
    {
       return hasLinkConstraint(tgt, Greeting.PROPERTY_GREETINGMESSAGE);
@@ -147,6 +151,10 @@ public class GreetingPO extends PatternObject<GreetingPO, Greeting>
       return this.startCreate().hasPerson().endCreate();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>
+*/
    public GreetingPO hasPerson(PersonPO tgt)
    {
       return hasLinkConstraint(tgt, Greeting.PROPERTY_PERSON);

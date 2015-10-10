@@ -1237,6 +1237,10 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
       return value;
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
    public ReplicationChannel createChannels(String hostName, int replicationServerPort)
    {
       ReplicationChannel channel = this.createChannels();

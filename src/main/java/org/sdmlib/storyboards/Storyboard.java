@@ -1929,6 +1929,9 @@ public class Storyboard implements PropertyChangeInterface
             // add reference
             
             int insertPos = javaDocText.indexOf("*/");
+            
+            if (insertPos < 0) continue; // <================ sudden death
+               
             javaDocText = javaDocText.substring(0, insertPos) 
                   + hrefText + javaDocText.substring(insertPos);
          

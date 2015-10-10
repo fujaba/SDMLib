@@ -42,6 +42,10 @@ import org.sdmlib.replication.ReplicationNode;
    public ReplicationNode replicationNode;
    private SharedSpace sharedSpace;
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
    public ServerSocketAcceptThread(ReplicationNode replicationNode,
          int replicationServerPort)
    {
@@ -58,6 +62,10 @@ import org.sdmlib.replication.ReplicationNode;
       // blank
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
    public ServerSocketAcceptThread(SharedSpace sharedSpace, int port)
    {
       this.sharedSpace = sharedSpace;
