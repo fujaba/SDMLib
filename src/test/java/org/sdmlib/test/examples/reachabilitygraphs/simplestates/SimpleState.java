@@ -26,8 +26,11 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
-
-public class SimpleState implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+*/
+   public class SimpleState implements PropertyChangeInterface
 {
 
    
@@ -121,6 +124,10 @@ public class SimpleState implements PropertyChangeInterface
       return this;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachbilityGraphSimpleExamples.java'>ReachbilityGraphSimpleExamples.java</a>
+*/
    public Node createNodes()
    {
       Node value = new Node();

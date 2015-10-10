@@ -211,6 +211,10 @@ public class BankPO extends PatternObject<BankPO, Bank>
       return null;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
    public CargoPO hasCargos()
    {
       CargoPO result = new CargoPO(new Cargo[]{});

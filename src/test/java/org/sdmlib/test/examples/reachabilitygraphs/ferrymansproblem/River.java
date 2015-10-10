@@ -26,8 +26,11 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
-
-public class River implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
+   public class River implements PropertyChangeInterface
 {
 
    
@@ -109,6 +112,10 @@ public class River implements PropertyChangeInterface
       return this;
    } 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
    public Boat createBoat()
    {
       Boat value = new Boat();
@@ -181,6 +188,10 @@ public class River implements PropertyChangeInterface
       return this;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
    public Bank createBanks()
    {
       Bank value = new Bank();

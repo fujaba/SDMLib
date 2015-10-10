@@ -27,8 +27,11 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 
 import de.uniks.networkparser.json.JsonIdMap;
-
-public class RiverCreator extends EntityFactory
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
+   public class RiverCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

@@ -31,8 +31,11 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-
-public class RiverSet extends SDMSet<River>
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
+   public class RiverSet extends SDMSet<River>
 {
 
 
@@ -118,6 +121,10 @@ public class RiverSet extends SDMSet<River>
       return this;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>
+*/
    public BankSet getBanks()
    {
       BankSet result = new BankSet();
