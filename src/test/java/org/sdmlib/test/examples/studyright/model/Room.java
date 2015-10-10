@@ -210,6 +210,10 @@ public class Room implements PropertyChangeInterface
       return changed;   
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
+*/
    public Room withNeighbors(Room... value)
    {
       if(value==null){
@@ -413,8 +417,12 @@ public class Room implements PropertyChangeInterface
    } 
 
    
-   //==========================================================================
-   
+   /**
+    * 
+    * @param p0
+    * @param p1
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
+*/
    public void findPath( String p0, int p1 )
    {
       
