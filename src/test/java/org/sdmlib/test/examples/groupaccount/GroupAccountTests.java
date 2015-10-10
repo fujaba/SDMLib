@@ -99,8 +99,6 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       story.add("Persons that have bought at least one item: " + contributors.toString());
       
-      story.generateJavaDoc();
-      
       story.dumpHTML();
    }
    

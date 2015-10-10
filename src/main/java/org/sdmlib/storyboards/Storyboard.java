@@ -328,15 +328,6 @@ public class Storyboard implements PropertyChangeInterface
             int oldStringLength = oldFileString.length();
             int newStringLength = fileText.length();
 
-            // for (int i = 0; i < Math.min(oldStringLength, newStringLength);
-            // i++)
-            // {
-            // if (oldFileString.charAt(i) != fileText.charAt(i))
-            // {
-            // System.out.println("Found diff");
-            // }
-            // }
-
             if (oldFileString.equals(fileText.trim()))
             {
                // do not write file, no change
@@ -1150,6 +1141,8 @@ public class Storyboard implements PropertyChangeInterface
    public void dumpHTML()
    {
       // copy Javascript files
+      generateJavaDoc();
+      
       dumpIndexHtml();
       
       // generate the html text
@@ -1771,7 +1764,7 @@ public class Storyboard implements PropertyChangeInterface
       return value;
    }
 
-   public void generateJavaDoc()
+   private void generateJavaDoc()
    {
       // search the (test) method that creates this story for methods it calls / tests. 
       // create a javadoc on such methods that refers to the test method.
