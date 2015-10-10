@@ -30,8 +30,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
-
-public class ChangeHistory implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
+   public class ChangeHistory implements PropertyChangeInterface
 {
 
    // ==========================================================================
@@ -178,6 +181,10 @@ public class ChangeHistory implements PropertyChangeInterface
       }
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
    public ReplicationChange createChanges()
    {
       ReplicationChange value = new ReplicationChange();

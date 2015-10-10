@@ -31,8 +31,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
 import java.lang.Object;
-
-public class ReplicationRoot implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
+   public class ReplicationRoot implements PropertyChangeInterface
 {
 
    

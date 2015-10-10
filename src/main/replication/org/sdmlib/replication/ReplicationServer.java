@@ -26,8 +26,11 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
-
-public class ReplicationServer extends ReplicationNode implements
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
+   public class ReplicationServer extends ReplicationNode implements
       PropertyChangeInterface
 {
    public static final int REPLICATION_SERVER_PORT = 11142;

@@ -343,6 +343,10 @@ public class LogEntry implements PropertyChangeInterface
       }
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+*/
    public LogEntry createChildren()
    {
       LogEntry value = new LogEntry();

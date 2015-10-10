@@ -33,8 +33,11 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
 import java.lang.Object;
-
-public class SocketThread extends Thread implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+*/
+   public class SocketThread extends Thread implements PropertyChangeInterface
 {
 
    // ==========================================================================

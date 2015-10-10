@@ -29,8 +29,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
-
-public class RemoteTaskBoard implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
+   public class RemoteTaskBoard implements PropertyChangeInterface
 {
 
    // ==========================================================================
@@ -169,6 +172,10 @@ public class RemoteTaskBoard implements PropertyChangeInterface
       }
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
    public Lane createLanes()
    {
       Lane value = new Lane();

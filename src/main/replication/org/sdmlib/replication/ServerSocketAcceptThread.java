@@ -29,8 +29,11 @@ import java.net.Socket;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.replication.ReplicationNode;
-
-public class ServerSocketAcceptThread extends Thread implements
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
+   public class ServerSocketAcceptThread extends Thread implements
       PropertyChangeInterface
 {
    // ==========================================================================
@@ -46,6 +49,10 @@ public class ServerSocketAcceptThread extends Thread implements
       this.port = replicationServerPort;
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+*/
    public ServerSocketAcceptThread()
    {
       // blank

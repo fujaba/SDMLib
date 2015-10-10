@@ -32,8 +32,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.models.taskflows.PeerProxy;
-
-public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+*/
+   public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames
    {

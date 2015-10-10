@@ -33,8 +33,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
 import org.sdmlib.models.taskflows.PeerProxy;
-
-public class Logger extends TaskFlow implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+*/
+   public class Logger extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames 
    {
@@ -200,6 +203,10 @@ public class Logger extends TaskFlow implements PropertyChangeInterface
       }
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+*/
    public LogEntry createEntries()
    {
       LogEntry value = new LogEntry();
