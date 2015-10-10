@@ -1854,8 +1854,6 @@ public class Storyboard implements PropertyChangeInterface
             if (fullClassUnderTestName == null)   continue; // <==== sudden death
             
             addReferenceToJavaDoc(fullClassUnderTestName, Parser.METHOD+":"+methodUnderTestName+"()", fullFileName);
-            
-            System.out.println(statement);
          }
       }
    }
@@ -1917,11 +1915,7 @@ public class Storyboard implements PropertyChangeInterface
             CGUtil.printFile(parser);
             
          }
-         
-         
-         System.out.println();
       }
-      
    }
 
    private LinkedHashMap<String, String> javaFileTable = null;

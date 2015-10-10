@@ -348,9 +348,9 @@ public class Parser
       int preCommentEndPos = currentRealToken.preCommentEndPos;
       
       // FIXME skip all Annotations
+      int startPosAnnotations = currentRealToken.startPos;
       while ("@".equals(currentRealWord()))
       {
-         int startPosAnnotations = currentRealToken.startPos;
          int endPosAnnotation = currentRealToken.endPos;
          String annotation = parseAnnotations();
 
