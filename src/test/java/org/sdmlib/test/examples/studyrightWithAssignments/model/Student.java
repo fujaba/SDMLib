@@ -29,6 +29,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentS
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 
+/**
+ * 
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
+ */
 public  class Student implements PropertyChangeInterface
 {
 

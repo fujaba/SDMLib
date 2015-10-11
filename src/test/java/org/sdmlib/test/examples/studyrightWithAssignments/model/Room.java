@@ -31,6 +31,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 
+/**
+ * 
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
+ */
 public  class Room implements PropertyChangeInterface
 {
 

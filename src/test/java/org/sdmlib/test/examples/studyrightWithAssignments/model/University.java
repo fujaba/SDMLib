@@ -32,7 +32,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 /**
  *  
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
+*/
 public  class University implements PropertyChangeInterface
 {
 

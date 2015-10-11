@@ -31,7 +31,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
- */
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
+*/
 public  class Assignment implements PropertyChangeInterface
 {
 
