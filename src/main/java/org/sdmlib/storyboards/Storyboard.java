@@ -229,16 +229,18 @@ public class Storyboard implements PropertyChangeInterface
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
 
-      String methodName = stackTrace[1].getMethodName();
+      testMethodName = stackTrace[1].getMethodName();
 
-      if (methodName.startsWith("test"))
+      String storyName = testMethodName;
+      
+      if (storyName.startsWith("test"))
       {
-         methodName = methodName.substring(4);
+         storyName = storyName.substring(4);
       }
 
-      setName(methodName);
+      setName(storyName);
 
-      this.addToSteps(name);
+      // this.addToSteps(name);
    }
 
    private void addToSteps(String text)
@@ -1186,6 +1188,8 @@ public class Storyboard implements PropertyChangeInterface
       String shortFileName = "" + storyboardName + ".html";
       String pathname = "doc/" + shortFileName;
 
+      addReferenceToJavaDoc(javaTestFileName.substring(3), Parser.METHOD+":"+testMethodName, pathname);
+      
       StringBuffer text = new StringBuffer();
 
       for (StoryboardStep step : this.getStoryboardSteps())
@@ -1947,6 +1951,7 @@ public class Storyboard implements PropertyChangeInterface
    }
 
    private LinkedHashMap<String, String> javaFileTable = null;
+   private String testMethodName;
    
    private String findJavaFile(String classUnderTestName, SimpleKeyValueList<String, SymTabEntry> symTab)
    {

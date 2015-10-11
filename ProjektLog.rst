@@ -34,7 +34,6 @@ f2. Storyboards
 
 	f2.1. Connect Storyboard html with JavaDoc for contained methods. 
 	
-	f2.1.1 methods with parameters are not yet referenced. 
 
 
 f1. ModelSpace Chat
@@ -56,6 +55,9 @@ b8. Removing Elements from lists and adding a new Element to such a list causes 
 	
 Done
 ----
+
+	f2.1.1 methods with parameters are not yet referenced. 
+
 
 b6. Seconde GUI Test of SDMLib does not run. Application seems already be running;
 	Solved.
