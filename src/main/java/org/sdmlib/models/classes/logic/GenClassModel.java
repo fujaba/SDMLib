@@ -281,7 +281,7 @@ public class GenClassModel
             
             String fullClazzFileName = rootDir + "/" + clazz.getFullName().replaceAll("\\.", "/") + ".java";
             
-            story.addReferenceToJavaDoc(fullClazzFileName, Parser.CLASS + ":" + clazz.getName(), story.getJavaTestFileName().substring(3));
+            story.addReferenceToJavaDoc(fullClazzFileName, Parser.CLASS + ":" + CGUtil.shortClassName(clazz.getName()), story.getJavaTestFileName().substring(3));
          }
          System.out.println();
       }

@@ -27,8 +27,11 @@ import java.util.ArrayList;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
-
-public class LocalVarTableEntry implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class LocalVarTableEntry implements PropertyChangeInterface
 {
    @Override
    public String toString()

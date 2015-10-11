@@ -25,8 +25,12 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-
-public class SymTabEntry implements PropertyChangeInterface 
+import java.beans.PropertyChangeListener;
+   /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class SymTabEntry implements PropertyChangeInterface 
 {   
    public static final String PROPERTY_KIND = "kind";
    public static final String PROPERTY_MEMBERNAME = "memberName";

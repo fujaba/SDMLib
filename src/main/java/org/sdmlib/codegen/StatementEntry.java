@@ -29,8 +29,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
-
-public class StatementEntry implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class StatementEntry implements PropertyChangeInterface
 {
 
    @Override
