@@ -29,8 +29,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.kassel.test.roombook.util.FloorSet;
-
-public class Building implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>
+*/
+   public class Building implements PropertyChangeInterface
 {
 
    

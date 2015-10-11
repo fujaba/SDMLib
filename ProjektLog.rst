@@ -11,11 +11,14 @@ b5. Parser Problem: 'v' : but '{' expected in TeachingAssistantCreator.java  at 
 Backlog
 -------
 
-f2. Storyboards
+f3.	class model elements should provide method to remove the code generated for them
+
+	f3.1. single classes
 	
-	f2.2. ClassModel.generate should create a javadoc reference within the generated classes. 
-
-
+	f3.2. single attributes
+	
+	f3.3. single assocs
+	
 	
 f1. ModelSpace Chat
 
@@ -28,12 +31,6 @@ f1. ModelSpace Chat
 
 Active
 ------
-
-f2. Storyboards
-
-	f2.1. Connect Storyboard html with JavaDoc for contained methods. 
-	
-
 
 f1. ModelSpace Chat
 
@@ -57,7 +54,12 @@ Done
 
 f2. Storyboards
 
-	f2.1.1 methods with parameters are not yet referenced. 
+	f2.1. Connect Storyboard html with JavaDoc for contained methods. 
+
+		f2.1.1 methods with parameters are not yet referenced. 
+	
+
+	f2.2. ClassModel.generate should create a javadoc reference within the generated classes. 
 
 	f2.3. Storyboard should generate a javadoc reference to the generated html page
 

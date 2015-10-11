@@ -84,7 +84,8 @@ import de.uniks.networkparser.logic.ValuesMap;
  * 
  * @see #dumpHTML()
  * @see <a href="../../../../../../doc/index.html">SDMLib Storyboards</a>
- */
+ * @see <a href='../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'>ProjectBoard.java</a>
+*/
 public class Storyboard implements PropertyChangeInterface
 {
    public static final String PROPERTY_STEPDONECOUNTER = "stepDoneCounter";

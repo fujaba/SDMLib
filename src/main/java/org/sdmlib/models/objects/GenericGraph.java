@@ -28,8 +28,11 @@ import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
-
-public class GenericGraph implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericGraphModel.java'>GenericGraphModel.java</a>
+*/
+   public class GenericGraph implements PropertyChangeInterface
 {
    //==========================================================================
    
