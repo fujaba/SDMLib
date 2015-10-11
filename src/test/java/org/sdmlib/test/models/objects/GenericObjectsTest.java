@@ -41,6 +41,10 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenericObjectsTest implements PropertyChangeInterface 
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/GenericObjectDiagram.html'>GenericObjectDiagram.html</a>
+*/
    @Test
    public void testGenericObjectDiagram()
    {

@@ -36,6 +36,10 @@ import org.sdmlib.storyboards.StoryboardWall;
 
 public class ProjectBoard
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../doc/StoryboardInfrastructure.html'>StoryboardInfrastructure.html</a>
+*/
    @Test
    public void testStoryboardInfrastructure()
    {

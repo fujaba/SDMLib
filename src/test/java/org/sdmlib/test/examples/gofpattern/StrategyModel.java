@@ -11,6 +11,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class StrategyModel
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/GofStrategyModel.html'>GofStrategyModel.html</a>
+*/
    @Test
    public void GofStrategyModel() 
    {

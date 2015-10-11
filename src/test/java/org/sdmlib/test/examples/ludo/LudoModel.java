@@ -28,6 +28,10 @@ public class LudoModel
       yellow
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/LudoModel.html'>LudoModel.html</a>
+*/
    @Test
    public void testLudoModel()
    {

@@ -17,6 +17,10 @@ public class ReplicationModel
    private static final String CHANGE_HISTORY = "ChangeHistory";
    private static final String REPLICATION_NODE = "ReplicationNode";
    
+     /**
+    * 
+    * @see <a href='../../../../../../doc/MinChangeModel.html'>MinChangeModel.html</a>
+*/
    @Test
    public void MinChangeModel()
    {
@@ -44,6 +48,10 @@ public class ReplicationModel
    }
    
    
+     /**
+    * 
+    * @see <a href='../../../../../../doc/SeppelModel.html'>SeppelModel.html</a>
+*/
    @Test
    public void testSeppelModel()
    {

@@ -19,6 +19,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class SDMLibMetaModelObjectDiagramsForCoverage
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/PatternModelObjectsForCoverage.html'>PatternModelObjectsForCoverage.html</a>
+*/
    @Test
    public void testPatternModelObjectsForCoverage()
    {
@@ -77,6 +81,10 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
       story.dumpHTML();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/SDMLibCodeGenObjectsForCoverage.html'>SDMLibCodeGenObjectsForCoverage.html</a>
+*/
    @Test
    public void testSDMLibCodeGenObjectsForCoverage()
    {

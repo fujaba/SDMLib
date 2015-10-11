@@ -27,6 +27,10 @@ public class MSChatClientTest
    private ModelSpace space;
    private Storyboard story;
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../../doc/DirectChat.html'>DirectChat.html</a>
+*/
    @Test
    public void testDirectChat() throws Exception
    {

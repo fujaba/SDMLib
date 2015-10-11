@@ -44,6 +44,10 @@ public class LudoStoryboard
    private static final String RED = "red";
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/LudoStoryboard.html'>LudoStoryboard.html</a>
+*/
    @Test
    public void testLudoStoryboard()
    {
@@ -131,6 +135,11 @@ public class LudoStoryboard
       storyboard.dumpHTML();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/LudoStoryboardManual.html'>LudoStoryboardManual.html</a>
+* @see <a href='../../../../../../../../doc/LudoStoryboard.html'>LudoStoryboard.html</a>
+*/
    @Test
    public void testLudoStoryboardManual()
    {

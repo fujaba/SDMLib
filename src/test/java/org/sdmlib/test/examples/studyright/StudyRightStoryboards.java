@@ -13,6 +13,10 @@ import org.sdmlib.test.examples.studyright.model.util.UniversityCreator;
 
 public class StudyRightStoryboards
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/StudyRightObjectStoryboards.html'>StudyRightObjectStoryboards.html</a>
+*/
    @Test
    public void testStudyRightObjectStoryboards()
    {
@@ -89,6 +93,10 @@ public class StudyRightStoryboards
       storyboard.dumpHTML();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/Flipbook.html'>Flipbook.html</a>
+*/
    @Test
    public void testFlipbook()
    {
@@ -191,6 +199,10 @@ public class StudyRightStoryboards
    }
 
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/BidirectionalModelToTextTransformation.html'>BidirectionalModelToTextTransformation.html</a>
+*/
    @Test
    public void testBidirectionalModelToTextTransformation()
    {

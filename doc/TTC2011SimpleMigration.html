@@ -9,7 +9,6 @@
 <script src="includes/graph.js"></script>
 </head><body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java' type='text/x-java'>TTC2011SimpleMigration</a></p>
-<p>TTC2011SimpleMigration</p>
 <hr/><p>Source model:</p>
 <script>
    var json = {
@@ -89,7 +88,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram3", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <hr/><p>Target model:</p>
 <script>
@@ -168,7 +167,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram6", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram5", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <hr/><p>Migration extension:</p>
 <script>
@@ -196,7 +195,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram9", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram8", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <hr/><p>Create example source graph: </p>
 <script>
@@ -806,7 +805,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration13", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Migrate per pattern: </h2><p>did not find method simpleMigrationPerPattern(Graph,Storyboard) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
@@ -832,7 +831,7 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram16", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -903,7 +902,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram17", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram16", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -963,6 +962,75 @@
       }
    ]
 }   ;
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram17", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+   {
+         "typ":"patternObject",
+         "id":"e1 : EdgePO",
+         "attributes":[
+         "<< start >>",
+            "<< bound>>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n2 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"n3 : NodePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"e4 : EdgePO",
+         "attributes":[
+         "<< bound>>"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e1 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n2 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"n2 : NodePO"
+         },
+         "target":{
+            "property":"copy",
+            "id":"n3 : NodePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"e4 : EdgePO"
+         },
+         "target":{
+            "property":"src",
+            "id":"n3 : NodePO"
+         }
+      }
+   ]
+}   ;
    json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram18", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
@@ -1004,7 +1072,7 @@
             "id":"e1 : EdgePO"
          },
          "target":{
-            "property":"src",
+            "property":"tgt",
             "id":"n2 : NodePO"
          }
       },
@@ -1026,82 +1094,13 @@
             "id":"e4 : EdgePO"
          },
          "target":{
-            "property":"src",
+            "property":"tgt",
             "id":"n3 : NodePO"
          }
       }
    ]
 }   ;
    json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram19", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-   g.layout(100,100);
-</script>
-<script>
-   var json = {
-   "typ":"object",
-   "nodes":[
-   {
-         "typ":"patternObject",
-         "id":"e1 : EdgePO",
-         "attributes":[
-         "<< start >>",
-            "<< bound>>"
-         ]
-      },
-      {
-         "typ":"patternObject",
-         "id":"n2 : NodePO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"n3 : NodePO",
-         "attributes":[]
-      },
-      {
-         "typ":"patternObject",
-         "id":"e4 : EdgePO",
-         "attributes":[
-         "<< bound>>"
-         ]
-      }
-   ],
-   "edges":[
-   {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"e1 : EdgePO"
-         },
-         "target":{
-            "property":"tgt",
-            "id":"n2 : NodePO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"n2 : NodePO"
-         },
-         "target":{
-            "property":"copy",
-            "id":"n3 : NodePO"
-         }
-      },
-      {
-         "typ":"EDGE",
-         "source":{
-            "property":" ",
-            "id":"e4 : EdgePO"
-         },
-         "target":{
-            "property":"tgt",
-            "id":"n3 : NodePO"
-         }
-      }
-   ]
-}   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram20", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Result graph: </p>
@@ -1712,7 +1711,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration23", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration22", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Number of migrated nodes: 8
@@ -2326,7 +2325,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration29", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration28", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Number of migrated nodes: 8</p>
@@ -2939,7 +2938,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration35", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration34", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Migrate using JSON Array representation : </h2><p>did not find method simpleMigrationByJsonArray(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
@@ -2955,7 +2954,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration40", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration39", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Migrate using Generic Graph representation : </h2><p>did not find method simpleMigrationByGenericGraph(Graph,Storyboard) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
@@ -4722,7 +4721,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration44", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration43", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -4776,7 +4775,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram44", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram43", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -4815,7 +4814,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram45", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram44", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -4854,7 +4853,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram46", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram45", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -6620,7 +6619,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration48", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration47", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Result graph: </p>
@@ -7231,7 +7230,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration50", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration49", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <hr/><h2>Even more evolved graph model : </h2><script>
@@ -7279,7 +7278,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram52", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasTTC2011SimpleMigrationClassDiagram51", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <script>
    var json = {
@@ -7888,7 +7887,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration54", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration53", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>did not find method simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
@@ -7943,7 +7942,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram55", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram54", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -8061,7 +8060,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram56", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram55", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -8098,7 +8097,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram57", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigrationPatternDiagram56", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Result graph: </p>
@@ -8366,7 +8365,7 @@ Number of migrated Edges: 10</p>
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011SimpleMigration60", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011SimpleMigration59", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

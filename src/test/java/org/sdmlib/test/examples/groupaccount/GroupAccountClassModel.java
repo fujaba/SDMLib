@@ -12,6 +12,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class GroupAccountClassModel
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/GroupAccountCodegen.html'>GroupAccountCodegen.html</a>
+*/
    @Test
    public void testGroupAccountCodegen()
    {

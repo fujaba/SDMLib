@@ -38,6 +38,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class ClassModelTest
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/ClassModelCodeGen.html'>ClassModelCodeGen.html</a>
+*/
    @Test
    public void testClassModelCodeGen()
    {

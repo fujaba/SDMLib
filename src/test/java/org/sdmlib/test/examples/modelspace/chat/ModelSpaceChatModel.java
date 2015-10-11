@@ -11,6 +11,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class ModelSpaceChatModel
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../../doc/ModelSpaceChatModel.html'>ModelSpaceChatModel.html</a>
+*/
    @Test
    public void testModelSpaceChatModel() throws Exception
    {

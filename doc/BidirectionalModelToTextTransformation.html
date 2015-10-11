@@ -9,7 +9,6 @@
 <script src="includes/graph.js"></script>
 </head><body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java' type='text/x-java'>BidirectionalModelToTextTransformation</a></p>
-<p>BidirectionalModelToTextTransformation</p>
 <p>Start: We start with the usual StudyRight object model.</p>
 <script>
    var json = {
@@ -282,7 +281,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation3", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p><a name = 'step_1'>Step 1: Use text templates to generate a natural language description of the object model.</a></p><script>
@@ -894,7 +893,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Results in the following text:</p>
@@ -908,6 +907,10 @@
  - Tom has student number 4242.
  - Nina has student number 2323.
  </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p><pre>
+      storyboard.addStep(&quot;Use templates to parse text into object model&quot;);
+      
+      storyboard.markCodeStart();
+
       rootTemplate.setExpandedText(
          &quot;The Study False University has many rooms and some students: \n&quot; + 
                &quot; - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n&quot; + 
@@ -915,10 +918,6 @@
                &quot; - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n &quot; + 
                &quot;The students are: \n&quot; + 
                &quot; - Bart has student number 111.\n&quot; + 
-               &quot; - Meggie has student number 112.\n &quot;);
-
-      rootTemplate.parse();
-      
 </pre><script>
    var json = {
    "typ":"objectdiagram",
@@ -933,7 +932,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

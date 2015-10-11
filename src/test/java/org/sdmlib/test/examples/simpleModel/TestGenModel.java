@@ -25,6 +25,10 @@ public class TestGenModel
       model.generate("src/test/java");
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/UniDirectionalAssoc.html'>UniDirectionalAssoc.html</a>
+*/
    @Test
    public void testUniDirectionalAssoc()
    {
@@ -48,6 +52,11 @@ public class TestGenModel
       
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/UniDirectionalAssoc.html'>UniDirectionalAssoc.html</a>
+* @see <a href='../../../../../../../../doc/UniDirectionalAssocToObject.html'>UniDirectionalAssocToObject.html</a>
+*/
    @Test
    public void testUniDirectionalAssocToObject()
    {

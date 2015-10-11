@@ -40,6 +40,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class StudyRightModel implements PropertyChangeInterface 
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/StudyRightReverseClassModel.html'>StudyRightReverseClassModel.html</a>
+*/
    @Test
    public void testStudyRightReverseClassModel()
    {
@@ -100,6 +104,10 @@ public class StudyRightModel implements PropertyChangeInterface
       storyboard.dumpHTML();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/StudyRightExtendsReverseClassModel.html'>StudyRightExtendsReverseClassModel.html</a>
+*/
    @Test
    public void testStudyRightExtendsReverseClassModel()
    {
@@ -200,6 +208,10 @@ public class StudyRightModel implements PropertyChangeInterface
       storyboard.dumpHTML();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/StudyRightClassesCodeGen.html'>StudyRightClassesCodeGen.html</a>
+*/
    @Test
    public void testStudyRightClassesCodeGen()
    {
@@ -379,6 +391,10 @@ public class StudyRightModel implements PropertyChangeInterface
       storyboard.dumpHTML();
    }
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/StudyRightOneToOneAssoc.html'>StudyRightOneToOneAssoc.html</a>
+*/
    @Test
    public void testStudyRightOneToOneAssoc()
    {

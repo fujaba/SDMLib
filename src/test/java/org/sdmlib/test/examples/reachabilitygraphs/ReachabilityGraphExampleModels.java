@@ -9,6 +9,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class ReachabilityGraphExampleModels
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/SimpleReachabilityGraphModel.html'>SimpleReachabilityGraphModel.html</a>
+*/
    @Test
    public void SimpleReachabilityGraphModel()
    {
@@ -32,6 +36,10 @@ public class ReachabilityGraphExampleModels
       storyboard.dumpHTML();
    }
    
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/FerryMansProblemModel.html'>FerryMansProblemModel.html</a>
+*/
    @Test
    public void FerryMansProblemModel()
    {

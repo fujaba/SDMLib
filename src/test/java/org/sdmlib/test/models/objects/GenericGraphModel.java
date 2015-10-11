@@ -10,6 +10,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class GenericGraphModel
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/GenericGraphModel.html'>GenericGraphModel.html</a>
+*/
    @Test
    public void testGenericGraphModel()
    {

@@ -21,6 +21,10 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class ReachabilityGraphFerrymansProblemExample
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/FerrymansProblemExample.html'>FerrymansProblemExample.html</a>
+*/
    @Test
    public void FerrymansProblemExample()
    {

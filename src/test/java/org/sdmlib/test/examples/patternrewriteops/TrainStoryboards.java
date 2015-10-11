@@ -18,6 +18,10 @@ public class TrainStoryboards
    protected Person p2;
    protected Person p3;
 
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/trainCollectPassengers.html'>trainCollectPassengers.html</a>
+*/
    @Test 
    public void trainCollectPassengers()
    {

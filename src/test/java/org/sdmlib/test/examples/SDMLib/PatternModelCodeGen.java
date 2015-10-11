@@ -31,6 +31,10 @@ import org.sdmlib.storyboards.Storyboard;
    
 public class PatternModelCodeGen 
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/PatternModelCodegen.html'>PatternModelCodegen.html</a>
+*/
    @Test
    public void testPatternModelCodegen()
    {

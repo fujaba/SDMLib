@@ -9,7 +9,11 @@ import org.sdmlib.storyboards.Storyboard;
 public class TrainModel
 {
 	
-	@Test 
+   /**
+    * 
+    * @see <a href='../../../../../../../../doc/TrainModel.html'>TrainModel.html</a>
+*/
+   @Test 
 	public void TrainModel()
 	{
       Storyboard storyboard = new Storyboard();

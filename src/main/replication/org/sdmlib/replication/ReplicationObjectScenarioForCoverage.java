@@ -5,6 +5,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class ReplicationObjectScenarioForCoverage
 {
+     /**
+    * 
+    * @see <a href='../../../../../../doc/ReplicationObjectScenarioForCoverage.html'>ReplicationObjectScenarioForCoverage.html</a>
+*/
    @Test
    public void testReplicationObjectScenarioForCoverage()
    {

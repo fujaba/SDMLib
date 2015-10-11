@@ -10,6 +10,10 @@ import org.sdmlib.test.examples.simpleModel.model.util.BigBrotherCreator;
 
 public class TestJsonForUniDirectionalAssoc
 {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/UniDirectionalAssocJson.html'>UniDirectionalAssocJson.html</a>
+*/
    @Test
    public void testUniDirectionalAssocJson()
    {
