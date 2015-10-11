@@ -27,8 +27,11 @@ import java.util.ArrayList;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-
-public class MacList extends ArrayList implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestGenModel.java'>TestGenModel.java</a>
+*/
+   public class MacList extends ArrayList implements PropertyChangeInterface
 {
 
    

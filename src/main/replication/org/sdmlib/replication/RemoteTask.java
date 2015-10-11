@@ -23,8 +23,11 @@ package org.sdmlib.replication;
 
 import org.sdmlib.replication.BoardTask;
 
-
-public abstract class RemoteTask extends Task implements Runnable
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public abstract class RemoteTask extends Task implements Runnable
 {
 
    

@@ -26,8 +26,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
 import org.sdmlib.test.examples.maumau.model.util.DutySet;
-
-public  class Player extends Holder
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>
+*/
+   public  class Player extends Holder
 {
 
    

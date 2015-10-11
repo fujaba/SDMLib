@@ -24,8 +24,11 @@ package org.sdmlib.models.classes;
 import java.util.HashSet;
 import java.util.Set;
 import org.sdmlib.StrUtil;
-
-public class Annotation extends SDMLibClass
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class Annotation extends SDMLibClass
 {
    // ==========================================================================
    public static final String DEPRECATED = "Deprecated";

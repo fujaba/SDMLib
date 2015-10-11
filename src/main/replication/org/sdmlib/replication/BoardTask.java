@@ -30,8 +30,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
-
-public class BoardTask extends Task implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public class BoardTask extends Task implements PropertyChangeInterface
 {
    
    public BoardTask()

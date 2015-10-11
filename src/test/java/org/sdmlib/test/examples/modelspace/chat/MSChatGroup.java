@@ -27,8 +27,11 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet;
 import org.sdmlib.StrUtil;
-
-public  class MSChatGroup implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>
+*/
+   public  class MSChatGroup implements PropertyChangeInterface
 {
 
    

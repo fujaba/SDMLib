@@ -27,8 +27,11 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.replication.chat.util.ChatMsgSet;
-
-public class ChatMsg implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/replication/chat/ReplicationChatModel.java'>ReplicationChatModel.java</a>
+*/
+   public class ChatMsg implements PropertyChangeInterface
 {
 
    

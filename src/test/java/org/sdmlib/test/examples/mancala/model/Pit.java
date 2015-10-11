@@ -26,8 +26,11 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.mancala.model.util.PitSet;
-
-public class Pit implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>
+*/
+   public class Pit implements PropertyChangeInterface
 {
 
    

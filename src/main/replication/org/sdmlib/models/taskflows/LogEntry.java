@@ -30,8 +30,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
-
-public class LogEntry implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+*/
+   public class LogEntry implements PropertyChangeInterface
 {
 
    

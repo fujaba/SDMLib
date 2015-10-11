@@ -1887,7 +1887,11 @@ public class Storyboard implements PropertyChangeInterface
    {
       // parse the class under test
       Parser parser = new Parser().withFileName(classUnderTestName);
+      
       File javaFile = new File(classUnderTestName);
+      
+      if ( ! javaFile.exists() ) return; // <=================== sudden death
+      
       parser.withFileBody(CGUtil.readFile(javaFile));
       
       parser.parse();

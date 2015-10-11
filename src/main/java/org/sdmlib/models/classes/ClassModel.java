@@ -35,8 +35,11 @@ import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
-
-public class ClassModel extends SDMLibClass
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class ClassModel extends SDMLibClass
 {
 	public static final String DEFAULTPACKAGE = "i.love.sdmlib";
    public static final String PROPERTY_CLASSES = "classes";

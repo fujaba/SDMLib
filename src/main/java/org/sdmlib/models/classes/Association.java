@@ -22,8 +22,11 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.CGUtil;
-
-public class Association extends SDMLibClass
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class Association extends SDMLibClass
 {
    
    // ADDED NAME TO Assoc

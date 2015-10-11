@@ -29,8 +29,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.sdmlib.StrUtil;
-
-public  class MSChatMsg implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>
+*/
+   public  class MSChatMsg implements PropertyChangeInterface
 {
 
    

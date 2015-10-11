@@ -23,8 +23,11 @@ package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.util.RoleSet;
-
-public class Role extends SDMLibClass
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class Role extends SDMLibClass
 {
    public static final String VANILLA = "vanilla";
    public static final String AGGREGATION = "aggregation";

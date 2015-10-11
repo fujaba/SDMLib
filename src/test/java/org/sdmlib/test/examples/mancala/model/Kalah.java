@@ -21,8 +21,11 @@
    
 package org.sdmlib.test.examples.mancala.model;
 
-
-public class Kalah extends Pit
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>
+*/
+   public class Kalah extends Pit
 {
 
    

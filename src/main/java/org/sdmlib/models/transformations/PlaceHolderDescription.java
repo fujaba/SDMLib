@@ -31,8 +31,11 @@ import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.models.transformations.ChoiceTemplate;
-
-public class PlaceHolderDescription implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
+*/
+   public class PlaceHolderDescription implements PropertyChangeInterface
 {
    // ==========================================================================
 

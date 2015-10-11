@@ -26,8 +26,11 @@ import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
 import org.sdmlib.models.classes.DataType;
-
-public class Method extends SDMLibClass implements AnnotationOwner
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class Method extends SDMLibClass implements AnnotationOwner
 {
    public static final String PROPERTY_RETURNTYPE = "returnType";
    public static final String PROPERTY_PARAMETER = "parameter";

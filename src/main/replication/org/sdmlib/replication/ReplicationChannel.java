@@ -34,8 +34,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
 import java.beans.PropertyChangeListener;
-
-public class ReplicationChannel extends Thread implements
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public class ReplicationChannel extends Thread implements
       PropertyChangeInterface
 {
    @Override

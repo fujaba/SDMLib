@@ -22,8 +22,11 @@ package org.sdmlib.models.classes;
 
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
-
-public class Attribute extends Value implements AnnotationOwner
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class Attribute extends Value implements AnnotationOwner
 {
    public static final String PROPERTY_CLAZZ = "clazz";
    public static final AttributeSet EMPTY_SET = new AttributeSet().withReadOnly(true);

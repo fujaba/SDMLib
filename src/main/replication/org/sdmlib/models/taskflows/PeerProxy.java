@@ -34,8 +34,11 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import java.beans.PropertyChangeListener;
-
-public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
+   /**
+    * 
+    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
+*/
+   public class PeerProxy implements PropertyChangeInterface, Comparable<PeerProxy>
 {
    public PeerProxy ()
    {

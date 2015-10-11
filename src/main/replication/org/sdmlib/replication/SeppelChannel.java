@@ -34,8 +34,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
-
-public class SeppelChannel extends Thread implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public class SeppelChannel extends Thread implements PropertyChangeInterface
 {
    @Override
    public void run()

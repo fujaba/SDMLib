@@ -32,8 +32,11 @@ import org.sdmlib.StrUtil;
 
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.util.JsonObjectCreator;
-
-public  class ChangeEvent implements PropertyChangeInterface, Comparable<ChangeEvent>
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public  class ChangeEvent implements PropertyChangeInterface, Comparable<ChangeEvent>
 {
    public static final String PLAIN = "plain"; 
    public static final String TO_ONE = "toOne";

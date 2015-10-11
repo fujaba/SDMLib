@@ -22,8 +22,11 @@ package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.DataType;
-
-public abstract class Value extends SDMLibClass
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public abstract class Value extends SDMLibClass
 {
    public static final String PROPERTY_INITIALIZATION = "initialization";
    public static final String PROPERTY_TYPE = "type";

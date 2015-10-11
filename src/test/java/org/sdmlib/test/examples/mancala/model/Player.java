@@ -31,8 +31,11 @@ import org.sdmlib.test.examples.mancala.model.util.PitSet;
 import org.sdmlib.test.examples.mancala.model.util.PlayerSet;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 import org.sdmlib.test.examples.mancala.model.PlayerState;
-
-public class Player implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>
+*/
+   public class Player implements PropertyChangeInterface
 {
 
    

@@ -22,8 +22,11 @@
 package org.sdmlib.test.examples.maumau.model;
 
 import org.sdmlib.test.examples.maumau.model.Holder;
-
-public  class OpenStack extends Holder
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>
+*/
+   public  class OpenStack extends Holder
 {
 
    

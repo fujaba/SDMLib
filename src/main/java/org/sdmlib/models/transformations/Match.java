@@ -29,8 +29,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.lang.Object;
-
-public class Match implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
+*/
+   public class Match implements PropertyChangeInterface
 {
       
    //==========================================================================

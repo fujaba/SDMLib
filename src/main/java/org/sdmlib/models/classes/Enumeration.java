@@ -27,8 +27,11 @@ import java.util.Arrays;
 import org.sdmlib.models.classes.util.ArrayListSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
 import org.sdmlib.models.classes.util.MethodSet;
-
-public class Enumeration extends SDMLibClass {
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class Enumeration extends SDMLibClass {
 
 	// ==========================================================================
 

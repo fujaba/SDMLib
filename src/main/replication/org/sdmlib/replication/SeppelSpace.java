@@ -62,8 +62,11 @@ import de.uniks.networkparser.logic.Deep;
 import de.uniks.networkparser.logic.ValuesMap;
 import javafx.application.Platform;
 import org.sdmlib.replication.ChangeEventList;
-
-public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListener
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public class SeppelSpace extends Thread implements PropertyChangeInterface, UpdateListener
 {
    //==========================================================================
    private LinkedBlockingQueue<ChannelMsg> msgQueue = new LinkedBlockingQueue<ChannelMsg>();

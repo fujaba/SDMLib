@@ -29,8 +29,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 import org.sdmlib.test.examples.patternrewriteops.model.util.TrainSet;
-
-public class Station implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
+*/
+   public class Station implements PropertyChangeInterface
 {
 
    

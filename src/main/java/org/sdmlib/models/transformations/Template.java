@@ -42,8 +42,11 @@ import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import java.lang.Object;
-
-public class Template implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
+*/
+   public class Template implements PropertyChangeInterface
 {
    // ==========================================================================
 

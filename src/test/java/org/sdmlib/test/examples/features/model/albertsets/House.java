@@ -27,8 +27,11 @@ import org.sdmlib.test.examples.features.model.albertsets.util.WindowSet;
 
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-
-public class House implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>
+*/
+   public class House implements PropertyChangeInterface
 {
 
    

@@ -30,7 +30,8 @@ import org.sdmlib.StrUtil;
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/MSChatClientTest.java'>MSChatClientTest.java</a>
- */
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>
+*/
 public  class MSChatChannel implements PropertyChangeInterface
 {
 

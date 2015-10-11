@@ -28,8 +28,11 @@ import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.test.examples.maumau.model.Suit;
 import org.sdmlib.test.examples.maumau.model.util.CardSet;
 import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
-
-@org.sdmlib.replication.ApplicationObject
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/maumau/GenModel.java'>GenModel.java</a>
+*/
+   @org.sdmlib.replication.ApplicationObject
 public class MauMau implements PropertyChangeInterface
 {
 

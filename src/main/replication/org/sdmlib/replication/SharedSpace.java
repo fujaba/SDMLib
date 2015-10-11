@@ -68,8 +68,11 @@ import de.uniks.networkparser.json.JsonTokener;
 import org.sdmlib.replication.ChangeHistory;
 
 
-
-public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener,
       UpdateListener
 {
 

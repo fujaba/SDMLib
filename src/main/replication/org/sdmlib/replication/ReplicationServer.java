@@ -29,6 +29,7 @@ import de.uniks.networkparser.json.JsonIdMap;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
+* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
 */
    public class ReplicationServer extends ReplicationNode implements
       PropertyChangeInterface

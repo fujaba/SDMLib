@@ -29,8 +29,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-
-public class ReplicationChange extends Task implements PropertyChangeInterface,
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public class ReplicationChange extends Task implements PropertyChangeInterface,
       Comparable<ReplicationChange>
 {
    // ==========================================================================

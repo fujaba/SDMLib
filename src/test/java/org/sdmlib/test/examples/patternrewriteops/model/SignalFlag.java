@@ -27,8 +27,11 @@ import java.util.LinkedHashSet;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
-
-public class SignalFlag implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/patternrewriteops/TrainModel.java'>TrainModel.java</a>
+*/
+   public class SignalFlag implements PropertyChangeInterface
 {
 
    

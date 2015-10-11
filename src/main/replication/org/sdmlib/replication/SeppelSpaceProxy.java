@@ -30,8 +30,11 @@ import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.replication.util.BoardTaskSet;
-
-public class SeppelSpaceProxy implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
+*/
+   public class SeppelSpaceProxy implements PropertyChangeInterface
 {
 
    

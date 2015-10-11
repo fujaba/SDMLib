@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.ludo.model.util.PawnSet;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>
+* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoModel.java'>LudoModel.java</a>
 */
    public class Pawn implements PropertyChangeInterface
 {

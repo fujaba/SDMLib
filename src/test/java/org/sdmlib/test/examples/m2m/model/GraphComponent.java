@@ -27,8 +27,12 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.m2m.model.util.GraphComponentSet;
-
-public class GraphComponent implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/m2m/BanfM2MModelGen.java'>BanfM2MModelGen.java</a>
+* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/m2m/BanfM2MTransformations.java'>BanfM2MTransformations.java</a>
+*/
+   public class GraphComponent implements PropertyChangeInterface
 {
 
    

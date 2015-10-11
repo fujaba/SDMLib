@@ -33,7 +33,8 @@ import org.sdmlib.models.classes.util.AnnotationSet;
 /**
  * @author Stefan
  *
- */
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
 public class Clazz extends SDMLibClass implements AnnotationOwner {
 	public static final String PROPERTY_ATTRIBUTES = "attributes";
 	public static final String PROPERTY_CLASSMODEL = "classModel";

@@ -22,8 +22,11 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.models.classes.util.ParameterSet;
-
-public class Parameter extends Value
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+*/
+   public class Parameter extends Value
 {
    public static final String PROPERTY_METHOD = "method";
    private Method method = null;

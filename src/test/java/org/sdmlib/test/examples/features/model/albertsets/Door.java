@@ -24,8 +24,11 @@ package org.sdmlib.test.examples.features.model.albertsets;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-
-public class Door implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>
+*/
+   public class Door implements PropertyChangeInterface
 {
 
    
