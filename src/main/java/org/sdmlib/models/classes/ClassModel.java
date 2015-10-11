@@ -229,7 +229,41 @@ public class ClassModel extends SDMLibClass
 		}
 		return null;
 	}
+	
+	
 
+	/**
+	 * Add a class to the class model. 
+	 * On code generation this will generate the corresponding Java File
+	 * 
+	 * <pre>
+    *    ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
+    * 
+    *    Clazz groupAccountClass = model.createClazz("GroupAccount")
+    *       .withAttribute("task", DataType.STRING);
+    *                
+    *    groupAccountClass.createMethod("getTaskNames")
+    *       .with(new Parameter(DataType.DOUBLE))
+    *       .with(new Parameter(DataType.STRING))
+    *       .withReturnType(DataType.DOUBLE);
+    *       
+    *    Clazz personClass = model.createClazz("Person")
+    *       .withAttribute("name", DataType.STRING)
+    *       .withAttribute("balance", DataType.DOUBLE);
+    *  
+    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    * 
+    *    model.generate("src/test/java");
+    *    
+    *    model.dumpClassDiagram("GroupAccountClassDiag");
+    * </pre>
+    * 
+    * 
+	 * @param name Name of the class
+	 * @return The representation of the class within the class model. 
+	 * 
+    * @see #generate()
+	 */
 	public Clazz createClazz(String name)
 	{
 	   if (this.name == null)

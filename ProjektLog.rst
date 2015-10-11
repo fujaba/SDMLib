@@ -15,7 +15,6 @@ f2. Storyboards
 	
 	f2.2. ClassModel.generate should create a javadoc reference within the generated classes. 
 
-	f2.3. Storyboard should generate a javadoc reference to the generated html page
 
 	
 f1. ModelSpace Chat
@@ -56,7 +55,11 @@ b8. Removing Elements from lists and adding a new Element to such a list causes 
 Done
 ----
 
+f2. Storyboards
+
 	f2.1.1 methods with parameters are not yet referenced. 
+
+	f2.3. Storyboard should generate a javadoc reference to the generated html page
 
 
 b6. Seconde GUI Test of SDMLib does not run. Application seems already be running;

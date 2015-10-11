@@ -30,6 +30,7 @@ import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+ * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java'>GroupAccountClassModel.java</a>
  */
 public class Item implements PropertyChangeInterface
 {

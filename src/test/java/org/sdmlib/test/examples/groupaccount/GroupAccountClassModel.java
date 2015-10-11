@@ -35,10 +35,6 @@ public class GroupAccountClassModel
       
       groupAccountClass.createMethod("updateBalances");
       
-      //      groupAccountClass.withRunningConstants("RED", "YELLOW", "GREEN");
-      //      groupAccountClass.withConstant("NORTH", "north");
-      //      groupAccountClass.withConstant("CARD", 3);
-      
       Clazz personClass = model.createClazz("Person")
             .withAttribute("name", DataType.STRING)
             .withAttribute("balance", DataType.DOUBLE);

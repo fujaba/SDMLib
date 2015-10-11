@@ -227,8 +227,62 @@ public class GenClassModel
       // perhabs there is already generated and compiled code from previous run.
       // Try to do coverage of model code
       this.doCoverageOfModelCode();
+      
+      this.addJavadocReferences(rootDir);
 
       return true;
+   }
+
+   private void addJavadocReferences(String rootDir)
+   {
+      // find method that called ClassModel.generate()
+      Exception e = new RuntimeException();
+
+      StackTraceElement[] stackTrace = e.getStackTrace();
+      StackTraceElement callEntry = null;
+
+      // find first method above ClassModel.generate()
+      int i = 1;
+
+      while (true)
+      {
+         callEntry = stackTrace[i];
+
+         if (callEntry.getClassName().equals(GenClassModel.class.getName())
+               || callEntry.getClassName().equals(ClassModel.class.getName()))
+         {
+            i++;
+            continue;
+         }
+         else
+         {
+            break;
+         }
+      }
+      
+      String classModelConstructionClass = callEntry.getClassName();
+      
+
+      // search for a subdirectory containing the javaTestFile of the
+      // execution directory and search for the subdi
+      File projectDir = new File(".");
+      
+      Storyboard story = new Storyboard();
+      
+      story.setJavaTestFileName(classModelConstructionClass.replaceAll("\\.", "/") + ".java");
+      
+      if (story.searchDirectoryTree(projectDir))
+      {
+         // found it
+         // add javadoc references to all generated model classes
+         for (Clazz clazz : this.model.getClasses())
+         {
+            String fullClazzFileName = rootDir + "/" + clazz.getFullName().replaceAll("\\.", "/") + ".java";
+            
+            story.addReferenceToJavaDoc(fullClazzFileName, Parser.CLASS + ":" + clazz.getName(), story.getJavaTestFileName().substring(3));
+         }
+         System.out.println();
+      }
    }
 
    private void fixClassModel()

@@ -115,6 +115,16 @@ public class Storyboard implements PropertyChangeInterface
    private ByteArrayOutputStream systemOutRecorder;
    private JsonIdMap jsonIdMap = null;
    private LinkedHashMap<String, String> iconMap = new LinkedHashMap<String, String>();
+   
+   public String getJavaTestFileName()
+   {
+      return javaTestFileName;
+   }
+   
+   public void setJavaTestFileName(String javaTestFileName)
+   {
+      this.javaTestFileName = javaTestFileName;
+   }
 
    public Storyboard withJsonIdMap(JsonIdMap jsonIdMap)
    {
@@ -194,7 +204,7 @@ public class Storyboard implements PropertyChangeInterface
       return this.rootDir;
    }
 
-   private boolean searchDirectoryTree(File projectDir)
+   public boolean searchDirectoryTree(File projectDir)
    {
       for (File subDir : projectDir.listFiles())
       {
@@ -1873,7 +1883,7 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   private void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
+   public void addReferenceToJavaDoc(String classUnderTestName, String methodUnderTestName, String testFileName)
    {
       // parse the class under test
       Parser parser = new Parser().withFileName(classUnderTestName);

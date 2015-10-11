@@ -305,6 +305,38 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 		return with(new Method(name, returnType, parameters));
 	}
 
+	/**
+	 * Add an attribute to a class. On code generation this creates a Java field in the corresponding class and 
+	 * a get-method and a set-method and a with-method for this field. 
+	 * 
+	 * <pre>
+    *    ClassModel model = new ClassModel("org.sdmlib.test.examples.groupaccount.model");
+    * 
+    *    Clazz groupAccountClass = model.createClazz("GroupAccount")
+    *       .withAttribute("task", DataType.STRING);
+    *                
+    *    groupAccountClass.createMethod("getTaskNames")
+    *       .with(new Parameter(DataType.DOUBLE))
+    *       .with(new Parameter(DataType.STRING))
+    *       .withReturnType(DataType.DOUBLE);
+    *       
+    *    Clazz personClass = model.createClazz("Person")
+    *       .withAttribute("name", DataType.STRING)
+    *       .withAttribute("balance", DataType.DOUBLE);
+    *  
+    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    * 
+    *    model.generate("src/test/java");
+    *    
+    *    model.dumpClassDiagram("GroupAccountClassDiag");
+    * </pre>
+    * 
+	 * @param name of the attribute
+	 * @param type of the attribute
+	 * @return the clazz for fluent style, e.g. add another attribute
+	 * 
+	 * @see ClassModel#generate()
+	 */
 	public Clazz withAttribute(String name, DataType type) {
 		return this.with(new Attribute(name, type));
 	}

@@ -907,10 +907,6 @@
  - Tom has student number 4242.
  - Nina has student number 2323.
  </pre><p><a name = 'step_2'>Step 2: Use templates to parse text into object model</a></p><pre>
-      storyboard.addStep(&quot;Use templates to parse text into object model&quot;);
-      
-      storyboard.markCodeStart();
-
       rootTemplate.setExpandedText(
          &quot;The Study False University has many rooms and some students: \n&quot; + 
                &quot; - The class diagrams room has 23 credits. It is connected to rooms: laws, business.\n&quot; + 
@@ -918,6 +914,10 @@
                &quot; - The business room has 3 credits. It is connected to rooms: laws, class diagrams.\n &quot; + 
                &quot;The students are: \n&quot; + 
                &quot; - Bart has student number 111.\n&quot; + 
+               &quot; - Meggie has student number 112.\n &quot;);
+
+      rootTemplate.parse();
+      
 </pre><script>
    var json = {
    "typ":"objectdiagram",
