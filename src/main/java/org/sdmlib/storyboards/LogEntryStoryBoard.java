@@ -24,8 +24,11 @@ package org.sdmlib.storyboards;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-
-public  class LogEntryStoryBoard implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/kanban/ProjectBoard.java'>ProjectBoard.java</a>
+*/
+   public  class LogEntryStoryBoard implements PropertyChangeInterface
 {
 
    

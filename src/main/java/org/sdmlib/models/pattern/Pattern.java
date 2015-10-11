@@ -54,8 +54,11 @@ import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.LinkConstraint;
-
-public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class Pattern<MP> extends PatternElement<MP> implements PropertyChangeInterface, Iterable<Match>
 {
    public static final String CREATE = "create";
    public static final String DESTROY = "destroy";

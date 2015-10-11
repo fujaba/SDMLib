@@ -24,8 +24,11 @@ package org.sdmlib.test.examples.annotations.model.simple;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
 import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
 import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
-
-public class House extends Cube
+   /**
+    * 
+    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/annotations/AnnotationTest.java'>AnnotationTest.java</a>
+*/
+   public class House extends Cube
 {
 
    

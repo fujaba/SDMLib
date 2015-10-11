@@ -28,8 +28,11 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeListener;
-
-public class PatternElement<PEC> implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class PatternElement<PEC> implements PropertyChangeInterface
 {
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
    public static final PatternElementSet EMPTY_SET = new PatternElementSet();

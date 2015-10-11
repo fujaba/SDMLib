@@ -30,8 +30,11 @@ import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import java.lang.Object;
-
-public class CardinalityConstraint extends PatternElement implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class CardinalityConstraint extends PatternElement implements PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()

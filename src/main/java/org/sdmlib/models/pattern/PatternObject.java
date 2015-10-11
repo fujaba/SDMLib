@@ -38,8 +38,11 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.logic.Condition;
 import java.lang.Object;
-
-public class PatternObject<POC, MC> extends PatternElement<POC>
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class PatternObject<POC, MC> extends PatternElement<POC>
 {
    public static final String PROPERTY_ATTRCONSTRAINTS = "attrConstraints";
    public static final String PROPERTY_CANDIDATES = "candidates";

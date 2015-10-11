@@ -32,6 +32,7 @@ import org.sdmlib.test.examples.studyright.model.util.StudentSet;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightStoryboards.java'>StudyRightStoryboards.java</a>
+* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
 */
    public class University implements PropertyChangeInterface
 {

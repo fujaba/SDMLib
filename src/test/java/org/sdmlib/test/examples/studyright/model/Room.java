@@ -30,8 +30,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.LectureSet;
 import org.sdmlib.test.examples.studyright.model.util.RoomSet;
 import org.sdmlib.test.examples.studyright.model.util.StudentSet;
-
-public class Room implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyright/StudyRightModel.java'>StudyRightModel.java</a>
+*/
+   public class Room implements PropertyChangeInterface
 {
 
    

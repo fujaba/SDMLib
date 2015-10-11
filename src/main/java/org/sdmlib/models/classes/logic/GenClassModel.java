@@ -277,6 +277,8 @@ public class GenClassModel
          // add javadoc references to all generated model classes
          for (Clazz clazz : this.model.getClasses())
          {
+            if (clazz.isExternal()) continue;
+            
             String fullClazzFileName = rootDir + "/" + clazz.getFullName().replaceAll("\\.", "/") + ".java";
             
             story.addReferenceToJavaDoc(fullClazzFileName, Parser.CLASS + ":" + clazz.getName(), story.getJavaTestFileName().substring(3));

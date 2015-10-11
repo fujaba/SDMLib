@@ -42,8 +42,11 @@ import de.uniks.networkparser.logic.ValuesMap;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
-
-public class ReachabilityGraph implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class ReachabilityGraph implements PropertyChangeInterface
 {
    //==========================================================================
    private final class OmitRootCondition extends ConditionMap

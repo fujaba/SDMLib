@@ -33,8 +33,11 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.modelspace.util.ModelCloudProxySet;
 
 import de.uniks.networkparser.json.JsonObject;
-
-public  class ModelSpaceProxy implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
+*/
+   public  class ModelSpaceProxy implements PropertyChangeInterface
 {
 
    

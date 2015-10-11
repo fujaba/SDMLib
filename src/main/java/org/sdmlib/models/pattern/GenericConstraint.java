@@ -28,8 +28,11 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.logic.Condition;
-
-public class GenericConstraint extends PatternElement<GenericConstraint> implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class GenericConstraint extends PatternElement<GenericConstraint> implements PropertyChangeInterface
 {
    @Override
    public boolean findNextMatch()

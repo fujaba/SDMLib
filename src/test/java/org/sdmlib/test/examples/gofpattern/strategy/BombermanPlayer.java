@@ -24,8 +24,11 @@ package org.sdmlib.test.examples.gofpattern.strategy;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-
-public  class BombermanPlayer implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/gofpattern/StrategyModel.java'>StrategyModel.java</a>
+*/
+   public  class BombermanPlayer implements PropertyChangeInterface
 {
 
    

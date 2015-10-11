@@ -24,8 +24,11 @@ package org.sdmlib.test.examples.Annotation;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-
-public  class Person implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/examples/Annotation/GenModel.java'>GenModel.java</a>
+*/
+   public  class Person implements PropertyChangeInterface
 {
 
    

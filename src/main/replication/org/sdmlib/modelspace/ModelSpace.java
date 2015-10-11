@@ -70,8 +70,11 @@ import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.AbstractList;
 
-
-public  class ModelSpace implements PropertyChangeInterface, UpdateListener
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
+*/
+   public  class ModelSpace implements PropertyChangeInterface, UpdateListener
 {
    public static final String JSONCHGS = ".jsonchgs";
 

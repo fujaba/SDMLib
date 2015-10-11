@@ -22,8 +22,11 @@
 package org.sdmlib.test.examples.gofpattern.strategy;
 
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
-
-public  class Blast extends BombermanStrategy
+   /**
+    * 
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/gofpattern/StrategyModel.java'>StrategyModel.java</a>
+*/
+   public  class Blast extends BombermanStrategy
 {
 
    

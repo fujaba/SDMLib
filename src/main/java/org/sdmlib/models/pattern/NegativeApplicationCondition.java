@@ -24,8 +24,11 @@ package org.sdmlib.models.pattern;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
-
-public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class NegativeApplicationCondition extends Pattern implements PropertyChangeInterface
 {
    public NegativeApplicationCondition()
    {

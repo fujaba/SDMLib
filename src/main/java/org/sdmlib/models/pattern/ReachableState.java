@@ -39,8 +39,11 @@ import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import java.beans.PropertyChangeListener;
 import java.lang.Object;
-
-public class ReachableState implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/PatternModelCodeGen.java'>PatternModelCodeGen.java</a>
+*/
+   public class ReachableState implements PropertyChangeInterface
 {
    private class JsonIdCompare implements Comparator<Object>
    {

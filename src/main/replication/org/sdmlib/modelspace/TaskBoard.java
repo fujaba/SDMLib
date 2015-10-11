@@ -29,8 +29,11 @@ import java.beans.PropertyChangeListener;
 import org.sdmlib.modelspace.util.TaskLaneSet;
 
 import de.uniks.networkparser.json.JsonIdMap;
-
-public  class TaskBoard implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelspace/ModelSpaceModel.java'>ModelSpaceModel.java</a>
+*/
+   public  class TaskBoard implements PropertyChangeInterface
 {
 
    
