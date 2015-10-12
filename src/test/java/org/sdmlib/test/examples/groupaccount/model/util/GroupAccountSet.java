@@ -75,19 +75,6 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
    
    //==========================================================================
    
-   public doubleList getTaskNames(double p0, String p1)
-   {
-      doubleList result = new doubleList();
-      for (GroupAccount obj : this)
-      {
-         result.add(obj.getTaskNames(p0, p1));
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
    public GroupAccountSet updateBalances()
    {
       for (GroupAccount obj : this)
@@ -97,6 +84,11 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return this;
    }
 
+   /**
+    * Loop through the current set of GroupAccount objects and collect the content of the persons attributes. 
+    * 
+    * @return Set of Person objects reachable via persons attribute
+    */
    public PersonSet getPersons()
    {
       PersonSet result = new PersonSet();
@@ -157,6 +149,12 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
 
    public static final GroupAccountSet EMPTY_SET = new GroupAccountSet().withReadOnly(true);
 
+
+   /**
+    * Loop through the current set of GroupAccount objects and collect a list of the task attribute values. 
+    * 
+    * @return List of String objects reachable via persons attribute
+    */
    public StringList getTask()
    {
       StringList result = new StringList();
@@ -169,6 +167,14 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of GroupAccount objects that match the parameter
+    */
    public GroupAccountSet hasTask(String value)
    {
       GroupAccountSet result = new GroupAccountSet();
@@ -184,6 +190,15 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of GroupAccount objects and collect those GroupAccount objects where the task attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of GroupAccount objects that match the parameter
+    */
    public GroupAccountSet hasTask(String lower, String upper)
    {
       GroupAccountSet result = new GroupAccountSet();
@@ -199,6 +214,14 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return result;
    }
 
+
+   /**
+    * Loop through the current set of GroupAccount objects and assign value to the task attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of GroupAccount objects now with new attribute values.
+    */
    public GroupAccountSet withTask(String value)
    {
       for (GroupAccount obj : this)

@@ -28,11 +28,6 @@ public class GroupAccountClassModel
       Clazz groupAccountClass = model.createClazz("GroupAccount")
             .withAttribute("task", DataType.STRING);
             
-      groupAccountClass.createMethod("getTaskNames")
-            .with(new Parameter(DataType.DOUBLE))
-            .with(new Parameter(DataType.STRING))
-            .withReturnType(DataType.DOUBLE);
-      
       groupAccountClass.createMethod("updateBalances");
       
       Clazz personClass = model.createClazz("Person")

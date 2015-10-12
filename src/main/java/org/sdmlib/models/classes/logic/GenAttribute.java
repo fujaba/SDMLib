@@ -336,20 +336,34 @@ public class GenAttribute extends Generator<Attribute>
       }
       ExistTemplate allTemplate=new ExistTemplate();
       Template templateGetter = new Template(Parser.METHOD + ":get{{Name}}()");
-      templateGetter.withTemplate("   public {{ModelSetType}} get{{Name}}()\n"
-		                 + "   {\n"
-		                 + "      {{ModelSetType}} result = new {{ModelSetType}}();\n"
-		                 + "      \n"
-		                 + "      for ({{ContentType}} obj : this)\n"
-		                 + "      {\n"
-		                 + "         result.{{addOneOrMore}}(obj.{{ValueGet}});\n"
-		                 + "      }\n" + "      \n"
-		                 + "      return result;\n"
-		                 + "   }\n"
-		                 + "\n");
-      
+      templateGetter.withTemplate("\n" + 
+         "   /**\n" + 
+         "    * Loop through the current set of {{ContentType}} objects and collect a list of the {{name}} attribute values. \n" + 
+         "    * \n" + 
+         "    * @return List of {{ModelType}} objects reachable via persons attribute\n" + 
+         "    */\n"
+         + "   public {{ModelSetType}} get{{Name}}()\n"
+         + "   {\n"
+         + "      {{ModelSetType}} result = new {{ModelSetType}}();\n"
+         + "      \n"
+         + "      for ({{ContentType}} obj : this)\n"
+         + "      {\n"
+         + "         result.{{addOneOrMore}}(obj.{{ValueGet}});\n"
+         + "      }\n" + "      \n"
+         + "      return result;\n"
+         + "   }\n"
+         + "\n");
+
       Template templateHas = new Template(Parser.METHOD + ":has{{Name}}({{AttrType}})");
-      templateHas.withTemplate("   public {{ObjectSetType}} has{{Name}}({{AttrType}} value)\n" +
+      templateHas.withTemplate("\n" + 
+            "   /**\n" + 
+            "    * Loop through the current set of {{ContentType}} objects and collect those {{ContentType}} objects where the {{name}} attribute matches the parameter value. \n" + 
+            "    * \n" + 
+            "    * @param value Search value\n" + 
+            "    * \n" + 
+            "    * @return Subset of {{ContentType}} objects that match the parameter\n" + 
+            "    */\n"
+            + "   public {{ObjectSetType}} has{{Name}}({{AttrType}} value)\n" +
               "   {\n" +
               "      {{ObjectSetType}} result = new {{ObjectSetType}}();\n" +
               "      \n" +
@@ -366,7 +380,16 @@ public class GenAttribute extends Generator<Attribute>
               "\n");
       Template templateHasUpper = new Template(Parser.METHOD + ":has{{Name}}({{AttrType}},{{AttrType}})");
       templateHasUpper.withCondition(" int long float double String ".indexOf(" " + model.getType().getValue() + " ") >= 0);
-      templateHasUpper.withTemplate("   public {{ObjectSetType}} has{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
+      templateHasUpper.withTemplate("\n" + 
+            "   /**\n" + 
+            "    * Loop through the current set of {{ContentType}} objects and collect those {{ContentType}} objects where the {{name}} attribute is between lower and upper. \n" + 
+            "    * \n" + 
+            "    * @param lower Lower bound \n" + 
+            "    * @param upper Upper bound \n" + 
+            "    * \n" + 
+            "    * @return Subset of {{ContentType}} objects that match the parameter\n" + 
+            "    */\n"
+            + "   public {{ObjectSetType}} has{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
                         "   {\n" +
                         "      {{ObjectSetType}} result = new {{ObjectSetType}}();\n" +
                         "      \n" +
@@ -470,6 +493,7 @@ public class GenAttribute extends Generator<Attribute>
      allTemplate.insert(parser, "ContentType", CGUtil.shortClassName(ownerClazz.getFullName()),
            "ValueGet", attrNameGetter,
            "ModelSetType", modelSetType,
+           "ModelType", model.getType().getValue(),
            "name", model.getName(),
            "addOneOrMore", add,
            "ObjectSetType", objectSetType,
@@ -550,7 +574,15 @@ public class GenAttribute extends Generator<Attribute>
          return;
       }
       Template template = new Template(Parser.METHOD + ":with{{Name}}({{AttrType}})");
-      template.withTemplate("   public {{ModelSetType}} with{{Name}}({{AttrType}} value)\n"
+      template.withTemplate("\n" + 
+            "   /**\n" + 
+            "    * Loop through the current set of {{ContentType}} objects and assign value to the {{name}} attribute of each of it. \n" + 
+            "    * \n" + 
+            "    * @param value New attribute value\n" + 
+            "    * \n" + 
+            "    * @return Current set of {{ContentType}} objects now with new attribute values.\n" + 
+            "    */\n"
+            + "   public {{ModelSetType}} with{{Name}}({{AttrType}} value)\n"
               + "   {\n"
               + "      for ({{ContentType}} obj : this)\n"
               + "      {\n"
