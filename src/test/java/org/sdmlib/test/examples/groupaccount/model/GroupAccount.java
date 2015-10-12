@@ -179,9 +179,8 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
 
    /**
     * 
-    * @see <a href='../../../../../../../../.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-* @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
-*/
+    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java'>GroupAccountTests.java</a>
+    */
    public Person createPersons()
    {
       Person value = new Person();

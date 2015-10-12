@@ -22,12 +22,22 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.CGUtil;
-   /**
-    * 
-    * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
-*/
-   public class Association extends SDMLibClass
+
+/**
+ * 
+ * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
+ */
+public class Association extends SDMLibClass
 {
+   /**
+    * @deprecated use Clazz.withAssoc(...) to construct associations. 
+    */
+   @Deprecated
+   public Association()
+   {
+      
+      // Auto-generated constructor stub
+   }
    
    // ADDED NAME TO Assoc
    

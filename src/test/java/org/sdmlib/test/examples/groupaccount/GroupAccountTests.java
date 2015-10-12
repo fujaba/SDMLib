@@ -35,10 +35,10 @@ import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
    
 public class GroupAccountTests implements PropertyChangeInterface 
 {
-     /**
+   /**
     * 
     * @see <a href='../../../../../../../../doc/GroupAccountStoryboard1.html'>GroupAccountStoryboard1.html</a>
-*/
+    */
    @Test
    public void testGroupAccountStoryboard1()
    {

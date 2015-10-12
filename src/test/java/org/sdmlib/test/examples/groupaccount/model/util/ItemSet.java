@@ -123,6 +123,10 @@ public class ItemSet extends SDMSet<Item>
       return this;
    }
 
+   /**
+    * Loop through the current set of Item objects and collect Item.value attributes as a list of double values.
+    * @return list of double values
+    */
    public doubleList getValue()
    {
       doubleList result = new doubleList();
