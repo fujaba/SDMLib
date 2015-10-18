@@ -197,6 +197,28 @@ import java.beans.PropertyChangeListener;
    }
 
    // ==========================================================================
+   
+   public static final String PROPERTY_SOURCE = "source";
+   
+   private Lane source;
+   
+   public Lane getSource() 
+   {
+	  return this.source;   
+   }
+   
+   public void setSource(Lane value)
+   {
+	   this.source = value;
+   }
+   
+   public BoardTask withSource(Lane value) 
+   {
+	   setSource(value);
+	   return this;
+   }
+   
+   // ==========================================================================
 
    public static final String PROPERTY_STATUS = "status";
 
