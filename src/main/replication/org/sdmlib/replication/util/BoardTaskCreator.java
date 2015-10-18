@@ -49,6 +49,7 @@ public class BoardTaskCreator extends EntityFactory
       BoardTask.PROPERTY_PROXY,
       BoardTask.PROPERTY_MANUALEXECUTION,
       BoardTask.PROPERTY_STASHEDPROPERTYCHANGEEVENT,
+      BoardTask.PROPERTY_SOURCE,
    };
    
    @Override
@@ -122,6 +123,11 @@ public class BoardTaskCreator extends EntityFactory
       if (BoardTask.PROPERTY_STASHEDPROPERTYCHANGEEVENT.equalsIgnoreCase(attribute))
       {
          return ((BoardTask) target).getStashedPropertyChangeEvent();
+      }
+
+      if (BoardTask.PROPERTY_SOURCE.equalsIgnoreCase(attribute))
+      {
+    	  return ((BoardTask) target).getSource();
       }
       
       return null;
@@ -219,6 +225,12 @@ public class BoardTaskCreator extends EntityFactory
       {
          ((BoardTask) target).withStashedPropertyChangeEvent((PropertyChangeEvent) value);
          return true;
+      }
+
+      if (BoardTask.PROPERTY_SOURCE.equalsIgnoreCase(attrName))
+      {
+    	  ((BoardTask) target).withSource((Lane) value);
+    	  return true;
       }
 
       return false;
