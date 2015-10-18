@@ -27,6 +27,16 @@ If you extend your model later on and regenerate, the code generation will ident
 already existing classes and fields and attributes and leave them untouched. Only new 
 elements will be inserted, carefully. 
 
+In the example above, the generated code will be placed in package org.sdmlib.sample, which does not need to be pre-existing.
+
+In order to get started, just add the following Maven dependency:
+
+    <dependency>
+        <groupId>org.sdmlib</groupId>
+        <artifactId>SDMLib</artifactId>
+        <version>1.1.600</version>
+    </dependency>
+
 In addition to class models, SDMLib will also support object diagrams, storyboards and model transformations. 
 
 [Find documentation from the code repository here](https://rawgit.com/fujaba/SDMLib/master/doc/index.html)
