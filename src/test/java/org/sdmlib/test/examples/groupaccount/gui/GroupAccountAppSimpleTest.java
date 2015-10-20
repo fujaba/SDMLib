@@ -33,11 +33,10 @@ public class GroupAccountAppSimpleTest
    
    
    
-     /**
+   /**
     * 
     * @see <a href='../../../../../../../../../doc/GroupAccountMultiUserGui.html'>GroupAccountMultiUserGui.html</a>
-* @see <a href='../../../../../../../../../doc/GroupAccountMultiUserGui.html'>GroupAccountMultiUserGui.html</a>
-*/
+    */
    @Test
    public void testGroupAccountMultiUserGui() throws InterruptedException
    {
@@ -125,7 +124,7 @@ public class GroupAccountAppSimpleTest
       
    }
 
-   private void startClient(final String location, String userName)
+   private void startClient(final String location, final String userName)
    {
       // first try whether javafx is already running
       try
