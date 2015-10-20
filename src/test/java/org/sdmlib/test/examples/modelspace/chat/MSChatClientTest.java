@@ -1,21 +1,15 @@
 package org.sdmlib.test.examples.modelspace.chat;
 
-import static org.junit.Assert.*;
-
-import java.io.BufferedReader;
 import java.io.File;
-import java.util.concurrent.TimeUnit;
-
-import javafx.application.Platform;
-import javafx.stage.Stage;
 
 import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
-import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
 public class MSChatClientTest
 {
@@ -35,6 +29,9 @@ public class MSChatClientTest
    public void testDirectChat() throws Exception
    {
       // System.out.println("Testing model space");
+	   if(TestUtil.isTravis()) {
+		   return;
+	   }
 
       story = new Storyboard();
       
