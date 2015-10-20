@@ -978,7 +978,7 @@ public class Storyboard implements PropertyChangeInterface
       }
    }
 
-   public void addObjectDiagram(JsonIdMap jsonIdMap, Object root, ConditionMap filter)
+   private void addObjectDiagram(JsonIdMap jsonIdMap, Object root, ConditionMap filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
@@ -1943,7 +1943,7 @@ public class Storyboard implements PropertyChangeInterface
          
          String[] testFileSplit = testFileName.split("/");
 
-         String hrefText = "* @see <a href='" + href + "'>" + testFileSplit[testFileSplit.length-1] + "</a>\n";
+         String hrefText = "* @see <a href='" + href + "'>" + testFileSplit[testFileSplit.length-1] + "</a>";
 
          if (javaDocText.indexOf(hrefText) < 0)
          {
@@ -1954,7 +1954,7 @@ public class Storyboard implements PropertyChangeInterface
             if (insertPos < 0) continue; // <================ sudden death
                
             javaDocText = javaDocText.substring(0, insertPos) 
-                  + hrefText + javaDocText.substring(insertPos);
+                  + hrefText + "/n "+ javaDocText.substring(insertPos);
          
             // write new javadoc
             parser.getFileBody().replace(javaDocStartPos, javaDocEndPos+1, javaDocText);

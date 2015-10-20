@@ -14,10 +14,9 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class ReachbilityGraphSimpleExamples
 {
-     /**
-    * 
+   /**
     * @see <a href='../../../../../../../../doc/ReachabilityGraphSimpleIsomorphismTest.html'>ReachabilityGraphSimpleIsomorphismTest.html</a>
-*/
+    */
    @Test
    public void ReachabilityGraphSimpleIsomorphismTest()
    {
@@ -98,6 +97,7 @@ public class ReachbilityGraphSimpleExamples
      /**
     * 
     * @see <a href='../../../../../../../../doc/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
+* @see <a href='../../../../../../../../doc/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
 */
    @Test
    public void ReachabilitGraphSameCertificatesNonIsomorphic()

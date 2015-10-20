@@ -77,7 +77,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       story.markCodeStart();
       g1.updateBalances();
-      story.addCode("examples");
+      story.addCode();
       
       story.add("Now see updateBalances() as code: ");
       

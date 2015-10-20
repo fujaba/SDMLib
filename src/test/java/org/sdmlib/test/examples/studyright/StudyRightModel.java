@@ -40,10 +40,10 @@ import org.sdmlib.storyboards.Storyboard;
 
 public class StudyRightModel implements PropertyChangeInterface 
 {
-     /**
+   /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightReverseClassModel.html'>StudyRightReverseClassModel.html</a>
-*/
+    */
    @Test
    public void testStudyRightReverseClassModel()
    {

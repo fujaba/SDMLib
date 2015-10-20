@@ -186,6 +186,7 @@ public class StoryboardTests {
      /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
+* @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
 */
    @Test
    public void testStudyRightObjectModelSerialisation()
@@ -300,6 +301,7 @@ public class StoryboardTests {
      /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
+* @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
 */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()

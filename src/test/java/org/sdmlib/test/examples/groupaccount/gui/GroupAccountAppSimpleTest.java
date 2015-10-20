@@ -33,10 +33,10 @@ public class GroupAccountAppSimpleTest
    
    
    
-     /**
+   /**
     * 
     * @see <a href='../../../../../../../../../doc/GroupAccountMultiUserGui.html'>GroupAccountMultiUserGui.html</a>
-*/
+    */
    @Test
    public void testGroupAccountMultiUserGui() throws InterruptedException
    {
@@ -64,7 +64,7 @@ public class GroupAccountAppSimpleTest
       
       dataRoot = new GroupAccount();
       
-      dataRoot.updateBalances();
+      // dataRoot.updateBalances();
       
       idMap.put("dataRoot", dataRoot);
       
@@ -74,56 +74,7 @@ public class GroupAccountAppSimpleTest
 
       dataRoot.setTask("Albert buy beer");
       
-      // first try whether javafx is already running
-      try
-      {
-         Platform.runLater(new Runnable()
-         {
-            @Override
-            public void run()
-            {
-               Stage stage = new Stage();
-               GroupAccountApp groupAccountApp = new GroupAccountApp(location, "Albert");
-               try
-               {
-                  groupAccountApp.start(stage);
-               }
-               catch (Exception e1)
-               {
-                  // TODO Auto-generated catch block
-                  e1.printStackTrace();
-               }
-            }
-         });
-      }
-      catch (Exception e1)
-      {
-         // TODO Auto-generated catch block
-         System.out.println("Starting via main. ");
-         // start grouptaccount app for albert
-         Thread firstClient = new Thread()
-         {
-            @Override
-            public void run()
-            {
-               try
-               {
-                  GroupAccountApp.main(location, "Albert");
-               }
-               catch (Exception e)
-               {
-                  // probably the platform is alread running
-                  // just call start and we are done
-                  System.out.println("CAUTION: GroupAccountApp.main did not start");
-                  
-               }
-            }
-         };
-         
-         firstClient.start();
-      }
-      
-      
+      startClient(location, "Albert");
       
       boolean done = false;
       while ( ! done)
@@ -156,6 +107,8 @@ public class GroupAccountAppSimpleTest
             albert.createItem().withDescription("Coal").withValue(7);
             
             done = true;  
+            
+            startClient(location, "Nina");
          }
       }
       
@@ -169,6 +122,58 @@ public class GroupAccountAppSimpleTest
       
       System.out.println("done");
       
+   }
+
+   private void startClient(final String location, final String userName)
+   {
+      // first try whether javafx is already running
+      try
+      {
+         Platform.runLater(new Runnable()
+         {
+            @Override
+            public void run()
+            {
+               Stage stage = new Stage();
+               GroupAccountApp groupAccountApp = new GroupAccountApp(location, userName);
+               try
+               {
+                  groupAccountApp.start(stage);
+               }
+               catch (Exception e1)
+               {
+                  // TODO Auto-generated catch block
+                  e1.printStackTrace();
+               }
+            }
+         });
+      }
+      catch (Exception e1)
+      {
+         // TODO Auto-generated catch block
+         System.out.println("Starting via main. ");
+         // start grouptaccount app for albert
+         Thread firstClient = new Thread()
+         {
+            @Override
+            public void run()
+            {
+               try
+               {
+                  GroupAccountApp.main(location, userName);
+               }
+               catch (Exception e)
+               {
+                  // probably the platform is alread running
+                  // just call start and we are done
+                  System.out.println("CAUTION: GroupAccountApp.main did not start");
+                  
+               }
+            }
+         };
+         
+         firstClient.start();
+      }
    }
    
    // @Test
