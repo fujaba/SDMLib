@@ -16,6 +16,7 @@ public class StudyRightStoryboards
      /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightObjectStoryboards.html'>StudyRightObjectStoryboards.html</a>
+* @see <a href='../../../../../../../../doc/StudyRightObjectStoryboards.html'>StudyRightObjectStoryboards.html</a>
 */
    @Test
    public void testStudyRightObjectStoryboards()
@@ -96,6 +97,7 @@ public class StudyRightStoryboards
      /**
     * 
     * @see <a href='../../../../../../../../doc/Flipbook.html'>Flipbook.html</a>
+* @see <a href='../../../../../../../../doc/Flipbook.html'>Flipbook.html</a>
 */
    @Test
    public void testFlipbook()
@@ -202,6 +204,7 @@ public class StudyRightStoryboards
      /**
     * 
     * @see <a href='../../../../../../../../doc/BidirectionalModelToTextTransformation.html'>BidirectionalModelToTextTransformation.html</a>
+* @see <a href='../../../../../../../../doc/BidirectionalModelToTextTransformation.html'>BidirectionalModelToTextTransformation.html</a>
 */
    @Test
    public void testBidirectionalModelToTextTransformation()

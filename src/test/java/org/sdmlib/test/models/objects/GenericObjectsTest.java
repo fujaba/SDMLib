@@ -115,7 +115,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       storyboard.add("Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: ");
 
       storyboard.markCodeStart();
-      ClassModel model = new ClassModel();
+      ClassModel model = new ClassModel("de.kassel.test.roombook");
 
       Clazz buildingClass = model.createClazz("de.kassel.test.roombook.Building")
             .withAttribute("name", DataType.STRING);
@@ -131,7 +131,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
 
       // FIXME: Alex
       // learnedModel.getGenerator().insertModelCreationCodeHere("examples");
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.addClassDiagram(model);
 
