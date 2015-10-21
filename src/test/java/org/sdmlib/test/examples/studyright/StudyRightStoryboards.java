@@ -13,11 +13,9 @@ import org.sdmlib.test.examples.studyright.model.util.UniversityCreator;
 
 public class StudyRightStoryboards
 {
-     /**
-    * 
+   /**
     * @see <a href='../../../../../../../../doc/StudyRightObjectStoryboards.html'>StudyRightObjectStoryboards.html</a>
-* @see <a href='../../../../../../../../doc/StudyRightObjectStoryboards.html'>StudyRightObjectStoryboards.html</a>
-*/
+    */
    @Test
    public void testStudyRightObjectStoryboards()
    {

@@ -888,45 +888,58 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-            text.append(
-            "   public ModelSetType getName()\n" + 
-            "   {\n" + 
-            "      ModelSetType result = new ModelSetType();\n" + 
-            "      \n" + 
-            "      for (ContentType obj : this)\n" + 
-            "      {\n" + 
-            "         result.addOneOrMore(obj.getName());\n" + 
-            "      }\n" + 
-            "      \n" + 
-            "      return result;\n" + 
-            "   }\n" + 
-            "\n" + 
-            "   public ContentTypeSet hasName(Object value)\n" + 
-            "   {\n" + 
-            "      ObjectSet neighbors = new ObjectSet();\n" + 
-            "\n" + 
-            "      if (value instanceof Collection)\n" + 
-            "      {\n" + 
-            "         neighbors.addAll((Collection<?>) value);\n" + 
-            "      }\n" + 
-            "      else\n" + 
-            "      {\n" + 
-            "         neighbors.add(value);\n" + 
-            "      }\n" + 
-            "      \n" + 
-            "      ContentTypeSet answer = new ContentTypeSet();\n" + 
-            "      \n" + 
-            "      for (ContentType obj : this)\n" + 
-            "      {\n" + 
-            "         if (containsClause)\n" + 
-            "         {\n" + 
-            "            answer.add(obj);\n" + 
-            "         }\n" + 
-            "      }\n" + 
-            "      \n" + 
-            "      return answer;\n" + 
-            "   }\n" + 
-            "\n");
+         text.append(
+                  "   /**\n" +
+                  "    * Loop through the current set of ContentType objects and collect a set of the ModelType objects reached via thename. \n" +
+                  "    * \n" +
+                  "    * @return Set of ModelType objects reachable via thename\n" +
+                  "    */\n" + 
+                  "   public ModelSetType getName()\n" +
+                  "   {\n" + 
+                  "      ModelSetType result = new ModelSetType();\n" + 
+                  "      \n" + 
+                  "      for (ContentType obj : this)\n" + 
+                  "      {\n" + 
+                  "         result.addOneOrMore(obj.getName());\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return result;\n" + 
+                  "   }\n" + 
+                  "\n" + 
+                  "   /**\n" +
+                  "    * Loop through the current set of ContentType objects and collect all contained objects with "
+                        + "reference thename pointing to the object passed as parameter. \n" +
+                  "    * \n" +
+                  "    * @param value The object required as thename neighbor of the collected results. \n" +
+                  "    * \n" +
+                  "    * @return Set of ModelType objects referring to value via thename\n" +
+                  "    */\n" + 
+                  "   public ContentTypeSet hasName(Object value)\n" + 
+                  "   {\n" + 
+                  "      ObjectSet neighbors = new ObjectSet();\n" + 
+                  "\n" + 
+                  "      if (value instanceof Collection)\n" + 
+                  "      {\n" + 
+                  "         neighbors.addAll((Collection<?>) value);\n" + 
+                  "      }\n" + 
+                  "      else\n" + 
+                  "      {\n" + 
+                  "         neighbors.add(value);\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      ContentTypeSet answer = new ContentTypeSet();\n" + 
+                  "      \n" + 
+                  "      for (ContentType obj : this)\n" + 
+                  "      {\n" + 
+                  "         if (containsClause)\n" + 
+                  "         {\n" + 
+                  "            answer.add(obj);\n" + 
+                  "         }\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return answer;\n" + 
+                  "   }\n" + 
+                  "\n");
             parser.insertImport(Collection.class.getName());
             parser.insertImport(ObjectSet.class.getName());
             
@@ -952,7 +965,12 @@ public class GenRole extends Generator<Role>
          if (model.getClazz() == model.getPartnerRole().getClazz())
          {
             text
-               .append("\n   public ModelSetType getNameTransitive()\n"
+            .append("   /**\n" +
+                    "    * Follow thename reference zero or more times and collect all reachable objects. Detect cycles and deal with them. \n" +
+                    "    * \n" +
+                    "    * @return Set of ModelType objects reachable via thename transitively (including the start set)\n" +
+                    "    */\n" 
+                  + "   public ModelSetType getNameTransitive()\n"
                   + "   {\n"
                   + "      ModelSetType todo = new ModelSetType().with(this);\n"
                   + "      \n"
@@ -968,7 +986,7 @@ public class GenRole extends Generator<Role>
                   + "            todo.with(current.getPartnerrolenameupfirst().minus(result));\n"
                   + "         }\n" + "      }\n" + "      \n"
                   + "      return result;\n" + "   }\n" + "\n" + "");
-            
+
             if (partnerRole.getCard().equals(Card.ONE.toString()))
             {
                CGUtil.replaceAll(text, 
@@ -1014,6 +1032,7 @@ public class GenRole extends Generator<Role>
             "ModelType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()),
             "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()) + "Set",
             "Name", partnerRoleNameUpFirst,
+            "thename", partnerRole.getName(),
             "addOneOrMore", add,
             "Partnerrolenameupfirst", partnerGetterName
             );
@@ -1266,6 +1285,11 @@ public class GenRole extends Generator<Role>
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
+            "   /**\n" +
+            "    * Loop through current set of ModelType objects and attach the ContentType object passed as parameter to the Name attribute of each of it. \n" +
+            "    * \n" +
+            "    * @return The original set of ModelType objects now with the new neighbor attached to their Name attributes.\n" +
+            "    */\n" + 
             "   public ModelSetType withName(TargetType value)\n" + 
             "   {\n" + 
             "      for (ContentType obj : this)\n" + 
@@ -1299,6 +1323,11 @@ public class GenRole extends Generator<Role>
          if (pos < 0)
          {
             StringBuilder text = new StringBuilder(
+               "   /**\n" +
+               "    * Loop through current set of ModelType objects and remove the ContentType object passed as parameter from the Name attribute of each of it. \n" +
+               "    * \n" +
+               "    * @return The original set of ModelType objects now without the old neighbor.\n" +
+               "    */\n" + 
                "   public ModelSetType withoutName(TargetType value)\n" + 
                "   {\n" + 
                "      for (ContentType obj : this)\n" + 

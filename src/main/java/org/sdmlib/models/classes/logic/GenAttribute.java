@@ -340,7 +340,7 @@ public class GenAttribute extends Generator<Attribute>
          "   /**\n" + 
          "    * Loop through the current set of {{ContentType}} objects and collect a list of the {{name}} attribute values. \n" + 
          "    * \n" + 
-         "    * @return List of {{ModelType}} objects reachable via persons attribute\n" + 
+         "    * @return List of {{ModelType}} objects reachable via {{name}} attribute\n" + 
          "    */\n"
          + "   public {{ModelSetType}} get{{Name}}()\n"
          + "   {\n"

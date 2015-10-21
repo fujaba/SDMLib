@@ -170,7 +170,7 @@ Drawer.prototype.getButtons = function (graph, notTyp) {
 			}
 		}
 	}
-	if (notTyp === "HTML" && !graph.noButtons) {
+	if (notTyp === "HTML" && !graph.noButtons && graph.model.id) {
 		func = function (e) {
 			var t = e.currentTarget.value;
 			if (t === "Save") {
