@@ -547,7 +547,7 @@ import org.sdmlib.replication.ChangeHistory;
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject(); 
       
-      new JsonTokener().withAllowCRLF(true).withText(change.getChangeMsg()).parseToEntity(jsonUpdate);
+      new JsonTokener().withAllowCRLF(true).withBuffer(change.getChangeMsg()).parseToEntity(jsonUpdate);
       
 
       
