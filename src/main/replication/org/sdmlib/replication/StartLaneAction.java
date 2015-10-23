@@ -27,6 +27,11 @@ public class StartLaneAction
    }
 
    public Process start(String name, String laneApplicationClassName, int serverPort,
+	         int debugSocket) {
+	   return start(name, laneApplicationClassName, "localhost", serverPort, debugSocket);
+   }
+   
+   public Process start(String name, String laneApplicationClassName, String serverIp, int serverPort,
          int debugSocket)
    {
       child = null;
@@ -49,11 +54,11 @@ public class StartLaneAction
                { rootPath, 
                "java", 
                "-Xdebug", 
-               "-Xrunjdwp:transport=dt_socket,address=" + debugSocket + ",server=y,suspend=y", 
+               "-Xrunjdwp:transport=dt_socket,address=" + debugSocket + ",server=y,suspend=n", 
                "-Dfile.encoding=UTF-8",
                "-classpath",
                System.getProperty("java.class.path") , 
-               laneApplicationClassName, Integer.toString(serverPort), name };
+               laneApplicationClassName, serverIp, Integer.toString(serverPort), name };
          
          ProcessBuilder processBuilder = new ProcessBuilder(command);
          processBuilder.redirectErrorStream(true);
