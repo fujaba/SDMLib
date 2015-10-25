@@ -100,7 +100,7 @@ public abstract class RemoteTaskListener implements PropertyChangeListener
 
    protected abstract void handleReplicationRootChange(PropertyChangeEvent evt);
    
-   protected abstract String getName();
+   public abstract String getName();
 
    public RemoteTaskBoard getRemoteTaskBoard()
    {
