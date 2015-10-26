@@ -15,6 +15,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
 import org.sdmlib.modelspace.ModelSpace.ApplicationType;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
@@ -40,7 +41,7 @@ public class GroupAccountAppSimpleTest
    @Test
    public void testGroupAccountMultiUserGui() throws InterruptedException
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       // clean chat directory from .jsonchgs
       final String location = "modeldata/groupaccount/junitest";
