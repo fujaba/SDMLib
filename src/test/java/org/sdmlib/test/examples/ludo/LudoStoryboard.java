@@ -22,7 +22,6 @@
 package org.sdmlib.test.examples.ludo;
    
 import org.junit.Test;
-import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.test.examples.ludo.model.Dice;

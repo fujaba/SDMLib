@@ -182,7 +182,8 @@ public class Storyboard implements PropertyChangeInterface
          {
             callEntry = stackTrace[i];
 
-            if (callEntry.getClassName().equals(Storyboard.class.getName()))
+            if (callEntry.getClassName().equals(Storyboard.class.getName()) 
+            		|| callEntry.getClassName().equals(StoryPage.class.getName()))
             {
                i++;
                continue;
@@ -240,8 +241,13 @@ public class Storyboard implements PropertyChangeInterface
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
 
-      testMethodName = stackTrace[1].getMethodName();
-
+      if (callEntry.getClassName().equals(StoryPage.class.getName())) {
+    	  callEntry = stackTrace[2];
+    	  testMethodName = stackTrace[2].getMethodName();
+      } else {
+    	  testMethodName = stackTrace[1].getMethodName();
+      }
+      
       String storyName = testMethodName;
       
       if (storyName.startsWith("test"))
@@ -1029,6 +1035,9 @@ public class Storyboard implements PropertyChangeInterface
 
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
+      if (callEntry.getClassName().equals(StoryPage.class.getName())) {
+    	  callEntry = stackTrace[2];
+      }
       codeStartLineNumber = callEntry.getLineNumber();
    }
 
@@ -1046,9 +1055,13 @@ public class Storyboard implements PropertyChangeInterface
       Exception e = new RuntimeException();
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
-      if (callEntry.getMethodName().startsWith("addCode"))
+      
+      int i = 1;
+      
+      while (callEntry.getMethodName().startsWith("addCode"))
       {
-         callEntry = stackTrace[2];
+    	  i++;
+    	  callEntry = stackTrace[i];
       }
       codeEndLineNumber = callEntry.getLineNumber();
 
@@ -1803,9 +1816,13 @@ public class Storyboard implements PropertyChangeInterface
       Exception e = new RuntimeException();
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
-      if (callEntry.getMethodName().startsWith("dumpHTML"))
+      
+      int i = 1;
+      
+      while (callEntry.getMethodName().startsWith("dumpHTML"))
       {
-         callEntry = stackTrace[2];
+    	  i++;
+         callEntry = stackTrace[i];
       }
       
       String methodName = callEntry.getMethodName();
