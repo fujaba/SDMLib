@@ -31,6 +31,8 @@ import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
+
+import junit.framework.Assert;
    
 public class GroupAccountTests implements PropertyChangeInterface 
 {
@@ -47,6 +49,8 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       Person albert = g1.createPersons()
       .withName("Albert");
+      
+      story.assertEquals("Groupaccount person set size should now be ", 1, g1.getPersons().size());
       
       Person nina = g1.createPersons()
       .withName("Nina");
