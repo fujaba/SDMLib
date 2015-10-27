@@ -23,32 +23,32 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"#bb : BigBrother"
+         "id":"B1 : BigBrother"
       },
       {
          "typ":"node",
-         "id":"#.P3 : Person",
+         "id":"P2 : Person",
          "attributes":[
          "name=Tom"
          ]
       },
       {
          "typ":"node",
-         "id":"#.P4 : Person",
+         "id":"P3 : Person",
          "attributes":[
          "name=Jessica"
          ]
       },
       {
          "typ":"node",
-         "id":"#.P1 : Person",
+         "id":"P4 : Person",
          "attributes":[
          "name=Albert"
          ]
       },
       {
          "typ":"node",
-         "id":"#.P2 : Person",
+         "id":"P5 : Person",
          "attributes":[
          "name=Sabine"
          ]
@@ -60,12 +60,12 @@
          "source":{
             "cardinality":"one",
             "property":"bigbrother",
-            "id":"#bb : BigBrother"
+            "id":"B1 : BigBrother"
          },
          "target":{
             "cardinality":"many",
             "property":"kids",
-            "id":"#.P3 : Person"
+            "id":"P2 : Person"
          }
       },
       {
@@ -73,12 +73,12 @@
          "source":{
             "cardinality":"one",
             "property":"bigbrother",
-            "id":"#bb : BigBrother"
+            "id":"B1 : BigBrother"
          },
          "target":{
             "cardinality":"many",
             "property":"kids",
-            "id":"#.P4 : Person"
+            "id":"P3 : Person"
          }
       },
       {
@@ -86,12 +86,12 @@
          "source":{
             "cardinality":"one",
             "property":"bigbrother",
-            "id":"#bb : BigBrother"
+            "id":"B1 : BigBrother"
          },
          "target":{
             "cardinality":"one",
             "property":"noOne",
-            "id":"#.P1 : Person"
+            "id":"P4 : Person"
          }
       },
       {
@@ -99,12 +99,12 @@
          "source":{
             "cardinality":"one",
             "property":"bigbrother",
-            "id":"#bb : BigBrother"
+            "id":"B1 : BigBrother"
          },
          "target":{
             "cardinality":"many",
             "property":"suspects",
-            "id":"#.P2 : Person"
+            "id":"P5 : Person"
          }
       }
    ]

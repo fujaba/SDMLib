@@ -30,11 +30,10 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
+import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
-import org.sdmlib.models.classes.Modifier;
-import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class ClassModelTest
 {
@@ -45,7 +44,7 @@ public class ClassModelTest
    @Test
    public void testClassModelCodeGen()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       // =======================================================================
       // storyboard.add("This test generates some classes with some elements. ");

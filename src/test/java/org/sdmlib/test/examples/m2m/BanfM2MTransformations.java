@@ -17,7 +17,7 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.util.PatternCreator;
-import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
@@ -48,7 +48,7 @@ public class BanfM2MTransformations
    @Test
    public void testBanfM2MTransformation()
    {  
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("Class diagram for source model:");
    
@@ -98,7 +98,7 @@ public class BanfM2MTransformations
       
       Graph graph = createExampleGraph();
       
-      storyboard.addObjectDiagramWith(graph.getPersons(), graph.getRelations());
+      storyboard.addObjectDiagramOnlyWith(graph.getPersons(), graph.getRelations());
 
       
       //==========================================================================
@@ -108,13 +108,13 @@ public class BanfM2MTransformations
 
       graph = createExampleGraph();
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,StoryPage)"));
       
       Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagramWith(tgtGraph.getGcs());
+      storyboard.addObjectDiagramOnlyWith(tgtGraph.getGcs());
 
 
       //==========================================================================
@@ -142,17 +142,17 @@ public class BanfM2MTransformations
       
       graph = createExampleGraph();
       
-      storyboard.addObjectDiagramWith(graph.getPersons(), graph.getRelations());
+      storyboard.addObjectDiagramOnlyWith(graph.getPersons(), graph.getRelations());
       
       storyboard.add("The transformation code:");
       
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,StoryPage)"));
       
       Graph tgtGraph2 = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagramWith(tgtGraph2.getPersons());
+      storyboard.addObjectDiagramOnlyWith(tgtGraph2.getPersons());
       
       
       //===============================================================================
@@ -161,13 +161,13 @@ public class BanfM2MTransformations
       
       Graph sourceGraphRevers = simpleReverseMigration(tgtGraph, storyboard);
       
-      storyboard.addObjectDiagramWith(sourceGraphRevers.getPersons(), sourceGraphRevers.getRelations());
+      storyboard.addObjectDiagramOnlyWith(sourceGraphRevers.getPersons(), sourceGraphRevers.getRelations());
       
       storyboard.dumpHTML();
    }
    
 
-   private Graph simpleReverseMigration(Graph tgtGraph, Storyboard storyboard)
+   private Graph simpleReverseMigration(Graph tgtGraph, StoryPage storyboard)
    {
       // make the graph generic
       GenericGraph genGraph = new Specific2Generic().convert(GraphComponentCreator.createIdMap("s"), tgtGraph);
@@ -192,7 +192,13 @@ public class BanfM2MTransformations
       
       storyboard.addPattern(genericGraphPO, false);
       
-      storyboard.addPattern(reverseRenameFirstNameAttrRule, false);
+      PatternObject reverseRenameFirstNameAttrRulePO = new PatternObject<>();
+      
+      reverseRenameFirstNameAttrRulePO.withPatternObjectName("reverseRenameFirstNameAttrRulePO");
+      
+      reverseRenameFirstNameAttrRulePO.withPattern(reverseRenameFirstNameAttrRule);
+      
+      storyboard.addPattern(reverseRenameFirstNameAttrRulePO, false);
       
       storyboard.add("<hr/>");
       
@@ -213,7 +219,13 @@ public class BanfM2MTransformations
       
       storyboard.addPattern(renameKindAttrGraphPO, false);
       
-      storyboard.addPattern(reverseRenameKindAttrRule, false);
+      PatternObject reverseRenameKindAttrRulePO = new PatternObject<>();
+      
+      reverseRenameKindAttrRulePO.withPatternObjectName("reverseRenameKindAttrRulePO");
+      
+      reverseRenameKindAttrRulePO.withPattern(reverseRenameKindAttrRule);
+      
+      storyboard.addPattern(reverseRenameKindAttrRulePO, false);
       
       storyboard.add("<hr/>");
       
@@ -235,7 +247,13 @@ public class BanfM2MTransformations
       
       storyboard.addPattern(renamePersonsLinkGraphPO, false);
       
-      storyboard.addPattern(reverseRenamePersonsLinkRule, false);
+      PatternObject reverseRenamePersonsLinkRulePO = new PatternObject<>();
+      
+      reverseRenamePersonsLinkRulePO.withPatternObjectName("reverseRenamePersonsLinkRulePO");
+      
+      reverseRenamePersonsLinkRulePO.withPattern(reverseRenamePersonsLinkRule);
+      
+      storyboard.addPattern(reverseRenamePersonsLinkRulePO, false);
       
       storyboard.add("<hr/>");
       
@@ -257,11 +275,17 @@ public class BanfM2MTransformations
       
       storyboard.addPattern(renameRelationsLinkGraphPO, false);
       
-      storyboard.addPattern(reverseRenameRelationsLinkRule, false);
+      PatternObject reverseRenameRelationsLinkRulePO = new PatternObject<>();
+      
+      reverseRenameRelationsLinkRulePO.withPatternObjectName("reverseRenameRelationsLinkRulePO");
+      
+      reverseRenameRelationsLinkRulePO.withPattern(reverseRenameRelationsLinkRule);
+      
+      storyboard.addPattern(reverseRenameRelationsLinkRulePO, false);
       
       storyboard.add("<hr/>");
       
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      storyboard.addObjectDiagramOnlyWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
       storyboard.add("<hr/>");
       
@@ -283,7 +307,7 @@ public class BanfM2MTransformations
       reverseRenameFirstNameAttrRule.rebind(boundPO, genGraph);
       reverseRenameFirstNameAttrRule.allMatches();
       
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      storyboard.addObjectDiagramOnlyWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
       
       storyboard.add("<hr/>");
@@ -338,7 +362,7 @@ public class BanfM2MTransformations
    }
 
 
-   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
+   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, StoryPage storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(PersonCreator.createIdMap("g1"), origGraph);
@@ -397,12 +421,12 @@ public class BanfM2MTransformations
 
    }
 
-   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+   private Graph simpleMigrationByGenericGraph(Graph origGraph, StoryPage storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(GraphCreator.createIdMap("g"), origGraph);
       
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      storyboard.addObjectDiagramOnlyWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
       renameFirstNameAttrGraphPO = new GenericGraphPO(genGraph);
       renameFirstNameAttrGraphPO
@@ -455,7 +479,7 @@ public class BanfM2MTransformations
       
       storyboard.addPattern(genericGraphPO, false);
 
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      storyboard.addObjectDiagramOnlyWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
       
       Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphComponentCreator.createIdMap("tg"), null, genGraph);
       

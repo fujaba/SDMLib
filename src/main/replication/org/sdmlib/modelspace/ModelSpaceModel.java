@@ -1,13 +1,11 @@
 package org.sdmlib.modelspace;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class ModelSpaceModel
 {
@@ -18,7 +16,7 @@ public class ModelSpaceModel
    @Test
    public void ModelSpaceModel()
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       story.add("ModelSpace provides incremental persistance and collaboration");
       

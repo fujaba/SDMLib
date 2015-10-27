@@ -896,7 +896,44 @@
    json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p>Results in the following text:</p>
+<pre>
+      Template rootTemplate = new Template()
+      .withModelObject(uni)
+      .with(&quot;The example University has 99 rooms and 88 students: \nroomList The students are: \nstudentList &quot;,
+         &quot;example&quot;, University.PROPERTY_NAME, 
+         &quot;99&quot;, University.PROPERTY_ROOMS +  &quot;.size&quot;, 
+         &quot;88&quot;, University.PROPERTY_STUDENTS + &quot;.size&quot;);
+
+      Template roomTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+            .withReferenceLookup(true)
+            .withParent(&quot;roomList&quot;, University.PROPERTY_ROOMS)
+            .with(
+               &quot; - The xy room has 42 credits. It is connected to rooms: neighbors&quot;,
+               &quot;xy&quot;, Room.PROPERTY_ROOMNO,
+               &quot;42&quot;, Room.PROPERTY_CREDITS)
+               .withList(&quot;&quot;, &quot;\n&quot;, &quot;\n&quot;);
+
+      Template neighborsTemplate = roomTemplate.createPlaceHolderAndSubTemplate()
+            .withParent(&quot;neighbors&quot;, Room.PROPERTY_NEIGHBORS)
+            .withReferenceLookup(true)
+            .with(
+               &quot;name&quot;,
+               &quot;name&quot;, Room.PROPERTY_ROOMNO)
+               .withList(&quot;&quot;, &quot;, &quot;, &quot;.&quot;);
+      
+      Template studentTemplate = rootTemplate.createPlaceHolderAndSubTemplate()
+            .withParent(&quot;studentList&quot;, University.PROPERTY_STUDENTS)
+            .with(
+               &quot; - Stud has student number 1234.&quot;,
+               &quot;Stud&quot;, Student.PROPERTY_NAME,
+               &quot;1234&quot;, Student.PROPERTY_MATRNO)
+               .withList(&quot;&quot;, &quot;\n&quot;, &quot;\n&quot;);
+
+      storyboard.addObjectDiagram(rootTemplate);
+
+      rootTemplate.generate();
+
+</pre><p>Results in the following text:</p>
 <pre>The StudyRight University has 5 rooms and 2 students: 
  - The math room has 42 credits. It is connected to rooms: arts, sports.
  - The arts room has 23 credits. It is connected to rooms: math, sports, exam, ProgMeth.
@@ -932,7 +969,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation9", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasBidirectionalModelToTextTransformation10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

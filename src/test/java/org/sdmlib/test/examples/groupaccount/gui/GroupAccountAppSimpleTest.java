@@ -2,11 +2,9 @@ package org.sdmlib.test.examples.groupaccount.gui;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,13 +12,11 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
-import org.sdmlib.modelspace.ModelSpace.ApplicationType;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
-import org.sdmlib.test.examples.modelspace.chat.MSChatClient;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -40,7 +36,7 @@ public class GroupAccountAppSimpleTest
    @Test
    public void testGroupAccountMultiUserGui() throws InterruptedException
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       // clean chat directory from .jsonchgs
       final String location = "modeldata/groupaccount/junitest";

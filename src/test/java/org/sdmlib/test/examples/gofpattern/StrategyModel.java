@@ -7,7 +7,7 @@ import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class StrategyModel
 {
@@ -18,7 +18,7 @@ public class StrategyModel
    @Test
    public void GofStrategyModel() 
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       ClassModel cm = new ClassModel("org.sdmlib.test.examples.gofpattern.strategy");
 

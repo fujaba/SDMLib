@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class TrainModel
 {
@@ -16,7 +16,7 @@ public class TrainModel
    @Test 
 	public void TrainModel()
 	{
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("Example model for testing destroy with model patterns: ");
       

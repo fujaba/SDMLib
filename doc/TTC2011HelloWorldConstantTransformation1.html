@@ -42,7 +42,14 @@
    new Graph(json, {"canvasid":"canvasTTC2011HelloWorldConstantTransformation1ClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>The code that builds and runs the transformation / pattern looks like: </p>
-<script>
+<pre>
+      GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
+            .startCreate()
+            .has(new GreetingPO());
+
+      greetingPO.hasText(&quot;Hello World&quot;);
+
+</pre><script>
    var json = {
    "typ":"object",
    "nodes":[
@@ -58,7 +65,7 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation1PatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation1PatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Check: Constant transformation has match true</p>
@@ -79,7 +86,7 @@
    ],
    "edges":[]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation1PatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation1PatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>For completeness just the host graph:</p>
@@ -97,11 +104,13 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation110", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation111", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>TTC2011HelloWorldConstantTransformation1 number of matches is 1</p>
 <p>For fairness, the java code that does this transformation looks like: </p>
-
+<pre>      Greeting greeting = new Greeting()
+      .withText(&quot;Hello World&quot;);
+</pre>
 </body>
 </html>

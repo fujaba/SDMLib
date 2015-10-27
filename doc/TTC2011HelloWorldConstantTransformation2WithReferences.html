@@ -66,7 +66,16 @@
    new Graph(json, {"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesClassDiagram2", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>The code that builds and runs the transformation / pattern looks like: </p>
-<script>
+<pre>      GreetingPO greetingPO = (GreetingPO) new Pattern&lt;Pattern&gt;()
+            .startCreate()
+            .has(new GreetingPO());
+
+      GreetingMessagePO greetingMessagePO = greetingPO.hasGreetingMessage() 
+            .hasText(&quot;Hello&quot;);
+
+      PersonPO personPO = greetingPO.hasPerson()
+            .hasName(&quot;TTC Participants&quot;);
+</pre><script>
    var json = {
    "typ":"object",
    "nodes":[
@@ -120,7 +129,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesPatternDiagram4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesPatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Check: Constant transformation has match true</p>
@@ -179,7 +188,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesPatternDiagram7", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferencesPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>For completeness just the host graph:</p>
@@ -236,10 +245,17 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferences10", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasTTC2011HelloWorldConstantTransformation2WithReferences11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>For fairness, the java code that does this transformation looks like: </p>
+<pre>      Greeting greeting = new Greeting();
 
+      GreetingMessage greetingMessage = greeting.createGreetingMessage()
+            .withText(&quot;Hello&quot;);
+
+      Person person = greeting.createPerson()
+            .withName(&quot;TTC Participants&quot;);
+</pre>
 </body>
 </html>

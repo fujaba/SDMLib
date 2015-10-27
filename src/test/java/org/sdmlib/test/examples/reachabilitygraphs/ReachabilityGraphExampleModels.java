@@ -5,7 +5,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class ReachabilityGraphExampleModels
 {
@@ -16,7 +16,7 @@ public class ReachabilityGraphExampleModels
    @Test
    public void SimpleReachabilityGraphModel()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.simplestates");
       
@@ -43,7 +43,7 @@ public class ReachabilityGraphExampleModels
    @Test
    public void FerryMansProblemModel()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem");
       

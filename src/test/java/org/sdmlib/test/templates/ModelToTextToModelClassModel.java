@@ -25,8 +25,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class ModelToTextToModelClassModel
 {
@@ -37,7 +36,7 @@ public class ModelToTextToModelClassModel
    @Test
    public void modelToTextToModelClassModel()
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
 
       ClassModel model = new ClassModel("org.sdmlib.models.transformations");
 

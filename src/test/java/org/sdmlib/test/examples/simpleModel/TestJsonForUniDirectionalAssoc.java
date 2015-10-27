@@ -3,6 +3,7 @@ package org.sdmlib.test.examples.simpleModel;
 import org.junit.Test;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
@@ -17,7 +18,7 @@ public class TestJsonForUniDirectionalAssoc
    @Test
    public void testUniDirectionalAssocJson()
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
 
       //=============================================================
       story.add("adding flipbook to protocol changes.");
@@ -30,7 +31,7 @@ public class TestJsonForUniDirectionalAssoc
       idMap.put("#bb", bigBrother);
       story.addCode();
 
-      story.withMap(idMap);
+//      story.withMap(idMap);
       
       //=============================================================
       story.add("extend uni directional assco with objects and check flipbook for change protocol");

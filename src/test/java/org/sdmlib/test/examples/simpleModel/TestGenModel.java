@@ -6,6 +6,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Modifier;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 
 public class TestGenModel
@@ -32,7 +33,7 @@ public class TestGenModel
    @Test
    public void testUniDirectionalAssoc()
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       
@@ -60,7 +61,7 @@ public class TestGenModel
    @Test
    public void testUniDirectionalAssocToObject()
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       

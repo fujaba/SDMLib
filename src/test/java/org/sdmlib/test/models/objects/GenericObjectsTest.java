@@ -33,7 +33,6 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.models.objects.Specific2Generic;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.kassel.test.roombook.Building;

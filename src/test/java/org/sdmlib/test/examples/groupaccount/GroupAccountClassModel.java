@@ -6,9 +6,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class GroupAccountClassModel
 {
@@ -19,7 +17,7 @@ public class GroupAccountClassModel
    @Test
    public void testGroupAccountCodegen()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("Start situation: Nothing here yet. Generate classes");
       

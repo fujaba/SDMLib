@@ -2,14 +2,15 @@ package org.sdmlib.test.examples.modelspace.chat;
 
 import java.io.File;
 
+import javafx.application.Platform;
+import javafx.stage.Stage;
+
 import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import javafx.application.Platform;
-import javafx.stage.Stage;
 
 public class MSChatClientTest
 {
@@ -19,7 +20,7 @@ public class MSChatClientTest
    private String userName;
    private String channelName;
    private ModelSpace space;
-   private Storyboard story;
+   private StoryPage story;
 
      /**
     * 
@@ -33,7 +34,7 @@ public class MSChatClientTest
 		   return;
 	   }
 
-      story = new Storyboard();
+      story = new StoryPage();
       
       // remove old json files
       File file = new File("modeldata/ZuenFamily");

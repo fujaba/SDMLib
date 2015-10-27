@@ -263,7 +263,31 @@
    g.layout(100,100);
 </script>
 <p>now the pawn may move to Tom's start field</p>
-<script>
+<pre>      &#x2F;&#x2F; build move operation with SDM model transformations
+      Player player = p8.getPlayer();
+      
+      if (player.getDice() != null &amp;&amp; player.getDice().getValue() == 6
+            &amp;&amp; p8.getPos() != null &amp;&amp; &quot;base&quot;.equals(p8.getPos().getKind())
+            &amp;&amp; p8.getPos() == player.getBase())
+      {
+         Field startField = player.getStart();
+         boolean hasOtherOwnPawn = false;
+         
+         for (Pawn otherOwnPawn : startField.getPawns())
+         {
+            if (otherOwnPawn.getPlayer() == player)
+            {
+               hasOtherOwnPawn = true;
+               break;
+            }
+         }
+         
+         if ( ! hasOtherOwnPawn)
+         {
+            p8.setPos(startField);
+         }
+      }
+</pre><script>
    var json = {
    "typ":"objectdiagram",
    "style":null,
@@ -512,7 +536,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasLudoStoryboardManual4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasLudoStoryboardManual5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

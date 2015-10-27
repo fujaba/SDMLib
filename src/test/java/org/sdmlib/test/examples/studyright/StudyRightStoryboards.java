@@ -4,8 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.models.transformations.Template;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
@@ -19,7 +18,7 @@ public class StudyRightStoryboards
    @Test
    public void testStudyRightObjectStoryboards()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       //=============================================================
       storyboard.add("Start situation: use University class to build object structure");
@@ -71,7 +70,7 @@ public class StudyRightStoryboards
 
       storyboard.markCodeStart();
       int sum = albert.getUni().getRooms().getCredits().sum();
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.add("shall compute to 88.");
 
@@ -85,10 +84,12 @@ public class StudyRightStoryboards
 
       storyboard.markCodeStart();
       mathRoom.findPath("", 88);
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
-      storyboard.add("System.out: \n" + storyboard.getSystemOut());
-
+      storyboard.add("System.out: \n");
+      
+      storyboard.addSystemOut();
+      
       storyboard.dumpHTML();
    }
 
@@ -100,7 +101,7 @@ public class StudyRightStoryboards
    @Test
    public void testFlipbook()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
 
       //=============================================================
@@ -176,7 +177,7 @@ public class StudyRightStoryboards
 
       storyboard.markCodeStart();
       int sum = albert.getUni().getRooms().getCredits().sum();
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.add("      shall compute to 88\n" +
                "      Path classes are generated.");
@@ -191,11 +192,11 @@ public class StudyRightStoryboards
 
       storyboard.markCodeStart();
       mathRoom.findPath("", 88);
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
-      storyboard.add("System.out: \n" + storyboard.getSystemOut());
-
-      storyboard.dumpHTML();
+      storyboard.add("System.out: \n");
+      
+      storyboard.addSystemOut();
    }
 
 
@@ -207,7 +208,7 @@ public class StudyRightStoryboards
    @Test
    public void testBidirectionalModelToTextTransformation()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
 
       //=============================================================
@@ -293,7 +294,7 @@ public class StudyRightStoryboards
 
       rootTemplate.generate();
 
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.add("Results in the following text:");
       storyboard.add("<pre>" + rootTemplate.getExpandedText() + "</pre>");

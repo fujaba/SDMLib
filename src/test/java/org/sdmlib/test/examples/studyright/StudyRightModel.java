@@ -36,6 +36,7 @@ import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 
 public class StudyRightModel implements PropertyChangeInterface 
@@ -48,7 +49,7 @@ public class StudyRightModel implements PropertyChangeInterface
    public void testStudyRightReverseClassModel()
    {
 
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ");
 
@@ -112,7 +113,7 @@ public class StudyRightModel implements PropertyChangeInterface
    public void testStudyRightExtendsReverseClassModel()
    {
 
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       storyboard.add("Start situation: There are some java files. We parse them and generate a class model: ");
 
@@ -215,7 +216,7 @@ public class StudyRightModel implements PropertyChangeInterface
    @Test
    public void testStudyRightClassesCodeGen()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       //============================================================
       storyboard.add("1. generate class University");
@@ -398,7 +399,7 @@ public class StudyRightModel implements PropertyChangeInterface
    @Test
    public void testStudyRightOneToOneAssoc()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       //============================================================
       storyboard.add("Add class Prof --gives-- Topic");
