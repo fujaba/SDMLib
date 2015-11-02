@@ -310,13 +310,13 @@ public class AttributeSet extends SDMSet<Attribute>
       return result;
    }
 
-   public void removeGeneratedCode(String rootDir) {
+   public void removeFromModelAndCode(String rootDir) {
 
 	   SimpleSet<Attribute> clone = this.clone();
 	   
 	   for (Attribute attribute : clone) {
 
-		   attribute.removeGeneratedCode(rootDir);
+		   attribute.removeFromModelAndCode(rootDir);
 
 	   }
 

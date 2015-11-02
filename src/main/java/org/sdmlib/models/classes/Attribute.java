@@ -224,7 +224,7 @@ import org.sdmlib.models.classes.util.AnnotationSet;
       return value;
    }
 
-   public void removeGeneratedCode(String rootDir) {
+   public void removeFromModelAndCode(String rootDir) {
 
 	   GenClassModel generator = this.getClazz().getClassModel().getGenerator();
 	   

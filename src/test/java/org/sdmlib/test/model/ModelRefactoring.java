@@ -26,7 +26,7 @@ public class ModelRefactoring {
 		
 		model.generate("src/test/java");
 		
-		ludo.getAttributes().hasName("location").removeGeneratedCode("src/test/java");
+		ludo.getAttributes().hasName("location").removeFromModelAndCode("src/test/java");
 		
 		model.generate("src/test/java");
 		
