@@ -3,6 +3,7 @@ package org.sdmlib.models.classes.logic;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Annotation;
@@ -11,6 +12,8 @@ import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Modifier;
+
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class GenMethod extends Generator<Method>
 {
@@ -455,4 +458,57 @@ public class GenMethod extends Generator<Method>
          parser.insert(pos, text.toString());
       }
    }
+
+   public void removeGeneratedCode(String rootDir) {
+	   
+	   GenClass genClass = getGenerator(this.getModel().getClazz());
+	   
+	   Parser parser = genClass.getParser();	   
+   
+	   String methodName = StrUtil.upFirstChar(this.getModel().getName());
+	   
+	   removeFragment(parser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   
+	   CGUtil.printFile(parser);
+	   
+	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
+	   
+	   removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   
+	   CGUtil.printFile(poParser);
+	   
+	   Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
+	   
+	   removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   
+	   CGUtil.printFile(setParser);
+	   
+   }
+   
+   private void removeFragment(Parser parser, String symbName) {
+
+	   parser.indexOf(Parser.CLASS_END);
+	   
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+	   
+	   SymTabEntry symTabEntry = symTab.get(symbName);
+	   
+	   if (symTabEntry != null) {
+		   StringBuilder fileBody = parser.getFileBody();
+
+		   int startPos = symTabEntry.getStartPos();
+		   
+		   if (symTabEntry.getPreCommentStartPos() > 0) {
+			   
+			   startPos = symTabEntry.getPreCommentStartPos();
+			   
+		   }
+		   
+		   fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
+
+		   parser.withFileChanged(true);
+	   }
+	   
+   }
+   
 }

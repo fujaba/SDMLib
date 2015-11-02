@@ -36,6 +36,9 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
    }
    
    
+
+   
+   
    
    
    

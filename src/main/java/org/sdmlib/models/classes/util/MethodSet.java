@@ -36,6 +36,8 @@ import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.classes.util.ParameterSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 
+import de.uniks.networkparser.list.SimpleSet;
+
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
    public MethodSet withParameter(Parameter value)
@@ -359,6 +361,18 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       }
       
       return result;
+   }
+
+   public void removeFromModelAndCode(String rootDir) {
+	   
+	   SimpleSet<Method> clone = this.clone();
+	   
+	   for (Method method : clone) {
+		
+		   method.removeFromModelAndCode(rootDir);
+		   
+	   }
+	   
    }
 
 }

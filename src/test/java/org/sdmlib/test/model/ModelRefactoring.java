@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.storyboards.StoryPage;
 
 public class ModelRefactoring {
@@ -22,11 +23,17 @@ public class ModelRefactoring {
 		
 		ludo.withAttribute("location", DataType.STRING);
 		
+		ludo.withMethod("init", DataType.VOID, new Parameter("p", DataType.STRING));
+		
+		ludo.getMethods().first().withBody("     System.out.println(\"Hallo\");\n");
+		
 		model.removeAllGeneratedCode("src/test/java");
 		
 		model.generate("src/test/java");
 		
 		ludo.getAttributes().hasName("location").removeFromModelAndCode("src/test/java");
+		
+		ludo.getMethods().hasName("init").removeFromModelAndCode("src/test/java");
 		
 		model.generate("src/test/java");
 		
