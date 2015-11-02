@@ -28,6 +28,8 @@ public class ModelRefactoring {
 		
 		ludo.getAttributes().hasName("location").removeGeneratedCode("src/test/java");
 		
+		model.generate("src/test/java");
+		
 		story.addClassDiagram(model);
 		
 		story.dumpHTML();

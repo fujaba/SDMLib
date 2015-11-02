@@ -25,8 +25,10 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.StrUtil;
-
-public  class Ludo implements PropertyChangeInterface
+   /**
+    * 
+    * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/model/ModelRefactoring.java'>ModelRefactoring.java</a>/n */
+   public  class Ludo implements PropertyChangeInterface
 {
 
    

@@ -232,5 +232,7 @@ import org.sdmlib.models.classes.util.AnnotationSet;
 
 	   genAttribute.removeGeneratedCode(rootDir);
 	   
+	   this.removeYou();
+	   
    } 
 }
