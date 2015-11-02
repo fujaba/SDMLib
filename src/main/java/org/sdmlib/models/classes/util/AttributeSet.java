@@ -306,4 +306,14 @@ public class AttributeSet extends SDMSet<Attribute>
       return result;
    }
 
+public void removeGeneratedCode(String rootDir) {
+
+	for (Attribute attribute : this) {
+		
+		attribute.removeGeneratedCode(rootDir);
+		
+	}
+	
+}
+
 }

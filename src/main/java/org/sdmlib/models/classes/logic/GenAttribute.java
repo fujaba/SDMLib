@@ -19,6 +19,8 @@ import org.sdmlib.models.classes.templates.ExistTemplate;
 import org.sdmlib.models.classes.templates.Template;
 import org.sdmlib.models.pattern.AttributeConstraint;
 
+import de.uniks.networkparser.list.SimpleKeyValueList;
+
 public class GenAttribute extends Generator<Attribute>
 {
    private void insertAttrDeclPlusAccessors(Clazz clazz, Parser parser)
@@ -945,5 +947,162 @@ public class GenAttribute extends Generator<Attribute>
 
          parser.insertImport(model.getClazz().getFullName());
       }
+   }
+
+   public void removeGeneratedCode(String rootDir) {
+
+	   GenClass genClass = getGenerator(this.getModel().getClazz());
+	   
+	   Parser parser = genClass.getParser();	   
+   
+	   String attributeName = StrUtil.upFirstChar(this.getModel().getName());
+	   
+	   String attributeType = this.getModel().getType().getValue();
+	   
+	   removeFragment(parser, Parser.ATTRIBUTE + ":" + this.getModel().getName());
+	   
+	   removeFragment(parser, Parser.ATTRIBUTE + ":PROPERTY_" + this.getModel().getName().toUpperCase());
+	   
+	   removeFragment(parser, Parser.METHOD + ":get" + attributeName + "()");
+	   
+	   removeFragment(parser, Parser.METHOD + ":set" + attributeName + "(" + attributeType + ")");
+	   
+	   removeFragment(parser, Parser.METHOD + ":with" + attributeName + "(" + attributeType + ")");
+	   
+	   removeLineFromFragment(parser, Parser.METHOD + ":toString()", "get" + attributeName, attributeName);
+	   
+	   CGUtil.printFile(parser);
+	   
+	   Parser creatorParser = genClass.getOrCreateParserForCreatorClass(rootDir);
+	   
+	   String lineContent = "PROPERTY_" + this.getModel().getName().toUpperCase();
+	
+	   removeLineFromFragment(creatorParser, Parser.ATTRIBUTE + ":properties", lineContent, lineContent);
+   
+	   removeLineFromFragment(creatorParser, Parser.METHOD + ":getValue(Object,String)", lineContent, "}");
+	   
+	   removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)", lineContent, "}");
+	   
+	   CGUtil.printFile(creatorParser);
+	   
+	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
+	   
+	   removeFragment(poParser, Parser.METHOD + ":has" + attributeName + "(" + attributeType + ")");
+	   
+	   removeFragment(poParser, Parser.METHOD + ":has" + attributeName + "(" + attributeType + "," + attributeType + ")");
+	   
+	   removeFragment(poParser, Parser.METHOD + ":create" + attributeName + "(" + attributeType + ")");
+	   
+	   removeFragment(poParser, Parser.METHOD + ":get" + attributeName + "()");
+	   
+	   removeFragment(poParser, Parser.METHOD + ":with" + attributeName + "(" + attributeType + ")");
+	   
+	   CGUtil.printFile(poParser);
+	   
+	   Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
+   
+	   removeFragment(setParser, Parser.METHOD + ":get" + attributeName + "()");
+	   
+	   removeFragment(setParser, Parser.METHOD + ":has" + attributeName + "(" + attributeType + ")");
+	   
+	   removeFragment(setParser, Parser.METHOD + ":has" + attributeName + "(" + attributeType + "," + attributeType + ")");
+	   
+	   removeFragment(setParser, Parser.METHOD + ":with" + attributeName + "(" + attributeType + ")");
+	   
+	   CGUtil.printFile(setParser);
+   }
+
+   private void removeFragment(Parser parser, String symbName) {
+
+	   parser.indexOf(Parser.CLASS_END);
+	   
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+	   
+	   SymTabEntry symTabEntry = symTab.get(symbName);
+	   
+	   if (symTabEntry != null) {
+		   StringBuilder fileBody = parser.getFileBody();
+
+		   int startPos = symTabEntry.getStartPos();
+		   
+		   if (symTabEntry.getPreCommentStartPos() > 0) {
+			   
+			   startPos = symTabEntry.getPreCommentStartPos();
+			   
+		   }
+		   
+		   fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
+
+		   parser.withFileChanged(true);
+	   }
+	   
+   }
+   
+   private void removeLineFromFragment(Parser parser, String symTabKey, String startLineContent, String endLineContent) {
+	   
+	   parser.indexOf(Parser.CLASS_END);
+	   
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+	   
+	   SymTabEntry symTabEntry = symTab.get(symTabKey);
+	   
+	   if (symTabEntry != null) {
+	   
+		   String substring = parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1);
+	  
+		   int indexOf = substring.indexOf(startLineContent);
+		   
+		   if (indexOf >= 0) {
+			   
+			   String[] split = substring.split("\n");
+			   
+			   for (int i = 0; i < split.length; i++) {
+
+				   if (split[i].indexOf(startLineContent) >= 0) {
+					   
+					   if (split[i].indexOf(endLineContent) < 0) {
+
+						   while(i < split.length) {
+
+							   if (split[i].indexOf(endLineContent) >= 0) {
+								   
+								   split[i] = "";
+								   
+								   break;
+								   
+							   }
+							   
+							   split[i] = "";
+
+							   i++;
+
+						   }
+
+					   } else {
+
+						   split[i] = "";
+
+					   }
+
+					   break;
+					   
+				   }
+
+			   }
+
+			   StringBuilder builder = new StringBuilder();
+			   
+			   for (int i = 0; i < split.length; i++) {
+				   
+				   builder.append(split[i]).append("\n");
+				   
+			   }
+			   
+			   parser.getFileBody().replace(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1, builder.toString());
+
+			   parser.withFileChanged(true);
+			   
+		   }
+	   }
    }
 }
