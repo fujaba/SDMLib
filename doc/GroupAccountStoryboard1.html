@@ -9,6 +9,7 @@
 <script src="includes/graph.js"></script>
 </head><body>
 <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>GroupAccountStoryboard1</a></p>
+<p>Check: Groupaccount person set size should now be  1 actual 1</p>
 <script>
    var json = {
    "typ":"objectdiagram",
@@ -151,12 +152,13 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGroupAccountStoryboard11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGroupAccountStoryboard12", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>We call updateBalances() to compute the correct balances.
 </p>
-<p>Now see updateBalances() as code: </p>
+<pre>      g1.updateBalances();
+</pre><p>Now see updateBalances() as code: </p>
 <pre>   public void updateBalances(  )
    {
       &#x2F;&#x2F; compute share
@@ -312,7 +314,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGroupAccountStoryboard16", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGroupAccountStoryboard18", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <p>Check: Balance for Albert is now  5.0 actual 5.0</p>

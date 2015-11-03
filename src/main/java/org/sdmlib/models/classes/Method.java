@@ -22,6 +22,9 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.logic.GenAttribute;
+import org.sdmlib.models.classes.logic.GenClassModel;
+import org.sdmlib.models.classes.logic.GenMethod;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
@@ -463,6 +466,18 @@ private String setThrowsTags;
    }
 	public void setThrowsTags(String value) {
 		this.setThrowsTags = value;
+	}
+
+	public void removeFromModelAndCode(String rootDir) {
+
+		GenClassModel generator = this.getClazz().getClassModel().getGenerator();
+
+		GenMethod genMethod = generator.getOrCreate(this);
+
+		genMethod.removeGeneratedCode(rootDir);
+
+		this.removeYou();
+
 	} 
 }
 

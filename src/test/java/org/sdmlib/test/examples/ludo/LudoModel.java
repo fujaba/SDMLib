@@ -10,7 +10,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Modifier;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class LudoModel
 {
@@ -35,7 +35,7 @@ public class LudoModel
    @Test
    public void testLudoModel()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("The model: ");
       

@@ -22,7 +22,7 @@
 package org.sdmlib.test.examples.ludo;
    
 import org.junit.Test;
-import org.sdmlib.storyboards.Kanban;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 import org.sdmlib.test.examples.ludo.model.Dice;
@@ -52,7 +52,7 @@ public class LudoStoryboard
    public void testLudoStoryboard()
    {
       // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/LudoStoryboard.html
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("Start situation: ");
       
@@ -114,7 +114,7 @@ public class LudoStoryboard
       FieldPO startFieldPO = playerPO.hasStart();
       
       startFieldPO.startNAC().hasPawns().hasPlayer(playerPO).endNAC();
-      storyboard.addCode("examples");
+      storyboard.addCode();
       
       // storyboard.addObjectDiag(jsonIdMap, pawnPO);
       storyboard.addPattern(pawnPO, true);
@@ -125,7 +125,7 @@ public class LudoStoryboard
       
       pawnPO.startCreate();
       pawnPO.hasPos(startFieldPO);
-      storyboard.addCode("examples");
+      storyboard.addCode();
       
       //storyboard.addObjectDiag(jsonIdMap, pawnPO);
       storyboard.addPattern(pawnPO, true);
@@ -143,7 +143,7 @@ public class LudoStoryboard
    @Test
    public void testLudoStoryboardManual()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("Start situation: ");
       
@@ -205,7 +205,7 @@ public class LudoStoryboard
             p8.setPos(startField);
          }
       }
-      storyboard.addCode("examples");
+      storyboard.addCode();
       
       storyboard.addObjectDiagram(tom);
       

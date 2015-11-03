@@ -62,7 +62,8 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 	private boolean interfaze = false;
 	private boolean external;
 
-	Clazz(String name) {
+	Clazz(String name) 
+	{
 		setName(name);
 	}
 

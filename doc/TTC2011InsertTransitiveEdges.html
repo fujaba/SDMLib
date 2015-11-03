@@ -622,8 +622,29 @@
    g.layout(100,100);
 </script>
 <p>Transformation:</p>
-<p>did not find method insertTransitiveEdges(Graph) in class org.sdmlib.test.examples.helloworld.HelloWorldTTC2011</p>
-<script>
+<pre>   private int insertTransitiveEdges(Graph graph)
+   {
+
+      graphPO = new GraphPO(graph).withPatternObjectName(&quot;graphPO2&quot;);
+
+      EdgePO firstEdgePO = graphPO.hasEdges();
+
+      EdgePO secondEdgePO = graphPO.hasEdges();
+
+      NodePO joinNodePO = firstEdgePO.hasTgt();
+
+      secondEdgePO.hasSrc(joinNodePO);
+
+      NodePO startNodePO = firstEdgePO.hasSrc();
+
+      NodePO endNodePO = secondEdgePO.hasTgt();
+
+      startNodePO.startNAC().hasOutEdges().hasTgt(endNodePO).endNAC();
+
+      startNodePO.startCreate().hasOutEdges().hasTgt(endNodePO);
+
+      return graphPO.getPattern().allMatches();
+   }</pre><script>
    var json = {
    "typ":"object",
    "nodes":[

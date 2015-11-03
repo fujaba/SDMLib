@@ -26,8 +26,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.pattern.Match;
-import org.sdmlib.storyboards.Kanban;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
@@ -46,10 +45,13 @@ import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.logic.Condition;
 
 public class StoryboardTests {
+     /**
+    * 
+    * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>/n */
    @Test
-   public void testStudyRightObjectStoryboards()
+   public void testStudyRightWithAssignmentsStoryboard()
    {
-      Storyboard storyboard = new Storyboard("src/test/java", "StudyRight with assignments storyboard");
+      StoryPage storyboard = new StoryPage();
 
       //=============================================================
       storyboard.add("1. (start situation/pre-condition) Karli enters the Study-Right University \n"
@@ -128,7 +130,7 @@ public class StoryboardTests {
       karli.withDone(matrixMult);
       storyboard.addCode();
       
-      storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
+      storyboard.addObjectDiagramOnlyWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. <br>\n"
@@ -139,7 +141,7 @@ public class StoryboardTests {
       karli.withDone(series);
       storyboard.addCode();
       
-      storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
+      storyboard.addObjectDiagramOnlyWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("4. Karli does the third assignment on Integrals, earns <br>\n"
@@ -150,7 +152,7 @@ public class StoryboardTests {
       karli.withDone(a3);
       storyboard.addCode();
       
-      storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
+      storyboard.addObjectDiagramOnlyWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("5. Since 19 points are more than the 17 points required \n"
@@ -168,7 +170,7 @@ public class StoryboardTests {
       storyboard.addCode();
       
 
-      storyboard.addObjectDiagramWith(karli, mathRoom, mathRoom.getAssignments());
+      storyboard.addObjectDiagramOnlyWith(karli, mathRoom, mathRoom.getAssignments());
 
       //===============================================================================================
       storyboard.add("6. (end situation/post-condition) Karli has completed the math topic and moves to sports."); 
@@ -186,11 +188,12 @@ public class StoryboardTests {
      /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
+* @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
 */
    @Test
    public void testStudyRightObjectModelSerialisation()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("How to serialize an object model to json and how to read json into an object model");
       
@@ -300,11 +303,12 @@ public class StoryboardTests {
      /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
+* @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
 */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       story.add("Extend the class model:");
       
@@ -507,7 +511,7 @@ public class StoryboardTests {
       
       story.addCode();
       
-      story.addObjectDiagramWith(university.getStudents());
+      story.addObjectDiagramOnlyWith(university.getStudents());
       
       
       //=====================================================
@@ -525,7 +529,7 @@ public class StoryboardTests {
       
       story.addCode();
      
-      story.addPattern(roomPO.getPattern(), false);
+      story.addPattern(roomPO, false);
       
       story.add("Results in:");
       
@@ -549,7 +553,7 @@ public class StoryboardTests {
       
       story.addCode();
      
-      story.addPattern(roomPO.getPattern(), false);
+      story.addPattern(roomPO, false);
       
       story.add("Results in:");
       
@@ -574,7 +578,7 @@ public class StoryboardTests {
       
       story.addCode();
      
-      story.addPattern(roomPO.getPattern(), false);
+      story.addPattern(roomPO, false);
       
       //      story.add("Internal pattern structure for debugging.");
       //      
@@ -582,7 +586,7 @@ public class StoryboardTests {
       
       story.add("Results in:");
       
-      story.addObjectDiagramWith(rooms, rooms.getStudents(), rooms.getTas());
+      story.addObjectDiagramOnlyWith(rooms, rooms.getStudents(), rooms.getTas());
       
       story.addPreformatted("      " + rooms.toString());
       
@@ -603,7 +607,7 @@ public class StoryboardTests {
 
       story.addPattern(roomPO, false);
       
-      story.addObjectDiagramWith(taSet, taSet.getRoom());
+      story.addObjectDiagramOnlyWith(taSet, taSet.getRoom());
 
 
       //=====================================================
@@ -631,7 +635,7 @@ public class StoryboardTests {
 
       story.addPattern(roomPO, false);
       
-      story.addObjectDiagramWith(university.getStudents(), university.getStudents().getIn());
+      story.addObjectDiagramOnlyWith(university.getStudents(), university.getStudents().getIn());
       
       story.dumpHTML();
    }

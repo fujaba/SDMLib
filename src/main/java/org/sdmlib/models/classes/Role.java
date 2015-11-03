@@ -257,5 +257,5 @@ import org.sdmlib.models.classes.util.RoleSet;
    {
       setAssoc(value);
       return this;
-   } 
+   }
 }

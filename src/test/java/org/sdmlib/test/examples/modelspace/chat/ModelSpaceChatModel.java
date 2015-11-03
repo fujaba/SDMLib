@@ -1,13 +1,11 @@
 package org.sdmlib.test.examples.modelspace.chat;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class ModelSpaceChatModel
 {
@@ -18,7 +16,7 @@ public class ModelSpaceChatModel
    @Test
    public void testModelSpaceChatModel() throws Exception
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       story.add("Chatting via model space, i.e. shared files");
       

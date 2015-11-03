@@ -18,6 +18,7 @@ import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectPO;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.storyboards.GenericIdMap;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
@@ -60,9 +61,8 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldConstantTransformation1()
    {
-      Storyboard storyboard = new Storyboard()
-      .with("A constant transformation that creates a Greeting object");
-
+      StoryPage storyboard = new StoryPage();
+      storyboard.add("A constant transformation that creates a Greeting object");
 
       //==========================================================================
 
@@ -92,7 +92,7 @@ public class HelloWorldTTC2011
 
       greetingPO.hasText("Hello World");
 
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.addPattern(greetingPO, false);
 
@@ -120,7 +120,7 @@ public class HelloWorldTTC2011
       storyboard.markCodeStart();
       Greeting greeting = new Greeting()
       .withText("Hello World");
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
 
       storyboard.dumpHTML();
@@ -131,9 +131,8 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldConstantTransformation2WithReferences()
    {
-      Storyboard storyboard = new Storyboard()
-      .with("A constant transformation that creates a Greeting object structure with references");
-
+      StoryPage storyboard = new StoryPage();
+      storyboard.add("A constant transformation that creates a Greeting object structure with references");
 
       //==========================================================================
 
@@ -173,7 +172,7 @@ public class HelloWorldTTC2011
 
       PersonPO personPO = greetingPO.hasPerson()
             .hasName("TTC Participants");
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.addPattern(greetingPO, false);
 
@@ -202,7 +201,7 @@ public class HelloWorldTTC2011
 
       Person person = greeting.createPerson()
             .withName("TTC Participants");
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.dumpHTML();
    }
@@ -212,9 +211,9 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldModelToText()
    {  
-      Storyboard storyboard = new Storyboard()
-      .with("For model to text transformation we provide a simple template mechanism. ");
-
+      StoryPage storyboard = new StoryPage();
+      storyboard.add("For model to text transformation we provide a simple template mechanism. ");
+      
       storyboard.add("The model transformation that builds our object model looks like: ");
       storyboard.markCodeStart();
 
@@ -227,7 +226,7 @@ public class HelloWorldTTC2011
 
       PersonPO personPO = greetingPO.hasPerson()
             .hasName("TTC Participants");
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.add("The created object model looks like: ");
 
@@ -239,7 +238,7 @@ public class HelloWorldTTC2011
       systemout = CGUtil.replaceAll("message name", 
          "message", greetingMessagePO.getText(),
          "name", personPO.getName());
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.add("systemout: \n" + systemout);
 
@@ -252,7 +251,7 @@ public class HelloWorldTTC2011
          "message", greetingMessagePO, GreetingMessage.PROPERTY_TEXT,
          "name", personPO, Person.PROPERTY_NAME
             );
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.addObjectDiagram(greetingPO.getCurrentMatch());
 
@@ -262,7 +261,7 @@ public class HelloWorldTTC2011
 
       storyboard.markCodeStart();
       systemout = greetingMessagePO.getText() + " " + personPO.getName();
-      storyboard.addCode("examples");
+      storyboard.addCode();
 
       storyboard.dumpHTML();  
    }
@@ -272,7 +271,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldCountNumberOfNodes()
    {  
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       //==========================================================================
 
@@ -328,10 +327,9 @@ public class HelloWorldTTC2011
 
       countNodesInJava(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countNodesInJava(Graph)"));
 
       storyboard.add("systemout: " + systemout);
-
 
       //==========================================================================
 
@@ -339,7 +337,7 @@ public class HelloWorldTTC2011
 
       countNodesPerPattern(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countNodesPerPattern(Graph)"));
 
       // storyboard.addObjectDiag(p.getJsonIdMap(), p.getElements().iterator().next());
 
@@ -356,7 +354,7 @@ public class HelloWorldTTC2011
 
       countNodesPerNodeSet(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countNodesPerNodeSet(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countNodesPerNodeSet(Graph)"));
 
       storyboard.addPattern(graphPO, false);
 
@@ -372,7 +370,7 @@ public class HelloWorldTTC2011
 
       countLoopingEdgesPerPattern(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countLoopingEdgesPerPattern(Graph)"));
 
       storyboard.addPattern(edgesPO, false);
 
@@ -384,7 +382,7 @@ public class HelloWorldTTC2011
 
       countLoopingEdgesInJava(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countLoopingEdgesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countLoopingEdgesInJava(Graph)"));
 
       storyboard.add("systemout: " + systemout);
 
@@ -396,7 +394,7 @@ public class HelloWorldTTC2011
 
       countIsolatedNodesPerPattern(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countIsolatedNodesPerPattern(Graph)"));
 
       storyboard.addPattern(graphPO, false);
 
@@ -408,7 +406,7 @@ public class HelloWorldTTC2011
 
       countIsolatedNodesInJava(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countIsolatedNodesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countIsolatedNodesInJava(Graph)"));
 
       storyboard.add("systemout: " + systemout);
 
@@ -420,7 +418,7 @@ public class HelloWorldTTC2011
 
       countCirclesOfThreeNodesPerPattern(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countCirclesOfThreeNodesPerPattern(Graph)"));
 
       storyboard.addPattern(graphPO, false);
 
@@ -432,7 +430,7 @@ public class HelloWorldTTC2011
 
       countCirclesOfThreeNodesPerPatternReportMatches(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesPerPatternReportMatches(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countCirclesOfThreeNodesPerPatternReportMatches(Graph)"));
 
       storyboard.addPattern(graphPO, false);
 
@@ -444,7 +442,7 @@ public class HelloWorldTTC2011
 
       countCirclesOfThreeNodesInJava(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countCirclesOfThreeNodesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countCirclesOfThreeNodesInJava(Graph)"));
 
       storyboard.add("systemout: " + systemout);
 
@@ -456,7 +454,7 @@ public class HelloWorldTTC2011
 
       countDanglingEdgesPerPattern(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countDanglingEdgesPerPattern(Graph)"));
 
       storyboard.addPattern(edgesPO, false);
 
@@ -468,7 +466,7 @@ public class HelloWorldTTC2011
 
       countDanglingEdgesInJava(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "countDanglingEdgesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "countDanglingEdgesInJava(Graph)"));
 
       storyboard.add("systemout: " + systemout);
 
@@ -495,7 +493,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011HelloWorldReverseEdges()
    {  
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       //==========================================================================
 
@@ -513,7 +511,7 @@ public class HelloWorldTTC2011
 
       reverseEdgesPerPattern(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "reverseEdgesPerPattern(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "reverseEdgesPerPattern(Graph)"));
 
       storyboard.addPattern(edgesPO, false);
 
@@ -531,7 +529,7 @@ public class HelloWorldTTC2011
 
       reverseEdgesInJava(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "reverseEdgesInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "reverseEdgesInJava(Graph)"));
 
       storyboard.add("Result graph: ");
 
@@ -549,7 +547,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011SimpleMigration()
    {  
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       storyboard.add("<hr/>");
       storyboard.add("Source model:");
@@ -649,7 +647,7 @@ public class HelloWorldTTC2011
 
       Graph graph = createExampleGraph();
 
-      storyboard.withJsonIdMap((JsonIdMap) new GenericIdMap().withSessionId("hg"));
+//      storyboard.withJsonIdMap((JsonIdMap) new GenericIdMap().withSessionId("hg"));
 
       storyboard.addObjectDiagram(graph);
 
@@ -660,13 +658,13 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("<h2>Migrate per pattern: </h2>");
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationPerPattern(Graph,Storyboard)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationPerPattern(Graph,StoryPage)"));
 
       Graph targetGraph = simpleMigrationPerPattern(graph, storyboard);
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagramWith(targetGraph, targetGraph.getGcs());
+      storyboard.addObjectDiagramOnlyWith(targetGraph, targetGraph.getGcs());
 
       storyboard.add(systemout);
 
@@ -680,11 +678,11 @@ public class HelloWorldTTC2011
 
       graph = simpleMigrationInJava(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationInJava(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationInJava(Graph)"));
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagramWith(graph, graph.getGcs());
+      storyboard.addObjectDiagramOnlyWith(graph, graph.getGcs());
 
 
       storyboard.add(systemout);
@@ -699,11 +697,11 @@ public class HelloWorldTTC2011
 
       graph = simpleMigrationByCloning(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByCloning(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationByCloning(Graph)"));
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagramWith(graph, graph.getGcs());
+      storyboard.addObjectDiagramOnlyWith(graph, graph.getGcs());
 
 
       //==========================================================================
@@ -715,11 +713,11 @@ public class HelloWorldTTC2011
 
       graph = simpleMigrationByJsonArray(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByJsonArray(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationByJsonArray(Graph)"));
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagramWith(graph, graph.getGcs());
+      storyboard.addObjectDiagramOnlyWith(graph, graph.getGcs());
 
 
       //==========================================================================
@@ -729,13 +727,13 @@ public class HelloWorldTTC2011
 
       graph = createExampleGraph();
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,StoryPage)"));
 
       Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagramWith(tgtGraph, tgtGraph.getGcs());
+      storyboard.addObjectDiagramOnlyWith(tgtGraph, tgtGraph.getGcs());
 
 
       //==========================================================================
@@ -762,7 +760,7 @@ public class HelloWorldTTC2011
 
       storyboard.addObjectDiagram(graph);
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,StoryPage)"));
 
       tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
 
@@ -778,8 +776,8 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011SimpleMigrationViaGenericGraphs()
    {  
-      Storyboard storyboard = new Storyboard();
-
+      StoryPage storyboard = new StoryPage();
+      
       storyboard.add("<hr/>");
       storyboard.add("Source model:");
 
@@ -860,7 +858,7 @@ public class HelloWorldTTC2011
 
       Graph graph = createExampleGraph();
 
-      storyboard.addObjectDiagramWith(graph.getNodes(), graph.getEdges());;
+      storyboard.addObjectDiagramOnlyWith(graph.getNodes(), graph.getEdges());;
 
       // storyboard.dumpHTML();
 
@@ -871,13 +869,13 @@ public class HelloWorldTTC2011
       storyboard.add("<hr/>");
       storyboard.add("<h2>Migrate using Generic Graph representation : </h2>");
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,Storyboard)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationByGenericGraph(Graph,StoryPage)"));
 
       Graph tgtGraph = simpleMigrationByGenericGraph(graph, storyboard);
 
       storyboard.add("Result graph: ");
 
-      storyboard.addObjectDiagramWith(tgtGraph, tgtGraph.getGcs());
+      storyboard.addObjectDiagramOnlyWith(tgtGraph, tgtGraph.getGcs());
 
 
       //==========================================================================
@@ -902,7 +900,7 @@ public class HelloWorldTTC2011
 
       graph = createExampleGraph();
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,Storyboard)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph,StoryPage)"));
 
       tgtGraph = simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(graph, storyboard);
 
@@ -919,7 +917,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011DeleteNodeWithSpecificName()
    {  
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       storyboard.add("<hr/>");
       storyboard.add("Delete node with name n1 and its incidemnt edges.");
@@ -935,7 +933,7 @@ public class HelloWorldTTC2011
 
       storyboard.add("Transformation:");
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "deleteNodeWithNameN1(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "deleteNodeWithNameN1(Graph)"));
 
       NodePO nodeN1PO = deleteNodeWithNameN1(graph);
 
@@ -953,7 +951,7 @@ public class HelloWorldTTC2011
    @Test
    public void testTTC2011InsertTransitiveEdges()
    {  
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
 
       storyboard.add("<hr/>");
       storyboard.add("Insert transitive edges.");
@@ -968,7 +966,7 @@ public class HelloWorldTTC2011
 
       storyboard.add("Transformation:");
 
-      storyboard.add(storyboard.getMethodText("examples", this.getClass().getName(), "insertTransitiveEdges(Graph)"));
+      storyboard.add(storyboard.getMethodText("src/test/java", this.getClass().getName(), "insertTransitiveEdges(Graph)"));
 
       storyboard.addPattern(graphPO, false);
 
@@ -1037,7 +1035,7 @@ public class HelloWorldTTC2011
    }
 
 
-   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, Storyboard storyboard)
+   private Graph simpleMigrationToEvenMoreEvolvedGraphByGenericGraph(Graph origGraph, StoryPage storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(GraphCreator.createIdMap("g1"), origGraph);
@@ -1096,12 +1094,12 @@ public class HelloWorldTTC2011
    }
 
 
-   private Graph simpleMigrationByGenericGraph(Graph origGraph, Storyboard storyboard)
+   private Graph simpleMigrationByGenericGraph(Graph origGraph, StoryPage storyboard)
    {
       GenericGraph genGraph = new Specific2Generic()
       .convert(GraphCreator.createIdMap("g1"), origGraph);
 
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      storyboard.addObjectDiagramOnlyWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
 
       // rename name to text attributes
       GenericGraphPO graphPO = new GenericGraphPO(genGraph);
@@ -1142,7 +1140,7 @@ public class HelloWorldTTC2011
 
       storyboard.addPattern(graphPO, false);
 
-      storyboard.addObjectDiagramWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
+      storyboard.addObjectDiagramOnlyWith(genGraph.getObjects(), genGraph.getLinks(), genGraph.getObjects().getAttrs());
 
       Graph tgtGraph = (Graph) new Generic2Specific().convert(GraphCreator.createIdMap("tg"), null, genGraph);
 
@@ -1284,7 +1282,7 @@ public class HelloWorldTTC2011
    }
 
 
-   private Graph simpleMigrationPerPattern(Graph graph, Storyboard storyboard)
+   private Graph simpleMigrationPerPattern(Graph graph, StoryPage storyboard)
    {
       //==========================================================================
       // create target graph

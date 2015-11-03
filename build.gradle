@@ -54,7 +54,7 @@ repositories {
     mavenCentral()
 
     // NetworkParser
-    if(project.hasProperty('lectureBuild')) {
+    if(project.hasProperty('lectureBuild') || isTravisSnaphot()) {
         maven { url "https://se.cs.uni-kassel.de/artifactory/lecture" }
     }else{
         maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
@@ -104,3 +104,14 @@ tasks.withType(JavaCompile) {
 }
 
 defaultTasks = ['clean', 'jar']
+
+def isTravisSnaphot() {
+	boolean result=false;
+	Map<String, String> env = System.getenv();
+	for (String envName : env.keySet()) {
+		if("travisci".equalsIgnoreCase(envName)) {
+			result = "snaphot".equalsIgnoreCase(env.get(envName));
+		}
+	}
+	return result;
+}

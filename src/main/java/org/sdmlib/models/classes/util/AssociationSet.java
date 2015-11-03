@@ -29,6 +29,8 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.classes.util.RoleSet;
 
+import de.uniks.networkparser.list.SimpleSet;
+
 public class AssociationSet extends SDMSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
    public RoleSet getSource()
@@ -172,6 +174,18 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       }
       
       return result;
+   }
+   
+   public void removeFromModelAndCode(String rootDir) {
+
+	   SimpleSet<Association> clone = this.clone();
+	   
+	   for (Association association : clone) {
+		
+		   association.removeFromModelAndCode(rootDir);
+		   
+	   }
+	   
    }
 
 }

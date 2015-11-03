@@ -9,7 +9,7 @@ import org.sdmlib.models.pattern.AttributeConstraint;
 public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
 {
 
-    public GroupAccountSet allMatches()
+   public GroupAccountSet allMatches()
    {
       this.setDoAllMatches(true);
       
@@ -37,18 +37,7 @@ public class GroupAccountPO extends PatternObject<GroupAccountPO, GroupAccount>
       newInstance(org.sdmlib.test.examples.groupaccount.model.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
    
-   //==========================================================================
-   
-   public double getTaskNames(double p0, String p1)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((GroupAccount) getCurrentMatch()).getTaskNames(p0, p1);
-      }
-      return 0;
-   }
 
-   
    //==========================================================================
    
    public void updateBalances()

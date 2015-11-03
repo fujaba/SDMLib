@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import org.junit.Test;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateCreator;
@@ -14,14 +14,13 @@ import de.uniks.networkparser.json.JsonIdMap;
 
 public class ReachbilityGraphSimpleExamples
 {
-     /**
-    * 
+   /**
     * @see <a href='../../../../../../../../doc/ReachabilityGraphSimpleIsomorphismTest.html'>ReachabilityGraphSimpleIsomorphismTest.html</a>
-*/
+    */
    @Test
    public void ReachabilityGraphSimpleIsomorphismTest()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("Create two rings of three nodes with a mark at one node.");
       
@@ -98,11 +97,12 @@ public class ReachbilityGraphSimpleExamples
      /**
     * 
     * @see <a href='../../../../../../../../doc/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
+* @see <a href='../../../../../../../../doc/ReachabilitGraphSameCertificatesNonIsomorphic.html'>ReachabilitGraphSameCertificatesNonIsomorphic.html</a>
 */
    @Test
    public void ReachabilitGraphSameCertificatesNonIsomorphic()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("graph 1 two rings of two nodes");
       storyboard.add("graph 2 one ring of four nodes");

@@ -2,10 +2,11 @@ package org.sdmlib.test.examples.reachabilitygraphs;
 
 import org.junit.Test;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
@@ -28,7 +29,7 @@ public class ReachabilityGraphFerrymansProblemExample
    @Test
    public void FerrymansProblemExample()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       
       //================================================
@@ -95,7 +96,13 @@ public class ReachabilityGraphFerrymansProblemExample
       
       boatPO.createCargo(cargoPO);
       
-      storyboard.addPattern(loadPattern, false);
+      PatternObject loadPatternPO = new PatternObject<>();
+      
+      loadPatternPO.withPatternObjectName("loadPatternPO");
+      
+      loadPatternPO.withPattern(loadPattern);
+      
+      storyboard.addPattern(loadPatternPO, false);
       
       reachabilityGraph.addToRules(loadPattern);
       
@@ -129,7 +136,13 @@ public class ReachabilityGraphFerrymansProblemExample
       
       cargoPO.startCreate().hasBank(newBankPO).endCreate().endSubPattern();
       
-      storyboard.addPattern(movePattern, false);
+      PatternObject movePatternPO = new PatternObject<>();
+      
+      movePatternPO.withPatternObjectName("movePatternPO");
+      
+      movePatternPO.withPattern(movePattern);
+      
+      storyboard.addPattern(movePatternPO, false);
       
       reachabilityGraph.addToRules(movePattern);
       

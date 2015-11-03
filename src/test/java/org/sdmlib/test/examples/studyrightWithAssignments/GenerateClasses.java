@@ -27,25 +27,29 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class GenerateClasses {
 
-   public static void main(String[] args) 
-   {
-      /* This file will generate that necessary classes and class diagram for the
-       * StudyRight with Assignments example in the Story Driven Modeling book
-       */
+	/**
+	 * 
+	 * @see <a href='../../../../../../../../doc/main.html'>main.html</a>/n * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsClassGeneration.html'>StudyRightWithAssignmentsClassGeneration.html</a>/n */
+	@Test
+	public void testStudyRightWithAssignmentsClassGeneration()
+	{
+	  /* This file will generate that necessary classes and class diagram for the
+	   * StudyRight with Assignments example in the Story Driven Modeling book
+	   */
 
-      // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StudyRight%20with%20assignments%20class%20generation.html
-      
-      Storyboard storyboard = new Storyboard("src/test/java", "StudyRight with assignments class generation");
+	  // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StudyRight%20with%20assignments%20class%20generation.html
 
-      //============================================================
-      storyboard.add("1. generate class University");
-      
-      storyboard.markCodeStart();
-      ClassModel model = new ClassModel("org.sdmlib.test.examples.studyrightWithAssignments.model");
+	  StoryPage storyboard = new StoryPage();
+
+	  //============================================================
+	  storyboard.add("1. generate class University");
+
+	  storyboard.markCodeStart();
+	  ClassModel model = new ClassModel("org.sdmlib.test.examples.studyrightWithAssignments.model");
 
       Clazz universityClass = model.createClazz("University")
             .withAttribute("name", DataType.STRING);
@@ -142,12 +146,6 @@ public class GenerateClasses {
       
 
       storyboard.dumpHTML();
-   }
-
-   @Test
-   public void testMain()
-   {
-      main(null);
    }
 
 }

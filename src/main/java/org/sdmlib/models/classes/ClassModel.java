@@ -70,11 +70,6 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *    Clazz groupAccountClass = model.createClazz("GroupAccount")
     *       .withAttribute("task", DataType.STRING);
     *                
-    *    groupAccountClass.createMethod("getTaskNames")
-    *       .with(new Parameter(DataType.DOUBLE))
-    *       .with(new Parameter(DataType.STRING))
-    *       .withReturnType(DataType.DOUBLE);
-    *       
     *    Clazz personClass = model.createClazz("Person")
     *       .withAttribute("name", DataType.STRING)
     *       .withAttribute("balance", DataType.DOUBLE);
@@ -108,11 +103,6 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *    Clazz groupAccountClass = model.createClazz("GroupAccount")
     *       .withAttribute("task", DataType.STRING);
     *                
-    *    groupAccountClass.createMethod("getTaskNames")
-    *       .with(new Parameter(DataType.DOUBLE))
-    *       .with(new Parameter(DataType.STRING))
-    *       .withReturnType(DataType.DOUBLE);
-    *       
     *    Clazz personClass = model.createClazz("Person")
     *       .withAttribute("name", DataType.STRING)
     *       .withAttribute("balance", DataType.DOUBLE);
@@ -151,11 +141,6 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *    Clazz groupAccountClass = model.createClazz("GroupAccount")
     *       .withAttribute("task", DataType.STRING);
     *                
-    *    groupAccountClass.createMethod("getTaskNames")
-    *       .with(new Parameter(DataType.DOUBLE))
-    *       .with(new Parameter(DataType.STRING))
-    *       .withReturnType(DataType.DOUBLE);
-    *       
     *    Clazz personClass = model.createClazz("Person")
     *       .withAttribute("name", DataType.STRING)
     *       .withAttribute("balance", DataType.DOUBLE);
@@ -245,11 +230,6 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *    Clazz groupAccountClass = model.createClazz("GroupAccount")
     *       .withAttribute("task", DataType.STRING);
     *                
-    *    groupAccountClass.createMethod("getTaskNames")
-    *       .with(new Parameter(DataType.DOUBLE))
-    *       .with(new Parameter(DataType.STRING))
-    *       .withReturnType(DataType.DOUBLE);
-    *       
     *    Clazz personClass = model.createClazz("Person")
     *       .withAttribute("name", DataType.STRING)
     *       .withAttribute("balance", DataType.DOUBLE);

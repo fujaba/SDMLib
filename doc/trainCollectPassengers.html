@@ -16,51 +16,51 @@
    "nodes":[
    {
          "typ":"node",
-         "id":"Train.T1 : Train"
+         "id":"T1 : Train"
       },
       {
          "typ":"node",
-         "id":"Train.S2 : Station"
+         "id":"S2 : Station"
       },
       {
          "typ":"node",
-         "id":"Train.S3 : Station"
+         "id":"S3 : Station"
       },
       {
          "typ":"node",
-         "id":"Train.P9 : Person"
+         "id":"P9 : Person"
       },
       {
          "typ":"node",
-         "id":"Train.P10 : Person"
+         "id":"P10 : Person"
       },
       {
          "typ":"node",
-         "id":"Train.P11 : Person"
+         "id":"P11 : Person"
       },
       {
          "typ":"node",
-         "id":"Train.S12 : SignalFlag"
+         "id":"S12 : SignalFlag"
       },
       {
          "typ":"node",
-         "id":"Train.S4 : Station"
+         "id":"S4 : Station"
       },
       {
          "typ":"node",
-         "id":"Train.S5 : Station"
+         "id":"S5 : Station"
       },
       {
          "typ":"node",
-         "id":"Train.P6 : Person"
+         "id":"P6 : Person"
       },
       {
          "typ":"node",
-         "id":"Train.P7 : Person"
+         "id":"P7 : Person"
       },
       {
          "typ":"node",
-         "id":"Train.S8 : SignalFlag"
+         "id":"S8 : SignalFlag"
       }
    ],
    "edges":[
@@ -69,12 +69,12 @@
          "source":{
             "cardinality":"many",
             "property":"trains",
-            "id":"Train.T1 : Train"
+            "id":"T1 : Train"
          },
          "target":{
             "cardinality":"one",
             "property":"station",
-            "id":"Train.S2 : Station"
+            "id":"S2 : Station"
          }
       },
       {
@@ -82,12 +82,12 @@
          "source":{
             "cardinality":"one",
             "property":"prev",
-            "id":"Train.S2 : Station"
+            "id":"S2 : Station"
          },
          "target":{
             "cardinality":"one",
             "property":"next",
-            "id":"Train.S3 : Station"
+            "id":"S3 : Station"
          }
       },
       {
@@ -95,12 +95,12 @@
          "source":{
             "cardinality":"one",
             "property":"station",
-            "id":"Train.S2 : Station"
+            "id":"S2 : Station"
          },
          "target":{
             "cardinality":"many",
             "property":"people",
-            "id":"Train.P9 : Person"
+            "id":"P9 : Person"
          }
       },
       {
@@ -108,12 +108,12 @@
          "source":{
             "cardinality":"one",
             "property":"station",
-            "id":"Train.S2 : Station"
+            "id":"S2 : Station"
          },
          "target":{
             "cardinality":"many",
             "property":"people",
-            "id":"Train.P10 : Person"
+            "id":"P10 : Person"
          }
       },
       {
@@ -121,12 +121,12 @@
          "source":{
             "cardinality":"one",
             "property":"station",
-            "id":"Train.S2 : Station"
+            "id":"S2 : Station"
          },
          "target":{
             "cardinality":"many",
             "property":"people",
-            "id":"Train.P11 : Person"
+            "id":"P11 : Person"
          }
       },
       {
@@ -134,12 +134,12 @@
          "source":{
             "cardinality":"many",
             "property":"station",
-            "id":"Train.S2 : Station"
+            "id":"S2 : Station"
          },
          "target":{
             "cardinality":"one",
             "property":"flag",
-            "id":"Train.S12 : SignalFlag"
+            "id":"S12 : SignalFlag"
          }
       },
       {
@@ -147,12 +147,12 @@
          "source":{
             "cardinality":"one",
             "property":"prev",
-            "id":"Train.S3 : Station"
+            "id":"S3 : Station"
          },
          "target":{
             "cardinality":"one",
             "property":"next",
-            "id":"Train.S4 : Station"
+            "id":"S4 : Station"
          }
       },
       {
@@ -160,12 +160,12 @@
          "source":{
             "cardinality":"one",
             "property":"prev",
-            "id":"Train.S4 : Station"
+            "id":"S4 : Station"
          },
          "target":{
             "cardinality":"one",
             "property":"next",
-            "id":"Train.S5 : Station"
+            "id":"S5 : Station"
          }
       },
       {
@@ -173,12 +173,12 @@
          "source":{
             "cardinality":"one",
             "property":"station",
-            "id":"Train.S4 : Station"
+            "id":"S4 : Station"
          },
          "target":{
             "cardinality":"many",
             "property":"people",
-            "id":"Train.P6 : Person"
+            "id":"P6 : Person"
          }
       },
       {
@@ -186,12 +186,12 @@
          "source":{
             "cardinality":"one",
             "property":"station",
-            "id":"Train.S4 : Station"
+            "id":"S4 : Station"
          },
          "target":{
             "cardinality":"many",
             "property":"people",
-            "id":"Train.P7 : Person"
+            "id":"P7 : Person"
          }
       },
       {
@@ -199,12 +199,12 @@
          "source":{
             "cardinality":"many",
             "property":"station",
-            "id":"Train.S4 : Station"
+            "id":"S4 : Station"
          },
          "target":{
             "cardinality":"one",
             "property":"flag",
-            "id":"Train.S8 : SignalFlag"
+            "id":"S8 : SignalFlag"
          }
       }
    ]

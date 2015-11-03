@@ -16,6 +16,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class GenRole extends Generator<Role>
 {
@@ -888,45 +889,58 @@ public class GenRole extends Generator<Role>
       
       if (pos < 0)
       {
-            text.append(
-            "   public ModelSetType getName()\n" + 
-            "   {\n" + 
-            "      ModelSetType result = new ModelSetType();\n" + 
-            "      \n" + 
-            "      for (ContentType obj : this)\n" + 
-            "      {\n" + 
-            "         result.addOneOrMore(obj.getName());\n" + 
-            "      }\n" + 
-            "      \n" + 
-            "      return result;\n" + 
-            "   }\n" + 
-            "\n" + 
-            "   public ContentTypeSet hasName(Object value)\n" + 
-            "   {\n" + 
-            "      ObjectSet neighbors = new ObjectSet();\n" + 
-            "\n" + 
-            "      if (value instanceof Collection)\n" + 
-            "      {\n" + 
-            "         neighbors.addAll((Collection<?>) value);\n" + 
-            "      }\n" + 
-            "      else\n" + 
-            "      {\n" + 
-            "         neighbors.add(value);\n" + 
-            "      }\n" + 
-            "      \n" + 
-            "      ContentTypeSet answer = new ContentTypeSet();\n" + 
-            "      \n" + 
-            "      for (ContentType obj : this)\n" + 
-            "      {\n" + 
-            "         if (containsClause)\n" + 
-            "         {\n" + 
-            "            answer.add(obj);\n" + 
-            "         }\n" + 
-            "      }\n" + 
-            "      \n" + 
-            "      return answer;\n" + 
-            "   }\n" + 
-            "\n");
+         text.append(
+                  "   /**\n" +
+                  "    * Loop through the current set of ContentType objects and collect a set of the ModelType objects reached via thename. \n" +
+                  "    * \n" +
+                  "    * @return Set of ModelType objects reachable via thename\n" +
+                  "    */\n" + 
+                  "   public ModelSetType getName()\n" +
+                  "   {\n" + 
+                  "      ModelSetType result = new ModelSetType();\n" + 
+                  "      \n" + 
+                  "      for (ContentType obj : this)\n" + 
+                  "      {\n" + 
+                  "         result.addOneOrMore(obj.getName());\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return result;\n" + 
+                  "   }\n" + 
+                  "\n" + 
+                  "   /**\n" +
+                  "    * Loop through the current set of ContentType objects and collect all contained objects with "
+                        + "reference thename pointing to the object passed as parameter. \n" +
+                  "    * \n" +
+                  "    * @param value The object required as thename neighbor of the collected results. \n" +
+                  "    * \n" +
+                  "    * @return Set of ModelType objects referring to value via thename\n" +
+                  "    */\n" + 
+                  "   public ContentTypeSet hasName(Object value)\n" + 
+                  "   {\n" + 
+                  "      ObjectSet neighbors = new ObjectSet();\n" + 
+                  "\n" + 
+                  "      if (value instanceof Collection)\n" + 
+                  "      {\n" + 
+                  "         neighbors.addAll((Collection<?>) value);\n" + 
+                  "      }\n" + 
+                  "      else\n" + 
+                  "      {\n" + 
+                  "         neighbors.add(value);\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      ContentTypeSet answer = new ContentTypeSet();\n" + 
+                  "      \n" + 
+                  "      for (ContentType obj : this)\n" + 
+                  "      {\n" + 
+                  "         if (containsClause)\n" + 
+                  "         {\n" + 
+                  "            answer.add(obj);\n" + 
+                  "         }\n" + 
+                  "      }\n" + 
+                  "      \n" + 
+                  "      return answer;\n" + 
+                  "   }\n" + 
+                  "\n");
             parser.insertImport(Collection.class.getName());
             parser.insertImport(ObjectSet.class.getName());
             
@@ -952,7 +966,12 @@ public class GenRole extends Generator<Role>
          if (model.getClazz() == model.getPartnerRole().getClazz())
          {
             text
-               .append("\n   public ModelSetType getNameTransitive()\n"
+            .append("   /**\n" +
+                    "    * Follow thename reference zero or more times and collect all reachable objects. Detect cycles and deal with them. \n" +
+                    "    * \n" +
+                    "    * @return Set of ModelType objects reachable via thename transitively (including the start set)\n" +
+                    "    */\n" 
+                  + "   public ModelSetType getNameTransitive()\n"
                   + "   {\n"
                   + "      ModelSetType todo = new ModelSetType().with(this);\n"
                   + "      \n"
@@ -968,7 +987,7 @@ public class GenRole extends Generator<Role>
                   + "            todo.with(current.getPartnerrolenameupfirst().minus(result));\n"
                   + "         }\n" + "      }\n" + "      \n"
                   + "      return result;\n" + "   }\n" + "\n" + "");
-            
+
             if (partnerRole.getCard().equals(Card.ONE.toString()))
             {
                CGUtil.replaceAll(text, 
@@ -1014,6 +1033,7 @@ public class GenRole extends Generator<Role>
             "ModelType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()),
             "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()) + "Set",
             "Name", partnerRoleNameUpFirst,
+            "thename", partnerRole.getName(),
             "addOneOrMore", add,
             "Partnerrolenameupfirst", partnerGetterName
             );
@@ -1266,6 +1286,11 @@ public class GenRole extends Generator<Role>
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
+            "   /**\n" +
+            "    * Loop through current set of ModelType objects and attach the ContentType object passed as parameter to the Name attribute of each of it. \n" +
+            "    * \n" +
+            "    * @return The original set of ModelType objects now with the new neighbor attached to their Name attributes.\n" +
+            "    */\n" + 
             "   public ModelSetType withName(TargetType value)\n" + 
             "   {\n" + 
             "      for (ContentType obj : this)\n" + 
@@ -1299,6 +1324,11 @@ public class GenRole extends Generator<Role>
          if (pos < 0)
          {
             StringBuilder text = new StringBuilder(
+               "   /**\n" +
+               "    * Loop through current set of ModelType objects and remove the ContentType object passed as parameter from the Name attribute of each of it. \n" +
+               "    * \n" +
+               "    * @return The original set of ModelType objects now without the old neighbor.\n" +
+               "    */\n" + 
                "   public ModelSetType withoutName(TargetType value)\n" + 
                "   {\n" + 
                "      for (ContentType obj : this)\n" + 
@@ -1496,5 +1526,179 @@ public class GenRole extends Generator<Role>
    public String toString()
    {
       return "gen " + model.toString();
+   }
+
+
+   public void removeGeneratedCode(String rootDir) {
+	   
+	   GenClass genClass = getGenerator(this.getModel().getClazz());
+	   
+	   Parser parser = genClass.getParser();	   
+   
+	   String roleName = StrUtil.upFirstChar(this.getModel().getPartnerRole().getName());
+	   
+	   String cardType = "";
+	   
+	   if (this.getModel().getPartnerRole().getCard().equals(Card.MANY.toString())) {
+		   cardType = "...";
+	   }
+	   
+	   String partnerClass = "" + this.getModel().getPartnerRole().getClazz();
+	   
+	   String roleWithCard = partnerClass + cardType;
+	   
+	   String partnerPO = partnerClass + "PO";
+	   
+	   String partnerProperty = "PROPERTY_" + this.getModel().getPartnerRole().getName().toUpperCase();
+	   
+	   removeFragment(parser, Parser.ATTRIBUTE + ":" + partnerProperty);
+	   
+	   removeFragment(parser, Parser.ATTRIBUTE + ":" + this.getModel().getPartnerRole().getName());
+	   
+	   removeFragment(parser, Parser.METHOD + ":get" + roleName + "()");
+	   
+	   removeFragment(parser, Parser.METHOD + ":set" + roleName + "(" + roleWithCard + ")");
+	   
+	   removeFragment(parser, Parser.METHOD + ":with" + roleName + "(" + roleWithCard + ")");
+	   
+	   removeFragment(parser, Parser.METHOD + ":without" + roleName + "(" + roleWithCard + ")");
+	   
+	   removeFragment(parser, Parser.METHOD + ":create" + roleName + "()");
+	   
+	   removeLineFromFragment(parser, Parser.METHOD + ":removeYou()", roleName, roleName);
+	   
+	   CGUtil.printFile(parser);
+	   
+	   Parser creatorParser = genClass.getOrCreateParserForCreatorClass(rootDir);
+	   
+	   removeLineFromFragment(creatorParser, Parser.ATTRIBUTE + ":properties", partnerProperty, partnerProperty);
+	   
+	   removeLineFromFragment(creatorParser, Parser.METHOD + ":getValue(Object,String)" , partnerProperty, "}");
+	   
+	   removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)" , partnerProperty, "}");
+	  
+	   removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)" , partnerProperty, "}");
+	   
+	   CGUtil.printFile(creatorParser);
+	   
+	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
+	   
+	   removeFragment(poParser, Parser.METHOD + ":has" + roleName + "()");
+	   
+	   removeFragment(poParser, Parser.METHOD + ":create" + roleName + "()");
+	   
+	   removeFragment(poParser, Parser.METHOD + ":get" + roleName + "()");
+	   
+	   removeFragment(poParser, Parser.METHOD + ":has" + roleName + "(" + partnerPO + ")");
+	   
+	   removeFragment(poParser, Parser.METHOD + ":create" + roleName + "(" + partnerPO + ")");
+	   
+	   CGUtil.printFile(poParser);
+	   
+	   Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
+	   
+	   removeFragment(setParser, Parser.METHOD + ":get" + roleName + "()");
+	   
+	   removeFragment(setParser, Parser.METHOD + ":has" + roleName + "(Object)");
+	   
+	   removeFragment(setParser, Parser.METHOD + ":with" + roleName + "(" + partnerClass + ")");
+	   
+	   removeFragment(setParser, Parser.METHOD + ":without" + roleName + "(" + partnerClass + ")");
+	   
+	   CGUtil.printFile(setParser);
+	   
+   }
+   
+   private void removeFragment(Parser parser, String symbName) {
+
+	   parser.indexOf(Parser.CLASS_END);
+	   
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+	   
+	   SymTabEntry symTabEntry = symTab.get(symbName);
+	   
+	   if (symTabEntry != null) {
+		   StringBuilder fileBody = parser.getFileBody();
+
+		   int startPos = symTabEntry.getStartPos();
+		   
+		   if (symTabEntry.getPreCommentStartPos() > 0) {
+
+			   startPos = symTabEntry.getPreCommentStartPos();
+
+		   }
+
+		   fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
+
+		   parser.withFileChanged(true);
+	   }
+   }
+
+   private void removeLineFromFragment(Parser parser, String symTabKey, String startLineContent, String endLineContent) {
+
+	   parser.indexOf(Parser.CLASS_END);
+
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+
+	   SymTabEntry symTabEntry = symTab.get(symTabKey);
+
+	   if (symTabEntry != null) {
+
+		   String substring = parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1);
+
+		   int indexOf = substring.indexOf(startLineContent);
+
+		   if (indexOf >= 0) {
+
+			   String[] split = substring.split("\n");
+
+			   for (int i = 0; i < split.length; i++) {
+
+				   if (split[i].indexOf(startLineContent) >= 0) {
+
+					   if (split[i].indexOf(endLineContent) < 0) {
+
+						   while(i < split.length) {
+
+							   if (split[i].indexOf(endLineContent) >= 0) {
+
+								   split[i] = "";
+
+								   break;
+
+							   }
+
+							   split[i] = "";
+
+							   i++;
+
+						   }
+
+					   } else {
+
+						   split[i] = "";
+
+					   }
+
+					   break;
+
+				   }
+
+			   }
+
+			   StringBuilder builder = new StringBuilder();
+
+			   for (int i = 0; i < split.length; i++) {
+
+				   builder.append(split[i]).append("\n");
+
+			   }
+
+			   parser.getFileBody().replace(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1, builder.toString());
+
+			   parser.withFileChanged(true);
+
+		   }
+	   }
    }
 }

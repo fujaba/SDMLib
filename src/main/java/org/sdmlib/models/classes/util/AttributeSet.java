@@ -31,9 +31,13 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
+
 import java.util.Collections;
+
 import org.sdmlib.models.classes.util.AnnotationSet;
 import org.sdmlib.models.classes.Annotation;
+
+import de.uniks.networkparser.list.SimpleSet;
 
 public class AttributeSet extends SDMSet<Attribute>
 {
@@ -304,6 +308,18 @@ public class AttributeSet extends SDMSet<Attribute>
       }
       
       return result;
+   }
+
+   public void removeFromModelAndCode(String rootDir) {
+
+	   SimpleSet<Attribute> clone = this.clone();
+	   
+	   for (Attribute attribute : clone) {
+
+		   attribute.removeFromModelAndCode(rootDir);
+
+	   }
+
    }
 
 }

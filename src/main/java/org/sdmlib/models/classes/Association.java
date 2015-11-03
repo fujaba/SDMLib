@@ -22,6 +22,10 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.models.classes.logic.GenAssociation;
+import org.sdmlib.models.classes.logic.GenAttribute;
+import org.sdmlib.models.classes.logic.GenClassModel;
+import org.sdmlib.models.classes.logic.GenRole;
 
 /**
  * 
@@ -194,8 +198,10 @@ public class Association extends SDMLibClass
       if(targetClazz!=null){
          targetClazz.getClassModel().getGenerator().removeFromAssociations(this);
       }
-      setSource(null);
-      setTarget(null);
+      getSource().removeYou();
+//      setSource(null);
+//      setTarget(null);
+      getTarget().removeYou();
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -218,6 +224,22 @@ public class Association extends SDMLibClass
       Role value = new Role();
       withTarget(value);
       return value;
+   }
+
+   public void removeFromModelAndCode(String rootDir) {
+	   
+	   GenClassModel genModel = this.getSource().getClazz().getClassModel().getGenerator();
+	   
+	   GenRole sourceGenRole = genModel.getOrCreate(this.getSource());
+	   
+	   GenRole targetGenRole = genModel.getOrCreate(this.getTarget());
+	   
+	   sourceGenRole.removeGeneratedCode(rootDir);
+	   
+	   targetGenRole.removeGeneratedCode(rootDir);
+	   
+	   this.removeYou();
+	   
    } 
 }
 

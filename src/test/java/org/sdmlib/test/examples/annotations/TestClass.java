@@ -14,8 +14,13 @@ public class TestClass {
 		
 		for(Clazz clazz : model.getClasses()) {
 			if(clazz.getName().equals("org.sdmlib.test.examples.annotations.TestClass")) {
-				String name = clazz.getMethods().first().getAnnotations().first().getName();
-//				Assert.assertEquals("@Test(timeout = 200000)", name);
+				String name = clazz
+				      .getMethods()
+				      .first()
+				      .getAnnotations()
+				      .first()
+				      .getName();
+				Assert.assertEquals("@Test(timeout=200000)", name);
 			}
 		}
 	}

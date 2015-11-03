@@ -26,12 +26,13 @@ import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.storyboards.*;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
+
+import junit.framework.Assert;
    
 public class GroupAccountTests implements PropertyChangeInterface 
 {
@@ -42,12 +43,14 @@ public class GroupAccountTests implements PropertyChangeInterface
    @Test
    public void testGroupAccountStoryboard1()
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       GroupAccount g1 = new GroupAccount();
       
       Person albert = g1.createPersons()
       .withName("Albert");
+      
+      story.assertEquals("Groupaccount person set size should now be ", 1, g1.getPersons().size());
       
       Person nina = g1.createPersons()
       .withName("Nina");
@@ -77,7 +80,7 @@ public class GroupAccountTests implements PropertyChangeInterface
       
       story.markCodeStart();
       g1.updateBalances();
-      story.addCode("examples");
+      story.addCode();
       
       story.add("Now see updateBalances() as code: ");
       

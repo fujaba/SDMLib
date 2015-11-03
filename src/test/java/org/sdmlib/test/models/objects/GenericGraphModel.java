@@ -6,7 +6,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 
 public class GenericGraphModel
 {
@@ -17,7 +17,7 @@ public class GenericGraphModel
    @Test
    public void testGenericGraphModel()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       ClassModel genericModel = new ClassModel("org.sdmlib.models.objects");
       

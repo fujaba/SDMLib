@@ -3074,6 +3074,12 @@ public class GenClassModel
 
          }
       }
+      
+      String path = helpersDir + "/" + (model.getName() + UTILPATH).replaceAll("\\.", "/") + "/";
+
+      String fileName = path + "CreatorCreator.java";
+
+      deleteFile(fileName);
    }
 
    public void turnRemoveCallToComment(String rootDir)
@@ -3178,9 +3184,9 @@ public class GenClassModel
       fileName = path + CGUtil.shortClassName(className) + "POCreator.java";
       deleteFile(fileName);
 
-      // CreatorCreator in that package
-      fileName = path + "CreatorCreator.java";
-      deleteFile(fileName);
+//      // CreatorCreator in that package
+//      fileName = path + "CreatorCreator.java";
+//      deleteFile(fileName);
    }
 
    private void deleteFile(String fileName)

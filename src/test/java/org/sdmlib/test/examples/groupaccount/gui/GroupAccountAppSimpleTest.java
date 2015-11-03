@@ -2,11 +2,9 @@ package org.sdmlib.test.examples.groupaccount.gui;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,13 +12,11 @@ import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
-import org.sdmlib.modelspace.ModelSpace.ApplicationType;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountCreator;
-import org.sdmlib.test.examples.modelspace.chat.MSChatClient;
 
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -33,14 +29,14 @@ public class GroupAccountAppSimpleTest
    
    
    
-     /**
+   /**
     * 
     * @see <a href='../../../../../../../../../doc/GroupAccountMultiUserGui.html'>GroupAccountMultiUserGui.html</a>
-*/
+    */
    @Test
    public void testGroupAccountMultiUserGui() throws InterruptedException
    {
-      Storyboard story = new Storyboard();
+      StoryPage story = new StoryPage();
       
       // clean chat directory from .jsonchgs
       final String location = "modeldata/groupaccount/junitest";
@@ -64,7 +60,7 @@ public class GroupAccountAppSimpleTest
       
       dataRoot = new GroupAccount();
       
-      dataRoot.updateBalances();
+      // dataRoot.updateBalances();
       
       idMap.put("dataRoot", dataRoot);
       
@@ -74,56 +70,7 @@ public class GroupAccountAppSimpleTest
 
       dataRoot.setTask("Albert buy beer");
       
-      // first try whether javafx is already running
-      try
-      {
-         Platform.runLater(new Runnable()
-         {
-            @Override
-            public void run()
-            {
-               Stage stage = new Stage();
-               GroupAccountApp groupAccountApp = new GroupAccountApp(location, "Albert");
-               try
-               {
-                  groupAccountApp.start(stage);
-               }
-               catch (Exception e1)
-               {
-                  // TODO Auto-generated catch block
-                  e1.printStackTrace();
-               }
-            }
-         });
-      }
-      catch (Exception e1)
-      {
-         // TODO Auto-generated catch block
-         System.out.println("Starting via main. ");
-         // start grouptaccount app for albert
-         Thread firstClient = new Thread()
-         {
-            @Override
-            public void run()
-            {
-               try
-               {
-                  GroupAccountApp.main(location, "Albert");
-               }
-               catch (Exception e)
-               {
-                  // probably the platform is alread running
-                  // just call start and we are done
-                  System.out.println("CAUTION: GroupAccountApp.main did not start");
-                  
-               }
-            }
-         };
-         
-         firstClient.start();
-      }
-      
-      
+      startClient(location, "Albert");
       
       boolean done = false;
       while ( ! done)
@@ -156,6 +103,8 @@ public class GroupAccountAppSimpleTest
             albert.createItem().withDescription("Coal").withValue(7);
             
             done = true;  
+            
+            startClient(location, "Nina");
          }
       }
       
@@ -169,6 +118,58 @@ public class GroupAccountAppSimpleTest
       
       System.out.println("done");
       
+   }
+
+   private void startClient(final String location, final String userName)
+   {
+      // first try whether javafx is already running
+      try
+      {
+         Platform.runLater(new Runnable()
+         {
+            @Override
+            public void run()
+            {
+               Stage stage = new Stage();
+               GroupAccountApp groupAccountApp = new GroupAccountApp(location, userName);
+               try
+               {
+                  groupAccountApp.start(stage);
+               }
+               catch (Exception e1)
+               {
+                  // TODO Auto-generated catch block
+                  e1.printStackTrace();
+               }
+            }
+         });
+      }
+      catch (Exception e1)
+      {
+         // TODO Auto-generated catch block
+         System.out.println("Starting via main. ");
+         // start grouptaccount app for albert
+         Thread firstClient = new Thread()
+         {
+            @Override
+            public void run()
+            {
+               try
+               {
+                  GroupAccountApp.main(location, userName);
+               }
+               catch (Exception e)
+               {
+                  // probably the platform is alread running
+                  // just call start and we are done
+                  System.out.println("CAUTION: GroupAccountApp.main did not start");
+                  
+               }
+            }
+         };
+         
+         firstClient.start();
+      }
    }
    
    // @Test

@@ -48,14 +48,6 @@ public class GroupAccount implements PropertyChangeInterface, PropertyChangeList
 
    //==========================================================================
 
-   public double getTaskNames( double p0, String p1 )
-   {
-      return 0;
-   }
-
-
-   //==========================================================================
-
    /**
     * Use like:<br><pre>
     *    GroupAccount g1 = new GroupAccount();

@@ -20,6 +20,8 @@
 
 package org.sdmlib.models.classes;
 
+import org.sdmlib.models.classes.logic.GenAttribute;
+import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
    /**
@@ -220,5 +222,17 @@ import org.sdmlib.models.classes.util.AnnotationSet;
       Annotation value = new Annotation();
       withAnnotation(value);
       return value;
+   }
+
+   public void removeFromModelAndCode(String rootDir) {
+
+	   GenClassModel generator = this.getClazz().getClassModel().getGenerator();
+	   
+	   GenAttribute genAttribute = generator.getOrCreate(this);
+
+	   genAttribute.removeGeneratedCode(rootDir);
+	   
+	   this.removeYou();
+	   
    } 
 }

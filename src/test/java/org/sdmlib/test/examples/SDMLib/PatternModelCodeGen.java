@@ -27,7 +27,7 @@ import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
-import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.storyboards.StoryPage;
    
 public class PatternModelCodeGen 
 {
@@ -38,7 +38,7 @@ public class PatternModelCodeGen
    @Test
    public void testPatternModelCodegen()
    {
-      Storyboard storyboard = new Storyboard();
+      StoryPage storyboard = new StoryPage();
       
       storyboard.add("Start situation: ");
       
