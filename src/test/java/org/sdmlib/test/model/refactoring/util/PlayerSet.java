@@ -25,8 +25,8 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.model.refactoring.Player;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.model.refactoring.util.LudoSet;
-import org.sdmlib.test.model.refactoring.Ludo;
+
+
 
 public class PlayerSet extends SDMSet<Player>
 {

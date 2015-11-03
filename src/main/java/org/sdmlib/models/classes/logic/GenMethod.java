@@ -467,47 +467,21 @@ public class GenMethod extends Generator<Method>
    
 	   String methodName = StrUtil.upFirstChar(this.getModel().getName());
 	   
-	   removeFragment(parser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   genClass.removeFragment(parser, Parser.METHOD + ":" + this.getModel().getSignature(false));
 	   
 	   CGUtil.printFile(parser);
 	   
 	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 	   
-	   removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   genClass.removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
 	   
 	   CGUtil.printFile(poParser);
 	   
 	   Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
 	   
-	   removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   genClass.removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
 	   
 	   CGUtil.printFile(setParser);
-	   
-   }
-   
-   private void removeFragment(Parser parser, String symbName) {
-
-	   parser.indexOf(Parser.CLASS_END);
-	   
-	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
-	   
-	   SymTabEntry symTabEntry = symTab.get(symbName);
-	   
-	   if (symTabEntry != null) {
-		   StringBuilder fileBody = parser.getFileBody();
-
-		   int startPos = symTabEntry.getStartPos();
-		   
-		   if (symTabEntry.getPreCommentStartPos() > 0) {
-			   
-			   startPos = symTabEntry.getPreCommentStartPos();
-			   
-		   }
-		   
-		   fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
-
-		   parser.withFileChanged(true);
-	   }
 	   
    }
    

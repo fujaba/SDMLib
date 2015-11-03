@@ -40,7 +40,9 @@ public class ModelRefactoring {
 		
 		ludo.getMethods().hasName("init").removeFromModelAndCode("src/test/java");
 		
-		ludo.getRoles().getAssoc().removeFromModelAndCode("src/test/java");
+//		ludo.getRoles().getAssoc().removeFromModelAndCode("src/test/java");
+		
+		model.getClasses().hasName("Ludo").removeFromModelAndCode("src/test/java");
 		
 		model.generate("src/test/java");
 		

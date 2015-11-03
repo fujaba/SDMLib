@@ -34,6 +34,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 /**
  * @author Stefan
@@ -1782,5 +1783,115 @@ public class GenClass extends Generator<Clazz>
    public String toString()
    {
       return "gen " + model;
+   }
+
+   public void removeGeneratedCode(String rootDir) {
+
+	   Parser creatorCreatorParser = this.getOrCreateCreatorCreator(this.getModel(), rootDir);
+	   
+	   String className = StrUtil.upFirstChar(this.getModel().getName());
+	   
+	   this.removeLineFromFragment(creatorCreatorParser, Parser.METHOD + ":createIdMap(String)", className, className);
+	   
+	   this.removeLineFromFragment(creatorCreatorParser, Parser.METHOD + ":createIdMap(String)", className, className);
+	   
+	   CGUtil.printFile(creatorCreatorParser);
+	   
+	   this.removeAllGeneratedCode(rootDir, rootDir, rootDir);
+	   
+   }
+   
+   public void removeFragment(Parser parser, String symbName) {
+
+	   parser.indexOf(Parser.CLASS_END);
+	   
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+	   
+	   SymTabEntry symTabEntry = symTab.get(symbName);
+	   
+	   if (symTabEntry != null) {
+		   StringBuilder fileBody = parser.getFileBody();
+
+		   int startPos = symTabEntry.getStartPos();
+		   
+		   if (symTabEntry.getPreCommentStartPos() > 0) {
+			   
+			   startPos = symTabEntry.getPreCommentStartPos();
+			   
+		   }
+		   
+		   fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
+
+		   parser.withFileChanged(true);
+	   }
+	   
+   }
+   
+   public void removeLineFromFragment(Parser parser, String symTabKey, String startLineContent, String endLineContent) {
+	   
+	   parser.indexOf(Parser.CLASS_END);
+	   
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+	   
+	   SymTabEntry symTabEntry = symTab.get(symTabKey);
+	   
+	   if (symTabEntry != null) {
+	   
+		   String substring = parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1);
+	  
+		   int indexOf = substring.indexOf(startLineContent);
+		   
+		   if (indexOf >= 0) {
+			   
+			   String[] split = substring.split("\n");
+			   
+			   for (int i = 0; i < split.length; i++) {
+
+				   if (split[i].indexOf(startLineContent) >= 0) {
+					   
+					   if (split[i].indexOf(endLineContent) < 0) {
+
+						   while(i < split.length) {
+
+							   if (split[i].indexOf(endLineContent) >= 0) {
+								   
+								   split[i] = "";
+								   
+								   break;
+								   
+							   }
+							   
+							   split[i] = "";
+
+							   i++;
+
+						   }
+
+					   } else {
+
+						   split[i] = "";
+
+					   }
+
+					   break;
+					   
+				   }
+
+			   }
+
+			   StringBuilder builder = new StringBuilder();
+			   
+			   for (int i = 0; i < split.length; i++) {
+				   
+				   builder.append(split[i]).append("\n");
+				   
+			   }
+			   
+			   parser.getFileBody().replace(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1, builder.toString());
+
+			   parser.withFileChanged(true);
+			   
+		   }
+	   }
    }
 }

@@ -1022,13 +1022,14 @@ public class Parser
       // nextRealToken();
       // }
 
+      skip(";");
+      
       symTab.put(IMPORT + ":" + importName,
          new SymTabEntry().withMemberName(importName)
             .withModifiers(modifier)
             .withStartPos(startPos)
             .withEndPos(previousRealToken.endPos));
 
-      skip(";");
    }
 
    private void parsePackageDecl()

@@ -24,7 +24,7 @@ package org.sdmlib.test.model.refactoring.util;
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
 import org.sdmlib.test.model.refactoring.Player;
-import org.sdmlib.test.model.refactoring.Ludo;
+
 
 public class PlayerCreator extends EntityFactory
 {

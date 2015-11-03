@@ -41,6 +41,8 @@ import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.RoleSet;
 
+import de.uniks.networkparser.list.SimpleSet;
+
 public class ClazzSet extends SDMSet<Clazz> 
 {
    public StringList getName()
@@ -759,6 +761,18 @@ public class ClazzSet extends SDMSet<Clazz>
       }
       
       return result;
+   }
+
+   public void removeFromModelAndCode(String rootDir) {
+
+	   SimpleSet<Clazz> clone = this.clone();
+
+	   for (Clazz clazz : clone) {
+
+		   clazz.removeFromModelAndCode(rootDir);
+		   
+	   }
+	   
    }
 
 }
