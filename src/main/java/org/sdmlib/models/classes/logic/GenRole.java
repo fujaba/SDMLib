@@ -1576,9 +1576,7 @@ public class GenRole extends Generator<Role>
 	   removeLineFromFragment(creatorParser, Parser.METHOD + ":getValue(Object,String)" , partnerProperty, "}");
 	   
 	   removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)" , partnerProperty, "}");
-	   //////////// imports und kardinalität bei setValue
-	   ////////////
-	   ////////////
+	  
 	   removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)" , partnerProperty, "}");
 	   
 	   CGUtil.printFile(creatorParser);
