@@ -95,7 +95,6 @@ public class StudyRightModel implements PropertyChangeInterface
       .withSource(studentClass, "students", Card.MANY)
       .withTarget(universityClass, "uni", Card.ONE);
 
-
       // model.getGenerator().updateFromCode("examples test src", "org.sdmlib.test.examples.studyright");
 
       // model.insertModelCreationCodeHere("examples");
