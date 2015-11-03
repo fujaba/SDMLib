@@ -10,6 +10,8 @@ class CreatorCreator{
       JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       jsonIdMap.withCreator(new LudoCreator());
       jsonIdMap.withCreator(new LudoPOCreator());
+      jsonIdMap.withCreator(new PlayerCreator());
+      jsonIdMap.withCreator(new PlayerPOCreator());
       return jsonIdMap;
    }
 }

@@ -23,17 +23,15 @@ package org.sdmlib.test.model.refactoring.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
+import org.sdmlib.test.model.refactoring.Ludo;
 
-public class LudoCreator extends EntityFactory
+public class PlayerCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
 
-
    };
-
 
    
    @Override
@@ -45,7 +43,7 @@ public class LudoCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Ludo();
+      return new Player();
    }
    
    @Override
@@ -63,15 +61,9 @@ public class LudoCreator extends EntityFactory
 
 
 
-
-
-
-
-
       
       return null;
    }
-
 
    
    @Override
@@ -87,23 +79,9 @@ public class LudoCreator extends EntityFactory
 
 
 
-
-
-
-
-
-
-      
-
-
-
-
-
       
       return false;
    }
-
-
 
    public static JsonIdMap createIdMap(String sessionID)
    {
@@ -115,6 +93,6 @@ public class LudoCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Ludo) entity).removeYou();
+      ((Player) entity).removeYou();
    }
 }

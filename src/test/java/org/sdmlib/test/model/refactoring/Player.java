@@ -24,16 +24,11 @@ package org.sdmlib.test.model.refactoring;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.StrUtil;
-import org.sdmlib.test.model.refactoring.util.PlayerSet;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/model/ModelRefactoring.java'>ModelRefactoring.java</a>/n */
-   public  class Ludo implements PropertyChangeInterface
+   public  class Player implements PropertyChangeInterface
 {
-
-   
-   
 
    
    //==========================================================================
@@ -64,37 +59,14 @@ import org.sdmlib.test.model.refactoring.util.PlayerSet;
 
    
    
-   
+
    
 
    
-   
-   
-   
-    
 
-
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
-      
-
-      return result.substring(1);
-   }
-
-
-
-   
-   
-
-   
-   
    
 
     
-
-   
 
     
 }

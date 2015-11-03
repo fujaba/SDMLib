@@ -1,25 +1,23 @@
 package org.sdmlib.test.model.refactoring.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.model.refactoring.Ludo;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.test.model.refactoring.util.PlayerPO;
 import org.sdmlib.test.model.refactoring.Player;
 import org.sdmlib.test.model.refactoring.util.LudoPO;
-import org.sdmlib.test.model.refactoring.util.PlayerSet;
+import org.sdmlib.test.model.refactoring.Ludo;
+import org.sdmlib.test.model.refactoring.util.PlayerPO;
 
-public class LudoPO extends PatternObject<LudoPO, Ludo>
+public class PlayerPO extends PatternObject<PlayerPO, Player>
 {
 
-    public LudoSet allMatches()
+    public PlayerSet allMatches()
    {
       this.setDoAllMatches(true);
       
-      LudoSet matches = new LudoSet();
+      PlayerSet matches = new PlayerSet();
 
       while (this.getPattern().getHasMatch())
       {
-         matches.add((Ludo) this.getCurrentMatch());
+         matches.add((Player) this.getCurrentMatch());
          
          this.getPattern().findMatch();
       }
@@ -28,29 +26,16 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
    }
 
 
-   public LudoPO(){
+   public PlayerPO(){
       newInstance(org.sdmlib.test.model.refactoring.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
-   public LudoPO(Ludo... hostGraphObject) {
+   public PlayerPO(Player... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
       newInstance(org.sdmlib.test.model.refactoring.util.CreatorCreator.createIdMap("PatternObjectType"), hostGraphObject);
    }
-   
-   
-
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
    
 
    

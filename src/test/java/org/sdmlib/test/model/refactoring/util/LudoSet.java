@@ -25,6 +25,10 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.model.refactoring.Ludo;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collections;
+import org.sdmlib.test.model.refactoring.util.PlayerSet;
+import org.sdmlib.test.model.refactoring.Player;
 
 public class LudoSet extends SDMSet<Ludo>
 {
@@ -77,6 +81,14 @@ public class LudoSet extends SDMSet<Ludo>
 
    
 
+
+   
+
+   
+
+   
+
+   
 
    
 

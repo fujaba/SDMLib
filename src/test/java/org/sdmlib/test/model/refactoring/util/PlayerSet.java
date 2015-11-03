@@ -21,100 +21,56 @@
    
 package org.sdmlib.test.model.refactoring.util;
 
-import org.sdmlib.serialization.EntityFactory;
-import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.test.model.refactoring.Ludo;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.model.refactoring.Player;
+import java.util.Collection;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.model.refactoring.util.LudoSet;
+import org.sdmlib.test.model.refactoring.Ludo;
 
-public class LudoCreator extends EntityFactory
+public class PlayerSet extends SDMSet<Player>
 {
-   private final String[] properties = new String[]
+
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+
+
+   public PlayerPO hasPlayerPO()
    {
-
-
-   };
-
-
-   
-   @Override
-   public String[] getProperties()
-   {
-      return properties;
+      return new PlayerPO(this.toArray(new Player[this.size()]));
    }
-   
-   @Override
-   public Object getSendableInstance(boolean reference)
+
+
+   public String getEntryType()
    {
-      return new Ludo();
+      return "org.sdmlib.test.model.refactoring.Player";
    }
-   
-   @Override
-   public Object getValue(Object target, String attrName)
+
+
+   @SuppressWarnings("unchecked")
+   public PlayerSet with(Object value)
    {
-      int pos = attrName.indexOf('.');
-      String attribute = attrName;
-      
-      if (pos > 0)
+      if (value instanceof java.util.Collection)
       {
-         attribute = attrName.substring(0, pos);
+         this.addAll((Collection<Player>)value);
       }
-
-
-
-
-
-
-
-
-
-
-      
-      return null;
-   }
-
-
-   
-   @Override
-   public boolean setValue(Object target, String attrName, Object value, String type)
-   {
-      if (JsonIdMap.REMOVE.equals(type) && value != null)
+      else if (value != null)
       {
-         attrName = attrName + type;
+         this.add((Player) value);
       }
-
-
-
-
-
-
-
-
-
-
-
-
       
-
-
-
-
-
-      
-      return false;
-   }
-
-
-
-   public static JsonIdMap createIdMap(String sessionID)
-   {
-      return org.sdmlib.test.model.refactoring.util.CreatorCreator.createIdMap(sessionID);
+      return this;
    }
    
-   //==========================================================================
-   
-   @Override
-   public void removeObject(Object entity)
+   public PlayerSet without(Player value)
    {
-      ((Ludo) entity).removeYou();
+      this.remove(value);
+      return this;
    }
+
+   
+
+   
+
+   
+
 }
