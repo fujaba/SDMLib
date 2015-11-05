@@ -27,13 +27,12 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.classes.logic.GenClassModel;
-import org.sdmlib.models.classes.logic.GenRole;
+import org.sdmlib.models.classes.util.AnnotationSet;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ModifierSet;
 import org.sdmlib.models.classes.util.RoleSet;
-import org.sdmlib.models.classes.util.AnnotationSet;
 
 /**
  * @author Stefan
@@ -840,8 +839,8 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 		return modifiers;
 	}
 
-	public void removeFromModelAndCode(String rootDir) {
-
+	void removeFromModelAndCode(String rootDir) {
+//FIXME THIS CODE MUST BE IN THE GENERATOR NOT HERE
 		GenClassModel genModel = this.getClassModel().getGenerator();
 		
 		for (Role role : this.getRoles()) {
