@@ -13,6 +13,26 @@ task copyAllDependencies(type: Copy) {
   from configurations.compile
   into 'build/allLibs'
 }
+
+ext.sharedManifest = manifest {
+   attributes 'Specification-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
+			'Implementation-Title': 'SDMLib',
+			'Specification-Title': 'SDMLib',
+			'Built-Time': gitVersion.buildTime,
+			'Created-By': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision+" "+System.properties['user.name'],
+			'Built-By': "${System.properties['user.name']}",
+			'Location': "${System.properties['user.language']}",
+			'Version': gitVersion.revision,
+			'Author': 'Albert Zündorf',
+			'Implementation-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
+			'GIT-Revision': gitVersion.revision,
+			'Java-Version': "${System.properties['java.version']}",
+			'Bundle-Description': 'NetworkParser',
+			'Bundle-ClassPath': '.',
+			'Main-Class': "org.sdmlib.models.classes.gui.SDMDiagramEditor"
+}
+
+
 task fatJar(type: Jar) {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
@@ -23,7 +43,7 @@ task fatJar(type: Jar) {
     exclude('org/junit/**')
 	exclude('META-INF/MANIFEST.MF')
     classifier = 'all'
-	getManifest(gitVersion)
+	manifest = project.manifest {from sharedManifest}
 }
 task compileJava17(type: JavaCompile) {
 	println "Compile 1.7"
@@ -41,7 +61,7 @@ compileJava17.dependsOn copyAllDependencies
 
 task coreJar17(type: Jar) {
 	from fileTree(dir: 'build/classes/main17'); classifier = 'core17'
-	getManifest(gitVersion)
+	manifest = project.manifest {from sharedManifest}
 }
 
 
@@ -50,9 +70,7 @@ task pmJar(type: Jar) {
 		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
 		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}) 
 		)}
-	manifest {
-		
-	}
+	manifest = project.manifest {from sharedManifest}
 	exclude('META-INF/MANIFEST.MF')
 	exclude('org/sdmlib/models/transformations/**')
 	exclude('org/sdmlib/replication/**')
@@ -121,23 +139,4 @@ task pomFile(type: Jar) {
 	stringsFile = new FileWriter("build/maven-metadata.xml")
 	stringsFile.write(sw.toString())
 	stringsFile.close()
-}
-
-def getManifest(gitVersion) {
-	manifest {
-		attributes 'Specification-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
-			'Implementation-Title': 'SDMLib',
-			'Specification-Title': 'SDMLib',
-			'Built-Time': gitVersion.buildTime,
-			'Created-By': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision+" "+System.properties['user.name'],
-			'Built-By': "${System.properties['user.name']}",
-			'Location': "${System.properties['user.language']}",
-			'Version': gitVersion.revision,
-			'Author': 'Stefan Lindel',
-			'Implementation-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
-			'GIT-Revision': gitVersion.revision,
-			'Java-Version': "${System.properties['java.version']}",
-			'Bundle-Description': 'SDMLib',
-			'Bundle-ClassPath': '.'
-	}
 }
