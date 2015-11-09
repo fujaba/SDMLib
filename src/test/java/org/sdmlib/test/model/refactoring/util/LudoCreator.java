@@ -32,6 +32,7 @@ public class LudoCreator extends EntityFactory
    {
 
       Ludo.PROPERTY_PLAYERS,
+      Ludo.PROPERTY_LOCATION,
    };
 
    
@@ -67,6 +68,11 @@ public class LudoCreator extends EntityFactory
       {
          return ((Ludo) target).getPlayers();
       }
+
+      if (Ludo.PROPERTY_LOCATION.equalsIgnoreCase(attribute))
+      {
+         return ((Ludo) target).getLocation();
+      }
       
       return null;
    }
@@ -95,6 +101,12 @@ public class LudoCreator extends EntityFactory
       if ((Ludo.PROPERTY_PLAYERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Ludo) target).withoutPlayers((Player) value);
+         return true;
+      }
+
+      if (Ludo.PROPERTY_LOCATION.equalsIgnoreCase(attrName))
+      {
+         ((Ludo) target).withLocation((String) value);
          return true;
       }
       

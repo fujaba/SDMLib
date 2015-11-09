@@ -32,13 +32,13 @@ public class ModelRefactoring {
 		
 		ludo.getMethods().first().withBody("     System.out.println(\"Hallo\");\n");
 		
-		model.removeAllGeneratedCode("src/test/java");
+//		model.removeAllGeneratedCode("src/test/java");
 		
-		model.generate("src/test/java");
+//		model.generate("src/test/java");
 		
-		ludo.getAttributes().hasName("location").removeFromModelAndCode("src/test/java");
+//		ludo.getAttributes().hasName("location").removeFromModelAndCode("src/test/java");
 		
-		ludo.getMethods().hasName("init").removeFromModelAndCode("src/test/java");
+//		ludo.getMethods().hasName("init").removeFromModelAndCode("src/test/java");
 		
 //		ludo.getRoles().getAssoc().removeFromModelAndCode("src/test/java");
 		

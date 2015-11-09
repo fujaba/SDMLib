@@ -79,6 +79,7 @@ import org.sdmlib.test.model.refactoring.util.PlayerSet;
       StringBuilder result = new StringBuilder();
       
 
+      result.append(" ").append(this.getLocation());
       return result.substring(1);
    }
 
@@ -154,5 +155,40 @@ import org.sdmlib.test.model.refactoring.util.PlayerSet;
       Player value = new Player();
       withPlayers(value);
       return value;
+   } 
+
+   
+   //==========================================================================
+   public void init( String p )
+   {
+     System.out.println("Hallo");
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_LOCATION = "location";
+   
+   private String location;
+
+   public String getLocation()
+   {
+      return this.location;
+   }
+   
+   public void setLocation(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.location, value)) {
+      
+         String oldValue = this.location;
+         this.location = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_LOCATION, oldValue, value);
+      }
+   }
+   
+   public Ludo withLocation(String value)
+   {
+      setLocation(value);
+      return this;
    } 
 }

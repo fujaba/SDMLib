@@ -164,4 +164,99 @@ public class LudoSet extends SDMSet<Ludo>
       return this;
    }
 
+   
+   //==========================================================================
+   
+   public LudoSet init(String p)
+   {
+      for (Ludo obj : this)
+      {
+         obj.init(p);
+      }
+      return this;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect a list of the location attribute values. 
+    * 
+    * @return List of String objects reachable via location attribute
+    */
+   public StringList getLocation()
+   {
+      StringList result = new StringList();
+      
+      for (Ludo obj : this)
+      {
+         result.add(obj.getLocation());
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the location attribute matches the parameter value. 
+    * 
+    * @param value Search value
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet hasLocation(String value)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (value.equals(obj.getLocation()))
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and collect those Ludo objects where the location attribute is between lower and upper. 
+    * 
+    * @param lower Lower bound 
+    * @param upper Upper bound 
+    * 
+    * @return Subset of Ludo objects that match the parameter
+    */
+   public LudoSet hasLocation(String lower, String upper)
+   {
+      LudoSet result = new LudoSet();
+      
+      for (Ludo obj : this)
+      {
+         if (lower.compareTo(obj.getLocation()) <= 0 && obj.getLocation().compareTo(upper) <= 0)
+         {
+            result.add(obj);
+         }
+      }
+      
+      return result;
+   }
+
+
+   /**
+    * Loop through the current set of Ludo objects and assign value to the location attribute of each of it. 
+    * 
+    * @param value New attribute value
+    * 
+    * @return Current set of Ludo objects now with new attribute values.
+    */
+   public LudoSet withLocation(String value)
+   {
+      for (Ludo obj : this)
+      {
+         obj.setLocation(value);
+      }
+      
+      return this;
+   }
+
 }

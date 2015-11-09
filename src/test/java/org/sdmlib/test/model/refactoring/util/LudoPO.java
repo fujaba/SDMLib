@@ -85,4 +85,68 @@ public class LudoPO extends PatternObject<LudoPO, Ludo>
       return null;
    }
 
+   
+   //==========================================================================
+   
+   public void init(String p)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+          ((Ludo) getCurrentMatch()).init(p);
+      }
+   }
+
+   public LudoPO hasLocation(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_LOCATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public LudoPO hasLocation(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Ludo.PROPERTY_LOCATION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public LudoPO createLocation(String value)
+   {
+      this.startCreate().hasLocation(value).endCreate();
+      return this;
+   }
+   
+   public String getLocation()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Ludo) getCurrentMatch()).getLocation();
+      }
+      return null;
+   }
+   
+   public LudoPO withLocation(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Ludo) getCurrentMatch()).setLocation(value);
+      }
+      return this;
+   }
+   
 }
