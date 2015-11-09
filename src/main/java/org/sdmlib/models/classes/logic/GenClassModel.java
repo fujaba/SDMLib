@@ -55,7 +55,7 @@ import org.sdmlib.storyboards.Storyboard;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 
-public class GenClassModel
+public class GenClassModel implements ClassModelAdapter
 {
    public static final String UTILPATH = ".util";
    ClassModel model;
@@ -624,7 +624,7 @@ public class GenClassModel
       }
    }
 
-   protected Clazz getOrCreateClazz(String className)
+   public Clazz getOrCreateClazz(String className)
    {
       for (Clazz clazz : getModel().getClasses())
       {

@@ -20,6 +20,7 @@
 
 package org.sdmlib.models.classes;
 
+import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenAttribute;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.AttributeSet;
@@ -226,7 +227,7 @@ import org.sdmlib.models.classes.util.AnnotationSet;
 
    public void removeFromModelAndCode(String rootDir) {
 
-	   GenClassModel generator = this.getClazz().getClassModel().getGenerator();
+	   ClassModelAdapter generator = this.getClazz().getClassModel().getGenerator();
 	   
 	   GenAttribute genAttribute = generator.getOrCreate(this);
 

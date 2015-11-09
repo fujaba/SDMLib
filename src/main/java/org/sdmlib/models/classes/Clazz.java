@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Parser;
+import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.AnnotationSet;
@@ -823,7 +824,7 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 	}
 
 	void removeFromModelAndCode(String rootDir) {
-		GenClassModel genModel = this.getClassModel().getGenerator();
+		ClassModelAdapter genModel = this.getClassModel().getGenerator();
 		genModel.removeFromModelAndCode(this, rootDir);
 		this.removeYou();
 	}
