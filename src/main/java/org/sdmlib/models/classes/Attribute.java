@@ -225,6 +225,14 @@ import org.sdmlib.models.classes.util.AnnotationSet;
       return value;
    }
 
+   /**
+    * Removes this attribute from the current model and deletes
+    * the generated code from the model and util classes.<br> 
+    * This includes the set, creator and pattern object classes, that are associated with this attribute.
+    * 
+    * 
+    * @param rootDir root directory, where the code of the attribute is located
+    */
    public void removeFromModelAndCode(String rootDir) {
 
 	   ClassModelAdapter generator = this.getClazz().getClassModel().getGenerator();

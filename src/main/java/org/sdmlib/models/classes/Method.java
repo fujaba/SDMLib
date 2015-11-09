@@ -469,6 +469,14 @@ private String setThrowsTags;
 		this.setThrowsTags = value;
 	}
 
+	/**
+	    * Removes this method from the current model and deletes
+	    * the generated code from the model and util classes.<br> 
+	    * This includes the set, creator and pattern object classes, that are associated with this method.
+	    * 
+	    * 
+	    * @param rootDir root directory, where the code of the method is located
+	    */
 	public void removeFromModelAndCode(String rootDir) {
 
 		ClassModelAdapter generator = this.getClazz().getClassModel().getGenerator();

@@ -3301,6 +3301,14 @@ public class GenClassModel implements ClassModelAdapter
       }
    }
 
+   /**
+	 * Removes the associated class from the current model and deletes
+	 * the generated code from the model and util classes.<br> 
+	 * This includes the set, creator and pattern object classes, that are associated with the class.
+	 * 
+	 * 
+	 * @param rootDir root directory, where the code of the associated class is located
+	 */
    public void removeFromModelAndCode(Clazz model, String rootDir) {
 		
  		for (Role role : model.getRoles()) {

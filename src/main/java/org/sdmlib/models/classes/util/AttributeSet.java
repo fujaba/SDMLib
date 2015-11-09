@@ -310,6 +310,15 @@ public class AttributeSet extends SDMSet<Attribute>
       return result;
    }
 
+   /**
+    * Removes every attribute from the current model and deletes
+    * the generated code from the model and util classes.<br> 
+    * This includes the set, creator and pattern object classes, that are associated with the attributes.
+    * 
+    * 
+    * @param rootDir root directory, where the code of the attributes is located
+    */
+   
    public void removeFromModelAndCode(String rootDir) {
 
 	   SimpleSet<Attribute> clone = this.clone();

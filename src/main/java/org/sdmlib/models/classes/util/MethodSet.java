@@ -363,6 +363,15 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       return result;
    }
 
+   
+   /**
+    * Removes every method from the current model and deletes
+    * the generated code from the model and util classes.<br> 
+    * This includes the set, creator and pattern object classes, that are associated with the methods.
+    * 
+    * 
+    * @param rootDir root directory, where the code of the methods is located
+    */
    public void removeFromModelAndCode(String rootDir) {
 	   
 	   SimpleSet<Method> clone = this.clone();

@@ -224,6 +224,14 @@ public class Association extends SDMLibClass
       return value;
    }
 
+   /**
+    * Removes this association from the current model and deletes
+    * the generated code from the model and util classes.<br> 
+    * This includes the set, creator and pattern object classes, that are associated with this association.
+    * 
+    * 
+    * @param rootDir root directory, where the code of the association is located
+    */
    public void removeFromModelAndCode(String rootDir) {
 	   
 	   ClassModelAdapter genModel = this.getSource().getClazz().getClassModel().getGenerator();

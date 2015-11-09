@@ -823,7 +823,15 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 		return modifiers;
 	}
 
-	void removeFromModelAndCode(String rootDir) {
+	/**
+	 * Removes this class from the current model and deletes
+	 * the generated code from the model and util classes.<br> 
+	 * This includes the set, creator and pattern object classes, that are associated with this class.
+	 * 
+	 * 
+	 * @param rootDir root directory, where the code of the class is located
+	 */
+	public void removeFromModelAndCode(String rootDir) {
 		ClassModelAdapter genModel = this.getClassModel().getGenerator();
 		genModel.removeFromModelAndCode(this, rootDir);
 		this.removeYou();

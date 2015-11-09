@@ -459,6 +459,12 @@ public class GenMethod extends Generator<Method>
       }
    }
 
+   /**
+    * Deletes the generated code of the associated method, within the corresponding model, set, creator and pattern object classes.
+    * 
+    * 
+    * @param rootDir root directory, where the code of the associated method is located
+    */
    public void removeGeneratedCode(String rootDir) {
 	   
 	   GenClass genClass = getGenerator(this.getModel().getClazz());

@@ -1528,7 +1528,12 @@ public class GenRole extends Generator<Role>
       return "gen " + model.toString();
    }
 
-
+   /**
+    * Deletes the generated code of the associated role, within the corresponding model, set, creator and pattern object classes.
+    * 
+    * 
+    * @param rootDir root directory, where the code of the associated role is located
+    */
    public void removeGeneratedCode(String rootDir) {
 	   
 	   GenClass genClass = getGenerator(this.getModel().getClazz());

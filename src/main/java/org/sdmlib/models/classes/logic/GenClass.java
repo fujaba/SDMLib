@@ -1785,6 +1785,12 @@ public class GenClass extends Generator<Clazz>
       return "gen " + model;
    }
 
+   /**
+    * Deletes the generated code of the associated class, within the corresponding model, set, creator and pattern object classes.
+    * Also removes the class file itself.
+    * 
+    * @param rootDir root directory, where the code of the associated class is located
+    */
    public void removeGeneratedCode(String rootDir) {
 
 	   Parser creatorCreatorParser = this.getOrCreateCreatorCreator(this.getModel(), rootDir);
@@ -1801,6 +1807,13 @@ public class GenClass extends Generator<Clazz>
 	   
    }
    
+   /**
+    * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br>
+    * Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
+    * 
+    * @param parser used to delete the code fragment from a class, which is determined by the parsers type
+    * @param symbName name of the symbol, as it would be contained in the symbol table of the corresponding parser
+    */
    public void removeFragment(Parser parser, String symbName) {
 
 	   parser.indexOf(Parser.CLASS_END);
@@ -1827,6 +1840,18 @@ public class GenClass extends Generator<Clazz>
 	   
    }
    
+   /**
+    * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br>
+    * Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
+    * On finding a matching code fragment, the lines of code, that are supposed to be deleted from the fragment, are determined
+    * by searching for a matching start and end line, within the fragment.
+    * 
+    * @param parser used to delete the code fragment from a class, which is determined by the parsers type
+    * @param symTabKey name of the symbol, as it would be contained in the symbol table of the corresponding parser
+    * @param startLineContent portion of the first line of code, that is supposed to be removed
+    * @param endLineContent portion of the last line of code, that is supposed to be removed
+    * 
+    */
    public void removeLineFromFragment(Parser parser, String symTabKey, String startLineContent, String endLineContent) {
 	   
 	   parser.indexOf(Parser.CLASS_END);

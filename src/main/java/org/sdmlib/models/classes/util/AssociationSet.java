@@ -176,6 +176,15 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       return result;
    }
    
+   
+   /**
+    * Removes every association from the current model and deletes
+    * the generated code from the model and util classes.<br> 
+    * This includes the set, creator and pattern object classes, that are associated with the associations.
+    * 
+    * 
+    * @param rootDir root directory, where the code of the associations is located
+    */
    public void removeFromModelAndCode(String rootDir) {
 
 	   SimpleSet<Association> clone = this.clone();
