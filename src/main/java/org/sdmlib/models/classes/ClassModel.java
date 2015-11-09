@@ -567,13 +567,6 @@ import org.sdmlib.models.classes.util.EnumerationSet;
       return this;
    }
 
-   public Enumeration createEnumerations()
-   {
-      Enumeration value = new Enumeration();
-      withEnumerations(value);
-      return value;
-   }
-
 	public String getAuthorName() {
 		return defaultAuthorName;
 	}

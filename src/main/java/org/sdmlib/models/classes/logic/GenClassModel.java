@@ -3301,4 +3301,50 @@ public class GenClassModel
       }
    }
 
+   public void removeFromModelAndCode(Clazz model, String rootDir) {
+		
+ 		for (Role role : model.getRoles()) {
+ 			
+ 			Clazz clazz = role.getPartnerRole().getClazz();
+ 			
+ 			GenClass partnerClass = this.getOrCreate(clazz);
+ 			
+ 			String helperClassName = CGUtil.helperClassName(model.getFullName(), "Set");
+ 			
+ 			String helpPoClassName = CGUtil.helperClassName(model.getFullName(), "PO");
+ 			
+ 			Parser partnerParser = partnerClass.getParser();
+ 			
+ 			partnerClass.removeFragment(partnerParser, Parser.IMPORT + ":" + model.getFullName());
+ 			
+ 			partnerClass.removeFragment(partnerParser, Parser.IMPORT + ":" + helperClassName);
+ 			
+ 			Parser partnerSetParser = partnerClass.getOrCreateParserForModelSetFile(rootDir);
+ 			
+ 			partnerClass.removeFragment(partnerSetParser, Parser.IMPORT + ":" + model.getFullName());
+ 			
+ 			partnerClass.removeFragment(partnerSetParser, Parser.IMPORT + ":" + helperClassName);
+ 			
+ 			Parser partnerPOParser = partnerClass.getOrCreateParserForPatternObjectFile(rootDir);
+ 			
+ 			partnerClass.removeFragment(partnerPOParser, Parser.IMPORT + ":" + model.getFullName());
+ 			
+ 			partnerClass.removeFragment(partnerPOParser, Parser.IMPORT + ":" + helpPoClassName);
+ 			
+ 			partnerClass.removeFragment(partnerPOParser, Parser.IMPORT + ":" + helperClassName);
+ 			
+ 			Parser partnerCreatorParser = partnerClass.getOrCreateParserForCreatorClass(rootDir);
+ 			
+ 			partnerClass.removeFragment(partnerCreatorParser, Parser.IMPORT + ":" + model.getFullName());
+ 			
+ 			partnerClass.removeFragment(partnerCreatorParser, Parser.IMPORT + ":" + helperClassName);
+ 			
+ 			role.getAssoc().removeFromModelAndCode(rootDir);
+ 			
+ 		}
+ 		
+ 		GenClass genClass = this.getOrCreate(model);
+ 		
+ 		genClass.removeGeneratedCode(rootDir);
+    }
 }
