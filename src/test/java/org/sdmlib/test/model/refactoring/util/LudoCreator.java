@@ -23,15 +23,17 @@ package org.sdmlib.test.model.refactoring.util;
 
 import org.sdmlib.serialization.EntityFactory;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.test.model.refactoring.Player;
 import org.sdmlib.test.model.refactoring.Ludo;
+import org.sdmlib.test.model.refactoring.Player;
 
-public class PlayerCreator extends EntityFactory
+public class LudoCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Player.PROPERTY_GAME,
+
+      Ludo.PROPERTY_PLAYERS,
    };
+
    
    @Override
    public String[] getProperties()
@@ -42,7 +44,7 @@ public class PlayerCreator extends EntityFactory
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new Player();
+      return new Ludo();
    }
    
    @Override
@@ -56,13 +58,19 @@ public class PlayerCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Player.PROPERTY_GAME.equalsIgnoreCase(attribute))
+
+
+
+
+
+      if (Ludo.PROPERTY_PLAYERS.equalsIgnoreCase(attribute))
       {
-         return ((Player) target).getGame();
+         return ((Ludo) target).getPlayers();
       }
       
       return null;
    }
+
    
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
@@ -72,14 +80,27 @@ public class PlayerCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (Player.PROPERTY_GAME.equalsIgnoreCase(attrName))
+
+
+
+
+
+
+      if (Ludo.PROPERTY_PLAYERS.equalsIgnoreCase(attrName))
       {
-         ((Player) target).setGame((Ludo) value);
+         ((Ludo) target).withPlayers((Player) value);
+         return true;
+      }
+      
+      if ((Ludo.PROPERTY_PLAYERS + JsonIdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Ludo) target).withoutPlayers((Player) value);
          return true;
       }
       
       return false;
    }
+
    public static JsonIdMap createIdMap(String sessionID)
    {
       return org.sdmlib.test.model.refactoring.util.CreatorCreator.createIdMap(sessionID);
@@ -90,6 +111,6 @@ public class PlayerCreator extends EntityFactory
    @Override
    public void removeObject(Object entity)
    {
-      ((Player) entity).removeYou();
+      ((Ludo) entity).removeYou();
    }
 }

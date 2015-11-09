@@ -15,10 +15,28 @@
    "nodes":[
    {
          "typ":"node",
+         "id":"Ludo"
+      },
+      {
+         "typ":"node",
          "id":"Player"
       }
    ],
-   "edges":[]
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"Ludo",
+            "cardinality":"one",
+            "property":"game"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"many",
+            "property":"players"
+         }
+      }
+   ]
 }   ;
    new Graph(json, {"canvasid":"canvasRemoveAttributeClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>

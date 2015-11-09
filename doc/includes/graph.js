@@ -2639,13 +2639,10 @@ ClassEditor.EditNode = function (graph) {this.graph = graph; };
 ClassEditor.EditNode.prototype = ObjectCreate(GraphUtil.prototype);
 ClassEditor.EditNode.prototype.addElement = function (element, typ) {
 	var that = this;
-	this.bind(element, "mouseup", function (e) {that.click(e, element, typ); });
+	this.bind(element, "dblclick", function (e) {that.click(e, element, typ); });
 };
 ClassEditor.EditNode.prototype.click = function (e, control, typ) {
-	if (!control.lastClick || control.lastClick < new Date().getTime() - 1000 || control.oldValue) {
-		control.lastClick = new Date().getTime();
-		return;
-	}
+	
 	var that = this;
 	control.oldValue = control.innerHTML;
 	control.contentEditable = true;
@@ -2653,6 +2650,13 @@ ClassEditor.EditNode.prototype.click = function (e, control, typ) {
 	this.graph.inputEvent = false;
 	this.selectText(control);
 	control.onkeydown = function (e) {that.change(e, control); };
+	control.onblur = function (e) {that.cancel(e, control); };
+};
+ClassEditor.EditNode.prototype.cancel = function (e, control) {
+	if(control.oldValue) {
+		control.oldValue = null;
+	}
+	control.contentEditable = false;
 };
 ClassEditor.EditNode.prototype.change = function (e, control) {
 	if (e.keyCode !== 27 && e.keyCode !== 13) {

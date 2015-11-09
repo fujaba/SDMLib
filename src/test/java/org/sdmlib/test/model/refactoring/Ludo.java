@@ -24,11 +24,16 @@ package org.sdmlib.test.model.refactoring;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import org.sdmlib.StrUtil;
+import org.sdmlib.test.model.refactoring.util.PlayerSet;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/model/ModelRefactoring.java'>ModelRefactoring.java</a>/n */
-   public  class Player implements PropertyChangeInterface
+   public  class Ludo implements PropertyChangeInterface
 {
+
+   
+   
 
    
    //==========================================================================
@@ -52,66 +57,102 @@ import java.beans.PropertyChangeListener;
    public void removeYou()
    {
    
-      setGame(null);
+      withoutPlayers(this.getPlayers().toArray(new Player[this.getPlayers().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
+   
+   
+   
+
+   
+   
+   
+   
+    
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+      
+
+      return result.substring(1);
+   }
+
+
+
+   
    /********************************************************************
     * <pre>
-    *              many                       one
-    * Player ----------------------------------- Ludo
-    *              players                   game
+    *              one                       many
+    * Ludo ----------------------------------- Player
+    *              game                   players
     * </pre>
     */
    
-   public static final String PROPERTY_GAME = "game";
+   public static final String PROPERTY_PLAYERS = "players";
 
-   private Ludo game = null;
-
-   public Ludo getGame()
+   private PlayerSet players = null;
+   
+   public PlayerSet getPlayers()
    {
-      return this.game;
-   }
-
-   public boolean setGame(Ludo value)
-   {
-      boolean changed = false;
-      
-      if (this.game != value)
+      if (this.players == null)
       {
-         Ludo oldValue = this.game;
-         
-         if (this.game != null)
-         {
-            this.game = null;
-            oldValue.withoutPlayers(this);
-         }
-         
-         this.game = value;
-         
-         if (value != null)
-         {
-            value.withPlayers(this);
-         }
-         
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_GAME, oldValue, value);
-         changed = true;
+         return PlayerSet.EMPTY_SET;
       }
-      
-      return changed;
+   
+      return this.players;
    }
 
-   public Player withGame(Ludo value)
+   public Ludo withPlayers(Player... value)
    {
-      setGame(value);
+      if(value==null){
+         return this;
+      }
+      for (Player item : value)
+      {
+         if (item != null)
+         {
+            if (this.players == null)
+            {
+               this.players = new PlayerSet();
+            }
+            
+            boolean changed = this.players.add (item);
+
+            if (changed)
+            {
+               item.withGame(this);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS, null, item);
+            }
+         }
+      }
       return this;
    } 
 
-   public Ludo createGame()
+   public Ludo withoutPlayers(Player... value)
    {
-      Ludo value = new Ludo();
-      withGame(value);
+      for (Player item : value)
+      {
+         if ((this.players != null) && (item != null))
+         {
+            if (this.players.remove(item))
+            {
+               item.setGame(null);
+               getPropertyChangeSupport().firePropertyChange(PROPERTY_PLAYERS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Player createPlayers()
+   {
+      Player value = new Player();
+      withPlayers(value);
       return value;
    } 
 }
