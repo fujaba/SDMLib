@@ -22,6 +22,7 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
+import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenAttribute;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.logic.GenMethod;
@@ -470,7 +471,7 @@ private String setThrowsTags;
 
 	public void removeFromModelAndCode(String rootDir) {
 
-		GenClassModel generator = this.getClazz().getClassModel().getGenerator();
+		ClassModelAdapter generator = this.getClazz().getClassModel().getGenerator();
 
 		GenMethod genMethod = generator.getOrCreate(this);
 

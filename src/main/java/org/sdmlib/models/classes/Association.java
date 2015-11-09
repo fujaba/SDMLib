@@ -22,9 +22,7 @@
 package org.sdmlib.models.classes;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.logic.GenAssociation;
-import org.sdmlib.models.classes.logic.GenAttribute;
-import org.sdmlib.models.classes.logic.GenClassModel;
+import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenRole;
 
 /**
@@ -228,7 +226,7 @@ public class Association extends SDMLibClass
 
    public void removeFromModelAndCode(String rootDir) {
 	   
-	   GenClassModel genModel = this.getSource().getClazz().getClassModel().getGenerator();
+	   ClassModelAdapter genModel = this.getSource().getClazz().getClassModel().getGenerator();
 	   
 	   GenRole sourceGenRole = genModel.getOrCreate(this.getSource());
 	   

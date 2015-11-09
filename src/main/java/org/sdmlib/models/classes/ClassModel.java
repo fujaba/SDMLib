@@ -32,6 +32,7 @@ import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
+import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
@@ -47,7 +48,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
    private Set<Feature> features=Feature.getAll();
    private String defaultAuthorName=System.getProperty("user.name");
    private ClazzSet classes;
-   private GenClassModel generator;
+   private ClassModelAdapter generator;
 
    /**
     * @deprecated Use new ClassModel(packageName) instead
@@ -164,18 +165,18 @@ import org.sdmlib.models.classes.util.EnumerationSet;
 	   return this;
 	}
 	
-	public GenClassModel getGenerator(){
+   public ClassModelAdapter getGenerator(){
 	   if(generator==null){
          this.setGenerator(new GenClassModel());
       }
 	   return generator;
 	}
 	
-   protected void setGenerator(GenClassModel value)
+   protected void setGenerator(ClassModelAdapter value)
    {
       if (this.generator != value)
       {
-         GenClassModel oldValue = this.generator;
+    	  ClassModelAdapter oldValue = this.generator;
          if (this.generator != null)
          {
             this.generator = null;
@@ -565,13 +566,6 @@ import org.sdmlib.models.classes.util.EnumerationSet;
          }
       }
       return this;
-   }
-
-   public Enumeration createEnumerations()
-   {
-      Enumeration value = new Enumeration();
-      withEnumerations(value);
-      return value;
    }
 
 	public String getAuthorName() {

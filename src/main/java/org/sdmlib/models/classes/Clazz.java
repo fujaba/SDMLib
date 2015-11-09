@@ -25,15 +25,15 @@ import java.util.ArrayList;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Parser;
+import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenClass;
 import org.sdmlib.models.classes.logic.GenClassModel;
-import org.sdmlib.models.classes.logic.GenRole;
+import org.sdmlib.models.classes.util.AnnotationSet;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ModifierSet;
 import org.sdmlib.models.classes.util.RoleSet;
-import org.sdmlib.models.classes.util.AnnotationSet;
 
 /**
  * @author Stefan
@@ -49,7 +49,7 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 	public static final String PROPERTY_METHODS = "methods";
 	public static final String PROPERTY_ROLES = "roles";
 
-	public static final String PROPERTY_INTERFAZE = "interface";
+	public static final String PROPERTY_INTERFACE = "interface";
 	public static final String PROPERTY_EXTERNAL = "external";
 	public static final String PROPERTY_MODIFIER = "modifier";
 	public static final ClazzSet EMPTY_SET = new ClazzSet().withReadOnly(true);
@@ -373,7 +373,7 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 	}
 
 	public boolean isWithNoObjects() {
-		return this.hasModifier(Modifier.ABSTRACT) || this.isInterfaze();
+		return this.hasModifier(Modifier.ABSTRACT) || this.isInterface();
 	}
 
 	// ==========================================================================
@@ -385,7 +385,7 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 		if (this.interfaze != value) {
 			boolean oldValue = this.interfaze;
 			this.interfaze = value;
-			getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
+			getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFACE, oldValue, value);
 			return true;
 		}
 		return false;
@@ -705,23 +705,6 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 
 	// ==========================================================================
 
-	boolean isInterfaze() {
-		return this.interfaze;
-	}
-
-	void setInterfaze(boolean value) {
-		if (this.interfaze != value) {
-			boolean oldValue = this.interfaze;
-			this.interfaze = value;
-			getPropertyChangeSupport().firePropertyChange(PROPERTY_INTERFAZE, oldValue, value);
-		}
-	}
-
-	Clazz withInterfaze(boolean value) {
-		setInterfaze(value);
-		return this;
-	}
-
 	public Clazz withImport(String value) {
 		this.imports.add(value);
 		return this;
@@ -840,55 +823,9 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 		return modifiers;
 	}
 
-	public void removeFromModelAndCode(String rootDir) {
-
-		GenClassModel genModel = this.getClassModel().getGenerator();
-		
-		for (Role role : this.getRoles()) {
-			
-			Clazz clazz = role.getPartnerRole().getClazz();
-			
-			GenClass partnerClass = genModel.getOrCreate(clazz);
-			
-			String helperClassName = CGUtil.helperClassName(this.getFullName(), "Set");
-			
-			String helpPoClassName = CGUtil.helperClassName(this.getFullName(), "PO");
-			
-			Parser partnerParser = partnerClass.getParser();
-			
-			partnerClass.removeFragment(partnerParser, Parser.IMPORT + ":" + this.getFullName());
-			
-			partnerClass.removeFragment(partnerParser, Parser.IMPORT + ":" + helperClassName);
-			
-			Parser partnerSetParser = partnerClass.getOrCreateParserForModelSetFile(rootDir);
-			
-			partnerClass.removeFragment(partnerSetParser, Parser.IMPORT + ":" + this.getFullName());
-			
-			partnerClass.removeFragment(partnerSetParser, Parser.IMPORT + ":" + helperClassName);
-			
-			Parser partnerPOParser = partnerClass.getOrCreateParserForPatternObjectFile(rootDir);
-			
-			partnerClass.removeFragment(partnerPOParser, Parser.IMPORT + ":" + this.getFullName());
-			
-			partnerClass.removeFragment(partnerPOParser, Parser.IMPORT + ":" + helpPoClassName);
-			
-			partnerClass.removeFragment(partnerPOParser, Parser.IMPORT + ":" + helperClassName);
-			
-			Parser partnerCreatorParser = partnerClass.getOrCreateParserForCreatorClass(rootDir);
-			
-			partnerClass.removeFragment(partnerCreatorParser, Parser.IMPORT + ":" + this.getFullName());
-			
-			partnerClass.removeFragment(partnerCreatorParser, Parser.IMPORT + ":" + helperClassName);
-			
-			role.getAssoc().removeFromModelAndCode(rootDir);
-			
-		}
-		
-		GenClass genClass = genModel.getOrCreate(this);
-		
-		genClass.removeGeneratedCode(rootDir);
-		
+	void removeFromModelAndCode(String rootDir) {
+		ClassModelAdapter genModel = this.getClassModel().getGenerator();
+		genModel.removeFromModelAndCode(this, rootDir);
 		this.removeYou();
-
 	}
 }

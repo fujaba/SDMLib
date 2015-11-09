@@ -22,7 +22,7 @@ public class ClazzCreator extends EntityFactory
       Clazz.PROPERTY_METHODS,
       Clazz.PROPERTY_ROLES,
       Clazz.PROPERTY_KIDCLAZZES,
-      Clazz.PROPERTY_INTERFAZE,
+      Clazz.PROPERTY_INTERFACE,
       Clazz.PROPERTY_ANNOTATIONS,
    };
    
@@ -88,7 +88,7 @@ public class ClazzCreator extends EntityFactory
          return ((Clazz) target).getKidClazzes();
       }
 
-      if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attribute))
+      if (Clazz.PROPERTY_INTERFACE.equalsIgnoreCase(attribute))
       {
          return ((Clazz) target).isInterface();
       }
@@ -180,7 +180,7 @@ public class ClazzCreator extends EntityFactory
          return true;
       }
 
-      if (Clazz.PROPERTY_INTERFAZE.equalsIgnoreCase(attrName))
+      if (Clazz.PROPERTY_INTERFACE.equalsIgnoreCase(attrName))
       {
          ((Clazz) target).setInterface((Boolean) value);
          return true;
