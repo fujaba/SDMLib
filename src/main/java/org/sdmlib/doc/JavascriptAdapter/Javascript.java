@@ -182,7 +182,7 @@ public class Javascript implements GuiAdapter
    public JsonObject convertModel(ClassModel model) {
 	   JsonObject json = new JsonObject();
 	      
-	      json.put("typ", "class");
+	      json.put("typ", GraphIdMap.CLASS);
 	      
 	      JsonArray jsonNodes = new JsonArray();
 	      JsonArray jsonEdges = new JsonArray();
