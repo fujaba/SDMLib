@@ -241,14 +241,22 @@ public class Storyboard implements PropertyChangeInterface
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
 
+      String testClassName = null;
       if (callEntry.getClassName().equals(StoryPage.class.getName())) {
     	  callEntry = stackTrace[2];
     	  testMethodName = stackTrace[2].getMethodName();
+    	  testClassName = CGUtil.shortClassName(stackTrace[2].getClassName());
       } else {
     	  testMethodName = stackTrace[1].getMethodName();
+        testClassName = CGUtil.shortClassName(stackTrace[1].getClassName());
       }
       
       String storyName = testMethodName;
+      
+      if ("main".equals(storyName))
+      {
+         storyName = testClassName;
+      }
       
       if (storyName.startsWith("test"))
       {
@@ -1971,7 +1979,7 @@ public class Storyboard implements PropertyChangeInterface
             if (insertPos < 0) continue; // <================ sudden death
                
             javaDocText = javaDocText.substring(0, insertPos) 
-                  + hrefText + "/n "+ javaDocText.substring(insertPos);
+                  + hrefText + "\n "+ javaDocText.substring(insertPos);
          
             // write new javadoc
             parser.getFileBody().replace(javaDocStartPos, javaDocEndPos+1, javaDocText);
