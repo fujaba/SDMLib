@@ -31,8 +31,8 @@ import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
 import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
 
+import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
@@ -430,7 +430,7 @@ public class GenClass extends Generator<Clazz>
 	                     "package "+packageName+GenClassModel.UTILPATH+";\n\n"
 	                           + "import " + JsonIdMap.class.getName() + ";\n"
 	                           +
-	                           "import org.sdmlib.serialization.SDMLibJsonIdMap;\n"
+	                           "import de.uniks.networkparser.json.JsonIdMap;\n"
 	                           +
 	                           "\n"
 	                           +
@@ -438,7 +438,7 @@ public class GenClass extends Generator<Clazz>
 	                           "\n" +
 	                           "   public static JsonIdMap createIdMap(String sessionID)\n" +
 	                           "   {\n" +
-	                           "      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);\n" +
+	                           "      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);\n" +
 	                           "      return jsonIdMap;\n" +
 	                           "   }\n" +
 	                           "}\n")
@@ -543,7 +543,6 @@ public class GenClass extends Generator<Clazz>
       template.withTemplate("\n   " +
               "\n   //==========================================================================" +
               "\n   " +
-              "\n   @Override\n" +
               "   public void removeObject(Object entity)\n" +
               "   {\n" +
               "      {{Body}}\n" +
@@ -638,10 +637,21 @@ public class GenClass extends Generator<Clazz>
                "\n      return listeners;" +
                "\n   }" +
                "\n   " +
-               "\n   public void addPropertyChangeListener(PropertyChangeListener listener) " +
+               "\n   public boolean addPropertyChangeListener(PropertyChangeListener listener) " +
                "\n   {" +
                "\n      getPropertyChangeSupport().addPropertyChangeListener(listener);" +
+               "\n      return true;" +
                "\n   }" +
+               "\n   " +
+               "\n   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {" +
+               "\n      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);" +
+               "\n      return true;" +
+               "\n   }"+
+               "\n   " +
+               "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
+               "\n      getPropertyChangeSupport().removePropertyChangeListener(listener);" +
+               "\n      return true;" +
+               "\n   }"+
                "\n"
             );
       }
@@ -655,7 +665,7 @@ public class GenClass extends Generator<Clazz>
       String searchString = Parser.IMPLEMENTS;
       int implementsPos = parser.indexOf(searchString);
 
-      String propertyChangeInterface = PropertyChangeInterface.class.getSimpleName();
+      String propertyChangeInterface = SendableEntity.class.getSimpleName();
 
       if (implementsPos < 0)
       {
@@ -672,7 +682,7 @@ public class GenClass extends Generator<Clazz>
          if (model.isInterface())
             string = " extends ";
          parser.insert(implementsPos + 1, string + propertyChangeInterface);
-         insertImport(PropertyChangeInterface.class.getName());
+         insertImport(SendableEntity.class.getName());
       }
       else
       {
@@ -687,7 +697,7 @@ public class GenClass extends Generator<Clazz>
                ", " + propertyChangeInterface);
          }
 
-         insertImport(PropertyChangeInterface.class.getName());
+         insertImport(SendableEntity.class.getName());
       }
    }
 
@@ -912,11 +922,11 @@ public class GenClass extends Generator<Clazz>
             StringBuilder text = new StringBuilder(
                   "package packageName;\n" +
                      "\n" +
-                     "import org.sdmlib.serialization.EntityFactory;\n" +
+                     "import de.uniks.networkparser.interfaces.SendableEntityCreator;\n" +
                      "import " + JsonIdMap.class.getName() + ";\n" +
                      "fullEntityClassName" +
                      "\n" +
-                     "public class creatorClassName extends EntityFactory\n" +
+                     "public class creatorClassName implements SendableEntityCreator\n" +
                      "{\n" +
                      "   private final String[] properties = new String[]\n" +
                      "   {\n" +
@@ -1141,7 +1151,7 @@ public class GenClass extends Generator<Clazz>
             StringBuilder text = new StringBuilder("" +
                "package packageName;\n" +
                "\n" +
-               "import org.sdmlib.models.modelsets.SDMSet;\n" +
+               "import de.uniks.networkparser.list.SDMSet;\n" +
                "import fullEntityClassName;\n" +
                "\n" +
                "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
@@ -1183,7 +1193,7 @@ public class GenClass extends Generator<Clazz>
                   "\n"
                );
 
-         String replaceReadOnly = ".withReadOnly(true)";
+         String replaceReadOnly = ".withReadOnly()";
 
          CGUtil.replaceAll(partnerText,
             "type", modelSetClassName,
