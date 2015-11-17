@@ -11,14 +11,14 @@ public class DataType
    public static final DataType OBJECT = new DataType("java.lang.Object");
    public static final DataType CHAR = new DataType("char");
 
-   private Clazz clazzValue;
+   protected Clazz clazzValue;
 
-   private DataType ( String value )
+   DataType ( String value )
    {
       this.clazzValue = new Clazz(value);
    }
    
-   private DataType ( Clazz value )
+   DataType ( Clazz value )
    {
       this.clazzValue = value;
    }

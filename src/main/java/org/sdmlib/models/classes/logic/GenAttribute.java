@@ -429,9 +429,11 @@ public class GenAttribute extends Generator<Attribute>
 
      String add = "add";
 
-     if (dataType.getValue().contains("<") || dataType.getValue().endsWith("Set"))
+     if(isMap(dataType))
      {
-        add = "addAll";
+        add = "withAll";
+     } else if (isSet(dataType)) {
+    	 add = "addAll";
      }
 
      if (CGUtil.isPrimitiveType(fullModelSetType))
@@ -508,6 +510,31 @@ public class GenAttribute extends Generator<Attribute>
      {
     	 parser.insertImport(setType);
      }
+   }
+   private boolean isMap(DataType dataType) {
+	   String value = dataType.getValue();
+	   int pos = value.indexOf("<");
+	   if(pos > 0) {
+		   int end = value.indexOf(">");
+		   if(end < pos) {
+			   return false;
+		   }
+		   boolean found = false;
+		   while(pos < end) {
+			   if ( value.charAt(pos) == ',') {
+				   found = true;
+				   break;
+			   }
+			   pos ++;
+		   }
+		   return found;
+	   }
+	   return value.endsWith("Map");
+   }
+
+   
+   private boolean isSet(DataType dataType) {
+	   return (dataType.getValue().contains("<") || dataType.getValue().endsWith("Set"));
    }
 
    private void insertCaseInGenericGetForWrapperInCreatorClass(Parser parser,
@@ -647,6 +674,7 @@ public class GenAttribute extends Generator<Attribute>
               "\n         return true;" +
               "\n      }" +
               "\n");
+      
      // need to add if block to generic set method
      parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
 
@@ -702,6 +730,7 @@ public class GenAttribute extends Generator<Attribute>
      else if (isEnumType(model, ownerClazz, true))
      {
         type = CGUtil.shortClassName(model.getType().getValue()) + ".valueOf((String) value)";
+        parser.insertImport(model.getType().getValue());
         isEnum = true;
      }
 
