@@ -204,11 +204,14 @@ import org.sdmlib.models.taskflows.PeerProxy;
       }
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-*/
-   public LogEntry createEntries()
+	/**
+	 * 
+	 * @see <a href=
+	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
+	 *      TaskFlowObjectScenarioForCoverage.java</a>
+	 * @return the LogEntry
+	 */
+	public LogEntry createEntries()
    {
       LogEntry value = new LogEntry();
       withEntries(value);
