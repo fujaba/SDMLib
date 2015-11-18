@@ -12,7 +12,7 @@
 <p>1. generate class University</p>
 <script>
    var json = {
-   "typ":"class",
+   "typ":"classdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -29,7 +29,7 @@
 <p>2. generate class Student with new notation</p>
 <script>
    var json = {
-   "typ":"class",
+   "typ":"classdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -54,7 +54,7 @@
 <p>3. add uni --> stud assoc</p>
 <script>
    var json = {
-   "typ":"class",
+   "typ":"classdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -93,7 +93,7 @@
 <p>4. add uni --> room</p>
 <script>
    var json = {
-   "typ":"class",
+   "typ":"classdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -182,7 +182,7 @@
 <p>add assignments:</p>
 <script>
    var json = {
-   "typ":"class",
+   "typ":"classdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -317,7 +317,8 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyright.model.util.LectureSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;</p>
+import org.sdmlib.test.examples.studyright.model.util.StudentSet;
+import de.uniks.networkparser.interfaces.SendableEntity;</p>
 <p>9. generate property change support</p>
 <p>Caution: property change support needs not to be generated if the parent class does this already.</p>
 <p>10. generate removeYou method</p>

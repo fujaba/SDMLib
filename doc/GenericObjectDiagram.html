@@ -18,11 +18,11 @@
    "style":null,
    "nodes":[
    {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G1 : GenericGraph"
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G2 : GenericObject",
          "attributes":[
          "name=WilliAllee",
@@ -30,7 +30,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G5 : GenericObject",
          "attributes":[
          "name=seFloor",
@@ -38,7 +38,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G9 : GenericObject",
          "attributes":[
          "name=digitalFloor",
@@ -46,21 +46,21 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G4 : GenericLink",
          "attributes":[
          "tgtLabel=has"
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G8 : GenericLink",
          "attributes":[
          "tgtLabel=has"
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G3 : GenericAttribute",
          "attributes":[
          "name=name",
@@ -68,7 +68,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G6 : GenericAttribute",
          "attributes":[
          "name=name",
@@ -76,7 +76,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G7 : GenericAttribute",
          "attributes":[
          "name=level",
@@ -84,7 +84,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G10 : GenericAttribute",
          "attributes":[
          "name=name",
@@ -92,7 +92,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G11 : GenericAttribute",
          "attributes":[
          "name=level",
@@ -100,7 +100,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G12 : GenericAttribute",
          "attributes":[
          "name=guest",
@@ -314,7 +314,7 @@
 <p>Step 4: now we try to learn a class diagram from the generic object structure: </p>
 <script>
    var json = {
-   "typ":"class",
+   "typ":"classdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -352,9 +352,25 @@
    new Graph(json, {"canvasid":"canvasGenericObjectDiagramClassDiagram8", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>Step 5: generate model creation code to allow the developer to adjust e.g. attribute types and associoation cardinalities: </p>
-<script>
+<pre>      ClassModel model = new ClassModel(&quot;de.kassel.test.roombook&quot;);
+
+      Clazz buildingClass = model.createClazz(&quot;de.kassel.test.roombook.Building&quot;)
+            .withAttribute(&quot;name&quot;, DataType.STRING);
+
+      Clazz floorClass = model.createClazz(&quot;de.kassel.test.roombook.Floor&quot;)
+            .withAttribute(&quot;level&quot;, DataType.INT)
+            .withAttribute(&quot;name&quot;, DataType.STRING)
+            &#x2F;*add attribut*&#x2F;
+            .withAttribute(&quot;guest&quot;, DataType.STRING);    
+      
+      &#x2F;* add assoc *&#x2F;
+      buildingClass.withAssoc(floorClass, &quot;has&quot;, Card.MANY, &quot;buildings&quot;, Card.ONE);
+
+      &#x2F;&#x2F; FIXME: Alex
+      &#x2F;&#x2F; learnedModel.getGenerator().insertModelCreationCodeHere(&quot;examples&quot;);
+</pre><script>
    var json = {
-   "typ":"class",
+   "typ":"classdiagram",
    "nodes":[
    {
          "typ":"node",
@@ -389,7 +405,7 @@
       }
    ]
 }   ;
-   new Graph(json, {"canvasid":"canvasGenericObjectDiagramClassDiagram10", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+   new Graph(json, {"canvasid":"canvasGenericObjectDiagramClassDiagram11", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>Step 6: generate code from the learned class diagram </p>
 <p>Step 7: derive non-generic objects from the generic objects </p>
@@ -399,14 +415,14 @@
    "style":null,
    "nodes":[
    {
-         "typ":"node",
+         "typ":"clazz",
          "id":"B13 : Building",
          "attributes":[
          "name=WA73"
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"F14 : Floor",
          "attributes":[
          "level=1",
@@ -414,7 +430,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"F15 : Floor",
          "attributes":[
          "level=0",
@@ -452,7 +468,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGenericObjectDiagram14", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGenericObjectDiagram15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 <script>
@@ -461,11 +477,11 @@
    "style":null,
    "nodes":[
    {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G16 : GenericGraph"
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G17 : GenericObject",
          "attributes":[
          "name=spec2gen.B1",
@@ -473,7 +489,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G20 : GenericObject",
          "attributes":[
          "name=spec2gen.F2",
@@ -481,7 +497,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G24 : GenericObject",
          "attributes":[
          "name=spec2gen.F3",
@@ -489,7 +505,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G19 : GenericLink",
          "attributes":[
          "tgtLabel=has",
@@ -497,7 +513,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G23 : GenericLink",
          "attributes":[
          "tgtLabel=has",
@@ -505,7 +521,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G18 : GenericAttribute",
          "attributes":[
          "name=name",
@@ -513,7 +529,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G21 : GenericAttribute",
          "attributes":[
          "name=level",
@@ -521,7 +537,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G22 : GenericAttribute",
          "attributes":[
          "name=name",
@@ -529,7 +545,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G25 : GenericAttribute",
          "attributes":[
          "name=name",
@@ -537,7 +553,7 @@
          ]
       },
       {
-         "typ":"node",
+         "typ":"clazz",
          "id":"G26 : GenericAttribute",
          "attributes":[
          "name=guest",
@@ -730,7 +746,7 @@
       }
    ]
 }   ;
-   json["options"]={"canvasid":"canvasGenericObjectDiagram15", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   json["options"]={"canvasid":"canvasGenericObjectDiagram16", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
 

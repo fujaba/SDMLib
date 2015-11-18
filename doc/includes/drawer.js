@@ -25,10 +25,9 @@
 // VERSION: 2015.09.15 10:40
 /*global GraphUtil: false, SymbolLibary: false, svgConverter: false, jsPDF: false, document:false */
 "use strict";
-var ObjectCreate = Object.create || function (o) { var F = function () {}; F.prototype = o; return new F(); };
+var ObjectCreate = Object.create || function (o) {var F = function () {}; F.prototype = o; return new F(); };
 
-var Drawer = function () {this.init(); };
-Drawer.prototype.init = function (typ) {this.util = new GraphUtil(typ); this.symbolLib = new SymbolLibary(); };
+var Drawer = function (typ) {this.util = new GraphUtil(typ); this.symbolLib = new SymbolLibary(); };
 Drawer.prototype.clearBoard = function () {};
 Drawer.prototype.setPos = function (item, x, y) {item.x = x; item.y = y; };
 Drawer.prototype.setSize = function (item, x, y) {item.width = x; item.height = y; };
@@ -187,7 +186,7 @@ Drawer.prototype.getButtons = function (graph, notTyp) {
 	return buttons;
 };
 //				###################################################### HTMLDrawer ####################################################################################
-Drawer.HTMLDrawer = function () { this.init(); };
+Drawer.HTMLDrawer = function () { Drawer.call(this); };
 Drawer.HTMLDrawer.prototype = ObjectCreate(Drawer.prototype);
 Drawer.HTMLDrawer.prototype.setPos = function (item, x, y) {item.style.left = x + "px"; item.style.top = y + "px"; };
 Drawer.HTMLDrawer.prototype.setSize = function (item, x, y) {item.style.width = x + "px"; item.style.height = y + "px"; };
@@ -377,7 +376,7 @@ Drawer.HTMLDrawer.prototype.createPath = function (close, fill, path, angle) {
 	return line;
 };
 //				###################################################### SVG ####################################################################################
-Drawer.SVGDrawer = function () {this.init("http://www.w3.org/2000/svg"); this.showButton = true; };
+Drawer.SVGDrawer = function () {Drawer.call(this, "http://www.w3.org/2000/svg"); this.showButton = true; };
 Drawer.SVGDrawer.prototype = ObjectCreate(Drawer.prototype);
 Drawer.SVGDrawer.prototype.getWidth = function (label) {
 	var board, width, text = this.util.create({tag: "text", $font: true, value: label});
