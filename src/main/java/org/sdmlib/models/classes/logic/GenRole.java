@@ -945,7 +945,10 @@ public class GenRole extends Generator<Role>
             parser.insertImport(ObjectSet.class.getName());
             
             String containsClause = "neighbors.contains(obj.get"
-                  + StrUtil.upFirstChar(partnerRole.getName()) + "())";
+                  + StrUtil.upFirstChar(partnerRole.getName()) + "())"
+                  + " || (neighbors.isEmpty() && obj.get"
+                  + StrUtil.upFirstChar(partnerRole.getName())
+                  + "() == null)";
             
             if (partnerRole.getCard().equals(Card.MANY.toString()))
             {
