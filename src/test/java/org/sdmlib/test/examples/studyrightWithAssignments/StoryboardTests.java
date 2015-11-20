@@ -185,11 +185,10 @@ public class StoryboardTests {
       storyboard.dumpHTML();
    }
    
-     /**
-    * 
+   /**
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
-* @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
-*/
+    * @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
+    */
    @Test
    public void testStudyRightObjectModelSerialisation()
    {
@@ -300,11 +299,11 @@ public class StoryboardTests {
       storyboard.dumpHTML();
    }
 
-     /**
+   /**
     * 
     * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
-* @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
-*/
+    * @see <a href='../../../../../../../../doc/StudyRightObjectModelNavigationAndQueries.html'>StudyRightObjectModelNavigationAndQueries.html</a>
+    */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
    {
@@ -328,6 +327,12 @@ public class StoryboardTests {
       
       // model.generate("examples");
       
+      model.getGenerator().updateFromCode("src/test/java", "org.sdmlib.test.examples.studyrightWithAssignments.model");
+      
+      story.add("Full class model from code:");
+      
+      story.addClassDiagram(model);
+
       story.add("How to navigate and query an object model.");
       
       story.addStep("Example object structure:");
