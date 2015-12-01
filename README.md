@@ -1,9 +1,9 @@
 SDMLib
 ======
 
-master : [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)](https://travis-ci.org/fujaba/SDMLib)
+master : [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)](https://travis-ci.org/fujaba/SDMLib) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fujaba/SDMLib/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/fujaba/SDMLib/?branch=master)
 
-develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop)](https://travis-ci.org/fujaba/SDMLib)
+develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop)](https://travis-ci.org/fujaba/SDMLib) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fujaba/SDMLib/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/fujaba/SDMLib/?branch=develop)
 
 Welcome to SDMLib
 
