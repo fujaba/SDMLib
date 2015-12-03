@@ -3,6 +3,8 @@ package org.sdmlib.test.examples.simpleEnumModel.model.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
+import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
+import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
 public class MacPO extends PatternObject<MacPO, Mac>
 {
@@ -87,4 +89,104 @@ public class MacPO extends PatternObject<MacPO, Mac>
       return this;
    }
    
+   public MacPO hasType(TEnum value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_TYPE)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public MacPO createType(TEnum value)
+   {
+      this.startCreate().hasType(value).endCreate();
+      return this;
+   }
+   
+   public TEnum getType()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Mac) getCurrentMatch()).getType();
+      }
+      return null;
+   }
+   
+   public MacPO withType(TEnum value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Mac) getCurrentMatch()).setType(value);
+      }
+      return this;
+   }
+   
+   public MacPO hasOwner(Alex value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Mac.PROPERTY_OWNER)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.hasAttr();
+      
+      return this;
+   }
+   
+   public MacPO createOwner(Alex value)
+   {
+      this.startCreate().hasOwner(value).endCreate();
+      return this;
+   }
+   
+   public Alex getOwner()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Mac) getCurrentMatch()).getOwner();
+      }
+      return null;
+   }
+   
+   public MacPO withOwner(Alex value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Mac) getCurrentMatch()).setOwner(value);
+      }
+      return this;
+   }
+   
+   
+   //==========================================================================
+   
+   public String concat(int p1)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Mac) getCurrentMatch()).concat(p1);
+      }
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public org.sdmlib.test.examples.simpleEnumModel.model.TEnum select(int p1)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Mac) getCurrentMatch()).select(p1);
+      }
+      return null;
+   }
+
 }

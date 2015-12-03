@@ -37,10 +37,11 @@ import org.sdmlib.models.classes.util.AnnotationSet;
    private Clazz clazz = null;
    private Modifier visibility = Modifier.PRIVATE;
    
-   public Attribute(String name, DataType type)
+   public Attribute(String name, Type type)
    {
-      this.name = name; 
-      this.type = type;
+      this.name = name;
+      
+      this.type = DataType.ref(type);
    }
 
    public Clazz getClazz()

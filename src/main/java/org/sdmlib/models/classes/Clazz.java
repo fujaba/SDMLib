@@ -40,7 +40,7 @@ import org.sdmlib.models.classes.util.RoleSet;
  *
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
 */
-public class Clazz extends SDMLibClass implements AnnotationOwner {
+public class Clazz extends SDMLibClass implements AnnotationOwner, Type {
 	public static final String PROPERTY_ATTRIBUTES = "attributes";
 	public static final String PROPERTY_CLASSMODEL = "classModel";
 	public static final String PROPERTY_SUPERCLAZZES = "superClazzes";
@@ -308,7 +308,7 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 		return with(new Method(name));
 	}
 
-	public Clazz withMethod(String name, DataType returnType, Parameter... parameters) {
+	public Clazz withMethod(String name, Type returnType, Parameter... parameters) {
 		return with(new Method(name, returnType, parameters));
 	}
 
@@ -344,7 +344,7 @@ public class Clazz extends SDMLibClass implements AnnotationOwner {
 	 * 
 	 * @see ClassModel#generate()
 	 */
-	public Clazz withAttribute(String name, DataType type) {
+	public Clazz withAttribute(String name, Type type) {
 		return this.with(new Attribute(name, type));
 	}
 

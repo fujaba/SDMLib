@@ -36,15 +36,15 @@ import org.sdmlib.models.classes.util.ParameterSet;
       
    }
    
-   public Parameter(DataType type)
+   public Parameter(Type type)
    {
-      this.type = type;
+      this.type = DataType.ref(type);
    }
    
-   public Parameter(String name, DataType type)
+   public Parameter(String name, Type type)
    {
       withName(name);
-      this.type = type;
+      this.type = DataType.ref(type);
    }
 
 

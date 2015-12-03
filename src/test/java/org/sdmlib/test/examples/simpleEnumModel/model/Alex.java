@@ -26,28 +26,38 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleEnumModel/SimpleClassModelWithEnumeration.java'>SimpleClassModelWithEnumeration.java</a>
 */
-   public class Alex implements PropertyChangeInterface
+   public class Alex implements PropertyChangeInterface, SendableEntity
 {
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
+      //==========================================================================
+      
+      protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+      
+      public PropertyChangeSupport getPropertyChangeSupport()
+      {
+         return listeners;
+      }
+      
+      public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+      {
+         getPropertyChangeSupport().addPropertyChangeListener(listener);
+         return true;
+      }
+      
+      public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+         getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+         return true;
+      }
+      
+      public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+         getPropertyChangeSupport().removePropertyChangeListener(listener);
+         return true;
+      }
 
    
    //==========================================================================

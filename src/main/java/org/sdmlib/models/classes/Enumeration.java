@@ -31,7 +31,7 @@ import org.sdmlib.models.classes.util.MethodSet;
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
 */
-   public class Enumeration extends SDMLibClass {
+   public class Enumeration extends SDMLibClass implements Type {
 
 	// ==========================================================================
 

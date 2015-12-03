@@ -25,12 +25,16 @@ import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
 
 import de.uniks.networkparser.json.JsonIdMap;
+import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
+import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
 public class MacCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
       Mac.PROPERTY_NAME,
+      Mac.PROPERTY_TYPE,
+      Mac.PROPERTY_OWNER,
    };
    
    @Override
@@ -60,6 +64,16 @@ public class MacCreator extends EntityFactory
       {
          return ((Mac) target).getName();
       }
+
+      if (Mac.PROPERTY_TYPE.equalsIgnoreCase(attribute))
+      {
+         return ((Mac) target).getType();
+      }
+
+      if (Mac.PROPERTY_OWNER.equalsIgnoreCase(attribute))
+      {
+         return ((Mac) target).getOwner();
+      }
       
       return null;
    }
@@ -75,6 +89,18 @@ public class MacCreator extends EntityFactory
       if (Mac.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
          ((Mac) target).withName((String) value);
+         return true;
+      }
+
+      if (Mac.PROPERTY_TYPE.equalsIgnoreCase(attrName))
+      {
+         ((Mac) target).withType(TEnum.valueOf((String) value));
+         return true;
+      }
+
+      if (Mac.PROPERTY_OWNER.equalsIgnoreCase(attrName))
+      {
+         ((Mac) target).withOwner((Alex) value);
          return true;
       }
       

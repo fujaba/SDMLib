@@ -97,11 +97,11 @@ import org.sdmlib.models.classes.DataType;
       
    }
    
-   public Method(String name, DataType returnType, Parameter... parameters)
+   public Method(String name, Type returnType, Parameter... parameters)
    {
       this.setName(name);
       this.with(parameters);
-      this.setReturnType(returnType);
+      this.setReturnType(DataType.ref(returnType));
    }
    
    public Method(String name, Parameter... parameters)
@@ -139,14 +139,10 @@ import org.sdmlib.models.classes.DataType;
       return this;
    }
    
-   public Method withParameter(String paramName, DataType dataType)
+   public Method withParameter(String paramName, Type dataType)
    {
-      this.createParameter().withName(paramName).with(dataType);
+      this.createParameter().withName(paramName).with(DataType.ref(dataType));
       return this;
-   }
-   public Method withParameter(String paramName, Clazz clazz) {
-	   this.createParameter().withName(paramName).with(DataType.ref(clazz));
-	   return this;
    }
 
    public Method withParameter(String paramName, Class<?> clazz) {

@@ -26,29 +26,40 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
+import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleEnumModel/SimpleClassModelWithEnumeration.java'>SimpleClassModelWithEnumeration.java</a>
 */
-   public class Mac implements PropertyChangeInterface
+   public class Mac implements PropertyChangeInterface, SendableEntity
 {
 
-   
-   //==========================================================================
-   
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-   
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
-   
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-   }
-
+      //==========================================================================
+      
+      protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+      
+      public PropertyChangeSupport getPropertyChangeSupport()
+      {
+         return listeners;
+      }
+      
+      public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+      {
+         getPropertyChangeSupport().addPropertyChangeListener(listener);
+         return true;
+      }
+      
+      public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+         getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+         return true;
+      }
+      
+      public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+         getPropertyChangeSupport().removePropertyChangeListener(listener);
+         return true;
+      }
    
    //==========================================================================
    
@@ -96,4 +107,74 @@ import org.sdmlib.serialization.PropertyChangeInterface;
       return result.substring(1);
    }
 
+
+   
+   //==========================================================================
+   public String concat( int p1 )
+   {
+      return null;
+   }
+
+   
+   //==========================================================================
+   public TEnum select( int p1 )
+   {
+      return null;
+   }
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_TYPE = "type";
+   
+   private TEnum type;
+
+   public TEnum getType()
+   {
+      return this.type;
+   }
+   
+   public void setType(TEnum value)
+   {
+      if (this.type != value) {
+      
+         TEnum oldValue = this.type;
+         this.type = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_TYPE, oldValue, value);
+      }
+   }
+   
+   public Mac withType(TEnum value)
+   {
+      setType(value);
+      return this;
+   } 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_OWNER = "owner";
+   
+   private Alex owner;
+
+   public Alex getOwner()
+   {
+      return this.owner;
+   }
+   
+   public void setOwner(Alex value)
+   {
+      if (this.owner != value) {
+      
+         Alex oldValue = this.owner;
+         this.owner = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_OWNER, oldValue, value);
+      }
+   }
+   
+   public Mac withOwner(Alex value)
+   {
+      setOwner(value);
+      return this;
+   } 
 }

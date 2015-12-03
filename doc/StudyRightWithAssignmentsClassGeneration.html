@@ -13,7 +13,7 @@
 <pre>	  ClassModel model = new ClassModel(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
 
       Clazz universityClass = model.createClazz(&quot;University&quot;)
-            .withAttribute(&quot;name&quot;, DataType.STRING);
+            .withAttribute(&quot;name&quot;, STRING);
 </pre><script>
    var json = {
    "typ":"classdiagram",
@@ -32,11 +32,11 @@
 </script>
 <p>2. generate class Student</p>
 <pre>      Clazz studentClass = model.createClazz(&quot;Student&quot;)
-            .withAttribute(&quot;name&quot;, DataType.STRING)
-            .withAttribute(&quot;id&quot;, DataType.STRING)
-            .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
-            .withAttribute(&quot;motivation&quot;, DataType.INT) 
-            .withAttribute(&quot;credits&quot;, DataType.INT);
+            .withAttribute(&quot;name&quot;, STRING)
+            .withAttribute(&quot;id&quot;, STRING)
+            .withAttribute(&quot;assignmentPoints&quot;, INT)
+            .withAttribute(&quot;motivation&quot;, INT) 
+            .withAttribute(&quot;credits&quot;, INT);
 </pre><script>
    var json = {
    "typ":"classdiagram",
@@ -65,7 +65,7 @@
    new Graph(json, {"canvasid":"canvasStudyRightWithAssignmentsClassGenerationClassDiagram5", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
 </script>
 <p>3. add University --> Student association</p>
-<pre>      universityClass.withAssoc(studentClass, &quot;students&quot;, Card.MANY, &quot;university&quot;, Card.ONE);
+<pre>      universityClass.withAssoc(studentClass, &quot;students&quot;, MANY, &quot;university&quot;, ONE);
 </pre><script>
    var json = {
    "typ":"classdiagram",
@@ -109,20 +109,20 @@
 </script>
 <p>4. add University --> Room association</p>
 <pre>      Clazz roomClass = model.createClazz(&quot;Room&quot;)
-            .withAttribute(&quot;name&quot;, DataType.STRING)
-            .withAttribute(&quot;topic&quot;, DataType.STRING)
-            .withAttribute(&quot;credits&quot;, DataType.INT);
+            .withAttribute(&quot;name&quot;, STRING)
+            .withAttribute(&quot;topic&quot;, STRING)
+            .withAttribute(&quot;credits&quot;, INT);
 
-      roomClass.createMethod(&quot;findPath&quot;).withParameter(&quot;String&quot;, DataType.INT);
+      roomClass.withMethod(&quot;findPath&quot;, STRING, new Parameter(&quot;motivation&quot;, INT));
 
       &#x2F;&#x2F;Association universityToRoom = 
-      universityClass.withAssoc(roomClass, &quot;rooms&quot;, Card.MANY, &quot;university&quot;, Card.ONE);
+      universityClass.withAssoc(roomClass, &quot;rooms&quot;, MANY, &quot;university&quot;, ONE);
       
       &#x2F;&#x2F; Association doors = 
-      roomClass.withAssoc(roomClass, &quot;doors&quot;, Card.MANY, &quot;doors&quot;, Card.MANY);
+      roomClass.withAssoc(roomClass, &quot;doors&quot;, MANY, &quot;doors&quot;, MANY);
 
       &#x2F;&#x2F; Association studentsInRoom = 
-      studentClass.withAssoc(roomClass, &quot;in&quot;, Card.ONE, &quot;students&quot;, Card.MANY);
+      studentClass.withAssoc(roomClass, &quot;in&quot;, ONE, &quot;students&quot;, MANY);
 </pre><script>
    var json = {
    "typ":"classdiagram",
@@ -154,7 +154,7 @@
             "credits : int"
          ],
          "methods":[
-         "findPath(int String)"
+         "findPath(int motivation) String"
          ]
       }
    ],
@@ -217,11 +217,11 @@
 </script>
 <p>5. add assignments:</p>
 <pre>      Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
-               .withAttribute(&quot;content&quot;, DataType.STRING)
-               .withAttribute(&quot;points&quot;, DataType.INT)
-               .withAssoc(roomClass, &quot;room&quot;, Card.ONE, &quot;assignments&quot;, Card.MANY);
+               .withAttribute(&quot;content&quot;, STRING)
+               .withAttribute(&quot;points&quot;, INT)
+               .withAssoc(roomClass, &quot;room&quot;, ONE, &quot;assignments&quot;, MANY);
       
-      studentClass.withAssoc(assignmentClass, &quot;done&quot;, Card.MANY, &quot;students&quot;, Card.MANY);
+      studentClass.withAssoc(assignmentClass, &quot;done&quot;, MANY, &quot;students&quot;, MANY);
 </pre><script>
    var json = {
    "typ":"classdiagram",
@@ -253,7 +253,7 @@
             "credits : int"
          ],
          "methods":[
-         "findPath(int String)"
+         "findPath(int motivation) String"
          ]
       },
       {

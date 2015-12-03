@@ -30,22 +30,14 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
  */
-public  class Room implements PropertyChangeInterface
+public  class Room implements PropertyChangeInterface, SendableEntity
 {
-
-   
-   //==========================================================================
-   public void findPath( int String )
-   {
-      
-   }
-
-   
    //==========================================================================
    
    protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
@@ -55,9 +47,20 @@ public  class Room implements PropertyChangeInterface
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
    }
 
    
@@ -537,4 +540,11 @@ public  class Room implements PropertyChangeInterface
       withTas(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   public void findPath( int String )
+   {
+      
+   }
 }

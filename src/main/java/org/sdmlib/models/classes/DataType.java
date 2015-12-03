@@ -1,6 +1,6 @@
 package org.sdmlib.models.classes;
 
-public class DataType
+public class DataType implements Type
 {
    public static final DataType VOID = new DataType("void");
    public static final DataType INT = new DataType("int");
@@ -62,6 +62,7 @@ public class DataType
 	   Clazz clazz = new Clazz(value.getName().replace("$", ".")).withExternal(external);
 	   return new DataType(clazz);
    }
+   
    public static DataType ref(Clazz value)
    {
       return new DataType(value);
@@ -70,6 +71,22 @@ public class DataType
    public static DataType ref(Enumeration value)
    {
       return new DataType(value.getFullName());
+   }
+
+   public static DataType ref(Type value)
+   {
+      if (value instanceof Enumeration)
+      {
+         return ref((Enumeration) value);
+      }
+      else if (value instanceof Clazz)
+      {
+         return ref((Clazz) value);
+      }
+      else
+      {
+         return (DataType) value;
+      }
    }
 
    @Override

@@ -23,13 +23,16 @@
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
+import static org.sdmlib.models.classes.Card.*;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
+import org.sdmlib.models.classes.Parameter;
+
+import static org.sdmlib.models.classes.DataType.*;
 import org.sdmlib.storyboards.StoryPage;
 
-public class GenerateClasses {
+public class GenerateClasses 
+{
 
 	/**
 	 * 
@@ -52,7 +55,7 @@ public class GenerateClasses {
 	  ClassModel model = new ClassModel("org.sdmlib.test.examples.studyrightWithAssignments.model");
 
       Clazz universityClass = model.createClazz("University")
-            .withAttribute("name", DataType.STRING);
+            .withAttribute("name", STRING);
       storyboard.addCode();
       
       storyboard.addClassDiagram(model);
@@ -62,11 +65,11 @@ public class GenerateClasses {
 
       storyboard.markCodeStart();
       Clazz studentClass = model.createClazz("Student")
-            .withAttribute("name", DataType.STRING)
-            .withAttribute("id", DataType.STRING)
-            .withAttribute("assignmentPoints", DataType.INT)
-            .withAttribute("motivation", DataType.INT) 
-            .withAttribute("credits", DataType.INT);
+            .withAttribute("name", STRING)
+            .withAttribute("id", STRING)
+            .withAttribute("assignmentPoints", INT)
+            .withAttribute("motivation", INT) 
+            .withAttribute("credits", INT);
       storyboard.addCode();
 
       storyboard.addClassDiagram(model);
@@ -77,7 +80,7 @@ public class GenerateClasses {
 
       // Association universityToStudent = 
       storyboard.markCodeStart();
-      universityClass.withAssoc(studentClass, "students", Card.MANY, "university", Card.ONE);
+      universityClass.withAssoc(studentClass, "students", MANY, "university", ONE);
       storyboard.addCode();
 
       storyboard.addClassDiagram(model);
@@ -88,20 +91,20 @@ public class GenerateClasses {
 
       storyboard.markCodeStart();
       Clazz roomClass = model.createClazz("Room")
-            .withAttribute("name", DataType.STRING)
-            .withAttribute("topic", DataType.STRING)
-            .withAttribute("credits", DataType.INT);
+            .withAttribute("name", STRING)
+            .withAttribute("topic", STRING)
+            .withAttribute("credits", INT);
 
-      roomClass.createMethod("findPath").withParameter("String", DataType.INT);
+      roomClass.withMethod("findPath", STRING, new Parameter("motivation", INT));
 
       //Association universityToRoom = 
-      universityClass.withAssoc(roomClass, "rooms", Card.MANY, "university", Card.ONE);
+      universityClass.withAssoc(roomClass, "rooms", MANY, "university", ONE);
       
       // Association doors = 
-      roomClass.withAssoc(roomClass, "doors", Card.MANY, "doors", Card.MANY);
+      roomClass.withAssoc(roomClass, "doors", MANY, "doors", MANY);
 
       // Association studentsInRoom = 
-      studentClass.withAssoc(roomClass, "in", Card.ONE, "students", Card.MANY);
+      studentClass.withAssoc(roomClass, "in", ONE, "students", MANY);
       storyboard.addCode();
 
       storyboard.addClassDiagram(model);
@@ -113,25 +116,25 @@ public class GenerateClasses {
 
       storyboard.markCodeStart();
       Clazz assignmentClass = model.createClazz("Assignment")
-               .withAttribute("content", DataType.STRING)
-               .withAttribute("points", DataType.INT)
-               .withAssoc(roomClass, "room", Card.ONE, "assignments", Card.MANY);
+               .withAttribute("content", STRING)
+               .withAttribute("points", INT)
+               .withAssoc(roomClass, "room", ONE, "assignments", MANY);
       
-      studentClass.withAssoc(assignmentClass, "done", Card.MANY, "students", Card.MANY);
+      studentClass.withAssoc(assignmentClass, "done", MANY, "students", MANY);
       storyboard.addCode();
       
       storyboard.addClassDiagram(model);
       
-      studentClass.withAssoc(studentClass, "friends", Card.MANY, "friends", Card.MANY);
+      studentClass.withAssoc(studentClass, "friends", MANY, "friends", MANY);
       
       
       // some more classes for model navigation tests
-      studentClass.withAssoc(studentClass, "friends", Card.MANY, "friends", Card.MANY);
+      studentClass.withAssoc(studentClass, "friends", MANY, "friends", MANY);
       
       model.createClazz("TeachingAssistant")
       .withSuperClazz(studentClass)
-      .withAssoc(roomClass, "room", Card.ONE, "tas", Card.MANY)
-      .withAttribute("certified", DataType.BOOLEAN);
+      .withAssoc(roomClass, "room", ONE, "tas", MANY)
+      .withAttribute("certified", BOOLEAN);
       
 
       //============================================================
