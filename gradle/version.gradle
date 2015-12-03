@@ -10,38 +10,40 @@ task printVersion {
         println "$version"
     }
 }
-
-version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
-
+version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), release:project.hasProperty('ReleaseBuild'), branch: getWorkingBranch())
 ext{
-	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
+	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: revisionNumber(), hash: revisionHash(), buildTime: buildTime(), release:project.hasProperty('ReleaseBuild'), branch: getWorkingBranch())
 }
 
 group = 'org.sdmlib'
 
 // Define a method using a closure as the method body
 public class GITVersion {
-	// MAJOR VERSION - Manually set
-    int major = -1
-    int minor = -1
-    int revision = -1
+	int major = -1
+	int minor = -1
+	int revision = -1
+	String buildTime
+	String hash = ""
+	boolean release = false
+	String branch
+	String prefix = ""
 	
-    String buildTime
-    String mavenTime
-    String year
-    String hash = ""
     // change, if release is needed some day: boolean release
     // also change version above to accept release property
-    boolean release = false
-    boolean lecture
-	
-
-    String toString() {
+	String toString() {
 		if (System.getenv().BUILD_NUMBER) {
 			revision = System.getenv().BUILD_NUMBER as int
 		}
-		"$major.$minor.$revision${release ? '' : '-SNAPSHOT'}"
+		
+		if(release == false && !isMaster()) {
+			"$major.$minor.$revision${'-SNAPSHOT'}"
+		} else {
+			"$major.$minor.$revision"
+		}
     }
+	boolean isMaster() {
+		return branch.contains("master")
+	}
 }
 
 def getGitTag() {
@@ -122,4 +124,27 @@ def mavenTime() {
 	def df = new SimpleDateFormat("yyyyMMddHHmmss")
 	df.setTimeZone(TimeZone.getTimeZone("UTC"))
 	return df.format(new Date())
+}
+
+def getWorkingBranch() {
+    // Triple double-quotes for the breaklines
+	def commit, branch="", value
+	executeCommand("git", "rev-parse", "HEAD").eachLine {
+		commit = it.trim()
+		println "Commit: "+commit
+		executeCommand("git", "branch", "-r", "--contains", commit).eachLine {
+	        if(it.startsWith("* ")) {
+				value = it.substring(1).trim()
+			} else {
+				value = it.trim()
+			}
+			if(value.lastIndexOf("/")>0) {
+				value = value.substring(value.lastIndexOf("/")+1)
+			}
+			branch = branch + " "+value
+		}
+	}
+	branch = branch.trim()
+	println "Git-Branch: " + branch
+	branch
 }
