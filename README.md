@@ -5,6 +5,8 @@ master : [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=master)
 
 develop: [![Build Status](https://travis-ci.org/fujaba/SDMLib.svg?branch=develop)](https://travis-ci.org/fujaba/SDMLib) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fujaba/SDMLib/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/fujaba/SDMLib/?branch=develop)
 
+[Download SDMLib-SNAPSHOT-pm.jar for standard user](https://seblog.cs.uni-kassel.de/fileadmin/se/courses/ProgMeth/repository/org/sdmlib/SDMLib/SNAPSHOT/SDMLib-SNAPSHOT-pm.jar)
+
 Welcome to SDMLib
 
 SDMLib is a light weight modeling library. SDMLib intentionally comes without any tool or editor. 
