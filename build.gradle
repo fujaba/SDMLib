@@ -54,11 +54,7 @@ repositories {
     mavenCentral()
 
     // NetworkParser
-    //if(isTravisSnaphot()) {
-        maven { url "https://se.cs.uni-kassel.de/artifactory/lecture" }
-    //}else{
-    //    maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
-    //}
+     maven { url "https://se.cs.uni-kassel.de/artifactory/lecture" }
 }
 
 dependencies {
