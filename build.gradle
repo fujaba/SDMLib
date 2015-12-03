@@ -54,7 +54,7 @@ repositories {
     mavenCentral()
 
     // NetworkParser
-    if(project.hasProperty('lectureBuild') || isTravisSnaphot()) {
+    if(isTravisSnaphot()) {
         maven { url "https://se.cs.uni-kassel.de/artifactory/lecture" }
     }else{
         maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
