@@ -332,7 +332,7 @@ public class GenClass extends Generator<Clazz>
 		if (!clazz.isInterface() && !clazz.isEnumeration() && clazz.hasFeature(Feature.Serialization)) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
-				ClassModelAdapter generator = clazz.getClassModel().getGenerator();
+				GenClassModel generator = clazz.getClassModel().getGenerator();
 				creatorName = clazz.getClassModel().getName() + GenClassModel.UTILPATH + "."
 						+ CGUtil.shortClassName(clazz.getFullName());
 				GenClass genClass = generator.getOrCreate(clazz);
