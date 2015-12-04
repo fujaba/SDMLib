@@ -12,7 +12,8 @@ public class AddTemplate extends TemplateItem {
 	
 	
 	public AddTemplate(int methodStart, String... search) {
-		this.offset = methodStart;
+		this.withPos(methodStart);
+		this.withOffset(methodStart+1);
 		this.search.with(search);
 	}
 	
@@ -39,7 +40,7 @@ public class AddTemplate extends TemplateItem {
 	
 	@Override
 	public boolean validate(Parser parser, ClassModel model, String... values) {
-		int methodEnd = parser.methodBodyIndexOf(Parser.METHOD_END, offset);
+		int methodEnd = parser.methodBodyIndexOf(Parser.METHOD_END, pos);
 		if(lastFound!=null) {
 			methodEnd = getLast(parser, lastFound, offset, methodEnd);
 		}
@@ -60,8 +61,8 @@ public class AddTemplate extends TemplateItem {
 			}
 		}
 		if(max<0) {
-			this.pos = methodEnd;
+			this.offset = methodEnd;
 		}
-		return this.pos>=0;
+		return this.offset>=0;
 	}
 }

@@ -44,7 +44,7 @@ public class Template extends TemplateItem {
 			return false;
 		}
 		if(pos>=0) {
-			return parser.methodBodyIndexOf(searchText.getTextValue(), offset) <= 0;
+			return parser.methodBodyIndexOf(searchText.getTextValue(), pos) <= 0;
 		}
 		return parser.indexOf(searchText.getTextValue()) <= 0;
 	}
@@ -77,15 +77,6 @@ public class Template extends TemplateItem {
 		}else {
 			this.template = value;
 		}
-		return this;
-	}
-
-	public Template withOffset(int value) {
-		this.offset = value;
-		return this;
-	}
-	public Template withPos(int value) {
-		this.pos = value;
 		return this;
 	}
 }

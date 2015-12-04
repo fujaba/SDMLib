@@ -31,9 +31,10 @@ import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
 import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.serialization.PropertyChangeInterface;
 
+import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 /**
  * @author Stefan
@@ -331,7 +332,7 @@ public class GenClass extends Generator<Clazz>
 		if (!clazz.isInterface() && !clazz.isEnumeration() && clazz.hasFeature(Feature.Serialization)) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
-				GenClassModel generator = clazz.getClassModel().getGenerator();
+				ClassModelAdapter generator = clazz.getClassModel().getGenerator();
 				creatorName = clazz.getClassModel().getName() + GenClassModel.UTILPATH + "."
 						+ CGUtil.shortClassName(clazz.getFullName());
 				GenClass genClass = generator.getOrCreate(clazz);
@@ -429,15 +430,13 @@ public class GenClass extends Generator<Clazz>
 	                     "package "+packageName+GenClassModel.UTILPATH+";\n\n"
 	                           + "import " + JsonIdMap.class.getName() + ";\n"
 	                           +
-	                           "import org.sdmlib.serialization.SDMLibJsonIdMap;\n"
-	                           +
 	                           "\n"
 	                           +
 	                           "class CreatorCreator{\n" +
 	                           "\n" +
 	                           "   public static JsonIdMap createIdMap(String sessionID)\n" +
 	                           "   {\n" +
-	                           "      JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);\n" +
+	                           "      JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);\n" +
 	                           "      return jsonIdMap;\n" +
 	                           "   }\n" +
 	                           "}\n")
@@ -542,7 +541,6 @@ public class GenClass extends Generator<Clazz>
       template.withTemplate("\n   " +
               "\n   //==========================================================================" +
               "\n   " +
-              "\n   @Override\n" +
               "   public void removeObject(Object entity)\n" +
               "   {\n" +
               "      {{Body}}\n" +
@@ -637,10 +635,21 @@ public class GenClass extends Generator<Clazz>
                "\n      return listeners;" +
                "\n   }" +
                "\n   " +
-               "\n   public void addPropertyChangeListener(PropertyChangeListener listener) " +
+               "\n   public boolean addPropertyChangeListener(PropertyChangeListener listener) " +
                "\n   {" +
                "\n      getPropertyChangeSupport().addPropertyChangeListener(listener);" +
+               "\n      return true;" +
                "\n   }" +
+               "\n   " +
+               "\n   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {" +
+               "\n      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);" +
+               "\n      return true;" +
+               "\n   }"+
+               "\n   " +
+               "\n   public boolean removePropertyChangeListener(PropertyChangeListener listener) {" +
+               "\n      getPropertyChangeSupport().removePropertyChangeListener(listener);" +
+               "\n      return true;" +
+               "\n   }"+
                "\n"
             );
       }
@@ -654,7 +663,7 @@ public class GenClass extends Generator<Clazz>
       String searchString = Parser.IMPLEMENTS;
       int implementsPos = parser.indexOf(searchString);
 
-      String propertyChangeInterface = PropertyChangeInterface.class.getSimpleName();
+      String propertyChangeInterface = SendableEntity.class.getSimpleName();
 
       if (implementsPos < 0)
       {
@@ -671,7 +680,7 @@ public class GenClass extends Generator<Clazz>
          if (model.isInterface())
             string = " extends ";
          parser.insert(implementsPos + 1, string + propertyChangeInterface);
-         insertImport(PropertyChangeInterface.class.getName());
+         insertImport(SendableEntity.class.getName());
       }
       else
       {
@@ -686,7 +695,7 @@ public class GenClass extends Generator<Clazz>
                ", " + propertyChangeInterface);
          }
 
-         insertImport(PropertyChangeInterface.class.getName());
+         insertImport(SendableEntity.class.getName());
       }
    }
 
@@ -911,11 +920,11 @@ public class GenClass extends Generator<Clazz>
             StringBuilder text = new StringBuilder(
                   "package packageName;\n" +
                      "\n" +
-                     "import org.sdmlib.serialization.EntityFactory;\n" +
+                     "import de.uniks.networkparser.interfaces.SendableEntityCreator;\n" +
                      "import " + JsonIdMap.class.getName() + ";\n" +
                      "fullEntityClassName" +
                      "\n" +
-                     "public class creatorClassName extends EntityFactory\n" +
+                     "public class creatorClassName implements SendableEntityCreator\n" +
                      "{\n" +
                      "   private final String[] properties = new String[]\n" +
                      "   {\n" +
@@ -1140,7 +1149,7 @@ public class GenClass extends Generator<Clazz>
             StringBuilder text = new StringBuilder("" +
                "package packageName;\n" +
                "\n" +
-               "import org.sdmlib.models.modelsets.SDMSet;\n" +
+               "import de.uniks.networkparser.list.SDMSet;\n" +
                "import fullEntityClassName;\n" +
                "\n" +
                "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
@@ -1182,7 +1191,7 @@ public class GenClass extends Generator<Clazz>
                   "\n"
                );
 
-         String replaceReadOnly = ".withReadOnly(true)";
+         String replaceReadOnly = ".withReadOnly()";
 
          CGUtil.replaceAll(partnerText,
             "type", modelSetClassName,
@@ -1205,7 +1214,11 @@ public class GenClass extends Generator<Clazz>
                   + "   @SuppressWarnings(\"unchecked\")\n"
                   + "   public ModelTypeSet with(Object value)\n"
                   + "   {\n"
-                  + "      if (value instanceof java.util.Collection)\n"
+                  + "      if (value == null)\n" 
+                  + "      {\n" 
+                  + "         return this;\n"  
+                  + "      }\n"  
+                  + "      else if (value instanceof java.util.Collection)\n"
                   + "      {\n"
                   + "         this.addAll((Collection<ModelType>)value);\n"
                   + "      }\n"
@@ -1782,5 +1795,140 @@ public class GenClass extends Generator<Clazz>
    public String toString()
    {
       return "gen " + model;
+   }
+
+   /**
+    * Deletes the generated code of the associated class, within the corresponding model, set, creator and pattern object classes.
+    * Also removes the class file itself.
+    * 
+    * @param rootDir root directory, where the code of the associated class is located
+    */
+   public void removeGeneratedCode(String rootDir) {
+
+	   Parser creatorCreatorParser = this.getOrCreateCreatorCreator(this.getModel(), rootDir);
+	   
+	   String className = StrUtil.upFirstChar(this.getModel().getName());
+	   
+	   this.removeLineFromFragment(creatorCreatorParser, Parser.METHOD + ":createIdMap(String)", className, className);
+	   
+	   this.removeLineFromFragment(creatorCreatorParser, Parser.METHOD + ":createIdMap(String)", className, className);
+	   
+	   CGUtil.printFile(creatorCreatorParser);
+	   
+	   this.removeAllGeneratedCode(rootDir, rootDir, rootDir);
+	   
+   }
+   
+   /**
+    * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br>
+    * Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
+    * 
+    * @param parser used to delete the code fragment from a class, which is determined by the parsers type
+    * @param symbName name of the symbol, as it would be contained in the symbol table of the corresponding parser
+    */
+   public void removeFragment(Parser parser, String symbName) {
+
+	   parser.indexOf(Parser.CLASS_END);
+	   
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+	   
+	   SymTabEntry symTabEntry = symTab.get(symbName);
+	   
+	   if (symTabEntry != null) {
+		   StringBuilder fileBody = parser.getFileBody();
+
+		   int startPos = symTabEntry.getStartPos();
+		   
+		   if (symTabEntry.getPreCommentStartPos() > 0) {
+			   
+			   startPos = symTabEntry.getPreCommentStartPos();
+			   
+		   }
+		   
+		   fileBody.replace(startPos, symTabEntry.getEndPos() + 1, "");
+
+		   parser.withFileChanged(true);
+	   }
+	   
+   }
+   
+   /**
+    * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br>
+    * Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
+    * On finding a matching code fragment, the lines of code, that are supposed to be deleted from the fragment, are determined
+    * by searching for a matching start and end line, within the fragment.
+    * 
+    * @param parser used to delete the code fragment from a class, which is determined by the parsers type
+    * @param symTabKey name of the symbol, as it would be contained in the symbol table of the corresponding parser
+    * @param startLineContent portion of the first line of code, that is supposed to be removed
+    * @param endLineContent portion of the last line of code, that is supposed to be removed
+    * 
+    */
+   public void removeLineFromFragment(Parser parser, String symTabKey, String startLineContent, String endLineContent) {
+	   
+	   parser.indexOf(Parser.CLASS_END);
+	   
+	   SimpleKeyValueList<String, SymTabEntry> symTab = parser.getSymTab();
+	   
+	   SymTabEntry symTabEntry = symTab.get(symTabKey);
+	   
+	   if (symTabEntry != null) {
+	   
+		   String substring = parser.getFileBody().substring(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1);
+	  
+		   int indexOf = substring.indexOf(startLineContent);
+		   
+		   if (indexOf >= 0) {
+			   
+			   String[] split = substring.split("\n");
+			   
+			   for (int i = 0; i < split.length; i++) {
+
+				   if (split[i].indexOf(startLineContent) >= 0) {
+					   
+					   if (split[i].indexOf(endLineContent) < 0) {
+
+						   while(i < split.length) {
+
+							   if (split[i].indexOf(endLineContent) >= 0) {
+								   
+								   split[i] = "";
+								   
+								   break;
+								   
+							   }
+							   
+							   split[i] = "";
+
+							   i++;
+
+						   }
+
+					   } else {
+
+						   split[i] = "";
+
+					   }
+
+					   break;
+					   
+				   }
+
+			   }
+
+			   StringBuilder builder = new StringBuilder();
+			   
+			   for (int i = 0; i < split.length; i++) {
+				   
+				   builder.append(split[i]).append("\n");
+				   
+			   }
+			   
+			   parser.getFileBody().replace(symTabEntry.getStartPos(), symTabEntry.getEndPos() + 1, builder.toString());
+
+			   parser.withFileChanged(true);
+			   
+		   }
+	   }
    }
 }
