@@ -430,8 +430,6 @@ public class GenClass extends Generator<Clazz>
 	                     "package "+packageName+GenClassModel.UTILPATH+";\n\n"
 	                           + "import " + JsonIdMap.class.getName() + ";\n"
 	                           +
-	                           "import de.uniks.networkparser.json.JsonIdMap;\n"
-	                           +
 	                           "\n"
 	                           +
 	                           "class CreatorCreator{\n" +

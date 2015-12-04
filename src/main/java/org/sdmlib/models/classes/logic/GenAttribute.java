@@ -587,7 +587,7 @@ public class GenAttribute extends Generator<Attribute>
          {
             entitiyClassName = CGUtil.shortClassName(model.getClazz().getName() + "Creator");
          }
-         templateProperty.withPos(lastIfEndPos);
+         templateProperty.withPos(methodBodyStartPos);
          templateProperty.insert(parser,
                "ValueGet", attrNameGetter,
                "name", model.getName(),
@@ -667,7 +667,7 @@ public class GenAttribute extends Generator<Attribute>
       int methodBodyStartPos = parser.getMethodBodyStartPos();
       
       Template templateProperty = new Template(Parser.NAME_TOKEN + ":PROPERTY_{{NAME}}");
-      templateProperty.withOffset(methodBodyStartPos);
+      templateProperty.withOffset(methodBodyStartPos +1);
       templateProperty.withTemplate("\n      if ({{entitiyClassName}}.PROPERTY_{{NAME}}.equalsIgnoreCase(attrName))" +
               "\n      {" +
               "\n         (({{entitiyNameClass}}) target).{{ValueSet}};" +
@@ -753,7 +753,7 @@ public class GenAttribute extends Generator<Attribute>
      {
         entitiyClassName += "Creator";
      }
-     templateProperty.withPos(lastIfEndPos);
+     templateProperty.withPos(methodBodyStartPos);
      templateProperty.insert(parser,
                "ValueSet", attrNameSetter,
                "name", model.getName(),

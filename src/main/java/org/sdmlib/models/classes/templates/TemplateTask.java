@@ -5,7 +5,10 @@ import org.sdmlib.models.classes.ClassModel;
 
 public abstract class TemplateTask {
 	protected String template = "";
+	// Position of Method
 	protected int pos = -1;
+	// Inser Position
+	protected int offset=-1;
 
 	public TemplateTask withTemplate(String value) {
 		this.template = value;
@@ -28,7 +31,9 @@ public abstract class TemplateTask {
 			 return false;
 		 }
 		 int temp = parser.indexOf(Parser.CLASS_END);
-		 if(pos>=0) {
+		 if (this.offset >0) {
+			 temp = this.offset;
+		 }else if(pos>=0) {
 			 temp = pos;
 		 }
          parser.insert(temp, text.getTextValue());
@@ -44,5 +49,13 @@ public abstract class TemplateTask {
 
 	public String getTemplate() {
 		return template;
+	}
+	public TemplateTask withOffset(int value) {
+		this.offset = value;
+		return this;
+	}
+	public TemplateTask withPos(int value) {
+		this.pos = value;
+		return this;
 	}
 }
