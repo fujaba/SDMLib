@@ -16,7 +16,6 @@ import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 import de.uniks.networkparser.graph.GraphAttribute;
 import de.uniks.networkparser.graph.GraphCardinality;
@@ -94,13 +93,6 @@ public class Javascript implements GuiAdapter
 
    @Override
    public String addGenericObjectDiag(String diagramName, GenericGraph graph, GenericObjectSet hiddenObjects)
-   {
-      // TODO Auto-generated method stub
-      return "";
-   }
-
-   @Override
-   public String dumpSwimlanes(String name, LogEntrySet entries)
    {
       // TODO Auto-generated method stub
       return "";

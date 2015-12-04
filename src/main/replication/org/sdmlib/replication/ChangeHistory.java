@@ -184,9 +184,9 @@ import java.beans.PropertyChangeListener;
    }
 
      /**
-    * 
+      * Create a new ReplicationChange
+    * @return The created ReplicationChange 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public ReplicationChange createChanges()
    {

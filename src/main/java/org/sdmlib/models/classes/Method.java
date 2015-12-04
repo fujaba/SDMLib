@@ -23,8 +23,6 @@ package org.sdmlib.models.classes;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.classes.logic.ClassModelAdapter;
-import org.sdmlib.models.classes.logic.GenAttribute;
-import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.logic.GenMethod;
 import org.sdmlib.models.classes.util.MethodSet;
 import org.sdmlib.models.classes.util.ParameterSet;

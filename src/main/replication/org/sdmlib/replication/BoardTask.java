@@ -312,9 +312,9 @@ import java.beans.PropertyChangeListener;
    }
 
      /**
-    * 
+      * @param value The next BoardTask(s)
+    * @return Self 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public BoardTask withNext(BoardTask... value)
    {

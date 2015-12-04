@@ -278,7 +278,7 @@ public class Storyboard implements PropertyChangeInterface
 
    /**
     * @deprecated Storyboards search for their root dir (like src or src/test/java) themself. Thus use the version without parameters. 
-    * @param rootDir
+    * @param rootDir The RootDir of Sources
     */
    @Deprecated 
    public Storyboard(String rootDir)
@@ -316,7 +316,7 @@ public class Storyboard implements PropertyChangeInterface
     *             Similarly, Storyboards get their name from the method they are used in. Name that method appropriately. 
     *             Use the version without parameters.
     *              
-    * @param rootDir
+    * @param rootDir The RootDir of Sources
     * @param name Name of the html file and page title to be generated. 
     */
    @Deprecated 
@@ -839,7 +839,7 @@ public class Storyboard implements PropertyChangeInterface
 
    /**
     * Add a class diagram to the generated html page.
-    * @param model
+    * @param model The ClassModel for drawing
     */
    public void addClassDiagram(ClassModel model)
    {

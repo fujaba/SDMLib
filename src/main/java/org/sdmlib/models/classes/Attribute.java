@@ -22,7 +22,6 @@ package org.sdmlib.models.classes;
 
 import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenAttribute;
-import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.AnnotationSet;
    /**

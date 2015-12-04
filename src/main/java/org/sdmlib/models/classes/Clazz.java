@@ -23,11 +23,7 @@ package org.sdmlib.models.classes;
 
 import java.util.ArrayList;
 
-import org.sdmlib.CGUtil;
-import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.logic.ClassModelAdapter;
-import org.sdmlib.models.classes.logic.GenClass;
-import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.AnnotationSet;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;

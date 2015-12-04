@@ -297,7 +297,7 @@ import java.beans.PropertyChangeListener;
 
 
    /**
-    * 
+    * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
     */
    public BoardTask createTasks()
@@ -308,7 +308,9 @@ import java.beans.PropertyChangeListener;
    }
 
    /**
-    * 
+    * Create a new BoardTask
+    * @param taskName The Name of BoardTask
+    * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
     */
    public BoardTask createTask(String taskName)

@@ -82,7 +82,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *    model.dumpClassDiagram("GroupAccountClassDiag");
     * </pre>
     * 
-    * @param packageName
+    * @param packageName The Packagename of CLassModel
     * 
     * @see <a href="../GroupAccountClassModel.java">GroupAccountClassModel.java</a> 
     * 
@@ -153,7 +153,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *    model.dumpClassDiagram("GroupAccountClassDiag");
     * </pre>
     * 
-    * @param rootDir
+    * @param rootDir The RootDir of sources
     * 
     * @return this for fluent code style
     * 
@@ -275,7 +275,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
 	 *  
 	 * @see org.sdmlib.storyboards.Storyboard#addClassDiagram(ClassModel model)
 	 * 
-	 * @param diagName
+	 * @param diagName The Diagramname
 	 * @return json script to be embedded in an html page to display a class diagram 
 	 */
 	public String dumpClassDiagram(String diagName)

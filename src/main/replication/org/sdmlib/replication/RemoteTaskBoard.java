@@ -174,9 +174,9 @@ public class RemoteTaskBoard implements PropertyChangeInterface
    }
 
      /**
-    * 
+      * Create a new Lane
+    * @return The created Lane 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public Lane createLanes()
    {
@@ -214,9 +214,10 @@ public class RemoteTaskBoard implements PropertyChangeInterface
    }
 
      /**
-    * 
+      * Create a new Lane
+      * @param name The name of new Lane
+    * @return The created Lane 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public Lane createLanes(String name)
    {

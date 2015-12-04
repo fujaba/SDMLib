@@ -346,12 +346,12 @@ import java.beans.PropertyChangeListener;
       }
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
-*/
-   public LogEntry createChildren()
+	/**
+	 *  Create Children LogEntry
+	 *  @return the created Children
+	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
+	 */
+	   public LogEntry createChildren()
    {
       LogEntry value = new LogEntry();
       withChildren(value);

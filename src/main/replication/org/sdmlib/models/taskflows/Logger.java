@@ -102,7 +102,7 @@ import org.sdmlib.models.taskflows.PeerProxy;
 
    private void dumpDiagram() 
    {
-	   GraphFactory.getAdapter().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
+	   //GraphFactory.getAdapter().dumpSwimlanes(getSubFlow().getClass().getSimpleName(), getEntries());
    }
 
    //==========================================================================

@@ -1233,10 +1233,9 @@ import org.sdmlib.replication.ChangeHistory;
    }
 
      /**
-    * 
+    * @return Return the created Channel 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+    */
    public ReplicationChannel createChannels()
    {
       ReplicationChannel value = new ReplicationChannel();
@@ -1245,10 +1244,11 @@ import org.sdmlib.replication.ChangeHistory;
    }
    
      /**
-    * 
+      * @param hostName The Hostname
+      * @param replicationServerPort The Port of the ReplicationChannel
+    *@return the ReplicationChannel 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+    */
    public ReplicationChannel createChannels(String hostName, int replicationServerPort)
    {
       ReplicationChannel channel = this.createChannels();

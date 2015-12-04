@@ -32,9 +32,7 @@ import org.sdmlib.replication.ReplicationNode;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+    */
    public class ServerSocketAcceptThread extends Thread implements
       PropertyChangeInterface
 {
@@ -45,9 +43,10 @@ import org.sdmlib.replication.ReplicationNode;
    private SharedSpace sharedSpace;
 
      /**
-    * 
+    * Constructor
+    * @param replicationNode The ReplicationNode
+    * @param replicationServerPort The PortNumber
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public ServerSocketAcceptThread(ReplicationNode replicationNode,
          int replicationServerPort)
@@ -59,7 +58,6 @@ import org.sdmlib.replication.ReplicationNode;
      /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
 */
    public ServerSocketAcceptThread()
    {
@@ -67,10 +65,10 @@ import org.sdmlib.replication.ReplicationNode;
    }
 
      /**
-    * 
+    * @param sharedSpace The SharedSpace
+    * @param port The Portnumber 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-*/
+    */
    public ServerSocketAcceptThread(SharedSpace sharedSpace, int port)
    {
       this.sharedSpace = sharedSpace;

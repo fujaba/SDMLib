@@ -49,7 +49,7 @@ if(project.hasProperty("artifactory_user")) {
 	}
 
 	artifacts { 
-		archives sourceJar, javadocJar, fatJar, pmJar,pmJarVersion
+		archives sourceJar, javadocJar, fatJar, pmJar, pmJarVersion, androidJar
 	}
 } else {
 	task artifactoryPublish(type: Jar) {
