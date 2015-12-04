@@ -36,7 +36,7 @@ import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.logic.Condition;
+import de.uniks.networkparser.interfaces.Condition;
 import java.lang.Object;
    /**
     * 

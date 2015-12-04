@@ -6,24 +6,22 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 
-import de.uniks.networkparser.gui.javafx.window.DiagramEditor;
-import de.uniks.networkparser.gui.javafx.window.FXStageController;
+import de.uniks.networkparser.gui.Editor;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
-import javafx.scene.Parent;
 
-public class SDMDiagramEditor extends DiagramEditor{
+public class SDMDiagramEditor implements Editor{
 	public static void main(String[] args) {
-		launch(args);
+		new SDMDiagramEditor().open(null, args);
 	}
 	
 	@Override
-	public void generate(JsonObject model) {
+	public boolean generate(JsonObject model) {
 //		super.generate(model);
 		if(!model.has("nodes")) {
 			System.err.println("no Nodes");
 			System.out.println("no Nodes");
-			return;
+			return false;
 		}
     	JsonObject nodes = model.getJsonObject("nodes");
     	ClassModel classModel=new ClassModel(model.getString("package"));
@@ -68,13 +66,24 @@ public class SDMDiagramEditor extends DiagramEditor{
  	   	String genModel = classModel.getName()  + ".genModel";
     	 classModel.getGenerator().insertModelCreationCodeHere("gen", genModel, "testGenModel");
     	 classModel.generate("gen");
+		return false;
 	}
 	
 	@Override
-	protected Parent createContents(FXStageController controller, Parameters args) {
-		Parent parent = super.createContents(controller, args);
-		
-		controller.withIcon(StrUtil.class.getResource("sdmlib.png"));
-		return parent;
+	public void open(Object logic, String... args) {
+		try {
+			Class<?> clazz = Class.forName(Editor.URL);
+			Object editor = clazz.newInstance();
+			if (editor instanceof Editor) {
+				((Editor) editor).open(this, args);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String getIcon() {
+		return StrUtil.class.getResource("sdmlib.png").toString();
 	}
 }

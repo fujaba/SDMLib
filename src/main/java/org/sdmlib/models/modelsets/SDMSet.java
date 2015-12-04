@@ -8,7 +8,7 @@ import org.sdmlib.CGUtil;
 
 import de.uniks.networkparser.list.SimpleIterator;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.logic.Condition;
+import de.uniks.networkparser.interfaces.Condition;
 
 
 public abstract class SDMSet<T> extends SimpleSet<T> implements ModelSet

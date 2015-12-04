@@ -1,3 +1,21 @@
+ext.sharedManifest = manifest {
+	attributes 'Specification-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
+			'Implementation-Title': 'SDMLib',
+			'Specification-Title': 'SDMLib',
+			'Built-Time': gitVersion.buildTime,
+			'Created-By': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision+" "+System.properties['user.name'],
+			'Built-By': "${System.properties['user.name']}",
+			'Location': "${System.properties['user.language']}",
+			'Version': gitVersion.revision,
+			'Author': 'Stefan Lindel',
+			'Implementation-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
+			'GIT-Revision': gitVersion.revision,
+			'Java-Version': "${System.properties['java.version']}",
+			'Bundle-Description': 'SDMLib',
+			'Bundle-ClassPath': '.',
+			'Main-Class': 'org.sdmlib.models.classes.gui.SDMDiagramEditor'
+}
+
 task sourceJar(type: Jar) {
     from sourceSets.main.allSource;
     classifier = 'sources'
@@ -13,26 +31,6 @@ task copyAllDependencies(type: Copy) {
   from configurations.compile
   into 'build/allLibs'
 }
-
-ext.sharedManifest = manifest {
-   attributes 'Specification-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
-			'Implementation-Title': 'SDMLib',
-			'Specification-Title': 'SDMLib',
-			'Built-Time': gitVersion.buildTime,
-			'Created-By': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision+" "+System.properties['user.name'],
-			'Built-By': "${System.properties['user.name']}",
-			'Location': "${System.properties['user.language']}",
-			'Version': gitVersion.revision,
-			'Author': 'Albert Zündorf',
-			'Implementation-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
-			'GIT-Revision': gitVersion.revision,
-			'Java-Version': "${System.properties['java.version']}",
-			'Bundle-Description': 'NetworkParser',
-			'Bundle-ClassPath': '.',
-			'Main-Class': "org.sdmlib.models.classes.gui.SDMDiagramEditor"
-}
-
-
 task fatJar(type: Jar) {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
@@ -43,7 +41,7 @@ task fatJar(type: Jar) {
     exclude('org/junit/**')
 	exclude('META-INF/MANIFEST.MF')
     classifier = 'all'
-	manifest = project.manifest {from sharedManifest}
+	getManifest(gitVersion)
 }
 task compileJava17(type: JavaCompile) {
 	println "Compile 1.7"
@@ -61,7 +59,7 @@ compileJava17.dependsOn copyAllDependencies
 
 task coreJar17(type: Jar) {
 	from fileTree(dir: 'build/classes/main17'); classifier = 'core17'
-	manifest = project.manifest {from sharedManifest}
+	getManifest(gitVersion)
 }
 
 
@@ -70,7 +68,9 @@ task pmJar(type: Jar) {
 		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
 		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}) 
 		)}
-	manifest = project.manifest {from sharedManifest}
+	manifest {
+		
+	}
 	exclude('META-INF/MANIFEST.MF')
 	exclude('org/sdmlib/models/transformations/**')
 	exclude('org/sdmlib/replication/**')
@@ -79,6 +79,22 @@ task pmJar(type: Jar) {
 	exclude('de/uniks/networkparser/bytes/**')
 	exclude('de/uniks/networkparser/date/**')
 	classifier = 'pm'
+}
+task SnapshotJar(type: Jar) {
+	from {(
+		sourceSets.main.output + sourceSets.main.allSource + javadoc.outputs.files +
+		configurations.compile.filter({it.name.indexOf("NetworkParser")>=0 && it.name.indexOf("source")>=0}).collect({println "BLA: "+it;it.isDirectory() ? it : zipTree(it)}) 
+		)}
+	exclude('META-INF/MANIFEST.MF')
+	exclude('org/sdmlib/models/transformations/**')
+	exclude('org/sdmlib/replication/**')
+
+	// REMOVE not nessessary Files NetworkParser
+	exclude('de/uniks/networkparser/bytes/**')
+	exclude('de/uniks/networkparser/date/**')
+	classifier = 'pm'
+	version = "SNAPSHOT"
+	manifest = project.manifest {from sharedManifest}
 }
 
 task pmJarVersion(type: Jar) {
@@ -93,7 +109,7 @@ task pomFile(type: Jar) {
 	def crlf="\r\n";
 	//def version=gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision;
 	def version="SNAPSHOT";
-	def time= gitVersion.mavenTime
+	def time= gitVersion.buildTime
 	
 	sw.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+crlf);
 	sw.append("<project xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\" xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"+crlf);
@@ -139,4 +155,23 @@ task pomFile(type: Jar) {
 	stringsFile = new FileWriter("build/maven-metadata.xml")
 	stringsFile.write(sw.toString())
 	stringsFile.close()
+}
+
+def getManifest(gitVersion) {
+	manifest {
+		attributes 'Specification-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
+			'Implementation-Title': 'SDMLib',
+			'Specification-Title': 'SDMLib',
+			'Built-Time': gitVersion.buildTime,
+			'Created-By': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision+" "+System.properties['user.name'],
+			'Built-By': "${System.properties['user.name']}",
+			'Location': "${System.properties['user.language']}",
+			'Version': gitVersion.revision,
+			'Author': 'Stefan Lindel',
+			'Implementation-Version': gitVersion.major+"."+gitVersion.minor+"."+gitVersion.revision,
+			'GIT-Revision': gitVersion.revision,
+			'Java-Version': "${System.properties['java.version']}",
+			'Bundle-Description': 'SDMLib',
+			'Bundle-ClassPath': '.'
+	}
 }

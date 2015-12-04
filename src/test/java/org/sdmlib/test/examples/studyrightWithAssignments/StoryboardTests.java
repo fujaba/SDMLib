@@ -42,7 +42,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityC
 
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.logic.Condition;
+import de.uniks.networkparser.interfaces.Condition;
 
 public class StoryboardTests {
      /**
