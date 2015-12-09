@@ -3,6 +3,7 @@ package org.sdmlib.models.classes.logic;
 import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.AnnotationOwner;
 import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Method;
 
@@ -54,10 +55,16 @@ public abstract class Generator<M>
       }
       return null;
    }
-
+   abstract ClassModel getClazz();
+   
    public GenClass getGenerator(Clazz clazz)
    {
       return clazz.getClassModel().getGenerator().getOrCreate(clazz);
+   }
+   
+   public GenClass getGenerator(Generator<?> generator, String name)
+   {
+	   return generator.getClazz().getGenerator().getClazz(name);
    }
 
    public GenMethod getGenerator(Method method)

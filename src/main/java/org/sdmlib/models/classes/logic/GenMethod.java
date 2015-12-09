@@ -7,6 +7,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
@@ -486,7 +487,10 @@ public class GenMethod extends Generator<Method>
 	   genClass.removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
 	   
 	   CGUtil.printFile(setParser);
-	   
    }
-   
+	@Override
+	ClassModel getClazz() {
+		return this.getModel().getClazz().getClassModel();
+	}
+
 }

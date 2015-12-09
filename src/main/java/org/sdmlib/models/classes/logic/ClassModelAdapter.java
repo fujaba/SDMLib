@@ -48,6 +48,8 @@ public interface ClassModelAdapter {
 	public GenEnumeration getOrCreate(Enumeration enumeration);
 
 	public GenClass getOrCreate(Clazz clazz);
+	
+	public GenClass getClazz(String name);
 
 	public GenMethod getOrCreate(Method method);
 

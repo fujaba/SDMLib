@@ -19,6 +19,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -42,6 +43,7 @@ import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.classes.Role;
+import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
@@ -61,7 +63,7 @@ public class GenClassModel implements ClassModelAdapter
    ClassModel model;
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
    private AssociationSet associations = null;
-   private HashMap<Object, Generator<?>> generators = new HashMap<Object, Generator<?>>();
+   private HashMap<SDMLibClass, Generator<?>> generators = new HashMap<SDMLibClass, Generator<?>>();
    private DIFF showDiff = DIFF.NONE;
    private List<String> ignoreDiff;
 
@@ -130,6 +132,18 @@ public class GenClassModel implements ClassModelAdapter
       generators.put(clazz, gen);
       return (GenClass) gen;
    }
+   
+   @Override
+   public GenClass getClazz(String name) {
+	   for(Iterator<Entry<SDMLibClass, Generator<?>>> iterator = generators.entrySet().iterator();iterator.hasNext();){
+		   Entry<SDMLibClass, Generator<?>> item = iterator.next();
+		   if(item.getKey().getName().equals(name)) {
+			   return (GenClass)item.getValue();
+		   }
+	   }
+	   return null;
+   }
+
 
    public GenMethod getOrCreate(Method method)
    {
@@ -203,7 +217,6 @@ public class GenClassModel implements ClassModelAdapter
       {
          getOrCreate(clazz).generate(rootDir, rootDir);
       }
-
       for (Association assoc : getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);
@@ -3355,4 +3368,8 @@ public class GenClassModel implements ClassModelAdapter
  		
  		genClass.removeGeneratedCode(rootDir);
     }
+   public GenClass getGenerator(Object generator, String name)
+   {
+	   return getClazz(name);
+   }
 }

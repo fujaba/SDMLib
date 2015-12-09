@@ -9,6 +9,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Card;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Role;
@@ -16,7 +17,6 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class GenRole extends Generator<Role>
 {
@@ -1616,5 +1616,8 @@ public class GenRole extends Generator<Role>
 	   CGUtil.printFile(setParser);
 	   
    }
-   
+	@Override
+	ClassModel getClazz() {
+		return this.getModel().getClazz().getClassModel();
+	}
 }

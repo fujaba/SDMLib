@@ -8,6 +8,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.Attribute;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.classes.Enumeration;
@@ -1050,4 +1051,8 @@ public class GenAttribute extends Generator<Attribute>
 	   CGUtil.printFile(setParser);
    }
 
+	@Override
+	ClassModel getClazz() {
+		return getModel().getClazz().getClassModel();
+	}
 }

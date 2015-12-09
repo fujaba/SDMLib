@@ -1,6 +1,7 @@
 package org.sdmlib.models.classes.logic;
 
 import org.sdmlib.models.classes.Association;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Clazz;
 
 public class GenAssociation extends Generator<Association>
@@ -46,5 +47,10 @@ public class GenAssociation extends Generator<Association>
          targetGenRole.generate(kidClass, rootDir, helperDir, model.getSource(), ! needsImplementation);
       }
       return this;
-   } 
+   }
+
+	@Override
+	ClassModel getClazz() {
+		return getModel().getSource().getClazz().getClassModel();
+	} 
 }

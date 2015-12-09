@@ -448,7 +448,6 @@ public class GenClass extends Generator<Clazz>
 	
    private void insertInterfaceMethods(Clazz clazz, String rootDir, String helpersDir)
    {
-
       for (Clazz interfaze : clazz.getInterfaces())
       {
          if (interfaze.isInterface())
@@ -1931,4 +1930,9 @@ public class GenClass extends Generator<Clazz>
 		   }
 	   }
    }
+
+	@Override
+	ClassModel getClazz() {
+		return getModel().getClassModel();
+	}
 }
