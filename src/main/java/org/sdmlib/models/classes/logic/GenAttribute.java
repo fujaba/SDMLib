@@ -54,6 +54,9 @@ public class GenAttribute extends Generator<Attribute>
    private void insertCaseInToString(Parser parser)
    {
       // if constant field -> return
+	   if(model.getVisibility().has(Modifier.STATIC)) {
+		   return;
+	   }
       if (model.getVisibility().has(Modifier.PUBLIC)
             && model.getVisibility().has(Modifier.STATIC)
             && model.getVisibility().has(Modifier.FINAL)

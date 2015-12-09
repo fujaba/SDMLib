@@ -13,8 +13,6 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.Modifier;
 
-import de.uniks.networkparser.list.SimpleKeyValueList;
-
 public class GenMethod extends Generator<Method>
 {
    public GenMethod generate(Clazz clazz, String rootDir, String helpersDir)
@@ -222,7 +220,7 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)
    {
-      if (parser == null)
+      if (parser == null || model.getModifier().has(Modifier.STATIC))
       {
          return;
       }
