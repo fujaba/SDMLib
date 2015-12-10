@@ -34,6 +34,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SDMSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 
 /**
@@ -1149,7 +1150,7 @@ public class GenClass extends Generator<Clazz>
             StringBuilder text = new StringBuilder("" +
                "package packageName;\n" +
                "\n" +
-               "import de.uniks.networkparser.list.SDMSet;\n" +
+               "import "+SDMSet.class.getName()+";\n" +
                "import fullEntityClassName;\n" +
                "\n" +
                "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
