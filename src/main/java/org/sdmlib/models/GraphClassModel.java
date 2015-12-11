@@ -29,7 +29,7 @@ public class GraphClassModel extends GraphModel implements PropertyChangeInterfa
 	private GenClassModel generator;
 
 	public GraphClassModel() {
-		id = DEFAULTPACKAGE;
+		name = DEFAULTPACKAGE;
 		setAuthorName(System.getProperty("user.name"));
 		Feature.reset();
 	}

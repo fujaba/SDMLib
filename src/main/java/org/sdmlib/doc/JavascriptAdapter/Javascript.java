@@ -119,7 +119,7 @@ public class Javascript implements GuiAdapter
 	      
       for (Clazz clazz : model.getClasses())
       {
-    	  GraphClazz node = new GraphClazz().withClassName(CGUtil.shortClassName(clazz.getName()));
+    	  GraphClazz node = new GraphClazz().with(CGUtil.shortClassName(clazz.getName()));
          
          // Attributes
          for (Attribute attr : clazz.getAttributes())
@@ -148,9 +148,9 @@ public class Javascript implements GuiAdapter
          sourceEdge.with(targetEdge);
          
          
-         sourceEdge.withInfo(new GraphLabel().withId(source.getName()));
+         sourceEdge.withInfo(new GraphLabel().with(source.getName()));
          sourceEdge.with(nodes.get(CGUtil.shortClassName(source.getClazz().getName())));
-         targetEdge.withInfo(new GraphLabel().withId(target.getName()));
+         targetEdge.withInfo(new GraphLabel().with(target.getName()));
          targetEdge.with(nodes.get(CGUtil.shortClassName(target.getClazz().getName())));
          list.with(sourceEdge);
       }
