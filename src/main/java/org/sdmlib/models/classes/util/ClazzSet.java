@@ -24,8 +24,6 @@ package org.sdmlib.models.classes.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.management.relation.Role;
-
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
@@ -96,7 +94,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.add(obj.getClassModel());
+         result.add((ClassModel)obj.getClassModel());
       }
       
       return result;
@@ -149,7 +147,7 @@ public class ClazzSet extends SDMSet<Clazz>
          {
             result.add(current);
             
-            todo.with(current.getKidClazzes().minus(result));
+            todo.with(current.getKidClazzes(false).removeAll(result));
          }
       }
       
@@ -163,7 +161,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.addAll(obj.getInterfaces());
+         result.addAll(obj.getInterfaces(false));
       }
       
       return result;
@@ -232,36 +230,7 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
-   public RoleSet getSourceRoles()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getRoles());
-      }
-      
-      return result;
-   }
-   public ClazzSet withSourceRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutSourceRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.without(value);
-      }
-      
-      return this;
-   }
+   
 
    public booleanSet isExternal()
    {
@@ -375,7 +344,7 @@ public class ClazzSet extends SDMSet<Clazz>
          {
             result.add(current);
             
-            todo.with(current.getInterfaces().minus(result));
+            todo.with(current.getInterfaces(false).removeAll(result));
          }
       }
       
@@ -434,71 +403,13 @@ public class ClazzSet extends SDMSet<Clazz>
       return this;
    }
 
-   public RoleSet getRoles()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Clazz obj : this)
-      {
-         result.addAll(obj.getRoles());
-      }
-      
-      return result;
-   }
-
-   public ClazzSet hasRoles(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ClazzSet answer = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getRoles()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public ClazzSet withRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.with(value);
-      }
-      
-      return this;
-   }
-
-   public ClazzSet withoutRoles(Role value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.without(value);
-      }
-      
-      return this;
-   }
-
    public ClazzSet getKidClazzes()
    {
       ClazzSet result = new ClazzSet();
       
       for (Clazz obj : this)
       {
-         result.addAll(obj.getKidClazzes());
+         result.addAll(obj.getKidClazzes(false));
       }
       
       return result;
@@ -521,7 +432,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getKidClazzes()))
+         if ( ! Collections.disjoint(neighbors, obj.getKidClazzes(false)))
          {
             answer.add(obj);
          }
@@ -556,7 +467,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.addAll(obj.getSuperClazzes());
+         result.addAll(obj.getSuperClazzes(false));
       }
       
       return result;
@@ -579,7 +490,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         if ( ! Collections.disjoint(neighbors, obj.getSuperClazzes()))
+         if ( ! Collections.disjoint(neighbors, obj.getSuperClazzes(false)))
          {
             answer.add(obj);
          }
@@ -605,7 +516,7 @@ public class ClazzSet extends SDMSet<Clazz>
          {
             result.add(current);
             
-            todo.with(current.getSuperClazzes().minus(result));
+            todo.with(current.getSuperClazzes(false).removeAll(result));
          }
       }
       
@@ -692,43 +603,17 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.addAll(obj.getAnnotations());
+         result.add(obj.getAnnotation());
       }
       
       return result;
-   }
-
-   public ClazzSet hasAnnotations(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      ClazzSet answer = new ClazzSet();
-      
-      for (Clazz obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getAnnotations()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
    }
 
    public ClazzSet withAnnotations(Annotation value)
    {
       for (Clazz obj : this)
       {
-         obj.withAnnotation(value);
+         obj.with(value);
       }
       
       return this;
@@ -738,7 +623,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withoutAnnotation(value);
+         obj.without(value);
       }
       
       return this;

@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,7 +36,6 @@ import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.codegen.util.StatementEntrySet;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
@@ -46,14 +44,13 @@ import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.storyboards.Storyboard;
-
-import com.sun.nio.sctp.Association;
-
 import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
@@ -65,7 +62,7 @@ public class GenClassModel implements ClassModelAdapter
    ClassModel model;
    private LinkedHashMap<String, Clazz> handledClazzes = new LinkedHashMap<String, Clazz>();
    private AssociationSet associations = null;
-   private HashMap<SDMLibClass, Generator<?>> generators = new HashMap<SDMLibClass, Generator<?>>();
+   private HashMap<GraphMember, Generator<?>> generators = new HashMap<GraphMember, Generator<?>>();
    private DIFF showDiff = DIFF.NONE;
    private List<String> ignoreDiff;
 
@@ -113,17 +110,6 @@ public class GenClassModel implements ClassModelAdapter
       return this.associations;
    }
 
-   public GenEnumeration getOrCreate(Enumeration enumeration)
-   {
-      if (generators.containsKey(enumeration))
-      {
-         return (GenEnumeration) generators.get(enumeration);
-      }
-      Generator<Enumeration> gen = new GenEnumeration().withModel(enumeration);
-      generators.put(enumeration, gen);
-      return (GenEnumeration) gen;
-   }
-
    public GenClass getOrCreate(Clazz clazz)
    {
       if (generators.containsKey(clazz))
@@ -137,8 +123,8 @@ public class GenClassModel implements ClassModelAdapter
    
    @Override
    public GenClass getClazz(String name) {
-	   for(Iterator<Entry<SDMLibClass, Generator<?>>> iterator = generators.entrySet().iterator();iterator.hasNext();){
-		   Entry<SDMLibClass, Generator<?>> item = iterator.next();
+	   for(Iterator<Entry<GraphMember, Generator<?>>> iterator = generators.entrySet().iterator();iterator.hasNext();){
+		   Entry<GraphMember, Generator<?>> item = iterator.next();
 		   if(item.getKey().getName().equals(name)) {
 			   return (GenClass)item.getValue();
 		   }
@@ -2363,7 +2349,7 @@ public class GenClassModel implements ClassModelAdapter
    private boolean isSDMLibClass(Clazz clazz)
    {
 
-      String className = clazz.getFullName();
+      String className = clazz.getName(false);
 
       String sDMLibClasses =
             "org.sdmlib.serialization.EntityFactory "

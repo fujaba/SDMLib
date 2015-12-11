@@ -10,7 +10,9 @@ import org.sdmlib.models.classes.ClassModel;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.list.SimpleList;
 
 public class GenAnnotation extends Generator<Annotation>
 {
@@ -45,7 +47,7 @@ public class GenAnnotation extends Generator<Annotation>
       Parser parser = getGenerator(method.getClazz()).getOrCreateParser(rootDir);
       parser.parse();
 
-      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(method.getSignature(false));
+      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(method.getName(false));
       return generate(parser, getStartPos(tabEntries));
    }
 
@@ -79,9 +81,9 @@ public class GenAnnotation extends Generator<Annotation>
       if (symTabEntry.getAnnotations() != null && symTabEntry.getAnnotations().contains(model.getName()))
       {
          inserted = true;
-         for (String value : model.getValues())
+         for (Annotation value : model.getValue())
          {
-            if (!symTabEntry.getAnnotations().contains(value))
+            if (!symTabEntry.getAnnotations().contains(value.toString()))
             {
                inserted = false;
                break;
@@ -106,7 +108,7 @@ public class GenAnnotation extends Generator<Annotation>
       }
       sb.append(model.getName());
 
-      Set<String> values = model.getValues();
+      SimpleList<Annotation> values = model.getValue();
       if (values.size() == 1)
       {
          sb.append("(");
@@ -116,10 +118,10 @@ public class GenAnnotation extends Generator<Annotation>
       else if (values.size() > 1)
       {
          sb.append("({");
-         for (String value : values)
+         for (Annotation value : values)
          {
             sb.append("\"");
-            sb.append(value);
+            sb.append(value.toString());
             sb.append("\", ");
          }
          sb.replace(sb.length() - 2, sb.length(), "");
@@ -142,7 +144,7 @@ public class GenAnnotation extends Generator<Annotation>
 
 	@Override
 	ClassModel getClazz() {
-		AnnotationOwner owner = getModel().getOwner();
+		GraphMember owner = getModel().getParent();
 		if (owner instanceof Clazz)
 	         return ((Clazz)owner).getClassModel();
 	      if (owner instanceof Method)

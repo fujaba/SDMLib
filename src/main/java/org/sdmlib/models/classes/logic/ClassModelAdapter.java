@@ -1,16 +1,10 @@
 package org.sdmlib.models.classes.logic;
 
-import java.util.Enumeration;
-
-import javax.management.relation.Role;
-
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.objects.GenericObject;
-
-import com.sun.nio.sctp.Association;
-
 import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Method;
@@ -49,7 +43,7 @@ public interface ClassModelAdapter {
 	public ClassModelAdapter withShowDiff(DIFF showDiff);
 	
 	// MUST BE FIXED
-	public GenEnumeration getOrCreate(Enumeration enumeration);
+//	public GenEnumeration getOrCreate(Enumeration enumeration);
 
 	public GenClass getOrCreate(Clazz clazz);
 	
@@ -63,5 +57,5 @@ public interface ClassModelAdapter {
 
 	public GenAssociation getOrCreate(Association association);
 
-	public GenRole getOrCreate(Role role);
+//	public GenRole getOrCreate(Role role);
 }

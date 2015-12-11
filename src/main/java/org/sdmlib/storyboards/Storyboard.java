@@ -65,6 +65,7 @@ import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
@@ -1126,8 +1127,8 @@ public class Storyboard implements PropertyChangeInterface
       ClassModel model = new ClassModel();
 
       Clazz clazz = model.createClazz(className);
-
-      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
+      ClassModel clazzModel = (ClassModel) clazz.getClassModel();
+      GenClass generator = clazzModel.getGenerator().getOrCreate(clazz);
 
       Parser parser = generator.getOrCreateParser(rootDir);
 

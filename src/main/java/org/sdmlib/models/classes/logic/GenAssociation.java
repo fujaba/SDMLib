@@ -1,18 +1,18 @@
 package org.sdmlib.models.classes.logic;
 
 import org.sdmlib.models.classes.ClassModel;
-
-import com.sun.nio.sctp.Association;
-
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphModel;
 
 public class GenAssociation extends Generator<Association>
 {
    public GenAssociation generate(String rootDir, String helperDir)
    {
       // open source class and get or insert role implementation
-	  ClassModelAdapter generator = model.getSource().getClazz().getClassModel().getGenerator();
-      GenRole sourceGenRole = generator.getOrCreate(model.getSource());
+	  ClassModel classModel = (ClassModel) ((Clazz)model.getNode()).getClassModel();
+	  ClassModelAdapter generator = classModel.getGenerator();
+      GenRole sourceGenRole = generator.getOrCreate(model.getNode()getSource());
       sourceGenRole.generate(rootDir, helperDir, model.getTarget());
       
       // also for subclasses

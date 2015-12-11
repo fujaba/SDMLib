@@ -20,14 +20,17 @@ public class GenMethod extends Generator<Method>
    public GenMethod generate(Clazz clazz, String rootDir, String helpersDir)
    {
       // get parser from class
-      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
-      Parser parser = clazz.getClassModel().getGenerator().getOrCreate(clazz).getOrCreateParser(rootDir);
+	   ClassModel clazzModel =(ClassModel) clazz.getClassModel();
+      GenClass generator = clazzModel.getGenerator().getOrCreate(clazz);
+      Parser parser = clazzModel.getGenerator().getOrCreate(clazz).getOrCreateParser(rootDir);
 
       insertMethodDecl(clazz, parser);
 
-      for (Annotation annotation : model.getAnnotations())
-      {
-         getGenerator(annotation).generate(rootDir, helpersDir);
+      Annotation annotation = model.getAnnotations();
+      getGenerator(annotation).generate(rootDir, helpersDir);
+      while(annotation.hasNext() ) {
+    	  annotation = annotation.next();
+    	  getGenerator(annotation).generate(rootDir, helpersDir);
       }
 
       // insertCaseInGenericGetSet(parser);
@@ -36,7 +39,7 @@ public class GenMethod extends Generator<Method>
       insertMethodInModelSet(clazz, modelSetParser);
       generator.printFile(modelSetParser);
 
-      if (model.getClazz().getClassModel().hasFeature(Feature.PatternObject)) {
+      if (clazzModel.hasFeature(Feature.PatternObject)) {
 	      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
 	      insertMethodInPatternObject(clazz, patternObjectParser);
 	      generator.printFile(patternObjectParser);
@@ -45,9 +48,11 @@ public class GenMethod extends Generator<Method>
       return this;
    }
 
-   public GenMethod generate(Enumeration enumeration, String rootDir, String helpersDir)
+   public GenMethod generate(Clazz enumeration, String rootDir, String helpersDir)
    {
       // get parser from class
+	   ClassModel clazzModel =(ClassModel) enumeration.getClassModel();
+
       GenEnumeration genEnumeration = enumeration.getClassModel().getGenerator().getOrCreate(enumeration);
       Parser parser = genEnumeration.getOrCreateParser(rootDir);
 

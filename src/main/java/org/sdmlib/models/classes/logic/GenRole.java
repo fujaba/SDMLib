@@ -16,6 +16,7 @@ import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 
+import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -442,11 +443,11 @@ public class GenRole extends Generator<Role>
          }
       }
       
-      String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
+      String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName(false)) + "(null)";
       
       if (model.getCard().equals(Cardinality.MANY.toString()))
       {
-         reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
+         reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName(false)) + "(this)";
       }
       
       String propertyChangeAdd = "";

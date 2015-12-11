@@ -37,7 +37,7 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
       
       for (ClassModel obj : this)
       {
-         result.addAll(obj.getClasses());
+         result.addAll(obj.getClazzes());
       }
       
       return result;
@@ -78,13 +78,11 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
    {
       for (ClassModel obj : this)
       {
-         obj.withName(value);
+         obj.with(value);
       }
       
       return this;
    }
-
-
 
    @Override
    public String toString()
@@ -157,5 +155,4 @@ public class ClassModelSet extends SDMSet<ClassModel> implements org.sdmlib.mode
       
       return result;
    }
-
 }

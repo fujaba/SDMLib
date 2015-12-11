@@ -827,8 +827,7 @@ public class GenAttribute extends Generator<Attribute>
          {
             insertCaseInToString(parser);
          }
-
-         for (Annotation annotation : model.getAnnotations())
+         for (Annotation annotation : model.getAnnotation())
          {
             getGenerator(annotation).generate(rootDir, helpersDir);
          }

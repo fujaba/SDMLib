@@ -115,28 +115,28 @@ public class Javascript implements GuiAdapter
 	   GraphList list = new GraphList().withTyp(GraphIdMap.CLASS);
 	   HashMap<String, Clazz> nodes=new HashMap<String, Clazz>();
 	      
-      for (Clazz clazz : model.getClasses())
+      for (Clazz clazz : model.getClazzes())
       {
     	  Clazz node = new Clazz().with(CGUtil.shortClassName(clazz.getName()));
          
          // Attributes
          for (Attribute attr : clazz.getAttributes())
          {
-        	 node.with(new Attribute(attr.getName(), DataType.ref(attr.getType().getValue())));
+        	 node.with(new Attribute(attr.getName(), attr.getType()));
          }
          // Methods
          for (Method method : clazz.getMethods())
          {
         	 Method newMethod = new Method(method.getName());
         	 for(Parameter param : method.getParameter()){
-        		 newMethod.withParameter(param.getName(), DataType.ref(param.getType().getValue()));
+        		 newMethod.withParameter(param.getName(), param.getType());
         	 }
         	 node.with(newMethod);
          }
          list.with(node);
          nodes.put(node.getId(), node);
       }
-      for (Association assoc : model.getClasses().getRoles().getAssoc())
+      for (Association assoc : model.getClazzes().getRoles().getAssoc())
       {
     	 Role source = assoc.getSource();
          Role target = assoc.getTarget();
