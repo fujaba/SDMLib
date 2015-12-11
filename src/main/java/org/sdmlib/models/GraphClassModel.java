@@ -18,7 +18,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.graph.GraphClazz;
+import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphModel;
 
 public class GraphClassModel extends GraphModel implements PropertyChangeInterface {
@@ -112,12 +112,12 @@ public class GraphClassModel extends GraphModel implements PropertyChangeInterfa
 		return result.substring(1);
 	}
 	
-	public GraphClassModel with(GraphClazz... values) {
+	public GraphClassModel with(Clazz... values) {
 		super.with(values);
 		return this;
 	}
 
-	public GraphClassModel without(GraphClazz... values) {
+	public GraphClassModel without(Clazz... values) {
 		super.without(values);
 		return this;
 	}
@@ -170,7 +170,7 @@ public class GraphClassModel extends GraphModel implements PropertyChangeInterfa
 		return features.contains(value);
 	}
 
-	public boolean hasFeature(Feature feature, GraphClazz value) {
+	public boolean hasFeature(Feature feature, Clazz value) {
 		if (hasFeature(feature)) {
 //FIXME			return feature.match(value);
 		}

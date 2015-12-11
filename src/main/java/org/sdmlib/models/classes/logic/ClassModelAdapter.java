@@ -1,15 +1,19 @@
 package org.sdmlib.models.classes.logic;
 
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Attribute;
+import java.util.Enumeration;
+
+import javax.management.relation.Role;
+
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.objects.GenericObject;
+
+import com.sun.nio.sctp.Association;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Method;
 
 public interface ClassModelAdapter {
 	public boolean generate(String rootDir);

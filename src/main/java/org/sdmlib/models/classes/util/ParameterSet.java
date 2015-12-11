@@ -23,33 +23,33 @@ package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.MethodSet;
+
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Parameter;
 
 public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.models.modelsets.ModelSet
 {
-   public StringList getInitialization()
+   public StringList getValue()
    {
       StringList result = new StringList();
       
       for (Parameter obj : this)
       {
-         result.add(obj.getInitialization());
+         result.add(obj.getValue());
       }
       
       return result;
    }
 
-   public ParameterSet withInitialization(String value)
+   public ParameterSet withValue(String value)
    {
       for (Parameter obj : this)
       {
-         obj.setInitialization(value);
+         obj.withValue(value);
       }
       
       return this;
@@ -71,7 +71,7 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
    {
       for (Parameter obj : this)
       {
-         obj.with(value);
+         obj.withParent(value);
       }
       
       return this;
@@ -128,7 +128,7 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
    {
       for (Parameter obj : this)
       {
-         obj.setType(value);
+         obj.with(value);
       }
       
       return this;
@@ -150,7 +150,7 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
    {
       for (Parameter obj : this)
       {
-         obj.withName(value);
+         obj.with(value);
       }
       
       return this;
@@ -178,7 +178,7 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
       
       for (Parameter obj : this)
       {
-         if (value.equals(obj.getInitialization()))
+         if (value.equals(obj.getValue()))
          {
             result.add(obj);
          }
@@ -193,7 +193,7 @@ public class ParameterSet extends SDMSet<Parameter>  implements org.sdmlib.model
       
       for (Parameter obj : this)
       {
-         if (lower.compareTo(obj.getInitialization()) <= 0 && obj.getInitialization().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getValue()) <= 0 && obj.getValue().compareTo(upper) <= 0)
          {
             result.add(obj);
          }

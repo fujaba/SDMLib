@@ -1,8 +1,10 @@
 package org.sdmlib.models.classes.logic;
 
-import org.sdmlib.models.classes.Association;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
+
+import com.sun.nio.sctp.Association;
+
+import de.uniks.networkparser.graph.Clazz;
 
 public class GenAssociation extends Generator<Association>
 {

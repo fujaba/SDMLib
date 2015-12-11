@@ -22,42 +22,38 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.modelsets.DataTypeSet;
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.modelsets.ObjectSet;
-
 import java.util.Collections;
 
-import org.sdmlib.models.classes.util.AnnotationSet;
-import org.sdmlib.models.classes.Annotation;
+import org.sdmlib.models.modelsets.DataTypeSet;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
+import org.sdmlib.models.modelsets.StringList;
 
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class AttributeSet extends SDMSet<Attribute>
 {
-   public StringList getInitialization()
+   public StringList getValue()
    {
       StringList result = new StringList();
       
       for (Attribute obj : this)
       {
-         result.add(obj.getInitialization());
+         result.add(obj.getValue());
       }
       
       return result;
    }
 
-   public AttributeSet withInitialization(String value)
+   public AttributeSet withValue(String value)
    {
       for (Attribute obj : this)
       {
-         obj.setInitialization(value);
+         obj.withValue(value);
       }
       
       return this;
@@ -134,7 +130,7 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.setType(value);
+         obj.with(value);
       }
       
       return this;
@@ -156,7 +152,7 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.withName(value);
+         obj.with(value);
       }
       
       return this;

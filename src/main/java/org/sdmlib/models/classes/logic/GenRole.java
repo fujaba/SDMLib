@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.management.relation.Role;
+import javax.smartcardio.Card;
+
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 
+import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenRole extends Generator<Role>
@@ -120,7 +121,7 @@ public class GenRole extends Generator<Role>
    //         getGenerator(partnerRole.getClazz()).printFile();
    //
    //      }
-   //      if (model.getPartnerRole().getCard().equals(Card.MANY.toString())){
+   //      if (model.getPartnerRole().getCard().equals(Cardinality.MANY.toString())){
    //         getGenerator(partnerRole.getClazz()).insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
    //      }
    //   }
@@ -443,7 +444,7 @@ public class GenRole extends Generator<Role>
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
       
-      if (model.getCard().equals(Card.MANY.toString()))
+      if (model.getCard().equals(Cardinality.MANY.toString()))
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
@@ -693,7 +694,7 @@ public class GenRole extends Generator<Role>
 
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
       
-      if (model.getCard().equals(Card.MANY.toString()))
+      if (model.getCard().equals(Cardinality.MANY.toString()))
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
@@ -719,7 +720,7 @@ public class GenRole extends Generator<Role>
          );
       
       GenClass generator = getGenerator(model.getClazz());
-      if (model.getPartnerRole().getCard().equals(Card.MANY.toString())){
+      if (model.getPartnerRole().getCard().equals(Cardinality.MANY.toString())){
          if(generator!=null ){
         	 myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
          }
@@ -745,7 +746,7 @@ public class GenRole extends Generator<Role>
             // add attribute declaration in class file
             StringBuilder text = new StringBuilder();
 
-            if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
+            if (StrUtil.stringEquals(partnerRole.getCard(), Cardinality.MANY.toString()))
             {
                generateToManyRole(myParser, clazz, partnerRole, text);
 //               getGenerator(clazz).insertImport(LinkedHashSet.class.getName());
@@ -764,7 +765,7 @@ public class GenRole extends Generator<Role>
             	throw e;
             }
 
-//         if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
+//         if (StrUtil.stringEquals(partnerRole.getCard(), Cardinality.MANY.toString()))
 //         {
 //            generateEmptySetInPartnerClass(rootDir, partnerRole);
 //         }
@@ -785,7 +786,7 @@ public class GenRole extends Generator<Role>
       
       insertCaseInGenericGet(clazz, creatorParser, partnerRole, rootDir);
 
-      if (StrUtil.stringEquals(partnerRole.getCard(), Card.MANY.toString()))
+      if (StrUtil.stringEquals(partnerRole.getCard(), Cardinality.MANY.toString()))
       {
          insertCaseInGenericSetToMany(clazz, creatorParser, partnerRole, rootDir);
       }
@@ -849,7 +850,7 @@ public class GenRole extends Generator<Role>
       // OK, found method, parse its body to find if that handles me. 
       String removeCall = "set" + StrUtil.upFirstChar(partnerRole.getName());
       String fullRemoveCall = removeCall + "(null);\n      ";
-      if (partnerRole.getCard().equals(Card.MANY.toString()))
+      if (partnerRole.getCard().equals(Cardinality.MANY.toString()))
       {
          String name = StrUtil.upFirstChar(partnerRole.getName());
          String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
@@ -950,7 +951,7 @@ public class GenRole extends Generator<Role>
                   + StrUtil.upFirstChar(partnerRole.getName())
                   + "() == null)";
             
-            if (partnerRole.getCard().equals(Card.MANY.toString()))
+            if (partnerRole.getCard().equals(Cardinality.MANY.toString()))
             {
                containsClause = " ! Collections.disjoint(neighbors, obj.get" 
                      + StrUtil.upFirstChar(partnerRole.getName()) + "())";
@@ -991,7 +992,7 @@ public class GenRole extends Generator<Role>
                   + "         }\n" + "      }\n" + "      \n"
                   + "      return result;\n" + "   }\n" + "\n" + "");
 
-            if (partnerRole.getCard().equals(Card.ONE.toString()))
+            if (partnerRole.getCard().equals(Cardinality.ONE.toString()))
             {
                CGUtil.replaceAll(text, 
                   "todo.with(current.getPartnerrolenameupfirst().minus(result));", 
@@ -1007,7 +1008,7 @@ public class GenRole extends Generator<Role>
       if (pos < 0 || pos2 < 0)
       {      
          String add = "add";
-         if (partnerRole.getCard().equalsIgnoreCase(Card.MANY.name()))
+         if (partnerRole.getCard().equalsIgnoreCase(Cardinality.MANY.name()))
          {
             add = "addAll";
          }
@@ -1075,7 +1076,7 @@ public class GenRole extends Generator<Role>
       {
          StringBuilder text = new StringBuilder();
          
-         if (elistPos < 0 || partnerRole.getCard().equals(Card.ONE.toString()))
+         if (elistPos < 0 || partnerRole.getCard().equals(Cardinality.ONE.toString()))
          {
             text.append
             (       "   public TargetType getRoleName()\n"
@@ -1100,7 +1101,7 @@ public class GenRole extends Generator<Role>
 //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String targetType;
          
-         if (partnerRole.getCard().equals(Card.MANY.toString()))
+         if (partnerRole.getCard().equals(Cardinality.MANY.toString()))
          {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "Set");
             if (partnerRole.getClazz().isExternal())
@@ -1319,7 +1320,7 @@ public class GenRole extends Generator<Role>
          parser.insertImport(partnerRole.getClazz().getFullName());
       }
       
-      if (partnerRole.getCard().equals(Card.MANY.toString()))
+      if (partnerRole.getCard().equals(Cardinality.MANY.toString()))
       {
          key = Parser.METHOD + ":without" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
          pos = parser.indexOf(key);
@@ -1547,7 +1548,7 @@ public class GenRole extends Generator<Role>
 	   
 	   String cardType = "";
 	   
-	   if (this.getModel().getPartnerRole().getCard().equals(Card.MANY.toString())) {
+	   if (this.getModel().getPartnerRole().getCard().equals(Cardinality.MANY.toString())) {
 		   cardType = "...";
 	   }
 	   

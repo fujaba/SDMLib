@@ -1,11 +1,11 @@
 package org.sdmlib.models.classes.logic;
 
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.AnnotationOwner;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Method;
 
 public abstract class Generator<M>
 {

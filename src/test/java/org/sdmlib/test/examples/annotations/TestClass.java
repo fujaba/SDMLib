@@ -3,7 +3,8 @@ package org.sdmlib.test.examples.annotations;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
+
+import de.uniks.networkparser.graph.Clazz;
 
 public class TestClass {
 

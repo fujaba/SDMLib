@@ -30,7 +30,6 @@ import org.sdmlib.models.taskflows.util.PeerProxySet;
 import org.sdmlib.models.taskflows.util.TaskFlowSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>

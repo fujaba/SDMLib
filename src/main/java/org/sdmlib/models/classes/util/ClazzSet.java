@@ -24,27 +24,30 @@ package org.sdmlib.models.classes.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Attribute;
+import javax.management.relation.Role;
+
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
 
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Method;
+
 public class ClazzSet extends SDMSet<Clazz> 
 {
+   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadOnly(true);
    public StringList getName()
    {
       StringList result = new StringList();
       
       for (Clazz obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getName(false));
       }
       
       return result;
@@ -54,7 +57,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.withName(value);
+         obj.with(value);
       }
       
       return this;
@@ -66,7 +69,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         if (value.indexOf(obj.getName()) >= 0)
+         if (value.indexOf(obj.getName(false)) >= 0)
          {
             result.add(obj);
          }
@@ -683,7 +686,6 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
-   public static final ClazzSet EMPTY_SET = new ClazzSet().withReadOnly(true);
    public AnnotationSet getAnnotations()
    {
       AnnotationSet result = new AnnotationSet();

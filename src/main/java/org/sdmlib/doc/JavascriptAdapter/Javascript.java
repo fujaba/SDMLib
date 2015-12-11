@@ -4,30 +4,28 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import javax.management.relation.Role;
+
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 
-import de.uniks.networkparser.graph.GraphAttribute;
-import de.uniks.networkparser.graph.GraphCardinality;
-import de.uniks.networkparser.graph.GraphClazz;
+import com.sun.nio.sctp.Association;
+
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.GraphConverter;
-import de.uniks.networkparser.graph.GraphDataType;
-import de.uniks.networkparser.graph.GraphEdge;
 import de.uniks.networkparser.graph.GraphEdgeTypes;
 import de.uniks.networkparser.graph.GraphIdMap;
 import de.uniks.networkparser.graph.GraphLabel;
 import de.uniks.networkparser.graph.GraphList;
-import de.uniks.networkparser.graph.GraphMethod;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
@@ -115,23 +113,23 @@ public class Javascript implements GuiAdapter
    
    public GraphList convertModelToGraphList(ClassModel model) {
 	   GraphList list = new GraphList().withTyp(GraphIdMap.CLASS);
-	   HashMap<String, GraphClazz> nodes=new HashMap<String, GraphClazz>();
+	   HashMap<String, Clazz> nodes=new HashMap<String, Clazz>();
 	      
       for (Clazz clazz : model.getClasses())
       {
-    	  GraphClazz node = new GraphClazz().with(CGUtil.shortClassName(clazz.getName()));
+    	  Clazz node = new Clazz().with(CGUtil.shortClassName(clazz.getName()));
          
          // Attributes
          for (Attribute attr : clazz.getAttributes())
          {
-        	 node.with(new GraphAttribute(attr.getName(), GraphDataType.ref(attr.getType().getValue())));
+        	 node.with(new Attribute(attr.getName(), DataType.ref(attr.getType().getValue())));
          }
          // Methods
          for (Method method : clazz.getMethods())
          {
-        	 GraphMethod newMethod = new GraphMethod(method.getName());
+        	 Method newMethod = new Method(method.getName());
         	 for(Parameter param : method.getParameter()){
-        		 newMethod.withParameter(param.getName(), GraphDataType.ref(param.getType().getValue()));
+        		 newMethod.withParameter(param.getName(), DataType.ref(param.getType().getValue()));
         	 }
         	 node.with(newMethod);
          }
@@ -143,8 +141,8 @@ public class Javascript implements GuiAdapter
     	 Role source = assoc.getSource();
          Role target = assoc.getTarget();
          
-         GraphEdge sourceEdge = new GraphEdge().with(GraphCardinality.create(source.getCard()));
-         GraphEdge targetEdge = new GraphEdge().with(GraphCardinality.create(target.getCard()));
+         Association sourceEdge = new Association().with(Cardinality.create(source.getCard()));
+         Association targetEdge = new Association().with(Cardinality.create(target.getCard()));
          sourceEdge.with(targetEdge);
          
          
@@ -159,9 +157,9 @@ public class Javascript implements GuiAdapter
       {
          for (Clazz superClazz : kidClazz.getSuperClazzes())
          {
-        	 GraphEdge generationEdge = new GraphEdge().withTyp(GraphEdgeTypes.GENERALISATION);
+        	 Association generationEdge = new Association().withTyp(GraphEdgeTypes.GENERALISATION);
         	 generationEdge.with(nodes.get(CGUtil.shortClassName(kidClazz.getName())));
-        	 GraphEdge kidEdge = new GraphEdge().withTyp(GraphEdgeTypes.GENERALISATION);
+        	 Association kidEdge = new Association().withTyp(GraphEdgeTypes.GENERALISATION);
         	generationEdge.with(kidEdge);
         	
         	kidEdge.with(nodes.get(CGUtil.shortClassName(superClazz.getName())));

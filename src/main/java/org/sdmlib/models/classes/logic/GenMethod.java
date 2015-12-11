@@ -1,18 +1,19 @@
 package org.sdmlib.models.classes.logic;
 
+import java.util.Enumeration;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Modifier;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Modifier;
 
 public class GenMethod extends Generator<Method>
 {

@@ -3,12 +3,13 @@ package org.sdmlib.test.examples.annotations;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.util.MethodSet;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Method;
 
 
 public class AnnotationTest {
@@ -23,15 +24,15 @@ public class AnnotationTest {
 		
 		Clazz house = model.createClazz("House").withSuperClazz(cube);
 		house.createMethod("init")
-				.withAnnotation(
-						new Annotation().withName("Override")
+				.with(
+						new Annotation().with("Override")
 				);
 		
 		Clazz door = model.createClazz("Door");
 		Clazz window = model.createClazz("Window");
 		
-		house.withAssoc(door, "doors", Card.MANY, "house", Card.ONE);
-		house.withAssoc(window, "windows", Card.MANY, "house", Card.ONE);
+		house.withAssoc(door, "doors", Cardinality.MANY, "house", Cardinality.ONE);
+		house.withAssoc(window, "windows", Cardinality.MANY, "house", Cardinality.ONE);
 		
 		model.generate("src/test/java");
 		

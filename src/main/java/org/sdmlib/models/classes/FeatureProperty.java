@@ -2,6 +2,8 @@ package org.sdmlib.models.classes;
 
 import java.util.HashSet;
 
+import de.uniks.networkparser.graph.Clazz;
+
 public class FeatureProperty {
 	public static final Clazz ALL = new Clazz("*");
 	private HashSet<Clazz> includeClazz = new HashSet<Clazz>();

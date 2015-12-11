@@ -33,7 +33,6 @@ import org.sdmlib.replication.util.ReplicationChannelSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
-import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>

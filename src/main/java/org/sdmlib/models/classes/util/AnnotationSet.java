@@ -22,13 +22,11 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.AnnotationSet;
+
+import de.uniks.networkparser.graph.Annotation;
 
 public class AnnotationSet extends SDMSet<Annotation>
 {
@@ -60,43 +58,6 @@ public class AnnotationSet extends SDMSet<Annotation>
    public AnnotationSet without(Annotation value)
    {
       this.remove(value);
-      return this;
-   }
-
-   public Set<String> getValues()
-   {
-      Set<String> result = new HashSet<String>();
-      
-      for (Annotation obj : this)
-      {
-         result.addAll(obj.getValues());
-      }
-      
-      return result;
-   }
-
-   public AnnotationSet hasValues(Set<String> value)
-   {
-      AnnotationSet result = new AnnotationSet();
-      
-      for (Annotation obj : this)
-      {
-         if (value == obj.getValues())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public AnnotationSet withValues(Set<String> value)
-   {
-      for (Annotation obj : this)
-      {
-         obj.setValues(value);
-      }
-      
       return this;
    }
 
@@ -146,61 +107,9 @@ public class AnnotationSet extends SDMSet<Annotation>
    {
       for (Annotation obj : this)
       {
-         obj.withName(value);
+         obj.with(value);
       }
       
       return this;
    }
-   
-   //==========================================================================
-   
-   public AnnotationSet createOverrideAnnotation()
-   {
-      AnnotationSet result = new AnnotationSet();
-      for (Annotation obj : this)
-      {
-         result.add(obj.createOverrideAnnotation());
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
-   public AnnotationSet createDeprecatedAnnotation()
-   {
-      AnnotationSet result = new AnnotationSet();
-      for (Annotation obj : this)
-      {
-         result.add(obj.createDeprecatedAnnotation());
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
-   public AnnotationSet createSuppressWarningsAnnotation(String... values)
-   {
-      AnnotationSet result = new AnnotationSet();
-      for (Annotation obj : this)
-      {
-         result.add(obj.createSuppressWarningsAnnotation(values));
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
-   public AnnotationSet createSafeVarargsAnnotation()
-   {
-      AnnotationSet result = new AnnotationSet();
-      for (Annotation obj : this)
-      {
-         result.add(obj.createSafeVarargsAnnotation());
-      }
-      return result;
-   }
-
 }

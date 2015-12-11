@@ -29,39 +29,30 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.replication.util.ObjectSet;
-import org.sdmlib.replication.util.ChangeEventSet;
-import org.sdmlib.replication.util.ReplicationNodeCreator;
 import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.EntityUtil;
-import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.json.JsonTokener;
 import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.logic.Deep;
 import de.uniks.networkparser.logic.ValuesMap;
 import javafx.application.Platform;
-import org.sdmlib.replication.ChangeEventList;
    /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>

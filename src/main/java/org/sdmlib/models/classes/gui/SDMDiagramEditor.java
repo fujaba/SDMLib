@@ -1,11 +1,11 @@
 package org.sdmlib.models.classes.gui;
 
 import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.gui.Editor;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
@@ -37,7 +37,7 @@ public class SDMDiagramEditor implements Editor{
 							String attribute = (String) entity;
 							int pos = attribute.indexOf(":");
 							if (pos > 0) {
-								clazz.withAttribute(attribute.substring(0, pos),
+								clazz.createAttribute(attribute.substring(0, pos),
 										DataType.ref(attribute.substring(pos + 1)));
 							}
 						}
@@ -56,7 +56,7 @@ public class SDMDiagramEditor implements Editor{
 						Clazz fromClazz = classModel.getClazz(source.getString("id"));
 						Clazz toClazz = classModel.getClazz(target.getString("id"));
 						
-						fromClazz.withAssoc(toClazz, target.getString("property"), Card.ONE, source.getString("property"), Card.ONE);
+						fromClazz.withAssoc(toClazz, target.getString("property"), Cardinality.ONE, source.getString("property"), Cardinality.ONE);
 					}
 				}
 			}

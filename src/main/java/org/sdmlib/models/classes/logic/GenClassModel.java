@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -25,6 +26,9 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.management.relation.Role;
+import javax.smartcardio.Card;
+
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
@@ -32,28 +36,26 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.StatementEntry;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.codegen.util.StatementEntrySet;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.SDMLibClass;
 import org.sdmlib.models.classes.util.AssociationSet;
 import org.sdmlib.models.classes.util.AttributeSet;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.MethodSet;
-import org.sdmlib.models.classes.util.RoleSet;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
 import org.sdmlib.storyboards.Storyboard;
 
+import com.sun.nio.sctp.Association;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -2121,19 +2123,19 @@ public class GenClassModel implements ClassModelAdapter
          {
             // need to create a new one
             currentAssoc = new Association()
-                  .withSource(this.getOrCreateClazz(packageName + "." + sourceType), sourceLabel, Card.ONE)
-                  .withTarget(getOrCreateClazz(packageName + "." + targetType), targetLabel, Card.ONE);
+                  .withSource(this.getOrCreateClazz(packageName + "." + sourceType), sourceLabel, Cardinality.ONE)
+                  .withTarget(getOrCreateClazz(packageName + "." + targetType), targetLabel, Cardinality.ONE);
             this.addToAssociations(currentAssoc);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
          {
-            currentAssoc.getTarget().setCard(Card.MANY.toString());
+            currentAssoc.getTarget().setCard(Cardinality.MANY.toString());
          }
 
          if (alreadyUsedLabels.contains(currentLink.getTgt().hashCode() + ":" + sourceLabel))
          {
-            currentAssoc.getSource().setCard(Card.MANY.toString());
+            currentAssoc.getSource().setCard(Cardinality.MANY.toString());
          }
 
          alreadyUsedLabels.add(currentLink.getSrc().hashCode() + ":" + targetLabel);
@@ -2514,7 +2516,7 @@ public class GenClassModel implements ClassModelAdapter
       Card card = findRoleCard(partnerTypeName);
 
       String setterPrefix = "set";
-      if (Card.MANY.equals(card))
+      if (Cardinality.MANY.equals(card))
       {
          setterPrefix = "addTo";
       }
@@ -2647,13 +2649,13 @@ public class GenClassModel implements ClassModelAdapter
 
    private Card findRoleCard(String partnerTypeName)
    {
-      Card partnerCard = Card.ONE;
+      Card partnerCard = Cardinality.ONE;
       int _openAngleBracket = partnerTypeName.indexOf("<");
       int _closeAngleBracket = partnerTypeName.indexOf(">");
       if (_openAngleBracket > 1 && _closeAngleBracket > _openAngleBracket)
       {
          // partner to many
-         partnerCard = Card.MANY;
+         partnerCard = Cardinality.MANY;
       }
       else if (partnerTypeName.endsWith("Set") && partnerTypeName.length() > 3)
       {
@@ -2663,7 +2665,7 @@ public class GenClassModel implements ClassModelAdapter
          {
             if (prefix.equals(CGUtil.shortClassName(clazz.getName())))
             {
-               partnerCard = Card.MANY;
+               partnerCard = Cardinality.MANY;
                break;
             }
          }

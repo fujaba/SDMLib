@@ -24,6 +24,7 @@ package org.sdmlib.models.classes;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +37,8 @@ import org.sdmlib.models.classes.logic.ClassModelAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.classes.util.EnumerationSet;
+
+import de.uniks.networkparser.graph.Clazz;
    /**
     * 
     * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/examples/SDMLib/ClassModelTest.java'>ClassModelTest.java</a>
@@ -75,7 +78,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *       .withAttribute("name", DataType.STRING)
     *       .withAttribute("balance", DataType.DOUBLE);
     *  
-    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    *    groupAccountClass.withAssoc(personClass, "persons", Cardinality.MANY, "parent", Cardinality.ONE);
     * 
     *    model.generate();
     *    
@@ -108,7 +111,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *       .withAttribute("name", DataType.STRING)
     *       .withAttribute("balance", DataType.DOUBLE);
     *  
-    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    *    groupAccountClass.withAssoc(personClass, "persons", Cardinality.MANY, "parent", Cardinality.ONE);
     * 
     *    model.generate();
     *    
@@ -146,7 +149,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *       .withAttribute("name", DataType.STRING)
     *       .withAttribute("balance", DataType.DOUBLE);
     *  
-    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    *    groupAccountClass.withAssoc(personClass, "persons", Cardinality.MANY, "parent", Cardinality.ONE);
     * 
     *    model.generate("src/test/java");
     *    
@@ -194,7 +197,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
    {
       if (this.classes == null)
       {
-         return Clazz.EMPTY_SET;
+         return ClazzSet.EMPTY_SET;
       }
    
       return this.classes;
@@ -235,7 +238,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
     *       .withAttribute("name", DataType.STRING)
     *       .withAttribute("balance", DataType.DOUBLE);
     *  
-    *    groupAccountClass.withAssoc(personClass, "persons", Card.MANY, "parent", Card.ONE);
+    *    groupAccountClass.withAssoc(personClass, "persons", Cardinality.MANY, "parent", Cardinality.ONE);
     * 
     *    model.generate("src/test/java");
     *    
@@ -450,7 +453,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
 
    Clazz createClasses()
    {
-      Clazz value = new Clazz(null);
+      Clazz value = new Clazz();
       withClasses(value);
       return value;
    }
@@ -503,71 +506,7 @@ import org.sdmlib.models.classes.util.EnumerationSet;
       }
       new DocEnvironment().copyJS(folder);
    }
-   
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * ClassModel ----------------------------------- Enumeration
-    *              classModel                   enumerations
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ENUMERATIONS = "enumerations";
-
-   private EnumerationSet enumerations = null;
-   
-   public EnumerationSet getEnumerations()
-   {
-      if (this.enumerations == null)
-      {
-         return Enumeration.EMPTY_SET;
-      }
-   
-      return this.enumerations;
-   }
-
-   public ClassModel withEnumerations(Enumeration... value)
-   {
-      if(value==null){
-         return this;
-      }
-      for (Enumeration item : value)
-      {
-         if (item != null)
-         {
-            if (this.enumerations == null)
-            {
-               this.enumerations = new EnumerationSet();
-            }
-            
-            boolean changed = this.enumerations.add (item);
-
-            if (changed)
-            {
-               item.withClassModel(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMERATIONS, null, item);
-            }
-         }
-      }
-      return this;
-   } 
-
-   public ClassModel withoutEnumerations(Enumeration... value)
-   {
-      for (Enumeration item : value)
-      {
-         if ((this.enumerations != null) && (item != null))
-         {
-            if (this.enumerations.remove(item))
-            {
-               item.setClassModel(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMERATIONS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
+  
 	public String getAuthorName() {
 		return defaultAuthorName;
 	}

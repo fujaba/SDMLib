@@ -3,12 +3,11 @@ package org.sdmlib.models.taskflows;
 import java.util.Timer;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
+
+import de.uniks.networkparser.graph.Clazz;
 
 public class TaskFlowModel
 {

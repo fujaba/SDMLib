@@ -23,8 +23,9 @@ package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.modelsets.SDMSet;
+
+import de.uniks.networkparser.graph.DataType;
 
 public class DataTypeSet extends SDMSet<DataType>
 {
