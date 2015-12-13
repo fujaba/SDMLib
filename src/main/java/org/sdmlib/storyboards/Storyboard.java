@@ -1825,12 +1825,23 @@ public class Storyboard implements PropertyChangeInterface
       StackTraceElement[] stackTrace = e.getStackTrace();
       StackTraceElement callEntry = stackTrace[1];
       
+      // find first method outside Storyboard and StoryPage
       int i = 1;
-      
-      while (callEntry.getMethodName().startsWith("dumpHTML"))
+
+      while (true)
       {
-    	  i++;
          callEntry = stackTrace[i];
+
+         if (callEntry.getClassName().equals(Storyboard.class.getName()) 
+               || callEntry.getClassName().equals(StoryPage.class.getName()))
+         {
+            i++;
+            continue;
+         }
+         else
+         {
+            break;
+         }
       }
       
       String methodName = callEntry.getMethodName();
