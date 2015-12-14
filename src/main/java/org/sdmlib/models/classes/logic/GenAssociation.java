@@ -17,8 +17,12 @@ import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphEntity;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Interfaze;
+import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleSet;
+import sun.text.normalizer.UBiDiProps;
 
 public class GenAssociation extends Generator<Association>
 {
@@ -82,6 +86,7 @@ public class GenAssociation extends Generator<Association>
    private void generateToManyRole(Parser myParser, Clazz clazz, Association partnerRole, StringBuilder text)
    {
       String myClassName = model.getClazz().getName(true);
+      ClassModel clazzModel = (ClassModel) model.getClazz().getClassModel();
       
       GenClass partnerClazz = getGenerator((Clazz)partnerRole.getClazz());
       String partnerClassName = partnerRole.getClazz().getName(true);
@@ -110,7 +115,7 @@ public class GenAssociation extends Generator<Association>
                "\n" );
       }
       
-      if (clazz instanceof Interfaze == false)
+      if (GraphUtil.isInterface(clazz) == false)
       {
          pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
 
@@ -125,7 +130,7 @@ public class GenAssociation extends Generator<Association>
 
       if (pos < 0)
       {
-         if (clazz instanceof Interfaze == false)
+         if (GraphUtil.isInterface(clazz) == false)
          {
             text.append 
             (     "\n   public type getPartnerRoleName()" +
@@ -139,9 +144,10 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n");
             
-            if (!clazz.hasFeature(Feature.ALBERTsSets) 
-            		&& !clazz.hasFeature(Feature.PatternObject)
-            		&& !clazz.hasFeature(Feature.Serialization) ) {
+            if (clazzModel.hasFeature(Feature.ALBERTsSets, clazz) == false 
+            		&& clazzModel.hasFeature(Feature.PatternObject, clazz) == false
+            		&& clazzModel.hasFeature(Feature.Serialization, clazz) == false
+            		 ) {
             	CGUtil.replaceAll(text, "partnerClassNameSet.EMPTY_SET", "new type()");
             }
          }
@@ -169,7 +175,7 @@ public class GenAssociation extends Generator<Association>
 
          if (pos < 0)
          {
-            if (! clazz.isInterface())
+            if (clazz instanceof Interfaze == false)
             {
                text.append 
                (     "  public type getPartnerRoleNameSet()\n" + 
@@ -188,7 +194,7 @@ public class GenAssociation extends Generator<Association>
       }
       
       
-      if (model.getClazz() == model.getPartnerRole().getClazz())
+      if (model.getClazz() == model.getOtherClazz())
       {
          // recursive assoc, add getTransitive methods
          
@@ -196,7 +202,7 @@ public class GenAssociation extends Generator<Association>
          
          if (pos < 0)
          {
-            if (! clazz.isInterface())
+            if (clazz instanceof Interfaze == false)
             {
                text.append(
                   "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
@@ -221,7 +227,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0)
       {
-         if (! clazz.isInterface())
+         if (clazz instanceof Interfaze == false)
          {
             String withMeth = 
                   "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
@@ -278,7 +284,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0)
       {
-         if (! clazz.isInterface())
+         if (clazz instanceof Interfaze == false)
          {
             String withOutMeth = 
                   "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
@@ -319,21 +325,21 @@ public class GenAssociation extends Generator<Association>
       //TODO UEBERPRUEFEN
       // System.out.println(partnerClassName +" ->" +genClazz.getName());
       String realPartnerClassName = partnerClassName;
-      ClazzSet kidClasses = partnerRole.getClazz().getKidClazzes();
+      SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(false);
       ClazzSet kidClassesInterfaces =new ClazzSet();
       for(Clazz item : kidClasses){
-         if(item.isInterface()){
+         if(item instanceof Interfaze){
             kidClassesInterfaces.add(item);
          }
       }
-      if (partnerRole.getClazz().isInterface() && kidClassesInterfaces.size() == 1)
+      if (partnerRole.getClazz() instanceof Interfaze && kidClassesInterfaces.size() == 1)
       {
-         realPartnerClassName = CGUtil.shortClassName(kidClassesInterfaces.first().getFullName());
+         realPartnerClassName = kidClassesInterfaces.first().getName(true);
       }
       
-      if (pos < 0 && ! partnerRole.getClazz().isInterface() && kidClassesInterfaces.size() != 1)
+      if (pos < 0 && (partnerRole.getClazz() instanceof Interfaze == false) && kidClassesInterfaces.size() != 1)
       {
-         if (! clazz.isInterface())
+         if (clazz instanceof Interfaze == false)
          {
             text.append 
             (     "\n   public partnerClassName createPartnerRoleName()" +
@@ -355,7 +361,7 @@ public class GenAssociation extends Generator<Association>
       GenClass generator = getGenerator(model.getClazz());
       
       // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
-      kidClasses = partnerRole.getClazz().getKidClazzesTransitive().without(partnerRole.getClazz());
+      kidClasses = partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
       
       for (Clazz kid : kidClasses)
       {
@@ -363,9 +369,9 @@ public class GenAssociation extends Generator<Association>
          pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + kidClassName + "()");
          
          
-         if (pos < 0 && ! kid.isInterface())
+         if (pos < 0 && kid instanceof Interfaze == false)
          {
-            if (! clazz.isInterface())
+            if (clazz instanceof Interfaze == false)
             {
                text.append 
                (     "\n   public KidClassName createPartnerRoleNameSubClassName()" +
@@ -391,20 +397,20 @@ public class GenAssociation extends Generator<Association>
          
          if(generator!=null)
          {
-        	 myParser.insertImport(kid.getFullName());
+        	 myParser.insertImport(kid.getName(false));
          }
       }
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
       
-      if (model.getCard().equals(Cardinality.MANY.toString()))
+      if (model.getCardinality().equals(Cardinality.MANY.toString()))
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
       
       String propertyChangeAdd = "";
       String propertyChangeRemove = "";
-      if(model.getClazz().hasFeature(Feature.PropertyChangeSupport)){
+      if(clazzModel.hasFeature(Feature.PropertyChangeSupport, model.getClazz())){
      	 propertyChangeAdd = "getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);";
      	 propertyChangeRemove = "getPropertyChangeSupport().firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);"; 
       }
@@ -412,8 +418,8 @@ public class GenAssociation extends Generator<Association>
       CGUtil.replaceAll(text, "PROPERTYCHANGEADD", propertyChangeAdd, "PROPERTYCHANGEREMOVE", propertyChangeRemove);
 
       CGUtil.replaceAll(text, 
-         "myCard", model.getCard(),
-         "partnerCard", partnerRole.getCard(),
+         "myCard", model.getCardinality(),
+         "partnerCard", partnerRole.getCardinality(),
          "type", partnerClassNameSet, 
          "initRoleVar", "new " + partnerClassNameSet + "()", 
          "myClassName", myClassName,
@@ -431,11 +437,11 @@ public class GenAssociation extends Generator<Association>
       }
    } 
    
-   private void generateToOneRole(Parser myParser, Clazz clazz, Role partnerRole, StringBuilder text)
+   private void generateToOneRole(Parser myParser, Clazz clazz, Association partnerRole, StringBuilder text)
    {
-      String myClassName = CGUtil.shortClassName(model.getClazz().getFullName());
+      String myClassName = model.getClazz().getName(true);
       
-      String partnerClassName = CGUtil.shortClassName(partnerRole.getClazz().getFullName());
+      String partnerClassName = partnerRole.getClazz().getName(true);
       
       String partnerRoleName = partnerRole.getName();
       
@@ -459,7 +465,7 @@ public class GenAssociation extends Generator<Association>
                "\n" );
       }
       
-      if (! clazz.isInterface())
+      if (clazz instanceof Interfaze == false)
       {
          pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
 
@@ -474,7 +480,7 @@ public class GenAssociation extends Generator<Association>
 
       if (pos < 0)
       {
-         if (! clazz.isInterface())
+         if (clazz instanceof Interfaze == false)
          {
             text.append 
             (     "\n   public partnerClassName getPartnerRoleName()" +
@@ -492,7 +498,7 @@ public class GenAssociation extends Generator<Association>
       }
       
       
-      if (model.getClazz() == model.getPartnerRole().getClazz())
+      if (model.getClazz() == model.getOtherClazz())
       {
          // recursive assoc, add getTransitive methods
          
@@ -500,7 +506,7 @@ public class GenAssociation extends Generator<Association>
          
          if (pos < 0)
          {
-            if (! clazz.isInterface())
+            if (clazz instanceof Interfaze == false)
             {
                text.append(
                   "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
@@ -516,7 +522,7 @@ public class GenAssociation extends Generator<Association>
                (     "\n   public partnerClassName getPartnerRoleNameTransitive();" +
                      "\n");
             }
-            getGenerator(clazz).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getFullName(),"Set"));
+            getGenerator(clazz).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getName(false) ,"Set"));
          
          }
       }
@@ -525,7 +531,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0)
       {
-         if (! clazz.isInterface())
+         if (clazz instanceof Interfaze == false)
          {
             String setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
                   "\n   {" +
@@ -586,7 +592,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0)
       {
-         if (! clazz.isInterface())
+    	  if (clazz instanceof Interfaze == false)
          {
             text.append 
             (     "\n   public myClassName withPartnerRoleName(partnerClassName value)" +
@@ -609,17 +615,17 @@ public class GenAssociation extends Generator<Association>
       
       String realPartnerClassName = partnerClassName;
       
-      ClazzSet kidClasses = partnerRole.getClazz().getKidClazzesTransitive().without(partnerRole.getClazz());
+      SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
       ClazzSet kidClassesInterfaces =new ClazzSet();
       for(Clazz item : kidClasses){
-         if(item.isWithNoObjects()){
+    	  if (item.hasModifier(Modifier.ABSTRACT) || item instanceof Interfaze) {
             kidClassesInterfaces.add(item);
          }
       }
-      
-      if (partnerRole.getClazz().isWithNoObjects() && kidClassesInterfaces.size() == 1)
+      if ((partnerRole.getClazz().hasModifier(Modifier.ABSTRACT) || partnerRole.getClazz() instanceof Interfaze) &&
+    		  kidClassesInterfaces.size() == 1)
       {
-         realPartnerClassName = CGUtil.shortClassName(kidClassesInterfaces.first().getFullName());
+         realPartnerClassName = kidClassesInterfaces.first().getName(true);
       }
       
       if (pos < 0 && ! (partnerRole.getClazz().isWithNoObjects() && kidClassesInterfaces.size() != 1))

@@ -26,7 +26,7 @@ public class GenMethod extends Generator<Method>
 
       insertMethodDecl(clazz, parser);
 
-      Annotation annotation = model.getAnnotations();
+      Annotation annotation = model.getAnnotation();
       getGenerator(annotation).generate(rootDir, helpersDir);
       while(annotation.hasNext() ) {
     	  annotation = annotation.next();

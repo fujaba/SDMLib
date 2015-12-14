@@ -177,7 +177,7 @@ public class AttributeSet extends SDMSet<Attribute>
       
       for (Attribute obj : this)
       {
-         result.add(obj.getAnnotations());
+         result.add(obj.getAnnotation());
       }
       
       return result;

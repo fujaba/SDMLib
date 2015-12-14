@@ -173,7 +173,7 @@ public class GenClass extends Generator<Clazz>
 
    private void generateAnnotations(String rootDir, String helpersDir)
    {
-      for (Annotation annotation : model.getAnnotations())
+      for (Annotation annotation : model.getAnnotation())
       {
          getGenerator(annotation).generate(rootDir, helpersDir);
       }

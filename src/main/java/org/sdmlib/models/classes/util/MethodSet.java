@@ -248,7 +248,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       
       for (Method obj : this)
       {
-         result.add(obj.getAnnotations());
+         result.add(obj.getAnnotation());
       }
       
       return result;

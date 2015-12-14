@@ -188,8 +188,9 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 	 * @param diagramName
 	 *            Diagrammname
 	 */
-	public void dumpHTML(String diagramName) {
+	public boolean dumpHTML(String diagramName) {
 		dumpHTML(diagramName, "doc", Javascript.NAME);
+		return true;
 	}
 
 	/**
