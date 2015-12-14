@@ -443,11 +443,11 @@ public class GenRole extends Generator<Role>
          }
       }
       
-      String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName(false)) + "(null)";
+      String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
       
       if (model.getCard().equals(Cardinality.MANY.toString()))
       {
-         reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName(false)) + "(this)";
+         reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
       
       String propertyChangeAdd = "";

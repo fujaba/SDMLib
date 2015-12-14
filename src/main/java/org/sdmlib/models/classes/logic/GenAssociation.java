@@ -10,10 +10,10 @@ public class GenAssociation extends Generator<Association>
    public GenAssociation generate(String rootDir, String helperDir)
    {
       // open source class and get or insert role implementation
-	  ClassModel classModel = (ClassModel) ((Clazz)model.getNode()).getClassModel();
+	  ClassModel classModel = (ClassModel) ((Clazz)model.getClazz()).getClassModel();
 	  ClassModelAdapter generator = classModel.getGenerator();
-      GenRole sourceGenRole = generator.getOrCreate(model.getNode()getSource());
-      sourceGenRole.generate(rootDir, helperDir, model.getTarget());
+      GenRole sourceGenRole = generator.getOrCreate((Clazz)model.getClazz());
+      sourceGenRole.generate(rootDir, helperDir, (Clazz)model.getOtherClazz());
       
       // also for subclasses
       for (Clazz kidClass : model.getSource().getClazz().getKidClazzesTransitive())

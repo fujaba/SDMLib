@@ -7,14 +7,17 @@ import java.io.PrintStream;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.sdmlib.CGUtil;
 import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
+import org.sdmlib.models.classes.util.EnumerationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Enumeration;
 import de.uniks.networkparser.graph.GraphModel;
 
 public class ClassModel extends GraphModel implements PropertyChangeInterface {
@@ -236,5 +239,79 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 		}
 		return null;
 	}
+	   
+	   /********************************************************************
+	    * <pre>
+	    *              one                       many
+	    * ClassModel ----------------------------------- Enumeration
+	    *              classModel                   enumerations
+	    * </pre>
+	    */
+	   
+	   public static final String PROPERTY_ENUMERATIONS = "enumerations";
+
+	   private EnumerationSet enumerations = null;
+	   
+	   public EnumerationSet getEnumerations()
+	   {
+	      if (this.enumerations == null)
+	      {
+	         return EnumerationSet.EMPTY_SET;
+	      }
+	   
+	      return this.enumerations;
+	   }
+
+	   public ClassModel withEnumerations(Enumeration... value)
+	   {
+	      if(value==null){
+	         return this;
+	      }
+	      for (Enumeration item : value)
+	      {
+	         if (item != null)
+	         {
+	            if (this.enumerations == null)
+	            {
+	               this.enumerations = new EnumerationSet();
+	            }
+	            
+	            boolean changed = this.enumerations.add (item);
+
+	            if (changed)
+	            {
+	               item.withClassModel(this);
+	               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMERATIONS, null, item);
+	            }
+	         }
+	      }
+	      return this;
+	   } 
+
+	   public ClassModel withoutEnumerations(Enumeration... value)
+	   {
+	      for (Enumeration item : value)
+	      {
+	         if ((this.enumerations != null) && (item != null))
+	         {
+	            if (this.enumerations.remove(item))
+	            {
+	               item.setClassModel(null);
+	               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMERATIONS, item, null);
+	            }
+	         }
+	      }
+	      return this;
+	   }
+
+	public Enumeration createEnumeration(String name) {
+		if (this.name == null) {
+			this.name = CGUtil.packageName(name);
+		}
+		Enumeration enumeration = (Enumeration) new Enumeration().with(name);
+		withEnumerations(enumeration);
+		enumeration.withClassModel(this);
+		return enumeration;
+	} 
 
 }

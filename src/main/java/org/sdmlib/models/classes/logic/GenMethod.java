@@ -1,6 +1,5 @@
 package org.sdmlib.models.classes.logic;
 
-import java.util.Enumeration;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
@@ -12,6 +11,7 @@ import org.sdmlib.models.classes.Feature;
 
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Enumeration;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 
@@ -48,7 +48,7 @@ public class GenMethod extends Generator<Method>
       return this;
    }
 
-   public GenMethod generate(Clazz enumeration, String rootDir, String helpersDir)
+   public GenMethod generate(Enumeration enumeration, String rootDir, String helpersDir)
    {
       // get parser from class
 	   ClassModel clazzModel =(ClassModel) enumeration.getClassModel();
