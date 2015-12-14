@@ -36,7 +36,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 	public ClassModel(String packageName)
 	   {
 		  this();
-	      withId(packageName);
+	      with(packageName);
 	   }
 
 	public ClassModel generate() {
@@ -70,7 +70,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 			}
 			this.generator = value;
 			if (value != null) {
-//FIXME				value.setModel(this);
+				value.setModel(this);
 			}
 		}
 	}
@@ -320,5 +320,4 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 		enumeration.with(this);
 		return enumeration;
 	} 
-
 }
