@@ -121,6 +121,16 @@ public class GenClassModel implements ClassModelAdapter
       generators.put(clazz, gen);
       return (GenClass) gen;
    }
+   public GenEnumeration getOrCreate(Enumeration enumeration)
+   {
+      if (generators.containsKey(enumeration))
+      {
+         return (GenEnumeration) generators.get(enumeration);
+      }
+      Generator<Enumeration> gen = new GenEnumeration().withModel(enumeration);
+      generators.put(enumeration, gen);
+      return (GenEnumeration) gen;
+   }
    
    @Override
    public GenClass getClazz(String name) {

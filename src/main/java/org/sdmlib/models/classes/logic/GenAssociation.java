@@ -30,7 +30,7 @@ public class GenAssociation extends Generator<Association>
 
    private void insertCaseInGenericGet(Clazz clazz, Parser parser, Association partnerRole, String rootDir)
    {
-      if (clazz instanceof Interfaze)
+      if (GraphUtil.isInterface(clazz))
       {
          return;
       }
@@ -175,7 +175,7 @@ public class GenAssociation extends Generator<Association>
 
          if (pos < 0)
          {
-            if (clazz instanceof Interfaze == false)
+            if (GraphUtil.isInterface(clazz) == false)
             {
                text.append 
                (     "  public type getPartnerRoleNameSet()\n" + 
@@ -202,7 +202,7 @@ public class GenAssociation extends Generator<Association>
          
          if (pos < 0)
          {
-            if (clazz instanceof Interfaze == false)
+            if (GraphUtil.isInterface(clazz) == false)
             {
                text.append(
                   "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
@@ -227,7 +227,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0)
       {
-         if (clazz instanceof Interfaze == false)
+         if (GraphUtil.isInterface(clazz) == false)
          {
             String withMeth = 
                   "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
@@ -284,7 +284,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0)
       {
-         if (clazz instanceof Interfaze == false)
+         if (GraphUtil.isInterface(clazz) == false)
          {
             String withOutMeth = 
                   "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
@@ -339,7 +339,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0 && (partnerRole.getClazz() instanceof Interfaze == false) && kidClassesInterfaces.size() != 1)
       {
-         if (clazz instanceof Interfaze == false)
+         if (GraphUtil.isInterface(clazz) == false)
          {
             text.append 
             (     "\n   public partnerClassName createPartnerRoleName()" +
@@ -371,7 +371,7 @@ public class GenAssociation extends Generator<Association>
          
          if (pos < 0 && kid instanceof Interfaze == false)
          {
-            if (clazz instanceof Interfaze == false)
+            if (GraphUtil.isInterface(clazz) == false)
             {
                text.append 
                (     "\n   public KidClassName createPartnerRoleNameSubClassName()" +
@@ -465,7 +465,7 @@ public class GenAssociation extends Generator<Association>
                "\n" );
       }
       
-      if (clazz instanceof Interfaze == false)
+      if (GraphUtil.isInterface(clazz) == false)
       {
          pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
 
@@ -480,7 +480,7 @@ public class GenAssociation extends Generator<Association>
 
       if (pos < 0)
       {
-         if (clazz instanceof Interfaze == false)
+         if (GraphUtil.isInterface(clazz) == false)
          {
             text.append 
             (     "\n   public partnerClassName getPartnerRoleName()" +
@@ -506,7 +506,7 @@ public class GenAssociation extends Generator<Association>
          
          if (pos < 0)
          {
-            if (clazz instanceof Interfaze == false)
+            if (GraphUtil.isInterface(clazz) == false)
             {
                text.append(
                   "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
@@ -531,7 +531,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0)
       {
-         if (clazz instanceof Interfaze == false)
+         if (GraphUtil.isInterface(clazz) == false)
          {
             String setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
                   "\n   {" +
@@ -592,7 +592,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos < 0)
       {
-    	  if (clazz instanceof Interfaze == false)
+    	  if (GraphUtil.isInterface(clazz) == false)
          {
             text.append 
             (     "\n   public myClassName withPartnerRoleName(partnerClassName value)" +
