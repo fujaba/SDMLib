@@ -34,6 +34,7 @@ import org.sdmlib.models.modelsets.booleanSet;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 
 public class ClazzSet extends SDMSet<Clazz> 
@@ -82,7 +83,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.add(obj.isInterface());
+         result.add(GraphUtil.isInterface(obj));
       }
       
       return result;
@@ -384,7 +385,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         if (value == obj.isInterface())
+         if (value == GraphUtil.isInterface(obj))
          {
             result.add(obj);
          }
@@ -549,7 +550,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         result.add(obj.isInterface());
+         result.add(GraphUtil.isInterface(obj));
       }
       
       return result;
@@ -561,7 +562,7 @@ public class ClazzSet extends SDMSet<Clazz>
       
       for (Clazz obj : this)
       {
-         if (value == obj.isInterface())
+         if (value == GraphUtil.isInterface(obj))
          {
             result.add(obj);
          }

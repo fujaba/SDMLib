@@ -38,6 +38,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Enumeration;
 import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class GenEnumeration extends Generator<Enumeration>{
 	private Parser parser = null;
@@ -62,7 +63,7 @@ public class GenEnumeration extends Generator<Enumeration>{
 			}
 			generator.generate(rootDir, helpersDir);
 
-			String signature = method.getSignature(false);
+			String signature = method.getName(false);
 			parser.parse();
 			ArrayList<SymTabEntry> symTabEntries = parser
 					.getSymTabEntriesFor(signature);
@@ -80,12 +81,12 @@ public class GenEnumeration extends Generator<Enumeration>{
 						continue;
 					}
 					String type = localVarTableEntry.getType();
-					ClazzSet classes = this.getModel().getClassModel()
-							.getClasses();
+					SimpleSet<Clazz> classes = this.getModel().getClassModel()
+							.getClazzes();
 					for (Clazz clazz : classes) {
 						if (clazz.getName().equals(type)
 								|| clazz.getName().endsWith("." + type)) {
-							insertImport(clazz.getFullName());
+							insertImport(clazz.getName(false));
 						}
 					}
 				}
@@ -220,7 +221,7 @@ public class GenEnumeration extends Generator<Enumeration>{
 	public Parser getOrCreateParser(String rootDir) {
 		if (parser == null) {
 			// try to find existing file
-			String name = model.getFullName();
+			String name = model.getName(false);
 			int pos = name.lastIndexOf('.');
 
 			String packageName = name.substring(0, pos);
@@ -250,7 +251,7 @@ public class GenEnumeration extends Generator<Enumeration>{
 	}
 
 	public boolean isShowDiff() {
-		ClassModel model = getModel().getClassModel();
+		ClassModel model = (ClassModel) getModel().getClassModel();
 		if (model != null) {
 			return model.getGenerator().getShowDiff() != DIFF.NONE;
 		}
@@ -264,7 +265,7 @@ public class GenEnumeration extends Generator<Enumeration>{
 	}
 	@Override
 	ClassModel getClazz() {
-		return this.getModel().getClassModel();
+		return (ClassModel) this.getModel().getClassModel();
 	}
 
 }
