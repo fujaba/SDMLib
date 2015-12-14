@@ -37,6 +37,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Enumeration;
+import de.uniks.networkparser.graph.GraphLiteral;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -130,14 +131,13 @@ public class GenEnumeration extends Generator<Enumeration>{
 		if (enumCurrentPos < 0)
 			isNew  = true;
 		
-		for (ArrayList<?> valueNames : model.getValueNames()) {
-			
-			for (int i = 0; i < valueNames.size(); i++) {
+		for (GraphLiteral valueNames : model.getValues()) {
+			for (int i = 0; i < valueNames.getValues().size(); i++) {
 				
-				Object value = valueNames.get(i);
+				Object value = valueNames.getValues().get(i);
 				if (symTabContains(enumEntriesInSymTab, value ))
 					continue;
-				enumCurrentPos = insertValue((String) value, enumCurrentPos, (i == valueNames.size()-1 && isNew) ? true : false);
+				enumCurrentPos = insertValue((String) value, enumCurrentPos, (i == valueNames.getValues().size()-1 && isNew) ? true : false);
 			}
 		}	
 		

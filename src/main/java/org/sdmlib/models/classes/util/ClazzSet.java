@@ -245,15 +245,24 @@ public class ClazzSet extends SDMSet<Clazz>
       return result;
    }
 
-   public ClazzSet withInterfaze(boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.withInterface(value);
-      }
-      
-      return this;
-   }
+//FIXME   public ClazzSet withInterfaze(boolean value)
+//   {
+//      for (Clazz obj : this)
+//      {
+//         obj.withInterface(value);
+//      }
+//      
+//      return this;
+//   }
+//   public ClazzSet withInterface(boolean value)
+//   {
+//      for (Clazz obj : this)
+//      {
+//         obj.setInterface(value);
+//      }
+//      
+//      return this;
+//   }
 
    public ClazzSet withExternal(boolean value)
    {
@@ -392,16 +401,6 @@ public class ClazzSet extends SDMSet<Clazz>
       }
       
       return result;
-   }
-
-   public ClazzSet withInterface(boolean value)
-   {
-      for (Clazz obj : this)
-      {
-         obj.setInterface(value);
-      }
-      
-      return this;
    }
 
    public ClazzSet getKidClazzes()

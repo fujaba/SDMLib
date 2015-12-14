@@ -287,7 +287,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 
 	            if (changed)
 	            {
-	               item.withClassModel(this);
+	               item.with(this);
 	               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENUMERATIONS, null, item);
 	            }
 	         }
@@ -317,7 +317,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 		}
 		Enumeration enumeration = (Enumeration) new Enumeration().with(name);
 		withEnumerations(enumeration);
-		enumeration.withClassModel(this);
+		enumeration.with(this);
 		return enumeration;
 	} 
 

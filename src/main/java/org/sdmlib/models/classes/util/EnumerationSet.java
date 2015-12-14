@@ -65,42 +65,42 @@ public class EnumerationSet extends SDMSet<Enumeration>
       return this;
    }
 
-   public ArrayListSet getValueNames()
-   {
-      ArrayListSet result = new ArrayListSet();
-      
-      for (Enumeration obj : this)
-      {
-         result.addAll(obj.getValueNames());
-      }
-      
-      return result;
-   }
-
-   public EnumerationSet hasValueNames(ArrayListSet value)
-   {
-      EnumerationSet result = new EnumerationSet();
-      
-      for (Enumeration obj : this)
-      {
-         if (value == obj.getValueNames())
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-   public EnumerationSet withValueNames(ArrayListSet value)
-   {
-      for (Enumeration obj : this)
-      {
-         obj.setValueNames(value);
-      }
-      
-      return this;
-   }
+//FIXME   public ArrayListSet getValueNames()
+//   {
+//      ArrayListSet result = new ArrayListSet();
+//      
+//      for (Enumeration obj : this)
+//      {
+//         result.addAll(obj.getValueNames());
+//      }
+//      
+//      return result;
+//   }
+//
+//   public EnumerationSet hasValueNames(ArrayListSet value)
+//   {
+//      EnumerationSet result = new EnumerationSet();
+//      
+//      for (Enumeration obj : this)
+//      {
+//         if (value == obj.getValueNames())
+//         {
+//            result.add(obj);
+//         }
+//      }
+//      
+//      return result;
+//   }
+//
+//   public EnumerationSet withValueNames(ArrayListSet value)
+//   {
+//      for (Enumeration obj : this)
+//      {
+//         obj.setValueNames(value);
+//      }
+//      
+//      return this;
+//   }
 
    public StringList getName()
    {
@@ -196,7 +196,7 @@ public class EnumerationSet extends SDMSet<Enumeration>
    {
       for (Enumeration obj : this)
       {
-         obj.withClassModel(value);
+         obj.with(value);
       }
       
       return this;

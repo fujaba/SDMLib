@@ -16,13 +16,11 @@ import org.sdmlib.models.modelsets.ObjectSet;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.GraphEntity;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Interfaze;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleSet;
-import sun.text.normalizer.UBiDiProps;
 
 public class GenAssociation extends Generator<Association>
 {
@@ -628,9 +626,9 @@ public class GenAssociation extends Generator<Association>
          realPartnerClassName = kidClassesInterfaces.first().getName(true);
       }
       
-      if (pos < 0 && ! (partnerRole.getClazz().isWithNoObjects() && kidClassesInterfaces.size() != 1))
+      if (pos < 0 && ! (GraphUtil.isWithNoObjects(partnerRole.getClazz()) && kidClassesInterfaces.size() != 1))
       {
-         if (! clazz.isWithNoObjects())
+         if (!GraphUtil.isWithNoObjects(clazz))
          {
             text.append 
             (     "\n   public partnerClassName createPartnerRoleName()" +
@@ -679,19 +677,19 @@ public class GenAssociation extends Generator<Association>
          );
       
       GenClass generator = getGenerator(model.getClazz());
-      if (model.getPartnerRole().getCard().equals(Cardinality.MANY.toString())){
+      if (model.getOther().getCardinality().equals(Cardinality.MANY.toString())){
          if(generator!=null ){
         	 myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
          }
       }
    } 
-   public void generate(String rootDir, String helperDir, Role partnerRole)
+   public void generate(String rootDir, String helperDir, Association partnerRole)
    {
       generate(model.getClazz(), rootDir, helperDir, partnerRole, false);
    }
    
    
-   public void generate(Clazz clazz, String rootDir, String helperDir, Role partnerRole, boolean fromSuperClass)
+   public void generate(Clazz clazz, String rootDir, String helperDir, Association partnerRole, boolean fromSuperClass)
    {
       if (clazz.isExternal())
       {
@@ -705,7 +703,7 @@ public class GenAssociation extends Generator<Association>
             // add attribute declaration in class file
             StringBuilder text = new StringBuilder();
 
-            if (StrUtil.stringEquals(partnerRole.getCard(), Cardinality.MANY.toString()))
+            if (StrUtil.stringEquals(partnerRole.getCardinality().getValue(), Cardinality.MANY.toString()))
             {
                generateToManyRole(myParser, clazz, partnerRole, text);
 //               getGenerator(clazz).insertImport(LinkedHashSet.class.getName());
@@ -731,8 +729,8 @@ public class GenAssociation extends Generator<Association>
       }
       
       //import partner role class if package name has changed
-      if(!StrUtil.stringEquals(clazz.getName(false).substring(0, clazz.getName(false).lastIndexOf(".")), partnerRole.getClazz().getFullName().substring(0, partnerRole.getClazz().getFullName().lastIndexOf(".")))){
-         getGenerator(clazz).insertImport(partnerRole.getClazz().getFullName());
+      if(!StrUtil.stringEquals(clazz.getName(true), partnerRole.getClazz().getName(true))){
+         getGenerator(clazz).insertImport(partnerRole.getClazz().getName(false));
       }
       
       if(!((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
@@ -745,7 +743,7 @@ public class GenAssociation extends Generator<Association>
       
       insertCaseInGenericGet(clazz, creatorParser, partnerRole, rootDir);
 
-      if (StrUtil.stringEquals(partnerRole.getCard(), Cardinality.MANY.toString()))
+      if (StrUtil.stringEquals(partnerRole.getCardinality().getValue(), Cardinality.MANY.toString()))
       {
          insertCaseInGenericSetToMany(clazz, creatorParser, partnerRole, rootDir);
       }
@@ -760,14 +758,16 @@ public class GenAssociation extends Generator<Association>
       
       
       // generate property in creator class
-      if (GraphUtil.isInterface(clazz) == false && partnerRole.getClazz().hasFeature(Feature.Serialization))
+      ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
+      if (GraphUtil.isInterface(clazz) == false && classModel.hasFeature(Feature.Serialization, partnerRole.getClazz()))
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
          getGenerator(clazz).printFile(creatorParser);
       }
       
-      if (partnerRole.getClazz().hasFeature(Feature.Serialization)) {
+    		  
+      if (classModel.hasFeature(Feature.Serialization, partnerRole.getClazz())) {
 	      // generate property in model set class
 	      Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
 	      
@@ -787,7 +787,7 @@ public class GenAssociation extends Generator<Association>
       }
    }
    
-   private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Role partnerRole)
+   private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Association partnerRole)
    {
       if (GraphUtil.isInterface(clazz))
       {
@@ -809,7 +809,7 @@ public class GenAssociation extends Generator<Association>
       // OK, found method, parse its body to find if that handles me. 
       String removeCall = "set" + StrUtil.upFirstChar(partnerRole.getName());
       String fullRemoveCall = removeCall + "(null);\n      ";
-      if (partnerRole.getCard().equals(Cardinality.MANY.toString()))
+      if (partnerRole.getCardinality().getValue().equals(Cardinality.MANY.toString()))
       {
          String name = StrUtil.upFirstChar(partnerRole.getName());
          String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
@@ -840,7 +840,7 @@ public class GenAssociation extends Generator<Association>
       }
    }
 
-   private void insertGetterInModelSetFile(Clazz tgtClass, Parser parser, Parser modelClassParser, Role partnerRole)
+   private void insertGetterInModelSetFile(Clazz tgtClass, Parser parser, Parser modelClassParser, Association partnerRole)
    {
       String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
       int pos = parser.indexOf(key);
@@ -910,7 +910,7 @@ public class GenAssociation extends Generator<Association>
                   + StrUtil.upFirstChar(partnerRole.getName())
                   + "() == null)";
             
-            if (partnerRole.getCard().equals(Cardinality.MANY.toString()))
+            if (partnerRole.getCardinality().getValue().equals(Cardinality.MANY.toString()))
             {
                containsClause = " ! Collections.disjoint(neighbors, obj.get" 
                      + StrUtil.upFirstChar(partnerRole.getName()) + "())";
@@ -926,7 +926,7 @@ public class GenAssociation extends Generator<Association>
       
       if (pos2 < 0)
       {
-         if (model.getClazz() == model.getPartnerRole().getClazz())
+         if (model.getClazz() == model.getOtherClazz())
          {
             text
             .append("   /**\n" +
@@ -951,7 +951,7 @@ public class GenAssociation extends Generator<Association>
                   + "         }\n" + "      }\n" + "      \n"
                   + "      return result;\n" + "   }\n" + "\n" + "");
 
-            if (partnerRole.getCard().equals(Cardinality.ONE.toString()))
+            if (partnerRole.getCardinality().getValue().equals(Cardinality.ONE.toString()))
             {
                CGUtil.replaceAll(text, 
                   "todo.with(current.getPartnerrolenameupfirst().minus(result));", 
@@ -960,14 +960,14 @@ public class GenAssociation extends Generator<Association>
                   + "               todo.with(current.getName());\n"
                   + "            }");
             }
-            getGenerator(model.getClazz()).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getFullName() ,"Set"));
+            getGenerator(model.getClazz()).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getName(false) ,"Set"));
          }
       }
       
       if (pos < 0 || pos2 < 0)
       {      
          String add = "add";
-         if (partnerRole.getCard().equalsIgnoreCase(Cardinality.MANY.name()))
+         if (partnerRole.getCardinality().getValue().equalsIgnoreCase(Cardinality.MANY.name()))
          {
             add = "addAll";
          }
@@ -992,9 +992,9 @@ public class GenAssociation extends Generator<Association>
          }
          
          CGUtil.replaceAll(text, 
-            "ContentType", CGUtil.shortClassName(tgtClass.getName(false)),
-            "ModelType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()),
-            "ModelSetType", CGUtil.shortClassName(partnerRole.getClazz().getFullName()) + "Set",
+            "ContentType", tgtClass.getName(true),
+            "ModelType", partnerRole.getClazz().getName(true),
+            "ModelSetType", partnerRole.getClazz().getName(true) + "Set",
             "Name", partnerRoleNameUpFirst,
             "thename", partnerRole.getName(),
             "addOneOrMore", add,
@@ -1009,7 +1009,7 @@ public class GenAssociation extends Generator<Association>
          {
             // external classes get a set in this util package, no need for an import
             // thus just for real classes that may be in other packages
-            String helperClassName = CGUtil.helperClassName(partnerRole.getClazz().getFullName(),"Set");
+            String helperClassName = CGUtil.helperClassName(partnerRole.getClazz().getName(false),"Set");
             
             parser.insertImport(helperClassName);
          }
@@ -1017,7 +1017,7 @@ public class GenAssociation extends Generator<Association>
    }
 
 
-   private void insertGetterInPatternObjectFile(Clazz clazz, Parser parser, Role partnerRole)
+   private void insertGetterInPatternObjectFile(Clazz clazz, Parser parser, Association partnerRole)
    {
       insertHasNoParamInPatternObjectFile(clazz, parser, partnerRole);
       insertCreateNoParamInPatternObjectFile(clazz, parser, partnerRole);
@@ -1026,7 +1026,7 @@ public class GenAssociation extends Generator<Association>
       insertGetInPatternObjectFile(clazz, parser, partnerRole);
    }
 
-   private void insertGetInPatternObjectFile(Clazz clazz, Parser parser, Role partnerRole)
+   private void insertGetInPatternObjectFile(Clazz clazz, Parser parser, Association partnerRole)
    {
       String key = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
       int pos = parser.indexOf(key);
@@ -1035,7 +1035,7 @@ public class GenAssociation extends Generator<Association>
       {
          StringBuilder text = new StringBuilder();
          
-         if (elistPos < 0 || partnerRole.getCard().equals(Cardinality.ONE.toString()))
+         if (elistPos < 0 || partnerRole.getCardinality().getValue().equals(Cardinality.ONE.toString()))
          {
             text.append
             (       "   public TargetType getRoleName()\n"
@@ -1060,9 +1060,9 @@ public class GenAssociation extends Generator<Association>
 //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String targetType;
          
-         if (partnerRole.getCard().equals(Cardinality.MANY.toString()))
+         if (partnerRole.getCardinality().getValue().equals(Cardinality.MANY.toString()))
          {
-            String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "Set");
+            String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "Set");
             if (partnerRole.getClazz().isExternal())
             {
                targetType = CGUtil.shortClassName(partnerRole.getClazz().getName()) + "Set";
@@ -1072,7 +1072,7 @@ public class GenAssociation extends Generator<Association>
                targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullTargetType, parser);
             }
          }else{
-            targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(partnerRole.getClazz().getFullName(), parser);
+            targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(partnerRole.getClazz().getName(false), parser);
          }
          
          CGUtil.replaceAll(text, 
@@ -1089,7 +1089,7 @@ public class GenAssociation extends Generator<Association>
 
 
    private void insertHasNoParamInPatternObjectFile(Clazz clazz, Parser parser,
-         Role partnerRole)
+         Association partnerRole)
    {
       String key = Parser.METHOD + ":has" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
       int pos = parser.indexOf(key);
@@ -1108,7 +1108,7 @@ public class GenAssociation extends Generator<Association>
             "   }\n\n");
 
          //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
-         String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
+         String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
          String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
          if ( ! partnerRole.getClazz().isExternal())
          {
@@ -1126,14 +1126,14 @@ public class GenAssociation extends Generator<Association>
          
          parser.insert(classEnd, text.toString());
          if(partnerClass.indexOf(".")<0){
-        	 parser.insertImport(partnerRole.getClazz().getFullName());
+        	 parser.insertImport(partnerRole.getClazz().getName(false));
          }
       }
    }
 
 
    private void insertCreateNoParamInPatternObjectFile(Clazz clazz, Parser parser,
-         Role partnerRole)
+         Association partnerRole)
    {
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "()";
       int pos = parser.indexOf(key);
@@ -1148,7 +1148,7 @@ public class GenAssociation extends Generator<Association>
 
 //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          
-         String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
+         String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
          String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
          if ( ! partnerRole.getClazz().isExternal())
          {
@@ -1168,9 +1168,9 @@ public class GenAssociation extends Generator<Association>
 
 
    private void insertHasWithParamInPatternObjectFile(Clazz clazz, Parser parser,
-         Role partnerRole)
+         Association partnerRole)
    {
-      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
+      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
 //      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
       String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
@@ -1205,9 +1205,9 @@ public class GenAssociation extends Generator<Association>
 
 
    private void insertCreateWithParamInPatternObjectFile(Clazz clazz, Parser parser,
-         Role partnerRole)
+         Association partnerRole)
    {
-      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getFullName(), "PO");
+      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
 //      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
       String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
@@ -1239,9 +1239,9 @@ public class GenAssociation extends Generator<Association>
    }
 
 
-   private void insertSetterInModelSetFile(Clazz tgtClass, Parser parser, Role partnerRole)
+   private void insertSetterInModelSetFile(Clazz tgtClass, Parser parser, Association partnerRole)
    {
-      String targetType = CGUtil.shortClassName(partnerRole.getClazz().getFullName());
+      String targetType = partnerRole.getClazz().getName(true);
       
       String key = Parser.METHOD + ":with" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
       int pos = parser.indexOf(key);
@@ -1276,10 +1276,10 @@ public class GenAssociation extends Generator<Association>
          
          parser.insert(classEnd, text.toString());
          
-         parser.insertImport(partnerRole.getClazz().getFullName());
+         parser.insertImport(partnerRole.getClazz().getName(false));
       }
       
-      if (partnerRole.getCard().equals(Cardinality.MANY.toString()))
+      if (partnerRole.getCardinality().getValue().equals(Cardinality.MANY.toString()))
       {
          key = Parser.METHOD + ":without" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
          pos = parser.indexOf(key);
@@ -1314,13 +1314,13 @@ public class GenAssociation extends Generator<Association>
             
             parser.insert(classEnd, text.toString());
             
-            parser.insertImport(partnerRole.getClazz().getFullName());
+            parser.insertImport(partnerRole.getClazz().getName(false));
          }
       }
    }
 
 
-   private void insertPropertyInCreatorClass(Clazz clazz, Parser parser, Role partnerRole)
+   private void insertPropertyInCreatorClass(Clazz clazz, Parser parser, Association partnerRole)
    {
       String key = Parser.ATTRIBUTE + ":properties";
       int pos = parser.indexOf(key);
@@ -1359,7 +1359,7 @@ public class GenAssociation extends Generator<Association>
       }
    }
    
-   private void insertCaseInGenericSetToMany(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
+   private void insertCaseInGenericSetToMany(Clazz clazz, Parser parser, Association partnerRole, String rootDir)
    {   
       if (GraphUtil.isInterface(clazz))
       {
@@ -1410,7 +1410,7 @@ public class GenAssociation extends Generator<Association>
                );
 
          String typePlaceholder = "type";
-         String type = CGUtil.shortClassName(partnerRole.getClazz().getFullName());
+         String type = partnerRole.getClazz().getName(true);
 
          CGUtil.replaceAll(text, 
             typePlaceholder, type, 
@@ -1422,12 +1422,12 @@ public class GenAssociation extends Generator<Association>
          parser.insert(lastIfEndPos, text.toString());
          
          parser.insertImport(JsonIdMap.class.getName());
-         parser.insertImport(partnerRole.getClazz().getFullName());
+         parser.insertImport(partnerRole.getClazz().getName(false));
          
       }
    }
 
-   private void insertCaseInGenericSetToOne(Clazz clazz, Parser parser, Role partnerRole, String rootDir)
+   private void insertCaseInGenericSetToOne(Clazz clazz, Parser parser, Association partnerRole, String rootDir)
    {
       if (GraphUtil.isInterface(clazz))
       {
@@ -1472,7 +1472,7 @@ public class GenAssociation extends Generator<Association>
                );
 
          String typePlaceholder = "type";
-         String type = CGUtil.shortClassName(partnerRole.getClazz().getFullName());
+         String type = partnerRole.getClazz().getName(true);
 
          CGUtil.replaceAll(text, 
             typePlaceholder, type, 
@@ -1482,7 +1482,7 @@ public class GenAssociation extends Generator<Association>
             );
 
          parser.insert(lastIfEndPos, text.toString());
-         parser.insertImport(partnerRole.getClazz().getFullName());
+         parser.insertImport(partnerRole.getClazz().getName(false));
       }
    }
    
@@ -1503,25 +1503,25 @@ public class GenAssociation extends Generator<Association>
 	   
 	   Parser parser = genClass.getParser();	   
    
-	   String roleName = StrUtil.upFirstChar(this.getModel().getPartnerRole().getName());
+	   String roleName = StrUtil.upFirstChar(this.getModel().getOther().getName());
 	   
 	   String cardType = "";
 	   
-	   if (this.getModel().getPartnerRole().getCard().equals(Cardinality.MANY.toString())) {
+	   if (this.getModel().getOther().getCardinality().getValue().equals(Cardinality.MANY.toString())) {
 		   cardType = "...";
 	   }
 	   
-	   String partnerClass = "" + this.getModel().getPartnerRole().getClazz();
+	   String partnerClass = "" + this.getModel().getOtherClazz();
 	   
 	   String roleWithCard = partnerClass + cardType;
 	   
 	   String partnerPO = partnerClass + "PO";
 	   
-	   String partnerProperty = "PROPERTY_" + this.getModel().getPartnerRole().getName().toUpperCase();
+	   String partnerProperty = "PROPERTY_" + this.getModel().getOther().getName().toUpperCase();
 	   
 	   genClass.removeFragment(parser, Parser.ATTRIBUTE + ":" + partnerProperty);
 	   
-	   genClass.removeFragment(parser, Parser.ATTRIBUTE + ":" + this.getModel().getPartnerRole().getName());
+	   genClass.removeFragment(parser, Parser.ATTRIBUTE + ":" + this.getModel().getOther().getName());
 	   
 	   genClass.removeFragment(parser, Parser.METHOD + ":get" + roleName + "()");
 	   
@@ -1586,36 +1586,38 @@ public class GenAssociation extends Generator<Association>
 		// open source class and get or insert role implementation
 		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
 		ClassModelAdapter generator = classModel.getGenerator();
-		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
-		sourceGenRole.generate(rootDir, helperDir, (Clazz) model.getOtherClazz());
+//		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
+		this.generate(rootDir, helperDir, model.getOther());
+//		sourceGenRole.generate((Clazz) model.getOtherClazz());
 
 		// also for subclasses
-		for (Clazz kidClass : model.getSource().getClazz().getKidClazzesTransitive()) {
-			if (kidClass instanceof Interfaze) {
-				continue;
-			}
-
-			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getSource().getClazz());
-			sourceGenRole.generate(kidClass, rootDir, helperDir, model.getTarget(), !needsImplementation);
-		}
-
-		if (model.getSource().getName() == null || model.getSource().getName().equals("")) {
-			// uni directional assoc, do not generate reverse direction
-			return this;
-		}
-
-		GenRole targetGenRole = generator.getOrCreate(model.getTarget());
-		// open target class and get or insert role implementation
-		targetGenRole.generate(rootDir, helperDir, model.getSource());
-
-		// also for subclasses
-		for (Clazz kidClass : model.getTarget().getClazz().getKidClazzesTransitive()) {
+		for (Clazz kidClass : model.getClazz().getKidClazzes(true)) {
 			if (GraphUtil.isInterface(kidClass)) {
 				continue;
 			}
 
-			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getTarget().getClazz());
-			targetGenRole.generate(kidClass, rootDir, helperDir, model.getSource(), !needsImplementation);
+			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getClazz());
+			this.generate(kidClass, rootDir, helperDir, model.getOther(), !needsImplementation);
+		}
+
+		if (model.getName() == null || model.getName().equals("")) {
+			// uni directional assoc, do not generate reverse direction
+			return this;
+		}
+
+//		GenRole targetGenRole = generator.getOrCreate(model.getTarget());
+		// open target class and get or insert role implementation
+		this.generate(rootDir, helperDir, model);
+//		targetGenRole.generate(rootDir, helperDir, model.getSource());
+
+		// also for subclasses
+		for (Clazz kidClass : model.getOtherClazz().getKidClazzes(true)) {
+			if (GraphUtil.isInterface(kidClass)) {
+				continue;
+			}
+
+			boolean needsImplementation = kidClass.getInterfaces(false).contains(model.getOtherClazz());
+			this.generate(kidClass, rootDir, helperDir, model, !needsImplementation);
 		}
 		return this;
 	}
