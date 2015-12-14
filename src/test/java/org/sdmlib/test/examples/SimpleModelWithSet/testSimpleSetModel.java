@@ -17,7 +17,7 @@ public class testSimpleSetModel {
 		Clazz person = model.createClazz("Person");
 		Clazz child = model.createClazz("Child");
 //		person.with(new Attribute("prename", SetDataType.ref(DataType.STRING)));
-		person.with(new Attribute("name", MapDataType.ref(DataType.STRING, DataType.STRING)));
+		person.withAttribute("name", MapDataType.ref(DataType.STRING, DataType.ref(person)));
 		
 		Method m1 = new Method("setParent", new Parameter("parent", DataType.ref(person)));
 		m1.withBody("if (this.parent != parent) {\n"+
