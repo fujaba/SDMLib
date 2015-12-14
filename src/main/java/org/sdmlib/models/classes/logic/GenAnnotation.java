@@ -146,11 +146,11 @@ public class GenAnnotation extends Generator<Annotation>
 	ClassModel getClazz() {
 		GraphMember owner = getModel().getParent();
 		if (owner instanceof Clazz)
-	         return ((Clazz)owner).getClassModel();
+	         return (ClassModel)((Clazz)owner).getClassModel();
 	      if (owner instanceof Method)
-	         return ((Method)owner).getClazz().getClassModel();
+	         return (ClassModel)((Method)owner).getClazz().getClassModel();
 	      if (owner instanceof Attribute)
-	    	  return ((Attribute)owner).getClazz().getClassModel();
+	    	  return (ClassModel)((Attribute)owner).getClazz().getClassModel();
 	      return null;
 	}
 

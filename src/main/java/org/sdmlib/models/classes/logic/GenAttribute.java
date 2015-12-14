@@ -19,6 +19,7 @@ import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Interfaze;
 import de.uniks.networkparser.graph.Modifier;
 
 public class GenAttribute extends Generator<Attribute>
@@ -28,7 +29,7 @@ public class GenAttribute extends Generator<Attribute>
       parser.indexOf(Parser.CLASS_END);
       // add attribute declaration and get, set, with methods in class file
       ExistTemplate templates;
-      if (clazz.isInterface())
+      if (clazz instanceof Interfaze)
       {
     	  templates = AttributeTemplates.insertPropertyInInterface(model);
       }

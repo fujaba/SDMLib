@@ -31,6 +31,9 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Enumeration;
+import de.uniks.networkparser.graph.GraphModel;
+import de.uniks.networkparser.graph.Interfaze;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -57,6 +60,7 @@ public class GenClass extends Generator<Clazz>
    public GenClass generate(String rootDir, String helpersDir)
    {
       // first generate the class itself
+	  ClassModel classModel = (ClassModel) model.getClassModel();
       if (!model.isExternal())
       {
          getOrCreateParser(rootDir);
@@ -71,15 +75,15 @@ public class GenClass extends Generator<Clazz>
 
          insertMethods(rootDir, helpersDir);
 
-         if (!model.isInterface())
+         if (model instanceof Interfaze == false)
          {
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
             insertInterfaceMethods(model, rootDir, helpersDir);
-            if (model.hasFeature(Feature.REMOVEYOUMETHOD))
+            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
             	insertRemoveYouMethod(rootDir);
 
-            if (model.hasFeature(Feature.Serialization))
+            if (classModel.hasFeature(Feature.Serialization, model))
                insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
@@ -92,7 +96,7 @@ public class GenClass extends Generator<Clazz>
          generateAttributes(rootDir, helpersDir, false);
       }
 
-      if (!model.isEnumeration() && !model.isInterface() && model.hasFeature(Feature.Serialization))
+      if ((model instanceof Enumeration == false) && (model instanceof Interfaze == false) && classModel.hasFeature(Feature.Serialization, model))
       {
          // now generate the corresponding creator class
          if (getRepairClassModel().hasFeature(Feature.Serialization))
@@ -101,7 +105,7 @@ public class GenClass extends Generator<Clazz>
 
             insertClassInCreatorCreatorClass(getModel(), rootDir, creatorParser);
 
-            if (model.hasFeature(Feature.REMOVEYOUMETHOD)) {
+            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model)) {
             	insertRemoveObjectInCreatorClass();
             }
             printFile(creatorParser);
@@ -109,7 +113,7 @@ public class GenClass extends Generator<Clazz>
       }
 
       // now generate the corresponding ModelSet class
-      if (model.hasFeature(Feature.Serialization))
+      if (classModel.hasFeature(Feature.Serialization, model))
       {
          getOrCreateParserForModelSetFile(helpersDir);
          printFile(modelSetParser);

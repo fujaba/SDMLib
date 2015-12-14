@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import javax.management.relation.Role;
-
 import org.sdmlib.CGUtil;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.doc.interfaze.Drawer.GuiFileDrawer;
@@ -13,22 +11,19 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 
-import com.sun.nio.sctp.Association;
-
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
-import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.GraphConverter;
 import de.uniks.networkparser.graph.GraphEdgeTypes;
 import de.uniks.networkparser.graph.GraphIdMap;
-import de.uniks.networkparser.graph.GraphLabel;
 import de.uniks.networkparser.graph.GraphList;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class Javascript implements GuiAdapter
 {
@@ -111,6 +106,14 @@ public class Javascript implements GuiAdapter
       return "";
    }
    
+   private SimpleSet<Association> getAllAssoc(ClassModel model) {
+	   SimpleSet<Association> colleciton = new SimpleSet<Association>();
+	   for(Clazz clazz : model.getClazzes()) {
+		   colleciton.addAll(clazz.getAllEdges());
+	   }
+	   return colleciton;
+   }
+   
    public GraphList convertModelToGraphList(ClassModel model) {
 	   GraphList list = new GraphList().withTyp(GraphIdMap.CLASS);
 	   HashMap<String, Clazz> nodes=new HashMap<String, Clazz>();
@@ -136,26 +139,26 @@ public class Javascript implements GuiAdapter
          list.with(node);
          nodes.put(node.getId(), node);
       }
-      for (Association assoc : model.getClazzes().getRoles().getAssoc())
+      for (Association assoc : getAllAssoc(model))
       {
-    	 Role source = assoc.getSource();
-         Role target = assoc.getTarget();
+//    	 Role source = assoc.getSource();
+//         Role target = assoc.getTarget();
          
-         Association sourceEdge = new Association().with(Cardinality.create(source.getCard()));
-         Association targetEdge = new Association().with(Cardinality.create(target.getCard()));
+         Association sourceEdge = new Association().with(assoc.getCardinality());
+         Association targetEdge = new Association().with(assoc.getOther().getCardinality());
          sourceEdge.with(targetEdge);
          
          
-         sourceEdge.withInfo(new GraphLabel().with(source.getName()));
-         sourceEdge.with(nodes.get(CGUtil.shortClassName(source.getClazz().getName())));
-         targetEdge.withInfo(new GraphLabel().with(target.getName()));
-         targetEdge.with(nodes.get(CGUtil.shortClassName(target.getClazz().getName())));
+         sourceEdge.with(assoc.getInfo());
+         sourceEdge.with(nodes.get(assoc.getClazz().getName(true)));
+         targetEdge.with(assoc.getInfo());
+         targetEdge.with(nodes.get(assoc.getOtherClazz().getName(true)));
          list.with(sourceEdge);
       }
       
-      for (Clazz kidClazz : model.getClasses())
+      for (Clazz kidClazz : model.getClazzes())
       {
-         for (Clazz superClazz : kidClazz.getSuperClazzes())
+         for (Clazz superClazz : kidClazz.getSuperClazzes(false))
          {
         	 Association generationEdge = new Association().withTyp(GraphEdgeTypes.GENERALISATION);
         	 generationEdge.with(nodes.get(CGUtil.shortClassName(kidClazz.getName())));
@@ -177,7 +180,7 @@ public class Javascript implements GuiAdapter
 	      JsonArray jsonNodes = new JsonArray();
 	      JsonArray jsonEdges = new JsonArray();
 	      
-	      for (Clazz clazz : model.getClasses())
+	      for (Clazz clazz : model.getClazzes())
 	      {
 	         JsonObject jsonClazz = new JsonObject();
 	         jsonClazz.put("typ", "node");
@@ -187,7 +190,7 @@ public class Javascript implements GuiAdapter
 	         JsonArray jsonAttrs = new JsonArray();
 	         for (Attribute attr : clazz.getAttributes())
 	         {
-	            jsonAttrs.add("" + attr.getName() + " : " + CGUtil.shortClassName(attr.getType().getValue()));
+	            jsonAttrs.add("" + attr.getName() + " : " + attr.getType().getName(true));
 	         }
 	         if(jsonAttrs.size()>0){
 	        	 jsonClazz.put("attributes", jsonAttrs);
@@ -196,7 +199,7 @@ public class Javascript implements GuiAdapter
 	         JsonArray jsonMethods = new JsonArray();
 	         for (Method method : clazz.getMethods())
 	         {
-	        	 jsonMethods.add("" + method.getSignature());
+	        	 jsonMethods.add("" + method.getName(false));
 	         }
 	         if(jsonMethods.size()>0){
 	        	 jsonClazz.put("methods", jsonMethods);
@@ -206,7 +209,7 @@ public class Javascript implements GuiAdapter
 	      
 	      json.put("nodes", jsonNodes);
 
-	      for (Association assoc : model.getClasses().getRoles().getAssoc())
+	      for (Association assoc : getAllAssoc(model))
 	      {
 	         JsonObject jsonAssoc = new JsonObject();
 	         jsonAssoc.put("typ","edge");
@@ -215,28 +218,28 @@ public class Javascript implements GuiAdapter
 	         
 	         jsonAssoc.put("source", jsonRole);
 	         
-	         Role source = assoc.getSource();
-	         Role target = assoc.getTarget();
+//	         Role source = assoc.getSource();
+//	         Role target = assoc.getTarget();
 	         
-	         jsonRole.put("id",CGUtil.shortClassName(source.getClazz().getName()));
-	         if(source.getCard() != null) {
-	        	 jsonRole.put("cardinality", source.getCard());
-	        	 jsonRole.put("property", source.getName());
+	         jsonRole.put("id", assoc.getClazz().getName(true));
+	         if(assoc.getCardinality() != null) {
+	        	 jsonRole.put("cardinality", assoc.getCardinality());
+	        	 jsonRole.put("property", assoc.getName());
 	         }
 
 	         jsonRole = new JsonObject();
 	         jsonAssoc.put("target", jsonRole);
 	         
-	         jsonRole.put("id",CGUtil.shortClassName(target.getClazz().getName()));
-	         jsonRole.put("cardinality", target.getCard());
-	         jsonRole.put("property",target.getName());
+	         jsonRole.put("id", assoc.getOtherClazz().getName(true));
+	         jsonRole.put("cardinality", assoc.getOther().getCardinality());
+	         jsonRole.put("property",assoc.getOther().getName());
 	         
 	         jsonEdges.add(jsonAssoc);
 	      }
 	      
-	      for (Clazz kidClazz : model.getClasses())
+	      for (Clazz kidClazz : model.getClazzes())
 	      {
-	         for (Clazz superClazz : kidClazz.getSuperClazzes())
+	         for (Clazz superClazz : kidClazz.getSuperClazzes(false))
 	         {
 	            JsonObject jsonAssoc = new JsonObject();
 	            jsonAssoc.put("typ","generalisation");

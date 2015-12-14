@@ -3,8 +3,10 @@ package org.sdmlib.models.classes.logic;
 import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphEntity;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.Method;
 
@@ -88,5 +90,12 @@ public abstract class Generator<M>
    {
  	  ClassModel model = (ClassModel) attribute.getClazz().getClassModel();
       return model.getGenerator().getOrCreate(attribute);
+   }
+   
+   public GenAssociation getGenerator(Association assoc)
+   {
+	   Clazz clazz = (Clazz) assoc.getClazz();
+ 	  ClassModel model = (ClassModel)clazz.getClassModel();
+      return model.getGenerator().getOrCreate(assoc);
    }
 }

@@ -53,7 +53,7 @@ public class GenMethod extends Generator<Method>
       // get parser from class
 	   ClassModel clazzModel =(ClassModel) enumeration.getClassModel();
 
-      GenEnumeration genEnumeration = enumeration.getClassModel().getGenerator().getOrCreate(enumeration);
+      GenEnumeration genEnumeration = clazzModel.getGenerator().getOrCreate(enumeration);
       Parser parser = genEnumeration.getOrCreateParser(rootDir);
 
       insertMethodDecl(enumeration, parser);
