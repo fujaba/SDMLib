@@ -115,6 +115,12 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 		super.with(values);
 		return this;
 	}
+	
+	@Override
+	public ClassModel with(String name) {
+		super.with(name);
+		return this;
+	}
 
 	public ClassModel without(Clazz... values) {
 		super.without(values);
