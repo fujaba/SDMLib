@@ -31,6 +31,33 @@ elements will be inserted, carefully.
 
 In the example above, the generated code will be placed in package org.sdmlib.sample, which does not need to be pre-existing.
 
+## Gradle and Maven
+
+For stable version add to your `build.gradle` :
+
+~~~groovy
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.sdmlib:SDMLib:1.1.+'
+}
+~~~
+
+or for SNAPSHOT-Builds:
+~~~groovy
+repositories {
+	maven {
+        url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local"
+    }
+}
+
+dependencies {
+    compile 'org.sdmlib:SDMLib:1.1.+'
+}
+~~~
+
 In order to get started, just add the following Maven dependency:
 
     <dependency>
