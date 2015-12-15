@@ -51,24 +51,18 @@ task compileJava17(type: JavaCompile) {
 	targetCompatibility = '1.7'
 	classpath = fileTree(dir: 'build/allLibs', include: '*.jar')
 }
-compileTestJava {
-	sourceSets.test.java.exclude '**/test/**'
-}
-sourceSets.test.java.exclude '**/test/**'
+
 compileJava {
-	sourceSets.main.java.exclude '**/replication/**'
-	doLast {
-		configurations.testRunTime.each{println it}
-	}
+	source = fileTree(dir: 'src/main/java').matching { exclude '**/test/**' }
 }
-sourceSets.main.java.exclude '**/replication/**'
+compileTestJava {
+	source = fileTree(dir: 'src/main/java').matching { exclude '**/test/**' }
+}
 
 //classes.dependsOn compileJava17
 compileJava.dependsOn compileJava17
 compileJava17.dependsOn copyAllDependencies
-test {
-	exclude 'org/sdmlib/test/**'
-}
+
 task SDMLibGenerator(type: JavaCompile, dependsOn: test) {
 	println "Compile Generation"
 	source = fileTree(dir: 'gen')
@@ -76,6 +70,7 @@ task SDMLibGenerator(type: JavaCompile, dependsOn: test) {
 	sourceCompatibility = '1.7'
 	targetCompatibility = '1.7'
 	classpath = fileTree(dir: 'build/allLibs', include: '*.jar')
+	classpath += files("bin") 
 }
 
 task coreJar17(type: Jar) {
