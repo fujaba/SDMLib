@@ -27,14 +27,11 @@ public class GenMethod extends Generator<Method>
       Parser parser = clazzModel.getGenerator().getOrCreate(clazz).getOrCreateParser(rootDir);
 
       insertMethodDecl(clazz, parser);
-
-      Annotation annotation = model.getAnnotation();
-      getGenerator(annotation).generate(rootDir, helpersDir);
-      while(annotation.hasNext() ) {
-    	  annotation = annotation.next();
+      
+      
+      for(Annotation annotation : GraphUtil.getAnnotations(model)) {
     	  getGenerator(annotation).generate(rootDir, helpersDir);
       }
-
       // insertCaseInGenericGetSet(parser);
 
       Parser modelSetParser = generator.getOrCreateParserForModelSetFile(helpersDir);

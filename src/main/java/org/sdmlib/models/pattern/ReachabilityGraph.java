@@ -38,7 +38,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.logic.ValuesMap;
+import de.uniks.networkparser.ValuesMap;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
@@ -61,7 +61,7 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
       @Override
       public boolean check(ValuesMap values)
       {
-         return values.value != root;
+         return values.getValue() != root;
       }
    }
 

@@ -56,7 +56,7 @@ public class SDMDiagramEditor implements Editor{
 						Clazz fromClazz = classModel.getClazz(source.getString("id"));
 						Clazz toClazz = classModel.getClazz(target.getString("id"));
 						
-						fromClazz.withAssoc(toClazz, target.getString("property"), Cardinality.ONE, source.getString("property"), Cardinality.ONE);
+						fromClazz.withBidirectional(toClazz, target.getString("property"), Cardinality.ONE, source.getString("property"), Cardinality.ONE);
 					}
 				}
 			}

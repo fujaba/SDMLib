@@ -177,7 +177,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 
 	public boolean hasFeature(Feature feature, Clazz value) {
 		if (hasFeature(feature)) {
-//FIXME			return feature.match(value);
+			return feature.match(value);
 		}
 		return false;
 	}

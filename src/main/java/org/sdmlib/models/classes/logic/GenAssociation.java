@@ -960,7 +960,7 @@ public class GenAssociation extends Generator<Association>
                   + "               todo.with(current.getName());\n"
                   + "            }");
             }
-            getGenerator(model.getClazz()).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getName(false) ,"Set"));
+            getGenerator(model.getClazz()).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getName(true) ,"Set"));
          }
       }
       

@@ -71,7 +71,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.logic.ValuesMap;
+import de.uniks.networkparser.ValuesMap;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
@@ -1753,13 +1753,13 @@ public class Storyboard implements PropertyChangeInterface
       @Override
       public boolean check(ValuesMap values)
       {
-         if (values.value != null
+         if (values.getValue() != null
             && ("Integer Float Double Long Boolean String"
-               .indexOf(values.value.getClass().getSimpleName()) >= 0))
+               .indexOf(values.getValue().getClass().getSimpleName()) >= 0))
          {
             return true;
          }
-         return explicitElems.contains(values.value);
+         return explicitElems.contains(values.getValue());
       }
    }
 
