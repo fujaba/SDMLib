@@ -55,7 +55,14 @@ task compileJava17(type: JavaCompile) {
 compileJava.dependsOn compileJava17
 compileJava17.dependsOn copyAllDependencies
 
-
+task SDMLibGenerator(type: JavaCompile, dependsOn: test) {
+	println "Compile Generation"
+	source = fileTree(dir: 'gen')
+	destinationDir = file('build/classes/gen')
+	sourceCompatibility = '1.7'
+	targetCompatibility = '1.7'
+	classpath = fileTree(dir: 'build/allLibs', include: '*.jar')
+}
 
 task coreJar17(type: Jar) {
 	from fileTree(dir: 'build/classes/main17'); classifier = 'core17'
