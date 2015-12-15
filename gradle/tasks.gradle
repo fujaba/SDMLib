@@ -57,6 +57,9 @@ compileTestJava {
 sourceSets.test.java.exclude '**/test/**'
 compileJava {
 	sourceSets.main.java.exclude '**/replication/**'
+	doLast {
+		configurations.testRunTime.each{println it}
+	}
 }
 sourceSets.main.java.exclude '**/replication/**'
 

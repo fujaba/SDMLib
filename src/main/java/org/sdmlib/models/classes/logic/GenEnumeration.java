@@ -36,12 +36,11 @@ import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.util.ClazzSet;
 
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.Enumeration;
 import de.uniks.networkparser.graph.GraphLiteral;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.list.SimpleSet;
 
-public class GenEnumeration extends Generator<Enumeration>{
+public class GenEnumeration extends Generator<Clazz>{
 	private Parser parser = null;
 
 	public void generate(String rootDir, String helpersDir) {

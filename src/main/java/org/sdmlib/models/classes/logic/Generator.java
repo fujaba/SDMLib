@@ -68,7 +68,7 @@ public abstract class Generator<M>
    public GenClass getGenerator(Clazz clazz)
    {
 	   ClassModel model = (ClassModel) clazz.getClassModel();
-      return model.getGenerator().getOrCreate(clazz);
+      return model.getGenerator().getOrCreateClazz(clazz);
    }
    
    public GenClass getGenerator(Generator<?> generator, String name)

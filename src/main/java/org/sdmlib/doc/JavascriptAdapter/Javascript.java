@@ -12,10 +12,10 @@ import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.util.GenericObjectSet;
 
 import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphConverter;
-import de.uniks.networkparser.graph.GraphEdgeTypes;
 import de.uniks.networkparser.graph.GraphIdMap;
 import de.uniks.networkparser.graph.GraphList;
 import de.uniks.networkparser.graph.Method;
@@ -160,9 +160,9 @@ public class Javascript implements GuiAdapter
       {
          for (Clazz superClazz : kidClazz.getSuperClazzes(false))
          {
-        	 Association generationEdge = new Association().withTyp(GraphEdgeTypes.GENERALISATION);
+        	 Association generationEdge = new Association().with(AssociationTypes.GENERALISATION);
         	 generationEdge.with(nodes.get(CGUtil.shortClassName(kidClazz.getName())));
-        	 Association kidEdge = new Association().withTyp(GraphEdgeTypes.GENERALISATION);
+        	 Association kidEdge = new Association().with(AssociationTypes.CHILD);
         	generationEdge.with(kidEdge);
         	
         	kidEdge.with(nodes.get(CGUtil.shortClassName(superClazz.getName())));

@@ -29,10 +29,8 @@ import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.Enumeration;
 import de.uniks.networkparser.graph.GraphImport;
 import de.uniks.networkparser.graph.GraphUtil;
-import de.uniks.networkparser.graph.Interfaze;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -75,7 +73,7 @@ public class GenClass extends Generator<Clazz>
 
          insertMethods(rootDir, helpersDir);
 
-         if (model instanceof Interfaze == false)
+         if (GraphUtil.isInterface(model) == false)
          {
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
@@ -317,7 +315,7 @@ public class GenClass extends Generator<Clazz>
    {
       for (Clazz interfaze : clazz.getInterfaces(false))
       {
-         if (interfaze instanceof Interfaze)
+         if (GraphUtil.isInterface(interfaze))
          {
             for (Attribute attr : interfaze.getAttributes())
             {
@@ -340,7 +338,7 @@ public class GenClass extends Generator<Clazz>
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
 				creatorName = clazz.getClassModel().getName() + GenClassModel.UTILPATH + "."
 						+ CGUtil.shortClassName(clazz.getName(false));
-				GenClass genClass = generator.getOrCreate(clazz);
+				GenClass genClass = generator.getOrCreateClazz(clazz);
 				Parser creatorClassParser = genClass.getOrCreateParserForCreatorClass(rootDir);
 				String string = creatorClassParser.getFileName();
 				String alternativeFilePath = string
@@ -455,7 +453,7 @@ public class GenClass extends Generator<Clazz>
    {
       for (Clazz interfaze : clazz.getInterfaces(false))
       {
-         if (interfaze instanceof Interfaze)
+         if (GraphUtil.isInterface(interfaze))
          {
             for (Attribute attr : interfaze.getAttributes())
             {
@@ -465,7 +463,7 @@ public class GenClass extends Generator<Clazz>
             for (Method method : interfaze.getMethods())
             {
                method.with(new Annotation().with("Override"));
-               getGenerator(method).generate(model, rootDir, helpersDir);
+               getGenerator(method).generateClazz(model, rootDir, helpersDir);
             }
 
          }
@@ -479,7 +477,7 @@ public class GenClass extends Generator<Clazz>
    {
 
       String string = Parser.IMPLEMENTS;
-      if (model instanceof Interfaze)
+      if (GraphUtil.isInterface(model))
          string = Parser.EXTENDS;
 
       for (Clazz interfaze : model.getInterfaces(false))
@@ -566,7 +564,7 @@ public class GenClass extends Generator<Clazz>
 		// add removeYou method
 		String overrideText = "";
 		for (Clazz clazz : model.getSuperClazzes(true).without(model)) {
-			if (clazz instanceof Interfaze) {
+			if (GraphUtil.isInterface(clazz)) {
 				continue;
 			}
 			if (!clazz.isExternal()) {
@@ -605,7 +603,7 @@ public class GenClass extends Generator<Clazz>
       // Check if no super has PropertyChange
       for (Clazz clazz : model.getSuperClazzes(true).without(model))
       {
-         if (clazz instanceof Interfaze)
+         if (GraphUtil.isInterface(clazz))
          {
             continue;
          }
@@ -681,7 +679,7 @@ public class GenClass extends Generator<Clazz>
          }
 
          String string = " implements ";
-         if (model instanceof Interfaze)
+         if (GraphUtil.isInterface(model))
             string = " extends ";
          parser.insert(implementsPos + 1, string + propertyChangeInterface);
          insertImport(SendableEntity.class.getName());
@@ -843,7 +841,7 @@ public class GenClass extends Generator<Clazz>
                "abztract", abztract,
                "className", className,
                "packageName", packageName,
-               "clazz", (model instanceof Interfaze ? "interface" : "class")
+               "clazz", (GraphUtil.isInterface(model) ? "interface" : "class")
                );
             parser.withFileChanged(true);
          }

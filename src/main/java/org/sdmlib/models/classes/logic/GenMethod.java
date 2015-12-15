@@ -11,22 +11,21 @@ import org.sdmlib.models.classes.Feature;
 
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.Enumeration;
+import de.uniks.networkparser.graph.Clazz.ClazzTyp;
 import de.uniks.networkparser.graph.GraphUtil;
-import de.uniks.networkparser.graph.Interfaze;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 
 public class GenMethod extends Generator<Method>
 {
-   public GenMethod generate(Clazz clazz, String rootDir, String helpersDir)
+   public GenMethod generateClazz(Clazz clazz, String rootDir, String helpersDir)
    {
       // get parser from class
 	   ClassModel clazzModel =(ClassModel) clazz.getClassModel();
-      GenClass generator = clazzModel.getGenerator().getOrCreate(clazz);
-      Parser parser = clazzModel.getGenerator().getOrCreate(clazz).getOrCreateParser(rootDir);
+      GenClass generator = clazzModel.getGenerator().getOrCreateClazz(clazz);
+      Parser parser = clazzModel.getGenerator().getOrCreateClazz(clazz).getOrCreateParser(rootDir);
 
-      insertMethodDecl(clazz, parser);
+      insertMethodDeclClazz(clazz, parser);
       
       
       for(Annotation annotation : GraphUtil.getAnnotations(model)) {
@@ -47,26 +46,26 @@ public class GenMethod extends Generator<Method>
       return this;
    }
 
-   public GenMethod generate(Enumeration enumeration, String rootDir, String helpersDir)
+   public GenMethod generateEnum(Clazz enumeration, String rootDir, String helpersDir)
    {
       // get parser from class
 	   ClassModel clazzModel =(ClassModel) enumeration.getClassModel();
 
-      GenEnumeration genEnumeration = ((ClassModel) clazzModel).getGenerator().getOrCreate(enumeration);
+      GenEnumeration genEnumeration = ((ClassModel) clazzModel).getGenerator().getOrCreateEnum(enumeration);
       Parser parser = genEnumeration.getOrCreateParser(rootDir);
 
-      insertMethodDecl(enumeration, parser);
+      insertMethodDeclEnum(enumeration, parser);
 
       return this;
    }
 
-   private void insertMethodDecl(Enumeration enumeration, Parser parser)
+   private void insertMethodDeclEnum(Clazz enumeration, Parser parser)
    {
       String signature = model.getName(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
-      ((ClassModel) enumeration.getClassModel()).getGenerator().getOrCreate(enumeration);
+      ((ClassModel) enumeration.getClassModel()).getGenerator().getOrCreateEnum(enumeration);
       if (pos < 0)
       {
          signature = model.getName(false);
@@ -123,14 +122,14 @@ public class GenMethod extends Generator<Method>
       }
    }
 
-   private void insertMethodDecl(Clazz clazz, Parser parser)
+   private void insertMethodDeclClazz(Clazz clazz, Parser parser)
    {
       String signature = model.getName(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
-      ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreate(clazz);
+      ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreateClazz(clazz);
       if (pos < 0)
       {
          signature = model.getName(false);
@@ -139,7 +138,7 @@ public class GenMethod extends Generator<Method>
                   "\n   //==========================================================================" +
                   "\n   modifiers returnType mehodName( parameter )");
 
-         if (clazz instanceof Interfaze || model.getModifier().has(Modifier.ABSTRACT))
+         if (GraphUtil.isInterface(clazz) || model.getModifier().has(Modifier.ABSTRACT))
          {
             text.append(";\n");
          }
@@ -220,8 +219,14 @@ public class GenMethod extends Generator<Method>
 
    public void generate(String rootDir, String helpersDir)
    {
-      if (model.getClazz() != null)
-         generate(model.getClazz(), rootDir, helpersDir);
+      if (model.getClazz() != null) {
+    	  if(model.getClazz().getType()==ClazzTyp.CLAZZ) {
+    		  generateClazz(model.getClazz(), rootDir, helpersDir);
+    	  } else if(model.getClazz().getType()==ClazzTyp.ENUMERATION) {
+    		  generateEnum(model.getClazz(), rootDir, helpersDir);
+    	  }
+      }
+         
    }
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)

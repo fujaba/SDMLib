@@ -17,7 +17,6 @@ import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphUtil;
-import de.uniks.networkparser.graph.Interfaze;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleSet;
@@ -326,16 +325,16 @@ public class GenAssociation extends Generator<Association>
       SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(false);
       ClazzSet kidClassesInterfaces =new ClazzSet();
       for(Clazz item : kidClasses){
-         if(item instanceof Interfaze){
+         if(GraphUtil.isInterface(item)){
             kidClassesInterfaces.add(item);
          }
       }
-      if (partnerRole.getClazz() instanceof Interfaze && kidClassesInterfaces.size() == 1)
+      if (GraphUtil.isInterface(partnerRole.getClazz()) && kidClassesInterfaces.size() == 1)
       {
          realPartnerClassName = kidClassesInterfaces.first().getName(true);
       }
       
-      if (pos < 0 && (partnerRole.getClazz() instanceof Interfaze == false) && kidClassesInterfaces.size() != 1)
+      if (pos < 0 && GraphUtil.isInterface(partnerRole.getClazz()) == false && kidClassesInterfaces.size() != 1)
       {
          if (GraphUtil.isInterface(clazz) == false)
          {
@@ -367,7 +366,7 @@ public class GenAssociation extends Generator<Association>
          pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + kidClassName + "()");
          
          
-         if (pos < 0 && kid instanceof Interfaze == false)
+         if (pos < 0 && GraphUtil.isInterface(kid) == false)
          {
             if (GraphUtil.isInterface(clazz) == false)
             {
@@ -616,11 +615,11 @@ public class GenAssociation extends Generator<Association>
       SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
       ClazzSet kidClassesInterfaces =new ClazzSet();
       for(Clazz item : kidClasses){
-    	  if (item.hasModifier(Modifier.ABSTRACT) || item instanceof Interfaze) {
+    	  if (item.hasModifier(Modifier.ABSTRACT) || GraphUtil.isInterface(item)) {
             kidClassesInterfaces.add(item);
          }
       }
-      if ((partnerRole.getClazz().hasModifier(Modifier.ABSTRACT) || partnerRole.getClazz() instanceof Interfaze) &&
+      if ((partnerRole.getClazz().hasModifier(Modifier.ABSTRACT) || GraphUtil.isInterface(partnerRole.getClazz())) &&
     		  kidClassesInterfaces.size() == 1)
       {
          realPartnerClassName = kidClassesInterfaces.first().getName(true);
@@ -1584,8 +1583,8 @@ public class GenAssociation extends Generator<Association>
 
 	public GenAssociation generate(String rootDir, String helperDir) {
 		// open source class and get or insert role implementation
-		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
-		ClassModelAdapter generator = classModel.getGenerator();
+//		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
+//		ClassModelAdapter generator = classModel.getGenerator();
 //		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
 		this.generate(rootDir, helperDir, model.getOther());
 //		sourceGenRole.generate((Clazz) model.getOtherClazz());
@@ -1621,5 +1620,4 @@ public class GenAssociation extends Generator<Association>
 		}
 		return this;
 	}
-
 }

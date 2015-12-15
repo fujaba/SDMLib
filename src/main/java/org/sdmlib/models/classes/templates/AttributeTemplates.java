@@ -5,7 +5,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.Feature;
 
 import de.uniks.networkparser.graph.Attribute;
-import de.uniks.networkparser.graph.Interfaze;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 
 public class AttributeTemplates {
@@ -41,7 +41,7 @@ public class AttributeTemplates {
 	            );
 		Template attrPropertyDecl = new Template()
 	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
-	    		  .withCondition(attribute.getClazz() instanceof Interfaze == false)
+	    		  .withCondition(GraphUtil.isInterface(attribute.getClazz()) == false)
 	    		  .withCondition(!attribute.getVisibility().has(Modifier.STATIC))
 	      		  .withTemplate("\n   public static final String PROPERTY_{{NAME}} = \"{{name}}\";\n   ");
 		

@@ -1128,7 +1128,7 @@ public class Storyboard implements PropertyChangeInterface
 
       Clazz clazz = model.createClazz(className);
       ClassModel clazzModel = (ClassModel) clazz.getClassModel();
-      GenClass generator = clazzModel.getGenerator().getOrCreate(clazz);
+      GenClass generator = clazzModel.getGenerator().getOrCreateClazz(clazz);
 
       Parser parser = generator.getOrCreateParser(rootDir);
 

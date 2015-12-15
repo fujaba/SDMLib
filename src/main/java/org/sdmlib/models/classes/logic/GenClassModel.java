@@ -47,12 +47,11 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.Enumeration;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.GraphUtil;
-import de.uniks.networkparser.graph.Interfaze;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.graph.Clazz.ClazzTyp;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleSet;
@@ -111,7 +110,7 @@ public class GenClassModel implements ClassModelAdapter
       return this.associations;
    }
 
-   public GenClass getOrCreate(Clazz clazz)
+   public GenClass getOrCreateClazz(Clazz clazz)
    {
       if (generators.containsKey(clazz))
       {
@@ -121,13 +120,13 @@ public class GenClassModel implements ClassModelAdapter
       generators.put(clazz, gen);
       return (GenClass) gen;
    }
-   public GenEnumeration getOrCreate(Enumeration enumeration)
+   public GenEnumeration getOrCreateEnum(Clazz enumeration)
    {
       if (generators.containsKey(enumeration))
       {
          return (GenEnumeration) generators.get(enumeration);
       }
-      Generator<Enumeration> gen = new GenEnumeration().withModel(enumeration);
+      Generator<Clazz> gen = new GenEnumeration().withModel(enumeration);
       generators.put(enumeration, gen);
       return (GenEnumeration) gen;
    }
@@ -195,16 +194,24 @@ public class GenClassModel implements ClassModelAdapter
       fixClassModel();
 
       addHelperClassesForUnknownAttributeTypes();
-
-      for (Enumeration enumeration : model.getEnumerations())
-      {
-         getOrCreate(enumeration).generate(rootDir, rootDir);
+      for (Clazz clazz : model.getClazzes()) {
+    	  if(clazz.getType()==ClazzTyp.ENUMERATION) {
+    		  getOrCreateEnum(clazz).generate(rootDir, rootDir);
+    	  } else {
+    		  getOrCreateClazz(clazz).generate(rootDir, rootDir);
+    	  }
       }
-
-      for (Clazz clazz : model.getClazzes())
-      {
-         getOrCreate(clazz).generate(rootDir, rootDir);
-      }
+    	  
+      
+//      for (Enumeration enumeration : model.getEnumerations())
+//      {
+//         getOrCreate(enumeration).generate(rootDir, rootDir);
+//      }
+//
+//      for (Clazz clazz : model.getClazzes())
+//      {
+//         getOrCreate(clazz).generate(rootDir, rootDir);
+//      }
       for (Association assoc : getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);
@@ -220,7 +227,9 @@ public class GenClassModel implements ClassModelAdapter
          int count = 0;
          for (Clazz clazz : model.getClazzes())
          {
-            count += getOrCreate(clazz).printAll(getShowDiff(), this.ignoreDiff);
+        	 if(clazz.getType()==ClazzTyp.CLAZZ) {
+        		 count += getOrCreateClazz(clazz).printAll(getShowDiff(), this.ignoreDiff);
+        	 }
          }
          System.out.println("Totalchanges of all Files: " + count);
       }
@@ -431,7 +440,7 @@ public class GenClassModel implements ClassModelAdapter
       // FIXME ALEX SCHAUEN
       Clazz modelCreationClass = new ClassModel().with(".").getGenerator().getOrCreateClazz(className);
 
-      Parser parser = getOrCreate(modelCreationClass).getOrCreateParser(rootDir);
+      Parser parser = getOrCreateClazz(modelCreationClass).getOrCreateParser(rootDir);
       parser.indexOf(Parser.CLASS_END);
       String signature = "method:" + methodName + "(";
       ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(signature);
@@ -601,14 +610,14 @@ public class GenClassModel implements ClassModelAdapter
 
    private void writeToFile(Clazz modelCreationClass)
    {
-      getOrCreate(modelCreationClass).printFile();
+      getOrCreateClazz(modelCreationClass).printFile();
    }
 
    private void resetParsers()
    {
       for (Clazz clazz : this.model.getClazzes())
       {
-         getOrCreate(clazz).setParser(null);
+    	  getOrCreateClazz(clazz).setParser(null);
       }
    }
 
@@ -665,7 +674,7 @@ public class GenClassModel implements ClassModelAdapter
    {
       Clazz modelCreationClass = getOrCreateClazz(className);
       modelCreationClass.getClassModel().without(modelCreationClass);
-      GenClass modelCreationGenerator = getOrCreate(modelCreationClass);
+      GenClass modelCreationGenerator = getOrCreateClazz(modelCreationClass);
       Parser modelCreationParser = modelCreationGenerator.getOrCreateParser(rootDir);
       modelCreationParser.indexOf(Parser.CLASS_END);
 
@@ -739,7 +748,7 @@ public class GenClassModel implements ClassModelAdapter
 
       String signature = Parser.METHOD + ":" + methodName + "(";
 
-      GenClass modelCreationGenerator = getOrCreate(modelCreationClass);
+      GenClass modelCreationGenerator = getOrCreateClazz(modelCreationClass);
       Parser modelCreationParser = modelCreationGenerator.getOrCreateParser(rootDir);
       modelCreationParser.indexOf(Parser.CLASS_END);
 
@@ -794,8 +803,11 @@ public class GenClassModel implements ClassModelAdapter
       refreshMethodScan(signature, modelCreationClass, rootDir);
       for (Clazz clazz : model.getClazzes())
       {
+    	  if(clazz.getType()!=ClazzTyp.CLAZZ) {
+    		  continue;
+    	  }
          String modelClassName = clazz.getName(false);
-         Parser parser = getOrCreate(modelCreationClass)
+         Parser parser = getOrCreateClazz(modelCreationClass)
                .getParser();
          LocalVarTableEntry entry = findInLocalVarTable(
                parser
@@ -806,7 +818,7 @@ public class GenClassModel implements ClassModelAdapter
          {
             // check code for clazz
             handledClazzes.put(modelClassName, clazz);
-            getOrCreate(clazz).getOrCreateParser(rootDir);
+//            getOrCreate(clazz).getOrCreateParser(rootDir);
             currentInsertPos = checkCodeForClazz(entry, signature, callMethodName, modelCreationClass,
                   refreshMethodScan(signature, modelCreationClass, rootDir), clazz, handledClazzes, currentInsertPos,
                   rootDir);
@@ -821,7 +833,7 @@ public class GenClassModel implements ClassModelAdapter
    {
       SymTabEntry symTabEntry = null;
       rescanCode(clazz, rootDir);
-      Map<String, SymTabEntry> symTab = getOrCreate(clazz).getOrCreateParser(rootDir).getSymTab();
+      Map<String, SymTabEntry> symTab = getOrCreateClazz(clazz).getOrCreateParser(rootDir).getSymTab();
       for (String key : symTab.keySet())
       {
          if (key.startsWith(signature))
@@ -831,14 +843,14 @@ public class GenClassModel implements ClassModelAdapter
          }
       }
 
-      getOrCreate(clazz).getParser().parseMethodBody(symTabEntry);
+      getOrCreateClazz(clazz).getParser().parseMethodBody(symTabEntry);
 
       return symTabEntry;
    }
 
    private void rescanCode(Clazz clazz, String rootDir)
    {
-      getOrCreate(clazz).getOrCreateParser(rootDir).indexOf(Parser.CLASS_END);
+	   getOrCreateClazz(clazz).getOrCreateParser(rootDir).indexOf(Parser.CLASS_END);
    }
 
    private int checkCodeForClazz(LocalVarTableEntry entry, String signature, String callMethodName,
@@ -846,7 +858,7 @@ public class GenClassModel implements ClassModelAdapter
          LinkedHashMap<String, Clazz> handledClazzes, int currentInsertPos, String rootDir)
    {
       // rescanCode(modelCreationClass, rootDir);
-      Parser modelCreationClassParser = getOrCreate(modelCreationClass).getParser();
+      Parser modelCreationClassParser = getOrCreateClazz(modelCreationClass).getParser();
 
       // check has superclass
       if (clazz.getSuperClass() != null && !checkSuper(clazz, entry, "withSuperClazz"))
@@ -871,7 +883,7 @@ public class GenClassModel implements ClassModelAdapter
       }
 
       // check is interface
-      else if (clazz instanceof Interfaze && !isInterface(entry))
+      else if (GraphUtil.isInterface(clazz) && !isInterface(entry))
       {
          String token = Parser.NAME_TOKEN + ":" + entry.getName();
          int methodCallStartPos = modelCreationClassParser.methodCallIndexOf(token, symTabEntry.getBodyStartPos(),
@@ -993,7 +1005,7 @@ public class GenClassModel implements ClassModelAdapter
 
             currentInsertPos = insertCreationCode(text.toString(), currentInsertPos, modelCreationClass);
 
-            GenClass genCreationClass = getOrCreate(modelCreationClass);
+            GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
             addImportForClazz("org.sdmlib.models.classes.Attribute", genCreationClass);
             currentInsertPos++;
          }
@@ -1067,7 +1079,7 @@ public class GenClassModel implements ClassModelAdapter
 
    private int positionOfClazzDecl(String sourceClassName, Clazz clazz)
    {
-      LinkedHashMap<String, LocalVarTableEntry> localVarTable = getOrCreate(clazz).getParser().getLocalVarTable();
+      LinkedHashMap<String, LocalVarTableEntry> localVarTable = getOrCreateClazz(clazz).getParser().getLocalVarTable();
       for (String localVarTableEntityName : localVarTable.keySet())
       {
          LocalVarTableEntry localVarTableEntry = localVarTable.get(localVarTableEntityName);
@@ -1088,7 +1100,7 @@ public class GenClassModel implements ClassModelAdapter
 
    private int tryToInsertAssoc(SymTabEntry symTabEntry, Association assoc, int currentInsertPos, Clazz modelCreationClass)
    {
-      Parser parser = getOrCreate(modelCreationClass).getParser();
+      Parser parser = getOrCreateClazz(modelCreationClass).getParser();
       parser.parseMethodBody(symTabEntry);
       boolean assocIsNew = true;
       LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
@@ -1125,7 +1137,7 @@ public class GenClassModel implements ClassModelAdapter
          }
       }
 
-      for (StatementEntry stat : getOrCreate(modelCreationClass).getParser().getStatementList().getBodyStats())
+      for (StatementEntry stat : getOrCreateClazz(modelCreationClass).getParser().getStatementList().getBodyStats())
       {
          if (stat.getTokenList().get(0).endsWith(".withAssoc")
                || stat.getTokenList().get(0).endsWith(".createClassAndAssoc"))
@@ -1301,7 +1313,7 @@ public class GenClassModel implements ClassModelAdapter
    private int tryToInsertMethod(SymTabEntry symTabEntry, Method method, int currentInsertPos, Clazz modelCreationClass)
    {
 
-      Parser parser = getOrCreate(modelCreationClass).getParser();
+      Parser parser = getOrCreateClazz(modelCreationClass).getParser();
 
       parser.parseMethodBody(symTabEntry);
 
@@ -1468,7 +1480,7 @@ public class GenClassModel implements ClassModelAdapter
          // DataType.ref(objectname)
          else
          {
-            LocalVarTableEntry tableEntry = getOrCreate(modelCreationClass).getParser()
+            LocalVarTableEntry tableEntry = getOrCreateClazz(modelCreationClass).getParser()
                   .getLocalVarEntriesFor(typeSplit);
             if (tableEntry != null)
             {
@@ -1504,7 +1516,7 @@ public class GenClassModel implements ClassModelAdapter
       currentInsertPos = insertCreationClassCode(currentInsertPos, modelClassName, modelCreationClass, symTabEntry);
 
       // check interface attr
-      if (clazz instanceof Interfaze)
+      if (GraphUtil.isInterface(clazz))
       {
          currentInsertPos = insertCreationIsInterfaceCode(currentInsertPos, modelCreationClass, symTabEntry);
          currentInsertPos = insertCreationCode("\n", currentInsertPos, modelCreationClass);
@@ -1679,11 +1691,11 @@ public class GenClassModel implements ClassModelAdapter
 
          String modelClassName = clazz.getName(false);
 
-         Parser parser = getOrCreate(modelCreationClass).getParser().parse();
+         Parser parser = getOrCreateClazz(modelCreationClass).getParser().parse();
          ArrayList<SymTabEntry> symTabEntry = parser.getSymTabEntriesFor(signature);
          parser.parseMethodBody(symTabEntry.get(0));
 
-         LocalVarTableEntry entry = findInLocalVarTable(getOrCreate(modelCreationClass).getParser().getLocalVarTable(),
+         LocalVarTableEntry entry = findInLocalVarTable(getOrCreateClazz(modelCreationClass).getParser().getLocalVarTable(),
                modelClassName);
 
          if (entry == null)
@@ -1729,30 +1741,30 @@ public class GenClassModel implements ClassModelAdapter
       return true;
    }
 
-   private boolean assocHasHandled(Association assoc, ArrayList<Association> handledAssocs)
-   {
-      Association source = assoc;
-      Association target = assoc.getOther();
-
-      for (Association association : handledAssocs)
-      {
-
-    	  Association source2 = association;
-    	  Association target2 = association.getOther();
-
-         if (compareRoles(source, target2) && compareRoles(target, source2))
-            return true;
-
-      }
-      return false;
-   }
+//   private boolean assocHasHandled(Association assoc, ArrayList<Association> handledAssocs)
+//   {
+//      Association source = assoc;
+//      Association target = assoc.getOther();
+//
+//      for (Association association : handledAssocs)
+//      {
+//
+//    	  Association source2 = association;
+//    	  Association target2 = association.getOther();
+//
+//         if (compareRoles(source, target2) && compareRoles(target, source2))
+//            return true;
+//
+//      }
+//      return false;
+//   }
 
    private int insertCreationClassCode(int currentInsertPos, String modelClassName, Clazz modelCreationClass,
          SymTabEntry symTabEntry)
    {
       StringBuilder text = new StringBuilder("\n      Clazz localVar = clazzModel.createClazz(\"className\")\n");
 
-      Parser parser = getOrCreate(modelCreationClass).getParser();
+      Parser parser = getOrCreateClazz(modelCreationClass).getParser();
       LinkedHashMap<String, LocalVarTableEntry> localVarTable = parser.getLocalVarTable();
       for (String key : localVarTable.keySet())
       {
@@ -1802,7 +1814,7 @@ public class GenClassModel implements ClassModelAdapter
          SymTabEntry symTabEntry)
    {
 
-      GenClass genCreationClass = getOrCreate(modelCreationClass);
+      GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
       Parser parser = genCreationClass.getParser();
 
       // has init value
@@ -1849,7 +1861,7 @@ public class GenClassModel implements ClassModelAdapter
          }
       }
 
-      Parser parser = getOrCreate(modelCreationClass).getParser();
+      Parser parser = getOrCreateClazz(modelCreationClass).getParser();
 
       String clazzName = method.getClazz().getName(false);
       clazzName = StrUtil.downFirstChar(CGUtil.shortClassName(clazzName)) + "Class";
@@ -1877,8 +1889,8 @@ public class GenClassModel implements ClassModelAdapter
 
    private int checkImport(String newImport, int currentInsertPos, Clazz modelCreationClass, SymTabEntry symTabEntry)
    {
-      getOrCreate(modelCreationClass).getParser().indexOf(Parser.CLASS_END);
-      Map<String, SymTabEntry> symTab = getOrCreate(modelCreationClass).getParser().getSymTab();
+      getOrCreateClazz(modelCreationClass).getParser().indexOf(Parser.CLASS_END);
+      Map<String, SymTabEntry> symTab = getOrCreateClazz(modelCreationClass).getParser().getSymTab();
       LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
 
       for (String key : symTab.keySet())
@@ -1896,7 +1908,7 @@ public class GenClassModel implements ClassModelAdapter
       if (!result.containsKey(newImport) && result.containsKey("ClassModel"))
       {
          String symTabEntryName = result.get("ClassModel");
-         int endOfImports = getOrCreate(modelCreationClass).getParser().getEndOfImports() + 1;
+         int endOfImports = getOrCreateClazz(modelCreationClass).getParser().getEndOfImports() + 1;
          String importString = "\n" + Parser.IMPORT + " " + symTabEntryName + "." + newImport + ";";
          insertCreationCode(importString, endOfImports, modelCreationClass);
          currentInsertPos += importString.length();
@@ -1939,7 +1951,7 @@ public class GenClassModel implements ClassModelAdapter
 
       currentInsertPos = checkImport("Association", currentInsertPos, modelCreationClass, symTabEntry);
 
-      GenClass genCreationClass = getOrCreate(modelCreationClass);
+      GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
       addImportForClazz("org.sdmlib.models.classes.Card", genCreationClass);
 
       return insertCreationCode(text, currentInsertPos, modelCreationClass);
@@ -1973,7 +1985,7 @@ public class GenClassModel implements ClassModelAdapter
 
    private int insertCreationCode(StringBuilder text, int insertPos, Clazz modelCreationClass)
    {
-      getOrCreate(modelCreationClass).getParser().insert(insertPos, text.toString());
+	  getOrCreateClazz(modelCreationClass).getParser().insert(insertPos, text.toString());
       return insertPos + text.length();
    }
 
@@ -2325,7 +2337,7 @@ public class GenClassModel implements ClassModelAdapter
    private Clazz handleMember(Clazz clazz, String rootDir, File projectRoot)
    {
       System.out.println("parse " + clazz.getName(false));
-      Parser parser = getOrCreate(clazz).getOrCreateParser(projectRoot.getAbsolutePath() + "//" + rootDir);
+      Parser parser = getOrCreateClazz(clazz).getOrCreateParser(projectRoot.getAbsolutePath() + "//" + rootDir);
       parser.indexOf(Parser.CLASS_END);
 
       if (isHelperClass(parser))
@@ -2441,7 +2453,7 @@ public class GenClassModel implements ClassModelAdapter
       // add super classes
       if (memberName.startsWith(Parser.EXTENDS))
       {
-         if (clazz instanceof Interfaze)
+         if (GraphUtil.isInterface(clazz))
          {
             addMemberAsInterface(clazz, memberName, parser);
          }
@@ -2515,7 +2527,7 @@ public class GenClassModel implements ClassModelAdapter
       }
 
       String name = StrUtil.upFirstChar(memberName);
-      Parser parser = getOrCreate(clazz).getParser().parse();
+      Parser parser = getOrCreateClazz(clazz).getParser().parse();
 
       SymTabEntry addToSymTabEntry = parser.getSymTab().get(
             Parser.METHOD + ":" + setterPrefix + name + "(" + partnerClassName + ")");
@@ -2589,7 +2601,7 @@ public class GenClassModel implements ClassModelAdapter
          String partnerClassName, Clazz partnerClass, String partnerAttrName)
    {
       partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
-      GenClass partnerGenClass = getOrCreate(partnerClass);
+      GenClass partnerGenClass = getOrCreateClazz(partnerClass);
       Parser partnerParser = partnerGenClass.getOrCreateParser(rootDir);
       String searchString = Parser.ATTRIBUTE + ":" + partnerAttrName;
 
@@ -2923,7 +2935,7 @@ public class GenClassModel implements ClassModelAdapter
          if (!classExists(filePath))
          {
             Clazz clazz = model.createClazz(filePath);
-            getOrCreate(clazz).withFilePath(rootDir);
+            getOrCreateClazz(clazz).withFilePath(rootDir);
          }
          return;
       }
@@ -3016,7 +3028,7 @@ public class GenClassModel implements ClassModelAdapter
       // there may be separate clazz.withAttributes(...) statements
       String withAttrCall = entry.getName() + ".with";
       String attrNameQuoted = "\"" + name + "\"";
-      GenClass orCreate = getOrCreate(attribute.getClazz());
+      GenClass orCreate = getOrCreateClazz(attribute.getClazz());
       Parser parser = orCreate.getOrCreateParser(rootDir);
       parser.parse();
       StatementEntry currentStatement = parser.getCurrentStatement();
@@ -3325,7 +3337,7 @@ public class GenClassModel implements ClassModelAdapter
  			
  			Clazz clazz = role.getOtherClazz();
  			
- 			GenClass partnerClass = this.getOrCreate(clazz);
+ 			GenClass partnerClass = this.getOrCreateClazz(clazz);
  			
  			String helperClassName = CGUtil.helperClassName(model.getName(false), "Set");
  			
@@ -3361,7 +3373,7 @@ public class GenClassModel implements ClassModelAdapter
  			
  		}
  		
- 		GenClass genClass = this.getOrCreate(model);
+ 		GenClass genClass = this.getOrCreateClazz(model);
  		
  		genClass.removeGeneratedCode(rootDir);
     }
