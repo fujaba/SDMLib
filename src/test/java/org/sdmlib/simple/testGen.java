@@ -13,6 +13,7 @@ public class testGen {
 		ClassModel model=new ClassModel("org.sdmlib.simple.model");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("name", DataType.STRING);
-		model.generate("test");
+		model.generate("gen");
+		System.out.println("Generation complete");
 	}
 }

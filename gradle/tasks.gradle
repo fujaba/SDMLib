@@ -45,16 +45,27 @@ task fatJar(type: Jar) {
 }
 task compileJava17(type: JavaCompile) {
 	println "Compile 1.7"
-	source = fileTree(dir: 'src', exclude: ['**/gui/**', '**/test/**'])
+	source = fileTree(dir: 'src', exclude: ['**/gui/**', '**/test/**', '**/replication/**'])
 	destinationDir = file('build/classes/main17')
 	sourceCompatibility = '1.7'
 	targetCompatibility = '1.7'
 	classpath = fileTree(dir: 'build/allLibs', include: '*.jar')
 }
+compileTestJava {
+	sourceSets.test.java.exclude '**/test/**'
+}
+sourceSets.test.java.exclude '**/test/**'
+compileJava {
+	sourceSets.main.java.exclude '**/replication/**'
+}
+sourceSets.main.java.exclude '**/replication/**'
+
 //classes.dependsOn compileJava17
 compileJava.dependsOn compileJava17
 compileJava17.dependsOn copyAllDependencies
-
+test {
+	exclude 'org/sdmlib/test/**'
+}
 task SDMLibGenerator(type: JavaCompile, dependsOn: test) {
 	println "Compile Generation"
 	source = fileTree(dir: 'gen')
