@@ -25,4 +25,5 @@ atlassian-ide-plugin.xml
 *.iml
 *.ipr
 /.idea/
+/gen/
 

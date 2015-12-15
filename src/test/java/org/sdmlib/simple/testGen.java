@@ -70,7 +70,7 @@ public class testGen {
 
 		// Class is Interface
 		// Class is Enumeration
-		
-		model.generate("test");
+		model.generate("gen");
+		System.out.println("Generation complete");
 	}
 }
