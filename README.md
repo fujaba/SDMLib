@@ -70,9 +70,21 @@ In addition to class models, SDMLib will also support object diagrams, storyboar
 
 [Find documentation from the code repository here](https://rawgit.com/fujaba/SDMLib/master/doc/index.html)
 
-Start with [StudyRight with assignments class generation](https://rawgit.com/fujaba/SDMLib/master/doc/StudyRight%20with%20assignments%20class%20generation.html)
-and than look at [StudStudyRight with assignments storyboard](https://rawgit.com/fujaba/SDMLib/master/doc/StudyRight%20with%20assignments%20storyboard.html)
+<p>In addition to class models, SDMLib will also support object diagrams, story pages and model transformations. </p>
 
+ - To learn about class diagrams and code generation, start with 
+   (https://rawgit.com/fujaba/SDMLib/master/doc/StudyRightWithAssignmentsClassGeneration.html).
+	
+ - To learn how to use the generated classes see and to generate test documentation with story pages see 
+   (https://rawgit.com/fujaba/SDMLib/master/doc/StudyRightWithAssignmentsStoryPage.html).
+	
+ - For advanced model navigation and model transformations have a look at 
+   (https://rawgit.com/fujaba/SDMLib/master/doc/StudyRightObjectModelNavigationAndQueries.html).
+
+ - To store your object model as Json and to load it again or to send (parts of it) to another process, see
+   (https://rawgit.com/fujaba/SDMLib/master/doc/JsonPersistency.html).
+   
+   
 SDMLib comes with [MIT licence]
 
 Have fun 

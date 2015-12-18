@@ -45,11 +45,12 @@ import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.logic.Condition;
 
 public class StoryboardTests {
-     /**
-    * 
-    * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>/n */
+   /**
+    *
+    * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryPage.html'>StudyRightWithAssignmentsStoryPage.html</a>
+    */
    @Test
-   public void testStudyRightWithAssignmentsStoryboard()
+   public void testStudyRightWithAssignmentsStoryPage()
    {
       StoryPage storyboard = new StoryPage();
 
@@ -185,13 +186,11 @@ public class StoryboardTests {
       storyboard.dumpHTML();
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
-* @see <a href='../../../../../../../../doc/StudyRightObjectModelSerialisation.html'>StudyRightObjectModelSerialisation.html</a>
-*/
+   /**
+    * @see <a href='../../../../../../../../doc/JsonPersistency.html'>JsonPersistency.html</a>
+    */
    @Test
-   public void testStudyRightObjectModelSerialisation()
+   public void testJsonPersistency()
    {
       StoryPage storyboard = new StoryPage();
       
