@@ -87,9 +87,9 @@
             "credits : int"
          ],
          "methods":[
-         "findPath(int p0) void",
-            "getDoorsTransitive() RoomSet",
-            "createStudentsTeachingAssistant() TeachingAssistant"
+         "getDoorsTransitive() RoomSet",
+            "createStudentsTeachingAssistant() TeachingAssistant",
+            "findPath(int p0) void"
          ]
       },
       {
@@ -126,6 +126,10 @@
          "methods":[
          "createStudentsTeachingAssistant() TeachingAssistant"
          ]
+      },
+      {
+         "typ":"node",
+         "id":"SendableEntity"
       }
    ],
    "edges":[
@@ -222,8 +226,28 @@
       },
       {
          "typ":"generalisation",
+         "source":{"id":"Student"},
+         "target":{"id":"SendableEntity"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Room"},
+         "target":{"id":"SendableEntity"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Assignment"},
+         "target":{"id":"SendableEntity"}
+      },
+      {
+         "typ":"generalisation",
          "source":{"id":"TeachingAssistant"},
          "target":{"id":"Student"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"University"},
+         "target":{"id":"SendableEntity"}
       }
    ]
 }   ;
