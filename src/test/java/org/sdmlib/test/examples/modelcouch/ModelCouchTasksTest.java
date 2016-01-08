@@ -32,7 +32,6 @@ public class ModelCouchTasksTest
 		
 		ModelCouch couch = new ModelCouch()
 				.withHostName("docker.cs.uni-kassel.de")
-				.withHostName("localhost")
 				.withPort(5984)
 				.withUserName("couchdb")
 				.withIdMap(idMap)
