@@ -21,7 +21,22 @@
 
 package org.sdmlib.modelcouch;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.DataOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.sdmlib.StrUtil;
+import org.sdmlib.replication.ChangeEvent;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
 import de.uniks.networkparser.Filter;
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
@@ -29,19 +44,6 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-
-import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Iterator;
-import java.beans.PropertyChangeListener;
-import org.sdmlib.StrUtil;
-import org.sdmlib.replication.ChangeEvent;
-import org.sdmlib.serialization.PropertyChangeInterface;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
@@ -57,6 +59,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	private JsonIdMap idMap;
 	private String database;
 	private String userName = "couchdb";
+	
+	private ExecutorService executor;
 
 	public ModelCouch registerAtIdMap()
 	{
@@ -94,7 +98,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 				responseCode = con.getResponseCode();
 				con.disconnect();
 				
-				if(responseCode == RESPONSE_CODE_DB_CREATED)
+				/*if(responseCode == RESPONSE_CODE_DB_CREATED)
 				{
 					Object root = idMap.getObject("root");
 					JsonObject idObj = idMap.toJsonObject(root, new Filter().withFull(true));
@@ -112,37 +116,18 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 					
 					responseCode = con.getResponseCode();
 					con.disconnect();
-				}
+				}*/
 			}
 			
-			//db is existing
-			if(responseCode == RESPONSE_CODE_OK || responseCode == RESPONSE_CODE_DB_CREATED)
+			//db is existing start model db listener TODO start even if db was created
+			if(responseCode == RESPONSE_CODE_OK /*|| responseCode == RESPONSE_CODE_DB_CREATED*/)
 			{
-				url += "_changes?feed=continuous"; /* TODO ?feed=continuous" + "&heartbeat=10000" maybe  "&since=seqNr" */
-				//default is GET
-				con = (HttpURLConnection) obj.openConnection();
-				con.setRequestMethod("GET");
-				con.setDoInput(true);
-				con.setUseCaches(false);
-				con.setRequestProperty("Connection", "Keep-Alive"); 
-
-				responseCode = con.getResponseCode();
-				if(responseCode == RESPONSE_CODE_OK)
-				{
-					BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-					String inputLine;
-					StringBuffer response = new StringBuffer();
-
-					while ((inputLine = in.readLine()) != null)
-					{
-						//handle change
-						response.append(inputLine);
-					}
-					in.close();
-					con.disconnect();
-				}
+				ModelDBListener mdbListener = createModelDBListener()
+						.withDatabaseName(database);
+				executor = Executors.newFixedThreadPool(1);
+		        executor.execute(mdbListener);
+		        executor.shutdown();
 			}
-			
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -180,6 +165,11 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		}
 		
 		return responsecode;
+	}
+	
+	public void close()
+	{
+		executor.shutdownNow();
 	}
 
 	public int delete(String database)
@@ -242,7 +232,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	            prop = iter.next();
 
 	            ChangeEvent change = new ChangeEvent()
-	            .withSessionId(userName)
+	            .withSessionId(((IdMap)idMap).getCounter().getPrefixId())
 	            .withObjectId(jsonObject.getString(JsonIdMap.ID))
 	            .withObjectType(jsonObject.getString(JsonIdMap.CLASS))
 	            .withProperty(prop);
@@ -367,8 +357,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 	public void removeYou()
 	{
-
-		getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setModelDBListener(null);
+      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
 	}
 
 
@@ -469,4 +459,63 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 		setUserName(userName);
 		return this;
 	}
+
+   
+   /********************************************************************
+    * <pre>
+    *              one                       one
+    * ModelCouch ----------------------------------- ModelDBListener
+    *              couch                   modelDBListener
+    * </pre>
+    */
+   
+   public static final String PROPERTY_MODELDBLISTENER = "modelDBListener";
+
+   private ModelDBListener modelDBListener = null;
+
+   public ModelDBListener getModelDBListener()
+   {
+      return this.modelDBListener;
+   }
+
+   public boolean setModelDBListener(ModelDBListener value)
+   {
+      boolean changed = false;
+      
+      if (this.modelDBListener != value)
+      {
+         ModelDBListener oldValue = this.modelDBListener;
+         
+         if (this.modelDBListener != null)
+         {
+            this.modelDBListener = null;
+            oldValue.setCouch(null);
+         }
+         
+         this.modelDBListener = value;
+         
+         if (value != null)
+         {
+            value.withCouch(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELDBLISTENER, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public ModelCouch withModelDBListener(ModelDBListener value)
+   {
+      setModelDBListener(value);
+      return this;
+   } 
+
+   public ModelDBListener createModelDBListener()
+   {
+      ModelDBListener value = new ModelDBListener();
+      withModelDBListener(value);
+      return value;
+   } 
 }

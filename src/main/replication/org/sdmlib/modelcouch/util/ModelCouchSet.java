@@ -26,6 +26,9 @@ import org.sdmlib.modelcouch.ModelCouch;
 import java.util.Collection;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.modelcouch.util.ModelDBListenerSet;
+import org.sdmlib.modelcouch.ModelDBListener;
 
 public class ModelCouchSet extends SDMSet<ModelCouch>
 {
@@ -231,6 +234,71 @@ public class ModelCouchSet extends SDMSet<ModelCouch>
       for (ModelCouch obj : this)
       {
          obj.setPort(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of ModelCouch objects and collect a set of the ModelDBListener objects reached via modelDBListener. 
+    * 
+    * @return Set of ModelDBListener objects reachable via modelDBListener
+    */
+   public ModelDBListenerSet getModelDBListener()
+   {
+      ModelDBListenerSet result = new ModelDBListenerSet();
+      
+      for (ModelCouch obj : this)
+      {
+         result.add(obj.getModelDBListener());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of ModelCouch objects and collect all contained objects with reference modelDBListener pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as modelDBListener neighbor of the collected results. 
+    * 
+    * @return Set of ModelDBListener objects referring to value via modelDBListener
+    */
+   public ModelCouchSet hasModelDBListener(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ModelCouchSet answer = new ModelCouchSet();
+      
+      for (ModelCouch obj : this)
+      {
+         if (neighbors.contains(obj.getModelDBListener()) || (neighbors.isEmpty() && obj.getModelDBListener() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the ModelCouch object passed as parameter to the ModelDBListener attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their ModelDBListener attributes.
+    */
+   public ModelCouchSet withModelDBListener(ModelDBListener value)
+   {
+      for (ModelCouch obj : this)
+      {
+         obj.withModelDBListener(value);
       }
       
       return this;

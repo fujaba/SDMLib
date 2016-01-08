@@ -23,16 +23,14 @@ package org.sdmlib.modelcouch.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
-import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelDBListener;
+import org.sdmlib.modelcouch.ModelCouch;
 
-public class ModelCouchCreator implements SendableEntityCreator
+public class ModelDBListenerCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
-      ModelCouch.PROPERTY_HOSTNAME,
-      ModelCouch.PROPERTY_PORT,
-      ModelCouch.PROPERTY_MODELDBLISTENER,
+      ModelDBListener.PROPERTY_COUCH,
    };
    
    @Override
@@ -44,7 +42,7 @@ public class ModelCouchCreator implements SendableEntityCreator
    @Override
    public Object getSendableInstance(boolean reference)
    {
-      return new ModelCouch();
+      return new ModelDBListener();
    }
    
    @Override
@@ -58,19 +56,9 @@ public class ModelCouchCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
-      if (ModelCouch.PROPERTY_HOSTNAME.equalsIgnoreCase(attribute))
+      if (ModelDBListener.PROPERTY_COUCH.equalsIgnoreCase(attribute))
       {
-         return ((ModelCouch) target).getHostName();
-      }
-
-      if (ModelCouch.PROPERTY_PORT.equalsIgnoreCase(attribute))
-      {
-         return ((ModelCouch) target).getPort();
-      }
-
-      if (ModelCouch.PROPERTY_MODELDBLISTENER.equalsIgnoreCase(attribute))
-      {
-         return ((ModelCouch) target).getModelDBListener();
+         return ((ModelDBListener) target).getCouch();
       }
       
       return null;
@@ -79,26 +67,14 @@ public class ModelCouchCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (ModelCouch.PROPERTY_PORT.equalsIgnoreCase(attrName))
-      {
-         ((ModelCouch) target).withPort(Integer.parseInt(value.toString()));
-         return true;
-      }
-
-      if (ModelCouch.PROPERTY_HOSTNAME.equalsIgnoreCase(attrName))
-      {
-         ((ModelCouch) target).withHostName((String) value);
-         return true;
-      }
-
       if (JsonIdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
 
-      if (ModelCouch.PROPERTY_MODELDBLISTENER.equalsIgnoreCase(attrName))
+      if (ModelDBListener.PROPERTY_COUCH.equalsIgnoreCase(attrName))
       {
-         ((ModelCouch) target).setModelDBListener((ModelDBListener) value);
+         ((ModelDBListener) target).setCouch((ModelCouch) value);
          return true;
       }
       
@@ -112,6 +88,6 @@ public class ModelCouchCreator implements SendableEntityCreator
    //==========================================================================
       public void removeObject(Object entity)
    {
-      ((ModelCouch) entity).removeYou();
+      ((ModelDBListener) entity).removeYou();
    }
 }

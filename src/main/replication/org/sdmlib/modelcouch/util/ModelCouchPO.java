@@ -3,6 +3,9 @@ package org.sdmlib.modelcouch.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.modelcouch.util.ModelDBListenerPO;
+import org.sdmlib.modelcouch.ModelDBListener;
+import org.sdmlib.modelcouch.util.ModelCouchPO;
 
 public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
 {
@@ -140,4 +143,38 @@ public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
       return this;
    }
    
+   public ModelDBListenerPO hasModelDBListener()
+   {
+      ModelDBListenerPO result = new ModelDBListenerPO(new ModelDBListener[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(ModelCouch.PROPERTY_MODELDBLISTENER, result);
+      
+      return result;
+   }
+
+   public ModelDBListenerPO createModelDBListener()
+   {
+      return this.startCreate().hasModelDBListener().endCreate();
+   }
+
+   public ModelCouchPO hasModelDBListener(ModelDBListenerPO tgt)
+   {
+      return hasLinkConstraint(tgt, ModelCouch.PROPERTY_MODELDBLISTENER);
+   }
+
+   public ModelCouchPO createModelDBListener(ModelDBListenerPO tgt)
+   {
+      return this.startCreate().hasModelDBListener(tgt).endCreate();
+   }
+
+   public ModelDBListener getModelDBListener()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((ModelCouch) this.getCurrentMatch()).getModelDBListener();
+      }
+      return null;
+   }
+
 }
