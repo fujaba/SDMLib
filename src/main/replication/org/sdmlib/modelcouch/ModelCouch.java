@@ -100,24 +100,10 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
          con.setRequestProperty("Content-Type", "application/json");
 
          int responseCode = con.getResponseCode();
-         if(responseCode == RESPONSE_CODE_OK)
-         {
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String changeLine;
 
-            while ((changeLine = in.readLine()) != null)
-            {
-               //handle changes
-               if(changeLine.contains("committed_update_seq"))
-               {
-                  JsonObject dbInfoObject = new JsonObject().withValue(changeLine);
-                  lastPersisted = dbInfoObject.getLong("committed_update_seq");
-               }
-            }
-            in.close();
-            con.disconnect();
-         }
-         else if(responseCode == RESPONSE_CODE_DB_MISSING)
+         con.disconnect();
+
+         if(responseCode == RESPONSE_CODE_DB_MISSING)
          {
             con.disconnect();
             //create
