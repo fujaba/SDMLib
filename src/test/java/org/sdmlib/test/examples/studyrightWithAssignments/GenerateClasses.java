@@ -46,50 +46,50 @@ public class GenerateClasses
 
 	  // file:///C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/doc/StudyRight%20with%20assignments%20class%20generation.html
 
-	  StoryPage storyboard = new StoryPage();
+	  StoryPage story = new StoryPage();
 
 	  //============================================================
-	  storyboard.add("1. generate class University");
+	  story.add("1. generate class University");
 
-	  storyboard.markCodeStart();
+	  story.markCodeStart();
 	  ClassModel model = new ClassModel("org.sdmlib.test.examples.studyrightWithAssignments.model");
 
       Clazz universityClass = model.createClazz("University")
             .withAttribute("name", STRING);
-      storyboard.addCode();
+      story.addCode();
       
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
 
       //============================================================
-      storyboard.add("2. generate class Student");
+      story.add("2. generate class Student");
 
-      storyboard.markCodeStart();
+      story.markCodeStart();
       Clazz studentClass = model.createClazz("Student")
             .withAttribute("name", STRING)
             .withAttribute("id", STRING)
             .withAttribute("assignmentPoints", INT)
             .withAttribute("motivation", INT) 
             .withAttribute("credits", INT);
-      storyboard.addCode();
+      story.addCode();
 
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
 
 
       //============================================================
-      storyboard.add("3. add University --> Student association");
+      story.add("3. add University --> Student association");
 
       // Association universityToStudent = 
-      storyboard.markCodeStart();
+      story.markCodeStart();
       universityClass.withAssoc(studentClass, "students", MANY, "university", ONE);
-      storyboard.addCode();
+      story.addCode();
 
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
 
 
       //============================================================
-      storyboard.add("4. add University --> Room association");
+      story.add("4. add University --> Room association");
 
-      storyboard.markCodeStart();
+      story.markCodeStart();
       Clazz roomClass = model.createClazz("Room")
             .withAttribute("name", STRING)
             .withAttribute("topic", STRING)
@@ -105,25 +105,25 @@ public class GenerateClasses
 
       // Association studentsInRoom = 
       studentClass.withAssoc(roomClass, "in", ONE, "students", MANY);
-      storyboard.addCode();
+      story.addCode();
 
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
       
       
       
       //============================================================
-      storyboard.add("5. add assignments:");
+      story.add("5. add assignments:");
 
-      storyboard.markCodeStart();
+      story.markCodeStart();
       Clazz assignmentClass = model.createClazz("Assignment")
                .withAttribute("content", STRING)
                .withAttribute("points", INT)
                .withAssoc(roomClass, "room", ONE, "assignments", MANY);
       
       studentClass.withAssoc(assignmentClass, "done", MANY, "students", MANY);
-      storyboard.addCode();
+      story.addCode();
       
-      storyboard.addClassDiagram(model);
+      story.addClassDiagram(model);
       
       studentClass.withAssoc(studentClass, "friends", MANY, "friends", MANY);
       
@@ -138,17 +138,17 @@ public class GenerateClasses
       
 
       //============================================================
-      storyboard.add("6. generate class source files.");
+      story.add("6. generate class source files.");
 
       // model.removeAllGeneratedCode("src/test/java");
       
       model.withAuthorName("zuendorf");
-      storyboard.markCodeStart();
+      story.markCodeStart();
       model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
-      storyboard.addCode();
+      story.addCode();
       
 
-      storyboard.dumpHTML();
+      story.dumpHTML();
    }
 
 }
