@@ -23,7 +23,9 @@ package org.sdmlib.modelcouch;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collection;
@@ -56,6 +58,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 	private final int RESPONSE_CODE_DB_MISSING = 404;
 	private final int RESPONSE_CODE_DB_CREATED = 201;
 
+	private int lastPersisted = 0;
 	private JsonIdMap idMap;
 	private String database;
 	private String userName = "couchdb";
@@ -82,13 +85,30 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			//is database existing?
 			con.setRequestMethod("GET");
 			con.setDoInput(true);
+			con.setDoOutput(true);
 			con.setRequestProperty("Content-Type", "application/json");
 
 			int responseCode = con.getResponseCode();
-			con.disconnect();
-
-			if(responseCode == RESPONSE_CODE_DB_MISSING)
+			if(responseCode == RESPONSE_CODE_OK)
 			{
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String changeLine;
+
+				while ((changeLine = in.readLine()) != null)
+				{
+					//handle changes
+					if(changeLine.contains("committed_update_seq"))
+					{
+						JsonObject dbInfoObject = new JsonObject().withValue(changeLine);
+						lastPersisted = (int) dbInfoObject.getValue("committed_update_seq");
+					}
+				}
+				in.close();
+				con.disconnect();
+			}
+			else if(responseCode == RESPONSE_CODE_DB_MISSING)
+			{
+				con.disconnect();
 				//create
 				con = (HttpURLConnection) obj.openConnection();
 				con.setRequestMethod("PUT");
@@ -119,15 +139,13 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 				}*/
 			}
 			
-			//db is existing start model db listener TODO start even if db was created
-			if(responseCode == RESPONSE_CODE_OK /*|| responseCode == RESPONSE_CODE_DB_CREATED*/)
-			{
-				ModelDBListener mdbListener = createModelDBListener()
-						.withDatabaseName(database);
-				executor = Executors.newFixedThreadPool(1);
-		        executor.execute(mdbListener);
-		        executor.shutdown();
-			}
+			//db is existing start model db listener
+			ModelDBListener mdbListener = createModelDBListener()
+					.withLastPersisted(lastPersisted)
+					.withDatabaseName(database);
+			executor = Executors.newFixedThreadPool(1);
+		    executor.execute(mdbListener);
+		    executor.shutdown();
 		} catch (Exception e)
 		{
 			e.printStackTrace();

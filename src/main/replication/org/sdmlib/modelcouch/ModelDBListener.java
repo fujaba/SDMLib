@@ -42,15 +42,17 @@ import java.beans.PropertyChangeListener;
 public  class ModelDBListener implements SendableEntity, Runnable
 {
 	private final int RESPONSE_CODE_OK = 200;
+	
+	private int lastPersisted = 0;
 
 	private String databaseName;
 
 	@Override
 	public void run()
 	{
-		//?include_docs=true &feed=continuous &heartbeat=10000
+		//?since=lastPersisted &include_docs=true &feed=continuous &heartbeat=10000
 		//for every change apply to idmap
-		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + databaseName + "/_changes?include_docs=true&feed=continuous&heartbeat=10000";
+		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + databaseName + "/_changes?since=" + lastPersisted + "&include_docs=true&feed=continuous&heartbeat=10000";
 		try{
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -281,6 +283,22 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		return value;
 	}
 
+	public long getLastPersisted()
+	{
+		return lastPersisted;
+	}
+
+	public void setLastPersisted(int lastPersisted)
+	{
+		this.lastPersisted = lastPersisted;
+	}
+	
+	public ModelDBListener withLastPersisted(int lastPersisted)
+	{
+		setLastPersisted(lastPersisted);
+		return this;
+	}
+	
 	public String getDatabaseName()
 	{
 		return databaseName;
