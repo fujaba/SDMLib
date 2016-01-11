@@ -25,6 +25,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import javafx.application.Platform;
 
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -33,6 +34,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import org.sdmlib.replication.ChangeEvent;
+import org.sdmlib.replication.ChangeEventList;
 
 import java.beans.PropertyChangeListener;
 /**
@@ -43,10 +45,14 @@ public  class ModelDBListener implements SendableEntity, Runnable
 {
 	private final int RESPONSE_CODE_OK = 200;
 	
-	private int lastPersisted = 0;
+	private long lastPersisted = 0;
 
 	private String databaseName;
 
+   private boolean isApplyingChangeMsg;
+   private ChangeEventList history = new ChangeEventList();
+   private int historyPos = 0;
+   
 	@Override
 	public void run()
 	{
@@ -70,10 +76,11 @@ public  class ModelDBListener implements SendableEntity, Runnable
 
 				while ((changeLine = in.readLine()) != null)
 				{
+				   final String localChangeLine = changeLine;
 					//handle changes
 					if(!changeLine.equals("") && !changeLine.contains("last_seq"))
 					{
-						handleDBChange(changeLine);
+					   Platform.runLater(() -> handleDBChange(localChangeLine));
 					}
 				}
 				in.close();
@@ -83,9 +90,49 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		{
 			e.printStackTrace();
 		}
-
 	}
 
+	public void loadOldChanges()
+	{
+	   //?since=lastPersisted &include_docs=true &feed=continuous &heartbeat=10000
+	   //for every change apply to idmap
+	   String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + databaseName + "/_changes?include_docs=true";
+	   try{
+	      URL obj = new URL(url);
+	      HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	      //default is GET
+	      con.setRequestMethod("GET");
+	      con.setDoInput(true);
+	      con.setUseCaches(false);
+	      con.setRequestProperty("Content-Type", "application/json"); 
+
+	      int responseCode = con.getResponseCode();
+	      if(responseCode == RESPONSE_CODE_OK)
+	      {
+	         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	         String changeLine;
+
+	         while ((changeLine = in.readLine()) != null)
+	         {
+	            if (changeLine.startsWith("{\"seq\":"))
+               {
+                  if (changeLine.endsWith(","))
+                  {
+                     changeLine = changeLine.substring(0, changeLine.length()-1);
+                  }
+                  handleDBChange(changeLine);
+               }
+	         }
+	         in.close();
+	      }
+	      con.disconnect();
+	   } catch (Exception e)
+	   {
+	      e.printStackTrace();
+	   }
+	}
+
+	
 	private void handleDBChange(String changeLine)
 	{
 		/*{"seq":1,"id":"fb1b8e0e8ee333cc9dfc8715d22ccecc",
@@ -103,8 +150,35 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		
 		JsonObject seqObject = new JsonObject().withValue(changeLine);
 		JsonObject changeObject = seqObject.getJsonObject("doc");
-		ChangeEvent change = new ChangeEvent(changeObject);
-		applyChange(change, couch.getIdMap()); //apply change
+		
+		lastPersisted = seqObject.getLong("seq");
+		
+		this.setApplyingChangeMsg(true);
+      try 
+      {
+         ChangeEvent change = new ChangeEvent(changeObject);
+         historyPos = history.addChange(change);
+
+         if (historyPos < 0)
+         {
+            // change already known, ignore
+            return;
+         }
+
+         // try to apply change
+         applyChange(change, couch.getIdMap());
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      finally
+      {
+         this.setApplyingChangeMsg(false);
+      }
+      
+		// ChangeEvent change = new ChangeEvent(changeObject);
+		// applyChange(change, couch.getIdMap()); //apply change
 	}
 	
 	private void applyChange(ChangeEvent change, JsonIdMap idMap)
@@ -288,12 +362,12 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		return lastPersisted;
 	}
 
-	public void setLastPersisted(int lastPersisted)
+	public void setLastPersisted(long lastPersisted)
 	{
 		this.lastPersisted = lastPersisted;
 	}
 	
-	public ModelDBListener withLastPersisted(int lastPersisted)
+	public ModelDBListener withLastPersisted(long lastPersisted)
 	{
 		setLastPersisted(lastPersisted);
 		return this;
@@ -314,4 +388,14 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		setDatabaseName(databaseName);
 		return this;
 	}
+
+   public boolean isApplyingChangeMsg()
+   {
+      return isApplyingChangeMsg;
+   }
+
+   public void setApplyingChangeMsg(boolean isApplyingChangeMsg)
+   {
+      this.isApplyingChangeMsg = isApplyingChangeMsg;
+   }
 }

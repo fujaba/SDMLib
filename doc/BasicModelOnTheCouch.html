@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/modelcouch/ModelCouchTasksTest.java' type='text/x-java'>BasicModelOnTheCouch</a></p>
+<p>This is a test for writing objects to the CouchDB instance https://docker.cs.uni-kassel.de:5984/ and read from it. First a database is created and the following objects get persisted</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+   {
+         "typ":"clazz",
+         "id":"P1 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"P2 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"D7 : DocumentData",
+         "attributes":[
+         "value=segroup",
+            "type=list of person",
+            "lastEditor=zuendorf",
+            "lastModified=29.12.2015 19:18:42:123 CEST"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T3 : Task"
+      },
+      {
+         "typ":"clazz",
+         "id":"D5 : DocumentData",
+         "attributes":[
+         "value=tobi",
+            "type=person",
+            "lastModified=29.12.2015 20:05:23:123 CEST"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D4 : DocumentData",
+         "attributes":[
+         "tag=test model replication on CouchDB",
+            "type=task"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D6 : DocumentData",
+         "attributes":[
+         "tag=login",
+            "value=lowrider",
+            "type=login",
+            "lastEditor=tobi",
+            "lastModified=29.12.2015 20:05:23:124 CEST"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"groups",
+            "id":"P1 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"members",
+            "id":"P2 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P1 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D7 : DocumentData"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"T3 : Task"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D5 : DocumentData"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P2 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D4 : DocumentData"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"T3 : Task"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"taskData",
+            "id":"D4 : DocumentData"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"parentData",
+            "id":"D5 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"subData",
+            "id":"D6 : DocumentData"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBasicModelOnTheCouch2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Afterwards the objects get reconstructed by reading all persisted documents from the same CouchDB instance.</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+   {
+         "typ":"clazz",
+         "id":"P8 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"P9 : Person"
+      },
+      {
+         "typ":"clazz",
+         "id":"D14 : DocumentData",
+         "attributes":[
+         "value=segroup",
+            "type=list of person",
+            "lastEditor=zuendorf",
+            "lastModified=29.12.2015 19:18:42:123 CEST"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"T10 : Task"
+      },
+      {
+         "typ":"clazz",
+         "id":"D12 : DocumentData",
+         "attributes":[
+         "value=tobi",
+            "type=person",
+            "lastModified=29.12.2015 20:05:23:123 CEST"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D11 : DocumentData",
+         "attributes":[
+         "tag=test model replication on CouchDB",
+            "type=task"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"D13 : DocumentData",
+         "attributes":[
+         "tag=login",
+            "value=lowrider",
+            "type=login",
+            "lastEditor=tobi",
+            "lastModified=29.12.2015 20:05:23:124 CEST"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"groups",
+            "id":"P8 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"members",
+            "id":"P9 : Person"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P8 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D14 : DocumentData"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"persons",
+            "id":"P9 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"T10 : Task"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P9 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D12 : DocumentData"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"one",
+            "property":"person",
+            "id":"P9 : Person"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"personData",
+            "id":"D11 : DocumentData"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"tasks",
+            "id":"T10 : Task"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"taskData",
+            "id":"D11 : DocumentData"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "cardinality":"many",
+            "property":"parentData",
+            "id":"D12 : DocumentData"
+         },
+         "target":{
+            "cardinality":"many",
+            "property":"subData",
+            "id":"D13 : DocumentData"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasBasicModelOnTheCouch4", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Finally the database is deleted.</p>
+
+</body>
+</html>

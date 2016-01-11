@@ -39,10 +39,11 @@ public class ModelCouchTasksTest
 				.open(databaseName);
 
 		Person seGroup = new Person();
+		idMap.put("root", seGroup);
+
 		DocumentData seGroupData = seGroup.createPersonData()
 				.withValue("segroup");
 		
-		idMap.put("root", seGroup);
 		
 		seGroupData.withType("list of person")
 			.withLastEditor("zuendorf")

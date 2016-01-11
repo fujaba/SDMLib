@@ -52,78 +52,91 @@ import de.uniks.networkparser.json.JsonObject;
  */
 public  class ModelCouch implements SendableEntity, PropertyChangeInterface, UpdateListener
 {
-	public enum ApplicationType {StandAlone, JavaFX};
-	
-	private final int RESPONSE_CODE_OK = 200;
-	private final int RESPONSE_CODE_DB_MISSING = 404;
-	private final int RESPONSE_CODE_DB_CREATED = 201;
+   public enum ApplicationType {StandAlone, JavaFX};
 
-	private int lastPersisted = 0;
-	private JsonIdMap idMap;
-	private String database;
-	private String userName = "couchdb";
-	
-	private ExecutorService executor;
+   private final int RESPONSE_CODE_OK = 200;
+   private final int RESPONSE_CODE_DB_MISSING = 404;
+   private final int RESPONSE_CODE_DB_CREATED = 201;
 
-	public ModelCouch registerAtIdMap()
-	{
-		idMap.withUpdateListenerSend(this);
-		return this;
-	}
+   private long lastPersisted = 0;
+   private JsonIdMap idMap;
+   private String database;
+   private String userName = "couchdb";
 
-	//try to open connection to an existing database
-	//create new if database was not existing
-	public ModelCouch open(String database)
-	{
-		this.database = database;
-		
-		String url = "http://" + hostName + ":" + port +"/" + database + "/";
-		try{
-			URL obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+   private ExecutorService executor;
+   private long lastChangeId = 0;
+   
+   public long getLastPersisted()
+   {
+      return lastPersisted;
+   }
+   
+   public void setLastPersisted(long lastPersisted)
+   {
+      this.lastPersisted = lastPersisted;
+   }
 
-			//is database existing?
-			con.setRequestMethod("GET");
-			con.setDoInput(true);
-			con.setDoOutput(true);
-			con.setRequestProperty("Content-Type", "application/json");
+   public ModelCouch registerAtIdMap()
+   {
+      idMap.withUpdateListenerSend(this);
+      return this;
+   }
 
-			int responseCode = con.getResponseCode();
-			if(responseCode == RESPONSE_CODE_OK)
-			{
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				String changeLine;
+   //try to open connection to an existing database
+   //create new if database was not existing
+   public ModelCouch open(String database)
+   {
+      this.database = database;
 
-				while ((changeLine = in.readLine()) != null)
-				{
-					//handle changes
-					if(changeLine.contains("committed_update_seq"))
-					{
-						JsonObject dbInfoObject = new JsonObject().withValue(changeLine);
-						lastPersisted = (int) dbInfoObject.getValue("committed_update_seq");
-					}
-				}
-				in.close();
-				con.disconnect();
-			}
-			else if(responseCode == RESPONSE_CODE_DB_MISSING)
-			{
-				con.disconnect();
-				//create
-				con = (HttpURLConnection) obj.openConnection();
-				con.setRequestMethod("PUT");
-				con.setDoInput(true);
-				con.setRequestProperty("Content-Type", "application/json");
+      String urlString = "http://" + hostName + ":" + port +"/" + database + "/";
+      try{
+         URL urlObj = new URL(urlString);
+         HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
 
-				responseCode = con.getResponseCode();
-				con.disconnect();
-				
-				/*if(responseCode == RESPONSE_CODE_DB_CREATED)
+         //is database existing?
+         con.setRequestMethod("GET");
+         con.setDoInput(true);
+         con.setDoOutput(true);
+         con.setRequestProperty("Content-Type", "application/json");
+
+         int responseCode = con.getResponseCode();
+         if(responseCode == RESPONSE_CODE_OK)
+         {
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String changeLine;
+
+            while ((changeLine = in.readLine()) != null)
+            {
+               //handle changes
+               if(changeLine.contains("committed_update_seq"))
+               {
+                  JsonObject dbInfoObject = new JsonObject().withValue(changeLine);
+                  lastPersisted = dbInfoObject.getLong("committed_update_seq");
+               }
+            }
+            in.close();
+            con.disconnect();
+         }
+         else if(responseCode == RESPONSE_CODE_DB_MISSING)
+         {
+            con.disconnect();
+            //create
+            con = (HttpURLConnection) urlObj.openConnection();
+            con.setRequestMethod("PUT");
+            con.setDoInput(true);
+            con.setDoOutput(true);
+
+            con.setRequestProperty("Content-Type", "application/json");
+
+            responseCode = con.getResponseCode();
+            con.disconnect();
+
+            /*if(responseCode == RESPONSE_CODE_DB_CREATED)
 				{
 					Object root = idMap.getObject("root");
 					JsonObject idObj = idMap.toJsonObject(root, new Filter().withFull(true));
 					String urlParameters = idObj.toString();
-					
+
 					con = (HttpURLConnection) obj.openConnection();
 					con.setRequestMethod("POST");	
 					con.setDoOutput(true);
@@ -133,352 +146,377 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 					wr.writeBytes(urlParameters);
 					wr.flush();
 					wr.close();
-					
+
 					responseCode = con.getResponseCode();
 					con.disconnect();
 				}*/
-			}
-			
-			//db is existing start model db listener
-			ModelDBListener mdbListener = createModelDBListener()
-					.withLastPersisted(lastPersisted)
-					.withDatabaseName(database);
-			executor = Executors.newFixedThreadPool(1);
-		    executor.execute(mdbListener);
-		    executor.shutdown();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+         }
 
-		return this;
-	}
+         mdbListener = createModelDBListener()
+               .withLastPersisted(lastPersisted)
+               .withDatabaseName(database);
+         
+         mdbListener.loadOldChanges();
+         
+         executor = Executors.newFixedThreadPool(1);
+         executor.execute(mdbListener);
+         executor.shutdown();
+      } catch (Exception e)
+      {
+         e.printStackTrace();
+      }
 
-	public int send(ChangeEvent change)
-	{
-		int responsecode = -1;
-		
-		JsonObject jsonObject = change.toJson();
-		
-		String url = "http://" + hostName + ":" + port +"/" + database + "/";
-		try{
-			URL obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			String urlParameters = jsonObject.toString();
+      return this;
+   }
 
-			con.setRequestMethod("POST");	
-			con.setDoOutput(true);
-			con.setDoInput(true);
-			con.setRequestProperty("Content-Type", "application/json");
-			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-			wr.writeBytes(urlParameters);
-			wr.flush();
-			wr.close();
+   public int send(ChangeEvent change)
+   {
+      int responsecode = -1;
 
-			responsecode = con.getResponseCode();
-			con.disconnect();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return responsecode;
-	}
-	
-	public void close()
-	{
-		executor.shutdownNow();
-	}
+      JsonObject jsonObject = change.toJson();
 
-	public int delete(String database)
-	{
-		int responsecode = -1;
-		
-		String url = "http://" + hostName + ":" + port +"/" + database + "/";
-		try{
-			URL obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+      String url = "http://" + hostName + ":" + port +"/" + database + "/";
+      try{
+         URL obj = new URL(url);
+         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+         String urlParameters = jsonObject.toString();
 
-			//try to delete database
-			con.setRequestMethod("DELETE");
-			con.setDoInput(true);
-			con.setRequestProperty("Content-Type", "application/json");
+         con.setRequestMethod("POST");	
+         con.setDoOutput(true);
+         con.setDoInput(true);
+         con.setRequestProperty("Content-Type", "application/json");
+         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+         wr.writeBytes(urlParameters);
+         wr.flush();
+         wr.close();
 
-			responsecode = con.getResponseCode();
-			con.disconnect();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return responsecode;
-	}
+         responsecode = con.getResponseCode();
+         con.disconnect();
+      } catch (Exception e)
+      {
+         e.printStackTrace();
+      }
 
-	
-	@Override
-	   public boolean update(String typ, BaseItem source, Object target, String property, Object oldValue, Object newValue)
-	   {
-	      JsonObject jsonObject = (JsonObject) source;
+      return responsecode;
+   }
 
-	      String opCode = JsonIdMap.UPDATE;
+   public void close()
+   {
+      executor.shutdownNow();
+   }
 
-	      Object attributes = jsonObject.get(JsonIdMap.UPDATE);
+   public int delete(String database)
+   {
+      int responsecode = -1;
 
-	      if (attributes == null)
-	      {
-	         attributes = jsonObject.get(JsonIdMap.REMOVE);
-	         opCode = JsonIdMap.REMOVE;
+      String url = "http://" + hostName + ":" + port +"/" + database + "/";
+      try{
+         URL obj = new URL(url);
+         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-	         if (attributes == null)
-	         {
-	            attributes = jsonObject.get("prop");
-	            opCode = JsonIdMap.UPDATE;
-	         }
-	      }
+         //try to delete database
+         con.setRequestMethod("DELETE");
+         con.setDoInput(true);
+         con.setRequestProperty("Content-Type", "application/json");
 
-	      JsonObject valueJsonObject = null;
-	      JsonObject attributesJson = null;
-	      String prop = null;
+         responsecode = con.getResponseCode();
+         con.disconnect();
+      } catch (Exception e)
+      {
+         e.printStackTrace();
+      }
 
-	      if (attributes != null)
-	      {
-	         attributesJson = (JsonObject) attributes;
-
-	         Iterator<String> iter = attributesJson.keyIterator();
-	         while ( iter.hasNext())
-	         {
-	            prop = iter.next();
-
-	            ChangeEvent change = new ChangeEvent()
-	            .withSessionId(((IdMap)idMap).getCounter().getPrefixId())
-	            .withObjectId(jsonObject.getString(JsonIdMap.ID))
-	            .withObjectType(jsonObject.getString(JsonIdMap.CLASS))
-	            .withProperty(prop);
-
-	            Object attrValue = attributesJson.get(prop);
-
-	            if (attrValue instanceof JsonObject)
-	            {
-	               JsonArray valueJsonArray = new JsonArray();
-	               valueJsonArray.add(attrValue);
-	               attrValue = valueJsonArray;
-	            }
-
-	            if (attrValue instanceof JsonArray)
-	            {
-	               JsonArray valueJsonArray = (JsonArray) attrValue;
-
-	               for (Object arrayElem : valueJsonArray)
-	               {
-	                  valueJsonObject = (JsonObject) arrayElem;
-
-	                  String valueObjectId = (String) valueJsonObject.get(JsonIdMap.ID);
-
-	                  String valueObjectType = (String) valueJsonObject.get(JsonIdMap.CLASS);
-
-	                  Object valueObject = idMap.getObject(valueObjectId);
-
-	                  if (valueObjectType == null)
-	                  {
-	                     // get object and ask it
-	                     valueObjectType = valueObject.getClass().getName();
-	                  }
-
-	                  change.withValueType(valueObjectType);
-
-	                  // toOne or toMany
-	                  change.withPropertyKind(ChangeEvent.TO_ONE);
-
-	                  Object targetObject = idMap.getObject(change.getObjectId());
-
-	                  SendableEntityCreator creator = idMap.getCreatorClass(targetObject);
-
-	                  Object value = creator.getValue(targetObject, change.getProperty());
-
-	                  if (value != null && value instanceof Collection)
-	                  {
-	                     change.setPropertyKind(ChangeEvent.TO_MANY);
-	                  }
-
-	                  // newValue or oldValue?
-	                  if (opCode.equals(JsonIdMap.REMOVE))
-	                  {
-	                     change.withOldValue(valueObjectId);
-	                  }
-	                  else
-	                  {
-	                     change.withNewValue(valueObjectId);
-	                  }
-
-	                  // send it
-	                  send(change);
-
-	                  // does the value have properties?
-	                  if (valueJsonObject.get("prop") != null)
-	                  {
-	                     // call recursive
-	                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
-	                  }
-	               }
-	            }
-	            else
-	            {
-	               String oldValueString = "" + oldValue;
-	               if (oldValue == null)
-	               {
-	                  oldValueString = null;
-	               }
-
-	               // plain attribute
-	               change.withPropertyKind(ChangeEvent.PLAIN)
-	               .withNewValue("" + attrValue)
-	               .withOldValue(oldValueString);
-
-	               //send it
-	               send(change);
-	            }
-	         }
-	      }
+      return responsecode;
+   }
 
 
-	      return true;
-	   }
+   //==============================================================================
+   public long getNewHistoryIdNumber()
+   {
+      long result = System.currentTimeMillis();
 
-	//==========================================================================
+      if (result <= lastChangeId )
+      {
+         result = lastChangeId + 1;
+      }
 
-	protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+      lastChangeId = result;
 
-	public PropertyChangeSupport getPropertyChangeSupport()
-	{
-		return listeners;
-	}
-
-	public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-	{
-		getPropertyChangeSupport().addPropertyChangeListener(listener);
-		return true;
-	}
-
-	public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-		getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-		return true;
-	}
-
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		getPropertyChangeSupport().removePropertyChangeListener(listener);
-		return true;
-	}
+      return result;
+   }
 
 
-	//==========================================================================
+   @Override
+   public boolean update(String typ, BaseItem source, Object target, String property, Object oldValue, Object newValue)
+   {
+      if (mdbListener.isApplyingChangeMsg())
+      {
+         // ignore
+         return true;
+      }
+
+      JsonObject jsonObject = (JsonObject) source;
+
+      String opCode = JsonIdMap.UPDATE;
+
+      Object attributes = jsonObject.get(JsonIdMap.UPDATE);
+
+      if (attributes == null)
+      {
+         attributes = jsonObject.get(JsonIdMap.REMOVE);
+         opCode = JsonIdMap.REMOVE;
+
+         if (attributes == null)
+         {
+            attributes = jsonObject.get("prop");
+            opCode = JsonIdMap.UPDATE;
+         }
+      }
+
+      JsonObject valueJsonObject = null;
+      JsonObject attributesJson = null;
+      String prop = null;
+
+      if (attributes != null)
+      {
+         attributesJson = (JsonObject) attributes;
+
+         Iterator<String> iter = attributesJson.keyIterator();
+         while ( iter.hasNext())
+         {
+            prop = iter.next();
+
+            ChangeEvent change = new ChangeEvent()
+                  .withSessionId(((IdMap)idMap).getCounter().getPrefixId())
+                  .withObjectId(jsonObject.getString(JsonIdMap.ID))
+                  .withChangeNo("" + getNewHistoryIdNumber())
+                  .withObjectType(jsonObject.getString(JsonIdMap.CLASS))
+                  .withProperty(prop);
+
+            Object attrValue = attributesJson.get(prop);
+
+            if (attrValue instanceof JsonObject)
+            {
+               JsonArray valueJsonArray = new JsonArray();
+               valueJsonArray.add(attrValue);
+               attrValue = valueJsonArray;
+            }
+
+            if (attrValue instanceof JsonArray)
+            {
+               JsonArray valueJsonArray = (JsonArray) attrValue;
+
+               for (Object arrayElem : valueJsonArray)
+               {
+                  valueJsonObject = (JsonObject) arrayElem;
+
+                  String valueObjectId = (String) valueJsonObject.get(JsonIdMap.ID);
+
+                  String valueObjectType = (String) valueJsonObject.get(JsonIdMap.CLASS);
+
+                  Object valueObject = idMap.getObject(valueObjectId);
+
+                  if (valueObjectType == null)
+                  {
+                     // get object and ask it
+                     valueObjectType = valueObject.getClass().getName();
+                  }
+
+                  change.withValueType(valueObjectType);
+
+                  // toOne or toMany
+                  change.withPropertyKind(ChangeEvent.TO_ONE);
+
+                  Object targetObject = idMap.getObject(change.getObjectId());
+
+                  SendableEntityCreator creator = idMap.getCreatorClass(targetObject);
+
+                  Object value = creator.getValue(targetObject, change.getProperty());
+
+                  if (value != null && value instanceof Collection)
+                  {
+                     change.setPropertyKind(ChangeEvent.TO_MANY);
+                  }
+
+                  // newValue or oldValue?
+                  if (opCode.equals(JsonIdMap.REMOVE))
+                  {
+                     change.withOldValue(valueObjectId);
+                  }
+                  else
+                  {
+                     change.withNewValue(valueObjectId);
+                  }
+
+                  // send it
+                  send(change);
+
+                  // does the value have properties?
+                  if (valueJsonObject.get("prop") != null)
+                  {
+                     // call recursive
+                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+                  }
+               }
+            }
+            else
+            {
+               String oldValueString = "" + oldValue;
+               if (oldValue == null)
+               {
+                  oldValueString = null;
+               }
+
+               // plain attribute
+               change.withPropertyKind(ChangeEvent.PLAIN)
+               .withNewValue("" + attrValue)
+               .withOldValue(oldValueString);
+
+               //send it
+               send(change);
+            }
+         }
+      }
 
 
-	public void removeYou()
-	{
+      return true;
+   }
+
+   //==========================================================================
+
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
+
+
+   //==========================================================================
+
+
+   public void removeYou()
+   {
       setModelDBListener(null);
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-	}
+   }
 
 
-	//==========================================================================
+   //==========================================================================
 
-	public static final String PROPERTY_HOSTNAME = "hostName";
+   public static final String PROPERTY_HOSTNAME = "hostName";
 
-	private String hostName = "localhost";
+   private String hostName = "localhost";
 
-	public String getHostName()
-	{
-		return this.hostName;
-	}
+   public String getHostName()
+   {
+      return this.hostName;
+   }
 
-	public void setHostName(String value)
-	{
-		if ( ! StrUtil.stringEquals(this.hostName, value)) {
+   public void setHostName(String value)
+   {
+      if ( ! StrUtil.stringEquals(this.hostName, value)) {
 
-			String oldValue = this.hostName;
-			this.hostName = value;
-			getPropertyChangeSupport().firePropertyChange(PROPERTY_HOSTNAME, oldValue, value);
-		}
-	}
+         String oldValue = this.hostName;
+         this.hostName = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_HOSTNAME, oldValue, value);
+      }
+   }
 
-	public ModelCouch withHostName(String value)
-	{
-		setHostName(value);
-		return this;
-	} 
-
-
-	@Override
-	public String toString()
-	{
-		StringBuilder result = new StringBuilder();
-
-		result.append(" ").append(this.getHostName());
-		result.append(" ").append(this.getPort());
-		return result.substring(1);
-	}
+   public ModelCouch withHostName(String value)
+   {
+      setHostName(value);
+      return this;
+   } 
 
 
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
 
-	//==========================================================================
+      result.append(" ").append(this.getHostName());
+      result.append(" ").append(this.getPort());
+      return result.substring(1);
+   }
 
-	public static final String PROPERTY_PORT = "port";
 
-	private int port = 5984;
 
-	public int getPort()
-	{
-		return this.port;
-	}
+   //==========================================================================
 
-	public void setPort(int value)
-	{
-		if (this.port != value) {
+   public static final String PROPERTY_PORT = "port";
 
-			int oldValue = this.port;
-			this.port = value;
-			getPropertyChangeSupport().firePropertyChange(PROPERTY_PORT, oldValue, value);
-		}
-	}
+   private int port = 5984;
 
-	public ModelCouch withPort(int value)
-	{
-		setPort(value);
-		return this;
-	}
-	public JsonIdMap getIdMap()
-	{
-		return idMap;
-	}
+   public int getPort()
+   {
+      return this.port;
+   }
 
-	public void setIdMap(JsonIdMap idMap)
-	{
-		this.idMap = idMap;
-	}
+   public void setPort(int value)
+   {
+      if (this.port != value) {
 
-	public ModelCouch withIdMap(JsonIdMap idMap)
-	{
-		setIdMap(idMap);
-		return this;
-	}
+         int oldValue = this.port;
+         this.port = value;
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_PORT, oldValue, value);
+      }
+   }
 
-	public String getUserName()
-	{
-		return userName;
-	}
+   public ModelCouch withPort(int value)
+   {
+      setPort(value);
+      return this;
+   }
+   public JsonIdMap getIdMap()
+   {
+      return idMap;
+   }
 
-	public void setUserName(String userName)
-	{
-		this.userName = userName;
-	}
+   public void setIdMap(JsonIdMap idMap)
+   {
+      this.idMap = idMap;
+   }
 
-	public ModelCouch withUserName(String userName)
-	{
-		setUserName(userName);
-		return this;
-	}
+   public ModelCouch withIdMap(JsonIdMap idMap)
+   {
+      setIdMap(idMap);
+      return this;
+   }
 
-   
+   public String getUserName()
+   {
+      return userName;
+   }
+
+   public void setUserName(String userName)
+   {
+      this.userName = userName;
+   }
+
+   public ModelCouch withUserName(String userName)
+   {
+      setUserName(userName);
+      return this;
+   }
+
+
    /********************************************************************
     * <pre>
     *              one                       one
@@ -486,10 +524,11 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
     *              couch                   modelDBListener
     * </pre>
     */
-   
+
    public static final String PROPERTY_MODELDBLISTENER = "modelDBListener";
 
    private ModelDBListener modelDBListener = null;
+   private ModelDBListener mdbListener;
 
    public ModelDBListener getModelDBListener()
    {
@@ -499,28 +538,28 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
    public boolean setModelDBListener(ModelDBListener value)
    {
       boolean changed = false;
-      
+
       if (this.modelDBListener != value)
       {
          ModelDBListener oldValue = this.modelDBListener;
-         
+
          if (this.modelDBListener != null)
          {
             this.modelDBListener = null;
             oldValue.setCouch(null);
          }
-         
+
          this.modelDBListener = value;
-         
+
          if (value != null)
          {
             value.withCouch(this);
          }
-         
+
          getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELDBLISTENER, oldValue, value);
          changed = true;
       }
-      
+
       return changed;
    }
 
