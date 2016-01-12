@@ -61,14 +61,14 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodDeclEnum(Clazz enumeration, Parser parser)
    {
-      String signature = model.getName(false);
+      String signature = model.getName(true);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
       ((ClassModel) enumeration.getClassModel()).getGenerator().getOrCreateEnum(enumeration);
       if (pos < 0)
       {
-         signature = model.getName(false);
+         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("\n   " +
                   "\n   //==========================================================================" +
@@ -124,7 +124,7 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodDeclClazz(Clazz clazz, Parser parser)
    {
-      String signature = model.getName(false);
+      String signature = model.getName(true);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       String string = Parser.METHOD + ":" + signature;
@@ -132,7 +132,7 @@ public class GenMethod extends Generator<Method>
       ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreateClazz(clazz);
       if (pos < 0)
       {
-         signature = model.getName(false);
+         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("\n   " +
                   "\n   //==========================================================================" +
@@ -235,12 +235,12 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      String signature = model.getName(false);
+      String signature = model.getName(true);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
       {
-         signature = model.getName(false);
+         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("   " +
                   "\n   //==========================================================================" +
@@ -363,7 +363,7 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      String signature = model.getName(false);
+      String signature = model.getName(true);
 
       String key = Parser.METHOD + ":" + signature;
 
@@ -371,7 +371,7 @@ public class GenMethod extends Generator<Method>
 
       if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
       {
-         signature = model.getName(false);
+         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("   " +
                   "\n   //==========================================================================" +

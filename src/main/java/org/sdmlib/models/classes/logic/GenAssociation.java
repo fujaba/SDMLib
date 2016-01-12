@@ -14,6 +14,7 @@ import org.sdmlib.models.classes.util.ClazzSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 
 import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.GraphUtil;
@@ -254,7 +255,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   } " +
                   "\n";
             
-            if (this.model.getName().equals(""))
+            if (this.model.getTyp()==AssociationTypes.EDGE)
             {
                // uni directional no reverse call
                withMeth = CGUtil.replaceAll(withMeth, "\n               item.withMyRoleName(this);", "");
@@ -301,7 +302,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n";
             
-            if (this.model.getName().equals(""))
+            if (this.model.getTyp()==AssociationTypes.EDGE)
             {
                // uni directional no reverse call
                withOutMeth = CGUtil.replaceAll(withOutMeth, "\n               item.reverseWithoutCall(this);", "");
@@ -559,7 +560,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n";
 
-            if (this.model.getName().equals(""))
+            if (this.model.getTyp()==AssociationTypes.EDGE)
             {
                // uni directional assoc, do not call reverse
                setMeth = CGUtil.replaceAll(setMeth, 
@@ -1599,7 +1600,7 @@ public class GenAssociation extends Generator<Association>
 			this.generate(kidClass, rootDir, helperDir, model.getOther(), !needsImplementation);
 		}
 
-		if (model.getName() == null || model.getName().equals("")) {
+		if (model.getName() == null || model.getTyp()==AssociationTypes.EDGE) {
 			// uni directional assoc, do not generate reverse direction
 			return this;
 		}

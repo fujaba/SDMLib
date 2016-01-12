@@ -109,10 +109,12 @@ public class GenAnnotation extends Generator<Annotation>
       sb.append(model.getName());
 
       SimpleList<Annotation> values = model.getValue();
-      if (values.size() == 1)
+      if(values == null) {
+    	  
+      }else if (values.size() == 1)
       {
          sb.append("(");
-         sb.append(values.toArray(new String[values.size()])[0]);
+         sb.append(values.toArray(new Annotation[values.size()])[0]);
          sb.append(")");
       }
       else if (values.size() > 1)

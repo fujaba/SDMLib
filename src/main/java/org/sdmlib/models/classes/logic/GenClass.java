@@ -364,9 +364,9 @@ public class GenClass extends Generator<Clazz>
 				creatorName = CGUtil.shortClassName(creatorName);
 			}
 			StringBuilder creators=new StringBuilder();
-			creators.append("      jsonIdMap.withCreator(new " + creatorName + "Creator());\n");
+			creators.append("      jsonIdMap.with(new " + creatorName + "Creator());\n");
 			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PatternObject)) {
-				creators.append("      jsonIdMap.withCreator(new " + creatorName + "POCreator());\n");
+				creators.append("      jsonIdMap.with(new " + creatorName + "POCreator());\n");
 			}
 			ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
 			if(symTabEntriesFor.size()>0) {
