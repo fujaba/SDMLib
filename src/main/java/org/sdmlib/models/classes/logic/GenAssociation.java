@@ -32,7 +32,6 @@ public class GenAssociation extends Generator<Association>
       {
          return;
       }
-      
       int pos = parser.indexOf(Parser.METHOD + ":getValue(Object,String)");
 
       if (pos < 0)
@@ -401,7 +400,7 @@ public class GenAssociation extends Generator<Association>
       
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
       
-      if (model.getCardinality().equals(Cardinality.MANY.toString()))
+      if (model.getCardinality() == Cardinality.MANY)
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
@@ -651,7 +650,7 @@ public class GenAssociation extends Generator<Association>
 
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
       
-      if (model.getCardinality().equals(Cardinality.MANY.toString()))
+      if (model.getCardinality() == Cardinality.MANY)
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
@@ -677,7 +676,7 @@ public class GenAssociation extends Generator<Association>
          );
       
       GenClass generator = getGenerator(model.getClazz());
-      if (model.getOther().getCardinality().equals(Cardinality.MANY.toString())){
+      if (model.getOther().getCardinality() == Cardinality.MANY){
          if(generator!=null ){
         	 myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
          }
@@ -703,8 +702,7 @@ public class GenAssociation extends Generator<Association>
             // add attribute declaration in class file
             StringBuilder text = new StringBuilder();
 
-            if (StrUtil.stringEquals(partnerRole.getCardinality().getValue(), Cardinality.MANY.toString()))
-            {
+            if (partnerRole.getCardinality() == Cardinality.MANY) {
                generateToManyRole(myParser, clazz, partnerRole, text);
 //               getGenerator(clazz).insertImport(LinkedHashSet.class.getName());
             }
@@ -743,8 +741,7 @@ public class GenAssociation extends Generator<Association>
       
       insertCaseInGenericGet(clazz, creatorParser, partnerRole, rootDir);
 
-      if (StrUtil.stringEquals(partnerRole.getCardinality().getValue(), Cardinality.MANY.toString()))
-      {
+      if (partnerRole.getCardinality() == Cardinality.MANY) {
          insertCaseInGenericSetToMany(clazz, creatorParser, partnerRole, rootDir);
       }
       else
@@ -809,8 +806,7 @@ public class GenAssociation extends Generator<Association>
       // OK, found method, parse its body to find if that handles me. 
       String removeCall = "set" + StrUtil.upFirstChar(partnerRole.getName());
       String fullRemoveCall = removeCall + "(null);\n      ";
-      if (partnerRole.getCardinality().getValue().equals(Cardinality.MANY.toString()))
-      {
+      if (partnerRole.getCardinality() == Cardinality.MANY) {
          String name = StrUtil.upFirstChar(partnerRole.getName());
          String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
          clazzName = CGUtil.shortClassName(clazzName);
@@ -861,7 +857,7 @@ public class GenAssociation extends Generator<Association>
                   "      \n" + 
                   "      for (ContentType obj : this)\n" + 
                   "      {\n" + 
-                  "         result.addOneOrMore(obj.getName());\n" + 
+                  "         result.with(obj.getName());\n" + 
                   "      }\n" + 
                   "      \n" + 
                   "      return result;\n" + 
@@ -910,8 +906,7 @@ public class GenAssociation extends Generator<Association>
                   + StrUtil.upFirstChar(partnerRole.getName())
                   + "() == null)";
             
-            if (partnerRole.getCardinality().getValue().equals(Cardinality.MANY.toString()))
-            {
+            if (partnerRole.getCardinality() == Cardinality.MANY) {
                containsClause = " ! Collections.disjoint(neighbors, obj.get" 
                      + StrUtil.upFirstChar(partnerRole.getName()) + "())";
                parser.insertImport(Collections.class.getName());
@@ -947,31 +942,24 @@ public class GenAssociation extends Generator<Association>
                   + "         if ( ! result.contains(current))\n"
                   + "         {\n" + "            result.add(current);\n"
                   + "            \n"
-                  + "            todo.with(current.getPartnerrolenameupfirst().minus(result));\n"
+                  + "            todo.with(current.getPartnerrolenameupfirst()).minus(result);\n"
                   + "         }\n" + "      }\n" + "      \n"
                   + "      return result;\n" + "   }\n" + "\n" + "");
 
-            if (partnerRole.getCardinality().getValue().equals(Cardinality.ONE.toString()))
-            {
+            if (partnerRole.getCardinality() == Cardinality.ONE) {
                CGUtil.replaceAll(text, 
-                  "todo.with(current.getPartnerrolenameupfirst().minus(result));", 
+                  "todo.with(current.getPartnerrolenameupfirst()).minus(result);", 
                   "if ( ! result.contains(current.getName()))\n"
                   + "            {\n"
                   + "               todo.with(current.getName());\n"
                   + "            }");
             }
-            getGenerator(model.getClazz()).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getName(true) ,"Set"));
+            getGenerator(model.getClazz()).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getName(false) ,"Set"));
          }
       }
       
       if (pos < 0 || pos2 < 0)
       {      
-         String add = "add";
-         if (partnerRole.getCardinality().getValue().equalsIgnoreCase(Cardinality.MANY.name()))
-         {
-            add = "addAll";
-         }
-         
          String partnerRoleNameUpFirst = StrUtil.upFirstChar(partnerRole.getName());
          String partnerGetterName = partnerRoleNameUpFirst;
          
@@ -997,7 +985,6 @@ public class GenAssociation extends Generator<Association>
             "ModelSetType", partnerRole.getClazz().getName(true) + "Set",
             "Name", partnerRoleNameUpFirst,
             "thename", partnerRole.getName(),
-            "addOneOrMore", add,
             "Partnerrolenameupfirst", partnerGetterName
             );
 
@@ -1035,8 +1022,7 @@ public class GenAssociation extends Generator<Association>
       {
          StringBuilder text = new StringBuilder();
          
-         if (elistPos < 0 || partnerRole.getCardinality().getValue().equals(Cardinality.ONE.toString()))
-         {
+         if (elistPos < 0 || partnerRole.getCardinality() == Cardinality.ONE) {
             text.append
             (       "   public TargetType getRoleName()\n"
                   + "   {\n"
@@ -1060,8 +1046,7 @@ public class GenAssociation extends Generator<Association>
 //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String targetType;
          
-         if (partnerRole.getCardinality().getValue().equals(Cardinality.MANY.toString()))
-         {
+         if (partnerRole.getCardinality() == Cardinality.MANY) {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "Set");
             if (partnerRole.getClazz().isExternal())
             {
@@ -1279,8 +1264,7 @@ public class GenAssociation extends Generator<Association>
          parser.insertImport(partnerRole.getClazz().getName(false));
       }
       
-      if (partnerRole.getCardinality().getValue().equals(Cardinality.MANY.toString()))
-      {
+      if (partnerRole.getCardinality() == Cardinality.MANY) {
          key = Parser.METHOD + ":without" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
          pos = parser.indexOf(key);
 
@@ -1507,7 +1491,7 @@ public class GenAssociation extends Generator<Association>
 	   
 	   String cardType = "";
 	   
-	   if (this.getModel().getOther().getCardinality().getValue().equals(Cardinality.MANY.toString())) {
+	   if (this.getModel().getOther().getCardinality() == Cardinality.MANY) {
 		   cardType = "...";
 	   }
 	   
@@ -1587,6 +1571,9 @@ public class GenAssociation extends Generator<Association>
 //		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
 //		ClassModelAdapter generator = classModel.getGenerator();
 //		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
+		if(model.getOther().getTyp()==AssociationTypes.EDGE) {
+			return this;
+		}
 		this.generate(rootDir, helperDir, model.getOther());
 //		sourceGenRole.generate((Clazz) model.getOtherClazz());
 
@@ -1607,7 +1594,7 @@ public class GenAssociation extends Generator<Association>
 
 //		GenRole targetGenRole = generator.getOrCreate(model.getTarget());
 		// open target class and get or insert role implementation
-		this.generate(rootDir, helperDir, model);
+//		this.generate(rootDir, helperDir, model);
 //		targetGenRole.generate(rootDir, helperDir, model.getSource());
 
 		// also for subclasses

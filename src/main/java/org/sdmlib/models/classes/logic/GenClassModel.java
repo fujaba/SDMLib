@@ -25,8 +25,6 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.management.relation.Role;
-
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
@@ -43,15 +41,16 @@ import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Clazz.ClazzTyp;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
-import de.uniks.networkparser.graph.Clazz.ClazzTyp;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleSet;
@@ -356,7 +355,7 @@ public class GenClassModel implements ClassModelAdapter
                fixClassModel(clazz, visited);
             }
          }
-         this.addToAssociations(role);
+       	 this.addToAssociations(role);
       }
    }
    
@@ -493,7 +492,7 @@ public class GenClassModel implements ClassModelAdapter
                // no problem,
                continue;
             }
-            if (name.equals(""))
+            if (role.getTyp()==AssociationTypes.EDGE)
             {
                // uni directional assoc, name is not used, no problem
                continue;
@@ -3079,6 +3078,11 @@ public class GenClassModel implements ClassModelAdapter
       return null;
    }
 
+   public void testGeneratedCode() {
+	   String rootDir = "src/test/java";
+	   removeAllGeneratedCode(rootDir, rootDir, rootDir);
+	   getModel().generate(rootDir);
+   }
    public void removeAllGeneratedCode(String rootDir, String srcDir, String helpersDir)
    {
       turnRemoveCallToComment(rootDir);

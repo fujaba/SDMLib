@@ -12,11 +12,11 @@ public class TestSuperClazzes {
 	@Test
 	public void testClazzAsSuperClazz() {
 		
-		ClassModel model = new ClassModel("org.sdlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_a");
 		Clazz person = model.createClazz("Person");
 		Clazz pupil = model.createClazz("Pupil").withSuperClazz(person);
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
@@ -25,13 +25,13 @@ public class TestSuperClazzes {
 	@Test
 	public void testClazzAsKidClazz() {
 		
-		ClassModel model = new ClassModel("org.sdlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_b");
 		Clazz person = model.createClazz("Person");
 		Clazz pupil = model.createClazz("Pupil");
 		
 		person.withKidClazzes(pupil);
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
@@ -40,13 +40,22 @@ public class TestSuperClazzes {
 	@Test
 	public void testClazzAsSuperClazzWithMultipleKids() {
 		
-		ClassModel model = new ClassModel("org.sdlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_c");
 		Clazz person = model.createClazz("Person");
 		Clazz pupil = model.createClazz("Pupil").withSuperClazz(person);
 		Clazz teacher = model.createClazz("Teacher").withSuperClazz(person);
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
-	
+//FIXME Wrong call of RemoveYou
+//	   @Override
+//	   public void removeYou()
+//	   {
+//	   
+//	      super.removeYou();
+//
+//	      setPerson(null);
+//	      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+//	   }
 }

@@ -15,57 +15,66 @@ public class TestAttributes {
 	@Test
 	public void testClassWithoutAttributes() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_a");
 		Clazz person = model.createClazz("Person");
-
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_b");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("name", DataType.STRING);
-
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithMultipleAttributes() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_c");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("name", DataType.STRING);
 		person.with(new Attribute().with("age", DataType.INT));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithSetAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_d");
 		Clazz person = model.createClazz("Person");
 		person.with(new Attribute("names", DataTypeSet.ref(DataType.STRING)));
-
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
+	}
+	
+	@Test
+	public void testClassWithSingleSetAttributes() {
+		
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_e");
+		Clazz person = model.createClazz("Person");
+		person.with(new Attribute("ages", DataTypeSet.ref(DataType.INT)));
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 	}
 	
 	@Test
 	public void testClassWithMultipleSetAttributes() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_f");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("names", DataTypeSet.ref(DataType.STRING));
 		person.with(new Attribute("ages", DataTypeSet.ref(DataType.INT)));
-		
-		model.generate("src/test/java");
-		
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 	}
 	
 	// FIXME SimpleSet<String>> anstelle von SimpleSet<SimpleSet<String>>
@@ -74,14 +83,13 @@ public class TestAttributes {
 	@Test
 	public void testClassWithSetSetAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_g");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("namesSet", DataTypeSet.ref(DataTypeSet.ref(DataType.STRING)));
-		
-		model.generate("src/test/java");
-		
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 	}
-	
+/*	
 	// FIXME Parser generiert withCreator(...) anstelle von with(...)
 	// (temporaer behoben)
 	
@@ -172,5 +180,5 @@ public class TestAttributes {
 		model.generate("src/test/java");
 		
 	}
-	
+*/	
 }
