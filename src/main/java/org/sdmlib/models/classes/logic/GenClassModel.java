@@ -45,7 +45,7 @@ import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.Clazz.ClazzTyp;
+import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.GraphUtil;
@@ -194,7 +194,7 @@ public class GenClassModel implements ClassModelAdapter
 
       addHelperClassesForUnknownAttributeTypes();
       for (Clazz clazz : model.getClazzes()) {
-    	  if(clazz.getType()==ClazzTyp.ENUMERATION) {
+    	  if(clazz.getType()==ClazzType.ENUMERATION) {
     		  getOrCreateEnum(clazz).generate(rootDir, rootDir);
     	  } else {
     		  getOrCreateClazz(clazz).generate(rootDir, rootDir);
@@ -214,6 +214,7 @@ public class GenClassModel implements ClassModelAdapter
       for (Association assoc : getAssociations())
       {
          getOrCreate(assoc).generate(rootDir, rootDir);
+         getOrCreate(assoc.getOther()).generate(rootDir, rootDir);
       }
 
       Exception e = new RuntimeException();
@@ -226,7 +227,7 @@ public class GenClassModel implements ClassModelAdapter
          int count = 0;
          for (Clazz clazz : model.getClazzes())
          {
-        	 if(clazz.getType()==ClazzTyp.CLAZZ) {
+        	 if(clazz.getType()==ClazzType.CLAZZ) {
         		 count += getOrCreateClazz(clazz).printAll(getShowDiff(), this.ignoreDiff);
         	 }
          }
@@ -802,7 +803,7 @@ public class GenClassModel implements ClassModelAdapter
       refreshMethodScan(signature, modelCreationClass, rootDir);
       for (Clazz clazz : model.getClazzes())
       {
-    	  if(clazz.getType()!=ClazzTyp.CLAZZ) {
+    	  if(clazz.getType()!=ClazzType.CLAZZ) {
     		  continue;
     	  }
          String modelClassName = clazz.getName(false);
@@ -2126,8 +2127,11 @@ public class GenClassModel implements ClassModelAdapter
          if (currentAssoc == null)
          {
             // need to create a new one
-        	 Association other = new Association().with(getOrCreateClazz(packageName + "." + targetType), Cardinality.ONE, targetLabel);
-            currentAssoc = new Association().with(this.getOrCreateClazz(packageName + "." + sourceType), Cardinality.ONE, sourceLabel)
+        	 Association other = new Association().with(getOrCreateClazz(packageName + "." + targetType))
+        			 .with(Cardinality.ONE).with(targetLabel);
+            currentAssoc = new Association().with(this.getOrCreateClazz(packageName + "." + sourceType))
+            		.with(Cardinality.ONE)
+            		.with(sourceLabel)
             		.with(other);
             this.addToAssociations(currentAssoc);
          }
@@ -2616,8 +2620,8 @@ public class GenClassModel implements ClassModelAdapter
    private void tryToCreateAssoc(Clazz clazz, String memberName, Cardinality card, String partnerClassName,
          Clazz partnerClass, String partnerAttrName, Cardinality partnerCard)
    {
-      Association sourceRole = new Association().with(clazz, partnerCard, partnerAttrName);
-      Association targetRole = new Association().with(partnerClass, card, memberName);
+      Association sourceRole = new Association().with(clazz).with(partnerCard).with(partnerAttrName);
+      Association targetRole = new Association().with(partnerClass).with(card).with(memberName);
       
 
       if (!assocWithRolesExists(sourceRole, targetRole))

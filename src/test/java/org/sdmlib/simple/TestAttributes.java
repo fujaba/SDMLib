@@ -77,9 +77,6 @@ public class TestAttributes {
 //		model.generate("src/test/java");
 	}
 	
-	// FIXME SimpleSet<String>> anstelle von SimpleSet<SimpleSet<String>>
-	// Fehler liegt in CGUtil.shortClassName()
-	
 	@Test
 	public void testClassWithSetSetAttribute() {
 		
@@ -89,57 +86,50 @@ public class TestAttributes {
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
-/*	
 	// FIXME Parser generiert withCreator(...) anstelle von with(...)
 	// (temporaer behoben)
 	
 	@Test
 	public void testClassWithMapAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_h");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("names", DataTypeMap.ref(DataType.STRING, DataType.STRING));
-
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
-	
-	// FIXME gleiches Problem wie bei Sets SimpleKeyValueList<String,String>> anstelle von SimpleKeyValueList<String,SimpleKeyValueList<String,String>>
 	
 	@Test
 	public void testClassWithMapMapAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_i");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("namesMap", DataTypeMap.ref(DataType.STRING, DataTypeMap.ref(DataType.STRING, DataType.STRING)));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
-	
-	// FIXME SimpleKeyValueList<String,String>> anstelle von SimpleSet<SimpleKeyValueList<String,String>>
 	
 	@Test
 	public void testClassWithSetMapAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_j");
 		Clazz person = model.createClazz("Person");
 		Attribute createAttribute = person.createAttribute("namesList", DataTypeSet.ref(DataTypeMap.ref(DataType.STRING, DataType.STRING)));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
-	
-	// FIXME SimpleSet<String>> anstelle von SimpleKeyValueList<String,SimpleSet<String>>
 	
 	@Test
 	public void testClassWithMapSetAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_k");
 		Clazz person = model.createClazz("Person");
 		Attribute createAttribute = person.createAttribute("names", DataTypeMap.ref(DataType.STRING, DataTypeSet.ref(DataType.STRING)));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
@@ -149,11 +139,11 @@ public class TestAttributes {
 	@Test
 	public void testClassWithPrivateModifiedAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_l");
 		Clazz person = model.createClazz("Person");
 		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.PRIVATE));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
@@ -162,23 +152,22 @@ public class TestAttributes {
 	@Test
 	public void testClassWithPublicModifiedAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_m");
 		Clazz person = model.createClazz("Person");
 		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.PUBLIC));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithStaticModifiedAttribute() {
 		
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_n");
 		Clazz person = model.createClazz("Person");
 		person.with(new Attribute("personalName", DataType.STRING).with(Modifier.STATIC));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
-*/	
 }

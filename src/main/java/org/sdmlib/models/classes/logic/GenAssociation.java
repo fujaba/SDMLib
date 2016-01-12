@@ -1192,9 +1192,10 @@ public class GenAssociation extends Generator<Association>
    private void insertCreateWithParamInPatternObjectFile(Clazz clazz, Parser parser,
          Association partnerRole)
    {
-      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
+	   String patternObjectType = partnerRole.getClazz().getName(true)+"PO";
+//      String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
 //      String patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
-      String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
+//      String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
       
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + patternObjectType + ")";
       int pos = parser.indexOf(key);

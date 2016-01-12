@@ -11,7 +11,7 @@ import org.sdmlib.models.classes.Feature;
 
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.Clazz.ClazzTyp;
+import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
@@ -220,9 +220,9 @@ public class GenMethod extends Generator<Method>
    public void generate(String rootDir, String helpersDir)
    {
       if (model.getClazz() != null) {
-    	  if(model.getClazz().getType()==ClazzTyp.CLAZZ) {
+    	  if(model.getClazz().getType()==ClazzType.CLAZZ) {
     		  generateClazz(model.getClazz(), rootDir, helpersDir);
-    	  } else if(model.getClazz().getType()==ClazzTyp.ENUMERATION) {
+    	  } else if(model.getClazz().getType()==ClazzType.ENUMERATION) {
     		  generateEnum(model.getClazz(), rootDir, helpersDir);
     	  }
       }
