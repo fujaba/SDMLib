@@ -80,7 +80,14 @@ public  class ModelDBListener implements SendableEntity, Runnable
 					//handle changes
 					if(!changeLine.equals("") && !changeLine.contains("last_seq"))
 					{
-					   Platform.runLater(() -> handleDBChange(localChangeLine));
+					   Platform.runLater(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							handleDBChange(localChangeLine);
+						}
+					});
 					}
 				}
 				in.close();
