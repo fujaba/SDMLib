@@ -70,8 +70,8 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.ValuesMap;
+import de.uniks.networkparser.logic.SimpleConditionMap;
+import de.uniks.networkparser.SimpleValuesMap;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
@@ -456,7 +456,7 @@ public class Storyboard implements PropertyChangeInterface
             largestJsonArray = jsonIdMap.toJsonArray(root);
          }
 
-         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().withCreator(jsonIdMap);
+         JsonIdMap copyMap = (JsonIdMap) new JsonIdMap().with(jsonIdMap);
 
          copyMap.decode(largestJsonArray);
 
@@ -974,22 +974,22 @@ public class Storyboard implements PropertyChangeInterface
       }
       else
       {
-         ConditionMap conditionMap = new AlwaysTrueCondition();
+         SimpleConditionMap conditionMap = new AlwaysTrueCondition();
          addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
       }
    }
 
-   private class AlwaysTrueCondition extends ConditionMap
+   private class AlwaysTrueCondition extends SimpleConditionMap
    {
       @Override
-      public boolean check(ValuesMap values)
+      public boolean check(SimpleValuesMap values)
       {
          // TODO Auto-generated method stub
          return true;
       }
    }
 
-   private void addObjectDiagram(JsonIdMap jsonIdMap, Object root, ConditionMap filter)
+   private void addObjectDiagram(JsonIdMap jsonIdMap, Object root, SimpleConditionMap filter)
    {
       JsonArray jsonArray = jsonIdMap.toJsonArray(root, new Filter().withFull(true).withPropertyRegard(filter));
 
@@ -1740,7 +1740,7 @@ public class Storyboard implements PropertyChangeInterface
       add(po.getPattern().dumpDiagram(name));
    }
 
-   public static class RestrictToFilter extends ConditionMap
+   public static class RestrictToFilter extends SimpleConditionMap
    {
       private LinkedHashSet<Object> explicitElems;
 
@@ -1751,7 +1751,7 @@ public class Storyboard implements PropertyChangeInterface
       }
 
       @Override
-      public boolean check(ValuesMap values)
+      public boolean check(SimpleValuesMap values)
       {
          if (values.getValue() != null
             && ("Integer Float Double Long Boolean String"

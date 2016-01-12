@@ -563,7 +563,7 @@ public class GenClass extends Generator<Clazz>
 		Template template = new Template(Parser.METHOD + ":removeYou()");
 		// add removeYou method
 		String overrideText = "";
-		for (Clazz clazz : model.getSuperClazzes(true).without(model)) {
+		for (Clazz clazz : model.getSuperClazzes(true).withoutAll(model)) {
 			if (GraphUtil.isInterface(clazz)) {
 				continue;
 			}
@@ -601,7 +601,7 @@ public class GenClass extends Generator<Clazz>
 
       String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
       // Check if no super has PropertyChange
-      for (Clazz clazz : model.getSuperClazzes(true).without(model))
+      for (Clazz clazz : model.getSuperClazzes(true).withoutAll(model))
       {
          if (GraphUtil.isInterface(clazz))
          {

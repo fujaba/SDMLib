@@ -73,7 +73,7 @@ public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterfac
    {
       FlipBook flipBook = new FlipBook().init(this);
       
-      this.withUpdateListenerSend(flipBook);
+      this.with(flipBook);
 
       return flipBook;
    }

@@ -358,7 +358,7 @@ public class GenAssociation extends Generator<Association>
       GenClass generator = getGenerator(model.getClazz());
       
       // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
-      kidClasses = partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
+      kidClasses = partnerRole.getClazz().getKidClazzes(true).withoutAll(partnerRole.getClazz());
       
       for (Clazz kid : kidClasses)
       {
@@ -612,7 +612,7 @@ public class GenAssociation extends Generator<Association>
       
       String realPartnerClassName = partnerClassName;
       
-      SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
+      SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(true).withoutAll(partnerRole.getClazz());
       ClazzSet kidClassesInterfaces =new ClazzSet();
       for(Clazz item : kidClasses){
     	  if (item.hasModifier(Modifier.ABSTRACT) || GraphUtil.isInterface(item)) {

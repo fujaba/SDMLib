@@ -37,8 +37,8 @@ import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.ValuesMap;
+import de.uniks.networkparser.logic.SimpleConditionMap;
+import de.uniks.networkparser.SimpleValuesMap;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
@@ -49,7 +49,7 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
    public class ReachabilityGraph implements PropertyChangeInterface
 {
    //==========================================================================
-   private final class OmitRootCondition extends ConditionMap
+   private final class OmitRootCondition extends SimpleConditionMap
    {
       private Object root;
 
@@ -59,7 +59,7 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
       }
 
       @Override
-      public boolean check(ValuesMap values)
+      public boolean check(SimpleValuesMap values)
       {
          return values.getValue() != root;
       }
@@ -495,7 +495,7 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
                ReachableState newReachableState = new ReachableState().withGraphRoot(newGraphRoot);
 
                // is the new graph already known?
-               JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap().withCreator(rule.getJsonIdMap());
+               JsonIdMap newJsonIdMap = (JsonIdMap) new JsonIdMap().with(rule.getJsonIdMap());
                newJsonIdMap.withSessionId("s");
                String newCertificate = newReachableState.computeCertificate(newJsonIdMap);
                
@@ -532,8 +532,8 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
    public LinkedHashMap<String, String> match(ReachableState s1, ReachableState s2)
    {
       
-      JsonIdMap map1 = (JsonIdMap) new JsonIdMap().withCreator(masterMap);
-      JsonIdMap map2 = (JsonIdMap) new JsonIdMap().withCreator(masterMap);
+      JsonIdMap map1 = (JsonIdMap) new JsonIdMap().with(masterMap);
+      JsonIdMap map2 = (JsonIdMap) new JsonIdMap().with(masterMap);
       
       map1.withSessionId("s");
       map2.withSessionId("s");
