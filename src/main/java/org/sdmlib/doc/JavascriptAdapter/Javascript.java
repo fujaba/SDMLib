@@ -162,7 +162,7 @@ public class Javascript implements GuiAdapter
          {
         	 Association generationEdge = new Association().with(AssociationTypes.GENERALISATION);
         	 generationEdge.with(nodes.get(CGUtil.shortClassName(kidClazz.getName())));
-        	 Association kidEdge = new Association().with(AssociationTypes.CHILD);
+        	 Association kidEdge = new Association().with(AssociationTypes.EDGE);
         	generationEdge.with(kidEdge);
         	
         	kidEdge.with(nodes.get(CGUtil.shortClassName(superClazz.getName())));
