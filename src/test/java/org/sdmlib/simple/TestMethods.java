@@ -15,24 +15,24 @@ public class TestMethods {
 	@Test
 	public void testClassWithMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_a");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think"));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithVoidMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_b");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.VOID));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
@@ -42,12 +42,12 @@ public class TestMethods {
 	@Test
 	public void testClassWithVoidAndNamelessParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_c");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.VOID, new Parameter(DataType.STRING)));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
@@ -57,12 +57,12 @@ public class TestMethods {
 	@Test
 	public void testClassWithVoidAndParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_c");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.VOID, new Parameter("value", DataType.STRING)));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
@@ -71,25 +71,25 @@ public class TestMethods {
 	@Test
 	public void testClassWithVoidAndClassParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_d");
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
 		person.with(new Method("think", DataType.VOID, new Parameter("room", DataType.ref(room.getClass()))));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithVoidAndSetParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_e");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.VOID, new Parameter("values", DataTypeSet.ref(DataType.STRING))));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
@@ -98,74 +98,74 @@ public class TestMethods {
 	@Test
 	public void testClassWithVoidAndMapParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_f");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.VOID, new Parameter("values", DataTypeMap.ref(DataType.STRING, DataType.STRING))));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithVoidAndMultipleParametersMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_g");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.VOID, new Parameter("value", DataType.STRING), new Parameter(DataType.INT)));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithNonVoidMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_h");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.STRING));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithNonVoidAndParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_i");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.STRING, new Parameter(DataType.STRING)));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithMultipleMethods() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_j");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.STRING, new Parameter(DataType.STRING))
 				, new Method("dontThink", DataType.VOID));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
 	@Test
 	public void testClassWithMethodAndBody() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_k");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.VOID)
 				.withBody("		String thought = \"\";\n"));
-		
-		model.generate("src/test/java");
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
 		
 	}
 	
