@@ -7,6 +7,7 @@ import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.DataTypeMap;
 import de.uniks.networkparser.graph.DataTypeSet;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
 
@@ -23,7 +24,7 @@ public class TestMethods {
 //		model.generate("src/test/java");
 		
 	}
-	
+
 	@Test
 	public void testClassWithVoidMethod() {
 	
@@ -36,7 +37,7 @@ public class TestMethods {
 		
 	}
 	
-	// Fehler bei signature = model.getName(false), an diesen Stellen wird signature = model.getName(true) benoetigt
+	//TODO Fehler bei signature = model.getName(false), an diesen Stellen wird signature = model.getName(true) benoetigt
 	// (momentan behoben)
 	
 	@Test
@@ -51,16 +52,16 @@ public class TestMethods {
 		
 	}
 	
-	// Fehler bei signature = model.getName(false), an diesen Stellen wird signature = model.getName(true) benoetigt
+	//TODO Fehler bei signature = model.getName(false), an diesen Stellen wird signature = model.getName(true) benoetigt
 	// (momentan behoben)
 	
 	@Test
 	public void testClassWithVoidAndParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_c");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_d");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter("value", DataType.STRING)));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataType.STRING).with("value")));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -71,23 +72,37 @@ public class TestMethods {
 	@Test
 	public void testClassWithVoidAndClassParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_d");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_e");
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter("room", DataType.ref(room.getClass()))));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataType.ref(room.getClass())).with("room")));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
-		
 	}
+
+	@Test
+	public void testClassWithVoidAndSimpleClassParameterMethod() {
+	
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_f");
+		Clazz person = model.createClazz("Person");
+		Clazz room = model.createClazz("Room");
+		
+		person.with(new Method("think", DataType.VOID, new Parameter(DataType.ref(room)).with("room")));
+		person.with(new Method("read", DataType.VOID, new Parameter(room).with("room")));
+	
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
+	}
+
 	
 	@Test
 	public void testClassWithVoidAndSetParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_e");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_g");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter("values", DataTypeSet.ref(DataType.STRING))));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataTypeSet.ref(DataType.STRING)).with("values")));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -98,10 +113,10 @@ public class TestMethods {
 	@Test
 	public void testClassWithVoidAndMapParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_f");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_h");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter("values", DataTypeMap.ref(DataType.STRING, DataType.STRING))));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataTypeMap.ref(DataType.STRING, DataType.STRING)).with("values")));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -110,19 +125,20 @@ public class TestMethods {
 	@Test
 	public void testClassWithVoidAndMultipleParametersMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_g");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_i");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter("value", DataType.STRING), new Parameter(DataType.INT)));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataType.STRING).with("value"), new Parameter(DataType.INT)));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
 	}
 	
+	//FIXME NullPointer
 	@Test
 	public void testClassWithNonVoidMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_h");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_j");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.STRING));
@@ -134,7 +150,7 @@ public class TestMethods {
 	@Test
 	public void testClassWithNonVoidAndParameterMethod() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_i");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_k");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.STRING, new Parameter(DataType.STRING)));
@@ -143,10 +159,11 @@ public class TestMethods {
 		
 	}
 	
+	//FIXME NullPointer
 	@Test
 	public void testClassWithMultipleMethods() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_j");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_l");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.STRING, new Parameter(DataType.STRING))
@@ -156,10 +173,11 @@ public class TestMethods {
 		
 	}
 	
+	//FIXME NUllpointer
 	@Test
 	public void testClassWithMethodAndBody() {
 	
-		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_k");
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_m");
 		Clazz person = model.createClazz("Person");
 		
 		person.with(new Method("think", DataType.VOID)

@@ -3,7 +3,6 @@ package org.sdmlib.models.classes.logic;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
@@ -15,6 +14,8 @@ import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class GenMethod extends Generator<Method>
 {
@@ -68,7 +69,6 @@ public class GenMethod extends Generator<Method>
       ((ClassModel) enumeration.getClassModel()).getGenerator().getOrCreateEnum(enumeration);
       if (pos < 0)
       {
-         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("\n   " +
                   "\n   //==========================================================================" +
@@ -240,7 +240,6 @@ public class GenMethod extends Generator<Method>
 
       if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
       {
-         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("   " +
                   "\n   //==========================================================================" +
@@ -257,31 +256,9 @@ public class GenMethod extends Generator<Method>
                   "\n\n"
                );
 
-         String methodName = signature.substring(0, signature.indexOf("("));
-
-         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
-
-         String formalParameter = "";
-         String actualParameter = "";
-
-         String[] parameters = parameterSig.split("\\s*,\\s*");
-
-         if (!(parameters.length == 1 && parameters[0].isEmpty()))
-         {
-            for (int i = 0; i < parameters.length; i++)
-            {
-               String[] item = parameters[i].split(" ");
-
-               formalParameter += item[0] + " " + item[1];
-               actualParameter += item[1];
-
-               if (i + 1 < parameters.length)
-               {
-                  formalParameter += ", ";
-                  actualParameter += ", ";
-               }
-            }
-         }
+         StringBuilder formalParameter = new StringBuilder();
+         StringBuilder actualParameter = new StringBuilder();
+         calculateParameters(parser, formalParameter, actualParameter);
 
          String returnSetCreate = "";
          String returnSetAdd = "";
@@ -345,16 +322,38 @@ public class GenMethod extends Generator<Method>
             "returnStat", returnStat,
             "modifiers", model.getModifier().getName(),
             "returnType", type,
-            "methodName", methodName,
+            "methodName", model.getName(),
             "memberType", clazz2.getName(true),
-            "formalParameter", formalParameter,
-            "actualParameter", actualParameter
+            "formalParameter", formalParameter.toString(),
+            "actualParameter", actualParameter.toString()
             );
 
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.insert(pos, text.toString());
       }
+   }
+   
+   private void calculateParameters(Parser parser, StringBuilder formalParameter, StringBuilder actualParameter) {
+       int i=0;
+       SimpleSet<Parameter> parameters = model.getParameter();
+       for(Parameter param : parameters) {
+      	 formalParameter.append(param.getType(true)).append(" ");
+      	 String name = "";
+      	 if (param.getName() != null) {
+      		 name = param.getName().trim();
+      	 }
+      	 if (name == "") {
+      		 name = "p" + (i++);
+      	 }
+      	 formalParameter.append(name);
+      	 parser.insertImport(param.getType(false)); 
+           actualParameter.append(name);
+           if (i + 1 < parameters.size()) {
+          	 formalParameter.append(", ");
+               actualParameter.append(", ");
+           }
+       }
    }
 
    private void insertMethodInPatternObject(Clazz clazz2, Parser parser)
@@ -371,7 +370,7 @@ public class GenMethod extends Generator<Method>
 
       if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
       {
-         signature = model.getName(true);
+//         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("   " +
                   "\n   //==========================================================================" +
@@ -387,32 +386,12 @@ public class GenMethod extends Generator<Method>
                   "\n\n"
                );
 
-         String methodName = signature.substring(0, signature.indexOf("("));
-
-         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
-
-         String formalParameter = "";
-         String actualParameter = "";
-
-         String[] parameters = parameterSig.split("\\s*,\\s*");
-
-         if (!(parameters.length == 1 && parameters[0].isEmpty()))
-         {
-            for (int i = 0; i < parameters.length; i++)
-            {
-               String[] item = parameters[i].split(" ");
-
-               formalParameter += item[0] + " " + item[1];
-               actualParameter += item[1];
-
-               if (i + 1 < parameters.length)
-               {
-                  formalParameter += ", ";
-                  actualParameter += ", ";
-               }
-            }
-         }
-
+//         String methodName = signature.substring(0, signature.indexOf("("));
+//         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
+  	   StringBuilder formalParameter = new StringBuilder();
+       StringBuilder actualParameter = new StringBuilder();
+       calculateParameters(parser, formalParameter, actualParameter);
+        
          String returnStart = "";
          String returnStat = "";
 
@@ -425,14 +404,10 @@ public class GenMethod extends Generator<Method>
          {
             type = type.substring(0, type.length() - 2);
          }
-         String importType = type;
          if(type.indexOf(".")<0 && type.equals(model.getClazz().getName())) {
         	 type = model.getClazz().getName(false);
          }
-         if (!("Object".indexOf(type) >= 0))
-         {
-        	 parser.insertImport(importType); 
-         }
+        parser.insertImport(type); 
 
          if (!"void".equals(type))
          {
@@ -456,10 +431,10 @@ public class GenMethod extends Generator<Method>
             "returnStart", returnStart,
             "      returnStat\n", returnStat,
             "returnType", type,
-            "methodName", methodName,
+            "methodName", model.getName(),
             "memberType", clazz2.getName(true),
-            "formalParameter", formalParameter,
-            "actualParameter", actualParameter
+            "formalParameter", formalParameter.toString(),
+            "actualParameter", actualParameter.toString()
             );
 
          pos = parser.indexOf(Parser.CLASS_END);
@@ -480,7 +455,7 @@ public class GenMethod extends Generator<Method>
 	   
 	   Parser parser = genClass.getParser();	   
    
-	   String methodName = StrUtil.upFirstChar(this.getModel().getName());
+//	   String methodName = StrUtil.upFirstChar(this.getModel().getName());
 	   
 	   genClass.removeFragment(parser, Parser.METHOD + ":" + this.getModel().getName(false));
 	   
