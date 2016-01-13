@@ -7,20 +7,15 @@ import de.uniks.networkparser.graph.Clazz;
 
 public class TestSuperClazzes {
 
-	// FIXME fehlendes other Element bei Generalisierungsassociation durch withSuperClazz(...)
-	
 	@Test
 	public void testClazzAsSuperClazz() {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_a");
 		Clazz person = model.createClazz("Person");
-		Clazz pupil = model.createClazz("Pupil").withSuperClazz(person);
+		model.createClazz("Pupil").withSuperClazz(person);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
-		
 	}
-	
-	// FIXME fehlendes other Element bei Generalisierungsassociation durch withKidClazzes(...)
 	
 	@Test
 	public void testClazzAsKidClazz() {
@@ -32,7 +27,6 @@ public class TestSuperClazzes {
 		person.withKidClazzes(pupil);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
-		
 	}
 	
 	// FIXME fehlendes other Element bei Generalisierungsassociation durch withSuperClazz(...)
@@ -46,8 +40,23 @@ public class TestSuperClazzes {
 		Clazz teacher = model.createClazz("Teacher").withSuperClazz(person);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
-		
 	}
+	
+	@Test
+	public void testChangeSuperClazz() {
+		
+		ClassModel model = new ClassModel("org.sdmlib.simple.model.superclazzes_d");
+		Clazz person = model.createClazz("Person");
+		Clazz teacher = model.createClazz("Teacher");
+		Clazz pupil = model.createClazz("Pupil").withSuperClazz(teacher);
+		
+		pupil.withSuperClazz(person);
+		
+		model.getGenerator().testGeneratedCode();
+//		model.generate("src/test/java");
+	}
+	
+	
 //FIXME Wrong call of RemoveYou
 //	   @Override
 //	   public void removeYou()

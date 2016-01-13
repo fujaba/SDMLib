@@ -1572,14 +1572,15 @@ public class GenAssociation extends Generator<Association>
 //		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
 //		ClassModelAdapter generator = classModel.getGenerator();
 //		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
-		if(model.getOther().getTyp()==AssociationTypes.EDGE) {
+		if(model.getOther().getTyp()==AssociationTypes.EDGE || model.getOther().getTyp()==AssociationTypes.GENERALISATION) {
 			return this;
 		}
 		this.generate(rootDir, helperDir, model.getOther());
 //		sourceGenRole.generate((Clazz) model.getOtherClazz());
 
 		// also for subclasses
-		for (Clazz kidClass : model.getClazz().getKidClazzes(true)) {
+		Clazz clazz = model.getClazz();
+		for (Clazz kidClass : clazz.getKidClazzes(true)) {
 			if (GraphUtil.isInterface(kidClass)) {
 				continue;
 			}

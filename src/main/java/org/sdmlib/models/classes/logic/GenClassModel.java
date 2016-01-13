@@ -493,7 +493,7 @@ public class GenClassModel implements ClassModelAdapter
                // no problem,
                continue;
             }
-            if (role.getTyp()==AssociationTypes.EDGE)
+            if (role.getTyp()==AssociationTypes.EDGE || role.getTyp()==AssociationTypes.GENERALISATION)
             {
                // uni directional assoc, name is not used, no problem
                continue;
