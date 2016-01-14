@@ -1,15 +1,13 @@
 package org.sdmlib.models.classes.logic;
 
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.objects.GenericObject;
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Method;
 
 public interface ClassModelAdapter {
 	public boolean generate(String rootDir);
@@ -45,9 +43,9 @@ public interface ClassModelAdapter {
 	public ClassModelAdapter withShowDiff(DIFF showDiff);
 	
 	// MUST BE FIXED
-	public GenEnumeration getOrCreate(Enumeration enumeration);
+//	public GenEnumeration getOrCreate(Enumeration enumeration);
 
-	public GenClass getOrCreate(Clazz clazz);
+	public GenClass getOrCreateClazz(Clazz clazz);
 	
 	public GenClass getClazz(String name);
 
@@ -59,5 +57,5 @@ public interface ClassModelAdapter {
 
 	public GenAssociation getOrCreate(Association association);
 
-	public GenRole getOrCreate(Role role);
+//	public GenRole getOrCreate(Role role);
 }

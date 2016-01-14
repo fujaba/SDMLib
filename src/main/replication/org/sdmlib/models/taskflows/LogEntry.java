@@ -29,7 +29,6 @@ import org.sdmlib.models.taskflows.util.LogEntrySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonIdMap;
-import java.beans.PropertyChangeListener;
    /**
     * 
     * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>

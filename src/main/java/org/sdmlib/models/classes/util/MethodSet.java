@@ -24,19 +24,16 @@ package org.sdmlib.models.classes.util;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ParameterSet;
-import org.sdmlib.models.classes.util.ClazzSet;
 
-import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Parameter;
 
 public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.modelsets.ModelSet
 {
@@ -66,7 +63,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.setReturnType(value);
+         obj.with(value);
       }
       
       return this;
@@ -132,7 +129,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.setBody(value);
+         obj.withBody(value);
       }
       
       return this;
@@ -165,7 +162,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       
       for (Method obj : this)
       {
-         result.add(obj.getName());
+         result.add(obj.getName(false));
       }
       
       return result;
@@ -177,7 +174,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       
       for (Method obj : this)
       {
-         if (value.equals(obj.getName()))
+         if (value.equals(obj.getName(false)))
          {
             result.add(obj);
          }
@@ -190,7 +187,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withName(value);
+         obj.with(value);
       }
       
       return this;
@@ -251,43 +248,17 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       
       for (Method obj : this)
       {
-         result.addAll(obj.getAnnotations());
+         result.add(obj.getAnnotation());
       }
       
       return result;
    }
 
-   public MethodSet hasAnnotations(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      MethodSet answer = new MethodSet();
-      
-      for (Method obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getAnnotations()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   public MethodSet withAnnotations(Annotation value)
+     public MethodSet withAnnotations(Annotation value)
    {
       for (Method obj : this)
       {
-         obj.withAnnotation(value);
+         obj.with(value);
       }
       
       return this;
@@ -297,7 +268,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
    {
       for (Method obj : this)
       {
-         obj.withoutAnnotation(value);
+         obj.without(value);
       }
       
       return this;
@@ -362,26 +333,4 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       
       return result;
    }
-
-   
-   /**
-    * Removes every method from the current model and deletes
-    * the generated code from the model and util classes.<br> 
-    * This includes the set, creator and pattern object classes, that are associated with the methods.
-    * 
-    * 
-    * @param rootDir root directory, where the code of the methods is located
-    */
-   public void removeFromModelAndCode(String rootDir) {
-	   
-	   SimpleSet<Method> clone = this.clone();
-	   
-	   for (Method method : clone) {
-		
-		   method.removeFromModelAndCode(rootDir);
-		   
-	   }
-	   
-   }
-
 }

@@ -3,12 +3,12 @@ package org.sdmlib.modelspace;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.sdmlib.javafx.ModelObjectController;
+import org.sdmlib.serialization.PropertyChangeInterface;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-
-import org.sdmlib.javafx.ModelObjectController;
-import org.sdmlib.serialization.PropertyChangeInterface;
 
 public class ModelCloudProxyController extends ModelObjectController implements PropertyChangeListener
 {

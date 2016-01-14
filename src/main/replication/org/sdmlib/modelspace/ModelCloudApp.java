@@ -5,6 +5,12 @@ import java.beans.PropertyChangeListener;
 import java.net.InetAddress;
 import java.util.List;
 
+import org.sdmlib.javafx.FX;
+import org.sdmlib.modelspace.ModelSpace.ApplicationType;
+import org.sdmlib.modelspace.util.ModelCloudCreator;
+import org.sdmlib.modelspace.util.TaskBoardCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,13 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import org.sdmlib.javafx.FX;
-import org.sdmlib.modelspace.ModelSpace.ApplicationType;
-import org.sdmlib.modelspace.util.ModelCloudCreator;
-import org.sdmlib.modelspace.util.TaskBoardCreator;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class ModelCloudApp extends Application
 {

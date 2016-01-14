@@ -32,13 +32,15 @@ import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Method;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.util.ClazzSet;
 
-public class GenEnumeration extends Generator<Enumeration>{
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphLiteral;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenEnumeration extends Generator<Clazz>{
 	private Parser parser = null;
 
 	public void generate(String rootDir, String helpersDir) {
@@ -61,7 +63,7 @@ public class GenEnumeration extends Generator<Enumeration>{
 			}
 			generator.generate(rootDir, helpersDir);
 
-			String signature = method.getSignature(false);
+			String signature = method.getName(false);
 			parser.parse();
 			ArrayList<SymTabEntry> symTabEntries = parser
 					.getSymTabEntriesFor(signature);
@@ -79,12 +81,12 @@ public class GenEnumeration extends Generator<Enumeration>{
 						continue;
 					}
 					String type = localVarTableEntry.getType();
-					ClazzSet classes = this.getModel().getClassModel()
-							.getClasses();
+					SimpleSet<Clazz> classes = this.getModel().getClassModel()
+							.getClazzes();
 					for (Clazz clazz : classes) {
 						if (clazz.getName().equals(type)
 								|| clazz.getName().endsWith("." + type)) {
-							insertImport(clazz.getFullName());
+							insertImport(clazz.getName(false));
 						}
 					}
 				}
@@ -128,14 +130,13 @@ public class GenEnumeration extends Generator<Enumeration>{
 		if (enumCurrentPos < 0)
 			isNew  = true;
 		
-		for (ArrayList<?> valueNames : model.getValueNames()) {
-			
-			for (int i = 0; i < valueNames.size(); i++) {
+		for (GraphLiteral valueNames : model.getValues()) {
+			for (int i = 0; i < valueNames.getValues().size(); i++) {
 				
-				Object value = valueNames.get(i);
+				Object value = valueNames.getValues().get(i);
 				if (symTabContains(enumEntriesInSymTab, value ))
 					continue;
-				enumCurrentPos = insertValue((String) value, enumCurrentPos, (i == valueNames.size()-1 && isNew) ? true : false);
+				enumCurrentPos = insertValue((String) value, enumCurrentPos, (i == valueNames.getValues().size()-1 && isNew) ? true : false);
 			}
 		}	
 		
@@ -219,7 +220,7 @@ public class GenEnumeration extends Generator<Enumeration>{
 	public Parser getOrCreateParser(String rootDir) {
 		if (parser == null) {
 			// try to find existing file
-			String name = model.getFullName();
+			String name = model.getName(false);
 			int pos = name.lastIndexOf('.');
 
 			String packageName = name.substring(0, pos);
@@ -249,7 +250,7 @@ public class GenEnumeration extends Generator<Enumeration>{
 	}
 
 	public boolean isShowDiff() {
-		ClassModel model = getModel().getClassModel();
+		ClassModel model = (ClassModel) getModel().getClassModel();
 		if (model != null) {
 			return model.getGenerator().getShowDiff() != DIFF.NONE;
 		}
@@ -263,7 +264,7 @@ public class GenEnumeration extends Generator<Enumeration>{
 	}
 	@Override
 	ClassModel getClazz() {
-		return this.getModel().getClassModel();
+		return (ClassModel) this.getModel().getClassModel();
 	}
 
 }

@@ -19,22 +19,24 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Modifier;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.templates.ReplaceText;
 import org.sdmlib.models.classes.templates.Template;
-import org.sdmlib.models.classes.util.ClazzSet;
 
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphImport;
+import de.uniks.networkparser.graph.GraphUtil;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleSet;
 
 /**
  * @author Stefan
@@ -56,6 +58,7 @@ public class GenClass extends Generator<Clazz>
    public GenClass generate(String rootDir, String helpersDir)
    {
       // first generate the class itself
+	  ClassModel classModel = (ClassModel) model.getClassModel();
       if (!model.isExternal())
       {
          getOrCreateParser(rootDir);
@@ -70,15 +73,15 @@ public class GenClass extends Generator<Clazz>
 
          insertMethods(rootDir, helpersDir);
 
-         if (!model.isInterface())
+         if (GraphUtil.isInterface(model) == false)
          {
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
             insertInterfaceMethods(model, rootDir, helpersDir);
-            if (model.hasFeature(Feature.REMOVEYOUMETHOD))
+            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
             	insertRemoveYouMethod(rootDir);
 
-            if (model.hasFeature(Feature.Serialization))
+            if (classModel.hasFeature(Feature.Serialization, model))
                insertInterfaceAttributesInCreatorClass(model, rootDir, helpersDir);
          }
 
@@ -91,7 +94,7 @@ public class GenClass extends Generator<Clazz>
          generateAttributes(rootDir, helpersDir, false);
       }
 
-      if (!model.isEnumeration() && !model.isInterface() && model.hasFeature(Feature.Serialization))
+      if ((GraphUtil.isEnumeration(model) == false) && (GraphUtil.isInterface(model) == false) && classModel.hasFeature(Feature.Serialization, model))
       {
          // now generate the corresponding creator class
          if (getRepairClassModel().hasFeature(Feature.Serialization))
@@ -100,7 +103,7 @@ public class GenClass extends Generator<Clazz>
 
             insertClassInCreatorCreatorClass(getModel(), rootDir, creatorParser);
 
-            if (model.hasFeature(Feature.REMOVEYOUMETHOD)) {
+            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model)) {
             	insertRemoveObjectInCreatorClass();
             }
             printFile(creatorParser);
@@ -108,7 +111,7 @@ public class GenClass extends Generator<Clazz>
       }
 
       // now generate the corresponding ModelSet class
-      if (model.hasFeature(Feature.Serialization))
+      if (classModel.hasFeature(Feature.Serialization, model))
       {
          getOrCreateParserForModelSetFile(helpersDir);
          printFile(modelSetParser);
@@ -135,7 +138,7 @@ public class GenClass extends Generator<Clazz>
       {
          getGenerator(method).generate(rootDir, helpersDir);
 
-         String signature = method.getSignature(false);
+         String signature = method.getName(false);
          parser.parse();
          ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(signature);
 
@@ -153,12 +156,12 @@ public class GenClass extends Generator<Clazz>
                   continue;
                }
                String type = localVarTableEntry.getType();
-               ClazzSet classes = this.getModel().getClassModel().getClasses();
+               SimpleSet<Clazz> classes = this.getModel().getClassModel().getClazzes();
                for (Clazz clazz : classes)
                {
                   if (clazz.getName().equals(type) || clazz.getName().endsWith("." + type))
                   {
-                     insertImport(clazz.getFullName());
+                     insertImport(clazz.getName(false));
                   }
                }
             }
@@ -168,7 +171,7 @@ public class GenClass extends Generator<Clazz>
 
    private void generateAnnotations(String rootDir, String helpersDir)
    {
-      for (Annotation annotation : model.getAnnotations())
+      for (Annotation annotation : GraphUtil.getAnnotations(model))
       {
          getGenerator(annotation).generate(rootDir, helpersDir);
       }
@@ -176,9 +179,9 @@ public class GenClass extends Generator<Clazz>
 
    private void insertImports()
    {
-      for (String importClazz : model.getImports())
+      for (GraphImport importClazz : model.getImports())
       {
-         insertImport(importClazz);
+         insertImport(importClazz.getName());
       }
    }
 
@@ -208,14 +211,14 @@ public class GenClass extends Generator<Clazz>
    {
       if (model.getClassModel() != null)
       {
-         return model.getClassModel();
+         return ((ClassModel) model.getClassModel());
       }
       if (repairThis)
       {
          return null;
       }
       this.repairThis = true;
-      for (Iterator<Clazz> i = model.getSuperClazzes().iterator(); i.hasNext();)
+      for (Iterator<Clazz> i = model.getSuperClazzes(false).iterator(); i.hasNext();)
       {
          Clazz item = i.next();
 
@@ -229,7 +232,7 @@ public class GenClass extends Generator<Clazz>
          }
       }
 
-      for (Iterator<Clazz> i = model.getKidClazzes().iterator(); i.hasNext();)
+      for (Iterator<Clazz> i = model.getKidClazzes(false).iterator(); i.hasNext();)
       {
          Clazz item = i.next();
 
@@ -242,10 +245,10 @@ public class GenClass extends Generator<Clazz>
             return getRepairClassModel();
          }
       }
-      for (Iterator<Role> i = model.getRoles().iterator(); i.hasNext();)
+      for (Iterator<Association> i = model.getAssociation().iterator(); i.hasNext();)
       {
-         Role item = i.next();
-         Clazz otherClazz = item.getPartnerRole().getClazz();
+    	 Association item = i.next();
+         Clazz otherClazz = item.getOtherClazz();
          if (otherClazz != model)
          {
             if (otherClazz.getClassModel() != null)
@@ -278,7 +281,7 @@ public class GenClass extends Generator<Clazz>
          gernerateSuperAttributes(model.getSuperClass(), rootDir, helpersDir);
       }
 
-      for (Clazz interfaze : model.getInterfaces())
+      for (Clazz interfaze : model.getInterfaces(false))
       {
          gernerateSuperAttributes(interfaze, rootDir, helpersDir);
       }
@@ -302,7 +305,7 @@ public class GenClass extends Generator<Clazz>
          gernerateSuperAttributes(superClazz.getSuperClass(), rootDir, helpersDir);
       }
 
-      for (Clazz interfaze : superClazz.getInterfaces())
+      for (Clazz interfaze : superClazz.getInterfaces(false))
       {
          gernerateSuperAttributes(interfaze, rootDir, helpersDir);
       }
@@ -310,14 +313,14 @@ public class GenClass extends Generator<Clazz>
 
    private void insertInterfaceAttributesInCreatorClass(Clazz clazz, String rootDir, String helpersDir)
    {
-      for (Clazz interfaze : clazz.getInterfaces())
+      for (Clazz interfaze : clazz.getInterfaces(false))
       {
-         if (interfaze.isInterface())
+         if (GraphUtil.isInterface(interfaze))
          {
             for (Attribute attr : interfaze.getAttributes())
             {
                Parser creatorParser = this.getOrCreateParserForCreatorClass(helpersDir);
-               getGenerator(attr).insertPropertyInCreatorClass(interfaze.getFullName(), creatorParser, helpersDir,
+               getGenerator(attr).insertPropertyInCreatorClass(interfaze.getName(false), creatorParser, helpersDir,
                   false);
             }
 
@@ -329,13 +332,13 @@ public class GenClass extends Generator<Clazz>
    }
 
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
-		if (!clazz.isInterface() && !clazz.isEnumeration() && clazz.hasFeature(Feature.Serialization)) {
+		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
-				ClassModelAdapter generator = clazz.getClassModel().getGenerator();
+				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
 				creatorName = clazz.getClassModel().getName() + GenClassModel.UTILPATH + "."
-						+ CGUtil.shortClassName(clazz.getFullName());
-				GenClass genClass = generator.getOrCreate(clazz);
+						+ CGUtil.shortClassName(clazz.getName(false));
+				GenClass genClass = generator.getOrCreateClazz(clazz);
 				Parser creatorClassParser = genClass.getOrCreateParserForCreatorClass(rootDir);
 				String string = creatorClassParser.getFileName();
 				String alternativeFilePath = string
@@ -346,8 +349,8 @@ public class GenClass extends Generator<Clazz>
 					creatorName = alternativeFilePath;
 
 			} else {
-				creatorName = CGUtil.packageName(clazz.getFullName()) + GenClassModel.UTILPATH + "."
-						+ CGUtil.shortClassName(clazz.getFullName());
+				creatorName = CGUtil.packageName(clazz.getName(false)) + GenClassModel.UTILPATH + "."
+						+ CGUtil.shortClassName(clazz.getName(false));
 			}
 
 			Parser creatorcreator = getOrCreateCreatorCreator(clazz, rootDir);
@@ -361,9 +364,9 @@ public class GenClass extends Generator<Clazz>
 				creatorName = CGUtil.shortClassName(creatorName);
 			}
 			StringBuilder creators=new StringBuilder();
-			creators.append("      jsonIdMap.withCreator(new " + creatorName + "Creator());\n");
-			if (clazz.hasFeature(Feature.PatternObject)) {
-				creators.append("      jsonIdMap.withCreator(new " + creatorName + "POCreator());\n");
+			creators.append("      jsonIdMap.with(new " + creatorName + "Creator());\n");
+			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PatternObject)) {
+				creators.append("      jsonIdMap.with(new " + creatorName + "POCreator());\n");
 			}
 			ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
 			if(symTabEntriesFor.size()>0) {
@@ -407,12 +410,12 @@ public class GenClass extends Generator<Clazz>
 	}
    
 	private Parser getOrCreateCreatorCreator(Clazz clazz, String rootDir) {
-		ClassModel classModel = clazz.getClassModel();
+		ClassModel classModel = (ClassModel) clazz.getClassModel();
 		String packageName = classModel.getName();
 		// BOAH check DEFAULT PACKAGE
 		if (ClassModel.DEFAULTPACKAGE.equals(packageName)) {
 			// Get Package from clazz
-			packageName = CGUtil.packageName(clazz.getFullName());
+			packageName = CGUtil.packageName(clazz.getName(false));
 			if(packageName.length() < 1) {
 				packageName = ClassModel.DEFAULTPACKAGE; 
 			}
@@ -448,9 +451,9 @@ public class GenClass extends Generator<Clazz>
 	
    private void insertInterfaceMethods(Clazz clazz, String rootDir, String helpersDir)
    {
-      for (Clazz interfaze : clazz.getInterfaces())
+      for (Clazz interfaze : clazz.getInterfaces(false))
       {
-         if (interfaze.isInterface())
+         if (GraphUtil.isInterface(interfaze))
          {
             for (Attribute attr : interfaze.getAttributes())
             {
@@ -459,8 +462,8 @@ public class GenClass extends Generator<Clazz>
 
             for (Method method : interfaze.getMethods())
             {
-               method.withAnnotation(new Annotation().withName("Override"));
-               getGenerator(method).generate(model, rootDir, helpersDir);
+               method.with(new Annotation().with("Override"));
+               getGenerator(method).generateClazz(model, rootDir, helpersDir);
             }
 
          }
@@ -474,10 +477,10 @@ public class GenClass extends Generator<Clazz>
    {
 
       String string = Parser.IMPLEMENTS;
-      if (model.isInterface())
+      if (GraphUtil.isInterface(model))
          string = Parser.EXTENDS;
 
-      for (Clazz interfaze : model.getInterfaces())
+      for (Clazz interfaze : model.getInterfaces(false))
       {
          int extendsPos = parser.indexOf(string);
 
@@ -486,13 +489,13 @@ public class GenClass extends Generator<Clazz>
             extendsPos = parser.getEndOfClassName();
 
             parser.insert(extendsPos + 1,
-               " " + string + " " + CGUtil.shortClassName(interfaze.getFullName()));
+               " " + string + " " + CGUtil.shortClassName(interfaze.getName(false)));
 
-            insertImport(interfaze.getFullName());
+            insertImport(interfaze.getName(false));
          }
          else
          {
-            String shortClassName = CGUtil.shortClassName(interfaze.getFullName());
+            String shortClassName = CGUtil.shortClassName(interfaze.getName(false));
 
             String key = string + ":" + shortClassName;
 
@@ -501,7 +504,7 @@ public class GenClass extends Generator<Clazz>
             if (symTabEntry == null)
             {
                parser.insert(parser.getEndOfImplementsClause() + 1, ", " + shortClassName);
-               insertImport(interfaze.getFullName());
+               insertImport(interfaze.getName(false));
             }
          }
       }
@@ -522,9 +525,9 @@ public class GenClass extends Generator<Clazz>
          extendsPos = parser.getEndOfClassName();
 
          parser.insert(extendsPos + 1,
-            " extends " + CGUtil.shortClassName(model.getSuperClass().getFullName()));
+            " extends " + CGUtil.shortClassName(model.getSuperClass().getName(false)));
 
-         insertImport(model.getSuperClass().getFullName());
+         insertImport(model.getSuperClass().getName(false));
       }
    }
 
@@ -546,7 +549,7 @@ public class GenClass extends Generator<Clazz>
               "   }" +
               "\n");
         template.withVariable(new ReplaceText("Body", model.isExternal(), "// wrapped object has no removeYou method", "(({{ModelClass}}) entity).removeYou();"));
-    	template.insert(creatorParser, "ModelClass", CGUtil.shortClassName(model.getFullName()));
+    	template.insert(creatorParser, "ModelClass", CGUtil.shortClassName(model.getName(false)));
    }
 
    private void insertRemoveYouMethod(String rootDir)
@@ -560,8 +563,8 @@ public class GenClass extends Generator<Clazz>
 		Template template = new Template(Parser.METHOD + ":removeYou()");
 		// add removeYou method
 		String overrideText = "";
-		for (Clazz clazz : model.getSuperClazzesTransitive().minus(model)) {
-			if (clazz.isInterface()) {
+		for (Clazz clazz : model.getSuperClazzes(true).withoutAll(model)) {
+			if (GraphUtil.isInterface(clazz)) {
 				continue;
 			}
 			if (!clazz.isExternal()) {
@@ -598,9 +601,9 @@ public class GenClass extends Generator<Clazz>
 
       String searchString = Parser.METHOD + ":getPropertyChangeSupport()";
       // Check if no super has PropertyChange
-      for (Clazz clazz : model.getSuperClazzesTransitive().minus(model))
+      for (Clazz clazz : model.getSuperClazzes(true).withoutAll(model))
       {
-         if (clazz.isInterface())
+         if (GraphUtil.isInterface(clazz))
          {
             continue;
          }
@@ -676,7 +679,7 @@ public class GenClass extends Generator<Clazz>
          }
 
          String string = " implements ";
-         if (model.isInterface())
+         if (GraphUtil.isInterface(model))
             string = " extends ";
          parser.insert(implementsPos + 1, string + propertyChangeInterface);
          insertImport(SendableEntity.class.getName());
@@ -705,7 +708,7 @@ public class GenClass extends Generator<Clazz>
 
    public void printFile()
    {
-      if (model.getClassModel() == null || model.getClassModel().getGenerator().getShowDiff() == DIFF.NONE)
+      if (model.getClassModel() == null || ((ClassModel) model.getClassModel()).getGenerator().getShowDiff() == DIFF.NONE)
       {
          CGUtil.printFile(parser);
       }
@@ -797,7 +800,7 @@ public class GenClass extends Generator<Clazz>
       {
     	
          // try to find existing file
-         String name = model.getFullName();
+         String name = model.getName(false);
          
          int pos = name.lastIndexOf('.');
 
@@ -838,7 +841,7 @@ public class GenClass extends Generator<Clazz>
                "abztract", abztract,
                "className", className,
                "packageName", packageName,
-               "clazz", (model.isInterface() ? "interface" : "class")
+               "clazz", (GraphUtil.isInterface(model) ? "interface" : "class")
                );
             parser.withFileChanged(true);
          }
@@ -849,7 +852,7 @@ public class GenClass extends Generator<Clazz>
 
    public boolean isShowDiff()
    {
-      ClassModel model = getModel().getClassModel();
+      ClassModel model = (ClassModel) getModel().getClassModel();
       if (model != null)
       {
          return model.getGenerator().getShowDiff() != DIFF.NONE;
@@ -862,7 +865,7 @@ public class GenClass extends Generator<Clazz>
       if (creatorParser == null)
       {
          // try to find existing file
-         String name = model.getFullName();
+         String name = model.getName(false);
          int pos = name.lastIndexOf('.');
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
@@ -886,7 +889,7 @@ public class GenClass extends Generator<Clazz>
 
          File creatorJavaFile = new File(fileName);
 
-         if (!creatorJavaFile.exists() && model.hasFeature(Feature.Serialization))
+         if (!creatorJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
          {
             HashSet<String> featureSet = Feature.Serialization.getPath();
             for (String featureValue : featureSet)
@@ -978,7 +981,7 @@ public class GenClass extends Generator<Clazz>
                boolean hasConstructor = false;
                try
                {
-                  Class<?> loadClass = classLoader.loadClass(model.getFullName());
+                  Class<?> loadClass = classLoader.loadClass(model.getName(false));
 
                   if (loadClass != null)
                   {
@@ -999,9 +1002,9 @@ public class GenClass extends Generator<Clazz>
 
             String instanceCreationClause = "new " + entitiyClassName + "()";
 
-            String modelPackage = CGUtil.packageName(model.getFullName());
+            String modelPackage = CGUtil.packageName(model.getName(false));
 
-            if (model.getFullName().endsWith("Impl") && modelPackage.endsWith(".impl"))
+            if (model.getName(false).endsWith("Impl") && modelPackage.endsWith(".impl"))
             {
                // emf style get package and name prefix
                modelPackage = CGUtil.packageName(modelPackage);
@@ -1038,11 +1041,11 @@ public class GenClass extends Generator<Clazz>
 
    public String getModelSetClassName()
    {
-      String name = model.getFullName();
+      String name = model.getName(false);
       int pos = name.lastIndexOf('.');
-      String entitiyClassName = model.getFullName().substring(pos + 1);
+      String entitiyClassName = model.getName(false).substring(pos + 1);
 
-      if (!getModel().hasFeature(Feature.ALBERTsSets))
+      if (!((ClassModel) getModel().getClassModel()).hasFeature(Feature.ALBERTsSets))
       {
          return "java.util.LinkedHashSet<" + entitiyClassName + ">";
       }
@@ -1085,12 +1088,12 @@ public class GenClass extends Generator<Clazz>
 
       if (modelSetParser == null)
       {
-         if (model.getFullName().equals("java.util.Date"))
+         if (model.getName(false).equals("java.util.Date"))
          {
             System.out.println("ups");
          }
          // try to find existing file
-         String name = model.getFullName();
+         String name = model.getName(false);
          int pos = name.lastIndexOf('.');
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
@@ -1114,7 +1117,7 @@ public class GenClass extends Generator<Clazz>
 
          File modelSetJavaFile = new File(fileName);
 
-         if (!modelSetJavaFile.exists() && model.hasFeature(Feature.Serialization))
+         if (!modelSetJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
          {
             HashSet<String> featureSet = Feature.Serialization.getPath();
 
@@ -1166,7 +1169,7 @@ public class GenClass extends Generator<Clazz>
          }
          insertLicense(modelSetParser);
          insertEmptySetDecl(modelSetParser, modelSetClassName);
-         if(model.hasFeature(Feature.PatternObject)) {
+         if(((ClassModel) model.getClassModel()).hasFeature(Feature.PatternObject)) {
         	 insertSetStartModelPattern(modelSetParser);
          }
          insertSetEntryType(modelSetParser);
@@ -1238,7 +1241,7 @@ public class GenClass extends Generator<Clazz>
                );
 
          CGUtil.replaceAll(text,
-            "ModelType", CGUtil.shortClassName(model.getFullName()));
+            "ModelType", CGUtil.shortClassName(model.getName(false)));
 
          pos = parser.indexOf(Parser.CLASS_END);
 
@@ -1263,7 +1266,7 @@ public class GenClass extends Generator<Clazz>
                   "   }\n"
                );
 
-         CGUtil.replaceAll(text, "ModelType", model.getFullName());
+         CGUtil.replaceAll(text, "ModelType", model.getName(false));
 
          pos = parser.indexOf(Parser.CLASS_END);
 
@@ -1281,7 +1284,7 @@ public class GenClass extends Generator<Clazz>
       if (patternObjectParser == null)
       {
          // try to find existing file
-         String name = model.getFullName();
+         String name = model.getName(false);
          int pos = name.lastIndexOf('.');
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
@@ -1305,7 +1308,7 @@ public class GenClass extends Generator<Clazz>
 
          File patternObjectJavaFile = new File(fileName);
 
-         if (!patternObjectJavaFile.exists() && model.hasFeature(Feature.Serialization))
+         if (!patternObjectJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
          {
             HashSet<String> featureSet = Feature.Serialization.getPath();
 
@@ -1442,7 +1445,7 @@ public class GenClass extends Generator<Clazz>
       if (patternObjectCreatorParser == null)
       {
          // try to find existing file
-         String name = model.getFullName();
+         String name = model.getName(false);
          int pos = name.lastIndexOf('.');
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
@@ -1464,7 +1467,7 @@ public class GenClass extends Generator<Clazz>
 
          File patternObjectCreatorJavaFile = new File(fileName);
 
-         if (!patternObjectCreatorJavaFile.exists() && model.hasFeature(Feature.Serialization))
+         if (!patternObjectCreatorJavaFile.exists() && ((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization))
          {
             HashSet<String> featureSet = Feature.Serialization.getPath();
 
@@ -1542,7 +1545,7 @@ public class GenClass extends Generator<Clazz>
    {
       int pos = ccParser.indexOf(Parser.METHOD + ":getCreatorSet()");
 
-      String name = model.getFullName();
+      String name = model.getName(false);
 
       if (pos < 0)
       {
@@ -1709,7 +1712,7 @@ public class GenClass extends Generator<Clazz>
          // Diff Methods
          Map<String, SymTabEntry> oldSymTab = oldFileParser.getSymTab();
 
-         String packageName = CGUtil.packageName(this.model.getFullName());
+         String packageName = CGUtil.packageName(this.model.getName(false));
          String shortName = newFileParser.getFileName().replace("\\", ".").replace("/", ".");
          shortName = shortName.substring(shortName.indexOf(packageName));
 
@@ -1933,6 +1936,6 @@ public class GenClass extends Generator<Clazz>
 
 	@Override
 	ClassModel getClazz() {
-		return getModel().getClassModel();
+		return (ClassModel) getModel().getClassModel();
 	}
 }

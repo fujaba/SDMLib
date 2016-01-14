@@ -22,59 +22,14 @@
 package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
-
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Role;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.RoleSet;
 
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class AssociationSet extends SDMSet<Association> implements org.sdmlib.models.modelsets.ModelSet
 {
-   public RoleSet getSource()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Association obj : this)
-      {
-         result.add(obj.getSource());
-      }
-      
-      return result;
-   }
-   public AssociationSet withSource(Role value)
-   {
-      for (Association obj : this)
-      {
-         obj.withSource(value);
-      }
-      
-      return this;
-   }
-
-   public RoleSet getTarget()
-   {
-      RoleSet result = new RoleSet();
-      
-      for (Association obj : this)
-      {
-         result.add(obj.getTarget());
-      }
-      
-      return result;
-   }
-   public AssociationSet withTarget(Role value)
-   {
-      for (Association obj : this)
-      {
-         obj.withTarget(value);
-      }
-      
-      return this;
-   }
-
    @Override
    public String toString()
    {
@@ -154,7 +109,7 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
    {
       for (Association obj : this)
       {
-         obj.withName(value);
+         obj.with(value);
       }
       
       return this;
@@ -175,26 +130,4 @@ public class AssociationSet extends SDMSet<Association> implements org.sdmlib.mo
       
       return result;
    }
-   
-   
-   /**
-    * Removes every association from the current model and deletes
-    * the generated code from the model and util classes.<br> 
-    * This includes the set, creator and pattern object classes, that are associated with the associations.
-    * 
-    * 
-    * @param rootDir root directory, where the code of the associations is located
-    */
-   public void removeFromModelAndCode(String rootDir) {
-
-	   SimpleSet<Association> clone = this.clone();
-	   
-	   for (Association association : clone) {
-		
-		   association.removeFromModelAndCode(rootDir);
-		   
-	   }
-	   
-   }
-
 }

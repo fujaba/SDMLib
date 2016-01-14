@@ -23,8 +23,9 @@ package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.models.modelsets.SDMSet;
+
+import de.uniks.networkparser.graph.Modifier;
 
 public class ModifierSet extends SDMSet<Modifier>
 {

@@ -21,9 +21,7 @@
    
 package org.sdmlib.replication;
 
-import org.sdmlib.replication.BoardTask;
-
-   /**
+/**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
 */

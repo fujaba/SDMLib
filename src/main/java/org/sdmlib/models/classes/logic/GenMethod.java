@@ -3,39 +3,42 @@ package org.sdmlib.models.classes.logic;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.Annotation;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Modifier;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Clazz.ClazzType;
+import de.uniks.networkparser.graph.GraphUtil;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class GenMethod extends Generator<Method>
 {
-   public GenMethod generate(Clazz clazz, String rootDir, String helpersDir)
+   public GenMethod generateClazz(Clazz clazz, String rootDir, String helpersDir)
    {
       // get parser from class
-      GenClass generator = clazz.getClassModel().getGenerator().getOrCreate(clazz);
-      Parser parser = clazz.getClassModel().getGenerator().getOrCreate(clazz).getOrCreateParser(rootDir);
+	   ClassModel clazzModel =(ClassModel) clazz.getClassModel();
+      GenClass generator = clazzModel.getGenerator().getOrCreateClazz(clazz);
+      Parser parser = clazzModel.getGenerator().getOrCreateClazz(clazz).getOrCreateParser(rootDir);
 
-      insertMethodDecl(clazz, parser);
-
-      for (Annotation annotation : model.getAnnotations())
-      {
-         getGenerator(annotation).generate(rootDir, helpersDir);
+      insertMethodDeclClazz(clazz, parser);
+      
+      
+      for(Annotation annotation : GraphUtil.getAnnotations(model)) {
+    	  getGenerator(annotation).generate(rootDir, helpersDir);
       }
-
       // insertCaseInGenericGetSet(parser);
 
       Parser modelSetParser = generator.getOrCreateParserForModelSetFile(helpersDir);
       insertMethodInModelSet(clazz, modelSetParser);
       generator.printFile(modelSetParser);
 
-      if (model.getClazz().getClassModel().hasFeature(Feature.PatternObject)) {
+      if (clazzModel.hasFeature(Feature.PatternObject)) {
 	      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
 	      insertMethodInPatternObject(clazz, patternObjectParser);
 	      generator.printFile(patternObjectParser);
@@ -44,27 +47,28 @@ public class GenMethod extends Generator<Method>
       return this;
    }
 
-   public GenMethod generate(Enumeration enumeration, String rootDir, String helpersDir)
+   public GenMethod generateEnum(Clazz enumeration, String rootDir, String helpersDir)
    {
       // get parser from class
-      GenEnumeration genEnumeration = enumeration.getClassModel().getGenerator().getOrCreate(enumeration);
+	   ClassModel clazzModel =(ClassModel) enumeration.getClassModel();
+
+      GenEnumeration genEnumeration = ((ClassModel) clazzModel).getGenerator().getOrCreateEnum(enumeration);
       Parser parser = genEnumeration.getOrCreateParser(rootDir);
 
-      insertMethodDecl(enumeration, parser);
+      insertMethodDeclEnum(enumeration, parser);
 
       return this;
    }
 
-   private void insertMethodDecl(Enumeration enumeration, Parser parser)
+   private void insertMethodDeclEnum(Clazz enumeration, Parser parser)
    {
-      String signature = model.getSignature(false);
+      String signature = model.getName(true);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
-      enumeration.getClassModel().getGenerator().getOrCreate(enumeration);
+      ((ClassModel) enumeration.getClassModel()).getGenerator().getOrCreateEnum(enumeration);
       if (pos < 0)
       {
-         signature = model.getSignature(true);
          StringBuilder text = new StringBuilder
                ("\n   " +
                   "\n   //==========================================================================" +
@@ -79,11 +83,11 @@ public class GenMethod extends Generator<Method>
          String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
          String returnClause = "";
 
-         if ("int float double".indexOf(model.getReturnType().getValue()) >= 0)
+         if ("int float double".indexOf(model.getReturnType().getName(false)) >= 0)
          {
             returnClause = "return 0;";
          }
-         else if ("void".indexOf(model.getReturnType().getValue()) >= 0)
+         else if ("void".indexOf(model.getReturnType().getName(false)) >= 0)
          {
             returnClause = "";
          }
@@ -91,12 +95,12 @@ public class GenMethod extends Generator<Method>
          {
             returnClause = "return null;";
          }
-         String returnType = model.getReturnType().getValue();
+         String returnType = model.getReturnType().getName(false);
 
          if (returnType.contains("."))
             returnType = returnType.substring(returnType.lastIndexOf(".") + 1);
          CGUtil.replaceAll(text,
-            "modifiers", model.getModifier().getValue(),
+            "modifiers", model.getModifier().getName(),
             "returnType", returnType,
             "mehodName", methodName,
             "parameter", parameter,
@@ -105,7 +109,7 @@ public class GenMethod extends Generator<Method>
          pos = parser.indexOf(Parser.CLASS_END);
          parser.insert(pos, text.toString());
       }
-      String signatureSimple = model.getSignature(false);
+      String signatureSimple = model.getName(false);
       pos = parser.indexOf(Parser.METHOD + ":" + signatureSimple);
       symTabEntry = parser.getSymTab().get(string);
       // in case of a method body, remove old method
@@ -118,23 +122,23 @@ public class GenMethod extends Generator<Method>
       }
    }
 
-   private void insertMethodDecl(Clazz clazz, Parser parser)
+   private void insertMethodDeclClazz(Clazz clazz, Parser parser)
    {
-      String signature = model.getSignature(false);
+      String signature = model.getName(true);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
-      clazz.getClassModel().getGenerator().getOrCreate(clazz);
+      ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreateClazz(clazz);
       if (pos < 0)
       {
-         signature = model.getSignature(true);
+         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("\n   " +
                   "\n   //==========================================================================" +
                   "\n   modifiers returnType mehodName( parameter )");
 
-         if (clazz.isInterface() || model.getModifier().has(Modifier.ABSTRACT))
+         if (GraphUtil.isInterface(clazz) || model.getModifier().has(Modifier.ABSTRACT))
          {
             text.append(";\n");
          }
@@ -154,15 +158,15 @@ public class GenMethod extends Generator<Method>
 
          String returnClause = "";
 
-         if ("int float double".indexOf(model.getReturnType().getValue()) >= 0)
+         if ("int float double".indexOf(model.getReturnType().getName(false)) >= 0)
          {
             returnClause = "return 0;";
          }
-         else if ("boolean".indexOf(model.getReturnType().getValue()) >= 0)
+         else if ("boolean".indexOf(model.getReturnType().getName(false)) >= 0)
          {
             returnClause = "return false;";
          }
-         else if ("void".indexOf(model.getReturnType().getValue()) >= 0)
+         else if ("void".indexOf(model.getReturnType().getName(false)) >= 0)
          {
             returnClause = "";
          }
@@ -171,11 +175,11 @@ public class GenMethod extends Generator<Method>
             returnClause = "return null;";
          }
 
-         String returnType = model.getReturnType().getValue();
+         String returnType = model.getReturnType().getName(false);
          if (returnType.contains("."))
             returnType = returnType.substring(returnType.lastIndexOf(".") + 1);
          CGUtil.replaceAll(text,
-            "modifiers", model.getModifier().getValue(),
+            "modifiers", model.getModifier().getName(),
             "returnType", returnType,
             "mehodName", methodName,
             "parameter", parameter,
@@ -187,7 +191,7 @@ public class GenMethod extends Generator<Method>
          parser.insert(pos, text.toString());
       }
 
-      String signatureSimple = model.getSignature(false);
+      String signatureSimple = model.getName(false);
       pos = parser.indexOf(Parser.METHOD + ":" + signatureSimple);
 
       symTabEntry = parser.getSymTab().get(string);
@@ -215,8 +219,14 @@ public class GenMethod extends Generator<Method>
 
    public void generate(String rootDir, String helpersDir)
    {
-      if (model.getClazz() != null)
-         generate(model.getClazz(), rootDir, helpersDir);
+      if (model.getClazz() != null) {
+    	  if(model.getClazz().getType()==ClazzType.CLAZZ) {
+    		  generateClazz(model.getClazz(), rootDir, helpersDir);
+    	  } else if(model.getClazz().getType()==ClazzType.ENUMERATION) {
+    		  generateEnum(model.getClazz(), rootDir, helpersDir);
+    	  }
+      }
+         
    }
 
    private void insertMethodInModelSet(Clazz clazz2, Parser parser)
@@ -225,12 +235,11 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      String signature = model.getSignature(false);
+      String signature = model.getName(true);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
       {
-         signature = model.getSignature(true);
          StringBuilder text = new StringBuilder
                ("   " +
                   "\n   //==========================================================================" +
@@ -247,38 +256,16 @@ public class GenMethod extends Generator<Method>
                   "\n\n"
                );
 
-         String methodName = signature.substring(0, signature.indexOf("("));
-
-         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
-
-         String formalParameter = "";
-         String actualParameter = "";
-
-         String[] parameters = parameterSig.split("\\s*,\\s*");
-
-         if (!(parameters.length == 1 && parameters[0].isEmpty()))
-         {
-            for (int i = 0; i < parameters.length; i++)
-            {
-               String[] item = parameters[i].split(" ");
-
-               formalParameter += item[0] + " " + item[1];
-               actualParameter += item[1];
-
-               if (i + 1 < parameters.length)
-               {
-                  formalParameter += ", ";
-                  actualParameter += ", ";
-               }
-            }
-         }
+         StringBuilder formalParameter = new StringBuilder();
+         StringBuilder actualParameter = new StringBuilder();
+         calculateParameters(parser, formalParameter, actualParameter);
 
          String returnSetCreate = "";
          String returnSetAdd = "";
          String returnSetAddEnd = "";
          String returnStat = "return this;";
 
-         String type = model.getReturnType().getValue();
+         String type = model.getReturnType().getName(false);
          if (type == null)
          {
             type = "void";
@@ -290,7 +277,7 @@ public class GenMethod extends Generator<Method>
          String importType = type;
          if ("void".equals(type))
          {
-            type = CGUtil.shortClassName(clazz2.getFullName()) + "Set";
+            type =  clazz2.getName(true) + "Set";
          }
          else
          {
@@ -307,7 +294,7 @@ public class GenMethod extends Generator<Method>
             else
             {
                type = type + "Set";
-               importType = model.getClazz().getFullName();
+               importType = model.getClazz().getName(false);
                int dotpos = importType.lastIndexOf('.');
                int typePos = type.lastIndexOf('.');
                type = type.substring(typePos + 1);
@@ -333,18 +320,40 @@ public class GenMethod extends Generator<Method>
             "returnSetAdd ", returnSetAdd,
             " returnSetAddEnd", returnSetAddEnd,
             "returnStat", returnStat,
-            "modifiers", model.getModifier().getValue(),
+            "modifiers", model.getModifier().getName(),
             "returnType", type,
-            "methodName", methodName,
-            "memberType", CGUtil.shortClassName(clazz2.getFullName()),
-            "formalParameter", formalParameter,
-            "actualParameter", actualParameter
+            "methodName", model.getName(),
+            "memberType", clazz2.getName(true),
+            "formalParameter", formalParameter.toString(),
+            "actualParameter", actualParameter.toString()
             );
 
          pos = parser.indexOf(Parser.CLASS_END);
 
          parser.insert(pos, text.toString());
       }
+   }
+   
+   private void calculateParameters(Parser parser, StringBuilder formalParameter, StringBuilder actualParameter) {
+       int i=0;
+       SimpleSet<Parameter> parameters = model.getParameter();
+       for(Parameter param : parameters) {
+      	 formalParameter.append(param.getType(true)).append(" ");
+      	 String name = "";
+      	 if (param.getName() != null) {
+      		 name = param.getName().trim();
+      	 }
+      	 if (name == "") {
+      		 name = "p" + (i++);
+      	 }
+      	 formalParameter.append(name);
+      	 parser.insertImport(param.getType(false)); 
+           actualParameter.append(name);
+           if (i + 1 < parameters.size()) {
+          	 formalParameter.append(", ");
+               actualParameter.append(", ");
+           }
+       }
    }
 
    private void insertMethodInPatternObject(Clazz clazz2, Parser parser)
@@ -353,7 +362,7 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      String signature = model.getSignature(false);
+      String signature = model.getName(true);
 
       String key = Parser.METHOD + ":" + signature;
 
@@ -361,7 +370,7 @@ public class GenMethod extends Generator<Method>
 
       if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
       {
-         signature = model.getSignature(true);
+//         signature = model.getName(true);
          StringBuilder text = new StringBuilder
                ("   " +
                   "\n   //==========================================================================" +
@@ -377,36 +386,16 @@ public class GenMethod extends Generator<Method>
                   "\n\n"
                );
 
-         String methodName = signature.substring(0, signature.indexOf("("));
-
-         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
-
-         String formalParameter = "";
-         String actualParameter = "";
-
-         String[] parameters = parameterSig.split("\\s*,\\s*");
-
-         if (!(parameters.length == 1 && parameters[0].isEmpty()))
-         {
-            for (int i = 0; i < parameters.length; i++)
-            {
-               String[] item = parameters[i].split(" ");
-
-               formalParameter += item[0] + " " + item[1];
-               actualParameter += item[1];
-
-               if (i + 1 < parameters.length)
-               {
-                  formalParameter += ", ";
-                  actualParameter += ", ";
-               }
-            }
-         }
-
+//         String methodName = signature.substring(0, signature.indexOf("("));
+//         String parameterSig = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
+  	   StringBuilder formalParameter = new StringBuilder();
+       StringBuilder actualParameter = new StringBuilder();
+       calculateParameters(parser, formalParameter, actualParameter);
+        
          String returnStart = "";
          String returnStat = "";
 
-         String type = model.getReturnType().getValue();
+         String type = model.getReturnType().getName(false);
          if (type == null)
          {
             type = "void";
@@ -415,14 +404,10 @@ public class GenMethod extends Generator<Method>
          {
             type = type.substring(0, type.length() - 2);
          }
-         String importType = type;
          if(type.indexOf(".")<0 && type.equals(model.getClazz().getName())) {
-        	 type = model.getClazz().getFullName();
+        	 type = model.getClazz().getName(false);
          }
-         if (!("Object".indexOf(type) >= 0))
-         {
-        	 parser.insertImport(importType); 
-         }
+        parser.insertImport(type); 
 
          if (!"void".equals(type))
          {
@@ -446,10 +431,10 @@ public class GenMethod extends Generator<Method>
             "returnStart", returnStart,
             "      returnStat\n", returnStat,
             "returnType", type,
-            "methodName", methodName,
-            "memberType", CGUtil.shortClassName(clazz2.getFullName()),
-            "formalParameter", formalParameter,
-            "actualParameter", actualParameter
+            "methodName", model.getName(),
+            "memberType", clazz2.getName(true),
+            "formalParameter", formalParameter.toString(),
+            "actualParameter", actualParameter.toString()
             );
 
          pos = parser.indexOf(Parser.CLASS_END);
@@ -470,27 +455,27 @@ public class GenMethod extends Generator<Method>
 	   
 	   Parser parser = genClass.getParser();	   
    
-	   String methodName = StrUtil.upFirstChar(this.getModel().getName());
+//	   String methodName = StrUtil.upFirstChar(this.getModel().getName());
 	   
-	   genClass.removeFragment(parser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   genClass.removeFragment(parser, Parser.METHOD + ":" + this.getModel().getName(false));
 	   
 	   CGUtil.printFile(parser);
 	   
 	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   genClass.removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getName(false));
 	   
 	   CGUtil.printFile(poParser);
 	   
 	   Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
 	   
-	   genClass.removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getSignature(false));
+	   genClass.removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getName(false));
 	   
 	   CGUtil.printFile(setParser);
    }
 	@Override
 	ClassModel getClazz() {
-		return this.getModel().getClazz().getClassModel();
+		return (ClassModel) this.getModel().getClazz().getClassModel();
 	}
 
 }

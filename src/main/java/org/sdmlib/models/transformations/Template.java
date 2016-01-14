@@ -859,7 +859,7 @@ import java.lang.Object;
 
             JsonIdMap newIdMap = (JsonIdMap) method.invoke(null, "debug");
 
-            idMap.withCreator(newIdMap);
+            idMap.with(newIdMap);
          }
       }
       catch (Exception e)

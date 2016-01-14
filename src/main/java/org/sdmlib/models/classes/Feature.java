@@ -2,6 +2,8 @@ package org.sdmlib.models.classes;
 
 import java.util.HashSet;
 
+import de.uniks.networkparser.graph.Clazz;
+
 public enum Feature
 {
    PropertyChangeSupport(new FeatureProperty()),
@@ -56,7 +58,7 @@ public enum Feature
 
 
 	public boolean match(Clazz clazz) {
-		return getFeature().match(clazz.getFullName());
+		return getFeature().match(clazz.getName(false));
 	}
 
 

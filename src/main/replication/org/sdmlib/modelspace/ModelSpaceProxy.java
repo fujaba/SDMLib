@@ -21,16 +21,15 @@
    
 package org.sdmlib.modelspace;
 
-import org.sdmlib.replication.ChangeEvent;
-import org.sdmlib.replication.ChangeEventList;
-import org.sdmlib.serialization.PropertyChangeInterface;
-
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.modelspace.util.ModelCloudProxySet;
+import org.sdmlib.replication.ChangeEvent;
+import org.sdmlib.replication.ChangeEventList;
+import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonObject;
    /**

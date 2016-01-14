@@ -23,41 +23,34 @@ package org.sdmlib.models.classes.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.modelsets.DataTypeSet;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.classes.util.ClazzSet;
-import org.sdmlib.models.modelsets.ObjectSet;
 
-import java.util.Collections;
-
-import org.sdmlib.models.classes.util.AnnotationSet;
-import org.sdmlib.models.classes.Annotation;
-
-import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class AttributeSet extends SDMSet<Attribute>
 {
-   public StringList getInitialization()
+   public StringList getValue()
    {
       StringList result = new StringList();
       
       for (Attribute obj : this)
       {
-         result.add(obj.getInitialization());
+         result.add(obj.getValue());
       }
       
       return result;
    }
 
-   public AttributeSet withInitialization(String value)
+   public AttributeSet withValue(String value)
    {
       for (Attribute obj : this)
       {
-         obj.setInitialization(value);
+         obj.withValue(value);
       }
       
       return this;
@@ -134,7 +127,7 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.setType(value);
+         obj.with(value);
       }
       
       return this;
@@ -156,7 +149,7 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.withName(value);
+         obj.with(value);
       }
       
       return this;
@@ -184,43 +177,17 @@ public class AttributeSet extends SDMSet<Attribute>
       
       for (Attribute obj : this)
       {
-         result.addAll(obj.getAnnotations());
+         result.add(obj.getAnnotation());
       }
       
       return result;
-   }
-
-   public AttributeSet hasAnnotations(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AttributeSet answer = new AttributeSet();
-      
-      for (Attribute obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getAnnotations()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
    }
 
    public AttributeSet withAnnotations(Annotation value)
    {
       for (Attribute obj : this)
       {
-         obj.withAnnotation(value);
+         obj.with(value);
       }
       
       return this;
@@ -230,7 +197,7 @@ public class AttributeSet extends SDMSet<Attribute>
    {
       for (Attribute obj : this)
       {
-         obj.withoutAnnotation(value);
+         obj.without(value);
       }
       
       return this;
@@ -241,7 +208,7 @@ public class AttributeSet extends SDMSet<Attribute>
       
       for (Attribute obj : this)
       {
-         if (value.equals(obj.getInitialization()))
+         if (value.equals(obj.getValue()))
          {
             result.add(obj);
          }
@@ -256,7 +223,7 @@ public class AttributeSet extends SDMSet<Attribute>
       
       for (Attribute obj : this)
       {
-         if (lower.compareTo(obj.getInitialization()) <= 0 && obj.getInitialization().compareTo(upper) <= 0)
+         if (lower.compareTo(obj.getValue()) <= 0 && obj.getValue().compareTo(upper) <= 0)
          {
             result.add(obj);
          }
@@ -309,26 +276,4 @@ public class AttributeSet extends SDMSet<Attribute>
       
       return result;
    }
-
-   /**
-    * Removes every attribute from the current model and deletes
-    * the generated code from the model and util classes.<br> 
-    * This includes the set, creator and pattern object classes, that are associated with the attributes.
-    * 
-    * 
-    * @param rootDir root directory, where the code of the attributes is located
-    */
-   
-   public void removeFromModelAndCode(String rootDir) {
-
-	   SimpleSet<Attribute> clone = this.clone();
-	   
-	   for (Attribute attribute : clone) {
-
-		   attribute.removeFromModelAndCode(rootDir);
-
-	   }
-
-   }
-
 }

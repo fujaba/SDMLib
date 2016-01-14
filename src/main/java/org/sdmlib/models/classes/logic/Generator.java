@@ -1,11 +1,14 @@
 package org.sdmlib.models.classes.logic;
 
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.AnnotationOwner;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.Method;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphEntity;
+import de.uniks.networkparser.graph.GraphMember;
+import de.uniks.networkparser.graph.Method;
 
 public abstract class Generator<M>
 {
@@ -43,15 +46,20 @@ public abstract class Generator<M>
 
    public GenAnnotation getGenerator(Annotation annotation)
    {
-	   AnnotationOwner owner = annotation.getOwner();
+	   GraphMember owner = annotation.getParent();
+	   Clazz clazz = null;
 	   if(owner instanceof Clazz) {
-         return ((Clazz)owner).getClassModel().getGenerator().getOrCreate(annotation);
+		   clazz = ((Clazz)owner);
       }
       if (owner instanceof Method) {
-         return ((Method)owner).getClazz().getClassModel().getGenerator().getOrCreate(annotation);
+    	  clazz = ((Method)owner).getClazz();
       }
       if (owner instanceof Attribute) {
-         return ((Attribute)owner).getClazz().getClassModel().getGenerator().getOrCreate(annotation);
+    	  clazz = ((Attribute)owner).getClazz();
+      }
+      if(clazz != null) {
+    	  ClassModel model = (ClassModel) clazz.getClassModel();
+    	  return model.getGenerator().getOrCreate(annotation);
       }
       return null;
    }
@@ -59,7 +67,8 @@ public abstract class Generator<M>
    
    public GenClass getGenerator(Clazz clazz)
    {
-      return clazz.getClassModel().getGenerator().getOrCreate(clazz);
+	   ClassModel model = (ClassModel) clazz.getClassModel();
+      return model.getGenerator().getOrCreateClazz(clazz);
    }
    
    public GenClass getGenerator(Generator<?> generator, String name)
@@ -71,13 +80,22 @@ public abstract class Generator<M>
    {
       if (method.getClazz() != null)
       {
-         return method.getClazz().getClassModel().getGenerator().getOrCreate(method);
-      }
+			ClassModel model = (ClassModel) method.getClazz().getClassModel();
+			return model.getGenerator().getOrCreate(method);
+	      }
       return null;
    }
 
    public GenAttribute getGenerator(Attribute attribute)
    {
-      return attribute.getClazz().getClassModel().getGenerator().getOrCreate(attribute);
+ 	  ClassModel model = (ClassModel) attribute.getClazz().getClassModel();
+      return model.getGenerator().getOrCreate(attribute);
+   }
+   
+   public GenAssociation getGenerator(Association assoc)
+   {
+	   Clazz clazz = (Clazz) assoc.getClazz();
+ 	  ClassModel model = (ClassModel)clazz.getClassModel();
+      return model.getGenerator().getOrCreate(assoc);
    }
 }

@@ -46,7 +46,7 @@ public class Specific2Generic
       LinkedHashSet<String> knownLinks = new LinkedHashSet<String>();
       
       MyUpdateListener changeListener = new MyUpdateListener();
-      idMap.withUpdateListenerSend(changeListener);
+      idMap.with(changeListener);
       
       // we go via a json array
       JsonArray jsonArray = idMap.toJsonArray(root);

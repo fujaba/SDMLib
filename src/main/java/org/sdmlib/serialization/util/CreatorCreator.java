@@ -10,10 +10,10 @@ class CreatorCreator{
    {
       JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.withCreator(new org.sdmlib.serialization.util.JsonIdMapCreator());
-      jsonIdMap.withCreator(new org.sdmlib.serialization.util.JsonIdMapPOCreator());
-      jsonIdMap.withCreator(new org.sdmlib.serialization.util.SDMLibJsonIdMapCreator());
-      jsonIdMap.withCreator(new org.sdmlib.serialization.util.SDMLibJsonIdMapPOCreator());
+      jsonIdMap.with(new org.sdmlib.serialization.util.JsonIdMapCreator());
+      jsonIdMap.with(new org.sdmlib.serialization.util.JsonIdMapPOCreator());
+      jsonIdMap.with(new org.sdmlib.serialization.util.SDMLibJsonIdMapCreator());
+      jsonIdMap.with(new org.sdmlib.serialization.util.SDMLibJsonIdMapPOCreator());
       
       return jsonIdMap;
    }

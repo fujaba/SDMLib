@@ -2,8 +2,10 @@ package org.sdmlib.models.classes;
 
 import java.util.HashSet;
 
+import de.uniks.networkparser.graph.Clazz;
+
 public class FeatureProperty {
-	public static final Clazz ALL = new Clazz("*");
+	public static final Clazz ALL = new Clazz().with("*");
 	private HashSet<Clazz> includeClazz = new HashSet<Clazz>();
 	private HashSet<Clazz> excludeClazz = new HashSet<Clazz>();
 	private HashSet<String> path = new HashSet<String>();
@@ -19,10 +21,10 @@ public class FeatureProperty {
 			if(item == null) {
 				continue;
 			}
-			if(ALL.getFullName().equals(item.getFullName())) {
+			if(ALL.getName(false).equals(item.getName(false))) {
 				result = true;
 				break;
-			} else if(item.getFullName().equals(clazzName)) {
+			} else if(item.getName(false).equals(clazzName)) {
 				result = true;
 				break;
 			}
@@ -32,10 +34,10 @@ public class FeatureProperty {
 			if(item == null) {
 				continue;
 			}
-			if(ALL.getFullName().equals(item.getFullName())) {
+			if(ALL.getName(false).equals(item.getName(false))) {
 				result = false;
 				break;
-			} else if(item.getFullName().equals(clazzName)) {
+			} else if(item.getName(false).equals(clazzName)) {
 				result = false;
 				break;
 			}
@@ -61,7 +63,7 @@ public class FeatureProperty {
 		}
 		for(String item : value) {
 			if(item != null) {
-				excludeClazz.add(new Clazz(item));
+				excludeClazz.add(new Clazz().with(item));
 			}
 		}
 		
@@ -78,7 +80,7 @@ public class FeatureProperty {
 		}
 		for(String item : value) {
 			if(item != null) {
-				includeClazz.add(new Clazz(item));
+				includeClazz.add(new Clazz().with(item));
 			}
 		}
 		

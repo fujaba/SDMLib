@@ -12,8 +12,6 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.management.RuntimeErrorException;
-
 import org.sdmlib.replication.ChangeEvent;
 
 import de.uniks.networkparser.json.JsonObject;

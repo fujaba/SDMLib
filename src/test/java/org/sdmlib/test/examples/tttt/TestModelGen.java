@@ -3,16 +3,17 @@ package org.sdmlib.test.examples.tttt;
 
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Annotation;
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Modifier;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.classes.SetDataType;
+
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.graph.SetDataType;
 
 
 public class TestModelGen {
@@ -22,18 +23,18 @@ public class TestModelGen {
 		Clazz uni = model.createClazz("Uni");
 		Method createMethod = uni.createMethod("create", new Parameter(SetDataType.ref(uni)));
 		createMethod.with(Modifier.STATIC);
-		createMethod.withAnnotation(Annotation.createDeprecatedAnnotation());
+		createMethod.with(Annotation.DEPRECATED);
 		Attribute nameAttr = uni.createAttribute("name", DataType.STRING);
 		nameAttr.with(Modifier.STATIC);
 		Clazz person = model.createClazz("Person");
-		person.withAttribute("name", DataType.STRING);
+		person.createAttribute("name", DataType.STRING);
 //		Clazz student = model.createClazz("Student").withSuperClazz(person);
 		Clazz prof = model.createClazz("Prof").withSuperClazz(person);
 
 		Method doitMethod = person.createMethod("doit");
 		person.withInterface(true);
 		
-		uni.withAssoc(person, "has", Card.MANY, "owner", Card.ONE);
+		uni.withAssoc(person, "has", Cardinality.MANY, "owner", Cardinality.ONE);
 		
 //		model.generate("src/test/java");
 //		

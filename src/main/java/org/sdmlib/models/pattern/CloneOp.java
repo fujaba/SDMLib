@@ -52,8 +52,8 @@ import de.uniks.networkparser.json.JsonIdMap;
             this.setHasMatch(true);
             
             origMap = this.getPattern().getJsonIdMap();
-            origMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
-            cloneMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
+            origMap = (JsonIdMap) new JsonIdMap().with(origMap);
+            cloneMap = (JsonIdMap) new JsonIdMap().with(origMap);
             
             firstPO = (PatternObject) this.getPattern().getElements().first();
             

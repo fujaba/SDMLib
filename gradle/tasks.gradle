@@ -45,17 +45,33 @@ task fatJar(type: Jar) {
 }
 task compileJava17(type: JavaCompile) {
 	println "Compile 1.7"
-	source = fileTree(dir: 'src', exclude: ['**/gui/**', '**/test/**'])
+	source = fileTree(dir: 'src', exclude: ['**/gui/**', '**/test/**', '**/replication/**'])
 	destinationDir = file('build/classes/main17')
 	sourceCompatibility = '1.7'
 	targetCompatibility = '1.7'
 	classpath = fileTree(dir: 'build/allLibs', include: '*.jar')
 }
+
+compileJava {
+	source = fileTree(dir: 'src/main/java').matching { exclude '**/test/**' }
+}
+compileTestJava {
+	source = fileTree(dir: 'src/main/java').matching { exclude '**/test/**' }
+}
+
 //classes.dependsOn compileJava17
 compileJava.dependsOn compileJava17
 compileJava17.dependsOn copyAllDependencies
 
-
+task SDMLibGenerator(type: JavaCompile, dependsOn: test) {
+	println "Compile Generation"
+	source = fileTree(dir: 'gen')
+	destinationDir = file('build/classes/gen')
+	sourceCompatibility = '1.7'
+	targetCompatibility = '1.7'
+	classpath = fileTree(dir: 'build/allLibs', include: '*.jar')
+	classpath += files("bin") 
+}
 
 task coreJar17(type: Jar) {
 	from fileTree(dir: 'build/classes/main17'); classifier = 'core17'

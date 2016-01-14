@@ -1,15 +1,14 @@
 package org.sdmlib.replication;
 
 import java.beans.PropertyChangeEvent;
-import static org.junit.Assert.*;
 import java.net.Socket;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.Storyboard;
+
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 // 
 public class ReplicationModel

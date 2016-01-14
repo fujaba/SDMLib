@@ -6,8 +6,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.interfaces.UpdateListener;
-
 public class MinSharedSpace extends Thread implements PropertyChangeInterface
 {
    private LinkedBlockingQueue<String> msgQueue = new LinkedBlockingQueue<String>();
