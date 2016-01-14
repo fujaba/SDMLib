@@ -29,7 +29,7 @@ import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.GraphImport;
+import de.uniks.networkparser.graph.ClazzImport;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
@@ -179,7 +179,7 @@ public class GenClass extends Generator<Clazz>
 
    private void insertImports()
    {
-      for (GraphImport importClazz : model.getImports())
+      for (ClazzImport importClazz : model.getImports())
       {
          insertImport(importClazz.getName());
       }

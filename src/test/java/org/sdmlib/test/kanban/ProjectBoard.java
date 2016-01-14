@@ -21,18 +21,15 @@
 
 package org.sdmlib.test.kanban;
 
-import java.util.LinkedHashMap;
-
 import org.junit.Test;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Role;
-import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardWall;
+
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class ProjectBoard
 {
@@ -59,10 +56,10 @@ public class ProjectBoard
 
       Clazz logEntryClass = model.createClazz("LogEntryStoryBoard");
 
-      new Association()
-      .withSource(new Role(kanbanEntryClass, "kanbanEntry", Card.ONE).withKind(Role.AGGREGATION))
-      .withTarget(logEntryClass, "logEntries", Card.MANY);
-
+      new Association().with(kanbanEntryClass).with("kanbanEntry").with(Cardinality.ONE)
+      	.with(AssociationTypes.AGGREGATION)
+      	.with(new Association().with(logEntryClass).with("logEntries").with(Cardinality.MANY));
+      
       Clazz storyboardWallClass = model.createClazz("StoryboardWall");
 
       Clazz storyboardClass = model.createClazz(Storyboard.class.getName()) 
@@ -70,12 +67,12 @@ public class ProjectBoard
             .withAttribute("stepCounter", DataType.INT) 
             .withAttribute("stepDoneCounter", DataType.INT);
 
-      storyboardWallClass.withAssoc(storyboardClass, "storyboard", Card.ONE, "wall", Card.ONE);
+      storyboardWallClass.withBidirectional(storyboardClass, "storyboard", Cardinality.ONE, "wall", Cardinality.ONE);
 
       Clazz storyboardStepClass = model.createClazz("StoryboardStep")
             .withAttribute("text", DataType.STRING);
 
-      storyboardClass.withAssoc(storyboardStepClass, "storyboardSteps", Card.MANY, "storyboard", Card.ONE);
+      storyboardClass.withBidirectional(storyboardStepClass, "storyboardSteps", Cardinality.MANY, "storyboard", Cardinality.ONE);
 
       story.addClassDiagram(model);
 

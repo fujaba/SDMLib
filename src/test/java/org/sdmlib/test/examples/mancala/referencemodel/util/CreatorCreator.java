@@ -10,29 +10,8 @@ class CreatorCreator{
    {
       JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.referencemodel.util.ColorCreator());
-      jsonIdMap.withCreator(new org.sdmlib.test.examples.mancala.referencemodel.util.ColorPOCreator());
-
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
-      jsonIdMap.withCreator(new ColorCreator());
-      jsonIdMap.withCreator(new ColorPOCreator());
+      jsonIdMap.with(new ColorCreator());
+      jsonIdMap.with(new ColorPOCreator());
       return jsonIdMap;
    }
 }

@@ -21,12 +21,14 @@
    
 package org.sdmlib.test.examples.modelcouch;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.test.examples.modelcouch.util.TaskSet;
-import org.sdmlib.test.examples.modelcouch.util.PersonSet;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.test.examples.modelcouch.util.DocumentDataSet;
+import org.sdmlib.test.examples.modelcouch.util.PersonSet;
+import org.sdmlib.test.examples.modelcouch.util.TaskSet;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/examples/modelcouch/BasicModel.java'>BasicModel.java</a>

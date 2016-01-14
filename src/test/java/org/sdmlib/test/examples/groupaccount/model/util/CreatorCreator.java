@@ -10,12 +10,12 @@ class CreatorCreator{
    {
       JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.withCreator(new GroupAccountCreator());
-      jsonIdMap.withCreator(new GroupAccountPOCreator());
-      jsonIdMap.withCreator(new PersonCreator());
-      jsonIdMap.withCreator(new PersonPOCreator());
-      jsonIdMap.withCreator(new ItemCreator());
-      jsonIdMap.withCreator(new ItemPOCreator());
+      jsonIdMap.with(new GroupAccountCreator());
+      jsonIdMap.with(new GroupAccountPOCreator());
+      jsonIdMap.with(new PersonCreator());
+      jsonIdMap.with(new PersonPOCreator());
+      jsonIdMap.with(new ItemCreator());
+      jsonIdMap.with(new ItemPOCreator());
       
       return jsonIdMap;
    }

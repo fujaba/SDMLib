@@ -1,13 +1,14 @@
 package org.sdmlib.test.examples.gofpattern;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Modifier;
-import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.Parameter;
 
 public class StrategyModel
 {
@@ -30,10 +31,10 @@ public class StrategyModel
             .withAttribute("lastKey", DataType.CHAR)
             .withAttribute("shortTest", DataType.ref("short"))
             .withMethod("keyPress", DataType.VOID,
-               new Parameter("key", DataType.STRING));
+               new Parameter(DataType.STRING).with("key"));
 
       Clazz bStrategy = cm.createClazz("BombermanStrategy")
-            .withModifier(Modifier.ABSTRACT).withMethod("handleMove", DataType.VOID);
+            .with(Modifier.ABSTRACT).withMethod("handleMove", DataType.VOID);
 
       bStrategy.createKidClazz("MoveUp");
       bStrategy.createKidClazz("MoveDown");
@@ -42,8 +43,8 @@ public class StrategyModel
       bStrategy.createKidClazz("Blast");
       bStrategy.createKidClazz("Stay");
 
-      bStrategy.withAssoc(bStrategy, "successor", Card.ONE);
-      // bStrategy.withAssoc(bStrategy, "suc", Card.ONE, "pre", Card.ONE);
+      bStrategy.withUniDirectional(bStrategy, "successor", Cardinality.ONE);
+      // bStrategy.withBidirectional(bStrategy, "suc", Cardinality.ONE, "pre", Cardinality.ONE);
 
       // cm.removeAllGeneratedCode("src/test/java");
       cm.withAuthorName("zuendorf");

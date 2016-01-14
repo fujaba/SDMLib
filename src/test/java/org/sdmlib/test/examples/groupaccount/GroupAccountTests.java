@@ -31,8 +31,6 @@ import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
 import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
-
-import junit.framework.Assert;
    
 public class GroupAccountTests implements PropertyChangeInterface 
 {

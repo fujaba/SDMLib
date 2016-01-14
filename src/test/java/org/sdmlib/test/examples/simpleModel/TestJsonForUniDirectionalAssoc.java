@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.sdmlib.models.debug.FlipBook;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.StoryPage;
-import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.simpleModel.model.BigBrother;
 import org.sdmlib.test.examples.simpleModel.model.Person;
 import org.sdmlib.test.examples.simpleModel.model.util.BigBrotherCreator;

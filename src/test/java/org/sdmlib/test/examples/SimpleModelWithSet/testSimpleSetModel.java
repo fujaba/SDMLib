@@ -1,13 +1,14 @@
 package org.sdmlib.test.examples.SimpleModelWithSet;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Attribute;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.MapDataType;
-import org.sdmlib.models.classes.Method;
-import org.sdmlib.models.classes.Parameter;
+
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.DataTypeMap;
+import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Parameter;
 
 public class testSimpleSetModel {
 
@@ -17,9 +18,10 @@ public class testSimpleSetModel {
 		Clazz person = model.createClazz("Person");
 		Clazz child = model.createClazz("Child");
 //		person.with(new Attribute("prename", SetDataType.ref(DataType.STRING)));
-		person.withAttribute("name", MapDataType.ref(DataType.STRING, DataType.ref(person)));
+		person.withAttribute("name", DataTypeMap.ref(DataType.STRING, DataType.ref(person)));
 		
-		Method m1 = new Method("setParent", new Parameter("parent", DataType.ref(person)));
+		Method m1 = new Method("setParent"
+				).with(new Parameter(DataType.ref(person)).with("parent"));
 		m1.withBody("if (this.parent != parent) {\n"+
 					"if (this.parent != null) {\n"+
 					"}}");

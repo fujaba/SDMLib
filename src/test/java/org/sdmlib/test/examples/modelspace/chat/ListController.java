@@ -3,15 +3,14 @@ package org.sdmlib.test.examples.modelspace.chat;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javafx.application.Application;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import javafx.application.Application;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
 public class ListController implements PropertyChangeListener 

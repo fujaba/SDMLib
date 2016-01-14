@@ -1,16 +1,13 @@
 package org.sdmlib.test.examples.simpleEnumModel;
 
 
-import static org.sdmlib.models.classes.DataType.*;
-
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Enumeration;
-import org.sdmlib.models.classes.Parameter;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Parameter;
 
 public class SimpleClassModelWithEnumeration
 {
@@ -25,20 +22,20 @@ public class SimpleClassModelWithEnumeration
       StoryPage story = new StoryPage();
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleEnumModel.model");
       
-      Enumeration enumeration = model.createEnumeration("TEnum");
+      Clazz enumeration = model.createClazz("TEnum").enableEnumeration();
       enumeration.withValueNames("T1", "T2", "12", "T1000");
-      enumeration.withMethod("toString", STRING);
+      enumeration.withMethod("toString", DataType.STRING);
      
       Clazz alexClazz = model.createClazz("Alex");
-      alexClazz.withAttribute("Name", STRING);
+      alexClazz.withAttribute("Name", DataType.STRING);
           
       Clazz macClazz = model.createClazz("Mac");
-      macClazz.withAttribute("Name", STRING)
-      .withAttribute("type", enumeration)
-      .withAttribute("owner", alexClazz);
+      macClazz.withAttribute("Name", DataType.STRING)
+      .withAttribute("type", DataType.ref(enumeration))
+      .withAttribute("owner", DataType.ref(alexClazz));
       
-      macClazz.withMethod("concat", STRING, new Parameter("p1", INT));
-      macClazz.withMethod("select", enumeration, new Parameter("p1", INT));
+      macClazz.withMethod("concat", DataType.STRING, new Parameter(DataType.INT));
+      macClazz.withMethod("select", DataType.ref(enumeration), new Parameter(DataType.INT));
       
 //      model.getGenerator().withShowDiff(DIFF.FULL);
       model.generate("src/test/java");

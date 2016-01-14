@@ -1,30 +1,23 @@
 package org.sdmlib.test.examples.modelspace.chat;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupCreator;
+
+import de.uniks.networkparser.json.JsonIdMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import org.sdmlib.modelspace.ModelSpace;
-import org.sdmlib.modelspace.ModelSpace.ApplicationType;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatGroupCreator;
-
-import de.uniks.networkparser.json.JsonIdMap;
 
 public class MSChatGroupClient  extends Application
 {

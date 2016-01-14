@@ -1,19 +1,16 @@
 package org.sdmlib.test.examples.mancala;
 
 import java.awt.Point;
+import java.util.Enumeration;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.sdmlib.models.classes.Attribute;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Enumeration;
 import org.sdmlib.models.classes.Feature;
-import org.sdmlib.models.classes.Parameter;
-import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
 
 public class MancalaModel {
 
@@ -38,8 +35,8 @@ public class MancalaModel {
 
         Clazz player = model.createClazz("Player")
                 .withAttribute("name", DataType.STRING) //<5>
-                .withAssoc(mancala, "activeGame", Card.ONE, "activePlayer", Card.ONE) //<6>
-                .withAssoc(mancala, "game", Card.ONE, "players", Card.MANY)
+                .withBidirectional(mancala, "activeGame", Cardinality.ONE, "activePlayer", Cardinality.ONE) //<6>
+                .withBidirectional(mancala, "game", Cardinality.ONE, "players", Cardinality.MANY)
                 .withAttribute("state", DataType.ref(stateEnum))
                 .withAttribute("color", DataType.ref(Color.class));
 
@@ -51,18 +48,18 @@ public class MancalaModel {
         Clazz pit = model.createClazz("Pit")
                 .withAttribute("nr", DataType.INT)
                 .withMethod("moveStones")
-                .withAssoc(mancala, "game", Card.ONE, "pits", Card.MANY)
-                .withAssoc(player, "player", Card.ONE, "pits", Card.MANY);
+                .withBidirectional(mancala, "game", Cardinality.ONE, "pits", Cardinality.MANY)
+                .withBidirectional(player, "player", Cardinality.ONE, "pits", Cardinality.MANY);
 
-        pit.withAssoc(pit, "next", Card.ONE, "previous", Card.ONE)
-                .withAssoc(pit, "counterpart", Card.ONE, "counterpart", Card.ONE);
+        pit.withBidirectional(pit, "next", Cardinality.ONE, "previous", Cardinality.ONE)
+                .withBidirectional(pit, "counterpart", Cardinality.ONE, "counterpart", Cardinality.ONE);
 
         Clazz kalah = model.createClazz("Kalah")
                 .withSuperClazz(pit) //<10>
-                .withAssoc(player, "kalahPlayer", Card.ONE, "kalah", Card.ONE);
+                .withBidirectional(player, "kalahPlayer", Cardinality.ONE, "kalah", Cardinality.ONE);
 
         Clazz stone = model.createClazz("Stone")
-                .withAssoc(player, "player", Card.ONE, "stone", Card.ONE);
+                .withBidirectional(player, "player", Cardinality.ONE, "stone", Cardinality.ONE);
         
         Feature.Serialization.withPath("org.sdmlib.test.examples.mancala.referencemodel.util");
         Feature.Serialization.withExcludeClazz(stone);
@@ -94,35 +91,35 @@ public class MancalaModel {
       /* add method */
       .withMethod("moveStones", DataType.VOID);
 
-      pitClass.withAssoc(mancalaClass, "game", Card.ONE, "pits", Card.MANY);
+      pitClass.withBidirectional(mancalaClass, "game", Cardinality.ONE, "pits", Cardinality.MANY);
 
-      pitClass.withAssoc(pitClass, "next", Card.ONE, "previous", Card.ONE);
+      pitClass.withBidirectional(pitClass, "next", Cardinality.ONE, "previous", Cardinality.ONE);
 
-      pitClass.withAssoc(pitClass, "counterpart", Card.ONE, "counterpart", Card.ONE);
+      pitClass.withBidirectional(pitClass, "counterpart", Cardinality.ONE, "counterpart", Cardinality.ONE);
       
       
       Clazz playerClass = model.createClazz("org.sdmlib.test.examples.mancala.model.Player")
       .with(new Attribute("name", DataType.ref("String")) )
       .with(new Attribute("state", DataType.ref("PlayerState")) );
       /* add assoc */
-      playerClass.withAssoc(mancalaClass, "game", Card.ONE, "players", Card.MANY);
+      playerClass.withBidirectional(mancalaClass, "game", Cardinality.ONE, "players", Cardinality.MANY);
 
-      mancalaClass.withAssoc(playerClass, "activePlayer", Card.ONE, "game", Card.ONE);
+      mancalaClass.withBidirectional(playerClass, "activePlayer", Cardinality.ONE, "game", Cardinality.ONE);
 
-      pitClass.withAssoc(playerClass, "player", Card.ONE, "pits", Card.MANY);
+      pitClass.withBidirectional(playerClass, "player", Cardinality.ONE, "pits", Cardinality.MANY);
 
-      playerClass.withAssoc(mancalaClass, "activeGame", Card.ONE, "activePlayer", Card.ONE);
+      playerClass.withBidirectional(mancalaClass, "activeGame", Cardinality.ONE, "activePlayer", Cardinality.ONE);
 
       Clazz playerStateClass = model.createClazz("org.sdmlib.test.examples.mancala.model.PlayerState");
 
       Clazz stoneClass = model.createClazz("org.sdmlib.test.examples.mancala.model.Stone");
 
-      playerClass.withAssoc(stoneClass, "stone", Card.ONE, "player", Card.ONE);
+      playerClass.withBidirectional(stoneClass, "stone", Cardinality.ONE, "player", Cardinality.ONE);
 
       Clazz kalahClass = model.createClazz("org.sdmlib.test.examples.mancala.model.Kalah")
       .withSuperClazz(pitClass);
 
-      kalahClass.withAssoc(playerClass, "kalahPlayer", Card.ONE, "kalah", Card.ONE);
+      kalahClass.withBidirectional(playerClass, "kalahPlayer", Cardinality.ONE, "kalah", Cardinality.ONE);
 
 
 

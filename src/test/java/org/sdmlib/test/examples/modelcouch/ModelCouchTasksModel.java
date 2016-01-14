@@ -1,11 +1,12 @@
 package org.sdmlib.test.examples.modelcouch;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.storyboards.StoryPage;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class ModelCouchTasksModel
 {
@@ -39,16 +40,16 @@ public class ModelCouchTasksModel
 
 		// assocs
 		taskFlow
-		.withAssoc(task, "tasks", Card.MANY, "taskFlow", Card.ONE)
-		.withAssoc(task, "firstTasks", Card.MANY, "taskFlowFirst", Card.ONE);
+		.withBidirectional(task, "tasks", Cardinality.MANY, "taskFlow", Cardinality.ONE)
+		.withBidirectional(task, "firstTasks", Cardinality.MANY, "taskFlowFirst", Cardinality.ONE);
 
 		task
-		.withAssoc(task, "transitionTargets", Card.MANY, "transitionSource", Card.ONE)
-		.withAssoc(userGroup, "responsibles", Card.MANY, "responsible", Card.MANY)
-		.withAssoc(user, "handledBy", Card.ONE, "handledTasks", Card.MANY);
+		.withBidirectional(task, "transitionTargets", Cardinality.MANY, "transitionSource", Cardinality.ONE)
+		.withBidirectional(userGroup, "responsibles", Cardinality.MANY, "responsible", Cardinality.MANY)
+		.withBidirectional(user, "handledBy", Cardinality.ONE, "handledTasks", Cardinality.MANY);
 		
 		userGroup
-		.withAssoc(user, "members", Card.MANY, "groups", Card.MANY);
+		.withBidirectional(user, "members", Cardinality.MANY, "groups", Cardinality.MANY);
 
 		model.generate("src/test/java");
 		story.addClassDiagram(model);

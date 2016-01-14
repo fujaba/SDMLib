@@ -21,12 +21,13 @@
    
 package org.sdmlib.test.examples.modelspace.chat;
 
-import org.sdmlib.serialization.PropertyChangeInterface;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.StrUtil;
+import org.sdmlib.serialization.PropertyChangeInterface;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet;
+import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>

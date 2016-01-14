@@ -1,11 +1,11 @@
 package org.sdmlib.test.examples.modelcouch;
 
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import static org.sdmlib.models.classes.DataType.*;
-
-import static org.sdmlib.models.classes.Card.*;
 import org.sdmlib.storyboards.StoryPage;
+import static de.uniks.networkparser.graph.DataType.*;
+import static de.uniks.networkparser.graph.Cardinality.*;
+
+import de.uniks.networkparser.graph.Clazz;
 
 public class BasicModel
 {
@@ -27,22 +27,22 @@ public class BasicModel
             .withAttribute("lastEditor", STRING)
             .withAttribute("lastModified", STRING);
 
-      docData.withAssoc(docData, "subData", MANY, "parentData", MANY);
+      docData.withBidirectional(docData, "subData", MANY, "parentData", MANY);
       
       
       Clazz task = model.createClazz("Task");
       
-      task.withAssoc(task, "subTasks", MANY, "parentTasks", MANY);
+      task.withBidirectional(task, "subTasks", MANY, "parentTasks", MANY);
 
       
       Clazz person = model.createClazz("Person");
 
-      person.withAssoc(person, "members", MANY, "groups", MANY);
+      person.withBidirectional(person, "members", MANY, "groups", MANY);
 
       
-      task.withAssoc(person, "persons", MANY, "tasks", MANY);
-      task.withAssoc(docData, "taskData", MANY, "tasks", MANY);
-      person.withAssoc(docData, "personData", MANY, "persons", MANY);
+      task.withBidirectional(person, "persons", MANY, "tasks", MANY);
+      task.withBidirectional(docData, "taskData", MANY, "tasks", MANY);
+      person.withBidirectional(docData, "personData", MANY, "persons", MANY);
       
 
       story.addClassDiagram(model);

@@ -3,13 +3,6 @@ package org.sdmlib.test.examples.replication.chat;
 import java.io.File;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.sdmlib.replication.BoardTask;
-import org.sdmlib.replication.JVMWraper;
-import org.sdmlib.replication.SeppelBoardTaskAction;
-import org.sdmlib.replication.SeppelScope;
-import org.sdmlib.replication.SeppelSpace;
-import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.SeppelTaskHandler;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;
@@ -63,7 +56,7 @@ public class SeppelChatTest
       
       // open my own seppelspace and login to zuenFamilyChatServer
       JsonIdMap idMap = ChatRootCreator.createIdMap("tester");
-      idMap.withCreator(StoryboardCreator.createIdMap("tester"));
+      idMap.with(StoryboardCreator.createIdMap("tester"));
       seppelSpace = new SeppelSpace().init(idMap, false, null, 0);
       
       // do not load old data

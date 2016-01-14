@@ -1,11 +1,9 @@
 package org.sdmlib.test.examples.modelcouch;
 
 import org.junit.Test;
-import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.modelcouch.util.PersonCreator;
 
-import de.uniks.networkparser.Filter;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class ModelCouchTasksTest

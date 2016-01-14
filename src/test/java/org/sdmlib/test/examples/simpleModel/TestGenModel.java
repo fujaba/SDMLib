@@ -1,13 +1,13 @@
 package org.sdmlib.test.examples.simpleModel;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
-import org.sdmlib.models.classes.Modifier;
 import org.sdmlib.storyboards.StoryPage;
-import org.sdmlib.storyboards.Storyboard;
+
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Modifier;
 
 public class TestGenModel
 {
@@ -17,7 +17,7 @@ public class TestGenModel
       
       Clazz arrayListClazz = model.createClazz("java.util.ArrayList").withExternal(true);
       Clazz createClazz = model.createClazz("MacList");
-      createClazz.createAttribute("serialVersionUID", DataType.LONG).withInitialization("1L").with(Modifier.STATIC, Modifier.FINAL, Modifier.PRIVATE);
+      createClazz.createAttribute("serialVersionUID", DataType.LONG).withValue("1L").with(Modifier.STATIC, Modifier.FINAL, Modifier.PRIVATE);
       
       createClazz.withAttribute("Name", DataType.STRING);
       createClazz.withSuperClazz(arrayListClazz);
@@ -42,8 +42,8 @@ public class TestGenModel
       Clazz person = model.createClazz("Person")
             .withAttribute("name", DataType.STRING);
       
-      bigBrother.withAssoc(person, "noOne", Card.ONE);
-      bigBrother.withAssoc(person, "suspects", Card.MANY);
+      bigBrother.withUniDirectional(person, "noOne", Cardinality.ONE);
+      bigBrother.withUniDirectional(person, "suspects", Cardinality.MANY);
       
       story.addClassDiagram(model);
       
@@ -69,7 +69,7 @@ public class TestGenModel
       
       Clazz person = model.createClazz(Object.class.getName()).withExternal(true);
       
-      bigBrother.withAssoc(person, "kids", Card.MANY);
+      bigBrother.withUniDirectional(person, "kids", Cardinality.MANY);
       
       story.addClassDiagram(model);
       

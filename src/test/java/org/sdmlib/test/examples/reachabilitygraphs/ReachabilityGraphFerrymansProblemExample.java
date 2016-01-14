@@ -56,7 +56,7 @@ public class ReachabilityGraphFerrymansProblemExample
       RiverCreator cc = new RiverCreator();
 
       JsonIdMap map = cc.createIdMap("s");
-      map.withCreator(ReachabilityGraphCreator.createIdMap("rg"));
+      map.with(ReachabilityGraphCreator.createIdMap("rg"));
       
       String s1cert = rs1.computeCertificate(map);
       
@@ -66,7 +66,7 @@ public class ReachabilityGraphFerrymansProblemExample
       .withMasterMap(map).withStates(rs1).withTodo(rs1).withStateMap(s1cert, rs1);
       
       //================================================
-      //      map.withCreator(new ModelPatternCreator());
+      //      map.with(new ModelPatternCreator());
       //      FlipBook flipBook = new FlipBook().withMap(map); 
       //      String id = map.getId(reachabilityGraph);
       //      

@@ -4,11 +4,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.Association;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
@@ -17,9 +13,7 @@ import org.sdmlib.models.objects.util.GenericLinkPO;
 import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.models.objects.util.GenericObjectPO;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.storyboards.GenericIdMap;
 import org.sdmlib.storyboards.StoryPage;
-import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
@@ -35,6 +29,10 @@ import org.sdmlib.test.examples.helloworld.util.GreetingMessagePO;
 import org.sdmlib.test.examples.helloworld.util.GreetingPO;
 import org.sdmlib.test.examples.helloworld.util.PersonPO;
 
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
@@ -73,7 +71,7 @@ public class HelloWorldTTC2011
       Clazz greetClass = model.createClazz("org.sdmlib.test.examples.helloworld.Greeting")
             .withAttribute("text", DataType.STRING);
 
-      greetClass.withAssoc(greetClass, "tgt", Card.ONE);
+      greetClass.withUniDirectional(greetClass, "tgt", Cardinality.ONE);
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
       model.generate("src/test/java");
@@ -148,9 +146,9 @@ public class HelloWorldTTC2011
       Clazz personClazz = model.createClazz("org.sdmlib.test.examples.helloworld.Person")
             .withAttribute("name", DataType.STRING);
 
-      greetingClazz.withAssoc(greetingMessageClazz, "greetingMessage", Card.ONE, "greeting", Card.ONE);
+      greetingClazz.withBidirectional(greetingMessageClazz, "greetingMessage", Cardinality.ONE, "greeting", Cardinality.ONE);
 
-      greetingClazz.withAssoc(personClazz, "person", Card.ONE, "greeting", Card.ONE);
+      greetingClazz.withBidirectional(personClazz, "person", Cardinality.ONE, "greeting", Cardinality.ONE);
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -288,21 +286,17 @@ public class HelloWorldTTC2011
       Clazz nodeClazz = model.createClazz("Node")
             .withAttribute("name", DataType.STRING);
 
-      new Association()
-      .withTarget(nodeClazz, "nodes", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
+      new Association().with(nodeClazz).with("nodes").with(Cardinality.MANY)
+      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association()
-      .withTarget(edgeClazz, "edges", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
+      new Association().with(edgeClazz).with("edges").with(Cardinality.MANY)
+      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association()
-      .withTarget(nodeClazz, "src", Card.ONE)
-      .withSource(edgeClazz, "outEdges", Card.MANY);
+      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
+      	.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association()
-      .withTarget(nodeClazz, "tgt", Card.ONE)
-      .withSource(edgeClazz, "inEdges", Card.MANY);
+      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
+      	.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -562,21 +556,17 @@ public class HelloWorldTTC2011
       Clazz nodeClazz = model.createClazz("Node")
             .withAttribute("name", DataType.STRING);
 
-      new Association()
-      .withTarget(nodeClazz, "nodes", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
+      new Association().with(nodeClazz).with("nodes").with(Cardinality.MANY)
+      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association()
-      .withTarget(edgeClazz, "edges", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
+      new Association().with(edgeClazz).with("edges").with(Cardinality.MANY)
+      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association()
-      .withTarget(nodeClazz, "src", Card.ONE)
-      .withSource(edgeClazz, "outEdges", Card.MANY);
+      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
+      		.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association()
-      .withTarget(nodeClazz, "tgt", Card.ONE)
-      .withSource(edgeClazz, "inEdges", Card.MANY);
+      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
+      		.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -603,17 +593,14 @@ public class HelloWorldTTC2011
       nodeClazz = model.createClazz("Node")
             .withSuperClazz(graphComponentClazz);
 
-      new Association()
-      .withTarget(graphComponentClazz, "gcs", Card.MANY)
-      .withSource(graphClazz, "parent", Card.ONE);
+      new Association().with(graphComponentClazz).with("gcs").with(Cardinality.MANY)
+      	.with(new Association().with(graphClazz).with("parent").with(Cardinality.ONE));
 
-      new Association()
-      .withTarget(nodeClazz, "src", Card.ONE)
-      .withSource(edgeClazz, "outEdges", Card.MANY);
+      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
+      	.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association()
-      .withTarget(nodeClazz, "tgt", Card.ONE)
-      .withSource(edgeClazz, "inEdges", Card.MANY);
+      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
+      	.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -631,9 +618,8 @@ public class HelloWorldTTC2011
 
       nodeClazz = model.createClazz("Node");
 
-      new Association()
-      .withTarget(nodeClazz, "copy", Card.ONE)
-      .withSource(nodeClazz, "orig", Card.ONE);
+      new Association().with(nodeClazz).with("copy").with(Cardinality.ONE)
+      	.with(new Association().with(nodeClazz).with("orig").with(Cardinality.ONE));
 
       model.generate("src/test/java");
 
@@ -748,9 +734,9 @@ public class HelloWorldTTC2011
       nodeClazz = model.createClazz("Node")
             .withAttribute("text", DataType.STRING);
 
-      graphClazz.withAssoc(nodeClazz, "nodes", Card.MANY, "graph", Card.ONE);
+      graphClazz.withBidirectional(nodeClazz, "nodes", Cardinality.MANY, "graph", Cardinality.ONE);
 
-      nodeClazz.withAssoc(nodeClazz, "linksTo", Card.MANY, "linksFrom", Card.MANY);
+      nodeClazz.withBidirectional(nodeClazz, "linksTo", Cardinality.MANY, "linksFrom", Cardinality.MANY);
 
       model.generate("src/test/java");
 
@@ -791,21 +777,17 @@ public class HelloWorldTTC2011
       Clazz nodeClazz = model.createClazz("Node")
             .withAttribute("name", DataType.STRING);
 
-      new Association()
-      .withTarget(nodeClazz, "nodes", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
+      new Association().with(nodeClazz).with("nodes").with(Cardinality.MANY)
+      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association()
-      .withTarget(edgeClazz, "edges", Card.MANY)
-      .withSource(graphClazz, "graph", Card.ONE);
+      new Association().with(edgeClazz).with("edges").with(Cardinality.MANY)
+      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association()
-      .withTarget(nodeClazz, "src", Card.ONE)
-      .withSource(edgeClazz, "outEdges", Card.MANY);
+      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
+      	.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association()
-      .withTarget(nodeClazz, "tgt", Card.ONE)
-      .withSource(edgeClazz, "inEdges", Card.MANY);
+      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
+      	.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -832,17 +814,14 @@ public class HelloWorldTTC2011
       nodeClazz = model.createClazz("Node")
             .withSuperClazz(graphComponentClazz);
 
-      new Association()
-      .withTarget(graphComponentClazz, "gcs", Card.MANY)
-      .withSource(graphClazz, "parent", Card.ONE);
+      new Association().with(graphComponentClazz).with("gcs").with(Cardinality.MANY)
+      	.with(new Association().with(graphClazz).with("parent").with(Cardinality.ONE));
 
-      new Association()
-      .withTarget(nodeClazz, "src", Card.ONE)
-      .withSource(edgeClazz, "outEdges", Card.MANY);
+      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
+      	.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association()
-      .withTarget(nodeClazz, "tgt", Card.ONE)
-      .withSource(edgeClazz, "inEdges", Card.MANY);
+      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
+      	.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -890,9 +869,9 @@ public class HelloWorldTTC2011
       nodeClazz = model.createClazz("Node")
             .withAttribute("text", DataType.STRING);
 
-      graphClazz.withAssoc(nodeClazz, "nodes", Card.MANY, "graph", Card.ONE);
+      graphClazz.withBidirectional(nodeClazz, "nodes", Cardinality.MANY, "graph", Cardinality.ONE);
 
-      nodeClazz.withAssoc(nodeClazz, "linksTo", Card.MANY, "linksFrom", Card.MANY);
+      nodeClazz.withBidirectional(nodeClazz, "linksTo", Cardinality.MANY, "linksFrom", Cardinality.MANY);
 
       model.generate("src/test/java");
 

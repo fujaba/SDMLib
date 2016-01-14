@@ -22,9 +22,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import org.junit.Test;
 import org.sdmlib.CGUtil;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
 import org.sdmlib.models.pattern.Match;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
@@ -40,9 +38,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAss
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityCreator;
 
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class StoryboardTests {
    /**
@@ -315,13 +315,13 @@ public class StoryboardTests {
       
       Clazz studentClass = model.createClazz(Student.class.getName());
  
-      studentClass.withAssoc(studentClass, "friends", Card.MANY, "friends", Card.MANY);
+      studentClass.withBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
       
       Clazz roomClass = model.createClazz(Room.class.getName());
       
       Clazz taClass = model.createClazz("TeachingAssistant");
       
-      roomClass.withAssoc(taClass, "tas", Card.MANY, "room", Card.ONE);
+      roomClass.withBidirectional(taClass, "tas", Cardinality.MANY, "room", Cardinality.ONE);
       
       story.addClassDiagram(model);
       

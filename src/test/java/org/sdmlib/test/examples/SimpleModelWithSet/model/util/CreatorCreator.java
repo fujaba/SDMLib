@@ -8,12 +8,12 @@ class CreatorCreator{
    public static JsonIdMap createIdMap(String sessionID)
    {
       JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);
-      jsonIdMap.withCreator(new PersonCreator());
-      jsonIdMap.withCreator(new PersonPOCreator());
-      jsonIdMap.withCreator(new ChildCreator());
-      jsonIdMap.withCreator(new ChildPOCreator());
-      jsonIdMap.withCreator(new SimpleKeyValueListCreator());
-      jsonIdMap.withCreator(new SimpleKeyValueListPOCreator());
+      jsonIdMap.with(new PersonCreator());
+      jsonIdMap.with(new PersonPOCreator());
+      jsonIdMap.with(new ChildCreator());
+      jsonIdMap.with(new ChildPOCreator());
+      jsonIdMap.with(new SimpleKeyValueListCreator());
+      jsonIdMap.with(new SimpleKeyValueListPOCreator());
       return jsonIdMap;
    }
 }

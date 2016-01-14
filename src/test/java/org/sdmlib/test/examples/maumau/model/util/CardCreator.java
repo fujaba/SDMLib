@@ -33,10 +33,10 @@ public class CardCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {
-      Card.PROPERTY_SUIT,
-      Card.PROPERTY_VALUE,
-      Card.PROPERTY_GAME,
-      Card.PROPERTY_HOLDER,
+      Cardinality.PROPERTY_SUIT,
+      Cardinality.PROPERTY_VALUE,
+      Cardinality.PROPERTY_GAME,
+      Cardinality.PROPERTY_HOLDER,
    };
    
    @Override
@@ -62,22 +62,22 @@ public class CardCreator extends EntityFactory
          attribute = attrName.substring(0, pos);
       }
 
-      if (Card.PROPERTY_SUIT.equalsIgnoreCase(attribute))
+      if (Cardinality.PROPERTY_SUIT.equalsIgnoreCase(attribute))
       {
          return ((Card) target).getSuit();
       }
 
-      if (Card.PROPERTY_VALUE.equalsIgnoreCase(attribute))
+      if (Cardinality.PROPERTY_VALUE.equalsIgnoreCase(attribute))
       {
          return ((Card) target).getValue();
       }
 
-      if (Card.PROPERTY_GAME.equalsIgnoreCase(attribute))
+      if (Cardinality.PROPERTY_GAME.equalsIgnoreCase(attribute))
       {
          return ((Card) target).getGame();
       }
 
-      if (Card.PROPERTY_HOLDER.equalsIgnoreCase(attribute))
+      if (Cardinality.PROPERTY_HOLDER.equalsIgnoreCase(attribute))
       {
          return ((Card) target).getHolder();
       }
@@ -93,25 +93,25 @@ public class CardCreator extends EntityFactory
          attrName = attrName + type;
       }
 
-      if (Card.PROPERTY_SUIT.equalsIgnoreCase(attrName))
+      if (Cardinality.PROPERTY_SUIT.equalsIgnoreCase(attrName))
       {
          ((Card) target).withSuit(Suit.valueOf((String) value));
          return true;
       }
 
-      if (Card.PROPERTY_VALUE.equalsIgnoreCase(attrName))
+      if (Cardinality.PROPERTY_VALUE.equalsIgnoreCase(attrName))
       {
          ((Card) target).withValue(Value.valueOf((String) value));
          return true;
       }
 
-      if (Card.PROPERTY_GAME.equalsIgnoreCase(attrName))
+      if (Cardinality.PROPERTY_GAME.equalsIgnoreCase(attrName))
       {
          ((Card) target).setGame((MauMau) value);
          return true;
       }
 
-      if (Card.PROPERTY_HOLDER.equalsIgnoreCase(attrName))
+      if (Cardinality.PROPERTY_HOLDER.equalsIgnoreCase(attrName))
       {
          ((Card) target).setHolder((Holder) value);
          return true;

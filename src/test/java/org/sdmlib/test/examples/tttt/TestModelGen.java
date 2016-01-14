@@ -10,10 +10,10 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.DataTypeSet;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
-import de.uniks.networkparser.graph.SetDataType;
 
 
 public class TestModelGen {
@@ -21,7 +21,7 @@ public class TestModelGen {
 	public void testGen() {
 		ClassModel model=new ClassModel("org.sdmlib.test.examples.tttt.model");
 		Clazz uni = model.createClazz("Uni");
-		Method createMethod = uni.createMethod("create", new Parameter(SetDataType.ref(uni)));
+		Method createMethod = uni.createMethod("create", new Parameter(DataTypeSet.ref(uni)));
 		createMethod.with(Modifier.STATIC);
 		createMethod.with(Annotation.DEPRECATED);
 		Attribute nameAttr = uni.createAttribute("name", DataType.STRING);
@@ -32,9 +32,9 @@ public class TestModelGen {
 		Clazz prof = model.createClazz("Prof").withSuperClazz(person);
 
 		Method doitMethod = person.createMethod("doit");
-		person.withInterface(true);
+		person.enableInterface();
 		
-		uni.withAssoc(person, "has", Cardinality.MANY, "owner", Cardinality.ONE);
+		uni.withBidirectional(person, "has", Cardinality.MANY, "owner", Cardinality.ONE);
 		
 //		model.generate("src/test/java");
 //		
@@ -43,7 +43,7 @@ public class TestModelGen {
 //		uni2.withHas(new Student().withName("Stefan"));
 //		uni2.withHas(new Prof().withName("Albert"));
 //		
-////		JsonIdMap map = new JsonIdMap().withCreator(new UniCreator(), new PersonCreator());
+////		JsonIdMap map = new JsonIdMap().with(new UniCreator(), new PersonCreator());
 //		JsonIdMap map = UniCreator.createIdMap(null);
 //		System.out.println(map.encode(uni2));
 		

@@ -24,10 +24,7 @@ package org.sdmlib.test.models.objects;
 import java.beans.PropertyChangeSupport;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericObject;
@@ -36,6 +33,9 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.kassel.test.roombook.Building;
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.json.JsonIdMap;
 
 public class GenericObjectsTest implements PropertyChangeInterface 
@@ -126,7 +126,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
             .withAttribute("guest", DataType.STRING);    
       
       /* add assoc */
-      buildingClass.withAssoc(floorClass, "has", Card.MANY, "buildings", Card.ONE);
+      buildingClass.withBidirectional(floorClass, "has", Cardinality.MANY, "buildings", Cardinality.ONE);
 
       // FIXME: Alex
       // learnedModel.getGenerator().insertModelCreationCodeHere("examples");

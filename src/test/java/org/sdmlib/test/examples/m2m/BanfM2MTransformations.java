@@ -1,10 +1,7 @@
 package org.sdmlib.test.examples.m2m;
 
 import org.junit.Test;
-import org.sdmlib.models.classes.Card;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Clazz;
-import org.sdmlib.models.classes.DataType;
 import org.sdmlib.models.objects.Generic2Specific;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.Specific2Generic;
@@ -18,7 +15,6 @@ import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.util.PatternCreator;
 import org.sdmlib.storyboards.StoryPage;
-import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
@@ -27,6 +23,9 @@ import org.sdmlib.test.examples.m2m.model.util.GraphComponentCreator;
 import org.sdmlib.test.examples.m2m.model.util.GraphCreator;
 import org.sdmlib.test.examples.m2m.model.util.PersonCreator;
 
+import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -76,11 +75,11 @@ public class BanfM2MTransformations
       Clazz edgeClazz = model.createClazz("Relation")
       .withSuperClazz(graphComponentClazz);
 
-      graphClazz.withAssoc(graphComponentClazz, "gcs", Card.MANY, "parent", Card.ONE);
+      graphClazz.withBidirectional(graphComponentClazz, "gcs", Cardinality.MANY, "parent", Cardinality.ONE);
       
-      edgeClazz.withAssoc(nodeClazz, "src", Card.ONE, "outEdges", Card.MANY);
+      edgeClazz.withBidirectional(nodeClazz, "src", Cardinality.ONE, "outEdges", Cardinality.MANY);
 
-      edgeClazz.withAssoc(nodeClazz, "tgt", Card.ONE, "inEdges", Card.MANY);
+      edgeClazz.withBidirectional(nodeClazz, "tgt", Cardinality.ONE, "inEdges", Cardinality.MANY);
       
       // model.removeAllGeneratedCode("examples", "examples", "examples");
       
@@ -128,9 +127,9 @@ public class BanfM2MTransformations
       nodeClazz = model.createClazz("Person")
       .withAttribute("text", DataType.STRING);
 
-      graphClazz.withAssoc(nodeClazz, "persons", Card.MANY, "graph", Card.ONE);
+      graphClazz.withBidirectional(nodeClazz, "persons", Cardinality.MANY, "graph", Cardinality.ONE);
       
-      nodeClazz.withAssoc(nodeClazz, "knows", Card.MANY, "knows", Card.MANY);
+      nodeClazz.withBidirectional(nodeClazz, "knows", Cardinality.MANY, "knows", Cardinality.MANY);
       
       model.generate("src/test/java");
       
@@ -322,16 +321,16 @@ public class BanfM2MTransformations
    private Pattern<?> revertRule(Pattern<?> forwardRule)
    {
       JsonIdMap origMap = forwardRule.getJsonIdMap();
-      origMap.withCreator(PatternCreator.createIdMap("x"));
+      origMap.with(PatternCreator.createIdMap("x"));
       
-      JsonIdMap fwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
+      JsonIdMap fwdMap = (JsonIdMap) new JsonIdMap().with(origMap);
 
       JsonArray jsonArray = fwdMap.toJsonArray(forwardRule);
       Object firstObject = jsonArray.get(0);
       jsonArray.remove(0);
       jsonArray.add(firstObject);
       
-      JsonIdMap bwdMap = (JsonIdMap) new JsonIdMap().withCreator(origMap);
+      JsonIdMap bwdMap = (JsonIdMap) new JsonIdMap().with(origMap);
       
       PatternElement<?> decode = (PatternElement<?>) bwdMap.decode(jsonArray);
       Pattern<?> backwardRule = (Pattern<?>) decode.getPattern();

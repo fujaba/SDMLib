@@ -10,30 +10,30 @@ class CreatorCreator{
    {
       JsonIdMap jsonIdMap = (JsonIdMap) new SDMLibJsonIdMap().withSessionId(sessionID);
       
-      jsonIdMap.withCreator(new LectureCreator());
-      jsonIdMap.withCreator(new LecturePOCreator());
-      jsonIdMap.withCreator(new RoomCreator());
-      jsonIdMap.withCreator(new RoomPOCreator());
-      jsonIdMap.withCreator(new UniversityCreator());
-      jsonIdMap.withCreator(new UniversityPOCreator());
-      jsonIdMap.withCreator(new FemaleCreator());
-      jsonIdMap.withCreator(new FemalePOCreator());
-      jsonIdMap.withCreator(new ProfessorCreator());
-      jsonIdMap.withCreator(new ProfessorPOCreator());
-      jsonIdMap.withCreator(new StudentCreator());
-      jsonIdMap.withCreator(new StudentPOCreator());
-      jsonIdMap.withCreator(new ProfessorCreator());
-      jsonIdMap.withCreator(new ProfessorPOCreator());
-      jsonIdMap.withCreator(new TopicCreator());
-      jsonIdMap.withCreator(new TopicPOCreator());
-      jsonIdMap.withCreator(new UniversityCreator());
-      jsonIdMap.withCreator(new UniversityPOCreator());
-      jsonIdMap.withCreator(new StudentCreator());
-      jsonIdMap.withCreator(new StudentPOCreator());
-      jsonIdMap.withCreator(new RoomCreator());
-      jsonIdMap.withCreator(new RoomPOCreator());
-      jsonIdMap.withCreator(new AssignmentCreator());
-      jsonIdMap.withCreator(new AssignmentPOCreator());
+      jsonIdMap.with(new LectureCreator());
+      jsonIdMap.with(new LecturePOCreator());
+      jsonIdMap.with(new RoomCreator());
+      jsonIdMap.with(new RoomPOCreator());
+      jsonIdMap.with(new UniversityCreator());
+      jsonIdMap.with(new UniversityPOCreator());
+      jsonIdMap.with(new FemaleCreator());
+      jsonIdMap.with(new FemalePOCreator());
+      jsonIdMap.with(new ProfessorCreator());
+      jsonIdMap.with(new ProfessorPOCreator());
+      jsonIdMap.with(new StudentCreator());
+      jsonIdMap.with(new StudentPOCreator());
+      jsonIdMap.with(new ProfessorCreator());
+      jsonIdMap.with(new ProfessorPOCreator());
+      jsonIdMap.with(new TopicCreator());
+      jsonIdMap.with(new TopicPOCreator());
+      jsonIdMap.with(new UniversityCreator());
+      jsonIdMap.with(new UniversityPOCreator());
+      jsonIdMap.with(new StudentCreator());
+      jsonIdMap.with(new StudentPOCreator());
+      jsonIdMap.with(new RoomCreator());
+      jsonIdMap.with(new RoomPOCreator());
+      jsonIdMap.with(new AssignmentCreator());
+      jsonIdMap.with(new AssignmentPOCreator());
       
       return jsonIdMap;
    }

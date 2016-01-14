@@ -2,7 +2,8 @@ package org.sdmlib.test.examples.SDMLib;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.sdmlib.models.classes.DataType;
+
+import de.uniks.networkparser.graph.DataType;
 
 public class DataTypes {
 
