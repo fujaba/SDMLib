@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Method;
 
 public class TestClass {
 
@@ -15,6 +16,7 @@ public class TestClass {
 		
 		for(Clazz clazz : model.getClazzes()) {
 			if(clazz.getName().equals("org.sdmlib.test.examples.annotations.TestClass")) {
+				Method test = clazz.getMethods().first();
 				String name = clazz
 				      .getMethods()
 				      .first()

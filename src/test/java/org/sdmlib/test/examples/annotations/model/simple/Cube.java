@@ -49,9 +49,10 @@ import java.beans.PropertyChangeListener;
       return listeners;
    }
    
-   public void addPropertyChangeListener(PropertyChangeListener listener) 
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
       getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
    }
 
    

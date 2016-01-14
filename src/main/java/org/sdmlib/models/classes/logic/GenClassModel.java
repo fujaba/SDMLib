@@ -2807,7 +2807,7 @@ public class GenClassModel implements ClassModelAdapter
          String[] params = signature.substring(part + 1, signature.length() - 1).split(",");
 
          Method method = new Method(signature.substring(0, part))
-               .with(clazz)
+               .withParent(clazz)
                .with(DataType.ref(split[2]));
          for (String param : params)
          {
