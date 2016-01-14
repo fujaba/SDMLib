@@ -3,6 +3,10 @@ package org.sdmlib.test.examples.replication.chat;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.sdmlib.replication.SeppelScope;
+import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.replication.SeppelSpaceProxy;
+
 public class ChatUserChannelScopeUpdater implements PropertyChangeListener
 {
 

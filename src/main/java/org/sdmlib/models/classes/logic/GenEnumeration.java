@@ -36,7 +36,7 @@ import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 import org.sdmlib.models.classes.util.ClazzSet;
 
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.GraphLiteral;
+import de.uniks.networkparser.graph.Literal;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -130,7 +130,7 @@ public class GenEnumeration extends Generator<Clazz>{
 		if (enumCurrentPos < 0)
 			isNew  = true;
 		
-		for (GraphLiteral valueNames : model.getValues()) {
+		for (Literal valueNames : model.getValues()) {
 			for (int i = 0; i < valueNames.getValues().size(); i++) {
 				
 				Object value = valueNames.getValues().get(i);

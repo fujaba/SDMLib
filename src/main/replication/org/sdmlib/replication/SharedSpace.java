@@ -112,9 +112,9 @@ import javafx.application.Platform;
 
    public ReplicationRoot plainInit()
    {
-      map.withCreator(ReplicationNodeCreator.createIdMap("i"));
+      map.with(ReplicationNodeCreator.createIdMap("i"));
       
-      map.withUpdateListenerSend(this);
+      map.with((UpdateListener)this);
       
       setReplicationRoot(new ReplicationRoot());
       map.put(SharedSpace.REPLICATION_ROOT, getReplicationRoot());
@@ -1256,7 +1256,7 @@ import javafx.application.Platform;
    public void withMap(JsonIdMap map)
    {
       this.map = map;
-      map.withUpdateListenerSend(this);
+      map.with((UpdateListener)this);
    }
 
    @Override
@@ -1633,7 +1633,7 @@ import javafx.application.Platform;
       .withJavaFXApplication(javaFXApplication);
       
       this.withMap(userModelIdMap);
-      userModelIdMap.withCreator(SharedSpaceCreator.createIdMap(null));
+      userModelIdMap.with(SharedSpaceCreator.createIdMap(null));
       
       return this;
    }

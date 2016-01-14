@@ -6,6 +6,15 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.SeppelBoardTaskAction;
+import org.sdmlib.replication.SeppelChannel;
+import org.sdmlib.replication.SeppelScope;
+import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.SeppelTaskHandler;
+import org.sdmlib.replication.util.SeppelScopePO;
+import org.sdmlib.replication.util.SeppelSpaceProxyPO;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;

@@ -7,10 +7,10 @@ class CreatorCreator{
    public static JsonIdMap createIdMap(String sessionID)
    {
       JsonIdMap jsonIdMap = new JsonIdMap().withSessionId(sessionID);
-      jsonIdMap.withCreator(new ModelCouchCreator());
-      jsonIdMap.withCreator(new ModelCouchPOCreator());
-      jsonIdMap.withCreator(new ModelDBListenerCreator());
-      jsonIdMap.withCreator(new ModelDBListenerPOCreator());
+      jsonIdMap.with(new ModelCouchCreator());
+      jsonIdMap.with(new ModelCouchPOCreator());
+      jsonIdMap.with(new ModelDBListenerCreator());
+      jsonIdMap.with(new ModelDBListenerPOCreator());
       return jsonIdMap;
    }
 }

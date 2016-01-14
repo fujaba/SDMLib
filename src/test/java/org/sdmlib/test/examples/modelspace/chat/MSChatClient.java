@@ -4,6 +4,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import org.sdmlib.modelspace.ModelSpace;
+import org.sdmlib.modelspace.ModelSpace.ApplicationType;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;
 
 import de.uniks.networkparser.json.JsonIdMap;

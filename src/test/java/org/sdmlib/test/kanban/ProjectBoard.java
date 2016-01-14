@@ -56,9 +56,9 @@ public class ProjectBoard
 
       Clazz logEntryClass = model.createClazz("LogEntryStoryBoard");
 
-      new Association().with(kanbanEntryClass).with("kanbanEntry").with(Cardinality.ONE)
+      new Association(kanbanEntryClass).with("kanbanEntry").with(Cardinality.ONE)
       	.with(AssociationTypes.AGGREGATION)
-      	.with(new Association().with(logEntryClass).with("logEntries").with(Cardinality.MANY));
+      	.with(new Association(logEntryClass).with("logEntries").with(Cardinality.MANY));
       
       Clazz storyboardWallClass = model.createClazz("StoryboardWall");
 

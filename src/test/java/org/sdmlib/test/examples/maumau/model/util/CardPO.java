@@ -35,7 +35,7 @@ public class CardPO extends PatternObject<CardPO, Card>
       newInstance(org.sdmlib.test.examples.maumau.model.util.CreatorCreator.createIdMap("PatternObjectType"));
    }
 
-   public CardPO(Cardinality... hostGraphObject) {
+   public CardPO(Card... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
          return ;
       }
@@ -44,7 +44,7 @@ public class CardPO extends PatternObject<CardPO, Card>
    public CardPO hasSuit(Suit value)
    {
       new AttributeConstraint()
-      .withAttrName(Cardinality.PROPERTY_SUIT)
+      .withAttrName(Card.PROPERTY_SUIT)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -82,7 +82,7 @@ public class CardPO extends PatternObject<CardPO, Card>
    public CardPO hasValue(Value value)
    {
       new AttributeConstraint()
-      .withAttrName(Cardinality.PROPERTY_VALUE)
+      .withAttrName(Card.PROPERTY_VALUE)
       .withTgtValue(value)
       .withSrc(this)
       .withModifier(this.getPattern().getModifier())
@@ -122,7 +122,7 @@ public class CardPO extends PatternObject<CardPO, Card>
       MauMauPO result = new MauMauPO(new MauMau[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Cardinality.PROPERTY_GAME, result);
+      super.hasLink(Card.PROPERTY_GAME, result);
       
       return result;
    }
@@ -134,7 +134,7 @@ public class CardPO extends PatternObject<CardPO, Card>
 
    public CardPO hasGame(MauMauPO tgt)
    {
-      return hasLinkConstraint(tgt, Cardinality.PROPERTY_GAME);
+      return hasLinkConstraint(tgt, Card.PROPERTY_GAME);
    }
 
    public CardPO createGame(MauMauPO tgt)
@@ -156,7 +156,7 @@ public class CardPO extends PatternObject<CardPO, Card>
       HolderPO result = new HolderPO(new Holder[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Cardinality.PROPERTY_HOLDER, result);
+      super.hasLink(Card.PROPERTY_HOLDER, result);
       
       return result;
    }
@@ -168,7 +168,7 @@ public class CardPO extends PatternObject<CardPO, Card>
 
    public CardPO hasHolder(HolderPO tgt)
    {
-      return hasLinkConstraint(tgt, Cardinality.PROPERTY_HOLDER);
+      return hasLinkConstraint(tgt, Card.PROPERTY_HOLDER);
    }
 
    public CardPO createHolder(HolderPO tgt)

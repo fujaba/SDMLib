@@ -68,8 +68,8 @@ public class PatternModelCodeGen
       .withSuperClazz(pattern)
       .withAttribute("matchForward", DataType.BOOLEAN);
 
-      new Association().with(patternElement).with("elements").with(Cardinality.MANY)
-      	.with(new Association().with(pattern).with("pattern").with(Cardinality.ONE));
+      new Association(patternElement).with("elements").with(Cardinality.MANY)
+      	.with(new Association(pattern).with("pattern").with(Cardinality.ONE));
       
       Clazz patternObject = model.createClazz("PatternObject")
       .withSuperClazz(patternElement)
@@ -97,8 +97,8 @@ public class PatternModelCodeGen
       .withAttribute("cmpOp", DataType.STRING)
       .withAttribute("hostGraphSrcObject", DataType.OBJECT);
       
-      new Association().with(patternObject).with("src").with(Cardinality.ONE)
-      	.with(new Association().with(attrConstraint).with("attrConstraints").with(Cardinality.MANY));
+      new Association(patternObject).with("src").with(Cardinality.ONE)
+      	.with(new Association(attrConstraint).with("attrConstraints").with(Cardinality.MANY));
       
       model.createClazz("LinkConstraint")
       .withSuperClazz(patternLink);
@@ -115,8 +115,8 @@ public class PatternModelCodeGen
       Clazz destroyObjectClazz = model.createClazz("DestroyObjectElem")
       .withSuperClazz(patternElement);
       
-      new Association().with(patternObject).with("patternObject").with(Cardinality.ONE)
-      	.with(new Association().with(destroyObjectClazz).with("destroyElem").with(Cardinality.ONE));
+      new Association(patternObject).with("patternObject").with(Cardinality.ONE)
+      	.with(new Association(destroyObjectClazz).with("destroyElem").with(Cardinality.ONE));
       
       model.createClazz("CardinalityConstraint")
       .withSuperClazz(patternElement)

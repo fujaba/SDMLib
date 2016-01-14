@@ -7,6 +7,7 @@ import org.sdmlib.storyboards.StoryPage;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Literal;
 import de.uniks.networkparser.graph.Parameter;
 
 public class SimpleClassModelWithEnumeration
@@ -23,7 +24,11 @@ public class SimpleClassModelWithEnumeration
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleEnumModel.model");
       
       Clazz enumeration = model.createClazz("TEnum").enableEnumeration();
-      enumeration.withValueNames("T1", "T2", "12", "T1000");
+//      GraphLiteral valueNames : model.getValues()) {
+      enumeration.with(new Literal("T1"),
+    		  new Literal("T2"),
+    		  new Literal("12"),
+    		  new Literal("T1000"));
       enumeration.withMethod("toString", DataType.STRING);
      
       Clazz alexClazz = model.createClazz("Alex");

@@ -112,7 +112,7 @@ import javafx.application.Platform;
 
       this.userName = userName;
 
-      idMap.withUpdateListenerSend(this);
+      idMap.with(this);
    }
 
    public PropertyChangeSupport getPropertyChangeSupport()

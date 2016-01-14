@@ -29,12 +29,10 @@ public class GenericGraphModel
       .withAttribute("type", DataType.STRING)
       .withAttribute("icon", DataType.STRING);
            
-      new Association()
-      		.with(genericObjectClazz)
+      new Association(genericObjectClazz)
       		.with("objects")
       		.with(Cardinality.MANY)
-      		.with(new Association()
-      				.with(genericGraph)
+      		.with(new Association(genericGraph)
       				.with("graph")
       				.with(Cardinality.ONE)
       				);
@@ -44,25 +42,21 @@ public class GenericGraphModel
       .withAttribute("value", DataType.STRING);
       
       
-      new Association()
-      .with(genericObjectClazz).with("owner").with(Cardinality.ONE)
-      .with(new Association().with(genericAttributeClazz).with("attrs").with(Cardinality.MANY));
+      new Association(genericObjectClazz).with("owner").with(Cardinality.ONE)
+      .with(new Association(genericAttributeClazz).with("attrs").with(Cardinality.MANY));
       
       Clazz genericLinkClazz = genericModel.createClazz("org.sdmlib.models.objects.GenericLink")
       .withAttribute("tgtLabel", DataType.STRING)
       .withAttribute("srcLabel", DataType.STRING);
 
-      new Association()
-      .with(genericObjectClazz).with("src").with(Cardinality.ONE)
-      .with(new Association().with(genericAttributeClazz).with("outgoingLinks").with(Cardinality.MANY));
+      new Association(genericObjectClazz).with("src").with(Cardinality.ONE)
+      .with(new Association(genericAttributeClazz).with("outgoingLinks").with(Cardinality.MANY));
 
-      new Association()
-      .with(genericObjectClazz).with("tgt").with(Cardinality.ONE)
-      .with(new Association().with(genericAttributeClazz).with("incommingLinks").with(Cardinality.MANY));
+      new Association(genericObjectClazz).with("tgt").with(Cardinality.ONE)
+      .with(new Association(genericAttributeClazz).with("incommingLinks").with(Cardinality.MANY));
 
-      new Association()
-      .with(genericLinkClazz).with("links").with(Cardinality.MANY)
-      .with(new Association().with(genericGraph).with("graph").with(Cardinality.ONE));
+      new Association(genericLinkClazz).with("links").with(Cardinality.MANY)
+      .with(new Association(genericGraph).with("graph").with(Cardinality.ONE));
 
       storyboard.addClassDiagram(genericModel);
       

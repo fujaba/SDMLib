@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.StoryPage;
 
+import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class ModelSpaceModel
 {
@@ -34,17 +36,17 @@ public class ModelSpaceModel
       Clazz spaceProxy = model.createClazz("ModelSpaceProxy")
             .withAttribute("location", DataType.STRING);
       
-      cloud.withAssoc(cloudProxy, "servers", Card.MANY, "root", Card.ONE);
-      cloud.withAssoc(spaceProxy, "modelSpaces", Card.MANY, "cloud", Card.ONE);
+      cloud.withBidirectional(cloudProxy, "servers", Cardinality.MANY, "root", Cardinality.ONE);
+      cloud.withBidirectional(spaceProxy, "modelSpaces", Cardinality.MANY, "cloud", Cardinality.ONE);
       
-      cloudProxy.withAssoc(spaceProxy, "providedSpaces", Card.MANY, "providingClouds", Card.MANY);
+      cloudProxy.withBidirectional(spaceProxy, "providedSpaces", Cardinality.MANY, "providingClouds", Cardinality.MANY);
       
       Clazz modelDir = model.createClazz("CloudModelDirectory");
       Clazz modelFile = model.createClazz("CloudModelFile")
             .withAttribute("fileName", DataType.STRING)
             .withAttribute("lastModifiedTime", DataType.LONG);
       
-      modelDir.withAssoc(modelFile, "files", Card.MANY, "dir", Card.ONE);
+      modelDir.withBidirectional(modelFile, "files", Cardinality.MANY, "dir", Cardinality.ONE);
       
       Clazz taskBoard = model.createClazz("TaskBoard");
       
@@ -58,11 +60,11 @@ public class ModelSpaceModel
             .withAttribute("fileName", DataType.STRING)
             .withAttribute("lastModified", DataType.LONG);
       
-      taskBoard.withAssoc(taskLane, "lanes", Card.MANY, "board", Card.ONE);
+      taskBoard.withBidirectional(taskLane, "lanes", Cardinality.MANY, "board", Cardinality.ONE);
       
-      taskLane.withAssoc(task, "tasks", Card.MANY, "lane", Card.ONE);
+      taskLane.withBidirectional(task, "tasks", Cardinality.MANY, "lane", Cardinality.ONE);
       
-      task.withAssoc(taskLane, "fileTargetCloud", Card.ONE, "myRequests", Card.MANY);
+      task.withBidirectional(taskLane, "fileTargetCloud", Cardinality.ONE, "myRequests", Cardinality.MANY);
       
       model.generate("src/main/replication");
       

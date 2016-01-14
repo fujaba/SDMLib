@@ -286,17 +286,17 @@ public class HelloWorldTTC2011
       Clazz nodeClazz = model.createClazz("Node")
             .withAttribute("name", DataType.STRING);
 
-      new Association().with(nodeClazz).with("nodes").with(Cardinality.MANY)
-      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
+      new Association(nodeClazz).with("nodes").with(Cardinality.MANY)
+      	.with(new Association(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association().with(edgeClazz).with("edges").with(Cardinality.MANY)
-      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
+      new Association(edgeClazz).with("edges").with(Cardinality.MANY)
+      	.with(new Association(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
-      	.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("src").with(Cardinality.ONE)
+      	.with(new Association(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
-      	.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("tgt").with(Cardinality.ONE)
+      	.with(new Association(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -556,17 +556,17 @@ public class HelloWorldTTC2011
       Clazz nodeClazz = model.createClazz("Node")
             .withAttribute("name", DataType.STRING);
 
-      new Association().with(nodeClazz).with("nodes").with(Cardinality.MANY)
-      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
+      new Association(nodeClazz).with("nodes").with(Cardinality.MANY)
+      	.with(new Association(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association().with(edgeClazz).with("edges").with(Cardinality.MANY)
-      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
+      new Association(edgeClazz).with("edges").with(Cardinality.MANY)
+      	.with(new Association(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
-      		.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("src").with(Cardinality.ONE)
+      		.with(new Association(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
-      		.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("tgt").with(Cardinality.ONE)
+      		.with(new Association(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -593,14 +593,14 @@ public class HelloWorldTTC2011
       nodeClazz = model.createClazz("Node")
             .withSuperClazz(graphComponentClazz);
 
-      new Association().with(graphComponentClazz).with("gcs").with(Cardinality.MANY)
-      	.with(new Association().with(graphClazz).with("parent").with(Cardinality.ONE));
+      new Association(graphComponentClazz).with("gcs").with(Cardinality.MANY)
+      	.with(new Association(graphClazz).with("parent").with(Cardinality.ONE));
 
-      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
-      	.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("src").with(Cardinality.ONE)
+      	.with(new Association(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
-      	.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("tgt").with(Cardinality.ONE)
+      	.with(new Association(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -618,8 +618,8 @@ public class HelloWorldTTC2011
 
       nodeClazz = model.createClazz("Node");
 
-      new Association().with(nodeClazz).with("copy").with(Cardinality.ONE)
-      	.with(new Association().with(nodeClazz).with("orig").with(Cardinality.ONE));
+      new Association(nodeClazz).with("copy").with(Cardinality.ONE)
+      	.with(new Association(nodeClazz).with("orig").with(Cardinality.ONE));
 
       model.generate("src/test/java");
 
@@ -777,17 +777,17 @@ public class HelloWorldTTC2011
       Clazz nodeClazz = model.createClazz("Node")
             .withAttribute("name", DataType.STRING);
 
-      new Association().with(nodeClazz).with("nodes").with(Cardinality.MANY)
-      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
+      new Association(nodeClazz).with("nodes").with(Cardinality.MANY)
+      	.with(new Association(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association().with(edgeClazz).with("edges").with(Cardinality.MANY)
-      	.with(new Association().with(graphClazz).with("graph").with(Cardinality.ONE));
+      new Association(edgeClazz).with("edges").with(Cardinality.MANY)
+      	.with(new Association(graphClazz).with("graph").with(Cardinality.ONE));
 
-      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
-      	.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("src").with(Cardinality.ONE)
+      	.with(new Association(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
-      	.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("tgt").with(Cardinality.ONE)
+      	.with(new Association(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 
@@ -814,14 +814,14 @@ public class HelloWorldTTC2011
       nodeClazz = model.createClazz("Node")
             .withSuperClazz(graphComponentClazz);
 
-      new Association().with(graphComponentClazz).with("gcs").with(Cardinality.MANY)
-      	.with(new Association().with(graphClazz).with("parent").with(Cardinality.ONE));
+      new Association(graphComponentClazz).with("gcs").with(Cardinality.MANY)
+      	.with(new Association(graphClazz).with("parent").with(Cardinality.ONE));
 
-      new Association().with(nodeClazz).with("src").with(Cardinality.ONE)
-      	.with(new Association().with(edgeClazz).with("outEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("src").with(Cardinality.ONE)
+      	.with(new Association(edgeClazz).with("outEdges").with(Cardinality.MANY));
 
-      new Association().with(nodeClazz).with("tgt").with(Cardinality.ONE)
-      	.with(new Association().with(edgeClazz).with("inEdges").with(Cardinality.MANY));
+      new Association(nodeClazz).with("tgt").with(Cardinality.ONE)
+      	.with(new Association(edgeClazz).with("inEdges").with(Cardinality.MANY));
 
       // model.removeAllGeneratedCode("examples", "examples", "examples");
 

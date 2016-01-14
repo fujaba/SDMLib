@@ -26,7 +26,7 @@ public class TestAssociation {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.association_b");
 		Clazz person = model.createClazz("Person");
-		Clazz room = model.createClazz("Room"); 
+		Clazz room = model.createClazz("Room");
 		
 		person.withUniDirectional(room, "room", Cardinality.ONE);
 		room.withUniDirectional(person, "persons", Cardinality.MANY);

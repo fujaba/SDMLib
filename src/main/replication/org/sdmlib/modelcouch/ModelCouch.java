@@ -78,7 +78,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
    public ModelCouch registerAtIdMap()
    {
-      idMap.withUpdateListenerSend(this);
+      idMap.with(this);
       return this;
    }
 

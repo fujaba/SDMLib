@@ -83,7 +83,7 @@ import org.sdmlib.test.examples.maumau.model.util.CardSet;
       return this.cards;
    }
 
-   public Holder withCards(Cardinality... value)
+   public Holder withCards(Card... value)
    {
       if(value==null){
          return this;
@@ -109,7 +109,7 @@ import org.sdmlib.test.examples.maumau.model.util.CardSet;
       return this;
    } 
 
-   public Holder withoutCards(Cardinality... value)
+   public Holder withoutCards(Card... value)
    {
       for (Card item : value)
       {

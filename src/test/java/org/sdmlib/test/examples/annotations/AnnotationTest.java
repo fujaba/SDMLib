@@ -4,7 +4,6 @@ package org.sdmlib.test.examples.annotations;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.util.MethodSet;
 
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Cardinality;
@@ -26,7 +25,7 @@ public class AnnotationTest {
 		Clazz house = model.createClazz("House").withSuperClazz(cube);
 		house.createMethod("init")
 				.with(
-						new Annotation().with("Override")
+						new Annotation("Override")
 				);
 		
 		Clazz door = model.createClazz("Door");

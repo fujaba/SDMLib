@@ -36,12 +36,12 @@ public class StrategyModel
       Clazz bStrategy = cm.createClazz("BombermanStrategy")
             .with(Modifier.ABSTRACT).withMethod("handleMove", DataType.VOID);
 
-      bStrategy.createKidClazz("MoveUp");
-      bStrategy.createKidClazz("MoveDown");
-      bStrategy.createKidClazz("MoveLeft");
-      bStrategy.createKidClazz("MoveRight");
-      bStrategy.createKidClazz("Blast");
-      bStrategy.createKidClazz("Stay");
+      cm.createClazz("MoveUp").withSuperClazz(bStrategy);
+      cm.createClazz("MoveDown").withSuperClazz(bStrategy);
+      cm.createClazz("MoveLeft").withSuperClazz(bStrategy);
+      cm.createClazz("MoveRight").withSuperClazz(bStrategy);
+      cm.createClazz("Blast").withSuperClazz(bStrategy);
+      cm.createClazz("Stay").withSuperClazz(bStrategy);
 
       bStrategy.withUniDirectional(bStrategy, "successor", Cardinality.ONE);
       // bStrategy.withBidirectional(bStrategy, "suc", Cardinality.ONE, "pre", Cardinality.ONE);

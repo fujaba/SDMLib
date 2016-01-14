@@ -86,7 +86,7 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface
          // add replication root 
          JsonIdMap map = ReplicationNodeCreator.createIdMap("s42");
          
-         map.withCreator(modelCreators);
+         map.with(modelCreators);
          sharedSpace.withMap(map);
          
          ChangeHistory history = new ChangeHistory();

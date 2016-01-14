@@ -2127,9 +2127,9 @@ public class GenClassModel implements ClassModelAdapter
          if (currentAssoc == null)
          {
             // need to create a new one
-        	 Association other = new Association().with(getOrCreateClazz(packageName + "." + targetType))
+        	 Association other = new Association(getOrCreateClazz(packageName + "." + targetType))
         			 .with(Cardinality.ONE).with(targetLabel);
-            currentAssoc = new Association().with(this.getOrCreateClazz(packageName + "." + sourceType))
+            currentAssoc = new Association(this.getOrCreateClazz(packageName + "." + sourceType))
             		.with(Cardinality.ONE)
             		.with(sourceLabel)
             		.with(other);
@@ -2475,7 +2475,7 @@ public class GenClassModel implements ClassModelAdapter
    private void addMemberAsAnnotation(Clazz clazz, String memberName, Parser parser)
    {
       String[] split = memberName.split(":");
-      clazz.with(new Annotation().with(split[1]));
+      clazz.with(new Annotation(split[1]));
    }
 
    private void addMemberAsAttribut(Clazz clazz, String attrName, SymTabEntry symTabEntry, String rootDir)
@@ -2620,8 +2620,8 @@ public class GenClassModel implements ClassModelAdapter
    private void tryToCreateAssoc(Clazz clazz, String memberName, Cardinality card, String partnerClassName,
          Clazz partnerClass, String partnerAttrName, Cardinality partnerCard)
    {
-      Association sourceRole = new Association().with(clazz).with(partnerCard).with(partnerAttrName);
-      Association targetRole = new Association().with(partnerClass).with(card).with(memberName);
+      Association sourceRole = new Association(clazz).with(partnerCard).with(partnerAttrName);
+      Association targetRole = new Association(partnerClass).with(card).with(memberName);
       
 
       if (!assocWithRolesExists(sourceRole, targetRole))
@@ -2819,7 +2819,7 @@ public class GenClassModel implements ClassModelAdapter
 
          if (!symTabEntry.getAnnotations().isEmpty())
          {
-            method.with(new Annotation().with(symTabEntry.getAnnotations()));
+            method.with(new Annotation(symTabEntry.getAnnotations()));
          }
          method.with(symTabEntry.getThrowsTags());
          method.withBody(parser.getFileBody().substring(symTabEntry.getBodyStartPos(),  symTabEntry.getEndPos()+1));

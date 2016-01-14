@@ -7,7 +7,9 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
 
+import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
 
 public class TaskFlowModel
 {
@@ -28,7 +30,7 @@ public class TaskFlowModel
             .withAttribute("taskNo", DataType.INT)
             .withAttribute("idMap", DataType.ref(SDMLibJsonIdMap.class));
 
-      taskFlowClass.withAssoc(taskFlowClass, "subFlow", Card.ONE, "parent", Card.ONE);
+      taskFlowClass.withBidirectional(taskFlowClass, "subFlow", Cardinality.ONE, "parent", Cardinality.ONE);
 
       model.createClazz("PeerProxy")
       .withAttribute("ip", DataType.STRING)
@@ -55,9 +57,9 @@ public class TaskFlowModel
             .withAttribute("nodeName", DataType.STRING)
             .withAttribute("taskName", DataType.STRING);
             
-      loggerClazz.withAssoc(logEntryClass, "entries", Card.MANY, "logger", Card.ONE);
+      loggerClazz.withBidirectional(logEntryClass, "entries", Cardinality.MANY, "logger", Cardinality.ONE);
 
-      logEntryClass.withAssoc(logEntryClass, "children", Card.MANY, "parent", Card.ONE);
+      logEntryClass.withBidirectional(logEntryClass, "children", Cardinality.MANY, "parent", Cardinality.ONE);
 
       Clazz timerClass = model.createClazz(Timer.class.getName())
             .withExternal(true);

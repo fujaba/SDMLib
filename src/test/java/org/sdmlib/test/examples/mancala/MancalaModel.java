@@ -1,7 +1,6 @@
 package org.sdmlib.test.examples.mancala;
 
 import java.awt.Point;
-import java.util.Enumeration;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,8 +8,12 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
+import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.Parameter;
 
 public class MancalaModel {
 
@@ -26,12 +29,11 @@ public class MancalaModel {
         //tag::mancala[]
         ClassModel model = new ClassModel("org.sdmlib.test.examples.mancala.model"); //<1>
 
-        Enumeration stateEnum = model.createEnumeration("PlayerState")
-        .withValueNames("WAIT","WIN","LOSE","ACTIVE");
+        Clazz stateEnum = model.createClazz("PlayerState").enableEnumeration("WAIT","WIN","LOSE","ACTIVE");
 
         Clazz mancala = model.createClazz("Mancala") //<2>
-                .withMethod("checkEnd") //<3>
-                .withMethod("initGame", DataType.VOID, new Parameter("firstPlayerName", DataType.STRING), new Parameter("secondPlayerName", DataType.STRING)); //<4>
+                .withMethod("checkEnd", DataType.VOID) //<3>
+                .withMethod("initGame", DataType.VOID, new Parameter(DataType.STRING).with("firstPlayerName"), new Parameter(DataType.STRING).with("secondPlayerName")); //<4>
 
         Clazz player = model.createClazz("Player")
                 .withAttribute("name", DataType.STRING) //<5>
@@ -47,7 +49,7 @@ public class MancalaModel {
 
         Clazz pit = model.createClazz("Pit")
                 .withAttribute("nr", DataType.INT)
-                .withMethod("moveStones")
+                .withMethod("moveStones", DataType.VOID)
                 .withBidirectional(mancala, "game", Cardinality.ONE, "pits", Cardinality.MANY)
                 .withBidirectional(player, "player", Cardinality.ONE, "pits", Cardinality.MANY);
 

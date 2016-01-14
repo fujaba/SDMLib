@@ -39,7 +39,7 @@ public class TestAttributes {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_c");
 		Clazz person = model.createClazz("Person");
 		person.createAttribute("name", DataType.STRING);
-		person.with(new Attribute().with("age", DataType.INT));
+		person.with(new Attribute("age", DataType.INT));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		

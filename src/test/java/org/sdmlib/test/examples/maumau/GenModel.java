@@ -1,10 +1,12 @@
 package org.sdmlib.test.examples.maumau;
 
-import java.util.Enumeration;
-
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.replication.ApplicationObject;
+import org.sdmlib.replication.Lane;
 
+import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
@@ -14,13 +16,11 @@ public class GenModel {
 	public void genModel() {
 		ClassModel model = new ClassModel("org.sdmlib.test.examples.maumau.model");
 		Clazz mauMauClass = model.createClazz("MauMau");
-		Enumeration suitEnum = model.createEnumeration("Suit").withValueNames("Clubs", "Spades", "Hearts", "Diamonds");
-		Enumeration valueEnum = model.createEnumeration("Value").withValueNames("7", "8", "9", "10", "Jack", "Queen",
-				"King", "Ace");
+		Clazz suitEnum = model.createClazz("Suit").enableEnumeration("Clubs", "Spades", "Hearts", "Diamonds");
+		Clazz valueEnum = model.createClazz("Value").enableEnumeration("7", "8", "9", "10", "Jack", "Queen", "King", "Ace");
 		Clazz cardClass = model.createClazz("Card").withAttribute("suit", DataType.ref(suitEnum)).withAttribute("value",
 				DataType.ref(valueEnum));
-		mauMauClass.withBidirectional(cardClass, "cards", Cardinality.MANY, "game", Cardinality.ONE)
-				.withAnnotation(new Annotation().withName(ApplicationObject.class.getName()));
+		mauMauClass.withBidirectional(cardClass, "cards", Cardinality.MANY, "game", Cardinality.ONE).with(new Annotation(ApplicationObject.class.getName()));
 		Clazz holderClass = model.createClazz("Holder").withBidirectional(cardClass, "cards", Cardinality.MANY, "holder", Cardinality.ONE);
 		mauMauClass.withBidirectional(holderClass, "deck", Cardinality.ONE, "deckOwner", Cardinality.ONE);
 		mauMauClass.withBidirectional(holderClass, "stack", Cardinality.ONE, "stackOwner", Cardinality.ONE);
@@ -34,7 +34,7 @@ public class GenModel {
 		playerClass.withBidirectional(playerClass, "next", Cardinality.ONE, "prev", Cardinality.ONE);
 		playerClass.withAttribute("lane", DataType.ref(Lane.class));
 		Clazz dutyClass = model.createClazz("Duty");
-		Enumeration dutyType = model.createEnumeration("DutyType").withValueNames("PlayCard", "TakeOne", "TakeTwo");
+		Clazz dutyType = model.createClazz("DutyType").enableEnumeration("PlayCard", "TakeOne", "TakeTwo");
 		dutyClass.with(new Attribute("type", DataType.ref(dutyType)), new Attribute("number", DataType.INT));
 		playerClass.withBidirectional(dutyClass, "duty", Cardinality.MANY, "player", Cardinality.ONE);
 		Clazz openStack = model.createClazz("OpenStack").withSuperClazz(holderClass);

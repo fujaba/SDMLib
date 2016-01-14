@@ -144,15 +144,12 @@ public class Javascript implements GuiAdapter
 //    	 Role source = assoc.getSource();
 //         Role target = assoc.getTarget();
          
-         Association sourceEdge = new Association().with(assoc.getCardinality());
-         Association targetEdge = new Association().with(assoc.getOther().getCardinality());
+         Association sourceEdge = new Association(nodes.get(assoc.getClazz().getName(true))).with(assoc.getCardinality());
+         Association targetEdge = new Association(nodes.get(assoc.getOtherClazz().getName(true))).with(assoc.getOther().getCardinality());
          sourceEdge.with(targetEdge);
          
-         
          sourceEdge.with(assoc.getInfo());
-         sourceEdge.with(nodes.get(assoc.getClazz().getName(true)));
          targetEdge.with(assoc.getInfo());
-         targetEdge.with(nodes.get(assoc.getOtherClazz().getName(true)));
          list.with(sourceEdge);
       }
       
@@ -160,12 +157,12 @@ public class Javascript implements GuiAdapter
       {
          for (Clazz superClazz : kidClazz.getSuperClazzes(false))
          {
-        	 Association generationEdge = new Association().with(AssociationTypes.GENERALISATION);
-        	 generationEdge.with(nodes.get(CGUtil.shortClassName(kidClazz.getName())));
-        	 Association kidEdge = new Association().with(AssociationTypes.EDGE);
+        	 Clazz clazz = nodes.get(CGUtil.shortClassName(kidClazz.getName()));
+        	 Association generationEdge = new Association(clazz).with(AssociationTypes.GENERALISATION);
+        	 Clazz kidClazzes = nodes.get(CGUtil.shortClassName(superClazz.getName()));
+        	 Association kidEdge = new Association(kidClazzes).with(AssociationTypes.EDGE);
         	generationEdge.with(kidEdge);
         	
-        	kidEdge.with(nodes.get(CGUtil.shortClassName(superClazz.getName())));
         	list.with(generationEdge);
          }
       }

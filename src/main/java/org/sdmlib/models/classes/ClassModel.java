@@ -15,7 +15,9 @@ import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.GraphModel;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class ClassModel extends GraphModel implements PropertyChangeInterface {
 	public static final String DEFAULTPACKAGE = "i.love.sdmlib";
@@ -242,5 +244,16 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface {
 			}
 		}
 		return null;
+	}
+
+	public SimpleSet<Clazz> getEnumerations() {
+		SimpleSet<Clazz> clazzes = getClazzes();
+		SimpleSet<Clazz> collection = new SimpleSet<Clazz>();
+		for (Clazz child : clazzes) {
+			if (child.getType()==ClazzType.ENUMERATION)  {
+				collection.add(child);
+			}
+		}
+		return collection;
 	}
 }

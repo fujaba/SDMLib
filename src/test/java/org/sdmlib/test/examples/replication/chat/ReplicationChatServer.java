@@ -1,5 +1,13 @@
 package org.sdmlib.test.examples.replication.chat;
 
+import org.sdmlib.replication.BoardTask;
+import org.sdmlib.replication.SeppelBoardTaskAction;
+import org.sdmlib.replication.SeppelScope;
+import org.sdmlib.replication.SeppelSocketAcceptThread;
+import org.sdmlib.replication.SeppelSpace;
+import org.sdmlib.replication.SeppelSpaceProxy;
+import org.sdmlib.replication.SeppelTaskHandler;
+import org.sdmlib.replication.util.SeppelSpaceProxyCreator;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.util.StoryboardCreator;
 import org.sdmlib.test.examples.replication.chat.util.ChatRootCreator;

@@ -63,8 +63,8 @@ public class StudyRightModel implements PropertyChangeInterface
       Clazz topicClass = model.createClazz("org.sdmlib.test.examples.studyright.Topic")
       .withAttribute("title", DataType.STRING); 
 
-      new Association().with(professorClass).with("prof").with(Cardinality.ONE)
-      	.with(new Association().with(topicClass).with("topic").with(Cardinality.ONE));
+      new Association(professorClass).with("prof").with(Cardinality.ONE)
+      	.with(new Association(topicClass).with("topic").with(Cardinality.ONE));
       
       Clazz roomClass = model.createClazz("org.sdmlib.test.examples.studyright.model.Room")
       .withAttribute("roomNo", DataType.STRING)
@@ -73,24 +73,24 @@ public class StudyRightModel implements PropertyChangeInterface
       new Method("findPath", new Parameter(DataType.STRING), new Parameter(DataType.INT))
          .with(roomClass);
 
-      new Association().with(roomClass).with("neighbors").with(Cardinality.MANY)
-      		.with(new Association().with(roomClass).with("neighbors").with(Cardinality.MANY));
+      new Association(roomClass).with("neighbors").with(Cardinality.MANY)
+      		.with(new Association(roomClass).with("neighbors").with(Cardinality.MANY));
 
       Clazz studentClass = model.createClazz("org.sdmlib.test.examples.studyright.model.Student")
       .withAttribute("name", DataType.STRING)
       .withAttribute("matrNo", DataType.INT);
 
-      new Association().with(roomClass).with("in").with(Cardinality.ONE)
-      	.with(new Association().with("students").with(Cardinality.MANY));
+      new Association(roomClass).with("in").with(Cardinality.ONE)
+      	.with(new Association(studentClass).with("students").with(Cardinality.MANY));
 
       Clazz universityClass = model.createClazz("org.sdmlib.test.examples.studyright.model.University")
       .withAttribute("name", DataType.STRING);
 
-      new Association().with(roomClass).with("rooms").with(Cardinality.MANY)
-      	.with(new Association().with(universityClass).with("uni").with(Cardinality.ONE));
+      new Association(roomClass).with("rooms").with(Cardinality.MANY)
+      	.with(new Association(universityClass).with("uni").with(Cardinality.ONE));
 
-      new Association().with(studentClass).with("students").with(Cardinality.MANY)
-      	.with(new Association().with(universityClass).with("uni").with(Cardinality.ONE));
+      new Association(studentClass).with("students").with(Cardinality.MANY)
+      	.with(new Association(universityClass).with("uni").with(Cardinality.ONE));
 
       // model.getGenerator().updateFromCode("examples test src", "org.sdmlib.test.examples.studyright");
 
@@ -135,17 +135,17 @@ public class StudyRightModel implements PropertyChangeInterface
 
       new Method("studentCount").with(roomClass).with(DataType.INT);
 
-      new Association().with(roomClass).with("neighbors").with(Cardinality.MANY)
-      	.with(new Association().with(roomClass).with("neighbors").with(Cardinality.MANY));
+      new Association(roomClass).with("neighbors").with(Cardinality.MANY)
+      	.with(new Association(roomClass).with("neighbors").with(Cardinality.MANY));
 
-      new Association().with(lectureClass).with("lecture").with(Cardinality.MANY)
-      	.with(new Association().with(roomClass).with("in").with(Cardinality.ONE));
+      new Association(lectureClass).with("lecture").with(Cardinality.MANY)
+      	.with(new Association(roomClass).with("in").with(Cardinality.ONE));
 
       Clazz universityClass = model.createClazz("org.sdmlib.test.examples.studyright.model.University")
       .withAttribute("name", DataType.STRING);
 
-      new Association().with(roomClass).with("rooms").with(Cardinality.MANY)
-      	.with(new Association().with("uni").with(Cardinality.ONE));
+      new Association(roomClass).with("rooms").with(Cardinality.MANY)
+      	.with(new Association(universityClass).with("uni").with(Cardinality.ONE));
 
       Clazz femaleClass = model.createClazz("org.sdmlib.test.examples.studyright.model.Female")
       .withSuperClazz(personClass)
@@ -166,8 +166,8 @@ public class StudyRightModel implements PropertyChangeInterface
       .withSuperClazz(femaleClass)
       .withAttribute("PersNr", DataType.INT);
 
-      new Association().with(lectureClass).with("lecture").with(Cardinality.MANY)
-      	.with(new Association().with(professorClass).with("has").with(Cardinality.ONE));
+      new Association(lectureClass).with("lecture").with(Cardinality.MANY)
+      	.with(new Association(professorClass).with("has").with(Cardinality.ONE));
 
       Clazz studentClass = model.createClazz("org.sdmlib.test.examples.studyright.model.Student")
       .withSuperClazz(maleClass)
@@ -183,8 +183,8 @@ public class StudyRightModel implements PropertyChangeInterface
       new Method("findMyPosition", new Parameter(DataType.STRING), new Parameter(DataType.INT))
          .with(studentClass);
 
-      new Association().with(lectureClass).with("lecture").with(Cardinality.MANY)
-      	.with(new Association().with(studentClass).with("listen").with(Cardinality.ONE));
+      new Association(lectureClass).with("lecture").with(Cardinality.MANY)
+      	.with(new Association(studentClass).with("listen").with(Cardinality.ONE));
 
 
       // model.updateFromCode("examples", "examples test src", "org.sdmlib.test.examples.studyrightextends");
@@ -233,8 +233,8 @@ public class StudyRightModel implements PropertyChangeInterface
       //============================================================
       storyboard.add("3. add uni --> stud assoc");
 
-      Association uniToStud = new Association().with(uniClass).with("uni").with(Cardinality.ONE)
-    	  .with(new Association().with(studClass).with("students").with(Cardinality.MANY)); 
+      Association uniToStud = new Association(uniClass).with("uni").with(Cardinality.ONE)
+    	  .with(new Association(studClass).with("students").with(Cardinality.MANY)); 
 
       storyboard.addClassDiagram(model);
 
@@ -249,14 +249,14 @@ public class StudyRightModel implements PropertyChangeInterface
       new Method("findPath", new Parameter(DataType.STRING), new Parameter(DataType.INT))
          .with(roomClass);
 
-      Association uniToRoom = new Association().with(uniClass).with("uni").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-    	  .with(new Association().with(roomClass).with("rooms").with(Cardinality.MANY)); 
+      Association uniToRoom = new Association(uniClass).with("uni").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+    	  .with(new Association(roomClass).with("rooms").with(Cardinality.MANY)); 
 
-      Association doors = new Association().with(roomClass).with("neighbors").with(Cardinality.MANY)
-			.with(new Association().with(roomClass).with("neighbors").with(Cardinality.MANY));
+      Association doors = new Association(roomClass).with("neighbors").with(Cardinality.MANY)
+			.with(new Association(roomClass).with("neighbors").with(Cardinality.MANY));
 
-      Association studsInRoom = new Association().with(studClass).with("students").with(Cardinality.MANY)
-    	  .with(new Association().with(roomClass).with("in").with(Cardinality.ONE));
+      Association studsInRoom = new Association(studClass).with("students").with(Cardinality.MANY)
+    	  .with(new Association(roomClass).with("in").with(Cardinality.ONE));
 
       storyboard.addClassDiagram(model);
 

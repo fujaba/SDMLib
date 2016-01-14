@@ -149,7 +149,7 @@ public class MauMau implements PropertyChangeInterface
       return this.cards;
    }
 
-   public MauMau withCards(Cardinality... value)
+   public MauMau withCards(Card... value)
    {
       if(value==null){
          return this;
@@ -175,7 +175,7 @@ public class MauMau implements PropertyChangeInterface
       return this;
    } 
 
-   public MauMau withoutCards(Cardinality... value)
+   public MauMau withoutCards(Card... value)
    {
       for (Card item : value)
       {

@@ -44,14 +44,14 @@ import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
+import de.uniks.networkparser.SimpleValuesMap;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.logic.ConditionMap;
-import de.uniks.networkparser.logic.ValuesMap;
+import de.uniks.networkparser.logic.SimpleConditionMap;
 import javafx.application.Platform;
    /**
     * 
@@ -316,7 +316,7 @@ import javafx.application.Platform;
       }
    }
 
-   public static class RestrictToFilter extends ConditionMap
+   public static class RestrictToFilter extends SimpleConditionMap
    {
       private ObjectSet explicitElems;
 
@@ -327,22 +327,22 @@ import javafx.application.Platform;
       }
 
       @Override
-      public boolean check(ValuesMap values)
+      public boolean check(SimpleValuesMap values)
       {
-         if (values.value != null)
+         if (values.getValue() != null)
          {
-            if (values.deep >= 3)
+            if (values.getDeep() >= 3)
             {
                return false;
             }
             else if ("Integer Float Double Long Boolean String"
-               .indexOf(values.value.getClass().getSimpleName()) >= 0)
+               .indexOf(values.getValue().getClass().getSimpleName()) >= 0)
             {
                return true;
             }
          }
          
-         return explicitElems.contains(values.value);
+         return explicitElems.contains(values.getValue());
       }
    }
 
@@ -720,7 +720,7 @@ import javafx.application.Platform;
    public void withMap(JsonIdMap map)
    {
       this.map = map;
-      map.withUpdateListenerSend(this);
+      map.with((UpdateListener)this);
    }
    
    public void put(String string, Object object)
@@ -746,7 +746,7 @@ import javafx.application.Platform;
       .withJavaFXApplication(javaFXApplication);
       
       this.withMap(userModelIdMap);
-      userModelIdMap.withCreator(SeppelSpaceCreator.createIdMap(null));
+      userModelIdMap.with(SeppelSpaceCreator.createIdMap(null));
       
       this.selfProxy = new SeppelSpaceProxy()
       .withSpaceId(this.getSpaceId())

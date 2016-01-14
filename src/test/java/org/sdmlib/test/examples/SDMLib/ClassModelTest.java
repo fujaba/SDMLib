@@ -63,11 +63,11 @@ public class ClassModelTest
          .withAttribute("interfaze", DataType.BOOLEAN)
          .withAttribute("external", DataType.BOOLEAN);
 
-      new Association().with(modelClass).with("classModel").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-      	.with(new Association().with(clazzClass).with("classes").with(Cardinality.MANY));
+      new Association(modelClass).with("classModel").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+      	.with(new Association(clazzClass).with("classes").with(Cardinality.MANY));
 
-      new Association().with(clazzClass).with("superClazzes").with(Cardinality.MANY)
-      	.with(new Association().with(clazzClass).with("kidClazzes").with(Cardinality.MANY));
+      new Association(clazzClass).with("superClazzes").with(Cardinality.MANY)
+      	.with(new Association(clazzClass).with("kidClazzes").with(Cardinality.MANY));
 
       Clazz valueClass = model.createClazz("Value").withSuperClazz(sdmLibClazz);
       valueClass.withAttribute("initialization", DataType.STRING)
@@ -75,8 +75,8 @@ public class ClassModelTest
 
       Clazz attributeClass = model.createClazz("Attribute").withSuperClazz(valueClass);
 
-      new Association().with(clazzClass).with("clazz").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-      	.with(new Association().with(attributeClass).with("attributes").with(Cardinality.MANY));
+      new Association(clazzClass).with("clazz").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+      	.with(new Association(attributeClass).with("attributes").with(Cardinality.MANY));
 
       Clazz methodClass = model.createClazz("Method").withSuperClazz(sdmLibClazz)
          .withAttribute("returnType", DataType.ref(DataType.class))
@@ -102,31 +102,31 @@ public class ClassModelTest
 
       Clazz enumClass = model.createClazz("Enumeration").withSuperClazz(sdmLibClazz);
 
-      new Association().with(modelClass).with("classModel").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-      	.with(new Association().with(enumClass).with("enumerations").with(Cardinality.MANY));
+      new Association(modelClass).with("classModel").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+      	.with(new Association(enumClass).with("enumerations").with(Cardinality.MANY));
 
       // ---- Enumeration END ----
 
       model.createClazz("Parameter").withSuperClazz(valueClass)
          .withBidirectional(methodClass, "method", Cardinality.ONE, "parameter", Cardinality.MANY);
 
-      new Association().with(clazzClass).with("clazz").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
-      	.with(new Association().with(methodClass).with("methods").with(Cardinality.MANY));
+      new Association(clazzClass).with("clazz").with(Cardinality.ONE).with(AssociationTypes.AGGREGATION)
+      	.with(new Association(methodClass).with("methods").with(Cardinality.MANY));
 
       Clazz associationClass = model.createClazz("Association").withSuperClazz(sdmLibClazz);
 
       Clazz roleClass = model.createClazz("Role").withSuperClazz(sdmLibClazz)
-         .withAttribute("card", DataType.STRING, "MANY")
-         .withAttribute("kind", DataType.STRING, "VANILLA");
+         .with(new Attribute("card", DataType.STRING).withValue("MANY"))
+         .with(new Attribute("kind", DataType.STRING).withValue("VANILLA"));
 
-      new Association().with(clazzClass).with("clazz").with(Cardinality.ONE)
-      	.with(new Association().with("roles").with(Cardinality.MANY));
+      new Association(clazzClass).with("clazz").with(Cardinality.ONE)
+      	.with(new Association(roleClass).with("roles").with(Cardinality.MANY));
 
-      new Association().with(associationClass).with("assoc").with(Cardinality.ONE)
-      	.with(new Association().with(roleClass).with("source").with(Cardinality.ONE));
+      new Association(associationClass).with("assoc").with(Cardinality.ONE)
+      	.with(new Association(roleClass).with("source").with(Cardinality.ONE));
 
-      new Association().with(associationClass).with("assoc").with(Cardinality.ONE)
-      	.with(new Association().with(roleClass).with("target").with(Cardinality.ONE));
+      new Association(associationClass).with("assoc").with(Cardinality.ONE)
+      	.with(new Association(roleClass).with("target").with(Cardinality.ONE));
 
       model.createClazz("org.sdmlib.codegen.SymTabEntry")
          .withAttribute("kind", DataType.STRING)
@@ -156,8 +156,8 @@ public class ClassModelTest
          .withAttribute("startPos", DataType.INT)
          .withAttribute("endPos", DataType.INT);
 
-      new Association().with(statementEntry).with("parent").with(Cardinality.ONE)
-      	.with(new Association().with(statementEntry).with("bodyStats").with(Cardinality.MANY));
+      new Association(statementEntry).with("parent").with(Cardinality.ONE)
+      	.with(new Association(statementEntry).with("bodyStats").with(Cardinality.MANY));
 
      storyboard.addClassDiagram(model);
 
