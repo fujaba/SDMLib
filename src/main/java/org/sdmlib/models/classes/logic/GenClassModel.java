@@ -51,6 +51,7 @@ import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
+import de.uniks.networkparser.graph.Throws;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleSet;
@@ -2821,7 +2822,7 @@ public class GenClassModel implements ClassModelAdapter
          {
             method.with(new Annotation(symTabEntry.getAnnotations()));
          }
-         method.with(symTabEntry.getThrowsTags());
+         method.with(new Throws(symTabEntry.getThrowsTags()));
          method.withBody(parser.getFileBody().substring(symTabEntry.getBodyStartPos(),  symTabEntry.getEndPos()+1));
       }
    }
