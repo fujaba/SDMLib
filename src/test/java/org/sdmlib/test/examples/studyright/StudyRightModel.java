@@ -30,6 +30,7 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClass;
+import org.sdmlib.models.classes.logic.GenClazzEntity;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.StoryPage;
 
@@ -284,7 +285,7 @@ public class StudyRightModel implements PropertyChangeInterface
 
       storyboard.add("5. generate generic set for attributes and assocs");
 
-      GenClass genCLazz = model.getGenerator().getOrCreateClazz(studClass);
+      GenClazzEntity genCLazz = model.getGenerator().getOrCreate(studClass);
       Parser parser = genCLazz.getOrCreateParser("examples");
 //      Parser parser = studClass.getOrCreateParser("examples");
 

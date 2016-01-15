@@ -85,7 +85,7 @@ public class GenAssociation extends Generator<Association>
       String myClassName = model.getClazz().getName(true);
       ClassModel clazzModel = (ClassModel) model.getClazz().getClassModel();
       
-      GenClass partnerClazz = getGenerator((Clazz)partnerRole.getClazz());
+      GenClazzEntity partnerClazz = getGenerator((Clazz)partnerRole.getClazz());
       String partnerClassName = partnerRole.getClazz().getName(true);
       
       
@@ -355,7 +355,7 @@ public class GenAssociation extends Generator<Association>
          }
       }
       
-      GenClass generator = getGenerator(model.getClazz());
+      GenClazzEntity generator = getGenerator(model.getClazz());
       
       // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
       kidClasses = partnerRole.getClazz().getKidClazzes(true).withoutAll(partnerRole.getClazz());
@@ -675,7 +675,7 @@ public class GenAssociation extends Generator<Association>
          "withoutMethodCall(this)", reverseWithoutCall
          );
       
-      GenClass generator = getGenerator(model.getClazz());
+      GenClazzEntity generator = getGenerator(model.getClazz());
       if (model.getOther().getCardinality() == Cardinality.MANY){
          if(generator!=null ){
         	 myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
@@ -1484,7 +1484,7 @@ public class GenAssociation extends Generator<Association>
     */
    public void removeGeneratedCode(String rootDir) {
 	   
-	   GenClass genClass = getGenerator(this.getModel().getClazz());
+	   GenClazzEntity genClass = getGenerator(this.getModel().getClazz());
 	   
 	   Parser parser = genClass.getParser();	   
    

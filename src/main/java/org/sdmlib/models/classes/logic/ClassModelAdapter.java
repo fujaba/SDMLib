@@ -45,7 +45,7 @@ public interface ClassModelAdapter {
 	// MUST BE FIXED
 //	public GenEnumeration getOrCreate(Enumeration enumeration);
 
-	public GenClass getOrCreateClazz(Clazz clazz);
+	public GenClazzEntity getOrCreate(Clazz clazz);
 	
 	public GenClass getClazz(String name);
 

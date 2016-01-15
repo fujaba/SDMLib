@@ -6,7 +6,6 @@ import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.GraphEntity;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.Method;
 
@@ -65,10 +64,10 @@ public abstract class Generator<M>
    }
    abstract ClassModel getClazz();
    
-   public GenClass getGenerator(Clazz clazz)
+   public GenClazzEntity getGenerator(Clazz clazz)
    {
 	   ClassModel model = (ClassModel) clazz.getClassModel();
-      return model.getGenerator().getOrCreateClazz(clazz);
+      return model.getGenerator().getOrCreate(clazz);
    }
    
    public GenClass getGenerator(Generator<?> generator, String name)

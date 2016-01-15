@@ -52,7 +52,7 @@ import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.logic.GenClass;
+import org.sdmlib.models.classes.logic.GenClazzEntity;
 import org.sdmlib.models.modelsets.ModelSet;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericObject;
@@ -64,14 +64,13 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 import de.uniks.networkparser.Filter;
+import de.uniks.networkparser.SimpleValuesMap;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.logic.SimpleConditionMap;
-import de.uniks.networkparser.SimpleValuesMap;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
@@ -1128,7 +1127,7 @@ public class Storyboard implements PropertyChangeInterface
 
       Clazz clazz = model.createClazz(className);
       ClassModel clazzModel = (ClassModel) clazz.getClassModel();
-      GenClass generator = clazzModel.getGenerator().getOrCreateClazz(clazz);
+      GenClazzEntity generator = clazzModel.getGenerator().getOrCreate(clazz);
 
       Parser parser = generator.getOrCreateParser(rootDir);
 

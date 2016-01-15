@@ -110,7 +110,15 @@ public class GenClassModel implements ClassModelAdapter
       return this.associations;
    }
 
-   public GenClass getOrCreateClazz(Clazz clazz)
+   public GenClazzEntity getOrCreate(Clazz clazz) {
+	   if(clazz.getType()==ClazzType.ENUMERATION) {
+ 		  return getOrCreateEnum(clazz);
+ 	  } else {
+ 		  return getOrCreateClazz(clazz);
+ 	  }
+   }
+   
+   private GenClass getOrCreateClazz(Clazz clazz)
    {
       if (generators.containsKey(clazz))
       {
@@ -120,7 +128,7 @@ public class GenClassModel implements ClassModelAdapter
       generators.put(clazz, gen);
       return (GenClass) gen;
    }
-   public GenEnumeration getOrCreateEnum(Clazz enumeration)
+   private GenEnumeration getOrCreateEnum(Clazz enumeration)
    {
       if (generators.containsKey(enumeration))
       {
@@ -195,11 +203,7 @@ public class GenClassModel implements ClassModelAdapter
 
       addHelperClassesForUnknownAttributeTypes();
       for (Clazz clazz : model.getClazzes()) {
-    	  if(clazz.getType()==ClazzType.ENUMERATION) {
-    		  getOrCreateEnum(clazz).generate(rootDir, rootDir);
-    	  } else {
-    		  getOrCreateClazz(clazz).generate(rootDir, rootDir);
-    	  }
+    	  getOrCreate(clazz).generate(rootDir, rootDir);
       }
     	  
       

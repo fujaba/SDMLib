@@ -22,27 +22,20 @@
 package org.sdmlib.models.classes.logic;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
-
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
-import org.sdmlib.models.classes.util.ClazzSet;
-
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Literal;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.list.SimpleSet;
 
-public class GenEnumeration extends Generator<Clazz>{
-	private Parser parser = null;
-
+public class GenEnumeration extends GenClazzEntity{
 	public void generate(String rootDir, String helpersDir) {
 
 		if (!model.isExternal()) {
@@ -91,26 +84,6 @@ public class GenEnumeration extends Generator<Clazz>{
 					}
 				}
 			}
-		}
-	}
-
-	private void insertImport(String fullName) {
-		if ("String int double float boolean void".indexOf(fullName) >= 0) {
-			return;
-		}
-
-		int pos = parser.indexOf(Parser.IMPORT);
-
-		String prefix = "";
-		if (parser.search(Parser.IMPORT, pos) < 0) {
-			prefix = "\n";
-		}
-
-		SymTabEntry symTabEntry = parser.getSymTab().get(
-				Parser.IMPORT + ":" + fullName);
-		if (symTabEntry == null) {
-			parser.insert(parser.getEndOfImports() + 1, prefix + "\nimport "
-					+ fullName + ";");
 		}
 	}
 
@@ -177,40 +150,6 @@ public class GenEnumeration extends Generator<Clazz>{
 
 		parser.insert(enumCurrentPos+1, text);
 		return enumCurrentPos+ text.length();
-	}
-
-	private void insertLicense(Parser parser) {
-		// file should start with head comment
-		int pos = parser.search("/*");
-		if (pos < 0 || pos > 20) {
-			// insert MIT License otherwise.
-			String year = new SimpleDateFormat("yyyy").format(new Date(System
-					.currentTimeMillis()));
-			parser.replaceAll(
-					0,
-					"/*\n"
-							+ "   Copyright (c) <year> <developer> \n"
-							+ "   \n"
-							+ "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n"
-							+ "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n"
-							+ "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n"
-							+ "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n"
-							+ "   furnished to do so, subject to the following conditions: \n"
-							+ "   \n"
-							+ "   The above copyright notice and this permission notice shall be included in all copies or \n"
-							+ "   substantial portions of the Software. \n"
-							+ "   \n"
-							+ "   The Software shall be used for Good, not Evil. \n"
-							+ "   \n"
-							+ "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n"
-							+ "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n"
-							+ "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n"
-							+ "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n"
-							+ "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n"
-							+ " */\n" + "   \n", "<year>", year, "<developer>",
-					System.getProperty("user.name"));
-		}
-
 	}
 
 	public Parser getParser() {

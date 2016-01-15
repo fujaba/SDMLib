@@ -1003,7 +1003,7 @@ public class GenAttribute extends Generator<Attribute>
     */
    public void removeGeneratedCode(String rootDir) {
 
-	   GenClass genClass = getGenerator(this.getModel().getClazz());
+	   GenClazzEntity genClass = getGenerator(this.getModel().getClazz());
 	   
 	   Parser parser = genClass.getParser();	   
    

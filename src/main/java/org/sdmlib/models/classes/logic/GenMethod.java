@@ -23,8 +23,8 @@ public class GenMethod extends Generator<Method>
    {
       // get parser from class
 	   ClassModel clazzModel =(ClassModel) clazz.getClassModel();
-      GenClass generator = clazzModel.getGenerator().getOrCreateClazz(clazz);
-      Parser parser = clazzModel.getGenerator().getOrCreateClazz(clazz).getOrCreateParser(rootDir);
+      GenClazzEntity generator = clazzModel.getGenerator().getOrCreate(clazz);
+      Parser parser = generator.getOrCreateParser(rootDir);
 
       insertMethodDeclClazz(clazz, parser);
       
@@ -52,7 +52,7 @@ public class GenMethod extends Generator<Method>
       // get parser from class
 	   ClassModel clazzModel =(ClassModel) enumeration.getClassModel();
 
-      GenEnumeration genEnumeration = ((ClassModel) clazzModel).getGenerator().getOrCreateEnum(enumeration);
+      GenClazzEntity genEnumeration = ((ClassModel) clazzModel).getGenerator().getOrCreate(enumeration);
       Parser parser = genEnumeration.getOrCreateParser(rootDir);
 
       insertMethodDeclEnum(enumeration, parser);
@@ -66,7 +66,7 @@ public class GenMethod extends Generator<Method>
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
-      ((ClassModel) enumeration.getClassModel()).getGenerator().getOrCreateEnum(enumeration);
+      ((ClassModel) enumeration.getClassModel()).getGenerator().getOrCreate(enumeration);
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder
@@ -129,7 +129,7 @@ public class GenMethod extends Generator<Method>
 
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
-      ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreateClazz(clazz);
+      ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreate(clazz);
       if (pos < 0)
       {
          signature = model.getName(true);
@@ -451,7 +451,7 @@ public class GenMethod extends Generator<Method>
     */
    public void removeGeneratedCode(String rootDir) {
 	   
-	   GenClass genClass = getGenerator(this.getModel().getClazz());
+	   GenClazzEntity genClass = getGenerator(this.getModel().getClazz());
 	   
 	   Parser parser = genClass.getParser();	   
    
