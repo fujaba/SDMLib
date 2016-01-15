@@ -28,7 +28,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 	public abstract void generate(String rootDir, String helpersDir);
 	public abstract Parser getOrCreateParser(String rootDir);
 	public abstract void printFile(Parser parser);
-	public abstract Parser getParser();
+
+	public void setParser(Parser parser) {
+		this.parser = parser;
+	}
+
+	public Parser getParser() {
+		return parser;
+	}
 
 	public boolean isShowDiff() {
 		ClassModel model = (ClassModel) getModel().getClassModel();

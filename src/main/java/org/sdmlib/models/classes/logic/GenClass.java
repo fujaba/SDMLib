@@ -647,16 +647,6 @@ public class GenClass extends GenClazzEntity
       }
    }
 
-   public void setParser(Parser parser)
-   {
-      this.parser = parser;
-   }
-
-   public Parser getParser()
-   {
-      return parser;
-   }
-
    public Parser getOrCreateParser(String rootDir)
    {
       if (parser == null)

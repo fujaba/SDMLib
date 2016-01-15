@@ -152,10 +152,6 @@ public class GenEnumeration extends GenClazzEntity{
 		return enumCurrentPos+ text.length();
 	}
 
-	public Parser getParser() {
-		return parser;
-	}
-
 	public Parser getOrCreateParser(String rootDir) {
 		if (parser == null) {
 			// try to find existing file

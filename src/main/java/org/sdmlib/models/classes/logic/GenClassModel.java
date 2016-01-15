@@ -622,7 +622,7 @@ public class GenClassModel implements ClassModelAdapter
    {
       for (Clazz clazz : this.model.getClazzes())
       {
-    	  getOrCreateClazz(clazz).setParser(null);
+    	  getOrCreate(clazz).setParser(null);
       }
    }
 
