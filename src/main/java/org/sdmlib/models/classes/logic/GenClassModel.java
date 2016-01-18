@@ -2875,7 +2875,7 @@ public class GenClassModel implements ClassModelAdapter
    {
       for (Method method : clazz.getMethods())
       {
-         if (method.getName(false).equals(memberName))
+         if (method.getName(false, false).equals(memberName))
             return false;
       }
 

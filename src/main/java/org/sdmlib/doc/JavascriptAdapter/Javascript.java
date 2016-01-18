@@ -196,7 +196,7 @@ public class Javascript implements GuiAdapter
 	         JsonArray jsonMethods = new JsonArray();
 	         for (Method method : clazz.getMethods())
 	         {
-	        	 jsonMethods.add("" + method.getName(false));
+	        	 jsonMethods.add("" + method.getName(false, false));
 	         }
 	         if(jsonMethods.size()>0){
 	        	 jsonClazz.put("methods", jsonMethods);

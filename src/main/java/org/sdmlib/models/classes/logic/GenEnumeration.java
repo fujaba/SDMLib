@@ -56,7 +56,7 @@ public class GenEnumeration extends GenClazzEntity{
 			}
 			generator.generate(rootDir, helpersDir);
 
-			String signature = method.getName(false);
+			String signature = method.getName(false, false);
 			parser.parse();
 			ArrayList<SymTabEntry> symTabEntries = parser
 					.getSymTabEntriesFor(signature);

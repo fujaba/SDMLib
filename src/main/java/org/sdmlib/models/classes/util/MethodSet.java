@@ -162,7 +162,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       
       for (Method obj : this)
       {
-         result.add(obj.getName(false));
+         result.add(obj.getName(false, false));
       }
       
       return result;
@@ -174,7 +174,7 @@ public class MethodSet extends SDMSet<Method> implements org.sdmlib.models.model
       
       for (Method obj : this)
       {
-         if (value.equals(obj.getName(false)))
+         if (value.equals(obj.getName(false, false)))
          {
             result.add(obj);
          }
