@@ -42,7 +42,7 @@ public class AttributeTemplates {
 		Template attrPropertyDecl = new Template()
 	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
 	    		  .withCondition(GraphUtil.isInterface(attribute.getClazz()) == false)
-	    		  .withCondition(!attribute.getVisibility().has(Modifier.STATIC))
+	    		  .withCondition(!attribute.getModifiers().has(Modifier.STATIC))
 	      		  .withTemplate("\n   public static final String PROPERTY_{{NAME}} = \"{{name}}\";\n   ");
 		
 		Template attrDecl = new Template(Parser.ATTRIBUTE + ":" + attribute.getName())
@@ -50,14 +50,14 @@ public class AttributeTemplates {
 
 		allTemplates.withTemplates(attrPropertyDecl, attrDecl);
 	      // if constant field -> return
-	      if (attribute.getVisibility().has(Modifier.PUBLIC)
-	            && attribute.getVisibility().has(Modifier.STATIC)
-	            && attribute.getVisibility().has(Modifier.FINAL)
+	      if (attribute.getModifiers().has(Modifier.PUBLIC)
+	            && attribute.getModifiers().has(Modifier.STATIC)
+	            && attribute.getModifiers().has(Modifier.FINAL)
 	            && attribute.getValue() != null)
 	         return allTemplates;
 
 	      
-	      if (attribute.getVisibility().equals(Modifier.PRIVATE))
+	      if (attribute.getModifiers().equals(Modifier.PRIVATE))
 	      {
 	    	  Template attrGetter;
 	    	  if ("boolean".equalsIgnoreCase(attribute.getType().getName(false)))

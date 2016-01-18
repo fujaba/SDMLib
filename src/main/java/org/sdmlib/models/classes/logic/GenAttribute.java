@@ -41,7 +41,7 @@ public class GenAttribute extends Generator<Attribute>
 	  templates.insert(parser, (ClassModel) model.getClazz().getClassModel(),
 			  	"name", model.getName(),
 			  	"type", model.getType().getName(true),
-			  	"modifier", model.getVisibility().getName(),
+			  	"modifier", model.getModifiers().getName(),
 			  	"init", model.getValue() == null ? "" : " = " +
                         (DataType.STRING.equals(model.getType()) ? "\"" + model.getValue() + "\"" : model.getValue()),
                 "ownerclass", CGUtil.shortClassName(clazz.getName(false)));
@@ -56,12 +56,12 @@ public class GenAttribute extends Generator<Attribute>
    private void insertCaseInToString(Parser parser)
    {
       // if constant field -> return
-	   if(model.getVisibility().has(Modifier.STATIC)) {
+	   if(model.getModifiers().has(Modifier.STATIC)) {
 		   return;
 	   }
-      if (model.getVisibility().has(Modifier.PUBLIC)
-            && model.getVisibility().has(Modifier.STATIC)
-            && model.getVisibility().has(Modifier.FINAL)
+      if (model.getModifiers().has(Modifier.PUBLIC)
+            && model.getModifiers().has(Modifier.STATIC)
+            && model.getModifiers().has(Modifier.FINAL)
             && model.getValue() != null)
          return;
 
@@ -91,7 +91,7 @@ public class GenAttribute extends Generator<Attribute>
       
       AddTemplate templateAttr = new AddTemplate(methodBodyStartPos, "get" + StrUtil.upFirstChar(model.getName()), ".append(" + model.getName() + ")");
       templateAttr.withLast("return");
-      if(model.getVisibility().has(Modifier.PUBLIC)) {
+      if(model.getModifiers().has(Modifier.PUBLIC)) {
     	  templateAttr.withTemplate("result.append(\" \").append(this.{{name}});\n      ");
       }else{
     	  templateAttr.withTemplate("result.append(\" \").append(this.get{{Name}}());\n      ");
@@ -209,7 +209,7 @@ public class GenAttribute extends Generator<Attribute>
 			attrNameGetter = "is" + name + "()";
 		}
 		String attrNameSetter = "set" + name + "(value)";
-		if (model.getVisibility().equals(Modifier.PUBLIC)) {
+		if (model.getModifiers().equals(Modifier.PUBLIC)) {
 			attrNameGetter = model.getName();
 			attrNameSetter = model.getName() + " = value";
 		}
@@ -504,7 +504,7 @@ public class GenAttribute extends Generator<Attribute>
      }
      String name = StrUtil.upFirstChar(model.getName());
      String attrNameGetter = "get" + name + "()";
-     if (model.getVisibility().equals(Modifier.PUBLIC))
+     if (model.getModifiers().equals(Modifier.PUBLIC))
      {
         attrNameGetter = model.getName();
      } else if ("boolean".equalsIgnoreCase(model.getType().getName(false)))
@@ -587,7 +587,7 @@ public class GenAttribute extends Generator<Attribute>
                      "\n"
                );
          String attrNameGetter;
-         if (model.getVisibility().equals(Modifier.PUBLIC))
+         if (model.getModifiers().equals(Modifier.PUBLIC))
          {
             attrNameGetter = model.getName();
          }else if ("boolean".equalsIgnoreCase(model.getType().getName(false)))
@@ -648,7 +648,7 @@ public class GenAttribute extends Generator<Attribute>
 
      String name = StrUtil.upFirstChar(model.getName());
      String attrNameSetter = "set" + name + "(value)";
-     if (model.getVisibility().equals(Modifier.PUBLIC))
+     if (model.getModifiers().equals(Modifier.PUBLIC))
      {
         attrNameSetter = model.getName() + " = value";
      }
@@ -663,7 +663,7 @@ public class GenAttribute extends Generator<Attribute>
    private void insertGenericGetSetForWrapperInCreatorClass(Parser parser,
          Clazz ownerClazz)
    {
-      if (model.getVisibility().equals(Modifier.PRIVATE))
+      if (model.getModifiers().equals(Modifier.PRIVATE))
       {
          insertCaseInGenericGetForWrapperInCreatorClass(parser, ownerClazz);
          insertCaseInGenericSetForWrapperInCreatorClass(parser, ownerClazz);
@@ -759,7 +759,7 @@ public class GenAttribute extends Generator<Attribute>
      {
         attrNameSetter = "with" + name + "(type)";
      }
-     if (model.getVisibility().equals(Modifier.PUBLIC))
+     if (model.getModifiers().equals(Modifier.PUBLIC))
      {
         attrNameSetter = model.getName() + " = (type) value";
      }
@@ -852,7 +852,7 @@ public class GenAttribute extends Generator<Attribute>
          getGenerator(clazz).printFile();
       }
 
-      if (model.getVisibility().equals(Modifier.PRIVATE))
+      if (model.getModifiers().equals(Modifier.PRIVATE))
       {
 
          //    	  if (!isEnumType(model, clazz)) {

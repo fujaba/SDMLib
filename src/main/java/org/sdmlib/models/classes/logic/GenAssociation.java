@@ -254,7 +254,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   } " +
                   "\n";
             
-            if (this.model.getTyp()==AssociationTypes.EDGE)
+            if (this.model.getType()==AssociationTypes.EDGE)
             {
                // uni directional no reverse call
                withMeth = CGUtil.replaceAll(withMeth, "\n               item.withMyRoleName(this);", "");
@@ -301,7 +301,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n";
             
-            if (this.model.getTyp()==AssociationTypes.EDGE)
+            if (this.model.getType()==AssociationTypes.EDGE)
             {
                // uni directional no reverse call
                withOutMeth = CGUtil.replaceAll(withOutMeth, "\n               item.reverseWithoutCall(this);", "");
@@ -559,7 +559,7 @@ public class GenAssociation extends Generator<Association>
                   "\n   }" +
                   "\n";
 
-            if (this.model.getTyp()==AssociationTypes.EDGE)
+            if (this.model.getType()==AssociationTypes.EDGE)
             {
                // uni directional assoc, do not call reverse
                setMeth = CGUtil.replaceAll(setMeth, 
@@ -1572,7 +1572,7 @@ public class GenAssociation extends Generator<Association>
 //		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
 //		ClassModelAdapter generator = classModel.getGenerator();
 //		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
-		if(model.getOther().getTyp()==AssociationTypes.EDGE || model.getOther().getTyp()==AssociationTypes.GENERALISATION) {
+		if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.GENERALISATION) {
 			return this;
 		}
 		this.generate(rootDir, helperDir, model.getOther());
@@ -1589,7 +1589,7 @@ public class GenAssociation extends Generator<Association>
 			this.generate(kidClass, rootDir, helperDir, model.getOther(), !needsImplementation);
 		}
 
-		if (model.getName() == null || model.getTyp()==AssociationTypes.EDGE) {
+		if (model.getName() == null || model.getType()==AssociationTypes.EDGE) {
 			// uni directional assoc, do not generate reverse direction
 			return this;
 		}
