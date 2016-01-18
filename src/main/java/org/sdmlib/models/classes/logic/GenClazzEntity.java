@@ -56,10 +56,12 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 	         String developer = model.getClassModel().getAuthorName();
 	         if(pos>0) {
 	        	 int existingIndex = parser.indexOf("Copyright (c) ");
-	        	 String lineForPos = parser.getLineForPos(existingIndex);
-	        	 String[] items = lineForPos.split(" ");
-	        	 if(!items[items.length-1].trim().isEmpty()) {
-	        		 developer = items[items.length-1].trim();
+	        	 if(existingIndex>0) {
+		        	 String lineForPos = parser.getLineForPos(existingIndex);
+		        	 String[] items = lineForPos.split(" ");
+		        	 if(!items[items.length-1].trim().isEmpty()) {
+		        		 developer = items[items.length-1].trim();
+		        	 }
 	        	 }
 	         }
 	         parser

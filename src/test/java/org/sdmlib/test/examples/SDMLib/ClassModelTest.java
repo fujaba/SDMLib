@@ -21,8 +21,6 @@
 
 package org.sdmlib.test.examples.SDMLib;
 
-import javax.management.relation.Role;
-
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.Feature;

@@ -478,8 +478,7 @@ import java.lang.Object;
                      .withStartPos(currentPosInExpandedText)
                      .withEndPos(subTemplate.getValueStartPos() - 1)
                      .withParentMatch(templateMatch)
-                     .withSubMatches(subMatches.toArray(new Match[]
-                     {}));
+                     .withSubMatches(subMatches.toArray(new Match[subMatches.size()]));
 
                }
 
