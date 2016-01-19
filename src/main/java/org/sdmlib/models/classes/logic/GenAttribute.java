@@ -20,7 +20,6 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.DataTypeSet;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 
@@ -42,7 +41,7 @@ public class GenAttribute extends Generator<Attribute>
 	  templates.insert(parser, (ClassModel) model.getClazz().getClassModel(),
 			  	"name", model.getName(),
 			  	"type", model.getType().getName(true),
-			  	"modifier", model.getModifiers().getName(),
+			  	"modifier", model.getModifier().getName(),
 			  	"init", model.getValue() == null ? "" : " = " +
                         (DataType.STRING.equals(model.getType()) ? "\"" + model.getValue() + "\"" : model.getValue()),
                 "ownerclass", CGUtil.shortClassName(clazz.getName(false)));
@@ -57,12 +56,12 @@ public class GenAttribute extends Generator<Attribute>
    private void insertCaseInToString(Parser parser)
    {
       // if constant field -> return
-	   if(model.getModifiers().has(Modifier.STATIC)) {
+	   if(model.getModifier().has(Modifier.STATIC)) {
 		   return;
 	   }
-      if (model.getModifiers().has(Modifier.PUBLIC)
-            && model.getModifiers().has(Modifier.STATIC)
-            && model.getModifiers().has(Modifier.FINAL)
+      if (model.getModifier().has(Modifier.PUBLIC)
+            && model.getModifier().has(Modifier.STATIC)
+            && model.getModifier().has(Modifier.FINAL)
             && model.getValue() != null)
          return;
 
@@ -92,7 +91,7 @@ public class GenAttribute extends Generator<Attribute>
       
       AddTemplate templateAttr = new AddTemplate(methodBodyStartPos, "get" + StrUtil.upFirstChar(model.getName()), ".append(" + model.getName() + ")");
       templateAttr.withLast("return");
-      if(model.getModifiers().has(Modifier.PUBLIC)) {
+      if(model.getModifier().has(Modifier.PUBLIC)) {
     	  templateAttr.withTemplate("result.append(\" \").append(this.{{name}});\n      ");
       }else{
     	  templateAttr.withTemplate("result.append(\" \").append(this.get{{Name}}());\n      ");
@@ -210,7 +209,7 @@ public class GenAttribute extends Generator<Attribute>
 			attrNameGetter = "is" + name + "()";
 		}
 		String attrNameSetter = "set" + name + "(value)";
-		if (model.getModifiers().has(Modifier.PUBLIC)) {
+		if (model.getModifier().has(Modifier.PUBLIC)) {
 			attrNameGetter = model.getName();
 			attrNameSetter = model.getName() + " = value";
 		}
@@ -505,7 +504,7 @@ public class GenAttribute extends Generator<Attribute>
      }
      String name = StrUtil.upFirstChar(model.getName());
      String attrNameGetter = "get" + name + "()";
-     if (model.getModifiers().has(Modifier.PUBLIC))
+     if (model.getModifier().has(Modifier.PUBLIC))
      {
         attrNameGetter = model.getName();
      } else if ("boolean".equalsIgnoreCase(model.getType().getName(false)))
@@ -588,7 +587,7 @@ public class GenAttribute extends Generator<Attribute>
                      "\n"
                );
          String attrNameGetter;
-         if (model.getModifiers().has(Modifier.PUBLIC))
+         if (model.getModifier().has(Modifier.PUBLIC))
          {
             attrNameGetter = model.getName();
          }else if ("boolean".equalsIgnoreCase(model.getType().getName(false)))
@@ -649,7 +648,7 @@ public class GenAttribute extends Generator<Attribute>
 
      String name = StrUtil.upFirstChar(model.getName());
      String attrNameSetter = "set" + name + "(value)";
-     if (model.getModifiers().has(Modifier.PUBLIC))
+     if (model.getModifier().has(Modifier.PUBLIC))
      {
         attrNameSetter = model.getName() + " = value";
      }
@@ -664,7 +663,7 @@ public class GenAttribute extends Generator<Attribute>
    private void insertGenericGetSetForWrapperInCreatorClass(Parser parser,
          Clazz ownerClazz)
    {
-      if (model.getModifiers().has(Modifier.PRIVATE))
+      if (model.getModifier().has(Modifier.PRIVATE))
       {
          insertCaseInGenericGetForWrapperInCreatorClass(parser, ownerClazz);
          insertCaseInGenericSetForWrapperInCreatorClass(parser, ownerClazz);
@@ -760,7 +759,7 @@ public class GenAttribute extends Generator<Attribute>
      {
         attrNameSetter = "with" + name + "(type)";
      }
-     if (model.getModifiers().has(Modifier.PUBLIC))
+     if (model.getModifier().has(Modifier.PUBLIC))
      {
         attrNameSetter = model.getName() + " = (type) value";
      }
@@ -853,7 +852,7 @@ public class GenAttribute extends Generator<Attribute>
          getGenerator(clazz).printFile();
       }
 
-      if (model.getModifiers().has(Modifier.PRIVATE))
+      if (model.getModifier().has(Modifier.PRIVATE))
       {
 
          //    	  if (!isEnumType(model, clazz)) {

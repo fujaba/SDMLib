@@ -1,8 +1,6 @@
 package org.sdmlib.models.classes.logic;
 
 import java.util.ArrayList;
-import java.util.Set;
-
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
