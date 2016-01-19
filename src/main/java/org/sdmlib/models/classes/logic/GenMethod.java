@@ -206,7 +206,7 @@ public class GenMethod extends Generator<Method>
 //      symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + string);
 
       // in case of a method body, remove old method
-      if (model.getBody() != null)
+      if (symTabEntry != null && model.getBody() != null)
       {
          parser.parseMethodBody(symTabEntry);
          int startPos = symTabEntry.getEndPos();

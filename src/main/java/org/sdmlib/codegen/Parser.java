@@ -2317,6 +2317,9 @@ public class Parser
           {
              continue;
           }
+    	  while(string.endsWith(".")) {
+    		  string = string.substring(0, string.length() - 1); 
+    	  }
 	      SymTabEntry symTabEntry = getSymTab().get(Parser.IMPORT + ":" + string);
 	      if (symTabEntry == null)
 	      {
