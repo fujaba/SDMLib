@@ -63,7 +63,7 @@ repositories {
 
 dependencies {
     compile group: "junit", name: "junit", version: "4.+"
-	compile 'com.github.fujaba:NetworkParser:[4.2,):sources'
+	compile 'de.uniks:NetworkParser:[4.2,):sources'
 }
 
 jacoco {
@@ -103,8 +103,6 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << '-Xlint:none'
 }
 
-defaultTasks = ['clean', 'jar']
-
 def isTravisSnaphot() {
 	boolean result=false;
 	Map<String, String> env = System.getenv();
@@ -115,3 +113,5 @@ def isTravisSnaphot() {
 	}
 	return result;
 }
+
+defaultTasks = 'clean', 'test', 'jar'
