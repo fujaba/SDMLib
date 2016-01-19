@@ -53,9 +53,9 @@ public class PatternModelCodeGen
       .withAttribute("doAllMatches", DataType.BOOLEAN);
       
       Clazz pattern = model.createClazz("Pattern")
-         .withAttribute("currentSubPattern", DataType.ref("Pattern"))
+         .withAttribute("currentSubPattern", DataType.create("Pattern"))
          .withAttribute("debugMode", DataType.INT) 
-         // .withAttribute("trace", DataType.ref("StringBuilder"))
+         // .withAttribute("trace", DataType.create("StringBuilder"))
          .withAttribute("name", DataType.STRING)
          .withSuperClazz(patternElement);
       

@@ -36,11 +36,11 @@ public class SimpleClassModelWithEnumeration
           
       Clazz macClazz = model.createClazz("Mac");
       macClazz.withAttribute("Name", DataType.STRING)
-      .withAttribute("type", DataType.ref(enumeration))
-      .withAttribute("owner", DataType.ref(alexClazz));
+      .withAttribute("type", DataType.create(enumeration))
+      .withAttribute("owner", DataType.create(alexClazz));
       
       macClazz.withMethod("concat", DataType.STRING, new Parameter(DataType.INT));
-      macClazz.withMethod("select", DataType.ref(enumeration), new Parameter(DataType.INT));
+      macClazz.withMethod("select", DataType.create(enumeration), new Parameter(DataType.INT));
       
 //      model.getGenerator().withShowDiff(DIFF.FULL);
       model.generate("src/test/java");

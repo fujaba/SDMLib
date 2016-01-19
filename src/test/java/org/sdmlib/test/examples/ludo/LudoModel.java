@@ -41,7 +41,7 @@ public class LudoModel
       storyboard.add("The model: ");
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.ludo.model");
-      Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.ref(Date.class));
+      Clazz ludo = model.createClazz("Ludo").withAttribute("date", DataType.create(Date.class));
       
       Clazz point = model.createClazz(Point.class.getName())
             .with(new Attribute("x", DataType.INT).with(Modifier.PUBLIC))
@@ -51,7 +51,7 @@ public class LudoModel
       Clazz player = model.createClazz("Player")
             .withBidirectional(ludo, "game", Cardinality.ONE, "players", Cardinality.MANY)
             .withAttribute("color", DataType.STRING)
-            .withAttribute("enumColor", DataType.ref(LudoColor.class))
+            .withAttribute("enumColor", DataType.create(LudoColor.class))
             .withAttribute("name", DataType.STRING)
             .withAttribute("x", DataType.INT)
             .withAttribute("y", DataType.INT);
@@ -73,7 +73,7 @@ public class LudoModel
          .withAttribute("kind", DataType.STRING)
          .withAttribute("x", DataType.INT)
          .withAttribute("y", DataType.INT)
-         .withAttribute("point", DataType.ref(point));
+         .withAttribute("point", DataType.create(point));
 
      
       field.withBidirectional(field, "next", Cardinality.ONE, "prev", Cardinality.ONE);

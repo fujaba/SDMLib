@@ -76,7 +76,7 @@ public class TestMethods {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataType.ref(room.getClass())).with("room")));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataType.create(room.getClass())).with("room")));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -88,7 +88,7 @@ public class TestMethods {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataType.ref(room)).with("room")));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataType.create(room)).with("room")));
 		person.with(new Method("read", DataType.VOID, new Parameter(room).with("room")));
 	
 		model.getGenerator().testGeneratedCode();

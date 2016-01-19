@@ -39,8 +39,8 @@ public class MancalaModel {
                 .withAttribute("name", DataType.STRING) //<5>
                 .withBidirectional(mancala, "activeGame", Cardinality.ONE, "activePlayer", Cardinality.ONE) //<6>
                 .withBidirectional(mancala, "game", Cardinality.ONE, "players", Cardinality.MANY)
-                .withAttribute("state", DataType.ref(stateEnum))
-                .withAttribute("color", DataType.ref(Color.class));
+                .withAttribute("state", DataType.create(stateEnum))
+                .withAttribute("color", DataType.create(Color.class));
 
         Clazz point = model.createClazz(Point.class.getName()) //<7>
                 .with(new Attribute("x", DataType.INT).with(Modifier.PUBLIC)) //<8>
@@ -85,11 +85,11 @@ public class MancalaModel {
       /* add method */
       .withMethod("initGame", DataType.VOID, new Parameter(DataType.STRING), new Parameter(DataType.STRING))
       /* add method */
-      .withMethod("createPitsKalah", DataType.ref("Kalah"));
+      .withMethod("createPitsKalah", DataType.create("Kalah"));
 
       Clazz pitClass = model.createClazz("org.sdmlib.test.examples.mancala.model.Pit")
-      .with(new Attribute("nr", DataType.ref("int")) )
-      .with(new Attribute("nr", DataType.ref("int")) )
+      .with(new Attribute("nr", DataType.create("int")) )
+      .with(new Attribute("nr", DataType.create("int")) )
       /* add method */
       .withMethod("moveStones", DataType.VOID);
 
@@ -101,8 +101,8 @@ public class MancalaModel {
       
       
       Clazz playerClass = model.createClazz("org.sdmlib.test.examples.mancala.model.Player")
-      .with(new Attribute("name", DataType.ref("String")) )
-      .with(new Attribute("state", DataType.ref("PlayerState")) );
+      .with(new Attribute("name", DataType.create("String")) )
+      .with(new Attribute("state", DataType.create("PlayerState")) );
       /* add assoc */
       playerClass.withBidirectional(mancalaClass, "game", Cardinality.ONE, "players", Cardinality.MANY);
 

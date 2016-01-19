@@ -64,7 +64,7 @@ public class ReplicationModel
 
       Clazz seppelSpace = model.createClazz("SeppelSpace")
             .withAttribute("spaceId", DataType.STRING) 
-            .withAttribute("history", DataType.ref("ChangeEventList"))
+            .withAttribute("history", DataType.create("ChangeEventList"))
             .withAttribute("lastChangeId", DataType.LONG) 
             .withAttribute("javaFXApplication", DataType.BOOLEAN)
             .withSuperClazz(thread);
@@ -92,7 +92,7 @@ public class ReplicationModel
 
       Clazz seppelChannel = model.createClazz("SeppelChannel")
             .withSuperClazz(thread)
-            .withAttribute("socket", DataType.ref(Socket.class))
+            .withAttribute("socket", DataType.create(Socket.class))
             .withAttribute("loginValidated", DataType.BOOLEAN); 
       
             
@@ -131,7 +131,7 @@ public class ReplicationModel
 
       Clazz sharedSpace = model.createClazz("SharedSpace")
             .withAttribute("spaceId", DataType.STRING) 
-      .withAttribute("history", DataType.ref(CHANGE_HISTORY))
+      .withAttribute("history", DataType.create(CHANGE_HISTORY))
       .withAttribute("lastChangeId", DataType.LONG) 
       .withAttribute("nodeId", DataType.STRING) 
       .withAttribute("javaFXApplication", DataType.BOOLEAN)
@@ -142,7 +142,7 @@ public class ReplicationModel
       
       Clazz replicationChannel = model.createClazz("ReplicationChannel")
       .withSuperClazz(thread)
-      .withAttribute("socket", DataType.ref(Socket.class)) 
+      .withAttribute("socket", DataType.create(Socket.class)) 
       .withAttribute("targetNodeId", DataType.STRING); 
       
       sharedSpace.withBidirectional(replicationChannel, "channels", Cardinality.MANY, "sharedSpace", Cardinality.ONE);
@@ -153,7 +153,7 @@ public class ReplicationModel
       Clazz serverSocketAcceptThread = model.createClazz("ServerSocketAcceptThread")
             .withSuperClazz(thread)
             .withAttribute("port", DataType.INT)
-            .withAttribute("replicationNode", DataType.ref(replicationNode));
+            .withAttribute("replicationNode", DataType.create(replicationNode));
 
       Clazz task = model.createClazz("Task");
 
@@ -191,7 +191,7 @@ public class ReplicationModel
             .withAttribute("name", DataType.STRING)
             .withAttribute("status", DataType.STRING)
             .withAttribute("manualExecution", DataType.BOOLEAN)
-            .withAttribute("stashedPropertyChangeEvent", DataType.ref(PropertyChangeEvent.class))
+            .withAttribute("stashedPropertyChangeEvent", DataType.create(PropertyChangeEvent.class))
             .withMethod("execute", DataType.VOID);
             
       Clazz runnable = model.createClazz("java.lang.Runnable")
@@ -201,7 +201,7 @@ public class ReplicationModel
       Clazz remoteTask = model.createClazz("RemoteTask")
             .withSuperClazz(task)
             .withSuperClazz(runnable)
-            .withAttribute("boardTask", DataType.ref(boardTask));
+            .withAttribute("boardTask", DataType.create(boardTask));
       
       lane.withBidirectional(boardTask, "tasks", Cardinality.MANY, "lane", Cardinality.ONE);
          

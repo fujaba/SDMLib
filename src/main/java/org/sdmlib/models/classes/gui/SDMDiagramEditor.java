@@ -38,7 +38,7 @@ public class SDMDiagramEditor implements Editor{
 							int pos = attribute.indexOf(":");
 							if (pos > 0) {
 								clazz.createAttribute(attribute.substring(0, pos),
-										DataType.ref(attribute.substring(pos + 1)));
+										DataType.create(attribute.substring(pos + 1)));
 							}
 						}
 					}

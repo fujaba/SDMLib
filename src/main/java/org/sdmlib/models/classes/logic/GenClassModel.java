@@ -527,12 +527,12 @@ public class GenClassModel implements ClassModelAdapter
             else if (object instanceof Association)
             {
             	Association role = (Association) object;
-               String position = defPositionAsString(parser, localVarTable, role.getName(), DataType.ref("NONE"), role
+               String position = defPositionAsString(parser, localVarTable, role.getName(), DataType.create("NONE"), role
                      .getClazz().getName(false));
                System.out.println("in " + fileName + "  duplicate name found in definition for " + role.getClazz()
                      + "\n    " + position + "\n      Role " + role);
                System.out.println(parser.getLineForPos((int) defPosition(parser, localVarTable, role.getName(),
-                     DataType.ref("NONE"), role.getClazz().getName(false))));
+                     DataType.create("NONE"), role.getClazz().getName(false))));
                GraphUtil.removeYou(role);
             }
          }
@@ -1001,7 +1001,7 @@ public class GenClassModel implements ClassModelAdapter
             StringBuilder text = new StringBuilder(
                   "\n" +
                         "         /*add attribut*/\n" +
-                        "       .with(new Attribute(\"name\", DataType.ref(\"type\")) )");
+                        "       .with(new Attribute(\"name\", DataType.create(\"type\")) )");
             // + "         \"name\", \"type\"");
 
             CGUtil.replaceAll(text,
@@ -1474,7 +1474,7 @@ public class GenClassModel implements ClassModelAdapter
 
          String typeSplit = typeString.substring("DataType.ref".length() + 1, typeString.length() - 1);
 
-         // DataType.ref("String")
+         // DataType.create("String")
          if (typeSplit.startsWith("\""))
          {
             typeSplit = typeSplit.replaceAll("\"", "");
@@ -1482,7 +1482,7 @@ public class GenClassModel implements ClassModelAdapter
             return "DataType." + typeSplit;
          }
 
-         // DataType.ref(objectname)
+         // DataType.create(objectname)
          else
          {
             LocalVarTableEntry tableEntry = getOrCreateClazz(modelCreationClass).getParser()
@@ -1833,7 +1833,7 @@ public class GenClassModel implements ClassModelAdapter
          initialization = "";
       }
       StringBuilder result = parser.replaceAll(currentInsertPos,
-            "      .with(new Attribute(\"attributeName\", DataType.ref(\"attributeType\")) attributeInit)",
+            "      .with(new Attribute(\"attributeName\", DataType.create(\"attributeType\")) attributeInit)",
             "attributeType", attribute.getType().getName(false),
             "attributeName", attribute.getName(),
             "attributeInit", initialization);
@@ -2183,7 +2183,7 @@ public class GenClassModel implements ClassModelAdapter
             {
                DateFormat.getDateInstance().parse(valueString);
 
-               attrType = DataType.ref("java.util.Date");
+               attrType = DataType.create("java.util.Date");
             }
             catch (ParseException e2)
             {
@@ -2192,7 +2192,7 @@ public class GenClassModel implements ClassModelAdapter
                   SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd'T'hh:mm:ss");
                   simpleDateFormat.parse(valueString);
 
-                  attrType = DataType.ref("java.util.Date");
+                  attrType = DataType.create("java.util.Date");
                }
                catch (ParseException e3)
                {
@@ -2503,7 +2503,7 @@ public class GenClassModel implements ClassModelAdapter
 
          if (!classContainsAttribut(clazz, attrName, symTabEntry.getType()))
          {
-            new Attribute(attrName, DataType.ref(symTabEntry.getType())).with(clazz);
+            new Attribute(attrName, DataType.create(symTabEntry.getType())).with(clazz);
          }
       }
 
@@ -2549,7 +2549,7 @@ public class GenClassModel implements ClassModelAdapter
       // type is unknown
       if (addToSymTabEntry == null)
       {
-         new Attribute(memberName, DataType.ref(partnerTypeName))
+         new Attribute(memberName, DataType.create(partnerTypeName))
                .with(clazz);
          return;
       }
@@ -2588,7 +2588,7 @@ public class GenClassModel implements ClassModelAdapter
       if (!done)
       {
          // did not find reverse role, add as attribute
-         new Attribute(memberName, DataType.ref(partnerTypeName))
+         new Attribute(memberName, DataType.create(partnerTypeName))
                .with(clazz);
       }
 
@@ -2813,12 +2813,12 @@ public class GenClassModel implements ClassModelAdapter
 
          Method method = new Method(signature.substring(0, part))
                .withParent(clazz)
-               .with(DataType.ref(split[2]));
+               .with(DataType.create(split[2]));
          for (String param : params)
          {
             if (param != null && param.length() > 0)
             {
-               method.with(new Parameter(DataType.ref(param)));
+               method.with(new Parameter(DataType.create(param)));
             }
          }
 

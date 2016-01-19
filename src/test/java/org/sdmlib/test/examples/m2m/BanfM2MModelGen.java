@@ -13,17 +13,17 @@ public class BanfM2MModelGen
    {
       ClassModel model = new ClassModel("org.sdmlib.test.examples.m2m.model");
       
-      Clazz graphComponentClazz = model.createClazz("GraphComponent")
-            .withAttribute("text", DataType.STRING );
+      Clazz graphComponentClazz = model.createClazz("GraphComponent");
+      graphComponentClazz.createAttribute("text", DataType.STRING );
 
       Clazz graphClazz = model.createClazz("Graph");
 
-      Clazz nodeClazz = model.createClazz("Person")
-            .withAttribute("firstName", DataType.STRING)
-            .withAttribute("text", DataType.STRING);
+      Clazz nodeClazz = model.createClazz("Person");
+      nodeClazz.createAttribute("firstName", DataType.STRING);
+      nodeClazz.createAttribute("text", DataType.STRING);
 
-      Clazz edgeClazz = model.createClazz("Relation")
-            .withAttribute("kind", DataType.STRING );
+      Clazz edgeClazz = model.createClazz("Relation");
+      edgeClazz.createAttribute("kind", DataType.STRING );
 
       graphClazz.withBidirectional(graphComponentClazz, "gcs", Cardinality.MANY, "parent", Cardinality.ONE);
       

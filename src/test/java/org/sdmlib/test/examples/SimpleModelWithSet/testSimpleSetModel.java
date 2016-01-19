@@ -17,11 +17,11 @@ public class testSimpleSetModel {
 		ClassModel model = new ClassModel("org.sdmlib.test.examples.SimpleModelWithSet.model");
 		Clazz person = model.createClazz("Person");
 		Clazz child = model.createClazz("Child");
-//		person.with(new Attribute("prename", SetDataType.ref(DataType.STRING)));
-		person.withAttribute("name", DataTypeMap.ref(DataType.STRING, DataType.ref(person)));
+//		person.with(new Attribute("prename", SetDataType.create(DataType.STRING)));
+		person.withAttribute("name", DataTypeMap.ref(DataType.STRING, DataType.create(person)));
 		
 		Method m1 = new Method("setParent"
-				).with(new Parameter(DataType.ref(person)).with("parent"));
+				).with(new Parameter(DataType.create(person)).with("parent"));
 		m1.withBody("if (this.parent != parent) {\n"+
 					"if (this.parent != null) {\n"+
 					"}}");
@@ -36,7 +36,7 @@ public class testSimpleSetModel {
 //		public void setLudo(Ludo ludo) {
 //
 //}
-		child.with(new Attribute("parent", DataType.ref(person)));
+		child.with(new Attribute("parent", DataType.create(person)));
 		
 		model.generate("src/test/java");
 	}

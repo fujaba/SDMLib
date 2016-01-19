@@ -69,7 +69,7 @@ public class ClassModelTest
 
       Clazz valueClass = model.createClazz("Value").withSuperClazz(sdmLibClazz);
       valueClass.withAttribute("initialization", DataType.STRING)
-         .withAttribute("type", DataType.ref(DataType.class));
+         .withAttribute("type", DataType.create(DataType.class));
 
       Clazz attributeClass = model.createClazz("Attribute").withSuperClazz(valueClass);
 
@@ -77,17 +77,17 @@ public class ClassModelTest
       	.with(new Association(attributeClass).with("attributes").with(Cardinality.MANY));
 
       Clazz methodClass = model.createClazz("Method").withSuperClazz(sdmLibClazz)
-         .withAttribute("returnType", DataType.ref(DataType.class))
+         .withAttribute("returnType", DataType.create(DataType.class))
          .withAttribute("body", DataType.STRING);
 
       Clazz annotationClass = model.createClazz("Annotation").withSuperClazz(sdmLibClazz);
       annotationClass
-         .withMethod("createOverrideAnnotation", DataType.ref(annotationClass))
-         .withMethod("createDeprecatedAnnotation", DataType.ref(annotationClass))
+         .withMethod("createOverrideAnnotation", DataType.create(annotationClass))
+         .withMethod("createDeprecatedAnnotation", DataType.create(annotationClass))
          .with(
-            new Method("createSuppressWarningsAnnotation", DataType.ref(annotationClass),
-                  new Parameter(DataType.ref("String...")).with("values")))
-         .withMethod("createSafeVarargsAnnotation", DataType.ref(annotationClass));
+            new Method("createSuppressWarningsAnnotation", DataType.create(annotationClass),
+                  new Parameter(DataType.create("String...")).with("values")))
+         .withMethod("createSafeVarargsAnnotation", DataType.create(annotationClass));
       
       Attribute deprecatedAnnotation = new Attribute("DEPRECATED", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Deprecated");
       Attribute overrideAnnotation = new Attribute("OVERRIDE", DataType.STRING).with(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL).withValue("Override");
@@ -149,7 +149,7 @@ public class ClassModelTest
 
       Clazz statementEntry = model.createClazz("org.sdmlib.codegen.StatementEntry")
          .withAttribute("kind", DataType.STRING)
-         .withAttribute("tokenList", DataType.ref("java.util.ArrayList<String>", true))
+         .withAttribute("tokenList", DataType.create("java.util.ArrayList<String>", true))
          .withAttribute("assignTargetVarName", DataType.STRING)
          .withAttribute("startPos", DataType.INT)
          .withAttribute("endPos", DataType.INT);

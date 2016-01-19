@@ -13,8 +13,6 @@ import de.uniks.networkparser.graph.DataType;
 
 public class TaskFlowModel
 {
-   private static final String STRING = "String";
-
      /**
     * 
     * @see <a href='../../../../../../../doc/taskFlowModel.html'>taskFlowModel.html</a>
@@ -26,31 +24,31 @@ public class TaskFlowModel
 
       ClassModel model = new ClassModel("org.sdmlib.models.taskflows");
 
-      Clazz taskFlowClass = model.createClazz("TaskFlow")
-            .withAttribute("taskNo", DataType.INT)
-            .withAttribute("idMap", DataType.ref(SDMLibJsonIdMap.class));
+      Clazz taskFlowClass = model.createClazz("TaskFlow");
+      taskFlowClass.createAttribute("taskNo", DataType.INT);
+      taskFlowClass.createAttribute("idMap", DataType.create(SDMLibJsonIdMap.class));
 
       taskFlowClass.withBidirectional(taskFlowClass, "subFlow", Cardinality.ONE, "parent", Cardinality.ONE);
 
-      model.createClazz("PeerProxy")
-      .withAttribute("ip", DataType.STRING)
-      .withAttribute("port", DataType.INT)
-      .withAttribute("idMap", DataType.ref(SDMLibJsonIdMap.class));
+      Clazz peerProxy = model.createClazz("PeerProxy");
+      peerProxy.createAttribute("ip", DataType.STRING);
+      peerProxy.createAttribute("port", DataType.INT);
+      peerProxy.createAttribute("idMap", DataType.create(SDMLibJsonIdMap.class));
 
       model.createClazz("SocketThread")
       .withAttribute("ip", DataType.STRING)
       .withAttribute("port", DataType.INT)
-      .withAttribute("idMap", DataType.ref(SDMLibJsonIdMap.class))
+      .withAttribute("idMap", DataType.create(SDMLibJsonIdMap.class))
       .withAttribute("defaultTargetThread", DataType.OBJECT);
 
       model.createClazz("FetchFileFlow")
-      .withAttribute("fileServer", DataType.ref(PeerProxy.class))
+      .withAttribute("fileServer", DataType.create(PeerProxy.class))
       .withAttribute("fileName", DataType.STRING)
       .withSuperClazz(taskFlowClass)
       .withMethod("run", DataType.VOID);
 
       Clazz loggerClazz = model.createClazz("Logger")
-            .withAttribute("startPeer", DataType.ref(PeerProxy.class))
+            .withAttribute("startPeer", DataType.create(PeerProxy.class))
             .withSuperClazz(taskFlowClass);
 
       Clazz logEntryClass = model.createClazz("LogEntry")
@@ -66,7 +64,7 @@ public class TaskFlowModel
 
       model.createClazz("SDMTimer")
       .withSuperClazz(timerClass);
-      // .withMethod("schedule", DataType.VOID, new Parameter(DataType.ref(TimerTask.class)));
+      // .withMethod("schedule", DataType.VOID, new Parameter(DataType.create(TimerTask.class)));
 
       storyboard.addClassDiagram(model);
 

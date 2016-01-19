@@ -42,12 +42,12 @@ public class LudoReverseModel
       ClassModel model = new ClassModel("org.sdmlib.test.examples.ludoreverse.model");
 
       Clazz ludoClass = model.createClazz("org.sdmlib.test.examples.ludoreverse.model.Ludo")
-      .with(new Attribute("style", DataType.ref("String")) )
-      .with(new Attribute("age", DataType.ref("int")) );
+      .with(new Attribute("style", DataType.create("String")) )
+      .with(new Attribute("age", DataType.create("int")) );
 
       Clazz playerClass = model.createClazz("org.sdmlib.test.examples.ludoreverse.model.Player")
-      .with(new Attribute("name", DataType.ref("String")) )
-      .with(new Attribute("color", DataType.ref("String")) );
+      .with(new Attribute("name", DataType.create("String")) )
+      .with(new Attribute("color", DataType.create("String")) );
 
       ludoClass.withBidirectional(playerClass, "game", Cardinality.ONE, "players", Cardinality.MANY);
 

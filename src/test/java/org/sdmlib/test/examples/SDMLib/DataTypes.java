@@ -9,6 +9,6 @@ public class DataTypes {
 
 	@Test
 	public void testDataTypes(){
-		Assert.assertEquals(DataType.STRING, DataType.ref("String"));
+		Assert.assertEquals(DataType.STRING, DataType.create("String"));
 	}
 }

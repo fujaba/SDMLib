@@ -18,8 +18,8 @@ public class GenModel {
 		Clazz mauMauClass = model.createClazz("MauMau");
 		Clazz suitEnum = model.createClazz("Suit").enableEnumeration("Clubs", "Spades", "Hearts", "Diamonds");
 		Clazz valueEnum = model.createClazz("Value").enableEnumeration("7", "8", "9", "10", "Jack", "Queen", "King", "Ace");
-		Clazz cardClass = model.createClazz("Card").withAttribute("suit", DataType.ref(suitEnum)).withAttribute("value",
-				DataType.ref(valueEnum));
+		Clazz cardClass = model.createClazz("Card").withAttribute("suit", DataType.create(suitEnum)).withAttribute("value",
+				DataType.create(valueEnum));
 		mauMauClass.withBidirectional(cardClass, "cards", Cardinality.MANY, "game", Cardinality.ONE).with(new Annotation(ApplicationObject.class.getName()));
 		Clazz holderClass = model.createClazz("Holder").withBidirectional(cardClass, "cards", Cardinality.MANY, "holder", Cardinality.ONE);
 		mauMauClass.withBidirectional(holderClass, "deck", Cardinality.ONE, "deckOwner", Cardinality.ONE);
@@ -29,13 +29,13 @@ public class GenModel {
 		mauMauClass.withBidirectional(playerClass, "players", Cardinality.MANY, "game", Cardinality.ONE);
 		mauMauClass.withBidirectional(playerClass, "winner", Cardinality.ONE, "wonGame", Cardinality.ONE);
 		mauMauClass.withBidirectional(playerClass, "losers", Cardinality.MANY, "lostGame", Cardinality.ONE);
-		mauMauClass.with(new Attribute("currentPlayer", DataType.ref(playerClass)));
-		mauMauClass.with(new Attribute("currentSuit", DataType.ref(suitEnum)));
+		mauMauClass.with(new Attribute("currentPlayer", DataType.create(playerClass)));
+		mauMauClass.with(new Attribute("currentSuit", DataType.create(suitEnum)));
 		playerClass.withBidirectional(playerClass, "next", Cardinality.ONE, "prev", Cardinality.ONE);
-		playerClass.withAttribute("lane", DataType.ref(Lane.class));
+		playerClass.withAttribute("lane", DataType.create(Lane.class));
 		Clazz dutyClass = model.createClazz("Duty");
 		Clazz dutyType = model.createClazz("DutyType").enableEnumeration("PlayCard", "TakeOne", "TakeTwo");
-		dutyClass.with(new Attribute("type", DataType.ref(dutyType)), new Attribute("number", DataType.INT));
+		dutyClass.with(new Attribute("type", DataType.create(dutyType)), new Attribute("number", DataType.INT));
 		playerClass.withBidirectional(dutyClass, "duty", Cardinality.MANY, "player", Cardinality.ONE);
 		Clazz openStack = model.createClazz("OpenStack").withSuperClazz(holderClass);
 		Clazz drawingStack = model.createClazz("DrawingStack").withSuperClazz(holderClass);

@@ -268,7 +268,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.setExternal(value);
+         obj.withExternal(value);
       }
       
       return this;
