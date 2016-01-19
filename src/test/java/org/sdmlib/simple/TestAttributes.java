@@ -50,7 +50,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_d");
 		Clazz person = model.createClazz("Person");
-		person.with(new Attribute("names", DataTypeSet.ref(DataType.STRING)));
+		person.with(new Attribute("names", DataTypeSet.create(DataType.STRING)));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -61,7 +61,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_e");
 		Clazz person = model.createClazz("Person");
-		person.with(new Attribute("ages", DataTypeSet.ref(DataType.INT)));
+		person.with(new Attribute("ages", DataTypeSet.create(DataType.INT)));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -71,8 +71,8 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_f");
 		Clazz person = model.createClazz("Person");
-		person.createAttribute("names", DataTypeSet.ref(DataType.STRING));
-		person.with(new Attribute("ages", DataTypeSet.ref(DataType.INT)));
+		person.createAttribute("names", DataTypeSet.create(DataType.STRING));
+		person.with(new Attribute("ages", DataTypeSet.create(DataType.INT)));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -82,7 +82,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_g");
 		Clazz person = model.createClazz("Person");
-		person.createAttribute("namesSet", DataTypeSet.ref(DataTypeSet.ref(DataType.STRING)));
+		person.createAttribute("namesSet", DataTypeSet.create(DataTypeSet.create(DataType.STRING)));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -94,7 +94,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_h");
 		Clazz person = model.createClazz("Person");
-		person.createAttribute("names", DataTypeMap.ref(DataType.STRING, DataType.STRING));
+		person.createAttribute("names", DataTypeMap.create(DataType.STRING, DataType.STRING));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -105,7 +105,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_i");
 		Clazz person = model.createClazz("Person");
-		person.createAttribute("namesMap", DataTypeMap.ref(DataType.STRING, DataTypeMap.ref(DataType.STRING, DataType.STRING)));
+		person.createAttribute("namesMap", DataTypeMap.create(DataType.STRING, DataTypeMap.create(DataType.STRING, DataType.STRING)));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -116,7 +116,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_j");
 		Clazz person = model.createClazz("Person");
-		Attribute createAttribute = person.createAttribute("namesList", DataTypeSet.ref(DataTypeMap.ref(DataType.STRING, DataType.STRING)));
+		Attribute createAttribute = person.createAttribute("namesList", DataTypeSet.create(DataTypeMap.create(DataType.STRING, DataType.STRING)));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -127,7 +127,7 @@ public class TestAttributes {
 		
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.attribute_k");
 		Clazz person = model.createClazz("Person");
-		Attribute createAttribute = person.createAttribute("names", DataTypeMap.ref(DataType.STRING, DataTypeSet.ref(DataType.STRING)));
+		Attribute createAttribute = person.createAttribute("names", DataTypeMap.create(DataType.STRING, DataTypeSet.create(DataType.STRING)));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		

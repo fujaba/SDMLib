@@ -102,7 +102,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_g");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataTypeSet.ref(DataType.STRING)).with("values")));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataTypeSet.create(DataType.STRING)).with("values")));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -116,7 +116,7 @@ public class TestMethods {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.methods_h");
 		Clazz person = model.createClazz("Person");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataTypeMap.ref(DataType.STRING, DataType.STRING)).with("values")));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataTypeMap.create(DataType.STRING, DataType.STRING)).with("values")));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		

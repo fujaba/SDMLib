@@ -21,7 +21,7 @@ public class TestModelGen {
 	public void testGen() {
 		ClassModel model=new ClassModel("org.sdmlib.test.examples.tttt.model");
 		Clazz uni = model.createClazz("Uni");
-		Method createMethod = uni.createMethod("create", new Parameter(DataTypeSet.ref(uni)));
+		Method createMethod = uni.createMethod("create", new Parameter(DataTypeSet.create(uni)));
 		createMethod.with(Modifier.STATIC);
 		createMethod.with(Annotation.DEPRECATED);
 		Attribute nameAttr = uni.createAttribute("name", DataType.STRING);
