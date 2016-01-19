@@ -15,7 +15,6 @@ public class TestAnnotations {
 		Clazz person = model.createClazz("Person");
 		
 		Annotation annotation = Annotation.create("Deprecated");
-		
 		person.with(annotation);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");

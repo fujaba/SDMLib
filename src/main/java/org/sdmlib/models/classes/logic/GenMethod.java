@@ -62,7 +62,7 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodDeclEnum(Clazz enumeration, Parser parser)
    {
-      String signature = model.getName(true, false);
+      String signature = model.getName(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
       String string = Parser.METHOD + ":" + signature;
       SymTabEntry symTabEntry = parser.getSymTab().get(string);
@@ -109,7 +109,7 @@ public class GenMethod extends Generator<Method>
          pos = parser.indexOf(Parser.CLASS_END);
          parser.insert(pos, text.toString());
       }
-      String signatureSimple = model.getName(false, false);
+      String signatureSimple = model.getName(false);
       pos = parser.indexOf(Parser.METHOD + ":" + signatureSimple);
       symTabEntry = parser.getSymTab().get(string);
       // in case of a method body, remove old method
@@ -124,10 +124,11 @@ public class GenMethod extends Generator<Method>
 
    private void insertMethodDeclClazz(Clazz clazz, Parser parser)
    {
-      String signature = Parser.METHOD + ":" + model.getName(true, false);
+      String signature = Parser.METHOD + ":" + model.getName(false);
+      parser.indexOf(Parser.CLASS_END);
       int pos = parser.indexOf(signature);
       if(pos <0) {
-    	  signature = Parser.METHOD + ":" + model.getName(false, true);
+    	  signature = Parser.METHOD + ":" + model.getName(true);
     	  pos = parser.indexOf(signature);
       }
 
@@ -135,7 +136,7 @@ public class GenMethod extends Generator<Method>
       SymTabEntry symTabEntry = parser.getSymTab().get(signature);
       if (pos < 0)
       {
-         signature = model.getName(true, false);
+         signature = model.getName(false);
          StringBuilder text = new StringBuilder
                ("\n   " +
                   "\n   //==========================================================================" +
@@ -238,7 +239,7 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      String signature = model.getName(true, false);
+      String signature = model.getName(false);
       int pos = parser.indexOf(Parser.METHOD + ":" + signature);
 
       if (pos < 0 && model.getModifier().has(Modifier.PUBLIC))
@@ -365,7 +366,7 @@ public class GenMethod extends Generator<Method>
       {
          return;
       }
-      String signature = model.getName(true, false);
+      String signature = model.getName(false);
 
       String key = Parser.METHOD + ":" + signature;
 
@@ -460,19 +461,19 @@ public class GenMethod extends Generator<Method>
    
 //	   String methodName = StrUtil.upFirstChar(this.getModel().getName());
 	   
-	   genClass.removeFragment(parser, Parser.METHOD + ":" + this.getModel().getName(false, false));
+	   genClass.removeFragment(parser, Parser.METHOD + ":" + this.getModel().getName(false));
 	   
 	   CGUtil.printFile(parser);
 	   
 	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getName(false, false));
+	   genClass.removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getName(false));
 	   
 	   CGUtil.printFile(poParser);
 	   
 	   Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
 	   
-	   genClass.removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getName(false, false));
+	   genClass.removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getName(false));
 	   
 	   CGUtil.printFile(setParser);
    }

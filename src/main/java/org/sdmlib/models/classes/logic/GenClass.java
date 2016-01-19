@@ -131,7 +131,7 @@ public class GenClass extends GenClazzEntity
       {
          getGenerator(method).generate(rootDir, helpersDir);
 
-         String signature = method.getName(false, false);
+         String signature = method.getName(false);
          parser.parse();
          ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(signature);
 

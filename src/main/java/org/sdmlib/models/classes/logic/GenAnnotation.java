@@ -47,7 +47,7 @@ public class GenAnnotation extends Generator<Annotation>
       Parser parser = getGenerator(method.getClazz()).getOrCreateParser(rootDir);
       parser.parse();
 
-      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(method.getName(false, false));
+      ArrayList<SymTabEntry> tabEntries = parser.getSymTabEntriesFor(method.getName(false));
       return generate(parser, getStartPos(tabEntries));
    }
 
