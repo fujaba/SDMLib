@@ -209,7 +209,7 @@ public class GenAttribute extends Generator<Attribute>
 			attrNameGetter = "is" + name + "()";
 		}
 		String attrNameSetter = "set" + name + "(value)";
-		if (model.getModifiers().equals(Modifier.PUBLIC)) {
+		if (model.getModifiers().has(Modifier.PUBLIC)) {
 			attrNameGetter = model.getName();
 			attrNameSetter = model.getName() + " = value";
 		}
@@ -504,7 +504,7 @@ public class GenAttribute extends Generator<Attribute>
      }
      String name = StrUtil.upFirstChar(model.getName());
      String attrNameGetter = "get" + name + "()";
-     if (model.getModifiers().equals(Modifier.PUBLIC))
+     if (model.getModifiers().has(Modifier.PUBLIC))
      {
         attrNameGetter = model.getName();
      } else if ("boolean".equalsIgnoreCase(model.getType().getName(false)))
@@ -587,7 +587,7 @@ public class GenAttribute extends Generator<Attribute>
                      "\n"
                );
          String attrNameGetter;
-         if (model.getModifiers().equals(Modifier.PUBLIC))
+         if (model.getModifiers().has(Modifier.PUBLIC))
          {
             attrNameGetter = model.getName();
          }else if ("boolean".equalsIgnoreCase(model.getType().getName(false)))
@@ -648,7 +648,7 @@ public class GenAttribute extends Generator<Attribute>
 
      String name = StrUtil.upFirstChar(model.getName());
      String attrNameSetter = "set" + name + "(value)";
-     if (model.getModifiers().equals(Modifier.PUBLIC))
+     if (model.getModifiers().has(Modifier.PUBLIC))
      {
         attrNameSetter = model.getName() + " = value";
      }
@@ -663,7 +663,7 @@ public class GenAttribute extends Generator<Attribute>
    private void insertGenericGetSetForWrapperInCreatorClass(Parser parser,
          Clazz ownerClazz)
    {
-      if (model.getModifiers().equals(Modifier.PRIVATE))
+      if (model.getModifiers().has(Modifier.PRIVATE))
       {
          insertCaseInGenericGetForWrapperInCreatorClass(parser, ownerClazz);
          insertCaseInGenericSetForWrapperInCreatorClass(parser, ownerClazz);
@@ -759,7 +759,7 @@ public class GenAttribute extends Generator<Attribute>
      {
         attrNameSetter = "with" + name + "(type)";
      }
-     if (model.getModifiers().equals(Modifier.PUBLIC))
+     if (model.getModifiers().has(Modifier.PUBLIC))
      {
         attrNameSetter = model.getName() + " = (type) value";
      }
@@ -852,7 +852,7 @@ public class GenAttribute extends Generator<Attribute>
          getGenerator(clazz).printFile();
       }
 
-      if (model.getModifiers().equals(Modifier.PRIVATE))
+      if (model.getModifiers().has(Modifier.PRIVATE))
       {
 
          //    	  if (!isEnumType(model, clazz)) {

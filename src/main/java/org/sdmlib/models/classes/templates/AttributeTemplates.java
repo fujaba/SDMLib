@@ -42,7 +42,7 @@ public class AttributeTemplates {
 		Template attrPropertyDecl = new Template()
 	    		  .withSearch(Parser.ATTRIBUTE + ":PROPERTY_" + attribute.getName().toUpperCase())
 	    		  .withCondition(GraphUtil.isInterface(attribute.getClazz()) == false)
-	    		  .withCondition(!attribute.getModifiers().has(Modifier.STATIC))
+	    		  .withCondition((attribute.getModifiers().has(Modifier.STATIC) && attribute.getModifiers().has(Modifier.PUBLIC)) == false)
 	      		  .withTemplate("\n   public static final String PROPERTY_{{NAME}} = \"{{name}}\";\n   ");
 		
 		Template attrDecl = new Template(Parser.ATTRIBUTE + ":" + attribute.getName())
