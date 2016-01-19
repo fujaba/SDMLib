@@ -114,4 +114,4 @@ def isTravisSnaphot() {
 	return result;
 }
 
-defaultTasks = 'clean', 'test', 'jar'
+defaultTasks 'clean', 'test', 'jar'
