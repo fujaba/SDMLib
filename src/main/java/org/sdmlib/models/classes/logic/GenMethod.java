@@ -122,21 +122,26 @@ public class GenMethod extends Generator<Method>
       }
    }
 
+   private SymTabEntry getMethodSymTabEntry(Clazz clazz, Parser parser) {
+	   String signature = Parser.METHOD + ":" + model.getName(false);
+	      parser.indexOf(Parser.CLASS_END);
+	      int pos = parser.indexOf(signature);
+	      if(pos <0) {
+	    	  signature = Parser.METHOD + ":" + model.getName(true);
+	    	  pos = parser.indexOf(signature);
+	      }
+
+//	      ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreate(clazz);
+	      SymTabEntry symTabEntry = parser.getSymTab().get(signature);
+	      return symTabEntry;
+   }
+   
    private void insertMethodDeclClazz(Clazz clazz, Parser parser)
    {
-      String signature = Parser.METHOD + ":" + model.getName(false);
-      parser.indexOf(Parser.CLASS_END);
-      int pos = parser.indexOf(signature);
-      if(pos <0) {
-    	  signature = Parser.METHOD + ":" + model.getName(true);
-    	  pos = parser.indexOf(signature);
-      }
-
-//      ((ClassModel) clazz.getClassModel()).getGenerator().getOrCreate(clazz);
-      SymTabEntry symTabEntry = parser.getSymTab().get(signature);
-      if (pos < 0)
+	   SymTabEntry symTabEntry = getMethodSymTabEntry(clazz, parser);
+      if (symTabEntry == null)
       {
-         signature = model.getName(false);
+         String signature = model.getName(false);
          StringBuilder text = new StringBuilder
                ("\n   " +
                   "\n   //==========================================================================" +
@@ -190,9 +195,9 @@ public class GenMethod extends Generator<Method>
             "returnClause", returnClause
             );
 
-         pos = parser.indexOf(Parser.CLASS_END);
-
+         int pos = parser.indexOf(Parser.CLASS_END);
          parser.insert(pos, text.toString());
+         symTabEntry = getMethodSymTabEntry(clazz, parser);
       }
 
 //      String signatureSimple = model.getName(false);
@@ -201,7 +206,7 @@ public class GenMethod extends Generator<Method>
 //      symTabEntry = parser.getSymTab().get(Parser.METHOD + ":" + string);
 
       // in case of a method body, remove old method
-      if (pos >= 0 && model.getBody() != null)
+      if (model.getBody() != null)
       {
          parser.parseMethodBody(symTabEntry);
          int startPos = symTabEntry.getEndPos();
@@ -217,7 +222,6 @@ public class GenMethod extends Generator<Method>
          // }
 
          parser.replace(symTabEntry.getBodyStartPos() + 1, startPos, "\n" + model.getBody() + "   ");
-         pos = -1;
       }
    }
 
