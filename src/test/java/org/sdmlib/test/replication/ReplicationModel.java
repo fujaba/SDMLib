@@ -1,4 +1,4 @@
-package org.sdmlib.replication;
+package org.sdmlib.test.replication;
 
 import java.beans.PropertyChangeEvent;
 import java.net.Socket;

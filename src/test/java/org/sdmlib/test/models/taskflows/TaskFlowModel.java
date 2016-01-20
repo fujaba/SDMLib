@@ -1,9 +1,10 @@
-package org.sdmlib.models.taskflows;
+package org.sdmlib.test.models.taskflows;
 
 import java.util.Timer;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 import org.sdmlib.storyboards.Storyboard;
 

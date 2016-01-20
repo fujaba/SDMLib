@@ -1,4 +1,4 @@
-package org.sdmlib.modelcouch;
+package org.sdmlib.test.modelcouch;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;

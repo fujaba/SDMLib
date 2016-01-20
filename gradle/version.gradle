@@ -11,12 +11,10 @@ task printVersion {
     }
 }
 
-version = new GITVersion(major: majorNumber,minor: getGitTag(), revision: 788, hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
-
 ext{
 	gitVersion = new GITVersion(major: majorNumber,minor: getGitTag(), revision: 788, hash: revisionHash(), buildTime: buildTime(), lecture: project.hasProperty('lectureBuild'), year: buildTimeYear(), mavenTime:mavenTime(), release:project.hasProperty('release') )
 }
-
+version = gitVersion
 group = 'org.sdmlib'
 
 // Define a method using a closure as the method body

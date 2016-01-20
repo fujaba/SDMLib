@@ -1,4 +1,4 @@
-package org.sdmlib.modelspace;
+package org.sdmlib.test.modelspace;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
