@@ -67,33 +67,34 @@ dependencies {
 }
 
 jacoco {
-    toolVersion = "0.7.4.201502262128"
+	toolVersion = "0.7.5.201505241946"
 }
-
 jacocoTestReport {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports after running tests."
-    executionData = files("$buildDir/jacoco/test.exec")
-    reports {
-        xml {
-            enabled true
-            //Following value is a file
-            destination "${buildDir}/reports/jacoco/jacoco.xml"
-        }
-        csv.enabled false
-        html {
-            enabled true
-            //Following value is a folder
-            destination "${buildDir}/reports/jacoco"
-        }
-    }
+	group = "Reporting"
+	description = "Generate Jacoco coverage reports after running tests."
+	executionData = files("$buildDir/jacoco/test.exec")
+	reports {
+		xml {
+			enabled true
+			//Following value is a file
+			destination "${buildDir}/reports/jacoco/jacoco.xml"
+		}
+		csv.enabled false
+		html {
+			enabled true
+			//Following value is a folder
+			destination "${buildDir}/reports/jacoco"
+		}
+	}
 }
 
 test {
     testLogging {
-        showStandardStreams = true
-        showStackTraces = true
-        exceptionFormat = "full"
+		events "failed"
+		exceptionFormat "short"
+		showStackTraces	true
+		showStandardStreams true
+		showCauses true
     }
 }
 

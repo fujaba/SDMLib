@@ -58,7 +58,7 @@ compileJava {
 	source = fileTree(dir: 'src/main/java').matching { exclude '**/test/**' }
 }
 compileTestJava {
-	source = fileTree(dir: 'src/main/java').matching { exclude '**/test/**' }
+	source = fileTree(dir: 'src/main/java').matching { exclude 'org/test/**' }
 }
 
 //classes.dependsOn compileJava17
