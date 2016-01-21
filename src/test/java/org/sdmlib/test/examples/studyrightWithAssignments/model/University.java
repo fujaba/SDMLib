@@ -29,6 +29,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
 /**
  *  

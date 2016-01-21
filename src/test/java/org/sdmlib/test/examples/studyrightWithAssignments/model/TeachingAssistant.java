@@ -22,6 +22,10 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import de.uniks.networkparser.interfaces.SendableEntity;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
 /**
  * 
@@ -29,7 +33,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/GenerateClasses.java'>GenerateClasses.java</a>
 * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StoryboardTests.java'>StoryboardTests.java</a>
 */
-public  class TeachingAssistant extends Student
+public  class TeachingAssistant extends Student implements SendableEntity
 {
 
    
@@ -150,4 +154,30 @@ public  class TeachingAssistant extends Student
       withRoom(value);
       return value;
    } 
+
+   
+   //==========================================================================
+   
+   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   
+   public PropertyChangeSupport getPropertyChangeSupport()
+   {
+      return listeners;
+   }
+   
+   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
+   {
+      getPropertyChangeSupport().addPropertyChangeListener(listener);
+      return true;
+   }
+   
+   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+      return true;
+   }
+   
+   public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+      getPropertyChangeSupport().removePropertyChangeListener(listener);
+      return true;
+   }
 }
