@@ -21,6 +21,7 @@
    
 package org.sdmlib.replication;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -44,7 +45,6 @@ import org.sdmlib.replication.util.SeppelScopeSet;
 import org.sdmlib.replication.util.SeppelSpaceCreator;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.SimpleValuesMap;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.interfaces.UpdateListener;
@@ -52,6 +52,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleConditionMap;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 import javafx.application.Platform;
    /**
     * 
@@ -327,29 +328,29 @@ import javafx.application.Platform;
       }
 
       @Override
-      public boolean check(SimpleValuesMap values)
+      public boolean check(SimpleMapEvent values)
       {
-         if (values.getValue() != null)
+         if (values.getNewValue() != null)
          {
             if (values.getDeep() >= 3)
             {
                return false;
             }
             else if ("Integer Float Double Long Boolean String"
-               .indexOf(values.getValue().getClass().getSimpleName()) >= 0)
+               .indexOf(values.getNewValue().getClass().getSimpleName()) >= 0)
             {
                return true;
             }
          }
          
-         return explicitElems.contains(values.getValue());
+         return explicitElems.contains(values.getNewValue());
       }
    }
 
 
    //==============================================================================
    @Override
-   public boolean update(String typ, BaseItem item, Object target, String property, Object oldValue, Object newValue) {
+   public boolean update(String typ, BaseItem item, PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -465,14 +466,15 @@ import javafx.application.Platform;
                   if (valueJsonObject.get("prop") != null)
                   {
                      // call recursive
-                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+//                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+                	  this.update(typ, valueJsonObject, event);
                   }
                }
             }
             else
             {
-               String oldValueString = "" + oldValue;
-               if (oldValue == null)
+               String oldValueString = "" + event.getOldValue();
+               if (event.getOldValue() == null)
                {
                   oldValueString = null;
                }

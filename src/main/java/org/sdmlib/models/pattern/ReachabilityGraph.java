@@ -38,7 +38,7 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.logic.SimpleConditionMap;
-import de.uniks.networkparser.SimpleValuesMap;
+import de.uniks.networkparser.logic.SimpleMapEvent;
 import java.beans.PropertyChangeListener;
 import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.OptionalSubPattern;
@@ -59,9 +59,9 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
       }
 
       @Override
-      public boolean check(SimpleValuesMap values)
+      public boolean check(SimpleMapEvent values)
       {
-         return values.getValue() != root;
+         return values.getNewValue() != root;
       }
    }
 

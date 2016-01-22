@@ -550,18 +550,4 @@ public  class Room implements PropertyChangeInterface, SendableEntity
    {
       
    }
-
-   
-   //==========================================================================
-   public String findPath( int motivation )
-   {
-      return null;
-   }
-
-   
-   //==========================================================================
-   public String findPath( int motivation )
-   {
-      return null;
-   }
 }

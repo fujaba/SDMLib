@@ -386,29 +386,4 @@ public class RoomPO extends PatternObject<RoomPO, Room>
       }
       return null;
    }
-
-   
-   //==========================================================================
-   
-   public String findPath(int motivation)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) getCurrentMatch()).findPath(motivation);
-      }
-      return null;
-   }
-
-   
-   //==========================================================================
-   
-   public String findPath(int motivation)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) getCurrentMatch()).findPath(motivation);
-      }
-      return null;
-   }
-
 }

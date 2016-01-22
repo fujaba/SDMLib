@@ -827,8 +827,7 @@ import javafx.application.Platform;
    static public int msgNo = 0;
 
    @Override
-   public boolean update(String typ, BaseItem jsonObject, Object target, String property, 
-			Object oldValue, Object newValue) {
+	public boolean update(String typ, BaseItem source, PropertyChangeEvent event) {
       if (isApplyingChangeMsg)
       {
          // ignore
@@ -838,14 +837,14 @@ import javafx.application.Platform;
       ReplicationChange change = new ReplicationChange()
       .withHistoryIdPrefix(nodeId)
       .withHistoryIdNumber(getNewHistoryIdNumber())
-      .withTargetObjectId((String) jsonObject.getValueItem(JsonIdMap.ID))
-      .withChangeMsg(jsonObject.toString());
+      .withTargetObjectId((String) source.getValueItem(JsonIdMap.ID))
+      .withChangeMsg(source.toString());
 
-      Object object = jsonObject.getValueItem(JsonIdMap.UPDATE);
+      Object object = source.getValueItem(JsonIdMap.UPDATE);
       
       if (object == null)
       {
-         object = jsonObject.getValueItem(JsonIdMap.REMOVE);
+         object = source.getValueItem(JsonIdMap.REMOVE);
       }
 
       if (object != null)

@@ -1,5 +1,6 @@
 package org.sdmlib.models.objects;
 
+import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -19,10 +20,9 @@ public class Specific2Generic
       
       public String secondPropName = null;
 
-	@Override
-	public boolean update(String typ, BaseItem jsonObject, Object target, String property,
-			Object oldValue, Object newValue) {
-		Object tmp = jsonObject.getValueItem(JsonIdMap.REMOVE);
+      @Override
+  	public boolean update(String typ, BaseItem source, PropertyChangeEvent event) {
+  			Object tmp = source.getValueItem(JsonIdMap.REMOVE);
          
          if (tmp != null && tmp instanceof JsonObject)
          {

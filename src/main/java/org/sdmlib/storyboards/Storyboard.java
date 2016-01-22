@@ -21,6 +21,7 @@
 
 package org.sdmlib.storyboards;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -38,6 +39,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.EventObject;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -64,13 +66,14 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.util.StoryboardStepSet;
 
 import de.uniks.networkparser.Filter;
-import de.uniks.networkparser.SimpleValuesMap;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.logic.SimpleConditionMap;
+import de.uniks.networkparser.logic.SimpleConditionProperty;
+import de.uniks.networkparser.logic.SimpleConditionValue;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. 
@@ -973,15 +976,15 @@ public class Storyboard implements PropertyChangeInterface
       }
       else
       {
-         SimpleConditionMap conditionMap = new AlwaysTrueCondition();
+    	  AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
          addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
       }
    }
 
-   private class AlwaysTrueCondition extends SimpleConditionMap
+   private class AlwaysTrueCondition implements SimpleConditionValue
    {
       @Override
-      public boolean check(SimpleValuesMap values)
+      public boolean check(EventObject values)
       {
          // TODO Auto-generated method stub
          return true;
@@ -1739,7 +1742,7 @@ public class Storyboard implements PropertyChangeInterface
       add(po.getPattern().dumpDiagram(name));
    }
 
-   public static class RestrictToFilter extends SimpleConditionMap
+   public static class RestrictToFilter extends SimpleConditionProperty
    {
       private LinkedHashSet<Object> explicitElems;
 
@@ -1750,15 +1753,15 @@ public class Storyboard implements PropertyChangeInterface
       }
 
       @Override
-      public boolean check(SimpleValuesMap values)
+      public boolean check(PropertyChangeEvent values)
       {
-         if (values.getValue() != null
+         if (values.getNewValue() != null
             && ("Integer Float Double Long Boolean String"
-               .indexOf(values.getValue().getClass().getSimpleName()) >= 0))
+               .indexOf(values.getNewValue().getClass().getSimpleName()) >= 0))
          {
             return true;
          }
-         return explicitElems.contains(values.getValue());
+         return explicitElems.contains(values.getNewValue());
       }
    }
 

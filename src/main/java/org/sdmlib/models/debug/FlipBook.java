@@ -1,5 +1,6 @@
 package org.sdmlib.models.debug;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.File;
@@ -307,17 +308,15 @@ public class FlipBook implements UpdateListener,  PropertyChangeInterface
 //   }
    
    private ArrayList<StepInfo> changes = new ArrayList<StepInfo>();
-   
    @Override
-   public boolean update(String typ, BaseItem jsonObject, Object target, String property, 
-   		Object oldValue, Object newValue) {
+   public boolean update(String typ, BaseItem source, PropertyChangeEvent event) {
       if (isReading)
       {
          // do nothing
          return true;
       }
       // store message in list
-      StepInfo stepInfo = new StepInfo((JsonObject)jsonObject, new RuntimeException());
+      StepInfo stepInfo = new StepInfo((JsonObject)source, new RuntimeException());
       changes.add(stepInfo);
       
       currentStep = changes.size();

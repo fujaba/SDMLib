@@ -40,11 +40,11 @@ public class SDMLibJsonIdMap extends JsonIdMap implements PropertyChangeInterfac
 		}
 		if (object instanceof PropertyChangeSupport) {
 			((PropertyChangeSupport) object).addPropertyChangeListener(
-					IdMap.UPDATE, getUpdateListener());
+					IdMap.UPDATE, getUpdateExecuter());
 			return true;
 		} else if (object instanceof PropertyChangeInterface)
 		{
-		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getUpdateListener());
+		   ((PropertyChangeInterface) object).getPropertyChangeSupport().addPropertyChangeListener(getUpdateExecuter());
 		   return true;
 		}
 		return false;

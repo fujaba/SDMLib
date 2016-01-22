@@ -21,6 +21,7 @@
 
 package org.sdmlib.modelcouch;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
@@ -238,8 +239,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
 
    @Override
-   public boolean update(String typ, BaseItem source, Object target, String property, Object oldValue, Object newValue)
-   {
+	public boolean update(String typ, BaseItem source, PropertyChangeEvent event) {
       if (mdbListener.isApplyingChangeMsg())
       {
          // ignore
@@ -346,14 +346,15 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
                   if (valueJsonObject.get("prop") != null)
                   {
                      // call recursive
-                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+//                     this.update(typ, valueJsonObject, valueObject, prop, null, null);
+                	  this.update(typ, valueJsonObject, event);
                   }
                }
             }
             else
             {
-               String oldValueString = "" + oldValue;
-               if (oldValue == null)
+               String oldValueString = "" + event.getOldValue();
+               if (event.getOldValue() == null)
                {
                   oldValueString = null;
                }

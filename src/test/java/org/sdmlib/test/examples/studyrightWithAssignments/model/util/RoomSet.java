@@ -548,31 +548,4 @@ public class RoomSet extends SDMSet<Room>
       
       return this;
    }
-
-   
-   //==========================================================================
-   
-   public StringList findPath(int motivation)
-   {
-      StringList result = new StringList();
-      for (Room obj : this)
-      {
-         result.add(obj.findPath(motivation));
-      }
-      return result;
-   }
-
-   
-   //==========================================================================
-   
-   public StringList findPath(int motivation)
-   {
-      StringList result = new StringList();
-      for (Room obj : this)
-      {
-         result.add(obj.findPath(motivation));
-      }
-      return result;
-   }
-
 }
