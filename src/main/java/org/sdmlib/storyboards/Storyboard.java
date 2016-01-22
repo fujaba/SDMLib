@@ -977,7 +977,7 @@ public class Storyboard implements PropertyChangeInterface
       else
       {
     	  AlwaysTrueCondition conditionMap = new AlwaysTrueCondition();
-         addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
+//FIXME Stackoverflow please show Albert         addObjectDiagram(jsonIdMap, explicitElems, conditionMap);
       }
    }
 
