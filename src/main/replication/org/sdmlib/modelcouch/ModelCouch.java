@@ -46,6 +46,7 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.xml.HTMLEntities;
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
@@ -155,6 +156,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
       return this;
    }
 
+   HTMLEntities htmlEntities = new HTMLEntities();
+   
    public int send(ChangeEvent change)
    {
       int responsecode = -1;
@@ -166,6 +169,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
          URL obj = new URL(url);
          HttpURLConnection con = (HttpURLConnection) obj.openConnection();
          String urlParameters = jsonObject.toString();
+         
+         urlParameters = htmlEntities.encode(urlParameters);
 
          con.setRequestMethod("POST");	
          con.setDoOutput(true);

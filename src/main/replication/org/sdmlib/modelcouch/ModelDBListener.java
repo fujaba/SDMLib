@@ -25,6 +25,7 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
+import de.uniks.networkparser.xml.HTMLEntities;
 import javafx.application.Platform;
 
 import java.beans.PropertyChangeSupport;
@@ -139,6 +140,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	   }
 	}
 
+	HTMLEntities htmlEntities = new HTMLEntities();
 	
 	private void handleDBChange(String changeLine)
 	{
@@ -154,6 +156,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		  "sessionId":"testBasicModelOnTheCouch1452266010608",
 		  "propertyKind":"toMany",
 		  "objectType":"org.sdmlib.test.examples.modelcouch.Person"}}*/
+		changeLine = htmlEntities.decode(changeLine);
 		
 		JsonObject seqObject = new JsonObject().withValue(changeLine);
 		JsonObject changeObject = seqObject.getJsonObject("doc");
