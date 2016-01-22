@@ -31,6 +31,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
 /**
  * 
@@ -546,5 +549,19 @@ public  class Room implements PropertyChangeInterface, SendableEntity
    public void findPath( int String )
    {
       
+   }
+
+   
+   //==========================================================================
+   public String findPath( int motivation )
+   {
+      return null;
+   }
+
+   
+   //==========================================================================
+   public String findPath( int motivation )
+   {
+      return null;
    }
 }

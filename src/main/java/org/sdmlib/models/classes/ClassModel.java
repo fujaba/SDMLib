@@ -100,14 +100,12 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	public String dumpClassDiagram(String diagName) {
 		GuiAdapter graphViz = GraphFactory.getAdapter();
 
-//FIXME		return graphViz.dumpClassDiagram(diagName, this);
-		return "";
+		return graphViz.dumpClassDiagram(diagName, this);
 	}
 
 	private String dumpClassDiagram(String diagName, String outputType) {
 		GuiAdapter graphViz = GraphFactory.getAdapter(outputType);
-		//FIXME		return graphViz.dumpClassDiagram(diagName, this);
-		return "";
+		return graphViz.dumpClassDiagram(diagName, this);
 	}
 
 	public void removeAllGeneratedCode() {
