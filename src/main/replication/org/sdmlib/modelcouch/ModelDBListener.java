@@ -34,6 +34,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.sdmlib.modelcouch.ModelCouch.ApplicationType;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.replication.ChangeEventList;
 
@@ -45,23 +46,21 @@ import java.beans.PropertyChangeListener;
 public  class ModelDBListener implements SendableEntity, Runnable
 {
 	private final int RESPONSE_CODE_OK = 200;
-	
+
 	private long lastPersisted = 0;
 
-	private String databaseName;
+	private boolean isApplyingChangeMsg;
+	private ChangeEventList history = new ChangeEventList();
+	private int historyPos = 0;
 
-   private boolean isApplyingChangeMsg;
-   private ChangeEventList history = new ChangeEventList();
-   private int historyPos = 0;
-   
 	@Override
 	public void run()
 	{
 		loadOldChanges();
-		
+
 		//?since=lastPersisted &include_docs=true &feed=continuous &heartbeat=10000
 		//for every change apply to idmap
-		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + databaseName + "/_changes?since=" + lastPersisted + "&include_docs=true&feed=continuous&heartbeat=10000";
+		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + couch.getDatabaseName() + "/_changes?since=" + lastPersisted + "&include_docs=true&feed=continuous&heartbeat=10000";
 		try{
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -77,20 +76,27 @@ public  class ModelDBListener implements SendableEntity, Runnable
 				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				String changeLine;
 
-				while ((changeLine = in.readLine()) != null)
+				while (couch != null && (changeLine = in.readLine()) != null)
 				{
-				   final String localChangeLine = changeLine;
+					final String localChangeLine = changeLine;
 					//handle changes
 					if(!changeLine.equals("") && !changeLine.contains("last_seq"))
 					{
-					   Platform.runLater(new Runnable()
-					{
-						@Override
-						public void run()
+						if(couch != null && couch.getApplicationType() == ApplicationType.JavaFX)
+						{
+							Platform.runLater(new Runnable()
+							{
+								@Override
+								public void run()
+								{
+									handleDBChange(localChangeLine);
+								}
+							});
+						}
+						else
 						{
 							handleDBChange(localChangeLine);
 						}
-					});
 					}
 				}
 				in.close();
@@ -104,46 +110,45 @@ public  class ModelDBListener implements SendableEntity, Runnable
 
 	public void loadOldChanges()
 	{
-	   //?since=lastPersisted &include_docs=true &feed=continuous &heartbeat=10000
-	   //for every change apply to idmap
-	   String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + databaseName + "/_changes?include_docs=true";
-	   try{
-	      URL obj = new URL(url);
-	      HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-	      //default is GET
-	      con.setRequestMethod("GET");
-	      con.setDoInput(true);
-	      con.setUseCaches(false);
-	      con.setRequestProperty("Content-Type", "application/json"); 
+		//for every change apply to idmap
+		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + couch.getDatabaseName() + "/_changes?include_docs=true";
+		try{
+			URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			//default is GET
+			con.setRequestMethod("GET");
+			con.setDoInput(true);
+			con.setUseCaches(false);
+			con.setRequestProperty("Content-Type", "application/json"); 
 
-	      int responseCode = con.getResponseCode();
-	      if(responseCode == RESPONSE_CODE_OK)
-	      {
-	         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	         String changeLine;
+			int responseCode = con.getResponseCode();
+			if(responseCode == RESPONSE_CODE_OK)
+			{
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String changeLine;
 
-	         while ((changeLine = in.readLine()) != null)
-	         {
-	            if (changeLine.startsWith("{\"seq\":"))
-               {
-                  if (changeLine.endsWith(","))
-                  {
-                     changeLine = changeLine.substring(0, changeLine.length()-1);
-                  }
-                  handleDBChange(changeLine);
-               }
-	         }
-	         in.close();
-	      }
-	      con.disconnect();
-	   } catch (Exception e)
-	   {
-	      e.printStackTrace();
-	   }
+				while ((changeLine = in.readLine()) != null)
+				{
+					if (changeLine.startsWith("{\"seq\":"))
+					{
+						if (changeLine.endsWith(","))
+						{
+							changeLine = changeLine.substring(0, changeLine.length()-1);
+						}
+						handleDBChange(changeLine);
+					}
+				}
+				in.close();
+			}
+			con.disconnect();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	EntityUtil entityUtil = new EntityUtil();
-	
+
 	private void handleDBChange(String changeLine)
 	{
 		/*Example of a changeLine:
@@ -159,122 +164,122 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		  "sessionId":"testBasicModelOnTheCouch1452266010608",
 		  "propertyKind":"toMany",
 		  "objectType":"org.sdmlib.test.examples.modelcouch.Person"}}*/
-		
+
 		changeLine = entityUtil.decode(changeLine);
-		
+
 		JsonObject seqObject = new JsonObject().withValue(changeLine);
 		JsonObject changeObject = seqObject.getJsonObject("doc");
-		
+
 		lastPersisted = seqObject.getLong("seq");
-		
+
 		this.setApplyingChangeMsg(true);
-      try 
-      {
-         ChangeEvent change = new ChangeEvent(changeObject);
-         historyPos = history.addChange(change);
+		try 
+		{
+			ChangeEvent change = new ChangeEvent(changeObject);
+			historyPos = history.addChange(change);
 
-         if (historyPos < 0)
-         {
-            // change already known, ignore
-            return;
-         }
+			if (historyPos < 0 || couch == null)
+			{
+				// change already known, ignore
+				return;
+			}
 
-         // try to apply change
-         applyChange(change, couch.getIdMap());
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      finally
-      {
-         this.setApplyingChangeMsg(false);
-      }
-      
+			// try to apply change
+			applyChange(change, couch.getIdMap());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			this.setApplyingChangeMsg(false);
+		}
+
 		// ChangeEvent change = new ChangeEvent(changeObject);
 		// applyChange(change, couch.getIdMap()); //apply change
 	}
-	
+
 	private void applyChange(ChangeEvent change, JsonIdMap idMap)
-	   {
-	      Object object = idMap.getObject(change.getObjectId());
+	{
+		Object object = idMap.getObject(change.getObjectId());
 
-	      String objectType = change.getObjectType();
+		String objectType = change.getObjectType();
 
-	      SendableEntityCreator creator = idMap.getCreator(objectType, false);
+		SendableEntityCreator creator = idMap.getCreator(objectType, false);
 
-	      if (object == null)
-	      {
-	         // new object, create it
-	         object = creator.getSendableInstance(false);
-	         idMap.put(change.getObjectId(), object);
-	      }
+		if (object == null)
+		{
+			// new object, create it
+			object = creator.getSendableInstance(false);
+			idMap.put(change.getObjectId(), object);
+		}
 
-	      if (ChangeEvent.PLAIN.equals(change.getPropertyKind()))
-	      {
-	         // simple attribute just do assignment
-	         creator.setValue(object, change.getProperty(), change.getNewValue(), null);
-	      }
-	      else if (ChangeEvent.TO_ONE.equals(change.getPropertyKind()))
-	      {
-	         String newValueId = change.getNewValue();
+		if (ChangeEvent.PLAIN.equals(change.getPropertyKind()))
+		{
+			// simple attribute just do assignment
+			creator.setValue(object, change.getProperty(), change.getNewValue(), null);
+		}
+		else if (ChangeEvent.TO_ONE.equals(change.getPropertyKind()))
+		{
+			String newValueId = change.getNewValue();
 
-	         if (newValueId == null)
-	         {
-	            // set pointer to null
-	            creator.setValue(object, change.getProperty(), null, null);
-	         }
-	         else
-	         {
-	            // provide target object
-	            Object targetObject = idMap.getObject(newValueId);
+			if (newValueId == null)
+			{
+				// set pointer to null
+				creator.setValue(object, change.getProperty(), null, null);
+			}
+			else
+			{
+				// provide target object
+				Object targetObject = idMap.getObject(newValueId);
 
-	            if (targetObject == null)
-	            {
-	               // not yet known target, build it. 
-	               SendableEntityCreator targetCreator = idMap.getCreator(change.getValueType(), false);
-	               targetObject = targetCreator.getSendableInstance(false);
-	               idMap.put(newValueId, targetObject);
-	            }
+				if (targetObject == null)
+				{
+					// not yet known target, build it. 
+					SendableEntityCreator targetCreator = idMap.getCreator(change.getValueType(), false);
+					targetObject = targetCreator.getSendableInstance(false);
+					idMap.put(newValueId, targetObject);
+				}
 
-	            // assign value
-	            creator.setValue(object, change.getProperty(), targetObject, null);
-	         }
-	      }
-	      else // toMany
-	      {
-	         String targetId = change.getNewValue();
+				// assign value
+				creator.setValue(object, change.getProperty(), targetObject, null);
+			}
+		}
+		else // toMany
+		{
+			String targetId = change.getNewValue();
 
-	         if (targetId == null)
-	         {
-	            // remove the object from the to_many attribute
-	            targetId = change.getOldValue();
+			if (targetId == null)
+			{
+				// remove the object from the to_many attribute
+				targetId = change.getOldValue();
 
-	            Object targetObject = idMap.getObject(targetId);
+				Object targetObject = idMap.getObject(targetId);
 
-	            if (targetObject != null)
-	            {
-	               creator.setValue(object, change.getProperty(), targetObject, JsonIdMap.REMOVE);
-	            }
-	         }
-	         else
-	         {
-	            // insertion
-	            Object targetObject = idMap.getObject(targetId);
+				if (targetObject != null)
+				{
+					creator.setValue(object, change.getProperty(), targetObject, JsonIdMap.REMOVE);
+				}
+			}
+			else
+			{
+				// insertion
+				Object targetObject = idMap.getObject(targetId);
 
-	            if (targetObject == null)
-	            {
-	               // create unknown target
-	               SendableEntityCreator targetCreator = idMap.getCreator(change.getValueType(), false);
-	               targetObject = targetCreator.getSendableInstance(false);
-	               idMap.put(targetId, targetObject);
-	            }
+				if (targetObject == null)
+				{
+					// create unknown target
+					SendableEntityCreator targetCreator = idMap.getCreator(change.getValueType(), false);
+					targetObject = targetCreator.getSendableInstance(false);
+					idMap.put(targetId, targetObject);
+				}
 
-	            // assign value
-	            creator.setValue(object, change.getProperty(), targetObject, null);
-	         }
-	      }
-	   }
+				// assign value
+				creator.setValue(object, change.getProperty(), targetObject, null);
+			}
+		}
+	}
 
 	//==========================================================================
 
@@ -371,45 +376,13 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		return value;
 	}
 
-	public long getLastPersisted()
+	public boolean isApplyingChangeMsg()
 	{
-		return lastPersisted;
+		return isApplyingChangeMsg;
 	}
 
-	public void setLastPersisted(long lastPersisted)
+	public void setApplyingChangeMsg(boolean isApplyingChangeMsg)
 	{
-		this.lastPersisted = lastPersisted;
+		this.isApplyingChangeMsg = isApplyingChangeMsg;
 	}
-	
-	public ModelDBListener withLastPersisted(long lastPersisted)
-	{
-		setLastPersisted(lastPersisted);
-		return this;
-	}
-	
-	public String getDatabaseName()
-	{
-		return databaseName;
-	}
-
-	public void setDatabaseName(String databaseName)
-	{
-		this.databaseName = databaseName;
-	}
-
-	public ModelDBListener withDatabaseName(String databaseName)
-	{
-		setDatabaseName(databaseName);
-		return this;
-	}
-
-   public boolean isApplyingChangeMsg()
-   {
-      return isApplyingChangeMsg;
-   }
-
-   public void setApplyingChangeMsg(boolean isApplyingChangeMsg)
-   {
-      this.isApplyingChangeMsg = isApplyingChangeMsg;
-   }
 }

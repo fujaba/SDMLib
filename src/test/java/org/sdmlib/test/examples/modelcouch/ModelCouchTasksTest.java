@@ -2,6 +2,7 @@ package org.sdmlib.test.examples.modelcouch;
 
 import org.junit.Test;
 import org.sdmlib.modelcouch.ModelCouch;
+import org.sdmlib.modelcouch.ModelCouch.ApplicationType;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.test.examples.modelcouch.util.PersonCreator;
 
@@ -33,6 +34,7 @@ public class ModelCouchTasksTest
 				.withHostName("docker.cs.uni-kassel.de")
 				.withPort(5984)
 				.withUserName("couchdb")
+				.withApplicationType(ApplicationType.StandAlone)
 				.withIdMap(idMap)
 				.registerAtIdMap()
 				.open(databaseName);
@@ -77,8 +79,15 @@ public class ModelCouchTasksTest
 		
 		String resultSessionid = "resultBasicModelOnTheCouch" + System.currentTimeMillis();
 		JsonIdMap resultiIdMap = PersonCreator.createIdMap(resultSessionid);
-		couch.withIdMap(resultiIdMap)
-			.open(seGroup.getPersonData().first().getValue());
+		
+		couch = new ModelCouch()
+				.withHostName("docker.cs.uni-kassel.de")
+				.withPort(5984)
+				.withUserName("couchdb")
+				.withApplicationType(ApplicationType.StandAlone)
+				.withIdMap(idMap)
+				.registerAtIdMap()
+				.open(databaseName);
 		
 		long startMillis = System.currentTimeMillis();
 		while(System.currentTimeMillis() < startMillis + 5000)
