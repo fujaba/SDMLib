@@ -49,11 +49,14 @@ import de.uniks.networkparser.graph.Clazz.ClazzType;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.GraphUtil;
+import de.uniks.networkparser.graph.Literal;
 import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
 import de.uniks.networkparser.graph.Throws;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class GenClassModel implements ClassModelAdapter
@@ -199,7 +202,7 @@ public class GenClassModel implements ClassModelAdapter
    {
       resetParsers();
 
-      fixClassModel();
+      fixClassModel(rootDir);
 
       addHelperClassesForUnknownAttributeTypes();
       for (Clazz clazz : model.getClazzes()) {
@@ -302,17 +305,17 @@ public class GenClassModel implements ClassModelAdapter
       }
    }
 
-   private void fixClassModel()
+   private void fixClassModel(String rootDir)
    {
       Clazz[] classes = model.getClazzes().toArray(new Clazz[model.getClazzes().size()]);
       HashSet<Clazz> visited = new HashSet<Clazz>();
       for (Clazz item : classes)
       {
-         fixClassModel(item, visited);
+         fixClassModel(item, visited, rootDir);
       }
    }
 
-   private void fixClassModel(Clazz item, HashSet<Clazz> visited)
+   private void fixClassModel(Clazz item, HashSet<Clazz> visited, String rootDir)
    {
       for (Clazz entity : item.getInterfaces(false))
       {
@@ -320,7 +323,7 @@ public class GenClassModel implements ClassModelAdapter
          {
             if (visited.add(entity))
             {
-               fixClassModel(entity, visited);
+               fixClassModel(entity, visited, rootDir);
             }
             entity.with(model);
          }
@@ -332,7 +335,7 @@ public class GenClassModel implements ClassModelAdapter
          {
             if (visited.add(entity))
             {
-               fixClassModel(entity, visited);
+               fixClassModel(entity, visited, rootDir);
             }
             entity.with(model);
          }
@@ -345,7 +348,7 @@ public class GenClassModel implements ClassModelAdapter
             entity.with(model);
             if (visited.add(entity))
             {
-               fixClassModel(entity, visited);
+               fixClassModel(entity, visited, rootDir);
             }
          }
       }
@@ -358,11 +361,50 @@ public class GenClassModel implements ClassModelAdapter
             clazz.with(model);
             if (visited.add(clazz))
             {
-               fixClassModel(clazz, visited);
+               fixClassModel(clazz, visited, rootDir);
             }
          }
        	 this.addToAssociations(role);
       }
+      
+      // Fix the Clazz
+      if(item.getType() ==  ClazzType.ENUMERATION) {
+    	  SimpleSet<Literal> literals = item.getValues();
+    	  SimpleSet<Attribute> attributes = item.getAttributes();
+		  for(Literal literal : literals) {
+			  int no = 0;
+			  SimpleList<Object> values = literal.getValues();
+			  if(values != null) {
+				  for(Object value : values) {
+					  if(value != null) {
+						  String type = value.getClass().getName();
+						  if(attributes.size()>no) {
+							  Attribute attribute = attributes.get(no);
+							  if(attribute.getType().getName(false).equals(type)) {
+								  // Everthing is ok
+							  } else {
+								  attribute.with(DataType.OBJECT);
+							  }
+						  } else {
+							  Attribute attribute = new Attribute("value"+no, DataType.create(type));
+							  attributes.add(attribute);
+							  item.with(attribute);
+						  }
+					  }
+					  no++;
+				  }
+			  }
+		  }
+		  GenClazzEntity orCreate = getOrCreate(item);
+		  ArrayList<SymTabEntry> symTabEntriesFor = orCreate.getOrCreateParser(rootDir).getSymTabEntriesFor(Parser.CONSTRUCTOR+":"+item.getName());
+		  Method constructor = new Method(item.getName()).with(DataType.create(""));
+		  for(Attribute attribute : attributes) {
+			  constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
+		  }
+		  constructor.with(Modifier.PACKAGE);
+		  item.with(constructor);
+      }
+      
    }
    
    private SimpleSet<DataType> getAllTypes() {

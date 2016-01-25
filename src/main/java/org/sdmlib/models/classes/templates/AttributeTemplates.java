@@ -7,6 +7,7 @@ import org.sdmlib.models.classes.Feature;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.graph.Clazz.ClazzType;
 
 public class AttributeTemplates {
 	public static ExistTemplate insertPropertyInInterface(Attribute attribute) {
@@ -79,7 +80,10 @@ public class AttributeTemplates {
 	    	  
 	    	  Template attrSetter = new Template(Parser.METHOD + ":set" + StrUtil.upFirstChar(attribute.getName()) + "(" + attribute.getType().getName(true) + ")");
 	    	  attrSetter.withVariable(ReplaceText.create("pgold", Feature.PropertyChangeSupport, "\n         {{type}} oldValue = this.{{name}};"));
-	    	  attrSetter.withVariable(ReplaceText.create("propertychange", Feature.PropertyChangeSupport, "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_{{NAME}}, oldValue, value);"));
+	    	  ReplaceText propertyChange = ReplaceText.create("propertychange", Feature.PropertyChangeSupport, "\n         getPropertyChangeSupport().firePropertyChange(PROPERTY_{{NAME}}, oldValue, value);");
+	    	  propertyChange.withCondition(attribute.getClazz().getType()!=ClazzType.ENUMERATION);
+
+	    	  attrSetter.withVariable(propertyChange);
 	    	  attrSetter.withVariable(ReplaceText.create("valuecompare", "String".equalsIgnoreCase(attribute.getType().getName(false)), StrUtil.class.getName(), " ! StrUtil.stringEquals(this.{{name}}, value)", "this.{{name}} != value"));
 	    	  attrSetter.withTemplate("\n   public void set{{Name}}({{type}} value)" +
 	                  "\n   {" +

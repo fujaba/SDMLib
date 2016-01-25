@@ -30,9 +30,12 @@ import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+
+import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Literal;
 import de.uniks.networkparser.graph.Method;
+import de.uniks.networkparser.list.SimpleList;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class GenEnumeration extends GenClazzEntity{
@@ -41,6 +44,7 @@ public class GenEnumeration extends GenClazzEntity{
 		if (!model.isExternal()) {
 			getOrCreateParser(rootDir);
 			insertLicense(parser);
+			generateAttributes(rootDir, helpersDir);
 			insertValues();
 			insertMethods(rootDir, helpersDir);
 			printFile(parser);
@@ -104,39 +108,41 @@ public class GenEnumeration extends GenClazzEntity{
 			isNew  = true;
 		
 		for (Literal valueNames : model.getValues()) {
-			for (int i = 0; i < valueNames.getValues().size(); i++) {
-				
-				Object value = valueNames.getValues().get(i);
-				if (symTabContains(enumEntriesInSymTab, value ))
-					continue;
-				enumCurrentPos = insertValue((String) value, enumCurrentPos, (i == valueNames.getValues().size()-1 && isNew) ? true : false);
-			}
+			enumCurrentPos = insertValue(valueNames, enumCurrentPos, true);
 		}	
 		
 	}
-
-	private boolean symTabContains(ArrayList<SymTabEntry> enumEntriesInSymTab,
-			Object value) {
-		String valueString = String.valueOf(value);
-		
-		if (valueString.matches("-?\\d+(.\\d+)?")) {
-			value = "_" + value;
-		}
-		
-		for (SymTabEntry symTabEnumEntry : enumEntriesInSymTab) {
-			
-			if (symTabEnumEntry.getMemberName().equals(value)) {
-				return true;
-			}
-		}
-		return false;
+	
+	private void generateAttributes(String rootDir, String helpersDir)
+	   {
+	      for (Attribute attr : model.getAttributes())
+	      {
+	         if ("PropertyChangeSupport".equals(attr.getType()))
+	            continue;
+	         
+	         getGenerator(attr).generate(rootDir, helpersDir, false);
+	      }
 	}
+	
 
-	private int insertValue(String value, int enumCurrentPos, boolean end) {
-
-		if (value.matches("-?\\d+(.\\d+)?")) {
-			value = "_" + value;
+	private int insertValue(Literal value, int enumCurrentPos, boolean end) {
+		StringBuilder sb = new StringBuilder(value.getName());
+		if (sb.toString().matches("-?\\d+(.\\d+)?")) {
+			sb = sb.insert(0, "_");
 		}
+		// add Values to Enumeration
+		SimpleList<Object> values = value.getValues();
+		if(values != null) {
+			sb.append("(");
+			for (int i = 0; i < values.size(); i++) {
+				if(i>0) {
+					sb.append(", ");
+				}
+				sb.append(values.get(i).toString());
+			}
+			sb.append(")");
+		}
+		
 		if (enumCurrentPos < 0) {
 			enumCurrentPos = parser.indexOf(Parser.ENUM);
 			enumCurrentPos = parser.search(Parser.ENUM, enumCurrentPos);
@@ -145,8 +151,9 @@ public class GenEnumeration extends GenClazzEntity{
 				enumCurrentPos = parser.search("{", enumCurrentPos);
 			}
 		}
-
-		String text = (end) ? "\n		" + value + ";" : "\n		" + value + ",";
+		
+		String enumeration = sb.toString(); 
+		String text = (end) ? "\n		" + enumeration + ";" : "\n		" + enumeration + ",";
 
 		parser.insert(enumCurrentPos+1, text);
 		return enumCurrentPos+ text.length();

@@ -83,11 +83,15 @@ public class GenMethod extends Generator<Method>
          String parameter = signature.substring(signature.indexOf("(") + 1, signature.indexOf(")"));
          String returnClause = "";
 
-         if ("int float double".indexOf(model.getReturnType().getName(false)) >= 0)
+         String name = model.getReturnType().getName(false);
+         if("".equals(name)) {
+        	 returnClause = "";
+         }
+         else if ("int float double".indexOf(name) >= 0)
          {
             returnClause = "return 0;";
          }
-         else if ("void".indexOf(model.getReturnType().getName(false)) >= 0)
+         else if ("void".indexOf(name) >= 0)
          {
             returnClause = "";
          }
