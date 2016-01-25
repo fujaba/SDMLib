@@ -24,9 +24,7 @@ package org.sdmlib.modelcouch;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collection;
@@ -38,7 +36,7 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.replication.ChangeEvent;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-import de.uniks.networkparser.Filter;
+import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -47,7 +45,7 @@ import de.uniks.networkparser.interfaces.UpdateListener;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.json.JsonObject;
-import de.uniks.networkparser.xml.HTMLEntities;
+
 /**
  * 
  * @see <a href='../../../../../../src/main/replication/org/sdmlib/modelcouch/ModelCouchModel.java'>ModelCouchModel.java</a>
@@ -157,7 +155,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
       return this;
    }
 
-   HTMLEntities htmlEntities = new HTMLEntities();
+   EntityUtil entityUtil = new EntityUtil();
    
    public int send(ChangeEvent change)
    {
@@ -171,7 +169,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
          HttpURLConnection con = (HttpURLConnection) obj.openConnection();
          String urlParameters = jsonObject.toString();
          
-         urlParameters = htmlEntities.encode(urlParameters);
+         urlParameters = entityUtil.encode(urlParameters);
 
          con.setRequestMethod("POST");	
          con.setDoOutput(true);
