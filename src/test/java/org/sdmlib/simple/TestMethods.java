@@ -37,9 +37,6 @@ public class TestMethods {
 		
 	}
 	
-	//TODO Fehler bei signature = model.getName(false), an diesen Stellen wird signature = model.getName(true) benoetigt
-	// (momentan behoben)
-	
 	@Test
 	public void testClassWithVoidAndNamelessParameterMethod() {
 	
@@ -51,9 +48,6 @@ public class TestMethods {
 //		model.generate("src/test/java");
 		
 	}
-	
-	//TODO Fehler bei signature = model.getName(false), an diesen Stellen wird signature = model.getName(true) benoetigt
-	// (momentan behoben)
 	
 	@Test
 	public void testClassWithVoidAndParameterMethod() {
@@ -76,7 +70,7 @@ public class TestMethods {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.with(new Method("think", DataType.VOID, new Parameter(DataType.create(room.getClass())).with("room")));
+		person.with(new Method("think", DataType.VOID, new Parameter(DataType.create(room)).with("room")));
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -108,8 +102,6 @@ public class TestMethods {
 		
 	}
 	
-	// FIXME im Fall einer Map als Parameter weicht die Signatur zu stark vom Normalfall ab 
-	
 	@Test
 	public void testClassWithVoidAndMapParameterMethod() {
 	
@@ -134,7 +126,6 @@ public class TestMethods {
 		
 	}
 	
-	//FIXME NullPointer
 	@Test
 	public void testClassWithNonVoidMethod() {
 	
@@ -159,7 +150,6 @@ public class TestMethods {
 		
 	}
 	
-	//FIXME NullPointer
 	@Test
 	public void testClassWithMultipleMethods() {
 	
@@ -173,7 +163,6 @@ public class TestMethods {
 		
 	}
 	
-	//FIXME NUllpointer
 	@Test
 	public void testClassWithMethodAndBody() {
 	
