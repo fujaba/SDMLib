@@ -396,7 +396,9 @@ public class GenClassModel implements ClassModelAdapter
 			  }
 		  }
 		  GenClazzEntity orCreate = getOrCreate(item);
-		  ArrayList<SymTabEntry> symTabEntriesFor = orCreate.getOrCreateParser(rootDir).getSymTabEntriesFor(Parser.CONSTRUCTOR+":"+item.getName());
+		  Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
+		  orCreateParser.indexOf(Parser.CLASS_END);
+//		  ArrayList<SymTabEntry> symTabEntriesFor = orCreate.getOrCreateParser(rootDir).getSymTabEntriesFor(Parser.CONSTRUCTOR+":"+item.getName());
 		  Method constructor = new Method(item.getName()).with(DataType.create(""));
 		  for(Attribute attribute : attributes) {
 			  constructor.with(new Parameter(attribute.getType()).with(attribute.getName()));
