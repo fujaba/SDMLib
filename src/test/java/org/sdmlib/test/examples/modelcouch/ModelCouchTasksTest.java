@@ -20,7 +20,7 @@ public class ModelCouchTasksTest
 
 		story.add(""
 				+ "This is a test for writing objects to the CouchDB instance https://docker.cs.uni-kassel.de:5984/ and read from it. "
-				+ "First a database is created and the following objects get persisted"
+				+ "First a database is created, the following objects get persisted and the connection gets closed."
 				);
 
 		String databaseName = "segroup";
@@ -67,7 +67,7 @@ public class ModelCouchTasksTest
 				.withType("task")
 				.withPersons((Person)tobi);
 
-//		couch.close(); TODO even if db is created
+		couch.close();
 		
 		story.addObjectDiagram(seGroup);
 		
@@ -95,7 +95,7 @@ public class ModelCouchTasksTest
 				);
 		
 		
-		couch.delete(databaseName);
+		couch.deleteDatabase(databaseName);
 
 		story.dumpHTML();
 	}

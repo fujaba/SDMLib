@@ -57,6 +57,8 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	@Override
 	public void run()
 	{
+		loadOldChanges();
+		
 		//?since=lastPersisted &include_docs=true &feed=continuous &heartbeat=10000
 		//for every change apply to idmap
 		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + databaseName + "/_changes?since=" + lastPersisted + "&include_docs=true&feed=continuous&heartbeat=10000";
@@ -144,7 +146,8 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	
 	private void handleDBChange(String changeLine)
 	{
-		/*{"seq":1,"id":"fb1b8e0e8ee333cc9dfc8715d22ccecc",
+		/*Example of a changeLine:
+		  {"seq":1,"id":"fb1b8e0e8ee333cc9dfc8715d22ccecc",
 		  "changes":[{"rev":"1-fe1f79ae390abd60e939ba6f0d78c66f"}],
 		  "doc":{"_id":"fb1b8e0e8ee333cc9dfc8715d22ccecc","_rev":"1-fe1f79ae390abd60e939ba6f0d78c66f",
 		  "objectId":"root",
@@ -156,6 +159,7 @@ public  class ModelDBListener implements SendableEntity, Runnable
 		  "sessionId":"testBasicModelOnTheCouch1452266010608",
 		  "propertyKind":"toMany",
 		  "objectType":"org.sdmlib.test.examples.modelcouch.Person"}}*/
+		
 		changeLine = entityUtil.decode(changeLine);
 		
 		JsonObject seqObject = new JsonObject().withValue(changeLine);

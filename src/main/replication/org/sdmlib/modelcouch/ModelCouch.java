@@ -54,13 +54,11 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 {
    public enum ApplicationType {StandAlone, JavaFX};
 
-   private final int RESPONSE_CODE_OK = 200;
    private final int RESPONSE_CODE_DB_MISSING = 404;
-   private final int RESPONSE_CODE_DB_CREATED = 201;
 
    private long lastPersisted = 0;
    private JsonIdMap idMap;
-   private String database;
+   private String databaseName;
    private String userName = "couchdb";
 
    private ExecutorService executor;
@@ -84,11 +82,11 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
    //try to open connection to an existing database
    //create new if database was not existing
-   public ModelCouch open(String database)
+   public ModelCouch open(String databaseName)
    {
-      this.database = database;
+      this.databaseName = databaseName;
 
-      String urlString = "http://" + hostName + ":" + port +"/" + database + "/";
+      String urlString = "http://" + hostName + ":" + port +"/" + databaseName + "/";
       try{
          URL urlObj = new URL(urlString);
          HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
@@ -116,33 +114,9 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
             responseCode = con.getResponseCode();
             con.disconnect();
-
-            /*if(responseCode == RESPONSE_CODE_DB_CREATED)
-				{
-					Object root = idMap.getObject("root");
-					JsonObject idObj = idMap.toJsonObject(root, new Filter().withFull(true));
-					String urlParameters = idObj.toString();
-
-					con = (HttpURLConnection) obj.openConnection();
-					con.setRequestMethod("POST");	
-					con.setDoOutput(true);
-					con.setDoInput(true);
-					con.setRequestProperty("Content-Type", "application/json");
-					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-					wr.writeBytes(urlParameters);
-					wr.flush();
-					wr.close();
-
-					responseCode = con.getResponseCode();
-					con.disconnect();
-				}*/
          }
 
-         mdbListener = createModelDBListener()
-               .withLastPersisted(lastPersisted)
-               .withDatabaseName(database);
-         
-         mdbListener.loadOldChanges();
+         mdbListener = createModelDBListener();
          
          executor = Executors.newFixedThreadPool(1);
          executor.execute(mdbListener);
@@ -163,7 +137,7 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 
       JsonObject jsonObject = change.toJson();
 
-      String url = "http://" + hostName + ":" + port +"/" + database + "/";
+      String url = "http://" + hostName + ":" + port +"/" + databaseName + "/";
       try{
          URL obj = new URL(url);
          HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -195,11 +169,11 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
       executor.shutdownNow();
    }
 
-   public int delete(String database)
+   public int deleteDatabase(String databaseName)
    {
       int responsecode = -1;
 
-      String url = "http://" + hostName + ":" + port +"/" + database + "/";
+      String url = "http://" + hostName + ":" + port +"/" + databaseName + "/";
       try{
          URL obj = new URL(url);
          HttpURLConnection con = (HttpURLConnection) obj.openConnection();
