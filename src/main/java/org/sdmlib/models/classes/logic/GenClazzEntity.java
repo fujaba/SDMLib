@@ -16,6 +16,7 @@ import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.json.JsonIdMap;
 import de.uniks.networkparser.list.SimpleKeyValueList;
@@ -265,10 +266,16 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
    
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
-      if (!getRepairClassModel().hasFeature(Feature.ALBERTsSets) && !getRepairClassModel().hasFeature(Feature.Serialization))
-      {
-         return null;
-      }
+		if (getRepairClassModel().hasFeature(Feature.ALBERTsSets) == false
+				&& getRepairClassModel().hasFeature(Feature.Serialization) == false) {
+			return null;
+		}
+		if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
+			return null;
+		}
+		if (((ClassModel) model.getClassModel()).hasFeature(Feature.ALBERTsSets) == false) {
+			return null;
+		}
 
       if (modelSetParser == null)
       {
@@ -535,9 +542,12 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
    }
    public Parser getOrCreateParserForPatternObjectFile(String rootDir)
    {
-      if (!getRepairClassModel().hasFeature(Feature.ALBERTsSets))
+      if (getRepairClassModel().hasFeature(Feature.ALBERTsSets) == false)
       {
          return null;
+      }
+      if (((ClassModel) model.getClassModel()).hasFeature(Feature.PatternObject) == false) {
+    	  return null;
       }
       
       if (patternObjectParser == null)
@@ -661,6 +671,11 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
    
    public Parser getOrCreateParserForCreatorClass(String rootDir)
    {
+	  if (GraphUtil.isInterface(model) || GraphUtil.isEnumeration(model)) {
+		  return null;
+	  } else if (((ClassModel) model.getClassModel()).hasFeature(Feature.Serialization) == false) {
+		  return null;
+	  }
       if (creatorParser == null)
       {
          // try to find existing file

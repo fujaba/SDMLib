@@ -7,7 +7,6 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.Feature;
 import org.sdmlib.models.classes.templates.AddTemplate;
 import org.sdmlib.models.classes.templates.AttributeTemplates;
 import org.sdmlib.models.classes.templates.ExistTemplate;
@@ -855,28 +854,22 @@ public class GenAttribute extends Generator<Attribute>
       if (model.getModifier().has(Modifier.PRIVATE))
       {
 
-         //    	  if (!isEnumType(model, clazz)) {
-         if (GraphUtil.isInterface(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization))
-         {
-            Parser creatorParser = getGenerator(clazz).getOrCreateParserForCreatorClass(helpersDir);
+        Parser creatorParser = getGenerator(clazz).getOrCreateParserForCreatorClass(helpersDir);
+        if(creatorParser != null) {
+        	insertPropertyInCreatorClass(creatorParser, clazz);
+        	getGenerator(clazz).printFile(creatorParser);
+        }
 
-            insertPropertyInCreatorClass(creatorParser, clazz);
+        Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helpersDir);
+        if(modelSetParser != null) {
+	        insertGetterInModelSetClass(modelSetParser, clazz);
+	        insertSetterInModelSetClass(modelSetParser, clazz);
+	        getGenerator(clazz).printFile(modelSetParser);
+        }
 
-            getGenerator(clazz).printFile(creatorParser);
-         }
-
-         if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.ALBERTsSets))
-         {
-
-            Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helpersDir);
-            insertGetterInModelSetClass(modelSetParser, clazz);
-            insertSetterInModelSetClass(modelSetParser, clazz);
-            getGenerator(clazz).printFile(modelSetParser);
-         }
-
-         if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PatternObject))
-         {
+       
          Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helpersDir);
+         if(patternObjectParser != null) {
             insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
             insertGetterInPatternObjectClass(patternObjectParser, clazz);
          }
