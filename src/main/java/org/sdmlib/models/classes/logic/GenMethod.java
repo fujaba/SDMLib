@@ -11,6 +11,8 @@ import org.sdmlib.models.classes.Feature;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Clazz.ClazzType;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.GraphSimpleSet;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
@@ -112,14 +114,41 @@ public class GenMethod extends Generator<Method>
             );
          pos = parser.indexOf(Parser.CLASS_END);
          parser.insert(pos, text.toString());
+         pos = parser.indexOf(Parser.CLASS_END);
       }
-      String signatureSimple = model.getName(false);
-      pos = parser.indexOf(Parser.METHOD + ":" + signatureSimple);
-      symTabEntry = parser.getSymTab().get(string);
+//      String signatureSimple = model.getName(false);
+      
+      String signatureSimple = "";
+      if (model.getReturnType().equals(DataType.CONSTRUCTOR)) {
+    	  signatureSimple = Parser.CONSTRUCTOR + ":" ;
+      } else {
+    	  signatureSimple = Parser.METHOD + ":"; 
+      }
+      
+      signatureSimple += model.getName() + "(";
+      
+      SimpleSet<Parameter> parameters = model.getParameter();
+      for(int i = 0; i < parameters.size(); i++) {
+    	  Parameter param = parameters.get(i); 
+    	  if(i > 0) {
+    		  signatureSimple += ",";
+    	  } 
+    	  signatureSimple += param.getType(false);
+      }
+
+      signatureSimple += ")";
+      
+      pos = parser.indexOf(signatureSimple);
+//      symTabEntry = parser.getSymTab().get(string);
+      symTabEntry = parser.getSymTab().get(signatureSimple);
+      parser.indexOf(Parser.CLASS_END);
+      symTabEntry = parser.getSymTab().get(signatureSimple);
       // in case of a method body, remove old method
       if (pos >= 0 && model.getBody() != null)
       {
-         parser.parseMethodBody(symTabEntry);
+    	  SymTabEntry symTabEntry2 = parser.getSymTab().get(parser.getSymTab().get(8));
+    	  SymTabEntry symTabEntry3 = parser.getSymTab().get(parser.getSymTab().get(9));
+    	  parser.parseMethodBody(symTabEntry);
          int startPos = symTabEntry.getEndPos();
          parser.replace(symTabEntry.getBodyStartPos() + 1, startPos, "\n" + model.getBody() + "   ");
          pos = -1;
