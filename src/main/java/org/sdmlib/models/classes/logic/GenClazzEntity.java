@@ -221,7 +221,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
          if (item.getClassModel() != null)
          {
-            model.with(item.getClassModel());
+            model.setClassModel(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly from Superclass ("
                + getRepairClassModel().getName() + "). Please add Classmodel to Clazz: " + model.getName());
             this.repairThis = false;
@@ -235,14 +235,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
 
          if (item.getClassModel() != null)
          {
-            model.with(item.getClassModel());
+            model.setClassModel(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly from Kindclass (" + getRepairClassModel()
                + "). Please add Classmodel to Clazz: " + model.getName());
             this.repairThis = false;
             return getRepairClassModel();
          }
       }
-      for (Iterator<Association> i = model.getAssociation().iterator(); i.hasNext();)
+      for (Iterator<Association> i = model.getAssociations().iterator(); i.hasNext();)
       {
     	 Association item = i.next();
          Clazz otherClazz = item.getOtherClazz();
@@ -250,7 +250,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
          {
             if (otherClazz.getClassModel() != null)
             {
-               model.with(otherClazz.getClassModel());
+               model.setClassModel(otherClazz.getClassModel());
                System.err.println("Classmodel try to repair automaticly from Assoc (" + getRepairClassModel().getName()
                   + "). Please add Classmodel to Clazz: " + model.getName());
                this.repairThis = false;
@@ -815,7 +815,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>{
                   + "()";
             }
             
-            if (model.hasModifier(Modifier.ABSTRACT))
+            if (model.getModifier().has(Modifier.ABSTRACT))
             {
                instanceCreationClause = "null";
             }

@@ -23,7 +23,8 @@ public class TrainModel
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.patternrewriteops.model");
             
-      Clazz trainClass = model.createClazz("Train").with(model);
+      Clazz trainClass = model.createClazz("Train");
+      trainClass.setClassModel(model);
       
       Clazz stationClass = model.createClazz("Station").withBidirectional(trainClass, "trains", Cardinality.MANY, "station", Cardinality.ONE);
 

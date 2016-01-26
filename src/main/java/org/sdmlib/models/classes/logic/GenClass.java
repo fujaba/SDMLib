@@ -667,7 +667,7 @@ public class GenClass extends GenClazzEntity
          String className = name.substring(pos + 1);
 
          String abztract = "";
-         if(model.hasModifier(Modifier.ABSTRACT)) {
+         if(model.getModifier().has(Modifier.ABSTRACT)) {
             abztract = "abstract";
          }
          
