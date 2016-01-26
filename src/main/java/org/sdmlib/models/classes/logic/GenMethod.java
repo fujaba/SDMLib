@@ -139,15 +139,10 @@ public class GenMethod extends Generator<Method>
       signatureSimple += ")";
       
       pos = parser.indexOf(signatureSimple);
-//      symTabEntry = parser.getSymTab().get(string);
-      symTabEntry = parser.getSymTab().get(signatureSimple);
-      parser.indexOf(Parser.CLASS_END);
       symTabEntry = parser.getSymTab().get(signatureSimple);
       // in case of a method body, remove old method
       if (pos >= 0 && model.getBody() != null)
       {
-    	  SymTabEntry symTabEntry2 = parser.getSymTab().get(parser.getSymTab().get(8));
-    	  SymTabEntry symTabEntry3 = parser.getSymTab().get(parser.getSymTab().get(9));
     	  parser.parseMethodBody(symTabEntry);
          int startPos = symTabEntry.getEndPos();
          parser.replace(symTabEntry.getBodyStartPos() + 1, startPos, "\n" + model.getBody() + "   ");

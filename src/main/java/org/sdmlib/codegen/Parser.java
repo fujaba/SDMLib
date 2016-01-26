@@ -583,7 +583,7 @@ public class Parser
          {
             skipTo('{');
          }
-
+         methodBodyStartPos = currentRealToken.startPos;
          parseBlock();
 
          String constructorSignature = Parser.CONSTRUCTOR + ":" + className + params;
@@ -613,24 +613,7 @@ public class Parser
 
          nextRealToken();
          // Switch between Enum Value and Attributes
-         if(ENUM.equals(classType)) {
-             String enumSignature = Parser.ENUMVALUE + ":" + type;
-             symTab.put(enumSignature,
-                new SymTabEntry()
-                   .withMemberName(type)
-                   .withKind(ENUMVALUE)
-                   .withType(enumSignature + ":" + className)
-                   .withStartPos(startPos)
-                   .withEndPos(previousRealToken.startPos)
-                   .withBodyStartPos(methodBodyStartPos)
-                   .withModifiers(modifiers)               
-                   .withPreCommentStartPos(preCommentStartPos)
-                   .withPreCommentEndPos(preCommentEndPos)
-                   .withAnnotationsStartPos(annotationsStartPos)
-                );
-        	
-             skipTo(';');
-         }else if (currentRealKindEquals('='))
+         if (currentRealKindEquals('='))
          {
             // field declaration with initialisation
             skip("=");
@@ -656,8 +639,7 @@ public class Parser
                );
 
             checkSearchStringFound(ATTRIBUTE + ":" + memberName, startPos);
-         }
-         else if (currentRealKindEquals(';') && !",".equals(memberName))
+         } else if (currentRealKindEquals(';') && !",".equals(memberName))
          {
             // field declaration
             checkSearchStringFound(NAME_TOKEN + ":" + searchString, startPos);
@@ -727,14 +709,12 @@ public class Parser
 
             checkSearchStringFound(methodSignature, startPos);
             // System.out.println(className + " :  " + methodSignature);
-         }
+         } 
          else if (ENUM.equals(classType))
          {
-
             if (",".equalsIgnoreCase(memberName) || ";".equalsIgnoreCase(memberName) || !";".equals(type)
                && currentRealKindEquals(EOF))
             {
-
                String enumSignature = Parser.ENUMVALUE + ":" + type;
                symTab.put(enumSignature,
                   new SymTabEntry()
@@ -749,7 +729,23 @@ public class Parser
                      .withPreCommentEndPos(preCommentEndPos)
                      .withAnnotationsStartPos(annotationsStartPos)
                   );
-
+            } else {  String enumSignature = Parser.ENUMVALUE + ":" + type;
+            	symTab.put(enumSignature,
+                    new SymTabEntry()
+                       .withMemberName(type)
+                       .withKind(ENUMVALUE)
+                       .withType(enumSignature + ":" + className)
+                       .withStartPos(startPos)
+                       .withEndPos(previousRealToken.startPos)
+                       .withBodyStartPos(methodBodyStartPos)
+                       .withModifiers(modifiers)               
+                       .withPreCommentStartPos(preCommentStartPos)
+                       .withPreCommentEndPos(preCommentEndPos)
+                       .withAnnotationsStartPos(annotationsStartPos)
+                    );
+            	
+                 skipTo(';');
+                 skip(";");
             }
          }
       }
