@@ -615,11 +615,11 @@ public class GenAssociation extends Generator<Association>
       SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(true).withoutAll(partnerRole.getClazz());
       ClazzSet kidClassesInterfaces =new ClazzSet();
       for(Clazz item : kidClasses){
-    	  if (item.hasModifier(Modifier.ABSTRACT) || GraphUtil.isInterface(item)) {
+    	  if (item.getModifier().has(Modifier.ABSTRACT) || GraphUtil.isInterface(item)) {
             kidClassesInterfaces.add(item);
          }
       }
-      if ((partnerRole.getClazz().hasModifier(Modifier.ABSTRACT) || GraphUtil.isInterface(partnerRole.getClazz())) &&
+      if ((partnerRole.getClazz().getModifier().has(Modifier.ABSTRACT) || GraphUtil.isInterface(partnerRole.getClazz())) &&
     		  kidClassesInterfaces.size() == 1)
       {
          realPartnerClassName = kidClassesInterfaces.first().getName(true);

@@ -109,7 +109,7 @@ public class Javascript implements GuiAdapter
    private SimpleSet<Association> getAllAssoc(ClassModel model) {
 	   SimpleSet<Association> colleciton = new SimpleSet<Association>();
 	   for(Clazz clazz : model.getClazzes()) {
-		   colleciton.addAll(clazz.getAssociation());
+		   colleciton.addAll(clazz.getAssociations());
 	   }
 	   return colleciton;
    }

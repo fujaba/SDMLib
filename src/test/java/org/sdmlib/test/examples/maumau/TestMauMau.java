@@ -21,7 +21,7 @@ public class TestMauMau {
 //		stefan.withCards(new Card().withValue(Value.new Value"Heart 7"), new Card().withValue("Spade 9"));
 //		albert.withCards(new Card().withValue("Square 10"));
 		game.withPlayers(albert, stefan);
-		game.getPlayers().getCards().each(new Condition<Card>() {
+		game.getPlayers().getCards().filter(new Condition<Card>() {
 			@Override
 			public boolean check(Card value) {
 				System.out.println(value.toString());

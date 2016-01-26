@@ -104,7 +104,7 @@ public class ClazzSet extends SDMSet<Clazz>
    {
       for (Clazz obj : this)
       {
-         obj.with(value);
+         obj.setClassModel(value);
       }
       
       return this;

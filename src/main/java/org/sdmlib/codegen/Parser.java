@@ -460,25 +460,21 @@ public class Parser
 
    private String parseClassType()
    {
-
-      if ("class".equals(currentRealWord()))
+	   classType ="";
+      if (CLASS.equals(currentRealWord()))
       {
-         skip("class");
          classType = "class";
-      }
-
-      else if ("interface".equals(currentRealWord()))
+      }else if (INTERFACE.equals(currentRealWord()))
       {
-         skip("interface");
-         classType = "interface";
+         classType = INTERFACE;
       }
-
-      else if ("enum".equals(currentRealWord()))
+      else if (ENUM.equals(currentRealWord()))
       {
-         skip("enum");
-         classType = "enum";
+         classType = ENUM;
       }
-
+      if(classType.isEmpty() == false) {
+    	  skip(classType);
+      }
       return classType;
    }
 
@@ -616,8 +612,25 @@ public class Parser
          verbose("parsing member: " + memberName);
 
          nextRealToken();
-
-         if (currentRealKindEquals('='))
+         // Switch between Enum Value and Attributes
+         if(ENUM.equals(classType)) {
+             String enumSignature = Parser.ENUMVALUE + ":" + type;
+             symTab.put(enumSignature,
+                new SymTabEntry()
+                   .withMemberName(type)
+                   .withKind(ENUMVALUE)
+                   .withType(enumSignature + ":" + className)
+                   .withStartPos(startPos)
+                   .withEndPos(previousRealToken.startPos)
+                   .withBodyStartPos(methodBodyStartPos)
+                   .withModifiers(modifiers)               
+                   .withPreCommentStartPos(preCommentStartPos)
+                   .withPreCommentEndPos(preCommentEndPos)
+                   .withAnnotationsStartPos(annotationsStartPos)
+                );
+        	
+             skipTo(';');
+         }else if (currentRealKindEquals('='))
          {
             // field declaration with initialisation
             skip("=");

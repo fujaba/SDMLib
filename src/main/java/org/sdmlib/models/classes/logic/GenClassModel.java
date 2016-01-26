@@ -325,7 +325,7 @@ public class GenClassModel implements ClassModelAdapter
             {
                fixClassModel(entity, visited, rootDir);
             }
-            entity.with(model);
+            entity.setClassModel(model);
          }
       }
 
@@ -337,7 +337,7 @@ public class GenClassModel implements ClassModelAdapter
             {
                fixClassModel(entity, visited, rootDir);
             }
-            entity.with(model);
+            entity.setClassModel(model);
          }
       }
 
@@ -345,7 +345,7 @@ public class GenClassModel implements ClassModelAdapter
       {
          if (entity.getClassModel() == null)
          {
-            entity.with(model);
+            entity.setClassModel(model);
             if (visited.add(entity))
             {
                fixClassModel(entity, visited, rootDir);
@@ -353,12 +353,12 @@ public class GenClassModel implements ClassModelAdapter
          }
       }
 
-      for (Association role : item.getAssociation())
+      for (Association role : item.getAssociations())
       {
          Clazz clazz = role.getOtherClazz();
          if (clazz.getClassModel() == null)
          {
-            clazz.with(model);
+            clazz.setClassModel(model);
             if (visited.add(clazz))
             {
                fixClassModel(clazz, visited, rootDir);
@@ -395,8 +395,9 @@ public class GenClassModel implements ClassModelAdapter
 				  }
 			  }
 		  }
-//		  GenClazzEntity orCreate = getOrCreate(item);
-//		  ArrayList<SymTabEntry> symTabEntriesFor = orCreate.getOrCreateParser(rootDir).getSymTabEntriesFor(Parser.CONSTRUCTOR+":"+item.getName());
+		  GenClazzEntity orCreate = getOrCreate(item);
+		  Parser orCreateParser = orCreate.getOrCreateParser(rootDir);
+		  orCreateParser.indexOf(Parser.CLASS_END);
 		  Method constructor = new Method(item.getName()).with(DataType.create(""));
 		  String constructorBody = "";
 		  for(Attribute attribute : attributes) {
@@ -1077,8 +1078,8 @@ public class GenClassModel implements ClassModelAdapter
       // check code for assoc
       LinkedHashSet<Association> roles = new LinkedHashSet<Association>();
 
-      if (!clazz.getAssociation().isEmpty())
-         roles.addAll(clazz.getAssociation());
+      if (!clazz.getAssociations().isEmpty())
+         roles.addAll(clazz.getAssociations());
 
       for (Association assoc : roles)
       {
@@ -1657,10 +1658,10 @@ public class GenClassModel implements ClassModelAdapter
 
       });
 
-      if (!clazz.getAssociation().isEmpty())
+      if (!clazz.getAssociations().isEmpty())
       {
 
-         for (Association role : clazz.getAssociation())
+         for (Association role : clazz.getAssociations())
          {
             roles.add(role);
          }
@@ -1904,7 +1905,7 @@ public class GenClassModel implements ClassModelAdapter
          String part = methodName.substring("get".length(), methodName.length() - "Transitive".length());
 
          Clazz clazz = method.getClazz();
-         for (Association role : clazz.getAssociation())
+         for (Association role : clazz.getAssociations())
          {
             if (role.getName().toLowerCase().equals(part.toLowerCase()))
                return currentInsertPos;
@@ -2062,7 +2063,7 @@ public class GenClassModel implements ClassModelAdapter
                }
             }
 
-            for (Association role : clazz.getAssociation())
+            for (Association role : clazz.getAssociations())
             {
                role = role.getOther();
                if (StrUtil.stringEquals(role.getName(), varName))
@@ -3340,7 +3341,7 @@ public class GenClassModel implements ClassModelAdapter
                }
 
                // try to add role values
-               for (Association role : clazz.getAssociation())
+               for (Association role : clazz.getAssociations())
                {
                   role = role.getOther();
 
@@ -3391,7 +3392,7 @@ public class GenClassModel implements ClassModelAdapter
 	 */
    public void removeFromModelAndCode(Clazz model, String rootDir) {
 		
- 		for (Association role : model.getAssociation()) {
+ 		for (Association role : model.getAssociations()) {
  			
  			Clazz clazz = role.getOtherClazz();
  			
