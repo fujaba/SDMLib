@@ -23,16 +23,14 @@ package org.sdmlib.storyboards.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
-import org.sdmlib.storyboards.util.StoryboardSet;
 
-public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
+import de.uniks.networkparser.list.SimpleSet;
+
+public class StoryboardStepSet extends SimpleSet<StoryboardStep> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -143,7 +141,7 @@ public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdm
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<StoryboardStep>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -161,7 +159,7 @@ public class StoryboardStepSet extends SDMSet<StoryboardStep> implements org.sdm
       return new StoryboardStepPO (this.toArray(new StoryboardStep[this.size()]));
    }
 
-   public static final StoryboardStepSet EMPTY_SET = new StoryboardStepSet().withReadOnly(true);
+   public static final StoryboardStepSet EMPTY_SET = new StoryboardStepSet().withFlag(StoryboardStepSet.READONLY);
    public StoryboardStepSet hasText(String value)
    {
       StoryboardStepSet result = new StoryboardStepSet();

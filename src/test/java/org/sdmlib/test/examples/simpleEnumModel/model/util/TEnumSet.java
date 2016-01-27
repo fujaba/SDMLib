@@ -21,14 +21,16 @@
    
 package org.sdmlib.test.examples.simpleEnumModel.model.util;
 
-import de.uniks.networkparser.list.SDMSet;
-import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
 import java.util.Collection;
 
-public class TEnumSet extends SDMSet<TEnum>
+import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TEnumSet extends SimpleSet<TEnum>
 {
 
-   public static final TEnumSet EMPTY_SET = new TEnumSet().withReadOnly();
+   public static final TEnumSet EMPTY_SET = new TEnumSet().withFlag(TEnumSet.READONLY);
 
 
    public TEnumPO hasTEnumPO()

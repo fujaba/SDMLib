@@ -21,27 +21,24 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.MauMau;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.DrawingStack;
+import org.sdmlib.test.examples.maumau.model.Holder;
+import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.OpenStack;
 import org.sdmlib.test.examples.maumau.model.Player;
 import org.sdmlib.test.examples.maumau.model.Suit;
-import org.sdmlib.models.modelsets.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.Card;
-import org.sdmlib.test.examples.maumau.model.util.HolderSet;
-import org.sdmlib.test.examples.maumau.model.Holder;
-import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
-import org.sdmlib.test.examples.maumau.model.util.DrawingStackSet;
-import org.sdmlib.test.examples.maumau.model.DrawingStack;
-import org.sdmlib.test.examples.maumau.model.util.OpenStackSet;
-import org.sdmlib.test.examples.maumau.model.OpenStack;
 
-public class MauMauSet extends SDMSet<MauMau>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class MauMauSet extends SimpleSet<MauMau>
 {
 
-   public static final MauMauSet EMPTY_SET = new MauMauSet().withReadOnly(true);
+   public static final MauMauSet EMPTY_SET = new MauMauSet().withFlag(MauMauSet.READONLY);
 
 
    public MauMauPO hasMauMauPO()

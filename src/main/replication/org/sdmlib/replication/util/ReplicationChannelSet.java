@@ -25,30 +25,22 @@ import java.net.Socket;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.SharedSpaceSet;
 
-public class ReplicationChannelSet extends SDMSet<ReplicationChannel>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ReplicationChannelSet extends SimpleSet<ReplicationChannel>
 {
 
-   public static final ReplicationChannelSet EMPTY_SET = new ReplicationChannelSet().withReadOnly(true);
+   public static final ReplicationChannelSet EMPTY_SET = new ReplicationChannelSet().withFlag(ReplicationChannelSet.READONLY);
 
 
    public ReplicationChannelPO hasReplicationChannelPO()
    {
       return new ReplicationChannelPO(this.toArray(new ReplicationChannel[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ReplicationChannel";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ReplicationChannelSet with(Object value)

@@ -23,26 +23,18 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class ObjectSet extends SDMSet<Object>
+public class ObjectSet extends SimpleSet<Object>
 {
 
-   public static final ObjectSet EMPTY_SET = new ObjectSet().withReadOnly(true);
+   public static final ObjectSet EMPTY_SET = new ObjectSet().withFlag(ObjectSet.READONLY);
 
 
    public ObjectPO hasObjectPO()
    {
       return new ObjectPO(this.toArray(new Object[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.lang.Object";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ObjectSet with(Object value)

@@ -25,15 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
-import org.sdmlib.test.examples.studyright.model.util.RoomSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
-public class UniversitySet extends SDMSet<University>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class UniversitySet extends SimpleSet<University>
 {
 
 
@@ -41,14 +40,6 @@ public class UniversitySet extends SDMSet<University>
    {
       return new UniversityPO(this.toArray(new University[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.University";
-   }
-
 
    @SuppressWarnings("unchecked")
    public UniversitySet with(Object value)
@@ -225,7 +216,7 @@ public class UniversitySet extends SDMSet<University>
    }
 
 
-   public static final UniversitySet EMPTY_SET = new UniversitySet().withReadOnly(true);
+   public static final UniversitySet EMPTY_SET = new UniversitySet().withFlag(UniversitySet.READONLY);
    public UniversitySet hasName(String lower, String upper)
    {
       UniversitySet result = new UniversitySet();

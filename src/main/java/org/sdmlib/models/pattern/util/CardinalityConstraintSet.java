@@ -24,21 +24,17 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.CardinalityConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import java.lang.Object;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class CardinalityConstraintSet extends SDMSet<CardinalityConstraint> implements org.sdmlib.models.modelsets.ModelSet
+import de.uniks.networkparser.list.SimpleSet;
+
+public class CardinalityConstraintSet extends SimpleSet<CardinalityConstraint> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -292,7 +288,7 @@ public class CardinalityConstraintSet extends SDMSet<CardinalityConstraint> impl
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<CardinalityConstraint>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -315,7 +311,7 @@ public class CardinalityConstraintSet extends SDMSet<CardinalityConstraint> impl
       return new CardinalityConstraintPO(this.toArray(new CardinalityConstraint[this.size()]));
    }
 
-   public static final CardinalityConstraintSet EMPTY_SET = new CardinalityConstraintSet().withReadOnly(true);
+   public static final CardinalityConstraintSet EMPTY_SET = new CardinalityConstraintSet().withFlag(CardinalityConstraintSet.READONLY);
    public CardinalityConstraintSet hasTgtRoleName(String value)
    {
       CardinalityConstraintSet result = new CardinalityConstraintSet();

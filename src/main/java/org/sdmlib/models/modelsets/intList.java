@@ -26,7 +26,9 @@ import java.util.Collection;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-public class intList extends SDMSet<Integer> implements PropertyChangeInterface, Collection<Integer>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class intList extends SimpleSet<Integer> implements PropertyChangeInterface, Collection<Integer>
 {
 	public intList(){
 		withAllowDuplicate(true);
@@ -97,10 +99,5 @@ public class intList extends SDMSet<Integer> implements PropertyChangeInterface,
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-	@Override
-	public String getEntryType() {
-		return intList.class.getName();
-	}
 }
 

@@ -21,19 +21,20 @@
    
 package org.sdmlib.modelcouch.util;
 
-import de.uniks.networkparser.list.SDMSet;
-import org.sdmlib.modelcouch.ModelCouch;
 import java.util.Collection;
+
+import org.sdmlib.modelcouch.ModelCouch;
+import org.sdmlib.modelcouch.ModelDBListener;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.modelcouch.util.ModelDBListenerSet;
-import org.sdmlib.modelcouch.ModelDBListener;
 
-public class ModelCouchSet extends SDMSet<ModelCouch>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ModelCouchSet extends SimpleSet<ModelCouch>
 {
 
-   public static final ModelCouchSet EMPTY_SET = new ModelCouchSet().withReadOnly();
+   public static final ModelCouchSet EMPTY_SET = new ModelCouchSet().withFlag(ModelCouchSet.READONLY);
 
 
    public ModelCouchPO hasModelCouchPO()

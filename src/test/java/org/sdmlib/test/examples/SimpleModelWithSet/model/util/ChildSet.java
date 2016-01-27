@@ -21,15 +21,17 @@
    
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
-import de.uniks.networkparser.list.SDMSet;
-import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
 import java.util.Collection;
+
+import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
 
-public class ChildSet extends SDMSet<Child>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ChildSet extends SimpleSet<Child>
 {
 
-   public static final ChildSet EMPTY_SET = new ChildSet().withReadOnly();
+   public static final ChildSet EMPTY_SET = new ChildSet().withFlag(ChildSet.READONLY);
 
 
    public ChildPO hasChildPO()

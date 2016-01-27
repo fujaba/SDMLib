@@ -23,26 +23,17 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.studyright.model.Female;
 
-public class FemaleSet extends SDMSet<Female>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class FemaleSet extends SimpleSet<Female>
 {
-
-
    public FemalePO hasFemalePO()
    {
       return new FemalePO(this.toArray(new Female[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Female";
-   }
-
 
    @SuppressWarnings("unchecked")
    public FemaleSet with(Object value)
@@ -139,7 +130,7 @@ public class FemaleSet extends SDMSet<Female>
    }
 
 
-   public static final FemaleSet EMPTY_SET = new FemaleSet().withReadOnly(true);
+   public static final FemaleSet EMPTY_SET = new FemaleSet().withFlag(FemaleSet.READONLY);
    public FemaleSet hasName(String lower, String upper)
    {
       FemaleSet result = new FemaleSet();

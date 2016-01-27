@@ -21,35 +21,26 @@
    
 package org.sdmlib.test.examples.features.model.albertsets.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.features.model.albertsets.Door;
 import org.sdmlib.test.examples.features.model.albertsets.House;
 import org.sdmlib.test.examples.features.model.albertsets.Window;
-import org.sdmlib.test.examples.features.model.albertsets.util.DoorSet;
-import org.sdmlib.test.examples.features.model.albertsets.util.WindowSet;
 
-import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
-import java.util.Collections;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class HouseSet extends SDMSet<House>
+public class HouseSet extends SimpleSet<House>
 {
 
-   public static final HouseSet EMPTY_SET = new HouseSet().withReadOnly(true);
+   public static final HouseSet EMPTY_SET = new HouseSet().withFlag(HouseSet.READONLY);
 
 
    public HousePO hasHousePO()
    {
       return new HousePO(this.toArray(new House[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.features.model.albertsets.House";
-   }
-
 
    @SuppressWarnings("unchecked")
    public HouseSet with(Object value)

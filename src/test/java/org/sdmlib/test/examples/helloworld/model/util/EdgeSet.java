@@ -24,31 +24,19 @@ package org.sdmlib.test.examples.helloworld.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
-import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
-import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
 
-public class EdgeSet extends SDMSet<Edge>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class EdgeSet extends SimpleSet<Edge>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public EdgePO hasEdgePO()
    {
       return new EdgePO (this.toArray(new Edge[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.helloworld.model.Edge";
-   }
-
 
    public EdgeSet with(Object value)
    {
@@ -340,7 +328,7 @@ public class EdgeSet extends SDMSet<Edge>
    }
 
 
-   public static final EdgeSet EMPTY_SET = new EdgeSet().withReadOnly(true);
+   public static final EdgeSet EMPTY_SET = new EdgeSet().withFlag(EdgeSet.READONLY);
    public EdgeSet hasName(String lower, String upper)
    {
       EdgeSet result = new EdgeSet();

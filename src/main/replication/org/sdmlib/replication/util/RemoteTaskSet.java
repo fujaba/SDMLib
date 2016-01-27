@@ -25,28 +25,18 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.RemoteTask;
-import org.sdmlib.replication.util.LogEntrySet;
 
-public class RemoteTaskSet extends SDMSet<RemoteTask>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class RemoteTaskSet extends SimpleSet<RemoteTask>
 {
-
-
 //   public RemoteTaskPO hasRemoteTaskPO()
 //   {
 //      return new RemoteTaskPO(this.toArray(new RemoteTask[this.size()]));
 //   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.RemoteTask";
-   }
-
 
    @SuppressWarnings("unchecked")
    public RemoteTaskSet with(Object value)
@@ -172,5 +162,5 @@ public class RemoteTaskSet extends SDMSet<RemoteTask>
    }
 
 
-   public static final RemoteTaskSet EMPTY_SET = new RemoteTaskSet().withReadOnly(true);
+   public static final RemoteTaskSet EMPTY_SET = new RemoteTaskSet().withFlag(RemoteTaskSet.READONLY);
 }

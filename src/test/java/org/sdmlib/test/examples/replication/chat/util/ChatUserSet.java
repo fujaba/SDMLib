@@ -25,32 +25,23 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatRoot;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
-import org.sdmlib.test.examples.replication.chat.util.ChatChannelSet;
-import org.sdmlib.test.examples.replication.chat.util.ChatRootSet;
 
-public class ChatUserSet extends SDMSet<ChatUser>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ChatUserSet extends SimpleSet<ChatUser>
 {
 
-   public static final ChatUserSet EMPTY_SET = new ChatUserSet().withReadOnly(true);
+   public static final ChatUserSet EMPTY_SET = new ChatUserSet().withFlag(ChatUserSet.READONLY);
 
 
    public ChatUserPO hasChatUserPO()
    {
       return new ChatUserPO(this.toArray(new ChatUser[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.replication.chat.ChatUser";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ChatUserSet with(Object value)

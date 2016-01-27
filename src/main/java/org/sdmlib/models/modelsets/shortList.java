@@ -26,7 +26,9 @@ import java.util.Collection;
 
 import org.sdmlib.serialization.PropertyChangeInterface;
 
-public class shortList extends SDMSet<Short> implements PropertyChangeInterface, Collection<Short>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class shortList extends SimpleSet<Short> implements PropertyChangeInterface, Collection<Short>
 {
 	public shortList(){
 		withAllowDuplicate(true);
@@ -97,10 +99,5 @@ public class shortList extends SDMSet<Short> implements PropertyChangeInterface,
    {
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
-
-	@Override
-	public String getEntryType() {
-		return shortList.class.getName();
-	}
 }
 

@@ -25,30 +25,22 @@ import java.net.Socket;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
-public class SeppelChannelSet extends SDMSet<SeppelChannel>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SeppelChannelSet extends SimpleSet<SeppelChannel>
 {
 
-   public static final SeppelChannelSet EMPTY_SET = new SeppelChannelSet().withReadOnly(true);
+   public static final SeppelChannelSet EMPTY_SET = new SeppelChannelSet().withFlag(SeppelChannelSet.READONLY);
 
 
    public SeppelChannelPO hasSeppelChannelPO()
    {
       return new SeppelChannelPO(this.toArray(new SeppelChannel[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SeppelChannel";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SeppelChannelSet with(Object value)

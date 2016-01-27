@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
@@ -34,13 +33,10 @@ import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.util.DiceSet;
-import org.sdmlib.test.examples.ludo.model.util.FieldSet;
-import org.sdmlib.test.examples.ludo.model.util.LudoSet;
-import org.sdmlib.test.examples.ludo.model.util.PawnSet;
-import java.util.ArrayList;
 
-public class PlayerSet extends SDMSet<Player>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PlayerSet extends SimpleSet<Player>
 {
 
 
@@ -48,14 +44,6 @@ public class PlayerSet extends SDMSet<Player>
    {
       return new PlayerPO(this.toArray(new Player[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludo.model.Player";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PlayerSet with(Object value)
@@ -697,7 +685,7 @@ public class PlayerSet extends SDMSet<Player>
    }
 
 
-   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withFlag(PlayerSet.READONLY);
    public PlayerSet hasColor(String lower, String upper)
    {
       PlayerSet result = new PlayerSet();

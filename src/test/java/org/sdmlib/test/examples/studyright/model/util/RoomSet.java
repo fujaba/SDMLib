@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Assignment;
@@ -33,12 +32,10 @@ import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
-import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyright.model.util.LectureSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;
-import org.sdmlib.test.examples.studyright.model.util.UniversitySet;
 
-public class RoomSet extends SDMSet<Room>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class RoomSet extends SimpleSet<Room>
 {
 
 
@@ -46,14 +43,6 @@ public class RoomSet extends SDMSet<Room>
    {
       return new RoomPO(this.toArray(new Room[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Room";
-   }
-
 
    @SuppressWarnings("unchecked")
    public RoomSet with(Object value)
@@ -470,7 +459,7 @@ public class RoomSet extends SDMSet<Room>
    }
 
 
-   public static final RoomSet EMPTY_SET = new RoomSet().withReadOnly(true);
+   public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
    public RoomSet hasRoomNo(String lower, String upper)
    {
       RoomSet result = new RoomSet();

@@ -25,13 +25,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.taskflows.LogEntry;
 import org.sdmlib.models.taskflows.Logger;
-import org.sdmlib.models.taskflows.util.LoggerSet;
 
-public class LogEntrySet extends SDMSet<LogEntry>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LogEntrySet extends SimpleSet<LogEntry>
 {
 
 
@@ -39,14 +39,6 @@ public class LogEntrySet extends SDMSet<LogEntry>
    {
       return new LogEntryPO(this.toArray(new LogEntry[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.LogEntry";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LogEntrySet with(Object value)
@@ -379,5 +371,5 @@ public class LogEntrySet extends SDMSet<LogEntry>
    }
 
 
-   public static final LogEntrySet EMPTY_SET = new LogEntrySet().withReadOnly(true);
+   public static final LogEntrySet EMPTY_SET = new LogEntrySet().withFlag(LogEntrySet.READONLY);
 }

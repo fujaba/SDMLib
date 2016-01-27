@@ -25,16 +25,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.models.modelsets.doubleList;
-import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
-import org.sdmlib.test.examples.groupaccount.model.Item;
-import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
-import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
+import org.sdmlib.test.examples.groupaccount.model.Person;
 
-public class GroupAccountSet extends SDMSet<GroupAccount>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GroupAccountSet extends SimpleSet<GroupAccount>
 {
 
 
@@ -42,14 +39,6 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
    {
       return new GroupAccountPO(this.toArray(new GroupAccount[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.groupAccount.model.GroupAccount";
-   }
-
 
    @SuppressWarnings("unchecked")
    public GroupAccountSet with(Object value)
@@ -147,7 +136,7 @@ public class GroupAccountSet extends SDMSet<GroupAccount>
       return this;
    }
 
-   public static final GroupAccountSet EMPTY_SET = new GroupAccountSet().withReadOnly(true);
+   public static final GroupAccountSet EMPTY_SET = new GroupAccountSet().withFlag(GroupAccountSet.READONLY);
 
 
    /**

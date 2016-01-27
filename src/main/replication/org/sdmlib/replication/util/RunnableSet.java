@@ -23,22 +23,15 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class RunnableSet extends SDMSet<Runnable>
+public class RunnableSet extends SimpleSet<Runnable>
 {
 
 
    public RunnablePO hasRunnablePO()
    {
       return new RunnablePO(this.toArray(new Runnable[this.size()]));
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.lang.Runnable";
    }
 
 
@@ -64,5 +57,5 @@ public class RunnableSet extends SDMSet<Runnable>
    }
 
 
-   public static final RunnableSet EMPTY_SET = new RunnableSet().withReadOnly(true);
+   public static final RunnableSet EMPTY_SET = new RunnableSet().withFlag(RunnableSet.READONLY);
 }

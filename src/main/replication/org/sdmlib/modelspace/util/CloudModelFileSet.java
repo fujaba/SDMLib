@@ -21,19 +21,20 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.CloudModelFile;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.modelspace.util.CloudModelDirectorySet;
 import org.sdmlib.modelspace.CloudModelDirectory;
+import org.sdmlib.modelspace.CloudModelFile;
 
-public class CloudModelFileSet extends SDMSet<CloudModelFile>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class CloudModelFileSet extends SimpleSet<CloudModelFile>
 {
 
-   public static final CloudModelFileSet EMPTY_SET = new CloudModelFileSet().withReadOnly(true);
+   public static final CloudModelFileSet EMPTY_SET = new CloudModelFileSet().withFlag(CloudModelFileSet.READONLY);
 
 
    public CloudModelFilePO hasCloudModelFilePO()

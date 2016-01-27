@@ -21,22 +21,22 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import java.util.Collections;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 
-public class AssignmentSet extends SDMSet<Assignment>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class AssignmentSet extends SimpleSet<Assignment>
 {
 
-   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadOnly(true);
+   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withFlag(AssignmentSet.READONLY);
 
 
    public AssignmentPO hasAssignmentPO()

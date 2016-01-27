@@ -24,27 +24,18 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-public class TaskFlowSet extends SDMSet<TaskFlow>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TaskFlowSet extends SimpleSet<TaskFlow>
 {
-
-
    public TaskFlowPO hasTaskFlowPO()
    {
       return new TaskFlowPO(this.toArray(new TaskFlow[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.TaskFlow";
-   }
-
 
    @SuppressWarnings("unchecked")
    public TaskFlowSet with(Object value)
@@ -307,5 +298,5 @@ public class TaskFlowSet extends SDMSet<TaskFlow>
    }
 
 
-   public static final TaskFlowSet EMPTY_SET = new TaskFlowSet().withReadOnly(true);
+   public static final TaskFlowSet EMPTY_SET = new TaskFlowSet().withFlag(TaskFlowSet.READONLY);
 }

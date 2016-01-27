@@ -23,7 +23,6 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
@@ -32,19 +31,18 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
-public class PatternSet extends SDMSet<Pattern>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PatternSet extends SimpleSet<Pattern>
 {
    public PatternElementSet getElements()
    {
       PatternElementSet result = new PatternElementSet();
       
-      for (Pattern obj : this)
+      for (Pattern<?> obj : this)
       {
-         result.addAll(obj.getElements());
+         result.withAll(obj.getElements());
       }
       
       return result;
@@ -354,7 +352,7 @@ public class PatternSet extends SDMSet<Pattern>
       return new PatternPO(this.toArray(new Pattern[this.size()]));
    }
 
-   public static final PatternSet EMPTY_SET = new PatternSet().withReadOnly(true);
+   public static final PatternSet EMPTY_SET = new PatternSet().withFlag(PatternSet.READONLY);
    public PatternSet hasCurrentSubPattern(Pattern value)
    {
       PatternSet result = new PatternSet();

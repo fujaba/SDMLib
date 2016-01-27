@@ -21,18 +21,18 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import org.sdmlib.test.examples.gofpattern.strategy.Stay;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
 
-import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class StaySet extends SDMSet<Stay>
+public class StaySet extends SimpleSet<Stay>
 {
 
-   public static final StaySet EMPTY_SET = new StaySet().withReadOnly(true);
+   public static final StaySet EMPTY_SET = new StaySet().withFlag(StaySet.READONLY);
 
 
    public StayPO hasStayPO()

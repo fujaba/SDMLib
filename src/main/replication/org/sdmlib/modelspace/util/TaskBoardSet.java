@@ -21,18 +21,19 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.TaskBoard;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.modelspace.util.TaskLaneSet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.modelspace.TaskBoard;
 import org.sdmlib.modelspace.TaskLane;
 
-public class TaskBoardSet extends SDMSet<TaskBoard>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TaskBoardSet extends SimpleSet<TaskBoard>
 {
 
-   public static final TaskBoardSet EMPTY_SET = new TaskBoardSet().withReadOnly(true);
+   public static final TaskBoardSet EMPTY_SET = new TaskBoardSet().withFlag(TaskBoardSet.READONLY);
 
 
    public TaskBoardPO hasTaskBoardPO()

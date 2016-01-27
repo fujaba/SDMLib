@@ -25,18 +25,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverSet;
 
-public class BankSet extends SDMSet<Bank>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class BankSet extends SimpleSet<Bank>
 {
 
 
@@ -44,14 +42,6 @@ public class BankSet extends SDMSet<Bank>
    {
       return new BankPO(this.toArray(new Bank[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank";
-   }
-
 
    @SuppressWarnings("unchecked")
    public BankSet with(Object value)
@@ -333,5 +323,5 @@ public class BankSet extends SDMSet<Bank>
    }
 
 
-   public static final BankSet EMPTY_SET = new BankSet().withReadOnly(true);
+   public static final BankSet EMPTY_SET = new BankSet().withFlag(BankSet.READONLY);
 }

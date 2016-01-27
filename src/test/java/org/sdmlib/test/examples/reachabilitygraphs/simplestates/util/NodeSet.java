@@ -25,13 +25,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
 
-public class NodeSet extends SDMSet<Node>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class NodeSet extends SimpleSet<Node>
 {
 
 
@@ -39,14 +39,6 @@ public class NodeSet extends SDMSet<Node>
    {
       return new NodePO(this.toArray(new Node[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node";
-   }
-
 
    @SuppressWarnings("unchecked")
    public NodeSet with(Object value)
@@ -334,5 +326,5 @@ public class NodeSet extends SDMSet<Node>
    }
 
 
-   public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
+   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
 }

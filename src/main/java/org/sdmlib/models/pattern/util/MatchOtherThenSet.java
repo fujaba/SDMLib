@@ -24,7 +24,6 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.MatchOtherThen;
@@ -32,12 +31,13 @@ import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import java.lang.Object;
 import org.sdmlib.models.pattern.util.PatternSet;
+
+import de.uniks.networkparser.list.SimpleSet;
+
 import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class MatchOtherThenSet extends SDMSet<MatchOtherThen> implements org.sdmlib.models.modelsets.ModelSet
+public class MatchOtherThenSet extends SimpleSet<MatchOtherThen> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -247,7 +247,7 @@ public class MatchOtherThenSet extends SDMSet<MatchOtherThen> implements org.sdm
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<MatchOtherThen>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -270,7 +270,7 @@ public class MatchOtherThenSet extends SDMSet<MatchOtherThen> implements org.sdm
       return new MatchOtherThenPO(this.toArray(new MatchOtherThen[this.size()]));
    }
 
-   public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet().withReadOnly(true);
+   public static final MatchOtherThenSet EMPTY_SET = new MatchOtherThenSet().withFlag(MatchOtherThenSet.READONLY);
    public MatchOtherThenSet hasHostGraphSrcObject(Object value)
    {
       MatchOtherThenSet result = new MatchOtherThenSet();

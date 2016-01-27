@@ -2,9 +2,8 @@ package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.replication.ChangeHistory;
-import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.replication.ChangeEventList;
+import org.sdmlib.replication.SeppelSpace;
 
 public class SeppelSpacePO extends PatternObject<SeppelSpacePO, SeppelSpace>
 {

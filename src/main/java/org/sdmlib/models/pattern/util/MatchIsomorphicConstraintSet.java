@@ -23,17 +23,15 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class MatchIsomorphicConstraintSet extends SDMSet<MatchIsomorphicConstraint>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class MatchIsomorphicConstraintSet extends SimpleSet<MatchIsomorphicConstraint>
 {
-   private static final long serialVersionUID = 1L;
-
    public StringList getModifier()
    {
       StringList result = new StringList();
@@ -154,7 +152,7 @@ public class MatchIsomorphicConstraintSet extends SDMSet<MatchIsomorphicConstrai
       return result;
    }
 
-   public MatchIsomorphicConstraintSet withPattern(Pattern value)
+   public MatchIsomorphicConstraintSet withPattern(Pattern<?> value)
    {
       for (MatchIsomorphicConstraint obj : this)
       {
@@ -176,7 +174,7 @@ public class MatchIsomorphicConstraintSet extends SDMSet<MatchIsomorphicConstrai
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<MatchIsomorphicConstraint>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -199,7 +197,7 @@ public class MatchIsomorphicConstraintSet extends SDMSet<MatchIsomorphicConstrai
       return new MatchIsomorphicConstraintPO(this.toArray(new MatchIsomorphicConstraint[this.size()]));
    }
 
-   public static final MatchIsomorphicConstraintSet EMPTY_SET = new MatchIsomorphicConstraintSet().withReadOnly(true);
+   public static final MatchIsomorphicConstraintSet EMPTY_SET = new MatchIsomorphicConstraintSet().withFlag(MatchIsomorphicConstraintSet.READONLY);
    public MatchIsomorphicConstraintSet hasModifier(String value)
    {
       MatchIsomorphicConstraintSet result = new MatchIsomorphicConstraintSet();

@@ -21,17 +21,19 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.charList;
-import org.sdmlib.models.modelsets.shortList;
 
-public class BombermanPlayerSet extends SDMSet<BombermanPlayer>
+import org.sdmlib.models.modelsets.charList;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.models.modelsets.shortList;
+import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class BombermanPlayerSet extends SimpleSet<BombermanPlayer>
 {
 
-   public static final BombermanPlayerSet EMPTY_SET = new BombermanPlayerSet().withReadOnly(true);
+   public static final BombermanPlayerSet EMPTY_SET = new BombermanPlayerSet().withFlag(BombermanPlayerSet.READONLY);
 
 
    public BombermanPlayerPO hasBombermanPlayerPO()

@@ -24,13 +24,13 @@ package org.sdmlib.test.examples.helloworld.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.GreetingMessage;
-import org.sdmlib.test.examples.helloworld.util.GreetingSet;
 
-public class GreetingMessageSet extends SDMSet<GreetingMessage>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GreetingMessageSet extends SimpleSet<GreetingMessage>
 {
 
 
@@ -38,14 +38,6 @@ public class GreetingMessageSet extends SDMSet<GreetingMessage>
    {
       return new GreetingMessagePO(this.toArray(new GreetingMessage[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.helloworld.GreetingMessage";
-   }
-
 
    @SuppressWarnings("unchecked")
    public GreetingMessageSet with(Object value)
@@ -154,7 +146,7 @@ public class GreetingMessageSet extends SDMSet<GreetingMessage>
    }
 
 
-   public static final GreetingMessageSet EMPTY_SET = new GreetingMessageSet().withReadOnly(true);
+   public static final GreetingMessageSet EMPTY_SET = new GreetingMessageSet().withFlag(GreetingMessageSet.READONLY);
    public GreetingMessageSet hasText(String lower, String upper)
    {
       GreetingMessageSet result = new GreetingMessageSet();

@@ -21,19 +21,20 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.Duty;
 import java.util.Collection;
-import org.sdmlib.test.examples.maumau.model.DutyType;
-import org.sdmlib.models.modelsets.intList;
+
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.test.examples.maumau.model.Duty;
+import org.sdmlib.test.examples.maumau.model.DutyType;
 import org.sdmlib.test.examples.maumau.model.Player;
 
-public class DutySet extends SDMSet<Duty>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class DutySet extends SimpleSet<Duty>
 {
 
-   public static final DutySet EMPTY_SET = new DutySet().withReadOnly(true);
+   public static final DutySet EMPTY_SET = new DutySet().withFlag(DutySet.READONLY);
 
 
    public DutyPO hasDutyPO()

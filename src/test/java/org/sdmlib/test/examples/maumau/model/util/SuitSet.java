@@ -21,14 +21,16 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.Suit;
 import java.util.Collection;
 
-public class SuitSet extends SDMSet<Suit>
+import org.sdmlib.test.examples.maumau.model.Suit;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SuitSet extends SimpleSet<Suit>
 {
 
-   public static final SuitSet EMPTY_SET = new SuitSet().withReadOnly(true);
+   public static final SuitSet EMPTY_SET = new SuitSet().withFlag(SuitSet.READONLY);
 
 
    public SuitPO hasSuitPO()

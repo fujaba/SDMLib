@@ -23,21 +23,16 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.DestroyObjectElem;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class DestroyObjectElemSet extends SDMSet<DestroyObjectElem>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class DestroyObjectElemSet extends SimpleSet<DestroyObjectElem>
 {
-   private static final long serialVersionUID = 1L;
-
-
-
    public StringList getModifier()
    {
       StringList result = new StringList();
@@ -201,7 +196,7 @@ public class DestroyObjectElemSet extends SDMSet<DestroyObjectElem>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<DestroyObjectElem>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -224,7 +219,7 @@ public class DestroyObjectElemSet extends SDMSet<DestroyObjectElem>
       return new DestroyObjectElemPO(this.toArray(new DestroyObjectElem[this.size()]));
    }
 
-   public static final DestroyObjectElemSet EMPTY_SET = new DestroyObjectElemSet().withReadOnly(true);
+   public static final DestroyObjectElemSet EMPTY_SET = new DestroyObjectElemSet().withFlag(DestroyObjectElemSet.READONLY);
    public DestroyObjectElemSet hasModifier(String value)
    {
       DestroyObjectElemSet result = new DestroyObjectElemSet();

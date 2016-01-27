@@ -21,14 +21,16 @@
    
 package org.sdmlib.test.examples.Annotation.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.Annotation.Person;
 import java.util.Collection;
 
-public class PersonSet extends SDMSet<Person>
+import org.sdmlib.test.examples.Annotation.Person;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PersonSet extends SimpleSet<Person>
 {
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
    public PersonPO hasPersonPO()

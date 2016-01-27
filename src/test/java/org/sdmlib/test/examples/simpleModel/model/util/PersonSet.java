@@ -23,26 +23,20 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.simpleModel.model.Person;
 
-public class PersonSet extends SDMSet<Person>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PersonSet extends SimpleSet<Person>
 {
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
    public PersonPO hasPersonPO()
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.simpleModel.model.Person";
    }
 
 

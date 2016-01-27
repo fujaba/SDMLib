@@ -24,9 +24,9 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 import java.util.Timer;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class TimerSet extends SDMSet<Timer>
+public class TimerSet extends SimpleSet<Timer>
 {
 
 
@@ -34,14 +34,6 @@ public class TimerSet extends SDMSet<Timer>
    {
       return new TimerPO(this.toArray(new Timer[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.util.Timer";
-   }
-
 
    @SuppressWarnings("unchecked")
    public TimerSet with(Object value)
@@ -65,5 +57,5 @@ public class TimerSet extends SDMSet<Timer>
    }
 
 
-   public static final TimerSet EMPTY_SET = new TimerSet().withReadOnly(true);
+   public static final TimerSet EMPTY_SET = new TimerSet().withFlag(TimerSet.READONLY);
 }

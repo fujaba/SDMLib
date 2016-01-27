@@ -25,15 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
-import org.sdmlib.replication.util.RemoteTaskBoardSet;
-import org.sdmlib.replication.util.BoardTaskSet;
 
-public class LaneSet extends SDMSet<Lane>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LaneSet extends SimpleSet<Lane>
 {
 
 
@@ -41,14 +40,6 @@ public class LaneSet extends SDMSet<Lane>
    {
       return new LanePO(this.toArray(new Lane[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.Lane";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LaneSet with(Object value)
@@ -230,5 +221,5 @@ public class LaneSet extends SDMSet<Lane>
    }
 
 
-   public static final LaneSet EMPTY_SET = new LaneSet().withReadOnly(true);
+   public static final LaneSet EMPTY_SET = new LaneSet().withFlag(LaneSet.READONLY);
 }

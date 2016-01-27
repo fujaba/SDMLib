@@ -24,39 +24,18 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.GenericConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class GenericConstraintSet extends SDMSet<GenericConstraint>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenericConstraintSet extends SimpleSet<GenericConstraint>
 {
-   private static final long serialVersionUID = 1L;
-
-   @Override
-   public GenericConstraint first()
-   {
-      for (GenericConstraint obj : this)
-      {
-         return obj;
-      }
-      
-      return null;
-   }
-
-
    public GenericConstraintPO startModelPattern()
    {
       return new GenericConstraintPO(this.toArray(new GenericConstraint[this.size()]));
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.pattern.GenericConstraint";
    }
 
    public StringList getModifier()
@@ -261,7 +240,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericConstraint>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -336,7 +315,7 @@ public class GenericConstraintSet extends SDMSet<GenericConstraint>
    }
 
 
-   public static final GenericConstraintSet EMPTY_SET = new GenericConstraintSet().withReadOnly(true);
+   public static final GenericConstraintSet EMPTY_SET = new GenericConstraintSet().withFlag(GenericConstraintSet.READONLY);
    public GenericConstraintSet hasModifier(String lower, String upper)
    {
       GenericConstraintSet result = new GenericConstraintSet();

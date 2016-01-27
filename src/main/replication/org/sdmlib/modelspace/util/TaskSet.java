@@ -21,19 +21,20 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.Task;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.modelspace.util.TaskLaneSet;
-import org.sdmlib.modelspace.TaskLane;
-import org.sdmlib.models.modelsets.longList;
 
-public class TaskSet extends SDMSet<Task>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.longList;
+import org.sdmlib.modelspace.Task;
+import org.sdmlib.modelspace.TaskLane;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TaskSet extends SimpleSet<Task>
 {
 
-   public static final TaskSet EMPTY_SET = new TaskSet().withReadOnly(true);
+   public static final TaskSet EMPTY_SET = new TaskSet().withFlag(TaskSet.READONLY);
 
 
    public TaskPO hasTaskPO()

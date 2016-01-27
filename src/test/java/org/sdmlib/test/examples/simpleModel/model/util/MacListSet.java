@@ -23,28 +23,21 @@ package org.sdmlib.test.examples.simpleModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.simpleModel.model.MacList;
 
-public class MacListSet extends SDMSet<MacList>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class MacListSet extends SimpleSet<MacList>
 {
 
-   public static final MacListSet EMPTY_SET = new MacListSet().withReadOnly(true);
+   public static final MacListSet EMPTY_SET = new MacListSet().withFlag(MacListSet.READONLY);
 
 
    public MacListPO hasMacListPO()
    {
       return new MacListPO(this.toArray(new MacList[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.simpleModel.model.MacList";
-   }
-
 
    @SuppressWarnings("unchecked")
    public MacListSet with(Object value)

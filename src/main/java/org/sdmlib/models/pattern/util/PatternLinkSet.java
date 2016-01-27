@@ -24,17 +24,16 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternLink;
 import org.sdmlib.models.pattern.PatternObject;
-import java.lang.Object;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class PatternLinkSet extends SDMSet<PatternLink>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PatternLinkSet extends SimpleSet<PatternLink>
 {
    public StringList getSrcRoleName()
    {
@@ -277,7 +276,7 @@ public class PatternLinkSet extends SDMSet<PatternLink>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<PatternLink>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -300,7 +299,7 @@ public class PatternLinkSet extends SDMSet<PatternLink>
       return new PatternLinkPO(this.toArray(new PatternLink[this.size()]));
    }
 
-   public static final PatternLinkSet EMPTY_SET = new PatternLinkSet().withReadOnly(true);
+   public static final PatternLinkSet EMPTY_SET = new PatternLinkSet().withFlag(PatternLinkSet.READONLY);
    public PatternLinkSet hasTgtRoleName(String value)
    {
       PatternLinkSet result = new PatternLinkSet();

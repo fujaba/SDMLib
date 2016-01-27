@@ -3,11 +3,11 @@ package org.sdmlib.test.examples.modelspace.chat;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonIdMap;
+import de.uniks.networkparser.list.SimpleSet;
 import javafx.application.Application;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -54,7 +54,7 @@ public class ListController implements PropertyChangeListener
       // build whole list, anew
       vBox.getChildren().clear();
       
-      SDMSet elements = (SDMSet) creator.getValue(parent, property);
+      SimpleSet<?> elements = (SimpleSet<?>) creator.getValue(parent, property);
       
       for (Object elem : elements)
       {

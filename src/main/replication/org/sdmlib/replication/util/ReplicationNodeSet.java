@@ -25,16 +25,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.SharedSpaceSet;
 
-public class ReplicationNodeSet extends SDMSet<ReplicationNode>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ReplicationNodeSet extends SimpleSet<ReplicationNode>
 {
 
 
@@ -42,14 +42,6 @@ public class ReplicationNodeSet extends SDMSet<ReplicationNode>
    {
       return new ReplicationNodePO(this.toArray(new ReplicationNode[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ReplicationNode";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ReplicationNodeSet with(Object value)
@@ -361,5 +353,5 @@ public class ReplicationNodeSet extends SDMSet<ReplicationNode>
    }
 
 
-   public static final ReplicationNodeSet EMPTY_SET = new ReplicationNodeSet().withReadOnly(true);
+   public static final ReplicationNodeSet EMPTY_SET = new ReplicationNodeSet().withFlag(ReplicationNodeSet.READONLY);
 }

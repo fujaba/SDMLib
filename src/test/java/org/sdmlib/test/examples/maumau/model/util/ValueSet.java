@@ -21,14 +21,16 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.Value;
 import java.util.Collection;
 
-public class ValueSet extends SDMSet<Value>
+import org.sdmlib.test.examples.maumau.model.Value;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ValueSet extends SimpleSet<Value>
 {
 
-   public static final ValueSet EMPTY_SET = new ValueSet().withReadOnly(true);
+   public static final ValueSet EMPTY_SET = new ValueSet().withFlag(ValueSet.READONLY);
 
 
    public ValuePO hasValuePO()

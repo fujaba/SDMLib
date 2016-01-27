@@ -23,17 +23,15 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.CloneOp;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
+import de.uniks.networkparser.list.SimpleSet;
+
+public class CloneOpSet extends SimpleSet<CloneOp> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -177,7 +175,7 @@ public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.mod
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<CloneOp>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -200,7 +198,7 @@ public class CloneOpSet extends SDMSet<CloneOp> implements org.sdmlib.models.mod
       return new CloneOpPO(this.toArray(new CloneOp[this.size()]));
    }
 
-   public static final CloneOpSet EMPTY_SET = new CloneOpSet().withReadOnly(true);
+   public static final CloneOpSet EMPTY_SET = new CloneOpSet().withFlag(CloneOpSet.READONLY);
    public CloneOpSet hasModifier(String value)
    {
       CloneOpSet result = new CloneOpSet();

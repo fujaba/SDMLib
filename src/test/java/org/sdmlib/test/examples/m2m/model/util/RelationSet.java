@@ -24,15 +24,14 @@ package org.sdmlib.test.examples.m2m.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
-import org.sdmlib.test.examples.m2m.model.util.GraphSet;
-import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 
-public class RelationSet extends SDMSet<Relation>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class RelationSet extends SimpleSet<Relation>
 {
 
 
@@ -40,14 +39,6 @@ public class RelationSet extends SDMSet<Relation>
    {
       return new RelationPO(this.toArray(new Relation[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.m2m.model.Relation";
-   }
-
 
    @SuppressWarnings("unchecked")
    public RelationSet with(Object value)
@@ -337,7 +328,7 @@ public class RelationSet extends SDMSet<Relation>
    }
 
 
-   public static final RelationSet EMPTY_SET = new RelationSet().withReadOnly(true);
+   public static final RelationSet EMPTY_SET = new RelationSet().withFlag(RelationSet.READONLY);
    public RelationSet hasKind(String lower, String upper)
    {
       RelationSet result = new RelationSet();

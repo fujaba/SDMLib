@@ -26,18 +26,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.LogEntrySet;
-import org.sdmlib.replication.util.LaneSet;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
-public class BoardTaskSet extends SDMSet<BoardTask>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class BoardTaskSet extends SimpleSet<BoardTask>
 {
 
 
@@ -45,14 +43,6 @@ public class BoardTaskSet extends SDMSet<BoardTask>
    {
       return new BoardTaskPO(this.toArray(new BoardTask[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.BoardTask";
-   }
-
 
    @SuppressWarnings("unchecked")
    public BoardTaskSet with(Object value)
@@ -450,7 +440,7 @@ public class BoardTaskSet extends SDMSet<BoardTask>
    }
 
 
-   public static final BoardTaskSet EMPTY_SET = new BoardTaskSet().withReadOnly(true);
+   public static final BoardTaskSet EMPTY_SET = new BoardTaskSet().withFlag(BoardTaskSet.READONLY);
    public SeppelSpaceProxySet getProxy()
    {
       SeppelSpaceProxySet result = new SeppelSpaceProxySet();

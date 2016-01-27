@@ -23,7 +23,6 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.booleanSet;
@@ -32,11 +31,10 @@ import org.sdmlib.models.pattern.NegativeApplicationCondition;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
-public class NegativeApplicationConditionSet extends SDMSet<NegativeApplicationCondition>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicationCondition>
 {
    public booleanSet getHasMatch()
    {
@@ -333,7 +331,7 @@ public class NegativeApplicationConditionSet extends SDMSet<NegativeApplicationC
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<NegativeApplicationCondition>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -356,7 +354,7 @@ public class NegativeApplicationConditionSet extends SDMSet<NegativeApplicationC
       return new NegativeApplicationConditionPO(this.toArray(new NegativeApplicationCondition[this.size()]));
    }
 
-   public static final NegativeApplicationConditionSet EMPTY_SET = new NegativeApplicationConditionSet().withReadOnly(true);
+   public static final NegativeApplicationConditionSet EMPTY_SET = new NegativeApplicationConditionSet().withFlag(NegativeApplicationConditionSet.READONLY);
    public NegativeApplicationConditionSet hasCurrentSubPattern(Pattern value)
    {
       NegativeApplicationConditionSet result = new NegativeApplicationConditionSet();

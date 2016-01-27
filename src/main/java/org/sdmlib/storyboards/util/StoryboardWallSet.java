@@ -24,34 +24,23 @@ package org.sdmlib.storyboards.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardWall;
-import org.sdmlib.storyboards.util.StoryboardSet;
 
-public class StoryboardWallSet extends SDMSet<StoryboardWall>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class StoryboardWallSet extends SimpleSet<StoryboardWall>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public StoryboardWallPO hasStoryboardWallPO()
    {
       return new StoryboardWallPO (this.toArray(new StoryboardWall[this.size()]));
    }
 
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.storyboards.StoryboardWall";
-   }
-
-
    public StoryboardWallSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<StoryboardWall>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -116,7 +105,7 @@ public class StoryboardWallSet extends SDMSet<StoryboardWall>
    }
 
 
-   public static final StoryboardWallSet EMPTY_SET = new StoryboardWallSet().withReadOnly(true);
+   public static final StoryboardWallSet EMPTY_SET = new StoryboardWallSet().withFlag(StoryboardWallSet.READONLY);
 }
 
 

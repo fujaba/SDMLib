@@ -157,7 +157,7 @@ import org.sdmlib.test.examples.replication.chat.util.ChatMsgSet;
    } 
 
    
-   public static final ChatMsgSet EMPTY_SET = new ChatMsgSet().withReadOnly(true);
+   public static final ChatMsgSet EMPTY_SET = new ChatMsgSet().withFlag(ChatMsgSet.READONLY);
 
   
 

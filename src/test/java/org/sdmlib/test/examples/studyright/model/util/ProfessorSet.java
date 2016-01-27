@@ -25,16 +25,15 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
-import org.sdmlib.test.examples.studyright.model.util.LectureSet;
-import org.sdmlib.test.examples.studyright.model.util.TopicSet;
 
-public class ProfessorSet extends SDMSet<Professor>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ProfessorSet extends SimpleSet<Professor>
 {
 
 
@@ -42,14 +41,6 @@ public class ProfessorSet extends SDMSet<Professor>
    {
       return new ProfessorPO(this.toArray(new Professor[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Professor";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ProfessorSet with(Object value)
@@ -253,7 +244,7 @@ public class ProfessorSet extends SDMSet<Professor>
    }
 
 
-   public static final ProfessorSet EMPTY_SET = new ProfessorSet().withReadOnly(true);
+   public static final ProfessorSet EMPTY_SET = new ProfessorSet().withFlag(ProfessorSet.READONLY);
    public ProfessorSet hasPersNr(int lower, int upper)
    {
       ProfessorSet result = new ProfessorSet();

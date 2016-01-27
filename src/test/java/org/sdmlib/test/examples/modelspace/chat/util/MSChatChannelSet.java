@@ -21,19 +21,20 @@
    
 package org.sdmlib.test.examples.modelspace.chat.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
-import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
-import org.sdmlib.models.modelsets.StringList;
 
-public class MSChatChannelSet extends SDMSet<MSChatChannel>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
+import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class MSChatChannelSet extends SimpleSet<MSChatChannel>
 {
 
-   public static final MSChatChannelSet EMPTY_SET = new MSChatChannelSet().withReadOnly(true);
+   public static final MSChatChannelSet EMPTY_SET = new MSChatChannelSet().withFlag(MSChatChannelSet.READONLY);
 
 
    public MSChatChannelPO hasMSChatChannelPO()

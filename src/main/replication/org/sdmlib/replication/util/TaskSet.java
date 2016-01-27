@@ -25,12 +25,12 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.LogEntrySet;
 
-public class TaskSet extends SDMSet<Task>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TaskSet extends SimpleSet<Task>
 {
 
 
@@ -38,14 +38,6 @@ public class TaskSet extends SDMSet<Task>
    {
       return new TaskPO(this.toArray(new Task[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.Task";
-   }
-
 
    @SuppressWarnings("unchecked")
    public TaskSet with(Object value)
@@ -127,5 +119,5 @@ public class TaskSet extends SDMSet<Task>
    }
 
 
-   public static final TaskSet EMPTY_SET = new TaskSet().withReadOnly(true);
+   public static final TaskSet EMPTY_SET = new TaskSet().withFlag(TaskSet.READONLY);
 }

@@ -21,21 +21,20 @@
    
 package org.sdmlib.test.examples.modelcouch.util;
 
-import de.uniks.networkparser.list.SDMSet;
-import org.sdmlib.test.examples.modelcouch.Person;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.modelcouch.util.PersonSet;
-import org.sdmlib.test.examples.modelcouch.util.TaskSet;
-import org.sdmlib.test.examples.modelcouch.Task;
-import org.sdmlib.test.examples.modelcouch.util.DocumentDataSet;
-import org.sdmlib.test.examples.modelcouch.DocumentData;
 
-public class PersonSet extends SDMSet<Person>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.modelcouch.DocumentData;
+import org.sdmlib.test.examples.modelcouch.Person;
+import org.sdmlib.test.examples.modelcouch.Task;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PersonSet extends SimpleSet<Person>
 {
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly();
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
 
    public PersonPO hasPersonPO()

@@ -23,9 +23,9 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class ThreadSet extends SDMSet<Thread>
+public class ThreadSet extends SimpleSet<Thread>
 {
 
 
@@ -33,14 +33,6 @@ public class ThreadSet extends SDMSet<Thread>
    {
       return new ThreadPO(this.toArray(new Thread[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.lang.Thread";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ThreadSet with(Object value)
@@ -64,5 +56,5 @@ public class ThreadSet extends SDMSet<Thread>
    }
 
 
-   public static final ThreadSet EMPTY_SET = new ThreadSet().withReadOnly(true);
+   public static final ThreadSet EMPTY_SET = new ThreadSet().withFlag(ThreadSet.READONLY);
 }

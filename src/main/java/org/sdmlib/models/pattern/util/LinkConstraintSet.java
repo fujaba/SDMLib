@@ -24,19 +24,16 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.LinkConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import java.lang.Object;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class LinkConstraintSet extends SDMSet<LinkConstraint>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LinkConstraintSet extends SimpleSet<LinkConstraint>
 {
-   private static final long serialVersionUID = 1L;
-
    public StringList getTgtRoleName()
    {
       StringList result = new StringList();
@@ -202,7 +199,7 @@ public class LinkConstraintSet extends SDMSet<LinkConstraint>
       return result;
    }
 
-   public LinkConstraintSet withPattern(Pattern value)
+   public LinkConstraintSet withPattern(Pattern<?> value)
    {
       for (LinkConstraint obj : this)
       {
@@ -268,7 +265,7 @@ public class LinkConstraintSet extends SDMSet<LinkConstraint>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<LinkConstraint>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -291,7 +288,7 @@ public class LinkConstraintSet extends SDMSet<LinkConstraint>
       return new LinkConstraintPO(this.toArray(new LinkConstraint[this.size()]));
    }
 
-   public static final LinkConstraintSet EMPTY_SET = new LinkConstraintSet().withReadOnly(true);
+   public static final LinkConstraintSet EMPTY_SET = new LinkConstraintSet().withFlag(LinkConstraintSet.READONLY);
    public LinkConstraintSet hasTgtRoleName(String value)
    {
       LinkConstraintSet result = new LinkConstraintSet();

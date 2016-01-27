@@ -25,36 +25,25 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.Node;
-import org.sdmlib.test.examples.helloworld.model.util.EdgeSet;
-import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
 
-public class NodeSet extends SDMSet<Node>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class NodeSet extends SimpleSet<Node>
 {
-
-
    public NodePO hasNodePO()
    {
       return new NodePO (this.toArray(new Node[this.size()]));
    }
 
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.helloworld.model.Node";
-   }
-
-
    public NodeSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Node>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -671,7 +660,7 @@ public class NodeSet extends SDMSet<Node>
    }
 
 
-   public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
+   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
    public NodeSet hasName(String lower, String upper)
    {
       NodeSet result = new NodeSet();
@@ -701,77 +690,4 @@ public class NodeSet extends SDMSet<Node>
       
       return result;
    }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,16 +1,7 @@
 package org.sdmlib.models.modelsets;
 
+import de.uniks.networkparser.list.SimpleSet;
 
-public class ObjectSet extends SDMSet<Object>
+public class ObjectSet extends SimpleSet<Object>
 {
-   public ObjectSet with(Object... values)
-   {
-      super.with(values);
-      return this;
-   }
-
-	@Override
-	public String getEntryType() {
-		return ObjectSet.class.getName();
-	}
 }

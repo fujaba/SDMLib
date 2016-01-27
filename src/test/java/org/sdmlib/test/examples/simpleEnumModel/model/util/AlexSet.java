@@ -23,11 +23,12 @@ package org.sdmlib.test.examples.simpleEnumModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
-public class AlexSet extends SDMSet<Alex>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class AlexSet extends SimpleSet<Alex>
 {
 
 
@@ -35,14 +36,6 @@ public class AlexSet extends SDMSet<Alex>
    {
       return new AlexPO(this.toArray(new Alex[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.simpleEnumModel.model.Alex";
-   }
-
 
    @SuppressWarnings("unchecked")
    public AlexSet with(Object value)
@@ -118,5 +111,5 @@ public class AlexSet extends SDMSet<Alex>
    }
 
 
-   public static final AlexSet EMPTY_SET = new AlexSet().withReadOnly(true);
+   public static final AlexSet EMPTY_SET = new AlexSet().withFlag(AlexSet.READONLY);
 }

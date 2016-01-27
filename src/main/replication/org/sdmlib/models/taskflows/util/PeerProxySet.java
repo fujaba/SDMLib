@@ -23,13 +23,14 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-public class PeerProxySet extends SDMSet<PeerProxy>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PeerProxySet extends SimpleSet<PeerProxy>
 {
 
 
@@ -37,14 +38,6 @@ public class PeerProxySet extends SDMSet<PeerProxy>
    {
       return new PeerProxyPO(this.toArray(new PeerProxy[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.PeerProxy";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PeerProxySet with(Object value)
@@ -209,5 +202,5 @@ public class PeerProxySet extends SDMSet<PeerProxy>
    }
 
 
-   public static final PeerProxySet EMPTY_SET = new PeerProxySet().withReadOnly(true);
+   public static final PeerProxySet EMPTY_SET = new PeerProxySet().withFlag(PeerProxySet.READONLY);
 }

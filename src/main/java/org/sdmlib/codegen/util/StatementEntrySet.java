@@ -26,11 +26,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.StatementEntry;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
-public class StatementEntrySet extends SDMSet<StatementEntry>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class StatementEntrySet extends SimpleSet<StatementEntry>
 {
    public StringList getKind()
    {
@@ -164,14 +165,6 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
       
       return "(" + stringList.concat(", ") + ")";
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.codegen.StatementEntry";
-   }
-
 
    public StatementEntrySet with(StatementEntry value)
    {
@@ -311,7 +304,7 @@ public class StatementEntrySet extends SDMSet<StatementEntry>
    }
 
 
-   public static final StatementEntrySet EMPTY_SET = new StatementEntrySet().withReadOnly(true);
+   public static final StatementEntrySet EMPTY_SET = new StatementEntrySet().withFlag(StatementEntrySet.READONLY);
    public StatementEntrySet hasKind(String value)
    {
       StatementEntrySet result = new StatementEntrySet();

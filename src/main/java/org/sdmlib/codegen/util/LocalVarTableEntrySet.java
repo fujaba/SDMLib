@@ -25,11 +25,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.LocalVarTableEntry;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
-public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LocalVarTableEntrySet extends SimpleSet<LocalVarTableEntry>
 {
    public StringList getName()
    {
@@ -176,7 +177,7 @@ public class LocalVarTableEntrySet extends SDMSet<LocalVarTableEntry>
 
    }
 
-   public static final LocalVarTableEntrySet EMPTY_SET = new LocalVarTableEntrySet().withReadOnly(true);
+   public static final LocalVarTableEntrySet EMPTY_SET = new LocalVarTableEntrySet().withFlag(LocalVarTableEntrySet.READONLY);
    public LocalVarTableEntrySet hasName(String value)
    {
       LocalVarTableEntrySet result = new LocalVarTableEntrySet();

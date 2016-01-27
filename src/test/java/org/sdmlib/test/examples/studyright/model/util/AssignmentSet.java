@@ -25,16 +25,15 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Assignment;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
-import org.sdmlib.test.examples.studyright.model.util.RoomSet;
-import org.sdmlib.test.examples.studyright.model.util.StudentSet;
 
-public class AssignmentSet extends SDMSet<Assignment>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class AssignmentSet extends SimpleSet<Assignment>
 {
 
 
@@ -42,14 +41,6 @@ public class AssignmentSet extends SDMSet<Assignment>
    {
       return new AssignmentPO(this.toArray(new Assignment[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Assignment";
-   }
-
 
    @SuppressWarnings("unchecked")
    public AssignmentSet with(Object value)
@@ -253,7 +244,7 @@ public class AssignmentSet extends SDMSet<Assignment>
    }
 
 
-   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withReadOnly(true);
+   public static final AssignmentSet EMPTY_SET = new AssignmentSet().withFlag(AssignmentSet.READONLY);
    public AssignmentSet hasName(String lower, String upper)
    {
       AssignmentSet result = new AssignmentSet();

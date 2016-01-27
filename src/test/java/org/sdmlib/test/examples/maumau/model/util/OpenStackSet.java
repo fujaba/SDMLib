@@ -21,20 +21,20 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.OpenStack;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.Card;
-import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
-import org.sdmlib.test.examples.maumau.model.MauMau;
 
-public class OpenStackSet extends SDMSet<OpenStack>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.MauMau;
+import org.sdmlib.test.examples.maumau.model.OpenStack;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class OpenStackSet extends SimpleSet<OpenStack>
 {
 
-   public static final OpenStackSet EMPTY_SET = new OpenStackSet().withReadOnly(true);
+   public static final OpenStackSet EMPTY_SET = new OpenStackSet().withFlag(OpenStackSet.READONLY);
 
 
    public OpenStackPO hasOpenStackPO()

@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyright.model.Assignment;
@@ -33,12 +32,10 @@ import org.sdmlib.test.examples.studyright.model.Lecture;
 import org.sdmlib.test.examples.studyright.model.Room;
 import org.sdmlib.test.examples.studyright.model.Student;
 import org.sdmlib.test.examples.studyright.model.University;
-import org.sdmlib.test.examples.studyright.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyright.model.util.LectureSet;
-import org.sdmlib.test.examples.studyright.model.util.RoomSet;
-import org.sdmlib.test.examples.studyright.model.util.UniversitySet;
 
-public class StudentSet extends SDMSet<Student>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class StudentSet extends SimpleSet<Student>
 {
 
 
@@ -46,14 +43,6 @@ public class StudentSet extends SDMSet<Student>
    {
       return new StudentPO(this.toArray(new Student[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Student";
-   }
-
 
    @SuppressWarnings("unchecked")
    public StudentSet with(Object value)
@@ -473,7 +462,8 @@ public class StudentSet extends SDMSet<Student>
    }
 
 
-   public static final StudentSet EMPTY_SET = new StudentSet().withReadOnly(true);
+   public static final StudentSet EMPTY_SET = new StudentSet().withFlag(StudentSet.READONLY);
+   
    public StudentSet hasName(String lower, String upper)
    {
       StudentSet result = new StudentSet();

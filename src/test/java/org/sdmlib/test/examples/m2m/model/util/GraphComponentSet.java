@@ -24,13 +24,13 @@ package org.sdmlib.test.examples.m2m.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
-import org.sdmlib.test.examples.m2m.model.util.GraphSet;
 
-public class GraphComponentSet extends SDMSet<GraphComponent>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GraphComponentSet extends SimpleSet<GraphComponent>
 {
 
 
@@ -38,14 +38,6 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
    {
       return new GraphComponentPO(this.toArray(new GraphComponent[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.m2m.model.GraphComponent";
-   }
-
 
    @SuppressWarnings("unchecked")
    public GraphComponentSet with(Object value)
@@ -154,7 +146,7 @@ public class GraphComponentSet extends SDMSet<GraphComponent>
    }
 
 
-   public static final GraphComponentSet EMPTY_SET = new GraphComponentSet().withReadOnly(true);
+   public static final GraphComponentSet EMPTY_SET = new GraphComponentSet().withFlag(GraphComponentSet.READONLY);
    public GraphComponentSet hasText(String lower, String upper)
    {
       GraphComponentSet result = new GraphComponentSet();

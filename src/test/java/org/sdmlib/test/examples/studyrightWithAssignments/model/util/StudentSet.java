@@ -21,25 +21,23 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import java.util.Collections;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
-public class StudentSet extends SDMSet<Student>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class StudentSet extends SimpleSet<Student>
 {
 
-   public static final StudentSet EMPTY_SET = new StudentSet().withReadOnly(true);
+   public static final StudentSet EMPTY_SET = new StudentSet().withFlag(StudentSet.READONLY);
 
 
    public StudentPO hasStudentPO()

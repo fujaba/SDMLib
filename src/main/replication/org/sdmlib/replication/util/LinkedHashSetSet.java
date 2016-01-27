@@ -24,9 +24,9 @@ package org.sdmlib.replication.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class LinkedHashSetSet extends SDMSet<LinkedHashSet>
+public class LinkedHashSetSet extends SimpleSet<LinkedHashSet>
 {
 
 
@@ -34,14 +34,6 @@ public class LinkedHashSetSet extends SDMSet<LinkedHashSet>
    {
       return new LinkedHashSetPO(this.toArray(new LinkedHashSet[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.util.LinkedHashSet";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LinkedHashSetSet with(Object value)

@@ -23,32 +23,24 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.replication.ChangeEventList;
-import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.SeppelSpace;
 
-public class SeppelSpaceSet extends SDMSet<SeppelSpace>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SeppelSpaceSet extends SimpleSet<SeppelSpace>
 {
 
-   public static final SeppelSpaceSet EMPTY_SET = new SeppelSpaceSet().withReadOnly(true);
+   public static final SeppelSpaceSet EMPTY_SET = new SeppelSpaceSet().withFlag(SeppelSpaceSet.READONLY);
 
 
    public SeppelSpacePO hasSeppelSpacePO()
    {
       return new SeppelSpacePO(this.toArray(new SeppelSpace[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SeppelSpace";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SeppelSpaceSet with(Object value)

@@ -23,10 +23,11 @@ package org.sdmlib.test.examples.ludo.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.ludo.LudoModel.LudoColor;
 
-public class LudoColorSet extends SDMSet<LudoColor>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LudoColorSet extends SimpleSet<LudoColor>
 {
 
 
@@ -34,14 +35,6 @@ public class LudoColorSet extends SDMSet<LudoColor>
    {
       return new LudoColorPO(this.toArray(new LudoColor[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludo.LudoModel.LudoColor";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LudoColorSet with(Object value)
@@ -65,5 +58,5 @@ public class LudoColorSet extends SDMSet<LudoColor>
    }
 
 
-   public static final LudoColorSet EMPTY_SET = new LudoColorSet().withReadOnly(true);
+   public static final LudoColorSet EMPTY_SET = new LudoColorSet().withFlag(LudoColorSet.READONLY);
 }
