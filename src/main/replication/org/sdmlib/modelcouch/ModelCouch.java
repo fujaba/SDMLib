@@ -107,6 +107,8 @@ public  class ModelCouch implements SendableEntity, PropertyChangeInterface, Upd
 			}
 
 			mdbListener = createModelDBListener();
+			
+			mdbListener.loadOldChanges();
 
 			executor = Executors.newFixedThreadPool(1);
 			executor.execute(mdbListener);

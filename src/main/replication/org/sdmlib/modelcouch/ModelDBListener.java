@@ -56,8 +56,6 @@ public  class ModelDBListener implements SendableEntity, Runnable
 	@Override
 	public void run()
 	{
-		loadOldChanges();
-
 		//?since=lastPersisted &include_docs=true &feed=continuous &heartbeat=10000
 		//for every change apply to idmap
 		String url = "http://" + couch.getHostName() + ":" + couch.getPort() +"/" + couch.getDatabaseName() + "/_changes?since=" + lastPersisted + "&include_docs=true&feed=continuous&heartbeat=10000";
