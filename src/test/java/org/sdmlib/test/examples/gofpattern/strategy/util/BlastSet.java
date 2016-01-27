@@ -21,18 +21,18 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.Blast;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
 
-import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class BlastSet extends SDMSet<Blast>
+public class BlastSet extends SimpleSet<Blast>
 {
 
-   public static final BlastSet EMPTY_SET = new BlastSet().withReadOnly(true);
+   public static final BlastSet EMPTY_SET = new BlastSet().withFlag(BlastSet.READONLY);
 
 
    public BlastPO hasBlastPO()

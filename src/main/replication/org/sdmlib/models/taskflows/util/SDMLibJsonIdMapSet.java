@@ -23,10 +23,11 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-public class SDMLibJsonIdMapSet extends SDMSet<SDMLibJsonIdMap>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SDMLibJsonIdMapSet extends SimpleSet<SDMLibJsonIdMap>
 {
 
 
@@ -34,14 +35,6 @@ public class SDMLibJsonIdMapSet extends SDMSet<SDMLibJsonIdMap>
    {
       return new SDMLibJsonIdMapPO(this.toArray(new SDMLibJsonIdMap[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.serialization.SDMLibJsonIdMap";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SDMLibJsonIdMapSet with(Object value)
@@ -65,5 +58,5 @@ public class SDMLibJsonIdMapSet extends SDMSet<SDMLibJsonIdMap>
    }
 
 
-   public static final SDMLibJsonIdMapSet EMPTY_SET = new SDMLibJsonIdMapSet().withReadOnly(true);
+   public static final SDMLibJsonIdMapSet EMPTY_SET = new SDMLibJsonIdMapSet().withFlag(SDMLibJsonIdMapSet.READONLY);
 }

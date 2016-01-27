@@ -28,21 +28,13 @@ import org.sdmlib.models.modelsets.SDMSet;
 public class ObjectSet extends SDMSet<Object>
 {
 
-   public static final ObjectSet EMPTY_SET = new ObjectSet().withReadOnly(true);
+   public static final ObjectSet EMPTY_SET = new ObjectSet().withFlag(ObjectSet.READONLY);
 
 
    public ObjectPO hasObjectPO()
    {
       return new ObjectPO(this.toArray(new Object[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.lang.Object";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ObjectSet with(Object value)

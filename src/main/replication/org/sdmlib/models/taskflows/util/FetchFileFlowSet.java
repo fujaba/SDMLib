@@ -24,7 +24,6 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.FetchFileFlow;
@@ -32,7 +31,9 @@ import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.models.taskflows.TaskFlow;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
-public class FetchFileFlowSet extends SDMSet<FetchFileFlow>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class FetchFileFlowSet extends SimpleSet<FetchFileFlow>
 {
 
 
@@ -40,14 +41,6 @@ public class FetchFileFlowSet extends SDMSet<FetchFileFlow>
    {
       return new FetchFileFlowPO(this.toArray(new FetchFileFlow[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.FetchFileFlow";
-   }
-
 
    @SuppressWarnings("unchecked")
    public FetchFileFlowSet with(Object value)
@@ -411,5 +404,5 @@ public class FetchFileFlowSet extends SDMSet<FetchFileFlow>
    }
 
 
-   public static final FetchFileFlowSet EMPTY_SET = new FetchFileFlowSet().withReadOnly(true);
+   public static final FetchFileFlowSet EMPTY_SET = new FetchFileFlowSet().withFlag(FetchFileFlowSet.READONLY);
 }

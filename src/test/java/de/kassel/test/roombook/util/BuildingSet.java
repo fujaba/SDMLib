@@ -25,27 +25,18 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 
 import de.kassel.test.roombook.Building;
 import de.kassel.test.roombook.Floor;
-import de.kassel.test.roombook.util.FloorSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class BuildingSet extends SDMSet<Building>
+public class BuildingSet extends SimpleSet<Building>
 {
    public BuildingPO hasBuildingPO()
    {
       return new BuildingPO(this.toArray(new Building[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "de.kassel.test.roombook.Building";
-   }
-
 
    @SuppressWarnings("unchecked")
    public BuildingSet with(Object value)
@@ -164,7 +155,7 @@ public class BuildingSet extends SDMSet<Building>
    }
 
 
-   public static final BuildingSet EMPTY_SET = new BuildingSet().withReadOnly(true);
+   public static final BuildingSet EMPTY_SET = new BuildingSet().withFlag(BuildingSet.READONLY);
    public BuildingSet hasName(String lower, String upper)
    {
       BuildingSet result = new BuildingSet();

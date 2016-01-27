@@ -24,9 +24,9 @@ package org.sdmlib.test.examples.mancala.model.util;
 import java.awt.Point;
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class PointSet extends SDMSet<Point>
+public class PointSet extends SimpleSet<Point>
 {
 
 
@@ -34,14 +34,6 @@ public class PointSet extends SDMSet<Point>
    {
       return new PointPO(this.toArray(new Point[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.awt.Point";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PointSet with(Object value)

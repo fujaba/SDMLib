@@ -21,7 +21,6 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.SeppelSpace;
 import org.sdmlib.serialization.EntityFactory;
 

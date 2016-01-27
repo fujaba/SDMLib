@@ -38,9 +38,9 @@ import org.sdmlib.replication.util.ChangeHistorySet;
 
 public class ReplicationChangeSet extends TreeSet<ReplicationChange> implements ModelSet
 {
+	private static final long serialVersionUID = 1L;
 
-
-   public ReplicationChangePO hasReplicationChangePO()
+	public ReplicationChangePO hasReplicationChangePO()
    {
       return new ReplicationChangePO(this.toArray(new ReplicationChange[this.size()]));
    }

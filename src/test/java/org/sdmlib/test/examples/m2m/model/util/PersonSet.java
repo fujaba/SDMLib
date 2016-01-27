@@ -25,15 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
-import org.sdmlib.test.examples.m2m.model.util.GraphSet;
-import org.sdmlib.test.examples.m2m.model.util.RelationSet;
 
-public class PersonSet extends SDMSet<Person>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PersonSet extends SimpleSet<Person>
 {
 
 
@@ -41,14 +40,6 @@ public class PersonSet extends SDMSet<Person>
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.m2m.model.Person";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
@@ -440,7 +431,7 @@ public class PersonSet extends SDMSet<Person>
    }
 
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
    public PersonSet hasFirstName(String lower, String upper)
    {
       PersonSet result = new PersonSet();

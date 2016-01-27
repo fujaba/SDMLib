@@ -21,29 +21,22 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.annotations.model.simple.Cube;
-
 import java.util.Collection;
 
-public class CubeSet extends SDMSet<Cube>
+import org.sdmlib.test.examples.annotations.model.simple.Cube;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class CubeSet extends SimpleSet<Cube>
 {
 
-   public static final CubeSet EMPTY_SET = new CubeSet().withReadOnly(true);
+   public static final CubeSet EMPTY_SET = new CubeSet().withFlag(CubeSet.READONLY);
 
 
    public CubePO hasCubePO()
    {
       return new CubePO(this.toArray(new Cube[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.annotations.model.simple.Cube";
-   }
-
 
    @SuppressWarnings("unchecked")
    public CubeSet with(Object value)

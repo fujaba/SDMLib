@@ -6,7 +6,6 @@ import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import java.lang.Object;
 
 public class TemplatePO extends PatternObject<TemplatePO, Template>
 {

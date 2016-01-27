@@ -25,36 +25,26 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.SeppelScopeSet;
-import org.sdmlib.replication.util.SeppelChannelSet;
-import org.sdmlib.replication.util.BoardTaskSet;
-import org.sdmlib.replication.BoardTask;
 
-public class SeppelSpaceProxySet extends SDMSet<SeppelSpaceProxy>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SeppelSpaceProxySet extends SimpleSet<SeppelSpaceProxy>
 {
 
-   public static final SeppelSpaceProxySet EMPTY_SET = new SeppelSpaceProxySet().withReadOnly(true);
+   public static final SeppelSpaceProxySet EMPTY_SET = new SeppelSpaceProxySet().withFlag(SeppelSpaceProxySet.READONLY);
 
 
    public SeppelSpaceProxyPO hasSeppelSpaceProxyPO()
    {
       return new SeppelSpaceProxyPO(this.toArray(new SeppelSpaceProxy[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SeppelSpaceProxy";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SeppelSpaceProxySet with(Object value)

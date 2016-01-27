@@ -483,7 +483,7 @@ public class StoryboardTests {
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
       
-      RoomSet roomsEven = university.getRooms().has(new Condition<Room>() {
+      RoomSet roomsEven = university.getRooms().filter(new Condition<Room>() {
          @Override
          public boolean check(Room value) {
             return value.getCredits() % 2 == 0;

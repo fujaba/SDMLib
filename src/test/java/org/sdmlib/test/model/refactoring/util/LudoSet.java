@@ -21,19 +21,20 @@
    
 package org.sdmlib.test.model.refactoring.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.model.refactoring.Ludo;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.model.refactoring.util.PlayerSet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
 
-public class LudoSet extends SDMSet<Ludo>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LudoSet extends SimpleSet<Ludo>
 {
 
-   public static final LudoSet EMPTY_SET = new LudoSet().withReadOnly(true);
+   public static final LudoSet EMPTY_SET = new LudoSet().withFlag(LudoSet.READONLY);
 
 
    public LudoPO hasLudoPO()

@@ -26,18 +26,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.util.LudoSet;
-import org.sdmlib.test.examples.ludo.model.util.PawnSet;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 
-public class FieldSet extends SDMSet<Field>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class FieldSet extends SimpleSet<Field>
 {
 
 
@@ -45,14 +43,6 @@ public class FieldSet extends SDMSet<Field>
    {
       return new FieldPO(this.toArray(new Field[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludo.model.Field";
-   }
-
 
    @SuppressWarnings("unchecked")
    public FieldSet with(Object value)
@@ -796,7 +786,7 @@ public class FieldSet extends SDMSet<Field>
    }
 
 
-   public static final FieldSet EMPTY_SET = new FieldSet().withReadOnly(true);
+   public static final FieldSet EMPTY_SET = new FieldSet().withFlag(FieldSet.READONLY);
    public FieldSet hasColor(String lower, String upper)
    {
       FieldSet result = new FieldSet();

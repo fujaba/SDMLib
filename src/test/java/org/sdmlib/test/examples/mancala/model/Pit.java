@@ -170,7 +170,7 @@ import org.sdmlib.test.examples.mancala.model.util.PitSet;
    } 
 
    
-   public static final PitSet EMPTY_SET = new PitSet().withReadOnly(true);
+   public static final PitSet EMPTY_SET = new PitSet().withFlag(PitSet.READONLY);
 
    
    /********************************************************************

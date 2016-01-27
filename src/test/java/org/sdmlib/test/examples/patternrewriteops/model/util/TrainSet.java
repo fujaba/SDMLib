@@ -25,30 +25,18 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
 import org.sdmlib.test.examples.patternrewriteops.model.Train;
-import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
-public class TrainSet extends SDMSet<Train>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TrainSet extends SimpleSet<Train>
 {
-        private static final long serialVersionUID = 1L;
-
-
    public TrainPO hasTrainPO()
    {
       return new TrainPO (this.toArray(new Train[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.patternrewriteops.model.Train";
-   }
-
 
    public TrainSet with(Object value)
    {
@@ -180,6 +168,6 @@ public class TrainSet extends SDMSet<Train>
    }
 
 
-   public static final TrainSet EMPTY_SET = new TrainSet().withReadOnly(true);
+   public static final TrainSet EMPTY_SET = new TrainSet().withFlag(TrainSet.READONLY);
 }
 

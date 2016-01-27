@@ -21,22 +21,22 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.TaskLane;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.modelspace.util.TaskBoardSet;
-import org.sdmlib.modelspace.TaskBoard;
-import java.util.Collections;
-import org.sdmlib.modelspace.util.TaskSet;
 import org.sdmlib.modelspace.Task;
+import org.sdmlib.modelspace.TaskBoard;
+import org.sdmlib.modelspace.TaskLane;
 
-public class TaskLaneSet extends SDMSet<TaskLane>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TaskLaneSet extends SimpleSet<TaskLane>
 {
 
-   public static final TaskLaneSet EMPTY_SET = new TaskLaneSet().withReadOnly(true);
+   public static final TaskLaneSet EMPTY_SET = new TaskLaneSet().withFlag(TaskLaneSet.READONLY);
 
 
    public TaskLanePO hasTaskLanePO()

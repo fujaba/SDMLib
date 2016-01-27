@@ -191,7 +191,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSe
    } 
 
    
-   public static final BankSet EMPTY_SET = new BankSet().withReadOnly(true);
+   public static final BankSet EMPTY_SET = new BankSet().withFlag(BankSet.READONLY);
 
    
    /********************************************************************

@@ -24,15 +24,14 @@ package de.kassel.test.roombook.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
 import de.kassel.test.roombook.Building;
 import de.kassel.test.roombook.Floor;
-import de.kassel.test.roombook.util.BuildingSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class FloorSet extends SDMSet<Floor>
+public class FloorSet extends SimpleSet<Floor>
 {
    public FloorPO hasFloorPO()
    {
@@ -40,18 +39,11 @@ public class FloorSet extends SDMSet<Floor>
    }
 
 
-   @Override
-   public String getEntryType()
-   {
-      return "de.kassel.test.roombook.Floor";
-   }
-
-
    public FloorSet with(Object value)
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Floor>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -227,7 +219,7 @@ public class FloorSet extends SDMSet<Floor>
    }
 
 
-   public static final FloorSet EMPTY_SET = new FloorSet().withReadOnly(true);
+   public static final FloorSet EMPTY_SET = new FloorSet().withFlag(FloorSet.READONLY);
    public FloorSet hasLevel(int lower, int upper)
    {
       FloorSet result = new FloorSet();

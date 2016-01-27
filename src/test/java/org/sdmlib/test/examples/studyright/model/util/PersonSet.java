@@ -23,10 +23,11 @@ package org.sdmlib.test.examples.studyright.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.studyright.model.Person;
 
-public class PersonSet extends SDMSet<Person>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PersonSet extends SimpleSet<Person>
 {
 
 
@@ -34,14 +35,6 @@ public class PersonSet extends SDMSet<Person>
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Person";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
@@ -101,5 +94,5 @@ public class PersonSet extends SDMSet<Person>
    }
 
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 }

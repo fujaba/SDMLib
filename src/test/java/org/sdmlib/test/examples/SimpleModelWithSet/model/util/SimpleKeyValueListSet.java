@@ -21,14 +21,15 @@
    
 package org.sdmlib.test.examples.SimpleModelWithSet.model.util;
 
-import de.uniks.networkparser.list.SDMSet;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 import java.util.Collection;
 
-public class SimpleKeyValueListSet extends SDMSet<SimpleKeyValueList>
+import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
 {
 
-   public static final SimpleKeyValueListSet EMPTY_SET = new SimpleKeyValueListSet().withReadOnly();
+   public static final SimpleKeyValueListSet EMPTY_SET = new SimpleKeyValueListSet().withFlag(SimpleKeyValueListSet.READONLY);
 
 
    public SimpleKeyValueListPO hasSimpleKeyValueListPO()

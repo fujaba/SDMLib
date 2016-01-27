@@ -21,20 +21,21 @@
    
 package org.sdmlib.storyboards.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.storyboards.KanbanEntry;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.intList;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.storyboards.util.LogEntryStoryBoardSet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.models.modelsets.intList;
+import org.sdmlib.storyboards.KanbanEntry;
 import org.sdmlib.storyboards.LogEntryStoryBoard;
 
-public class KanbanEntrySet extends SDMSet<KanbanEntry>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class KanbanEntrySet extends SimpleSet<KanbanEntry>
 {
 
-   public static final KanbanEntrySet EMPTY_SET = new KanbanEntrySet().withReadOnly(true);
+   public static final KanbanEntrySet EMPTY_SET = new KanbanEntrySet().withFlag(KanbanEntrySet.READONLY);
 
 
    public KanbanEntryPO hasKanbanEntryPO()

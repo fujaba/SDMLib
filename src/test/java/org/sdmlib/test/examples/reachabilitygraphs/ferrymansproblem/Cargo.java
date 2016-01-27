@@ -101,7 +101,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoSe
 
 
    
-   public static final CargoSet EMPTY_SET = new CargoSet().withReadOnly(true);
+   public static final CargoSet EMPTY_SET = new CargoSet().withFlag(CargoSet.READONLY);
 
    
    /********************************************************************

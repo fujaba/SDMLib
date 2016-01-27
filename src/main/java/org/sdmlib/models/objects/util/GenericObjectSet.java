@@ -23,17 +23,15 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericGraphSet;
-import org.sdmlib.models.objects.util.GenericAttributeSet;
-import org.sdmlib.models.objects.util.GenericLinkSet;
 
-public class GenericObjectSet extends SDMSet<GenericObject>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenericObjectSet extends SimpleSet<GenericObject>
 {
    public StringList getName()
    {
@@ -228,16 +226,6 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       return "(" + stringList.concat(", ") + ")";
    }
 
-
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.objects.GenericObject";
-   }
-
-
    public GenericObjectPO startModelPattern()
    {
       return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
@@ -248,7 +236,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericObject>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -271,7 +259,7 @@ public class GenericObjectSet extends SDMSet<GenericObject>
       return new GenericObjectPO(this.toArray(new GenericObject[this.size()]));
    }
 
-   public static final GenericObjectSet EMPTY_SET = new GenericObjectSet().withReadOnly(true);
+   public static final GenericObjectSet EMPTY_SET = new GenericObjectSet().withFlag(GenericObjectSet.READONLY);
    public GenericObjectSet hasName(String value)
    {
       GenericObjectSet result = new GenericObjectSet();

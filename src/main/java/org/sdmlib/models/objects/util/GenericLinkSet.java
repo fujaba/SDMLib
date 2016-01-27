@@ -23,15 +23,14 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericGraph;
 import org.sdmlib.models.objects.GenericLink;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericObjectSet;
-import org.sdmlib.models.objects.util.GenericGraphSet;
 
-public class GenericLinkSet extends SDMSet<GenericLink>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenericLinkSet extends SimpleSet<GenericLink>
 {
    public StringList getTgtLabel()
    {
@@ -173,7 +172,7 @@ public class GenericLinkSet extends SDMSet<GenericLink>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericLink>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -196,7 +195,7 @@ public class GenericLinkSet extends SDMSet<GenericLink>
       return new GenericLinkPO(this.toArray(new GenericLink[this.size()]));
    }
 
-   public static final GenericLinkSet EMPTY_SET = new GenericLinkSet().withReadOnly(true);
+   public static final GenericLinkSet EMPTY_SET = new GenericLinkSet().withFlag(GenericLinkSet.READONLY);
    public GenericLinkSet hasTgtLabel(String value)
    {
       GenericLinkSet result = new GenericLinkSet();

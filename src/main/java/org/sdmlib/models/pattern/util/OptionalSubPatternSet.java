@@ -23,7 +23,6 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.intList;
@@ -31,11 +30,10 @@ import org.sdmlib.models.pattern.OptionalSubPattern;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternElement;
 import org.sdmlib.models.pattern.ReachabilityGraph;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
-public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class OptionalSubPatternSet extends SimpleSet<OptionalSubPattern>
 {
    public StringList getModifier()
    {
@@ -344,7 +342,7 @@ public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<OptionalSubPattern>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -367,7 +365,7 @@ public class OptionalSubPatternSet extends SDMSet<OptionalSubPattern>
       return new OptionalSubPatternPO(this.toArray(new OptionalSubPattern[this.size()]));
    }
 
-   public static final OptionalSubPatternSet EMPTY_SET = new OptionalSubPatternSet().withReadOnly(true);
+   public static final OptionalSubPatternSet EMPTY_SET = new OptionalSubPatternSet().withFlag(OptionalSubPatternSet.READONLY);
    public OptionalSubPatternSet hasMatchForward(boolean value)
    {
       OptionalSubPatternSet result = new OptionalSubPatternSet();

@@ -25,11 +25,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 
-public class SymTabEntrySet extends SDMSet<SymTabEntry>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SymTabEntrySet extends SimpleSet<SymTabEntry>
 {
    public StringList getKind()
    {
@@ -246,7 +247,7 @@ public class SymTabEntrySet extends SDMSet<SymTabEntry>
 
    }
 
-   public static final SymTabEntrySet EMPTY_SET = new SymTabEntrySet().withReadOnly(true);
+   public static final SymTabEntrySet EMPTY_SET = new SymTabEntrySet().withFlag(SymTabEntrySet.READONLY);
    public StringList getAnnotations()
    {
       StringList result = new StringList();

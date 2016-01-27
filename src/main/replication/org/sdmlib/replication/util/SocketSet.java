@@ -24,9 +24,9 @@ package org.sdmlib.replication.util;
 import java.net.Socket;
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class SocketSet extends SDMSet<Socket>
+public class SocketSet extends SimpleSet<Socket>
 {
 
 
@@ -34,14 +34,6 @@ public class SocketSet extends SDMSet<Socket>
    {
       return new SocketPO(this.toArray(new Socket[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "java.net.Socket";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SocketSet with(Object value)
@@ -65,5 +57,5 @@ public class SocketSet extends SDMSet<Socket>
    }
 
 
-   public static final SocketSet EMPTY_SET = new SocketSet().withReadOnly(true);
+   public static final SocketSet EMPTY_SET = new SocketSet().withFlag(SocketSet.READONLY);
 }

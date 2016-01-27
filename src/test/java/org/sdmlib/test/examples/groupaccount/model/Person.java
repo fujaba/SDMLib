@@ -142,7 +142,7 @@ public class Person implements PropertyChangeInterface, PropertyChangeListener
    } 
 
    
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 
    
    /********************************************************************

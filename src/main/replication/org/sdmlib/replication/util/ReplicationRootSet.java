@@ -25,12 +25,12 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.ReplicationRoot;
-import java.lang.Object;
 
-public class ReplicationRootSet extends SDMSet<ReplicationRoot>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ReplicationRootSet extends SimpleSet<ReplicationRoot>
 {
 
 
@@ -38,14 +38,6 @@ public class ReplicationRootSet extends SDMSet<ReplicationRoot>
    {
       return new ReplicationRootPO(this.toArray(new ReplicationRoot[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ReplicationRoot";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ReplicationRootSet with(Object value)
@@ -315,5 +307,5 @@ public class ReplicationRootSet extends SDMSet<ReplicationRoot>
    }
 
 
-   public static final ReplicationRootSet EMPTY_SET = new ReplicationRootSet().withReadOnly(true);
+   public static final ReplicationRootSet EMPTY_SET = new ReplicationRootSet().withFlag(ReplicationRootSet.READONLY);
 }

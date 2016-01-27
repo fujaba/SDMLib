@@ -25,32 +25,23 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.ChoiceTemplate;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import java.lang.Object;
-import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
-import org.sdmlib.models.transformations.util.ChoiceTemplateSet;
-import org.sdmlib.models.transformations.util.MatchSet;
 
-public class TemplateSet extends SDMSet<Template>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TemplateSet extends SimpleSet<Template>
 {
 
-   public static final TemplateSet EMPTY_SET = new TemplateSet().withReadOnly(true);
+   public static final TemplateSet EMPTY_SET = new TemplateSet().withFlag(TemplateSet.READONLY);
 
    public TemplatePO hasTemplatePO()
    {
       return new TemplatePO(this.toArray(new Template[this.size()]));
-   }
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.transformations.Template";
    }
 
    @SuppressWarnings("unchecked")

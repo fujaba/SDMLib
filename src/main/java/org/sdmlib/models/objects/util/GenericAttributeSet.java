@@ -23,13 +23,13 @@ package org.sdmlib.models.objects.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.objects.GenericAttribute;
 import org.sdmlib.models.objects.GenericObject;
-import org.sdmlib.models.objects.util.GenericObjectSet;
 
-public class GenericAttributeSet extends SDMSet<GenericAttribute>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GenericAttributeSet extends SimpleSet<GenericAttribute>
 {
    public StringList getName()
    {
@@ -129,7 +129,7 @@ public class GenericAttributeSet extends SDMSet<GenericAttribute>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<GenericAttribute>)value);
+         this.withAll((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -152,7 +152,7 @@ public class GenericAttributeSet extends SDMSet<GenericAttribute>
       return new GenericAttributePO(this.toArray(new GenericAttribute[this.size()]));
    }
 
-   public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet().withReadOnly(true);
+   public static final GenericAttributeSet EMPTY_SET = new GenericAttributeSet().withFlag(GenericAttributeSet.READONLY);
    public GenericAttributeSet hasName(String value)
    {
       GenericAttributeSet result = new GenericAttributeSet();

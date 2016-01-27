@@ -24,27 +24,18 @@ package org.sdmlib.test.examples.helloworld.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.helloworld.Greeting;
 import org.sdmlib.test.examples.helloworld.GreetingMessage;
 import org.sdmlib.test.examples.helloworld.Person;
-import org.sdmlib.test.examples.helloworld.util.GreetingMessageSet;
-import org.sdmlib.test.examples.helloworld.util.GreetingSet;
-import org.sdmlib.test.examples.helloworld.util.PersonSet;
 
-public class GreetingSet extends SDMSet<Greeting>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GreetingSet extends SimpleSet<Greeting>
 {
    public GreetingPO hasGreetingPO()
    {
       return new GreetingPO(this.toArray(new Greeting[this.size()]));
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.helloworld.Greeting";
    }
 
 
@@ -211,7 +202,7 @@ public class GreetingSet extends SDMSet<Greeting>
    }
 
 
-   public static final GreetingSet EMPTY_SET = new GreetingSet().withReadOnly(true);
+   public static final GreetingSet EMPTY_SET = new GreetingSet().withFlag(GreetingSet.READONLY);
    public GreetingSet getTgt()
    {
       GreetingSet result = new GreetingSet();

@@ -24,20 +24,16 @@ package org.sdmlib.models.pattern.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.longList;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
-import java.lang.Object;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
-import org.sdmlib.models.pattern.util.RuleApplicationSet;
 
-public class ReachableStateSet extends SDMSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ReachableStateSet extends SimpleSet<ReachableState> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -244,7 +240,7 @@ public class ReachableStateSet extends SDMSet<ReachableState> implements org.sdm
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<ReachableState>)value);
+         this.withAll((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -267,7 +263,7 @@ public class ReachableStateSet extends SDMSet<ReachableState> implements org.sdm
       return new ReachableStatePO(this.toArray(new ReachableState[this.size()]));
    }
 
-   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet().withReadOnly(true);
+   public static final ReachableStateSet EMPTY_SET = new ReachableStateSet().withFlag(ReachableStateSet.READONLY);
    public ReachableStateSet hasNumber(long value)
    {
       ReachableStateSet result = new ReachableStateSet();

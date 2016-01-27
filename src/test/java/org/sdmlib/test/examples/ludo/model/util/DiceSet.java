@@ -24,15 +24,14 @@ package org.sdmlib.test.examples.ludo.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.model.Dice;
 import org.sdmlib.test.examples.ludo.model.Ludo;
 import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.util.LudoSet;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 
-public class DiceSet extends SDMSet<Dice>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class DiceSet extends SimpleSet<Dice>
 {
 
 
@@ -40,14 +39,6 @@ public class DiceSet extends SDMSet<Dice>
    {
       return new DicePO(this.toArray(new Dice[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludo.model.Dice";
-   }
-
 
    @SuppressWarnings("unchecked")
    public DiceSet with(Object value)
@@ -204,7 +195,7 @@ public class DiceSet extends SDMSet<Dice>
    }
 
 
-   public static final DiceSet EMPTY_SET = new DiceSet().withReadOnly(true);
+   public static final DiceSet EMPTY_SET = new DiceSet().withFlag(DiceSet.READONLY);
    public DiceSet hasValue(int lower, int upper)
    {
       DiceSet result = new DiceSet();

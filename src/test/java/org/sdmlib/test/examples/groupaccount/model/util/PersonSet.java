@@ -25,16 +25,15 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.doubleList;
 import org.sdmlib.test.examples.groupaccount.model.GroupAccount;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.sdmlib.test.examples.groupaccount.model.util.GroupAccountSet;
-import org.sdmlib.test.examples.groupaccount.model.util.ItemSet;
 
-public class PersonSet extends SDMSet<Person>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PersonSet extends SimpleSet<Person>
 {
 
 
@@ -42,14 +41,6 @@ public class PersonSet extends SDMSet<Person>
    {
       return new PersonPO(this.toArray(new Person[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.groupAccount.model.Person";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PersonSet with(Object value)
@@ -293,5 +284,5 @@ public class PersonSet extends SDMSet<Person>
       return result;
    }
 
-   public static final PersonSet EMPTY_SET = new PersonSet().withReadOnly(true);
+   public static final PersonSet EMPTY_SET = new PersonSet().withFlag(PersonSet.READONLY);
 }

@@ -21,32 +21,24 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
 
-import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class DoorSet extends SDMSet<Door>
+public class DoorSet extends SimpleSet<Door>
 {
 
-   public static final DoorSet EMPTY_SET = new DoorSet().withReadOnly(true);
+   public static final DoorSet EMPTY_SET = new DoorSet().withFlag(DoorSet.READONLY);
 
 
    public DoorPO hasDoorPO()
    {
       return new DoorPO(this.toArray(new Door[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.annotations.model.simple.Door";
-   }
-
 
    @SuppressWarnings("unchecked")
    public DoorSet with(Object value)

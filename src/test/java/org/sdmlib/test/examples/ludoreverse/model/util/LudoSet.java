@@ -24,14 +24,14 @@ package org.sdmlib.test.examples.ludoreverse.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
-import org.sdmlib.test.examples.ludoreverse.model.util.PlayerSet;
 
-public class LudoSet extends SDMSet<Ludo>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LudoSet extends SimpleSet<Ludo>
 {
 
 
@@ -39,14 +39,6 @@ public class LudoSet extends SDMSet<Ludo>
    {
       return new LudoPO(this.toArray(new Ludo[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludoreverse.model.Ludo";
-   }
-
 
    @SuppressWarnings("unchecked")
    public LudoSet with(Object value)
@@ -192,7 +184,7 @@ public class LudoSet extends SDMSet<Ludo>
    }
 
 
-   public static final LudoSet EMPTY_SET = new LudoSet().withReadOnly(true);
+   public static final LudoSet EMPTY_SET = new LudoSet().withFlag(LudoSet.READONLY);
    public LudoSet hasStyle(String lower, String upper)
    {
       LudoSet result = new LudoSet();

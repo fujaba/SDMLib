@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.modelsets.longList;
@@ -34,10 +33,10 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.ReplicationNodeSet;
-import org.sdmlib.replication.util.ReplicationChannelSet;
 
-public class SharedSpaceSet extends SDMSet<SharedSpace>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SharedSpaceSet extends SimpleSet<SharedSpace>
 {
 
 
@@ -45,14 +44,6 @@ public class SharedSpaceSet extends SDMSet<SharedSpace>
    {
       return new SharedSpacePO(this.toArray(new SharedSpace[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SharedSpace";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SharedSpaceSet with(Object value)
@@ -500,5 +491,5 @@ public class SharedSpaceSet extends SDMSet<SharedSpace>
    }
 
 
-   public static final SharedSpaceSet EMPTY_SET = new SharedSpaceSet().withReadOnly(true);
+   public static final SharedSpaceSet EMPTY_SET = new SharedSpaceSet().withFlag(SharedSpaceSet.READONLY);
 }

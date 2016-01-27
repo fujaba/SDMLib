@@ -25,29 +25,22 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.transformations.util.TemplateSet;
-import org.sdmlib.models.transformations.util.MatchSet;
 
-public class PlaceHolderDescriptionSet extends SDMSet<PlaceHolderDescription>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PlaceHolderDescriptionSet extends SimpleSet<PlaceHolderDescription>
 {
 
-   public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet().withReadOnly(true);
+   public static final PlaceHolderDescriptionSet EMPTY_SET = new PlaceHolderDescriptionSet().withFlag(PlaceHolderDescriptionSet.READONLY);
 
    public PlaceHolderDescriptionPO hasPlaceHolderDescriptionPO()
    {
       return new PlaceHolderDescriptionPO(this.toArray(new PlaceHolderDescription[this.size()]));
-   }
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.transformations.PlaceHolderDescription";
    }
 
    @SuppressWarnings("unchecked")

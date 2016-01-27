@@ -21,21 +21,21 @@
    
 package org.sdmlib.modelspace.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.modelspace.ModelSpaceProxy;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.modelspace.util.ModelCloudSet;
-import org.sdmlib.modelspace.ModelCloud;
 import java.util.Collections;
-import org.sdmlib.modelspace.util.ModelCloudProxySet;
-import org.sdmlib.modelspace.ModelCloudProxy;
 
-public class ModelSpaceProxySet extends SDMSet<ModelSpaceProxy>
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.modelspace.ModelCloud;
+import org.sdmlib.modelspace.ModelCloudProxy;
+import org.sdmlib.modelspace.ModelSpaceProxy;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ModelSpaceProxySet extends SimpleSet<ModelSpaceProxy>
 {
 
-   public static final ModelSpaceProxySet EMPTY_SET = new ModelSpaceProxySet().withReadOnly(true);
+   public static final ModelSpaceProxySet EMPTY_SET = new ModelSpaceProxySet().withFlag(ModelSpaceProxySet.READONLY);
 
 
    public ModelSpaceProxyPO hasModelSpaceProxyPO()

@@ -21,21 +21,21 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.Card;
 import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.test.examples.maumau.model.Card;
+import org.sdmlib.test.examples.maumau.model.Holder;
+import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.test.examples.maumau.model.Suit;
 import org.sdmlib.test.examples.maumau.model.Value;
-import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
-import org.sdmlib.test.examples.maumau.model.MauMau;
-import org.sdmlib.test.examples.maumau.model.util.HolderSet;
-import org.sdmlib.test.examples.maumau.model.Holder;
 
-public class CardSet extends SDMSet<Card>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class CardSet extends SimpleSet<Card>
 {
 
-   public static final CardSet EMPTY_SET = new CardSet().withReadOnly(true);
+   public static final CardSet EMPTY_SET = new CardSet().withFlag(CardSet.READONLY);
 
 
    public CardPO hasCardPO()

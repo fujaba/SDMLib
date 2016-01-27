@@ -21,18 +21,18 @@
    
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import java.util.Collection;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import org.sdmlib.test.examples.gofpattern.strategy.MoveLeft;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategySet;
 
-import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
-public class MoveLeftSet extends SDMSet<MoveLeft>
+public class MoveLeftSet extends SimpleSet<MoveLeft>
 {
 
-   public static final MoveLeftSet EMPTY_SET = new MoveLeftSet().withReadOnly(true);
+   public static final MoveLeftSet EMPTY_SET = new MoveLeftSet().withFlag(MoveLeftSet.READONLY);
 
 
    public MoveLeftPO hasMoveLeftPO()

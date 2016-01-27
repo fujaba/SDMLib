@@ -21,20 +21,20 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.DrawingStack;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
+
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.test.examples.maumau.model.Card;
-import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
+import org.sdmlib.test.examples.maumau.model.DrawingStack;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 
-public class DrawingStackSet extends SDMSet<DrawingStack>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class DrawingStackSet extends SimpleSet<DrawingStack>
 {
 
-   public static final DrawingStackSet EMPTY_SET = new DrawingStackSet().withReadOnly(true);
+   public static final DrawingStackSet EMPTY_SET = new DrawingStackSet().withFlag(DrawingStackSet.READONLY);
 
 
    public DrawingStackPO hasDrawingStackPO()

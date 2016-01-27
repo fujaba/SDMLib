@@ -24,15 +24,14 @@ package org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
 
-public class CargoSet extends SDMSet<Cargo>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class CargoSet extends SimpleSet<Cargo>
 {
 
 
@@ -40,14 +39,6 @@ public class CargoSet extends SDMSet<Cargo>
    {
       return new CargoPO(this.toArray(new Cargo[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo";
-   }
-
 
    @SuppressWarnings("unchecked")
    public CargoSet with(Object value)
@@ -219,5 +210,5 @@ public class CargoSet extends SDMSet<Cargo>
    }
 
 
-   public static final CargoSet EMPTY_SET = new CargoSet().withReadOnly(true);
+   public static final CargoSet EMPTY_SET = new CargoSet().withFlag(CargoSet.READONLY);
 }

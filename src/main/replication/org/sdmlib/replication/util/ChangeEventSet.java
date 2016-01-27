@@ -21,15 +21,17 @@
    
 package org.sdmlib.replication.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.replication.ChangeEvent;
 import java.util.Collection;
-import org.sdmlib.models.modelsets.StringList;
 
-public class ChangeEventSet extends SDMSet<ChangeEvent>
+import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.replication.ChangeEvent;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ChangeEventSet extends SimpleSet<ChangeEvent>
 {
 
-   public static final ChangeEventSet EMPTY_SET = new ChangeEventSet().withReadOnly(true);
+   public static final ChangeEventSet EMPTY_SET = new ChangeEventSet().withFlag(ChangeEventSet.READONLY);
 
 
    public ChangeEventPO hasChangeEventPO()

@@ -21,14 +21,16 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.replication.Lane;
 import java.util.Collection;
 
-public class LaneSet extends SDMSet<Lane>
+import org.sdmlib.replication.Lane;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class LaneSet extends SimpleSet<Lane>
 {
 
-   public static final LaneSet EMPTY_SET = new LaneSet().withReadOnly(true);
+   public static final LaneSet EMPTY_SET = new LaneSet().withFlag(LaneSet.READONLY);
 
 
    public LanePO hasLanePO()

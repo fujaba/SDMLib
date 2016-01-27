@@ -23,29 +23,19 @@ package org.sdmlib.test.examples.simpleEnumModel.model.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
+import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 import org.sdmlib.test.examples.simpleEnumModel.model.Mac;
 import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
-import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
-import org.sdmlib.test.examples.simpleEnumModel.model.util.TEnumSet;
 
-public class MacSet extends SDMSet<Mac>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class MacSet extends SimpleSet<Mac>
 {
-
-
    public MacPO hasMacPO()
    {
       return new MacPO(this.toArray(new Mac[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.simpleEnumModel.model.Mac";
-   }
-
 
    @SuppressWarnings("unchecked")
    public MacSet with(Object value)
@@ -121,7 +111,7 @@ public class MacSet extends SDMSet<Mac>
    }
 
 
-   public static final MacSet EMPTY_SET = new MacSet().withReadOnly(true);
+   public static final MacSet EMPTY_SET = new MacSet().withFlag(MacSet.READONLY);
 
    /**
     * Loop through the current set of Mac objects and collect a list of the type attribute values. 

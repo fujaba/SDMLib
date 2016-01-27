@@ -24,14 +24,15 @@ package org.sdmlib.test.examples.mancala.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.mancala.model.Kalah;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
 
-public class KalahSet extends SDMSet<Kalah>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class KalahSet extends SimpleSet<Kalah>
 {
 
 
@@ -39,14 +40,6 @@ public class KalahSet extends SDMSet<Kalah>
    {
       return new KalahPO(this.toArray(new Kalah[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.mancala.model.Kalah";
-   }
-
 
    @SuppressWarnings("unchecked")
    public KalahSet with(Object value)
@@ -491,5 +484,5 @@ public class KalahSet extends SDMSet<Kalah>
    }
 
 
-   public static final KalahSet EMPTY_SET = new KalahSet().withReadOnly(true);
+   public static final KalahSet EMPTY_SET = new KalahSet().withFlag(KalahSet.READONLY);
 }

@@ -25,30 +25,22 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.replication.util.SeppelSpaceProxySet;
 
-public class SeppelScopeSet extends SDMSet<SeppelScope>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SeppelScopeSet extends SimpleSet<SeppelScope>
 {
 
-   public static final SeppelScopeSet EMPTY_SET = new SeppelScopeSet().withReadOnly(true);
+   public static final SeppelScopeSet EMPTY_SET = new SeppelScopeSet().withFlag(SeppelScopeSet.READONLY);
 
 
    public SeppelScopePO hasSeppelScopePO()
    {
       return new SeppelScopePO(this.toArray(new SeppelScope[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.SeppelScope";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SeppelScopeSet with(Object value)

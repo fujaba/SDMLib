@@ -25,16 +25,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.helloworld.model.Edge;
 import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
-import org.sdmlib.test.examples.helloworld.model.util.EdgeSet;
-import org.sdmlib.test.examples.helloworld.model.util.GraphComponentSet;
-import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
 
-public class GraphSet extends SDMSet<Graph>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class GraphSet extends SimpleSet<Graph>
 {
         private static final long serialVersionUID = 1L;
 
@@ -43,14 +41,6 @@ public class GraphSet extends SDMSet<Graph>
    {
       return new GraphPO (this.toArray(new Graph[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.helloworld.model.Graph";
-   }
-
 
    public GraphSet with(Object value)
    {
@@ -250,76 +240,5 @@ public class GraphSet extends SDMSet<Graph>
    }
 
 
-   public static final GraphSet EMPTY_SET = new GraphSet().withReadOnly(true);
+   public static final GraphSet EMPTY_SET = new GraphSet().withFlag(GraphSet.READONLY);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

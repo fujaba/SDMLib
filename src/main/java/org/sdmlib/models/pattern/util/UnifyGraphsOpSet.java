@@ -23,17 +23,15 @@ package org.sdmlib.models.pattern.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.util.PatternSet;
 
-public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
+import de.uniks.networkparser.list.SimpleSet;
+
+public class UnifyGraphsOpSet extends SimpleSet<UnifyGraphsOp> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -203,7 +201,7 @@ public class UnifyGraphsOpSet extends SDMSet<UnifyGraphsOp> implements org.sdmli
       return new UnifyGraphsOpPO(this.toArray(new UnifyGraphsOp[this.size()]));
    }
 
-   public static final UnifyGraphsOpSet EMPTY_SET = new UnifyGraphsOpSet().withReadOnly(true);
+   public static final UnifyGraphsOpSet EMPTY_SET = new UnifyGraphsOpSet().withFlag(UnifyGraphsOpSet.READONLY);
    public UnifyGraphsOpSet hasModifier(String value)
    {
       UnifyGraphsOpSet result = new UnifyGraphsOpSet();

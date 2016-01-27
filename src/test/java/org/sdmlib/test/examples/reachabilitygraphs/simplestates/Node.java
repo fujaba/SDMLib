@@ -101,7 +101,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
 
 
    
-   public static final NodeSet EMPTY_SET = new NodeSet().withReadOnly(true);
+   public static final NodeSet EMPTY_SET = new NodeSet().withFlag(NodeSet.READONLY);
 
    
    /********************************************************************

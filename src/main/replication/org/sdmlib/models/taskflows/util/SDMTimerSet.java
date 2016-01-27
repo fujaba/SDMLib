@@ -23,10 +23,11 @@ package org.sdmlib.models.taskflows.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.taskflows.SDMTimer;
 
-public class SDMTimerSet extends SDMSet<SDMTimer>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SDMTimerSet extends SimpleSet<SDMTimer>
 {
 
 
@@ -34,14 +35,6 @@ public class SDMTimerSet extends SDMSet<SDMTimer>
    {
       return new SDMTimerPO(this.toArray(new SDMTimer[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.SDMTimer";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SDMTimerSet with(Object value)
@@ -77,5 +70,5 @@ public class SDMTimerSet extends SDMSet<SDMTimer>
    }
 
 
-   public static final SDMTimerSet EMPTY_SET = new SDMTimerSet().withReadOnly(true);
+   public static final SDMTimerSet EMPTY_SET = new SDMTimerSet().withFlag(SDMTimerSet.READONLY);
 }

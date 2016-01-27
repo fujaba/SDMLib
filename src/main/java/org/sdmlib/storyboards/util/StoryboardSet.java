@@ -24,19 +24,16 @@ package org.sdmlib.storyboards.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardStep;
 import org.sdmlib.storyboards.StoryboardWall;
-import org.sdmlib.storyboards.util.StoryboardWallSet;
-import org.sdmlib.storyboards.util.StoryboardStepSet;
 
-public class StoryboardSet extends SDMSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
+import de.uniks.networkparser.list.SimpleSet;
+
+public class StoryboardSet extends SimpleSet<Storyboard> implements org.sdmlib.models.modelsets.ModelSet
 {
-   private static final long serialVersionUID = 1L;
-
    @Override
    public String toString()
    {
@@ -202,7 +199,7 @@ public class StoryboardSet extends SDMSet<Storyboard> implements org.sdmlib.mode
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<Storyboard>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -217,7 +214,7 @@ public class StoryboardSet extends SDMSet<Storyboard> implements org.sdmlib.mode
       return new StoryboardPO (this.toArray(new Storyboard[this.size()]));
    }
 
-   public static final StoryboardSet EMPTY_SET = new StoryboardSet().withReadOnly(true);
+   public static final StoryboardSet EMPTY_SET = new StoryboardSet().withFlag(StoryboardSet.READONLY);
    public StoryboardWallSet getWall()
    {
       StoryboardWallSet result = new StoryboardWallSet();

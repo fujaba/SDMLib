@@ -25,26 +25,19 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.ludoreverse.model.Ludo;
 import org.sdmlib.test.examples.ludoreverse.model.Player;
-import org.sdmlib.test.examples.ludoreverse.model.util.LudoSet;
 
-public class PlayerSet extends SDMSet<Player>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PlayerSet extends SimpleSet<Player>
 {
 
 
    public PlayerPO hasPlayerPO()
    {
       return new PlayerPO(this.toArray(new Player[this.size()]));
-   }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludoreverse.model.Player";
    }
 
 
@@ -202,7 +195,7 @@ public class PlayerSet extends SDMSet<Player>
    }
 
 
-   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withFlag(PlayerSet.READONLY);
    public PlayerSet hasName(String lower, String upper)
    {
       PlayerSet result = new PlayerSet();

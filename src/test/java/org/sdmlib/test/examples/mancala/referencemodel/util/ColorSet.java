@@ -23,10 +23,11 @@ package org.sdmlib.test.examples.mancala.referencemodel.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
-public class ColorSet extends SDMSet<Color>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ColorSet extends SimpleSet<Color>
 {
 
 
@@ -34,14 +35,6 @@ public class ColorSet extends SDMSet<Color>
    {
       return new ColorPO(this.toArray(new Color[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.mancala.referencemodel.Color";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ColorSet with(Object value)
@@ -65,5 +58,5 @@ public class ColorSet extends SDMSet<Color>
    }
 
 
-   public static final ColorSet EMPTY_SET = new ColorSet().withReadOnly(true);
+   public static final ColorSet EMPTY_SET = new ColorSet().withFlag(ColorSet.READONLY);
 }

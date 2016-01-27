@@ -24,16 +24,15 @@ package org.sdmlib.test.examples.ludo.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.ludo.model.Field;
 import org.sdmlib.test.examples.ludo.model.Pawn;
 import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.util.FieldSet;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 
-public class PawnSet extends SDMSet<Pawn>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class PawnSet extends SimpleSet<Pawn>
 {
 
 
@@ -41,14 +40,6 @@ public class PawnSet extends SDMSet<Pawn>
    {
       return new PawnPO(this.toArray(new Pawn[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.ludo.model.Pawn";
-   }
-
 
    @SuppressWarnings("unchecked")
    public PawnSet with(Object value)
@@ -279,7 +270,7 @@ public class PawnSet extends SDMSet<Pawn>
    }
 
 
-   public static final PawnSet EMPTY_SET = new PawnSet().withReadOnly(true);
+   public static final PawnSet EMPTY_SET = new PawnSet().withFlag(PawnSet.READONLY);
    public PawnSet hasColor(String lower, String upper)
    {
       PawnSet result = new PawnSet();

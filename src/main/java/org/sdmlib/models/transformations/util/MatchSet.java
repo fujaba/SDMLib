@@ -25,34 +25,24 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import java.lang.Object;
-import org.sdmlib.models.transformations.util.TemplateSet;
-import org.sdmlib.models.transformations.util.PlaceHolderDescriptionSet;
 
-public class MatchSet extends SDMSet<Match>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class MatchSet extends SimpleSet<Match>
 {
 
-   public static final MatchSet EMPTY_SET = new MatchSet().withReadOnly(true);
+   public static final MatchSet EMPTY_SET = new MatchSet().withFlag(MatchSet.READONLY);
 
 
    public MatchPO hasMatchPO()
    {
       return new MatchPO(this.toArray(new Match[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.transformations.Match";
-   }
-
 
    @SuppressWarnings("unchecked")
    public MatchSet with(Object value)

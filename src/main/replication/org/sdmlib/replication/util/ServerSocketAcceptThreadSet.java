@@ -23,12 +23,13 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ServerSocketAcceptThread;
 
-public class ServerSocketAcceptThreadSet extends SDMSet<ServerSocketAcceptThread>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class ServerSocketAcceptThreadSet extends SimpleSet<ServerSocketAcceptThread>
 {
 
 
@@ -36,14 +37,6 @@ public class ServerSocketAcceptThreadSet extends SDMSet<ServerSocketAcceptThread
    {
       return new ServerSocketAcceptThreadPO(this.toArray(new ServerSocketAcceptThread[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.replication.ServerSocketAcceptThread";
-   }
-
 
    @SuppressWarnings("unchecked")
    public ServerSocketAcceptThreadSet with(Object value)
@@ -156,5 +149,5 @@ public class ServerSocketAcceptThreadSet extends SDMSet<ServerSocketAcceptThread
    }
 
 
-   public static final ServerSocketAcceptThreadSet EMPTY_SET = new ServerSocketAcceptThreadSet().withReadOnly(true);
+   public static final ServerSocketAcceptThreadSet EMPTY_SET = new ServerSocketAcceptThreadSet().withFlag(ServerSocketAcceptThreadSet.READONLY);
 }

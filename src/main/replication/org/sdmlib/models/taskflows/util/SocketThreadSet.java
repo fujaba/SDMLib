@@ -24,14 +24,14 @@ package org.sdmlib.models.taskflows.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.models.taskflows.SocketThread;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import java.lang.Object;
 
-public class SocketThreadSet extends SDMSet<SocketThread>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class SocketThreadSet extends SimpleSet<SocketThread>
 {
 
 
@@ -39,14 +39,6 @@ public class SocketThreadSet extends SDMSet<SocketThread>
    {
       return new SocketThreadPO(this.toArray(new SocketThread[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.models.taskflows.SocketThread";
-   }
-
 
    @SuppressWarnings("unchecked")
    public SocketThreadSet with(Object value)
@@ -248,5 +240,5 @@ public class SocketThreadSet extends SDMSet<SocketThread>
    }
 
 
-   public static final SocketThreadSet EMPTY_SET = new SocketThreadSet().withReadOnly(true);
+   public static final SocketThreadSet EMPTY_SET = new SocketThreadSet().withFlag(SocketThreadSet.READONLY);
 }

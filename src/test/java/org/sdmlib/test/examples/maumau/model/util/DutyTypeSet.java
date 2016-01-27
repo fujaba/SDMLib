@@ -21,14 +21,16 @@
    
 package org.sdmlib.test.examples.maumau.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
-import org.sdmlib.test.examples.maumau.model.DutyType;
 import java.util.Collection;
 
-public class DutyTypeSet extends SDMSet<DutyType>
+import org.sdmlib.test.examples.maumau.model.DutyType;
+
+import de.uniks.networkparser.list.SimpleSet;
+
+public class DutyTypeSet extends SimpleSet<DutyType>
 {
 
-   public static final DutyTypeSet EMPTY_SET = new DutyTypeSet().withReadOnly(true);
+   public static final DutyTypeSet EMPTY_SET = new DutyTypeSet().withFlag(DutyTypeSet.READONLY);
 
 
    public DutyTypePO hasDutyTypePO()

@@ -25,17 +25,15 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.booleanList;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import java.lang.Object;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternObjectSet;
 
-public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class AttributeConstraintSet extends SimpleSet<AttributeConstraint>
 {
    public StringList getAttrName()
    {
@@ -325,7 +323,7 @@ public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
    {
       if (value instanceof java.util.Collection)
       {
-         this.addAll((Collection<AttributeConstraint>)value);
+         this.withList((Collection<?>)value);
       }
       else if (value != null)
       {
@@ -380,7 +378,7 @@ public class AttributeConstraintSet extends SDMSet<AttributeConstraint>
       return new AttributeConstraintPO(this.toArray(new AttributeConstraint[this.size()]));
    }
 
-   public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet().withReadOnly(true);
+   public static final AttributeConstraintSet EMPTY_SET = new AttributeConstraintSet().withFlag(AttributeConstraintSet.READONLY);
    public AttributeConstraintSet hasAttrName(String lower, String upper)
    {
       AttributeConstraintSet result = new AttributeConstraintSet();

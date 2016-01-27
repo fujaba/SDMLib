@@ -24,13 +24,13 @@ package org.sdmlib.test.examples.studyright.model.util;
 import java.util.Collection;
 
 import org.sdmlib.models.modelsets.ObjectSet;
-import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.test.examples.studyright.model.Professor;
 import org.sdmlib.test.examples.studyright.model.Topic;
-import org.sdmlib.test.examples.studyright.model.util.ProfessorSet;
 
-public class TopicSet extends SDMSet<Topic>
+import de.uniks.networkparser.list.SimpleSet;
+
+public class TopicSet extends SimpleSet<Topic>
 {
 
 
@@ -38,14 +38,6 @@ public class TopicSet extends SDMSet<Topic>
    {
       return new TopicPO(this.toArray(new Topic[this.size()]));
    }
-
-
-   @Override
-   public String getEntryType()
-   {
-      return "org.sdmlib.test.examples.studyright.model.Topic";
-   }
-
 
    @SuppressWarnings("unchecked")
    public TopicSet with(Object value)
@@ -154,7 +146,7 @@ public class TopicSet extends SDMSet<Topic>
    }
 
 
-   public static final TopicSet EMPTY_SET = new TopicSet().withReadOnly(true);
+   public static final TopicSet EMPTY_SET = new TopicSet().withFlag(TopicSet.READONLY);
    public TopicSet hasTitle(String lower, String upper)
    {
       TopicSet result = new TopicSet();

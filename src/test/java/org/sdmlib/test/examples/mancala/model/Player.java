@@ -26,11 +26,9 @@ import java.beans.PropertyChangeSupport;
 
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
-import org.sdmlib.test.examples.mancala.model.Kalah;
 import org.sdmlib.test.examples.mancala.model.util.PitSet;
 import org.sdmlib.test.examples.mancala.model.util.PlayerSet;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
-import org.sdmlib.test.examples.mancala.model.PlayerState;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>
@@ -282,7 +280,7 @@ import org.sdmlib.test.examples.mancala.model.PlayerState;
    } 
 
    
-   public static final PlayerSet EMPTY_SET = new PlayerSet().withReadOnly(true);
+   public static final PlayerSet EMPTY_SET = new PlayerSet().withFlag(PlayerSet.READONLY);
 
    
    /********************************************************************
