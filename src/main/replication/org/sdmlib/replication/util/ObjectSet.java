@@ -23,9 +23,9 @@ package org.sdmlib.replication.util;
 
 import java.util.Collection;
 
-import de.uniks.networkparser.list.SimpleSet;
+import org.sdmlib.models.modelsets.SDMSet;
 
-public class ObjectSet extends SimpleSet<Object>
+public class ObjectSet extends SDMSet<Object>
 {
 
    public static final ObjectSet EMPTY_SET = new ObjectSet().withFlag(ObjectSet.READONLY);

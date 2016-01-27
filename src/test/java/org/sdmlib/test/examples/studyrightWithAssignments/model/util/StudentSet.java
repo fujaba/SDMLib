@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.intList;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
@@ -32,9 +33,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class StudentSet extends SimpleSet<Student>
+public class StudentSet extends SDMSet<Student>
 {
 
    public static final StudentSet EMPTY_SET = new StudentSet().withFlag(StudentSet.READONLY);

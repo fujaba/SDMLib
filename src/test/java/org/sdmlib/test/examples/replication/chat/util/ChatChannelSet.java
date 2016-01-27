@@ -25,13 +25,12 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.replication.chat.ChatChannel;
 import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
 
-import de.uniks.networkparser.list.SimpleSet;
-
-public class ChatChannelSet extends SimpleSet<ChatChannel>
+public class ChatChannelSet extends SDMSet<ChatChannel>
 {
 
    public static final ChatChannelSet EMPTY_SET = new ChatChannelSet().withFlag(ChatChannelSet.READONLY);
