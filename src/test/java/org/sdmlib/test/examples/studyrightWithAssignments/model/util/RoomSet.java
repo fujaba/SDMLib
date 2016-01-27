@@ -33,6 +33,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
+import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class RoomSet extends SimpleSet<Room>
@@ -73,6 +74,15 @@ public class RoomSet extends SimpleSet<Room>
       this.remove(value);
       return this;
    }
+
+   // TODO: should be generated? AZ
+   @Override
+   public RoomSet filter(Condition<Room> newValue) {
+      RoomSet filterList = new RoomSet();
+      filterItems(filterList, newValue);
+      return filterList;
+   }
+   
 
    
    //==========================================================================
