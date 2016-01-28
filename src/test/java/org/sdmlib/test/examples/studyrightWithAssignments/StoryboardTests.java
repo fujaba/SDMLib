@@ -40,7 +40,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityC
 
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonIdMap;
 
@@ -483,12 +482,7 @@ public class StoryboardTests {
       // Java 8:
       // (Room elem) -> elem.getCredits() > 20
       
-      RoomSet roomsEven = university.getRooms().filter(new Condition<Room>() {
-         @Override
-         public boolean check(Room value) {
-            return value.getCredits() % 2 == 0;
-         }
-      });
+      RoomSet roomsEven = university.getRooms().filter(value -> value.getCredits() % 2 == 0);
       
       story.addCode();
       

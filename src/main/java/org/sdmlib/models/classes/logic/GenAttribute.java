@@ -160,7 +160,7 @@ public class GenAttribute extends Generator<Attribute>
       Template template = new Template(Parser.METHOD + ":create{{Name}}({{AttrType}})");
       template.withTemplate("   public {{PatternObjectType}} create{{Name}}({{AttrType}} value)\n" +
               "   {\n" +
-              "      this.startCreate().has{{Name}}(value).endCreate();\n" +
+              "      this.startCreate().filter{{Name}}(value).endCreate();\n" +
               "      return this;\n" +
               "   }\n" +
               "   \n");
@@ -256,14 +256,14 @@ public class GenAttribute extends Generator<Attribute>
       }
    }
 
-   private void insertHasMethodInPatternObjectClass(Parser parser, Clazz ownerClazz)
+   private void insertFilterMethodInPatternObjectClass(Parser parser, Clazz ownerClazz)
    {
-      insertHasMethodInPatternObjectClassOneParam(parser, ownerClazz);
-      insertHasMethodInPatternObjectClassRange(parser, ownerClazz);
+      insertFilterMethodInPatternObjectClassOneParam(parser, ownerClazz);
+      insertFilterMethodInPatternObjectClassRange(parser, ownerClazz);
       insertCreateMethodInPatternObjectClassOneParam(parser, ownerClazz);
    }
 
-   private void insertHasMethodInPatternObjectClassRange(Parser parser, Clazz ownerClazz)
+   private void insertFilterMethodInPatternObjectClassRange(Parser parser, Clazz ownerClazz)
    {
       if ("int long float double String".indexOf(model.getType().getName(false)) < 0)
       {
@@ -272,22 +272,23 @@ public class GenAttribute extends Generator<Attribute>
       }
       String attrType = getGenerator(ownerClazz).shortNameAndImport(model.getType().getName(false), parser);
       attrType = CGUtil.shortClassName(attrType);
-      Template template = new Template(Parser.METHOD + ":has{{Name}}({{AttrType}},{{AttrType}})");
-      template.withTemplate("   public {{PatternObjectType}} has{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
-              "   {\n" +
-              "      new AttributeConstraint()\n" +
-              "      .withAttrName({{ModelClass}}.PROPERTY_{{NAME}})\n" +
-              "      .withTgtValue(lower)\n" +
-              "      .withUpperTgtValue(upper)\n" +
-              "      .withSrc(this)\n" +
-              "      .withModifier(this.getPattern().getModifier())\n" +
-              "      .withPattern(this.getPattern());\n" +
-              "      \n" +
-              "      super.hasAttr();\n" +
-              "      \n" +
-              "      return this;\n" +
-              "   }\n" +
-              "   \n");
+      Template template = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}},{{AttrType}})");
+      template.withTemplate("" +
+            "   public {{PatternObjectType}} filter{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
+            "   {\n" +
+            "      new AttributeConstraint()\n" +
+            "      .withAttrName({{ModelClass}}.PROPERTY_{{NAME}})\n" +
+            "      .withTgtValue(lower)\n" +
+            "      .withUpperTgtValue(upper)\n" +
+            "      .withSrc(this)\n" +
+            "      .withModifier(this.getPattern().getModifier())\n" +
+            "      .withPattern(this.getPattern());\n" +
+            "      \n" +
+            "      super.filterAttr();\n" +
+            "      \n" +
+            "      return this;\n" +
+            "   }\n" +
+            "   \n");
 		parser.insertImport(AttributeConstraint.class.getName());
 		String patternObjectType = CGUtil.shortClassName(ownerClazz.getName(false)) + "PO";
 
@@ -304,27 +305,28 @@ public class GenAttribute extends Generator<Attribute>
 
    }
 
-   private void insertHasMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz)
+   private void insertFilterMethodInPatternObjectClassOneParam(Parser parser, Clazz ownerClazz)
    {
 	   String attrType = model.getType().getName(true);
 	   parser.insertImport(model.getType().getName(false));
       attrType = CGUtil.shortClassName(attrType);
-      Template template = new Template(Parser.METHOD + ":has{{Name}}({{AttrType}})");
-      template.withTemplate("   public {{PatternObjectType}} has{{Name}}({{AttrType}} value)\n" +
-              "   {\n" +
-              "      new AttributeConstraint()\n" +
-              "      .withAttrName({{ModelClass}}.PROPERTY_{{NAME}})\n" +
-              "      .withTgtValue(value)\n" +
-              "      .withSrc(this)\n" +
-              "      .withModifier(this.getPattern().getModifier())\n" +
-              "      .withPattern(this.getPattern());\n" +
-              "      \n" +
-              "      super.hasAttr();\n" +
-              "      \n" +
-              "      return this;\n" +
-              "   }\n" +
-              "   \n");
-		parser.insertImport(AttributeConstraint.class.getName());
+      Template template = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}})");
+      template.withTemplate("" + 
+            "   public {{PatternObjectType}} filter{{Name}}({{AttrType}} value)\n" +
+            "   {\n" +
+            "      new AttributeConstraint()\n" +
+            "      .withAttrName({{ModelClass}}.PROPERTY_{{NAME}})\n" +
+            "      .withTgtValue(value)\n" +
+            "      .withSrc(this)\n" +
+            "      .withModifier(this.getPattern().getModifier())\n" +
+            "      .withPattern(this.getPattern());\n" +
+            "      \n" +
+            "      super.filterAttr();\n" +
+            "      \n" +
+            "      return this;\n" +
+            "   }\n" +
+            "   \n");
+      parser.insertImport(AttributeConstraint.class.getName());
 
 		ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 		Clazz clazz = classModel.getClazz(model.getType().getName(false));
@@ -371,8 +373,8 @@ public class GenAttribute extends Generator<Attribute>
          + "   }\n"
          + "\n");
 
-      Template templateHas = new Template(Parser.METHOD + ":has{{Name}}({{AttrType}})");
-      templateHas.withTemplate("\n" + 
+      Template templateFilter = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}})");
+      templateFilter.withTemplate("\n" + 
             "   /**\n" + 
             "    * Loop through the current set of {{ContentType}} objects and collect those {{ContentType}} objects where the {{name}} attribute matches the parameter value. \n" + 
             "    * \n" + 
@@ -380,7 +382,7 @@ public class GenAttribute extends Generator<Attribute>
             "    * \n" + 
             "    * @return Subset of {{ContentType}} objects that match the parameter\n" + 
             "    */\n"
-            + "   public {{ObjectSetType}} has{{Name}}({{AttrType}} value)\n" +
+            + "   public {{ObjectSetType}} filter{{Name}}({{AttrType}} value)\n" +
               "   {\n" +
               "      {{ObjectSetType}} result = new {{ObjectSetType}}();\n" +
               "      \n" +
@@ -395,9 +397,10 @@ public class GenAttribute extends Generator<Attribute>
               "      return result;\n" +
               "   }\n" +
               "\n");
-      Template templateHasUpper = new Template(Parser.METHOD + ":has{{Name}}({{AttrType}},{{AttrType}})");
-      templateHasUpper.withCondition(" int long float double String ".indexOf(" " + model.getType().getName(false) + " ") >= 0);
-      templateHasUpper.withTemplate("\n" + 
+      
+      Template templateFilterUpper = new Template(Parser.METHOD + ":filter{{Name}}({{AttrType}},{{AttrType}})");
+      templateFilterUpper.withCondition(" int long float double String ".indexOf(" " + model.getType().getName(false) + " ") >= 0);
+      templateFilterUpper.withTemplate("\n" + 
             "   /**\n" + 
             "    * Loop through the current set of {{ContentType}} objects and collect those {{ContentType}} objects where the {{name}} attribute is between lower and upper. \n" + 
             "    * \n" + 
@@ -406,7 +409,7 @@ public class GenAttribute extends Generator<Attribute>
             "    * \n" + 
             "    * @return Subset of {{ContentType}} objects that match the parameter\n" + 
             "    */\n"
-            + "   public {{ObjectSetType}} has{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
+            + "   public {{ObjectSetType}} filter{{Name}}({{AttrType}} lower, {{AttrType}} upper)\n" +
                         "   {\n" +
                         "      {{ObjectSetType}} result = new {{ObjectSetType}}();\n" +
                         "      \n" +
@@ -422,7 +425,7 @@ public class GenAttribute extends Generator<Attribute>
                         "   }\n"
                         + "\n"); 
       
-      allTemplate.withTemplates(templateGetter, templateHas, templateHasUpper);
+      allTemplate.withTemplates(templateGetter, templateFilter, templateFilterUpper);
 
 
      DataType dataType = model.getType();
@@ -870,7 +873,7 @@ public class GenAttribute extends Generator<Attribute>
        
          Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helpersDir);
          if(patternObjectParser != null) {
-            insertHasMethodInPatternObjectClass(patternObjectParser, clazz);
+            insertFilterMethodInPatternObjectClass(patternObjectParser, clazz);
             insertGetterInPatternObjectClass(patternObjectParser, clazz);
          }
       }
@@ -1032,9 +1035,9 @@ public class GenAttribute extends Generator<Attribute>
 	   
 	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":has" + attributeName + "(" + attributeType + ")");
+	   genClass.removeFragment(poParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + ")");
 	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":has" + attributeName + "(" + attributeType + "," + attributeType + ")");
+	   genClass.removeFragment(poParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + "," + attributeType + ")");
 	   
 	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + attributeName + "(" + attributeType + ")");
 	   
@@ -1048,9 +1051,9 @@ public class GenAttribute extends Generator<Attribute>
    
 	   genClass.removeFragment(setParser, Parser.METHOD + ":get" + attributeName + "()");
 	   
-	   genClass.removeFragment(setParser, Parser.METHOD + ":has" + attributeName + "(" + attributeType + ")");
+	   genClass.removeFragment(setParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + ")");
 	   
-	   genClass.removeFragment(setParser, Parser.METHOD + ":has" + attributeName + "(" + attributeType + "," + attributeType + ")");
+	   genClass.removeFragment(setParser, Parser.METHOD + ":filter" + attributeName + "(" + attributeType + "," + attributeType + ")");
 	   
 	   genClass.removeFragment(setParser, Parser.METHOD + ":with" + attributeName + "(" + attributeType + ")");
 	   
