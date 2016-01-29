@@ -542,7 +542,7 @@ import javafx.application.Platform;
       // no conflict, apply change
       JsonObject jsonUpdate = new JsonObject(); 
       
-      JsonTokener tokener = new JsonTokener().withAllowCRLF(true);
+      JsonTokener tokener = new JsonTokener();
       String changeTxt = change.getChangeMsg();
 //      tokener.withBuffer(changeTxt);
       tokener.parseToEntity(jsonUpdate);
